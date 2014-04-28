@@ -173,7 +173,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>exemplo-jpa-spring-mvc</finalName>
+	  <finalName>MAE</finalName>
 
 		<plugins>
 			<plugin>
