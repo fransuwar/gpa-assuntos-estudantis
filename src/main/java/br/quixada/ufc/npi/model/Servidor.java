@@ -1,5 +1,7 @@
 package br.quixada.ufc.npi.model;
 
-public class classequalquer {
+public class Servidor {
 
+	
+	
 }
