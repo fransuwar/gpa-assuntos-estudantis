@@ -13,7 +13,8 @@ public class Bolsa {
 	private String requisitos;
 	
 	public enum tipoBolsa{
-		BolsaIniciacaoCientifica, BolsaAuxilioMoradia;
+		bolsaIniciacaoCientifica("Bolsa - Iniciação Científica"), bolsaAuxilioMoradia("Bolsa - Auxílio Moradia");
+	tipoBolsa(String nome){}
 	}
 	
 	private tipoBolsa tipo;
