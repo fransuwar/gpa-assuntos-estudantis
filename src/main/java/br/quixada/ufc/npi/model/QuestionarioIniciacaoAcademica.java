@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import br.quixada.ufc.npi.model.QuestionarioAuxilioMoradia.GrauParentesco;
+
 @Entity
 public class QuestionarioIniciacaoAcademica {
 
@@ -18,9 +18,7 @@ public class QuestionarioIniciacaoAcademica {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	
-	
+
 	private String endereco_atual;
 	private int numero;
 	private String complemento;
@@ -81,7 +79,15 @@ public class QuestionarioIniciacaoAcademica {
 	private int total_membros_familia;
 	
 	private String nome;
+	public enum GrauParentesco{
+		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
+		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
+		
+		private GrauParentesco(String nome){}
+	}
+	
 	private GrauParentesco parentesco;
+	
 	private int idade;
 	private String atividade;
 	private float renda;
@@ -90,6 +96,14 @@ public class QuestionarioIniciacaoAcademica {
 	private String campus_preferido;
 	private int justificativa_pedido;
 	private Date data_inscricao;
+	
+	
+	public GrauParentesco getParentesco() {
+		return parentesco;
+	}
+	public void setParentesco(GrauParentesco parentesco) {
+		this.parentesco = parentesco;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -359,12 +373,6 @@ public class QuestionarioIniciacaoAcademica {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public GrauParentesco getParentesco() {
-		return parentesco;
-	}
-	public void setParentesco(GrauParentesco parentesco) {
-		this.parentesco = parentesco;
 	}
 	public int getIdade() {
 		return idade;
