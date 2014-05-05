@@ -10,10 +10,17 @@
 		   http://www.springframework.org/schema/tx
 		   http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+	 <bean id="gpamae" class="org.springframework.jndi.JndiObjectFactoryBean">
+                <property name="jndiName" value="java:comp/env/gpamae"/>
+        </bean>
+	
+	
 	<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<!-- Specify the name of the EntityManagerFactory configuration. -->
 		<property name="persistenceUnitName" value="dev" />
+		<property name="dataSource" ref="gpamae"/>
 	</bean>
+	
 	
 	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="emf" />
