@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Aluno {
@@ -34,6 +35,17 @@ public class Aluno {
 	private String agencia;
 	
 	private String conta;
+    
+	@ManyToOne
+	private Usuario usuario;
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	public Integer getId() {
 		return id;
@@ -98,6 +110,7 @@ public class Aluno {
 	public void setConta(String conta) {
 		this.conta = conta;
 	}
+	
 	
 	
 

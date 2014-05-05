@@ -174,7 +174,7 @@ public class Usuario {
 	}
 
 	
-	@OneToMany
+	@OneToMany(mappedBy="usuario")
 	private List<Aluno> alunos;
 	
 	public List<Servidor> getServidores() {
@@ -186,7 +186,7 @@ public class Usuario {
 	}
 
 	
-	@OneToMany
+	@OneToMany(mappedBy="usuario")
 	private List<Servidor> servidores;
 	
 
