@@ -23,7 +23,7 @@ public class QuestionarioAuxilioMoradia {
 		
 		}
 	}
-	private String outrosMoraCom;
+	private MoraCom moraCom;
 	private String enderecoSedeCurso;
 	private String nomeMae;
 	private String nomePai;
@@ -44,20 +44,45 @@ public class QuestionarioAuxilioMoradia {
                 
         Estado(String nome){}
 	}
+	
+	private Estado estado;
+	
 	public enum SituacaoImovel{
 		Cedido("Cedido"), Alugado("Alugado"), Proprio("Próprio"), Financiado("Financiado");
 		SituacaoImovel(String nome){}
 	}
+	private SituacaoImovel situacaoImovel;
 	private String valorMensalFinanciamento;
 	private String propriedadeRural;
 	
-	public enum GrauParentesco{
-		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"), Conjuge_Companheiro("Cônjuge ou Companheiro(a)");
-		GrauParentesco(String nome){}
+	public enum GrauParentescoImovelRural{
+		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
+		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
+		
+		private GrauParentescoImovelRural(String nome){}
 	}
+	private GrauParentescoImovelRural grauParentescoImovelRural;
 	private double areaPropriedade;
 	private String cidadeEstado;
 	private String veiculos;
+	
+	public enum GrauParentescoVeiculos{
+		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
+		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
+		
+		private GrauParentescoVeiculos(String nome){}
+	}
+	private GrauParentescoVeiculos grauParentescoVeiculos;
+	private String tipo;
+	private String marca;
+	private String modelo;
+	private String ano;
+	
+	public enum FinalidadeVeiculo{
+		Passeio("Passeio"), Taxi("Táxi"), Frete("Frete");
+		FinalidadeVeiculo(String nome){}
+	}
+	private FinalidadeVeiculo finalidadeVeiculo;
 	
 	
 }
