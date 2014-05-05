@@ -5,23 +5,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Aluno {
 	
-	public Aluno() {
-		super();
-	}
-	
+	public Aluno() {}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	
-	
 	@Column(nullable = false)
 	private String matricula;
+	
+	@OneToOne
+	private QuestionarioAuxilioMoradia auxilioMoradia;
+	
+	@OneToOne
+	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
 	
 	private String anoIngresso;
 	
@@ -34,6 +36,24 @@ public class Aluno {
 	private String agencia;
 	
 	private String conta;
+
+	
+	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
+		return auxilioMoradia;
+	}
+
+	public void setAuxilioMoradia(QuestionarioAuxilioMoradia auxilioMoradia) {
+		this.auxilioMoradia = auxilioMoradia;
+	}
+
+	public QuestionarioIniciacaoAcademica getIniciacaoAcademica() {
+		return iniciacaoAcademica;
+	}
+
+	public void setIniciacaoAcademica(
+			QuestionarioIniciacaoAcademica iniciacaoAcademica) {
+		this.iniciacaoAcademica = iniciacaoAcademica;
+	}
 
 	public Integer getId() {
 		return id;
