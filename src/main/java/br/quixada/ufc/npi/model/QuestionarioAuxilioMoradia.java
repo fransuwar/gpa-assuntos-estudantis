@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class QuestionarioAuxilioMoradia {
@@ -59,7 +60,7 @@ public class QuestionarioAuxilioMoradia {
 		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
 		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
 		
-		private GrauParentescoImovelRural(String nome){}
+		GrauParentescoImovelRural(String nome){}
 	}
 	private GrauParentescoImovelRural grauParentescoImovelRural;
 	private double areaPropriedade;
@@ -67,10 +68,10 @@ public class QuestionarioAuxilioMoradia {
 	private String veiculos;
 	
 	public enum GrauParentescoVeiculos{
-		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
+		Filho("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
 		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
 		
-		private GrauParentescoVeiculos(String nome){}
+		GrauParentescoVeiculos(String nome){}
 	}
 	private GrauParentescoVeiculos grauParentescoVeiculos;
 	private String tipo;
@@ -83,6 +84,31 @@ public class QuestionarioAuxilioMoradia {
 		FinalidadeVeiculo(String nome){}
 	}
 	private FinalidadeVeiculo finalidadeVeiculo;
+	
+	public enum TipoEnsinoFundamental{
+		Publico("Público"), Particular("Particular");
+		TipoEnsinoFundamental(String nome){}
+	} 
+	private TipoEnsinoFundamental ensinoFundamental;
+	private int percentualParticularFundamental;
+
+	public enum TipoEnsinoMedio{
+		Publico("Público"), Particular("Particular");
+		TipoEnsinoMedio(String nome){}
+	} 
+	private TipoEnsinoMedio ensinoMedio;
+	private int percentualParticularMedio;
+	
+	private boolean cursinho;
+	private String nomeCursinho;
+	
+	@OneToMany
+	private PessoaFamilia pessoaFamilia;
+	private double rendaMediaFamilia;
+	private double rendaMediaPessoa;
+	
+	
+
 	
 	
 }
