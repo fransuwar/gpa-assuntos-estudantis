@@ -27,6 +27,7 @@ public class AlunoController {
 	private AlunoService as;
 
 	// Metodo listar alunos
+	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String listaContatos(Aluno aluno, BindingResult result,
 			Map<String, Object> model) {
