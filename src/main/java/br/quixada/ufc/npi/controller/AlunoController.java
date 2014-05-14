@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.quixada.ufc.npi.model.Aluno;
-import br.ufc.quixada.npi.service.AlunoService;
+import br.quixada.ufc.npi.service.AlunoService;
 
 @Named
 @RequestMapping("/alunos")
