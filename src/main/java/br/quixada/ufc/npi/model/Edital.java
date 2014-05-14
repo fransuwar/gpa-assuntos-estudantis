@@ -1,16 +1,18 @@
 package br.quixada.ufc.npi.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Edital {
 
-	public Edital(){
-		
-	}
+	public Edital(){}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +24,22 @@ public class Edital {
 	private String caminhoArquivo;
 	private String comentarios;
 	private String periodoAlocacao;
+	
+	@ManyToMany(mappedBy="servidoresBanca")
+	private List<Servidor> servidores;
+	
+	@ManyToOne
+	private Servidor servidor;
 
+	@ManyToMany(mappedBy="editais")
+	private List<Aluno> alunosBanca;
+
+	@ManyToMany
+	private List<Aluno> alunosSelecao;
+	
+	@ManyToOne
+	private Bolsa bolsa;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -34,6 +51,12 @@ public class Edital {
 	}
 	public void setAno(int ano) {
 		this.ano = ano;
+	}
+	public Bolsa getBolsa() {
+		return bolsa;
+	}
+	public void setBolsa(Bolsa bolsa) {
+		this.bolsa = bolsa;
 	}
 	public int getNumero() {
 		return numero;

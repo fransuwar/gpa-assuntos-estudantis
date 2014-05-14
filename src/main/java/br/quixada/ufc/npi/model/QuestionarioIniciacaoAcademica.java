@@ -1,20 +1,21 @@
 package br.quixada.ufc.npi.model;
 
 import java.sql.Date;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 @Entity
 public class QuestionarioIniciacaoAcademica {
 
-	public QuestionarioIniciacaoAcademica(){
-		super();
-	}
+	public QuestionarioIniciacaoAcademica(){}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,11 @@ public class QuestionarioIniciacaoAcademica {
 	
 	@ManyToOne
 	private Bolsa bolsa;
-
+	
+	@Column(nullable = false)
+	@OneToMany(mappedBy="iniciacaoAcademica")
+	private List<PessoaFamilia> pessoas;
+	
 	private String endereco_atual;
 	private int numero;
 	private String complemento;

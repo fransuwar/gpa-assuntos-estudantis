@@ -1,29 +1,33 @@
 package br.quixada.ufc.npi.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
 import javax.persistence.OneToOne;
 
 @Entity
 public class Aluno {
 	
-	public Aluno() {
-		super();
-	}
-	
-	
+	public Aluno() {}
+		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+		
 	@Column(nullable = false)
 	private String matricula;
+	
+	@ManyToMany
+	private List<Edital> editais;
+	
+	@ManyToMany(mappedBy="alunosSelecao")
+	private List<Edital> editaisAluno;
 	
 	@OneToOne
 	private QuestionarioAuxilioMoradia auxilioMoradia;

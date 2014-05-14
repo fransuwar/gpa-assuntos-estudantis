@@ -1,10 +1,14 @@
 package br.quixada.ufc.npi.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Servidor {
@@ -18,6 +22,12 @@ public class Servidor {
 	private Integer id;
 	
 	private String siape;
+	
+	@ManyToMany
+	private List<Edital> servidoresBanca;
+	
+	@OneToMany(mappedBy="servidor")
+	private List<Edital> editais;
 	
 	@ManyToOne
 	private Usuario usuario;
@@ -45,10 +55,5 @@ public class Servidor {
 	public void setSiape(String siape) {
 		this.siape = siape;
 	}
-	
-	
-	
-	
-	
-	
+		
 }

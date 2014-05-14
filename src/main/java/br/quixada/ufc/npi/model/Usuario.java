@@ -56,12 +56,22 @@ public class Usuario {
 		AC, AL, AM, AP, BA, CE, DF, ES, GO, MA, MG, MS, MT, PA, PB, PE, PI, PR, RJ, RN, RO, RR, RS, SC, SE, SP, TO;
 	}
 	
+	private Uf uf;
+	
 	private String sexo;
 	
 	private String cpf;
 	
 	private String rg;
 	
+	public Uf getUf() {
+		return uf;
+	}
+
+	public void setUf(Uf uf) {
+		this.uf = uf;
+	}
+
 	private String telefone;
 	
 	private String estadoCivil;

@@ -18,22 +18,35 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	public UsuarioServiceImpl() {
 	}
-
+	
 	@Transactional
 	public void save(Usuario usuario) {
 		usuarioRepository.save(usuario);
 
 	}
-	
+
+	@Transactional
+	public void update(Usuario usuario) {
+		usuarioRepository.update(usuario);
+
+	}
+
 	@Transactional
 	public Usuario findById(int id) {
 		return usuarioRepository.find(id);
-		 
+
 	}
+
 	@Transactional
 	public List<Usuario> findAll() {
 		List<Usuario> l = usuarioRepository.find();
 		return l;
+	}
+
+	@Transactional
+	public void delete(Usuario usuario) {
+		usuarioRepository.delete(usuario);
+
 	}
 
 }

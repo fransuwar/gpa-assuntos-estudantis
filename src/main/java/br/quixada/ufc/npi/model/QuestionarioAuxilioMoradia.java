@@ -25,6 +25,10 @@ public class QuestionarioAuxilioMoradia {
 	@ManyToOne
 	private Bolsa bolsa;
 
+	@Column(nullable = false)
+	@OneToMany(mappedBy="auxilioMoradia")
+	private List<PessoaFamilia> pessoas;
+	
 	public enum MoraCom{
 		Pais("Pais"), Pai("Pai"), Mae("Mãe"), Irmaos("irmãos"), Parentes("Parentes"),
 		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Filhos("Filhos(as)"), Outra_moradia("Outros");
@@ -34,25 +38,36 @@ public class QuestionarioAuxilioMoradia {
 	}
 	@Column(nullable = false)
 	private MoraCom moraCom;
+	
 	@Column(nullable = false)
 	private String enderecoSedeCurso;
+	
 	@Column(nullable = false)
 	private String nomeMae;
+	
 	@Column(nullable = false)
 	private String nomePai;
+	
 	@Column(nullable = false)
 	private String rua;
+	
 	@Column(nullable = false)
 	private int numeroCasa;
+	
 	@Column(nullable = false)
 	private String bairro;
+	
 	private String complemento;
+	
 	@Column(nullable = false)
 	private String cidade;
+	
 	@Column(nullable = false)
 	private String cep;
+	
 	@Column(nullable = false)
 	private String pontoReferencia;
+	
 	@Column(nullable = false)
 	private String telefone;
 
@@ -75,7 +90,9 @@ public class QuestionarioAuxilioMoradia {
 	}
 
 	private SituacaoImovel situacaoImovel;
+	
 	private String valorMensalFinanciamento;
+	
 	private String propriedadeRural;
 
 	public enum GrauParentescoImovelRural{
@@ -84,21 +101,30 @@ public class QuestionarioAuxilioMoradia {
 
 		GrauParentescoImovelRural(String nome){}
 	}
+	
 	private GrauParentescoImovelRural grauParentescoImovelRural;
+	
 	private double areaPropriedade;
+	
 	private String cidadeEstado;
+	
 	private String veiculos;
-
+	
 	public enum GrauParentescoVeiculos{
 		Filho("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
 		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
 
 		GrauParentescoVeiculos(String nome){}
 	}
+	
 	private GrauParentescoVeiculos grauParentescoVeiculos;
+
 	private String tipo;
+	
 	private String marca;
+	
 	private String modelo;
+	
 	private String ano;
 
 	public enum FinalidadeVeiculo{
@@ -111,38 +137,46 @@ public class QuestionarioAuxilioMoradia {
 		Publico("Público"), Particular("Particular");
 		TipoEnsinoFundamental(String nome){}
 	} 
+	
 	@Column(nullable = false)
 	private TipoEnsinoFundamental ensinoFundamental;
+	
 	private int percentualParticularFundamental;
 
 	public enum TipoEnsinoMedio{
 		Publico("Público"), Particular("Particular");
 		TipoEnsinoMedio(String nome){}
 	}
+	
 	@Column(nullable = false)
 	private TipoEnsinoMedio ensinoMedio;
+	
 	private int percentualParticularMedio;
 
 	@Column(nullable = false)
 	private boolean cursinho;
+	
 	private String nomeCursinho;
 
 	@Column(nullable = false)
-	//@OneToMany(mappedBy="auxilioMoradia")
-	private List<PessoaFamilia> pessoas;
-
-	@Column(nullable = false)
 	private double rendaMediaFamilia;
+	
 	@Column(nullable = false)
 	private double rendaMediaPessoa;
+	
 	@Column(nullable = false)
 	private boolean bolsista;
+	
 	private String tipoBolsa;
+	
 	@Column(nullable = false)
 	private boolean possuiGraduacao;
+	
 	private String descricaoGraduacao;
+	
 	@Column(nullable = false)
 	private String justificativa;
+	
 	@Column(nullable = false)
 	private Date data_inscricao;
 
