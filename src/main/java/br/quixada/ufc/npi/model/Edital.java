@@ -24,6 +24,7 @@ public class Edital {
 	private String caminhoArquivo;
 	private String comentarios;
 	private String periodoAlocacao;
+	private boolean editalAberto;
 	
 	@ManyToMany(mappedBy="servidoresBanca")
 	private List<Servidor> servidores;
@@ -94,4 +95,35 @@ public class Edital {
 	public void setPeriodoAlocacao(String periodoAlocacao) {
 		this.periodoAlocacao = periodoAlocacao;
 	}
+	public boolean isEditalAberto() {
+		return editalAberto;
+	}
+	public void setEditalAberto(boolean editalAberto) {
+		this.editalAberto = editalAberto;
+	}
+	public List<Servidor> getServidores() {
+		return servidores;
+	}
+	public void setServidores(List<Servidor> servidores) {
+		this.servidores = servidores;
+	}
+	public Servidor getServidor() {
+		return servidor;
+	}
+	public void setServidor(Servidor servidor) {
+		this.servidor = servidor;
+	}
+	public List<Aluno> getAlunosBanca() {
+		return alunosBanca;
+	}
+	public void setAlunosBanca(List<Aluno> alunosBanca) {
+		this.alunosBanca = alunosBanca;
+	}
+	public List<Aluno> getAlunosSelecao() {
+		return alunosSelecao;
+	}
+	public void setAlunosSelecao(List<Aluno> alunosSelecao) {
+		this.alunosSelecao = alunosSelecao;
+	}
+	
 }
