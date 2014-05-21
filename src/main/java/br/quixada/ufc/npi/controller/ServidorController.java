@@ -18,7 +18,7 @@ import br.quixada.ufc.npi.model.Servidor;
 import br.quixada.ufc.npi.service.ServidorService;
 
 @Named
-@RequestMapping("/alunos")
+@RequestMapping("/servidores")
 public class ServidorController {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
@@ -26,9 +26,9 @@ public class ServidorController {
 	@Inject
 	private ServidorService ss;
 
-	// Metodo listar alunos
+	// Metodo listar servidores
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String listaContatos(Servidor servidor, BindingResult result,
+	public String listaServidores(Servidor servidor, BindingResult result,
 			Map<String, Object> model) {
 
 		try {
@@ -43,10 +43,10 @@ public class ServidorController {
 
 	}
 
-	// Metodo Deletar um aluno
+	// Metodo Deletar um servidor
 	@RequestMapping(value = "/{servidorId}", method = RequestMethod.DELETE)
 	public @ResponseBody
-	String deletarContato(@PathVariable("servidorId") int servidorId) {
+	String deletarservidor(@PathVariable("servidorId") int servidorId) {
 		Servidor servidor = this.ss.findById(servidorId);
 
 		if (servidor == null) {
