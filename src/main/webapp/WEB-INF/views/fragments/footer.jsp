@@ -1,11 +1,7 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<table class="footer">
-    <tr>
-        <td></td>
-        <td align="right"><img src="<spring:url value="/resources/images/springsource-logo.png" htmlEscape="true" />"
-                               alt="Sponsored by ..."/></td>
-    </tr>
-</table>
-
-
+<footer>
+  <div style="margin-top: 100px; text-align: center;">
+    <p>Todos os direitos reservados</p>
+  </div>
+</footer>

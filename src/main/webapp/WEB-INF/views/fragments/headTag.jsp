@@ -1,41 +1,14 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!--
-PetClinic :: a Spring Framework demonstration
--->
-
-<head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>GPA - Inicial</title>
-
-<spring:url value="/webjars/bootstrap/3.1.1/css/bootstrap.min.css"
-	var="bootstrapCss" />
-<link href="${bootstrapCss}" rel="stylesheet" />
-
-<spring:url value="/resources/css/petclinic.css" var="petclinicCss" />
-<link href="${petclinicCss}" rel="stylesheet" />
-
-<spring:url value="/webjars/jquery/2.1.0/jquery.js" var="jQuery" />
-<script src="${jQuery}"></script>
-
-<spring:url value="/webjars/bootstrap/3.1.1/js/bootstrap.min.js" var="bootstrapJs" />
-<script src="${bootstrapJs}"></script>
-
-<!-- jquery-ui.js file is really big so we only load what we need instead of loading everything -->
-<spring:url value="/webjars/jquery-ui/1.10.3/ui/jquery.ui.core.js"
-	var="jQueryUiCore" />
-<script src="${jQueryUiCore}"></script>
-
-<spring:url value="/webjars/jquery-ui/1.10.3/ui/jquery.ui.datepicker.js"
-	var="jQueryUiDatePicker" />
-<script src="${jQueryUiDatePicker}"></script>
-
-<!-- jquery-ui.css file is not that big so we can afford to load it -->
-<spring:url value="/webjars/jquery-ui/1.10.3/themes/base/jquery-ui.css"
-	var="jQueryUiCss" />
-<link href="${jQueryUiCss}" rel="stylesheet"></link>
-
+	
+    <spring:url value="/resources/css/springapp.css" var="springappCss"/>
+    <link href="${springappCss}" rel="stylesheet"/>
+    
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <spring:url value="/resources/javascript/javascript.js" var="javascriptJs"/>
+	<script type="text/javascript" src="${javascriptJs}"></script>
+	
+	
 </head>
-
-
