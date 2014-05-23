@@ -8,11 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Servidor {
 
+	
 	public Servidor() {
 		super();
 	}
@@ -54,6 +56,22 @@ public class Servidor {
 
 	public void setSiape(String siape) {
 		this.siape = siape;
+	}
+
+	public List<Edital> getServidoresBanca() {
+		return servidoresBanca;
+	}
+
+	public void setServidoresBanca(List<Edital> servidoresBanca) {
+		this.servidoresBanca = servidoresBanca;
+	}
+
+	public List<Edital> getEditais() {
+		return editais;
+	}
+
+	public void setEditais(List<Edital> editais) {
+		this.editais = editais;
 	}
 		
 }

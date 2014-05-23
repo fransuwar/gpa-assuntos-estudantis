@@ -431,6 +431,18 @@ public class QuestionarioIniciacaoAcademica {
 	public void setData_inscricao(Date data_inscricao) {
 		this.data_inscricao = data_inscricao;
 	}
+	public Bolsa getBolsa() {
+		return bolsa;
+	}
+	public void setBolsa(Bolsa bolsa) {
+		this.bolsa = bolsa;
+	}
+	public List<PessoaFamilia> getPessoas() {
+		return pessoas;
+	}
+	public void setPessoas(List<PessoaFamilia> pessoas) {
+		this.pessoas = pessoas;
+	}
 	
 	
 	

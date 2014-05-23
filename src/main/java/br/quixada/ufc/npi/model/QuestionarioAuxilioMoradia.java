@@ -441,4 +441,10 @@ public class QuestionarioAuxilioMoradia {
 	public void setData_inscricao(Date data_inscricao) {
 		this.data_inscricao = data_inscricao;
 	}
+	public Bolsa getBolsa() {
+		return bolsa;
+	}
+	public void setBolsa(Bolsa bolsa) {
+		this.bolsa = bolsa;
+	}
 }
