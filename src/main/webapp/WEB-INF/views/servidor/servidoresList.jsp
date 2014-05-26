@@ -51,6 +51,14 @@
 			 <datatables:column title="Nome" cssStyle="width: 200px;">
 				<c:out value="${servidor.usuario.nome}" />
 			</datatables:column>
+			
+			
+			<datatables:column title="E-mail" cssStyle="width: 200px;">
+				<c:out value="${servidor.usuario.email}" />
+			</datatables:column>
+			
+
+
 
 		</datatables:table>
 
