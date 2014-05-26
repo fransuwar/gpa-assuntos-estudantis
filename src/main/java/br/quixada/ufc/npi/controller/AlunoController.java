@@ -29,7 +29,7 @@ public class AlunoController {
 	// Metodo listar alunos
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String listaContatos(Aluno aluno, BindingResult result,
+	public String listaAlunos(Aluno aluno, BindingResult result,
 			Map<String, Object> model) {
 
 		try {
@@ -46,7 +46,7 @@ public class AlunoController {
 	
 	// Metodo Deletar um aluno
 	@RequestMapping(value = "/{alunoId}", method = RequestMethod.DELETE)
-	public @ResponseBody String deletarContato(@PathVariable("alunoId") int alunoId) {
+	public @ResponseBody String deletarAlunos(@PathVariable("alunoId") int alunoId) {
 		Aluno aluno = this.as.findById(alunoId);
 		
 		if (aluno == null) {
