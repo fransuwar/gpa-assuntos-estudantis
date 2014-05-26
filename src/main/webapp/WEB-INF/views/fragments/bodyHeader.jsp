@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -20,12 +20,18 @@
 				<li><a href="#about">About</a></li>
 				<li><a href="#contact">Contact</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown">Contato <b class="caret"></b></a>
+					data-toggle="dropdown">Aluno<b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="contato/new">Adicionar</a></li>
-						<li><a href="#">Excluir</a></li>
 						<li class="divider"></li>
-						<li><a href="contatos">Listar</a></li>
+						<li><a href="alunos">Listar</a></li>
+					</ul></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">Servidores<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="contato/new">Adicionar</a></li>
+						<li class="divider"></li>
+						<li><a href="servidores">Listar</a></li>
 					</ul></li>
 				<li><a href="<c:url value="j_spring_security_logout" />">Sair</a></li>
 			</ul>
