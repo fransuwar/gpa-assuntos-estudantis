@@ -57,9 +57,11 @@
 				<c:out value="${servidor.usuario.email}" />
 			</datatables:column>
 			
+			<datatables:column title="Telefone" cssStyle="width: 200px;">
+				<c:out value="${servidor.usuario.telefone}" />
+			</datatables:column>
 
-
-
+			
 		</datatables:table>
 
 		<!-- Modal -->
