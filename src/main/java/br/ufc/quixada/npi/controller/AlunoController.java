@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.ufc.quixada.npi.model.Aluno;
-import br.ufc.quixada.npi.service.AlunoService;
+import br.ufc.quixada.npi.service.GenericService;
 
 @Named
 @RequestMapping("/alunos")
@@ -24,7 +24,7 @@ public class AlunoController {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Inject
-	private AlunoService as;
+	private GenericService<Aluno> genericService;
 
 	// Metodo listar alunos
 	
@@ -33,7 +33,7 @@ public class AlunoController {
 			Map<String, Object> model) {
 
 		try {
-			List<Aluno> results = as.findAll();
+			List<Aluno> results = genericService.find(Aluno.class);
 
 			model.put("selections", results);
 			return "aluno/alunosList";
@@ -47,13 +47,13 @@ public class AlunoController {
 	// Metodo Deletar um aluno
 	@RequestMapping(value = "/{alunoId}", method = RequestMethod.DELETE)
 	public @ResponseBody String deletarAlunos(@PathVariable("alunoId") int alunoId) {
-		Aluno aluno = this.as.findById(alunoId);
+		Aluno aluno = this.genericService.find(Aluno.class, alunoId);
 		
 		if (aluno == null) {
 			/*incluir erros*/
 			return "erro";
 		} else {
-			this.as.delete(aluno);
+			this.genericService.delete(aluno);
 			return "ok";
 		}
 	}	

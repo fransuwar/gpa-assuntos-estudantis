@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.ufc.quixada.npi.repository.GenericRepository;
 
 @Named
-public abstract class JpaGenericRepositoryImpl<T> implements
+public class JpaGenericRepositoryImpl<T> implements
 		GenericRepository<T> {
 
 	private static Logger logger = LoggerFactory
@@ -42,8 +42,7 @@ public abstract class JpaGenericRepositoryImpl<T> implements
 		JPQL, NATIVE, NAMED
 	}
 
-	protected Class<T> persistentClass;
-
+	
 	/**
 		 * 
 		 */
@@ -88,9 +87,9 @@ public abstract class JpaGenericRepositoryImpl<T> implements
 	 * )
 	 */
 	@Override
-	public T find(Object id) {
+	public T find(Class<T> entityClass, Object id) {
 		T result = null;
-		result = em.find(this.persistentClass, id);
+		result = em.find(entityClass, id);
 		return result;
 	}
 
@@ -100,8 +99,8 @@ public abstract class JpaGenericRepositoryImpl<T> implements
 	 * @see br.ufc.quixada.npi.repository.jpa.GenericRepository#find()
 	 */
 	@Override
-	public List<T> find() {
-		return find(-1, -1);
+	public List<T> find(Class<T> entityClass) {
+		return find(entityClass, -1, -1);
 
 	}
 
@@ -111,10 +110,10 @@ public abstract class JpaGenericRepositoryImpl<T> implements
 	 * @see br.ufc.quixada.npi.repository.jpa.GenericRepository#find(int, int)
 	 */
 	@Override
-	public List<T> find(int firstResult, int maxResults) {
+	public List<T> find(Class<T> entityClass, int firstResult, int maxResults) {
 		List<T> result = null;
 		Query q = em.createQuery("select obj from "
-				+ this.persistentClass.getSimpleName() + " obj");
+				+ entityClass.getSimpleName() + " obj");
 		if (firstResult >= 0 && maxResults >= 0) {
 			q = q.setFirstResult(firstResult).setMaxResults(maxResults);
 		}
