@@ -11,19 +11,17 @@
 <link href="<c:url value="/resources/css/npi.css" />" rel="stylesheet" />
 
 <body>
-<div class="container">
-    <jsp:include page="fragments/bodyHeader.jsp"/>
-    <h2><fmt:message key="welcome"/></h2>
-
-	<div id="conteudo">
+<div id="container" style="width: 1000px; margin: 0 auto;">
 	
-		<img id="brasao" src='<c:url value="/resources/img/brasao.png" />'>
-	
+		<jsp:include page="fragments/bodyHeader.jsp" />
+		
+		<div class="jumbotron">
+		  <h1>Bem vindo ao GPA!</h1>
+		  <p>Sistema de Gestão  de Programas Acadâmicos</p>
+		</div>
+		
+		<jsp:include page="fragments/footer.jsp" />
 	</div>
-
-    <jsp:include page="fragments/footer.jsp"/>
-
-</div>
 </body>
 
 </html>
