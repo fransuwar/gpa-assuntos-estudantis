@@ -10,12 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
 
 import br.ufc.quixada.npi.model.Servidor;
 import br.ufc.quixada.npi.service.ServidorService;
+
 
 @Named
 @RequestMapping("/servidores")
@@ -26,9 +29,17 @@ public class ServidorController {
 	@Inject
 	private ServidorService ss;
 
+	@RequestMapping(value = "{servidorId}", method = RequestMethod.GET)
+	public @ResponseBody
+	Servidor getServidorJson(@PathVariable("servidorId") int servidorId) {
+
+		return this.ss.findById(servidorId);
+
+	}
+
 	// Metodo listar servidores
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String listaServidores(Servidor servidor, BindingResult result,
+	public String listarServidores(Servidor servidor, BindingResult result,
 			Map<String, Object> model) {
 
 		try {
@@ -43,6 +54,36 @@ public class ServidorController {
 
 	}
 
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public @ResponseBody
+	Servidor adicionarServidor(@RequestBody Servidor servidor,
+			BindingResult result, SessionStatus status) {
+
+		if (result.hasErrors()) {
+			/* incluir erros */
+			return servidor;
+		} else {
+			this.ss.save(servidor);
+
+			status.setComplete();
+			return servidor;
+		}
+	}
+
+	//Metodo atualizar um servidor
+	@RequestMapping(value = "", method = RequestMethod.PUT)
+	public @ResponseBody Servidor atualizarServidor(@RequestBody Servidor servidor, BindingResult result, SessionStatus status){		
+		
+				
+		if (result.hasErrors()) {
+			return servidor;
+		}else{
+			this.ss.update(servidor);
+			return servidor;
+		}
+	
+	}
+	
 	// Metodo Deletar um servidor
 	@RequestMapping(value = "/{servidorId}", method = RequestMethod.DELETE)
 	public @ResponseBody

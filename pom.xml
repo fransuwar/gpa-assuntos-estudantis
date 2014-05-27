@@ -7,6 +7,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
+	
+	
 		<!-- Generic properties -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -16,6 +18,13 @@
 		<javaee.web.api.version>6.0</javaee.web.api.version>
 		<java.validation.version>1.1.0.Final</java.validation.version>
 		<javax.inject.version>1</javax.inject.version>
+
+
+		<!-- JSP API -->
+		<jsp.version>2.1</jsp.version>
+		
+		<!-- Bootbox -->
+		<bootbox.version>4.2.0</bootbox.version>
 
 		<!-- Spring -->
 		<spring.version>4.0.1.RELEASE</spring.version>
@@ -37,12 +46,21 @@
 		<jquery.version>2.1.0</jquery.version>
 		<jquery-ui.version>1.10.3</jquery-ui.version>
 		<dandelion.datatables.version>0.9.3</dandelion.datatables.version>
+		<datatables.version>1.9.4</datatables.version>
 
 
 	</properties>
 
 	<dependencies>
 
+
+		<!-- JSP API -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+		    <version>${jsp.version}</version>
+			<scope>provided</scope>
+        </dependency>
 
 		<!-- Java EE / Java SE dependencies -->
 		<dependency>
@@ -65,6 +83,12 @@
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>${java.validation.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.dandelion</groupId>
+			<artifactId>datatables-jsp</artifactId>
+			<version>${dandelion.datatables.version}</version>
 		</dependency>
 
 		<!-- SPRING -->
@@ -169,6 +193,22 @@
 			<artifactId>datatables-servlet2</artifactId>
 			<version>${dandelion.datatables.version}</version>
 		</dependency>
+
+		<!-- datatables -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>datatables</artifactId>
+			<version>${datatables.version}</version>
+		</dependency>
+	
+
+		<!-- Bootbox -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootbox</artifactId>
+			<version>${bootbox.version}</version>
+		</dependency>
+
 
 	</dependencies>
 	
