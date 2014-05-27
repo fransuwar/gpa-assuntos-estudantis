@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+#conteudo{
+	width: auto;
+	
+}
+
+#brasao{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#rodape{
+	text-align: center;
+	border:grey 1px solid;
+}
