@@ -87,7 +87,7 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">Adicionar contato</h4>
+						<h4 class="modal-title" id="myModalLabel">Adicionar servidor</h4>
 					</div>
 					
 										
@@ -106,27 +106,57 @@
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="sobreNome">SobreNome</label>
+								<label class="col-sm-2 control-label" for="login">Login</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control"
-										placeholder="Sobre Nome" name="sobreNome" id="sobreNome" />
+										placeholder="Login" name="login" id="login" />
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="email">Email</label>
+								<label class="col-sm-2 control-label" for="password">Senha</label>
+								<div class="col-sm-10">
+									<input type="password" class="form-control" name="password"
+										id="password" placeholder="Senha">
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="email">E-mail</label>
 								<div class="col-sm-10">
 									<input type="email" class="form-control" name="email"
-										id="email" placeholder="Email">
+										id="email" placeholder="E-mail">
 								</div>
 							</div>
 
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="cpf">CPF</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="cpf"
+										id="cpf" placeholder="CPF">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="rg">RG</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="rg"
+										id="rg" placeholder="RG">
+								</div>
+							</div>
 
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="endereco">Endereço</label>
+								<label class="col-sm-2 control-label" for="naturalidade">Naturalidade</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" placeholder="Endereço"
-										name="endereco" id="endereco" />
+									<input type="text" class="form-control" placeholder="Naturalidade"
+										name="naturalidade" id="naturalidade" />
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="nacionalidade">Nacionalidade</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" placeholder="Nacionalidade"
+										name="nacionalidade" id="nacionalidade" />
 								</div>
 							</div>
 
@@ -156,7 +186,6 @@
 				</div>
 			</div>
 		</div>
-
 
 		<jsp:include page="../fragments/footer.jsp" />
 

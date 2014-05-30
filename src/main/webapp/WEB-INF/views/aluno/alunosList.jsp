@@ -19,7 +19,7 @@
 	href="<c:url value="/webjars/datatables/1.9.4/media/css/jquery.dataTables.css" />"
 	rel="stylesheet" />
 <script src="<c:url value="/webjars/datatables/1.9.4/media/js/jquery.dataTables.min.js" />"></script>
-<script src="<c:url value="/resources/js/npi.js" />"></script>
+<script src="<c:url value="/resources/js/aluno.js" />"></script>
 </head>
 
 <body>
@@ -59,6 +59,19 @@
 			
 			<datatables:column title="Telefone" cssStyle="width: 200px;">
 				<c:out value="${aluno.usuario.telefone}" />
+			</datatables:column>
+			<datatables:column title="Editar" display="html" property="editar">
+				<button id="btnEditar" class="btn btn-default btn-lg editarAluno"
+					data-toggle="modal" data-target="#myModal"
+					onclick="povoaForm('<c:url value="/alunos/${aluno.id}" />', '#add-aluno-form', this);">
+					<span class="glyphicon glyphicon-edit"></span>
+				</button>
+			</datatables:column>
+			<datatables:column title="Excluir" display="html" property="excluir">
+				<button id="btnExcluir" class="btn btn-default btn-lg"
+					onclick="excluir('#alunos','<c:url value="/alunos/${aluno.id}" />', this);">
+					<span class="glyphicon glyphicon-trash"></span>
+				</button>
 			</datatables:column>
 			
 

@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="page-header">
-  <h1>GPA <small>Sistema de Gestão  de Programas Acadâmicos</small></h1>
+  <h1>GPA <small>Sistema de Gestão  de Programas Acadêmicos</small></h1>
 </div>
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
@@ -32,7 +32,6 @@
 		            <li><a href="<c:url value='servidores.htm'/>">Listar</a></li>
 		          </ul>
 		        </li>
-	
 	
 		      </ul>
 	    </div>

@@ -17,7 +17,7 @@
 		
 		<div class="jumbotron">
 		  <h1>Bem vindo ao GPA!</h1>
-		  <p>Sistema de Gestão  de Programas Acadâmicos</p>
+		  <p>Sistema de Gestão  de Programas Acadêmicos</p>
 		</div>
 		
 		<jsp:include page="fragments/footer.jsp" />
