@@ -105,13 +105,7 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								<label class="col-sm-2 control-label" for="login">Login</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control"
-										placeholder="Login" name="login" id="login" />
-								</div>
-							</div>
+							
 
 							<div class="form-group">
 								<label class="col-sm-2 control-label" for="password">Senha</label>

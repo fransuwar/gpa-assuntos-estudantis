@@ -1,4 +1,3 @@
-
 package br.ufc.quixada.npi.controller;
 
 import java.util.List;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import br.ufc.quixada.npi.model.Servidor;
 import br.ufc.quixada.npi.service.GenericService;
 
-
 @Named
 @RequestMapping("/servidores")
 public class ServidorController {
@@ -34,7 +32,7 @@ public class ServidorController {
 	public @ResponseBody
 	Servidor getServidorJson(@PathVariable("servidorId") int servidorId) {
 
-		return this.genericService.find(Servidor.class,servidorId);
+		return this.genericService.find(Servidor.class, servidorId);
 
 	}
 
@@ -71,25 +69,27 @@ public class ServidorController {
 		}
 	}
 
-	//Metodo atualizar um servidor
+	// Metodo atualizar um servidor
 	@RequestMapping(value = "", method = RequestMethod.PUT)
-	public @ResponseBody Servidor atualizarServidor(@RequestBody Servidor servidor, BindingResult result, SessionStatus status){		
-		
-				
+	public @ResponseBody
+	Servidor atualizarServidor(@RequestBody Servidor servidor,
+			BindingResult result, SessionStatus status) {
+
 		if (result.hasErrors()) {
 			return servidor;
-		}else{
+		} else {
 			this.genericService.update(servidor);
 			return servidor;
 		}
-	
+
 	}
-	
+
 	// Metodo Deletar um servidor
 	@RequestMapping(value = "/{servidorId}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	String deletarservidor(@PathVariable("servidorId") int servidorId) {
-		Servidor servidor = this.genericService.find(Servidor.class, servidorId);
+		Servidor servidor = this.genericService
+				.find(Servidor.class, servidorId);
 
 		if (servidor == null) {
 			/* incluir erros */

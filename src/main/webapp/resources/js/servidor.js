@@ -20,7 +20,7 @@ function submeterForm() {
 			contentType : "application/json; charset=utf-8",
 			type : "PUT",
 			dataType : "json",
-			url : "http://localhost:8080/gpa-mae/servidores/",
+			url : "http://localhost:8080/MAE/servidores/",
 			data : JSON.stringify(data),
 		
 		});
@@ -33,7 +33,7 @@ function submeterForm() {
 			$('#mensagens').text("Edição feita com sucesso");
 		    $('#mensagens').fadeOut(4000);
 
-		    dt.fnUpdate(data.nome + " " + data.sobreNome, linha, 0);
+		    dt.fnUpdate(data.nome, linha, 0);
 		    dt.fnUpdate(data.endereco, linha, 1);
 		    dt.fnUpdate(data.cidade, linha, 2);
 		    dt.fnUpdate(data.fone, linha, 3);
@@ -51,7 +51,7 @@ function submeterForm() {
 			contentType : "application/json; charset=utf-8",
 			type : "POST",
 			dataType : "json",
-			url : "http://localhost:8080/gpa-mae/servidores/",
+			url : "http://localhost:8080/MAE/servidores/",
 			data : JSON.stringify(data),
 		
 		});
@@ -66,7 +66,7 @@ function submeterForm() {
 			console.log("SUCESSO ao adicionar servidor");
 			dt.fnAddData({"nome":data.nome + " "+data.sobreNome, 
 				"endereco":data.endereco, "cidade":data.cidade,"fone":data.fone,
-				"editar":"<button id=\"btnEditar\" class=\"btn btn-default btn-lg editarServidor\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"povoaForm(\'\/gpa-mae\/servidores\/"+ data.id +"\/\', \'#add-servidor-form\', this);\"> <span class=\"glyphicon glyphicon-edit\"><\/span> <\/button>",
+				"editar":"<button id=\"btnEditar\" class=\"btn btn-default btn-lg editarServidor\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"povoaForm(\'\/MAE\/servidores\/"+ data.id +"\/\', \'#add-servidor-form\', this);\"> <span class=\"glyphicon glyphicon-edit\"><\/span> <\/button>",
 				"excluir":"<button id=\"btnExcluir\" class=\"btn btn-default btn-lg\" onclick=\"excluir(\'#servidores\',\'\/gpa-mae\/contatos\/"+ data.id +"\/\', this);\"><span class=\"glyphicon glyphicon-trash\"><\/span><\/button>"});
 			
 		});
