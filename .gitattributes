@@ -5,9 +5,9 @@
 *.xml text
 *.java text
 *.properties text
-*.xhtml
-*.jsp
-*.jsf
+*.xhtml text
+*.jsp text
+*.jsf text
 *.txt text
 *.c text
 *.h text
