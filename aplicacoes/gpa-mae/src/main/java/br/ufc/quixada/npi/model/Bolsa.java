@@ -20,7 +20,7 @@ public class Bolsa {
 	private String requisitos;
 	
 	@OneToMany(mappedBy ="bolsa")
-	private List<Edital> edital;
+	private List<SelecaoBolsa> edital;
 	
 	@OneToMany(mappedBy ="bolsa")
 	private List<QuestionarioAuxilioMoradia> questionarioAuxilioMoradia;
