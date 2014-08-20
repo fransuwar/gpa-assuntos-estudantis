@@ -10,9 +10,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Edital {
+public class SelecaoBolsa {
 
-	public Edital(){}
+	public SelecaoBolsa(){}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -127,7 +127,7 @@ public class Edital {
 	}
 	@Override
 	public String toString() {
-		return "Edital [id=" + id + ", ano=" + ano + ", numero=" + numero
+		return "SelecaoBolsa [id=" + id + ", ano=" + ano + ", numero=" + numero
 				+ ", vagas=" + vagas + ", periodoInscricao=" + periodoInscricao
 				+ ", caminhoArquivo=" + caminhoArquivo + ", comentarios="
 				+ comentarios + ", periodoAlocacao=" + periodoAlocacao

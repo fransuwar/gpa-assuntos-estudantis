@@ -20,7 +20,7 @@ public class Bolsa {
 	private String requisitos;
 	
 	@OneToMany(mappedBy ="bolsa")
-	private List<Edital> edital;
+	private List<SelecaoBolsa> selecaoBolsa;
 	
 	@OneToMany(mappedBy ="bolsa")
 	private List<QuestionarioAuxilioMoradia> questionarioAuxilioMoradia;
@@ -79,8 +79,8 @@ public class Bolsa {
 
 	@Override
 	public String toString() {
-		return "Bolsa [id=" + id + ", requisitos=" + requisitos + ", edital="
-				+ edital + ", questionarioAuxilioMoradia="
+		return "Bolsa [id=" + id + ", requisitos=" + requisitos + ", selecaoBolsa="
+				+ selecaoBolsa + ", questionarioAuxilioMoradia="
 				+ questionarioAuxilioMoradia
 				+ ", questionarioIniciacaoAcademica="
 				+ questionarioIniciacaoAcademica + ", tipo=" + tipo + "]";

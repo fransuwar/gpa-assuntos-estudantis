@@ -26,10 +26,10 @@ public class Servidor {
 	private String siape;
 	
 	@ManyToMany
-	private List<Edital> servidoresBanca;
+	private List<SelecaoBolsa> servidoresBanca;
 	
 	@OneToMany(mappedBy="servidor")
-	private List<Edital> editais;
+	private List<SelecaoBolsa> editais;
 	
 	@ManyToOne
 	private Usuario usuario;
@@ -58,19 +58,19 @@ public class Servidor {
 		this.siape = siape;
 	}
 
-	public List<Edital> getServidoresBanca() {
+	public List<SelecaoBolsa> getServidoresBanca() {
 		return servidoresBanca;
 	}
 
-	public void setServidoresBanca(List<Edital> servidoresBanca) {
+	public void setServidoresBanca(List<SelecaoBolsa> servidoresBanca) {
 		this.servidoresBanca = servidoresBanca;
 	}
 
-	public List<Edital> getEditais() {
+	public List<SelecaoBolsa> getEditais() {
 		return editais;
 	}
 
-	public void setEditais(List<Edital> editais) {
+	public void setEditais(List<SelecaoBolsa> editais) {
 		this.editais = editais;
 	}
 

@@ -32,7 +32,14 @@
 		            <li><a href="<c:url value='servidores.htm'/>">Listar</a></li>
 		          </ul>
 		        </li>
-	
+	 			<li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Seleção Bolsa<b class="caret"></b></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="<c:url value=''/>">Adicionar</a></li>
+		            <li class="divider"></li>
+		            <li><a href="<c:url value='selecaoBolsa.htm'/>">Listar</a></li>
+		          </ul>
+		        </li>
 		      </ul>
 	    </div>
 	</div>
