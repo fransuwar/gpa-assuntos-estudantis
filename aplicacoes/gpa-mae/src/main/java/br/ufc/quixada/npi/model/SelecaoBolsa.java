@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,8 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import br.ufc.quixada.npi.enumerator.StatusSelecaoBolsa;
 
 @Entity
 public class SelecaoBolsa {
@@ -30,15 +34,16 @@ public class SelecaoBolsa {
 	private int quantidadeVagas;
 	private String comentários;
 	
-	@Type(type="org.hibernate.type.BinaryType")
-	private byte[] edital;
+	@Enumerated(EnumType.STRING)
+	private StatusSelecaoBolsa statusSelecao;
+	
 	
 	private int ano;
 	private int sequencial;
 	private String duraçãoBolsa;
-	private boolean aberto;
+	
 	private String identificador;
-	private String pesquisa;
+	
 	
 	
 	@ManyToMany(mappedBy="servidoresBanca")
@@ -57,114 +62,204 @@ public class SelecaoBolsa {
 	private Bolsa bolsa;
 	
 	
+	
 	public String getTipoDeBolsa() {
 		return tipoDeBolsa;
 	}
+
+
+
 	public void setTipoDeBolsa(String tipoDeBolsa) {
 		this.tipoDeBolsa = tipoDeBolsa;
 	}
+
+
+
 	public Date getDataInicio() {
 		return dataInicio;
 	}
+
+
+
 	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
+
+
+
 	public Date getDataTérmino() {
 		return dataTérmino;
 	}
+
+
+
 	public void setDataTérmino(Date dataTérmino) {
 		this.dataTérmino = dataTérmino;
 	}
-	
-	public int getSequencial() {
-		return sequencial;
-	}
-	public void setSequencial(int sequencial) {
-		this.sequencial = sequencial;
-	}
-	public String getDuraçãoBolsa() {
-		return duraçãoBolsa;
-	}
-	public void setDuraçãoBolsa(String duraçãoBolsa) {
-		this.duraçãoBolsa = duraçãoBolsa;
-	}
-	public boolean isAberto() {
-		return aberto;
-	}
-	public void setAberto(boolean aberto) {
-		this.aberto = aberto;
-	}
-	public int getAno() {
-		return ano;
-	}
-	public void setAno(int ano) {
-		this.ano = ano;
-	}
-	public Bolsa getBolsa() {
-		return bolsa;
-	}
-	public void setBolsa(Bolsa bolsa) {
-		this.bolsa = bolsa;
-	}
-	
-	public List<Servidor> getServidores() {
-		return servidores;
-	}
-	public void setServidores(List<Servidor> servidores) {
-		this.servidores = servidores;
-	}
-	public Servidor getServidor() {
-		return servidor;
-	}
-	public void setServidor(Servidor servidor) {
-		this.servidor = servidor;
-	}
-	public List<Aluno> getAlunosBanca() {
-		return alunosBanca;
-	}
-	public void setAlunosBanca(List<Aluno> alunosBanca) {
-		this.alunosBanca = alunosBanca;
-	}
-	public List<Aluno> getAlunosSelecao() {
-		return alunosSelecao;
-	}
-	public void setAlunosSelecao(List<Aluno> alunosSelecao) {
-		this.alunosSelecao = alunosSelecao;
-	}
-		
+
+
+
 	public int getQuantidadeVagas() {
 		return quantidadeVagas;
 	}
+
+
+
 	public void setQuantidadeVagas(int quantidadeVagas) {
 		this.quantidadeVagas = quantidadeVagas;
 	}
+
+
+
+	public String getComentários() {
+		return comentários;
+	}
+
+
+
+	public void setComentários(String comentários) {
+		this.comentários = comentários;
+	}
+
+
+
+	public StatusSelecaoBolsa getStatusSelecao() {
+		return statusSelecao;
+	}
+
+
+
+	public void setStatusSelecao(StatusSelecaoBolsa statusSelecao) {
+		this.statusSelecao = statusSelecao;
+	}
+
+
+
+	public int getAno() {
+		return ano;
+	}
+
+
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
+
+
+	public int getSequencial() {
+		return sequencial;
+	}
+
+
+
+	public void setSequencial(int sequencial) {
+		this.sequencial = sequencial;
+	}
+
+
+
+	public String getDuraçãoBolsa() {
+		return duraçãoBolsa;
+	}
+
+
+
+	public void setDuraçãoBolsa(String duraçãoBolsa) {
+		this.duraçãoBolsa = duraçãoBolsa;
+	}
+
+
+
 	public String getIdentificador() {
 		return identificador;
 	}
+
+
+
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
 	}
-	public String getPesquisa() {
-		return pesquisa;
+
+
+
+	public List<Servidor> getServidores() {
+		return servidores;
 	}
-	public void setPesquisa(String pesquisa) {
-		this.pesquisa = pesquisa;
+
+
+
+	public void setServidores(List<Servidor> servidores) {
+		this.servidores = servidores;
 	}
-	
-	
-	
+
+
+
+	public Servidor getServidor() {
+		return servidor;
+	}
+
+
+
+	public void setServidor(Servidor servidor) {
+		this.servidor = servidor;
+	}
+
+
+
+	public List<Aluno> getAlunosBanca() {
+		return alunosBanca;
+	}
+
+
+
+	public void setAlunosBanca(List<Aluno> alunosBanca) {
+		this.alunosBanca = alunosBanca;
+	}
+
+
+
+	public List<Aluno> getAlunosSelecao() {
+		return alunosSelecao;
+	}
+
+
+
+	public void setAlunosSelecao(List<Aluno> alunosSelecao) {
+		this.alunosSelecao = alunosSelecao;
+	}
+
+
+
+	public Bolsa getBolsa() {
+		return bolsa;
+	}
+
+
+
+	public void setBolsa(Bolsa bolsa) {
+		this.bolsa = bolsa;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "SelecaoBolsa [tipoDeBolsa=" + tipoDeBolsa + ", dataInicio="
 				+ dataInicio + ", dataTérmino=" + dataTérmino
 				+ ", quantidadeVagas=" + quantidadeVagas + ", comentários="
-				+ comentários + ", ano=" + ano + ", sequencial=" + sequencial
-				+ ", duraçãoBolsa=" + duraçãoBolsa + ", aberto=" + aberto
-				+ ", identificador=" + identificador + ", pesquisa=" + pesquisa
+				+ comentários + ", statusSelecao=" + statusSelecao + ", ano="
+				+ ano + ", sequencial=" + sequencial + ", duraçãoBolsa="
+				+ duraçãoBolsa + ", identificador=" + identificador
 				+ ", servidores=" + servidores + ", servidor=" + servidor
 				+ ", alunosBanca=" + alunosBanca + ", alunosSelecao="
 				+ alunosSelecao + ", bolsa=" + bolsa + "]";
 	}
+	
+	
+	
+	
+	
 	
 	
 	
