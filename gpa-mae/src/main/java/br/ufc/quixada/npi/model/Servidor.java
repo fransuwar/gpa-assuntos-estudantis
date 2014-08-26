@@ -32,14 +32,14 @@ public class Servidor {
 	private List<Edital> editais;
 	
 	@ManyToOne
-	private Usuario usuario;
+	private Pessoa pessoa;
 	
-	public Usuario getUsuario() {
-		return usuario;
+	public Pessoa getUsuario() {
+		return pessoa;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuario(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public Integer getId() {
@@ -77,8 +77,8 @@ public class Servidor {
 	@Override
 	public String toString() {
 		return "Servidor [id=" + id + ", siape=" + siape + ", servidoresBanca="
-				+ servidoresBanca + ", editais=" + editais + ", usuario="
-				+ usuario + "]";
+				+ servidoresBanca + ", editais=" + editais + ", pessoa="
+				+ pessoa + "]";
 	}
 		
 }
