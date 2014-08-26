@@ -48,14 +48,14 @@ public class Aluno {
 	private String conta;
     
 	@ManyToOne
-	private Usuario usuario;
+	private Pessoa pessoa;
 	
-	public Usuario getUsuario() {
-		return usuario;
+	public Pessoa getUsuario() {
+		return pessoa;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuario(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	
@@ -148,7 +148,7 @@ public class Aluno {
 				+ ", iniciacaoAcademica=" + iniciacaoAcademica
 				+ ", anoIngresso=" + anoIngresso + ", ira=" + ira + ", curso="
 				+ curso + ", banco=" + banco + ", agencia=" + agencia
-				+ ", conta=" + conta + ", usuario=" + usuario + "]";
+				+ ", conta=" + conta + ", pessoa=" + pessoa + "]";
 	}
 	
 	

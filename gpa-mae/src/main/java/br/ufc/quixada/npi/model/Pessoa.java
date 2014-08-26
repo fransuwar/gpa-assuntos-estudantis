@@ -19,9 +19,9 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints=@UniqueConstraint(columnNames = {"id", "login"}))
-public class Usuario {
+public class Pessoa {
 
-	public Usuario() {
+	public Pessoa() {
 		super();
 	}
 	
@@ -33,7 +33,7 @@ public class Usuario {
 	private String login;
 	
 	@Column(nullable = false)
-	private String password;
+	private String senha;
 	
 	@Column(nullable = false)
 	private boolean habilitado;
@@ -78,11 +78,11 @@ public class Usuario {
 	
 		
 	public String getPassword() {
-		return password;
+		return senha;
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.senha = password;
 	}
 
 	public String getEmail() {
@@ -174,7 +174,7 @@ public class Usuario {
 		this.papeis = papeis;
 	}
 	
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "pessoa")
 	public List<Aluno> getAlunos() {
 		return alunos;
 	}
@@ -184,7 +184,7 @@ public class Usuario {
 	}
 
 	
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="pessoa")
 	private List<Aluno> alunos;
 	
 	public List<Servidor> getServidores() {
@@ -196,7 +196,7 @@ public class Usuario {
 	}
 
 	
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="pessoa")
 	private List<Servidor> servidores;
 	
 
@@ -221,11 +221,11 @@ public class Usuario {
 	}
 
 	public String getSenha() {
-		return password;
+		return senha;
 	}
 
 	public void setSenha(String senha) {
-		this.password = senha;
+		this.senha = senha;
 	}
 
 	public boolean isHabilitado() {
@@ -238,8 +238,8 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", login=" + login + ", password="
-				+ password + ", habilitado=" + habilitado + ", email=" + email
+		return "Pessoa [id=" + id + ", login=" + login + ", senha="
+				+ senha + ", habilitado=" + habilitado + ", email=" + email
 				+ ", nome=" + nome + ", dataNascimento=" + dataNascimento
 				+ ", nacionalidade=" + nacionalidade + ", naturalidade="
 				+ naturalidade + ", uf=" + uf + ", sexo=" + sexo + ", cpf="
