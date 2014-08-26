@@ -4,24 +4,24 @@ function submeterForm() {
 
 	console.log("Teste de submite OK");
 
-	var idContato = $('#id').val();
+	var idEdital = $('#id').val();
 	
-	var form = $('#add-contato-form');
+	var form = $('#add-edital-form');
 	var data = ConvertFormToJSON(form);
 
 	//Tabela
-	var dt = $("#contatos").dataTable();
+	var dt = $("#editals").dataTable();
 	
-	if(idContato != "" || idContato.val != null){
+	if(idEdital != "" || idEdital.val != null){
 		console.log("Chamou método que envia requisição AjaxS");
-		//Chamada AJAX para EDITAR contato
+		//Chamada AJAX para EDITAR edital
 		
 		var request = $.ajax({
 			contentType : "application/json; charset=utf-8",
 			type : "PUT",
 			dataType : "json",
-			url : "http://localhost:8080/exemplo-jpa-spring-mvc/contatos/",
-			data : JSON.stringify(data),
+			url : "http://localhost:8080/MAE/edital",
+			data : JSON.stringify(data), 	
 		
 		});
 		
@@ -33,16 +33,16 @@ function submeterForm() {
 			$('#mensagens').text("Edição feita com sucesso");
 		    $('#mensagens').fadeOut(4000);
 
-		    dt.fnUpdate(data.nome + " " + data.sobreNome, linha, 0);
-		    dt.fnUpdate(data.endereco, linha, 1);
-		    dt.fnUpdate(data.cidade, linha, 2);
-		    dt.fnUpdate(data.fone, linha, 3);
-		    console.log("SUCESSO ao editar contato");
+		    dt.fnUpdate(data.id , linha, 0);
+		    dt.fnUpdate(data.DatadeInicio, linha, 1);
+		    dt.fnUpdate(data.DatadeTermino, linha, 2);
+		    dt.fnUpdate(data.comentarios, linha, 3);
+		    console.log("SUCESSO ao editar Edital");
 			
 		});
 		
 			request.fail(function(data) {
-			console.log("ERRO ao editar contato");
+			console.log("ERRO ao editar Edital");
 			
 		});
 		
@@ -51,7 +51,7 @@ function submeterForm() {
 			contentType : "application/json; charset=utf-8",
 			type : "POST",
 			dataType : "json",
-			url : "http://localhost:8080/exemplo-jpa-spring-mvc/contatos/",
+			url : "http://localhost:8080/MAE/edital",
 			data : JSON.stringify(data),
 		
 		});
@@ -63,11 +63,10 @@ function submeterForm() {
 			$('#mensagens').show();	
 			$('#mensagens').text("Adição feita com sucesso");
 		    $('#mensagens').fadeOut(4000);
-			console.log("SUCESSO ao adicionar contato");
-			dt.fnAddData({"nome":data.nome + " "+data.sobreNome, 
-				"endereco":data.endereco, "cidade":data.cidade,"fone":data.fone,
-				"editar":"<button id=\"btnEditar\" class=\"btn btn-default btn-lg editarContato\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"povoaForm(\'\/exemplo-jpa-spring-mvc\/contatos\/"+ data.id +"\/\', \'#add-contato-form\', this);\"> <span class=\"glyphicon glyphicon-edit\"><\/span> <\/button>",
-				"excluir":"<button id=\"btnExcluir\" class=\"btn btn-default btn-lg\" onclick=\"excluir(\'#contatos\',\'\/exemplo-jpa-spring-mvc\/contatos\/"+ data.id +"\/\', this);\"><span class=\"glyphicon glyphicon-trash\"><\/span><\/button>"});
+			console.log("SUCESSO ao adicionar edital");
+			dt.fnAddData({"DatadeInicio":data.DatadeInicio, "DatadeTermino":data.DatadeTermino, "comentarios":data.comentarios,
+				"editar":"<button id=\"btnEditar\" class=\"btn btn-default btn-lg editarEdital\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"povoaForm(\'\/gpa-mae\/edital\/"+ data.id +"\/\', \'#add-contato-form\', this);\"> <span class=\"glyphicon glyphicon-edit\"><\/span> <\/button>",
+				"excluir":"<button id=\"btnExcluir\" class=\"btn btn-default btn-lg\" onclick=\"excluir(\'#edital\',\'\/gpa-mae\/edital\/"+ data.id +"\/\', this);\"><span class=\"glyphicon glyphicon-trash\"><\/span><\/button>"});
 			
 		});
 		

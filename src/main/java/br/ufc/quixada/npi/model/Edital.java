@@ -2,30 +2,40 @@ package br.ufc.quixada.npi.model;
 
 import java.util.List;
 
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class SelecaoBolsa {
+public class Edital {
 
-	public SelecaoBolsa(){}
+	public Edital(){}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	private int ano;
-	private int numero;
-	private int vagas;
-	private String periodoInscricao;
-	private String caminhoArquivo;
-	private String comentarios;
-	private String periodoAlocacao;
-	private boolean editalAberto;
 	
+	@Min(value = 1, message = "Número de bolsas deve ser maior que 1")
+	private int QuantidadeVagas;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private String DatadeInicio;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private String DatadeTermino;
+	
+	@Size(min = 100, message = "Mínimo 100 caracteres")
+	private String comentarios;
+	
+	private String Edital;	
+		
 	@ManyToMany(mappedBy="servidoresBanca")
 	private List<Servidor> servidores;
 	
@@ -47,41 +57,31 @@ public class SelecaoBolsa {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getAno() {
-		return ano;
-	}
-	public void setAno(int ano) {
-		this.ano = ano;
-	}
+	
 	public Bolsa getBolsa() {
 		return bolsa;
 	}
 	public void setBolsa(Bolsa bolsa) {
 		this.bolsa = bolsa;
 	}
-	public int getNumero() {
-		return numero;
+	
+	public int getQuantidadeVagas() {
+		return QuantidadeVagas;
 	}
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setQuantidadeVagas(int QuantidadeVagas) {
+		this.QuantidadeVagas = QuantidadeVagas;
 	}
-	public int getVagas() {
-		return vagas;
+	public String getDatadeInicio() {
+		return DatadeInicio;
 	}
-	public void setVagas(int vagas) {
-		this.vagas = vagas;
+	public void setDatadeInicio(String DatadeInicio) {
+		this.DatadeInicio = DatadeInicio;
 	}
-	public String getPeriodoInscricao() {
-		return periodoInscricao;
+	public String getEdital() {
+		return Edital;
 	}
-	public void setPeriodoInscricao(String periodoInscricao) {
-		this.periodoInscricao = periodoInscricao;
-	}
-	public String getCaminhoArquivo() {
-		return caminhoArquivo;
-	}
-	public void setCaminhoArquivo(String caminhoArquivo) {
-		this.caminhoArquivo = caminhoArquivo;
+	public void setEdital(String Edital) {
+		this.Edital = Edital;
 	}
 	public String getComentarios() {
 		return comentarios;
@@ -89,18 +89,13 @@ public class SelecaoBolsa {
 	public void setComentarios(String comentarios) {
 		this.comentarios = comentarios;
 	}
-	public String getPeriodoAlocacao() {
-		return periodoAlocacao;
+	public String getDatadeTermino() {
+		return DatadeTermino;
 	}
-	public void setPeriodoAlocacao(String periodoAlocacao) {
-		this.periodoAlocacao = periodoAlocacao;
+	public void setDatadeTermino(String DatadeTermino) {
+		this.DatadeTermino = DatadeTermino;
 	}
-	public boolean isEditalAberto() {
-		return editalAberto;
-	}
-	public void setEditalAberto(boolean editalAberto) {
-		this.editalAberto = editalAberto;
-	}
+
 	public List<Servidor> getServidores() {
 		return servidores;
 	}
@@ -127,12 +122,10 @@ public class SelecaoBolsa {
 	}
 	@Override
 	public String toString() {
-		return "SelecaoBolsa [id=" + id + ", ano=" + ano + ", numero=" + numero
-				+ ", vagas=" + vagas + ", periodoInscricao=" + periodoInscricao
-				+ ", caminhoArquivo=" + caminhoArquivo + ", comentarios="
-				+ comentarios + ", periodoAlocacao=" + periodoAlocacao
-				+ ", editalAberto=" + editalAberto + ", servidores="
-				+ servidores + ", servidor=" + servidor + ", alunosBanca="
+		return "Edital [id=" + id + ", QuantidadeVagas=" + QuantidadeVagas + ", DatadeInicio=" + DatadeInicio
+				+ ", Edital=" + Edital + ", comentarios="
+				+ comentarios + ", DatadeTermino=" + DatadeTermino
+				+ ", servidores=" + servidores + ", servidor=" + servidor + ", alunosBanca="
 				+ alunosBanca + ", alunosSelecao=" + alunosSelecao + ", bolsa="
 				+ bolsa + "]";
 	}

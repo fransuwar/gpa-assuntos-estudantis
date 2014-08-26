@@ -37,7 +37,7 @@
 		          <ul class="dropdown-menu">
 		            <li><a href="<c:url value=''/>">Adicionar</a></li>
 		            <li class="divider"></li>
-		            <li><a href="<c:url value='selecaoBolsa.htm'/>">Listar</a></li>
+		            <li><a href="<c:url value='edital.htm'/>">Listar</a></li>
 		          </ul>
 		        </li>
 		      </ul>
