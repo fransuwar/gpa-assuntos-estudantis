@@ -24,15 +24,15 @@ public class SelecaoBolsa {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String tipoDeBolsa;
+	private String tipoBolsa;
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date dataInicio;
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
-	private Date dataTérmino;
+	private Date dataTermino;
 	private int quantidadeVagas;
-	private String comentários;
+	private String comentarios;
 	
 	@Enumerated(EnumType.STRING)
 	private StatusSelecaoBolsa statusSelecao;
@@ -63,14 +63,14 @@ public class SelecaoBolsa {
 	
 	
 	
-	public String getTipoDeBolsa() {
-		return tipoDeBolsa;
+	public String getTipoBolsa() {
+		return tipoBolsa;
 	}
 
 
 
-	public void setTipoDeBolsa(String tipoDeBolsa) {
-		this.tipoDeBolsa = tipoDeBolsa;
+	public void setTipoBolsa(String tipoDeBolsa) {
+		this.tipoBolsa = tipoDeBolsa;
 	}
 
 
@@ -87,14 +87,14 @@ public class SelecaoBolsa {
 
 
 
-	public Date getDataTérmino() {
-		return dataTérmino;
+	public Date getDataTermino() {
+		return dataTermino;
 	}
 
 
 
 	public void setDataTérmino(Date dataTérmino) {
-		this.dataTérmino = dataTérmino;
+		this.dataTermino = dataTérmino;
 	}
 
 
@@ -111,14 +111,14 @@ public class SelecaoBolsa {
 
 
 
-	public String getComentários() {
-		return comentários;
+	public String getComentarios() {
+		return comentarios;
 	}
 
 
 
-	public void setComentários(String comentários) {
-		this.comentários = comentários;
+	public void setComentarios(String comentarios) {
+		this.comentarios = comentarios;
 	}
 
 
@@ -245,10 +245,10 @@ public class SelecaoBolsa {
 
 	@Override
 	public String toString() {
-		return "SelecaoBolsa [tipoDeBolsa=" + tipoDeBolsa + ", dataInicio="
-				+ dataInicio + ", dataTérmino=" + dataTérmino
+		return "SelecaoBolsa [tipoDeBolsa=" + tipoBolsa + ", dataInicio="
+				+ dataInicio + ", dataTérmino=" + dataTermino
 				+ ", quantidadeVagas=" + quantidadeVagas + ", comentários="
-				+ comentários + ", statusSelecao=" + statusSelecao + ", ano="
+				+ comentarios + ", statusSelecao=" + statusSelecao + ", ano="
 				+ ano + ", sequencial=" + sequencial + ", duraçãoBolsa="
 				+ duraçãoBolsa + ", identificador=" + identificador
 				+ ", servidores=" + servidores + ", servidor=" + servidor
