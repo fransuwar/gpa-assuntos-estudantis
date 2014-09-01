@@ -1,15 +1,22 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+
+
 
 @Entity
 public class Aluno {
@@ -35,6 +42,9 @@ public class Aluno {
 	@OneToOne
 	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
 	
+	
+	private String nome;
+			
 	private String anoIngresso;
 	
 	private String ira;
@@ -76,6 +86,16 @@ public class Aluno {
 		this.iniciacaoAcademica = iniciacaoAcademica;
 	}
 
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -145,10 +165,10 @@ public class Aluno {
 		return "Aluno [id=" + id + ", matricula=" + matricula + ", editais="
 				+ editais + ", editaisAluno=" + editaisAluno
 				+ ", auxilioMoradia=" + auxilioMoradia
-				+ ", iniciacaoAcademica=" + iniciacaoAcademica
-				+ ", anoIngresso=" + anoIngresso + ", ira=" + ira + ", curso="
-				+ curso + ", banco=" + banco + ", agencia=" + agencia
-				+ ", conta=" + conta + ", pessoa=" + pessoa + "]";
+				+ ", iniciacaoAcademica=" + iniciacaoAcademica + ", nome="
+				+ nome + ", anoIngresso=" + anoIngresso + ", ira=" + ira
+				+ ", curso=" + curso + ", banco=" + banco + ", agencia="
+				+ agencia + ", conta=" + conta + ", pessoa=" + pessoa + "]";
 	}
 	
 	
