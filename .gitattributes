@@ -17,4 +17,6 @@
 *.png binary
 *.doc binary
 *.docx binary
+*.ods binary
+*.pdf binary
 *.asta binary
