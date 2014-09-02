@@ -25,7 +25,7 @@ import br.com.ufc.quixada.npi.gpa.service.AlunoService;
 
 
 @Controller
-@RequestMapping("/aluno")
+@RequestMapping("aluno")
 public class AlunoController {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
@@ -34,12 +34,37 @@ public class AlunoController {
 	private AlunoService alunoService;
 	
 	
+	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
+	public String index() {
+		return "aluno/listarAluno";
+	}
+	
 	@RequestMapping(value = "/alunos", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("aluno", new Aluno());
-		return "aluno/alunos";
+		return "/aluno/alunos";
 	}
 
+	@RequestMapping(value = "/alunos", method = RequestMethod.POST)
+	public String adicionarAluno(
+			@Valid @ModelAttribute("aluno") Aluno aluno,
+			BindingResult result, HttpSession session,
+			RedirectAttributes redirect) {
+		if (result.hasErrors()) {
+			return ("aluno/alunos");
+		}
+		//projeto.setAutor(getUsuarioLogado(session));
+		//projeto.setStatus(StatusProjeto.NOVO);
+		this.alunoService.save(aluno);
+
+		//String codigo = geraCodigoProjeto(projeto.getId());
+		//projeto.setCodigo(codigo);
+		this.alunoService.update(aluno);
+		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
+
+		return "redirect:/aluno/listarAluno";
+
+	}
 	
 	
 	

@@ -92,6 +92,12 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="controls">
+						<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
+						<a href="<c:url value="/aluno/index"></c:url>" class="btn btn-default">Cancelar</a>
+					</div>
+					
 			</form:form>		
 						
 					</div>
