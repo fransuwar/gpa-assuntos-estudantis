@@ -22,11 +22,11 @@ public class Aluno {
 		
 	@Column(nullable = false)
 	private String matricula;
-	
+	/*
 	@ManyToMany
 	private List<SelecaoBolsa> editais;
 	
-	@ManyToMany(mappedBy="alunosSelecao")
+	//@ManyToMany(mappedBy="alunosSelecao")
 	private List<SelecaoBolsa> editaisAluno;
 	
 	@OneToOne
@@ -34,7 +34,7 @@ public class Aluno {
 	
 	@OneToOne
 	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
-	
+*/	
 	private String anoIngresso;
 	
 	private String ira;
@@ -58,7 +58,7 @@ public class Aluno {
 		this.usuario = usuario;
 	}
 
-	
+	/*
 	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
 		return auxilioMoradia;
 	}
@@ -75,7 +75,7 @@ public class Aluno {
 			QuestionarioIniciacaoAcademica iniciacaoAcademica) {
 		this.iniciacaoAcademica = iniciacaoAcademica;
 	}
-
+*/
 	public Integer getId() {
 		return id;
 	}
@@ -143,10 +143,10 @@ public class Aluno {
 	@Override
 	public String toString() {
 		return "Aluno [id=" + id + ", matricula=" + matricula + ", editais="
-				+ editais + ", editaisAluno=" + editaisAluno
+				+/* editais + ", editaisAluno=" + editaisAluno
 				+ ", auxilioMoradia=" + auxilioMoradia
 				+ ", iniciacaoAcademica=" + iniciacaoAcademica
-				+ ", anoIngresso=" + anoIngresso + ", ira=" + ira + ", curso="
+				+ */", anoIngresso=" + anoIngresso + ", ira=" + ira + ", curso="
 				+ curso + ", banco=" + banco + ", agencia=" + agencia
 				+ ", conta=" + conta + ", usuario=" + usuario + "]";
 	}

@@ -22,8 +22,19 @@ public class SelecaoBolsa {
 
 	public SelecaoBolsa(){}
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	
+	/*
+	private enum tipoBolsa{
+		InicicaoAcademica("IniciaçãoAcadêmica"),AuxilioMoradia("AuxílioMoradia");
+		 tipoBolsa(String tipoBolsa) {
+			
+		}
+	};
+	*/
 	private String tipoBolsa;
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
@@ -33,44 +44,62 @@ public class SelecaoBolsa {
 	private Date dataTermino;
 	private int quantidadeVagas;
 	private String comentarios;
-	
+	/*
 	@Enumerated(EnumType.STRING)
 	private StatusSelecaoBolsa statusSelecao;
-	
+	*/
 	
 	private int ano;
 	private int sequencial;
-	private String duraçãoBolsa;
-	
-	private String identificador;
+	private String duracaoBolsa;
 	
 	
 	
+	
+	
+	
+	/*
 	@ManyToMany(mappedBy="servidoresBanca")
 	private List<Servidor> servidores;
+	*/
 	
+	/*
 	@ManyToOne
 	private Servidor servidor;
-
+	 */
+	
+	/*
 	@ManyToMany(mappedBy="editais")
 	private List<Aluno> alunosBanca;
-
+  
 	@ManyToMany
 	private List<Aluno> alunosSelecao;
 	
 	@ManyToOne
 	private Bolsa bolsa;
+	*/
 	
-	
-	
+	/*
+	public tipoBolsa getTipoBolsa() {
+		return tipo;
+	}
+
+
+
+	public void setTipoBolsa(tipoBolsa tipoDeBolsa) {
+		this.tipo = tipo;
+	}
+
+	*/
+
 	public String getTipoBolsa() {
 		return tipoBolsa;
 	}
 
 
 
-	public void setTipoBolsa(String tipoDeBolsa) {
-		this.tipoBolsa = tipoDeBolsa;
+	public void setTipoBolsa(String tipoBolsa) {
+		this.tipoBolsa = tipoBolsa;
 	}
 
 
@@ -93,8 +122,8 @@ public class SelecaoBolsa {
 
 
 
-	public void setDataTérmino(Date dataTérmino) {
-		this.dataTermino = dataTérmino;
+	public void setDataTermino(Date dataTermino) {
+		this.dataTermino = dataTermino;
 	}
 
 
@@ -122,7 +151,7 @@ public class SelecaoBolsa {
 	}
 
 
-
+	/*
 	public StatusSelecaoBolsa getStatusSelecao() {
 		return statusSelecao;
 	}
@@ -133,7 +162,7 @@ public class SelecaoBolsa {
 		this.statusSelecao = statusSelecao;
 	}
 
-
+	*/
 
 	public int getAno() {
 		return ano;
@@ -159,30 +188,30 @@ public class SelecaoBolsa {
 
 
 
-	public String getDuraçãoBolsa() {
-		return duraçãoBolsa;
+	public String getDuracaoBolsa() {
+		return duracaoBolsa;
 	}
 
 
 
-	public void setDuraçãoBolsa(String duraçãoBolsa) {
-		this.duraçãoBolsa = duraçãoBolsa;
+	public void setDuracaoBolsa(String duracaoBolsa) {
+		this.duracaoBolsa = duracaoBolsa;
 	}
 
 
 
-	public String getIdentificador() {
-		return identificador;
+	public Integer getId() {
+		return id;
 	}
 
 
 
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 
-
+	/*
 	public List<Servidor> getServidores() {
 		return servidores;
 	}
@@ -241,19 +270,20 @@ public class SelecaoBolsa {
 		this.bolsa = bolsa;
 	}
 
-
-
+*/
+   
 	@Override
 	public String toString() {
-		return "SelecaoBolsa [tipoDeBolsa=" + tipoBolsa + ", dataInicio="
+		return "SelecaoBolsa [id=" + id + "  tipoDeBolsa=" + tipoBolsa + ", dataInicio="
 				+ dataInicio + ", dataTérmino=" + dataTermino
 				+ ", quantidadeVagas=" + quantidadeVagas + ", comentários="
-				+ comentarios + ", statusSelecao=" + statusSelecao + ", ano="
+				+ comentarios + ", statusSelecao="  + ", ano="
 				+ ano + ", sequencial=" + sequencial + ", duraçãoBolsa="
-				+ duraçãoBolsa + ", identificador=" + identificador
-				+ ", servidores=" + servidores + ", servidor=" + servidor
+				+ duracaoBolsa + ", identificador="
+			/*	+ ", servidores=" + servidores + ", servidor=" + servidor
 				+ ", alunosBanca=" + alunosBanca + ", alunosSelecao="
-				+ alunosSelecao + ", bolsa=" + bolsa + "]";
+				+ alunosSelecao + ", bolsa=" + bolsa */+ "]";
+				
 	}
 	
 	

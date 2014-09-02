@@ -28,9 +28,9 @@ public class Servidor {
 	@ManyToMany
 	private List<SelecaoBolsa> servidoresBanca;
 	
-	@OneToMany(mappedBy="servidor")
+	/*@OneToMany(mappedBy="servidor")
 	private List<SelecaoBolsa> editais;
-	
+	*/
 	@ManyToOne
 	private Usuario usuario;
 	
@@ -57,7 +57,7 @@ public class Servidor {
 	public void setSiape(String siape) {
 		this.siape = siape;
 	}
-
+	/*
 	public List<SelecaoBolsa> getServidoresBanca() {
 		return servidoresBanca;
 	}
@@ -73,11 +73,11 @@ public class Servidor {
 	public void setEditais(List<SelecaoBolsa> editais) {
 		this.editais = editais;
 	}
-
+*/
 	@Override
 	public String toString() {
 		return "Servidor [id=" + id + ", siape=" + siape + ", servidoresBanca="
-				+ servidoresBanca + ", editais=" + editais + ", usuario="
+				+ servidoresBanca + /* ", editais=" + editais + */ ", usuario="
 				+ usuario + "]";
 	}
 		
