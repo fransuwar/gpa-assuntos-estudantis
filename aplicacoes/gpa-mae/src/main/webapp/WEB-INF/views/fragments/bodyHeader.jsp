@@ -22,6 +22,10 @@
 		            <li><a href="<c:url value=''/>">Adicionar</a></li>
 		            <li class="divider"></li>
 		            <li><a href="<c:url value='alunos.htm'/>">Listar</a></li>
+		            <li class="divider"></li>
+		            <li><a href="<c:url value='auxilio.htm'/>">Inscrição Auxílio Moradia</a></li>
+		            <li class="divider"></li>
+		            <li><a href="<c:url value='iniciacao.htm'/>">Inscrição Iniciação Acadêmica</a></li>
 		          </ul>
 		        </li>
 		        <li class="dropdown">
