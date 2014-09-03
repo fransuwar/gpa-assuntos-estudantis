@@ -11,7 +11,7 @@
 <html>
 <head>
     <jsp:include page="../modulos/header-estrutura.jsp" />
-<title>Projetos</title>
+<title>Alunos</title>
 </head>
 <body>
 </body>
@@ -38,7 +38,7 @@
 		
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
-			<li class="active"><a href="#meus-alunos" role="tab" data-toggle="tab">Alunos</a></li>
+			<li class="active"><a href="#meus-alunos" role="tab" data-toggle="tab">Alunos Cadastrados</a></li>
 		</ul>
 
 		<div class="tab-content">
@@ -55,22 +55,26 @@
 						</div>
 			
 						<!-- Table -->
-						<table class="table" id="table">
-							<thead>
+						<table class="table" >
+						
 								<tr>
 									<th id="teste">Matricula</th>
 									<th>Ira</th>
 									<th>Curso</th>
 									<th id="acoes">Ações</th>
 								</tr>
-							</thead>
+							
 							<tbody>
-								<c:forEach var="aluno" items="${alunos}">
-									<tr class="linha">
+								<c:forEach var="alunos" items="${alunos} ">
+									<tr>
 										<td>${aluno.matricula}</td>
-										<td><a href="<c:url value="/aluno/${aluno.matricula}" ></c:url>">${aluno.matricula}</a></td>
+										<td><a href="<c:url value="/listarAluno/${aluno.id}" ></c:url>">${aluno.matricula}</a></td>
 										
-										</tr>
+										<td>${aluno.matricula}</td>
+										<td>${aluno.curso}</td>	
+																		
+									</td>
+									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
@@ -79,6 +83,7 @@
 			</div>
 			</div>
 			</div>
+			
 		
 		
 </html>
