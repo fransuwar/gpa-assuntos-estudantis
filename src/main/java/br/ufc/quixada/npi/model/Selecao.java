@@ -14,9 +14,9 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Edital {
+public class Selecao {
 
-	public Edital(){}
+	public Selecao(){}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,9 +42,7 @@ public class Edital {
 	@ManyToOne
 	private Servidor servidor;
 
-	@ManyToMany(mappedBy="editais")
-	private List<Aluno> alunosBanca;
-
+	
 	@ManyToMany
 	private List<Aluno> alunosSelecao;
 	
@@ -108,26 +106,13 @@ public class Edital {
 	public void setServidor(Servidor servidor) {
 		this.servidor = servidor;
 	}
-	public List<Aluno> getAlunosBanca() {
-		return alunosBanca;
-	}
-	public void setAlunosBanca(List<Aluno> alunosBanca) {
-		this.alunosBanca = alunosBanca;
-	}
+	
 	public List<Aluno> getAlunosSelecao() {
 		return alunosSelecao;
 	}
 	public void setAlunosSelecao(List<Aluno> alunosSelecao) {
 		this.alunosSelecao = alunosSelecao;
 	}
-	@Override
-	public String toString() {
-		return "Edital [id=" + id + ", QuantidadeVagas=" + QuantidadeVagas + ", DatadeInicio=" + DatadeInicio
-				+ ", Edital=" + Edital + ", comentarios="
-				+ comentarios + ", DatadeTermino=" + DatadeTermino
-				+ ", servidores=" + servidores + ", servidor=" + servidor + ", alunosBanca="
-				+ alunosBanca + ", alunosSelecao=" + alunosSelecao + ", bolsa="
-				+ bolsa + "]";
-	}
+	
 	
 }

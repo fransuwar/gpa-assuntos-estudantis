@@ -24,10 +24,10 @@ public class Aluno {
 	private String matricula;
 	
 	@ManyToMany
-	private List<Edital> editais;
+	private List<Selecao> editais;
 	
 	@ManyToMany(mappedBy="alunosSelecao")
-	private List<Edital> editaisAluno;
+	private List<Selecao> editaisAluno;
 	
 	@OneToOne
 	private QuestionarioAuxilioMoradia auxilioMoradia;
