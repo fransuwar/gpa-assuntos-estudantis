@@ -36,6 +36,9 @@
 						<a href="<c:url value="/selecaoBolsa/cadastrarBolsa" />">Seleção de Bolsa <span class="glyphicon glyphicon-plus"></span></a>
 					</li>
 					<li>
+						<a href="<c:url value="/inscricao/auxilio" />">Inscrição Auxílio Moradia <span class="glyphicon glyphicon-plus"></span></a>
+					</li>
+					<li>
 						<a href="<c:url value="/j_spring_security_logout" />">Sair <span class="glyphicon glyphicon-off"></span></a>
 					</li>
 					

@@ -20,6 +20,8 @@ public class AuxilioMoradiaController {
 	@Inject
 	private AuxilioMoradiaService auxilioMoradiaService;
 	
+	
+	
 	@RequestMapping(value="/auxilio", method = RequestMethod.GET)
 	 public String cadastro(Model modelo){
 		modelo.addAttribute("QuestionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
@@ -27,7 +29,7 @@ public class AuxilioMoradiaController {
 	}
 	
 	@RequestMapping(value="/auxilio", method = RequestMethod.POST)
-     public String adicionaAuxilio(@Valid @ModelAttribute("auxilioMoradia"))
+     public String adicionaAuxilio()
 }	 
 	
 	
