@@ -148,4 +148,10 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 		return result == null || result.size() == 0 ? null : result.get(0);
 	}
 
+	@Override
+	public List<T> find() {
+		
+		return null;
+	}
+
 }

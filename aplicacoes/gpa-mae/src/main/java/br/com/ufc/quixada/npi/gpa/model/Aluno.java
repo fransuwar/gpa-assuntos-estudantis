@@ -1,6 +1,6 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
-import java.util.Date;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.Size;
+
 
 
 

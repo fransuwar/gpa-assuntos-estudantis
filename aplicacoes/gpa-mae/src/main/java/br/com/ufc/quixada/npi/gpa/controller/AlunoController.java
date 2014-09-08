@@ -8,8 +8,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -29,7 +28,7 @@ import br.com.ufc.quixada.npi.gpa.service.AlunoService;
 @RequestMapping("aluno")
 public class AlunoController {
 
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
 
 	@Inject
 	private AlunoService alunoService;
@@ -68,39 +67,17 @@ public class AlunoController {
 	}
 	
 	
-	/*@RequestMapping(value = "/listarAluno")
+	@RequestMapping(value = "/listarAluno")
 	public String listar(ModelMap modelMap, HttpSession session) {
-		modelMap.addAttribute("alunos", alunoService);
-		return "aluno/listarAlunos";
+		modelMap.addAttribute("alunos", alunoService.find(Aluno.class));
+		List<Aluno> alunos = alunoService.find(Aluno.class);
+		for(Aluno a : alunos){
+			System.out.println(a.getMatricula() + "/n");
+			
+		}
+		return "aluno/listarAluno";
 	}
 	
-	
-	/*@RequestMapping(value = "{alunoId}", method = RequestMethod.GET)
-	public @ResponseBody
-	Aluno getAlunoJson(@PathVariable("alunoId") int alunoId) {
-
-		return this.alunoService.find(Aluno.class,alunoId);
-
-	}
-
-
-	
-	@RequestMapping(value = "/alunos", method = RequestMethod.GET)
-	public String listaAlunos() {
-
-		//try {
-			//List<Aluno> results = alunoService.find(Aluno.class);
-
-			//model.put("selections", results);
-		System.out.println("controller aluno - listaAlunos");
-			return "aluno/alunos";
-		//} catch (Exception e) {
-			// Mensagem com erro, falta corrigir
-			//return "aluno/alunos";
-		//}
-
-	}
-	*/
 	
 	// Metodo Deletar um servidor
 		@RequestMapping(value = "/{alunoId}", method = RequestMethod.DELETE)
@@ -109,7 +86,7 @@ public class AlunoController {
 			Aluno aluno = this.alunoService.find(Aluno.class, alunoId);
 
 			if (aluno == null) {
-				/* incluir erros */
+				
 				return "erro";
 			} else {
 				this.alunoService.delete(aluno);

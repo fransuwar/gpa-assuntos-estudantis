@@ -63,24 +63,20 @@
 									<th>Curso</th>
 									<th id="acoes">Ações</th>
 								</tr>
-							
+							<c:forEach var="aluno" items="${alunos}">
+									<tr class="linha">
+										<td>${aluno.matricula}</td>
+									
+											</c:forEach>	
+											
+									
 							<tbody>
-								<c:forEach var="alunos" items="${alunos} ">
-									<tr>
-										<td>${aluno.matricula}</td>
-										<td><a href="<c:url value="/listarAluno/${aluno.id}" ></c:url>">${aluno.matricula}</a></td>
-										
-										<td>${aluno.matricula}</td>
-										<td>${aluno.curso}</td>	
-																		
-									</td>
-									</tr>
-								</c:forEach>
+							
 							</tbody>
 						</table>
 					</div>
-				</c:if>
-			</div>
+					</c:if>
+						</div>
 			</div>
 			</div>
 			
