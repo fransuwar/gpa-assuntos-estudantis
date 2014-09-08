@@ -179,10 +179,6 @@ public class QuestionarioAuxilioMoradia {
 	@Column(nullable = false)
 	private String justificativa;
 	
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date dataInscricao;
-
 	public Integer getId() {
 		return id;
 	}
@@ -438,12 +434,6 @@ public class QuestionarioAuxilioMoradia {
 	public void setJustificativa(String justificativa) {
 		this.justificativa = justificativa;
 	}
-	public Date getData_inscricao() {
-		return dataInscricao;
-	}
-	public void setData_inscricao(Date data_inscricao) {
-		this.dataInscricao = data_inscricao;
-	}
 	public Bolsa getBolsa() {
 		return bolsa;
 	}
@@ -479,7 +469,6 @@ public class QuestionarioAuxilioMoradia {
 				+ ", bolsista=" + bolsista + ", tipoBolsa=" + tipoBolsa
 				+ ", possuiGraduacao=" + possuiGraduacao
 				+ ", descricaoGraduacao=" + descricaoGraduacao
-				+ ", justificativa=" + justificativa + ", data_inscricao="
-				+ dataInscricao + "]";
+				+ ", justificativa=" + justificativa + "]";
 	}
 }

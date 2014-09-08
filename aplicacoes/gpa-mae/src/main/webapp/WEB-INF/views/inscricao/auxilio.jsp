@@ -87,22 +87,291 @@
 
 
 <div class="form-group">
-<label for="agencia" class="col-sm-2 control-label">Agencia:</label>
+<label for="bairro" class="col-sm-2 control-label">Bairro:</label>
 <div class="col-sm-10">
-<form:input id="agencia" path="agencia" cssClass="form-control" placeholder="Agência"/>
+<form:input id="bairro" path="bairro" cssClass="form-control" placeholder="bairro"/>
 <div class="error-validation">
-<form:errors path="agencia"></form:errors>
+<form:errors path="bairro"></form:errors>
 </div>
 </div>
 </div>
 
 
 <div class="form-group">
-<label for="conta" class="col-sm-2 control-label">Conta:</label>
+<label for="complemento" class="col-sm-2 control-label">Complemento:</label>
 <div class="col-sm-10">
-<form:input id="conta" path="conta" cssClass="form-control" placeholder="Agência"/>
+<form:input id="complemento" path="complemento" cssClass="form-control" placeholder="complemento"/>
 <div class="error-validation">
-<form:errors path="conta"></form:errors>
+<form:errors path="complemento"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="cidade" class="col-sm-2 control-label">Cidade:</label>
+<div class="col-sm-10">
+<form:input id="cidade" path="cidade" cssClass="form-control" placeholder="cidade"/>
+<div class="error-validation">
+<form:errors path="cidade"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="cep" class="col-sm-2 control-label">cep:</label>
+<div class="col-sm-10">
+<form:input id="cep" path="cep" cssClass="form-control" placeholder="cep"/>
+<div class="error-validation">
+<form:errors path="cep"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="pontoReferencia" class="col-sm-2 control-label">Ponto de Referencia:</label>
+<div class="col-sm-10">
+<form:input id="pontoReferencia" path="pontoReferencia" cssClass="form-control" placeholder="pontoReferencia"/>
+<div class="error-validation">
+<form:errors path="pontoReferencia"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="telefone" class="col-sm-2 control-label">Telefone:</label>
+<div class="col-sm-10">
+<form:input id="telefone" path="telefone" cssClass="form-control" placeholder="telefone"/>
+<div class="error-validation">
+<form:errors path="telefone"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="situacaoImovel" class="col-sm-2 control-label">Situação Ímovel:</label>
+<div class="col-sm-10">
+<form:input id="situacaoImovel" path="situacaoImovel" cssClass="form-control" placeholder="situacaoImovel"/>
+<div class="error-validation">
+<form:errors path="situacaoImovel"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="valorMensalFinanciamento" class="col-sm-2 control-label">Valor Mensal do Financiamento:</label>
+<div class="col-sm-10">
+<form:input id="valorMensalFinanciamento" path="valorMensalFinanciamento" cssClass="form-control" placeholder="valorMensalFinanciamento"/>
+<div class="error-validation">
+<form:errors path="valorMensalFinanciamento"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="propriedadeRural" class="col-sm-2 control-label">Propriedade Rural:</label>
+<div class="col-sm-10">
+<form:input id="propriedadeRural" path="propriedadeRural" cssClass="form-control" placeholder="propriedadeRural"/>
+<div class="error-validation">
+<form:errors path="propriedadeRural"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="areaPropriedade" class="col-sm-2 control-label">Área Propriedade:</label>
+<div class="col-sm-10">
+<form:input id="areaPropriedade" path="areaPropriedade" cssClass="form-control" placeholder="areaPropriedade"/>
+<div class="error-validation">
+<form:errors path="areaPropriedade"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="cidadeEstado" class="col-sm-2 control-label">Cidade/Estado:</label>
+<div class="col-sm-10">
+<form:input id="cidadeEstado" path="cidadeEstado" cssClass="form-control" placeholder="cidadeEstado"/>
+<div class="error-validation">
+<form:errors path="cidadeEstado"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="veiculos" class="col-sm-2 control-label">Veículos:</label>
+<div class="col-sm-10">
+<form:input id="veiculos" path="veiculos" cssClass="form-control" placeholder="veiculos"/>
+<div class="error-validation">
+<form:errors path="veiculos"></form:errors>
+</div>
+</div>
+</div>
+
+
+
+<div class="form-group">
+<label for="tipo" class="col-sm-2 control-label">Tipo:</label>
+<div class="col-sm-10">
+<form:input id="tipo" path="tipo" cssClass="form-control" placeholder="tipo"/>
+<div class="error-validation">
+<form:errors path="tipo"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="marca" class="col-sm-2 control-label">Marca:</label>
+<div class="col-sm-10">
+<form:input id="marca" path="marca" cssClass="form-control" placeholder="marca"/>
+<div class="error-validation">
+<form:errors path="marca"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="modelo" class="col-sm-2 control-label">Modelo:</label>
+<div class="col-sm-10">
+<form:input id="modelo" path="modelo" cssClass="form-control" placeholder="modelo"/>
+<div class="error-validation">
+<form:errors path="modelo"></form:errors>
+</div>
+</div>
+</div>
+
+
+
+<div class="form-group">
+<label for="ano" class="col-sm-2 control-label">Ano:</label>
+<div class="col-sm-10">
+<form:input id="ano" path="ano" cssClass="form-control" placeholder="ano"/>
+<div class="error-validation">
+<form:errors path="ano"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="cursinho" class="col-sm-2 control-label">cursinho:</label>
+<div class="col-sm-10">
+<form:input id="cursinho" path="cursinho" cssClass="form-control" placeholder="cursinho"/>
+<div class="error-validation">
+<form:errors path="cursinho"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="nomeCursinho" class="col-sm-2 control-label">Nome do Cursinho:</label>
+<div class="col-sm-10">
+<form:input id="nomeCursinho" path="nomeCursinho" cssClass="form-control" placeholder="nomeCursinho"/>
+<div class="error-validation">
+<form:errors path="nomeCursinho"></form:errors>
+</div>
+</div>
+</div>
+
+
+
+<div class="form-group">
+<label for="rendaMediaFamilia" class="col-sm-2 control-label">Renda Media da Familia:</label>
+<div class="col-sm-10">
+<form:input id="rendaMediaFamilia" path="rendaMediaFamilia" cssClass="form-control" placeholder="rendaMediaFamilia"/>
+<div class="error-validation">
+<form:errors path="rendaMediaFamilia"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="rendaMediaPessoa" class="col-sm-2 control-label">Renda Media por Pessoa:</label>
+<div class="col-sm-10">
+<form:input id="rendaMediaPessoa" path="rendaMediaPessoa" cssClass="form-control" placeholder="rendaMediaPessoa"/>
+<div class="error-validation">
+<form:errors path="rendaMediaPessoa"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="bolsista" class="col-sm-2 control-label">Bolsista:</label>
+<div class="col-sm-10">
+<form:input id="bolsista" path="bolsista" cssClass="form-control" placeholder="bolsista"/>
+<div class="error-validation">
+<form:errors path="bolsista"></form:errors>
+</div>
+</div>
+</div>
+
+
+
+<div class="form-group">
+<label for="tipoBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>
+<div class="col-sm-10">
+<form:input id="tipoBolsa" path="tipoBolsa" cssClass="form-control" placeholder="tipoBolsa"/>
+<div class="error-validation">
+<form:errors path="tipoBolsa"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="possuiGraduacao" class="col-sm-2 control-label">Possui Graduação:</label>
+<div class="col-sm-10">
+<form:input id="possuiGraduacao" path="possuiGraduacao" cssClass="form-control" placeholder="possuiGraduacao"/>
+<div class="error-validation">
+<form:errors path="possuiGraduacao"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="descricaoGraduacao" class="col-sm-2 control-label">Descrição da Graduação:</label>
+<div class="col-sm-10">
+<form:input id="descricaoGraduacao" path="descricaoGraduacao" cssClass="form-control" placeholder="descricaoGraduacao"/>
+<div class="error-validation">
+<form:errors path="descricaoGraduacao"></form:errors>
+</div>
+</div>
+</div>
+
+
+
+<div class="form-group">
+<label for="justificativa" class="col-sm-2 control-label">Justificativa para Bolsa:</label>
+<div class="col-sm-10">
+<form:input id="justificativa" path="justificativa" cssClass="form-control" placeholder="justificativa"/>
+<div class="error-validation">
+<form:errors path="justificativa"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="possuiGraduacao" class="col-sm-2 control-label">Possui Graduação:</label>
+<div class="col-sm-10">
+<form:input id="possuiGraduacao" path="possuiGraduacao" cssClass="form-control" placeholder="possuiGraduacao"/>
+<div class="error-validation">
+<form:errors path="possuiGraduacao"></form:errors>
 </div>
 </div>
 </div>
