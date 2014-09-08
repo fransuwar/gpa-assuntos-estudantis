@@ -7,6 +7,6 @@ import br.ufc.quixada.npi.model.Selecao;
 
 public interface SelecaoService extends GenericService<Selecao> {
 	
-	public abstract List<Selecao> getSelecao();
-
+	/*public abstract List<Selecao> getSelecao();
+*/
 }

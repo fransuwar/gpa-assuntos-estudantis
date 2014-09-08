@@ -70,7 +70,7 @@ public class SelecaoController {
 
 
 	@RequestMapping(value = "/{id}/excluir")
-	public String excluirselecao(Selecao p, @PathVariable("id") int id, HttpSession session, RedirectAttributes redirectAttributes,
+	public String excluirselecao(@PathVariable("id") int id, HttpSession session, RedirectAttributes redirectAttributes,
 			Model model) {
 		Selecao selecao = serviceSelecao.find(Selecao.class, id);
 		if (selecao == null) {
@@ -87,7 +87,7 @@ public class SelecaoController {
 	
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap modelMap, HttpSession session) {
-		modelMap.addAttribute("selecaos", serviceSelecao.getSelecao());
+		modelMap.addAttribute("selecoes", serviceSelecao.find(Selecao.class));
 		
 		return "selecao/listar";
 

@@ -18,13 +18,60 @@
 	 <div class="container">
 		<div class="novo-selecao" align="left">
 			<div class="form" align="center">
-				<h2>Novo selecao</h2>
+				<h2>Nova Seleção</h2>
 				<form:form id="adicionarselecaoForm" role="form" commandName="selecao" servletRelativeAction="/selecao/cadastrar" method="POST" cssClass="form-horizontal">
 
-
+					<%-- <div class="form-group">
+						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
+						<div class="col-sm-10">
+							<form:textarea id="comentarios" path="comentarios" class="form-control" rows="5" placeholder="comentarios" ></form:textarea>
+							<div class="error-validation">
+								<form:errors path="comentarios"></form:errors>
+							</div>
+						</div>
+						
+					</div> --%>
+					<label for="tipodeBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>
+						<div class="col-sm-2">
+							<form:input id="tipodeBolsa" type="text" path="tipodeBolsa" cssClass="form-control data" placeholder="Nome da Bolsa"/>
+							<div class="error-validation">
+								<form:errors path="tipodeBolsa"></form:errors>
+							</div>
+						</div>
+					<div class="form-group">
+						<label for="datadeInicio" class="col-sm-2 control-label">Data de Início:</label>
+						<div class="col-sm-2">
+							<form:input id="datadeInicio" type="text" path="datadeInicio" cssClass="form-control data" placeholder="Data de Início"/>
+							<div class="error-validation">
+								<form:errors path="datadeInicio"></form:errors>
+							</div>
+						</div>
+						
+						<label for="datadeTermino" class="col-sm-2 control-label">Data de Término:</label>
+						<div class="col-sm-2">
+							<form:input id="datadeTermino" type="text" path="datadeTermino" cssClass="form-control data" placeholder="Data de Término"/>
+							<div class="error-validation">
+								<form:errors path="datadeTermino"></form:errors>
+							</div>
+						</div>
+						
+						<label for="duracao" class="col-sm-2 control-label">Duração:</label>
+						<div class="col-sm-2">
+							<form:input id="duracao" type="text" path="duracao" cssClass="form-control data" placeholder="0"/>
+							<div class="error-validation">
+								<form:errors path="duracao"></form:errors>
+							</div>
+						</div>
+						<label for="ano" class="col-sm-2 control-label">Ano:</label>
+						<div class="col-sm-2">
+							<form:input id="ano" type="text" path="ano" cssClass="form-control data" placeholder="0"/>
+							<div class="error-validation">
+								<form:errors path="ano"></form:errors>
+							</div>
+						</div>
 					
 						
-						<label for="quantidadeVagas" class="col-sm-2 control-label">quantidadeVagas:</label>
+						<label for="quantidadeVagas" class="col-sm-2 control-label">Quantidade de Vagas:</label>
 						<div class="col-sm-2">
 							<form:input id="quantidadeVagas" type="number" min="0" placeholder="0" path="quantidadeVagas" cssClass="form-control"/>
 						</div>

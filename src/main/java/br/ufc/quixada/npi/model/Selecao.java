@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.model;
 
 import java.util.List;
 
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Entity;
@@ -22,19 +23,32 @@ public class Selecao {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
+	private String tipodeBolsa;
+	
 	@Min(value = 1, message = "Número de bolsas deve ser maior que 1")
-	private int QuantidadeVagas;
+	private int quantidadeVagas;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private String DatadeInicio;
+	private String datadeInicio;
+	
+	private Integer sequencial;
+	
+	private Boolean aberto;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private String DatadeTermino;
+	private String datadeTermino;
 	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer duracao;
+	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer ano;
+	
+	@Lob	
 	@Size(min = 100, message = "Mínimo 100 caracteres")
 	private String comentarios;
 	
-	private String Edital;	
+	private String edital;	
 		
 	@ManyToMany(mappedBy="servidoresBanca")
 	private List<Servidor> servidores;
@@ -48,6 +62,19 @@ public class Selecao {
 	
 	@ManyToOne
 	private Bolsa bolsa;
+	
+	public Integer getAno() {
+		return ano;
+	}
+	public void setAno(Integer ano) {
+		this.ano = ano;
+	}
+	public Integer getDuracao() {
+		return duracao;
+	}
+	public void setDuracao(Integer duracao) {
+		this.duracao = duracao;
+	}
 	
 	public Integer getId() {
 		return id;
@@ -64,22 +91,22 @@ public class Selecao {
 	}
 	
 	public int getQuantidadeVagas() {
-		return QuantidadeVagas;
+		return quantidadeVagas;
 	}
 	public void setQuantidadeVagas(int QuantidadeVagas) {
-		this.QuantidadeVagas = QuantidadeVagas;
+		this.quantidadeVagas = QuantidadeVagas;
 	}
 	public String getDatadeInicio() {
-		return DatadeInicio;
+		return datadeInicio;
 	}
-	public void setDatadeInicio(String DatadeInicio) {
-		this.DatadeInicio = DatadeInicio;
+	public void setDatadeInicio(String datadeInicio) {
+		this.datadeInicio = datadeInicio;
 	}
 	public String getEdital() {
-		return Edital;
+		return edital;
 	}
 	public void setEdital(String Edital) {
-		this.Edital = Edital;
+		this.edital = Edital;
 	}
 	public String getComentarios() {
 		return comentarios;
@@ -88,10 +115,10 @@ public class Selecao {
 		this.comentarios = comentarios;
 	}
 	public String getDatadeTermino() {
-		return DatadeTermino;
+		return datadeTermino;
 	}
-	public void setDatadeTermino(String DatadeTermino) {
-		this.DatadeTermino = DatadeTermino;
+	public void setDatadeTermino(String datadeTermino) {
+		this.datadeTermino = datadeTermino;
 	}
 
 	public List<Servidor> getServidores() {
@@ -112,6 +139,24 @@ public class Selecao {
 	}
 	public void setAlunosSelecao(List<Aluno> alunosSelecao) {
 		this.alunosSelecao = alunosSelecao;
+	}
+	public String getTipodeBolsa() {
+		return tipodeBolsa;
+	}
+	public void setTipodeBolsa(String tipodeBolsa) {
+		this.tipodeBolsa = tipodeBolsa;
+	}
+	public Boolean getAberto() {
+		return aberto;
+	}
+	public void setAberto(Boolean aberto) {
+		this.aberto = aberto;
+	}
+	public Integer getSequencial() {
+		return sequencial;
+	}
+	public void setSequencial(Integer sequencial) {
+		this.sequencial = sequencial;
 	}
 	
 	

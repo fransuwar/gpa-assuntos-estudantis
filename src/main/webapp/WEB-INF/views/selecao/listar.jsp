@@ -28,16 +28,16 @@
 					<thead>
 						<tr>
 							<th id="teste">Identificador</th>
-							<th>Nome</th>
-							<th>Status</th>
-							<th id="acoes">Ações</th>
+							<th>Quantidade Vagas</th>
+							<!-- <th>Status</th>
+							<th id="acoes">Ações</th> -->
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="selecao" items="${selecao}">
+						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 								<td>${selecao.id}</td>
-								<td><a href="<c:url value="/selecao/${selecao.id}" ></c:url>">${selecao.QuantidadeVagas}</a></td>
+								<td><a href="<c:url value="/selecao/${selecao.id}" ></c:url>">${selecao.quantidadeVagas}</a></td>
 								<td>
 									
 										<a id="editar" href="<c:url value="/selecao/${selecao.id}/editar" ></c:url>">

@@ -8,14 +8,14 @@ import br.ufc.quixada.npi.model.Selecao;
 import br.ufc.quixada.npi.repository.SelecaoRepository;
 @Named
 public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements SelecaoService {
-
+	/*
 	@Inject
-	private SelecaoRepository selecaoRepository;
+private SelecaoRepository selecaoRepository;
 	
 	@Override
 	public List<Selecao> getSelecao() {
 		return selecaoRepository.find(Selecao.class);
-	}
+	}*/
 }
 	
 	
