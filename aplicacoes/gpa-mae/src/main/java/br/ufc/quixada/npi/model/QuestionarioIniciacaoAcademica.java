@@ -70,13 +70,13 @@ public class QuestionarioIniciacaoAcademica {
 
 		EnsinoFundamentalCompleto("Ensino Fundamental Completo"), EnsinoMedioCompleto("Ensino Médio Completo"), EnsinoSuperiorCompleto("Ensino Superior Completo"), 
 		EnsinoFundamentalIncompleto("Ensino Fundamental Incompleto"), EnsinoMedioIncompleto("Ensino Médio Incompleto"), EnsinoSuperiorIncompleto("Ensino Superior Incompleto");
-		private String nome;
-		NivelInstrucao(String nome){
-			this.nome = nome;
+		private String tipo;
+		NivelInstrucao(String tipo){
+			this.tipo = tipo;
 		}
 		
 		public String getNome() {
-			return nome;
+			return tipo;
 		}
 	}
 	
