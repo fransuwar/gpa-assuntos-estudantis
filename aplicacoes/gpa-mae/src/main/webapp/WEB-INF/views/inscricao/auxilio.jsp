@@ -376,13 +376,15 @@
 </div>
 </div>
 
-
-</form:form>	
+<div>
+</form:form>
+<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>	
+<button id="btnSubmitForm" type="button" class="btn btn-default" onclick="submeterForm();">Salvar</button>
 </div>
 </div>
 
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
 </body>
-
+</div>
 
 </html>

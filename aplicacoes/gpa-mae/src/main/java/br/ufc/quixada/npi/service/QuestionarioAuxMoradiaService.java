@@ -1,4 +1,7 @@
 package br.ufc.quixada.npi.service;
 
-public interface QuestionarioAuxMoradiaService<T> extends GenericService<T>{
+import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia;
+
+public interface QuestionarioAuxMoradiaService extends GenericService<QuestionarioAuxilioMoradia>{
+
 }

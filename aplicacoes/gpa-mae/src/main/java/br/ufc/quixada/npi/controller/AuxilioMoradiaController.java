@@ -28,9 +28,10 @@ import br.ufc.quixada.npi.service.QuestionarioAuxMoradiaService;
 @RequestMapping("inscricao")
 public class AuxilioMoradiaController {
 
-	
-	
-	
+//	@Inject
+//	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
+//	
+//	
 	
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
@@ -42,31 +43,36 @@ public class AuxilioMoradiaController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
-	log.info("controller: projeto - action: index");
+	log.info("controller: questionarioAuxilioMoradia - action: index");
 	return "index";
 	}
 	
 	@RequestMapping(value = "/auxilio", method = RequestMethod.GET)
 	public String cadastro(Model model) {
-	model.addAttribute("QuestionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
+	model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 	return "inscricao/auxilio";
 	}
 	
 	@RequestMapping(value = "/auxilio", method = RequestMethod.POST)
 	public String selecaoAluno(
-	@Valid @ModelAttribute("auxilio") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
+	@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
 	BindingResult result, HttpSession session,
 	RedirectAttributes redirect) {
 	if (result.hasErrors()) {
 	return ("inscricao/auxilio");
+	
 	}
-	questionarioAuxilioMoradia.set   setAutor(getUsuarioLogado(session));
-	projeto.setStatus(StatusProjeto.NOVO);
-	this.serviceProjeto.save(projeto);
-	String codigo = geraCodigoProjeto(projeto.getId());
-	projeto.setCodigo(codigo);
-	this.serviceProjeto.update(projeto);
-	redirect.addFlashAttribute("info", "Projeto cadastrado com sucesso.");
-	return "redirect:/projeto/listar";
+	else {
+		return "redirect:/inscricao/auxilio";
 	}
+//	  setAutor(getUsuarioLogado(session));
+//	projeto.setStatus(StatusProjeto.NOVO);
+//	this.serviceProjeto.save(projeto);
+//	String codigo = geraCodigoProjeto(projeto.getId());
+//	projeto.setCodigo(codigo);
+//	this.serviceProjeto.update(projeto);
+//	redirect.addFlashAttribute("info", "Projeto cadastrado com sucesso.");
+//	return "redirect:/projeto/listar";
+//	}
+}
 }
