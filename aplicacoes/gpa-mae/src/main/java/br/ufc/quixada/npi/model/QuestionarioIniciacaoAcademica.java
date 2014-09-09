@@ -32,8 +32,23 @@ public class QuestionarioIniciacaoAcademica {
 	private int numero;
 	private String complemento;
 	private String bairro;
-	private String uf;
+	private enum UF{
+		AC("Acre"), AL("Alagoas"), AP("Amapá"), AM("Amazonas"), BA("Bahia"),CE("Ceará"), DF("Distrito Federal"), ES("Espírito Santo"), GO("Goiás"),
+		MA("Maranhão"), MT("Mato Grosso"), MS("Mato Grosso do Sul"), MG("Minas"), PA("Pará"), PB("Paraíba"), PR("Paraná"), PE("Pernambuco"),
+		PI("Piauí"),RR("Roraima"), RO("Rondônia"), RJ("Rio de Janeiro"), RN("Rio Grande do Norte"), RS("Rio grande do Sul"), SC("Santa Catarina"), SP("São Paulo"), SE("Sergipe"),TO("Tocantins");
+		private String nome;
+		UF(String nome){
+			this.nome = nome;
+		}
+		public String getNome(){
+			
+			return nome;
+		}
+		
+	}
+	private UF uf_geral;
 	private String cep;
+	
 	private String cidade;
 	private String ponto_referencia;
 	private String telefone_fixo;
@@ -52,9 +67,17 @@ public class QuestionarioIniciacaoAcademica {
 	private int anos_estudo_privado;
 	
 	public enum NivelInstrucao{
+
 		EnsinoFundamentalCompleto("Ensino Fundamental Completo"), EnsinoMedioCompleto("Ensino Médio Completo"), EnsinoSuperiorCompleto("Ensino Superior Completo"), 
 		EnsinoFundamentalIncompleto("Ensino Fundamental Incompleto"), EnsinoMedioIncompleto("Ensino Médio Incompleto"), EnsinoSuperiorIncompleto("Ensino Superior Incompleto");
-		NivelInstrucao(String nome){}
+		private String nome;
+		NivelInstrucao(String nome){
+			this.nome = nome;
+		}
+		
+		public String getNome() {
+			return nome;
+		}
 	}
 	
 	private NivelInstrucao nivel_instrucao_mae;
@@ -143,11 +166,11 @@ public class QuestionarioIniciacaoAcademica {
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-	public String getUf() {
-		return uf;
+	public UF getUf_geral() {
+		return uf_geral;
 	}
-	public void setUf(String uf) {
-		this.uf = uf;
+	public void setUf_geral(UF uf_geral) {
+		this.uf_geral = uf_geral;
 	}
 	public String getCep() {
 		return cep;
@@ -448,7 +471,7 @@ public class QuestionarioIniciacaoAcademica {
 		return "QuestionarioIniciacaoAcademica [id=" + id + ", bolsa=" + bolsa
 				+ ", pessoas=" + pessoas + ", endereco_atual=" + endereco_atual
 				+ ", numero=" + numero + ", complemento=" + complemento
-				+ ", bairro=" + bairro + ", uf=" + uf + ", cep=" + cep
+				+ ", bairro=" + bairro + ", uf=" + uf_geral + ", cep=" + cep
 				+ ", cidade=" + cidade + ", ponto_referencia="
 				+ ponto_referencia + ", telefone_fixo=" + telefone_fixo
 				+ ", telefone_celular=" + telefone_celular + ", email=" + email
