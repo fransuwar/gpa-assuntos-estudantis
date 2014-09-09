@@ -20,25 +20,32 @@
 		</div>
 		
 				<div class="panel-heading" align="center">
-					<h4>selecaos</h4>
+					<h4>Seleções</h4>
 				</div>
 
 				<!-- Table -->
 				<table class="table" id="table">
 					<thead>
 						<tr>
-							<th id="teste">Identificador</th>
-							<th>Quantidade Vagas</th>
-							<!-- <th>Status</th>
-							<th id="acoes">Ações</th> -->
+						
+							<th>Identificador</th>
+							<th>Número do Edital</th>
+							<th>Vagas</th>
+							 <th>Status</th>
+							 
+						
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
-								<td>${selecao.id}</td>
-								<td><a href="<c:url value="/selecao/${selecao.id}" ></c:url>">${selecao.quantidadeVagas}</a></td>
-								<td>
+								
+								<td><a href="<c:url value="/selecao/${selecao.id}" > </c:url>">${selecao.identificador}</a></td>
+								<td><a href="<c:url value="/selecao/${selecao.id}" > </c:url>">${selecao.sequencial}</a></td>
+								<td><a href="<c:url value="/selecao/${selecao.id}" > </c:url>">${selecao.quantidadeVagas}</a></td>
+								<td><a href="<c:url value="/selecao/${selecao.id}" > </c:url>">${selecao.status}</a></td>
+								
+								<td>												
 									
 										<a id="editar" href="<c:url value="/selecao/${selecao.id}/editar" ></c:url>">
 											<button class="btn btn-info">Editar <span class="glyphicon glyphicon-pencil"></span></button>

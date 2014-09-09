@@ -119,7 +119,9 @@ function populate(frm, data) {
 
 $(document).ready(function() {
 	
-	
+	$('#confirm-delete').on('show.bs.modal', function(e) {
+	    $(this).find('.btn-danger').attr('href', $(e.relatedTarget).data('href'));
+	});
 	$("#btnAdicionar").click(function() {
 		$("#myModalLabel").text("Adicionar contato");
 		$("#btnSubmitForm").text("Adicionar");

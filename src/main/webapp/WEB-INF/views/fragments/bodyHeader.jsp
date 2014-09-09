@@ -35,9 +35,9 @@
 	 			<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Seleção Bolsa<b class="caret"></b></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="<c:url value=''/>">Adicionar</a></li>
+		            <li><a href="<c:url value='selecao/cadastrar'/>">Adicionar</a></li>
 		            <li class="divider"></li>
-		            <li><a href="<c:url value='edital.htm'/>">Listar</a></li>
+		            <li><a href="<c:url value='selecao/listar'/>">Listar</a></li>
 		          </ul>
 		        </li>
 		      </ul>

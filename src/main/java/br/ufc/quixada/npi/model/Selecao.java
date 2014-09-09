@@ -2,6 +2,8 @@ package br.ufc.quixada.npi.model;
 
 import java.util.List;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -21,9 +23,8 @@ public class Selecao {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Long id;
 	
-	private String tipodeBolsa;
 	
 	@Min(value = 1, message = "Número de bolsas deve ser maior que 1")
 	private int quantidadeVagas;
@@ -31,10 +32,48 @@ public class Selecao {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String datadeInicio;
 	
+	private String identificador;
+	
+	public String getIdentificador() {
+		return identificador;
+	}
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
+	}
+
 	private Integer sequencial;
 	
-	private Boolean aberto;
 	
+		public enum TipodeBolsa {
+		iniciacao_academica("Iniciação Acadêmica"), auxilio_moradia("Auxilio Moradia");
+		private String tipo;
+		public String getTipo() {
+			return tipo;
+		}
+		public void setTipo(String tipo) {
+			this.tipo = tipo;
+		}
+		TipodeBolsa(String tipo){
+			this.tipo = tipo;
+		}
+	}
+		@Enumerated(EnumType.STRING)
+		private TipodeBolsa tipodeBolsa;
+		
+		
+		
+		
+		public TipodeBolsa getTipodeBolsa() {
+			return tipodeBolsa;
+		}
+		public void setTipodeBolsa(TipodeBolsa tipodeBolsa) {
+			this.tipodeBolsa = tipodeBolsa;
+		}
+		public enum Status {
+		NOVO, SUBMETIDO
+	}
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String datadeTermino;
 	
@@ -76,10 +115,10 @@ public class Selecao {
 		this.duracao = duracao;
 	}
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
@@ -140,23 +179,18 @@ public class Selecao {
 	public void setAlunosSelecao(List<Aluno> alunosSelecao) {
 		this.alunosSelecao = alunosSelecao;
 	}
-	public String getTipodeBolsa() {
-		return tipodeBolsa;
-	}
-	public void setTipodeBolsa(String tipodeBolsa) {
-		this.tipodeBolsa = tipodeBolsa;
-	}
-	public Boolean getAberto() {
-		return aberto;
-	}
-	public void setAberto(Boolean aberto) {
-		this.aberto = aberto;
-	}
+		
 	public Integer getSequencial() {
 		return sequencial;
 	}
 	public void setSequencial(Integer sequencial) {
 		this.sequencial = sequencial;
+	}
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 	

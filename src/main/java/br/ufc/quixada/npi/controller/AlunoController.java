@@ -29,7 +29,7 @@ public class AlunoController {
 	
 	@RequestMapping(value = "{alunoId}", method = RequestMethod.GET)
 	public @ResponseBody
-	Aluno getAlunoJson(@PathVariable("alunoId") int alunoId) {
+	Aluno getAlunoJson(@PathVariable("alunoId") Long alunoId) {
 
 		return this.genericService.find(Aluno.class,alunoId);
 
@@ -56,7 +56,7 @@ public class AlunoController {
 	// Metodo Deletar um servidor
 		@RequestMapping(value = "/{alunoId}", method = RequestMethod.DELETE)
 		public @ResponseBody
-		String deletarAluno(@PathVariable("alunoId") int alunoId) {
+		String deletarAluno(@PathVariable("alunoId") Long alunoId) {
 			Aluno aluno = this.genericService.find(Aluno.class, alunoId);
 
 			if (aluno == null) {

@@ -1,5 +1,9 @@
 package br.ufc.quixada.npi.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.model.Selecao;
+import br.ufc.quixada.npi.model.Selecao.Status;
+import br.ufc.quixada.npi.model.Selecao.TipodeBolsa;
 import br.ufc.quixada.npi.service.SelecaoService;
 @Named
 @RequestMapping("/selecao")
@@ -33,6 +39,10 @@ public class SelecaoController {
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("selecao", new Selecao());
+		//model.addAttribute("Tipodebolsa", TipodeBolsa.values());
+		
+		List<TipodeBolsa> tipodeBolsa = new ArrayList<TipodeBolsa>(Arrays.asList(TipodeBolsa.values()));
+		model.addAttribute("TipodeBolsa", tipodeBolsa);
 		return "selecao/cadastrar";
 		
 	}
@@ -42,6 +52,11 @@ public class SelecaoController {
 		if (result.hasErrors()) {
 			return ("selecao/cadastrar");
 		}
+		selecao.setStatus(Status.NOVO);
+		//TipodeBolsa tipodeBolsa = selecao.getTipodeBolsa();
+		//String tipo = tipodeBolsa.getTipo();
+		
+		selecao.setIdentificador(geraCodigoProjeto(selecao.getAno(), selecao.getSequencial()));
 		this.serviceSelecao.save(selecao);
 		
 		
@@ -56,7 +71,7 @@ public class SelecaoController {
 		
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") long id, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-		Selecao selecao = serviceSelecao.find(Selecao.class, (int) id);
+		Selecao selecao = serviceSelecao.find(Selecao.class, id);
 		
 		if (selecao == null) {
 			redirectAttributes.addFlashAttribute("erro", "selecao inexistente.");
@@ -70,19 +85,30 @@ public class SelecaoController {
 
 
 	@RequestMapping(value = "/{id}/excluir")
-	public String excluirselecao(@PathVariable("id") int id, HttpSession session, RedirectAttributes redirectAttributes,
+	public String excluirProjeto(Selecao p, @PathVariable("id") Long id, HttpSession session, RedirectAttributes redirectAttributes,
 			Model model) {
 		Selecao selecao = serviceSelecao.find(Selecao.class, id);
 		if (selecao == null) {
-			redirectAttributes.addFlashAttribute("erro", "selecao inexistente.");
-			return "redirect:/selecao/listar";
+			redirectAttributes.addFlashAttribute("erro", "Projeto inexistente.");
+			return "redirect:/projeto/listar";
 		}
-		
+		if (selecao.getStatus().equals(Status.NOVO)) {
+			this.serviceSelecao.delete(selecao);
+			redirectAttributes.addFlashAttribute("info", "Projeto excluído com sucesso.");
+		} else {
+			redirectAttributes.addFlashAttribute("erro", "Permissão negada.");
+		}
 		return "redirect:/selecao/listar";
 		
 	}
 	
-	
+	private String geraCodigoProjeto(int ano, int sequencial) {
+		
+		return ano +"."+sequencial;
+		
+		
+		
+	}
 	
 	
 	@RequestMapping(value = "/listar")

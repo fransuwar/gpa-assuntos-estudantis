@@ -30,7 +30,7 @@ public class ServidorController {
 
 	@RequestMapping(value = "{servidorId}", method = RequestMethod.GET)
 	public @ResponseBody
-	Servidor getServidorJson(@PathVariable("servidorId") int servidorId) {
+	Servidor getServidorJson(@PathVariable("servidorId") Long servidorId) {
 
 		return this.genericService.find(Servidor.class, servidorId);
 
@@ -87,7 +87,7 @@ public class ServidorController {
 	// Metodo Deletar um servidor
 	@RequestMapping(value = "/{servidorId}", method = RequestMethod.DELETE)
 	public @ResponseBody
-	String deletarservidor(@PathVariable("servidorId") int servidorId) {
+	String deletarservidor(@PathVariable("servidorId") Long servidorId) {
 		Servidor servidor = this.genericService
 				.find(Servidor.class, servidorId);
 

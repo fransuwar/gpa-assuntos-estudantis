@@ -21,7 +21,7 @@
 				<h2>Nova Seleção</h2>
 				<form:form id="adicionarselecaoForm" role="form" commandName="selecao" servletRelativeAction="/selecao/cadastrar" method="POST" cssClass="form-horizontal">
 
-					<%-- <div class="form-group">
+					<div class="form-group">
 						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
 						<div class="col-sm-10">
 							<form:textarea id="comentarios" path="comentarios" class="form-control" rows="5" placeholder="comentarios" ></form:textarea>
@@ -30,14 +30,15 @@
 							</div>
 						</div>
 						
-					</div> --%>
-					<label for="tipodeBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>
-						<div class="col-sm-2">
-							<form:input id="tipodeBolsa" type="text" path="tipodeBolsa" cssClass="form-control data" placeholder="Nome da Bolsa"/>
-							<div class="error-validation">
-								<form:errors path="tipodeBolsa"></form:errors>
-							</div>
-						</div>
+					</div> 
+					<label for="tipodeBolsa" class="col-sm-2 control-label">Nivel Instrução:</label>	
+					<select name="${status.expression}" name="tipodeBolsa" id="tipodeBolsa">
+							<c:forEach items="${TipodeBolsa}" var="opcao">
+							<option value="${opcao}">
+								<c:out value="${opcao.tipo}"></c:out>
+							</option>
+						</c:forEach>	
+					</select>
 					<div class="form-group">
 						<label for="datadeInicio" class="col-sm-2 control-label">Data de Início:</label>
 						<div class="col-sm-2">
@@ -52,6 +53,14 @@
 							<form:input id="datadeTermino" type="text" path="datadeTermino" cssClass="form-control data" placeholder="Data de Término"/>
 							<div class="error-validation">
 								<form:errors path="datadeTermino"></form:errors>
+							</div>
+						</div>
+						
+						<label for="sequencial" class="col-sm-2 control-label">Número do Edital:</label>
+						<div class="col-sm-2">
+							<form:input id="sequencial" type="text" path="sequencial" cssClass="form-control data" placeholder="000"/>
+							<div class="error-validation">
+								<form:errors path="sequencial"></form:errors>
 							</div>
 						</div>
 						
