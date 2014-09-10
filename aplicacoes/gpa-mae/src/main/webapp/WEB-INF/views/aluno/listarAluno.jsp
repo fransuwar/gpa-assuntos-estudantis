@@ -14,7 +14,7 @@
 <title>Alunos</title>
 </head>
 <body>
-</body>
+
 	<jsp:include page="../modulos/header.jsp" />
 	
 	<div class="container">
@@ -63,23 +63,50 @@
 									<th>Curso</th>
 									<th id="acoes">Ações</th>
 								</tr>
+						 <tbody>
 							<c:forEach var="aluno" items="${alunos}">
 									<tr class="linha">
-										<td>${aluno.matricula}</td>
+									<td>${aluno.matricula}</td>
+									<td>${aluno.ira}</td>
+									<td>${aluno.curso}</td>
+								
+									<td>
+									    <a id="editar" href="<c:url value="/alunos/${aluno.id}/editar" ></c:url>">
+											<button class="btn btn-info">Editar <span class="glyphicon glyphicon-pencil"></span></button>
+										</a>
+
+										<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/aluno/${aluno.id}/excluir" ></c:url>">
+											<button class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
+										</a>	
+								   </td>	
+						 	</c:forEach>	
+						</tbody>					
 									
-											</c:forEach>	
-											
-									
-							<tbody>
 							
-							</tbody>
 						</table>
 					</div>
 					</c:if>
-						</div>
 			</div>
 			</div>
-			
+			</div>
+			<jsp:include page="../modulos/footer.jsp" />
+	
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                Excluir
+	            </div>
+	            <div class="modal-body">
+	                Tem certeza de que deseja excluir este aluno?
+	            </div>
+	            <div class="modal-footer">
+	                <a href="#" class="btn btn-danger">Excluir</a>
+	                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 		
-		
+</body>		
 </html>

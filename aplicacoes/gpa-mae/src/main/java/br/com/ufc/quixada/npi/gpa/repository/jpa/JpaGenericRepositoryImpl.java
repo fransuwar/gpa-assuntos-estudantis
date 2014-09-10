@@ -56,7 +56,7 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 		result = em.find(entityClass, id);
 		return result;
 	}
-
+	
 	@Override
 	public List<T> find(Class<T> entityClass) {
 		return find(entityClass, -1, -1);
@@ -146,12 +146,6 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 
 		List<T> result = find(type, query, namedParams, firstResult, maxResults);
 		return result == null || result.size() == 0 ? null : result.get(0);
-	}
-
-	@Override
-	public List<T> find() {
-		
-		return null;
 	}
 
 }

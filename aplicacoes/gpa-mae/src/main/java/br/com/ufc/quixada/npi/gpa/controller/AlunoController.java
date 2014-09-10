@@ -1,23 +1,20 @@
 package br.com.ufc.quixada.npi.gpa.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ufc.quixada.npi.gpa.model.Aluno;
@@ -34,7 +31,7 @@ public class AlunoController {
 	private AlunoService alunoService;
 	
 	
-	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index() {
 		return "aluno/listarAluno";
 	}
@@ -65,34 +62,47 @@ public class AlunoController {
 		return "redirect:/aluno/listarAluno";
 
 	}
+
 	
-	
-	@RequestMapping(value = "/listarAluno")
-	public String listar(ModelMap modelMap, HttpSession session) {
-		modelMap.addAttribute("alunos", alunoService.find(Aluno.class));
-		List<Aluno> alunos = alunoService.find(Aluno.class);
-		for(Aluno a : alunos){
-			System.out.println(a.getMatricula() + "/n");
+	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
+	public String listaAluno(Aluno aluno, BindingResult result,
+			Map<String, Object> model) {
+		
+		try {
+			List<Aluno> results = alunoService.findAll();	
+			model.put("alunos", results);
+			return "aluno/listarAluno";
+		} catch (Exception e) {
 			
-		}
-		return "aluno/listarAluno";
+		 	return "aluno/listarAluno";
+			}
+		
 	}
 	
 	
-	// Metodo Deletar um servidor
-		@RequestMapping(value = "/{alunoId}", method = RequestMethod.DELETE)
-		public @ResponseBody
-		String deletarAluno(@PathVariable("alunoId") int alunoId) {
-			Aluno aluno = this.alunoService.find(Aluno.class, alunoId);
+	@RequestMapping(value = "/editar", method = RequestMethod.POST)
+	public String atualizarAluno(
+			@PathVariable("id") Long id,
+			@Valid @ModelAttribute(value = "aluno") Aluno alunoAtualizado,
+			BindingResult result, Model model, HttpSession session,
+			RedirectAttributes redirect) throws IOException {
 
-			if (aluno == null) {
-				
-				return "erro";
-			} else {
-				this.alunoService.delete(aluno);
-				return "ok";
-			}
+		if (result.hasErrors()) {
+			model.addAttribute("action", "editar");
+			return "aluno/editar";
 		}
+		
+
+		Aluno aluno = alunoService.find(Aluno.class, id);
+
+		aluno.setMatricula(alunoAtualizado.getMatricula());
+		
+
+		this.alunoService.update(aluno);
+		redirect.addFlashAttribute("info", "Aluno atualizado com sucesso.");
+		return "redirect:/aluno/listar";
+	}
 	
+
 	
 }

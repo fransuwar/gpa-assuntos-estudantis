@@ -16,8 +16,6 @@ public interface GenericRepository<T> {
 	public abstract void update(T entity);
 
 	public abstract void delete(T entity);
-	
-	public abstract List<T> find();
 
 	public abstract T find(Class<T> entityClass, Object id);
 
@@ -84,6 +82,5 @@ public interface GenericRepository<T> {
 	public abstract T findFirst(QueryType type, String query,
 			Map<String, Object> namedParams, int firstResult, int maxResults);
 
-	
 
 }
