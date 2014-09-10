@@ -48,7 +48,7 @@ public class IniciacaoAcademicaController {
 		
 		List<NivelInstrucao> nivelInstrucao = new ArrayList<NivelInstrucao>(Arrays.asList(NivelInstrucao.values()));
 		modelo.addAttribute("NivelInstrucao", nivelInstrucao);
-		List<UF> ufs = new ArrayList<UF>(Arrays.asList(Uf.values()));
+		//List<UF> ufs = new ArrayList<UF>(Arrays.asList(Uf.values()));
 		System.out.println(nivelInstrucao.toString());
 		return "inscricao/iniciacaoAcademica";
 	}
