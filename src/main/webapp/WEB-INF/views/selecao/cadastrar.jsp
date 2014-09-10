@@ -19,7 +19,7 @@
 		<div class="novo-selecao" align="left">
 			<div class="form" align="center">
 				<h2>Nova Seleção</h2>
-				<form:form id="adicionarselecaoForm" role="form" commandName="selecao" servletRelativeAction="/selecao/cadastrar" method="POST" cssClass="form-horizontal">
+				<form:form id="adicionarSelecaoForm" role="form" commandName="selecao" servletRelativeAction="/selecao/cadastrar" method="POST" cssClass="form-horizontal">
 
 					<div class="form-group">
 						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
@@ -29,16 +29,8 @@
 								<form:errors path="comentarios"></form:errors>
 							</div>
 						</div>
-						
-					</div> 
-					<label for="tipodeBolsa" class="col-sm-2 control-label">Nivel Instrução:</label>	
-					<select name="${status.expression}" name="tipodeBolsa" id="tipodeBolsa">
-							<c:forEach items="${TipodeBolsa}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.tipo}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
+					</div>
+					
 					<div class="form-group">
 						<label for="datadeInicio" class="col-sm-2 control-label">Data de Início:</label>
 						<div class="col-sm-2">
@@ -58,7 +50,7 @@
 						
 						<label for="sequencial" class="col-sm-2 control-label">Número do Edital:</label>
 						<div class="col-sm-2">
-							<form:input id="sequencial" type="text" path="sequencial" cssClass="form-control data" placeholder="000"/>
+							<form:input id="sequencial" type="text" path="sequencial" cssClass="form-control" placeholder="000"/>
 							<div class="error-validation">
 								<form:errors path="sequencial"></form:errors>
 							</div>
@@ -66,14 +58,14 @@
 						
 						<label for="duracao" class="col-sm-2 control-label">Duração:</label>
 						<div class="col-sm-2">
-							<form:input id="duracao" type="text" path="duracao" cssClass="form-control data" placeholder="0"/>
+							<form:input id="duracao" type="text" path="duracao" cssClass="form-control" placeholder="0"/>
 							<div class="error-validation">
 								<form:errors path="duracao"></form:errors>
 							</div>
 						</div>
 						<label for="ano" class="col-sm-2 control-label">Ano:</label>
 						<div class="col-sm-2">
-							<form:input id="ano" type="text" path="ano" cssClass="form-control data" placeholder="0"/>
+							<form:input id="ano" type="text" path="ano" cssClass="form-control	" placeholder="0"/>
 							<div class="error-validation">
 								<form:errors path="ano"></form:errors>
 							</div>
@@ -86,7 +78,16 @@
 						</div>
 					</div>
 					
-				
+				<div class="form-group"> 
+					<label for="tipoDeBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>	
+					<form:select name="${status.expression}" path="tipoDeBolsa" id="tipoDeBolsa">
+							<c:forEach items="${tipoDeBolsa}" var="opcao">
+							<option value="${opcao}">
+								<c:out value="${opcao.tipo}"></c:out>
+							</option>
+						</c:forEach>	
+					</form:select>
+					</div>
 				
 					
 					<div class="controls">

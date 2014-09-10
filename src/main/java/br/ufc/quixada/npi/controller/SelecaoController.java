@@ -1,7 +1,9 @@
 package br.ufc.quixada.npi.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,7 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import br.ufc.quixada.npi.model.Selecao;
 import br.ufc.quixada.npi.model.Selecao.Status;
@@ -41,8 +46,8 @@ public class SelecaoController {
 		model.addAttribute("selecao", new Selecao());
 		//model.addAttribute("Tipodebolsa", TipodeBolsa.values());
 		
-		List<TipodeBolsa> tipodeBolsa = new ArrayList<TipodeBolsa>(Arrays.asList(TipodeBolsa.values()));
-		model.addAttribute("TipodeBolsa", tipodeBolsa);
+		List<TipodeBolsa> tipoDeBolsa = new ArrayList<TipodeBolsa>(Arrays.asList(TipodeBolsa.values()));
+		model.addAttribute("tipoDeBolsa", tipoDeBolsa);
 		return "selecao/cadastrar";
 		
 	}
@@ -56,7 +61,7 @@ public class SelecaoController {
 		//TipodeBolsa tipodeBolsa = selecao.getTipodeBolsa();
 		//String tipo = tipodeBolsa.getTipo();
 		
-		selecao.setIdentificador(geraCodigoProjeto(selecao.getAno(), selecao.getSequencial()));
+		selecao.setIdentificador(geraCodigoProjeto(selecao.getTipoDeBolsa(), selecao.getAno(), selecao.getSequencial()));
 		this.serviceSelecao.save(selecao);
 		
 		
@@ -67,21 +72,48 @@ public class SelecaoController {
 	}
 	
 	
-				
-		
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") long id, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		Selecao selecao = serviceSelecao.find(Selecao.class, id);
 		
-		if (selecao == null) {
-			redirectAttributes.addFlashAttribute("erro", "selecao inexistente.");
-			return "redirect:/selecao/listar";
+		if (selecao.getStatus().equals(Status.NOVO)) {
+			model.addAttribute("selecao", selecao);
+			model.addAttribute("action", "editar");
+			List<TipodeBolsa> tiposDeBolsa = new ArrayList<TipodeBolsa>(Arrays.asList(TipodeBolsa.values()));
+			model.addAttribute("tiposDeBolsa", tiposDeBolsa);
+			return "selecao/editar";
 		}
-		
-		redirectAttributes.addFlashAttribute("erro", "Permissão negada.");
+
 		return "redirect:/selecao/listar";
 	}
 
+	@RequestMapping(value = "/{id}/editar", method = RequestMethod.POST)
+	public String atualizarSelecao(@PathVariable("id") Long id,
+			@Valid @ModelAttribute(value = "selecao") Selecao selecaoAtualizado, 
+			BindingResult result, Model model, HttpSession session, RedirectAttributes redirect) throws IOException {
+				
+		Selecao selecao = serviceSelecao.find(Selecao.class, id);
+		
+        
+		selecao.setTipoDeBolsa(selecaoAtualizado.getTipoDeBolsa());
+		selecao.setDatadeInicio(selecaoAtualizado.getDatadeInicio());
+		selecao.setDatadeTermino(selecaoAtualizado.getDatadeTermino());
+		selecao.setQuantidadeVagas(selecaoAtualizado.getQuantidadeVagas());
+		selecao.setComentarios(selecaoAtualizado.getComentarios());
+		selecao.setAno(selecaoAtualizado.getAno());
+		selecao.setSequencial(selecaoAtualizado.getSequencial());
+		selecao.setDuracao(selecaoAtualizado.getDuracao());
+
+		this.serviceSelecao.update(selecao);
+		redirect.addFlashAttribute("info", "Projeto atualizado com sucesso.");
+		return "redirect:/selecao/listar";
+	}
 
 
 	@RequestMapping(value = "/{id}/excluir")
@@ -102,9 +134,9 @@ public class SelecaoController {
 		
 	}
 	
-	private String geraCodigoProjeto(int ano, int sequencial) {
+	private String geraCodigoProjeto(TipodeBolsa tipo, int ano, int sequencial) {
 		
-		return ano +"."+sequencial;
+		return tipo +"_"+ ano +"_"+sequencial;
 		
 		
 		

@@ -138,6 +138,14 @@ $(document).ready(function() {
 		var id =$('#id');
 		console.log(id.attr('value',''));
 	});
+	
+	$("input.data").datepicker({
+		format : "dd/mm/yyyy",
+		todayBtn : "linked",
+		autoclose : true,
+		language : "pt-BR",
+		todayHighlight : true
+	});
 
 });
 
