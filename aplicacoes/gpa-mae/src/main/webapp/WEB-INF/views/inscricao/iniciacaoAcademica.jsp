@@ -206,10 +206,6 @@
 							</option>
 						</c:forEach>	
 					</select>
-					
-					
-					
-					
 					</div>
 					
 					<div class="form-group">
@@ -223,255 +219,263 @@
 								
 					
 					</div>
-					
-					
 					<div class="form-group">
-						<label for="cidade" class="col-sm-2 control-label">Com quem você reside Atualmente:</label>
-						<div class="col-sm-4">
-							<form:input id="cidade" type="text" path="cidade" cssClass="form-control" placeholder="Cidade"/>
-							<div class="error-validation">
-								<form:errors path="cidade"></form:errors>
-							</div>
-						</div>
-								
-					
-					</div>
-					
-					
-					<div class="form-group">
-						<label for="cidade" class="col-sm-2 control-label">Como define a localidade na qual você mora?:</label>
-						<div class="col-sm-4">
-							<form:input id="cidade" type="text" path="cidade" cssClass="form-control" placeholder="Cidade"/>
-							<div class="error-validation">
-								<form:errors path="cidade"></form:errors>
-							</div>
-						</div>
-								
-					
-					</div>
-					
 					<label for="cidade" class="col-sm-2 control-label">Qual a situação da sua residencia:</label>	
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
+						<div class="col-sm-4">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
+					</div>
 					
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">Aparelho de Som:</label>	
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
+						<div class="col-sm-4">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
 					
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">Televisao:</label>	
- 						<div class="col-sm-2">
-							<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-							<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>
+						<div class="col-sm-4">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
 							
-							</select>
-						</div>	
+						</select>
+						</div>
 					</div>
-					
 					
 					<div class="form-group">
-					<label for="cidade" class="col-sm-2 control-label">Radio:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
-					</div>
+					<label for="cidade" class="col-sm-2 control-label">radio:</label>	
+						<div class="col-sm-4">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
 					
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">Automovel:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
+						<div class="col-sm-4">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
-					</div>
+					
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">Motocicleta:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
-					</div>
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
 					
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">Maquina de Lavar Roupa:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
-					</div>
+						<div class="col-sm-4">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
 					
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">DVD ou VideoCassete:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
-					</div>
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
 					
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">Geladeira:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
-					</div>
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
 					
 					<div class="form-group">
-					<label for="cidade" class="col-sm-2 control-label">freezer:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
-					</div>
+					<label for="cidade" class="col-sm-2 control-label">Freezer:</label>	
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
 					
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">Telefone Fixo:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
-					</div>
-					
 					
 					<div class="form-group">
-					<label for="cidade" class="col-sm-2 control-label">Celular do moradores da residencia:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
+					<label for="cidade" class="col-sm-2 control-label">Celular dos moradores da residencia:</label>	
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
-					</div>
-					
 					
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">Computador:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
-					</div>
-					
 					
 					<div class="form-group">
-					<label for="cidade" class="col-sm-2 control-label">Fogão a Gas:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
+					<label for="cidade" class="col-sm-2 control-label">Fogao a Gas:</label>	
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
-					</div>
-					
 					
 					<div class="form-group">
-					<label for="cidade" class="col-sm-2 control-label">Maquina de costura:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
-					</div>
+					<label for="cidade" class="col-sm-2 control-label">Maquina de Costura:</label>	
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
 					
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">Cômodos excluindo o banheiro:</label>	
-					<div class="col-sm-2">
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-					</select>
-					</div>
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
 					</div>
 					
-									
+					<div class="form-group">
+					<label for="cidade" class="col-sm-2 control-label">Banheiros:</label>	
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+					<label for="cidade" class="col-sm-2 control-label">Empregados(as) Domésticos(as):</label>	
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+							<option value=""> Selecione a situação</option>
+							<option value=""> 1</option>
+							<option value=""> 2</option>
+							<option value=""> 3</option>
+						 
+							
+						</select>
+						</div>
+					</div>
+					
+					
+						
+	 
+					
+										
 					
 					
 					<div class="controls">
@@ -485,7 +489,5 @@
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
-
-</body>
 
 </html>
