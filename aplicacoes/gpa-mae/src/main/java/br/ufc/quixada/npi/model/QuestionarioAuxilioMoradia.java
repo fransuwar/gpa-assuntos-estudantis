@@ -1,7 +1,6 @@
 package br.ufc.quixada.npi.model;
 
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 public class QuestionarioAuxilioMoradia {
@@ -34,8 +31,15 @@ public class QuestionarioAuxilioMoradia {
 	public enum MoraCom{
 		Pais("Pais"), Pai("Pai"), Mae("Mãe"), Irmaos("irmãos"), Parentes("Parentes"),
 		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Filhos("Filhos(as)"), Outra_moradia("Outros");
+		
+		private String mora;
+		
 		MoraCom(String nome) {
-
+			this.mora = mora;
+		}
+		
+		public String GetMora(){
+			return "mora";
 		}
 	}
 	@Column(nullable = false)
@@ -79,8 +83,16 @@ public class QuestionarioAuxilioMoradia {
 		Minas_Gerais("Minas Gerais"), Para("Pará"), Paraiba("Paraíba"), Parana("Paraná"), Pernambuco("Pernambuco"), Piaui("Piauí"), 
 		Rio_de_Janeiro("Rio de Janeiro"), Rio_Grande_do_Norte("Rio Grande do Norte"), Rio_Grande_do_Sul("Rio Grande do Sul"), Rondonia("Rondonia"), Roraima("Roraima"), 
 		Santa_Catarina("Santa Catarina"), Sao_Paulo("São Paulo"), Sergipe("Sergipe"), Tocantins("Tocantins");
+		
+		private String estado;
 
-		Estado(String nome){}
+		Estado(String nome){
+			this.estado = estado;
+		}
+		
+		public String GetEstado(){
+			return "estado";
+		}
 	}
 
 	@Column(nullable = false)
@@ -88,7 +100,16 @@ public class QuestionarioAuxilioMoradia {
 
 	public enum SituacaoImovel{
 		Cedido("Cedido"), Alugado("Alugado"), Proprio("Próprio"), Financiado("Financiado");
-		SituacaoImovel(String nome){}
+		
+		private String imovel;
+		
+		SituacaoImovel(String nome){
+			this.imovel = imovel;
+		}
+		
+		public String GetImovel(){
+			return "imovel";
+		}
 	}
 
 	private SituacaoImovel situacaoImovel;
@@ -101,7 +122,15 @@ public class QuestionarioAuxilioMoradia {
 		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
 		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
 
-		GrauParentescoImovelRural(String nome){}
+		private String imovelRural;
+		
+		GrauParentescoImovelRural(String nome){
+			this.imovelRural = imovelRural;
+		}
+		
+		public String GetImovelRural(){
+			return "imovelRural";
+		}
 	}
 	
 	private GrauParentescoImovelRural grauParentescoImovelRural;
@@ -116,7 +145,15 @@ public class QuestionarioAuxilioMoradia {
 		Filho("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
 		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
 
-		GrauParentescoVeiculos(String nome){}
+		private String parentesco;
+		
+		GrauParentescoVeiculos(String nome){
+			this.parentesco = parentesco;
+		}
+		
+		public String GetParentesco(){
+			return "parentesco";
+		}
 	}
 	
 	private GrauParentescoVeiculos grauParentescoVeiculos;
@@ -131,13 +168,28 @@ public class QuestionarioAuxilioMoradia {
 
 	public enum FinalidadeVeiculo{
 		Passeio("Passeio"), Taxi("Táxi"), Frete("Frete");
-		FinalidadeVeiculo(String nome){}
+		
+		private String veiculo;
+		
+		FinalidadeVeiculo(String nome){
+			this.veiculo = veiculo;
+		}
+		public String GetVeiculo(){
+			return "veiculo";
+		}
 	}
 	private FinalidadeVeiculo finalidadeVeiculo;
 
 	public enum TipoEnsinoFundamental{
 		Publico("Público"), Particular("Particular");
-		TipoEnsinoFundamental(String nome){}
+		private String nome;
+		
+		TipoEnsinoFundamental(String nome){
+			this.nome = nome;
+		}
+		public String GetNome(){
+			return "nome";
+		}
 	} 
 	
 	@Column(nullable = false)
@@ -147,7 +199,15 @@ public class QuestionarioAuxilioMoradia {
 
 	public enum TipoEnsinoMedio{
 		Publico("Público"), Particular("Particular");
-		TipoEnsinoMedio(String nome){}
+		
+	private String media;	
+	
+		TipoEnsinoMedio(String nome){
+			this.media = media;
+		}
+		public String GetMedia(){
+			return "media";
+		}
 	}
 	
 	@Column(nullable = false)

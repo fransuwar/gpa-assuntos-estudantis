@@ -1,5 +1,9 @@
 package br.ufc.quixada.npi.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +24,16 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia;
+import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.FinalidadeVeiculo;
+import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.GrauParentescoImovelRural;
+import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.GrauParentescoVeiculos;
+import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.MoraCom;
+import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.SituacaoImovel;
+import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.TipoEnsinoFundamental;
+import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.TipoEnsinoMedio;
 import br.ufc.quixada.npi.model.QuestionarioIniciacaoAcademica;
+import br.ufc.quixada.npi.model.QuestionarioIniciacaoAcademica.NivelInstrucao;
+import br.ufc.quixada.npi.model.Usuario.Uf;
 import br.ufc.quixada.npi.service.QuestionarioAuxMoradiaService;
 
 
@@ -28,12 +41,12 @@ import br.ufc.quixada.npi.service.QuestionarioAuxMoradiaService;
 @RequestMapping("inscricao")
 public class AuxilioMoradiaController {
 
-//	@Inject
-//	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
-//	
-//	
+	@Inject
+	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
 	
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
+	
+	//private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@InitBinder
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
@@ -43,14 +56,44 @@ public class AuxilioMoradiaController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
-	log.info("controller: questionarioAuxilioMoradia - action: index");
-	return "index";
+	//log.info("controller: questionarioAuxilioMoradia - action: index");
+	return "inscricao/auxilio";
 	}
 	
 	@RequestMapping(value = "/auxilio", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 	model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
+	model.addAttribute("nivelInstrução", NivelInstrucao.values());
+	model.addAttribute("Uf", Uf.values());
+	
+	List<MoraCom> moracom = new ArrayList<MoraCom>(Arrays.asList(MoraCom.values()));
+	model.addAttribute("moraCom:", moracom);
+	
+	List<Uf> ufs = new ArrayList<Uf>(Arrays.asList(Uf.values()));
+	model.addAttribute("ufs", ufs);
+	System.out.println(ufs.toString());
+	
+	List<TipoEnsinoFundamental> tipoEnsinoFundamental = new ArrayList<TipoEnsinoFundamental>(Arrays.asList(TipoEnsinoFundamental.values()));
+	model.addAttribute("tipoEnsinoFundamental", tipoEnsinoFundamental);
+	
+	List<TipoEnsinoMedio> tipoEnsinoMedio = new ArrayList<TipoEnsinoMedio>(Arrays.asList(TipoEnsinoMedio.values()));
+	model.addAttribute("tipoEnsinoMedio", tipoEnsinoMedio);
+	
+	List<SituacaoImovel> situacaoImovel = new ArrayList<SituacaoImovel>(Arrays.asList(SituacaoImovel.values()));
+	model.addAttribute("situacaoImovel", situacaoImovel);
+		
+	List<GrauParentescoImovelRural> grauParentescoImovelRural = new ArrayList<GrauParentescoImovelRural>(Arrays.asList(GrauParentescoImovelRural.values()));
+	model.addAttribute("grauParentescoImovelRural", grauParentescoImovelRural);
+	
+	List<GrauParentescoVeiculos> grauParentescoVeiculos = new ArrayList<GrauParentescoVeiculos>(Arrays.asList(GrauParentescoVeiculos.values()));
+	model.addAttribute("grauParentescoVeiculos", grauParentescoVeiculos);
+	
+	List<FinalidadeVeiculo> finalidadeVeiculo = new ArrayList<FinalidadeVeiculo>(Arrays.asList(FinalidadeVeiculo.values()));
+	model.addAttribute("finalidadeVeiculo", finalidadeVeiculo);
+	
 	return "inscricao/auxilio";
+
+	
 	}
 	
 	@RequestMapping(value = "/auxilio", method = RequestMethod.POST)
@@ -62,17 +105,9 @@ public class AuxilioMoradiaController {
 	return ("inscricao/auxilio");
 	
 	}
-	else {
-		return "redirect:/inscricao/auxilio";
-	}
-//	  setAutor(getUsuarioLogado(session));
-//	projeto.setStatus(StatusProjeto.NOVO);
-//	this.serviceProjeto.save(projeto);
-//	String codigo = geraCodigoProjeto(projeto.getId());
-//	projeto.setCodigo(codigo);
-//	this.serviceProjeto.update(projeto);
-//	redirect.addFlashAttribute("info", "Projeto cadastrado com sucesso.");
-//	return "redirect:/projeto/listar";
-//	}
+	this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
+	
+	return "redirect:/inscricao/index";
+
 }
 }

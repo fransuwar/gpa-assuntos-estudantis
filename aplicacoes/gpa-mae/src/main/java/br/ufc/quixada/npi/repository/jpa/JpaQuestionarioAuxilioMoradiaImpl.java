@@ -7,6 +7,7 @@ import br.ufc.quixada.npi.repository.QuestionarioAuxilioMoradiaRepository;
 
 
 @Named
-public class JpaQuestionarioAuxilioMoradiaImpl extends JpaGenericRepositoryImpl<QuestionarioAuxilioMoradia> implements QuestionarioAuxilioMoradiaRepository{
+public class JpaQuestionarioAuxilioMoradiaImpl extends JpaGenericRepositoryImpl<QuestionarioAuxilioMoradia>
+	implements QuestionarioAuxilioMoradiaRepository{
 
 }

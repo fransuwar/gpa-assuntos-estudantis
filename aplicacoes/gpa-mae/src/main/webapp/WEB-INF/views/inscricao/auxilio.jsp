@@ -30,6 +30,43 @@
 <h2>Novo Cadastro</h2>
 
 <form:form id="questionarioAuxilioMoradia" role="form" commandName="auxilio" servletRelativeAction="/inscricao/auxilio" method="POST" cssClass="form-horizontal">
+
+<input type="hidden" name="id" value="${QuestionarioAuxilioMoradia.id }"/>
+
+
+<div class="form-group">
+<label for="caminhoFoto" class="col-sm-2 control-label">Foto:</label>
+<div class="col-sm-10">
+<form:input path="caminhoFoto" <img src="..." class="img-responsive" alt="Responsive image" />/>
+<div class="error-validation">
+<form:errors path="caminhoFoto"></form:errors>
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="bolsa" class="col-sm-2 control-label">Bolsa:</label>
+<div class="col-sm-10">
+<form:input id="bolsa" path="bolsa" cssClass="form-control" placeholder="Bolsa"/>
+<div class="error-validation">
+<form:errors path="bolsa"></form:errors>
+</div>
+</div>
+</div>
+
+
+<input name="${status.expression}" name="moraCom" id="moraCom" type="checkbox">
+<c:forEach items="${moraCom}" var="opcao">
+<option value="${opcao}">
+<c:out value="${opcao.mora}"></c:out>
+</option>
+</c:forEach>	
+</input>
+
+
+
+
 <div class="form-group">
 <label for="enderecoSedeCurso" class="col-sm-2 control-label">rua da Sede do Curso:</label>
 <div class="col-sm-10">
@@ -152,15 +189,22 @@
 </div>
 
 
-<div class="form-group">
-<label for="situacaoImovel" class="col-sm-2 control-label">Situação Ímovel:</label>
-<div class="col-sm-10">
-<form:input id="situacaoImovel" path="situacaoImovel" cssClass="form-control" placeholder="situacaoImovel"/>
-<div class="error-validation">
-<form:errors path="situacaoImovel"></form:errors>
-</div>
-</div>
-</div>
+<select name="${status.expression}" name="uf" id="uf">
+<c:forEach items="${ufs }" var="opcao">
+<option value="${opcao}">
+<c:out value="${opcao.estado}"></c:out>
+</option>
+</c:forEach>	
+</select>
+
+
+<select name="${status.expression}" name="imovel" id="imovel">
+<c:forEach items="${situacaoImovel }" var="opcao">
+<option value="${opcao}">
+<c:out value="${opcao.imovel}"></c:out>
+</option>
+</c:forEach>	
+</select>
 
 
 <div class="form-group">
@@ -172,6 +216,15 @@
 </div>
 </div>
 </div>
+
+
+<select name="${status.expression}" name="grauParentescoImovelRural" id="grauParentescoImovelRural">
+<c:forEach items="${grauParentescoImovelRural }" var="opcao">
+<option value="${opcao}">
+<c:out value="${opcao.imovelRural}"></c:out>
+</option>
+</c:forEach>	
+</select>
 
 
 <div class="form-group">
@@ -219,6 +272,15 @@
 
 
 
+<select name="${status.expression}" name="grauParentescoVeiculos" id="grauParentescoVeiculos">
+<c:forEach items="${grauParentescoVeiculos }" var="opcao">
+<option value="${opcao}">
+<c:out value="${opcao.parentesco}"></c:out>
+</option>
+</c:forEach>	
+</select>
+
+
 <div class="form-group">
 <label for="tipo" class="col-sm-2 control-label">Tipo:</label>
 <div class="col-sm-10">
@@ -262,6 +324,33 @@
 </div>
 </div>
 </div>
+
+
+<select name="${status.expression}" name="finalidadeVeiculo" id="finalidadeVeiculo">
+<c:forEach items="${finalidadeVeiculo }" var="opcao">
+<option value="${opcao}">
+<c:out value="${opcao.veiculo}"></c:out>
+</option>
+</c:forEach>	
+</select>
+
+
+<input name="${status.expression}" name="ensinoFundamental" id="ensinoFundamental" type="checkbox" >
+<c:forEach items="${tipoEnsinoFundamental }" var="opcao">
+<option value="${opcao}">
+<c:out value="${opcao.nome}"></c:out>
+</option>
+</c:forEach>	
+</input>
+
+
+<input name="${status.expression}" name="tipoEnsinoMedio" id="tipoEnsinoMedio" type="checkbox" >
+<c:forEach items="${tipoEnsinoMedio }" var="opcao">
+<option value="${opcao}">
+<c:out value="${opcao.media}"></c:out>
+</option>
+</c:forEach>	
+</input>
 
 
 <div class="form-group">
