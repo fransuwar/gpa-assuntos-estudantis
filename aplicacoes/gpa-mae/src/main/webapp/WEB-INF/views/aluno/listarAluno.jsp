@@ -71,7 +71,7 @@
 									<td>${aluno.curso}</td>
 								
 									<td>
-									    <a id="editar" href="<c:url value="/alunos/${aluno.id}/editar" ></c:url>">
+									    <a id="editar" href="<c:url value="/aluno/${aluno.id}/editarAluno" ></c:url>">
 											<button class="btn btn-info">Editar <span class="glyphicon glyphicon-pencil"></span></button>
 										</a>
 

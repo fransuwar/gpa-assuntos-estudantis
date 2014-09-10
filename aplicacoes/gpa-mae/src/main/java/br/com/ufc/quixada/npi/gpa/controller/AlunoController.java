@@ -80,7 +80,21 @@ public class AlunoController {
 	}
 	
 	
-	@RequestMapping(value = "/editar", method = RequestMethod.POST)
+	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.GET)
+	public String editar(@PathVariable("id") long id, Model model,
+			HttpSession session, RedirectAttributes redirectAttributes) {
+		Aluno aluno = alunoService.find(Aluno.class, id);
+		
+		{
+			model.addAttribute("aluno", aluno);
+			model.addAttribute("action", "editar");
+			return "aluno/editarAluno";
+		}
+	}
+	
+	
+	
+	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.POST)
 	public String atualizarAluno(
 			@PathVariable("id") Long id,
 			@Valid @ModelAttribute(value = "aluno") Aluno alunoAtualizado,
@@ -89,18 +103,18 @@ public class AlunoController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("action", "editar");
-			return "aluno/editar";
+			return "aluno/editarAluno";
 		}
-		
-
+	
 		Aluno aluno = alunoService.find(Aluno.class, id);
 
+		aluno.setId(alunoAtualizado.getId());
 		aluno.setMatricula(alunoAtualizado.getMatricula());
+		aluno.setAnoIngresso(alunoAtualizado.getMatricula());
 		
-
 		this.alunoService.update(aluno);
 		redirect.addFlashAttribute("info", "Aluno atualizado com sucesso.");
-		return "redirect:/aluno/listar";
+		return "redirect:/aluno/listarAluno";
 	}
 	
 

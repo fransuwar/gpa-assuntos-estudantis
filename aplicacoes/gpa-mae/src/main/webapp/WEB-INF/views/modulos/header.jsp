@@ -36,7 +36,7 @@
 					<li>
 						<a href="<c:url value="/aluno/listarAluno" />">Alunos <span class="glyphicon glyphicon-plus"></span></a>
 					</li>
-					
+									
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
