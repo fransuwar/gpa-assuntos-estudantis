@@ -34,12 +34,12 @@ public class QuestionarioAuxilioMoradia {
 		
 		private String mora;
 		
-		MoraCom(String nome) {
+		MoraCom(String mora) {
 			this.mora = mora;
 		}
 		
-		public String GetMora(){
-			return "mora";
+		public String getMora(){
+			return mora;
 		}
 	}
 	@Column(nullable = false)
@@ -86,12 +86,12 @@ public class QuestionarioAuxilioMoradia {
 		
 		private String estado;
 
-		Estado(String nome){
+		Estado(String estado){
 			this.estado = estado;
 		}
 		
-		public String GetEstado(){
-			return "estado";
+		public String getEstado(){
+			return estado;
 		}
 	}
 
@@ -103,12 +103,12 @@ public class QuestionarioAuxilioMoradia {
 		
 		private String imovel;
 		
-		SituacaoImovel(String nome){
+		SituacaoImovel(String imovel){
 			this.imovel = imovel;
 		}
 		
-		public String GetImovel(){
-			return "imovel";
+		public String getImovel(){
+			return imovel;
 		}
 	}
 
@@ -124,12 +124,12 @@ public class QuestionarioAuxilioMoradia {
 
 		private String imovelRural;
 		
-		GrauParentescoImovelRural(String nome){
+		GrauParentescoImovelRural(String imovelRural){
 			this.imovelRural = imovelRural;
 		}
 		
-		public String GetImovelRural(){
-			return "imovelRural";
+		public String getImovelRural(){
+			return imovelRural;
 		}
 	}
 	
@@ -147,12 +147,12 @@ public class QuestionarioAuxilioMoradia {
 
 		private String parentesco;
 		
-		GrauParentescoVeiculos(String nome){
+		GrauParentescoVeiculos(String parentesco){
 			this.parentesco = parentesco;
 		}
 		
-		public String GetParentesco(){
-			return "parentesco";
+		public String getParentesco(){
+			return parentesco;
 		}
 	}
 	
@@ -171,11 +171,11 @@ public class QuestionarioAuxilioMoradia {
 		
 		private String veiculo;
 		
-		FinalidadeVeiculo(String nome){
+		FinalidadeVeiculo(String veiculo){
 			this.veiculo = veiculo;
 		}
-		public String GetVeiculo(){
-			return "veiculo";
+		public String getVeiculo(){
+			return veiculo;
 		}
 	}
 	private FinalidadeVeiculo finalidadeVeiculo;
@@ -187,8 +187,8 @@ public class QuestionarioAuxilioMoradia {
 		TipoEnsinoFundamental(String nome){
 			this.nome = nome;
 		}
-		public String GetNome(){
-			return "nome";
+		public String getNome(){
+			return nome;
 		}
 	} 
 	
@@ -202,11 +202,11 @@ public class QuestionarioAuxilioMoradia {
 		
 	private String media;	
 	
-		TipoEnsinoMedio(String nome){
+		TipoEnsinoMedio(String media){
 			this.media = media;
 		}
-		public String GetMedia(){
-			return "media";
+		public String getMedia(){
+			return media;
 		}
 	}
 	

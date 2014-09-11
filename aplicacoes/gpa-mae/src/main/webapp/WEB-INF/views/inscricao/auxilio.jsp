@@ -34,19 +34,19 @@
 <input type="hidden" name="id" value="${QuestionarioAuxilioMoradia.id }"/>
 
 
-<div class="form-group">
-<label for="caminhoFoto" class="col-sm-2 control-label">Foto:</label>
-<div class="col-sm-10">
-<form:input path="caminhoFoto" <img src="..." class="img-responsive" alt="Responsive image" />/>
-<div class="error-validation">
-<form:errors path="caminhoFoto"></form:errors>
-</div>
-</div>
-</div>
+<!-- <div class="form-group"> -->
+<!-- <label for="caminhoFoto" class="col-sm-2 control-label">Foto:</label> -->
+<!-- <div class="col-sm-10"> -->
+<%-- <form:input path="caminhoFoto" <img src="..." class="img-responsive" alt="Responsive image" />/> --%>
+<!-- <div class="error-validation"> -->
+<%-- <form:errors path="caminhoFoto"></form:errors> --%>
+<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
 
 
 <div class="form-group">
-<label for="bolsa" class="col-sm-2 control-label">Bolsa:</label>
+<label for="bolsa" class="col-sm-2 control-label">Bolsa: </label>
 <div class="col-sm-10">
 <form:input id="bolsa" path="bolsa" cssClass="form-control" placeholder="Bolsa"/>
 <div class="error-validation">
@@ -56,13 +56,13 @@
 </div>
 
 
-<input name="${status.expression}" name="moraCom" id="moraCom" type="checkbox">
+<input name="${status.expression}" name="moraCom" id="moraCom" type="checkbox" class="checkbox" />
 <c:forEach items="${moraCom}" var="opcao">
 <option value="${opcao}">
 <c:out value="${opcao.mora}"></c:out>
 </option>
 </c:forEach>	
-</input>
+
 
 
 
@@ -157,7 +157,7 @@
 
 
 <div class="form-group">
-<label for="cep" class="col-sm-2 control-label">cep:</label>
+<label for="cep" class="col-sm-2 control-label">Cep:</label>
 <div class="col-sm-10">
 <form:input id="cep" path="cep" cssClass="form-control" placeholder="cep"/>
 <div class="error-validation">
@@ -189,13 +189,13 @@
 </div>
 
 
-<select name="${status.expression}" name="uf" id="uf">
-<c:forEach items="${ufs }" var="opcao">
+<form:select path="${status.expression}" name="estado" id="uf">
+<c:forEach items="${uf }" var="opcao">
 <option value="${opcao}">
 <c:out value="${opcao.estado}"></c:out>
 </option>
 </c:forEach>	
-</select>
+</form:select>
 
 
 <select name="${status.expression}" name="imovel" id="imovel">
@@ -335,22 +335,21 @@
 </select>
 
 
-<input name="${status.expression}" name="ensinoFundamental" id="ensinoFundamental" type="checkbox" >
+<input name="${status.expression}" name="ensinoFundamental" id="ensinoFundamental" type="checkbox" class="checkbox" />
 <c:forEach items="${tipoEnsinoFundamental }" var="opcao">
 <option value="${opcao}">
 <c:out value="${opcao.nome}"></c:out>
 </option>
-</c:forEach>	
-</input>
+</c:forEach>
 
 
-<input name="${status.expression}" name="tipoEnsinoMedio" id="tipoEnsinoMedio" type="checkbox" >
+<input name="${status.expression}" name="tipoEnsinoMedio" id="tipoEnsinoMedio" type="checkbox" class="checkbox" />
 <c:forEach items="${tipoEnsinoMedio }" var="opcao">
 <option value="${opcao}">
 <c:out value="${opcao.media}"></c:out>
 </option>
 </c:forEach>	
-</input>
+
 
 
 <div class="form-group">
@@ -465,7 +464,7 @@
 </div>
 </div>
 
-<div>
+
 </form:form>
 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>	
 <button id="btnSubmitForm" type="button" class="btn btn-default" onclick="submeterForm();">Salvar</button>
@@ -474,6 +473,6 @@
 
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
 </body>
-</div>
+
 
 </html>

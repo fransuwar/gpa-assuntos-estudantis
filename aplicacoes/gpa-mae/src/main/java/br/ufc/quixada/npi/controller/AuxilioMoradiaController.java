@@ -63,7 +63,6 @@ public class AuxilioMoradiaController {
 	@RequestMapping(value = "/auxilio", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 	model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
-	model.addAttribute("nivelInstrução", NivelInstrucao.values());
 	model.addAttribute("Uf", Uf.values());
 	
 	List<MoraCom> moracom = new ArrayList<MoraCom>(Arrays.asList(MoraCom.values()));
@@ -91,6 +90,8 @@ public class AuxilioMoradiaController {
 	List<FinalidadeVeiculo> finalidadeVeiculo = new ArrayList<FinalidadeVeiculo>(Arrays.asList(FinalidadeVeiculo.values()));
 	model.addAttribute("finalidadeVeiculo", finalidadeVeiculo);
 	
+	model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());
+	
 	return "inscricao/auxilio";
 
 	
@@ -99,8 +100,8 @@ public class AuxilioMoradiaController {
 	@RequestMapping(value = "/auxilio", method = RequestMethod.POST)
 	public String selecaoAluno(
 	@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
-	BindingResult result, HttpSession session,
-	RedirectAttributes redirect) {
+	BindingResult result, HttpSession session,	RedirectAttributes redirect) {
+		
 	if (result.hasErrors()) {
 	return ("inscricao/auxilio");
 	

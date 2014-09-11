@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="page-header">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
   <h1>GPA <small>Sistema de GestÃ£o  de Programas AcadÃªmicos</small></h1>
 </div>
 <nav class="navbar navbar-default" role="navigation">
@@ -23,9 +25,9 @@
 		            <li class="divider"></li>
 		            <li><a href="<c:url value='alunos.htm'/>">Listar</a></li>
 		            <li class="divider"></li>
-		            <li><a href="<c:url value='auxilio.htm'/>">Inscrição Auxílio Moradia</a></li>
+		            <li><a href="<c:url value='inscricao/auxilio'/>">InscriÃ§Ã£o AuxÃ­lio Moradia</a></li>
 		            <li class="divider"></li>
-		            <li><a href="<c:url value='iniciacao.htm'/>">Inscrição Iniciação Acadêmica</a></li>
+		            <li><a href="<c:url value='iniciacao.htm'/>">InscriÃ§Ã£o IniciaÃ§Ã£o AcadÃªmica</a></li>
 		          </ul>
 		        </li>
 		        <li class="dropdown">
