@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.ufc.quixada.npi.model.MoraCom;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia;
+import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.Estado;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.FinalidadeVeiculo;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.GrauParentescoImovelRural;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.GrauParentescoVeiculos;
-import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.MoraCom;
+import br.ufc.quixada.npi.model.MoraCom;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.SituacaoImovel;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.TipoEnsinoMedio;
@@ -63,12 +65,13 @@ public class AuxilioMoradiaController {
 	@RequestMapping(value = "/auxilio", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 	model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
-	model.addAttribute("Uf", Uf.values());
+	//model.addAttribute("Uf", Uf.values());
 	
-	List<MoraCom> moracom = new ArrayList<MoraCom>(Arrays.asList(MoraCom.values()));
-	model.addAttribute("moraCom:", moracom);
+	List<MoraCom> moracom = new ArrayList<MoraCom>(Arrays.asList(MoraCom.values()));	
+	//MoraCom[] m = MoraCom.values();
+	model.addAttribute("moraCom", moracom);
 	
-	List<Uf> ufs = new ArrayList<Uf>(Arrays.asList(Uf.values()));
+	List<Estado> ufs = new ArrayList<Estado>(Arrays.asList(Estado.values()));
 	model.addAttribute("ufs", ufs);
 	System.out.println(ufs.toString());
 	

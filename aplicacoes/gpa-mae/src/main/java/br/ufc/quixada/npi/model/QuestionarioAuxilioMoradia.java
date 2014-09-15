@@ -28,20 +28,7 @@ public class QuestionarioAuxilioMoradia {
 	@OneToMany(mappedBy="auxilioMoradia")
 	private List<PessoaFamilia> pessoas;
 	
-	public enum MoraCom{
-		Pais("Pais"), Pai("Pai"), Mae("Mãe"), Irmaos("irmãos"), Parentes("Parentes"),
-		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Filhos("Filhos(as)"), Outra_moradia("Outros");
-		
-		private String mora;
-		
-		MoraCom(String mora) {
-			this.mora = mora;
-		}
-		
-		public String getMora(){
-			return mora;
-		}
-	}
+	
 	@Column(nullable = false)
 	private MoraCom moraCom;
 	
