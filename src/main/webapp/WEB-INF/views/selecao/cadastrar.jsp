@@ -24,7 +24,7 @@
 					<div class="form-group">
 						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
 						<div class="col-sm-10">
-							<form:textarea id="comentarios" path="comentarios" class="form-control" rows="5" placeholder="comentarios" ></form:textarea>
+							<form:textarea id="comentarios" path="comentarios" class="form-control" rows="5"  ></form:textarea>
 							<div class="error-validation">
 								<form:errors path="comentarios"></form:errors>
 							</div>
@@ -75,6 +75,9 @@
 						<label for="quantidadeVagas" class="col-sm-2 control-label">Quantidade de Vagas:</label>
 						<div class="col-sm-2">
 							<form:input id="quantidadeVagas" type="number" min="0" placeholder="0" path="quantidadeVagas" cssClass="form-control"/>
+							<div class="error-validation">
+								<form:errors path="quantidadeVagas"></form:errors>
+							</div>
 						</div>
 					</div>
 					

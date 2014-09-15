@@ -1,19 +1,23 @@
 package br.ufc.quixada.npi.model;
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -26,70 +30,40 @@ public class Selecao {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Min(value = 1, message = "Número de bolsas deve ser maior que 1")
+	@Min(value = 1, message = "Número de bolsas deve ser maior que 0")
 	private int quantidadeVagas;
-
+	
+	
+	@Future
+	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date datadeInicio;
 
 	private String identificador;
-
-	public String getIdentificador() {
-		return identificador;
-	}
-
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
-	}
-
+	
+	@NotNull
 	private Integer sequencial;
-
-	public enum TipodeBolsa {
-		iniciacao_academica("Iniciação Acadêmica"), auxilio_moradia(
-				"Auxilio Moradia");
-		private String tipo;
-
-		public String getTipo() {
-			return tipo;
-		}
-
-		public void setTipo(String tipo) {
-			this.tipo = tipo;
-		}
-
-		TipodeBolsa(String tipo) {
-			this.tipo = tipo;
-		}
-	}
-
+	
 	@Enumerated(EnumType.STRING)
-	private TipodeBolsa tipoDeBolsa;
-
-	public TipodeBolsa getTipoDeBolsa() {
-		return tipoDeBolsa;
-	}
-
-	public void setTipoDeBolsa(TipodeBolsa tipoDeBolsa) {
-		this.tipoDeBolsa = tipoDeBolsa;
-	}
-
+	private Status status;
 	public enum Status {
 		NOVO, SUBMETIDO
 	}
-
-	@Enumerated(EnumType.STRING)
-	private Status status;
-
+	@Future
+	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date datadeTermino;
+	
 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer duracao;
 
+	@NotNull
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ano;
-
+	
 	@Lob
+	@Size(min = 2, message = "Mínimo 2 caracteres")
 	private String comentarios;
 
 	private String edital;
@@ -216,6 +190,42 @@ public class Selecao {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+	public String getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
+	}
+
+	public enum TipodeBolsa {
+		iniciacao_academica("Iniciação Acadêmica"), auxilio_moradia(
+				"Auxilio Moradia");
+		private String tipo;
+
+		public String getTipo() {
+			return tipo;
+		}
+
+		public void setTipo(String tipo) {
+			this.tipo = tipo;
+		}
+
+		TipodeBolsa(String tipo) {
+			this.tipo = tipo;
+		}
+	}
+
+	@Enumerated(EnumType.STRING)
+	private TipodeBolsa tipoDeBolsa;
+
+	public TipodeBolsa getTipoDeBolsa() {
+		return tipoDeBolsa;
+	}
+
+	public void setTipoDeBolsa(TipodeBolsa tipoDeBolsa) {
+		this.tipoDeBolsa = tipoDeBolsa;
 	}
 
 }

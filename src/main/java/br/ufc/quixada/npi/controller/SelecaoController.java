@@ -46,15 +46,16 @@ public class SelecaoController {
 		model.addAttribute("selecao", new Selecao());
 		//model.addAttribute("Tipodebolsa", TipodeBolsa.values());
 		
-		List<TipodeBolsa> tipoDeBolsa = new ArrayList<TipodeBolsa>(Arrays.asList(TipodeBolsa.values()));
-		model.addAttribute("tipoDeBolsa", tipoDeBolsa);
+		//List<TipodeBolsa> tipoDeBolsa = new ArrayList<TipodeBolsa>(Arrays.asList(TipodeBolsa.values()));
+		model.addAttribute("tipoDeBolsa", TipodeBolsa.values());
 		return "selecao/cadastrar";
 		
 	}
 
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
-	public String adicionarselecao( @Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, HttpSession session, RedirectAttributes redirect) {
+	public String adicionarselecao( @Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, HttpSession session, RedirectAttributes redirect, Model model) {
 		if (result.hasErrors()) {
+			model.addAttribute("tipoDeBolsa", TipodeBolsa.values());
 			return ("selecao/cadastrar");
 		}
 		selecao.setStatus(Status.NOVO);

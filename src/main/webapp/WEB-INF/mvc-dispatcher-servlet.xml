@@ -10,6 +10,7 @@
 		   http://www.springframework.org/schema/mvc 
        	   http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+	<mvc:annotation-driven />
 	<context:component-scan base-package="br.ufc.quixada.npi.controller" />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -25,6 +26,6 @@
 
 	<mvc:resources mapping="/resources/**" location="/resources/"/>
 
-	<mvc:annotation-driven />
+	
 
 </beans>
