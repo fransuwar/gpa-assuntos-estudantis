@@ -108,13 +108,37 @@ public class AlunoController {
 	
 		Aluno aluno = alunoService.find(Aluno.class, id);
 
-		aluno.setId(alunoAtualizado.getId());
+		
 		aluno.setMatricula(alunoAtualizado.getMatricula());
-		aluno.setAnoIngresso(alunoAtualizado.getMatricula());
+		aluno.setAnoIngresso(alunoAtualizado.getAnoIngresso());
+		aluno.setIra(alunoAtualizado.getIra());
+		aluno.setCurso(alunoAtualizado.getCurso());
+		aluno.setBanco(alunoAtualizado.getBanco());
+		aluno.setAgencia(alunoAtualizado.getAgencia());
+		aluno.setConta(alunoAtualizado.getConta());
 		
 		this.alunoService.update(aluno);
 		redirect.addFlashAttribute("info", "Aluno atualizado com sucesso.");
 		return "redirect:/aluno/listarAluno";
+	}
+	
+	
+	
+	@RequestMapping(value = "/{id}/excluir")
+	public String excluirProjeto(Aluno p, @PathVariable("id") Long id, HttpSession session, RedirectAttributes redirectAttributes,
+			Model model) {
+		Aluno aluno = alunoService.find(Aluno.class, id);
+		if (aluno == null) {
+			redirectAttributes.addFlashAttribute("erro", "Aluno inexistente.");
+			return "redirect:/aluno/listarAluno";
+		}else{
+			
+			this.alunoService.delete(aluno);
+			redirectAttributes.addFlashAttribute("info", "Aluno excluído com sucesso.");
+		}
+		
+		return "redirect:/aluno/listarAluno";
+		
 	}
 	
 
