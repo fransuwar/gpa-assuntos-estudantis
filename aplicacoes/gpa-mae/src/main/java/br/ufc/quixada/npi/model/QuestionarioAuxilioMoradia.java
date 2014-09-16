@@ -1,6 +1,7 @@
 package br.ufc.quixada.npi.model;
 
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -29,8 +30,9 @@ public class QuestionarioAuxilioMoradia {
 	private List<PessoaFamilia> pessoas;
 	
 	
+	
 	@Column(nullable = false)
-	private MoraCom moraCom;
+	private String moraCom[];
 	
 	@Column(nullable = false)
 	private String enderecoSedeCurso;
@@ -238,10 +240,10 @@ public class QuestionarioAuxilioMoradia {
 	public void setCaminhoFoto(String caminhoFoto) {
 		this.caminhoFoto = caminhoFoto;
 	}
-	public MoraCom getMoraCom() {
+	public String[] getMoraCom() {
 		return moraCom;
 	}
-	public void setMoraCom(MoraCom moraCom) {
+	public void setMoraCom(String[] moraCom) {
 		this.moraCom = moraCom;
 	}
 	public String getEnderecoSedeCurso() {
@@ -491,13 +493,14 @@ public class QuestionarioAuxilioMoradia {
 	public String toString() {
 		return "QuestionarioAuxilioMoradia [id=" + id + ", caminhoFoto="
 				+ caminhoFoto + ", bolsa=" + bolsa + ", pessoas=" + pessoas
-				+ ", moraCom=" + moraCom + ", enderecoSedeCurso="
-				+ enderecoSedeCurso + ", nomeMae=" + nomeMae + ", nomePai="
-				+ nomePai + ", rua=" + rua + ", numeroCasa=" + numeroCasa
-				+ ", bairro=" + bairro + ", complemento=" + complemento
-				+ ", cidade=" + cidade + ", cep=" + cep + ", pontoReferencia="
-				+ pontoReferencia + ", telefone=" + telefone + ", estado="
-				+ estado + ", situacaoImovel=" + situacaoImovel
+				+ ", moraCom=" + Arrays.toString(moraCom)
+				+ ", enderecoSedeCurso=" + enderecoSedeCurso + ", nomeMae="
+				+ nomeMae + ", nomePai=" + nomePai + ", rua=" + rua
+				+ ", numeroCasa=" + numeroCasa + ", bairro=" + bairro
+				+ ", complemento=" + complemento + ", cidade=" + cidade
+				+ ", cep=" + cep + ", pontoReferencia=" + pontoReferencia
+				+ ", telefone=" + telefone + ", estado=" + estado
+				+ ", situacaoImovel=" + situacaoImovel
 				+ ", valorMensalFinanciamento=" + valorMensalFinanciamento
 				+ ", propriedadeRural=" + propriedadeRural
 				+ ", grauParentescoImovelRural=" + grauParentescoImovelRural

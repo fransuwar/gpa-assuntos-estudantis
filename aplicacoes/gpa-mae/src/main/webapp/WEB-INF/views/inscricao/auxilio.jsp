@@ -59,18 +59,22 @@
 					</div>
 				</div>
 
-				<div class="form-group">
-					<c:forEach items="${moraCom}" var="opcao">
-						<div class="col-sm-1 control-label">
-							<div class="checkbox inline">
-								<label> <input type="checkbox" value="${opcao}"
-									name="${opcao}" /> ${opcao.mora}
-								</label>
-							</div>
-						</div>
-					</c:forEach>
-				</div>
+<!-- 				<div class="form-group"> -->
+<%-- 					<c:forEach items="${moraCom}" var="opcao"> --%>
+<!-- 						<div class="col-sm-1 control-label"> -->
+<!-- 							<div class="checkbox inline"> -->
+<%-- 								<label> <input type="checkbox" value="${opcao}" --%>
+<%-- 									name="${opcao}" /> ${opcao.mora} --%>
+<!-- 								</label> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<%-- 					</c:forEach> --%>
+<!-- 				</div> -->
 
+	 
+	<form:checkboxes items="${moraCom}" path="moraCom" />
+	
+			
 
 				<div class="form-group">
 					<label for="nomeMae" class="col-sm-2 control-label">Nome da

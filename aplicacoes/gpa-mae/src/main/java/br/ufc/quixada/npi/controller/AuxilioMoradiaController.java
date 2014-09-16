@@ -2,7 +2,9 @@ package br.ufc.quixada.npi.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -38,6 +40,8 @@ import br.ufc.quixada.npi.model.QuestionarioIniciacaoAcademica.NivelInstrucao;
 import br.ufc.quixada.npi.model.Usuario.Uf;
 import br.ufc.quixada.npi.service.QuestionarioAuxMoradiaService;
 
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("inscricao")
@@ -46,7 +50,8 @@ public class AuxilioMoradiaController {
 	@Inject
 	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
 	
-	
+	private ArrayList<String> mora;
+	private HashMap<String, ArrayList<String>> modelo;
 	
 	//private Logger log = LoggerFactory.getLogger(this.getClass());
 	
@@ -65,11 +70,10 @@ public class AuxilioMoradiaController {
 	@RequestMapping(value = "/auxilio", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 	model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
-	//model.addAttribute("Uf", Uf.values());
 	
-	List<MoraCom> moracom = new ArrayList<MoraCom>(Arrays.asList(MoraCom.values()));	
-	//MoraCom[] m = MoraCom.values();
-	model.addAttribute("moraCom", moracom);
+	
+//	List<MoraCom> moracom = new ArrayList<MoraCom>(Arrays.asList(MoraCom.values()));	
+//	model.addAttribute("moraCom", moracom);
 	
 	List<Estado> ufs = new ArrayList<Estado>(Arrays.asList(Estado.values()));
 	model.addAttribute("ufs", ufs);
@@ -95,8 +99,21 @@ public class AuxilioMoradiaController {
 	
 	model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());
 	
+	Map<String, String> moraCom = new HashMap<String, String>();
+	
+	moraCom.put("pais", "Pais");
+	moraCom.put("pai", "Pai");
+	moraCom.put("mae", "Mãe");
+	moraCom.put("irmaos", "Irmãos");
+	moraCom.put("parentes", "Parentes");
+	moraCom.put("conjuge", "Conjuge ou Companheiro");
+	moraCom.put("filhos", "Filhos");
+	moraCom.put("outraMoradia", "Outra Moradia");
+	
+	model.addAttribute("moraCom", moraCom);
+	
 	return "inscricao/auxilio";
-
+	
 	
 	}
 	
@@ -114,4 +131,16 @@ public class AuxilioMoradiaController {
 	return "redirect:/inscricao/index";
 
 }
+
+	
+	public ArrayList<String> getMora() {
+		return mora;
+	}
+
+	public void setMora(ArrayList<String> mora) {
+		this.mora = mora;
+	}
+	
+	
+	
 }
