@@ -23,9 +23,9 @@
 				<form:form id="adicionarAlunoForm" role="form" commandName="aluno" servletRelativeAction="/aluno/alunos" method="POST" cssClass="form-horizontal">
 					
 					<div class="form-group">
-						<label for="matricula" class="col-sm-2 control-label">Matricula:</label>
+						<label for="matricula" class="col-sm-2 control-label" >Matricula:</label>
 						<div class="col-sm-10">
-							<form:input id="matricula" path="matricula" cssClass="form-control" placeholder="Matricula do aluno" required="true" />
+							<form:input id="matricula" maxlength="7" path="matricula" cssClass="form-control" placeholder="Matricula do aluno" required="true" />
 							<div class="error-validation">
 								<form:errors path="matricula"></form:errors>
 							</div>
@@ -86,7 +86,7 @@
 					<div class="form-group">
 						<label for="conta" class="col-sm-2 control-label">Conta:</label>
 						<div class="col-sm-10">
-							<form:input id="conta" path="conta" cssClass="form-control" placeholder="Conta" required="true"/>
+							<form:input id="conta" path="conta" cssClass="form-control" placeholder="Conta"/>
 							<div class="error-validation">
 								<form:errors path="conta"></form:errors>
 							</div>
@@ -106,6 +106,8 @@
 		</div>
 	
 	<jsp:include page="../modulos/footer.jsp"></jsp:include>
+
+
 
 </body>
 

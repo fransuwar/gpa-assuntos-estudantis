@@ -42,7 +42,7 @@
 		</ul>
 
 		<div class="tab-content">
-		
+
 			<!-- Meus Alunos -->
 			<div class="tab-pane active" id="alunos-cadastrados">
 				<c:if test="${empty alunos}">

@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 public class Aluno {
@@ -41,7 +45,7 @@ public class Aluno {
 			
 	private String anoIngresso;
 	
-	private String ira;
+	private double ira;
 	
 	private String curso;
 	
@@ -114,11 +118,11 @@ public class Aluno {
 		this.anoIngresso = anoIngresso;
 	}
 
-	public String getIra() {
+	public double getIra() {
 		return ira;
 	}
 
-	public void setIra(String ira) {
+	public void setIra(Double ira) {
 		this.ira = ira;
 	}
 
