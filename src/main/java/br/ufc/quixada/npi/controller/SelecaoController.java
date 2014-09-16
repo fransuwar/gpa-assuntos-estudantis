@@ -95,13 +95,16 @@ public class SelecaoController {
 	}
 
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.POST)
-	public String atualizarSelecao(@PathVariable("id") Long id,
-			@Valid @ModelAttribute(value = "selecao") Selecao selecaoAtualizado, 
-			BindingResult result, Model model, HttpSession session, RedirectAttributes redirect) throws IOException {
-				
+	public String atualizarSelecao(@PathVariable("id") Long id, @Valid @ModelAttribute(value = "selecao") Selecao selecaoAtualizado, BindingResult result, Model model, HttpSession session, RedirectAttributes redirect) throws IOException {
+		if (result.hasErrors()) {
+			List<TipodeBolsa> tiposDeBolsa = new ArrayList<TipodeBolsa>(Arrays.asList(TipodeBolsa.values()));
+			model.addAttribute("tiposDeBolsa", tiposDeBolsa);
+			model.addAttribute("action", "editar");
+			return ("selecao/editar");
+		}
 		Selecao selecao = serviceSelecao.find(Selecao.class, id);
 		
-        
+		
 		selecao.setTipoDeBolsa(selecaoAtualizado.getTipoDeBolsa());
 		selecao.setDatadeInicio(selecaoAtualizado.getDatadeInicio());
 		selecao.setDatadeTermino(selecaoAtualizado.getDatadeTermino());

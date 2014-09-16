@@ -41,6 +41,7 @@ public class Selecao {
 
 	private String identificador;
 	
+	
 	@NotNull
 	private Integer sequencial;
 	
@@ -54,7 +55,7 @@ public class Selecao {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date datadeTermino;
 	
-
+	@NotNull
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer duracao;
 

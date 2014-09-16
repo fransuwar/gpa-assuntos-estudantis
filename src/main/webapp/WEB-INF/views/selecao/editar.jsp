@@ -55,14 +55,7 @@
 							<form:textarea id="comentarios" path="comentarios" name="comentarios" class="form-control" rows="5" placeholder="Descrição" ></form:textarea>
 							<div class="error-validation">
 								<form:errors path="comentarios"></form:errors>
-							</div>
-							<c:if test="${not empty error_descricao}">
-								<div class="error-validation">
-									<span>${error_descricao}</span>
-								</div>
-							</c:if>
 						</div>
-						
 					</div>
 
 					<div class="form-group">
@@ -73,11 +66,6 @@
 								<div class="error-validation">
 									<form:errors path="datadeInicio"></form:errors>
 								</div>
-								<c:if test="${not empty error_inicio}">
-									<div class="error-validation">
-										<span>${error_inicio}</span>
-									</div>
-								</c:if>
 							</div>
 						</div>
 						<div>
@@ -87,22 +75,15 @@
 								<div class="error-validation">
 									<form:errors path="datadeTermino"></form:errors>
 								</div>
-								<c:if test="${not empty error_termino}">
-									<div class="error-validation">
-										<span>${error_termino}</span>
-									</div>
-								</c:if>
 							</div>
 						</div>
 						<div>
 							<label for="quantidadeVagas" class="col-sm-2 control-label">Quantidade de Vagas:</label>
 							<div class="col-sm-2">
 								<form:input id="quantidadeVagas" type="number" min="0" placeholder="0" path="quantidadeVagas" cssClass="form-control"/>
-								<c:if test="${not empty error_quantidadeBolsa}">
-									<div class="error-validation">
-										<span>${error_quantidadeBolsa}</span>
-									</div>
-								</c:if>
+								<div class="error-validation">
+								<form:errors path="quantidadeVagas"></form:errors>
+							</div>
 							</div>
 						</div>
 					</div>
@@ -111,35 +92,29 @@
 						<label for="ano" class="col-sm-2 control-label">Ano:</label>
 						<div class="col-sm-10">
 							<form:input id="ano" path="ano" cssClass="form-control" placeholder="Local do projeto"/>
-							<c:if test="${not empty error_local}">
-								<div class="error-validation">
-									<span>${error_local}</span>
-								</div>
-							</c:if>
+							<div class="error-validation">
+								<form:errors path="ano"></form:errors>
+							</div>
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="sequencial" class="col-sm-2 control-label">Sequencial:</label>
+						<label for="sequencial" class="col-sm-2 control-label">Numero do Edital:</label>
 						<div class="col-sm-10">
 							<form:input id="sequencial" path="sequencial" cssClass="form-control" placeholder="Participantes do projeto"/>
-							<c:if test="${not empty error_participantes}">
-								<div class="error-validation">
-									<span>${error_participantes}</span>
-								</div>
-							</c:if>
+							<div class="error-validation">
+								<form:errors path="sequencial"></form:errors>
+							</div>
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="duracao" class="col-sm-2 control-label">Duracao:</label>
+						<label for="duracao" class="col-sm-2 control-label">Duração:</label>
 						<div class="col-sm-10">
 							<form:input id="duracao" path="duracao" name="duracao" cssClass="form-control" ></form:input>
-							<c:if test="${not empty error_atividades}">
-								<div class="error-validation">
-									<span>${error_atividades}</span>
-								</div>
-							</c:if>
+							<div class="error-validation">
+								<form:errors path="duracao"></form:errors>
+							</div>
 						</div>
 					</div>
 					

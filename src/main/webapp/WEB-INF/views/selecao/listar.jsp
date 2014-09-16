@@ -40,10 +40,10 @@
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 								
-								<td><a href="<c:url value="/selecao/${selecao.id}" > </c:url>">${selecao.identificador}</a></td>
-								<td><a href="<c:url value="/selecao/${selecao.id}" > </c:url>">${selecao.sequencial}</a></td>
-								<td><a href="<c:url value="/selecao/${selecao.id}" > </c:url>">${selecao.quantidadeVagas}</a></td>
-								<td><a href="<c:url value="/selecao/${selecao.id}" > </c:url>">${selecao.status}</a></td>
+								<td>  ${selecao.identificador}</td>
+								<td>${selecao.sequencial}</td>
+								<td>${selecao.quantidadeVagas}</td>
+								<td>${selecao.status}</td>
 								
 								<td>												
 									
