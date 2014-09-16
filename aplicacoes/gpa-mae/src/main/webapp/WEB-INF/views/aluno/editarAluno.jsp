@@ -27,7 +27,7 @@
 				<div class="form-group">
 						<label for="matricula" class="col-sm-2 control-label">Matricula:</label>
 						<div class="col-sm-10">
-							<form:input id="matricula" path="matricula" cssClass="form-control" placeholder="Matricula do aluno" required="true" />
+							<form:input id="matricula" path="matricula" cssClass="form-control" placeholder="Matricula do aluno"  />
 							<div class="error-validation">
 								<form:errors path="matricula"></form:errors>
 							</div>
@@ -37,7 +37,7 @@
 				<div class="form-group">
 						<label for="anoIngresso" class="col-sm-2 control-label">Ano Ingresso:</label>
 						<div class="col-sm-2">
-							<form:input id="anoIngresso" type="text" path="anoIngresso" cssClass="form-control data" placeholder="Ano de Ingresso" required="true"/>
+							<form:input id="anoIngresso" type="text" path="anoIngresso" cssClass="form-control data" placeholder="Ano de Ingresso" />
 							<div class="error-validation">
 								<form:errors path="anoIngresso"></form:errors>
 							</div>
@@ -47,7 +47,7 @@
 					<div class="form-group">
 						<label for="ira" class="col-sm-2 control-label">IRA:</label>
 						<div class="col-sm-10">
-							<form:input id="ira" path="ira" cssClass="form-control" placeholder="Ira do aluno" required="true"/>
+							<form:input id="ira" path="ira" cssClass="form-control" placeholder="Ira do aluno" />
 							<div class="error-validation">
 								<form:errors path="ira"></form:errors>
 							</div>
@@ -57,7 +57,7 @@
 					<div class="form-group">
 						<label for="curso" class="col-sm-2 control-label">Curso:</label>
 						<div class="col-sm-10">
-							<form:input id="curso" path="curso" cssClass="form-control" placeholder="Curso" required="true"/>
+							<form:input id="curso" path="curso" cssClass="form-control" placeholder="Curso" />
 							<div class="error-validation">
 								<form:errors path="curso"></form:errors>
 							</div>
@@ -67,7 +67,7 @@
 					<div class="form-group">
 						<label for="banco" class="col-sm-2 control-label">Banco:</label>
 						<div class="col-sm-10">
-							<form:input id="banco" path="banco" cssClass="form-control" placeholder="Banco" required="true"/>
+							<form:input id="banco" path="banco" cssClass="form-control" placeholder="Banco" />
 							<div class="error-validation">
 								<form:errors path="banco"></form:errors>
 							</div>
@@ -77,7 +77,7 @@
 					<div class="form-group">
 						<label for="agencia" class="col-sm-2 control-label">Agencia:</label>
 						<div class="col-sm-10">
-							<form:input id="agencia" path="agencia" cssClass="form-control" placeholder="Agência" required="true"/>
+							<form:input id="agencia" path="agencia" cssClass="form-control" placeholder="Agência" />
 							<div class="error-validation">
 								<form:errors path="agencia"></form:errors>
 							</div>
@@ -88,7 +88,7 @@
 					<div class="form-group">
 						<label for="conta" class="col-sm-2 control-label">Conta:</label>
 						<div class="col-sm-10">
-							<form:input id="conta" path="conta" cssClass="form-control" placeholder="Conta" required="true"/>
+							<form:input id="conta" path="conta" cssClass="form-control" placeholder="Conta" />
 							<div class="error-validation">
 								<form:errors path="conta"></form:errors>
 							</div>

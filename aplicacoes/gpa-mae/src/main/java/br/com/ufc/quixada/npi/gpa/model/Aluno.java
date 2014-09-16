@@ -3,7 +3,6 @@ package br.com.ufc.quixada.npi.gpa.model;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,10 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.NumberFormat;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Aluno {
@@ -25,7 +24,8 @@ public class Aluno {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
+	@NotEmpty
+	@Size(min = 7, message = "Matricula deve possuir 7 dígitos")
 	private String matricula;
 	
 	@ManyToMany
@@ -40,19 +40,25 @@ public class Aluno {
 	@OneToOne
 	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
 	
-	
-	private String nome;
-			
-	private String anoIngresso;
-	
-	private double ira;
-	
+
+	@NotEmpty
 	private String curso;
 	
+	private String nome;
+	
+	@NotEmpty		
+	private String anoIngresso;
+	
+	@NotNull
+	private double ira;
+	
+	@NotEmpty
 	private String banco;
 	
+	@NotEmpty
 	private String agencia;
 	
+	@NotEmpty
 	private String conta;
     
 	@ManyToOne
