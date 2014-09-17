@@ -50,7 +50,7 @@
 						
 						<label for="sequencial" class="col-sm-2 control-label">Número do Edital:</label>
 						<div class="col-sm-2">
-							<form:input id="sequencial" type="text" path="sequencial" cssClass="form-control" placeholder="000"/>
+							<form:input id="sequencial" type="number" path="sequencial" cssClass="form-control" placeholder="000"/>
 							<div class="error-validation">
 								<form:errors path="sequencial"></form:errors>
 							</div>
@@ -65,7 +65,7 @@
 						</div>
 						<label for="ano" class="col-sm-2 control-label">Ano:</label>
 						<div class="col-sm-2">
-							<form:input id="ano" type="text" path="ano" cssClass="form-control	" placeholder="0"/>
+							<form:input id="ano" type="text" path="ano" cssClass="form-control	" placeholder="0" onkeypress="mascara(this,soNumeros)"/>
 							<div class="error-validation">
 								<form:errors path="ano"></form:errors>
 							</div>

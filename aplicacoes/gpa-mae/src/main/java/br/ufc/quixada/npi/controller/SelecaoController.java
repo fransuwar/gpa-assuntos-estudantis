@@ -104,6 +104,7 @@ public class SelecaoController {
 		}
 		Selecao selecao = serviceSelecao.find(Selecao.class, id);
 		
+		selecao.setIdentificador(geraCodigoProjeto(selecaoAtualizado.getTipoDeBolsa(), selecaoAtualizado.getAno(), selecaoAtualizado.getSequencial()));
 		
 		selecao.setTipoDeBolsa(selecaoAtualizado.getTipoDeBolsa());
 		selecao.setDatadeInicio(selecaoAtualizado.getDatadeInicio());

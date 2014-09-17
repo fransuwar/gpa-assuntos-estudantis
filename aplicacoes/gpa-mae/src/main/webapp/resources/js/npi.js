@@ -77,6 +77,21 @@ function submeterForm() {
 
 };
 
+function mascara(o,f){
+    v_obj=o
+    v_fun=f
+    setTimeout("execmascara()",1)
+}
+
+function execmascara(){
+    v_obj.value=v_fun(v_obj.value)
+}
+function soNumeros(v){
+    return v.replace(/\D/g,"")
+}
+
+
+
 
 function ConvertFormToJSON(form){ 
 	var array = jQuery(form).serializeArray(); 

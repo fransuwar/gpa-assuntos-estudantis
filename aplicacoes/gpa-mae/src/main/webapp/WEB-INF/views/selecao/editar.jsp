@@ -40,90 +40,73 @@
 				<form:form id="editar" commandName="selecao" servletRelativeAction="${url }" cssClass="form-horizontal" method="POST">
 					<input type="hidden" name="id" value="${selecao.id }"/>
 
-					<div class="form-group"> 
+					<div class="form-group">
+						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
+						<div class="col-sm-10">
+							<form:textarea id="comentarios" path="comentarios" class="form-control" rows="5"  ></form:textarea>
+							<div class="error-validation">
+								<form:errors path="comentarios"></form:errors>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="datadeInicio" class="col-sm-2 control-label">Data de Início:</label>
+						<div class="col-sm-2">
+							<form:input id="datadeInicio" type="text" path="datadeInicio" cssClass="form-control data" placeholder="Data de Início"/>
+							<div class="error-validation">
+								<form:errors path="datadeInicio"></form:errors>
+							</div>
+						</div>
+						
+						<label for="datadeTermino" class="col-sm-2 control-label">Data de Término:</label>
+						<div class="col-sm-2">
+							<form:input id="datadeTermino" type="text" path="datadeTermino" cssClass="form-control data" placeholder="Data de Término"/>
+							<div class="error-validation">
+								<form:errors path="datadeTermino"></form:errors>
+							</div>
+						</div>
+						
+						<label for="sequencial" class="col-sm-2 control-label">Número do Edital:</label>
+						<div class="col-sm-2">
+							<form:input id="sequencial" type="number" path="sequencial" cssClass="form-control" placeholder="000"/>
+							<div class="error-validation">
+								<form:errors path="sequencial"></form:errors>
+							</div>
+						</div>
+						
+						<label for="duracao" class="col-sm-2 control-label">Duração:</label>
+						<div class="col-sm-2">
+							<form:input id="duracao" type="text" path="duracao" cssClass="form-control" placeholder="0"/>
+							<div class="error-validation">
+								<form:errors path="duracao"></form:errors>
+							</div>
+						</div>
+						<label for="ano" class="col-sm-2 control-label">Ano:</label>
+						<div class="col-sm-2">
+							<form:input id="ano" type="text" path="ano" cssClass="form-control	" placeholder="0" onkeypress="mascara(this,soNumeros)"/>
+							<div class="error-validation">
+								<form:errors path="ano"></form:errors>
+							</div>
+						</div>
+					
+						
+						<label for="quantidadeVagas" class="col-sm-2 control-label">Quantidade de Vagas:</label>
+						<div class="col-sm-2">
+							<form:input id="quantidadeVagas" type="number" min="0" placeholder="0" path="quantidadeVagas" cssClass="form-control"/>
+							<div class="error-validation">
+								<form:errors path="quantidadeVagas"></form:errors>
+							</div>
+						</div>
+					</div>
+					
+			<div class="form-group"> 
 					<label for="tipoDeBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>	
 					<form:select  name="${status.expression}" path="tipoDeBolsa" id="tipoDeBolsa">
 						<c:forEach var="item" items="${tiposDeBolsa}">
 							<form:option value="${item}"><spring:eval expression="item.tipo"/></form:option>
 						</c:forEach>
 					</form:select>
-					</div>
-										
-					<div class="form-group">
-						<label for="comentarios" class="col-sm-2 control-label">Comentario:</label>
-						<div class="col-sm-10">
-							<form:textarea id="comentarios" path="comentarios" name="comentarios" class="form-control" rows="5" placeholder="Descrição" ></form:textarea>
-							<div class="error-validation">
-								<form:errors path="comentarios"></form:errors>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div>
-							<label for="datadeInicio" class="col-sm-2 control-label">Data de Inicio:</label>
-							<div class="col-sm-2">
-								<form:input id="datadeInicio" type="text" path="datadeInicio" cssClass="form-control data" placeholder="Data de Início"/>
-								<div class="error-validation">
-									<form:errors path="datadeInicio"></form:errors>
-								</div>
-							</div>
-						</div>
-						<div>
-							<label for="datadeTermino" class="col-sm-2 control-label">Data de Término:</label>
-							<div class="col-sm-2">
-								<form:input id="datadeTermino" type="text" path="datadeTermino" cssClass="form-control data" placeholder="Data de Término"/>
-								<div class="error-validation">
-									<form:errors path="datadeTermino"></form:errors>
-								</div>
-							</div>
-						</div>
-						<div>
-							<label for="quantidadeVagas" class="col-sm-2 control-label">Quantidade de Vagas:</label>
-							<div class="col-sm-2">
-								<form:input id="quantidadeVagas" type="number" min="0" placeholder="0" path="quantidadeVagas" cssClass="form-control"/>
-								<div class="error-validation">
-								<form:errors path="quantidadeVagas"></form:errors>
-							</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label for="ano" class="col-sm-2 control-label">Ano:</label>
-						<div class="col-sm-10">
-							<form:input id="ano" path="ano" cssClass="form-control" placeholder="Local do projeto"/>
-							<div class="error-validation">
-								<form:errors path="ano"></form:errors>
-							</div>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label for="sequencial" class="col-sm-2 control-label">Numero do Edital:</label>
-						<div class="col-sm-10">
-							<form:input id="sequencial" path="sequencial" cssClass="form-control" placeholder="Participantes do projeto"/>
-							<div class="error-validation">
-								<form:errors path="sequencial"></form:errors>
-							</div>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label for="duracao" class="col-sm-2 control-label">Duração:</label>
-						<div class="col-sm-10">
-							<form:input id="duracao" path="duracao" name="duracao" cssClass="form-control" ></form:input>
-							<div class="error-validation">
-								<form:errors path="duracao"></form:errors>
-							</div>
-						</div>
-					</div>
-					
-					
-					<div class="form-group">
-						<label for="atividades" class="col-sm-2 control-label"></label>
-						<div class="col-sm-10">
-							
-						</div>
 					</div>
 					
 					<div class="controls">

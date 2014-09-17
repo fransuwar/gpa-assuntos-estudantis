@@ -22,7 +22,7 @@ public class QuestionarioIniciacaoAcademica {
 	private Integer id;
 	
 	@ManyToOne
-	private Bolsa bolsa;
+	private Selecao selecao;
 	
 	@Column(nullable = false)
 	@OneToMany(mappedBy="iniciacaoAcademica")
@@ -431,11 +431,11 @@ public class QuestionarioIniciacaoAcademica {
 	public void setData_inscricao(Date data_inscricao) {
 		this.data_inscricao = data_inscricao;
 	}
-	public Bolsa getBolsa() {
-		return bolsa;
+	public Selecao getSelecao() {
+		return selecao;
 	}
-	public void setBolsa(Bolsa bolsa) {
-		this.bolsa = bolsa;
+	public void setSelecao(Selecao selecao) {
+		this.selecao = selecao;
 	}
 	public List<PessoaFamilia> getPessoas() {
 		return pessoas;
@@ -445,7 +445,7 @@ public class QuestionarioIniciacaoAcademica {
 	}
 	@Override
 	public String toString() {
-		return "QuestionarioIniciacaoAcademica [id=" + id + ", bolsa=" + bolsa
+		return "QuestionarioIniciacaoAcademica [id=" + id + ", selecao=" + selecao
 				+ ", pessoas=" + pessoas + ", endereco_atual=" + endereco_atual
 				+ ", numero=" + numero + ", complemento=" + complemento
 				+ ", bairro=" + bairro + ", uf=" + uf + ", cep=" + cep

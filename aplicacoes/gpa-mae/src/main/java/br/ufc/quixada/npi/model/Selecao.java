@@ -17,7 +17,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -34,7 +33,7 @@ public class Selecao {
 	private int quantidadeVagas;
 	
 	
-	@Future
+	
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date datadeInicio;
@@ -56,8 +55,7 @@ public class Selecao {
 	private Date datadeTermino;
 	
 	@NotNull
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer duracao;
+	private String duracao;
 
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -78,9 +76,6 @@ public class Selecao {
 	@ManyToMany
 	private List<Aluno> alunosSelecao;
 
-	@ManyToOne
-	private Bolsa bolsa;
-
 	public Integer getAno() {
 		return ano;
 	}
@@ -89,11 +84,11 @@ public class Selecao {
 		this.ano = ano;
 	}
 
-	public Integer getDuracao() {
+	public String getDuracao() {
 		return duracao;
 	}
 
-	public void setDuracao(Integer duracao) {
+	public void setDuracao(String duracao) {
 		this.duracao = duracao;
 	}
 
@@ -103,14 +98,6 @@ public class Selecao {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Bolsa getBolsa() {
-		return bolsa;
-	}
-
-	public void setBolsa(Bolsa bolsa) {
-		this.bolsa = bolsa;
 	}
 
 	public int getQuantidadeVagas() {

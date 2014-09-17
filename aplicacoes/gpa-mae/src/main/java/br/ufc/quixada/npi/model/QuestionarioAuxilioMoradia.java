@@ -25,7 +25,7 @@ public class QuestionarioAuxilioMoradia {
 	private String caminhoFoto;
 	
 	@ManyToOne
-	private Bolsa bolsa;
+	private Selecao selecao;
 
 	@Column(nullable = false)
 	@OneToMany(mappedBy="auxilioMoradia")
@@ -444,16 +444,16 @@ public class QuestionarioAuxilioMoradia {
 	public void setData_inscricao(Date data_inscricao) {
 		this.dataInscricao = data_inscricao;
 	}
-	public Bolsa getBolsa() {
-		return bolsa;
+	public Selecao getSelecao() {
+		return selecao;
 	}
-	public void setBolsa(Bolsa bolsa) {
-		this.bolsa = bolsa;
+	public void setSelecao(Selecao selecao) {
+		this.selecao = selecao;
 	}
 	@Override
 	public String toString() {
 		return "QuestionarioAuxilioMoradia [id=" + id + ", caminhoFoto="
-				+ caminhoFoto + ", bolsa=" + bolsa + ", pessoas=" + pessoas
+				+ caminhoFoto + ", selecao=" + selecao + ", pessoas=" + pessoas
 				+ ", moraCom=" + moraCom + ", enderecoSedeCurso="
 				+ enderecoSedeCurso + ", nomeMae=" + nomeMae + ", nomePai="
 				+ nomePai + ", rua=" + rua + ", numeroCasa=" + numeroCasa
