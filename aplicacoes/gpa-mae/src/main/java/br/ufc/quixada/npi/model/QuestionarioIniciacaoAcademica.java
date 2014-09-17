@@ -35,14 +35,14 @@ public class QuestionarioIniciacaoAcademica {
 	private enum UF{
 		AC("Acre"), AL("Alagoas"), AP("Amapá"), AM("Amazonas"), BA("Bahia"),CE("Ceará"), DF("Distrito Federal"), ES("Espírito Santo"), GO("Goiás"),
 		MA("Maranhão"), MT("Mato Grosso"), MS("Mato Grosso do Sul"), MG("Minas"), PA("Pará"), PB("Paraíba"), PR("Paraná"), PE("Pernambuco"),
-		PI("Piauí"),RR("Roraima"), RO("Rondônia"), RJ("Rio de Janeiro"), RN("Rio Grande do Norte"), RS("Rio grande do Sul"), SC("Santa Catarina"), SP("São Paulo"), SE("Sergipe"),TO("Tocantins");
-		private String nome;
+		PI("Piauí"),RR("Roraima"), RO("Rondônia"), RJ("Rio de Janeiro"), RN("Rio Grande do Norte"), RS("Rio Grande do Sul"), SC("Santa Catarina"), SP("São Paulo"), SE("Sergipe"),TO("Tocantins");
+		private String uf;
 		UF(String nome){
-			this.nome = nome;
+			this.uf = nome;
 		}
-		public String getNome(){
+		public String getUf(){
 			
-			return nome;
+			return uf;
 		}
 		
 	}
@@ -72,7 +72,7 @@ public class QuestionarioIniciacaoAcademica {
 		EnsinoFundamentalIncompleto("Ensino Fundamental Incompleto"), EnsinoMedioIncompleto("Ensino Médio Incompleto"), EnsinoSuperiorIncompleto("Ensino Superior Incompleto");
 		private String nome;
 		NivelInstrucao(String tipo){
-			this.nome = nome;
+			this.nome = tipo;
 		}
 		
 		public String getNome() {
@@ -87,7 +87,14 @@ public class QuestionarioIniciacaoAcademica {
 	
 	public enum SituacaoResidencia{
 		cedido("Cedido"), proprio("Próprio"), alugado("Alugado"), doado("Doado");
-		SituacaoResidencia(String nome){}
+		private String nome;
+		SituacaoResidencia(String nome){
+			this.nome = nome;
+		}
+		
+		public String getNome(){
+			return nome;
+		}
 	}
 	
 	private SituacaoResidencia situacao_residencia;
@@ -124,10 +131,21 @@ public class QuestionarioIniciacaoAcademica {
 	private String atividade;
 	private float renda;
 	private float renda_total_familia;
-	private String horario_disponivel_bolsa;
+	public enum HorarioDisponivel{
+		Manhã("Manhã"), Tarde("Tarde"), Noite("Noite");
+		private String nome;
+		private HorarioDisponivel(String nome){
+			this.nome = nome;
+		}
+		public String getNome(){
+			return nome;
+		}
+	}
+	private HorarioDisponivel horario_disponivel_bolsa;
 	private String campus_preferido;
-	private int justificativa_pedido;
+	private String justificativa_pedido;
 	private Date data_inscricao;
+	
 	
 	
 	public GrauParentesco getParentesco() {
@@ -430,10 +448,10 @@ public class QuestionarioIniciacaoAcademica {
 	public void setRenda_total_familia(float renda_total_familia) {
 		this.renda_total_familia = renda_total_familia;
 	}
-	public String getHorario_disponivel_bolsa() {
+	public HorarioDisponivel getHorario_disponivel_bolsa() {
 		return horario_disponivel_bolsa;
 	}
-	public void setHorario_disponivel_bolsa(String horario_disponivel_bolsa) {
+	public void setHorario_disponivel_bolsa(HorarioDisponivel horario_disponivel_bolsa) {
 		this.horario_disponivel_bolsa = horario_disponivel_bolsa;
 	}
 	public String getCampus_preferido() {
@@ -442,10 +460,10 @@ public class QuestionarioIniciacaoAcademica {
 	public void setCampus_preferido(String campus_preferido) {
 		this.campus_preferido = campus_preferido;
 	}
-	public int getJustificativa_pedido() {
+	public String getJustificativa_pedido() {
 		return justificativa_pedido;
 	}
-	public void setJustificativa_pedido(int justificativa_pedido) {
+	public void setJustificativa_pedido(String justificativa_pedido) {
 		this.justificativa_pedido = justificativa_pedido;
 	}
 	public Date getData_inscricao() {

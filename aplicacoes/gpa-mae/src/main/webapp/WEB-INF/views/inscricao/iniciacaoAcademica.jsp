@@ -23,11 +23,12 @@
 				<form:form id="adicionarSeleçãoForm" role="form" commandName="QuestionarioIniciacaoAcademica" servletRelativeAction="/inscricao/iniciacaoAcademica" method="POST" cssClass="form-horizontal">
 					<fieldset>
 					<legend>Moradia</legend>
+					<h3>Endereço de Residência de Origem</h3>
 					<div class="form-group">
-					<fieldset class="sche">
+					<fieldset>
 						<label for="endereco_familia" class="col-sm-2 control-label">Rua/Av :</label>
 						<div class="col-sm-4">
-							<form:input id="endereco_familia" path="endereco_familia" cssClass="form-control" placeholder="Rua /Av"/>
+							<form:input id="endereco_familia" type="text" path="endereco_familia" cssClass="form-control" placeholder="Rua /Av"/>
 							<div class="error-validation">
 								<form:errors path="endereco_familia"></form:errors>
 							</div>
@@ -53,11 +54,11 @@
 						</div>	
 						<label for="cep_familia" class="col-sm-2 control-label">CEP:</label>
 						<div class="col-sm-2">
-							<form:textarea id="cep_familia"  path="cep_familia" cssClass="form-control" placeholder="CEP"/>
+							<form:input id="cep_familia"  path="cep_familia" cssClass="form-control" placeholder="CEP"/>
 							<div class="error-validation">
 								<form:errors path="cep_familia"></form:errors>
 							</div>
-					    </div>
+						</div>
 					    
 					    <label for="bairro_familia" class="col-sm-2 control-label">Bairro:</label>
 						<div class="col-sm-2">
@@ -80,7 +81,7 @@
 						
 						<label for="telefone_celular" class="col-sm-2 control-label">Celular:</label>
 						<div class="col-sm-4">
-							<form:input id="telefone_celular" type="number" min="0"  path="telefone_celular" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="telefone_celular"    path="telefone_celular" cssClass="form-control" placeholder="Celular"/>
 							<div class="error-validation">
 								<form:errors path="telefone_celular"></form:errors>
 							</div>
@@ -110,7 +111,7 @@
 					
 					<div class="form-group">
 						<label for="cidade" class="col-sm-2 control-label">Ponto de referencia:</label>
-						<div class="col-sm-2">
+						<div class="col-sm-8">
 							<form:input id="cidade" type="text" path="cidade" cssClass="form-control" placeholder="Cidade"/>
 							<div class="error-validation">
 								<form:errors path="cidade"></form:errors>
@@ -125,7 +126,7 @@
 					
 					
 					
-					
+					<h3>Endereço Atual</h3>
 					<div class="form-group">
 						<label for="endereco_atual" class="col-sm-2 control-label">Rua/Av :</label>
 						<div class="col-sm-4">
@@ -153,13 +154,13 @@
 								<form:errors path="numero"></form:errors>
 							</div>
 						</div>	
-						<label for="cep" class="col-sm-2 control-label">CEP:</label>
+						<label for="cep_familia" class="col-sm-2 control-label">CEP:</label>
 						<div class="col-sm-2">
-							<form:textarea id="cep"  path="cep" cssClass="form-control" placeholder="CEP"/>
+							<form:input id="cep"  path="cep" cssClass="form-control" placeholder="CEP"/>
 							<div class="error-validation">
 								<form:errors path="cep"></form:errors>
 							</div>
-					    </div>
+						</div>
 					    
 					    <label for="bairro" class="col-sm-2 control-label">Bairro:</label>
 						<div class="col-sm-2">
@@ -182,7 +183,7 @@
 						
 						<label for="telefone_celular" class="col-sm-2 control-label">Celular:</label>
 						<div class="col-sm-4">
-							<form:input id="telefone_celular"  path="telefone_celular" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="telefone_celular"  path="telefone_celular" cssClass="form-control" placeholder="Celular"/>
 							<div class="error-validation">
 								<form:errors path="telefone_celular"></form:errors>
 							</div>
@@ -212,27 +213,48 @@
 					
 					<div class="form-group">
 						<label for="cidade" class="col-sm-2 control-label">Ponto de referencia:</label>
-						<div class="col-sm-2">
+						<div class="col-sm-8">
 							<form:input id="cidade" type="text" path="cidade" cssClass="form-control" placeholder="Cidade"/>
 							<div class="error-validation">
 								<form:errors path="cidade"></form:errors>
 							</div>
 						</div>
-					</fieldset>			
-					
-					
-					
 					</div>
+					
+					<fieldset>
+					<legend>Situação SócioEconômica</legend>
+					<div class="form-group">
+						<label for="reside_atualmente" class="col-sm-2 control-label">Com quem você reside Atualmente :</label>
+						<div class="col-sm-8">
+							<form:input id="reside_atualmente" path="reside_atualmente" cssClass="form-control" placeholder="Rua /Av"/>
+							<div class="error-validation">
+								<form:errors path="endereco_atual"></form:errors>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="reside_atualmente" class="col-sm-2 control-label">Como define a Localidade na qual vive atualmente? :</label>
+						<div class="col-sm-6">
+							<form:input id="definicao_local_atual" path="definicao_local_atual" cssClass="form-control" placeholder="Rua /Av"/>
+							<div class="error-validation">
+								<form:errors path="definicao_local_atual"></form:errors>
+							</div>
+						</div>
+					</div>
+					
+					
+					
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">Qual a situação da sua residencia:</label>	
 						<div class="col-sm-2">
 						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
-							<option value=""> Selecione a situação</option>
-							<option value=""> 1</option>
-							<option value=""> 2</option>
-							<option value=""> 3</option>
-						 
-							
+						
+						<c:forEach items="${SituacaoResidencia}" var="opcao">
+							<option value="${opcao}">
+								<c:out value="${opcao.nome}"></c:out>
+							</option>
+						</c:forEach>	
 						</select>
 						</div>
 					</div>
@@ -372,8 +394,117 @@
 								<form:errors path="qtd_empregados_domesticos"></form:errors>
 							</div>
 						</div>
+					</fieldset>	
+						<fieldset>
+						<legend>Informações do seu grupo familiar(Incluindo Você)</legend>
+					    <table class="table table-hover">
+   							<thead>
+								<th>Nome</th>
+								<th>Grau de Parentesco</th>
+								<th>Escolaridade</th>
+								<th>Atividade ou Profissão</th>
+								<th>Renda Mensal(R$)</th>
+								<th><a id="addInf">  Add </a></th>
+								
+							</thead>	
+							<tbody id="corpoInfo"></tbody>
+						
+    					</table>
+							<div class="form-group">
+								<label for="rendaFamilia" class="col-sm-2 control-label">Renda Média Mensal da Família:</label>
+								<input id="rendaFamilia" name="rendaFamilia"/>
+							</div>
+			
+					</fieldset>
+					
+					<fieldset>
+					<legend>Informações Adicionais</legend>
+						<div class = "form-group">
+						<label for="cidade" class="col-sm-2 control-label">Segunda:</label>	
+							<div class="col-sm-2">
+								<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+						
+									<c:forEach items="${HorarioDisponivel}" var="opcao">
+										<option value="${opcao}">
+									<c:out value="${opcao.nome}"></c:out>
+										</option>
+									</c:forEach>	
+								</select>
+							</div>
+						</div>
+						<div class="form-group"> 
+						<label for="cidade" class="col-sm-2 control-label">Terça:</label>	
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+						
+						<c:forEach items="${HorarioDisponivel}" var="opcao">
+							<option value="${opcao}">
+								<c:out value="${opcao.nome}"></c:out>
+							</option>
+						</c:forEach>	
+						</select>
+						</div>
+						</div>
+						
+						<div class="form-group">
+						<label for="cidade" class="col-sm-2 control-label">Quarta:</label>	
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+						
+						<c:forEach items="${HorarioDisponivel}" var="opcao">
+							<option value="${opcao}">
+								<c:out value="${opcao.nome}"></c:out>
+							</option>
+						</c:forEach>	
+						</select>
+						</div>
+						</div>
+						
+						
+						<div class="form-group">
+						<label for="cidade" class="col-sm-2 control-label">Quinta:</label>	
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+						
+						<c:forEach items="${HorarioDisponivel}" var="opcao">
+							<option value="${opcao}">
+								<c:out value="${opcao.nome}"></c:out>
+							</option>
+						</c:forEach>	
+						</select>
+						</div>
+						</div>
+						
+						
+						<div class="form-group">
+						<label for="cidade" class="col-sm-2 control-label">Sexta:</label>	
+						<div class="col-sm-2">
+						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+						
+						<c:forEach items="${HorarioDisponivel}" var="opcao">
+							<option value="${opcao}">
+								<c:out value="${opcao.nome}"></c:out>
+							</option>
+						</c:forEach>	
+						</select>
+						</div>
+						</div>
+						
+					
+					</fieldset>
 					
 					
+					
+					
+					<fieldset>
+					<legend>Justificativa do Pedido</legend>
+						<div class="form-group">
+						<label for="atividades" class="col-sm-1 control-label"></label>
+						<div class="col-sm-11">
+							<form:textarea id="justificativa_pedido" path="justificativa_pedido" name="justificativa_pedido" class="form-control" rows="10"></form:textarea>
+						</div>
+						</div>
+					</fieldset>
 						
 	 
 					
@@ -391,5 +522,33 @@
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
+<script type="text/javascript">
+		
+	$(document).ready(function(){
+		
+		$("a#addInf").click(function(){
+			var total = 0;
+			var media = 0;
+			var linhas=0;
+			$("tbody#corpoInfo").append("<tr>  <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> </tr>");
+			//alert("Voce clicou no addInfo");
+			$(".form-group input#rendaFamilia").attr("value","Adicionando");
+			//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length); 
+			for(var qtd=0;qtd < $("tbody#corpoInfo tr").length;qtd++){
+				
+				//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length  +  " cont = " + qtd);
+				
+			}
+			
+						
+		});	
+		
+		
+	});
+	
+	
+
+</script>	
+</body>
 
 </html>

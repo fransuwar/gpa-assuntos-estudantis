@@ -22,7 +22,9 @@ import com.itextpdf.text.pdf.ArabicLigaturizer;
 
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.model.QuestionarioIniciacaoAcademica;
+import br.ufc.quixada.npi.model.QuestionarioIniciacaoAcademica.HorarioDisponivel;
 import br.ufc.quixada.npi.model.QuestionarioIniciacaoAcademica.NivelInstrucao;
+import br.ufc.quixada.npi.model.QuestionarioIniciacaoAcademica.SituacaoResidencia;
 import br.ufc.quixada.npi.model.Usuario.Uf;
 import br.ufc.quixada.npi.service.IniciacaoAcademicaService;
 
@@ -47,14 +49,18 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("Uf", Uf.values());
 		
 		List<NivelInstrucao> nivelInstrucao = new ArrayList<NivelInstrucao>(Arrays.asList(NivelInstrucao.values()));
+		List<HorarioDisponivel> horarioDisponivel = new ArrayList<HorarioDisponivel>(Arrays.asList(HorarioDisponivel.values()));
+		List<SituacaoResidencia> situacaoResidencia = new ArrayList<SituacaoResidencia>(Arrays.asList(SituacaoResidencia.values()));
 		modelo.addAttribute("NivelInstrucao", nivelInstrucao);
+		modelo.addAttribute("HorarioDisponivel", horarioDisponivel);
+		modelo.addAttribute("SituacaoResidencia", situacaoResidencia);
 		//List<UF> ufs = new ArrayList<UF>(Arrays.asList(Uf.values()));
 		System.out.println(nivelInstrucao.toString());
 		return "inscricao/iniciacaoAcademica";
 	}
 	
 	@RequestMapping(value="/iniciacaoAcademica", method = RequestMethod.POST)
-     public String adicionaAuxilio(@Valid @ModelAttribute("iniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica, BindingResult result, HttpSession session, RedirectAttributes redirect ){
+     public String adicionaAuxilio(@Valid @ModelAttribute("QuestionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica, BindingResult result, HttpSession session, RedirectAttributes redirect ){
 		if(result.hasErrors()){
 			return "inscricao/iniciacaoAcademica";
 		}
