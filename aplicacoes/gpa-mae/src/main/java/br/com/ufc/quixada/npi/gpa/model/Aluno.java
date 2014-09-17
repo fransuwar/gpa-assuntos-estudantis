@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -50,15 +52,19 @@ public class Aluno {
 	private String anoIngresso;
 	
 	@NotNull
+	@Min(value= 1, message="IRA deve ser maior que 0")
+	@Max(value= 10, message="IRA deve ter valor máximo à 10")
 	private double ira;
 	
 	@NotEmpty
 	private String banco;
 	
 	@NotEmpty
+	@Size(max= 10, message="Agencia de possuir no máximo 10 dígitos")
 	private String agencia;
 	
 	@NotEmpty
+	@Size(max= 20, message="Conta deve possuir no máximo 20 dígitos")
 	private String conta;
     
 	@ManyToOne

@@ -50,6 +50,7 @@ public class AlunoController {
 		if (result.hasErrors()) {
 			return ("aluno/alunos");
 		}
+				
 		//projeto.setAutor(getUsuarioLogado(session));
 		//projeto.setStatus(StatusProjeto.NOVO);
 		this.alunoService.save(aluno);
