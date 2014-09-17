@@ -28,8 +28,7 @@ public class AlunoController {
 	private GenericService<Aluno> genericService;
 	
 	@RequestMapping(value = "{alunoId}", method = RequestMethod.GET)
-	public @ResponseBody
-	Aluno getAlunoJson(@PathVariable("alunoId") Long alunoId) {
+	public @ResponseBody Aluno getAlunoJson(@PathVariable("alunoId") Long alunoId) {
 
 		return this.genericService.find(Aluno.class,alunoId);
 
@@ -66,7 +65,8 @@ public class AlunoController {
 				this.genericService.delete(aluno);
 				return "ok";
 			}
-		}
+
+	}
 	
 	
 }

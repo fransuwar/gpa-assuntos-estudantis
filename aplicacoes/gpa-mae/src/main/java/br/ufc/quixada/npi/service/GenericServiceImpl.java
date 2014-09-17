@@ -33,8 +33,6 @@ public class GenericServiceImpl<T> implements GenericService<T> {
 
 	}
 
-	
-
 	@Transactional(readOnly=true)
 	public List<T> find(Class<T> entityClass) {
 		List<T> l = genericRepository.find(entityClass);
@@ -50,7 +48,6 @@ public class GenericServiceImpl<T> implements GenericService<T> {
 	@Transactional
 	public T find(Class<T> entityClass, Long id) {
 		return (T) genericRepository.find(entityClass, id);
-		
 	}
 
 }
