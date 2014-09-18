@@ -1,15 +1,16 @@
 package br.ufc.quixada.npi.model;
 
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -21,18 +22,15 @@ public class QuestionarioAuxilioMoradia {
 	@GeneratedValue(strategy = GenerationType.AUTO)  
 	private Integer id;
 	private String caminhoFoto;
-	
-	@ManyToOne
-	private Bolsa bolsa;
 
 	@Column(nullable = false)
 	@OneToMany(mappedBy="auxilioMoradia")
 	private List<PessoaFamilia> pessoas;
 	
 	
-	
-	@Column(nullable = false)
-	private String moraCom[];
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(targetClass = MoraCom.class) 
+	private List<MoraCom> moraCom;
 	
 	@Column(nullable = false)
 	private String enderecoSedeCurso;
@@ -84,7 +82,7 @@ public class QuestionarioAuxilioMoradia {
 		}
 	}
 
-	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Estado estado;
 
 	public enum SituacaoImovel{
@@ -101,6 +99,7 @@ public class QuestionarioAuxilioMoradia {
 		}
 	}
 
+	@Enumerated(EnumType.STRING)
 	private SituacaoImovel situacaoImovel;
 	
 	private String valorMensalFinanciamento;
@@ -121,7 +120,7 @@ public class QuestionarioAuxilioMoradia {
 			return imovelRural;
 		}
 	}
-	
+	@Enumerated(EnumType.STRING)
 	private GrauParentescoImovelRural grauParentescoImovelRural;
 	
 	private double areaPropriedade;
@@ -144,7 +143,7 @@ public class QuestionarioAuxilioMoradia {
 			return parentesco;
 		}
 	}
-	
+	@Enumerated(EnumType.STRING)
 	private GrauParentescoVeiculos grauParentescoVeiculos;
 
 	private String tipo;
@@ -167,10 +166,11 @@ public class QuestionarioAuxilioMoradia {
 			return veiculo;
 		}
 	}
+	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidadeVeiculo;
 
 	public enum TipoEnsinoFundamental{
-		Publico("Público"), Particular("Particular");
+		Publico("Público"), Particular("Particular"), Particular_Com_Bolsa("Particular com Bolsa");
 		private String nome;
 		
 		TipoEnsinoFundamental(String nome){
@@ -180,14 +180,13 @@ public class QuestionarioAuxilioMoradia {
 			return nome;
 		}
 	} 
-	
-	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private TipoEnsinoFundamental ensinoFundamental;
 	
 	private int percentualParticularFundamental;
 
 	public enum TipoEnsinoMedio{
-		Publico("Público"), Particular("Particular");
+		Publico("Público"), Particular("Particular"), Particular_Com_Bolsa("Particular com Bolsa");
 		
 	private String media;	
 	
@@ -199,7 +198,7 @@ public class QuestionarioAuxilioMoradia {
 		}
 	}
 	
-	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private TipoEnsinoMedio ensinoMedio;
 	
 	private int percentualParticularMedio;
@@ -240,10 +239,11 @@ public class QuestionarioAuxilioMoradia {
 	public void setCaminhoFoto(String caminhoFoto) {
 		this.caminhoFoto = caminhoFoto;
 	}
-	public String[] getMoraCom() {
+	
+	public List<MoraCom> getMoraCom() {
 		return moraCom;
 	}
-	public void setMoraCom(String[] moraCom) {
+	public void setMoraCom(List<MoraCom> moraCom) {
 		this.moraCom = moraCom;
 	}
 	public String getEnderecoSedeCurso() {
@@ -483,17 +483,12 @@ public class QuestionarioAuxilioMoradia {
 	public void setJustificativa(String justificativa) {
 		this.justificativa = justificativa;
 	}
-	public Bolsa getBolsa() {
-		return bolsa;
-	}
-	public void setBolsa(Bolsa bolsa) {
-		this.bolsa = bolsa;
-	}
+
 	@Override
 	public String toString() {
 		return "QuestionarioAuxilioMoradia [id=" + id + ", caminhoFoto="
-				+ caminhoFoto + ", bolsa=" + bolsa + ", pessoas=" + pessoas
-				+ ", moraCom=" + Arrays.toString(moraCom)
+				+ caminhoFoto + ", pessoas=" + pessoas
+				+ ", moraCom=" + moraCom
 				+ ", enderecoSedeCurso=" + enderecoSedeCurso + ", nomeMae="
 				+ nomeMae + ", nomePai=" + nomePai + ", rua=" + rua
 				+ ", numeroCasa=" + numeroCasa + ", bairro=" + bairro

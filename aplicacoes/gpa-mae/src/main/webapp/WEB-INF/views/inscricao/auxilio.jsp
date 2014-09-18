@@ -21,6 +21,8 @@
 <title>Cadastro Auxilio Moradia</title>
 </head>
 
+
+
 <body>
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
@@ -30,8 +32,9 @@
 			<h2>Novo Cadastro</h2>
 
 			<form:form id="questionarioAuxilioMoradia" role="form"
-				commandName="auxilio" servletRelativeAction="/inscricao/auxilio"
-				method="POST" cssClass="form-horizontal">
+				commandName="questionarioAuxilioMoradia"
+				servletRelativeAction="/inscricao/auxilio" method="POST"
+				cssClass="form-horizontal">
 
 				<input type="hidden" name="id"
 					value="${QuestionarioAuxilioMoradia.id }" />
@@ -48,33 +51,23 @@
 				<!-- </div> -->
 
 
+
+			<form:checkboxes items="${moraCom}" path="moraCom" />
+
+
+			<h4>Nome dos pais</h4>
 				<div class="form-group">
-					<label for="bolsa" class="col-sm-2 control-label">Bolsa: </label>
-					<div class="col-sm-5">
-						<form:input id="bolsa" path="bolsa" cssClass="form-control"
-							placeholder="Bolsa" />
+					<label for="nomePai" class="col-sm-2 control-label">Nome do
+						Pai:</label>
+					<div class="col-sm-10">
+						<form:input id="nomePai" path="nomePai" cssClass="form-control"
+							placeholder="Nome do Pai" />
 						<div class="error-validation">
-							<form:errors path="bolsa"></form:errors>
+							<form:errors path="nomePai"></form:errors>
 						</div>
 					</div>
 				</div>
 
-<!-- 				<div class="form-group"> -->
-<%-- 					<c:forEach items="${moraCom}" var="opcao"> --%>
-<!-- 						<div class="col-sm-1 control-label"> -->
-<!-- 							<div class="checkbox inline"> -->
-<%-- 								<label> <input type="checkbox" value="${opcao}" --%>
-<%-- 									name="${opcao}" /> ${opcao.mora} --%>
-<!-- 								</label> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<%-- 					</c:forEach> --%>
-<!-- 				</div> -->
-
-	 
-	<form:checkboxes items="${moraCom}" path="moraCom" />
-	
-			
 
 				<div class="form-group">
 					<label for="nomeMae" class="col-sm-2 control-label">Nome da
@@ -89,19 +82,8 @@
 				</div>
 
 
-				<div class="form-group">
-					<label for="nomePai" class="col-sm-2 control-label">Nome do
-						Pai:</label>
-					<div class="col-sm-10">
-						<form:input id="nomePai" path="nomePai" cssClass="form-control"
-							placeholder="Nome do Pai" />
-						<div class="error-validation">
-							<form:errors path="nomePai"></form:errors>
-						</div>
-					</div>
-				</div>
-
-				<h4>Endereço na sede do Curso</h4>
+				<
+				<h4>Endereço da residencia de origem</h4>
 
 				<div class="form-group">
 					<label for="enderecoSedeCurso" class="col-sm-2 control-label">Rua/Av:</label>
@@ -187,8 +169,8 @@
 					</div>
 				</div>
 
-				<h4>Endereço da residencia atual</h4>
 
+				<h4>Endereço da residencia atual</h4>
 				<div class="form-group">
 					<label for="rua" class="col-sm-2 control-label">Nome da
 						rua:</label>
@@ -227,6 +209,7 @@
 					</div>
 				</div>
 
+				<h4>Selecione um estado:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
 						<select name="estado" id="estado">
@@ -239,7 +222,7 @@
 					</div>
 				</div>
 
-
+				<h4>Selecione a situação atual do ímovel</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
 						<select name="imovel" id="imovel">
@@ -267,7 +250,7 @@
 					</div>
 				</div>
 
-
+				<h4>Selecione o grau de parentesco:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
 						<select name="${status.expression}"
@@ -320,7 +303,7 @@
 					</div>
 				</div>
 
-
+				<h4>Selecione o grau de parentesco dono do veiculo</h4>
 				<div class="form-group">
 					<label for="veiculos" class="col-sm-2 control-label">Veículos:</label>
 					<div class="col-sm-4">
@@ -332,7 +315,7 @@
 					</div>
 				</div>
 
-
+				<h4>Selecione o grau de parentesco:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
 						<select name="${status.expression}" name="grauParentescoVeiculos"
@@ -396,7 +379,7 @@
 					</div>
 				</div>
 
-
+				<h4>Selecione a finalidade do veículo:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
 						<select name="${status.expression}" name="finalidadeVeiculo"
@@ -410,11 +393,11 @@
 					</div>
 				</div>
 
-
-
+				<h4>Historico escolar</h4>
+				<h5>Selecione o tipo escolar que você frequentou:</h5>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
-						<h4>Ensino Fundamental</h4>
+						<h6>Ensino Fundamental</h6>
 						<select name="${status.expression}" name="ensinoFundamental"
 							id="ensinoFundamental">
 							<c:forEach items="${tipoEnsinoFundamental }" var="opcao">
@@ -428,8 +411,23 @@
 
 
 				<div class="form-group">
+					<label for="percentualParticularFundamental"
+						class="col-sm-2 control-label">Percentual de bolsa:</label>
+					<div class="col-sm-1">
+						<form:input id="percentualParticularFundamental"
+							path="percentualParticularFundamental" cssClass="form-control"
+							placeholder="Percentual de bolsa Particular ensino Fundamental" />
+						<div class="error-validation">
+							<form:errors path="percentualParticularFundamental"></form:errors>
+						</div>
+					</div>
+				</div>
+
+
+				<h5>Selecione o tipo escolar que você frequentou:</h5>
+				<div class="form-group">
 					<div class="col-sm-3 control-label">
-						<h4>Ensino Médio</h4>
+						<h6>Ensino Médio</h6>
 						<select name="${status.expression}" name="tipoEnsinoMedio"
 							id="tipoEnsinoMedio">
 							<c:forEach items="${tipoEnsinoMedio }" var="opcao">
@@ -438,6 +436,19 @@
 								</option>
 							</c:forEach>
 						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="percentualParticularMedio"
+						class="col-sm-2 control-label">Percentual de bolsa:</label>
+					<div class="col-sm-1">
+						<form:input id="percentualParticularMedio"
+							path="percentualParticularMedio" cssClass="form-control"
+							placeholder="Percentual de bolsa Particular ensino Medio" />
+						<div class="error-validation">
+							<form:errors path="percentualParticularMedio"></form:errors>
+						</div>
 					</div>
 				</div>
 
@@ -561,14 +572,22 @@
 
 
 
+				<div class="controls">
+					<input name="submit" type="submit" class="btn btn-primary"
+						value="Cadastrar" /> <a
+						href="<c:url value="/inscricao/auxilio" ></c:url>"
+						class="btn btn-default">Cancelar</a>
+				</div>
+
+
+
 			</form:form>
-			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-			<button id="btnSubmitForm" type="button" class="btn btn-default"
-				onclick="submeterForm();">Salvar</button>
 		</div>
 	</div>
-
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
+
+
+
 </body>
 
 

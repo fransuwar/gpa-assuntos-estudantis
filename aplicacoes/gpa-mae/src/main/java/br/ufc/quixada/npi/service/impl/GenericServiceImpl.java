@@ -1,4 +1,4 @@
-package br.ufc.quixada.npi.service;
+package br.ufc.quixada.npi.service.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import javax.inject.Named;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufc.quixada.npi.repository.GenericRepository;
+import br.ufc.quixada.npi.service.GenericService;
 
 
 @Named

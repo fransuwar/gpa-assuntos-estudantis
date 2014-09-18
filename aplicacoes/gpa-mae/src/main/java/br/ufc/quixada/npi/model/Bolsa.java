@@ -23,9 +23,6 @@ public class Bolsa {
 	private List<Edital> edital;
 	
 	@OneToMany(mappedBy ="bolsa")
-	private List<QuestionarioAuxilioMoradia> questionarioAuxilioMoradia;
-	
-	@OneToMany(mappedBy ="bolsa")
 	private List<QuestionarioIniciacaoAcademica> questionarioIniciacaoAcademica;
 	
 	public enum tipoBolsa{
@@ -59,15 +56,6 @@ public class Bolsa {
 		this.tipo = tipo;
 	}
 
-	public List<QuestionarioAuxilioMoradia> getQuestionarioAuxilioMoradia() {
-		return questionarioAuxilioMoradia;
-	}
-
-	public void setQuestionarioAuxilioMoradia(
-			List<QuestionarioAuxilioMoradia> questionarioAuxilioMoradia) {
-		this.questionarioAuxilioMoradia = questionarioAuxilioMoradia;
-	}
-
 	public List<QuestionarioIniciacaoAcademica> getQuestionarioIniciacaoAcademica() {
 		return questionarioIniciacaoAcademica;
 	}
@@ -80,9 +68,7 @@ public class Bolsa {
 	@Override
 	public String toString() {
 		return "Bolsa [id=" + id + ", requisitos=" + requisitos + ", edital="
-				+ edital + ", questionarioAuxilioMoradia="
-				+ questionarioAuxilioMoradia
-				+ ", questionarioIniciacaoAcademica="
+				+ edital + ", questionarioIniciacaoAcademica="
 				+ questionarioIniciacaoAcademica + ", tipo=" + tipo + "]";
 	}
 	

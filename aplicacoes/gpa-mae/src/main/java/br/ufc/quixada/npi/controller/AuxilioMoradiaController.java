@@ -50,8 +50,7 @@ public class AuxilioMoradiaController {
 	@Inject
 	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
 	
-	private ArrayList<String> mora;
-	private HashMap<String, ArrayList<String>> modelo;
+	
 	
 	//private Logger log = LoggerFactory.getLogger(this.getClass());
 	
@@ -99,18 +98,19 @@ public class AuxilioMoradiaController {
 	
 	model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());
 	
-	Map<String, String> moraCom = new HashMap<String, String>();
+	Map<MoraCom, String> moraCom = new HashMap<MoraCom, String>();
 	
-	moraCom.put("pais", "Pais");
-	moraCom.put("pai", "Pai");
-	moraCom.put("mae", "Mãe");
-	moraCom.put("irmaos", "Irmãos");
-	moraCom.put("parentes", "Parentes");
-	moraCom.put("conjuge", "Conjuge ou Companheiro");
-	moraCom.put("filhos", "Filhos");
-	moraCom.put("outraMoradia", "Outra Moradia");
+	moraCom.put(MoraCom.Pais, "Pais");
+	moraCom.put(MoraCom.Pai, "Pai");
+	moraCom.put(MoraCom.Mae, "Mãe");
+	moraCom.put(MoraCom.Irmaos, "Irmãos");
+	moraCom.put(MoraCom.Parentes, "Parentes");
+	moraCom.put(MoraCom.Conjuge_Companheiro, "Conjuge ou Companheiro");
+	moraCom.put(MoraCom.Filhos, "Filhos");
+	moraCom.put(MoraCom.Outra_moradia, "Outra Moradia");
 	
 	model.addAttribute("moraCom", moraCom);
+	
 	
 	return "inscricao/auxilio";
 	
@@ -119,28 +119,19 @@ public class AuxilioMoradiaController {
 	
 	@RequestMapping(value = "/auxilio", method = RequestMethod.POST)
 	public String selecaoAluno(
-	@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
+	@Valid @ModelAttribute("questionarioAuxilioMoradia")
+	QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
 	BindingResult result, HttpSession session,	RedirectAttributes redirect) {
 		
 	if (result.hasErrors()) {
 	return ("inscricao/auxilio");
 	
-	}
+	}else{
 	this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
 	
+	}
 	return "redirect:/inscricao/index";
 
-}
-
-	
-	public ArrayList<String> getMora() {
-		return mora;
 	}
-
-	public void setMora(ArrayList<String> mora) {
-		this.mora = mora;
-	}
-	
-	
-	
+		
 }
