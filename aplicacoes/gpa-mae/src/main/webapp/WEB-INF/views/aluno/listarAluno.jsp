@@ -58,7 +58,8 @@
 						<table class="table" >
 						
 								<tr>
-									<th id="teste">Matricula</th>
+									<th id="teste">Id</th>
+									<th>Matricula</th>
 									<th>Ira</th>
 									<th>Curso</th>
 									<th id="acoes">Ações</th>
@@ -66,6 +67,7 @@
 						 <tbody>
 							<c:forEach var="aluno" items="${alunos}">
 									<tr class="linha">
+									<td>${aluno.id}</td>
 									<td>${aluno.matricula}</td>
 									<td>${aluno.ira}</td>
 									<td>${aluno.curso}</td>

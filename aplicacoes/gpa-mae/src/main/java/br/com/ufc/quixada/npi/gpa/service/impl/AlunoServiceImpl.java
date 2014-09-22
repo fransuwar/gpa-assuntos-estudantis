@@ -24,13 +24,5 @@ public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements Aluno
 		return alunoRepository.find(Aluno.class);
 	}
 	
-	/*@Inject
-	AlunoRepository alunoRepository;
-	
-	@Override
-	public List<Aluno> listarAlnos() {
-		return alunoRepository.find(QueryType.JPQL, "from Aluno", null);
-	}
-*/
 	
 }

@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -24,23 +24,19 @@ public class Aluno {
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 
 	@NotEmpty
-	@Size(min = 7, message = "Matricula deve possuir 7 dígitos")
 	private String matricula;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy="alunosSelecao")
 	private List<SelecaoBolsa> editais;
 	
-	@ManyToMany(mappedBy="alunosSelecao")
-	private List<SelecaoBolsa> editaisAluno;
+	@OneToMany
+	private List<QuestionarioAuxilioMoradia> auxilioMoradia;
 	
-	@OneToOne
-	private QuestionarioAuxilioMoradia auxilioMoradia;
-	
-	@OneToOne
-	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
+	@OneToMany
+	private List<QuestionarioIniciacaoAcademica> iniciacaoAcademica;
 	
 
 	@NotEmpty
@@ -71,11 +67,11 @@ public class Aluno {
 	private Pessoa pessoa;
 
 	
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public Pessoa getUsuario() {
@@ -87,20 +83,20 @@ public class Aluno {
 	}
 
 	
-	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
+	public List<QuestionarioAuxilioMoradia> getAuxilioMoradia() {
 		return auxilioMoradia;
 	}
 
-	public void setAuxilioMoradia(QuestionarioAuxilioMoradia auxilioMoradia) {
+	public void setAuxilioMoradia(List<QuestionarioAuxilioMoradia> auxilioMoradia) {
 		this.auxilioMoradia = auxilioMoradia;
 	}
 
-	public QuestionarioIniciacaoAcademica getIniciacaoAcademica() {
+	public List<QuestionarioIniciacaoAcademica> getIniciacaoAcademica() {
 		return iniciacaoAcademica;
 	}
 
 	public void setIniciacaoAcademica(
-			QuestionarioIniciacaoAcademica iniciacaoAcademica) {
+			List<QuestionarioIniciacaoAcademica> iniciacaoAcademica) {
 		this.iniciacaoAcademica = iniciacaoAcademica;
 	}
 
@@ -173,12 +169,11 @@ public class Aluno {
 	@Override
 	public String toString() {
 		return "Aluno [id=" + id + ", matricula=" + matricula + ", editais="
-				+ editais + ", editaisAluno=" + editaisAluno
-				+ ", auxilioMoradia=" + auxilioMoradia
-				+ ", iniciacaoAcademica=" + iniciacaoAcademica + ", nome="
-				+ nome + ", anoIngresso=" + anoIngresso + ", ira=" + ira
-				+ ", curso=" + curso + ", banco=" + banco + ", agencia="
-				+ agencia + ", conta=" + conta + ", pessoa=" + pessoa + "]";
+				+ editais + ", auxilioMoradia=" + auxilioMoradia
+				+ ", iniciacaoAcademica=" + iniciacaoAcademica + ", curso="
+				+ curso + ", nome=" + nome + ", anoIngresso=" + anoIngresso
+				+ ", ira=" + ira + ", banco=" + banco + ", agencia=" + agencia
+				+ ", conta=" + conta + ", pessoa=" + pessoa + "]";
 	}
 	
 	

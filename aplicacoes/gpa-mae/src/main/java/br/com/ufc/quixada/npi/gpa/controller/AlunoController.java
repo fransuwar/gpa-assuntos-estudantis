@@ -45,18 +45,12 @@ public class AlunoController {
 	@RequestMapping(value = "/alunos", method = RequestMethod.POST)
 	public String adicionarAluno(
 			@Valid @ModelAttribute("aluno") Aluno aluno,
-			BindingResult result, HttpSession session,
-			RedirectAttributes redirect) {
+			BindingResult result,RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			return ("aluno/alunos");
 		}
-				
-		//projeto.setAutor(getUsuarioLogado(session));
-		//projeto.setStatus(StatusProjeto.NOVO);
+		
 		this.alunoService.save(aluno);
-
-		//String codigo = geraCodigoProjeto(projeto.getId());
-		//projeto.setCodigo(codigo);
 		this.alunoService.update(aluno);
 		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
 
@@ -67,23 +61,18 @@ public class AlunoController {
 	
 	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
 	public String listaAluno(Aluno aluno, BindingResult result,
-			Map<String, Object> model) {
-		
-		try {
-			List<Aluno> results = alunoService.findAll();	
-			model.put("alunos", results);
-			return "aluno/listarAluno";
-		} catch (Exception e) {
+			Model model) {
 			
-		 	return "aluno/listarAluno";
-			}
+			List<Aluno> results = alunoService.findAll();	
+			model.addAttribute("alunos", results);
+			return "aluno/listarAluno";
+		
 		
 	}
 	
 	
 	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.GET)
-	public String editar(@PathVariable("id") long id, Model model,
-			HttpSession session, RedirectAttributes redirectAttributes) {
+	public String editar(@PathVariable("id") long id, Model model) {
 		Aluno aluno = alunoService.find(Aluno.class, id);
 		
 		{
@@ -96,11 +85,9 @@ public class AlunoController {
 	
 	
 	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.POST)
-	public String atualizarAluno(
-			@PathVariable("id") Long id,
+	public String atualizarAluno(@PathVariable("id") Long id,
 			@Valid @ModelAttribute(value = "aluno") Aluno alunoAtualizado,
-			BindingResult result, Model model, HttpSession session,
-			RedirectAttributes redirect) throws IOException {
+			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
 
 		if (result.hasErrors()) {
 			model.addAttribute("action", "editar");
@@ -126,12 +113,11 @@ public class AlunoController {
 	
 	
 	@RequestMapping(value = "/{id}/excluir")
-	public String excluirProjeto(Aluno p, @PathVariable("id") Long id, HttpSession session, RedirectAttributes redirectAttributes,
+	public String excluirAluno(Aluno p, @PathVariable("id") Long id, RedirectAttributes redirectAttributes,
 			Model model) {
 		Aluno aluno = alunoService.find(Aluno.class, id);
 		if (aluno == null) {
 			redirectAttributes.addFlashAttribute("erro", "Aluno inexistente.");
-			return "redirect:/aluno/listarAluno";
 		}else{
 			
 			this.alunoService.delete(aluno);

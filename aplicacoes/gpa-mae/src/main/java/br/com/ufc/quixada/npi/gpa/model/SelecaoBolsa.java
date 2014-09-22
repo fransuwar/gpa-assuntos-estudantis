@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class SelecaoBolsa {
@@ -32,8 +33,8 @@ public class SelecaoBolsa {
 	@ManyToOne
 	private Servidor servidor;
 
-	@ManyToMany(mappedBy="editais")
-	private List<Aluno> alunosBanca;
+	
+	
 
 	@ManyToMany
 	private List<Aluno> alunosSelecao;
@@ -104,12 +105,7 @@ public class SelecaoBolsa {
 	public void setServidor(Servidor servidor) {
 		this.servidor = servidor;
 	}
-	public List<Aluno> getAlunosBanca() {
-		return alunosBanca;
-	}
-	public void setAlunosBanca(List<Aluno> alunosBanca) {
-		this.alunosBanca = alunosBanca;
-	}
+
 	public List<Aluno> getAlunosSelecao() {
 		return alunosSelecao;
 	}
@@ -123,8 +119,7 @@ public class SelecaoBolsa {
 				+ ", caminhoArquivo=" + caminhoArquivo + ", comentarios="
 				+ comentarios + ", periodoAlocacao=" + periodoAlocacao
 				+ ", editalAberto=" + editalAberto + ", servidores="
-				+ servidores + ", servidor=" + servidor + ", alunosBanca="
-				+ alunosBanca + ", alunosSelecao=" + alunosSelecao + ", bolsa="
+				+ servidores + ", servidor=" + servidor + ", alunosSelecao=" + alunosSelecao + ", bolsa="
 				+ "]";
 	}
 	
