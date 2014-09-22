@@ -6,8 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="datatables"
-	uri="http://github.com/dandelion/datatables"%>
+<%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables"%>
 <%@ taglib prefix="gpa" tagdir="/WEB-INF/tags"%>
 
 
@@ -19,9 +18,10 @@
 <jsp:include page="../fragments/headTag.jsp" />
 
 <title>Cadastro Auxilio Moradia</title>
+
+
+
 </head>
-
-
 
 <body>
 
@@ -32,9 +32,8 @@
 			<h2>Novo Cadastro</h2>
 
 			<form:form id="questionarioAuxilioMoradia" role="form"
-				commandName="questionarioAuxilioMoradia"
-				servletRelativeAction="/inscricao/auxilio" method="POST"
-				cssClass="form-horizontal">
+				commandName="questionarioAuxilioMoradia" servletRelativeAction="/inscricao/auxilio"
+				method="POST" cssClass="form-horizontal">
 
 				<input type="hidden" name="id"
 					value="${QuestionarioAuxilioMoradia.id }" />
@@ -51,23 +50,24 @@
 				<!-- </div> -->
 
 
+				
 
-			<form:checkboxes items="${moraCom}" path="moraCom" />
+<!-- 				<div class="form-group"> -->
+<%-- 					<c:forEach items="${moraCom}" var="opcao"> --%>
+<!-- 						<div class="col-sm-1 control-label"> -->
+<!-- 							<div class="checkbox inline"> -->
+<%-- 								<label> <input type="checkbox" value="${opcao}" --%>
+<%-- 									name="${opcao}" /> ${opcao.mora} --%>
+<!-- 								</label> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<%-- 					</c:forEach> --%>
+<!-- 				</div> -->
 
-
-			<h4>Nome dos pais</h4>
-				<div class="form-group">
-					<label for="nomePai" class="col-sm-2 control-label">Nome do
-						Pai:</label>
-					<div class="col-sm-10">
-						<form:input id="nomePai" path="nomePai" cssClass="form-control"
-							placeholder="Nome do Pai" />
-						<div class="error-validation">
-							<form:errors path="nomePai"></form:errors>
-						</div>
-					</div>
-				</div>
-
+	 
+	<form:checkboxes items="${moraCom}" path="moraCom" />
+	
+			
 
 				<div class="form-group">
 					<label for="nomeMae" class="col-sm-2 control-label">Nome da
@@ -82,8 +82,19 @@
 				</div>
 
 
-				<
-				<h4>Endereço da residencia de origem</h4>
+				<div class="form-group">
+					<label for="nomePai" class="col-sm-2 control-label">Nome do
+						Pai:</label>
+					<div class="col-sm-10">
+						<form:input id="nomePai" path="nomePai" cssClass="form-control"
+							placeholder="Nome do Pai" />
+						<div class="error-validation">
+							<form:errors path="nomePai"></form:errors>
+						</div>
+					</div>
+				</div>
+
+				<h4>Endereço na sede do Curso</h4>
 
 				<div class="form-group">
 					<label for="enderecoSedeCurso" class="col-sm-2 control-label">Rua/Av:</label>
@@ -169,8 +180,8 @@
 					</div>
 				</div>
 
-
 				<h4>Endereço da residencia atual</h4>
+
 				<div class="form-group">
 					<label for="rua" class="col-sm-2 control-label">Nome da
 						rua:</label>
@@ -303,7 +314,7 @@
 					</div>
 				</div>
 
-				<h4>Selecione o grau de parentesco dono do veiculo</h4>
+
 				<div class="form-group">
 					<label for="veiculos" class="col-sm-2 control-label">Veículos:</label>
 					<div class="col-sm-4">
@@ -315,7 +326,7 @@
 					</div>
 				</div>
 
-				<h4>Selecione o grau de parentesco:</h4>
+			<h4>Selecione o grau de parentesco:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
 						<select name="${status.expression}" name="grauParentescoVeiculos"
@@ -393,11 +404,11 @@
 					</div>
 				</div>
 
-				<h4>Historico escolar</h4>
-				<h5>Selecione o tipo escolar que você frequentou:</h5>
+
+			<h4>Selecione o tipo escolar que você frequentou:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
-						<h6>Ensino Fundamental</h6>
+						<h4>Ensino Fundamental</h4>
 						<select name="${status.expression}" name="ensinoFundamental"
 							id="ensinoFundamental">
 							<c:forEach items="${tipoEnsinoFundamental }" var="opcao">
@@ -408,26 +419,24 @@
 						</select>
 					</div>
 				</div>
-
-
+				
+				
 				<div class="form-group">
-					<label for="percentualParticularFundamental"
-						class="col-sm-2 control-label">Percentual de bolsa:</label>
+					<label for="percentualParticularFundamental" class="col-sm-2 control-label">Percentual de bolsa:</label>
 					<div class="col-sm-1">
-						<form:input id="percentualParticularFundamental"
-							path="percentualParticularFundamental" cssClass="form-control"
+						<form:input id="percentualParticularFundamental" path="percentualParticularFundamental" cssClass="form-control"
 							placeholder="Percentual de bolsa Particular ensino Fundamental" />
 						<div class="error-validation">
 							<form:errors path="percentualParticularFundamental"></form:errors>
 						</div>
 					</div>
 				</div>
+				
 
-
-				<h5>Selecione o tipo escolar que você frequentou:</h5>
+				<h4>Selecione o tipo escolar que você frequentou:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
-						<h6>Ensino Médio</h6>
+						<h4>Ensino Médio</h4>
 						<select name="${status.expression}" name="tipoEnsinoMedio"
 							id="tipoEnsinoMedio">
 							<c:forEach items="${tipoEnsinoMedio }" var="opcao">
@@ -438,13 +447,11 @@
 						</select>
 					</div>
 				</div>
-
+				
 				<div class="form-group">
-					<label for="percentualParticularMedio"
-						class="col-sm-2 control-label">Percentual de bolsa:</label>
+					<label for="percentualParticularMedio" class="col-sm-2 control-label">Percentual de bolsa:</label>
 					<div class="col-sm-1">
-						<form:input id="percentualParticularMedio"
-							path="percentualParticularMedio" cssClass="form-control"
+						<form:input id="percentualParticularMedio" path="percentualParticularMedio" cssClass="form-control"
 							placeholder="Percentual de bolsa Particular ensino Medio" />
 						<div class="error-validation">
 							<form:errors path="percentualParticularMedio"></form:errors>
@@ -571,24 +578,80 @@
 				</div>
 
 
+<!-- 			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> -->
+<!-- 			<button id="btnSubmitForm" type="button" class="btn btn-default" -->
+<!-- 				onclick="submeterForm();">Salvar</button> -->
+	
 
-				<div class="controls">
-					<input name="submit" type="submit" class="btn btn-primary"
-						value="Cadastrar" /> <a
-						href="<c:url value="/inscricao/auxilio" ></c:url>"
-						class="btn btn-default">Cancelar</a>
-				</div>
+	<div class="controls">
+		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
+		 <a href="<c:url value="/inscricao/auxilio" ></c:url>" class="btn btn-default" >Cancelar</a>
+	</div>
 
 
 
-			</form:form>
+	<table>
+		<thead>
+			<th>Nome:</th>
+			<th>grau de Paresntesco:</th>
+			<th>Escolaridade </th>
+			<th>Atividade ou Profissão</th>
+			<th>Renda R$</th>
+			<th><a id="add" >Adicionar</a></th>
+		</thead>
+		
+		<tbody>
+		
+		
+		
+		
+		
+		
+		
+		</tbody>
+	</table>
+
+
+
+</form:form>
 		</div>
 	</div>
+
+	
+	
+	
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
+	<script type="text/javascript">
+	
+	
+	
+	//ADICIONA
+    $("a#add").click(function() {
 
-
-
+				var tr = $("tbody");
+				
+				tr.append($("<tr>")
+						.append($("<td>").append($("<input type='text' name='nome' cssClass ='form-control' value= "+tr+">"))
+						.append($("<td>").append($("<input type='text' name='grau' cssClass ='form-control' value= "+tr+">"))
+						.append($("<td>").append($("<input type='text' name='escolaridade' cssClass ='form-control' value= "+tr+">"))
+						.append($("<td>").append($("<input type='text' name='atividade' cssClass ='form-control' value= "+tr+">"))										
+						.append($("<td>").append($("<input type='text' name='renda' cssClass ='form-control' value= "+tr+">"))
+						.append($("<td>").append($("<a> delete </a>"))))))))
+						);
+				
+			$("table > tbody").append(tr);			
+    });	
+	
+	
+	
+	</script>
+	
+	
 </body>
 
 
 </html>
+
+
+
+

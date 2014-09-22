@@ -8,3 +8,4 @@
 			Práticas em Informática - UFC Campus Quixadá</div>
 	</div>
 </footer>
+<script src="<c:url value="/webjars/jquery/2.1.0/jquery.js" />"></script>
