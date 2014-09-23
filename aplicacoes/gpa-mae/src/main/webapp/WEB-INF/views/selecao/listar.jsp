@@ -28,7 +28,8 @@
 					<thead>
 						<tr>
 						
-							<th>Identificador</th>
+							<th>Tipo de Bolsa</th>
+							<th>Ano</th>
 							<th>Número do Edital</th>
 							<th>Vagas</th>
 							 <th>Status</th>
@@ -40,7 +41,8 @@
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 								
-								<td>  ${selecao.identificador}</td>
+								<td>${selecao.tipoDeBolsa}</td>
+								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status}</td>

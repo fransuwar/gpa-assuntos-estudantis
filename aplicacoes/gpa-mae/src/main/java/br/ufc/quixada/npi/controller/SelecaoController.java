@@ -59,10 +59,6 @@ public class SelecaoController {
 			return ("selecao/cadastrar");
 		}
 		selecao.setStatus(Status.NOVO);
-		//TipodeBolsa tipodeBolsa = selecao.getTipodeBolsa();
-		//String tipo = tipodeBolsa.getTipo();
-		
-		selecao.setIdentificador(geraCodigoProjeto(selecao.getTipoDeBolsa(), selecao.getAno(), selecao.getSequencial()));
 		this.serviceSelecao.save(selecao);
 		
 		
@@ -104,8 +100,6 @@ public class SelecaoController {
 		}
 		Selecao selecao = serviceSelecao.find(Selecao.class, id);
 		
-		selecao.setIdentificador(geraCodigoProjeto(selecaoAtualizado.getTipoDeBolsa(), selecaoAtualizado.getAno(), selecaoAtualizado.getSequencial()));
-		
 		selecao.setTipoDeBolsa(selecaoAtualizado.getTipoDeBolsa());
 		selecao.setDatadeInicio(selecaoAtualizado.getDatadeInicio());
 		selecao.setDatadeTermino(selecaoAtualizado.getDatadeTermino());
@@ -136,14 +130,6 @@ public class SelecaoController {
 			redirectAttributes.addFlashAttribute("erro", "Permissão negada.");
 		}
 		return "redirect:/selecao/listar";
-		
-	}
-	
-	private String geraCodigoProjeto(TipodeBolsa tipo, int ano, int sequencial) {
-		
-		return tipo +"_"+ ano +"_"+sequencial;
-		
-		
 		
 	}
 	

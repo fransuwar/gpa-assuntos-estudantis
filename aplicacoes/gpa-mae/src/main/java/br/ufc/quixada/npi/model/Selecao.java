@@ -37,8 +37,6 @@ public class Selecao {
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date datadeInicio;
-
-	private String identificador;
 	
 	
 	@NotNull
@@ -58,7 +56,6 @@ public class Selecao {
 	private String duracao;
 
 	@NotNull
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ano;
 	
 	@Lob
@@ -178,13 +175,6 @@ public class Selecao {
 
 	public void setStatus(Status status) {
 		this.status = status;
-	}
-	public String getIdentificador() {
-		return identificador;
-	}
-
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
 	}
 
 	public enum TipodeBolsa {
