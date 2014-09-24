@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -49,6 +50,10 @@ public class Aluno {
     
 	@ManyToOne
 	private Usuario usuario;
+	
+	@Column(nullable = false)
+	@OneToMany(mappedBy="aluno")
+	private List<QuestionarioIniciacaoAcademica> questionarioIniciacao;
 	
 	public Usuario getUsuario() {
 		return usuario;

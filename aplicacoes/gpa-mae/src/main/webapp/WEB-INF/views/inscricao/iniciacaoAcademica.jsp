@@ -20,70 +20,70 @@
 			<div class="form" align="center">
 				<h2>Programa de Iniciacao Academica</h2>
 				
-				<form:form id="adicionarSeleçãoForm" role="form" commandName="QuestionarioIniciacaoAcademica" servletRelativeAction="/inscricao/iniciacaoAcademica" method="POST" cssClass="form-horizontal">
+				<form:form id="adicionarSeleçãoForm" role="form" commandName="questionarioIniciacaoAcademica" servletRelativeAction="/inscricao/iniciacaoAcademica" method="POST" cssClass="form-horizontal">
 					<fieldset>
 					<legend>Moradia</legend>
 					<h3>Endereço de Residência de Origem</h3>
 					<div class="form-group">
 					<fieldset>
-						<label for="endereco_familia" class="col-sm-2 control-label">Rua/Av :</label>
+						<label for="enderecoAtual" class="col-sm-2 control-label">Rua/Av :</label>
 						<div class="col-sm-4">
-							<form:input id="endereco_familia" type="text" path="endereco_familia" cssClass="form-control" placeholder="Rua /Av"/>
+							<form:input id="enderecoAtual" type="text" path="enderecoAtual" cssClass="form-control" placeholder="Rua /Av"/>
 							<div class="error-validation">
-								<form:errors path="endereco_familia"></form:errors>
+								<form:errors path="enderecoAtual"></form:errors>
 							</div>
 						</div>
 						
-						<label for="complemento_familia" class="col-sm-2 control-label">Complemento:</label>
+						<label for="complementoFamilia" class="col-sm-2 control-label">Complemento:</label>
 						<div class="col-sm-4">
-							<form:input id="complemento_familia" type="text" path="complemento_familia" cssClass="form-control data" placeholder="Data de Término"/>
+							<form:input id="complementoFamilia" type="text" path="complementoFamilia" cssClass="form-control data" placeholder="Data de Término"/>
 							<div class="error-validation">
-								<form:errors path="complemento_familia"></form:errors>
+								<form:errors path="complementoFamilia"></form:errors>
 							</div>
 						</div>
 					</fieldset>	
 					</div>
 					
 					<div class="form-group">
-						<label for="numero_familia" class="col-sm-2 control-label">Número:</label>
+						<label for="numeroFamilia" class="col-sm-2 control-label">Número:</label>
 						<div class="col-sm-2">
-							<form:input id="numero_familia"  path="numero_familia" cssClass="form-control" placeholder="Número"/>
+							<form:input id="numeroFamilia"  path="numeroFamilia" cssClass="form-control" placeholder="Número"/>
 							<div class="error-validation">
-								<form:errors path="numero_familia"></form:errors>
+								<form:errors path="numeroFamilia"></form:errors>
 							</div>
 						</div>	
-						<label for="cep_familia" class="col-sm-2 control-label">CEP:</label>
+						<label for="cepFamilia" class="col-sm-2 control-label">CEP:</label>
 						<div class="col-sm-2">
-							<form:input id="cep_familia"  path="cep_familia" cssClass="form-control" placeholder="CEP"/>
+							<form:input id="cepFamilia"  path="cepFamilia" cssClass="form-control" placeholder="CEP"/>
 							<div class="error-validation">
-								<form:errors path="cep_familia"></form:errors>
+								<form:errors path="cepFamilia"></form:errors>
 							</div>
 						</div>
 					    
-					    <label for="bairro_familia" class="col-sm-2 control-label">Bairro:</label>
+					    <label for="bairroFamilia" class="col-sm-2 control-label">Bairro:</label>
 						<div class="col-sm-2">
-							<form:textarea id="bairro_familia" type="text" path="bairro_familia" cssClass="form-control data"  placeholder="Bairro"/>
+							<form:textarea id="bairroFamilia" type="text" path="bairroFamilia" cssClass="form-control data"  placeholder="Bairro"/>
 							<div class="error-validation">
-								<form:errors path="bairro"></form:errors>
+								<form:errors path="bairroFamilia"></form:errors>
 							</div>
 					    </div>
 													
 					</div>
 					
 					<div class="form-group">
-						<label for="telefone_fixo" class="col-sm-2 control-label">Fone:</label>
+						<label for="telefoneFixo" class="col-sm-2 control-label">Fone:</label>
 						<div class="col-sm-4">
-							<form:input id="telefone_fixo"  path="telefone_fixo" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="telefoneFixo"  path="telefoneFixo" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="telefone_fixo"></form:errors>
+								<form:errors path="telefoneFixo"></form:errors>
 							</div>
 						</div>
 						
-						<label for="telefone_celular" class="col-sm-2 control-label">Celular:</label>
+						<label for="telefoneCelular" class="col-sm-2 control-label">Celular:</label>
 						<div class="col-sm-4">
-							<form:input id="telefone_celular"    path="telefone_celular" cssClass="form-control" placeholder="Celular"/>
+							<form:input id="telefoneCelular"    path="telefoneCelular" cssClass="form-control" placeholder="Celular"/>
 							<div class="error-validation">
-								<form:errors path="telefone_celular"></form:errors>
+								<form:errors path="telefoneCelular"></form:errors>
 							</div>
 						</div>
 					
@@ -98,23 +98,23 @@
 							</div>
 						</div>
 					
-					<label for="cidade" class="col-sm-2 control-label">Nivel Instrução:</label>	
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+					<label for="cidade" class="col-sm-2 control-label">UF:</label>	
+					<form:select name="${status.expression}" path="estadoFamilia" id="nivelInstrucao">
 						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
+						<c:forEach items="${TotalEstado}" var="opcao">
 							<option value="${opcao}">
 								<c:out value="${opcao.nome}"></c:out>
 							</option>
 						</c:forEach>	
-					</select>
+					</form:select>
 					</div>
 					
 					<div class="form-group">
-						<label for="cidade" class="col-sm-2 control-label">Ponto de referencia:</label>
+						<label for="pontoReferenciaFamilia" class="col-sm-2 control-label">Ponto de referencia:</label>
 						<div class="col-sm-8">
-							<form:input id="cidade" type="text" path="cidade" cssClass="form-control" placeholder="Cidade"/>
+							<form:input id="pontoReferenciaFamilia" type="text" path="pontoReferenciaFamilia" cssClass="form-control" placeholder="Ponto de referencia"/>
 							<div class="error-validation">
-								<form:errors path="cidade"></form:errors>
+								<form:errors path="pontoReferenciaFamilia"></form:errors>
 							</div>
 						</div>
 								
@@ -128,11 +128,11 @@
 					
 					<h3>Endereço Atual</h3>
 					<div class="form-group">
-						<label for="endereco_atual" class="col-sm-2 control-label">Rua/Av :</label>
+						<label for="enderecoFamilia" class="col-sm-2 control-label">Rua/Av :</label>
 						<div class="col-sm-4">
-							<form:input id="endereco_atual" path="endereco_atual" cssClass="form-control" placeholder="Rua /Av"/>
+							<form:input id="enderecoFamilia" path="enderecoFamilia" cssClass="form-control" placeholder="Rua /Av"/>
 							<div class="error-validation">
-								<form:errors path="endereco_atual"></form:errors>
+								<form:errors path="enderecoFamilia"></form:errors>
 							</div>
 						</div>
 						
@@ -173,19 +173,19 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="telefone_fixo" class="col-sm-2 control-label">Fone:</label>
+						<label for="telefoneFixo" class="col-sm-2 control-label">Fone:</label>
 						<div class="col-sm-4">
-							<form:input id="telefone_fixo"  path="telefone_fixo" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="telefoneFixo"  path="telefoneFixo" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="telefone_fixo"></form:errors>
+								<form:errors path="telefoneFixo"></form:errors>
 							</div>
 						</div>
 						
 						<label for="telefone_celular" class="col-sm-2 control-label">Celular:</label>
 						<div class="col-sm-4">
-							<form:input id="telefone_celular"  path="telefone_celular" cssClass="form-control" placeholder="Celular"/>
+							<form:input id="telefoneCelular"  path="telefoneCelular" cssClass="form-control" placeholder="Celular"/>
 							<div class="error-validation">
-								<form:errors path="telefone_celular"></form:errors>
+								<form:errors path="telefoneCelular"></form:errors>
 							</div>
 						</div>
 					
@@ -200,21 +200,21 @@
 							</div>
 						</div>
 					
-					<label for="cidade" class="col-sm-2 control-label">Nivel Instrução:</label>	
-					<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+					<label for="cidade" class="col-sm-2 control-label">UF:</label>	
+					<form:select name="${status.expression}"  path="estadoAtual" id="estado">
 						
-						<c:forEach items="${NivelInstrucao}" var="opcao">
+						<c:forEach items="${TotalEstado}" var="opcao">
 							<option value="${opcao}">
 								<c:out value="${opcao.nome}"></c:out>
 							</option>
 						</c:forEach>	
-					</select>
+					</form:select>
 					</div>
 					
 					<div class="form-group">
-						<label for="cidade" class="col-sm-2 control-label">Ponto de referencia:</label>
+						<label for="pontoReferencia" class="col-sm-2 control-label">Ponto de referencia:</label>
 						<div class="col-sm-8">
-							<form:input id="cidade" type="text" path="cidade" cssClass="form-control" placeholder="Cidade"/>
+							<form:input id="pontoReferencia" type="text" path="pontoReferencia" cssClass="form-control" placeholder="Cidade"/>
 							<div class="error-validation">
 								<form:errors path="cidade"></form:errors>
 							</div>
@@ -226,9 +226,9 @@
 					<div class="form-group">
 						<label for="reside_atualmente" class="col-sm-2 control-label">Com quem você reside Atualmente :</label>
 						<div class="col-sm-8">
-							<form:input id="reside_atualmente" path="reside_atualmente" cssClass="form-control" placeholder="Rua /Av"/>
+							<form:input id="resideAtualmente" path="resideAtualmente" cssClass="form-control" placeholder="Rua /Av"/>
 							<div class="error-validation">
-								<form:errors path="endereco_atual"></form:errors>
+								<form:errors path="enderecoAtual"></form:errors>
 							</div>
 						</div>
 					</div>
@@ -236,9 +236,9 @@
 					<div class="form-group">
 						<label for="reside_atualmente" class="col-sm-2 control-label">Como define a Localidade na qual vive atualmente? :</label>
 						<div class="col-sm-6">
-							<form:input id="definicao_local_atual" path="definicao_local_atual" cssClass="form-control" placeholder="Rua /Av"/>
+							<form:input id="definicaoLocalAtual" path="definicaoLocalAtual" cssClass="form-control" placeholder="Rua /Av"/>
 							<div class="error-validation">
-								<form:errors path="definicao_local_atual"></form:errors>
+								<form:errors path="definicaoLocalAtual"></form:errors>
 							</div>
 						</div>
 					</div>
@@ -248,154 +248,156 @@
 					<div class="form-group">
 					<label for="cidade" class="col-sm-2 control-label">Qual a situação da sua residencia:</label>	
 						<div class="col-sm-2">
-						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+						<form:select name="${status.expression}" path="situacaoResidencia" id="nivelInstrucao">
 						
 						<c:forEach items="${SituacaoResidencia}" var="opcao">
 							<option value="${opcao}">
 								<c:out value="${opcao.nome}"></c:out>
 							</option>
 						</c:forEach>	
-						</select>
+						</form:select>
 						</div>
 					</div>
 					
 					<label for="qtd_aparelho_som" class="col-sm-2 control-label">Aparelho de Som:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_aparelho_som" type="number" min="0"  path="qtd_aparelho_som" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdAparelhoSom" type="number" min="0"  path="qtdAparelhoSom" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_aparelho_som"></form:errors>
+								<form:errors path="qtdAparelhoSom"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_televisao" class="col-sm-2 control-label">Televisão:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_televisao" type="number" min="0"  path="qtd_televisao" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdTelevisao" type="number" min="0"  path="qtdTelevisao" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_televisao"></form:errors>
+								<form:errors path="qtdTelevisao"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_radio" class="col-sm-2 control-label">Radio:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_radio" type="number" min="0"  path="qtd_radio" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdRadio" type="number" min="0"  path="qtdRadio" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_radio"></form:errors>
+								<form:errors path="qtdRadio"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_automovel" class="col-sm-2 control-label">Automovel:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_automovel" type="number" min="0"  path="qtd_automovel" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdAutomovel" type="number" min="0"  path="qtdAutomovel" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_televisao"></form:errors>
+								<form:errors path="qtdAutomovel"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_motocicleta" class="col-sm-2 control-label">Motocicleta:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_motocicleta" type="number" min="0"  path="qtd_motocicleta" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdMotocicleta" type="number" min="0"  path="qtdMotocicleta" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_motocicleta"></form:errors>
+								<form:errors path="qtdMotocicleta"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_dvd_videocassete" class="col-sm-2 control-label">Dvd/VideoCassete:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_dvd_videocassete" type="number" min="0"  path="qtd_dvd_videocassete" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdDvdVideocassete" type="number" min="0"  path="qtdDvdVideocassete" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_dvd_videocassete"></form:errors>
+								<form:errors path="qtdDvdVideocassete"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_maquina_lavar" class="col-sm-2 control-label">Maquina de Lavar:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_maquina_lavar" type="number" min="0"  path="qtd_maquina_lavar" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdMaquinaLavar" type="number" min="0"  path="qtdMaquinaLavar" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_televisao"></form:errors>
+								<form:errors path="qtdTelevisao"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_geladeira" class="col-sm-2 control-label">Geladeira:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_geladeira" type="number" min="0"  path="qtd_geladeira" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdGeladeira" type="number" min="0"  path="qtdGeladeira" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_geladeira"></form:errors>
+								<form:errors path="qtdGeladeira"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_freezer" class="col-sm-2 control-label">Freezer:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_freezer" type="number" min="0"  path="qtd_freezer" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdFreezer" type="number" min="0"  path="qtdFreezer" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_freezer"></form:errors>
+								<form:errors path="qtdFreezer"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_telefonefixo" class="col-sm-2 control-label">Telefone Fixo:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_telefonefixo" type="number" min="0"  path="qtd_telefonefixo" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdTefoneFixo" type="number" min="0"  path="qtdTelefoneFixo" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_telefonefixo"></form:errors>
+								<form:errors path="qtdTelefoneFixo"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_celular_residentes" class="col-sm-2 control-label">Celular Residentes:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_celular_residentes" type="number" min="0"  path="qtd_celular_residentes" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdCelularResidentes" type="number" min="0"  path="qtdCelularResidentes" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_celular_residentes"></form:errors>
+								<form:errors path="qtdCelularResidentes"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_computador" class="col-sm-2 control-label">Computador:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_computador" type="number" min="0"  path="qtd_computador" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdComputador" type="number" min="0"  path="qtdComputador" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_computador"></form:errors>
+								<form:errors path="qtdComputador"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_fogao_gas" class="col-sm-2 control-label">Fogao A Gás:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_fogao_gas" type="number" min="0"  path="qtd_fogao_gas" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdFogaoGas" type="number" min="0"  path="qtdFogaoGas" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_fogao_gas"></form:errors>
+								<form:errors path="qtdFogaoGas"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_maquina_costura" class="col-sm-2 control-label">Máquina de Costura:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_maquina_costura" type="number" min="0"  path="qtd_maquina_costura" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdMaquinaCostura" type="number" min="0"  path="qtdMaquinaCostura" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_maquina_costura"></form:errors>
+								<form:errors path="qtdMaquinaCostura"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_comodos_sem_banheiro" class="col-sm-2 control-label">Comodo sem Banheiro:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_comodos_sem_banheiro" type="number" min="0"  path="qtd_comodos_sem_banheiro" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdComodosSemBanheiro" type="number" min="0"  path="qtdComodosSemBanheiro" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_comodos_sem_banheiro"></form:errors>
+								<form:errors path="qtdComodosSemBanheiro"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_banheiros" class="col-sm-2 control-label">Banheiros:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_banheiros" type="number" min="0"  path="qtd_banheiros" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdBanheiros" type="number" min="0"  path="qtdBanheiros" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_banheiros"></form:errors>
+								<form:errors path="qtdBanheiros"></form:errors>
 							</div>
 						</div>
 					
 					<label for="qtd_empregados_domesticos" class="col-sm-2 control-label">Empregados Domesticos:</label>
 						<div class="col-sm-4">
-							<form:input id="qtd_empregados_domesticos" type="number" min="0"  path="qtd_empregados_domesticos" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="qtdEmpregadosDomesticos" type="number" min="0"  path="qtdEmpregadosDomesticos" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
-								<form:errors path="qtd_empregados_domesticos"></form:errors>
+								<form:errors path="qtdEmpregadosDomesticos"></form:errors>
 							</div>
 						</div>
 					</fieldset>	
-						<fieldset>
+					
+					<!-- 
+					<fieldset>
 						<legend>Informações do seu grupo familiar(Incluindo Você)</legend>
 					    <table class="table table-hover">
    							<thead>
@@ -403,60 +405,60 @@
 								<th>Grau de Parentesco</th>
 								<th>Escolaridade</th>
 								<th>Atividade ou Profissão</th>
-								<th>Renda Mensal(R$)</th>
+								<th id="renda">Renda Mensal(R$)</th>
 								<th><a id="addInf">  Add </a></th>
 								
 							</thead>	
 							<tbody id="corpoInfo"></tbody>
 						
     					</table>
-							<div class="form-group">
-								<label for="rendaFamilia" class="col-sm-2 control-label">Renda Média Mensal da Família:</label>
-								<input id="rendaFamilia" name="rendaFamilia"/>
-							</div>
+							
 			
 					</fieldset>
+					 -->
+					
 					
 					<fieldset>
 					<legend>Informações Adicionais</legend>
+					<h3>Horários Disponíves Para Bolsa</h3>
 						<div class = "form-group">
 						<label for="cidade" class="col-sm-2 control-label">Segunda:</label>	
 							<div class="col-sm-2">
-								<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+								<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
 						
 									<c:forEach items="${HorarioDisponivel}" var="opcao">
 										<option value="${opcao}">
 									<c:out value="${opcao.nome}"></c:out>
 										</option>
 									</c:forEach>	
-								</select>
+								</form:select>
 							</div>
 						</div>
 						<div class="form-group"> 
 						<label for="cidade" class="col-sm-2 control-label">Terça:</label>	
 						<div class="col-sm-2">
-						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
 						
 						<c:forEach items="${HorarioDisponivel}" var="opcao">
 							<option value="${opcao}">
 								<c:out value="${opcao.nome}"></c:out>
 							</option>
 						</c:forEach>	
-						</select>
+						</form:select>
 						</div>
 						</div>
 						
 						<div class="form-group">
 						<label for="cidade" class="col-sm-2 control-label">Quarta:</label>	
 						<div class="col-sm-2">
-						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
 						
 						<c:forEach items="${HorarioDisponivel}" var="opcao">
 							<option value="${opcao}">
 								<c:out value="${opcao.nome}"></c:out>
 							</option>
 						</c:forEach>	
-						</select>
+						</form:select>
 						</div>
 						</div>
 						
@@ -464,14 +466,14 @@
 						<div class="form-group">
 						<label for="cidade" class="col-sm-2 control-label">Quinta:</label>	
 						<div class="col-sm-2">
-						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
 						
 						<c:forEach items="${HorarioDisponivel}" var="opcao">
 							<option value="${opcao}">
 								<c:out value="${opcao.nome}"></c:out>
 							</option>
 						</c:forEach>	
-						</select>
+						</form:select>
 						</div>
 						</div>
 						
@@ -479,14 +481,14 @@
 						<div class="form-group">
 						<label for="cidade" class="col-sm-2 control-label">Sexta:</label>	
 						<div class="col-sm-2">
-						<select name="${status.expression}" name="nivelInstrucao" id="nivelInstrucao">
+						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
 						
 						<c:forEach items="${HorarioDisponivel}" var="opcao">
 							<option value="${opcao}">
 								<c:out value="${opcao.nome}"></c:out>
 							</option>
 						</c:forEach>	
-						</select>
+						</form:select>
 						</div>
 						</div>
 						
@@ -501,7 +503,7 @@
 						<div class="form-group">
 						<label for="atividades" class="col-sm-1 control-label"></label>
 						<div class="col-sm-11">
-							<form:textarea id="justificativa_pedido" path="justificativa_pedido" name="justificativa_pedido" class="form-control" rows="10"></form:textarea>
+							<form:textarea id="justificativaPedido" path="justificativaPedido" name="justificativaPedido" class="form-control" rows="10"></form:textarea>
 						</div>
 						</div>
 					</fieldset>
@@ -533,9 +535,14 @@
 			$("tbody#corpoInfo").append("<tr>  <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> </tr>");
 			//alert("Voce clicou no addInfo");
 			$(".form-group input#rendaFamilia").attr("value","Adicionando");
-			//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length); 
+			//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length);
+			
+			var dados = 0;
 			for(var qtd=0;qtd < $("tbody#corpoInfo tr").length;qtd++){
-				
+				dados = $("#renda").val();
+				alert(dados);
+				//valorRenda += $("body").find("th").eq("4").val();	
+				//alert(valorRenda);
 				//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length  +  " cont = " + qtd);
 				
 			}
