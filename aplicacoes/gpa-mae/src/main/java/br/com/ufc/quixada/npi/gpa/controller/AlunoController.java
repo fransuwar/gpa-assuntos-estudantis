@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.log4j.jmx.Agent;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,9 +47,12 @@ public class AlunoController {
 	public String adicionarAluno(
 			@Valid @ModelAttribute("aluno") Aluno aluno,
 			BindingResult result,RedirectAttributes redirect) {
+		
 		if (result.hasErrors()) {
 			return ("aluno/alunos");
 		}
+		
+		
 		
 		this.alunoService.save(aluno);
 		this.alunoService.update(aluno);
@@ -72,7 +76,7 @@ public class AlunoController {
 	
 	
 	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.GET)
-	public String editar(@PathVariable("id") long id, Model model) {
+	public String editar(@PathVariable("id") Integer id, Model model) {
 		Aluno aluno = alunoService.find(Aluno.class, id);
 		
 		{
@@ -85,7 +89,7 @@ public class AlunoController {
 	
 	
 	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.POST)
-	public String atualizarAluno(@PathVariable("id") Long id,
+	public String atualizarAluno(@PathVariable("id") Integer id,
 			@Valid @ModelAttribute(value = "aluno") Aluno alunoAtualizado,
 			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
 
@@ -113,8 +117,8 @@ public class AlunoController {
 	
 	
 	@RequestMapping(value = "/{id}/excluir")
-	public String excluirAluno(Aluno p, @PathVariable("id") Long id, RedirectAttributes redirectAttributes,
-			Model model) {
+	public String excluirAluno(Aluno p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes
+			) {
 		Aluno aluno = alunoService.find(Aluno.class, id);
 		if (aluno == null) {
 			redirectAttributes.addFlashAttribute("erro", "Aluno inexistente.");
@@ -127,6 +131,7 @@ public class AlunoController {
 		return "redirect:/aluno/listarAluno";
 		
 	}
+	
 	
 
 	

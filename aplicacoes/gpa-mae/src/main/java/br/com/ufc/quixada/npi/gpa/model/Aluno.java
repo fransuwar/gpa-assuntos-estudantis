@@ -24,7 +24,7 @@ public class Aluno {
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@NotEmpty
 	private String matricula;
@@ -66,23 +66,7 @@ public class Aluno {
 	@ManyToOne
 	private Pessoa pessoa;
 
-	
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-	public Pessoa getUsuario() {
-		return pessoa;
-	}
-
-	public void setUsuario(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	
 	public List<QuestionarioAuxilioMoradia> getAuxilioMoradia() {
 		return auxilioMoradia;
 	}
@@ -99,7 +83,14 @@ public class Aluno {
 			List<QuestionarioIniciacaoAcademica> iniciacaoAcademica) {
 		this.iniciacaoAcademica = iniciacaoAcademica;
 	}
+	
+	public Integer getId() {
+		return id;
+	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	public String getNome() {
 		return nome;
@@ -116,6 +107,14 @@ public class Aluno {
 
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
+	}
+	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public String getAnoIngresso() {

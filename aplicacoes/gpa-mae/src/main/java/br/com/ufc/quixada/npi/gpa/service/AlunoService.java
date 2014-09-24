@@ -8,6 +8,6 @@ public interface AlunoService extends GenericService<Aluno>{
 	
 	
 	public abstract List<Aluno> findAll();
-	//public abstract List<Aluno> listarAlnos();
+	
 	
 }
