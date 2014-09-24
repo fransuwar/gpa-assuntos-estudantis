@@ -1,0 +1,16 @@
+aplicacoes/gpa-mae/.metadata
+aplicacoes/gpa-mae/.settings
+aplicacoes/gpa-mae/.classpath
+aplicacoes/gpa-mae/.project
+aplicacoes/gpa-mae/target
+.metadata
+.settings
+.classpath
+.project
+target
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.tmp

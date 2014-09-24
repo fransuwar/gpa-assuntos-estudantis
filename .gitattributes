@@ -1,7 +1,6 @@
-# Autodetect text files
-* text eol=lf
-
-# Definitively text files 
+# End-of-line normalization should not be attempted for text files
+* -text
+# Definitively text files
 *.xml text
 *.java text
 *.properties text
@@ -11,7 +10,11 @@
 *.txt text
 *.c text
 *.h text
-
 # Ensure those won't be messed up with
 *.jpg binary
 *.png binary
+*.doc binary
+*.docx binary
+*.ods binary
+*.pdf binary
+*.asta binary
