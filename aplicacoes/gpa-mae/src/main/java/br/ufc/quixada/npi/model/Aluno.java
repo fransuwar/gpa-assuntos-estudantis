@@ -26,9 +26,6 @@ public class Aluno {
 	@ManyToMany
 	private List<Selecao> editais;
 	
-	@ManyToMany(mappedBy="alunosSelecao")
-	private List<Selecao> editaisAluno;
-	
 	@OneToOne
 	private QuestionarioAuxilioMoradia auxilioMoradia;
 	
@@ -143,8 +140,7 @@ public class Aluno {
 	@Override
 	public String toString() {
 		return "Aluno [id=" + id + ", matricula=" + matricula + ", editais="
-				+ editais + ", editaisAluno=" + editaisAluno
-				+ ", auxilioMoradia=" + auxilioMoradia
+				+ editais + ", editaisAluno="  + auxilioMoradia
 				+ ", iniciacaoAcademica=" + iniciacaoAcademica
 				+ ", anoIngresso=" + anoIngresso + ", ira=" + ira + ", curso="
 				+ curso + ", banco=" + banco + ", agencia=" + agencia

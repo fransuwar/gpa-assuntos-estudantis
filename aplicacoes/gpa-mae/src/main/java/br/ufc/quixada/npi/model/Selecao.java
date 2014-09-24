@@ -27,30 +27,27 @@ public class Selecao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@Min(value = 1, message = "Número de bolsas deve ser maior que 0")
 	private int quantidadeVagas;
-	
-	
-	
+			
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date datadeInicio;
-	
-	
+	private Date dataInicio;
+		
 	@NotNull
 	private Integer sequencial;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	public enum Status {
-		NOVO, SUBMETIDO
+		NOVA, SUBMETIDO, INSCRICAO_ABERTA, PROCESSO_SELETIVO, FINALIZADA, CANCELADA
 	}
 	@Future
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date datadeTermino;
+	private Date dataTermino;
 	
 	@NotNull
 	private String duracao;
@@ -64,11 +61,11 @@ public class Selecao {
 
 	private String edital;
 
-	@ManyToMany(mappedBy = "servidoresBanca")
-	private List<Servidor> servidores;
+	@ManyToMany(mappedBy = "participaBancas")
+	private List<Servidor> membrosBanca;
 
 	@ManyToOne
-	private Servidor servidor;
+	private Servidor responsavel;
 
 	@ManyToMany
 	private List<Aluno> alunosSelecao;
@@ -89,11 +86,11 @@ public class Selecao {
 		this.duracao = duracao;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -105,12 +102,12 @@ public class Selecao {
 		this.quantidadeVagas = QuantidadeVagas;
 	}
 
-	public Date getDatadeInicio() {
-		return datadeInicio;
+	public Date getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setDatadeInicio(Date datadeInicio) {
-		this.datadeInicio = datadeInicio;
+	public void setDataInicio(Date datadeInicio) {
+		this.dataInicio = datadeInicio;
 	}
 
 	public String getEdital() {
@@ -129,28 +126,28 @@ public class Selecao {
 		this.comentarios = comentarios;
 	}
 
-	public Date getDatadeTermino() {
-		return datadeTermino;
+	public Date getDataTermino() {
+		return dataTermino;
 	}
 
-	public void setDatadeTermino(Date datadeTermino) {
-		this.datadeTermino = datadeTermino;
+	public void setDataTermino(Date datadeTermino) {
+		this.dataTermino = datadeTermino;
 	}
 
-	public List<Servidor> getServidores() {
-		return servidores;
+	public List<Servidor> getMembrosBanca() {
+		return membrosBanca;
 	}
 
-	public void setServidores(List<Servidor> servidores) {
-		this.servidores = servidores;
+	public void setMembrosBanca(List<Servidor> membrosBanca) {
+		this.membrosBanca = membrosBanca;
 	}
 
-	public Servidor getServidor() {
-		return servidor;
+	public Servidor getResponsavel() {
+		return responsavel;
 	}
 
-	public void setServidor(Servidor servidor) {
-		this.servidor = servidor;
+	public void setResponsavel(Servidor responsavel) {
+		this.responsavel = responsavel;
 	}
 
 	public List<Aluno> getAlunosSelecao() {
@@ -177,8 +174,8 @@ public class Selecao {
 		this.status = status;
 	}
 
-	public enum TipodeBolsa {
-		iniciacao_academica("Iniciação Acadêmica"), auxilio_moradia(
+	public enum TipoBolsa {
+		INICIACAO_ACADEMICA("Iniciação Acadêmica"), AUXILIO_MORADIA(
 				"Auxilio Moradia");
 		private String tipo;
 
@@ -190,20 +187,20 @@ public class Selecao {
 			this.tipo = tipo;
 		}
 
-		TipodeBolsa(String tipo) {
+		TipoBolsa(String tipo) {
 			this.tipo = tipo;
 		}
 	}
 
 	@Enumerated(EnumType.STRING)
-	private TipodeBolsa tipoDeBolsa;
+	private TipoBolsa tipoBolsa;
 
-	public TipodeBolsa getTipoDeBolsa() {
-		return tipoDeBolsa;
+	public TipoBolsa getTipoBolsa() {
+		return tipoBolsa;
 	}
 
-	public void setTipoDeBolsa(TipodeBolsa tipoDeBolsa) {
-		this.tipoDeBolsa = tipoDeBolsa;
+	public void setTipoBolsa(TipoBolsa tipoBolsa) {
+		this.tipoBolsa = tipoBolsa;
 	}
 
 }

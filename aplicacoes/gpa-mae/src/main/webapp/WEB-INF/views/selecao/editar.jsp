@@ -14,31 +14,22 @@
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<c:url value="/resources/css/jquery.fileupload.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/jquery.fileupload-ui.css" />">
-	<title>Editar Projeto</title>
+	<title>Editar Seleções</title>
 </head>
 
 <body>
 	<jsp:include page="../modulos/header.jsp" />
 	
 	<div class="container">
-		<c:if test="${action == 'submeter'}">
-			<div class="alert alert-warning alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<c:out value="É necessário preencher todas as informações do projeto para submetê-lo."></c:out>
-			</div>
-		</c:if>
-		<div class="novo-projeto" align="left">
+		<div class="novo-selecao" align="left">
 			<div class="form" align="center">
 				<c:if test="${action == 'editar'}">
 					<c:set var="url" value="/selecao/${selecao.id}/editar"></c:set>
 					<h2>Editar Seleção</h2>
 				</c:if>
-				<c:if test="${action == 'submeter'}">
-					<c:set var="url" value="/selecao/submeter"></c:set>
-					<h2>Submeter Seleção</h2>
-				</c:if>
 				<form:form id="editar" commandName="selecao" servletRelativeAction="${url }" cssClass="form-horizontal" method="POST">
 					<input type="hidden" name="id" value="${selecao.id }"/>
+					<input type="hidden" name="status" value="${selecao.status }"/>
 
 					<div class="form-group">
 						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
@@ -51,19 +42,19 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="datadeInicio" class="col-sm-2 control-label">Data de Início:</label>
+						<label for="dataInicio" class="col-sm-2 control-label">Data de Início:</label>
 						<div class="col-sm-2">
-							<form:input id="datadeInicio" type="text" path="datadeInicio" cssClass="form-control data" placeholder="Data de Início"/>
+							<form:input id="dataInicio" type="text" path="dataInicio" cssClass="form-control data" placeholder="Data de Início"/>
 							<div class="error-validation">
-								<form:errors path="datadeInicio"></form:errors>
+								<form:errors path="dataInicio"></form:errors>
 							</div>
 						</div>
 						
-						<label for="datadeTermino" class="col-sm-2 control-label">Data de Término:</label>
+						<label for="dataTermino" class="col-sm-2 control-label">Data de Término:</label>
 						<div class="col-sm-2">
-							<form:input id="datadeTermino" type="text" path="datadeTermino" cssClass="form-control data" placeholder="Data de Término"/>
+							<form:input id="dataTermino" type="text" path="dataTermino" cssClass="form-control data" placeholder="Data de Término"/>
 							<div class="error-validation">
-								<form:errors path="datadeTermino"></form:errors>
+								<form:errors path="dataTermino"></form:errors>
 							</div>
 						</div>
 						
@@ -101,9 +92,9 @@
 					</div>
 					
 			<div class="form-group"> 
-					<label for="tipoDeBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>	
-					<form:select  name="${status.expression}" path="tipoDeBolsa" id="tipoDeBolsa">
-						<c:forEach var="item" items="${tiposDeBolsa}">
+					<label for="tipoBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>	
+					<form:select  name="${status.expression}" path="tipoBolsa" id="tipoBolsa">
+						<c:forEach var="item" items="${tiposBolsa}">
 							<form:option value="${item}"><spring:eval expression="item.tipo"/></form:option>
 						</c:forEach>
 					</form:select>
@@ -122,200 +113,5 @@
 	<jsp:include page="../modulos/footer.jsp" />
 
 </body>
-
-
-<script type="text/javascript">
-	/* $(document)
-			.ready(
-					function() {
-						$.fn.datepicker.dates['pt-BR'] = {
-							days : [ "Domingo", "Segunda", "Terça", "Quarta",
-									"Quinta", "Sexta", "Sábado", "Domingo" ],
-							daysShort : [ "Dom", "Seg", "Ter", "Qua", "Qui",
-									"Sex", "Sáb", "Dom" ],
-							daysMin : [ "Dom", "Seg", "Ter", "Qua", "Qui",
-									"Sex", "Sab", "Dom" ],
-							months : [ "Janeiro", "Fevereiro", "Março",
-									"Abril", "Maio", "Junho", "Julho",
-									"Agosto", "Setembro", "Outubro",
-									"Novembro", "Dezembro" ],
-							monthsShort : [ "Jan", "Fev", "Mar", "Abr", "Mai",
-									"Jun", "Jul", "Ago", "Set", "Out", "Nov",
-									"Dez" ],
-							today : "Hoje"
-						};
-
-						$('.input-group.date').datepicker({
-							format : "dd/mm/yyyy",
-							startDate : "01-01-2012",
-							endDate : "01-01-2015",
-							todayBtn : "linked",
-							autoclose : true,
-							language : "pt-BR",
-							todayHighlight : true
-						});
-						//Método que valida o dia mês e ano dd/MM/yyyy
-						jQuery.validator
-								.addMethod(
-										"dateBR",
-										function(value, element) {
-											if (value.length != 10)
-												return (this.optional(element) || false);
-											var data = value;
-											var dia = data.substr(0, 2);
-											var barra1 = data.substr(2, 1);
-											var mes = data.substr(3, 2);
-											var barra2 = data.substr(5, 1);
-											var ano = data.substr(6, 4);
-
-											if (data.length != 10
-													|| barra1 != "/"
-													|| barra2 != "/"
-													|| isNaN(dia) || isNaN(mes)
-													|| isNaN(ano) || dia > 31
-													|| mes > 12)
-												return (this.optional(element) || false);
-											if ((mes == 4 || mes == 6
-													|| mes == 9 || mes == 11)
-													&& dia == 31)
-												return (this.optional(element) || false);
-											if (mes == 2
-													&& (dia > 29 || (dia == 29 && ano % 4 != 0)))
-												return (this.optional(element) || false);
-											if (ano < 1900)
-												return (this.optional(element) || false);
-											return (this.optional(element) || true);
-										}, "Informe uma data válida");
-
-						//Validando numero de bolsas positivo
-						$.validator.addMethod('positiveNumber',
-								function(value) {
-									return Number(value) >= 0;
-								}, 'Entre com um numero positivo');
-
-						//código para input só ser números
-						var specialKeys = new Array();
-						specialKeys.push(8);
-						$("#quantidadeBolsa")
-								.bind(
-										"keypress",
-										function(e) {
-											var keyCode = e.which ? e.which
-													: e.keyCode;
-											var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys
-													.indexOf(keyCode) != -1);
-											return ret;
-										});
-
-						$("#quantidadeBolsa").bind("paste", function(e) {
-							return false;
-						});
-
-						$("#quantidadeBolsa").bind("drop", function(e) {
-							return false;
-						});
-
-						jQuery.validator.setDefaults({
-							errorPlacement : function(error, element) {
-								// if the input has a prepend or append element, put the validation msg after the parent div
-								if (element.parent().hasClass('input-prepend')
-										|| element.parent().hasClass(
-												'input-append')) {
-									error.insertAfter(element.parent());
-									// else just place the validation message immediatly after the input
-								} else {
-									error.insertAfter(element);
-								}
-							},
-							errorElement : "small", // contain the error msg in a small tag
-							wrapper : "span", // wrap the error message and small tag in a div
-							highlight : function(element) {
-								$(element).closest('.control-group').addClass(
-										'error'); // add the Bootstrap error class to the control group
-							},
-
-							success : function(element) {
-								$(element).closest('.control-group')
-										.removeClass('error'); // remove the Boostrap error class from the control group
-							}
-						});
-
-						$(".registrationForm")
-								.validate(
-										{
-											rules : {
-												nome : {
-													required : true,
-													minlength : 2
-												},
-												descricao : {
-													required : true,
-													minlength : 5
-												},
-												inicio : {
-													dateBR : {
-														depends : function() {
-															return $(
-																	'#datainicio')
-																	.val().length > 0
-																	&& $(
-																			'#datatermino')
-																			.val().length > 0;
-														}
-													}
-												},
-												termino : {
-													dateBR : {
-														depends : function() {
-															return $(
-																	'#datatermino')
-																	.val().length > 0
-																	&& $(
-																			'#datainicio')
-																			.val().length > 0;
-														}
-													}
-												},
-												quantidadeBolsa : {
-													positiveNumber : true
-												}
-											},
-
-											messages : {
-												nome : {
-													required : "Campo obrigatório!",
-													minlength : "Campo deve ter no mínimo 2 caracteres!"
-												},
-												descricao : {
-													required : "Campo obrigatório!",
-													minlength : "Campo deve ter no mínimo 5 caracteres!"
-												},
-												inicio : {
-													dateBR : "Data Inválida"
-												},
-												termino : {
-													dateBR : "Data Inválida"
-												},
-												positiveNumber : "Somente números positivos"
-											},
-
-											highlight : function(element) {
-												$(element).closest(
-														'.control-group')
-														.addClass('has-error')
-														.removeClass(
-																'has-success');
-											},
-											unhighlight : function(element) {
-												$(element)
-														.closest(
-																'.control-group')
-														.removeClass(
-																'has-error')
-														.addClass('has-success');
-											}
-										});
-					}); */
-</script>
 
 </html>

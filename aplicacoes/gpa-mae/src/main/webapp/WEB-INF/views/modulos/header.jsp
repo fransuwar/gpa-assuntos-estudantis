@@ -23,7 +23,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="<c:url value="/projeto/index" />">GPA - MAE</a>
+				<a class="navbar-brand" href="<c:url value="/selecao/index" />">GPA - MAE</a>
 			</div>
 	
 			<div class="collapse navbar-collapse"

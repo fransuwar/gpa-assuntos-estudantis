@@ -5,7 +5,7 @@
 <html>
 <head>
 	<jsp:include page="../modulos/header-estrutura.jsp" />
-	<title>selecaos</title>
+	<title>seleções</title>
 </head>
 <body>
 	
@@ -15,7 +15,7 @@
 		
 		<div align="right" style="margin-bottom: 20px;">
 			<a href="<c:url value="/selecao/cadastrar" ></c:url>">
-				<button class="btn btn-primary">Novo selecao <span class="glyphicon glyphicon-plus"></span></button>
+				<button class="btn btn-primary">Nova seleção <span class="glyphicon glyphicon-plus"></span></button>
 			</a>
 		</div>
 		
@@ -41,7 +41,7 @@
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 								
-								<td>${selecao.tipoDeBolsa}</td>
+								<td>${selecao.tipoBolsa.tipo}</td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
@@ -76,7 +76,7 @@
 	                Excluir
 	            </div>
 	            <div class="modal-body">
-	                Tem certeza de que deseja excluir esse selecao?
+	                Tem certeza de que deseja excluir essa seleção?
 	            </div>
 	            <div class="modal-footer">
 	                <a href="#" class="btn btn-danger">Excluir</a>

@@ -452,8 +452,7 @@ public class QuestionarioAuxilioMoradia {
 	}
 	@Override
 	public String toString() {
-		return "QuestionarioAuxilioMoradia [id=" + id + ", caminhoFoto="
-				+ caminhoFoto + ", selecao=" + selecao + ", pessoas=" + pessoas
+		return "QuestionarioAuxilioMoradia [id=" + id + ", selecao=" + selecao + ", pessoas=" + pessoas
 				+ ", moraCom=" + moraCom + ", enderecoSedeCurso="
 				+ enderecoSedeCurso + ", nomeMae=" + nomeMae + ", nomePai="
 				+ nomePai + ", rua=" + rua + ", numeroCasa=" + numeroCasa

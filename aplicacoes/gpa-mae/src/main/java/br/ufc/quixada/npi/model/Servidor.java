@@ -25,10 +25,10 @@ public class Servidor {
 	private String siape;
 	
 	@ManyToMany
-	private List<Selecao> servidoresBanca;
+	private List<Selecao> participaBancas;
 	
-	@OneToMany(mappedBy="servidor")
-	private List<Selecao> editais;
+	@OneToMany(mappedBy="responsavel")
+	private List<Selecao> responsavelBancas;
 	
 	@ManyToOne
 	private Usuario usuario;
@@ -57,26 +57,26 @@ public class Servidor {
 		this.siape = siape;
 	}
 
-	public List<Selecao> getServidoresBanca() {
-		return servidoresBanca;
+	public List<Selecao> getParticipaBancas() {
+		return participaBancas;
 	}
 
-	public void setServidoresBanca(List<Selecao> servidoresBanca) {
-		this.servidoresBanca = servidoresBanca;
+	public void setParticipaBancas(List<Selecao> participaBancas) {
+		this.participaBancas = participaBancas;
 	}
 
-	public List<Selecao> getEditais() {
-		return editais;
+	public List<Selecao> getResponsavelBancas() {
+		return responsavelBancas;
 	}
 
-	public void setEditais(List<Selecao> editais) {
-		this.editais = editais;
+	public void setResponsavelBancas(List<Selecao> responsavelBancas) {
+		this.responsavelBancas = responsavelBancas;
 	}
 	
 	@Override
 	public String toString() {
-		return "Servidor [id=" + id + ", siape=" + siape + ", servidoresBanca="
-				+ servidoresBanca + ", editais=" + editais + ", usuario="
+		return "Servidor [id=" + id + ", siape=" + siape + ", participaBancas="
+				+ participaBancas + ", responsavelBancas=" + responsavelBancas + ", usuario="
 				+ usuario + "]";
 	}
 		
