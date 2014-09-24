@@ -36,9 +36,7 @@
  		</property>
  	</bean>
 
-	<!-- enable the configuration of transactional behavior based on 
-		 annotations 
-	-->
+	<!-- enable the configuration of transactional behavior based on  annotations -->
 	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
    	<context:component-scan base-package="br.com.ufc.quixada.npi.gpa.controller" />
 	<context:component-scan base-package="br.com.ufc.quixada.npi.gpa.model" />
