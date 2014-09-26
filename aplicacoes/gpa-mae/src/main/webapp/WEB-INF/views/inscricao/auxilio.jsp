@@ -52,22 +52,24 @@
 
 				
 
-<!-- 				<div class="form-group"> -->
-<%-- 					<c:forEach items="${moraCom}" var="opcao"> --%>
-<!-- 						<div class="col-sm-1 control-label"> -->
-<!-- 							<div class="checkbox inline"> -->
-<%-- 								<label> <input type="checkbox" value="${opcao}" --%>
-<%-- 									name="${opcao}" /> ${opcao.mora} --%>
-<!-- 								</label> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<%-- 					</c:forEach> --%>
-<!-- 				</div> -->
-
-	 
-	<form:checkboxes items="${moraCom}" path="moraCom" />
+			<label> 
+						<form:checkboxes items="${moraCom}" path="moraCom" />					
 	
+	 		</label> 			
 			
+	 	
+			
+			
+<!-- 			<div class="form-group"> -->
+<!-- 					<label for="outraMoradia" class="col-sm-2 control-label">Outra Moradia: </label> -->
+<!-- 					<div class="col-sm-3"> -->
+<%-- 						<form:input id="outraMoradia" type="text" path="outraMoradia" --%>
+<%-- 							cssClass="form-control data" placeholder="Outra Moradia:" /> --%>
+<!-- 						<div class="error-validation"> -->
+<%-- 							<form:errors path="outraMoradia"></form:errors> --%>
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
 				<div class="form-group">
 					<label for="nomeMae" class="col-sm-2 control-label">Nome da
@@ -109,7 +111,7 @@
 
 
 				<div class="form-group">
-					<label for="numeroCasa" class="col-sm-11 control-label">Número
+					<label for="numeroCasa" class="col-sm-2 control-label">Número
 						da casa:</label>
 					<div class="col-sm-1">
 						<form:input id="numeroCasa" path="numeroCasa"
@@ -254,14 +256,15 @@
 					<div class="col-sm-2">
 						<form:input id="valorMensalFinanciamento"
 							path="valorMensalFinanciamento" cssClass="form-control"
-							placeholder="valorMensalFinanciamento" />
+							placeholder="valor Mensal do Financiamento" />
 						<div class="error-validation">
 							<form:errors path="valorMensalFinanciamento"></form:errors>
 						</div>
 					</div>
 				</div>
 
-				<h4>Selecione o grau de parentesco:</h4>
+				<h4>Selecione o grau de parentesco da propriedade rural:</h4>
+				
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
 						<select name="${status.expression}"
@@ -274,28 +277,28 @@
 						</select>
 					</div>
 				</div>
-
-
-
+				
+				
 				<div class="form-group">
 					<label for="propriedadeRural" class="col-sm-2 control-label">Propriedade
 						Rural:</label>
 					<div class="col-sm-4">
 						<form:input id="propriedadeRural" path="propriedadeRural"
-							cssClass="form-control" placeholder="propriedadeRural" />
+							cssClass="form-control" placeholder="Propriedade Rural" />
 						<div class="error-validation">
 							<form:errors path="propriedadeRural"></form:errors>
 						</div>
 					</div>
 				</div>
-
+				
+				
 
 				<div class="form-group">
 					<label for="areaPropriedade" class="col-sm-2 control-label">Área
 						Propriedade:</label>
 					<div class="col-sm-4">
 						<form:input id="areaPropriedade" path="areaPropriedade"
-							cssClass="form-control" placeholder="areaPropriedade" />
+							cssClass="form-control" placeholder="Área da Propriedade" />
 						<div class="error-validation">
 							<form:errors path="areaPropriedade"></form:errors>
 						</div>
@@ -307,26 +310,19 @@
 					<label for="cidadeEstado" class="col-sm-2 control-label">Cidade/Estado:</label>
 					<div class="col-sm-5">
 						<form:input id="cidadeEstado" path="cidadeEstado"
-							cssClass="form-control" placeholder="cidadeEstado" />
+							cssClass="form-control" placeholder="cidade/Estado" />
 						<div class="error-validation">
 							<form:errors path="cidadeEstado"></form:errors>
 						</div>
 					</div>
 				</div>
 
+				
+				
 
-				<div class="form-group">
-					<label for="veiculos" class="col-sm-2 control-label">Veículos:</label>
-					<div class="col-sm-4">
-						<form:input id="veiculos" path="veiculos" cssClass="form-control"
-							placeholder="veiculos" />
-						<div class="error-validation">
-							<form:errors path="veiculos"></form:errors>
-						</div>
-					</div>
-				</div>
-
-			<h4>Selecione o grau de parentesco:</h4>
+			<h4>Selecione o grau de parentesco para com o veículo:</h4>
+			
+			
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
 						<select name="${status.expression}" name="grauParentescoVeiculos"
@@ -339,6 +335,19 @@
 						</select>
 					</div>
 				</div>
+			
+				<div class="form-group">
+					<label for="veiculos" class="col-sm-2 control-label">Veículos:</label>
+					<div class="col-sm-4">
+						<form:input id="veiculos" path="veiculos" cssClass="form-control"
+							placeholder="veiculos" />
+						<div class="error-validation">
+							<form:errors path="veiculos"></form:errors>
+						</div>
+					</div>
+				</div>
+
+			
 
 
 
@@ -408,7 +417,7 @@
 			<h4>Selecione o tipo escolar que você frequentou:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
-						<h4>Ensino Fundamental</h4>
+						<h5>Ensino Fundamental</h5>
 						<select name="${status.expression}" name="ensinoFundamental"
 							id="ensinoFundamental">
 							<c:forEach items="${tipoEnsinoFundamental }" var="opcao">
@@ -436,7 +445,7 @@
 				<h4>Selecione o tipo escolar que você frequentou:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
-						<h4>Ensino Médio</h4>
+						<h5>Ensino Médio</h5>
 						<select name="${status.expression}" name="tipoEnsinoMedio"
 							id="tipoEnsinoMedio">
 							<c:forEach items="${tipoEnsinoMedio }" var="opcao">
@@ -477,7 +486,7 @@
 						do Cursinho:</label>
 					<div class="col-sm-7">
 						<form:input id="nomeCursinho" path="nomeCursinho"
-							cssClass="form-control" placeholder="nomeCursinho" />
+							cssClass="form-control" placeholder="nome do Cursinho" />
 						<div class="error-validation">
 							<form:errors path="nomeCursinho"></form:errors>
 						</div>
@@ -486,30 +495,30 @@
 
 
 
-				<div class="form-group">
-					<label for="rendaMediaFamilia" class="col-sm-2 control-label">Renda
-						Media da Familia:</label>
-					<div class="col-sm-2">
-						<form:input id="rendaMediaFamilia" path="rendaMediaFamilia"
-							cssClass="form-control" placeholder="rendaMediaFamilia" />
-						<div class="error-validation">
-							<form:errors path="rendaMediaFamilia"></form:errors>
-						</div>
-					</div>
-				</div>
+<!-- 				<div class="form-group"> -->
+<!-- 					<label for="rendaMediaFamilia" class="col-sm-2 control-label">Renda -->
+<!-- 						Media da Familia:</label> -->
+<!-- 					<div class="col-sm-2"> -->
+<%-- 						<form:input id="rendaMediaFamilia" path="rendaMediaFamilia" --%>
+<%-- 							cssClass="form-control" placeholder="rendaMediaFamilia" /> --%>
+<!-- 						<div class="error-validation"> -->
+<%-- 							<form:errors path="rendaMediaFamilia"></form:errors> --%>
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
 
-				<div class="form-group">
-					<label for="rendaMediaPessoa" class="col-sm-2 control-label">Renda
-						Media por Pessoa:</label>
-					<div class="col-sm-2">
-						<form:input id="rendaMediaPessoa" path="rendaMediaPessoa"
-							cssClass="form-control" placeholder="rendaMediaPessoa" />
-						<div class="error-validation">
-							<form:errors path="rendaMediaPessoa"></form:errors>
-						</div>
-					</div>
-				</div>
+<!-- 				<div class="form-group"> -->
+<!-- 					<label for="rendaMediaPessoa" class="col-sm-2 control-label">Renda -->
+<!-- 						Media por Pessoa:</label> -->
+<!-- 					<div class="col-sm-2"> -->
+<%-- 						<form:input id="rendaMediaPessoa" path="rendaMediaPessoa" --%>
+<%-- 							cssClass="form-control" placeholder="rendaMediaPessoa" /> --%>
+<!-- 						<div class="error-validation"> -->
+<%-- 							<form:errors path="rendaMediaPessoa"></form:errors> --%>
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
 
 				<div class="form-group">
@@ -530,7 +539,7 @@
 						de Bolsa:</label>
 					<div class="col-sm-5">
 						<form:input id="tipoBolsa" path="tipoBolsa"
-							cssClass="form-control" placeholder="tipoBolsa" />
+							cssClass="form-control" placeholder="tipo de Bolsa" />
 						<div class="error-validation">
 							<form:errors path="tipoBolsa"></form:errors>
 						</div>
@@ -556,7 +565,7 @@
 						da Graduação:</label>
 					<div class="col-sm-10">
 						<form:input id="descricaoGraduacao" path="descricaoGraduacao"
-							cssClass="form-control" placeholder="descricaoGraduacao" />
+							cssClass="form-control" placeholder="descricao da Graduacao" />
 						<div class="error-validation">
 							<form:errors path="descricaoGraduacao"></form:errors>
 						</div>
@@ -569,7 +578,7 @@
 					<label for="justificativa" class="col-sm-2 control-label">Justificativa
 						para Bolsa:</label>
 					<div class="col-sm-10">
-						<form:input id="justificativa" path="justificativa"
+						<form:textarea id="justificativa" path="justificativa"
 							cssClass="form-control" placeholder="justificativa" />
 						<div class="error-validation">
 							<form:errors path="justificativa"></form:errors>
@@ -578,11 +587,70 @@
 				</div>
 
 
-<!-- 			<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> -->
-<!-- 			<button id="btnSubmitForm" type="button" class="btn btn-default" -->
-<!-- 				onclick="submeterForm();">Salvar</button> -->
+<!-- 	<table> -->
+<!-- 		<thead> -->
+<!-- 		<tr> -->
+		
+<!-- 			<th>Nome:</th> -->
+<!-- 			<tr><th> Grau de Paresntesco:</th></tr> -->
+<!-- 			<tr><th> Escolaridade </th></tr> -->
+<!-- 			<tr><th> Atividade ou Profissão</th></tr> -->
+<!-- 			<tr><th> Renda R$</th></tr> -->
+<!-- 			<tr><th><a id="add" > Adicionar</a></th></tr> -->
+			
+<!-- 		</tr> -->
+<!-- 		</thead> -->
+		
+		
+<!-- 		<script type="text/javascript" src="js/jquery.js" > -->
+<!--  		<script type="text/javascript" src="js/functions.js"> -->
 	
+<!-- // 	//ADICIONA -->
+<!-- //     $("a#add").click(function() { -->
 
+<!-- // 				var tr = $("tbody"); -->
+				
+<!-- // 				tr.append($("<tr>") -->
+<!-- // 						.append($("<td>").append($("<input type='text' name='nome["+tr+"].Nome' cssClass ='form-control' value= "+tr+">")) -->
+<!-- // 						.append($("<td>").append($("<input type='text' name='grau["+tr+"].Grau de Parentesco' cssClass ='form-control' value= "+tr+">")) -->
+<!-- // 						.append($("<td>").append($("<input type='text' name='escolaridade["+tr+"].escolaridade' cssClass ='form-control' value= "+tr+">")) -->
+<!-- // 						.append($("<td>").append($("<input type='text' name='atividade["+tr+"].atividade' cssClass ='form-control' value= "+tr+">"))										 -->
+<!-- // 						.append($("<td>").append($("<input type='text' name='renda["+tr+"].renda' cssClass ='form-control' value= "+tr+">")) -->
+<!-- // 						.append($("<td>").append($("<a> deletar </a>")))))))) -->
+<!-- // 						); -->
+				
+<!-- // 			$("table > tbody").append(tr);			 -->
+<!-- //     });	 -->
+	
+	
+	
+<!-- //   //DELETA AMIGOS -->
+<!-- // 	function deletar(tr, index) { -->
+<!-- // 		if(tr > 0 ){	 -->
+<!-- // 			var recipiente = "tbody#tr" + tr; -->
+<!-- // 			alert("O contato " + tr + " tirou do seu coração( " + recipiente + " ) o amigo " + index); -->
+<!-- // 			var size = $("table > "+recipiente+" tr" ).length; -->
+<!-- // 			$( "table > "+recipiente+" tr" ).eq( index ).remove(); -->
+
+<!-- // 			size = $("table > "+recipiente+" tr" ).length; -->
+<!-- // 			for( var i = 0; i < size; ++i){ -->
+<!-- // 				$( "table > "+recipiente+" tr:eq(" + i + ") td > a" ).attr("href", "javascript:deletar(" + tr +", " + i + ")"); -->
+<!-- // 			} -->
+<!-- // 			alert("No coração("+recipiente+") do contato "+ tr +" só tem " + size + " amigo(s)" ); -->
+			
+<!-- // 		} -->
+<!-- // 	} -->
+	
+	
+<!--   	</script> -->
+<!-- <!-- 	</script>	 -->  
+<!-- <!-- 		<tbody> -->
+		
+		
+<!-- <!-- 		</tbody> --> 
+<!-- <!-- 	</table> --> 
+
+<!-- <BR /> -->
 	<div class="controls">
 		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
 		 <a href="<c:url value="/inscricao/auxilio" ></c:url>" class="btn btn-default" >Cancelar</a>
@@ -590,29 +658,7 @@
 
 
 
-	<table>
-		<thead>
-			<th>Nome:</th>
-			<th>grau de Paresntesco:</th>
-			<th>Escolaridade </th>
-			<th>Atividade ou Profissão</th>
-			<th>Renda R$</th>
-			<th><a id="add" >Adicionar</a></th>
-		</thead>
-		
-		<tbody>
-		
-		
-		
-		
-		
-		
-		
-		</tbody>
-	</table>
-
-
-
+	
 </form:form>
 		</div>
 	</div>
@@ -621,30 +667,6 @@
 	
 	
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
-	<script type="text/javascript">
-	
-	
-	
-	//ADICIONA
-    $("a#add").click(function() {
-
-				var tr = $("tbody");
-				
-				tr.append($("<tr>")
-						.append($("<td>").append($("<input type='text' name='nome' cssClass ='form-control' value= "+tr+">"))
-						.append($("<td>").append($("<input type='text' name='grau' cssClass ='form-control' value= "+tr+">"))
-						.append($("<td>").append($("<input type='text' name='escolaridade' cssClass ='form-control' value= "+tr+">"))
-						.append($("<td>").append($("<input type='text' name='atividade' cssClass ='form-control' value= "+tr+">"))										
-						.append($("<td>").append($("<input type='text' name='renda' cssClass ='form-control' value= "+tr+">"))
-						.append($("<td>").append($("<a> delete </a>"))))))))
-						);
-				
-			$("table > tbody").append(tr);			
-    });	
-	
-	
-	
-	</script>
 	
 	
 </body>

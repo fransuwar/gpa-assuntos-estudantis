@@ -2,18 +2,15 @@ package br.ufc.quixada.npi.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.model.MoraCom;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia;
@@ -31,17 +27,10 @@ import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.Estado;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.FinalidadeVeiculo;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.GrauParentescoImovelRural;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.GrauParentescoVeiculos;
-import br.ufc.quixada.npi.model.MoraCom;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.SituacaoImovel;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.model.QuestionarioAuxilioMoradia.TipoEnsinoMedio;
-import br.ufc.quixada.npi.model.QuestionarioIniciacaoAcademica;
-import br.ufc.quixada.npi.model.QuestionarioIniciacaoAcademica.NivelInstrucao;
-import br.ufc.quixada.npi.model.Usuario.Uf;
 import br.ufc.quixada.npi.service.QuestionarioAuxMoradiaService;
-
-import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("inscricao")
@@ -61,8 +50,7 @@ public class AuxilioMoradiaController {
 	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index() {
-	//log.info("controller: questionarioAuxilioMoradia - action: index");
+	public String index(Model model) {
 	return "inscricao/auxilio";
 	}
 	
@@ -96,41 +84,50 @@ public class AuxilioMoradiaController {
 	List<FinalidadeVeiculo> finalidadeVeiculo = new ArrayList<FinalidadeVeiculo>(Arrays.asList(FinalidadeVeiculo.values()));
 	model.addAttribute("finalidadeVeiculo", finalidadeVeiculo);
 	
-	model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());
+	model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());	
 	
-	Map<MoraCom, String> moraCom = new HashMap<MoraCom, String>();
-	
-	moraCom.put(MoraCom.Pais, "Pais");
-	moraCom.put(MoraCom.Pai, "Pai");
-	moraCom.put(MoraCom.Mae, "Mãe");
-	moraCom.put(MoraCom.Irmaos, "Irmãos");
-	moraCom.put(MoraCom.Parentes, "Parentes");
-	moraCom.put(MoraCom.Conjuge_Companheiro, "Conjuge ou Companheiro");
-	moraCom.put(MoraCom.Filhos, "Filhos");
-	moraCom.put(MoraCom.Outra_moradia, "Outra Moradia");
-	
-	model.addAttribute("moraCom", moraCom);
-	
+	inicialMoraCom(model);
 	
 	return "inscricao/auxilio";
 	
 	
 	}
 	
+	private void inicialMoraCom(Model model){
+		
+		Map<MoraCom, String> moraCom = new TreeMap<MoraCom, String>();
+		//Map<MoraCom, String> moraCom = new HashMap<MoraCom, String>();
+		
+		moraCom.put(MoraCom.Pais, " Pais ");
+		moraCom.put(MoraCom.Pai, " Pai ");
+		moraCom.put(MoraCom.Mae, " Mãe ");
+		moraCom.put(MoraCom.Irmaos, " Irmãos ");
+		moraCom.put(MoraCom.Parentes, " Parentes ");
+		moraCom.put(MoraCom.Conjuge_Companheiro, " Conjuge ou Companheiro ");
+		moraCom.put(MoraCom.Filhos, " Filhos ");
+		moraCom.put(MoraCom.Outra_moradia, " Outra Moradia ");
+
+		model.addAttribute("moraCom", moraCom);		
+		
+		
+		
+		
+	}
+	
 	@RequestMapping(value = "/auxilio", method = RequestMethod.POST)
 	public String selecaoAluno(
 	@Valid @ModelAttribute("questionarioAuxilioMoradia")
 	QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
-	BindingResult result, HttpSession session,	RedirectAttributes redirect) {
+	BindingResult result, Model model) {
 		
 	if (result.hasErrors()) {
-	return ("inscricao/auxilio");
-	
+		//inicialMoraCom(model);
+		//System.out.println("errorororo");
+		return ("inscricao/auxilio");		
 	}else{
-	this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
-	
+		this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);	
 	}
-	return "redirect:/inscricao/index";
+	return "redirect:/inscricao/auxilio";
 
 	}
 		

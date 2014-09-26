@@ -107,8 +107,8 @@ public class QuestionarioAuxilioMoradia {
 	private String propriedadeRural;
 
 	public enum GrauParentescoImovelRural{
-		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
-		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
+		SemPropriedadeRural("Sem Propriedade Rural"), Pai("Pai"), Avô("Avô"), Tio("Tio"), Irmao("Irmão"),
+		Conjuge("Cônjuge ou Companheiro(a)"), Outros("Outros");
 
 		private String imovelRural;
 		
@@ -130,8 +130,9 @@ public class QuestionarioAuxilioMoradia {
 	private String veiculos;
 	
 	public enum GrauParentescoVeiculos{
-		Filho("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
-		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
+		SemVeiculo("Sem Veículo"), Pai("Pai"), Avô("Avô"), Tio("Tio"), Irmao("Irmão"),
+		Conjuge("Cônjuge ou Companheiro(a)"), Outros("Outros");
+
 
 		private String parentesco;
 		
@@ -487,8 +488,7 @@ public class QuestionarioAuxilioMoradia {
 	@Override
 	public String toString() {
 		return "QuestionarioAuxilioMoradia [id=" + id + ", caminhoFoto="
-				+ caminhoFoto + ", pessoas=" + pessoas
-				+ ", moraCom=" + moraCom
+				+ caminhoFoto + ", pessoas=" + pessoas + ", moraCom=" + moraCom
 				+ ", enderecoSedeCurso=" + enderecoSedeCurso + ", nomeMae="
 				+ nomeMae + ", nomePai=" + nomePai + ", rua=" + rua
 				+ ", numeroCasa=" + numeroCasa + ", bairro=" + bairro
