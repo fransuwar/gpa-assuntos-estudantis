@@ -75,6 +75,9 @@ public class SelecaoBolsa {
 	public void setCaminhoArquivo(String caminhoArquivo) {
 		this.caminhoArquivo = caminhoArquivo;
 	}
+
+
+
 	public String getComentarios() {
 		return comentarios;
 	}
