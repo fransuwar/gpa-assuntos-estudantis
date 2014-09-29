@@ -32,7 +32,7 @@
 			<h2>Novo Cadastro</h2>
 
 			<form:form id="questionarioAuxilioMoradia" role="form"
-				commandName="questionarioAuxilioMoradia" servletRelativeAction="/inscricao/auxilio"
+				commandName="questionarioAuxilioMoradia" servletRelativeAction="/inscricao/auxilio/"
 				method="POST" cssClass="form-horizontal">
 
 				<input type="hidden" name="id"

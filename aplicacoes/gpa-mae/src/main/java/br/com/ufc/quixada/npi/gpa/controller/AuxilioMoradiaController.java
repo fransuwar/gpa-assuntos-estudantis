@@ -2,7 +2,6 @@ package br.com.ufc.quixada.npi.gpa.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import br.com.ufc.quixada.npi.gpa.model.MoraCom;
-import br.com.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.Estado;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.FinalidadeVeiculo;
@@ -32,9 +30,10 @@ import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.GrauParentesc
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.SituacaoImovel;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.TipoEnsinoFundamental;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.TipoEnsinoMedio;
+import br.com.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 
 @Controller
-@RequestMapping("inscricao")
+@RequestMapping("inscricao/auxilio")
 public class AuxilioMoradiaController {
 
 	@Inject
@@ -55,7 +54,7 @@ public class AuxilioMoradiaController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/auxilio", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 	model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 	
@@ -112,7 +111,7 @@ public class AuxilioMoradiaController {
 		
 	}
 	
-	@RequestMapping(value = "/auxilio", method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String selecaoAluno(
 	@Valid @ModelAttribute("questionarioAuxilioMoradia")
 	QuestionarioAuxilioMoradia questionarioAuxilioMoradia,

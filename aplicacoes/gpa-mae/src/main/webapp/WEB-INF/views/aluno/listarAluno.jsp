@@ -10,12 +10,12 @@
 
 <html>
 <head>
-    <jsp:include page="../modulos/header-estrutura.jsp" />
+    <jsp:include page="../fragments/headTag.jsp" />
 <title>Alunos</title>
 </head>
 <body>
 
-	<jsp:include page="../modulos/header.jsp" />
+	<jsp:include page="../fragments/bodyHeader.jsp" />
 	
 	<div class="container">
 		<c:if test="${not empty erro}">
