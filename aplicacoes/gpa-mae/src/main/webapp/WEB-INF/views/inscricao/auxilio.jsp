@@ -52,10 +52,8 @@
 
 				
 
-			<label> 
 						<form:checkboxes items="${moraCom}" path="moraCom" />					
 	
-	 		</label> 			
 			
 	 	
 			

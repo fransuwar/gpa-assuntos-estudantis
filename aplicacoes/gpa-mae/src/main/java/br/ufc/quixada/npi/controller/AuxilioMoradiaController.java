@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -51,7 +52,7 @@ public class AuxilioMoradiaController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
-	return "inscricao/auxilio";
+		return "index";
 	}
 	
 	@RequestMapping(value = "/auxilio", method = RequestMethod.GET)
@@ -59,8 +60,6 @@ public class AuxilioMoradiaController {
 	model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 	
 	
-//	List<MoraCom> moracom = new ArrayList<MoraCom>(Arrays.asList(MoraCom.values()));	
-//	model.addAttribute("moraCom", moracom);
 	
 	List<Estado> ufs = new ArrayList<Estado>(Arrays.asList(Estado.values()));
 	model.addAttribute("ufs", ufs);
@@ -96,7 +95,6 @@ public class AuxilioMoradiaController {
 	private void inicialMoraCom(Model model){
 		
 		Map<MoraCom, String> moraCom = new TreeMap<MoraCom, String>();
-		//Map<MoraCom, String> moraCom = new HashMap<MoraCom, String>();
 		
 		moraCom.put(MoraCom.Pais, " Pais ");
 		moraCom.put(MoraCom.Pai, " Pai ");
@@ -121,13 +119,11 @@ public class AuxilioMoradiaController {
 	BindingResult result, Model model) {
 		
 	if (result.hasErrors()) {
-		//inicialMoraCom(model);
-		//System.out.println("errorororo");
 		return ("inscricao/auxilio");		
 	}else{
 		this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);	
 	}
-	return "redirect:/inscricao/auxilio";
+	return "redirect:/";
 
 	}
 		
