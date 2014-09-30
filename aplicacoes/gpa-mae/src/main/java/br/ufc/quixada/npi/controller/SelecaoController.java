@@ -1,11 +1,13 @@
 package br.ufc.quixada.npi.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.ui.Model;
@@ -67,17 +69,7 @@ public class SelecaoController {
 			model.addAttribute("action", "editar");
 			return ("selecao/editar");
 		}
-	/*Selecao selecao = serviceSelecao.find(Selecao.class, id);
-		
-		selecao.setTipoBolsa(selecaoAtualizado.getTipoBolsa());
-		selecao.setDataInicio(selecaoAtualizado.getDataInicio());
-		selecao.setDataTermino(selecaoAtualizado.getDataTermino());
-		selecao.setQuantidadeVagas(selecaoAtualizado.getQuantidadeVagas());
-		selecao.setComentarios(selecaoAtualizado.getComentarios());
-		selecao.setAno(selecaoAtualizado.getAno());
-		selecao.setSequencial(selecaoAtualizado.getSequencial());
-		selecao.setDuracao(selecaoAtualizado.getDuracao());*/
-
+	
 		this.serviceSelecao.update(selecaoAtualizado);
 		return "redirect:/selecao/listar";
 	}
@@ -102,4 +94,43 @@ public class SelecaoController {
 		modelMap.addAttribute("selecoes", serviceSelecao.find(Selecao.class));
 		return "selecao/listar";
 	}
+	
+	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.GET)
+	public String atribuirParecerista(
+			@PathVariable("id") Integer id, Model model,
+			RedirectAttributes redirectAttributes) {
+
+		Selecao selecao = serviceSelecao.find(Selecao.class, id);
+
+		model.addAttribute("selecao", "id");
+		model.addAttribute("usuarios", serviceSelecao.find(Selecao.class));
+		return "selecao/atribuirBanca";
+	}
+
+	
+	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.POST)
+	public String atribuirPareceristaNoProjeto(HttpServletRequest request,
+			Model model, RedirectAttributes redirect) throws IOException {
+
+		Integer id = Integer.parseInt(request.getParameter("id"));
+		
+
+		Selecao selecao = serviceSelecao.find(Selecao.class, id);
+		redirect.addFlashAttribute("selecao", id);
+		redirect.addFlashAttribute("membrosBanca", (selecao.getId()));
+
+		redirect.addFlashAttribute("info",
+				"O parecerista foi atribuído ao projeto com sucesso.");
+
+		return "redirect:/projeto/listar";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -7,6 +7,7 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import br.ufc.quixada.npi.model.Selecao;
 import br.ufc.quixada.npi.repository.GenericRepository;
 
 
@@ -48,6 +49,12 @@ public class GenericServiceImpl<T> implements GenericService<T> {
 	@Transactional
 	public T find(Class<T> entityClass, Integer id) {
 		return (T) genericRepository.find(entityClass, id);
+	}
+
+	@Override
+	public T find1(Class<T> entityClass, Selecao membrosBanca) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
