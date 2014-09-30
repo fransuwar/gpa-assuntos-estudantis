@@ -38,6 +38,9 @@
 		<!-- Button trigger modal -->
 		<button id="btnAdicionar" class="btn btn-primary" data-toggle="modal"
 			data-target="#myModal">Adicionar Alunos</button>
+			
+			<button id="btnAdicionar" class="btn btn-primary" data-toggle="modal"
+			data-target="#myModal">Adicionar Bolsa</button>
 
 		<datatables:table id="alunos" data="${selections}" cdn="false"
 			row="aluno" theme="bootstrap2" cssClass="table table-striped"

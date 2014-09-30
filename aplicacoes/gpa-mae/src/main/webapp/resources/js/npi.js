@@ -90,48 +90,6 @@ function soNumeros(v){
     return v.replace(/\D/g,"")
 }
 
-
-
-
-function ConvertFormToJSON(form){ 
-	var array = jQuery(form).serializeArray(); 
-	var json = {}; 
-	jQuery.each(array, function() { 
-		json[this.name] = this.value || ''; 
-	}); 
-	
-	return json; 
-}
-
-//É chamado quando clica no botão de editar contato, ele busca o contato completo e povoa o formulário de edição
-function povoaForm(uri, form, row) {
-	
-	$("#myModalLabel").text("Atualizar contato");
-	$("#btnSubmitForm").text("Atualizar");
-	console.log("Verificação da linha" + row.value);
-	$.ajax({
-		type : "GET",
-		dataType : "json",
-		url : uri,
-		success : function(data) {
-
-			console.log(data);
-			populate(form, data);
-			
-			//Adiciona a linha da tabela que está sendo editada, será usada na função submeterForm
-			linha = $(row).parents('tr')[0];
-			
-		}
-	});
-
-};
-
-function populate(frm, data) {
-	$.each(data, function(key, value) {
-		$('[name=' + key + ']', frm).val(value);
-	});
-}
-
 $(document).ready(function() {
 	
 	$('div.error-validation:has(span)').find('span').css('color', '#a94442');
@@ -205,28 +163,6 @@ function populate(frm, data) {
 		$('[name=' + key + ']', frm).val(value);
 	});
 }
-
-$(document).ready(function() {
-	
-	
-	$("#btnAdicionar").click(function() {
-		$("#myModalLabel").text("Adicionar contato");
-		$("#btnSubmitForm").text("Adicionar");
-	});
-	
-	/*
-	$("#gravar").click(function(ev) {
-		
-		submeterForm();
-	});
-*/
-	$("#myModal").on("hidden.bs.modal", function(e) {
-		document.getElementById("add-contato-form").reset();
-		var id =$('#id');
-		console.log(id.attr('value',''));
-	});
-
-});
 
 function excluir(idTable ,uri, row) {
 	var dt = $(idTable).dataTable();

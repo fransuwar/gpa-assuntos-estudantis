@@ -23,22 +23,20 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="<c:url value="/selecao/index" />">GPA - MAE</a>
+				<a class="navbar-brand" href="<c:url value="/aluno/index" />">GPA - MAE</a>
 			</div>
 	
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li>
-						<a href="<c:url value="/selecao/listar" />">Seleções <span class="glyphicon glyphicon-list"></span></a>
-					</li>
-					<li>
-						<a href="<c:url value="/selecao/cadastrar" />">Novo Seleção <span class="glyphicon glyphicon-plus"></span></a>
-					</li>
-					<li>
-						<a href="<c:url value="/" />">Sair <span class="glyphicon glyphicon-off"></span></a>
-					</li>
 					
+					<li>
+						<a href="<c:url value="/aluno/alunos" />">Novo Aluno <span class="glyphicon glyphicon-plus"></span></a>
+					</li>
+					<li>
+						<a href="<c:url value="/aluno/listarAluno" />">Alunos <span class="glyphicon glyphicon-plus"></span></a>
+					</li>
+								
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
