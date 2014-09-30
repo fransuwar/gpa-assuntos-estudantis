@@ -2,20 +2,19 @@ package br.com.ufc.quixada.npi.gpa.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.log4j.jmx.Agent;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ufc.quixada.npi.gpa.model.Aluno;
@@ -130,6 +129,22 @@ public class AlunoController {
 		
 		return "redirect:/aluno/listarAluno";
 		
+	}
+	
+	
+	
+	/*
+	@RequestMapping(value = {"/buscar"}, method = RequestMethod.GET)
+	public String buscarAluno(Model model) {
+		return "aluno/buscar";
+	}
+	*/
+	
+	@RequestMapping(value = "/buscar", method = RequestMethod.POST)
+	public String buscarAluno(@RequestParam("matricula") String matricula, ModelMap map) {
+		map.addAttribute("aluno", alunoService.getAlunoByMatricula(matricula));
+		
+		return "/aluno/buscar";
 	}
 	
 	

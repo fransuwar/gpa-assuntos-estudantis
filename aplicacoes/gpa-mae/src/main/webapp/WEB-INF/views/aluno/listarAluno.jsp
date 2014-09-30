@@ -36,6 +36,22 @@
 			</a>
 		</div>
 		
+		<div align="right" style="margin-bottom: 20px;">
+				<form:form id="buscarAlunoForm" role="form"
+								servletReltiveAction="/aluno/listarAluno" method="POST"
+								cssClass="form-horizontal" class="inline">
+								<input id="matricula" name="matricula" cssClass="form-control"
+									placeholder="Digite sua busca aqui..." size="20"
+									required="required" autofocus="true" />
+								<button class="btn btn-primary" name="submit" type="submit"
+									class="btn btn-primary" value="Buscar">
+									Buscar <span class="glyphicon glyphicon-search" />
+								</button>
+
+				</form:form>
+			
+		</div>
+		
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="active"><a href="#meus-alunos" role="tab" data-toggle="tab">Alunos Cadastrados</a></li>
@@ -55,37 +71,39 @@
 						</div>
 			
 						<!-- Table -->
-						<table class="table" >
-						
-								<tr>
-									<th id="teste">Id</th>
-									<th>Matricula</th>
-									<th>Ira</th>
-									<th>Curso</th>
-									<th id="acoes">Ações</th>
-								</tr>
-						 <tbody>
-							<c:forEach var="aluno" items="${alunos}">
-									<tr class="linha">
-									<td>${aluno.id}</td>
-									<td>${aluno.matricula}</td>
-									<td>${aluno.ira}</td>
-									<td>${aluno.curso}</td>
-								
-									<td>
-									    <a id="editar" href="<c:url value="/aluno/${aluno.id}/editarAluno" ></c:url>">
-											<button class="btn btn-info">Editar <span class="glyphicon glyphicon-pencil"></span></button>
-										</a>
+						<table class="table">
 
-										<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/aluno/${aluno.id}/excluir" ></c:url>">
-											<button class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
-										</a>	
-								   </td>	
-						 	</c:forEach>	
-						</tbody>					
-									
-							
-						</table>
+							<tr>
+								<th id="teste">Id</th>
+								<th>Matricula</th>
+								<th>Ira</th>
+								<th>Curso</th>
+								<th id="acoes">Ações</th>
+							</tr>
+							<tbody>
+								<c:forEach var="aluno" items="${alunos}">
+									<tr class="linha">
+										<td>${aluno.id}</td>
+										<td>${aluno.matricula}</td>
+										<td>${aluno.ira}</td>
+										<td>${aluno.curso}</td>
+
+										<td><a id="editar"
+											href="<c:url value="/aluno/${aluno.id}/editarAluno" ></c:url>">
+												<button class="btn btn-info">
+													Editar <span class="glyphicon glyphicon-pencil"></span>
+												</button>
+										</a> <a id="excluir" data-toggle="modal"
+											data-target="#confirm-delete" href="#"
+											data-href="<c:url value="/aluno/${aluno.id}/excluir" ></c:url>">
+												<button class="btn btn-danger">
+													Excluir <span class="glyphicon glyphicon-trash"></span>
+												</button>
+										</a></td>
+								</c:forEach>
+								
+							</tbody>
+
 					</div>
 					</c:if>
 			</div>
