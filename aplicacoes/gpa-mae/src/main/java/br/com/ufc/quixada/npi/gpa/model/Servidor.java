@@ -8,8 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Servidor {
@@ -23,9 +24,34 @@ public class Servidor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotEmpty
 	private String siape;
 	
+	
 	private String cargo;
+
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+
+	public enum Cargo{
+		PROFESSOR ("Professor"), TECADMINISTRATIVO("Tec Administrativo");
+		
+		private String cargo;
+
+		Cargo(String cargo){
+			this.cargo = cargo;
+		}
+		
+		public String getCargo(){
+			return cargo;
+		}
+	}
+	
 	
 	@ManyToMany
 	private List<SelecaoBolsa> servidoresBanca;
@@ -62,6 +88,7 @@ public class Servidor {
 		this.siape = siape;
 	}
 	
+	
 	public List<SelecaoBolsa> getSelecoes() {
 		return selecoes;
 	}
@@ -75,15 +102,6 @@ public class Servidor {
 
 	public void setServidoresBanca(List<SelecaoBolsa> servidoresBanca) {
 		this.servidoresBanca = servidoresBanca;
-	}
-
-	
-	public String getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
 	}
 
 	@Override
