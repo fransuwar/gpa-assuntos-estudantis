@@ -33,6 +33,12 @@ public class SelecaoBolsa {
 	@ManyToOne
 	private Servidor servidor;
 
+	@OneToMany(mappedBy="selecaoBolsa")
+	private List<QuestionarioIniciacaoAcademica> questionariosIniciacaoAcademica;
+	
+	@OneToMany(mappedBy="selecaoBolsa")
+	private List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia;
+	
 	
 	
 
