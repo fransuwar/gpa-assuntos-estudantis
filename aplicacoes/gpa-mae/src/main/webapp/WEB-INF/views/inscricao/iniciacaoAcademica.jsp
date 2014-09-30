@@ -36,7 +36,7 @@
 						
 						<label for="complementoFamilia" class="col-sm-2 control-label">Complemento:</label>
 						<div class="col-sm-4">
-							<form:input id="complementoFamilia" type="text" path="complementoFamilia" cssClass="form-control data" placeholder="Data de Término"/>
+							<form:input id="complementoFamilia" type="text" path="complementoFamilia" cssClass="form-control" placeholder="Complemento"/>
 							<div class="error-validation">
 								<form:errors path="complementoFamilia"></form:errors>
 							</div>
@@ -62,7 +62,7 @@
 					    
 					    <label for="bairroFamilia" class="col-sm-2 control-label">Bairro:</label>
 						<div class="col-sm-2">
-							<form:textarea id="bairroFamilia" type="text" path="bairroFamilia" cssClass="form-control data"  placeholder="Bairro"/>
+							<form:textarea id="bairroFamilia" type="text" path="bairroFamilia" cssClass="form-control"  placeholder="Bairro"/>
 							<div class="error-validation">
 								<form:errors path="bairroFamilia"></form:errors>
 							</div>
@@ -103,7 +103,7 @@
 						
 						<c:forEach items="${TotalEstado}" var="opcao">
 							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
+								<c:out value="${opcao.estado}"></c:out>
 							</option>
 						</c:forEach>	
 					</form:select>
@@ -201,11 +201,11 @@
 						</div>
 					
 					<label for="cidade" class="col-sm-2 control-label">UF:</label>	
-					<form:select name="${status.expression}"  path="estadoAtual" id="estado">
+					<form:select name="${status.expression}"  path="estado" id="estado">
 						
 						<c:forEach items="${TotalEstado}" var="opcao">
 							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
+								<c:out value="${opcao.estado}"></c:out>
 							</option>
 						</c:forEach>	
 					</form:select>
@@ -394,6 +394,15 @@
 								<form:errors path="qtdEmpregadosDomesticos"></form:errors>
 							</div>
 						</div>
+						
+					
+					<label for="qtd_empregados_domesticos" class="col-sm-2 control-label">Empregados Domesticos:</label>
+						<div class="col-sm-4">
+							<form:input id="qtdEmpregadosDomesticos" type="number" min="0"  path="qtdEmpregadosDomesticos" cssClass="form-control" placeholder="Fone"/>
+							<div class="error-validation">
+								<form:errors path="qtdEmpregadosDomesticos"></form:errors>
+							</div>
+						</div>
 					</fieldset>	
 					
 					<!-- 
@@ -422,9 +431,9 @@
 					<legend>Informações Adicionais</legend>
 					<h3>Horários Disponíves Para Bolsa</h3>
 						<div class = "form-group">
-						<label for="cidade" class="col-sm-2 control-label">Segunda:</label>	
+						<label for="horariodisponivelBolsa" class="col-sm-2 control-label">Segunda:</label>	
 							<div class="col-sm-2">
-								<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
+								<form:select name="${status.expression}" path="horariodisponivelBolsa" id="horariodisponivelBolsa">
 						
 									<c:forEach items="${HorarioDisponivel}" var="opcao">
 										<option value="${opcao}">
@@ -435,9 +444,9 @@
 							</div>
 						</div>
 						<div class="form-group"> 
-						<label for="cidade" class="col-sm-2 control-label">Terça:</label>	
+						<label for="horariodisponivelBolsa" class="col-sm-2 control-label">Terça:</label>	
 						<div class="col-sm-2">
-						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
+						<form:select name="${status.expression}" path="horariodisponivelBolsa" id="horariodisponivelBolsa">
 						
 						<c:forEach items="${HorarioDisponivel}" var="opcao">
 							<option value="${opcao}">
@@ -449,24 +458,9 @@
 						</div>
 						
 						<div class="form-group">
-						<label for="cidade" class="col-sm-2 control-label">Quarta:</label>	
+						<label for="horariodisponivelBolsa" class="col-sm-2 control-label">Quarta:</label>	
 						<div class="col-sm-2">
-						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
-						
-						<c:forEach items="${HorarioDisponivel}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-						</form:select>
-						</div>
-						</div>
-						
-						
-						<div class="form-group">
-						<label for="cidade" class="col-sm-2 control-label">Quinta:</label>	
-						<div class="col-sm-2">
-						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
+						<form:select name="${status.expression}" path="horariodisponivelBolsa" id="horariodisponivelBolsa">
 						
 						<c:forEach items="${HorarioDisponivel}" var="opcao">
 							<option value="${opcao}">
@@ -479,9 +473,24 @@
 						
 						
 						<div class="form-group">
-						<label for="cidade" class="col-sm-2 control-label">Sexta:</label>	
+						<label for="horariodisponivelBolsa" class="col-sm-2 control-label">Quinta:</label>	
 						<div class="col-sm-2">
-						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
+						<form:select name="${status.expression}" path="horariodisponivelBolsa" id="horariodisponivelBolsa">
+						
+						<c:forEach items="${HorarioDisponivel}" var="opcao">
+							<option value="${opcao}">
+								<c:out value="${opcao.nome}"></c:out>
+							</option>
+						</c:forEach>	
+						</form:select>
+						</div>
+						</div>
+						
+						
+						<div class="form-group">
+						<label for="horariodisponivelBolsa" class="col-sm-2 control-label">Sexta:</label>	
+						<div class="col-sm-2">
+						<form:select name="${status.expression}" path="horariodisponivelBolsa" id="horariodisponivelBolsa">
 						
 						<c:forEach items="${HorarioDisponivel}" var="opcao">
 							<option value="${opcao}">
