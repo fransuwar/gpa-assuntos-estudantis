@@ -4,17 +4,17 @@
 
 <html>
 <head>
-	<jsp:include page="../modulos/header-estrutura.jsp" />
+	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<title>seleções</title>
 </head>
 <body>
 	
-	<jsp:include page="../modulos/header.jsp" />
+	<jsp:include page="../fragments/headTag.jsp" />
 	<div class="container">
 		
 		
 		<div align="right" style="margin-bottom: 20px;">
-			<a href="<c:url value="/selecao/cadastrar" ></c:url>">
+			<a href="<c:url value="/selecaoBolsa/cadastrarBolsa" ></c:url>">
 				<button class="btn btn-primary">Nova seleção <span class="glyphicon glyphicon-plus"></span></button>
 			</a>
 		</div>
@@ -49,11 +49,11 @@
 								
 								<td>												
 									
-										<a id="editar" href="<c:url value="/selecao/${selecao.id}/editar" ></c:url>">
+										<a id="editar" href="<c:url value="/selecaoBolsa/${selecao.id}/editarBolsa" ></c:url>">
 											<button class="btn btn-info">Editar <span class="glyphicon glyphicon-pencil"></span></button>
 										</a>
 
-										<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/selecao/${selecao.id}/excluir" ></c:url>">
+										<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/selecaoBolsa/${selecao.id}/excluir" ></c:url>">
 											<button class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
 										</a>
 									
@@ -66,7 +66,7 @@
 			</div>
 	
 	
-	<jsp:include page="../modulos/footer.jsp" />
+	<jsp:include page="../fragments/footer.jsp" />
 	
 	
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

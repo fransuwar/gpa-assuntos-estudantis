@@ -8,18 +8,18 @@
 
 <html>
 <head>
-	<jsp:include page="../modulos/header-estrutura.jsp" />
+	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<title>Cadastro de Seleção</title>
 </head>
 <body>
 
-	<jsp:include page="../modulos/header.jsp" />
+	<jsp:include page="../fragments/headTag.jsp" />
 	
 	 <div class="container">
 		<div class="novo-selecao" align="left">
 			<div class="form" align="center">
 				<h2>Nova Seleção</h2>
-				<form:form id="adicionarSelecaoForm" role="form" commandName="edital" servletRelativeAction="/selecao/selecaoList" method="POST" cssClass="form-horizontal">
+				<form:form id="adicionarSelecaoForm" role="form" commandName="edital" servletRelativeAction="/selecaoBolsa/selecaoList" method="POST" cssClass="form-horizontal">
 
 					<div class="form-group">
 						<label for="quantidadeVagas" class="col-sm-2 control-label">Quantidade de Vagas:</label>
@@ -43,7 +43,7 @@
 		</div>
 	</div>
 
-	<jsp:include page="../modulos/footer.jsp" />
+	<jsp:include page="../fragments/footer.jsp" />
 
 </body>
 

@@ -95,7 +95,8 @@ $(document).ready(function() {
 	$('div.error-validation:has(span)').find('span').css('color', '#a94442');
 	$('div.error-validation:has(span)').find('span').parent().parent().addClass('has-error has-feedback');
 	
-	$('#confirm-delete').on('show.bs.modal', function(e) {
+	$('#confirm-delete').on('show.bs.modal', function(e) { 
+		alert("teste");
 	    $(this).find('.btn-danger').attr('href', $(e.relatedTarget).data('href'));
 	});
 	$("#btnAdicionar").click(function() {
