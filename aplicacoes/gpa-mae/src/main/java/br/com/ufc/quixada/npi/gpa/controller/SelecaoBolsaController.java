@@ -17,15 +17,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa.Status;
 import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa.TipoBolsa;
+import br.com.ufc.quixada.npi.gpa.model.Servidor;
+import br.com.ufc.quixada.npi.gpa.service.PessoaService;
 import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
+import br.com.ufc.quixada.npi.gpa.service.ServidorService;
 @Named
 @RequestMapping("/selecaoBolsa")
 public class SelecaoBolsaController {
+	@Inject
+	private ServidorService servidorService;
 	@Inject
 	private SelecaoBolsaService serviceSelecao;
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -100,23 +106,29 @@ public class SelecaoBolsaController {
 			@PathVariable("id") Integer id, Model model,
 			RedirectAttributes redirectAttributes) {
 
-		model.addAttribute("selecao", "id");
-		model.addAttribute("usuarios", serviceSelecao.find(SelecaoBolsa.class));
+  		model.addAttribute("selecao", id);
+		model.addAttribute("servidor", servidorService.find(Servidor.class));
 		return "selecaoBolsa/atribuirBanca";
 	}
 
 	
-	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.POST)
-	public String atribuirPareceristaNoProjeto(HttpServletRequest request,
-			Model model, RedirectAttributes redirect) throws IOException {
-
-		Integer id = Integer.parseInt(request.getParameter("id"));
-		
+	@RequestMapping(value = "/atribuirBanca", method = RequestMethod.POST)
+	public String atribuirPareceristaNoProjeto( @RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2, 
+			@RequestParam("id3") Integer id3, @RequestParam("id") Integer id, RedirectAttributes redirect){
 
 		SelecaoBolsa selecao = serviceSelecao.find(SelecaoBolsa.class, id);
 		redirect.addFlashAttribute("selecao", id);
 		redirect.addFlashAttribute("membrosBanca", (selecao.getId()));
+		
+		Servidor servidor1 = servidorService.find(Servidor.class, id1);
+		Servidor servidor2 = servidorService.find(Servidor.class, id2);
+		Servidor servidor3 = servidorService.find(Servidor.class, id3);
 
+		selecao.getMembrosBanca().add(servidor1);
+		selecao.getMembrosBanca().add(servidor2);
+		selecao.getMembrosBanca().add(servidor3);
+		
+		serviceSelecao.update(selecao);
 		redirect.addFlashAttribute("info",
 				"O parecerista foi atribuído ao projeto com sucesso.");
 

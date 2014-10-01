@@ -56,7 +56,14 @@
 										<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/selecaoBolsa/${selecao.id}/excluir" ></c:url>">
 											<button class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
 										</a>
-									
+											<a id="atribuirBanca"
+														href="<c:url value="/selecaoBolsa/${selecao.id}/atribuirBanca" ></c:url>">
+														<button class="btn btn-primary">
+															Atribuir Parecerista <span
+																class="glyphicon glyphicon-user"></span>
+														</button>
+													</a>
+												
 								</td>
 							</tr>
 						</c:forEach>
