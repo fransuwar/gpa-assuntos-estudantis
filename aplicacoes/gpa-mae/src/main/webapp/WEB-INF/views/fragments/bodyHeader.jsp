@@ -30,7 +30,7 @@
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="<c:url value="/projeto/listar" />">Aluno <span class="glyphicon glyphicon-list"></span></a>
+						<a href="<c:url value="/aluno/listarAluno" />">Aluno <span class="glyphicon glyphicon-list"></span></a>
 					</li>
 					<li>
 						<a href="<c:url value="/selecaoBolsa/cadastrarBolsa" />">Seleção de Bolsa <span class="glyphicon glyphicon-plus"></span></a>
