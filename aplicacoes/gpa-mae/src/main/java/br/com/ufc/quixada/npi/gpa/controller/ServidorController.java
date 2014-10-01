@@ -1,5 +1,6 @@
 package br.com.ufc.quixada.npi.gpa.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -69,6 +71,61 @@ public class ServidorController {
 		
 	}
 
+	@RequestMapping(value = "/{id}/editarServidor", method = RequestMethod.GET)
+	public String editar(@PathVariable("id") Integer id, Model model) {
+		Servidor servidor = servidorService.find(Servidor.class, id);
+		
+		{
+			
+			List<Cargo> cargos = new ArrayList<Cargo>(Arrays.asList(Cargo.values()));
+			model.addAttribute("cargos", cargos);
+			model.addAttribute("servidor", servidor);
+			model.addAttribute("action", "editar");
+			
+			return "servidor/editarServidor";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/{id}/editarServidor", method = RequestMethod.POST)
+	public String atualizarServidor(@PathVariable("id") Integer id,
+			@Valid @ModelAttribute(value = "servidor") Servidor servidorAtualizado,
+			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
+
+		if (result.hasErrors()) {
+		
+			model.addAttribute("action", "editar");
+			return "servidor/editarServidor";
+		}
+	
+		Servidor servidor = servidorService.find(Servidor.class, id);
+		
+		servidor.setSiape(servidorAtualizado.getSiape());
+		servidor.setCargo(servidorAtualizado.getCargo());
+		
+				
+		this.servidorService.update(servidor);
+		redirect.addFlashAttribute("info", "Servidor atualizado com sucesso.");
+		return "redirect:/servidor/listarServidor";
+	}
+	
+	
+
+	@RequestMapping(value = "/{id}/excluir")
+	public String excluirServidor(Servidor p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes
+			) {
+		Servidor servidor = servidorService.find(Servidor.class, id);
+		if (servidor == null) {
+			redirectAttributes.addFlashAttribute("erro", "Servidor inexistente.");
+		}else{
+			
+			this.servidorService.delete(servidor);
+			redirectAttributes.addFlashAttribute("info", "Servidor excluído com sucesso.");
+		}
+		
+		return "redirect:/servidor/listarServidor";
+		
+	}
 	
 	
 	

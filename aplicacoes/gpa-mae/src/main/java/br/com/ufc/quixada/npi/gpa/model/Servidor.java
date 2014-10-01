@@ -27,10 +27,15 @@ public class Servidor {
 	@NotEmpty
 	private String siape;
 	
+	private String  cargo;
 	
-	private String cargo;
+	public String getCargo() {
+		return cargo;
+	}
 
-	
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
 
 	public enum Cargo{
 		PROFESSOR ("Professor"), TECADMINISTRATIVO("Tec Administrativo");
@@ -44,7 +49,12 @@ public class Servidor {
 		public String getCargo(){
 			return cargo;
 		}
+		
+		public void setCargo(String cargo) {
+			this.cargo = cargo;
+		}
 	}
+	
 	
 	
 	@ManyToMany
@@ -74,14 +84,6 @@ public class Servidor {
 		this.id = id;
 	}
 		
-	public String getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
-
 	public String getSiape() {
 		return siape;
 	}
@@ -108,8 +110,8 @@ public class Servidor {
 
 	@Override
 	public String toString() {
-		return "Servidor [id=" + id + ", siape=" + siape + ", cargo=" + cargo
-				+ ", servidoresBanca=" + servidoresBanca + ", selecoes="
+		return "Servidor [id=" + id + ", siape=" + siape + ", "
+				+ " servidoresBanca=" + servidoresBanca + ", selecoes="
 				+ selecoes + ", pessoa=" + pessoa + "]";
 	}
 		

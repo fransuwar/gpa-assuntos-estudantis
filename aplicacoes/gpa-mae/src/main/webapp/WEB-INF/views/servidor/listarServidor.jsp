@@ -43,8 +43,8 @@
 
 		<div class="tab-content">
 
-			<!-- Meus Alunos -->
-			<div class="tab-pane active" id="alunos-cadastrados">
+			<!-- Meus Servidores -->
+			<div class="tab-pane active" id="servidores-cadastrados">
 				<c:if test="${empty servidores}">
 					<div class="alert alert-warning" role="alert">Não há servidores cadastrados.</div>
 				</c:if>
@@ -89,7 +89,7 @@
 					</div>
 					</c:if>
 			</div>
-			</div>
+		
 		
 			<jsp:include page="../modulos/footer.jsp" />
 	
@@ -109,6 +109,7 @@
 	        </div>
 	    </div>
 	</div>
+</div>
 
 </body>
 </html>
