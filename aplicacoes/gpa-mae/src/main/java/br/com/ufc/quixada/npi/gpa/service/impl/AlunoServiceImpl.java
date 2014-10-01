@@ -6,9 +6,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.ufc.quixada.npi.gpa.model.Aluno;
 import br.com.ufc.quixada.npi.gpa.repository.AlunoRepository;

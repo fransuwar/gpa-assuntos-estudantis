@@ -1,5 +1,9 @@
 package br.com.ufc.quixada.npi.gpa.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -11,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.ufc.quixada.npi.gpa.model.Aluno;
 import br.com.ufc.quixada.npi.gpa.model.Servidor;
+import br.com.ufc.quixada.npi.gpa.model.Servidor.Cargo;
 import br.com.ufc.quixada.npi.gpa.service.ServidorService;
 
 
@@ -24,15 +30,20 @@ public class ServidorController {
 	
 	@RequestMapping(value = "/cadastrarServidor", method = RequestMethod.GET)
 	public String cadastro(Model model) {
+		List<Cargo> cargos = new ArrayList<Cargo>(Arrays.asList(Cargo.values()));
+		model.addAttribute("cargos", cargos);
+		
 		model.addAttribute("servidor", new Servidor());
 		return "/servidor/cadastrarServidor";
 	}
 
+	
+	
 	@RequestMapping(value = "/cadastrarServidor", method = RequestMethod.POST)
 	public String adcionaServidor(
 			@Valid @ModelAttribute("servidor") Servidor servidor,
 			BindingResult result,RedirectAttributes redirect) {
-		
+	
 		if (result.hasErrors()) {
 			return ("servidor/cadastrarServidor");
 		}
@@ -44,6 +55,22 @@ public class ServidorController {
 		return "redirect:/servidor/cadastrarServidor";
 
 	}
+	
+	
+	
+	@RequestMapping(value = "/listarServidor", method = RequestMethod.GET)
+	public String listaServidor(Servidor servidor, BindingResult result,
+			Model model) {
+			
+			List<Servidor> results = servidorService.findAll();	
+			model.addAttribute("servidores", results);
+			return "servidor/listarServidor";
+		
+		
+	}
 
+	
+	
+	
 	
 }

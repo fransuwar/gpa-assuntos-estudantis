@@ -30,16 +30,20 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="form-group">
-						<label for="cargo" class="col-sm-2 control-label" >Cargo:</label>
-						<div class="col-sm-10">
-							<form:input id="cargo" path="cargo" cssClass="form-control" placeholder="Cargo do servidor" />
-							<div class="error-validation">
-								<form:errors path="cargo"></form:errors>
-							</div>
-						</div>
+		
+				<div class="form-group">
+				<label for="Cargo" class="col-sm-2 control-label" >Cargo:</label>
+					<div class="col-sm-3 control-label">
+						<select name="cargo" id="cargoServidor">
+							<c:forEach items="${cargos}" var="opcao">
+								<option value="${opcao}">
+									<c:out value="${opcao.cargo}"></c:out>
+								</option>
+							</c:forEach>
+						</select>
 					</div>
+				</div>
+					
 					
 					<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />

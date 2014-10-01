@@ -30,13 +30,7 @@ public class Servidor {
 	
 	private String cargo;
 
-	public String getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
+	
 
 	public enum Cargo{
 		PROFESSOR ("Professor"), TECADMINISTRATIVO("Tec Administrativo");
@@ -78,6 +72,14 @@ public class Servidor {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+		
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
 	}
 
 	public String getSiape() {

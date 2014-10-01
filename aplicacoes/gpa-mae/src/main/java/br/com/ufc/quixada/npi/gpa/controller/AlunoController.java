@@ -51,8 +51,6 @@ public class AlunoController {
 			return ("aluno/alunos");
 		}
 		
-		
-		
 		this.alunoService.save(aluno);
 		this.alunoService.update(aluno);
 		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");

@@ -38,7 +38,11 @@
 					</li>
 					<li>
 						<a href="<c:url value="/servidor/cadastrarServidor" />">Novo Servidor <span class="glyphicon glyphicon-plus"></span></a>
-					</li>				
+					</li>
+					<li>
+						<a href="<c:url value="/servidor/listarServidor" />">Servidores <span class="glyphicon glyphicon-plus"></span></a>
+					</li>
+									
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
