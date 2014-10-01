@@ -8,12 +8,12 @@
 
 <html>
 <head>
-	<jsp:include page="../modulos/bodyHeader.jsp" />
+	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<title>Atribuir Parecerista</title>
 </head>
 
 <body>
-	<jsp:include page="../modulos/headTag.jsp" />
+	<jsp:include page="../fragments/headTag.jsp" />
 
 	<div class="container">
 		<div class="atribuirBanca" align="center">
@@ -44,7 +44,7 @@
 		</div>
 	</div>
 
-	<jsp:include page="../modulos/footer.jsp"></jsp:include>
+	<jsp:include page="../fragments/footer.jsp"></jsp:include>
 
 </body>
 
