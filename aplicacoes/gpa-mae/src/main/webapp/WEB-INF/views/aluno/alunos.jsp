@@ -10,12 +10,12 @@
 
 <html>
 <head>
-	<jsp:include page="../modulos/header-estrutura.jsp" />
+	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<title>Cadastra alunos</title>
 </head>
 
 <body>
-	<jsp:include page="../modulos/header.jsp" />
+	<jsp:include page="../fragments/headTag.jsp" />
 
 		 <div class="container">
 		<div class="novo-aluno" align="left">
@@ -105,7 +105,7 @@
 	
 		</div>
 	
-	<jsp:include page="../modulos/footer.jsp"></jsp:include>
+	<jsp:include page="../fragments/footer.jsp"></jsp:include>
 
 
 

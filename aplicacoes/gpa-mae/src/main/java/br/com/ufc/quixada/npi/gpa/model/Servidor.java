@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -25,25 +24,21 @@ public class Servidor {
 	
 	private String siape;
 	
-	private String cargo;
-	
 	@ManyToMany
-	private List<SelecaoBolsa> servidoresBanca;
+	private List<SelecaoBolsa> participaBancas;
 	
-	@OneToMany(mappedBy="servidor")
-	private List<SelecaoBolsa> selecoes;
+	@OneToMany(mappedBy="responsavel")
+	private List<SelecaoBolsa> responsavelBancas;
 	
-	
-
 	@ManyToOne
-	private Pessoa pessoa;
+	private Pessoa usuario;
 	
 	public Pessoa getUsuario() {
-		return pessoa;
+		return usuario;
 	}
 
-	public void setUsuario(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	public void setUsuario(Pessoa usuario) {
+		this.usuario = usuario;
 	}
 
 	public Integer getId() {
@@ -61,36 +56,28 @@ public class Servidor {
 	public void setSiape(String siape) {
 		this.siape = siape;
 	}
+
+	public List<SelecaoBolsa> getParticipaBancas() {
+		return participaBancas;
+	}
+
+	public void setParticipaBancas(List<SelecaoBolsa> participaBancas) {
+		this.participaBancas = participaBancas;
+	}
+
+	public List<SelecaoBolsa> getResponsavelBancas() {
+		return responsavelBancas;
+	}
+
+	public void setResponsavelBancas(List<SelecaoBolsa> responsavelBancas) {
+		this.responsavelBancas = responsavelBancas;
+	}
 	
-	public List<SelecaoBolsa> getSelecoes() {
-		return selecoes;
-	}
-
-	public void setSelecoes(List<SelecaoBolsa> selecoes) {
-		this.selecoes = selecoes;
-	}
-	public List<SelecaoBolsa> getServidoresBanca() {
-		return servidoresBanca;
-	}
-
-	public void setServidoresBanca(List<SelecaoBolsa> servidoresBanca) {
-		this.servidoresBanca = servidoresBanca;
-	}
-
-	
-	public String getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
-
 	@Override
 	public String toString() {
-		return "Servidor [id=" + id + ", siape=" + siape + ", cargo=" + cargo
-				+ ", servidoresBanca=" + servidoresBanca + ", selecoes="
-				+ selecoes + ", pessoa=" + pessoa + "]";
+		return "Servidor [id=" + id + ", siape=" + siape + ", participaBancas="
+				+ participaBancas + ", responsavelBancas=" + responsavelBancas + ", usuario="
+				+ usuario + "]";
 	}
 		
 }
