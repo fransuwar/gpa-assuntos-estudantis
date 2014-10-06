@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,18 +9,27 @@
 
 <html>
 <head>
+	
 	<jsp:include page="../fragments/bodyHeader.jsp" />
-	<title>Cadastro de selecaos</title>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<c:url value="/resources/css/jquery.fileupload.css" />">
+	<link rel="stylesheet" href="<c:url value="/resources/css/jquery.fileupload-ui.css" />">
+	<title>Editar Seleções</title>
 </head>
-<body>
 
+<body>
 	<jsp:include page="../fragments/headTag.jsp" />
 	
-	 <div class="container">
+	<div class="container">
 		<div class="novo-selecao" align="left">
 			<div class="form" align="center">
-				<h2>Nova Seleção</h2>
-				<form:form id="adicionarSelecaoForm" role="form" commandName="selecao" servletRelativeAction="/selecaoBolsa/cadastrarBolsa" method="POST" cssClass="form-horizontal">
+				<c:if test="${action == 'editar'}">
+					<c:set var="url" value="/selecaoBolsa/${selecao.id}/editarBolsa"></c:set>
+					<h2>Editar Seleção</h2>
+				</c:if>
+				<form:form id="editar" commandName="selecao" servletRelativeAction="${url }" cssClass="form-horizontal" method="POST">
+					<input type="hidden" name="id" value="${selecao.id }"/>
+					<input type="hidden" name="status" value="${selecao.status }"/>
 
 					<div class="form-group">
 						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
@@ -81,19 +91,18 @@
 						</div>
 					</div>
 					
-				<div class="form-group"> 
+			<div class="form-group"> 
 					<label for="tipoBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>	
-					<form:select name="${status.expression}" path="tipoBolsa" id="tipoBolsa">
-							<c:forEach items="${tipoBolsa}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.tipo}"></c:out>
-							</option>
-						</c:forEach>	
+					<form:select  name="${status.expression}" path="tipoBolsa" id="tipoBolsa">
+						<c:forEach var="item" items="${tiposBolsa}">
+							<form:option value="${item}"><spring:eval expression="item.tipo"/></form:option>
+						</c:forEach>
 					</form:select>
 					</div>
+					
 					<div class="controls">
-						<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
-						<a href="<c:url value="/selecao/index"></c:url>" class="btn btn-default">Cancelar</a>
+						<input name="submit" type="submit" class="btn btn-primary" value="Salvar" />
+						<a href="<c:url value="/selecaoBolsa/listarBolsa"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 
 				</form:form>

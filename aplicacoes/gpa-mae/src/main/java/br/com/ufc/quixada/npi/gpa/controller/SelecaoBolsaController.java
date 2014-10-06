@@ -1,84 +1,134 @@
 package br.com.ufc.quixada.npi.gpa.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-
 import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa;
+import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa.Status;
+import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa.TipoBolsa;
 import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
-
-
-
-//import java.io.*;
-
-
-
-
-@Controller
-@RequestMapping("selecaoBolsa")
+@Named
+@RequestMapping("/selecaoBolsa")
 public class SelecaoBolsaController {
 	@Inject
-	private SelecaoBolsaService serviceSelecaoBolsa;
+	private SelecaoBolsaService serviceSelecao;
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String index() {
+		return "redirect:/selecaoBolsa/listarBolsa";
+	}
+	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.GET)
+	public String cadastro(Model model) {
+		model.addAttribute("selecao", new SelecaoBolsa());
+		model.addAttribute("tipoBolsa", TipoBolsa.values());
+		return "selecaoBolsa/cadastrarBolsa";
+	}
+	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.POST)
+	public String adicionarselecao( @Valid @ModelAttribute("selecao") SelecaoBolsa selecao, BindingResult result, RedirectAttributes redirect, Model model) {
+		if (result.hasErrors()) {
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			return ("selecaoBolsa/cadastrarBolsa");
+		}
+		selecao.setStatus(Status.NOVA);
+		this.serviceSelecao.save(selecao);
+		redirect.addFlashAttribute("info", "seleção cadastrada com sucesso.");
+		return "redirect:/selecaoBolsa/listarBolsa";
+	}
+	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.GET)
+	public String editar(@PathVariable("id") Integer id, Model model) {
+		SelecaoBolsa selecao = serviceSelecao.find(SelecaoBolsa.class, id);
+		if (selecao.getStatus().equals(Status.NOVA)) {
+			model.addAttribute("selecao", selecao);
+			model.addAttribute("action", "editar");
+			List<TipoBolsa> tiposBolsa = new ArrayList<TipoBolsa>(Arrays.asList(TipoBolsa.values()));
+			model.addAttribute("tiposBolsa", tiposBolsa);
+			return "selecaoBolsa/editarBolsa";
+		}
+		return "redirect:/selecaoBolsa/listarBolsa";
+	}
+	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.POST)
+	public String atualizarSelecao(@PathVariable("id") Integer id, @Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoAtualizado, BindingResult result, Model model)  {
+		if (result.hasErrors()) {
+			List<TipoBolsa> tiposBolsa = new ArrayList<TipoBolsa>(Arrays.asList(TipoBolsa.values()));
+			model.addAttribute("tiposBolsa", tiposBolsa);
+			model.addAttribute("action", "editar");
+			return ("selecaoBolsa/editarBolsa");
+		}
 	
-	
-	@RequestMapping(value="/index" , method = RequestMethod.GET )
-	public String index(){
-		return "/selecaoBolsa/listar";
+		this.serviceSelecao.update(selecaoAtualizado);
+		return "redirect:/selecaoBolsa/listarBolsa";
+	}
+	@RequestMapping(value = "/{id}/excluir")
+	public String excluirSelecao(SelecaoBolsa p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+		SelecaoBolsa selecao = serviceSelecao.find(SelecaoBolsa.class, id);
+		if (selecao == null) {
+			redirectAttributes.addFlashAttribute("erro", "Seleção inexistente.");
+			return "redirect:/selecaoBolsa/listarBolsa";
+		}
+		if (selecao.getStatus().equals(Status.NOVA)) {
+			this.serviceSelecao.delete(selecao);
+			redirectAttributes.addFlashAttribute("info", "Seleção excluído com sucesso.");
+		} else {
+			redirectAttributes.addFlashAttribute("erro", "Permissão negada.");
+		}
+		return "redirect:/selecaoBolsa/listarBolsa";
 		
 	}
+	@RequestMapping(value = "/listarBolsa")
+	public String listar(ModelMap modelMap) {
+		modelMap.addAttribute("selecoes", serviceSelecao.find(SelecaoBolsa.class));
+		return "selecaoBolsa/listarBolsa";
+	}
 	
-	@RequestMapping(value="/cadastrarBolsa", method = RequestMethod.GET)
-	 public String cadastro(Model modelo){
-		modelo.addAttribute("SelecaoBolsa", new SelecaoBolsa());
-		//modelo.addAttribute("tipoBolsa", tipoBolsa.values());
-		return "selecaoBolsa/cadastrarBolsa";
-	}	
-	
-	
-	@RequestMapping(value="/cadastrarBolsa" , method = RequestMethod.POST)
-	  public String adicionaSelecao( @Valid @ModelAttribute("selecaoBolsa") SelecaoBolsa selecaoBolsa , BindingResult result , HttpSession session, RedirectAttributes redirect  ){
-		if(result.hasErrors()){
-			return "selecaoBolsa/cadastrarBolsa";
-		}
-		
-		//selecaoBolsa.setStatusSelecao(StatusSelecaoBolsa.NOVO);
-		
-		this.serviceSelecaoBolsa.save(selecaoBolsa);
-		redirect.addFlashAttribute("inFo", "Cadastrado Com sucesso");
-		
-		
-		return "redirect:/selecaoBolsa/index";
-		
-	}	
-	
-		
-	
-	
+	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.GET)
+	public String atribuirParecerista(
+			@PathVariable("id") Integer id, Model model,
+			RedirectAttributes redirectAttributes) {
 
+		model.addAttribute("selecao", "id");
+		model.addAttribute("usuarios", serviceSelecao.find(SelecaoBolsa.class));
+		return "selecaoBolsa/atribuirBanca";
+	}
+
+	
+	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.POST)
+	public String atribuirPareceristaNoProjeto(HttpServletRequest request,
+			Model model, RedirectAttributes redirect) throws IOException {
+
+		Integer id = Integer.parseInt(request.getParameter("id"));
+		
+
+		SelecaoBolsa selecao = serviceSelecao.find(SelecaoBolsa.class, id);
+		redirect.addFlashAttribute("selecao", id);
+		redirect.addFlashAttribute("membrosBanca", (selecao.getId()));
+
+		redirect.addFlashAttribute("info",
+				"O parecerista foi atribuído ao projeto com sucesso.");
+
+		return "redirect:/selecaoBolsa/listarBolsa";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
-	
-	
-	
-	
-	
-
-	
-	
-	
-
-	
-	 
-	
-	
-	
-
