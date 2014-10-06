@@ -40,7 +40,9 @@
 	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
    	<context:component-scan base-package="br.com.ufc.quixada.npi.gpa.controller" />
 	<context:component-scan base-package="br.com.ufc.quixada.npi.gpa.model" />
+	<context:component-scan base-package="br.com.ufc.quixada.npi.gpa.service" />
 	<context:component-scan base-package="br.com.ufc.quixada.npi.gpa.service.impl" />
 	<context:component-scan base-package="br.com.ufc.quixada.npi.gpa.repository.jpa" />
+	<context:component-scan base-package="br.com.ufc.quixada.npi.gpa.repository" />
 	
 </beans>

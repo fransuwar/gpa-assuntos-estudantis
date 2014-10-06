@@ -1,6 +1,5 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -114,6 +113,13 @@ public class QuestionarioIniciacaoAcademica {
 	
 	@Enumerated(EnumType.STRING)
 	private SituacaoResidencia situacaoResidencia;
+	
+	@Enumerated(EnumType.STRING)
+	private Estado estado;
+	
+	@Enumerated(EnumType.STRING)
+	private Estado estadoFamilia;
+	
 	private int qtdAparelhoSom;
 	private int qtdTelevisao;
 	private int qtdRadio;
@@ -157,6 +163,11 @@ public class QuestionarioIniciacaoAcademica {
 			return nome;
 		}
 	}
+	
+	@Enumerated(EnumType.STRING)
+	private HorarioDisponivel horariodisponivelBolsa;
+	private String justificativaPedido;
+
 	public Integer getId() {
 		return id;
 	}
@@ -319,6 +330,18 @@ public class QuestionarioIniciacaoAcademica {
 	public void setSituacaoResidencia(SituacaoResidencia situacaoResidencia) {
 		this.situacaoResidencia = situacaoResidencia;
 	}
+	public Estado getEstado() {
+		return estado;
+	}
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+	public Estado getEstadoFamilia() {
+		return estadoFamilia;
+	}
+	public void setEstadoFamilia(Estado estadoFamilia) {
+		this.estadoFamilia = estadoFamilia;
+	}
 	public int getQtdAparelhoSom() {
 		return qtdAparelhoSom;
 	}
@@ -463,6 +486,18 @@ public class QuestionarioIniciacaoAcademica {
 	public void setRendaTotalFamilia(float rendaTotalFamilia) {
 		this.rendaTotalFamilia = rendaTotalFamilia;
 	}
+	public HorarioDisponivel getHorariodisponivelBolsa() {
+		return horariodisponivelBolsa;
+	}
+	public void setHorariodisponivelBolsa(HorarioDisponivel horariodisponivelBolsa) {
+		this.horariodisponivelBolsa = horariodisponivelBolsa;
+	}
+	public String getJustificativaPedido() {
+		return justificativaPedido;
+	}
+	public void setJustificativaPedido(String justificativaPedido) {
+		this.justificativaPedido = justificativaPedido;
+	}
 	@Override
 	public String toString() {
 		return "QuestionarioIniciacaoAcademica [id=" + id + ", selecaoBolsa="
@@ -483,7 +518,8 @@ public class QuestionarioIniciacaoAcademica {
 				+ ", nivelInstrucaoPai=" + nivelInstrucaoPai
 				+ ", resideAtualmente=" + resideAtualmente
 				+ ", definicaoLocalAtual=" + definicaoLocalAtual
-				+ ", situacaoResidencia=" + situacaoResidencia
+				+ ", situacaoResidencia=" + situacaoResidencia + ", estado="
+				+ estado + ", estadoFamilia=" + estadoFamilia
 				+ ", qtdAparelhoSom=" + qtdAparelhoSom + ", qtdTelevisao="
 				+ qtdTelevisao + ", qtdRadio=" + qtdRadio + ", qtdAutomovel="
 				+ qtdAutomovel + ", qtdMotocicleta=" + qtdMotocicleta
@@ -500,8 +536,16 @@ public class QuestionarioIniciacaoAcademica {
 				+ ", totalMembrosFamilia=" + totalMembrosFamilia + ", nome="
 				+ nome + ", parentesco=" + parentesco + ", idade=" + idade
 				+ ", atividade=" + atividade + ", renda=" + renda
-				+ ", rendaTotalFamilia=" + rendaTotalFamilia + "]";
+				+ ", rendaTotalFamilia=" + rendaTotalFamilia
+				+ ", horariodisponivelBolsa=" + horariodisponivelBolsa
+				+ ", justificativaPedido=" + justificativaPedido + "]";
 	}
+
+	
+	
+	
+	
+	
 	
 	
 	

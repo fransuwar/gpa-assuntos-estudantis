@@ -196,7 +196,7 @@ public class Pessoa {
 	}
 
 	
-	@OneToMany(mappedBy="pessoa")
+	@OneToMany(mappedBy="usuario")
 	private List<Servidor> servidores;
 	
 
