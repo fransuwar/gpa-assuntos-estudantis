@@ -36,7 +36,7 @@
 						<a href="<c:url value="/selecaoBolsa/cadastrarBolsa" />">Seleção de Bolsa <span class="glyphicon glyphicon-plus"></span></a>
 					</li>
 					<li>
-						<a href="<c:url value="/inscricao/iniciacaoAcademica" />">Inscrição Iniciação Acadêmica <span class="glyphicon glyphicon-plus"></span></a>
+						<a href="<c:url value="/inscricao/iniciacaoAcademica/" />">Inscrição Iniciação Acadêmica <span class="glyphicon glyphicon-plus"></span></a>
 					</li>
 					<li>
 						<a href="<c:url value="/inscricao/auxilio/" />">Inscrição Auxílio Moradia <span class="glyphicon glyphicon-plus"></span></a>

@@ -39,35 +39,8 @@
 					value="${QuestionarioAuxilioMoradia.id }" />
 
 
-				<!-- <div class="form-group"> -->
-				<!-- <label for="caminhoFoto" class="col-sm-2 control-label">Foto:</label> -->
-				<!-- <div class="col-sm-10"> -->
-				<%-- <form:input path="caminhoFoto" <img src="..." class="img-responsive" alt="Responsive image" />/> --%>
-				<!-- <div class="error-validation"> -->
-				<%-- <form:errors path="caminhoFoto"></form:errors> --%>
-				<!-- </div> -->
-				<!-- </div> -->
-				<!-- </div> -->
-
-
-				
-
 						<form:checkboxes items="${moraCom}" path="moraCom" />					
 	
-			
-	 	
-			
-			
-<!-- 			<div class="form-group"> -->
-<!-- 					<label for="outraMoradia" class="col-sm-2 control-label">Outra Moradia: </label> -->
-<!-- 					<div class="col-sm-3"> -->
-<%-- 						<form:input id="outraMoradia" type="text" path="outraMoradia" --%>
-<%-- 							cssClass="form-control data" placeholder="Outra Moradia:" /> --%>
-<!-- 						<div class="error-validation"> -->
-<%-- 							<form:errors path="outraMoradia"></form:errors> --%>
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
 
 				<div class="form-group">
 					<label for="nomeMae" class="col-sm-2 control-label">Nome da
@@ -585,18 +558,16 @@
 				</div>
 
 
-<!-- 	<table> -->
+<!-- 	<table class="table table-hover"> -->
 <!-- 		<thead> -->
-<!-- 		<tr> -->
 		
 <!-- 			<th>Nome:</th> -->
-<!-- 			<tr><th> Grau de Paresntesco:</th></tr> -->
-<!-- 			<tr><th> Escolaridade </th></tr> -->
-<!-- 			<tr><th> Atividade ou Profissão</th></tr> -->
-<!-- 			<tr><th> Renda R$</th></tr> -->
-<!-- 			<tr><th><a id="add" > Adicionar</a></th></tr> -->
+<!-- 			<th> Grau de Paresntesco:</th> -->
+<!-- 			<th> Escolaridade </th> -->
+<!-- 			<th> Atividade ou Profissão</th> -->
+<!-- 			<th> Renda R$</th> -->
+<!-- 			<th><a id="add" > Adicionar</a></th> -->
 			
-<!-- 		</tr> -->
 <!-- 		</thead> -->
 		
 		
@@ -604,9 +575,23 @@
 <!--  		<script type="text/javascript" src="js/functions.js"> -->
 	
 <!-- // 	//ADICIONA -->
-<!-- //     $("a#add").click(function() { -->
+<!-- // 	$(document).ready(function){     
 
+				$("a#add").click(function() { -->
+<!-- 						var total = 0; -->
+<!-- 						var media = 0; -->
+<!-- 						var linhas = 0; -->
 <!-- // 				var tr = $("tbody"); -->
+				
+<!-- 				$("tbody#corpoInfo").append("<tr> <td><input='text'></td> <td><input='text'></td> <td><input='text'></td> <td><input='text'></td> </tr>"); -->
+				
+<!-- 					$(".form-grup input#rendaFamilia")..attr("value", "Adicionando"); -->
+				
+<!-- 						var dados = 0; -->
+				
+<!-- 						for(var qtd=0;qtd < $("tbody#corpoInfo tr").lenth;qtd++){ -->
+<!-- 							dados = $("#renda").val(); -->
+<!-- 							alert(dados); -->
 				
 <!-- // 				tr.append($("<tr>") -->
 <!-- // 						.append($("<td>").append($("<input type='text' name='nome["+tr+"].Nome' cssClass ='form-control' value= "+tr+">")) -->
@@ -620,7 +605,7 @@
 <!-- // 			$("table > tbody").append(tr);			 -->
 <!-- //     });	 -->
 	
-	
+<!-- 	}); -->
 	
 <!-- //   //DELETA AMIGOS -->
 <!-- // 	function deletar(tr, index) { -->
