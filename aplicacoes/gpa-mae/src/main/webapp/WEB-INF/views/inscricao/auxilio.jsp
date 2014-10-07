@@ -39,16 +39,7 @@
 					value="${QuestionarioAuxilioMoradia.id }" />
 
 
-				<!-- <div class="form-group"> -->
-				<!-- <label for="caminhoFoto" class="col-sm-2 control-label">Foto:</label> -->
-				<!-- <div class="col-sm-10"> -->
-				<%-- <form:input path="caminhoFoto" <img src="..." class="img-responsive" alt="Responsive image" />/> --%>
-				<!-- <div class="error-validation"> -->
-				<%-- <form:errors path="caminhoFoto"></form:errors> --%>
-				<!-- </div> -->
-				<!-- </div> -->
-				<!-- </div> -->
-
+			
 
 				
 
@@ -58,16 +49,7 @@
 	 	
 			
 			
-<!-- 			<div class="form-group"> -->
-<!-- 					<label for="outraMoradia" class="col-sm-2 control-label">Outra Moradia: </label> -->
-<!-- 					<div class="col-sm-3"> -->
-<%-- 						<form:input id="outraMoradia" type="text" path="outraMoradia" --%>
-<%-- 							cssClass="form-control data" placeholder="Outra Moradia:" /> --%>
-<!-- 						<div class="error-validation"> -->
-<%-- 							<form:errors path="outraMoradia"></form:errors> --%>
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
+
 
 				<div class="form-group">
 					<label for="nomeMae" class="col-sm-2 control-label">Nome da
