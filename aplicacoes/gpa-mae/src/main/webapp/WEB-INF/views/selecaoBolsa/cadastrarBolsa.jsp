@@ -91,6 +91,31 @@
 						</c:forEach>	
 					</form:select>
 					</div>
+					
+				<div class="form-group">
+						<label for="atividades" class="col-sm-2 control-label">Arquivos:</label>
+						<div class="col-sm-10 files">
+							<input class="btn btn-success" type="file" name="file" title="Adicionar Arquivos" multiple="multiple">
+		                    <table id="file-upload" role="presentation" class="table table-striped">
+		                    	<tbody class="files">
+		                    		<c:forEach items="${projeto.documentos}" var="documento">
+		                    			<tr class="template-upload fade in">
+									        <td>
+									            <a href="<c:url value="/documento/${documento.id }" />">${documento.nomeOriginal}</a>
+									            <strong class="error text-danger"></strong>
+									        </td>
+									        <td>
+								                <a id="${documento.id}" href="#" class="delete-document">
+													<button type="button" class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
+												</a>
+									        </td>
+									    </tr>	
+		                    		</c:forEach>
+		                    	</tbody>
+		                    </table>
+						</div>
+					</div>
+					
 					<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
 						<a href="<c:url value="/selecao/index"></c:url>" class="btn btn-default">Cancelar</a>
