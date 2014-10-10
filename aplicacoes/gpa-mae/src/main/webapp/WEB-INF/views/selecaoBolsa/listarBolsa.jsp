@@ -64,7 +64,7 @@
 										</c:if>
 										
 										<c:if test="${selecao.tipoBolsa =='AUXILIO_MORADIA'}">
-										<a id="inscrever" href="<c:url value="/inscricao/auxilio" ></c:url>">
+										<a id="inscrever" href="<c:url value="/inscricao/auxilio/" ></c:url>">
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>
 										</c:if>
