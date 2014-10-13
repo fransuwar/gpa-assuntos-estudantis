@@ -48,14 +48,16 @@
 					</div>
 				</div>			
 					
-		</form:form>		
-	</div>
-	
+					
 					<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Editar" />
 						<a href="<c:url value="/servidor/listarServidor"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
+					
+		</form:form>		
+	</div>
 	
+						
 	</div>
 	
 	

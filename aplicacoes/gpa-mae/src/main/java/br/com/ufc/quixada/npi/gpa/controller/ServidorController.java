@@ -73,17 +73,15 @@ public class ServidorController {
 
 	@RequestMapping(value = "/{id}/editarServidor", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
-		Servidor servidor = servidorService.find(Servidor.class, id);
-		
-		{
-			
+		    
+			Servidor servidor = servidorService.find(Servidor.class, id);
 			List<Cargo> cargos = new ArrayList<Cargo>(Arrays.asList(Cargo.values()));
 			model.addAttribute("cargos", cargos);
 			model.addAttribute("servidor", servidor);
 			model.addAttribute("action", "editar");
 			
 			return "servidor/editarServidor";
-		}
+		
 	}
 	
 	
@@ -99,10 +97,8 @@ public class ServidorController {
 		}
 	
 		Servidor servidor = servidorService.find(Servidor.class, id);
-		
 		servidor.setSiape(servidorAtualizado.getSiape());
 		servidor.setCargo(servidorAtualizado.getCargo());
-		
 				
 		this.servidorService.update(servidor);
 		redirect.addFlashAttribute("info", "Servidor atualizado com sucesso.");
