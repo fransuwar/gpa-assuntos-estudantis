@@ -27,7 +27,7 @@
 					<c:set var="url" value="/selecaoBolsa/${selecao.id}/editarBolsa"></c:set>
 					<h2>Editar Seleção</h2>
 				</c:if>
-				<form:form id="editar" commandName="selecao" servletRelativeAction="${url }" cssClass="form-horizontal" method="POST">
+				<form:form id="editar" commandName="selecao" servletRelativeAction="${url}" enctype="multipart/form-data" cssClass="form-horizontal" method="POST">
 					<input type="hidden" name="id" value="${selecao.id }"/>
 					<input type="hidden" name="status" value="${selecao.status }"/>
 
@@ -91,6 +91,7 @@
 						</div>
 					</div>
 					
+							
 			<div class="form-group"> 
 					<label for="tipoBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>	
 					<form:select  name="${status.expression}" path="tipoBolsa" id="tipoBolsa">
@@ -99,6 +100,37 @@
 						</c:forEach>
 					</form:select>
 					</div>
+					
+					<div class="form-group">
+						<label for="atividades" class="col-sm-2 control-label" >Arquivos:</label>
+						<div class="col-sm-10 files">
+							<input class="btn btn-success" type="file" name="file" title="Adicionar arquivos..." multiple="multiple">
+		                    <table id="file-upload" role="presentation" class="table table-striped">
+		                    	<tbody class="files">
+		                    		<c:forEach items="${selecoes.documentos}" var="documento">
+		                    			<tr class="template-upload fade in">
+									        <td>
+									            <a href="<c:url value="/documento/${documento.id }" />">aaa ${documento.nomeOriginal }</a>
+									            <strong class="error text-danger"></strong>
+									        </td>
+									        <td>
+								                <a id="${documento.id}" href="#" class="delete-document">
+													<button type="button" class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
+												</a>
+									        </td>
+									    </tr>	
+		                    		</c:forEach>
+		                    	</tbody>
+		                    </table>
+
+		                    <c:if test="${not empty error_documento}">
+									<div class="error-validation">
+										<span>${error_documento}</span>
+									</div>
+							</c:if>
+						</div>
+					</div>
+					
 					
 					<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Salvar" />

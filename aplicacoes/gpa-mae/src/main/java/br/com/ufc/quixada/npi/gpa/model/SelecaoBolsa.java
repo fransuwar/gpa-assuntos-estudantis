@@ -3,15 +3,18 @@ package br.com.ufc.quixada.npi.gpa.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -33,6 +36,12 @@ public class SelecaoBolsa {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
 		
+	@ManyToOne
+	private  Pessoa autor;
+		
+	@OneToMany(mappedBy = "selecaoBolsa", cascade = CascadeType.REMOVE)
+	private List<Documento> documentos;
+	
 	@NotNull
 	private Integer sequencial;
 	
@@ -49,6 +58,8 @@ public class SelecaoBolsa {
 	@NotNull
 	private String duracao;
 
+	private String local;
+	
 	@NotNull
 	private Integer ano;
 	
@@ -58,7 +69,8 @@ public class SelecaoBolsa {
 
 	private String edital;
 
-	@ManyToMany(mappedBy = "participaBancas")
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "servidor_selecaobolsa")
 	private List<Servidor> membrosBanca;
 
 	@ManyToOne
@@ -89,6 +101,14 @@ public class SelecaoBolsa {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Pessoa getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Pessoa autor) {
+		this.autor = autor;
 	}
 
 	public int getQuantidadeVagas() {
@@ -199,5 +219,40 @@ public class SelecaoBolsa {
 	public void setTipoBolsa(TipoBolsa tipoBolsa) {
 		this.tipoBolsa = tipoBolsa;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SelecaoBolsa other = (SelecaoBolsa) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	public String getLocal() {
+		return local;
+	}
+
+	public void setLocal(String local) {
+		this.local = local;
+	}
+	
+	
 
 }
