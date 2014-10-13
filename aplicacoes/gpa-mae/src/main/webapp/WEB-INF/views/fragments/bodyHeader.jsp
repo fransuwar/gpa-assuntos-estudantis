@@ -17,7 +17,7 @@
 
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
-<sec:authorize ifAllGranted="ROLE_ADMIN">
+		<sec:authorize ifAllGranted="ROLE_ADMIN">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#bs-example-navbar-collapse-1">
@@ -27,7 +27,7 @@
 				</button>
 				<a class="navbar-brand" href="<c:url value="#" />">GPA - MAE</a>
 			</div>
-</sec:authorize>
+		</sec:authorize>
 	
 		<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
