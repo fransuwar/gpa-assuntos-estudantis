@@ -33,7 +33,7 @@ public class Pessoa {
 	private String login;
 	
 	@Column(nullable = false)
-	private String senha;
+	private String password;
 	
 	@Column(nullable = false)
 	private boolean habilitado;
@@ -78,11 +78,11 @@ public class Pessoa {
 	
 		
 	public String getPassword() {
-		return senha;
+		return password;
 	}
 
 	public void setPassword(String password) {
-		this.senha = password;
+		this.password = password;
 	}
 
 	public String getEmail() {
@@ -220,14 +220,6 @@ public class Pessoa {
 		this.login = login;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
 	public boolean isHabilitado() {
 		return habilitado;
 	}
@@ -238,8 +230,8 @@ public class Pessoa {
 
 	@Override
 	public String toString() {
-		return "Pessoa [id=" + id + ", login=" + login + ", senha="
-				+ senha + ", habilitado=" + habilitado + ", email=" + email
+		return "Pessoa [id=" + id + ", login=" + login + ", password="
+				+ password + ", habilitado=" + habilitado + ", email=" + email
 				+ ", nome=" + nome + ", dataNascimento=" + dataNascimento
 				+ ", nacionalidade=" + nacionalidade + ", naturalidade="
 				+ naturalidade + ", uf=" + uf + ", sexo=" + sexo + ", cpf="
