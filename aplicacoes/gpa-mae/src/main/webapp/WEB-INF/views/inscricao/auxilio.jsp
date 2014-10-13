@@ -567,70 +567,70 @@
 				</div>
 
 
-<!-- 	<table> -->
-<!-- 		<thead> -->
-<!-- 		<tr> -->
+	<table>
+		<thead>
+		<tr>
 		
-<!-- 			<th>Nome:</th> -->
-<!-- 			<tr><th> Grau de Paresntesco:</th></tr> -->
-<!-- 			<tr><th> Escolaridade </th></tr> -->
-<!-- 			<tr><th> Atividade ou Profissão</th></tr> -->
-<!-- 			<tr><th> Renda R$</th></tr> -->
-<!-- 			<tr><th><a id="add" > Adicionar</a></th></tr> -->
+			<th>Nome:</th>
+			<tr><th> Grau de Paresntesco:</th></tr>
+			<tr><th> Escolaridade </th></tr>
+			<tr><th> Atividade ou Profissão</th></tr>
+			<tr><th> Renda R$</th></tr>
+			<tr><th><a id="add" > Adicionar</a></th></tr>
 			
-<!-- 		</tr> -->
-<!-- 		</thead> -->
+		</tr>
+		</thead>
 		
 		
-<!-- 		<script type="text/javascript" src="js/jquery.js" > -->
-<!--  		<script type="text/javascript" src="js/functions.js"> -->
+		<script type="text/javascript" src="js/jquery.js" >
+ 		<script type="text/javascript" src="js/functions.js"> 
 	
-<!-- // 	//ADICIONA -->
-<!-- //     $("a#add").click(function() { -->
+	//ADICIONA 
+     $("a#add").click(function() { 
 
-<!-- // 				var tr = $("tbody"); -->
+ 				var tr = $("tbody"); 
 				
-<!-- // 				tr.append($("<tr>") -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='nome["+tr+"].Nome' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='grau["+tr+"].Grau de Parentesco' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='escolaridade["+tr+"].escolaridade' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='atividade["+tr+"].atividade' cssClass ='form-control' value= "+tr+">"))										 -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='renda["+tr+"].renda' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<a> deletar </a>")))))))) -->
-<!-- // 						); -->
+ 				tr.append($("<tr>") 
+ 						.append($("<td>").append($("<input type='text' name='nome["+tr+"].Nome' cssClass ='form-control' value= "+tr+">")) 
+ 						.append($("<td>").append($("<input type='text' name='grau["+tr+"].Grau de Parentesco' cssClass ='form-control' value= "+tr+">")) 
+ 						.append($("<td>").append($("<input type='text' name='escolaridade["+tr+"].escolaridade' cssClass ='form-control' value= "+tr+">")) 
+ 						.append($("<td>").append($("<input type='text' name='atividade["+tr+"].atividade' cssClass ='form-control' value= "+tr+">"))										 -->
+ 						.append($("<td>").append($("<input type='text' name='renda["+tr+"].renda' cssClass ='form-control' value= "+tr+">")) 
+ 						.append($("<td>").append($("<a> deletar </a>"))))) 
+     ); 
 				
-<!-- // 			$("table > tbody").append(tr);			 -->
-<!-- //     });	 -->
+			$("table > tbody").append(tr);			
+    });	
 	
 	
 	
-<!-- //   //DELETA AMIGOS -->
-<!-- // 	function deletar(tr, index) { -->
-<!-- // 		if(tr > 0 ){	 -->
-<!-- // 			var recipiente = "tbody#tr" + tr; -->
-<!-- // 			alert("O contato " + tr + " tirou do seu coração( " + recipiente + " ) o amigo " + index); -->
-<!-- // 			var size = $("table > "+recipiente+" tr" ).length; -->
-<!-- // 			$( "table > "+recipiente+" tr" ).eq( index ).remove(); -->
+   //DELETA AMIGOS 
+	function deletar(tr, index) { 
+		if(tr > 0 ){	 -->
+ 			var recipiente = "tbody#tr" + tr; 
+ 			alert("O contato " + tr + " tirou do seu coração( " + recipiente + " ) o amigo " + index); 
+ 			var size = $("table > "+recipiente+" tr" ).length; 
+ 			$( "table > "+recipiente+" tr" ).eq( index ).remove(); 
 
-<!-- // 			size = $("table > "+recipiente+" tr" ).length; -->
-<!-- // 			for( var i = 0; i < size; ++i){ -->
-<!-- // 				$( "table > "+recipiente+" tr:eq(" + i + ") td > a" ).attr("href", "javascript:deletar(" + tr +", " + i + ")"); -->
-<!-- // 			} -->
-<!-- // 			alert("No coração("+recipiente+") do contato "+ tr +" só tem " + size + " amigo(s)" ); -->
+ 			size = $("table > "+recipiente+" tr" ).length; 
+ 			for( var i = 0; i < size; ++i){ 
+ 				$( "table > "+recipiente+" tr:eq(" + i + ") td > a" ).attr("href", "javascript:deletar(" + tr +", " + i + ")"); -->
+ 			} 
+ 			alert("No coração("+recipiente+") do contato "+ tr +" só tem " + size + " amigo(s)" ); 
 			
-<!-- // 		} -->
-<!-- // 	} -->
+	} 
+ 	}
 	
 	
-<!--   	</script> -->
-<!-- <!-- 	</script>	 -->  
-<!-- <!-- 		<tbody> -->
+   	</script> 
+	</script>
+ 		<tbody>
 		
 		
-<!-- <!-- 		</tbody> --> 
-<!-- <!-- 	</table> --> 
+</tbody> 
+ 	</table>  
 
-<!-- <BR /> -->
+ <BR />
 	<div class="controls">
 		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
 		 <a href="<c:url value="/inscricao/auxilio" ></c:url>" class="btn btn-default" >Cancelar</a>
