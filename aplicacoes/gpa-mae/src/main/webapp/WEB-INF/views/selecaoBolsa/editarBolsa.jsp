@@ -107,10 +107,11 @@
 							<input class="btn btn-success" type="file" name="file" title="Adicionar arquivos..." multiple="multiple">
 		                    <table id="file-upload" role="presentation" class="table table-striped">
 		                    	<tbody class="files">
-		                    		<c:forEach items="${selecoes.documentos}" var="documento">
+		                    		<c:forEach items="${selecao.documentos}" var="documento">
+		                    			
 		                    			<tr class="template-upload fade in">
 									        <td>
-									            <a href="<c:url value="/documento/${documento.id }" />">aaa ${documento.nomeOriginal }</a>
+									            <a href="<c:url value="/documento/${documento.id }" />">${documento.nomeOriginal }</a>
 									            <strong class="error text-danger"></strong>
 									        </td>
 									        <td>

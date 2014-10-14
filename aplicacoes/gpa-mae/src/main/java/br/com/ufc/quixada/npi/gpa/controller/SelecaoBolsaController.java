@@ -132,8 +132,8 @@ public class SelecaoBolsaController {
 	}
 
 	@RequestMapping(value = "/listarBolsa")
-	public String listar(ModelMap modelMap) {
-		modelMap.addAttribute("selecoes",
+	public String listar(ModelMap model) {
+		model.addAttribute("selecoes",
 				serviceSelecao.find(SelecaoBolsa.class));
 		return "selecaoBolsa/listarBolsa";
 	}

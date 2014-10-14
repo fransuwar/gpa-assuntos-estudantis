@@ -55,6 +55,14 @@ public class SelecaoBolsa {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
 	
+	public List<Documento> getDocumentos() {
+		return documentos;
+	}
+
+	public void setDocumentos(List<Documento> documentos) {
+		this.documentos = documentos;
+	}
+
 	@NotNull
 	private String duracao;
 
