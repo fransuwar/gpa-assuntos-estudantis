@@ -541,8 +541,11 @@
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
+	
+	
 <script type="text/javascript">
-		
+
+	
 	$(document).ready(function(){
 		
 		$("a#addInf").click(function(){

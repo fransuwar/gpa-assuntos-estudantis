@@ -11,7 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -37,9 +39,13 @@ public class QuestionarioIniciacaoAcademica {
 	@OneToMany(mappedBy="iniciacaoAcademica")
 	private List<PessoaFamilia> pessoas;
 	
+	@NotNull
+	@Size(min=5, message="Preenchimento Obrigatório")
 	private String enderecoAtual;
 	private int numero;
 	private String complemento;
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String bairro;
 	private String uf;
 	@Pattern(regexp="/^[0-9]{2}.[0-9]{3}-[0-9]{3}$/", message="CEP Inválido")
@@ -48,16 +54,23 @@ public class QuestionarioIniciacaoAcademica {
 	private String pontoReferencia;
 	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone em formato Incorreto")
 	private String telefoneFixo;
+	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone em formato Incorreto")
 	private String telefoneCelular;
 	private String email;
 	
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String enderecoFamilia;
 	private int numeroFamilia;
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String bairroFamilia;
 	private String ufFamilia;
 	private String complementoFamilia;
 	@Pattern(regexp="/^[0-9]{2}.[0-9]{3}-[0-9]{3}$/", message="CEP Inválido")
 	private String cepFamilia;
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String cidadeFamilia;
 	private String pontoReferenciaFamilia;
 	
@@ -84,6 +97,8 @@ public class QuestionarioIniciacaoAcademica {
 	
 	private NivelInstrucao nivelInstrucaoPai;
 	private String resideAtualmente;
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String definicaoLocalAtual;
 	
 	public enum SituacaoResidencia{
@@ -170,6 +185,8 @@ public class QuestionarioIniciacaoAcademica {
 	
 	@Enumerated(EnumType.STRING)
 	private HorarioDisponivel horariodisponivelBolsa;
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String justificativaPedido;
 
 	public Integer getId() {
