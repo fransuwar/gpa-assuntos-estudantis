@@ -10,11 +10,6 @@
 		   http://www.springframework.org/schema/tx
 		   http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	 <bean id="gpamae" class="org.springframework.jndi.JndiObjectFactoryBean">
-                <property name="jndiName" value="java:comp/env/gpamae"/>
-        </bean>
-	
-	
 	<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<!-- Specify the name of the EntityManagerFactory configuration. -->
 		<property name="persistenceUnitName" value="dev" />
@@ -25,11 +20,14 @@
 <!-- 		one of the properties available; the maximum file size in bytes -->
 <!-- 		<property name="maxUploadSize" value="100000"/> -->
 	</bean>
-	
+	<bean id="gpamae" class="org.springframework.jndi.JndiObjectFactoryBean">
+    	<property name="jndiName" value="java:comp/env/gpamae"/>
+	</bean>	
+
 	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="emf" />
 	</bean>
-	
+
 	<!-- Mensagens de erros personalizadas -->
  	<bean id="messageSource"
  		class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -40,8 +38,10 @@
  		</property>
  	</bean>
 
+	
 	<!-- enable the configuration of transactional behavior based on  annotations -->
-	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />	
+	
    	<context:component-scan base-package="br.com.ufc.quixada.npi.gpa.controller" />
 	<context:component-scan base-package="br.com.ufc.quixada.npi.gpa.model" />
 	<context:component-scan base-package="br.com.ufc.quixada.npi.gpa.service" />

@@ -29,6 +29,13 @@ public class SelecaoBolsa {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+
+	@OneToMany(mappedBy="selecaoBolsa")
+	private List<QuestionarioIniciacaoAcademica> questionariosIniciacaoAcademica;
+	
+	@OneToMany(mappedBy="selecaoBolsa")
+	private List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia;
+	
 	@Min(value = 1, message = "Número de bolsas deve ser maior que 0")
 	private int quantidadeVagas;
 			
@@ -44,6 +51,7 @@ public class SelecaoBolsa {
 	
 	@NotNull
 	private Integer sequencial;
+
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;

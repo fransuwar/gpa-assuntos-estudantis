@@ -12,6 +12,7 @@ import br.com.ufc.quixada.npi.gpa.repository.GenericRepository;
 import br.com.ufc.quixada.npi.gpa.repository.QueryType;
 import br.com.ufc.quixada.npi.gpa.service.GenericService;
 
+
 @Named
 public class GenericServiceImpl<T> implements GenericService<T> {
 
