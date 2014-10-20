@@ -403,6 +403,14 @@
 								<form:errors path="qtdEmpregadosDomesticos"></form:errors>
 							</div>
 						</div>
+						
+					<label for="qtd_empregados_domesticos" class="col-sm-5 control-label">Quantidade de Membros da Familia:</label>
+						<div class="col-sm-1">
+							<form:input id="totalMembrosFamilia" type="number" min="0"  path="totalMembrosFamilia" cssClass="form-control" placeholder="Fone"/>
+							<div class="error-validation">
+								<form:errors path="totalMembrosFamilia"></form:errors>
+							</div>
+						</div>	
 					</fieldset>	
 					
 					<!-- 

@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Pattern;
 
 
 @Entity
@@ -41,9 +42,11 @@ public class QuestionarioIniciacaoAcademica {
 	private String complemento;
 	private String bairro;
 	private String uf;
+	@Pattern(regexp="/^[0-9]{2}.[0-9]{3}-[0-9]{3}$/", message="CEP Inválido")
 	private String cep;
 	private String cidade;
 	private String pontoReferencia;
+	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone em formato Incorreto")
 	private String telefoneFixo;
 	private String telefoneCelular;
 	private String email;
@@ -53,6 +56,7 @@ public class QuestionarioIniciacaoAcademica {
 	private String bairroFamilia;
 	private String ufFamilia;
 	private String complementoFamilia;
+	@Pattern(regexp="/^[0-9]{2}.[0-9]{3}-[0-9]{3}$/", message="CEP Inválido")
 	private String cepFamilia;
 	private String cidadeFamilia;
 	private String pontoReferenciaFamilia;
