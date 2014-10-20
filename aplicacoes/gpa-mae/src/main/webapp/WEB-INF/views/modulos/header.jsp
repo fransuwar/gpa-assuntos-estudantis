@@ -30,14 +30,9 @@
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					
-					<li>
-						<a href="<c:url value="/aluno/alunos" />">Novo Aluno <span class="glyphicon glyphicon-plus"></span></a>
-					</li>
+					
 					<li>
 						<a href="<c:url value="/aluno/listarAluno" />">Alunos <span class="glyphicon glyphicon-plus"></span></a>
-					</li>
-					<li>
-						<a href="<c:url value="/servidor/cadastrarServidor" />">Novo Servidor <span class="glyphicon glyphicon-plus"></span></a>
 					</li>
 					<li>
 						<a href="<c:url value="/servidor/listarServidor" />">Servidores <span class="glyphicon glyphicon-plus"></span></a>

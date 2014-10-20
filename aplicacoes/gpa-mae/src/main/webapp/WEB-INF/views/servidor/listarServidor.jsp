@@ -33,6 +33,23 @@
 				<button class="btn btn-primary">Novo Servidor <span class="glyphicon glyphicon-plus"></span></button>
 			</a>
 		</div>
+		
+		
+		<div align="right" style="margin-bottom: 20px;">
+				<form:form id="buscarServidorForm" role="form"
+								servletReltiveAction="/servidor/listarServidor" method="POST"
+								cssClass="form-horizontal" class="inline">
+								<input id="siape" name="siape" cssClass="form-control"
+									placeholder="Digite sua busca aqui..." size="20"
+									required="required" autofocus="true" />
+								<button class="btn btn-primary" name="submit" type="submit"
+									class="btn btn-primary" value="Buscar">
+									Buscar <span class="glyphicon glyphicon-search" />
+								</button>
+
+				</form:form>
+			
+		</div>
 			
 		</div>
 		

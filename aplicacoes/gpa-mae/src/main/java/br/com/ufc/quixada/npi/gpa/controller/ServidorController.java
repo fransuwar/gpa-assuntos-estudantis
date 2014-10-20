@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.ufc.quixada.npi.gpa.model.Aluno;
 import br.com.ufc.quixada.npi.gpa.model.Servidor;
 import br.com.ufc.quixada.npi.gpa.model.Servidor.Cargo;
 import br.com.ufc.quixada.npi.gpa.service.ServidorService;
@@ -67,8 +67,15 @@ public class ServidorController {
 			List<Servidor> results = servidorService.findAll();	
 			model.addAttribute("servidores", results);
 			return "servidor/listarServidor";
+	}
+	
+	@RequestMapping(value = "/listarServidor", method = RequestMethod.POST)
+	public String listarServidor(@RequestParam("siape") String siape, Model model) {
+		List<Servidor> results = new ArrayList<Servidor>();
+		results.add(servidorService.getServidorBySiape(siape));
+		model.addAttribute("servidores", results);
 		
-		
+		return "/servidor/listarServidor";
 	}
 
 	@RequestMapping(value = "/{id}/editarServidor", method = RequestMethod.GET)
