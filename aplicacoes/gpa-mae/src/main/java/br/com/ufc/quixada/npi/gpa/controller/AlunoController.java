@@ -1,6 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -61,16 +62,21 @@ public class AlunoController {
 
 	
 	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
-	public String listaAluno(Aluno aluno, BindingResult result,
-			Model model) {
+	public String listaAluno(Aluno aluno, BindingResult result, Model model) {
 			
 			List<Aluno> results = alunoService.findAll();	
 			model.addAttribute("alunos", results);
 			return "aluno/listarAluno";
-		
-		
 	}
 	
+	@RequestMapping(value = "/listarAluno", method = RequestMethod.POST)
+	public String listarAluno(@RequestParam("matricula") String matricula, Model model) {
+		List<Aluno> results = new ArrayList<Aluno>();
+		results.add(alunoService.getAlunoByMatricula(matricula));
+		model.addAttribute("alunos", results);
+		
+		return "/aluno/listarAluno";
+	}
 	
 	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
@@ -129,19 +135,7 @@ public class AlunoController {
 		
 	}
 	
-	/*
-	@RequestMapping(value = {"/buscar"}, method = RequestMethod.GET)
-	public String buscarAluno(Model model) {
-		return "aluno/buscar";
-	}
-	*/
 	
-	@RequestMapping(value = "/buscar", method = RequestMethod.POST)
-	public String buscarAluno(@RequestParam("matricula") String matricula, ModelMap map) {
-		map.addAttribute("aluno", alunoService.getAlunoByMatricula(matricula));
-		
-		return "/aluno/buscar";
-	}
 	
 	
 
