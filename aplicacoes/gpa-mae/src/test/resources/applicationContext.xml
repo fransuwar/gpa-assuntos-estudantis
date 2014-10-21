@@ -17,7 +17,7 @@
 	
 	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="emf" />
-	</bean>
+ 	</bean>
 	
 	<!-- Mensagens de erros personalizadas -->
  	<bean id="messageSource"
@@ -34,6 +34,9 @@
 	-->
 	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
 
+	<context:component-scan base-package="br.ufc.quixada.npi.repository" />
+	<context:component-scan base-package="br.ufc.quixada.npi.service" />
+	<context:component-scan base-package="br.ufc.quixada.npi.controller" />
 	<context:component-scan base-package="br.ufc.quixada.npi.gpa.repository" />
 	<context:component-scan base-package="br.ufc.quixada.npi.gpa.service" />
 	
