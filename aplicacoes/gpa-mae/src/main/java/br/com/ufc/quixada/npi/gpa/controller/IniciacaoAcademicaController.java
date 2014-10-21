@@ -22,6 +22,7 @@ import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica.HorarioDi
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica.NivelInstrucao;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica.SituacaoResidencia;
 import br.com.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
+import br.com.ufc.quixada.npi.gpa.service.PessoaService;
 
 
 @Controller
@@ -30,6 +31,9 @@ public class IniciacaoAcademicaController {
 	
 	@Inject
 	private IniciacaoAcademicaService iniciacaoAcademicaService;
+	
+	@Inject
+	private PessoaService servicePessoa;
 	
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -51,6 +55,7 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("HorarioDisponivel", horarioDisponivel);
 		modelo.addAttribute("SituacaoResidencia", situacaoResidencia);
 		modelo.addAttribute("TotalEstado", estado);
+		
 		System.out.println(nivelInstrucao.toString());
 		System.out.println(estado.toString());
 		

@@ -43,11 +43,9 @@
 	
 
 				<div class="form-group">
-					<label for="nomeMae" class="col-sm-2 control-label">Nome da
-						Mãe:</label>
+					<label for="nomeMae" class="col-sm-2 control-label">Nome da Mãe:</label>
 					<div class="col-sm-10">
-						<form:input id="nomeMae" type="text" path="nomeMae"
-							cssClass="form-control data" placeholder="Nome da Mãe" />
+						<form:input id="nomeMae" type="text" path="nomeMae" cssClass="form-control data" placeholder="Nome da Mãe" />
 						<div class="error-validation">
 							<form:errors path="nomeMae"></form:errors>
 						</div>
