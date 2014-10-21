@@ -568,71 +568,129 @@
 
 
 	<table>
-		<thead>
-		<tr>
+<!-- 		<thead> -->
+<!-- 		<tr> -->
 		
-			<th>Nome:</th>
-			<tr><th> Grau de Paresntesco:</th></tr>
-			<tr><th> Escolaridade </th></tr>
-			<tr><th> Atividade ou Profissão</th></tr>
-			<tr><th> Renda R$</th></tr>
-			<tr><th><a id="add" > Adicionar</a></th></tr>
+<!-- 			<th>Nome:</th> -->
+<!-- 			<tr><th> Grau de Paresntesco:</th></tr> -->
+<!-- 			<tr><th> Escolaridade </th></tr> -->
+<!-- 			<tr><th> Atividade ou Profissão</th></tr> -->
+<!-- 			<tr><th> Renda R$</th></tr> -->
+<!-- 			<tr><th><a id="add" > Adicionar</a></th></tr> -->
 			
-		</tr>
-		</thead>
+		
+<!-- 		</thead> -->
 		
 		
-		<script type="text/javascript" src="js/jquery.js" >
- 		<script type="text/javascript" src="js/functions.js"> 
+<!--  		<script type="text/javascript" src="js/functions.js">  -->
 	
-	//ADICIONA 
-     $("a#add").click(function() { 
+<!-- // 	//ADICIONA  -->
+<!-- //      $("a#add").click(function() {  -->
 
- 				var tr = $("tbody"); 
+<!-- //  				var tr = $("tbody");  -->
 				
- 				tr.append($("<tr>") 
- 						.append($("<td>").append($("<input type='text' name='nome["+tr+"].Nome' cssClass ='form-control' value= "+tr+">")) 
- 						.append($("<td>").append($("<input type='text' name='grau["+tr+"].Grau de Parentesco' cssClass ='form-control' value= "+tr+">")) 
- 						.append($("<td>").append($("<input type='text' name='escolaridade["+tr+"].escolaridade' cssClass ='form-control' value= "+tr+">")) 
- 						.append($("<td>").append($("<input type='text' name='atividade["+tr+"].atividade' cssClass ='form-control' value= "+tr+">"))										 -->
- 						.append($("<td>").append($("<input type='text' name='renda["+tr+"].renda' cssClass ='form-control' value= "+tr+">")) 
- 						.append($("<td>").append($("<a> deletar </a>"))))) 
-     ); 
+<!-- //  				tr.append($("<tr>")  -->
+<!-- //  						.append($("<td>").append($("<input type='text' name='nome["+tr+"].Nome' cssClass ='form-control' value= "+tr+">")))  -->
+<!-- //  						.append($("<td>").append($("<input type='text' name='grau["+tr+"].Grau de Parentesco' cssClass ='form-control' value= "+tr+">")))  -->
+<!-- //  						.append($("<td>").append($("<input type='text' name='escolaridade["+tr+"].escolaridade' cssClass ='form-control' value= "+tr+">"))) -->
+<!-- //  						.append($("<td>").append($("<input type='text' name='atividade["+tr+"].atividade' cssClass ='form-control' value= "+tr+">")))										  -->
+<!-- //  						.append($("<td>").append($("<input type='text' name='renda["+tr+"].renda' cssClass ='form-control' value= "+tr+">")))  -->
+<!-- //  						.append($("<td>").append($("<a> deletar </a>"))); -->
+     
 				
-			$("table > tbody").append(tr);			
-    });	
+<!-- // 			$("table > tbody").append(tr);			 -->
+<!-- //     });	 -->
 	
 	
 	
-   //DELETA AMIGOS 
-	function deletar(tr, index) { 
-		if(tr > 0 ){	 -->
- 			var recipiente = "tbody#tr" + tr; 
- 			alert("O contato " + tr + " tirou do seu coração( " + recipiente + " ) o amigo " + index); 
- 			var size = $("table > "+recipiente+" tr" ).length; 
- 			$( "table > "+recipiente+" tr" ).eq( index ).remove(); 
+<!-- //    //DELETA AMIGOS  -->
+<!-- // 	function deletar(tr, index) {  -->
+<!-- // 		if(tr > 0 ){	  -->
+<!-- //  			var tbody = "tbody#tr" + tr;  -->
+ 			 
+<!-- //  			var size = $("table > "+tbody+" tr" ).length;  -->
+<!-- //  			$( "table > "+tbody+" tr" ).eq( index ).remove();  -->
 
- 			size = $("table > "+recipiente+" tr" ).length; 
- 			for( var i = 0; i < size; ++i){ 
- 				$( "table > "+recipiente+" tr:eq(" + i + ") td > a" ).attr("href", "javascript:deletar(" + tr +", " + i + ")"); -->
- 			} 
- 			alert("No coração("+recipiente+") do contato "+ tr +" só tem " + size + " amigo(s)" ); 
-			
-	} 
- 	}
+<!-- //  			size = $("table > "+tbody+" tr" ).length;  -->
+<!-- //  			for( var i = 0; i < size; ++i){  -->
+<!-- //  				$( "table > "+tbody+" tr:eq(" + i + ") td > a" ).attr("href", "javascript:deletar(" + tr +", " + i + ")"); -->
+<!-- //  			}  -->
+<!-- // 		} -->
 	
 	
-   	</script> 
-	</script>
- 		<tbody>
+	
+<!--    	</script>  -->
+	
+<!--  		<tbody> -->
 		
 		
-</tbody> 
- 	</table>  
+<!-- </tbody>  -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	
+	var rendaMedia;
+	var contador = 1;
+
+  function removeCampo() {
+	$(".removerCampo").unbind("click");
+	$(".removerCampo").bind("click", function () {
+	   if($("tr.linhas").length > 1){
+		$(this).parent().parent().remove();
+	   }
+	   contador--;
+	});
+  }
+ 
+  $(".adicionarCampo").on("click", function () {
+	novoCampo = $("tr.linhas:first").clone().attr("id", "aaa");
+	novoCampo.find("input[name*='nome']").attr("name", "pessoa["+contador+"].nome");
+	novoCampo.find("input[name*='grau']").attr("name", "pessoa["+contador+"].grauParentesco");
+	novoCampo.find("input[name*='atividade']").attr("name", "pessoa["+contador+"].atividadeProfissao");
+	novoCampo.find("input[name*='renda']").attr("name", "pessoa["+contador+"].rendaMensal");
+	
+	$(novoCampo).attr("class", "yyyyyyy");
+	novoCampo.insertAfter("tr.linhas:last");
+ 	$("aaa").attr("id", "pessonome");
+ 	
+ 	contador++;
+	
+	
+  });
+
+});
+
+
+</script>
+
+
+  <tr><td class="form-group" width="10">Nome</td>
+  <td class="form-group">Parentesco</td>
+  <td class="form-group">Escolaridade</td>
+  <td class="form-group">Atividade</td>
+  <td class="form-group">Renda R$</td></tr>
+  <tr class="linhas">
+    <td><form:input type="text" path="pessoas[0].nome" style="text-align:center" /></td>
+    <td><input type="text" name="" style="text-align:center" /></td>
+    <td><input type="text" name="" style="text-align:center" /></td>
+    <td><input type="text" name="" style="text-align:center" /></td>
+    <td><input type="text" name="" style="text-align:center" /></td>
+    
+    <td><a href="#" class="removerCampo" title="Remover linha" ><input name="Remover" class="btn btn-primary" value="Remover" /></a></td>
+  </tr>
+  <tr><td colspan="4">
+        <a href="#" class="adicionarCampo" title="Adicionar item" ><input name="Adicionar" class="btn btn-primary" value="Adicionar" /></a>
+	</td></tr>
+  <tr>
+
+  </tr> 
+</table>
+
+
 
  <BR />
 	<div class="controls">
-		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
+		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" id="btn-cadastrar"/>
 		 <a href="<c:url value="/inscricao/auxilio" ></c:url>" class="btn btn-default" >Cancelar</a>
 	</div>
 

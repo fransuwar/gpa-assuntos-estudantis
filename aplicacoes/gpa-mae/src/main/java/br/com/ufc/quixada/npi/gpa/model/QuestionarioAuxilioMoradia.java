@@ -3,6 +3,7 @@ package br.com.ufc.quixada.npi.gpa.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -29,7 +31,9 @@ public class QuestionarioAuxilioMoradia {
 	private SelecaoBolsa selecaoBolsa;
 
 	@Column(nullable = false)
-	@OneToMany(mappedBy="auxilioMoradia")
+	//@OneToMany(mappedBy="auxilioMoradia", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name= "questionarioauxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
 	
 	public enum MoraCom{
