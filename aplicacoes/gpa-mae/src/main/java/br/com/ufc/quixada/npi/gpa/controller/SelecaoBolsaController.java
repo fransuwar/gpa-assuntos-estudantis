@@ -61,7 +61,6 @@ public class SelecaoBolsaController {
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			return ("selecaoBolsa/cadastrarBolsa");
 		}
-		// selecao.setAutor(getPessoaLogado(session));
 		selecao.setStatus(Status.NOVA);
 		this.serviceSelecao.save(selecao);
 		redirect.addFlashAttribute("info", "seleção cadastrada com sucesso.");
@@ -110,6 +109,7 @@ public class SelecaoBolsaController {
 	}
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
+	
 	@RequestMapping(value = "/{id}/excluir")
 	public String excluirSelecao(SelecaoBolsa p,
 			@PathVariable("id") Integer id,
@@ -123,7 +123,7 @@ public class SelecaoBolsaController {
 		if (selecao.getStatus().equals(Status.NOVA)) {
 			this.serviceSelecao.delete(selecao);
 			redirectAttributes.addFlashAttribute("info",
-					"Seleção excluído com sucesso.");
+					"Seleção excluída com sucesso.");
 		} else {
 			redirectAttributes.addFlashAttribute("erro", "Permissão negada.");
 		}
@@ -164,7 +164,6 @@ public class SelecaoBolsaController {
 
 		selecao.setMembrosBanca(list);
 
-		selecao.setAno(2040);
 		serviceSelecao.update(selecao);
 		redirect.addFlashAttribute("info",
 				"O parecerista foi atribuído ao projeto com sucesso.");

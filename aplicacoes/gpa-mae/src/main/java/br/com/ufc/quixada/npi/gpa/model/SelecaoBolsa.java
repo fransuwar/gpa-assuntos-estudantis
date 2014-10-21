@@ -85,7 +85,7 @@ public class SelecaoBolsa {
 
 	private String edital;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "servidor_selecaobolsa")
 	private List<Servidor> membrosBanca;
 
