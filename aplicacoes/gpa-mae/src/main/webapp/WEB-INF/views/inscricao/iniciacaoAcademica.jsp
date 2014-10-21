@@ -394,17 +394,9 @@
 								<form:errors path="qtdEmpregadosDomesticos"></form:errors>
 							</div>
 						</div>
+															
 						
-					
-					<label for="qtd_empregados_domesticos" class="col-sm-2 control-label">Empregados Domesticos:</label>
-						<div class="col-sm-4">
-							<form:input id="qtdEmpregadosDomesticos" type="number" min="0"  path="qtdEmpregadosDomesticos" cssClass="form-control" placeholder="Fone"/>
-							<div class="error-validation">
-								<form:errors path="qtdEmpregadosDomesticos"></form:errors>
-							</div>
-						</div>
-						
-					<label for="qtd_empregados_domesticos" class="col-sm-5 control-label">Quantidade de Membros da Familia:</label>
+					<label for="totalMembrosFamilia" class="col-sm-5 control-label">Quantidade de Membros da Familia:</label>
 						<div class="col-sm-1">
 							<form:input id="totalMembrosFamilia" type="number" min="0"  path="totalMembrosFamilia" cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">

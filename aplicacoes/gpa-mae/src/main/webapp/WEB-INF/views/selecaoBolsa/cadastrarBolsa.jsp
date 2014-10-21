@@ -93,7 +93,7 @@
 					</div>
 					
 				<div class="form-group">
-						<label for="atividades" class="col-sm-2 control-label">Arquivos:</label>
+						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
 						<div class="col-sm-10 files">
 							<input class="btn btn-success" type="file" name="file" title="Adicionar Arquivos" multiple="multiple">
 		                    <table id="file-upload" role="presentation" class="table table-striped">
