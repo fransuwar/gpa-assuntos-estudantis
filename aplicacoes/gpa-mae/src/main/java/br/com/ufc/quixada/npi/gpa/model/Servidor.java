@@ -32,7 +32,7 @@ public class Servidor {
 	@Enumerated(EnumType.STRING)
 	private Cargo cargo;
 	
-	@ManyToMany(mappedBy = "membrosBanca")
+	@ManyToMany
 	private List<SelecaoBolsa> participaBancas;
 	
 	@OneToMany(mappedBy="responsavel")
@@ -80,7 +80,6 @@ public class Servidor {
 	public void setResponsavelBancas(List<SelecaoBolsa> responsavelBancas) {
 		this.responsavelBancas = responsavelBancas;
 	}
-
 	
 	public enum Cargo {
 		PROFESSOR("Professor"), TECADMINISTRATIVO("Tec Administrativo");
@@ -102,8 +101,9 @@ public class Servidor {
 	
 	@Override
 	public String toString() {
-		return "Servidor [id=" + id + ", siape=" + siape + ", usuario="
-				 + "]";
+		return "Servidor [id=" + id + ", siape=" + siape + ", participaBancas="
+				+ participaBancas + ", responsavelBancas=" + responsavelBancas + ", pessoa="
+				+ pessoa + "]";
 	}
 
 	public Cargo getCargo() {
@@ -113,6 +113,5 @@ public class Servidor {
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
-	
 		
 }

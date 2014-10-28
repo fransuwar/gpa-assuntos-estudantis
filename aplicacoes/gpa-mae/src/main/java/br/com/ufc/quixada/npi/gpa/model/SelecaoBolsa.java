@@ -45,6 +45,12 @@ public class SelecaoBolsa {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
 		
+	@ManyToOne
+	private  Pessoa autor;
+		
+	@OneToMany(mappedBy = "selecaoBolsa", cascade = CascadeType.REMOVE)
+	private List<Documento> documentos;
+	
 	@NotNull
 	private Integer sequencial;
 
@@ -59,9 +65,19 @@ public class SelecaoBolsa {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
 	
+	public List<Documento> getDocumentos() {
+		return documentos;
+	}
+
+	public void setDocumentos(List<Documento> documentos) {
+		this.documentos = documentos;
+	}
+
 	@NotNull
 	private String duracao;
 
+	private String local;
+	
 	@NotNull
 	private Integer ano;
 	
@@ -106,6 +122,14 @@ public class SelecaoBolsa {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Pessoa getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Pessoa autor) {
+		this.autor = autor;
 	}
 
 	public int getQuantidadeVagas() {
@@ -216,5 +240,40 @@ public class SelecaoBolsa {
 	public void setTipoBolsa(TipoBolsa tipoBolsa) {
 		this.tipoBolsa = tipoBolsa;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SelecaoBolsa other = (SelecaoBolsa) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	public String getLocal() {
+		return local;
+	}
+
+	public void setLocal(String local) {
+		this.local = local;
+	}
+	
+	
 
 }
