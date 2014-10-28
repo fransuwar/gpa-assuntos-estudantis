@@ -1,18 +1,20 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import br.com.ufc.quixada.npi.gpa.model.MoraCom;
 
 @Entity
 public class QuestionarioAuxilioMoradia {
@@ -38,8 +40,10 @@ public class QuestionarioAuxilioMoradia {
 
 		}
 	}
-	@Column(nullable = false)
-	private MoraCom moraCom;
+	
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(targetClass = MoraCom.class) 
+	private List<MoraCom> moraCom;
 	
 	@Column(nullable = false)
 	private String enderecoSedeCurso;
@@ -79,18 +83,36 @@ public class QuestionarioAuxilioMoradia {
 		Minas_Gerais("Minas Gerais"), Para("Pará"), Paraiba("Paraíba"), Parana("Paraná"), Pernambuco("Pernambuco"), Piaui("Piauí"), 
 		Rio_de_Janeiro("Rio de Janeiro"), Rio_Grande_do_Norte("Rio Grande do Norte"), Rio_Grande_do_Sul("Rio Grande do Sul"), Rondonia("Rondonia"), Roraima("Roraima"), 
 		Santa_Catarina("Santa Catarina"), Sao_Paulo("São Paulo"), Sergipe("Sergipe"), Tocantins("Tocantins");
+		
+		private String estado;
 
-		Estado(String nome){}
+		Estado(String estado){
+			this.estado = estado;
+		}
+		
+		public String getEstado(){
+			return estado;
+		}
 	}
 
-	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Estado estado;
 
 	public enum SituacaoImovel{
 		Cedido("Cedido"), Alugado("Alugado"), Proprio("Próprio"), Financiado("Financiado");
-		SituacaoImovel(String nome){}
+		
+		private String imovel;
+		
+		SituacaoImovel(String imovel){
+			this.imovel = imovel;
+		}
+		
+		public String getImovel(){
+			return imovel;
+		}
 	}
 
+	@Enumerated(EnumType.STRING)
 	private SituacaoImovel situacaoImovel;
 	
 	private String valorMensalFinanciamento;
@@ -98,12 +120,20 @@ public class QuestionarioAuxilioMoradia {
 	private String propriedadeRural;
 
 	public enum GrauParentescoImovelRural{
-		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
-		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
+		SemPropriedadeRural("Sem Propriedade Rural"), Pai("Pai"), Avô("Avô"), Tio("Tio"), Irmao("Irmão"),
+		Conjuge("Cônjuge ou Companheiro(a)"), Outros("Outros");
 
-		GrauParentescoImovelRural(String nome){}
+		private String imovelRural;
+		
+		GrauParentescoImovelRural(String imovelRural){
+			this.imovelRural = imovelRural;
+		}
+		
+		public String getImovelRural(){
+			return imovelRural;
+		}
 	}
-	
+	@Enumerated(EnumType.STRING)
 	private GrauParentescoImovelRural grauParentescoImovelRural;
 	
 	private double areaPropriedade;
@@ -113,12 +143,21 @@ public class QuestionarioAuxilioMoradia {
 	private String veiculos;
 	
 	public enum GrauParentescoVeiculos{
-		Filho("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
-		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
+		SemVeiculo("Sem Veículo"), Pai("Pai"), Avô("Avô"), Tio("Tio"), Irmao("Irmão"),
+		Conjuge("Cônjuge ou Companheiro(a)"), Outros("Outros");
 
-		GrauParentescoVeiculos(String nome){}
+
+		private String parentesco;
+		
+		GrauParentescoVeiculos(String parentesco){
+			this.parentesco = parentesco;
+		}
+		
+		public String getParentesco(){
+			return parentesco;
+		}
 	}
-	
+	@Enumerated(EnumType.STRING)
 	private GrauParentescoVeiculos grauParentescoVeiculos;
 
 	private String tipo;
@@ -131,26 +170,49 @@ public class QuestionarioAuxilioMoradia {
 
 	public enum FinalidadeVeiculo{
 		Passeio("Passeio"), Taxi("Táxi"), Frete("Frete");
-		FinalidadeVeiculo(String nome){}
+		
+		private String veiculo;
+		
+		FinalidadeVeiculo(String veiculo){
+			this.veiculo = veiculo;
+		}
+		public String getVeiculo(){
+			return veiculo;
+		}
 	}
+	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidadeVeiculo;
 
 	public enum TipoEnsinoFundamental{
-		Publico("Público"), Particular("Particular");
-		TipoEnsinoFundamental(String nome){}
+		Publico("Público"), Particular("Particular"), Particular_Com_Bolsa("Particular com Bolsa");
+		private String nome;
+		
+		TipoEnsinoFundamental(String nome){
+			this.nome = nome;
+		}
+		public String getNome(){
+			return nome;
+		}
 	} 
-	
-	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private TipoEnsinoFundamental ensinoFundamental;
 	
 	private int percentualParticularFundamental;
 
 	public enum TipoEnsinoMedio{
-		Publico("Público"), Particular("Particular");
-		TipoEnsinoMedio(String nome){}
+		Publico("Público"), Particular("Particular"), Particular_Com_Bolsa("Particular com Bolsa");
+		
+	private String media;	
+	
+		TipoEnsinoMedio(String media){
+			this.media = media;
+		}
+		public String getMedia(){
+			return media;
+		}
 	}
 	
-	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private TipoEnsinoMedio ensinoMedio;
 	
 	private int percentualParticularMedio;
@@ -179,10 +241,6 @@ public class QuestionarioAuxilioMoradia {
 	@Column(nullable = false)
 	private String justificativa;
 	
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date dataInscricao;
-
 	public Integer getId() {
 		return id;
 	}
@@ -195,10 +253,11 @@ public class QuestionarioAuxilioMoradia {
 	public void setCaminhoFoto(String caminhoFoto) {
 		this.caminhoFoto = caminhoFoto;
 	}
-	public MoraCom getMoraCom() {
+	
+	public List<MoraCom> getMoraCom() {
 		return moraCom;
 	}
-	public void setMoraCom(MoraCom moraCom) {
+	public void setMoraCom(List<MoraCom> moraCom) {
 		this.moraCom = moraCom;
 	}
 	public String getEnderecoSedeCurso() {
@@ -423,12 +482,6 @@ public class QuestionarioAuxilioMoradia {
 	public boolean isPossuiGraduacao() {
 		return possuiGraduacao;
 	}
-	public SelecaoBolsa getSelecaoBolsa() {
-		return selecaoBolsa;
-	}
-	public void setSelecaoBolsa(SelecaoBolsa selecaoBolsa) {
-		this.selecaoBolsa = selecaoBolsa;
-	}
 	public void setPossuiGraduacao(boolean possuiGraduacao) {
 		this.possuiGraduacao = possuiGraduacao;
 	}
@@ -444,30 +497,18 @@ public class QuestionarioAuxilioMoradia {
 	public void setJustificativa(String justificativa) {
 		this.justificativa = justificativa;
 	}
-	public Date getData_inscricao() {
-		return dataInscricao;
-	}
-	public void setData_inscricao(Date data_inscricao) {
-		this.dataInscricao = data_inscricao;
-	}
-	
-	public Date getDataInscricao() {
-		return dataInscricao;
-	}
-	public void setDataInscricao(Date dataInscricao) {
-		this.dataInscricao = dataInscricao;
-	}
+
 	@Override
 	public String toString() {
 		return "QuestionarioAuxilioMoradia [id=" + id + ", caminhoFoto="
-				+ caminhoFoto + ", selecaoBolsa=" + selecaoBolsa + ", pessoas="
-				+ pessoas + ", moraCom=" + moraCom + ", enderecoSedeCurso="
-				+ enderecoSedeCurso + ", nomeMae=" + nomeMae + ", nomePai="
-				+ nomePai + ", rua=" + rua + ", numeroCasa=" + numeroCasa
-				+ ", bairro=" + bairro + ", complemento=" + complemento
-				+ ", cidade=" + cidade + ", cep=" + cep + ", pontoReferencia="
-				+ pontoReferencia + ", telefone=" + telefone + ", estado="
-				+ estado + ", situacaoImovel=" + situacaoImovel
+				+ caminhoFoto + ", pessoas=" + pessoas + ", moraCom=" + moraCom
+				+ ", enderecoSedeCurso=" + enderecoSedeCurso + ", nomeMae="
+				+ nomeMae + ", nomePai=" + nomePai + ", rua=" + rua
+				+ ", numeroCasa=" + numeroCasa + ", bairro=" + bairro
+				+ ", complemento=" + complemento + ", cidade=" + cidade
+				+ ", cep=" + cep + ", pontoReferencia=" + pontoReferencia
+				+ ", telefone=" + telefone + ", estado=" + estado
+				+ ", situacaoImovel=" + situacaoImovel
 				+ ", valorMensalFinanciamento=" + valorMensalFinanciamento
 				+ ", propriedadeRural=" + propriedadeRural
 				+ ", grauParentescoImovelRural=" + grauParentescoImovelRural
@@ -486,7 +527,6 @@ public class QuestionarioAuxilioMoradia {
 				+ ", bolsista=" + bolsista + ", tipoBolsa=" + tipoBolsa
 				+ ", possuiGraduacao=" + possuiGraduacao
 				+ ", descricaoGraduacao=" + descricaoGraduacao
-				+ ", justificativa=" + justificativa + ", dataInscricao="
-				+ dataInscricao + "]";
+				+ ", justificativa=" + justificativa + "]";
 	}
 }

@@ -8,12 +8,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-	<jsp:include page="../modulos/header-estrutura.jsp" />
+	<jsp:include page="../fragments/headTag.jsp" />
 	<title>Cadastra servidor</title>
 
 </head>
 <body>
-	<jsp:include page="../modulos/header.jsp" />
+	<jsp:include page="../fragments/bodyHeader.jsp" />
 	
 	
 	 <div class="container">
@@ -55,6 +55,6 @@
 	</div>
 	
 
-<jsp:include page="../modulos/footer.jsp"></jsp:include>
+			<jsp:include page="../fragments/footer.jsp" />
 </body>
 </html>

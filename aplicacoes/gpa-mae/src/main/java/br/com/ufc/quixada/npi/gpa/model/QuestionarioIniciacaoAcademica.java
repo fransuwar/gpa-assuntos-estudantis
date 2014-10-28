@@ -1,10 +1,11 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,64 +36,108 @@ public class QuestionarioIniciacaoAcademica {
 	@OneToMany(mappedBy="iniciacaoAcademica")
 	private List<PessoaFamilia> pessoas;
 	
-	private String endereco_atual;
+	private String enderecoAtual;
 	private int numero;
 	private String complemento;
 	private String bairro;
 	private String uf;
 	private String cep;
 	private String cidade;
-	private String ponto_referencia;
-	private String telefone_fixo;
-	private String telefone_celular;
+	private String pontoReferencia;
+	private String telefoneFixo;
+	private String telefoneCelular;
 	private String email;
 	
-	private String endereco_familia;
-	private int numero_familia;
-	private String bairro_familia;
-	private String uf_familia;
-	private String complemento_familia;
-	private String cep_familia;
-	private String cidade_familia;
-	private String ponto_referencia_familia;
+	private String enderecoFamilia;
+	private int numeroFamilia;
+	private String bairroFamilia;
+	private String ufFamilia;
+	private String complementoFamilia;
+	private String cepFamilia;
+	private String cidadeFamilia;
+	private String pontoReferenciaFamilia;
 	
-	private int anos_estudo_privado;
+	private int anosEstudoPrivado;
+	
 	
 	public enum NivelInstrucao{
+
 		EnsinoFundamentalCompleto("Ensino Fundamental Completo"), EnsinoMedioCompleto("Ensino Médio Completo"), EnsinoSuperiorCompleto("Ensino Superior Completo"), 
 		EnsinoFundamentalIncompleto("Ensino Fundamental Incompleto"), EnsinoMedioIncompleto("Ensino Médio Incompleto"), EnsinoSuperiorIncompleto("Ensino Superior Incompleto");
-		NivelInstrucao(String nome){}
+		private String nome;
+		NivelInstrucao(String tipo){
+			this.nome = tipo;
+		}
+		
+		public String getNome() {
+			return nome;
+		}
 	}
 	
-	private NivelInstrucao nivel_instrucao_mae;
-	private NivelInstrucao nivel_instrucao_pai;
-	private String reside_atualmente;
-	private String definicao_local_atual;
+	@Enumerated(EnumType.STRING)
+	private NivelInstrucao nivelInstrucaoMae;
+	
+	
+	private NivelInstrucao nivelInstrucaoPai;
+	private String resideAtualmente;
+	private String definicaoLocalAtual;
 	
 	public enum SituacaoResidencia{
 		cedido("Cedido"), proprio("Próprio"), alugado("Alugado"), doado("Doado");
-		SituacaoResidencia(String nome){}
+		private String nome;
+		SituacaoResidencia(String nome){
+			this.nome = nome;
+		}
+		
+		public String getNome(){
+			return nome;
+		}
 	}
 	
-	private SituacaoResidencia situacao_residencia;
-	private int qtd_aparelho_som;
-	private int qtd_televisao;
-	private int qtd_radio;
-	private int qtd_automovel;
-	private int qtd_motocicleta;
-	private int qtd_maquina_lavar;
-	private int qtd_dvd_videocassete;
-	private int qtd_geladeira;
-	private int qtd_freezer;
-	private int qtd_telefonefixo;
-	private int qtd_celular_residentes;
-	private int qtd_computador;
-	private int qtd_fogao_gas;
-	private int qtd_maquina_costura;
-	private int qtd_comodos_sem_banheiro;
-	private int qtd_banheiros;
-	private int qtd_empregados_domesticos;
-	private int total_membros_familia;
+	public enum Estado {
+		Acre("Acre"), Alagoas("Alagoas"), Amapa("Amapa"), Amazonas("Amazonas"), Bahia("Bahia"), Ceara("Ceará"), Distrito_Federal("Distrito Federal"),
+		Espirito_Santo("Espirito Santo"), Goias("Goiás"), Maranhao("Maranhão"), Mato_Grosso("Mato Grosso"), Mato_Grosso_do_Sul("Mato Grosso do Sul"),
+		Minas_Gerais("Minas Gerais"), Para("Pará"), Paraiba("Paraíba"), Parana("Paraná"), Pernambuco("Pernambuco"), Piaui("Piauí"),
+		Rio_de_Janeiro("Rio de Janeiro"), Rio_Grande_do_Norte("Rio Grande do Norte"), Rio_Grande_do_Sul("Rio Grande do Sul"), Rondonia("Rondonia"), Roraima("Roraima"),
+		Santa_Catarina("Santa Catarina"), Sao_Paulo("São Paulo"), Sergipe("Sergipe"), Tocantins("Tocantins");
+		private String estado;
+		Estado(String estado){
+		this.estado = estado;
+		}
+		public String getEstado(){
+			return estado;
+		}
+	}
+	
+	
+	
+	@Enumerated(EnumType.STRING)
+	private SituacaoResidencia situacaoResidencia;
+	
+	@Enumerated(EnumType.STRING)
+	private Estado estado;
+	
+	@Enumerated(EnumType.STRING)
+	private Estado estadoFamilia;
+	
+	private int qtdAparelhoSom;
+	private int qtdTelevisao;
+	private int qtdRadio;
+	private int qtdAutomovel;
+	private int qtdMotocicleta;
+	private int qtdMaquinaLavar;
+	private int qtdDvdVideocassete;
+	private int qtdGeladeira;
+	private int qtdFreezer;
+	private int qtdTelefoneFixo;
+	private int qtdCelularResidentes;
+	private int qtdComputador;
+	private int qtdFogaoGas;
+	private int qtdMaquinaCostura;
+	private int qtdComodosSemBanheiro;
+	private int qtdBanheiros;
+	private int qtdEmpregadosDomesticos;
+	private int totalMembrosFamilia;
 	
 	private String nome;
 	public enum GrauParentesco{
@@ -107,30 +152,39 @@ public class QuestionarioIniciacaoAcademica {
 	private int idade;
 	private String atividade;
 	private float renda;
-	private float renda_total_familia;
-	private String horario_disponivel_bolsa;
-	private String campus_preferido;
-	private int justificativa_pedido;
-	private Date data_inscricao;
-	
-	
-	public GrauParentesco getParentesco() {
-		return parentesco;
+	private float rendaTotalFamilia;
+	public enum HorarioDisponivel{
+		Manhã("Manhã"), Tarde("Tarde"), Noite("Noite");
+		private String nome;
+		private HorarioDisponivel(String nome){
+			this.nome = nome;
+		}
+		public String getNome(){
+			return nome;
+		}
 	}
-	public void setParentesco(GrauParentesco parentesco) {
-		this.parentesco = parentesco;
-	}
+	
+	@Enumerated(EnumType.STRING)
+	private HorarioDisponivel horariodisponivelBolsa;
+	private String justificativaPedido;
+
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getEndereco_atual() {
-		return endereco_atual;
+	public List<PessoaFamilia> getPessoas() {
+		return pessoas;
 	}
-	public void setEndereco_atual(String endereco_atual) {
-		this.endereco_atual = endereco_atual;
+	public void setPessoas(List<PessoaFamilia> pessoas) {
+		this.pessoas = pessoas;
+	}
+	public String getEnderecoAtual() {
+		return enderecoAtual;
+	}
+	public void setEnderecoAtual(String enderecoAtual) {
+		this.enderecoAtual = enderecoAtual;
 	}
 	public int getNumero() {
 		return numero;
@@ -168,23 +222,23 @@ public class QuestionarioIniciacaoAcademica {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	public String getPonto_referencia() {
-		return ponto_referencia;
+	public String getPontoReferencia() {
+		return pontoReferencia;
 	}
-	public void setPonto_referencia(String ponto_referencia) {
-		this.ponto_referencia = ponto_referencia;
+	public void setPontoReferencia(String pontoReferencia) {
+		this.pontoReferencia = pontoReferencia;
 	}
-	public String getTelefone_fixo() {
-		return telefone_fixo;
+	public String getTelefoneFixo() {
+		return telefoneFixo;
 	}
-	public void setTelefone_fixo(String telefone_fixo) {
-		this.telefone_fixo = telefone_fixo;
+	public void setTelefoneFixo(String telefoneFixo) {
+		this.telefoneFixo = telefoneFixo;
 	}
-	public String getTelefone_celular() {
-		return telefone_celular;
+	public String getTelefoneCelular() {
+		return telefoneCelular;
 	}
-	public void setTelefone_celular(String telefone_celular) {
-		this.telefone_celular = telefone_celular;
+	public void setTelefoneCelular(String telefoneCelular) {
+		this.telefoneCelular = telefoneCelular;
 	}
 	public String getEmail() {
 		return email;
@@ -192,203 +246,221 @@ public class QuestionarioIniciacaoAcademica {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getEndereco_familia() {
-		return endereco_familia;
+	public String getEnderecoFamilia() {
+		return enderecoFamilia;
 	}
-	public void setEndereco_familia(String endereco_familia) {
-		this.endereco_familia = endereco_familia;
+	public void setEnderecoFamilia(String enderecoFamilia) {
+		this.enderecoFamilia = enderecoFamilia;
 	}
-	public int getNumero_familia() {
-		return numero_familia;
+	public int getNumeroFamilia() {
+		return numeroFamilia;
 	}
-	public void setNumero_familia(int numero_familia) {
-		this.numero_familia = numero_familia;
+	public void setNumeroFamilia(int numeroFamilia) {
+		this.numeroFamilia = numeroFamilia;
 	}
-	public String getBairro_familia() {
-		return bairro_familia;
+	public String getBairroFamilia() {
+		return bairroFamilia;
 	}
-	public void setBairro_familia(String bairro_familia) {
-		this.bairro_familia = bairro_familia;
+	public void setBairroFamilia(String bairroFamilia) {
+		this.bairroFamilia = bairroFamilia;
 	}
-	public String getUf_familia() {
-		return uf_familia;
+	public String getUfFamilia() {
+		return ufFamilia;
 	}
-	public void setUf_familia(String uf_familia) {
-		this.uf_familia = uf_familia;
+	public void setUfFamilia(String ufFamilia) {
+		this.ufFamilia = ufFamilia;
 	}
-	public String getComplemento_familia() {
-		return complemento_familia;
+	public String getComplementoFamilia() {
+		return complementoFamilia;
 	}
-	public void setComplemento_familia(String complemento_familia) {
-		this.complemento_familia = complemento_familia;
+	public void setComplementoFamilia(String complementoFamilia) {
+		this.complementoFamilia = complementoFamilia;
 	}
-	public String getCep_familia() {
-		return cep_familia;
+	public String getCepFamilia() {
+		return cepFamilia;
 	}
-	public void setCep_familia(String cep_familia) {
-		this.cep_familia = cep_familia;
+	public void setCepFamilia(String cepFamilia) {
+		this.cepFamilia = cepFamilia;
 	}
-	public String getCidade_familia() {
-		return cidade_familia;
+	public String getCidadeFamilia() {
+		return cidadeFamilia;
 	}
-	public void setCidade_familia(String cidade_familia) {
-		this.cidade_familia = cidade_familia;
+	public void setCidadeFamilia(String cidadeFamilia) {
+		this.cidadeFamilia = cidadeFamilia;
 	}
-	public String getPonto_referencia_familia() {
-		return ponto_referencia_familia;
+	public String getPontoReferenciaFamilia() {
+		return pontoReferenciaFamilia;
 	}
-	public void setPonto_referencia_familia(String ponto_referencia_familia) {
-		this.ponto_referencia_familia = ponto_referencia_familia;
+	public void setPontoReferenciaFamilia(String pontoReferenciaFamilia) {
+		this.pontoReferenciaFamilia = pontoReferenciaFamilia;
 	}
-	public int getAnos_estudo_privado() {
-		return anos_estudo_privado;
+	public int getAnosEstudoPrivado() {
+		return anosEstudoPrivado;
 	}
-	public void setAnos_estudo_privado(int anos_estudo_privado) {
-		this.anos_estudo_privado = anos_estudo_privado;
+	public void setAnosEstudoPrivado(int anosEstudoPrivado) {
+		this.anosEstudoPrivado = anosEstudoPrivado;
 	}
-	public NivelInstrucao getNivel_instrucao_mae() {
-		return nivel_instrucao_mae;
+	public NivelInstrucao getNivelInstrucaoMae() {
+		return nivelInstrucaoMae;
 	}
-	public void setNivel_instrucao_mae(NivelInstrucao nivel_instrucao_mae) {
-		this.nivel_instrucao_mae = nivel_instrucao_mae;
+	public void setNivelInstrucaoMae(NivelInstrucao nivelInstrucaoMae) {
+		this.nivelInstrucaoMae = nivelInstrucaoMae;
 	}
-	public NivelInstrucao getNivel_instrucao_pai() {
-		return nivel_instrucao_pai;
+	public NivelInstrucao getNivelInstrucaoPai() {
+		return nivelInstrucaoPai;
 	}
-	public void setNivel_instrucao_pai(NivelInstrucao nivel_instrucao_pai) {
-		this.nivel_instrucao_pai = nivel_instrucao_pai;
+	public void setNivelInstrucaoPai(NivelInstrucao nivelInstrucaoPai) {
+		this.nivelInstrucaoPai = nivelInstrucaoPai;
 	}
-	public String getReside_atualmente() {
-		return reside_atualmente;
+	public String getResideAtualmente() {
+		return resideAtualmente;
 	}
-	public void setReside_atualmente(String reside_atualmente) {
-		this.reside_atualmente = reside_atualmente;
+	public void setResideAtualmente(String resideAtualmente) {
+		this.resideAtualmente = resideAtualmente;
 	}
-	public String getDefinicao_local_atual() {
-		return definicao_local_atual;
+	public String getDefinicaoLocalAtual() {
+		return definicaoLocalAtual;
 	}
-	public void setDefinicao_local_atual(String definicao_local_atual) {
-		this.definicao_local_atual = definicao_local_atual;
+	public void setDefinicaoLocalAtual(String definicaoLocalAtual) {
+		this.definicaoLocalAtual = definicaoLocalAtual;
 	}
-	public SituacaoResidencia getSituacao_residencia() {
-		return situacao_residencia;
+	public SituacaoResidencia getSituacaoResidencia() {
+		return situacaoResidencia;
 	}
-	public void setSituacao_residencia(SituacaoResidencia situacao_residencia) {
-		this.situacao_residencia = situacao_residencia;
+	public void setSituacaoResidencia(SituacaoResidencia situacaoResidencia) {
+		this.situacaoResidencia = situacaoResidencia;
 	}
-	public int getQtd_aparelho_som() {
-		return qtd_aparelho_som;
+	public Estado getEstado() {
+		return estado;
 	}
-	public void setQtd_aparelho_som(int qtd_aparelho_som) {
-		this.qtd_aparelho_som = qtd_aparelho_som;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
-	public int getQtd_televisao() {
-		return qtd_televisao;
+	public Estado getEstadoFamilia() {
+		return estadoFamilia;
 	}
-	public void setQtd_televisao(int qtd_televisao) {
-		this.qtd_televisao = qtd_televisao;
+	public void setEstadoFamilia(Estado estadoFamilia) {
+		this.estadoFamilia = estadoFamilia;
 	}
-	public int getQtd_radio() {
-		return qtd_radio;
+	public int getQtdAparelhoSom() {
+		return qtdAparelhoSom;
 	}
-	public void setQtd_radio(int qtd_radio) {
-		this.qtd_radio = qtd_radio;
+	public void setQtdAparelhoSom(int qtdAparelhoSom) {
+		this.qtdAparelhoSom = qtdAparelhoSom;
 	}
-	public int getQtd_automovel() {
-		return qtd_automovel;
+	public int getQtdTelevisao() {
+		return qtdTelevisao;
 	}
-	public void setQtd_automovel(int qtd_automovel) {
-		this.qtd_automovel = qtd_automovel;
+	public void setQtdTelevisao(int qtdTelevisao) {
+		this.qtdTelevisao = qtdTelevisao;
 	}
-	public int getQtd_motocicleta() {
-		return qtd_motocicleta;
+	public int getQtdRadio() {
+		return qtdRadio;
 	}
-	public void setQtd_motocicleta(int qtd_motocicleta) {
-		this.qtd_motocicleta = qtd_motocicleta;
+	public void setQtdRadio(int qtdRadio) {
+		this.qtdRadio = qtdRadio;
 	}
-	public int getQtd_maquina_lavar() {
-		return qtd_maquina_lavar;
+	public int getQtdAutomovel() {
+		return qtdAutomovel;
 	}
-	public void setQtd_maquina_lavar(int qtd_maquina_lavar) {
-		this.qtd_maquina_lavar = qtd_maquina_lavar;
+	public void setQtdAutomovel(int qtdAutomovel) {
+		this.qtdAutomovel = qtdAutomovel;
 	}
-	public int getQtd_dvd_videocassete() {
-		return qtd_dvd_videocassete;
+	public int getQtdMotocicleta() {
+		return qtdMotocicleta;
 	}
-	public void setQtd_dvd_videocassete(int qtd_dvd_videocassete) {
-		this.qtd_dvd_videocassete = qtd_dvd_videocassete;
+	public void setQtdMotocicleta(int qtdMotocicleta) {
+		this.qtdMotocicleta = qtdMotocicleta;
 	}
-	public int getQtd_geladeira() {
-		return qtd_geladeira;
+	public int getQtdMaquinaLavar() {
+		return qtdMaquinaLavar;
 	}
-	public void setQtd_geladeira(int qtd_geladeira) {
-		this.qtd_geladeira = qtd_geladeira;
+	public void setQtdMaquinaLavar(int qtdMaquinaLavar) {
+		this.qtdMaquinaLavar = qtdMaquinaLavar;
 	}
-	public int getQtd_freezer() {
-		return qtd_freezer;
+	public int getQtdDvdVideocassete() {
+		return qtdDvdVideocassete;
 	}
-	public void setQtd_freezer(int qtd_freezer) {
-		this.qtd_freezer = qtd_freezer;
+	public void setQtdDvdVideocassete(int qtdDvdVideocassete) {
+		this.qtdDvdVideocassete = qtdDvdVideocassete;
 	}
-	public int getQtd_telefonefixo() {
-		return qtd_telefonefixo;
+	public int getQtdGeladeira() {
+		return qtdGeladeira;
 	}
-	public void setQtd_telefonefixo(int qtd_telefonefixo) {
-		this.qtd_telefonefixo = qtd_telefonefixo;
+	public void setQtdGeladeira(int qtdGeladeira) {
+		this.qtdGeladeira = qtdGeladeira;
 	}
-	public int getQtd_celular_residentes() {
-		return qtd_celular_residentes;
+	public int getQtdFreezer() {
+		return qtdFreezer;
 	}
-	public void setQtd_celular_residentes(int qtd_celular_residentes) {
-		this.qtd_celular_residentes = qtd_celular_residentes;
+	public void setQtdFreezer(int qtdFreezer) {
+		this.qtdFreezer = qtdFreezer;
 	}
-	public int getQtd_computador() {
-		return qtd_computador;
+	public int getQtdTelefoneFixo() {
+		return qtdTelefoneFixo;
 	}
-	public void setQtd_computador(int qtd_computador) {
-		this.qtd_computador = qtd_computador;
+	public void setQtdTelefoneFixo(int qtdTelefoneFixo) {
+		this.qtdTelefoneFixo = qtdTelefoneFixo;
 	}
-	public int getQtd_fogao_gas() {
-		return qtd_fogao_gas;
+	public int getQtdCelularResidentes() {
+		return qtdCelularResidentes;
 	}
-	public void setQtd_fogao_gas(int qtd_fogao_gas) {
-		this.qtd_fogao_gas = qtd_fogao_gas;
+	public void setQtdCelularResidentes(int qtdCelularResidentes) {
+		this.qtdCelularResidentes = qtdCelularResidentes;
 	}
-	public int getQtd_maquina_costura() {
-		return qtd_maquina_costura;
+	public int getQtdComputador() {
+		return qtdComputador;
 	}
-	public void setQtd_maquina_costura(int qtd_maquina_costura) {
-		this.qtd_maquina_costura = qtd_maquina_costura;
+	public void setQtdComputador(int qtdComputador) {
+		this.qtdComputador = qtdComputador;
 	}
-	public int getQtd_comodos_sem_banheiro() {
-		return qtd_comodos_sem_banheiro;
+	public int getQtdFogaoGas() {
+		return qtdFogaoGas;
 	}
-	public void setQtd_comodos_sem_banheiro(int qtd_comodos_sem_banheiro) {
-		this.qtd_comodos_sem_banheiro = qtd_comodos_sem_banheiro;
+	public void setQtdFogaoGas(int qtdFogaoGas) {
+		this.qtdFogaoGas = qtdFogaoGas;
 	}
-	public int getQtd_banheiros() {
-		return qtd_banheiros;
+	public int getQtdMaquinaCostura() {
+		return qtdMaquinaCostura;
 	}
-	public void setQtd_banheiros(int qtd_banheiros) {
-		this.qtd_banheiros = qtd_banheiros;
+	public void setQtdMaquinaCostura(int qtdMaquinaCostura) {
+		this.qtdMaquinaCostura = qtdMaquinaCostura;
 	}
-	public int getQtd_empregados_domesticos() {
-		return qtd_empregados_domesticos;
+	public int getQtdComodosSemBanheiro() {
+		return qtdComodosSemBanheiro;
 	}
-	public void setQtd_empregados_domesticos(int qtd_empregados_domesticos) {
-		this.qtd_empregados_domesticos = qtd_empregados_domesticos;
+	public void setQtdComodosSemBanheiro(int qtdComodosSemBanheiro) {
+		this.qtdComodosSemBanheiro = qtdComodosSemBanheiro;
 	}
-	public int getTotal_membros_familia() {
-		return total_membros_familia;
+	public int getQtdBanheiros() {
+		return qtdBanheiros;
 	}
-	public void setTotal_membros_familia(int total_membros_familia) {
-		this.total_membros_familia = total_membros_familia;
+	public void setQtdBanheiros(int qtdBanheiros) {
+		this.qtdBanheiros = qtdBanheiros;
+	}
+	public int getQtdEmpregadosDomesticos() {
+		return qtdEmpregadosDomesticos;
+	}
+	public void setQtdEmpregadosDomesticos(int qtdEmpregadosDomesticos) {
+		this.qtdEmpregadosDomesticos = qtdEmpregadosDomesticos;
+	}
+	public int getTotalMembrosFamilia() {
+		return totalMembrosFamilia;
+	}
+	public void setTotalMembrosFamilia(int totalMembrosFamilia) {
+		this.totalMembrosFamilia = totalMembrosFamilia;
 	}
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public GrauParentesco getParentesco() {
+		return parentesco;
+	}
+	public void setParentesco(GrauParentesco parentesco) {
+		this.parentesco = parentesco;
 	}
 	public int getIdade() {
 		return idade;
@@ -408,87 +480,82 @@ public class QuestionarioIniciacaoAcademica {
 	public void setRenda(float renda) {
 		this.renda = renda;
 	}
-	public float getRenda_total_familia() {
-		return renda_total_familia;
+	public float getRendaTotalFamilia() {
+		return rendaTotalFamilia;
 	}
-	public void setRenda_total_familia(float renda_total_familia) {
-		this.renda_total_familia = renda_total_familia;
+	public void setRendaTotalFamilia(float rendaTotalFamilia) {
+		this.rendaTotalFamilia = rendaTotalFamilia;
 	}
-	public String getHorario_disponivel_bolsa() {
-		return horario_disponivel_bolsa;
+	public HorarioDisponivel getHorariodisponivelBolsa() {
+		return horariodisponivelBolsa;
 	}
-	public void setHorario_disponivel_bolsa(String horario_disponivel_bolsa) {
-		this.horario_disponivel_bolsa = horario_disponivel_bolsa;
+	public void setHorariodisponivelBolsa(HorarioDisponivel horariodisponivelBolsa) {
+		this.horariodisponivelBolsa = horariodisponivelBolsa;
 	}
-	public String getCampus_preferido() {
-		return campus_preferido;
+	public String getJustificativaPedido() {
+		return justificativaPedido;
 	}
-	public void setCampus_preferido(String campus_preferido) {
-		this.campus_preferido = campus_preferido;
-	}
-	public int getJustificativa_pedido() {
-		return justificativa_pedido;
-	}
-	public void setJustificativa_pedido(int justificativa_pedido) {
-		this.justificativa_pedido = justificativa_pedido;
-	}
-	public Date getData_inscricao() {
-		return data_inscricao;
-	}
-	public void setData_inscricao(Date data_inscricao) {
-		this.data_inscricao = data_inscricao;
-	}
-
-	public List<PessoaFamilia> getPessoas() {
-		return pessoas;
-	}
-	public void setPessoas(List<PessoaFamilia> pessoas) {
-		this.pessoas = pessoas;
+	public void setJustificativaPedido(String justificativaPedido) {
+		this.justificativaPedido = justificativaPedido;
 	}
 	@Override
 	public String toString() {
 		return "QuestionarioIniciacaoAcademica [id=" + id + ", selecaoBolsa="
-				+ selecaoBolsa + ", pessoas=" + pessoas + ", endereco_atual="
-				+ endereco_atual + ", numero=" + numero + ", complemento="
+				+ selecaoBolsa + ", pessoas=" + pessoas + ", enderecoAtual="
+				+ enderecoAtual + ", numero=" + numero + ", complemento="
 				+ complemento + ", bairro=" + bairro + ", uf=" + uf + ", cep="
-				+ cep + ", cidade=" + cidade + ", ponto_referencia="
-				+ ponto_referencia + ", telefone_fixo=" + telefone_fixo
-				+ ", telefone_celular=" + telefone_celular + ", email=" + email
-				+ ", endereco_familia=" + endereco_familia
-				+ ", numero_familia=" + numero_familia + ", bairro_familia="
-				+ bairro_familia + ", uf_familia=" + uf_familia
-				+ ", complemento_familia=" + complemento_familia
-				+ ", cep_familia=" + cep_familia + ", cidade_familia="
-				+ cidade_familia + ", ponto_referencia_familia="
-				+ ponto_referencia_familia + ", anos_estudo_privado="
-				+ anos_estudo_privado + ", nivel_instrucao_mae="
-				+ nivel_instrucao_mae + ", nivel_instrucao_pai="
-				+ nivel_instrucao_pai + ", reside_atualmente="
-				+ reside_atualmente + ", definicao_local_atual="
-				+ definicao_local_atual + ", situacao_residencia="
-				+ situacao_residencia + ", qtd_aparelho_som="
-				+ qtd_aparelho_som + ", qtd_televisao=" + qtd_televisao
-				+ ", qtd_radio=" + qtd_radio + ", qtd_automovel="
-				+ qtd_automovel + ", qtd_motocicleta=" + qtd_motocicleta
-				+ ", qtd_maquina_lavar=" + qtd_maquina_lavar
-				+ ", qtd_dvd_videocassete=" + qtd_dvd_videocassete
-				+ ", qtd_geladeira=" + qtd_geladeira + ", qtd_freezer="
-				+ qtd_freezer + ", qtd_telefonefixo=" + qtd_telefonefixo
-				+ ", qtd_celular_residentes=" + qtd_celular_residentes
-				+ ", qtd_computador=" + qtd_computador + ", qtd_fogao_gas="
-				+ qtd_fogao_gas + ", qtd_maquina_costura="
-				+ qtd_maquina_costura + ", qtd_comodos_sem_banheiro="
-				+ qtd_comodos_sem_banheiro + ", qtd_banheiros=" + qtd_banheiros
-				+ ", qtd_empregados_domesticos=" + qtd_empregados_domesticos
-				+ ", total_membros_familia=" + total_membros_familia
-				+ ", nome=" + nome + ", parentesco=" + parentesco + ", idade="
-				+ idade + ", atividade=" + atividade + ", renda=" + renda
-				+ ", renda_total_familia=" + renda_total_familia
-				+ ", horario_disponivel_bolsa=" + horario_disponivel_bolsa
-				+ ", campus_preferido=" + campus_preferido
-				+ ", justificativa_pedido=" + justificativa_pedido
-				+ ", data_inscricao=" + data_inscricao + "]";
+				+ cep + ", cidade=" + cidade + ", pontoReferencia="
+				+ pontoReferencia + ", telefoneFixo=" + telefoneFixo
+				+ ", telefoneCelular=" + telefoneCelular + ", email=" + email
+				+ ", enderecoFamilia=" + enderecoFamilia + ", numeroFamilia="
+				+ numeroFamilia + ", bairroFamilia=" + bairroFamilia
+				+ ", ufFamilia=" + ufFamilia + ", complementoFamilia="
+				+ complementoFamilia + ", cepFamilia=" + cepFamilia
+				+ ", cidadeFamilia=" + cidadeFamilia
+				+ ", pontoReferenciaFamilia=" + pontoReferenciaFamilia
+				+ ", anosEstudoPrivado=" + anosEstudoPrivado
+				+ ", nivelInstrucaoMae=" + nivelInstrucaoMae
+				+ ", nivelInstrucaoPai=" + nivelInstrucaoPai
+				+ ", resideAtualmente=" + resideAtualmente
+				+ ", definicaoLocalAtual=" + definicaoLocalAtual
+				+ ", situacaoResidencia=" + situacaoResidencia + ", estado="
+				+ estado + ", estadoFamilia=" + estadoFamilia
+				+ ", qtdAparelhoSom=" + qtdAparelhoSom + ", qtdTelevisao="
+				+ qtdTelevisao + ", qtdRadio=" + qtdRadio + ", qtdAutomovel="
+				+ qtdAutomovel + ", qtdMotocicleta=" + qtdMotocicleta
+				+ ", qtdMaquinaLavar=" + qtdMaquinaLavar
+				+ ", qtdDvdVideocassete=" + qtdDvdVideocassete
+				+ ", qtdGeladeira=" + qtdGeladeira + ", qtdFreezer="
+				+ qtdFreezer + ", qtdTelefoneFixo=" + qtdTelefoneFixo
+				+ ", qtdCelularResidentes=" + qtdCelularResidentes
+				+ ", qtdComputador=" + qtdComputador + ", qtdFogaoGas="
+				+ qtdFogaoGas + ", qtdMaquinaCostura=" + qtdMaquinaCostura
+				+ ", qtdComodosSemBanheiro=" + qtdComodosSemBanheiro
+				+ ", qtdBanheiros=" + qtdBanheiros
+				+ ", qtdEmpregadosDomesticos=" + qtdEmpregadosDomesticos
+				+ ", totalMembrosFamilia=" + totalMembrosFamilia + ", nome="
+				+ nome + ", parentesco=" + parentesco + ", idade=" + idade
+				+ ", atividade=" + atividade + ", renda=" + renda
+				+ ", rendaTotalFamilia=" + rendaTotalFamilia
+				+ ", horariodisponivelBolsa=" + horariodisponivelBolsa
+				+ ", justificativaPedido=" + justificativaPedido + "]";
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

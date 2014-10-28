@@ -8,12 +8,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-<jsp:include page="../modulos/header-estrutura.jsp" />
+<jsp:include page="../fragments/headTag.jsp" />
 	<title>Servidores</title>
 </head>
 <body>
 
-		<jsp:include page="../modulos/header.jsp" />
+		<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">
 		<c:if test="${not empty erro}">
@@ -108,7 +108,7 @@
 			</div>
 		
 		
-			<jsp:include page="../modulos/footer.jsp" />
+			<jsp:include page="../fragments/footer.jsp" />
 	
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-dialog">
