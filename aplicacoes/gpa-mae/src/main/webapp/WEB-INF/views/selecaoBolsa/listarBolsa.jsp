@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="sec"
+uri="http://www.springframework.org/security/tags"%>
 
 <html>
 <head>
@@ -12,13 +14,13 @@
 	<jsp:include page="../fragments/headTag.jsp" />
 	<div class="container">
 		
-		
+		<sec:authorize ifAnyGranted="ROLE_ADMIN, ROLE_COORDENADOR">
 		<div align="right" style="margin-bottom: 20px;">
 			<a href="<c:url value="/selecaoBolsa/cadastrarBolsa" ></c:url>">
 				<button class="btn btn-primary">Nova seleção <span class="glyphicon glyphicon-plus"></span></button>
 			</a>
 		</div>
-		
+		</sec:authorize>
 				<div class="panel-heading" align="center">
 					<h4>Seleções</h4>
 				</div>
@@ -48,15 +50,17 @@
 								<td>${selecao.status}</td>
 								
 								<td>												
-									
+										<sec:authorize ifAnyGranted="ROLE_COORDENADOR, ROLE_ADMIN">
 										<a id="editar" href="<c:url value="/selecaoBolsa/${selecao.id}/editarBolsa" ></c:url>">
 											<button class="btn btn-info">Editar <span class="glyphicon glyphicon-pencil"></span></button>
 										</a>
-
+						
 										<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/selecaoBolsa/${selecao.id}/excluir" ></c:url>">
 											<button class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
 										</a>
+										</sec:authorize>
 										
+										<sec:authorize ifAnyGranted="ROLE_ALUNO">
 										<c:if test="${selecao.tipoBolsa =='INICIACAO_ACADEMICA'}">
 										<a id="inscrever" href="<c:url value="/inscricao/iniciacaoAcademica" ></c:url>">
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
@@ -68,6 +72,7 @@
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>
 										</c:if>
+										</sec:authorize>
 								</td>
 							</tr>
 						</c:forEach>

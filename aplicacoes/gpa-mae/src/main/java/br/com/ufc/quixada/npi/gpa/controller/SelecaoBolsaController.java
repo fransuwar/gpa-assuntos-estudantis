@@ -26,18 +26,23 @@ import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 @Named
 @RequestMapping("/selecaoBolsa")
 public class SelecaoBolsaController {
+	
 	@Inject
 	private SelecaoBolsaService serviceSelecao;
+	
+	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
+	
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("selecao", new SelecaoBolsa());
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
 		return "selecaoBolsa/cadastrarBolsa";
 	}
+	
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.POST)
 	public String adicionarselecao( @Valid @ModelAttribute("selecao") SelecaoBolsa selecao, BindingResult result, RedirectAttributes redirect, Model model) {
 		if (result.hasErrors()) {
@@ -49,6 +54,7 @@ public class SelecaoBolsaController {
 		redirect.addFlashAttribute("info", "seleção cadastrada com sucesso.");
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
+	
 	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		SelecaoBolsa selecao = serviceSelecao.find(SelecaoBolsa.class, id);
@@ -61,6 +67,7 @@ public class SelecaoBolsaController {
 		}
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
+	
 	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.POST)
 	public String atualizarSelecao(@PathVariable("id") Integer id, @Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoAtualizado, BindingResult result, Model model)  {
 		if (result.hasErrors()) {
@@ -73,6 +80,7 @@ public class SelecaoBolsaController {
 		this.serviceSelecao.update(selecaoAtualizado);
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
+	
 	@RequestMapping(value = "/{id}/excluir")
 	public String excluirSelecao(SelecaoBolsa p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 		SelecaoBolsa selecao = serviceSelecao.find(SelecaoBolsa.class, id);
@@ -89,6 +97,7 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 		
 	}
+	
 	@RequestMapping(value = "/listarBolsa")
 	public String listar(ModelMap modelMap) {
 		modelMap.addAttribute("selecoes", serviceSelecao.find(SelecaoBolsa.class));

@@ -54,7 +54,7 @@
 						</div>	
 						<label for="cepFamilia" class="col-sm-2 control-label">CEP:</label>
 						<div class="col-sm-2">
-							<form:input id="cepFamilia"  path="cepFamilia" cssClass="form-control" placeholder="CEP"/>
+							<form:input id="cep"  path="cepFamilia" cssClass="form-control" placeholder="Ex:63900000 "/>
 							<div class="error-validation">
 								<form:errors path="cepFamilia"></form:errors>
 							</div>
@@ -73,7 +73,7 @@
 					<div class="form-group">
 						<label for="telefoneFixo" class="col-sm-2 control-label">Fone:</label>
 						<div class="col-sm-4">
-							<form:input id="telefoneFixo"  path="telefoneFixo" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="telefone"  path="telefoneFixo" cssClass="form-control" placeholder="ex:00-0000-0000"/>
 							<div class="error-validation">
 								<form:errors path="telefoneFixo"></form:errors>
 							</div>
@@ -81,7 +81,7 @@
 						
 						<label for="telefoneCelular" class="col-sm-2 control-label">Celular:</label>
 						<div class="col-sm-4">
-							<form:input id="telefoneCelular"    path="telefoneCelular" cssClass="form-control" placeholder="Celular"/>
+							<form:input id="telefoneCelular" path="telefoneCelular" cssClass="form-control" placeholder="Celular"/>
 							<div class="error-validation">
 								<form:errors path="telefoneCelular"></form:errors>
 							</div>
@@ -138,7 +138,7 @@
 						
 						<label for="complemento" class="col-sm-2 control-label">Complemento:</label>
 						<div class="col-sm-4">
-							<form:input id="complemento" type="text" path="complemento" cssClass="form-control data" placeholder="Data de Término"/>
+							<form:input id="complemento" type="text" path="complemento" cssClass="form-control" placeholder="Complemento"/>
 							<div class="error-validation">
 								<form:errors path="complemento"></form:errors>
 							</div>
@@ -156,7 +156,7 @@
 						</div>	
 						<label for="cep_familia" class="col-sm-2 control-label">CEP:</label>
 						<div class="col-sm-2">
-							<form:input id="cep"  path="cep" cssClass="form-control" placeholder="CEP"/>
+							<form:input id="cepFamilia"  path="cep" cssClass="form-control" placeholder="CEP"/>
 							<div class="error-validation">
 								<form:errors path="cep"></form:errors>
 							</div>
@@ -175,7 +175,7 @@
 					<div class="form-group">
 						<label for="telefoneFixo" class="col-sm-2 control-label">Fone:</label>
 						<div class="col-sm-4">
-							<form:input id="telefoneFixo"  path="telefoneFixo" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="telefoneFix"  path="telefoneFixo"  cssClass="form-control" placeholder="Fone"/>
 							<div class="error-validation">
 								<form:errors path="telefoneFixo"></form:errors>
 							</div>
@@ -183,7 +183,7 @@
 						
 						<label for="telefone_celular" class="col-sm-2 control-label">Celular:</label>
 						<div class="col-sm-4">
-							<form:input id="telefoneCelular"  path="telefoneCelular" cssClass="form-control" placeholder="Celular"/>
+							<form:input id="telefoneCel"  path="telefoneCelular" cssClass="form-control" placeholder="Celular"/>
 							<div class="error-validation">
 								<form:errors path="telefoneCelular"></form:errors>
 							</div>
@@ -226,7 +226,7 @@
 					<div class="form-group">
 						<label for="reside_atualmente" class="col-sm-2 control-label">Com quem você reside Atualmente :</label>
 						<div class="col-sm-8">
-							<form:input id="resideAtualmente" path="resideAtualmente" cssClass="form-control" placeholder="Rua /Av"/>
+							<form:input id="resideAtualmente" path="resideAtualmente" cssClass="form-control" placeholder="Ex: Familia, amigos"/>
 							<div class="error-validation">
 								<form:errors path="enderecoAtual"></form:errors>
 							</div>
@@ -236,7 +236,7 @@
 					<div class="form-group">
 						<label for="reside_atualmente" class="col-sm-2 control-label">Como define a Localidade na qual vive atualmente? :</label>
 						<div class="col-sm-6">
-							<form:input id="definicaoLocalAtual" path="definicaoLocalAtual" cssClass="form-control" placeholder="Rua /Av"/>
+							<form:input id="definicaoLocalAtual" path="definicaoLocalAtual" cssClass="form-control" placeholder="Ex: Casa/Apartamento"/>
 							<div class="error-validation">
 								<form:errors path="definicaoLocalAtual"></form:errors>
 							</div>
@@ -535,11 +535,20 @@
 	<jsp:include page="../fragments/footer.jsp" />
 	
 	
-<script type="text/javascript">
 
 	
+<script type="text/javascript">
+
+
+
 	$(document).ready(function(){
-		
+		//jQuery('#telefone').mask("(99) 9999-9999");		
+		$('#telefone').mask("(99) 9999-9999");
+		$('#telefoneCelular').mask("(99) 9999-9999");
+		$('#telefoneFix').mask("(99) 9999-9999");
+		$('#telefoneCel').mask("(99) 9999-9999");
+		$('#cep').mask("99999999");
+		$('#cepFamilia').mask("99999999");
 		$("a#addInf").click(function(){
 			var total = 0;
 			var media = 0;

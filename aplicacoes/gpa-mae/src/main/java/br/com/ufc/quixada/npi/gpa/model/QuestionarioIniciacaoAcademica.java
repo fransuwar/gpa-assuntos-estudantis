@@ -48,7 +48,7 @@ public class QuestionarioIniciacaoAcademica {
 	@Size(min=1,message="Preenchimento Obrigatório")
 	private String bairro;
 	private String uf;
-	@Pattern(regexp="/^[0-9]{2}.[0-9]{3}-[0-9]{3}$/", message="CEP Inválido")
+	@Pattern(regexp="^[0-9]{8}$", message="CEP Inválido")
 	private String cep;
 	private String cidade;
 	private String pontoReferencia;
@@ -67,7 +67,7 @@ public class QuestionarioIniciacaoAcademica {
 	private String bairroFamilia;
 	private String ufFamilia;
 	private String complementoFamilia;
-	@Pattern(regexp="/^[0-9]{2}.[0-9]{3}-[0-9]{3}$/", message="CEP Inválido")
+	@Pattern(regexp="^[0-9]{8}$", message="CEP Inválido")
 	private String cepFamilia;
 	@NotNull
 	@Size(min=1,message="Preenchimento Obrigatório")
