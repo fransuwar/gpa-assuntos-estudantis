@@ -3,7 +3,9 @@ package br.com.ufc.quixada.npi.gpa.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.GregorianCalendar;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -57,13 +59,36 @@ public class SelecaoBolsaController {
 	public String adicionarselecao(
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
+		GregorianCalendar gc = new GregorianCalendar();
+					
 		if (result.hasErrors()) {
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			return ("selecaoBolsa/cadastrarBolsa");
 		}
+		if( selecao.getAno() < gc.get(Calendar.YEAR)){
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("dataError", "Digite um ano maior ou igual ao atual");
+			return ("selecaoBolsa/cadastrarBolsa");
+		}
+		System.out.println("1");
+		ArrayList<SelecaoBolsa> selecoes = (ArrayList<SelecaoBolsa>) serviceSelecao.find(SelecaoBolsa.class);
+		System.out.println("2");
+		for(SelecaoBolsa s : selecoes){
+			System.out.println("3");
+			if(selecao.getSequencial().equals(s.getSequencial()) & 
+				selecao.getAno().equals(s.getAno()) &
+				selecao.getTipoBolsa().getTipo().equals(s.getTipoBolsa().getTipo())){
+				model.addAttribute("tipoBolsa", TipoBolsa.values());
+				model.addAttribute("editalError", "Numero do edital ou tipo de Bolsa ja existente");
+				System.out.println("4");
+			}		
+			System.out.println(s.getAno());
+			System.out.println(s.getSequencial());
+			System.out.println(s.getTipoBolsa());
+		}
+
 		selecao.setStatus(Status.NOVA);
 		this.serviceSelecao.save(selecao);
-		redirect.addFlashAttribute("info", "seleção cadastrada com sucesso.");
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 

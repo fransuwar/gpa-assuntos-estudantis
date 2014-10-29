@@ -19,13 +19,14 @@
  			authentication-failure-url="/loginfailed" />
  		<logout logout-success-url="/login" invalidate-session="true"/> 	
  	</http>
+ 	
   
  	<authentication-manager>
 		<authentication-provider>
 			<password-encoder hash="sha-256"/>
 			<jdbc-user-service data-source-ref="gpamae"
 				users-by-username-query="
-                    SELECT login, senha, habilitado FROM pessoa WHERE login = ?"
+                    SELECT login, password, habilitado FROM pessoa WHERE login = ?"
 
 				authorities-by-username-query=
                     "SELECT u.login, p.nome FROM pessoa AS u, papel_pessoa AS pu, papel AS p WHERE u.id = pu.pessoa_id AND pu.papel_id = p.id AND u.login=?" 

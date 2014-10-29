@@ -69,6 +69,9 @@
 							<div class="error-validation">
 								<form:errors path="ano"></form:errors>
 							</div>
+							<div class="error-validation">
+								${dataError}
+							</div>
 						</div>
 					
 						
@@ -118,7 +121,7 @@
 					
 					<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
-						<a href="<c:url value="/selecao/index"></c:url>" class="btn btn-default">Cancelar</a>
+						<a href="<c:url value="/selecaoBolsa/listarBolsa"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 
 				</form:form>

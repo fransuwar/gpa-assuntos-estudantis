@@ -38,7 +38,8 @@ public class SelecaoBolsa {
 	
 	@Min(value = 1, message = "Número de bolsas deve ser maior que 0")
 	private int quantidadeVagas;
-			
+	
+	@Future
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
