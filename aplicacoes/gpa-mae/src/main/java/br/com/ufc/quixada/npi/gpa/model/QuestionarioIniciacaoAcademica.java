@@ -50,11 +50,13 @@ public class QuestionarioIniciacaoAcademica {
 	private String uf;
 	@Pattern(regexp="^[0-9]{8}$", message="CEP Inválido")
 	private String cep;
+	@NotNull
+	@Size(min=3,message="Preenchimento Obrigatório")
 	private String cidade;
 	private String pontoReferencia;
-	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone em formato Incorreto")
+	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone Incorreto formato (00) 0000-0000")
 	private String telefoneFixo;
-	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone em formato Incorreto")
+	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone Incorreto formato (00) 0000-0000")
 	private String telefoneCelular;
 	private String email;
 	
@@ -70,7 +72,7 @@ public class QuestionarioIniciacaoAcademica {
 	@Pattern(regexp="^[0-9]{8}$", message="CEP Inválido")
 	private String cepFamilia;
 	@NotNull
-	@Size(min=1,message="Preenchimento Obrigatório")
+	@Size(min=3,message="Preenchimento Obrigatório")
 	private String cidadeFamilia;
 	private String pontoReferenciaFamilia;
 	
@@ -96,7 +98,10 @@ public class QuestionarioIniciacaoAcademica {
 	
 	
 	private NivelInstrucao nivelInstrucaoPai;
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String resideAtualmente;
+	
 	@NotNull
 	@Size(min=1,message="Preenchimento Obrigatório")
 	private String definicaoLocalAtual;
@@ -188,6 +193,11 @@ public class QuestionarioIniciacaoAcademica {
 	@NotNull
 	@Size(min=1,message="Preenchimento Obrigatório")
 	private String justificativaPedido;
+	
+	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone Incorreto formato (00) 0000-0000")
+	private String telefoneFixoFamilia;
+	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone Incorreto formato (00) 0000-0000")
+	private String telefoneCelularFamilia;
 
 	public Integer getId() {
 		return id;
@@ -519,6 +529,19 @@ public class QuestionarioIniciacaoAcademica {
 	public void setJustificativaPedido(String justificativaPedido) {
 		this.justificativaPedido = justificativaPedido;
 	}
+	
+	public String getTelefoneFixoFamilia() {
+		return telefoneFixoFamilia;
+	}
+	public void setTelefoneFixoFamilia(String telefoneFixoFamilia) {
+		this.telefoneFixoFamilia = telefoneFixoFamilia;
+	}
+	public String getTelefoneCelularFamilia() {
+		return telefoneCelularFamilia;
+	}
+	public void setTelefoneCelularFamilia(String telefoneCelularFamilia) {
+		this.telefoneCelularFamilia = telefoneCelularFamilia;
+	}
 	@Override
 	public String toString() {
 		return "QuestionarioIniciacaoAcademica [id=" + id + ", selecaoBolsa="
@@ -559,8 +582,12 @@ public class QuestionarioIniciacaoAcademica {
 				+ ", atividade=" + atividade + ", renda=" + renda
 				+ ", rendaTotalFamilia=" + rendaTotalFamilia
 				+ ", horariodisponivelBolsa=" + horariodisponivelBolsa
-				+ ", justificativaPedido=" + justificativaPedido + "]";
+				+ ", justificativaPedido=" + justificativaPedido
+				+ ", telefoneFixoFamilia=" + telefoneFixoFamilia
+				+ ", telefoneCelularFamilia=" + telefoneCelularFamilia + "]";
 	}
+	
+	
 
 	
 	

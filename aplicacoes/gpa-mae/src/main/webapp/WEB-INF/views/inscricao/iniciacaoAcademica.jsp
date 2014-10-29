@@ -73,7 +73,7 @@
 					<div class="form-group">
 						<label for="telefoneFixo" class="col-sm-2 control-label">Fone:</label>
 						<div class="col-sm-4">
-							<form:input id="telefone"  path="telefoneFixo" cssClass="form-control" placeholder="ex:00-0000-0000"/>
+							<form:input id="telefone"  path="telefoneFixo" cssClass="form-control" placeholder="formato (00) 0000-0000"/>
 							<div class="error-validation">
 								<form:errors path="telefoneFixo"></form:errors>
 							</div>
@@ -81,7 +81,7 @@
 						
 						<label for="telefoneCelular" class="col-sm-2 control-label">Celular:</label>
 						<div class="col-sm-4">
-							<form:input id="telefoneCelular" path="telefoneCelular" cssClass="form-control" placeholder="Celular"/>
+							<form:input id="telefoneCelular" path="telefoneCelular" cssClass="form-control" placeholder="formato (00) 0000-0000"/>
 							<div class="error-validation">
 								<form:errors path="telefoneCelular"></form:errors>
 							</div>
@@ -175,7 +175,7 @@
 					<div class="form-group">
 						<label for="telefoneFixo" class="col-sm-2 control-label">Fone:</label>
 						<div class="col-sm-4">
-							<form:input id="telefoneFix"  path="telefoneFixo"  cssClass="form-control" placeholder="Fone"/>
+							<form:input id="telefoneFix"  path="telefoneFixoFamilia"  cssClass="form-control" placeholder="formato (00) 0000-0000"/>
 							<div class="error-validation">
 								<form:errors path="telefoneFixo"></form:errors>
 							</div>
@@ -183,7 +183,7 @@
 						
 						<label for="telefone_celular" class="col-sm-2 control-label">Celular:</label>
 						<div class="col-sm-4">
-							<form:input id="telefoneCel"  path="telefoneCelular" cssClass="form-control" placeholder="Celular"/>
+							<form:input id="telefoneCel"  path="telefoneCelularFamilia" cssClass="form-control" placeholder="formato (00) 0000-0000"/>
 							<div class="error-validation">
 								<form:errors path="telefoneCelular"></form:errors>
 							</div>
@@ -194,7 +194,7 @@
 					<div class="form-group">
 						<label for="cidade" class="col-sm-2 control-label">Cidade:</label>
 						<div class="col-sm-4">
-							<form:input id="cidade" type="text" path="cidade" cssClass="form-control" placeholder="Cidade"/>
+							<form:input id="cidade" type="text" path="cidadeFamilia" cssClass="form-control" placeholder="Cidade"/>
 							<div class="error-validation">
 								<form:errors path="cidade"></form:errors>
 							</div>
