@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import br.com.ufc.quixada.npi.enums.Cargo;
+
 @Entity
 public class Servidor {
 
@@ -81,22 +83,12 @@ public class Servidor {
 		this.responsavelBancas = responsavelBancas;
 	}
 	
-	public enum Cargo {
-		PROFESSOR("Professor"), TECADMINISTRATIVO("Tec Administrativo");
+	public Cargo getCargo() {
+		return cargo;
+	}
 
-		private String cargo;
-
-		Cargo(String cargo) {
-			this.cargo = cargo;
-		}
-
-		public String getCargo() {
-			return cargo;
-		}
-
-		public void setCargo(String cargo) {
-			this.cargo = cargo;
-		}
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
 	}
 	
 	@Override
@@ -106,12 +98,6 @@ public class Servidor {
 				+ pessoa + "]";
 	}
 
-	public Cargo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
+	
 		
 }

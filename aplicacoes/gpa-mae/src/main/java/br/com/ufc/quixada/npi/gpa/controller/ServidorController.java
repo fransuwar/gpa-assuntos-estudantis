@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.ufc.quixada.npi.enums.Cargo;
 import br.com.ufc.quixada.npi.gpa.model.Servidor;
-import br.com.ufc.quixada.npi.gpa.model.Servidor.Cargo;
 import br.com.ufc.quixada.npi.gpa.service.ServidorService;
 
 
