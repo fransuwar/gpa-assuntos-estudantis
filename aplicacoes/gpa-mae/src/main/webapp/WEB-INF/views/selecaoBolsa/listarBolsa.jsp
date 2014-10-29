@@ -58,7 +58,20 @@ uri="http://www.springframework.org/security/tags"%>
 										<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/selecaoBolsa/${selecao.id}/excluir" ></c:url>">
 											<button class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
 										</a>
+
 										</sec:authorize>
+
+
+											<a id="atribuirBanca"
+														href="<c:url value="/selecaoBolsa/${selecao.id}/atribuirBanca" ></c:url>">
+														<button class="btn btn-primary">
+															Atribuir Parecerista <span
+																class="glyphicon glyphicon-user"></span>
+														</button>
+													</a>
+												
+
+
 										
 										<sec:authorize ifAnyGranted="ROLE_ALUNO">
 										<c:if test="${selecao.tipoBolsa =='INICIACAO_ACADEMICA'}">
@@ -66,13 +79,13 @@ uri="http://www.springframework.org/security/tags"%>
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>
 										</c:if>
+										</sec:authorize>
 										
 										<c:if test="${selecao.tipoBolsa =='AUXILIO_MORADIA'}">
 										<a id="inscrever" href="<c:url value="/inscricao/auxilio/" ></c:url>">
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>
 										</c:if>
-										</sec:authorize>
 								</td>
 							</tr>
 						</c:forEach>

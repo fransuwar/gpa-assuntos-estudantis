@@ -24,7 +24,7 @@ public class Servidor {
 	
 	private String siape;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "membrosBanca")
 	private List<SelecaoBolsa> participaBancas;
 	
 	@OneToMany(mappedBy="responsavel")
@@ -72,12 +72,12 @@ public class Servidor {
 	public void setResponsavelBancas(List<SelecaoBolsa> responsavelBancas) {
 		this.responsavelBancas = responsavelBancas;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Servidor [id=" + id + ", siape=" + siape + ", participaBancas="
-				+ participaBancas + ", responsavelBancas=" + responsavelBancas + ", usuario="
-				+ usuario + "]";
+		return "Servidor [id=" + id + ", siape=" + siape + ", usuario="
+				 + "]";
 	}
+	
 		
 }
