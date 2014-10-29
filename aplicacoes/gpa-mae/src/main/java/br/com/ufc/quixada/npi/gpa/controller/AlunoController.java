@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,10 +21,8 @@ import br.com.ufc.quixada.npi.gpa.service.AlunoService;
 
 
 @Controller
-@RequestMapping("aluno")
+@RequestMapping({"aluno", "coordenador"})
 public class AlunoController {
-
-	
 
 	@Inject
 	private AlunoService alunoService;
@@ -59,19 +58,19 @@ public class AlunoController {
 
 	}
 
-	
+	@Secured({"ROLE_COORDENADOR"})
 	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
 	public String listaAluno(Aluno aluno, BindingResult result,
 			Model model) {
 			
-			List<Aluno> results = alunoService.findAll();	
+			List<Aluno> results = alunoService.find(Aluno.class);	
 			model.addAttribute("alunos", results);
 			return "aluno/listarAluno";
 		
 		
 	}
 	
-	
+	@Secured({"ROLE_ALUNO", "ROLE_ADMIN"})
 	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		Aluno aluno = alunoService.find(Aluno.class, id);

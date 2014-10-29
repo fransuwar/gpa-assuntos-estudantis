@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.Valid;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -30,7 +31,7 @@ import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.com.ufc.quixada.npi.gpa.service.ServidorService;
 
 @Named
-@RequestMapping("/selecaoBolsa")
+@RequestMapping(value = {"aluno", "coordenador"})
 public class SelecaoBolsaController {
 	
 	@Inject
@@ -53,6 +54,7 @@ public class SelecaoBolsaController {
 		return "selecaoBolsa/cadastrarBolsa";
 	}
 
+	@Secured({"ROLE_COORDENADOR"})
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.POST)
 	public String adicionarselecao(
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
@@ -81,7 +83,8 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 
-	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.POST)
+	@Secured({"ROLE_COORDENADOR"})
+	@RequestMapping(value = "/editarBolsa", method = RequestMethod.POST)
 	public String atualizarSelecao(
 			@RequestParam("file") MultipartFile[] files, 
 			@PathVariable("id") Integer id, @Valid 
@@ -110,7 +113,7 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 	
-	@RequestMapping(value = "/{id}/excluir")
+	@RequestMapping(value = "/{id}/exclui")
 	public String excluirSelecao(SelecaoBolsa p,
 			@PathVariable("id") Integer id,
 			RedirectAttributes redirectAttributes) {
@@ -130,7 +133,7 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 
 	}
-
+	@Secured({"ROLE_ALUNO", "ROLE_COORDENADOR"})
 	@RequestMapping(value = "/listarBolsa")
 	public String listar(ModelMap model) {
 		model.addAttribute("selecoes",
@@ -138,6 +141,7 @@ public class SelecaoBolsaController {
 		return "selecaoBolsa/listarBolsa";
 	}
 
+	@Secured({"ROLE_COORDENADOR"})
 	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirectAttributes) {
@@ -147,6 +151,8 @@ public class SelecaoBolsaController {
 		return "selecaoBolsa/atribuirBanca";
 	}
 
+
+//	@Secured({"ROLE_COODENADOR"})
 	@RequestMapping(value = "/atribuirBanca", method = RequestMethod.POST)
 	public String atribuirPareceristaNoProjeto(
 			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
