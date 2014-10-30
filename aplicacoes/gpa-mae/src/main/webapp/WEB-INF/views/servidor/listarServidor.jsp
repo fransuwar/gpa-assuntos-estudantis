@@ -6,22 +6,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
 <html>
 <head>
-
-    <jsp:include page="../fragments/headTag.jsp" />
-
-   
-
-<title>Alunos</title>
+<jsp:include page="../fragments/headTag.jsp" />
+	<title>Servidores</title>
 </head>
 <body>
 
+		<jsp:include page="../fragments/bodyHeader.jsp" />
 
-	<jsp:include page="../fragments/bodyHeader.jsp" />
-
-	
 	<div class="container">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert">
@@ -36,16 +29,17 @@
 			</div>
 		</c:if>
 		<div align="right" style="margin-bottom: 20px;">
-			<a href="<c:url value="/aluno/alunos" ></c:url>">
-				<button class="btn btn-primary">Novo Aluno <span class="glyphicon glyphicon-plus"></span></button>
+			<a href="<c:url value="/servidor/cadastrarServidor" ></c:url>">
+				<button class="btn btn-primary">Novo Servidor <span class="glyphicon glyphicon-plus"></span></button>
 			</a>
 		</div>
 		
+		
 		<div align="right" style="margin-bottom: 20px;">
-				<form:form id="buscarAlunoForm" role="form"
-								servletReltiveAction="/aluno/listarAluno" method="POST"
+				<form:form id="buscarServidorForm" role="form"
+								servletReltiveAction="/servidor/listarServidor" method="POST"
 								cssClass="form-horizontal" class="inline">
-								<input id="matricula" name="matricula" cssClass="form-control"
+								<input id="siape" name="siape" cssClass="form-control"
 									placeholder="Digite sua busca aqui..." size="20"
 									required="required" autofocus="true" />
 								<button class="btn btn-primary" name="submit" type="submit"
@@ -56,23 +50,25 @@
 				</form:form>
 			
 		</div>
+			
+		</div>
 		
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
-			<li class="active"><a href="#meus-alunos" role="tab" data-toggle="tab">Alunos Cadastrados</a></li>
+			<li class="active"><a href="#meus-servidores" role="tab" data-toggle="tab">Servidores Cadastrados</a></li>
 		</ul>
 
 		<div class="tab-content">
 
-			<!-- Meus Alunos -->
-			<div class="tab-pane active" id="alunos-cadastrados">
-				<c:if test="${empty alunos}">
-					<div class="alert alert-warning" role="alert">Não há alunos cadastrados.</div>
+			<!-- Meus Servidores -->
+			<div class="tab-pane active" id="servidores-cadastrados">
+				<c:if test="${empty servidores}">
+					<div class="alert alert-warning" role="alert">Não há servidores cadastrados.</div>
 				</c:if>
-				<c:if test="${not empty alunos}">
+				<c:if test="${not empty servidores}">
 					<div class="panel panel-default">
 						<div class="panel-heading" align="center">
-							<h4>Todos os Alunos</h4>
+							<h4>Todos os Servidores</h4>
 						</div>
 			
 						<!-- Table -->
@@ -80,27 +76,24 @@
 
 							<tr>
 								<th id="teste">Id</th>
-								<th>Matricula</th>
-								<th>Ira</th>
-								<th>Curso</th>
+								<th>SIAPE</th>
+								<th>Cargo</th>
 								<th id="acoes">Ações</th>
 							</tr>
 							<tbody>
-								<c:forEach var="aluno" items="${alunos}">
+								<c:forEach var="servidor" items="${servidores}">
 									<tr class="linha">
-										<td>${aluno.id}</td>
-										<td>${aluno.matricula}</td>
-										<td>${aluno.ira}</td>
-										<td>${aluno.curso}</td>
-
+										<td>${servidor.id}</td>
+										<td>${servidor.siape}</td>
+										<td>${servidor.cargo}</td>
 										<td><a id="editar"
-											href="<c:url value="/aluno/${aluno.id}/editarAluno" ></c:url>">
+											href="<c:url value="/servidor/${servidor.id}/editarServidor" ></c:url>">
 												<button class="btn btn-info">
 													Editar <span class="glyphicon glyphicon-pencil"></span>
 												</button>
 										</a> <a id="excluir" data-toggle="modal"
 											data-target="#confirm-delete" href="#"
-											data-href="<c:url value="/aluno/${aluno.id}/excluir" ></c:url>">
+											data-href="<c:url value="/servidor/${servidor.id}/excluir" ></c:url>">
 												<button class="btn btn-danger">
 													Excluir <span class="glyphicon glyphicon-trash"></span>
 												</button>
@@ -108,12 +101,13 @@
 								</c:forEach>
 								
 							</tbody>
+						</table>
 
 					</div>
 					</c:if>
 			</div>
-			</div>
-			</div>
+		
+		
 			<jsp:include page="../fragments/footer.jsp" />
 	
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -131,6 +125,8 @@
 	            </div>
 	        </div>
 	    </div>
-	</div>		
-</body>		
+	</div>
+</div>
+
+</body>
 </html>
