@@ -16,8 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import br.com.ufc.quixada.npi.gpa.model.MoraCom;
-
 @Entity
 public class QuestionarioAuxilioMoradia {
 

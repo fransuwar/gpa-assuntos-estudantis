@@ -633,30 +633,40 @@ $(function () {
 	var contador = 1;
 
   function removeCampo() {
-	$(".removerCampo").unbind("click");
-	$(".removerCampo").bind("click", function () {
+	$(".removeCampo").unbind("click");
+	$(".removeCampo").bind("click", function () {
 	   if($("tr.linhas").length > 1){
-		$(this).parent().parent().remove();
+		   $(this).parent().parent().remove();
 	   }
+	   $(this).parent().parent().remove();
+// 	   console.log("fora if");
 	   contador--;
 	});
   }
  
   $(".adicionarCampo").on("click", function () {
 	novoCampo = $("tr.linhas:first").clone().attr("id", "aaa");
-	novoCampo.find("input[name*='nome']").attr("name", "pessoa["+contador+"].nome");
-	novoCampo.find("input[name*='grau']").attr("name", "pessoa["+contador+"].grauParentesco");
-	novoCampo.find("input[name*='atividade']").attr("name", "pessoa["+contador+"].atividadeProfissao");
-	novoCampo.find("input[name*='renda']").attr("name", "pessoa["+contador+"].rendaMensal");
+	novoCampo.find("input[name*='nome']").attr("name", "pessoas["+contador+"].nome").val("");	
+	novoCampo.find("input[name*='grau']").attr("name", "pessoas["+contador+"].grauParentesco");
+	novoCampo.find("input[name*='escolaridade']").attr("name", "pessoas["+contador+"].escolaridade");
+	novoCampo.find("input[name*='atividade']").attr("name", "pessoas["+contador+"].atividadeProfissao");
+	novoCampo.find("input[name*='renda']").attr("name", "pessoas["+contador+"].rendaMensal");
 	
 	$(novoCampo).attr("class", "yyyyyyy");
 	novoCampo.insertAfter("tr.linhas:last");
  	$("aaa").attr("id", "pessonome");
  	
  	contador++;
-	
+	removeCampo();
 	
   });
+  
+  $(".removeCampo").on("click", function (e) {
+	  console.log("e = ");
+	  removeCampo();
+  });
+  
+  
 
 });
 
@@ -671,12 +681,20 @@ $(function () {
   <td class="form-group">Renda R$</td></tr>
   <tr class="linhas">
     <td><form:input type="text" path="pessoas[0].nome" style="text-align:center" /></td>
-    <td><input type="text" name="" style="text-align:center" /></td>
-    <td><input type="text" name="" style="text-align:center" /></td>
-    <td><input type="text" name="" style="text-align:center" /></td>
-    <td><input type="text" name="" style="text-align:center" /></td>
+    <td><form:select name="grauParentesco" path="pessoas[0].grauParentesco">
+    	<option value="" selected="selected">Grau Parentesco</option>  
+    	<option value="Filho_a">Filho(a)</option>
+    	<option value="Neto">Neto(a)</option>
+    	<option value="Sobrinho">Sobrinho(a)</option>
+    	<option value="Irmao">Irmão</option>
+    	<option value="Conjuge_Companheiro">Cônjuge ou Companheiro(a)</option>
+    	<option value="Outros">Outros</option>
+     </form:select></td>
+    <td><form:input type="text" path="pessoas[0].escolaridade" style="text-align:center" /></td>
+    <td><form:input type="text" path="pessoas[0].atividadeProfissao" style="text-align:center" /></td>
+    <td><form:input type="text" path="pessoas[0].rendaMensal" style="text-align:center" /></td>
     
-    <td><a href="#" class="removerCampo" title="Remover linha" ><input name="Remover" class="btn btn-primary" value="Remover" /></a></td>
+    <td><a class="removeCampo" data-codigo="codigo" title="Remover linha" ><input name="Remover" class="btn btn-primary" value="Remover" /></a></td>
   </tr>
   <tr><td colspan="4">
         <a href="#" class="adicionarCampo" title="Adicionar item" ><input name="Adicionar" class="btn btn-primary" value="Adicionar" /></a>

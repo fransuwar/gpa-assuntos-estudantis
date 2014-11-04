@@ -518,44 +518,133 @@
 						<a href="<c:url value="/inscricao/iniciacaoAcademica"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script type="text/javascript">
+$(function () {
+	
+	var rendaMedia;
+	var contador = 1;
+
+  function removeCampo() {
+	$(".removeCampo").unbind("click");
+	$(".removeCampo").bind("click", function () {
+	   if($("tr.linhas").length > 1){
+		   $(this).parent().parent().remove();
+	   }
+	   $(this).parent().parent().remove();
+// 	   console.log("fora if");
+	   contador--;
+	});
+  }
+ 
+  $(".adicionarCampo").on("click", function () {
+	novoCampo = $("tr.linhas:first").clone().attr("id", "aaa");
+	novoCampo.find("input[name*='nome']").attr("name", "pessoas["+contador+"].nome").val("");	
+	novoCampo.find("input[name*='grau']").attr("name", "pessoas["+contador+"].grauParentesco");
+	novoCampo.find("input[name*='escolaridade']").attr("name", "pessoas["+contador+"].escolaridade");
+	novoCampo.find("input[name*='atividade']").attr("name", "pessoas["+contador+"].atividadeProfissao");
+	novoCampo.find("input[name*='renda']").attr("name", "pessoas["+contador+"].rendaMensal");
+	
+	$(novoCampo).attr("class", "yyyyyyy");
+	novoCampo.insertAfter("tr.linhas:last");
+ 	$("aaa").attr("id", "pessonome");
+ 	
+ 	contador++;
+	removeCampo();
+	
+  });
+  
+  $(".removeCampo").on("click", function (e) {
+	  console.log("e = ");
+	  removeCampo();
+  });
+  
+  
+
+});
+
+
+</script>
+
+
+  <tr><td class="form-group" width="10">Nome</td>
+  <td class="form-group">Parentesco</td>
+  <td class="form-group">Escolaridade</td>
+  <td class="form-group">Atividade</td>
+  <td class="form-group">Renda R$</td></tr>
+  <tr class="linhas">
+    <td><form:input type="text" path="pessoas[0].nome" style="text-align:center" /></td>
+    <td><form:select name="grauParentesco" path="pessoas[0].grauParentesco">
+    	<option value="" selected="selected">Grau Parentesco</option>  
+    	<option value="Filho_a">Filho(a)</option>
+    	<option value="Neto">Neto(a)</option>
+    	<option value="Sobrinho">Sobrinho(a)</option>
+    	<option value="Irmao">Irmão</option>
+    	<option value="Conjuge_Companheiro">Cônjuge ou Companheiro(a)</option>
+    	<option value="Outros">Outros</option>
+     </form:select></td>
+    <td><form:input type="text" path="pessoas[0].escolaridade" style="text-align:center" /></td>
+    <td><form:input type="text" path="pessoas[0].atividadeProfissao" style="text-align:center" /></td>
+    <td><form:input type="text" path="pessoas[0].rendaMensal" style="text-align:center" /></td>
+    
+    <td><a class="removeCampo" data-codigo="codigo" title="Remover linha" ><input name="Remover" class="btn btn-primary" value="Remover" /></a></td>
+  </tr>
+  <tr><td colspan="4">
+        <a href="#" class="adicionarCampo" title="Adicionar item" ><input name="Adicionar" class="btn btn-primary" value="Adicionar" /></a>
+	</td></tr>
+  <tr>
+
+  </tr> 
+
+
+
+ <BR />
+	<div class="controls">
+		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" id="btn-cadastrar"/>
+		 <a href="<c:url value="/inscricao/auxilio" ></c:url>" class="btn btn-default" >Cancelar</a>
+	</div>
+
+
+				
+
 				</form:form>
 			</div>
 		</div>
 	</div>
 
-	<jsp:include page="../fragments/footer.jsp" />
-<script type="text/javascript">
+<%-- 	<jsp:include page="../fragments/footer.jsp" /> --%>
+<!-- <script type="text/javascript"> -->
 		
-	$(document).ready(function(){
+// 	$(document).ready(function(){
 		
-		$("a#addInf").click(function(){
-			var total = 0;
-			var media = 0;
-			var linhas=0;
-			$("tbody#corpoInfo").append("<tr>  <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> </tr>");
-			//alert("Voce clicou no addInfo");
-			$(".form-group input#rendaFamilia").attr("value","Adicionando");
-			//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length);
+// 		$("a#addInf").click(function(){
+// 			var total = 0;
+// 			var media = 0;
+// 			var linhas=0;
+// 			$("tbody#corpoInfo").append("<tr>  <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> </tr>");
+// 			//alert("Voce clicou no addInfo");
+// 			$(".form-group input#rendaFamilia").attr("value","Adicionando");
+// 			//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length);
 			
-			var dados = 0;
-			for(var qtd=0;qtd < $("tbody#corpoInfo tr").length;qtd++){
-				dados = $("#renda").val();
-				alert(dados);
-				//valorRenda += $("body").find("th").eq("4").val();	
-				//alert(valorRenda);
-				//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length  +  " cont = " + qtd);
+// 			var dados = 0;
+// 			for(var qtd=0;qtd < $("tbody#corpoInfo tr").length;qtd++){
+// 				dados = $("#renda").val();
+// 				alert(dados);
+// 				//valorRenda += $("body").find("th").eq("4").val();	
+// 				//alert(valorRenda);
+// 				//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length  +  " cont = " + qtd);
 				
-			}
+// 			}
 			
 						
-		});	
+// 		});	
 		
 		
-	});
+// 	});
 	
 	
 
-</script>	
+<!-- </script>	 -->
 </body>
 
 </html>

@@ -110,7 +110,11 @@ public class QuestionarioIniciacaoAcademica {
 		}
 	}
 	
+	@Enumerated(EnumType.STRING)
+	private Estado estado;
 	
+	@Enumerated(EnumType.STRING)
+	private Estado estadoFamilia;
 	
 	@Enumerated(EnumType.STRING)
 	private SituacaoResidencia situacaoResidencia;
@@ -273,6 +277,18 @@ public class QuestionarioIniciacaoAcademica {
 	}
 	public String getCidadeFamilia() {
 		return cidadeFamilia;
+	}
+	public Estado getEstado() {
+		return estado;
+	}
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+	public Estado getEstadoFamilia() {
+		return estadoFamilia;
+	}
+	public void setEstadoFamilia(Estado estadoFamilia) {
+		this.estadoFamilia = estadoFamilia;
 	}
 	public void setCidadeFamilia(String cidadeFamilia) {
 		this.cidadeFamilia = cidadeFamilia;
@@ -482,7 +498,8 @@ public class QuestionarioIniciacaoAcademica {
 				+ ", nivelInstrucaoMae=" + nivelInstrucaoMae
 				+ ", nivelInstrucaoPai=" + nivelInstrucaoPai
 				+ ", resideAtualmente=" + resideAtualmente
-				+ ", definicaoLocalAtual=" + definicaoLocalAtual
+				+ ", definicaoLocalAtual=" + definicaoLocalAtual + ", estado="
+				+ estado + ", estadoFamilia=" + estadoFamilia
 				+ ", situacaoResidencia=" + situacaoResidencia
 				+ ", qtdAparelhoSom=" + qtdAparelhoSom + ", qtdTelevisao="
 				+ qtdTelevisao + ", qtdRadio=" + qtdRadio + ", qtdAutomovel="
