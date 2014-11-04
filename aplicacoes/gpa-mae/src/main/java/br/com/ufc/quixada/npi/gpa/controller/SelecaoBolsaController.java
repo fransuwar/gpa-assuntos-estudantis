@@ -51,7 +51,7 @@ public class SelecaoBolsaController {
 
 
 
-
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("selecao", new SelecaoBolsa());
@@ -61,7 +61,6 @@ public class SelecaoBolsaController {
 
 
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.POST)
 	public String adicionarselecao(
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
