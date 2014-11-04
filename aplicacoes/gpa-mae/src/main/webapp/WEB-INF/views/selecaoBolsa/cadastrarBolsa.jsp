@@ -54,6 +54,9 @@
 							<div class="error-validation">
 								<form:errors path="sequencial"></form:errors>
 							</div>
+							<div class="error-validation">
+								${editalError}
+							</div>
 						</div>
 						
 						<label for="duracao" class="col-sm-2 control-label">Duração:</label>

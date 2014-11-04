@@ -35,22 +35,18 @@ import br.com.ufc.quixada.npi.gpa.service.ServidorService;
 @Named
 @RequestMapping("/selecaoBolsa")
 public class SelecaoBolsaController {
-		
+
 	@Inject
 	private DocumentoService documentoService;
 	@Inject
 	private ServidorService servidorService;
-	@Inject	
+	@Inject
 	private SelecaoBolsaService serviceSelecao;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
-
-
-
-
 
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.GET)
 	public String cadastro(Model model) {
@@ -59,46 +55,32 @@ public class SelecaoBolsaController {
 		return "selecaoBolsa/cadastrarBolsa";
 	}
 
-
-
-
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.POST)
 	public String adicionarselecao(
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
 		GregorianCalendar gc = new GregorianCalendar();
-					
-		if (result.hasErrors()) {
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			return ("selecaoBolsa/cadastrarBolsa");
-		}
-		if( selecao.getAno() < gc.get(Calendar.YEAR)){
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			model.addAttribute("dataError", "Digite um ano maior ou igual ao atual");
-			return ("selecaoBolsa/cadastrarBolsa");
-		}
-		System.out.println("1");
-		ArrayList<SelecaoBolsa> selecoes = (ArrayList<SelecaoBolsa>) serviceSelecao.find(SelecaoBolsa.class);
-		System.out.println("2");
-		for(SelecaoBolsa s : selecoes){
-			System.out.println("3");
-			if(selecao.getSequencial().equals(s.getSequencial()) & 
-				selecao.getAno().equals(s.getAno()) &
-				selecao.getTipoBolsa().getTipo().equals(s.getTipoBolsa().getTipo())){
-				model.addAttribute("tipoBolsa", TipoBolsa.values());
-				model.addAttribute("editalError", "Numero do edital ou tipo de Bolsa ja existente");
-				System.out.println("4");
-			}		
-			System.out.println(s.getAno());
-			System.out.println(s.getSequencial());
-			System.out.println(s.getTipoBolsa());
-		}
 
-		selecao.setStatus(Status.NOVA);
-		this.serviceSelecao.save(selecao);
+		model.addAttribute("tipoBolsa", TipoBolsa.values());
+		if (result.hasErrors()) {
+			return ("selecaoBolsa/cadastrarBolsa");
+		}
+		if (selecao.getAno() < gc.get(Calendar.YEAR)) {
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("dataError",
+					"Digite um ano maior ou igual ao atual");
+			return ("selecaoBolsa/cadastrarBolsa");
+		}
+		if(serviceSelecao.existsSelecaoEquals(selecao)){
+					model.addAttribute("editalError",
+							"Numero do edital ou tipo de Bolsa ja existente");
+					return "selecaoBolsa/cadastrarBolsa";
+				}else{ 
+				selecao.setStatus(Status.NOVA);
+				this.serviceSelecao.save(selecao);
+				}
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
-
 
 	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
@@ -114,16 +96,16 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 
-
 	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.POST)
 	public String atualizarSelecao(
-			@RequestParam("file") MultipartFile[] files, 
-			@PathVariable("id") Integer id, @Valid 
-			@ModelAttribute(value = "selecao") SelecaoBolsa selecaoAtualizado, BindingResult result, Model model
-		) throws IOException  {
-	
+			@RequestParam("file") MultipartFile[] files,
+			@PathVariable("id") Integer id,
+			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoAtualizado,
+			BindingResult result, Model model) throws IOException {
+
 		if (result.hasErrors()) {
-			List<TipoBolsa> tiposBolsa = new ArrayList<TipoBolsa>(Arrays.asList(TipoBolsa.values()));
+			List<TipoBolsa> tiposBolsa = new ArrayList<TipoBolsa>(
+					Arrays.asList(TipoBolsa.values()));
 			model.addAttribute("tiposBolsa", tiposBolsa);
 			model.addAttribute("action", "editar");
 			return ("selecaoBolsa/editarBolsa");
@@ -138,12 +120,12 @@ public class SelecaoBolsaController {
 
 				documentoService.save(documento);
 			}
-	
-		this.serviceSelecao.update(selecaoAtualizado);
-	}
+
+			this.serviceSelecao.update(selecaoAtualizado);
+		}
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
-	
+
 	@RequestMapping(value = "/{id}/excluir")
 	public String excluirSelecao(SelecaoBolsa p,
 			@PathVariable("id") Integer id,
@@ -165,11 +147,9 @@ public class SelecaoBolsaController {
 
 	}
 
-
 	@RequestMapping(value = "/listarBolsa")
 	public String listar(ModelMap model) {
-		model.addAttribute("selecoes",
-				serviceSelecao.find(SelecaoBolsa.class));
+		model.addAttribute("selecoes", serviceSelecao.find(SelecaoBolsa.class));
 		return "selecaoBolsa/listarBolsa";
 	}
 
