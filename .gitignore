@@ -14,3 +14,4 @@ target
 *.ear
 *.log
 *.tmp
+.DS_Store

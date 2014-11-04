@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.ui.Model;
@@ -34,13 +35,12 @@ import br.com.ufc.quixada.npi.gpa.service.ServidorService;
 @Named
 @RequestMapping("/selecaoBolsa")
 public class SelecaoBolsaController {
-	
+		
 	@Inject
 	private DocumentoService documentoService;
-	
 	@Inject
 	private ServidorService servidorService;
-	@Inject
+	@Inject	
 	private SelecaoBolsaService serviceSelecao;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -48,12 +48,19 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 
+
+
+
+
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("selecao", new SelecaoBolsa());
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
 		return "selecaoBolsa/cadastrarBolsa";
 	}
+
+
+
 
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.POST)
 	public String adicionarselecao(
@@ -92,6 +99,7 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 
+
 	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		SelecaoBolsa selecao = serviceSelecao.find(SelecaoBolsa.class, id);
@@ -105,6 +113,7 @@ public class SelecaoBolsaController {
 		}
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
+
 
 	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.POST)
 	public String atualizarSelecao(
@@ -155,6 +164,7 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 
 	}
+
 
 	@RequestMapping(value = "/listarBolsa")
 	public String listar(ModelMap model) {

@@ -22,6 +22,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import br.com.ufc.quixada.npi.gpa.model.Servidor;
+
 @Entity
 public class SelecaoBolsa {
 
@@ -92,6 +94,9 @@ public class SelecaoBolsa {
 
 	@ManyToOne
 	private Servidor responsavel;
+
+
+	
 
 	@ManyToMany
 	private List<Aluno> alunosSelecao;

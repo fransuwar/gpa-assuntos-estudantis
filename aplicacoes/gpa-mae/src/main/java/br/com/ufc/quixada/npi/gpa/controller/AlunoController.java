@@ -1,6 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,11 +9,13 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ufc.quixada.npi.gpa.model.Aluno;
@@ -49,8 +52,6 @@ public class AlunoController {
 			return ("aluno/alunos");
 		}
 		
-		
-		
 		this.alunoService.save(aluno);
 		this.alunoService.update(aluno);
 		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
@@ -61,16 +62,21 @@ public class AlunoController {
 
 	
 	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
-	public String listaAluno(Aluno aluno, BindingResult result,
-			Model model) {
+	public String listaAluno(Aluno aluno, BindingResult result, Model model) {
 			
 			List<Aluno> results = alunoService.findAll();	
 			model.addAttribute("alunos", results);
 			return "aluno/listarAluno";
-		
-		
 	}
 	
+	@RequestMapping(value = "/listarAluno", method = RequestMethod.POST)
+	public String listarAluno(@RequestParam("matricula") String matricula, Model model) {
+		List<Aluno> results = new ArrayList<Aluno>();
+		results.add(alunoService.getAlunoByMatricula(matricula));
+		model.addAttribute("alunos", results);
+		
+		return "/aluno/listarAluno";
+	}
 	
 	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
@@ -128,6 +134,8 @@ public class AlunoController {
 		return "redirect:/aluno/listarAluno";
 		
 	}
+	
+	
 	
 	
 

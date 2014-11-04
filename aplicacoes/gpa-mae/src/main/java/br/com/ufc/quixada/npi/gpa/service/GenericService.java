@@ -3,6 +3,7 @@ package br.com.ufc.quixada.npi.gpa.service;
 import java.util.List;
 import java.util.Map;
 
+import br.com.ufc.quixada.npi.gpa.model.Servidor;
 import br.com.ufc.quixada.npi.gpa.repository.QueryType;
 
 public interface GenericService<T> {
@@ -19,4 +20,6 @@ public interface GenericService<T> {
 	
 	public abstract List<T> find(QueryType type, String query,
 			Map<String, Object> namedParams);
+
+	
 }
