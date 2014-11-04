@@ -571,159 +571,41 @@
 
 
 	<table>
-<!-- 	<table class="table table-hover"> -->
-<!-- 		<thead> -->
-		
-<!-- 			<th>Nome:</th> -->
-<!-- 			<th> Grau de Paresntesco:</th> -->
-<!-- 			<th> Escolaridade </th> -->
-<!-- 			<th> Atividade ou Profissão</th> -->
-<!-- 			<th> Renda R$</th> -->
-<!-- 			<th><a id="add" > Adicionar</a></th> -->
-<!-- 		</thead> -->
-		
-		
-<!--  		<script type="text/javascript" src="js/functions.js">  -->
-<!-- // 	//ADICIONA  -->
-<!-- //      $("a#add").click(function() {  -->
+		  <tr>
+			  <td class="form-group" width="10">Nome</td>
+			  <td class="form-group">Parentesco</td>
+			  <td class="form-group">Escolaridade</td>
+			  <td class="form-group">Atividade</td>
+			  <td class="form-group">Renda R$</td>
+		  </tr>
 
-<!-- //  				var tr = $("tbody");  -->
-				
-<!-- //  				tr.append($("<tr>")  -->
-<!-- //  						.append($("<td>").append($("<input type='text' name='nome["+tr+"].Nome' cssClass ='form-control' value= "+tr+">")))  -->
-<!-- //  						.append($("<td>").append($("<input type='text' name='grau["+tr+"].Grau de Parentesco' cssClass ='form-control' value= "+tr+">")))  -->
-<!-- //  						.append($("<td>").append($("<input type='text' name='escolaridade["+tr+"].escolaridade' cssClass ='form-control' value= "+tr+">"))) -->
-<!-- //  						.append($("<td>").append($("<input type='text' name='atividade["+tr+"].atividade' cssClass ='form-control' value= "+tr+">")))										  -->
-<!-- //  						.append($("<td>").append($("<input type='text' name='renda["+tr+"].renda' cssClass ='form-control' value= "+tr+">")))  -->
-<!-- //  						.append($("<td>").append($("<a> deletar </a>"))); -->
-<!-- // 	//ADICIONA -->
-<!-- // 	$(document).ready(function){     
-
-				$("a#add").click(function() { -->
-<!-- 						var total = 0; -->
-<!-- 						var media = 0; -->
-<!-- 						var linhas = 0; -->
-<!-- // 				var tr = $("tbody"); -->
-				
-<!-- 				$("tbody#corpoInfo").append("<tr> <td><input='text'></td> <td><input='text'></td> <td><input='text'></td> <td><input='text'></td> </tr>"); -->
-				
-<!-- 					$(".form-grup input#rendaFamilia")..attr("value", "Adicionando"); -->
-				
-<!-- 						var dados = 0; -->
-				
-<!-- 						for(var qtd=0;qtd < $("tbody#corpoInfo tr").lenth;qtd++){ -->
-<!-- 							dados = $("#renda").val(); -->
-<!-- 							alert(dados); -->
-				
-<!-- // 				tr.append($("<tr>") -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='nome["+tr+"].Nome' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='grau["+tr+"].Grau de Parentesco' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='escolaridade["+tr+"].escolaridade' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='atividade["+tr+"].atividade' cssClass ='form-control' value= "+tr+">"))										 -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='renda["+tr+"].renda' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<a> deletar </a>")))))))) -->
-<!-- // 						); -->
-<!-- // 			$("table > tbody").append(tr);			 -->
-<!-- //     });	 -->
-	
-<!-- 	}); -->
-	
-<!-- //    //DELETA AMIGOS  -->
-<!-- // 	function deletar(tr, index) {  -->
-<!-- // 		if(tr > 0 ){	  -->
-<!-- //  			var tbody = "tbody#tr" + tr;  -->
- 			 
-<!-- //  			var size = $("table > "+tbody+" tr" ).length;  -->
-<!-- //  			$( "table > "+tbody+" tr" ).eq( index ).remove();  -->
-
-<!-- //  			size = $("table > "+tbody+" tr" ).length;  -->
-<!-- //  			for( var i = 0; i < size; ++i){  -->
-<!-- //  				$( "table > "+tbody+" tr:eq(" + i + ") td > a" ).attr("href", "javascript:deletar(" + tr +", " + i + ")"); -->
-<!-- //  			}  -->
-<!-- // 		} -->
-	
-	
-	
-<!--    	</script>  -->
-	
-<!--  		<tbody> -->
-		
-		
-<!-- </tbody>  -->
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-<script type="text/javascript">
-$(function () {
-	
-	var rendaMedia;
-	var contador = 1;
-
-  function removeCampo() {
-	$(".removeCampo").unbind("click");
-	$(".removeCampo").bind("click", function () {
-	   if($("tr.linhas").length > 1){
-		   $(this).parent().parent().remove();
-	   }
-	   $(this).parent().parent().remove();
-// 	   console.log("fora if");
-	   contador--;
-	});
-  }
- 
-  $(".adicionarCampo").on("click", function () {
-	novoCampo = $("tr.linhas:first").clone().attr("id", "aaa");
-	novoCampo.find("input[name*='nome']").attr("name", "pessoas["+contador+"].nome").val("");	
-	novoCampo.find("input[name*='grau']").attr("name", "pessoas["+contador+"].grauParentesco");
-	novoCampo.find("input[name*='escolaridade']").attr("name", "pessoas["+contador+"].escolaridade");
-	novoCampo.find("input[name*='atividade']").attr("name", "pessoas["+contador+"].atividadeProfissao");
-	novoCampo.find("input[name*='renda']").attr("name", "pessoas["+contador+"].rendaMensal");
-	
-	$(novoCampo).attr("class", "yyyyyyy");
-	novoCampo.insertAfter("tr.linhas:last");
- 	$("aaa").attr("id", "pessonome");
- 	
- 	contador++;
-	removeCampo();
-	
-  });
-  
-  $(".removeCampo").on("click", function (e) {
-	  console.log("e = ");
-	  removeCampo();
-  });
-  
-  
-
-});
-
-
-</script>
-
-
-  <tr><td class="form-group" width="10">Nome</td>
-  <td class="form-group">Parentesco</td>
-  <td class="form-group">Escolaridade</td>
-  <td class="form-group">Atividade</td>
-  <td class="form-group">Renda R$</td></tr>
+<tbody class="lines">
   <tr class="linhas">
     <td><form:input type="text" path="pessoas[0].nome" style="text-align:center" /></td>
-    <td><form:select name="grauParentesco" path="pessoas[0].grauParentesco">
-    	<option value="" selected="selected">Grau Parentesco</option>  
-    	<option value="Filho_a">Filho(a)</option>
-    	<option value="Neto">Neto(a)</option>
-    	<option value="Sobrinho">Sobrinho(a)</option>
-    	<option value="Irmao">Irmão</option>
-    	<option value="Conjuge_Companheiro">Cônjuge ou Companheiro(a)</option>
-    	<option value="Outros">Outros</option>
-     </form:select></td>
+    <td>
+	    <form:select name="grauParentesco" path="pessoas[0].grauParentesco">
+	    	<option value="" selected="selected">Grau Parentesco</option>  
+	    	<option value="Filho_a">Filho(a)</option>
+	    	<option value="Neto">Neto(a)</option>
+	    	<option value="Sobrinho">Sobrinho(a)</option>
+	    	<option value="Irmao">Irmão</option>
+	    	<option value="Conjuge_Companheiro">Cônjuge ou Companheiro(a)</option>
+	    	<option value="Outros">Outros</option>
+	    </form:select>
+    </td>
     <td><form:input type="text" path="pessoas[0].escolaridade" style="text-align:center" /></td>
     <td><form:input type="text" path="pessoas[0].atividadeProfissao" style="text-align:center" /></td>
     <td><form:input type="text" path="pessoas[0].rendaMensal" style="text-align:center" /></td>
     
     <td><a class="removeCampo" data-codigo="codigo" title="Remover linha" ><input name="Remover" class="btn btn-primary" value="Remover" /></a></td>
   </tr>
-  <tr><td colspan="4">
+</tbody>
+<tr>
+	<td colspan="4">
         <a href="#" class="adicionarCampo" title="Adicionar item" ><input name="Adicionar" class="btn btn-primary" value="Adicionar" /></a>
-	</td></tr>
+	</td>
+</tr>
+
   <tr>
 
   </tr> 
@@ -748,6 +630,58 @@ $(function () {
 	
 	
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	
+	var rendaMedia;
+	var contador = 1;
+
+  function removeCampo() {
+	$(".removeCampo").unbind("click");
+	
+	$(".removeCampo").bind("click", function () {
+		console.log("ssssssssssssssssssssssss");
+	   if($("tbody.lines tr").length > 1){
+		   $(this).parent().parent().remove();
+	   }
+	   //$(this).parent().parent().remove();
+// 	   console.log("fora if");
+	   contador--;
+	});
+  }
+ 
+  $(".adicionarCampo").on("click", function () {
+	console.log("dfgdfg");
+	novoCampo = $("tr.linhas:first").clone().attr("id", "aaa");
+	novoCampo.find("input[name*='nome']").attr("name", "pessoas["+contador+"].nome").val("");	
+	novoCampo.find("input[name*='grau']").attr("name", "pessoas["+contador+"].grauParentesco");
+	novoCampo.find("input[name*='escolaridade']").attr("name", "pessoas["+contador+"].escolaridade");
+	novoCampo.find("input[name*='atividade']").attr("name", "pessoas["+contador+"].atividadeProfissao");
+	novoCampo.find("input[name*='renda']").attr("name", "pessoas["+contador+"].rendaMensal");
+	
+	$(novoCampo).attr("class", "yyyyyyy");
+	novoCampo.insertAfter("tbody.lines tr.linhas");
+	//$("tbody.lines").append(novoCampo);
+ 	$("aaa").attr("id", "pessonome");
+ 	
+ 	contador++;
+	//removeCampo();
+	
+  });
+  
+  $(".removeCampo").on("click", function () {
+	  console.log("e = ");
+	  removeCampo();
+  });
+  
+  
+
+});
+
+
+</script>
+
 	
 	
 </body>
