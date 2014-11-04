@@ -50,6 +50,16 @@ public class SelecaoBolsaController {
 	}
 
 
+	@RequestMapping(value="/informacoes", method=RequestMethod.GET)
+	public String informacoes(){
+		return "selecaoBolsa/informacoes";
+	}
+	
+	@RequestMapping(value="/informacoesAuxilio", method=RequestMethod.GET)
+	public String informacoesAuxilio(){
+		return "selecaoBolsa/informacoesAuxilio";
+	}
+	
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.GET)
