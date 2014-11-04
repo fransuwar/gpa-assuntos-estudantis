@@ -41,15 +41,23 @@
 					</li>
 					</sec:authorize>
 					
+					<sec:authorize access="isAuthenticated()">
+					
 					<li>
 						<a href="<c:url value="/j_spring_security_logout" />">Sair <span class="glyphicon glyphicon-off"></span></a>
 					</li>
+					</sec:authorize>
 					
+					<sec:authorize access="isAnonymous()">
+					<li>
+						<a href="<c:url value="/login" />">Login </a>
+					</li>
+					</sec:authorize>
 					
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a style="font-weight: bold;">Bem vindo, ${sessionScope.usuario.nome}!</a> 
+						<a style="font-weight: bold;">Bem vindo, ${sessionScope.pessoa.login}!</a> 
 					</li>
 				</ul>
 			</div>

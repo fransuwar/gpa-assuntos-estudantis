@@ -12,6 +12,8 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,7 +35,7 @@ import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.com.ufc.quixada.npi.gpa.service.ServidorService;
 
 @Named
-@RequestMapping("/selecaoBolsa")
+@RequestMapping({"/selecaoBolsa", "/selecoes"})
 public class SelecaoBolsaController {
 
 	@Inject
@@ -42,11 +44,16 @@ public class SelecaoBolsaController {
 	private ServidorService servidorService;
 	@Inject
 	private SelecaoBolsaService serviceSelecao;
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
+
+
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.GET)
 	public String cadastro(Model model) {
@@ -146,6 +153,7 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 
 	}
+
 
 	@RequestMapping(value = "/listarBolsa")
 	public String listar(ModelMap model) {
