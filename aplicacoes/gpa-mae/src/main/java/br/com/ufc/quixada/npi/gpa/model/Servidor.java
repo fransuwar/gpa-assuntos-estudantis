@@ -3,13 +3,18 @@ package br.com.ufc.quixada.npi.gpa.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import br.com.ufc.quixada.npi.enums.Cargo;
 
 @Entity
 public class Servidor {
@@ -23,26 +28,26 @@ public class Servidor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotEmpty
 	private String siape;
 	
-	private String cargo;
+	@Enumerated(EnumType.STRING)
+	private Cargo cargo;
 	
 	@ManyToMany
-	private List<SelecaoBolsa> servidoresBanca;
+	private List<SelecaoBolsa> participaBancas;
 	
-	@OneToMany(mappedBy="servidor")
-	private List<SelecaoBolsa> selecoes;
+	@OneToMany(mappedBy="responsavel")
+	private List<SelecaoBolsa> responsavelBancas;
 	
-	
-
 	@ManyToOne
 	private Pessoa pessoa;
 	
-	public Pessoa getUsuario() {
+	public Pessoa getPessoa() {
 		return pessoa;
 	}
 
-	public void setUsuario(Pessoa pessoa) {
+	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
 
@@ -61,36 +66,38 @@ public class Servidor {
 	public void setSiape(String siape) {
 		this.siape = siape;
 	}
+
+	public List<SelecaoBolsa> getParticipaBancas() {
+		return participaBancas;
+	}
+
+	public void setParticipaBancas(List<SelecaoBolsa> participaBancas) {
+		this.participaBancas = participaBancas;
+	}
+
+	public List<SelecaoBolsa> getResponsavelBancas() {
+		return responsavelBancas;
+	}
+
+	public void setResponsavelBancas(List<SelecaoBolsa> responsavelBancas) {
+		this.responsavelBancas = responsavelBancas;
+	}
 	
-	public List<SelecaoBolsa> getSelecoes() {
-		return selecoes;
-	}
-
-	public void setSelecoes(List<SelecaoBolsa> selecoes) {
-		this.selecoes = selecoes;
-	}
-	public List<SelecaoBolsa> getServidoresBanca() {
-		return servidoresBanca;
-	}
-
-	public void setServidoresBanca(List<SelecaoBolsa> servidoresBanca) {
-		this.servidoresBanca = servidoresBanca;
-	}
-
-	
-	public String getCargo() {
+	public Cargo getCargo() {
 		return cargo;
 	}
 
-	public void setCargo(String cargo) {
+	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Servidor [id=" + id + ", siape=" + siape + ", cargo=" + cargo
-				+ ", servidoresBanca=" + servidoresBanca + ", selecoes="
-				+ selecoes + ", pessoa=" + pessoa + "]";
+		return "Servidor [id=" + id + ", siape=" + siape + ", participaBancas="
+				+ participaBancas + ", responsavelBancas=" + responsavelBancas + ", pessoa="
+				+ pessoa + "]";
 	}
+
+	
 		
 }

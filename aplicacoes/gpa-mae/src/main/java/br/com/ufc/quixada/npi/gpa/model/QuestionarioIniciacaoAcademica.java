@@ -1,6 +1,5 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -37,24 +39,40 @@ public class QuestionarioIniciacaoAcademica {
 	@OneToMany(mappedBy="iniciacaoAcademica")
 	private List<PessoaFamilia> pessoas;
 	
+	@NotNull
+	@Size(min=5, message="Preenchimento Obrigatório")
 	private String enderecoAtual;
 	private int numero;
 	private String complemento;
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String bairro;
 	private String uf;
+	@Pattern(regexp="^[0-9]{8}$", message="CEP Inválido")
 	private String cep;
+	@NotNull
+	@Size(min=3,message="Preenchimento Obrigatório")
 	private String cidade;
 	private String pontoReferencia;
+	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone Incorreto formato (00) 0000-0000")
 	private String telefoneFixo;
+	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone Incorreto formato (00) 0000-0000")
 	private String telefoneCelular;
 	private String email;
 	
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String enderecoFamilia;
 	private int numeroFamilia;
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String bairroFamilia;
 	private String ufFamilia;
 	private String complementoFamilia;
+	@Pattern(regexp="^[0-9]{8}$", message="CEP Inválido")
 	private String cepFamilia;
+	@NotNull
+	@Size(min=3,message="Preenchimento Obrigatório")
 	private String cidadeFamilia;
 	private String pontoReferenciaFamilia;
 	
@@ -80,7 +98,12 @@ public class QuestionarioIniciacaoAcademica {
 	
 	
 	private NivelInstrucao nivelInstrucaoPai;
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String resideAtualmente;
+	
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String definicaoLocalAtual;
 	
 	public enum SituacaoResidencia{
@@ -118,6 +141,8 @@ public class QuestionarioIniciacaoAcademica {
 	
 	@Enumerated(EnumType.STRING)
 	private SituacaoResidencia situacaoResidencia;
+	
+	
 	private int qtdAparelhoSom;
 	private int qtdTelevisao;
 	private int qtdRadio;
@@ -161,6 +186,18 @@ public class QuestionarioIniciacaoAcademica {
 			return nome;
 		}
 	}
+	
+	@Enumerated(EnumType.STRING)
+	private HorarioDisponivel horariodisponivelBolsa;
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
+	private String justificativaPedido;
+	
+	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone Incorreto formato (00) 0000-0000")
+	private String telefoneFixoFamilia;
+	@Pattern(regexp="\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message="Telefone Incorreto formato (00) 0000-0000")
+	private String telefoneCelularFamilia;
+
 	public Integer getId() {
 		return id;
 	}
@@ -278,18 +315,6 @@ public class QuestionarioIniciacaoAcademica {
 	public String getCidadeFamilia() {
 		return cidadeFamilia;
 	}
-	public Estado getEstado() {
-		return estado;
-	}
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
-	public Estado getEstadoFamilia() {
-		return estadoFamilia;
-	}
-	public void setEstadoFamilia(Estado estadoFamilia) {
-		this.estadoFamilia = estadoFamilia;
-	}
 	public void setCidadeFamilia(String cidadeFamilia) {
 		this.cidadeFamilia = cidadeFamilia;
 	}
@@ -334,6 +359,18 @@ public class QuestionarioIniciacaoAcademica {
 	}
 	public void setSituacaoResidencia(SituacaoResidencia situacaoResidencia) {
 		this.situacaoResidencia = situacaoResidencia;
+	}
+	public Estado getEstado() {
+		return estado;
+	}
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+	public Estado getEstadoFamilia() {
+		return estadoFamilia;
+	}
+	public void setEstadoFamilia(Estado estadoFamilia) {
+		this.estadoFamilia = estadoFamilia;
 	}
 	public int getQtdAparelhoSom() {
 		return qtdAparelhoSom;
@@ -479,6 +516,31 @@ public class QuestionarioIniciacaoAcademica {
 	public void setRendaTotalFamilia(float rendaTotalFamilia) {
 		this.rendaTotalFamilia = rendaTotalFamilia;
 	}
+	public HorarioDisponivel getHorariodisponivelBolsa() {
+		return horariodisponivelBolsa;
+	}
+	public void setHorariodisponivelBolsa(HorarioDisponivel horariodisponivelBolsa) {
+		this.horariodisponivelBolsa = horariodisponivelBolsa;
+	}
+	public String getJustificativaPedido() {
+		return justificativaPedido;
+	}
+	public void setJustificativaPedido(String justificativaPedido) {
+		this.justificativaPedido = justificativaPedido;
+	}
+	
+	public String getTelefoneFixoFamilia() {
+		return telefoneFixoFamilia;
+	}
+	public void setTelefoneFixoFamilia(String telefoneFixoFamilia) {
+		this.telefoneFixoFamilia = telefoneFixoFamilia;
+	}
+	public String getTelefoneCelularFamilia() {
+		return telefoneCelularFamilia;
+	}
+	public void setTelefoneCelularFamilia(String telefoneCelularFamilia) {
+		this.telefoneCelularFamilia = telefoneCelularFamilia;
+	}
 	@Override
 	public String toString() {
 		return "QuestionarioIniciacaoAcademica [id=" + id + ", selecaoBolsa="
@@ -498,9 +560,13 @@ public class QuestionarioIniciacaoAcademica {
 				+ ", nivelInstrucaoMae=" + nivelInstrucaoMae
 				+ ", nivelInstrucaoPai=" + nivelInstrucaoPai
 				+ ", resideAtualmente=" + resideAtualmente
+
 				+ ", definicaoLocalAtual=" + definicaoLocalAtual + ", estado="
 				+ estado + ", estadoFamilia=" + estadoFamilia
 				+ ", situacaoResidencia=" + situacaoResidencia
+				+ ", definicaoLocalAtual=" + definicaoLocalAtual
+				+ ", situacaoResidencia=" + situacaoResidencia + ", estado="
+				+ estado + ", estadoFamilia=" + estadoFamilia
 				+ ", qtdAparelhoSom=" + qtdAparelhoSom + ", qtdTelevisao="
 				+ qtdTelevisao + ", qtdRadio=" + qtdRadio + ", qtdAutomovel="
 				+ qtdAutomovel + ", qtdMotocicleta=" + qtdMotocicleta
@@ -517,8 +583,20 @@ public class QuestionarioIniciacaoAcademica {
 				+ ", totalMembrosFamilia=" + totalMembrosFamilia + ", nome="
 				+ nome + ", parentesco=" + parentesco + ", idade=" + idade
 				+ ", atividade=" + atividade + ", renda=" + renda
-				+ ", rendaTotalFamilia=" + rendaTotalFamilia + "]";
+				+ ", rendaTotalFamilia=" + rendaTotalFamilia
+				+ ", horariodisponivelBolsa=" + horariodisponivelBolsa
+				+ ", justificativaPedido=" + justificativaPedido
+				+ ", telefoneFixoFamilia=" + telefoneFixoFamilia
+				+ ", telefoneCelularFamilia=" + telefoneCelularFamilia + "]";
 	}
+	
+	
+
+	
+	
+	
+	
+	
 	
 	
 	

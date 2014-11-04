@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,20 +23,29 @@ import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica.HorarioDi
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica.NivelInstrucao;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica.SituacaoResidencia;
 import br.com.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
+import br.com.ufc.quixada.npi.gpa.service.PessoaService;
 
 
 @Controller
 @RequestMapping("inscricao")
 public class IniciacaoAcademicaController {
 	
+	
+	
 	@Inject
 	private IniciacaoAcademicaService iniciacaoAcademicaService;
+	
+	
+	@Inject
+	private PessoaService servicePessoa;
+	
 	
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(){
 		return "redirect:/inscricao/iniciacaoAcademica";
 	}
+	
 	
 	@RequestMapping(value="/iniciacaoAcademica", method = RequestMethod.GET)
 	 public String cadastro(Model modelo){
@@ -51,11 +61,13 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("HorarioDisponivel", horarioDisponivel);
 		modelo.addAttribute("SituacaoResidencia", situacaoResidencia);
 		modelo.addAttribute("TotalEstado", estado);
+		
 		System.out.println(nivelInstrucao.toString());
 		System.out.println(estado.toString());
 		
 		return "inscricao/iniciacaoAcademica";
 	}
+	
 	
 	@RequestMapping(value="/iniciacaoAcademica", method = RequestMethod.POST)
      public String adicionaAuxilio(@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica, BindingResult result, HttpSession session, RedirectAttributes redirect ){

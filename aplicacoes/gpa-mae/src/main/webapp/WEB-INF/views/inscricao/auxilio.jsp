@@ -39,6 +39,7 @@
 					value="${QuestionarioAuxilioMoradia.id }" />
 
 
+<<<<<<< HEAD
 			
 
 				
@@ -50,13 +51,15 @@
 			
 			
 
+=======
+						<form:checkboxes items="${moraCom}" path="moraCom" />					
+	
+>>>>>>> b761a383dd7a80b23429257e1c49e5f2f3f6c7f3
 
 				<div class="form-group">
-					<label for="nomeMae" class="col-sm-2 control-label">Nome da
-						Mãe:</label>
+					<label for="nomeMae" class="col-sm-2 control-label">Nome da Mãe:</label>
 					<div class="col-sm-10">
-						<form:input id="nomeMae" type="text" path="nomeMae"
-							cssClass="form-control data" placeholder="Nome da Mãe" />
+						<form:input id="nomeMae" type="text" path="nomeMae" cssClass="form-control data" placeholder="Nome da Mãe" />
 						<div class="error-validation">
 							<form:errors path="nomeMae"></form:errors>
 						</div>
@@ -568,22 +571,19 @@
 
 
 	<table>
+<!-- 	<table class="table table-hover"> -->
 <!-- 		<thead> -->
-<!-- 		<tr> -->
 		
 <!-- 			<th>Nome:</th> -->
-<!-- 			<tr><th> Grau de Paresntesco:</th></tr> -->
-<!-- 			<tr><th> Escolaridade </th></tr> -->
-<!-- 			<tr><th> Atividade ou Profissão</th></tr> -->
-<!-- 			<tr><th> Renda R$</th></tr> -->
-<!-- 			<tr><th><a id="add" > Adicionar</a></th></tr> -->
-			
-		
+<!-- 			<th> Grau de Paresntesco:</th> -->
+<!-- 			<th> Escolaridade </th> -->
+<!-- 			<th> Atividade ou Profissão</th> -->
+<!-- 			<th> Renda R$</th> -->
+<!-- 			<th><a id="add" > Adicionar</a></th> -->
 <!-- 		</thead> -->
 		
 		
 <!--  		<script type="text/javascript" src="js/functions.js">  -->
-	
 <!-- // 	//ADICIONA  -->
 <!-- //      $("a#add").click(function() {  -->
 
@@ -596,12 +596,37 @@
 <!-- //  						.append($("<td>").append($("<input type='text' name='atividade["+tr+"].atividade' cssClass ='form-control' value= "+tr+">")))										  -->
 <!-- //  						.append($("<td>").append($("<input type='text' name='renda["+tr+"].renda' cssClass ='form-control' value= "+tr+">")))  -->
 <!-- //  						.append($("<td>").append($("<a> deletar </a>"))); -->
-     
+<!-- // 	//ADICIONA -->
+<!-- // 	$(document).ready(function){     
+
+				$("a#add").click(function() { -->
+<!-- 						var total = 0; -->
+<!-- 						var media = 0; -->
+<!-- 						var linhas = 0; -->
+<!-- // 				var tr = $("tbody"); -->
 				
+<!-- 				$("tbody#corpoInfo").append("<tr> <td><input='text'></td> <td><input='text'></td> <td><input='text'></td> <td><input='text'></td> </tr>"); -->
+				
+<!-- 					$(".form-grup input#rendaFamilia")..attr("value", "Adicionando"); -->
+				
+<!-- 						var dados = 0; -->
+				
+<!-- 						for(var qtd=0;qtd < $("tbody#corpoInfo tr").lenth;qtd++){ -->
+<!-- 							dados = $("#renda").val(); -->
+<!-- 							alert(dados); -->
+				
+<!-- // 				tr.append($("<tr>") -->
+<!-- // 						.append($("<td>").append($("<input type='text' name='nome["+tr+"].Nome' cssClass ='form-control' value= "+tr+">")) -->
+<!-- // 						.append($("<td>").append($("<input type='text' name='grau["+tr+"].Grau de Parentesco' cssClass ='form-control' value= "+tr+">")) -->
+<!-- // 						.append($("<td>").append($("<input type='text' name='escolaridade["+tr+"].escolaridade' cssClass ='form-control' value= "+tr+">")) -->
+<!-- // 						.append($("<td>").append($("<input type='text' name='atividade["+tr+"].atividade' cssClass ='form-control' value= "+tr+">"))										 -->
+<!-- // 						.append($("<td>").append($("<input type='text' name='renda["+tr+"].renda' cssClass ='form-control' value= "+tr+">")) -->
+<!-- // 						.append($("<td>").append($("<a> deletar </a>")))))))) -->
+<!-- // 						); -->
 <!-- // 			$("table > tbody").append(tr);			 -->
 <!-- //     });	 -->
 	
-	
+<!-- 	}); -->
 	
 <!-- //    //DELETA AMIGOS  -->
 <!-- // 	function deletar(tr, index) {  -->

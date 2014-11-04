@@ -36,7 +36,7 @@
 						
 						<label for="complementoFamilia" class="col-sm-2 control-label">Complemento:</label>
 						<div class="col-sm-4">
-							<form:input id="complementoFamilia" type="text" path="complementoFamilia" cssClass="form-control data" placeholder="Data de Término"/>
+							<form:input id="complementoFamilia" type="text" path="complementoFamilia" cssClass="form-control" placeholder="Complemento"/>
 							<div class="error-validation">
 								<form:errors path="complementoFamilia"></form:errors>
 							</div>
@@ -54,7 +54,7 @@
 						</div>	
 						<label for="cepFamilia" class="col-sm-2 control-label">CEP:</label>
 						<div class="col-sm-2">
-							<form:input id="cepFamilia"  path="cepFamilia" cssClass="form-control" placeholder="CEP"/>
+							<form:input id="cep"  path="cepFamilia" cssClass="form-control" placeholder="Ex:63900000 "/>
 							<div class="error-validation">
 								<form:errors path="cepFamilia"></form:errors>
 							</div>
@@ -62,7 +62,7 @@
 					    
 					    <label for="bairroFamilia" class="col-sm-2 control-label">Bairro:</label>
 						<div class="col-sm-2">
-							<form:textarea id="bairroFamilia" type="text" path="bairroFamilia" cssClass="form-control data"  placeholder="Bairro"/>
+							<form:textarea id="bairroFamilia" type="text" path="bairroFamilia" cssClass="form-control"  placeholder="Bairro"/>
 							<div class="error-validation">
 								<form:errors path="bairroFamilia"></form:errors>
 							</div>
@@ -73,7 +73,7 @@
 					<div class="form-group">
 						<label for="telefoneFixo" class="col-sm-2 control-label">Fone:</label>
 						<div class="col-sm-4">
-							<form:input id="telefoneFixo"  path="telefoneFixo" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="telefone"  path="telefoneFixo" cssClass="form-control" placeholder="formato (00) 0000-0000"/>
 							<div class="error-validation">
 								<form:errors path="telefoneFixo"></form:errors>
 							</div>
@@ -81,7 +81,7 @@
 						
 						<label for="telefoneCelular" class="col-sm-2 control-label">Celular:</label>
 						<div class="col-sm-4">
-							<form:input id="telefoneCelular"    path="telefoneCelular" cssClass="form-control" placeholder="Celular"/>
+							<form:input id="telefoneCelular" path="telefoneCelular" cssClass="form-control" placeholder="formato (00) 0000-0000"/>
 							<div class="error-validation">
 								<form:errors path="telefoneCelular"></form:errors>
 							</div>
@@ -103,7 +103,7 @@
 						
 						<c:forEach items="${TotalEstado}" var="opcao">
 							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
+								<c:out value="${opcao.estado}"></c:out>
 							</option>
 						</c:forEach>	
 					</form:select>
@@ -138,7 +138,7 @@
 						
 						<label for="complemento" class="col-sm-2 control-label">Complemento:</label>
 						<div class="col-sm-4">
-							<form:input id="complemento" type="text" path="complemento" cssClass="form-control data" placeholder="Data de Término"/>
+							<form:input id="complemento" type="text" path="complemento" cssClass="form-control" placeholder="Complemento"/>
 							<div class="error-validation">
 								<form:errors path="complemento"></form:errors>
 							</div>
@@ -156,7 +156,7 @@
 						</div>	
 						<label for="cep_familia" class="col-sm-2 control-label">CEP:</label>
 						<div class="col-sm-2">
-							<form:input id="cep"  path="cep" cssClass="form-control" placeholder="CEP"/>
+							<form:input id="cepFamilia"  path="cep" cssClass="form-control" placeholder="CEP"/>
 							<div class="error-validation">
 								<form:errors path="cep"></form:errors>
 							</div>
@@ -175,7 +175,7 @@
 					<div class="form-group">
 						<label for="telefoneFixo" class="col-sm-2 control-label">Fone:</label>
 						<div class="col-sm-4">
-							<form:input id="telefoneFixo"  path="telefoneFixo" cssClass="form-control" placeholder="Fone"/>
+							<form:input id="telefoneFix"  path="telefoneFixoFamilia"  cssClass="form-control" placeholder="formato (00) 0000-0000"/>
 							<div class="error-validation">
 								<form:errors path="telefoneFixo"></form:errors>
 							</div>
@@ -183,7 +183,7 @@
 						
 						<label for="telefone_celular" class="col-sm-2 control-label">Celular:</label>
 						<div class="col-sm-4">
-							<form:input id="telefoneCelular"  path="telefoneCelular" cssClass="form-control" placeholder="Celular"/>
+							<form:input id="telefoneCel"  path="telefoneCelularFamilia" cssClass="form-control" placeholder="formato (00) 0000-0000"/>
 							<div class="error-validation">
 								<form:errors path="telefoneCelular"></form:errors>
 							</div>
@@ -194,18 +194,18 @@
 					<div class="form-group">
 						<label for="cidade" class="col-sm-2 control-label">Cidade:</label>
 						<div class="col-sm-4">
-							<form:input id="cidade" type="text" path="cidade" cssClass="form-control" placeholder="Cidade"/>
+							<form:input id="cidade" type="text" path="cidadeFamilia" cssClass="form-control" placeholder="Cidade"/>
 							<div class="error-validation">
 								<form:errors path="cidade"></form:errors>
 							</div>
 						</div>
 					
 					<label for="cidade" class="col-sm-2 control-label">UF:</label>	
-					<form:select name="${status.expression}"  path="estadoAtual" id="estado">
+					<form:select name="${status.expression}"  path="estado" id="estado">
 						
 						<c:forEach items="${TotalEstado}" var="opcao">
 							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
+								<c:out value="${opcao.estado}"></c:out>
 							</option>
 						</c:forEach>	
 					</form:select>
@@ -226,7 +226,7 @@
 					<div class="form-group">
 						<label for="reside_atualmente" class="col-sm-2 control-label">Com quem você reside Atualmente :</label>
 						<div class="col-sm-8">
-							<form:input id="resideAtualmente" path="resideAtualmente" cssClass="form-control" placeholder="Rua /Av"/>
+							<form:input id="resideAtualmente" path="resideAtualmente" cssClass="form-control" placeholder="Ex: Familia, amigos"/>
 							<div class="error-validation">
 								<form:errors path="enderecoAtual"></form:errors>
 							</div>
@@ -236,7 +236,7 @@
 					<div class="form-group">
 						<label for="reside_atualmente" class="col-sm-2 control-label">Como define a Localidade na qual vive atualmente? :</label>
 						<div class="col-sm-6">
-							<form:input id="definicaoLocalAtual" path="definicaoLocalAtual" cssClass="form-control" placeholder="Rua /Av"/>
+							<form:input id="definicaoLocalAtual" path="definicaoLocalAtual" cssClass="form-control" placeholder="Ex: Casa/Apartamento"/>
 							<div class="error-validation">
 								<form:errors path="definicaoLocalAtual"></form:errors>
 							</div>
@@ -394,6 +394,15 @@
 								<form:errors path="qtdEmpregadosDomesticos"></form:errors>
 							</div>
 						</div>
+															
+						
+					<label for="totalMembrosFamilia" class="col-sm-5 control-label">Quantidade de Membros da Familia:</label>
+						<div class="col-sm-1">
+							<form:input id="totalMembrosFamilia" type="number" min="0"  path="totalMembrosFamilia" cssClass="form-control" placeholder="Fone"/>
+							<div class="error-validation">
+								<form:errors path="totalMembrosFamilia"></form:errors>
+							</div>
+						</div>	
 					</fieldset>	
 					
 					<!-- 
@@ -422,9 +431,9 @@
 					<legend>Informações Adicionais</legend>
 					<h3>Horários Disponíves Para Bolsa</h3>
 						<div class = "form-group">
-						<label for="cidade" class="col-sm-2 control-label">Segunda:</label>	
+						<label for="horariodisponivelBolsa" class="col-sm-2 control-label">Segunda:</label>	
 							<div class="col-sm-2">
-								<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
+								<form:select name="${status.expression}" path="horariodisponivelBolsa" id="horariodisponivelBolsa">
 						
 									<c:forEach items="${HorarioDisponivel}" var="opcao">
 										<option value="${opcao}">
@@ -435,9 +444,9 @@
 							</div>
 						</div>
 						<div class="form-group"> 
-						<label for="cidade" class="col-sm-2 control-label">Terça:</label>	
+						<label for="horariodisponivelBolsa" class="col-sm-2 control-label">Terça:</label>	
 						<div class="col-sm-2">
-						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
+						<form:select name="${status.expression}" path="horariodisponivelBolsa" id="horariodisponivelBolsa">
 						
 						<c:forEach items="${HorarioDisponivel}" var="opcao">
 							<option value="${opcao}">
@@ -449,24 +458,9 @@
 						</div>
 						
 						<div class="form-group">
-						<label for="cidade" class="col-sm-2 control-label">Quarta:</label>	
+						<label for="horariodisponivelBolsa" class="col-sm-2 control-label">Quarta:</label>	
 						<div class="col-sm-2">
-						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
-						
-						<c:forEach items="${HorarioDisponivel}" var="opcao">
-							<option value="${opcao}">
-								<c:out value="${opcao.nome}"></c:out>
-							</option>
-						</c:forEach>	
-						</form:select>
-						</div>
-						</div>
-						
-						
-						<div class="form-group">
-						<label for="cidade" class="col-sm-2 control-label">Quinta:</label>	
-						<div class="col-sm-2">
-						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
+						<form:select name="${status.expression}" path="horariodisponivelBolsa" id="horariodisponivelBolsa">
 						
 						<c:forEach items="${HorarioDisponivel}" var="opcao">
 							<option value="${opcao}">
@@ -479,9 +473,24 @@
 						
 						
 						<div class="form-group">
-						<label for="cidade" class="col-sm-2 control-label">Sexta:</label>	
+						<label for="horariodisponivelBolsa" class="col-sm-2 control-label">Quinta:</label>	
 						<div class="col-sm-2">
-						<form:select name="${status.expression}" path="horarioDisponivelBolsa" id="nivelInstrucao">
+						<form:select name="${status.expression}" path="horariodisponivelBolsa" id="horariodisponivelBolsa">
+						
+						<c:forEach items="${HorarioDisponivel}" var="opcao">
+							<option value="${opcao}">
+								<c:out value="${opcao.nome}"></c:out>
+							</option>
+						</c:forEach>	
+						</form:select>
+						</div>
+						</div>
+						
+						
+						<div class="form-group">
+						<label for="horariodisponivelBolsa" class="col-sm-2 control-label">Sexta:</label>	
+						<div class="col-sm-2">
+						<form:select name="${status.expression}" path="horariodisponivelBolsa" id="horariodisponivelBolsa">
 						
 						<c:forEach items="${HorarioDisponivel}" var="opcao">
 							<option value="${opcao}">
@@ -558,8 +567,6 @@ $(function () {
 	  console.log("e = ");
 	  removeCampo();
   });
-  
-  
 
 });
 
@@ -612,6 +619,7 @@ $(function () {
 		</div>
 	</div>
 
+
 <%-- 	<jsp:include page="../fragments/footer.jsp" /> --%>
 <!-- <script type="text/javascript"> -->
 		
@@ -625,6 +633,31 @@ $(function () {
 // 			//alert("Voce clicou no addInfo");
 // 			$(".form-group input#rendaFamilia").attr("value","Adicionando");
 // 			//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length);
+	<jsp:include page="../fragments/footer.jsp" />
+	
+	
+
+	
+<script type="text/javascript">
+
+
+
+	$(document).ready(function(){
+		//jQuery('#telefone').mask("(99) 9999-9999");		
+		$('#telefone').mask("(99) 9999-9999");
+		$('#telefoneCelular').mask("(99) 9999-9999");
+		$('#telefoneFix').mask("(99) 9999-9999");
+		$('#telefoneCel').mask("(99) 9999-9999");
+		$('#cep').mask("99999999");
+		$('#cepFamilia').mask("99999999");
+		$("a#addInf").click(function(){
+			var total = 0;
+			var media = 0;
+			var linhas=0;
+			$("tbody#corpoInfo").append("<tr>  <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> </tr>");
+			//alert("Voce clicou no addInfo");
+			$(".form-group input#rendaFamilia").attr("value","Adicionando");
+			//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length);
 			
 // 			var dados = 0;
 // 			for(var qtd=0;qtd < $("tbody#corpoInfo tr").length;qtd++){
