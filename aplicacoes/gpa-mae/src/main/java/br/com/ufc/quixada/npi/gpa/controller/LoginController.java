@@ -48,13 +48,7 @@ public class LoginController {
 
 	}
 	
-	/*@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(ModelMap model, HttpSession session) {
-		session.invalidate();
-
-		return "redirect:/selecaoBolsa/listarBolsa";
-
-	}*/
+	
 	
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String acessoNegado(ModelMap model, Principal user) {
