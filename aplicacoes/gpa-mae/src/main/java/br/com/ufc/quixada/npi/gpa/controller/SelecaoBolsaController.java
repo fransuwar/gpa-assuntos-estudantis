@@ -47,7 +47,7 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 
-	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.GET)
+	@RequestMapping(value = "selecao/cadastrarBolsa", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("selecao", new SelecaoBolsa());
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
@@ -55,7 +55,7 @@ public class SelecaoBolsaController {
 	}
 
 	@Secured({"ROLE_COORDENADOR"})
-	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.POST)
+	@RequestMapping(value = "selecao/cadastrarBolsa", method = RequestMethod.POST)
 	public String adicionarselecao(
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
@@ -84,7 +84,7 @@ public class SelecaoBolsaController {
 	}
 
 	@Secured({"ROLE_COORDENADOR"})
-	@RequestMapping(value = "/editarBolsa", method = RequestMethod.POST)
+	@RequestMapping(value = "selecao/editarBolsa", method = RequestMethod.POST)
 	public String atualizarSelecao(
 			@RequestParam("file") MultipartFile[] files, 
 			@PathVariable("id") Integer id, @Valid 
@@ -134,14 +134,14 @@ public class SelecaoBolsaController {
 
 	}
 	@Secured({"ROLE_ALUNO", "ROLE_COORDENADOR"})
-	@RequestMapping(value = "/listarBolsa")
+	@RequestMapping(value = "selecao/listarBolsa")
 	public String listar(ModelMap model) {
 		model.addAttribute("selecoes",
 				serviceSelecao.find(SelecaoBolsa.class));
 		return "selecaoBolsa/listarBolsa";
 	}
 
-	@Secured({"ROLE_COORDENADOR"})
+//	@Secured({"ROLE_COORDENADOR"})
 	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirectAttributes) {

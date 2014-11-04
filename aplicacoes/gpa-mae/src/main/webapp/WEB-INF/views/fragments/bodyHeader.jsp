@@ -36,10 +36,15 @@
 					<li>
 						<a href="<c:url value="/aluno/listarAluno" />">Aluno <span class="glyphicon glyphicon-list"></span></a>
 					</li>
-					<li>
-						<a href="<c:url value="/selecaoBolsa/cadastrarBolsa" />">Seleção de Bolsa <span class="glyphicon glyphicon-plus"></span></a>
-					</li>
 					</sec:authorize>
+
+					<sec:authorize ifAllGranted="ROLE_COORDENADOR" >
+					<h1>ROLE_COORDENADOR</h1>
+					<li>
+						<a href="<c:url value="coordenador/selecao/cadastrarBolsa" />">Cadastro Bolsa <span class="glyphicon glyphicon-plus"></span></a>
+					</li>				
+					</sec:authorize>
+
 					<sec:authorize ifAllGranted="ROLE_ALUNO">
 					<h1>ROLE_ALUNO</h1>
 					<li>
@@ -49,6 +54,7 @@
 					<li>
 						<a href="<c:url value="/j_spring_security_logout" />">Sair <span class="glyphicon glyphicon-off"></span></a>
 					</li>
+					
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
