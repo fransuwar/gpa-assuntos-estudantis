@@ -522,16 +522,66 @@
 										
 					
 					
-					<div class="controls">
-						<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
-						<a href="<c:url value="/inscricao/iniciacaoAcademica"></c:url>" class="btn btn-default">Cancelar</a>
-					</div>
+					
+	
 
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+
+
+<table>
+
+  <tr><td class="form-group" width="10">Nome</td>
+  <td class="form-group">Parentesco</td>
+  <td class="form-group">Escolaridade</td>
+  <td class="form-group">Atividade</td>
+  <td class="form-group">Renda R$</td></tr>
+  <tr class="linhas">
+    <td><form:input type="text" path="pessoas[0].nome" style="text-align:center" /></td>
+    <td><form:select name="grauParentesco" path="pessoas[0].grauParentesco">
+    	<option value="" selected="selected">Grau Parentesco</option>  
+    	<option value="Filho_a">Filho(a)</option>
+    	<option value="Neto">Neto(a)</option>
+    	<option value="Sobrinho">Sobrinho(a)</option>
+    	<option value="Irmao">Irmão</option>
+    	<option value="Conjuge_Companheiro">Cônjuge ou Companheiro(a)</option>
+    	<option value="Outros">Outros</option>
+     </form:select></td>
+    <td><form:input type="text" path="pessoas[0].escolaridade" style="text-align:center" /></td>
+    <td><form:input type="text" path="pessoas[0].atividadeProfissao" style="text-align:center" /></td>
+    <td><form:input type="text" path="pessoas[0].rendaMensal" style="text-align:center" /></td>
+    
+    <td><a href="#" class="removeCampo" data-codigo="codigo" title="Remover linha" ><input name="Remover" class="btn btn-primary" value="Remover" /></a></td>
+  </tr>
+  <tr><td colspan="4">
+        <a href="#" class="adicionarCampo" title="Adicionar item" ><input name="Adicionar" class="btn btn-primary" value="Adicionar" /></a>
+	</td></tr>
+  <tr>
+
+  </tr> 
+</table>
+ <BR />
+ <br>
+
+		<div class="controls">
+			<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
+			<a href="<c:url value="/inscricao/iniciacaoAcademica"></c:url>" class="btn btn-default">Cancelar</a>
+		</div>
+
+				
+
+				</form:form>
+			</div>
+		</div>
+	</div>
+
+
+		
+	<jsp:include page="../fragments/footer.jsp" />
+	
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	<script type="text/javascript">
 $(function () {
 	
-	var rendaMedia;
 	var contador = 1;
 
   function removeCampo() {
@@ -540,8 +590,6 @@ $(function () {
 	   if($("tr.linhas").length > 1){
 		   $(this).parent().parent().remove();
 	   }
-	   $(this).parent().parent().remove();
-// 	   console.log("fora if");
 	   contador--;
 	});
   }
@@ -569,115 +617,26 @@ $(function () {
   });
 
 });
-
-
-</script>
-
-
-  <tr><td class="form-group" width="10">Nome</td>
-  <td class="form-group">Parentesco</td>
-  <td class="form-group">Escolaridade</td>
-  <td class="form-group">Atividade</td>
-  <td class="form-group">Renda R$</td></tr>
-  <tr class="linhas">
-    <td><form:input type="text" path="pessoas[0].nome" style="text-align:center" /></td>
-    <td><form:select name="grauParentesco" path="pessoas[0].grauParentesco">
-    	<option value="" selected="selected">Grau Parentesco</option>  
-    	<option value="Filho_a">Filho(a)</option>
-    	<option value="Neto">Neto(a)</option>
-    	<option value="Sobrinho">Sobrinho(a)</option>
-    	<option value="Irmao">Irmão</option>
-    	<option value="Conjuge_Companheiro">Cônjuge ou Companheiro(a)</option>
-    	<option value="Outros">Outros</option>
-     </form:select></td>
-    <td><form:input type="text" path="pessoas[0].escolaridade" style="text-align:center" /></td>
-    <td><form:input type="text" path="pessoas[0].atividadeProfissao" style="text-align:center" /></td>
-    <td><form:input type="text" path="pessoas[0].rendaMensal" style="text-align:center" /></td>
-    
-    <td><a class="removeCampo" data-codigo="codigo" title="Remover linha" ><input name="Remover" class="btn btn-primary" value="Remover" /></a></td>
-  </tr>
-  <tr><td colspan="4">
-        <a href="#" class="adicionarCampo" title="Adicionar item" ><input name="Adicionar" class="btn btn-primary" value="Adicionar" /></a>
-	</td></tr>
-  <tr>
-
-  </tr> 
-
-
-
- <BR />
-	<div class="controls">
-		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" id="btn-cadastrar"/>
-		 <a href="<c:url value="/inscricao/auxilio" ></c:url>" class="btn btn-default" >Cancelar</a>
-	</div>
-
-
-				
-
-				</form:form>
-			</div>
-		</div>
-	</div>
-
-
-<%-- 	<jsp:include page="../fragments/footer.jsp" /> --%>
-<!-- <script type="text/javascript"> -->
-		
-// 	$(document).ready(function(){
-		
-// 		$("a#addInf").click(function(){
-// 			var total = 0;
-// 			var media = 0;
-// 			var linhas=0;
-// 			$("tbody#corpoInfo").append("<tr>  <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> </tr>");
-// 			//alert("Voce clicou no addInfo");
-// 			$(".form-group input#rendaFamilia").attr("value","Adicionando");
-// 			//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length);
-	<jsp:include page="../fragments/footer.jsp" />
 	
-	
-
-	
-<script type="text/javascript">
-
-
-
 	$(document).ready(function(){
-		//jQuery('#telefone').mask("(99) 9999-9999");		
 		$('#telefone').mask("(99) 9999-9999");
 		$('#telefoneCelular').mask("(99) 9999-9999");
 		$('#telefoneFix').mask("(99) 9999-9999");
 		$('#telefoneCel').mask("(99) 9999-9999");
 		$('#cep').mask("99999999");
 		$('#cepFamilia').mask("99999999");
+		
+		
 		$("a#addInf").click(function(){
-			var total = 0;
-			var media = 0;
-			var linhas=0;
 			$("tbody#corpoInfo").append("<tr>  <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> </tr>");
-			//alert("Voce clicou no addInfo");
 			$(".form-group input#rendaFamilia").attr("value","Adicionando");
-			//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length);
-			
-// 			var dados = 0;
-// 			for(var qtd=0;qtd < $("tbody#corpoInfo tr").length;qtd++){
-// 				dados = $("#renda").val();
-// 				alert(dados);
-// 				//valorRenda += $("body").find("th").eq("4").val();	
-// 				//alert(valorRenda);
-// 				//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length  +  " cont = " + qtd);
-				
-// 			}
-			
-						
-// 		});	
+	
 		
-		
-// 	});
+	});
+});		
 	
 	
-
-<!-- </script>	 -->
+</script>	 
 </body>
 
 </html>

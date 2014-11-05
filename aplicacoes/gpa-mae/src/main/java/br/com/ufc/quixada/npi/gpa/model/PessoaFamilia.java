@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 
 public class PessoaFamilia {
 
-
 	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
 		return auxilioMoradia;
 	}

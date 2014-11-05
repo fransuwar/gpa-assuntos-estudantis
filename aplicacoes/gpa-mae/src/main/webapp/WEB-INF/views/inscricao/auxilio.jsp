@@ -31,7 +31,7 @@
 		<div class="novo-aluno" align="left">
 			<h2>Novo Cadastro</h2>
 
-			<form:form id="questionarioAuxilioMoradia" role="form"
+			<form:form id="questionarioAuxilioMoradiaForm" role="form" modelAttribute="questionarioAuxilioMoradia"
 				commandName="questionarioAuxilioMoradia" servletRelativeAction="/inscricao/auxilio/"
 				method="POST" cssClass="form-horizontal">
 
@@ -39,22 +39,8 @@
 					value="${QuestionarioAuxilioMoradia.id }" />
 
 
-<<<<<<< HEAD
-			
-
-				
-
 						<form:checkboxes items="${moraCom}" path="moraCom" />					
 	
-			
-	 	
-			
-			
-
-=======
-						<form:checkboxes items="${moraCom}" path="moraCom" />					
-	
->>>>>>> b761a383dd7a80b23429257e1c49e5f2f3f6c7f3
 
 				<div class="form-group">
 					<label for="nomeMae" class="col-sm-2 control-label">Nome da Mãe:</label>
@@ -570,121 +556,87 @@
 				</div>
 
 
-	<table>
-		  <tr>
-			  <td class="form-group" width="10">Nome</td>
-			  <td class="form-group">Parentesco</td>
-			  <td class="form-group">Escolaridade</td>
-			  <td class="form-group">Atividade</td>
-			  <td class="form-group">Renda R$</td>
-		  </tr>
-
-<tbody class="lines">
-  <tr class="linhas">
-    <td><form:input type="text" path="pessoas[0].nome" style="text-align:center" /></td>
-    <td>
-	    <form:select name="grauParentesco" path="pessoas[0].grauParentesco">
-	    	<option value="" selected="selected">Grau Parentesco</option>  
-	    	<option value="Filho_a">Filho(a)</option>
-	    	<option value="Neto">Neto(a)</option>
-	    	<option value="Sobrinho">Sobrinho(a)</option>
-	    	<option value="Irmao">Irmão</option>
-	    	<option value="Conjuge_Companheiro">Cônjuge ou Companheiro(a)</option>
-	    	<option value="Outros">Outros</option>
-	    </form:select>
-    </td>
-    <td><form:input type="text" path="pessoas[0].escolaridade" style="text-align:center" /></td>
-    <td><form:input type="text" path="pessoas[0].atividadeProfissao" style="text-align:center" /></td>
-    <td><form:input type="text" path="pessoas[0].rendaMensal" style="text-align:center" /></td>
-    
-    <td><a class="removeCampo" data-codigo="codigo" title="Remover linha" ><input name="Remover" class="btn btn-primary" value="Remover" /></a></td>
-  </tr>
-</tbody>
-<tr>
-	<td colspan="4">
-        <a href="#" class="adicionarCampo" title="Adicionar item" ><input name="Adicionar" class="btn btn-primary" value="Adicionar" /></a>
-	</td>
-</tr>
-
-  <tr>
-
-  </tr> 
-</table>
+            
+            <table>
+				<thead>
+					<tr>
+						<th class="form-group" width="10">Nome</th>
+						<th class="form-group">Parentesco</th>
+						<th class="form-group">Escolaridade</th>
+						<th class="form-group">Atividade</th>
+						<th class="form-group">Renda R$</th>
+					</tr>
+				</thead>
+                <tbody id="pessoaFamiliaContainer">
+                <h1>${questionarioAuxilioMoradia.ano}</h1>
+                    <c:if test="${questionarioAuxilioMoradia.pessoas == null}">
+                        <tr class="pessoaFamilia defaultRow">    
+                            <td><input type="text" name="pessoas[].nome" value="" /></td>
+                            <td>
+                            	<select name="pessoas[].grauParentesco">
+							    	<option value="" selected="selected">Grau Parentesco</option>  
+							    	<option value="Filho_a">Filho(a)</option>
+							    	<option value="Neto">Neto(a)</option>
+							    	<option value="Sobrinho">Sobrinho(a)</option>
+							    	<option value="Irmao">Irmão</option>
+							    	<option value="Conjuge_Companheiro">Cônjuge ou Companheiro(a)</option>
+							    	<option value="Outros">Outros</option>
+						    	</select>
+						    </td>
+                            <td><input type="text" name="pessoas[].escolaridade" value="" /></td>
+                            <td><input type="text" name="pessoas[].atividade" value="" /></td>
+                            <td><input type="text" name="pessoas[].renda" value="" /></td>
+                            
+                            <td><a href="#" class="removePessoa">Remove Person</a></td>
+                        </tr>
+                    </c:if>
+                </tbody>
+            </table>
+            <a href="#" id="addPessoa">Add Person</a>
+	        
 
 
 
- <BR />
 	<div class="controls">
 		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" id="btn-cadastrar"/>
 		 <a href="<c:url value="/inscricao/auxilio" ></c:url>" class="btn btn-default" >Cancelar</a>
 	</div>
 
 
-
-	
 </form:form>
 		</div>
 	</div>
 
-	
-	
-	
-	<jsp:include page="../fragments/footer.jsp"></jsp:include>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-<script type="text/javascript">
-$(function () {
-	
-	var rendaMedia;
-	var contador = 1;
-
-  function removeCampo() {
-	$(".removeCampo").unbind("click");
-	
-	$(".removeCampo").bind("click", function () {
-		console.log("ssssssssssssssssssssssss");
-	   if($("tbody.lines tr").length > 1){
-		   $(this).parent().parent().remove();
-	   }
-	   //$(this).parent().parent().remove();
-// 	   console.log("fora if");
-	   contador--;
-	});
-  }
- 
-  $(".adicionarCampo").on("click", function () {
-	console.log("dfgdfg");
-	novoCampo = $("tr.linhas:first").clone().attr("id", "aaa");
-	novoCampo.find("input[name*='nome']").attr("name", "pessoas["+contador+"].nome").val("");	
-	novoCampo.find("input[name*='grau']").attr("name", "pessoas["+contador+"].grauParentesco");
-	novoCampo.find("input[name*='escolaridade']").attr("name", "pessoas["+contador+"].escolaridade");
-	novoCampo.find("input[name*='atividade']").attr("name", "pessoas["+contador+"].atividadeProfissao");
-	novoCampo.find("input[name*='renda']").attr("name", "pessoas["+contador+"].rendaMensal");
-	
-	$(novoCampo).attr("class", "yyyyyyy");
-	novoCampo.insertAfter("tbody.lines tr.linhas");
-	//$("tbody.lines").append(novoCampo);
- 	$("aaa").attr("id", "pessonome");
- 	
- 	contador++;
-	//removeCampo();
-	
-  });
-  
-  $(".removeCampo").on("click", function () {
-	  console.log("e = ");
-	  removeCampo();
-  });
-  
-  
-
-});
 
 
-</script>
 
-	
 	
 </body>
+        	<jsp:include page="../fragments/footer.jsp"></jsp:include>
+	        <script type="text/javascript">
+	            function rowAdded(rowElement) {
+	                $(rowElement).find("input").val('');
+	            }
+	            function rowRemoved(rowElement) {
+	                alert( "Removed Row HTML:\n" + $(rowElement).html() );
+	            }
+	            
+	            $(document).ready( function() {
+	            	console.log("ssssssssssssssssssssssssssss");
+	                var config = {
+	                    rowClass : 'pessoaFamilia',
+	                    addRowId : 'addPessoa',
+	                    removeRowClass : 'removePessoa',
+	                    formId : 'questionarioAuxilioMoradiaForm',
+	                    rowContainerId : 'pessoaFamiliaContainer',
+	                    indexedPropertyName : 'pessoas',
+	                    indexedPropertyMemberNames : 'nome, grauParentesco, escolaridade, atividade, renda',
+	                    rowAddedListener : rowAdded,
+	                    rowRemovedListener : rowRemoved,
+	                };
+	                new DynamicListHelper(config);
+	            });
+	        </script>
 
 
 </html>
