@@ -35,7 +35,7 @@ public class IniciacaoAcademicaController {
 	private IniciacaoAcademicaService iniciacaoAcademicaService;
 	
 	@Inject
-	private PessoaService servicePessoa;
+	private PessoaService servicePessoa;	
 			
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(){

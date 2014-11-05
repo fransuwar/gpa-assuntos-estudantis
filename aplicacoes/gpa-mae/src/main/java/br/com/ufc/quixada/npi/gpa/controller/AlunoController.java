@@ -7,7 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -58,9 +58,9 @@ public class AlunoController {
 
 	}
 
-	@Secured({"ROLE_COORDENADOR"})
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
-	public String listaAluno(Aluno aluno, BindingResult result, Model model) {
+	public String listaAluno(Aluno aluno, Model model) {
 			
 			List<Aluno> results = alunoService.find(Aluno.class);	
 			model.addAttribute("alunos", results);
@@ -68,8 +68,7 @@ public class AlunoController {
 	}
 	
 
-	@Secured({"ROLE_ALUNO", "ROLE_ADMIN"})
-
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/listarAluno", method = RequestMethod.POST)
 	public String listarAluno(@RequestParam("matricula") String matricula, Model model) {
 		List<Aluno> results = new ArrayList<Aluno>();

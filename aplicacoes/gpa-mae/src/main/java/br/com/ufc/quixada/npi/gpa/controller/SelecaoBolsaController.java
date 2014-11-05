@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.Valid;
 
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -59,7 +58,7 @@ public class SelecaoBolsaController {
 	}
 
 
-	@Secured({"ROLE_COORDENADOR"})
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "selecao/cadastrarBolsa", method = RequestMethod.POST)
 	public String adicionarselecao(
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
@@ -89,7 +88,7 @@ public class SelecaoBolsaController {
 	}
 
 
-	@Secured({"ROLE_COORDENADOR"})
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.POST)
 	public String atualizarSelecao(
 			@RequestParam("file") MultipartFile[] files, 
@@ -141,7 +140,7 @@ public class SelecaoBolsaController {
 	}
 
 
-	@Secured({"ROLE_ALUNO", "ROLE_COORDENADOR"})
+	@PreAuthorize("hasRole('ROLE_COORDENADOR', 'ROLE_ALUNO')")
 	@RequestMapping(value = "selecao/listarBolsa")
 	public String listar(ModelMap model) {
 		model.addAttribute("selecoes",
@@ -149,7 +148,7 @@ public class SelecaoBolsaController {
 		return "selecaoBolsa/listarBolsa";
 	}
 
-//	@Secured({"ROLE_COORDENADOR"})
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirectAttributes) {
@@ -160,7 +159,7 @@ public class SelecaoBolsaController {
 	}
 
 
-//	@Secured({"ROLE_COODENADOR"})
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/atribuirBanca", method = RequestMethod.POST)
 	public String atribuirPareceristaNoProjeto(
 			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
