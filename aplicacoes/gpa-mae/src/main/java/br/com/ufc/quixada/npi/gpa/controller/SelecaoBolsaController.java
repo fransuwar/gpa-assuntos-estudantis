@@ -50,8 +50,16 @@ public class SelecaoBolsaController {
 	}
 
 
-	@RequestMapping(value="/informacoes", method=RequestMethod.GET)
-	public String informacoes(){
+	@RequestMapping(value="{id}/informacoes")
+	public String getInformacoes(SelecaoBolsa selecao,  @PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes){
+		SelecaoBolsa selecaoBolsa = serviceSelecao.find(SelecaoBolsa.class, id);
+		System.out.println(selecaoBolsa.getComentarios());
+		if(selecaoBolsa==null){
+			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
+			return "redirect:/selecaoBolsa/listarBolsa";
+		}
+		model.addAttribute("selecao",selecaoBolsa);
+		
 		return "selecaoBolsa/informacoes";
 	}
 	

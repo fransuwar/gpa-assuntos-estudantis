@@ -88,18 +88,13 @@ uri="http://www.springframework.org/security/tags"%>
 										</c:if>
 										</sec:authorize>
 										<sec:authorize access="permitAll">
-										<c:if test="${selecao.tipoBolsa =='INICIACAO_ACADEMICA'}">
-										<a id="informacoes" href="<c:url value="/selecaoBolsa/informacoes/" ></c:url>">
-											<button class=" btn btn-success">+ Informações <span class="glyphicon glyphicon-zoom-in"></span></button>
-										</a>
-										</c:if>
 										
-										<c:if test="${selecao.tipoBolsa =='AUXILIO_MORADIA'}">
-										<a id="informacoes" href="<c:url value="/selecaoBolsa/informacoesAuxilio/" ></c:url>">
+										<a id="informacoes" href="<c:url value="/selecaoBolsa/${selecao.id}/informacoes/" ></c:url>">
 											<button class=" btn btn-success">+ Informações <span class="glyphicon glyphicon-zoom-in"></span></button>
 										</a>
-										</c:if>
 										</sec:authorize>
+										
+										
 										
 								</td>
 							</tr>

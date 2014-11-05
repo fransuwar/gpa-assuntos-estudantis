@@ -14,28 +14,26 @@ uri="http://www.springframework.org/security/tags"%>
 	<div class="center col-md-6" align="left">
 		
 		<div class="panel panel-primary" align="left">
-  			<div class="panel-heading">Informações da Bolsa De Iniciação Acadêmica</div>
- 				 <div class="panel-body">
-   				 <b>Orgão</b> Universidade Federal do Ceará<p>
-   				 <b>Período de Inscrições: </b> de 12 de Janeiro a 01 de Fevereiro de 2015<p>
-   				 <b>Valor da Bolsa</b> R$ 400<p>
-   				 
-   				 <b>Descrição do Programa</b><p>
-   				 O Programa De Iniciação Acadêmica tem por objetivo propiciar aos estudantes de cursos de<p>
-   				 Graduação Presenciais da Universidade Federal do Ceará(UFC) - em situação de vulnerabilidade sócio<p>
-   				 econômica comprovada – especialmente os de semestres iniciais, condições financeiras para sua<p> 
-   				 permanência e desempenho acadêmico satisfatório, mediante atuação, em caráter de iniciação <p>
-   				 acadêmica, nas diversas unidades da Instituição.
-  				</div>
+  			<table id="detalhes">
+					<tr>
+					<td class="head">Descrição</td>
+					<td class="content">${selecao.comentarios}</td>
+					</tr>	
+			
+			
+			</table>
 		</div>
 		
 		<div class="panel panel-primary">
 			<div class="panel-heading">Edital</div>
-			<td class="head" valign="top">Arquivos:</td>
-				<c:forEach var="documento" items="${projeto.documentos}">
+				
+			<tr>
+				<td class="head" valign="top">Arquivos:</td>
+				<c:forEach var="documento" items="${selecao.documentos}">
 					<!-- <a href="<c:url value="/documento/${documento.id}"></c:url>">${documento.nomeOriginal}</a>-->
 					<td class="content"><a href="<c:url value="/documento/${documento.id}"></c:url>">${documento.nomeOriginal}</a></td>
 				</c:forEach>
+			</tr>
 		</div>	
 		
 		
