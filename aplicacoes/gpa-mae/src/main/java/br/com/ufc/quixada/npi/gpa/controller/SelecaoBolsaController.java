@@ -10,6 +10,7 @@ import javax.inject.Named;
 import javax.validation.Valid;
 
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -40,13 +41,16 @@ public class SelecaoBolsaController {
 	private ServidorService servidorService;
 	@Inject	
 	private SelecaoBolsaService serviceSelecao;
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 
 
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "selecao/cadastrarBolsa", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("selecao", new SelecaoBolsa());
@@ -135,6 +139,7 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 
 	}
+
 
 	@Secured({"ROLE_ALUNO", "ROLE_COORDENADOR"})
 	@RequestMapping(value = "selecao/listarBolsa")

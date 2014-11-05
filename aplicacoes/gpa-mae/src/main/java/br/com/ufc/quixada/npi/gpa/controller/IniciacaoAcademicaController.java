@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,12 +34,9 @@ public class IniciacaoAcademicaController {
 	@Inject
 	private IniciacaoAcademicaService iniciacaoAcademicaService;
 	
-	
 	@Inject
 	private PessoaService servicePessoa;
-	
-	
-	
+			
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(){
 		return "redirect:/inscricao/iniciacaoAcademica";
