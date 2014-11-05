@@ -33,13 +33,12 @@ import br.com.ufc.quixada.npi.gpa.service.ServidorService;
 @Named
 @RequestMapping(value = {"aluno", "coordenador"})
 public class SelecaoBolsaController {
-	
+		
 	@Inject
 	private DocumentoService documentoService;
-	
 	@Inject
 	private ServidorService servidorService;
-	@Inject
+	@Inject	
 	private SelecaoBolsaService serviceSelecao;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -47,12 +46,14 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 
+
 	@RequestMapping(value = "selecao/cadastrarBolsa", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("selecao", new SelecaoBolsa());
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
 		return "selecaoBolsa/cadastrarBolsa";
 	}
+
 
 	@Secured({"ROLE_COORDENADOR"})
 	@RequestMapping(value = "selecao/cadastrarBolsa", method = RequestMethod.POST)
@@ -83,8 +84,9 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 
+
 	@Secured({"ROLE_COORDENADOR"})
-	@RequestMapping(value = "selecao/editarBolsa", method = RequestMethod.POST)
+	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.POST)
 	public String atualizarSelecao(
 			@RequestParam("file") MultipartFile[] files, 
 			@PathVariable("id") Integer id, @Valid 
@@ -133,6 +135,7 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 
 	}
+
 	@Secured({"ROLE_ALUNO", "ROLE_COORDENADOR"})
 	@RequestMapping(value = "selecao/listarBolsa")
 	public String listar(ModelMap model) {

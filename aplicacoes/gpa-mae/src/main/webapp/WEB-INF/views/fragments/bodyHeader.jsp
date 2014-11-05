@@ -32,7 +32,7 @@
 		<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<sec:authorize ifAllGranted="ROLE_ADMIN">
+					<sec:authorize ifAnyGranted="ROLE_COORDENADOR, ROLE_ADMIN">
 					<li>
 						<a href="<c:url value="/aluno/listarAluno" />">Aluno <span class="glyphicon glyphicon-list"></span></a>
 					</li>
@@ -44,7 +44,6 @@
 						<a href="<c:url value="coordenador/selecao/cadastrarBolsa" />">Cadastro Bolsa <span class="glyphicon glyphicon-plus"></span></a>
 					</li>				
 					</sec:authorize>
-
 					<sec:authorize ifAllGranted="ROLE_ALUNO">
 					<h1>ROLE_ALUNO</h1>
 					<li>

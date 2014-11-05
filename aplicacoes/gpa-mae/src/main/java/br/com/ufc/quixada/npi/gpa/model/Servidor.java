@@ -3,12 +3,18 @@ package br.com.ufc.quixada.npi.gpa.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import br.com.ufc.quixada.npi.enums.Cargo;
 
 @Entity
 public class Servidor {
@@ -22,23 +28,27 @@ public class Servidor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotEmpty
 	private String siape;
 	
-	@ManyToMany(mappedBy = "membrosBanca")
+	@Enumerated(EnumType.STRING)
+	private Cargo cargo;
+	
+	@ManyToMany
 	private List<SelecaoBolsa> participaBancas;
 	
 	@OneToMany(mappedBy="responsavel")
 	private List<SelecaoBolsa> responsavelBancas;
 	
 	@ManyToOne
-	private Pessoa usuario;
+	private Pessoa pessoa;
 	
-	public Pessoa getUsuario() {
-		return usuario;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setUsuario(Pessoa usuario) {
-		this.usuario = usuario;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public Integer getId() {
@@ -72,12 +82,22 @@ public class Servidor {
 	public void setResponsavelBancas(List<SelecaoBolsa> responsavelBancas) {
 		this.responsavelBancas = responsavelBancas;
 	}
+	
+	public Cargo getCargo() {
+		return cargo;
+	}
 
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
+	
 	@Override
 	public String toString() {
-		return "Servidor [id=" + id + ", siape=" + siape + ", usuario="
-				 + "]";
+		return "Servidor [id=" + id + ", siape=" + siape + ", participaBancas="
+				+ participaBancas + ", responsavelBancas=" + responsavelBancas + ", pessoa="
+				+ pessoa + "]";
 	}
+
 	
 		
 }

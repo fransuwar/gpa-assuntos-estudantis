@@ -1,6 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ufc.quixada.npi.gpa.model.Aluno;
@@ -48,8 +50,6 @@ public class AlunoController {
 			return ("aluno/alunos");
 		}
 		
-		
-		
 		this.alunoService.save(aluno);
 		this.alunoService.update(aluno);
 		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
@@ -60,17 +60,25 @@ public class AlunoController {
 
 	@Secured({"ROLE_COORDENADOR"})
 	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
-	public String listaAluno(Aluno aluno, BindingResult result,
-			Model model) {
+	public String listaAluno(Aluno aluno, BindingResult result, Model model) {
 			
 			List<Aluno> results = alunoService.find(Aluno.class);	
 			model.addAttribute("alunos", results);
 			return "aluno/listarAluno";
-		
-		
 	}
 	
+
 	@Secured({"ROLE_ALUNO", "ROLE_ADMIN"})
+
+	@RequestMapping(value = "/listarAluno", method = RequestMethod.POST)
+	public String listarAluno(@RequestParam("matricula") String matricula, Model model) {
+		List<Aluno> results = new ArrayList<Aluno>();
+		results.add(alunoService.getAlunoByMatricula(matricula));
+		model.addAttribute("alunos", results);
+		
+		return "/aluno/listarAluno";
+	}
+	
 	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		Aluno aluno = alunoService.find(Aluno.class, id);
@@ -127,6 +135,8 @@ public class AlunoController {
 		return "redirect:/aluno/listarAluno";
 		
 	}
+	
+	
 	
 	
 
