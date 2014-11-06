@@ -31,7 +31,7 @@ public class QuestionarioAuxilioMoradia {
 	@Column(nullable = false)
 	//@OneToMany(mappedBy="auxilioMoradia", cascade = CascadeType.ALL)
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name= "questionarioauxiliomoradia_id")
+	@JoinColumn(name= "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
 	
 	public enum MoraCom{

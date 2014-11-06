@@ -90,16 +90,17 @@ public class AuxilioMoradiaController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String selecaoAluno(
-	@Valid @ModelAttribute("questionarioAuxilioMoradia")
-	QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
-	BindingResult result, Model model) {
-		
-	if (result.hasErrors()) {
-		return ("inscricao/auxilio");		
-	}else{
-		this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);	
-	}
-	return "redirect:/";
+			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
+			BindingResult result, Model model) {
+
+		System.out.println();
+
+		if (result.hasErrors()) {
+			return ("inscricao/auxilio");
+		} else {
+			this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
+		}
+		return "redirect:/";
 
 	}
 		

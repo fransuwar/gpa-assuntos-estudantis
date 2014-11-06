@@ -31,7 +31,7 @@
 		<div class="novo-aluno" align="left">
 			<h2>Novo Cadastro</h2>
 
-			<form:form id="questionarioAuxilioMoradiaForm" role="form" modelAttribute="questionarioAuxilioMoradia"
+			<form:form id="questionarioForm" role="form" modelAttribute="questionarioAuxilioMoradia"
 				commandName="questionarioAuxilioMoradia" servletRelativeAction="/inscricao/auxilio/"
 				method="POST" cssClass="form-horizontal">
 
@@ -554,49 +554,7 @@
 						</div>
 					</div>
 				</div>
-
-
-            
-            <table>
-				<thead>
-					<tr>
-						<th class="form-group" width="10">Nome</th>
-						<th class="form-group">Parentesco</th>
-						<th class="form-group">Escolaridade</th>
-						<th class="form-group">Atividade</th>
-						<th class="form-group">Renda R$</th>
-					</tr>
-				</thead>
-                <tbody id="pessoaFamiliaContainer">
-                <h1>${questionarioAuxilioMoradia.ano}</h1>
-                    <c:if test="${questionarioAuxilioMoradia.pessoas == null}">
-                        <tr class="pessoaFamilia defaultRow">    
-                            <td><input type="text" name="pessoas[].nome" value="" /></td>
-                            <td>
-                            	<select name="pessoas[].grauParentesco">
-							    	<option value="" selected="selected">Grau Parentesco</option>  
-							    	<option value="Filho_a">Filho(a)</option>
-							    	<option value="Neto">Neto(a)</option>
-							    	<option value="Sobrinho">Sobrinho(a)</option>
-							    	<option value="Irmao">Irmão</option>
-							    	<option value="Conjuge_Companheiro">Cônjuge ou Companheiro(a)</option>
-							    	<option value="Outros">Outros</option>
-						    	</select>
-						    </td>
-                            <td><input type="text" name="pessoas[].escolaridade" value="" /></td>
-                            <td><input type="text" name="pessoas[].atividade" value="" /></td>
-                            <td><input type="text" name="pessoas[].renda" value="" /></td>
-                            
-                            <td><a href="#" class="removePessoa">Remove Person</a></td>
-                        </tr>
-                    </c:if>
-                </tbody>
-            </table>
-            <a href="#" id="addPessoa">Add Person</a>
-	        
-
-
-
+				<jsp:include page="pessoaFamilia.jsp" />
 	<div class="controls">
 		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" id="btn-cadastrar"/>
 		 <a href="<c:url value="/inscricao/auxilio" ></c:url>" class="btn btn-default" >Cancelar</a>
@@ -612,31 +570,7 @@
 
 	
 </body>
-        	<jsp:include page="../fragments/footer.jsp"></jsp:include>
-	        <script type="text/javascript">
-	            function rowAdded(rowElement) {
-	                $(rowElement).find("input").val('');
-	            }
-	            function rowRemoved(rowElement) {
-	                alert( "Removed Row HTML:\n" + $(rowElement).html() );
-	            }
-	            
-	            $(document).ready( function() {
-	            	console.log("ssssssssssssssssssssssssssss");
-	                var config = {
-	                    rowClass : 'pessoaFamilia',
-	                    addRowId : 'addPessoa',
-	                    removeRowClass : 'removePessoa',
-	                    formId : 'questionarioAuxilioMoradiaForm',
-	                    rowContainerId : 'pessoaFamiliaContainer',
-	                    indexedPropertyName : 'pessoas',
-	                    indexedPropertyMemberNames : 'nome, grauParentesco, escolaridade, atividade, renda',
-	                    rowAddedListener : rowAdded,
-	                    rowRemovedListener : rowRemoved,
-	                };
-	                new DynamicListHelper(config);
-	            });
-	        </script>
+
 
 
 </html>

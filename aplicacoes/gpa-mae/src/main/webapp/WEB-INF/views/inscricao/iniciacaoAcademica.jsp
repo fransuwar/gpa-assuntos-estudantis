@@ -20,7 +20,7 @@
 			<div class="form" align="center">
 				<h2>Programa de Iniciacao Academica</h2>
 				
-				<form:form id="adicionarSeleçãoForm" role="form" commandName="questionarioIniciacaoAcademica" servletRelativeAction="/inscricao/iniciacaoAcademica" method="POST" cssClass="form-horizontal">
+				<form:form id="questionarioForm" role="form" commandName="questionarioIniciacaoAcademica" servletRelativeAction="/inscricao/iniciacaoAcademica" method="POST" cssClass="form-horizontal">
 					<fieldset>
 					<legend>Moradia</legend>
 					<h3>Endereço de Residência de Origem</h3>
@@ -516,51 +516,10 @@
 						</div>
 						</div>
 					</fieldset>
-						
-	 
-					
-										
-					
-					
-					
-	
 
+				<jsp:include page="pessoaFamilia.jsp" />
 
-
-<table>
-
-  <tr><td class="form-group" width="10">Nome</td>
-  <td class="form-group">Parentesco</td>
-  <td class="form-group">Escolaridade</td>
-  <td class="form-group">Atividade</td>
-  <td class="form-group">Renda R$</td></tr>
-  <tr class="linhas">
-    <td><form:input type="text" path="pessoas[0].nome" style="text-align:center" /></td>
-    <td><form:select name="grauParentesco" path="pessoas[0].grauParentesco">
-    	<option value="" selected="selected">Grau Parentesco</option>  
-    	<option value="Filho_a">Filho(a)</option>
-    	<option value="Neto">Neto(a)</option>
-    	<option value="Sobrinho">Sobrinho(a)</option>
-    	<option value="Irmao">Irmão</option>
-    	<option value="Conjuge_Companheiro">Cônjuge ou Companheiro(a)</option>
-    	<option value="Outros">Outros</option>
-     </form:select></td>
-    <td><form:input type="text" path="pessoas[0].escolaridade" style="text-align:center" /></td>
-    <td><form:input type="text" path="pessoas[0].atividadeProfissao" style="text-align:center" /></td>
-    <td><form:input type="text" path="pessoas[0].rendaMensal" style="text-align:center" /></td>
-    
-    <td><a href="#" class="removeCampo" data-codigo="codigo" title="Remover linha" ><input name="Remover" class="btn btn-primary" value="Remover" /></a></td>
-  </tr>
-  <tr><td colspan="4">
-        <a href="#" class="adicionarCampo" title="Adicionar item" ><input name="Adicionar" class="btn btn-primary" value="Adicionar" /></a>
-	</td></tr>
-  <tr>
-
-  </tr> 
-</table>
- <BR />
  <br>
-
 		<div class="controls">
 			<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
 			<a href="<c:url value="/inscricao/iniciacaoAcademica"></c:url>" class="btn btn-default">Cancelar</a>
@@ -575,49 +534,10 @@
 
 
 		
-	<jsp:include page="../fragments/footer.jsp" />
+
 	
 	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	<script type="text/javascript">
-$(function () {
-	
-	var contador = 1;
-
-  function removeCampo() {
-	$(".removeCampo").unbind("click");
-	$(".removeCampo").bind("click", function () {
-	   if($("tr.linhas").length > 1){
-		   $(this).parent().parent().remove();
-	   }
-	   contador--;
-	});
-  }
- 
-  $(".adicionarCampo").on("click", function () {
-	novoCampo = $("tr.linhas:first").clone().attr("id", "aaa");
-	novoCampo.find("input[name*='nome']").attr("name", "pessoas["+contador+"].nome").val("");	
-	novoCampo.find("input[name*='grau']").attr("name", "pessoas["+contador+"].grauParentesco");
-	novoCampo.find("input[name*='escolaridade']").attr("name", "pessoas["+contador+"].escolaridade");
-	novoCampo.find("input[name*='atividade']").attr("name", "pessoas["+contador+"].atividadeProfissao");
-	novoCampo.find("input[name*='renda']").attr("name", "pessoas["+contador+"].rendaMensal");
-	
-	$(novoCampo).attr("class", "yyyyyyy");
-	novoCampo.insertAfter("tr.linhas:last");
- 	$("aaa").attr("id", "pessonome");
- 	
- 	contador++;
-	removeCampo();
-	
-  });
-  
-  $(".removeCampo").on("click", function (e) {
-	  console.log("e = ");
-	  removeCampo();
-  });
-
-});
-	
 	$(document).ready(function(){
 		$('#telefone').mask("(99) 9999-9999");
 		$('#telefoneCelular').mask("(99) 9999-9999");
