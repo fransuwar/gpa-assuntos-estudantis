@@ -35,7 +35,7 @@
 
 
 		<!-- Database access -->
-		<postgresql.version>9.1-901.jdbc4</postgresql.version>
+		<postgresql.version>9.3-1102-jdbc41</postgresql.version>
 
 		<!-- Spring Security -->
 		<spring.security.version>3.2.1.RELEASE</spring.security.version>
@@ -135,7 +135,7 @@
 
 		<!-- Databases - Uses POSTGRESQL by default -->
 		<dependency>
-			<groupId>postgresql</groupId>
+			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.version}</version>
 		</dependency>
