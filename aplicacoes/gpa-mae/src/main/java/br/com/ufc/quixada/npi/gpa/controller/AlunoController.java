@@ -7,9 +7,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,10 +23,8 @@ import br.com.ufc.quixada.npi.gpa.service.AlunoService;
 
 
 @Controller
-@RequestMapping("aluno")
+@RequestMapping({"aluno", "coordenador"})
 public class AlunoController {
-
-	
 
 	@Inject
 	private AlunoService alunoService;
@@ -60,15 +58,17 @@ public class AlunoController {
 
 	}
 
-	
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
-	public String listaAluno(Aluno aluno, BindingResult result, Model model) {
+	public String listaAluno(Aluno aluno, Model model) {
 			
-			List<Aluno> results = alunoService.findAll();	
+			List<Aluno> results = alunoService.find(Aluno.class);	
 			model.addAttribute("alunos", results);
 			return "aluno/listarAluno";
 	}
 	
+
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/listarAluno", method = RequestMethod.POST)
 	public String listarAluno(@RequestParam("matricula") String matricula, Model model) {
 		List<Aluno> results = new ArrayList<Aluno>();
