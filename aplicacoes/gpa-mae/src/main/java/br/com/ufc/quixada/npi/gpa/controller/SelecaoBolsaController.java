@@ -33,7 +33,7 @@ import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.com.ufc.quixada.npi.gpa.service.ServidorService;
 
 @Named
-@RequestMapping({"/selecaoBolsa", "/selecoes"})
+@RequestMapping({"/selecaoBolsa", "*/selecao"})
 public class SelecaoBolsaController {
 		
 	@Inject
@@ -43,17 +43,21 @@ public class SelecaoBolsaController {
 	@Inject	
 	private SelecaoBolsaService serviceSelecao;
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index() {
-		return "redirect:/selecaoBolsa/listarBolsa";
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	@RequestMapping(value = "/index", method = RequestMethod.GET)
+//	public String index() {
+//		return "redirect:/selecaoBolsa/listarBolsa";
+//	}
+
+	@RequestMapping(value = "/")
+	public String listar(ModelMap model) {
+		model.addAttribute("selecoes", serviceSelecao.find(SelecaoBolsa.class));
+		return "selecaoBolsa/listarBolsa";
 	}
-
-
+	
 	@RequestMapping(value="{id}/informacoes")
-	public String getInformacoes(SelecaoBolsa selecao,  @PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes){
+	public String getInformacoes(  @PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes){
 		SelecaoBolsa selecaoBolsa = serviceSelecao.find(SelecaoBolsa.class, id);
-		System.out.println(selecaoBolsa.getComentarios());
 		if(selecaoBolsa==null){
 			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
 			return "redirect:/selecaoBolsa/listarBolsa";
@@ -63,12 +67,6 @@ public class SelecaoBolsaController {
 		return "selecaoBolsa/informacoes";
 	}
 	
-	@RequestMapping(value="/informacoesAuxilio", method=RequestMethod.GET)
-	public String informacoesAuxilio(){
-		return "selecaoBolsa/informacoesAuxilio";
-	}
-	
-
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.GET)
 	public String cadastro(Model model) {
@@ -157,14 +155,6 @@ public class SelecaoBolsaController {
 		}
 		return "redirect:/selecaoBolsa/listarBolsa";
 
-	}
-
-	
-	@RequestMapping(value = "/listarBolsa")
-	public String listar(ModelMap model) {
-		model.addAttribute("selecoes",
-				serviceSelecao.find(SelecaoBolsa.class));
-		return "selecaoBolsa/listarBolsa";
 	}
 
 	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.GET)
