@@ -7,10 +7,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -42,12 +40,6 @@ public class SelecaoBolsaController {
 	private ServidorService servidorService;
 	@Inject	
 	private SelecaoBolsaService serviceSelecao;
-	
-//	@PreAuthorize("hasRole('ROLE_ADMIN')")
-//	@RequestMapping(value = "/index", method = RequestMethod.GET)
-//	public String index() {
-//		return "redirect:/selecaoBolsa/listarBolsa";
-//	}
 
 	@RequestMapping(value = "/")
 	public String listar(ModelMap model) {
@@ -68,7 +60,7 @@ public class SelecaoBolsaController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.GET)
+	@RequestMapping(value = "selecao/cadastrarBolsa", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("selecao", new SelecaoBolsa());
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
@@ -76,8 +68,8 @@ public class SelecaoBolsaController {
 	}
 
 
-
-	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
+	@RequestMapping(value = "selecao/cadastrarBolsa", method = RequestMethod.POST)
 	public String adicionarselecao(
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
@@ -90,7 +82,6 @@ public class SelecaoBolsaController {
 		redirect.addFlashAttribute("info", "seleção cadastrada com sucesso.");
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
-
 
 	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
@@ -107,6 +98,7 @@ public class SelecaoBolsaController {
 	}
 
 
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.POST)
 	public String atualizarSelecao(
 			@RequestParam("file") MultipartFile[] files, 
@@ -136,7 +128,7 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 	
-	@RequestMapping(value = "/{id}/excluir")
+	@RequestMapping(value = "/{id}/exclui")
 	public String excluirSelecao(SelecaoBolsa p,
 			@PathVariable("id") Integer id,
 			RedirectAttributes redirectAttributes) {
@@ -157,6 +149,10 @@ public class SelecaoBolsaController {
 
 	}
 
+
+	
+
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirectAttributes) {
@@ -166,6 +162,8 @@ public class SelecaoBolsaController {
 		return "selecaoBolsa/atribuirBanca";
 	}
 
+
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/atribuirBanca", method = RequestMethod.POST)
 	public String atribuirPareceristaNoProjeto(
 			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
