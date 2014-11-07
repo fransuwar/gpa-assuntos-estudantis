@@ -87,7 +87,7 @@ uri="http://www.springframework.org/security/tags"%>
 										</a>
 										</c:if>
 										</sec:authorize>
-										<sec:authorize access="permitAll">
+										<sec:authorize access="isAnonymous()">
 										
 										<a id="informacoes" href="<c:url value="/selecaoBolsa/${selecao.id}/informacoes/" ></c:url>">
 											<button class=" btn btn-success">+ Informações <span class="glyphicon glyphicon-zoom-in"></span></button>
