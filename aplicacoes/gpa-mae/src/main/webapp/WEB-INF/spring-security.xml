@@ -10,11 +10,6 @@
   
 	<http auto-config="true" use-expressions="true">
 		<access-denied-handler error-page="/403" />
- 		<intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" /> 
- 		<intercept-url pattern="/webjars/**" access="IS_AUTHENTICATED_ANONYMOUSLY" /> 		
- 		<intercept-url pattern="/aluno/**" access="ROLE_ADMIN, ROLE_COORDENADOR" />
- 		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
- 		<intercept-url pattern="/selecao/**" access="ROLE_COORDENADOR" />
  		<intercept-url pattern="/login*" access="permitAll" />
  		<intercept-url pattern="/webjars/**" access="permitAll" />
  		<intercept-url pattern="/selecaoBolsa/**" access="permitAll"/>
