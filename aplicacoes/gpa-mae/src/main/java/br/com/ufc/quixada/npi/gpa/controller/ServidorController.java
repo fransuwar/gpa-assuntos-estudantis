@@ -30,6 +30,7 @@ public class ServidorController {
 	@Inject
 	private ServidorService servidorService;
 	
+
 	@RequestMapping(value = "/cadastrarServidor", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		List<Cargo> cargos = new ArrayList<Cargo>(Arrays.asList(Cargo.values()));
