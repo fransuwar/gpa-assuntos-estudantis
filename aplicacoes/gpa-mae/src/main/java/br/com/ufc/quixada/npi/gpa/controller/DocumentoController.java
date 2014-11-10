@@ -6,7 +6,6 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;

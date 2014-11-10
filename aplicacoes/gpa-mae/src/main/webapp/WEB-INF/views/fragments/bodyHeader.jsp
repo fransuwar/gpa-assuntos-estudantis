@@ -36,20 +36,38 @@
 					<li>
 						<a href="<c:url value="/aluno/listarAluno" />">Aluno <span class="glyphicon glyphicon-list"></span></a>
 					</li>
+					</sec:authorize>
+
+					<sec:authorize ifAllGranted="ROLE_COORDENADOR" >
+					<h1>ROLE_COORDENADOR</h1>
 					<li>
-						<a href="<c:url value="/selecaoBolsa/cadastrarBolsa" />">Seleção de Bolsa <span class="glyphicon glyphicon-plus"></span></a>
+						<a href="<c:url value="coordenador/selecao/cadastrarBolsa" />">Cadastro Bolsa <span class="glyphicon glyphicon-plus"></span></a>
+					</li>				
+					</sec:authorize>
+					<sec:authorize ifAllGranted="ROLE_ALUNO">
+					<h1>ROLE_ALUNO</h1>
+					<li>
+						<a href="<c:url value="/inscricao/iniciacaoAcademica" />">Inscrição Iniciação Acadêmica <span class="glyphicon glyphicon-plus"></span></a>
 					</li>
 					</sec:authorize>
-					
+
+					<sec:authorize access="isAuthenticated()">
+
 					<li>
 						<a href="<c:url value="/j_spring_security_logout" />">Sair <span class="glyphicon glyphicon-off"></span></a>
 					</li>
+					</sec:authorize>
 					
+					<sec:authorize access="isAnonymous()">
+					<li>
+						<a href="<c:url value="/login" />">Login </a>
+					</li>
+					</sec:authorize>
 					
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a style="font-weight: bold;">Bem vindo, ${sessionScope.usuario.nome}!</a> 
+						<a style="font-weight: bold;">Bem vindo, ${sessionScope.pessoa.login}!</a> 
 					</li>
 				</ul>
 			</div>

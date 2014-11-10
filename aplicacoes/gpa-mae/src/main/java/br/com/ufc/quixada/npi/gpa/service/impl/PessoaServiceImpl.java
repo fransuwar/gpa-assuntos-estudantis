@@ -4,26 +4,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ufc.quixada.npi.gpa.model.Papel;
 import br.com.ufc.quixada.npi.gpa.model.Pessoa;
-import br.com.ufc.quixada.npi.gpa.repository.PessoaRepository;
-import br.com.ufc.quixada.npi.gpa.repository.QueryType;
 import br.com.ufc.quixada.npi.gpa.service.PessoaService;
+import br.ufc.quixada.npi.enumeration.QueryType;
+import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
 
 @Named
 public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements PessoaService {
 
-	@Inject
-	PessoaRepository pessoaRepository;
 	
 	@Override
 	public Pessoa getPessoaByLogin(String login) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put( "login", login);
-		Pessoa pessoaLogada = pessoaRepository.find(QueryType.JPQL, "from Pessoa where login = :login", params).get(0);
+		Pessoa pessoaLogada = find(QueryType.JPQL, "from Pessoa where login = :login", params).get(0);
 		return pessoaLogada;
 	}
 
@@ -31,7 +28,7 @@ public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements Pes
 	public List<Pessoa> getPareceristas(Long id) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put( "id", id);
-		List<Pessoa> pessoas = pessoaRepository.find(QueryType.JPQL, "from Pessoa u where u.id != :id", params);
+		List<Pessoa> pessoas = find(QueryType.JPQL, "from Pessoa u where u.id != :id", params);
 		return pessoas;
 	}
 
