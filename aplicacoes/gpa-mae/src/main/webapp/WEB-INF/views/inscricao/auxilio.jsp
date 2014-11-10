@@ -45,7 +45,7 @@
 				<div class="form-group">
 					<label for="nomeMae" class="col-sm-2 control-label">Nome da Mãe:</label>
 					<div class="col-sm-10">
-						<form:input id="nomeMae" type="text" path="nomeMae" cssClass="form-control data" placeholder="Nome da Mãe" />
+						<form:input id="nomeMae" type="text" path="nomeMae" cssClass="form-control" placeholder="Nome da Mãe" />
 						<div class="error-validation">
 							<form:errors path="nomeMae"></form:errors>
 						</div>
@@ -555,12 +555,14 @@
 					</div>
 				</div>
 				<jsp:include page="pessoaFamilia.jsp" />
+				
 	<div class="controls">
 		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" id="btn-cadastrar"/>
 		 <a href="<c:url value="/inscricao/auxilio" ></c:url>" class="btn btn-default" >Cancelar</a>
 	</div>
 
 
+		
 </form:form>
 		</div>
 	</div>

@@ -27,23 +27,23 @@
                         <td><input type="text" name="pessoas[].atividade" value="" /></td>
                         <td><input type="text" name="pessoas[].renda" value="" /></td>
                         
-                        <td><a href="#" class="removePessoa">Remove Person</a></td>
+                        <td><a href="#" class="removePessoa"  >Remove Pessoa</a></td>
                     </tr>
                 </c:if>
             </tbody>
         </table>
-        <a href="#" id="addPessoa">Add Person</a>
+        <a href="#" id="addPessoa" class="btn btn-primary" >Adicionar Pessoa</a>
     	<jsp:include page="../fragments/footer.jsp"></jsp:include>
      <script type="text/javascript">
          function rowAdded(rowElement) {
              $(rowElement).find("input").val('');
          }
          function rowRemoved(rowElement) {
-             alert( "Removed Row HTML:\n" + $(rowElement).html() );
+//              alert( "Removed Row HTML:\n" + $(rowElement).html() );
          }
          
          $(document).ready( function() {
-         	console.log("ssssssssssssssssssssssssssss");
+//          	console.log("ssssssssssssssssssssssssssss");
              var config = {
                  rowClass : 'pessoaFamilia',
                  addRowId : 'addPessoa',
