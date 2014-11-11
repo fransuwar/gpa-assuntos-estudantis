@@ -4,7 +4,9 @@
 Gestão de Programas Acadêmicos - Módulo de Assuntos Estudantis
 
 ## Criando usuários no banco de dados para realização de testes
+```
 senha: teste1234 - sha256: "97e7ae26dd76600646701e97840d52b6ab7cb23cd03f8fa8e50640d84b52b5e1"
+````
 
 ```sql
 insert into pessoa (email, habilitado, login, password) values ('aluno@ufc.br',true, 'aluno', '97e7ae26dd76600646701e97840d52b6ab7cb23cd03f8fa8e50640d84b52b5e1');
