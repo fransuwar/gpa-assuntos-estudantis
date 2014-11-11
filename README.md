@@ -9,9 +9,9 @@ senha: teste1234 - sha256: "97e7ae26dd76600646701e97840d52b6ab7cb23cd03f8fa8e506
 ````
 
 ```sql
-insert into pessoa (email, habilitado, login, password) values ('aluno@ufc.br',true, 'aluno', '97e7ae26dd76600646701e97840d52b6ab7cb23cd03f8fa8e50640d84b52b5e1');
-insert into pessoa (email, habilitado, login, password) values ('admin@ufc.br',true, 'admin', '97e7ae26dd76600646701e97840d52b6ab7cb23cd03f8fa8e50640d84b52b5e1');
-insert into pessoa (email, habilitado, login, password) values ('coord@ufc.br',true, 'coord', '97e7ae26dd76600646701e97840d52b6ab7cb23cd03f8fa8e50640d84b52b5e1');
+insert into pessoa (nome, email, habilitado, login, password) values ('Usuário Aluno', 'aluno@ufc.br', true, 'aluno', '97e7ae26dd76600646701e97840d52b6ab7cb23cd03f8fa8e50640d84b52b5e1');
+insert into pessoa (nome, email, habilitado, login, password) values ('Usuário Admin', 'admin@ufc.br', true, 'admin', '97e7ae26dd76600646701e97840d52b6ab7cb23cd03f8fa8e50640d84b52b5e1');
+insert into pessoa (nome, email, habilitado, login, password) values ('Usuário Coordenador', 'coord@ufc.br', true, 'coord', '97e7ae26dd76600646701e97840d52b6ab7cb23cd03f8fa8e50640d84b52b5e1');
 
 insert into papel (nome) values ('ROLE_ALUNO');
 insert into papel (nome) values ('ROLE_ADMIN');
