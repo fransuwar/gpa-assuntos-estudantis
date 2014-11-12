@@ -34,7 +34,7 @@ public class Servidor {
 	@Enumerated(EnumType.STRING)
 	private Cargo cargo;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "membrosBanca")
 	private List<SelecaoBolsa> participaBancas;
 	
 	@OneToMany(mappedBy="responsavel")

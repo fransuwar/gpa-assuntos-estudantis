@@ -4,15 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -181,13 +179,31 @@ public class SelecaoBolsaController {
 		redirect.addFlashAttribute("membrosBanca", (selecao.getId()));
 
 		List<Servidor> list = new ArrayList<Servidor>();
-		list.add(servidorService.find(Servidor.class, id1));
-		list.add(servidorService.find(Servidor.class, id2));
-		list.add(servidorService.find(Servidor.class, id3));
-
+		Servidor servidor = servidorService.find(Servidor.class, id1);
+		servidor.getParticipaBancas().add(selecao);
+ 		list.add(servidor);
+ 		
+ 		servidor = servidorService.find(Servidor.class, id2); 
+ 		servidor.getParticipaBancas().add(selecao);
+ 		list.add(servidor);
+ 		
+		servidor = servidorService.find(Servidor.class, id3); 
+		servidor.getParticipaBancas().add(selecao);
+		list.add(servidor);
+		
 		selecao.setMembrosBanca(list);
 
-		serviceSelecao.update(selecao);
+//		SelecaoBolsa selecao = new SelecaoBolsa();
+//		selecao.setId(id);
+//		List<Servidor> list = new ArrayList<Servidor>();
+//		Servidor servidor = new Servidor();
+//		servidor.setId(id1);
+//		servidor.setParticipaBancas(participaBancas);
+//		list.add(servidor);
+			
+		
+		
+		serviceSelecao.update(selecao);		
 		redirect.addFlashAttribute("info",
 				"O parecerista foi atribuído ao projeto com sucesso.");
 
