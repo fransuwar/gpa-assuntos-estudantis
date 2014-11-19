@@ -21,6 +21,8 @@
  		<logout logout-success-url="/selecaoBolsa/listarBolsa" invalidate-session="true"/>
  	</http>
 
+		<beans:bean id="authenticationSuccessHandlerImpl" class="br.com.ufc.quixada.npi.gpa.controller.AuthenticationSuccessHandlerImpl" />
+
  	<authentication-manager>
 		<authentication-provider>
 			<password-encoder hash="sha-256"/>

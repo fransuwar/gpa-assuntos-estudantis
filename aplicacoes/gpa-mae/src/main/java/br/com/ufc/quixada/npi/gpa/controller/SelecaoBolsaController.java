@@ -160,16 +160,16 @@ public class SelecaoBolsaController {
 		return "selecao/listar";
 	}
 
-	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/atribuir", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirectAttributes) {
 
 		model.addAttribute("selecao", id);
 		model.addAttribute("servidores", servidorService.find(Servidor.class));
-		return "selecao/atribuirBanca";
+		return "selecao/atribuir";
 	}
 
-	@RequestMapping(value = "/atribuirBanca", method = RequestMethod.POST)
+	@RequestMapping(value = "/atribuir", method = RequestMethod.POST)
 	public String atribuirPareceristaNoProjeto(
 			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
 			@RequestParam("id3") Integer id3, @RequestParam("id") Integer id,
