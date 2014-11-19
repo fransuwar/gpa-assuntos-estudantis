@@ -65,7 +65,7 @@ uri="http://www.springframework.org/security/tags"%>
 											<a id="atribuirBanca"
 														href="<c:url value="/selecaoBolsa/${selecao.id}/atribuirBanca" ></c:url>">
 														<button class="btn btn-primary">
-															Atribuir Parecerista <span
+															Adicionar membro da banca <span
 																class="glyphicon glyphicon-user"></span>
 														</button>
 													</a>

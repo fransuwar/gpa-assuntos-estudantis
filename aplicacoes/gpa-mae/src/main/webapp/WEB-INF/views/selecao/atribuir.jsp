@@ -28,19 +28,19 @@
 						<div class="col-sm-4">
 							<select name="id1" class="form-control">
 								<c:forEach items="${servidores}" var="servidor">
-									<option value="${servidor.id}">${servidor.usuario.nome}</option>
+									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
 								</c:forEach>
 							</select>
 							<label for="servidor" class="col-sm-2 control-label">Parecerista:</label>
 							<select name="id2" class="form-control">
 								<c:forEach items="${servidores}" var="servidor">
-									<option value="${servidor.id}">${servidor.usuario.nome}</option>
+									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
 								</c:forEach>
 							</select>
 							<label for="servidor" class="col-sm-2 control-label">Parecerista:</label>
 							<select name="id3" class="form-control">
 								<c:forEach items="${servidores}" var="servidor">
-									<option value="${servidor.id}">${servidor.usuario.nome}</option>
+									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
 								</c:forEach>
 							</select>
 					
