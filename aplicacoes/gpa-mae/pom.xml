@@ -35,7 +35,7 @@
 
 
 		<!-- Database access -->
-		<postgresql.version>9.1-901.jdbc4</postgresql.version>
+		<postgresql.version>9.3-1102-jdbc41</postgresql.version>
 
 		<!-- Spring Security -->
 		<spring.security.version>3.2.1.RELEASE</spring.security.version>
@@ -53,9 +53,22 @@
 
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>npi-mvn-repo</id>
+			<url>http://npi-ufc-qxd.github.io/npi-mvn-repo/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 
 
+	<dependency>
+		<groupId>br.ufc.quixada.npi</groupId>
+		<artifactId>npi-core-api</artifactId>
+		<version>0.0.8</version>
+	</dependency>
+		
 		<!-- JSP API -->
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
@@ -135,7 +148,7 @@
 
 		<!-- Databases - Uses POSTGRESQL by default -->
 		<dependency>
-			<groupId>postgresql</groupId>
+			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.version}</version>
 		</dependency>
@@ -149,28 +162,28 @@
 
 		<!-- Spring Security -->
 
- 		<dependency>
- 			<groupId>org.springframework.security</groupId>
- 			<artifactId>spring-security-core</artifactId>
- 			<version>${spring.security.version}</version>
- 		</dependency>
-  
- 		<dependency>
- 			<groupId>org.springframework.security</groupId>
- 			<artifactId>spring-security-web</artifactId>
- 			<version>${spring.security.version}</version>
- 		</dependency>
-  
- 		<dependency>
- 			<groupId>org.springframework.security</groupId>
- 			<artifactId>spring-security-config</artifactId>
- 			<version>${spring.security.version}</version>
- 		</dependency>
- 	
 		<dependency>
- 			<groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-taglibs</artifactId>
- 			<version>${spring.security.version}</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.version}</version>
 		</dependency>
 
 		<!-- Webjars (static dependencies distributed as JAR files) -->

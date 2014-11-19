@@ -64,7 +64,7 @@ public class ServidorController {
 	public String listaServidor(Servidor servidor, BindingResult result,
 			Model model) {
 			
-			List<Servidor> results = servidorService.findAll();	
+			List<Servidor> results = servidorService.find(Servidor.class);	
 			model.addAttribute("servidores", results);
 			return "servidor/listarServidor";
 	}

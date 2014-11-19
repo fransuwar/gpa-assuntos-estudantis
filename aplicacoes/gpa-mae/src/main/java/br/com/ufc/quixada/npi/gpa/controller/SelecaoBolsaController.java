@@ -33,7 +33,7 @@ import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.com.ufc.quixada.npi.gpa.service.ServidorService;
 
 @Named
-@RequestMapping({"/selecaoBolsa", "/selecoes"})
+@RequestMapping({"/selecaoBolsa", "*/selecao"})
 public class SelecaoBolsaController {
 
 	@Inject
@@ -42,18 +42,32 @@ public class SelecaoBolsaController {
 	private ServidorService servidorService;
 	@Inject
 	private SelecaoBolsaService serviceSelecao;
+
+	@RequestMapping(value = "/")
+	public String listar(ModelMap model) {
+		model.addAttribute("selecoes", serviceSelecao.find(SelecaoBolsa.class));
+		return "selecaoBolsa/listarBolsa";
+	}
+	
+	@RequestMapping(value="{id}/informacoes")
+	public String getInformacoes(  @PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes){
+		SelecaoBolsa selecaoBolsa = serviceSelecao.find(SelecaoBolsa.class, id);
+		if(selecaoBolsa==null){
+			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
+			return "redirect:/selecaoBolsa/listarBolsa";
+		}
+		model.addAttribute("selecao",selecaoBolsa);
+		
+		return "selecaoBolsa/informacoes";
+	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index() {
-		return "redirect:/selecaoBolsa/listarBolsa";
-	}
 
-
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.GET)
+
+	@RequestMapping(value = "selecao/cadastrarBolsa", method = RequestMethod.GET)
+
 	public String cadastro(Model model) {
 		model.addAttribute("selecao", new SelecaoBolsa());
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
@@ -61,6 +75,11 @@ public class SelecaoBolsaController {
 	}
 
 	@RequestMapping(value = "/cadastrarBolsa", method = RequestMethod.POST)
+
+
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
+	@RequestMapping(value = "selecao/cadastrarBolsa", method = RequestMethod.POST)
+
 	public String adicionarselecao(
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
@@ -101,6 +120,10 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 
+
+
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
+
 	@RequestMapping(value = "/{id}/editarBolsa", method = RequestMethod.POST)
 	public String atualizarSelecao(
 			@RequestParam("file") MultipartFile[] files,
@@ -131,7 +154,10 @@ public class SelecaoBolsaController {
 		return "redirect:/selecaoBolsa/listarBolsa";
 	}
 
+
 	@RequestMapping(value = "/{id}/excluir")
+
+	@RequestMapping(value = "/{id}/exclui")
 	public String excluirSelecao(SelecaoBolsa p,
 			@PathVariable("id") Integer id,
 			RedirectAttributes redirectAttributes) {
@@ -153,12 +179,14 @@ public class SelecaoBolsaController {
 	}
 
 
+
 	@RequestMapping(value = "/listarBolsa")
 	public String listar(ModelMap model) {
 		model.addAttribute("selecoes", serviceSelecao.find(SelecaoBolsa.class));
 		return "selecaoBolsa/listarBolsa";
 	}
 
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/{id}/atribuirBanca", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirectAttributes) {
@@ -168,6 +196,8 @@ public class SelecaoBolsaController {
 		return "selecaoBolsa/atribuirBanca";
 	}
 
+
+	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
 	@RequestMapping(value = "/atribuirBanca", method = RequestMethod.POST)
 	public String atribuirPareceristaNoProjeto(
 			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
