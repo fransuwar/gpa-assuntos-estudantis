@@ -13,7 +13,7 @@
  		<intercept-url pattern="/login*" access="permitAll" />
  		<intercept-url pattern="/webjars/**" access="permitAll" />
  		<intercept-url pattern="/selecaoBolsa/**" access="permitAll"/>
- 		<intercept-url pattern="aluno/**" access="hasRole('ROLE_ALUNO', 'ROLE_ADMIN','ROLE_COORDENADOR')" />
+ 		<intercept-url pattern="/aluno/**" access="hasRole('ROLE_ALUNO, ROLE_ADMIN,ROLE_COORDENADOR')" />
  		<intercept-url pattern="/WEB-INF/views/index*/" access="permitAll"/>
  		 		
  		<form-login login-page="/login" default-target-url="/" authentication-success-handler-ref="authenticationSuccessHandlerImpl"
