@@ -97,7 +97,7 @@
 					
 					<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Editar" />
-						<a href="<c:url value="/aluno/listarAluno"></c:url>" class="btn btn-default">Cancelar</a>
+						<a href="<c:url value="/aluno/listar"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 					
 			</form:form>		

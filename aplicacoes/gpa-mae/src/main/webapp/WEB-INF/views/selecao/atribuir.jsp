@@ -21,26 +21,26 @@
 				<h2>Atribuir Membros da Banca</h2>
 				
 
-				<form:form id="adicionarBancaForm" role="form" commandName="atribuirBanca" servletRelativeAction="/selecaoBolsa/atribuirBanca" method="POST" cssClass="form-horizontal">
+				<form:form id="adicionarBancaForm" role="form" commandName="atribuir" servletRelativeAction="/selecao/atribuir" method="POST" cssClass="form-horizontal">
 						<input type="hidden" name="id" value="${selecao}">
 					<div class="form-group">
 						<label for="servidor" class="col-sm-2 control-label">Parecerista:</label>
 						<div class="col-sm-4">
 							<select name="id1" class="form-control">
 								<c:forEach items="${servidores}" var="servidor">
-									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
+									<option value="${servidor.id}">${servidor.usuario.nome}</option>
 								</c:forEach>
 							</select>
 							<label for="servidor" class="col-sm-2 control-label">Parecerista:</label>
 							<select name="id2" class="form-control">
 								<c:forEach items="${servidores}" var="servidor">
-									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
+									<option value="${servidor.id}">${servidor.usuario.nome}</option>
 								</c:forEach>
 							</select>
 							<label for="servidor" class="col-sm-2 control-label">Parecerista:</label>
 							<select name="id3" class="form-control">
 								<c:forEach items="${servidores}" var="servidor">
-									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
+									<option value="${servidor.id}">${servidor.usuario.nome}</option>
 								</c:forEach>
 							</select>
 					
@@ -51,7 +51,7 @@
 			
 						<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Atribuir" />
-						<a href="<c:url value="/selecaoBolsa/listarBolsa"></c:url>" class="btn btn-default">Cancelar</a>
+						<a href="<c:url value="/selecao/listar"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 			</form:form>
 			</div>

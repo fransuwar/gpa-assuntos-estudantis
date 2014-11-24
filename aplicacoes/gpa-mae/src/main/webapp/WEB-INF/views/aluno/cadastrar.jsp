@@ -20,7 +20,7 @@
 		 <div class="container">
 		<div class="novo-aluno" align="left">
 		<h2>Novo Aluno</h2>
-				<form:form id="adicionarAlunoForm" role="form" commandName="aluno" servletRelativeAction="/aluno/alunos" method="POST" cssClass="form-horizontal">
+				<form:form id="adicionarAlunoForm" role="form" commandName="aluno" servletRelativeAction="/aluno/cadastrar" method="POST" cssClass="form-horizontal">
 					
 					<div class="form-group">
 						<label for="matricula" class="col-sm-2 control-label" >Matricula:</label>
@@ -95,7 +95,7 @@
 					
 					<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
-						<a href="<c:url value="/aluno/listarAluno"></c:url>" class="btn btn-default">Cancelar</a>
+						<a href="<c:url value="/aluno/listar"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 					
 			</form:form>		

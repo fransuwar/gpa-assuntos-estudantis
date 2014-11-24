@@ -16,7 +16,7 @@ uri="http://www.springframework.org/security/tags"%>
 		
 		<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDENADOR')">
 		<div align="right" style="margin-bottom: 20px;">
-			<a href="<c:url value="/selecaoBolsa/cadastrarBolsa" ></c:url>">
+			<a href="<c:url value="/selecao/cadastrar" ></c:url>">
 				<button class="btn btn-primary">Nova seleção <span class="glyphicon glyphicon-plus"></span></button>
 			</a>
 		</div>
@@ -51,11 +51,11 @@ uri="http://www.springframework.org/security/tags"%>
 								
 								<td>												
 										<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDENADOR')">
-										<a id="editar" href="<c:url value="/selecaoBolsa/${selecao.id}/editarBolsa" ></c:url>">
+										<a id="editar" href="<c:url value="/selecao/${selecao.id}/editar" ></c:url>">
 											<button class="btn btn-info">Editar <span class="glyphicon glyphicon-pencil"></span></button>
 										</a>
 						
-										<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/selecaoBolsa/${selecao.id}/excluir" ></c:url>">
+										<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/selecao/${selecao.id}/excluir" ></c:url>">
 											<button class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
 										</a>
 
@@ -63,9 +63,9 @@ uri="http://www.springframework.org/security/tags"%>
 
 											<sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
 											<a id="atribuirBanca"
-														href="<c:url value="/selecaoBolsa/${selecao.id}/atribuirBanca" ></c:url>">
+														href="<c:url value="/selecao/${selecao.id}/atribuir" ></c:url>">
 														<button class="btn btn-primary">
-															Adicionar membro da banca <span
+															Atribuir Membro à Banca <span
 																class="glyphicon glyphicon-user"></span>
 														</button>
 													</a>
@@ -89,7 +89,7 @@ uri="http://www.springframework.org/security/tags"%>
 										</sec:authorize>
 										<sec:authorize access="isAnonymous()">
 										
-										<a id="informacoes" href="<c:url value="/selecaoBolsa/${selecao.id}/informacoes/" ></c:url>">
+										<a id="informacoes" href="<c:url value="/selecao/${selecao.id}/informacoes/" ></c:url>">
 											<button class=" btn btn-success">+ Informações <span class="glyphicon glyphicon-zoom-in"></span></button>
 										</a>
 										</sec:authorize>
