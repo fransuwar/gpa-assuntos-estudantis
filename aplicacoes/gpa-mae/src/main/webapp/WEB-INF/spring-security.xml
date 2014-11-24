@@ -12,13 +12,25 @@
 		<access-denied-handler error-page="/403" />
  		<intercept-url pattern="/login*" access="permitAll" />
  		<intercept-url pattern="/webjars/**" access="permitAll" />
- 		<intercept-url pattern="/selecaoBolsa/**" access="permitAll"/>
- 		<intercept-url pattern="/aluno/**" access="hasRole('ROLE_ALUNO, ROLE_ADMIN,ROLE_COORDENADOR')" />
+
+ 		<intercept-url pattern="/selecao/*/informacoes" access="permitAll"/>
+ 		<intercept-url pattern="/selecao/listar" access="permitAll"/>
+ 		<intercept-url pattern="/selecao/**" access="hasRole('ROLE_COORDENADOR')" />
+
+ 		<intercept-url pattern="/auxilio/**" access="hasRole('ROLE_ALUNO')" />
+ 		<intercept-url pattern="/iniciacao/**" access="hasRole('ROLE_ALUNO')" />
+
+ 		<intercept-url pattern="/aluno/*/editarAluno" access="hasRole('ROLE_ALUNO')" />
+ 		<intercept-url pattern="/aluno/listarAluno" access="hasRole('ROLE_COORDENADOR')" />
+ 		<intercept-url pattern="/aluno/**" access="hasRole('ROLE_ADMIN')" />
+
+ 		<intercept-url pattern="/servidor/**" access="hasRole('ROLE_ADMIN')" />
+ 		
  		<intercept-url pattern="/WEB-INF/views/index*/" access="permitAll"/>
  		 		
  		<form-login login-page="/login" default-target-url="/" authentication-success-handler-ref="authenticationSuccessHandlerImpl"
  		authentication-failure-url="/loginfailed" />
- 		<logout logout-success-url="/selecaoBolsa/listarBolsa" invalidate-session="true"/>
+ 		<logout logout-success-url="/selecao/listarBolsa" invalidate-session="true"/>
  	</http>
 
 		<beans:bean id="authenticationSuccessHandlerImpl" class="br.com.ufc.quixada.npi.gpa.controller.AuthenticationSuccessHandlerImpl" />

@@ -43,7 +43,7 @@ public class AuthenticationSuccessHandlerImpl implements
 				return "/admin/aluno/";
 
 			case "ROLE_COORDENADOR":
-				return "/coordenador/selecoes/";
+				return "/coordenador/selecao/";
 
 			case "ROLE_ALUNO":
 				return "/aluno/selecao/";

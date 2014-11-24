@@ -29,12 +29,7 @@ public class AlunoController {
 	@Inject
 	private AlunoService alunoService;
 	
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index() {
-		return "aluno/listarAluno";
-	}
-	
+
 	@RequestMapping(value = "/alunos", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("aluno", new Aluno());
@@ -58,7 +53,7 @@ public class AlunoController {
 
 	}
 
-	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
+	
 	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
 	public String listaAluno(Aluno aluno, Model model) {
 			
@@ -68,7 +63,7 @@ public class AlunoController {
 	}
 	
 
-	@PreAuthorize("hasRole('ROLE_COORDENADOR')")
+	
 	@RequestMapping(value = "/listarAluno", method = RequestMethod.POST)
 	public String listarAluno(@RequestParam("matricula") String matricula, Model model) {
 		List<Aluno> results = new ArrayList<Aluno>();

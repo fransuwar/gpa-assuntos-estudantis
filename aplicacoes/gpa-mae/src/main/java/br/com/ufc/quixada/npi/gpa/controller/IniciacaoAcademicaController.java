@@ -26,7 +26,7 @@ import br.com.ufc.quixada.npi.gpa.service.PessoaService;
 
 
 @Controller
-@RequestMapping("inscricao")
+@RequestMapping("iniciacaoAcademica")
 public class IniciacaoAcademicaController {
 	
 	
@@ -36,14 +36,8 @@ public class IniciacaoAcademicaController {
 	
 	@Inject
 	private PessoaService servicePessoa;	
-			
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index(){
-		return "redirect:/inscricao/iniciacaoAcademica";
-	}
 	
-	
-	@RequestMapping(value="/iniciacaoAcademica", method = RequestMethod.GET)
+	@RequestMapping(value="/inscricao", method = RequestMethod.GET)
 	 public String cadastro(Model modelo){
 		modelo.addAttribute("questionarioIniciacaoAcademica", new QuestionarioIniciacaoAcademica());
 		//modelo.addAttribute("NivelInstrução", NivelInstrucao.values());
@@ -65,7 +59,7 @@ public class IniciacaoAcademicaController {
 	}
 	
 	
-	@RequestMapping(value="/iniciacaoAcademica", method = RequestMethod.POST)
+	@RequestMapping(value="/inscricao", method = RequestMethod.POST)
      public String adicionaAuxilio(@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica, BindingResult result, HttpSession session, RedirectAttributes redirect ){
 		if(result.hasErrors()){
 			return ("inscricao/iniciacaoAcademica");
@@ -74,7 +68,7 @@ public class IniciacaoAcademicaController {
 		this.iniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
 		redirect.addFlashAttribute("info", "Projeto cadastrado com sucesso.");
 		
-		return "redirect:/inscricao/index";
+		return "redirect:/selecao/listar";
 	}
 }	 
 	
