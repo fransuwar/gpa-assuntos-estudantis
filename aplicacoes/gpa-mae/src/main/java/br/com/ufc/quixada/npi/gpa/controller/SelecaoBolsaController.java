@@ -32,7 +32,7 @@ import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.com.ufc.quixada.npi.gpa.service.ServidorService;
 
 @Named
-@RequestMapping("/selecao")
+@RequestMapping("selecao")
 public class SelecaoBolsaController {
 
 	@Inject
@@ -40,12 +40,12 @@ public class SelecaoBolsaController {
 	@Inject
 	private ServidorService servidorService;
 	@Inject
-	private SelecaoBolsaService serviceSelecao;
+	private SelecaoBolsaService selecaoService;
 
 	@RequestMapping(value = "{id}/informacoes")
 	public String getInformacoes(@PathVariable("id") Integer id, Model model,
 			RedirectAttributes redirectAttributes) {
-		SelecaoBolsa selecao = serviceSelecao.find(SelecaoBolsa.class, id);
+		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 		if (selecao == null) {
 			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
 			return "redirect:/selecao/listar";
@@ -78,20 +78,20 @@ public class SelecaoBolsaController {
 					"Digite um ano maior ou igual ao atual");
 			return ("selecao/cadastrar");
 		}
-		if (serviceSelecao.existsSelecaoEquals(selecao)) {
+		if (selecaoService.existsSelecaoEquals(selecao)) {
 			model.addAttribute("editalError",
 					"Numero do edital ou tipo de Bolsa ja existente");
 			return "selecao/cadastrar";
 		} else {
 			selecao.setStatus(Status.NOVA);
-			this.serviceSelecao.save(selecao);
+			this.selecaoService.save(selecao);
 		}
 		return "redirect:/selecao/listar";
 	}
 
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
-		SelecaoBolsa selecao = serviceSelecao.find(SelecaoBolsa.class, id);
+		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 		if (selecao.getStatus().equals(Status.NOVA)) {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "editar");
@@ -128,7 +128,7 @@ public class SelecaoBolsaController {
 				documentoService.save(documento);
 			}
 
-			this.serviceSelecao.update(selecaoAtualizado);
+			this.selecaoService.update(selecaoAtualizado);
 		}
 		return "redirect:/selecao/listar";
 	}
@@ -137,14 +137,14 @@ public class SelecaoBolsaController {
 	public String excluirSelecao(SelecaoBolsa p,
 			@PathVariable("id") Integer id,
 			RedirectAttributes redirectAttributes) {
-		SelecaoBolsa selecao = serviceSelecao.find(SelecaoBolsa.class, id);
+		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 		if (selecao == null) {
 			redirectAttributes
 					.addFlashAttribute("erro", "Seleção inexistente.");
 			return "redirect:/selecao/listar";
 		}
 		if (selecao.getStatus().equals(Status.NOVA)) {
-			this.serviceSelecao.delete(selecao);
+			this.selecaoService.delete(selecao);
 			redirectAttributes.addFlashAttribute("info",
 					"Seleção excluída com sucesso.");
 		} else {
@@ -156,7 +156,7 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("selecoes", serviceSelecao.find(SelecaoBolsa.class));
+		model.addAttribute("selecoes", selecaoService.find(SelecaoBolsa.class));
 		return "selecao/listar";
 	}
 
@@ -175,7 +175,7 @@ public class SelecaoBolsaController {
 			@RequestParam("id3") Integer id3, @RequestParam("id") Integer id,
 			RedirectAttributes redirect) {
 
-		SelecaoBolsa selecao = serviceSelecao.find(SelecaoBolsa.class, id);
+		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 		redirect.addFlashAttribute("selecao", id);
 		redirect.addFlashAttribute("membrosBanca", (selecao.getId()));
 
@@ -194,7 +194,7 @@ public class SelecaoBolsaController {
 
 		selecao.setMembrosBanca(list);
 
-		serviceSelecao.update(selecao);
+		selecaoService.update(selecao);
 		redirect.addFlashAttribute("info",
 				"O Membro da banca foi atribuído com sucesso.");
 

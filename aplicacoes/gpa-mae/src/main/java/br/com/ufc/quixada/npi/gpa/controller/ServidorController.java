@@ -29,57 +29,52 @@ public class ServidorController {
 
 	@Inject
 	private ServidorService servidorService;
-	
 
-	@RequestMapping(value = "/cadastrarServidor", method = RequestMethod.GET)
+	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		List<Cargo> cargos = new ArrayList<Cargo>(Arrays.asList(Cargo.values()));
 		model.addAttribute("cargos", cargos);
 		
 		model.addAttribute("servidor", new Servidor());
-		return "/servidor/cadastrarServidor";
+		return "/servidor/cadastrar";
 	}
-
 	
-	
-	@RequestMapping(value = "/cadastrarServidor", method = RequestMethod.POST)
+	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
 	public String adcionaServidor(
 			@Valid @ModelAttribute("servidor") Servidor servidor,
 			BindingResult result,RedirectAttributes redirect) {
 	
 		if (result.hasErrors()) {
-			return ("servidor/cadastrarServidor");
+			return ("servidor/cadastrar");
 		}
 		
 		this.servidorService.save(servidor);
 		this.servidorService.update(servidor);
 		redirect.addFlashAttribute("info", "Servidor cadastrado com sucesso.");
 
-		return "redirect:/servidor/cadastrarServidor";
+		return "redirect:/servidor/cadastrar";
 
 	}
 	
-	
-	
-	@RequestMapping(value = "/listarServidor", method = RequestMethod.GET)
+	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listaServidor(Servidor servidor, BindingResult result,
 			Model model) {
 			
 			List<Servidor> results = servidorService.find(Servidor.class);	
 			model.addAttribute("servidores", results);
-			return "servidor/listarServidor";
+			return "servidor/listar";
 	}
 	
-	@RequestMapping(value = "/listarServidor", method = RequestMethod.POST)
+	@RequestMapping(value = "/listar", method = RequestMethod.POST)
 	public String listarServidor(@RequestParam("siape") String siape, Model model) {
 		List<Servidor> results = new ArrayList<Servidor>();
 		results.add(servidorService.getServidorBySiape(siape));
 		model.addAttribute("servidores", results);
 		
-		return "/servidor/listarServidor";
+		return "/servidor/listar";
 	}
 
-	@RequestMapping(value = "/{id}/editarServidor", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		    
 			Servidor servidor = servidorService.find(Servidor.class, id);
@@ -88,12 +83,11 @@ public class ServidorController {
 			model.addAttribute("servidor", servidor);
 			model.addAttribute("action", "editar");
 			
-			return "servidor/editarServidor";
+			return "servidor/editar";
 		
 	}
 	
-	
-	@RequestMapping(value = "/{id}/editarServidor", method = RequestMethod.POST)
+	@RequestMapping(value = "/{id}/editar", method = RequestMethod.POST)
 	public String atualizarServidor(@PathVariable("id") Integer id,
 			@Valid @ModelAttribute(value = "servidor") Servidor servidorAtualizado,
 			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
@@ -101,7 +95,7 @@ public class ServidorController {
 		if (result.hasErrors()) {
 		
 			model.addAttribute("action", "editar");
-			return "servidor/editarServidor";
+			return "servidor/editar";
 		}
 	
 		Servidor servidor = servidorService.find(Servidor.class, id);
@@ -110,11 +104,9 @@ public class ServidorController {
 				
 		this.servidorService.update(servidor);
 		redirect.addFlashAttribute("info", "Servidor atualizado com sucesso.");
-		return "redirect:/servidor/listarServidor";
+		return "redirect:/servidor/listar";
 	}
 	
-	
-
 	@RequestMapping(value = "/{id}/excluir")
 	public String excluirServidor(Servidor p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes
 			) {
@@ -127,11 +119,7 @@ public class ServidorController {
 			redirectAttributes.addFlashAttribute("info", "Servidor excluído com sucesso.");
 		}
 		
-		return "redirect:/servidor/listarServidor";
+		return "redirect:/servidor/listar";
 		
 	}
-	
-	
-	
-	
 }
