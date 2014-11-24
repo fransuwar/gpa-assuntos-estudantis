@@ -52,7 +52,7 @@ public class ServidorController {
 		this.servidorService.update(servidor);
 		redirect.addFlashAttribute("info", "Servidor cadastrado com sucesso.");
 
-		return "redirect:/servidor/cadastrar";
+		return "redirect:/servidor/listar";
 
 	}
 	

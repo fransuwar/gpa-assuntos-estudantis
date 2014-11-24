@@ -19,7 +19,7 @@
 	 <div class="container">
 		<div class="novo-servidor" align="left">
 		<h2>Novo Servidor</h2>
-				<form:form id="adicionarServidorForm" role="form" commandName="servidor" servletRelativeAction="/servidor/cadastrarServidor" method="POST" cssClass="form-horizontal">
+				<form:form id="adicionarServidorForm" role="form" commandName="servidor" servletRelativeAction="/servidor/cadastrar" method="POST" cssClass="form-horizontal">
 					
 					<div class="form-group">
 						<label for="SIAPE" class="col-sm-2 control-label" >SIAPE:</label>
@@ -47,7 +47,7 @@
 					
 					<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
-						<a href="<c:url value="/servidor/listarServidor"></c:url>" class="btn btn-default">Cancelar</a>
+						<a href="<c:url value="/servidor/listar"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 					
 				</form:form>

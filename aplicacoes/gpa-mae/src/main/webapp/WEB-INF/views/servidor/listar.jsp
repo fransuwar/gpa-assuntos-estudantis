@@ -29,7 +29,7 @@
 			</div>
 		</c:if>
 		<div align="right" style="margin-bottom: 20px;">
-			<a href="<c:url value="/servidor/cadastrarServidor" ></c:url>">
+			<a href="<c:url value="/servidor/cadastrar" ></c:url>">
 				<button class="btn btn-primary">Novo Servidor <span class="glyphicon glyphicon-plus"></span></button>
 			</a>
 		</div>
@@ -37,7 +37,7 @@
 		
 		<div align="right" style="margin-bottom: 20px;">
 				<form:form id="buscarServidorForm" role="form"
-								servletReltiveAction="/servidor/listarServidor" method="POST"
+								servletReltiveAction="/servidor/listar" method="POST"
 								cssClass="form-horizontal" class="inline">
 								<input id="siape" name="siape" cssClass="form-control"
 									placeholder="Digite sua busca aqui..." size="20"
@@ -87,7 +87,7 @@
 										<td>${servidor.siape}</td>
 										<td>${servidor.cargo}</td>
 										<td><a id="editar"
-											href="<c:url value="/servidor/${servidor.id}/editarServidor" ></c:url>">
+											href="<c:url value="/servidor/${servidor.id}/editar" ></c:url>">
 												<button class="btn btn-info">
 													Editar <span class="glyphicon glyphicon-pencil"></span>
 												</button>

@@ -34,18 +34,16 @@
 				<ul class="nav navbar-nav">
 					<sec:authorize ifAnyGranted="ROLE_COORDENADOR, ROLE_ADMIN">
 					<li>
-						<a href="<c:url value="/aluno/listarAluno" />">Aluno <span class="glyphicon glyphicon-list"></span></a>
+						<a href="<c:url value="/aluno/listar" />">Aluno <span class="glyphicon glyphicon-list"></span></a>
 					</li>
 					</sec:authorize>
 
 					<sec:authorize ifAllGranted="ROLE_COORDENADOR" >
-					<h1>ROLE_COORDENADOR</h1>
 					<li>
-						<a href="<c:url value="coordenador/selecao/cadastrarBolsa" />">Cadastro Bolsa <span class="glyphicon glyphicon-plus"></span></a>
+						<a href="<c:url value="/selecao/cadastrar" />">Cadastro Bolsa <span class="glyphicon glyphicon-plus"></span></a>
 					</li>				
 					</sec:authorize>
 					<sec:authorize ifAllGranted="ROLE_ALUNO">
-					<h1>ROLE_ALUNO</h1>
 					<li>
 						<a href="<c:url value="/inscricao/iniciacaoAcademica" />">Inscrição Iniciação Acadêmica <span class="glyphicon glyphicon-plus"></span></a>
 					</li>

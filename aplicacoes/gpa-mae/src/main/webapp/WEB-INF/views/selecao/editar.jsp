@@ -24,7 +24,7 @@
 		<div class="novo-selecao" align="left">
 			<div class="form" align="center">
 				<c:if test="${action == 'editar'}">
-					<c:set var="url" value="/selecaoBolsa/${selecao.id}/editarBolsa"></c:set>
+					<c:set var="url" value="/selecao/${selecao.id}/editar"></c:set>
 					<h2>Editar Seleção</h2>
 				</c:if>
 				<form:form id="editar" commandName="selecao" servletRelativeAction="${url}" enctype="multipart/form-data" cssClass="form-horizontal" method="POST">
@@ -135,7 +135,7 @@
 					
 					<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Salvar" />
-						<a href="<c:url value="/selecaoBolsa/listarBolsa"></c:url>" class="btn btn-default">Cancelar</a>
+						<a href="<c:url value="/selecao/listar"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 
 				</form:form>

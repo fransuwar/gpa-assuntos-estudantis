@@ -21,7 +21,7 @@
 				<h2>Atribuir Membros da Banca</h2>
 				
 
-				<form:form id="adicionarBancaForm" role="form" commandName="atribuirBanca" servletRelativeAction="/selecaoBolsa/atribuirBanca" method="POST" cssClass="form-horizontal">
+				<form:form id="adicionarBancaForm" role="form" commandName="atribuir" servletRelativeAction="/selecao/atribuir" method="POST" cssClass="form-horizontal">
 						<input type="hidden" name="id" value="${selecao}">
 					<div class="form-group">
 						<label for="servidor" class="col-sm-2 control-label">Parecerista:</label>
@@ -51,7 +51,7 @@
 			
 						<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Atribuir" />
-						<a href="<c:url value="/selecaoBolsa/listarBolsa"></c:url>" class="btn btn-default">Cancelar</a>
+						<a href="<c:url value="/selecao/listar"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 			</form:form>
 			</div>

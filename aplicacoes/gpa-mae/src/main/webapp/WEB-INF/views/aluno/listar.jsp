@@ -36,14 +36,14 @@
 			</div>
 		</c:if>
 		<div align="right" style="margin-bottom: 20px;">
-			<a href="<c:url value="/aluno/alunos" ></c:url>">
+			<a href="<c:url value="/aluno/cadastrar" ></c:url>">
 				<button class="btn btn-primary">Novo Aluno <span class="glyphicon glyphicon-plus"></span></button>
 			</a>
 		</div>
 		
 		<div align="right" style="margin-bottom: 20px;">
 				<form:form id="buscarAlunoForm" role="form"
-								servletReltiveAction="/aluno/listarAluno" method="POST"
+								servletReltiveAction="/aluno/listar" method="POST"
 								cssClass="form-horizontal" class="inline">
 								<input id="matricula" name="matricula" cssClass="form-control"
 									placeholder="Digite sua busca aqui..." size="20"
@@ -94,7 +94,7 @@
 										<td>${aluno.curso}</td>
 
 										<td><a id="editar"
-											href="<c:url value="/aluno/${aluno.id}/editarAluno" ></c:url>">
+											href="<c:url value="/aluno/${aluno.id}/editar" ></c:url>">
 												<button class="btn btn-info">
 													Editar <span class="glyphicon glyphicon-pencil"></span>
 												</button>
