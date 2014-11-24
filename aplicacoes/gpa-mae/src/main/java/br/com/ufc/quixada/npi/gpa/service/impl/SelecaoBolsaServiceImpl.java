@@ -6,10 +6,13 @@ import java.util.Map;
 
 import javax.inject.Named;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.enumeration.QueryType;
 import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
+import br.ufc.quixada.npi.util.NamedParams;
 
 @Named
 public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> implements
@@ -35,6 +38,17 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 	@Override
 	public List<SelecaoBolsa> getSelecaoBolsasAguardandoParecer() {
 		return find(QueryType.JPQL, "from SelecaoBolsa as p where p.status = 'AGUARDANDO_PARECER'", null);
+	}
+
+	@Override
+	@Transactional
+	public boolean existsSelecaoEquals(SelecaoBolsa selecaoBolsa) {
+		List<SelecaoBolsa> selecoes = find(QueryType.JPQL, "from SelecaoBolsa as p where p.tipoBolsa = :tipo and p.ano = :ano and p.sequencial = :sequencial",
+				new NamedParams("tipo",selecaoBolsa.getTipoBolsa(), "ano",selecaoBolsa.getAno(),"sequencial",selecaoBolsa.getSequencial() ));
+		if(selecoes == null || selecoes.isEmpty()){
+			return false;
+		}
+		return true;
 	}
 
 

@@ -14,5 +14,7 @@ public interface SelecaoBolsaService extends GenericService<SelecaoBolsa> {
 	public abstract List<SelecaoBolsa> getSelecaoBolsasByUsuario(Long id);
 	
 	public abstract List<SelecaoBolsa> getSelecaoBolsasAguardandoParecer();
+	
+	public abstract boolean existsSelecaoEquals(SelecaoBolsa selecaoBolsa);
 
 }
