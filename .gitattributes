@@ -4,17 +4,20 @@
 *.xml text
 *.java text
 *.properties text
+*.html text
 *.xhtml text
 *.jsp text
 *.jsf text
+*.js
+*.css
 *.txt text
 *.c text
 *.h text
 # Ensure those won't be messed up with
 *.jpg binary
 *.png binary
-*.doc binary
-*.docx binary
-*.ods binary
+*.doc* binary
+*.ppt* binary
+*.od* binary
 *.pdf binary
 *.asta binary
