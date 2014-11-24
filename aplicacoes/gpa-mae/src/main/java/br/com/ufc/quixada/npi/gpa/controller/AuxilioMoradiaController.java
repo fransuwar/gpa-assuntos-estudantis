@@ -39,7 +39,7 @@ public class AuxilioMoradiaController {
 	@Inject
 	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
 
-	// private Logger log = LoggerFactory.getLogger(this.getClass());
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@InitBinder
 	protected void initBinder(HttpServletRequest request,
