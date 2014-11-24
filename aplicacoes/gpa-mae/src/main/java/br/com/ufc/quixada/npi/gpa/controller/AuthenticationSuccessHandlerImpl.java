@@ -40,13 +40,13 @@ public class AuthenticationSuccessHandlerImpl implements
 		for (GrantedAuthority grantedAuthority : authorities) {
 			switch (grantedAuthority.getAuthority()) {
 			case "ROLE_ADMIN":
-				return "/admin/aluno/";
+				return "/servidor/listarServidor";
 
 			case "ROLE_COORDENADOR":
-				return "/coordenador/selecao/";
+				return "/selecao/listar";
 
 			case "ROLE_ALUNO":
-				return "/aluno/selecao/";
+				return "/selecao/listar";
 
 			default:
 				return "/login";

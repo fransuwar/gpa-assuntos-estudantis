@@ -30,7 +30,7 @@
  		 		
  		<form-login login-page="/login" default-target-url="/" authentication-success-handler-ref="authenticationSuccessHandlerImpl"
  		authentication-failure-url="/loginfailed" />
- 		<logout logout-success-url="/selecao/listarBolsa" invalidate-session="true"/>
+ 		<logout logout-success-url="/selecao/listar" invalidate-session="true"/>
  	</http>
 
 		<beans:bean id="authenticationSuccessHandlerImpl" class="br.com.ufc.quixada.npi.gpa.controller.AuthenticationSuccessHandlerImpl" />
