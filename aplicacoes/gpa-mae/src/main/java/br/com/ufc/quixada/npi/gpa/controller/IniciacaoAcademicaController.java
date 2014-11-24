@@ -35,7 +35,8 @@ public class IniciacaoAcademicaController {
 	private IniciacaoAcademicaService iniciacaoAcademicaService;
 	
 	@Inject
-	private PessoaService servicePessoa;	
+	private PessoaService servicePessoa;
+
 	
 	@RequestMapping(value="/inscricao", method = RequestMethod.GET)
 	 public String cadastro(Model modelo){

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,34 +8,30 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-<jsp:include page="../fragments/headTag.jsp" />
+	<jsp:include page="../fragments/headTag.jsp" />
+	<title>Cadastra servidor</title>
 
-<title>Editar Aluno</title>
 </head>
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
-	<div class="container">
+	
+	
+	 <div class="container">
 		<div class="novo-servidor" align="left">
-			<div class="form" align="center"></div>
-			<c:if test="${action == 'editar'}">
-				<h2>Editar Servidor</h2>
-			</c:if>
-			
-			
-		<form:form id="editar" commandName="servidor" cssClass="form-horizontal" method="POST">
-				<input type="hidden" name="id" value="${servidor.id}" />
-				<div class="form-group">
-						<label for="siape" class="col-sm-2 control-label">Siape:</label>
+		<h2>Novo Servidor</h2>
+				<form:form id="adicionarServidorForm" role="form" commandName="servidor" servletRelativeAction="/servidor/cadastrar" method="POST" cssClass="form-horizontal">
+					
+					<div class="form-group">
+						<label for="SIAPE" class="col-sm-2 control-label" >SIAPE:</label>
 						<div class="col-sm-10">
-							<form:input id="siape" path="siape" cssClass="form-control" placeholder="SIAPE do servidor"  />
+							<form:input id="siape" maxlength="7" path="siape" cssClass="form-control" placeholder="SIAPE do servidor" />
 							<div class="error-validation">
 								<form:errors path="siape"></form:errors>
 							</div>
 						</div>
 					</div>
-					
-					
-			<div class="form-group">
+		
+				<div class="form-group">
 				<label for="Cargo" class="col-sm-2 control-label" >Cargo:</label>
 					<div class="col-sm-3 control-label">
 						<select name="cargo" id="cargoServidor">
@@ -46,20 +42,19 @@
 							</c:forEach>
 						</select>
 					</div>
-				</div>			
+				</div>
 					
 					
 					<div class="controls">
-						<input name="submit" type="submit" class="btn btn-primary" value="Editar" />
-						<a href="<c:url value="/servidor/listarServidor"></c:url>" class="btn btn-default">Cancelar</a>
+						<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
+						<a href="<c:url value="/servidor/listar"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 					
-		</form:form>		
+				</form:form>
+	</div>
 	</div>
 	
-						
-	</div>
-	
-	
-	</body>
+
+			<jsp:include page="../fragments/footer.jsp" />
+</body>
 </html>

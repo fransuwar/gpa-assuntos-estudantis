@@ -7,7 +7,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,82 +22,73 @@ import br.com.ufc.quixada.npi.gpa.service.AlunoService;
 
 
 @Controller
-@RequestMapping({"aluno", "coordenador"})
+@RequestMapping("aluno")
 public class AlunoController {
 
 	@Inject
 	private AlunoService alunoService;
 	
-
-	@RequestMapping(value = "/alunos", method = RequestMethod.GET)
+	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("aluno", new Aluno());
-		return "/aluno/alunos";
+		return "/aluno/cadastrar";
 	}
 
-	@RequestMapping(value = "/alunos", method = RequestMethod.POST)
+	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
 	public String adicionarAluno(
 			@Valid @ModelAttribute("aluno") Aluno aluno,
 			BindingResult result,RedirectAttributes redirect) {
 		
 		if (result.hasErrors()) {
-			return ("aluno/alunos");
+			return ("aluno/cadastrar");
 		}
 		
 		this.alunoService.save(aluno);
 		this.alunoService.update(aluno);
 		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
 
-		return "redirect:/aluno/listarAluno";
+		return "redirect:/aluno/listar";
 
 	}
 
-	
-	@RequestMapping(value = "/listarAluno", method = RequestMethod.GET)
-	public String listaAluno(Aluno aluno, Model model) {
-			
+	@RequestMapping(value = "/listar", method = RequestMethod.GET)
+	public String listaAluno(Aluno aluno, Model model) {	
 			List<Aluno> results = alunoService.find(Aluno.class);	
 			model.addAttribute("alunos", results);
-			return "aluno/listarAluno";
+			return "aluno/listar";
 	}
 	
-
-	
-	@RequestMapping(value = "/listarAluno", method = RequestMethod.POST)
+	@RequestMapping(value = "/listar", method = RequestMethod.POST)
 	public String listarAluno(@RequestParam("matricula") String matricula, Model model) {
 		List<Aluno> results = new ArrayList<Aluno>();
 		results.add(alunoService.getAlunoByMatricula(matricula));
 		model.addAttribute("alunos", results);
 		
-		return "/aluno/listarAluno";
+		return "/aluno/listar";
 	}
 	
-	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		Aluno aluno = alunoService.find(Aluno.class, id);
 		
 		{
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("action", "editar");
-			return "aluno/editarAluno";
+			return "aluno/editar";
 		}
 	}
 	
-	
-	
-	@RequestMapping(value = "/{id}/editarAluno", method = RequestMethod.POST)
+	@RequestMapping(value = "/{id}/editar", method = RequestMethod.POST)
 	public String atualizarAluno(@PathVariable("id") Integer id,
 			@Valid @ModelAttribute(value = "aluno") Aluno alunoAtualizado,
 			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
 
 		if (result.hasErrors()) {
 			model.addAttribute("action", "editar");
-			return "aluno/editarAluno";
+			return "aluno/editar";
 		}
 	
-		Aluno aluno = alunoService.find(Aluno.class, id);
-
-		
+		Aluno aluno = alunoService.find(Aluno.class, id);	
 		aluno.setMatricula(alunoAtualizado.getMatricula());
 		aluno.setAnoIngresso(alunoAtualizado.getAnoIngresso());
 		aluno.setIra(alunoAtualizado.getIra());
@@ -109,10 +99,8 @@ public class AlunoController {
 		
 		this.alunoService.update(aluno);
 		redirect.addFlashAttribute("info", "Aluno atualizado com sucesso.");
-		return "redirect:/aluno/listarAluno";
+		return "redirect:/aluno/listar";
 	}
-	
-	
 	
 	@RequestMapping(value = "/{id}/excluir")
 	public String excluirAluno(Aluno p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes
@@ -126,13 +114,7 @@ public class AlunoController {
 			redirectAttributes.addFlashAttribute("info", "Aluno excluído com sucesso.");
 		}
 		
-		return "redirect:/aluno/listarAluno";
+		return "redirect:/aluno/listar";
 		
-	}
-	
-	
-	
-	
-
-	
+	}	
 }

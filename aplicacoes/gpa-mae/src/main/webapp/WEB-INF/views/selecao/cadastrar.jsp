@@ -19,7 +19,7 @@
 		<div class="novo-selecao" align="left">
 			<div class="form" align="center">
 				<h2>Nova Seleção</h2>
-				<form:form id="adicionarSelecaoForm" role="form" commandName="selecao" servletRelativeAction="/selecaoBolsa/cadastrarBolsa" method="POST" cssClass="form-horizontal">
+				<form:form id="adicionarSelecaoForm" role="form" commandName="selecao" servletRelativeAction="/selecao/cadastrar" method="POST" cssClass="form-horizontal">
 
 					<div class="form-group">
 						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
@@ -124,7 +124,7 @@
 					
 					<div class="controls">
 						<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
-						<a href="<c:url value="/selecaoBolsa/listarBolsa"></c:url>" class="btn btn-default">Cancelar</a>
+						<a href="<c:url value="/selecao/listar"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 
 				</form:form>

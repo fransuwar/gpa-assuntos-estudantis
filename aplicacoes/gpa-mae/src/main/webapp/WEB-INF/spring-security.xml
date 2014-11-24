@@ -20,13 +20,11 @@
  		<intercept-url pattern="/auxilio/**" access="hasRole('ROLE_ALUNO')" />
  		<intercept-url pattern="/iniciacao/**" access="hasRole('ROLE_ALUNO')" />
 
- 		<intercept-url pattern="/aluno/*/editarAluno" access="hasRole('ROLE_ALUNO')" />
- 		<intercept-url pattern="/aluno/listarAluno" access="hasRole('ROLE_COORDENADOR')" />
+ 		<intercept-url pattern="/aluno/*/editar" access="hasRole('ROLE_ALUNO')" />
+ 		<intercept-url pattern="/aluno/listar" access="hasRole('ROLE_COORDENADOR')" />
  		<intercept-url pattern="/aluno/**" access="hasRole('ROLE_ADMIN')" />
 
  		<intercept-url pattern="/servidor/**" access="hasRole('ROLE_ADMIN')" />
- 		
- 		<intercept-url pattern="/WEB-INF/views/index*/" access="permitAll"/>
  		 		
  		<form-login login-page="/login" default-target-url="/" authentication-success-handler-ref="authenticationSuccessHandlerImpl"
  		authentication-failure-url="/loginfailed" />
