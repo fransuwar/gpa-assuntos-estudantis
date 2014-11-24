@@ -20,7 +20,7 @@
 			<div class="form" align="center">
 				<h2>Programa de Iniciacao Academica</h2>
 				
-				<form:form id="adicionarSeleçãoForm" role="form" commandName="questionarioIniciacaoAcademica" servletRelativeAction="/inscricao/iniciacaoAcademica" method="POST" cssClass="form-horizontal">
+				<form:form id="adicionarSeleçãoForm" role="form" commandName="questionarioIniciacaoAcademica" servletRelativeAction="/iniciacaoAcademica/inscricao" method="POST" cssClass="form-horizontal">
 					<fieldset>
 					<legend>Moradia</legend>
 					<h3>Endereço de Residência de Origem</h3>

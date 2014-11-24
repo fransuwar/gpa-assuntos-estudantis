@@ -54,7 +54,7 @@ uri="http://www.springframework.org/security/tags"%>
 								<c:if test="${not empty msg}">
 								<div class="msg">${msg}</div>
 						</c:if>
-			<form name='f' action="<c:url value='../../../j_spring_security_check' />"
+			<form name='f' action="<c:url value='/j_spring_security_check' />"
 					method='POST'>
 				<div class="form-group col-md-12 form-inline">
 				<h4 class="col-md-6">Usuário:</h4>

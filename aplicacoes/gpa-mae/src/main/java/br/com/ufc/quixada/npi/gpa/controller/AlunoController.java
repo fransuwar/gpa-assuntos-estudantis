@@ -28,12 +28,6 @@ public class AlunoController {
 	@Inject
 	private AlunoService alunoService;
 	
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index() {
-		return "aluno/listar";
-	}
-	
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("aluno", new Aluno());
@@ -58,8 +52,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
-	public String listaAluno(Aluno aluno, Model model) {
-			
+	public String listaAluno(Aluno aluno, Model model) {	
 			List<Aluno> results = alunoService.find(Aluno.class);	
 			model.addAttribute("alunos", results);
 			return "aluno/listar";
