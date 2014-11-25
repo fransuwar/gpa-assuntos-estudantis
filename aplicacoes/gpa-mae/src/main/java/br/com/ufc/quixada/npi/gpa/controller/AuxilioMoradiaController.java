@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
+
+import com.itextpdf.text.log.LoggerFactory;
 
 import br.com.ufc.quixada.npi.gpa.model.MoraCom;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
@@ -39,7 +42,7 @@ public class AuxilioMoradiaController {
 	@Inject
 	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
 
-	//private Logger log = LoggerFactory.getLogger(this.getClass());
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@InitBinder
 	protected void initBinder(HttpServletRequest request,
