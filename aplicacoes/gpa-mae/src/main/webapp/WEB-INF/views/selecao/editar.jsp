@@ -19,7 +19,10 @@
 
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
-	
+	<ol class="breadcrumb">
+      <li><a href="/MAE/selecao/listar">Listar Seleção</a></li>
+      <li class="active">Editar Seleção</li>
+    </ol>
 	<div class="container">
 		<div class="novo-selecao" align="left">
 			<div class="form" align="center">

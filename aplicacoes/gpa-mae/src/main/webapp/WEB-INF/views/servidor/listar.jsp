@@ -14,7 +14,9 @@
 <body>
 
 		<jsp:include page="../fragments/bodyHeader.jsp" />
-
+<ol class="breadcrumb">
+      <li><a href="/MAE/servidor/listar">Listar Servidor</a></li>
+    </ol>
 	<div class="container">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert">

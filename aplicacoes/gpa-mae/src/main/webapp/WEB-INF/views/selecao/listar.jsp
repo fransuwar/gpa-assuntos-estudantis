@@ -12,6 +12,9 @@ uri="http://www.springframework.org/security/tags"%>
 <body>
 	
 	<jsp:include page="../fragments/headTag.jsp" />
+	<ol class="breadcrumb">
+      <li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
+    </ol>
 	<div class="container">
 		
 		<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDENADOR')">

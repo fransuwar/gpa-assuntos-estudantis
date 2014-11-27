@@ -15,6 +15,10 @@
 
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
+	<ol class="breadcrumb">
+      <li><a href="/MAE/aluno/listar">Listar Aluno</a></li>
+      <li class="active">Editar Aluno</li>
+    </ol>
 	<div class="container">
 		<div class="novo-aluno" align="left">
 			<div class="form" align="center"></div>
