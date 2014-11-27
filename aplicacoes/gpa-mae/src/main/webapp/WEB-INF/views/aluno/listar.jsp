@@ -36,11 +36,13 @@
 				<c:out value="${info}"></c:out>
 			</div>
 		</c:if>
+		<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 		<div align="right" style="margin-bottom: 20px;">
 			<a href="<c:url value="/aluno/cadastrar" ></c:url>">
 				<button class="btn btn-primary">Novo Aluno <span class="glyphicon glyphicon-plus"></span></button>
 			</a>
 		</div>
+		</sec:authorize>
 		
 		<div align="right" style="margin-bottom: 20px;">
 				<form:form id="buscarAlunoForm" role="form"
@@ -84,7 +86,9 @@
 								<th>Matricula</th>
 								<th>Ira</th>
 								<th>Curso</th>
-								<th id="acoes">Ações</th>
+								<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+									<th id="acoes">Ações</th>
+								</sec:authorize>
 							</tr>
 							<tbody>
 								<c:forEach var="aluno" items="${alunos}">
@@ -94,10 +98,9 @@
 										<td>${aluno.ira}</td>
 										<td>${aluno.curso}</td>
 
-									
-										<td>
-					
 									<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+									<td>
+					
 										<a id="editar"
 											href="<c:url value="/aluno/${aluno.id}/editar" ></c:url>">
 												<button class="btn btn-info">
@@ -109,8 +112,10 @@
 												<button class="btn btn-danger">
 													Excluir <span class="glyphicon glyphicon-trash"></span>
 												</button>
-										</a></sec:authorize></td>
 										
+										</a>
+										</td>
+										</sec:authorize>
 								</c:forEach>
 							</tbody>
 
