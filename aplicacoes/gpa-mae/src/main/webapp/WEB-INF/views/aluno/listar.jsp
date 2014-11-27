@@ -10,19 +10,12 @@
 
 <html>
 <head>
-
     <jsp:include page="../fragments/headTag.jsp" />
-
-   
-
-<title>Alunos</title>
+	<title>Alunos</title>
 </head>
 <body>
-
-
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
-	
 	<div class="container">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert">
@@ -112,6 +105,7 @@
 										
 								</c:forEach>
 							</tbody>
+							</table>
 
 					</div>
 					</c:if>
