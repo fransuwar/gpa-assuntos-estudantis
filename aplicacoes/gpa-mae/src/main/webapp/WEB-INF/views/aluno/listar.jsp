@@ -96,7 +96,8 @@
 
 									
 										<td>
-										<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+					
+									<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 										<a id="editar"
 											href="<c:url value="/aluno/${aluno.id}/editar" ></c:url>">
 												<button class="btn btn-info">

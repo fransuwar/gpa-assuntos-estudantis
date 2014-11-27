@@ -81,10 +81,11 @@
 						<label for="quantidadeVagas" class="col-sm-2 control-label">Quantidade de Vagas:</label>
 						<div class="col-sm-2">
 							<form:input id="quantidadeVagas" type="number" min="0" placeholder="0" path="quantidadeVagas" cssClass="form-control"/>
-							<div class="error-validation">
+								<div class="error-validation">
+								${quantidadeError}
+								</div>
 								<form:errors path="quantidadeVagas"></form:errors>
 							</div>
-						</div>
 					</div>
 					
 				<div class="form-group"> 
