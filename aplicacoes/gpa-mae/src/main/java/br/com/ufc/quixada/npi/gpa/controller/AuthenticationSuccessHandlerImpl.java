@@ -38,7 +38,7 @@ public class AuthenticationSuccessHandlerImpl implements
 	private void handle(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
 			throws IOException {
-		getUsuarioLogado(request, authentication);
+		usuarioLogado(request, authentication);
 		redirectStrategy.sendRedirect(request, response, determineUrl(authentication));
 	}
 
@@ -63,7 +63,7 @@ public class AuthenticationSuccessHandlerImpl implements
 		return "/login";
 	}
 	
-	private void getUsuarioLogado(HttpServletRequest request, Authentication authentication) {
+	private void usuarioLogado(HttpServletRequest request, Authentication authentication) {
 		if (request.getSession().getAttribute(Constants.USUARIO_LOGADO) == null) {
 			request.getSession().setAttribute(Constants.USUARIO_LOGADO, servicePessoa.getPessoaByLogin(authentication.getName()));
 		}
