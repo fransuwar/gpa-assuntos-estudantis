@@ -24,7 +24,7 @@
 				<h2>Atribuir Membros da Banca</h2>
 				
 
-				<form:form id="adicionarBancaForm" role="form" commandName="atribuir" servletRelativeAction="/selecao/atribuir" method="POST" cssClass="form-horizontal">
+				<form:form id="adicionarBancaForm" OnSubmit="javascript:valida_membro();" role="form" commandName="atribuir" servletRelativeAction="/selecao/atribuir" method="POST" cssClass="form-horizontal">
 						<input type="hidden" name="id" value="${selecao}">
 					<div class="form-group">
 						<label for="servidor" class="col-sm-2 control-label">Parecerista:</label>
@@ -65,5 +65,4 @@
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
 
 </body>
-
 </html>

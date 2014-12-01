@@ -6,9 +6,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <html>
 <head>
-<jsp:include page="../fragments/headTag.jsp" />
+	<jsp:include page="../fragments/headTag.jsp" />
 	<title>Servidores</title>
 </head>
 <body>
@@ -17,6 +18,9 @@
 <ol class="breadcrumb">
       <li><a href="/MAE/servidor/listar">Listar Servidor</a></li>
     </ol>
+
+	<jsp:include page="../fragments/bodyHeader.jsp" />
+
 	<div class="container">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert">
@@ -53,7 +57,6 @@
 			
 		</div>
 			
-		</div>
 		
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
@@ -108,27 +111,26 @@
 					</div>
 					</c:if>
 			</div>
+			</div>
+			</div>
 		
 		
 			<jsp:include page="../fragments/footer.jsp" />
-	
-	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	    <div class="modal-dialog">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                Excluir
-	            </div>
-	            <div class="modal-body">
-	                Tem certeza de que deseja excluir este aluno?
-	            </div>
-	            <div class="modal-footer">
-	                <a href="#" class="btn btn-danger">Excluir</a>
-	                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-</div>
 
+		<div class="modal fade" id="confirm-delete" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">Excluir</div>
+					<div class="modal-body">Tem certeza de que deseja excluir
+						este aluno?</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-danger">Excluir</a>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

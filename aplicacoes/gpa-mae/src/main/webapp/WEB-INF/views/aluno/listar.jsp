@@ -10,21 +10,15 @@
 
 <html>
 <head>
-
     <jsp:include page="../fragments/headTag.jsp" />
-
-   
-
-<title>Alunos</title>
+	<title>Alunos</title>
 </head>
 <body>
-
-
 	<jsp:include page="../fragments/bodyHeader.jsp" />
+
 <ol class="breadcrumb">
       <li><a href="/MAE/aluno/listar">Listar Aluno</a></li>
     </ol>
-	
 	<div class="container">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert">
@@ -120,6 +114,7 @@
 										</sec:authorize>
 								</c:forEach>
 							</tbody>
+							</table>
 
 					</div>
 					</c:if>

@@ -3,6 +3,7 @@ package br.com.ufc.quixada.npi.gpa.controller;
 import java.io.IOException;
 import java.util.Collection;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,10 +13,16 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import br.com.ufc.quixada.npi.gpa.service.PessoaService;
+import br.com.ufc.quixada.npi.gpa.utils.Constants;
+
 public class AuthenticationSuccessHandlerImpl implements
 		AuthenticationSuccessHandler {
 
 	private RedirectStrategy redirectStrategy;
+
+	@Inject
+	private PessoaService servicePessoa;
 
 	public AuthenticationSuccessHandlerImpl() {
 		redirectStrategy = new DefaultRedirectStrategy();
@@ -31,6 +38,7 @@ public class AuthenticationSuccessHandlerImpl implements
 	private void handle(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
 			throws IOException {
+		usuarioLogado(request, authentication);
 		redirectStrategy.sendRedirect(request, response, determineUrl(authentication));
 	}
 
@@ -54,4 +62,11 @@ public class AuthenticationSuccessHandlerImpl implements
 		}
 		return "/login";
 	}
+	
+	private void usuarioLogado(HttpServletRequest request, Authentication authentication) {
+		if (request.getSession().getAttribute(Constants.USUARIO_LOGADO) == null) {
+			request.getSession().setAttribute(Constants.USUARIO_LOGADO, servicePessoa.getPessoaByLogin(authentication.getName()));
+		}
+	}
+	
 }

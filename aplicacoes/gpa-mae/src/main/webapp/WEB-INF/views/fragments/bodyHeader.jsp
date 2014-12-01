@@ -17,7 +17,7 @@
 
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
-		<sec:authorize ifAllGranted="ROLE_ADMIN">
+		<sec:authorize access="isAuthenticated()">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#bs-example-navbar-collapse-1">
@@ -69,11 +69,13 @@
 					</sec:authorize>
 					
 				</ul>
+				<sec:authorize access="isAuthenticated()">
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a style="font-weight: bold;">Bem vindo, ${sessionScope.pessoa.login}!</a> 
+						<a style="font-weight: bold;">Bem vindo, ${sessionScope.usuario.nome}!</a> 
 					</li>
 				</ul>
+				</sec:authorize>
 			</div>
 		</div>
 	</nav>
