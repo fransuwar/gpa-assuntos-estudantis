@@ -77,44 +77,6 @@ function submeterForm() {
 
 };
 
-
-
-///*função valida atribuir Membro*/
-//function valida_membro()
-//{
-//var x1=document.forms["adicionarBancaForm"]["id1"].value;
-//var x2=document.forms["adicionarBancaForm"]["id2"].value;
-//var x3=document.forms["adicionarBancaForm"]["id3"].value;
-//if (x1==x2 || x1==x3)
-//{
-//alert("Servidores Devem ser unicos");
-//return false;
-//}
-//return true;
-//}
-
-//function valida_membro(){
-//if(document.getElementById("nome").value.length < 3){
-//alert('Por favor, preencha o campo nome');
-//document.getElementById("nome").focus();
-//return false
-//}
-//}
-function valida_membro (){
-	var x1=document.forms["adicionarBancaForm"]["id1"].value;
-	var x2=document.forms["adicionarBancaForm"]["id2"].value;
-	var x3=document.forms["adicionarBancaForm"]["id3"].value;
-	if (x1==x2 && x1==x3 && x2==x3 && x3==x1)
-	{
-	alert("Membros da Banca devem ser Unicos");
-	return false;
-	}
-	return selecao/atribuir;
-}
-
-
-
-
 function mascara(o,f){
     v_obj=o
     v_fun=f

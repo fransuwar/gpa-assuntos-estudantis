@@ -174,31 +174,38 @@ public class SelecaoBolsaController {
 			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
 			@RequestParam("id3") Integer id3, @RequestParam("id") Integer id,
 			RedirectAttributes redirect) {
+		
+		if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
+			redirect.addFlashAttribute("erro", "Não é permitida repetição de membros na banca.");
+			return "redirect:/selecao/" + id + "/atribuir";
+		}else {
+			SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
+			redirect.addFlashAttribute("selecao", id);
+			redirect.addFlashAttribute("membrosBanca", (selecao.getId()));
 
-		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
-		redirect.addFlashAttribute("selecao", id);
-		redirect.addFlashAttribute("membrosBanca", (selecao.getId()));
+			List<Servidor> list = new ArrayList<Servidor>();
+			Servidor servidor = servidorService.find(Servidor.class, id1);
+			servidor.getParticipaBancas().add(selecao);
+			list.add(servidor);
 
-		List<Servidor> list = new ArrayList<Servidor>();
-		Servidor servidor = servidorService.find(Servidor.class, id1);
-		servidor.getParticipaBancas().add(selecao);
-		list.add(servidor);
+			servidor = servidorService.find(Servidor.class, id2);
+			servidor.getParticipaBancas().add(selecao);
+			list.add(servidor);
 
-		servidor = servidorService.find(Servidor.class, id2);
-		servidor.getParticipaBancas().add(selecao);
-		list.add(servidor);
+			servidor = servidorService.find(Servidor.class, id3);
+			servidor.getParticipaBancas().add(selecao);
+			list.add(servidor);
 
-		servidor = servidorService.find(Servidor.class, id3);
-		servidor.getParticipaBancas().add(selecao);
-		list.add(servidor);
+			selecao.setMembrosBanca(list);
 
-		selecao.setMembrosBanca(list);
+			selecaoService.update(selecao);
+			redirect.addFlashAttribute("info",
+					"O Membro da banca foi atribuído com sucesso.");
 
-		selecaoService.update(selecao);
-		redirect.addFlashAttribute("info",
-				"O Membro da banca foi atribuído com sucesso.");
+			return "redirect:/selecao/listar";
+		}
 
-		return "redirect:/selecao/listar";
+		
 	}
 
 }

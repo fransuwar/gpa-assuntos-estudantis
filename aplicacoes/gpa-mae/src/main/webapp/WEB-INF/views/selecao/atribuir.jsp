@@ -19,12 +19,18 @@
       <li class="active">Atribuir Membro Banca</li>
     </ol>
 	<div class="container">
+		<c:if test="${not empty erro}">
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<c:out value="${erro}"></c:out>
+			</div>
+		</c:if>
 		<div class="atribuirBanca" align="center">
 			<div class="form" align="center">
 				<h2>Atribuir Membros da Banca</h2>
 				
 
-				<form:form id="adicionarBancaForm" OnSubmit="javascript:valida_membro();" role="form" commandName="atribuir" servletRelativeAction="/selecao/atribuir" method="POST" cssClass="form-horizontal">
+				<form:form id="adicionarBancaForm" role="form" commandName="atribuir" servletRelativeAction="/selecao/atribuir" method="POST" cssClass="form-horizontal">
 						<input type="hidden" name="id" value="${selecao}">
 					<div class="form-group">
 						<label for="servidor" class="col-sm-2 control-label">Parecerista:</label>

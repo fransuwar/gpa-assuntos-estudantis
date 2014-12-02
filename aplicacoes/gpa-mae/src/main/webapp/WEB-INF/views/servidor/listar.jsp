@@ -19,8 +19,6 @@
       <li><a href="/MAE/servidor/listar">Listar Servidor</a></li>
     </ol>
 
-	<jsp:include page="../fragments/bodyHeader.jsp" />
-
 	<div class="container">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert">
