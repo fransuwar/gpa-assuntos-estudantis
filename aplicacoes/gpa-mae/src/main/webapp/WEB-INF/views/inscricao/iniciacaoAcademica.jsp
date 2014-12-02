@@ -407,28 +407,10 @@
 							</div>
 						</div>	
 					</fieldset>	
-					
-					<!-- 
 					<fieldset>
-						<legend>Informações do seu grupo familiar(Incluindo Você)</legend>
-					    <table class="table table-hover">
-   							<thead>
-								<th>Nome</th>
-								<th>Grau de Parentesco</th>
-								<th>Escolaridade</th>
-								<th>Atividade ou Profissão</th>
-								<th id="renda">Renda Mensal(R$)</th>
-								<th><a id="addInf">  Add </a></th>
-								
-							</thead>	
-							<tbody id="corpoInfo"></tbody>
-						
-    					</table>
-							
-			
-					</fieldset>
-					 -->
-					
+					<legend>Informações do seu Grupo Familiar</legend>
+					<jsp:include page="pessoaFamilia.jsp" />
+					</fieldset>					
 					
 					<fieldset>
 					<legend>Informações Adicionais</legend>
@@ -520,7 +502,7 @@
 						</div>
 					</fieldset>
 						
-	 
+	 				
 					
 										
 					
@@ -530,13 +512,10 @@
 						<a href="<c:url value="/selecao/listar"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 
-				<jsp:include page="pessoaFamilia.jsp" />
+				
 
  <br>
-		<div class="controls">
-			<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
-			<a href="<c:url value="/inscricao/iniciacaoAcademica"></c:url>" class="btn btn-default">Cancelar</a>
-		</div>
+		
 
 				
 
