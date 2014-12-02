@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,8 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
-
-import com.itextpdf.text.log.LoggerFactory;
 
 import br.com.ufc.quixada.npi.gpa.model.MoraCom;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
