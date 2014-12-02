@@ -3,6 +3,7 @@ package br.com.ufc.quixada.npi.gpa.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -22,18 +24,19 @@ public class QuestionarioAuxilioMoradia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)  
 	private Integer id;
-	private String caminhoFoto;
 	
 	@ManyToOne
 	private SelecaoBolsa selecaoBolsa;
 
 	@Column(nullable = false)
-	@OneToMany(mappedBy="auxilioMoradia")
+	//@OneToMany(mappedBy="auxilioMoradia", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name= "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
 	
 	public enum MoraCom{
-		Pais("Pais"), Pai("Pai"), Mae("Mãe"), Irmaos("irmãos"), Parentes("Parentes"),
-		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Filhos("Filhos(as)"), Outra_moradia("Outros");
+		PAIS("Pais"), PAI("Pai"), MAE("Mãe"), IRMAOS("irmãos"), PARENTES("Parentes"),
+		CONJUGE_COMPANHEIRO("Cônjuge ou Companheiro(a)"), FILHOS("Filhos(as)"), OUTRA_MORADIA("Outros");
 		MoraCom(String nome) {
 
 		}
@@ -76,11 +79,11 @@ public class QuestionarioAuxilioMoradia {
 	private String telefone;
 
 	public enum Estado {
-		Acre("Acre"), Alagoas("Alagoas"), Amapa("Amapa"), Amazonas("Amazonas"), Bahia("Bahia"), Ceara("Ceará"), Distrito_Federal("Distrito Federal"), 
-		Espirito_Santo("Espirito Santo"), Goias("Goiás"), Maranhao("Maranhão"), Mato_Grosso("Mato Grosso"), Mato_Grosso_do_Sul("Mato Grosso do Sul"),
-		Minas_Gerais("Minas Gerais"), Para("Pará"), Paraiba("Paraíba"), Parana("Paraná"), Pernambuco("Pernambuco"), Piaui("Piauí"), 
-		Rio_de_Janeiro("Rio de Janeiro"), Rio_Grande_do_Norte("Rio Grande do Norte"), Rio_Grande_do_Sul("Rio Grande do Sul"), Rondonia("Rondonia"), Roraima("Roraima"), 
-		Santa_Catarina("Santa Catarina"), Sao_Paulo("São Paulo"), Sergipe("Sergipe"), Tocantins("Tocantins");
+		ACRE("Acre"), ALAGOAS("Alagoas"), AMAPA("Amapa"), AMAZONAS("Amazonas"), BAHIA("Bahia"), CEARA("Ceará"), DISTRITO_FEDERAL("Distrito Federal"), 
+		ESPIRITO_SANTO("Espirito Santo"), GOIAS("Goiás"), MARANHAO("Maranhão"), MATO_GROSSO("Mato Grosso"), MATO_GROSSO_DO_SUL("Mato Grosso do Sul"),
+		MINAS_GERAIS("Minas Gerais"), PARA("Pará"), Paraiba("Paraíba"), PARANA("Paraná"), PERNAMBUCO("Pernambuco"), PIAUI("Piauí"), 
+		RIO_DE_JANEIRO("Rio de Janeiro"), RIO_GRANDE_DO_NORTE("Rio Grande do Norte"), RIO_GRANDE_DO_SUL("Rio Grande do Sul"), RONDONIA("Rondonia"),
+		RORAIMA("Roraima"), SANTA_CATARINA("Santa Catarina"), SAO_PAULO("São Paulo"), SERGIPE("Sergipe"), TOCANTINS("Tocantins");
 		
 		private String estado;
 
@@ -97,7 +100,7 @@ public class QuestionarioAuxilioMoradia {
 	private Estado estado;
 
 	public enum SituacaoImovel{
-		Cedido("Cedido"), Alugado("Alugado"), Proprio("Próprio"), Financiado("Financiado");
+		CEDIDO("Cedido"), ALUGADO("Alugado"), PROPRIO("Próprio"), FINANCIADO("Financiado");
 		
 		private String imovel;
 		
@@ -118,8 +121,8 @@ public class QuestionarioAuxilioMoradia {
 	private String propriedadeRural;
 
 	public enum GrauParentescoImovelRural{
-		SemPropriedadeRural("Sem Propriedade Rural"), Pai("Pai"), Avô("Avô"), Tio("Tio"), Irmao("Irmão"),
-		Conjuge("Cônjuge ou Companheiro(a)"), Outros("Outros");
+		SEM_PROPRIEDADE_RURAL("Sem Propriedade Rural"), PAI("Pai"), AVO("Avô"), TIO("Tio"), IRMAO("Irmão"),
+		CONJUGE("Cônjuge ou Companheiro(a)"), OUTROS("Outros");
 
 		private String imovelRural;
 		
@@ -141,8 +144,8 @@ public class QuestionarioAuxilioMoradia {
 	private String veiculos;
 	
 	public enum GrauParentescoVeiculos{
-		SemVeiculo("Sem Veículo"), Pai("Pai"), Avô("Avô"), Tio("Tio"), Irmao("Irmão"),
-		Conjuge("Cônjuge ou Companheiro(a)"), Outros("Outros");
+		SEM_VEICULO("Sem Veículo"), PAI("Pai"), AVO("Avô"), TIO("Tio"), IRMAO("Irmão"),
+		CONJUGE("Cônjuge ou Companheiro(a)"), OUTROS("Outros");
 
 
 		private String parentesco;
@@ -167,7 +170,7 @@ public class QuestionarioAuxilioMoradia {
 	private String ano;
 
 	public enum FinalidadeVeiculo{
-		Passeio("Passeio"), Taxi("Táxi"), Frete("Frete");
+		PASSEIO("Passeio"), TAXI("Táxi"), FRETE("Frete");
 		
 		private String veiculo;
 		
@@ -182,7 +185,8 @@ public class QuestionarioAuxilioMoradia {
 	private FinalidadeVeiculo finalidadeVeiculo;
 
 	public enum TipoEnsinoFundamental{
-		Publico("Público"), Particular("Particular"), Particular_Com_Bolsa("Particular com Bolsa");
+		PUBLICO("Público"), PARTICULAR("Particular"), PARTICULAR_COM_BOLSA("Particular com Bolsa");
+		
 		private String nome;
 		
 		TipoEnsinoFundamental(String nome){
@@ -198,7 +202,7 @@ public class QuestionarioAuxilioMoradia {
 	private int percentualParticularFundamental;
 
 	public enum TipoEnsinoMedio{
-		Publico("Público"), Particular("Particular"), Particular_Com_Bolsa("Particular com Bolsa");
+		PUBLICO("Público"), PARTICULAR("Particular"), PARTICULAR_COM_BOLSA("Particular com Bolsa");
 		
 	private String media;	
 	
@@ -244,14 +248,7 @@ public class QuestionarioAuxilioMoradia {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public String getCaminhoFoto() {
-		return caminhoFoto;
-	}
-	public void setCaminhoFoto(String caminhoFoto) {
-		this.caminhoFoto = caminhoFoto;
-	}
-	
+	}	
 	public List<MoraCom> getMoraCom() {
 		return moraCom;
 	}
@@ -498,11 +495,11 @@ public class QuestionarioAuxilioMoradia {
 
 	@Override
 	public String toString() {
-		return "QuestionarioAuxilioMoradia [id=" + id + ", caminhoFoto="
-				+ caminhoFoto + ", pessoas=" + pessoas + ", moraCom=" + moraCom
-				+ ", enderecoSedeCurso=" + enderecoSedeCurso + ", nomeMae="
-				+ nomeMae + ", nomePai=" + nomePai + ", rua=" + rua
-				+ ", numeroCasa=" + numeroCasa + ", bairro=" + bairro
+		return "QuestionarioAuxilioMoradia [id=" + id + ", selecaoBolsa="
+				+ selecaoBolsa + ", pessoas=" + pessoas + ", moraCom="
+				+ moraCom + ", enderecoSedeCurso=" + enderecoSedeCurso
+				+ ", nomeMae=" + nomeMae + ", nomePai=" + nomePai + ", rua="
+				+ rua + ", numeroCasa=" + numeroCasa + ", bairro=" + bairro
 				+ ", complemento=" + complemento + ", cidade=" + cidade
 				+ ", cep=" + cep + ", pontoReferencia=" + pontoReferencia
 				+ ", telefone=" + telefone + ", estado=" + estado

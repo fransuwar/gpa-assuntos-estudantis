@@ -2,6 +2,7 @@ package br.com.ufc.quixada.npi.gpa.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -36,7 +38,8 @@ public class QuestionarioIniciacaoAcademica {
 	}
 
 	@Column(nullable = false)
-	@OneToMany(mappedBy="iniciacaoAcademica")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name= "iniciacaoacademica_id")
 	private List<PessoaFamilia> pessoas;
 	
 	@NotNull
@@ -133,16 +136,15 @@ public class QuestionarioIniciacaoAcademica {
 		}
 	}
 	
-	
-	
-	@Enumerated(EnumType.STRING)
-	private SituacaoResidencia situacaoResidencia;
-	
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
 	
 	@Enumerated(EnumType.STRING)
 	private Estado estadoFamilia;
+	
+	@Enumerated(EnumType.STRING)
+	private SituacaoResidencia situacaoResidencia;
+	
 	
 	private int qtdAparelhoSom;
 	private int qtdTelevisao;
@@ -561,6 +563,10 @@ public class QuestionarioIniciacaoAcademica {
 				+ ", nivelInstrucaoMae=" + nivelInstrucaoMae
 				+ ", nivelInstrucaoPai=" + nivelInstrucaoPai
 				+ ", resideAtualmente=" + resideAtualmente
+
+				+ ", definicaoLocalAtual=" + definicaoLocalAtual + ", estado="
+				+ estado + ", estadoFamilia=" + estadoFamilia
+				+ ", situacaoResidencia=" + situacaoResidencia
 				+ ", definicaoLocalAtual=" + definicaoLocalAtual
 				+ ", situacaoResidencia=" + situacaoResidencia + ", estado="
 				+ estado + ", estadoFamilia=" + estadoFamilia

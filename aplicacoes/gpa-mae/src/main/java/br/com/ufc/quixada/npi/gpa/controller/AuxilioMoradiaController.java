@@ -41,17 +41,27 @@ public class AuxilioMoradiaController {
 	@Inject
 	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
 
+
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@InitBinder
 	protected void initBinder(HttpServletRequest request,
 			ServletRequestDataBinder binder) throws ServletException {
-		binder.registerCustomEditor(byte[].class,
-				new ByteArrayMultipartFileEditor());
+		binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String index() {
+		return "index";
+
 	}
 
 	@RequestMapping(value = "/inscricao", method = RequestMethod.GET)
 	public String cadastro(Model model) {
+
 		model.addAttribute("questionarioAuxilioMoradia",
 				new QuestionarioAuxilioMoradia());
 
@@ -88,7 +98,31 @@ public class AuxilioMoradiaController {
 
 		inicialMoraCom(model);
 
-		return "inscricao/auxilio";
+		
+
+	model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
+		
+	model.addAttribute("ufs", Estado.values());
+	
+	model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
+	
+	model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
+	
+	model.addAttribute("situacaoImovel", SituacaoImovel.values());
+		
+	model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
+	
+	model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
+	
+	model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
+	
+	model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());	
+	
+	inicialMoraCom(model);
+	
+	return "inscricao/auxilio";
+	
+	
 
 	}
 
@@ -114,12 +148,15 @@ public class AuxilioMoradiaController {
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
 			BindingResult result, Model model) {
 
+		System.out.println();
+
 		if (result.hasErrors()) {
 			return ("inscricao/auxilio");
 		} else {
 			this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
 		}
 		return "redirect:/selecao/listar";
+		
 
 	}
 

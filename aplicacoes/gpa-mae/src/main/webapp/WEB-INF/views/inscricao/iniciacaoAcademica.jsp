@@ -20,7 +20,11 @@
 			<div class="form" align="center">
 				<h2>Programa de Iniciacao Academica</h2>
 				
+
 				<form:form id="adicionarSeleçãoForm" role="form" commandName="questionarioIniciacaoAcademica" servletRelativeAction="/iniciacaoAcademica/inscricao" method="POST" cssClass="form-horizontal">
+
+				<form:form id="questionarioForm" role="form" commandName="questionarioIniciacaoAcademica" servletRelativeAction="/inscricao/iniciacaoAcademica" method="POST" cssClass="form-horizontal">
+
 					<fieldset>
 					<legend>Moradia</legend>
 					<h3>Endereço de Residência de Origem</h3>
@@ -527,6 +531,16 @@
 						<a href="<c:url value="/selecao/listar"></c:url>" class="btn btn-default">Cancelar</a>
 					</div>
 
+				<jsp:include page="pessoaFamilia.jsp" />
+
+ <br>
+		<div class="controls">
+			<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
+			<a href="<c:url value="/inscricao/iniciacaoAcademica"></c:url>" class="btn btn-default">Cancelar</a>
+		</div>
+
+				
+
 				</form:form>
 			</div>
 		</div>
@@ -546,42 +560,30 @@
 
 
 
+		
+
+	
+	
+	<script type="text/javascript">
 	$(document).ready(function(){
-		//jQuery('#telefone').mask("(99) 9999-9999");		
 		$('#telefone').mask("(99) 9999-9999");
 		$('#telefoneCelular').mask("(99) 9999-9999");
 		$('#telefoneFix').mask("(99) 9999-9999");
 		$('#telefoneCel').mask("(99) 9999-9999");
 		$('#cep').mask("99999999");
 		$('#cepFamilia').mask("99999999");
-		$("a#addInf").click(function(){
-			var total = 0;
-			var media = 0;
-			var linhas=0;
-			$("tbody#corpoInfo").append("<tr>  <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> </tr>");
-			//alert("Voce clicou no addInfo");
-			$(".form-group input#rendaFamilia").attr("value","Adicionando");
-			//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length);
-			
-			var dados = 0;
-			for(var qtd=0;qtd < $("tbody#corpoInfo tr").length;qtd++){
-				dados = $("#renda").val();
-				alert(dados);
-				//valorRenda += $("body").find("th").eq("4").val();	
-				//alert(valorRenda);
-				//alert("Tamanho =  "+ $("tbody#corpoInfo tr").length  +  " cont = " + qtd);
-				
-			}
-			
-						
-		});	
 		
+		
+		$("a#addInf").click(function(){
+			$("tbody#corpoInfo").append("<tr>  <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> <td><input type='text'></td> </tr>");
+			$(".form-group input#rendaFamilia").attr("value","Adicionando");
+	
 		
 	});
+});		
 	
 	
-
-</script>	
+</script>	 
 </body>
 
 </html>
