@@ -31,8 +31,7 @@
 		<div class="novo-aluno" align="left">
 			<h2>Novo Cadastro</h2>
 
-			<form:form id="questionarioAuxilioMoradia" role="form"
-				commandName="questionarioAuxilioMoradia" servletRelativeAction="/auxilio/inscricao"
+			
 
 			<form:form id="questionarioForm" role="form" modelAttribute="questionarioAuxilioMoradia"
 				commandName="questionarioAuxilioMoradia" servletRelativeAction="/inscricao/auxilio/"
