@@ -15,7 +15,6 @@
 
 <script src="<c:url value="/webjars/jquery/2.1.0/jquery.min.js" />"></script>
 <script src="<c:url value="/webjars/bootstrap/3.1.1/js/bootstrap.min.js" />"></script>
-<script src="<c:url value="/webjars/jquery-validation/1.12.0/jquery.validate.min.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrap-datepicker.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrap-datepicker.pt-BR.js" />"></script>
 <script src="<c:url value="/resources/js/npi.js" />"></script>
@@ -23,3 +22,5 @@
 <script src="<c:url value="/resources/js/bootbox.min.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrapValidator.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.mask.js" />"></script>
+<script src="<c:url value="/resources/js/list-dynamic.js" />"></script>
+

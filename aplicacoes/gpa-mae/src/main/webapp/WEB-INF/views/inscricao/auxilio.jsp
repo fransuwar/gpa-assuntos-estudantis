@@ -31,8 +31,10 @@
 		<div class="novo-aluno" align="left">
 			<h2>Novo Cadastro</h2>
 
-			<form:form id="questionarioAuxilioMoradia" role="form"
-				commandName="questionarioAuxilioMoradia" servletRelativeAction="/auxilio/inscricao"
+			
+
+			<form:form id="questionarioForm" role="form" modelAttribute="questionarioAuxilioMoradia"
+				commandName="questionarioAuxilioMoradia" servletRelativeAction="/inscricao/auxilio/"
 				method="POST" cssClass="form-horizontal">
 
 				<input type="hidden" name="id"
@@ -45,7 +47,7 @@
 				<div class="form-group">
 					<label for="nomeMae" class="col-sm-2 control-label">Nome da Mãe:</label>
 					<div class="col-sm-10">
-						<form:input id="nomeMae" type="text" path="nomeMae" cssClass="form-control data" placeholder="Nome da Mãe" />
+						<form:input id="nomeMae" type="text" path="nomeMae" cssClass="form-control" placeholder="Nome da Mãe" />
 						<div class="error-validation">
 							<form:errors path="nomeMae"></form:errors>
 						</div>
@@ -554,103 +556,25 @@
 						</div>
 					</div>
 				</div>
-
-
-<!-- 	<table class="table table-hover"> -->
-<!-- 		<thead> -->
-		
-<!-- 			<th>Nome:</th> -->
-<!-- 			<th> Grau de Paresntesco:</th> -->
-<!-- 			<th> Escolaridade </th> -->
-<!-- 			<th> Atividade ou Profissão</th> -->
-<!-- 			<th> Renda R$</th> -->
-<!-- 			<th><a id="add" > Adicionar</a></th> -->
-			
-<!-- 		</thead> -->
-		
-		
-<!-- 		<script type="text/javascript" src="js/jquery.js" > -->
-<!--  		<script type="text/javascript" src="js/functions.js"> -->
-	
-<!-- // 	//ADICIONA -->
-<!-- // 	$(document).ready(function){     
-
-				$("a#add").click(function() { -->
-<!-- 						var total = 0; -->
-<!-- 						var media = 0; -->
-<!-- 						var linhas = 0; -->
-<!-- // 				var tr = $("tbody"); -->
+				<jsp:include page="pessoaFamilia.jsp" />
 				
-<!-- 				$("tbody#corpoInfo").append("<tr> <td><input='text'></td> <td><input='text'></td> <td><input='text'></td> <td><input='text'></td> </tr>"); -->
-				
-<!-- 					$(".form-grup input#rendaFamilia")..attr("value", "Adicionando"); -->
-				
-<!-- 						var dados = 0; -->
-				
-<!-- 						for(var qtd=0;qtd < $("tbody#corpoInfo tr").lenth;qtd++){ -->
-<!-- 							dados = $("#renda").val(); -->
-<!-- 							alert(dados); -->
-				
-<!-- // 				tr.append($("<tr>") -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='nome["+tr+"].Nome' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='grau["+tr+"].Grau de Parentesco' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='escolaridade["+tr+"].escolaridade' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='atividade["+tr+"].atividade' cssClass ='form-control' value= "+tr+">"))										 -->
-<!-- // 						.append($("<td>").append($("<input type='text' name='renda["+tr+"].renda' cssClass ='form-control' value= "+tr+">")) -->
-<!-- // 						.append($("<td>").append($("<a> deletar </a>")))))))) -->
-<!-- // 						); -->
-				
-<!-- // 			$("table > tbody").append(tr);			 -->
-<!-- //     });	 -->
-	
-<!-- 	}); -->
-	
-<!-- //   //DELETA AMIGOS -->
-<!-- // 	function deletar(tr, index) { -->
-<!-- // 		if(tr > 0 ){	 -->
-<!-- // 			var recipiente = "tbody#tr" + tr; -->
-<!-- // 			alert("O contato " + tr + " tirou do seu coração( " + recipiente + " ) o amigo " + index); -->
-<!-- // 			var size = $("table > "+recipiente+" tr" ).length; -->
-<!-- // 			$( "table > "+recipiente+" tr" ).eq( index ).remove(); -->
-
-<!-- // 			size = $("table > "+recipiente+" tr" ).length; -->
-<!-- // 			for( var i = 0; i < size; ++i){ -->
-<!-- // 				$( "table > "+recipiente+" tr:eq(" + i + ") td > a" ).attr("href", "javascript:deletar(" + tr +", " + i + ")"); -->
-<!-- // 			} -->
-<!-- // 			alert("No coração("+recipiente+") do contato "+ tr +" só tem " + size + " amigo(s)" ); -->
-			
-<!-- // 		} -->
-<!-- // 	} -->
-	
-	
-<!--   	</script> -->
-<!-- <!-- 	</script>	 -->  
-<!-- <!-- 		<tbody> -->
-		
-		
-<!-- <!-- 		</tbody> --> 
-<!-- <!-- 	</table> --> 
-
-<!-- <BR /> -->
 	<div class="controls">
-		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" />
+		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" id="btn-cadastrar"/>
 		 <a href="<c:url value="/inscricao/auxilio" ></c:url>" class="btn btn-default" >Cancelar</a>
 	</div>
 
 
-
-	
+		
 </form:form>
 		</div>
 	</div>
 
-	
-	
-	
-	<jsp:include page="../fragments/footer.jsp"></jsp:include>
-	
+
+
+
 	
 </body>
+
 
 
 </html>

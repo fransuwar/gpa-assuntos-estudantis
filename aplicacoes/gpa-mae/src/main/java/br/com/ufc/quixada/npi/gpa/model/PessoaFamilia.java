@@ -1,6 +1,8 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,7 +12,6 @@ import javax.persistence.ManyToOne;
 @Entity
 
 public class PessoaFamilia {
-
 
 	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
 		return auxilioMoradia;
@@ -35,6 +36,14 @@ public class PessoaFamilia {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public String getEscolaridade() {
+		return escolaridade;
+	}
+
+	public void setEscolaridade(String escolaridade) {
+		this.escolaridade = escolaridade;
 	}
 
 	public String getNome() {
@@ -76,6 +85,7 @@ public class PessoaFamilia {
 	public void setGrauParentesco(GrauParentesco grauParentesco) {
 		this.grauParentesco = grauParentesco;
 	}
+	
 
 	@ManyToOne
 	private QuestionarioAuxilioMoradia auxilioMoradia;
@@ -89,6 +99,7 @@ public class PessoaFamilia {
 	
 	private String nome;
 	private int idade;
+	private String escolaridade;
 	private String atividadeProfissao;
 	private double rendaMensal;
 	
@@ -99,6 +110,7 @@ public class PessoaFamilia {
 		GrauParentesco(String nome){}
 	}
 	
+	@Enumerated(EnumType.STRING)
 	private GrauParentesco grauParentesco;
 
 	@Override
