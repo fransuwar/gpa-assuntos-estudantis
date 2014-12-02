@@ -72,10 +72,6 @@ public class SelecaoBolsaController {
 		if (result.hasErrors()) {
 			return ("selecao/cadastrar");
 		}
-		if(selecao.getQuantidadeVagas() <= 0){
-			model.addAttribute("quantidadeError","Digine um valor maior que 0");
-		return ("selecao/cadastrar");
-		}
 		if (selecao.getAno() < gc.get(Calendar.YEAR)) {
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("dataError",

@@ -9,7 +9,7 @@
 <html>
 <head>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
-	<title>Cadastro de selecaos</title>
+	<title>Cadastro de seleções</title>
 </head>
 <body>
 
@@ -85,9 +85,12 @@
 						<div class="col-sm-2">
 							<form:input id="quantidadeVagas" type="number" min="0" placeholder="0" path="quantidadeVagas" cssClass="form-control"/>
 								<div class="error-validation">
+								<form:errors path="quantidadeVagas"></form:errors>
+								</div>
+								<div class="error-validation">
 								${quantidadeError}
 								</div>
-								<form:errors path="quantidadeVagas"></form:errors>
+								
 							</div>
 					</div>
 					
