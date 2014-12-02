@@ -13,7 +13,11 @@
 	<title>Servidores</title>
 </head>
 <body>
-	<jsp:include page="../fragments/bodyHeader.jsp" />
+
+		<jsp:include page="../fragments/bodyHeader.jsp" />
+<ol class="breadcrumb">
+      <li><a href="/MAE/servidor/listar">Listar Servidor</a></li>
+    </ol>
 
 	<div class="container">
 		<c:if test="${not empty erro}">

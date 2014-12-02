@@ -14,6 +14,10 @@
 </head>
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
+	<ol class="breadcrumb">
+      <li><a href="/MAE/servidor/listar">Listar Servidor</a></li>
+      <li class="active">Editar Servidor</li>
+    </ol>
 	<div class="container">
 		<div class="novo-servidor" align="left">
 			<div class="form" align="center"></div>

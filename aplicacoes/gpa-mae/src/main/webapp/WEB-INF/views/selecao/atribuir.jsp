@@ -14,8 +14,17 @@
 
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
-
+<ol class="breadcrumb">
+      <li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
+      <li class="active">Atribuir Membro Banca</li>
+    </ol>
 	<div class="container">
+		<c:if test="${not empty erro}">
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<c:out value="${erro}"></c:out>
+			</div>
+		</c:if>
 		<div class="atribuirBanca" align="center">
 			<div class="form" align="center">
 				<h2>Atribuir Membros da Banca</h2>
@@ -62,5 +71,4 @@
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
 
 </body>
-
 </html>

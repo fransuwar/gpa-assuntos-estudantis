@@ -9,12 +9,15 @@
 <html>
 <head>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
-	<title>Cadastro de selecaos</title>
+	<title>Cadastro de seleções</title>
 </head>
 <body>
 
 	<jsp:include page="../fragments/headTag.jsp" />
-	
+	<ol class="breadcrumb">
+      <li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
+      <li class="active">Cadastrar Seleção</li>
+    </ol>
 	 <div class="container">
 		<div class="novo-selecao" align="left">
 			<div class="form" align="center">
@@ -81,10 +84,14 @@
 						<label for="quantidadeVagas" class="col-sm-2 control-label">Quantidade de Vagas:</label>
 						<div class="col-sm-2">
 							<form:input id="quantidadeVagas" type="number" min="0" placeholder="0" path="quantidadeVagas" cssClass="form-control"/>
-							<div class="error-validation">
+								<div class="error-validation">
 								<form:errors path="quantidadeVagas"></form:errors>
+								</div>
+								<div class="error-validation">
+								${quantidadeError}
+								</div>
+								
 							</div>
-						</div>
 					</div>
 					
 				<div class="form-group"> 
