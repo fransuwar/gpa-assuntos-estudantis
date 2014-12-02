@@ -17,7 +17,7 @@
 
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
-		<sec:authorize ifAllGranted="ROLE_ADMIN">
+		<sec:authorize access="isAuthenticated()">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#bs-example-navbar-collapse-1">
@@ -32,20 +32,26 @@
 		<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<sec:authorize ifAnyGranted="ROLE_COORDENADOR, ROLE_ADMIN">
+					<sec:authorize ifAnyGranted="ROLE_ADMIN">
 					<li>
-						<a href="<c:url value="/aluno/listar" />">Aluno <span class="glyphicon glyphicon-list"></span></a>
+						<a href="<c:url value="/servidor/listar" />">Listar Servidor <span class="glyphicon glyphicon-list"></span></a>
+					</li>
+					<li>
+						<a href="<c:url value="/aluno/listar" />">Listar Alunos <span class="glyphicon glyphicon-plus"></span></a>
 					</li>
 					</sec:authorize>
 
-					<sec:authorize ifAllGranted="ROLE_COORDENADOR" >
+					<sec:authorize ifAllGranted="ROLE_COORDENADOR, ROLE_ALUNO" >
 					<li>
-						<a href="<c:url value="/selecao/cadastrar" />">Cadastro Bolsa <span class="glyphicon glyphicon-plus"></span></a>
+						<a href="<c:url value="/selecao/listar" />">Listar Seleções<span class="glyphicon glyphicon-plus"></span></a>
 					</li>				
 					</sec:authorize>
-					<sec:authorize ifAllGranted="ROLE_ALUNO">
+					<sec:authorize ifAllGranted="ROLE_COORDENADOR">
 					<li>
-						<a href="<c:url value="/inscricao/iniciacaoAcademica" />">Inscrição Iniciação Acadêmica <span class="glyphicon glyphicon-plus"></span></a>
+						<a href="<c:url value="/aluno/listar" />">Listar Alunos <span class="glyphicon glyphicon-plus"></span></a>
+					</li>
+					<li>
+						<a href="<c:url value="/selecao/listar" />">Listar Seleções <span class="glyphicon glyphicon-plus"></span></a>
 					</li>
 					</sec:authorize>
 
@@ -63,11 +69,13 @@
 					</sec:authorize>
 					
 				</ul>
+				<sec:authorize access="isAuthenticated()">
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a style="font-weight: bold;">Bem vindo, ${sessionScope.pessoa.login}!</a> 
+						<a style="font-weight: bold;">Bem vindo, ${sessionScope.usuario.nome}!</a> 
 					</li>
 				</ul>
+				</sec:authorize>
 			</div>
 		</div>
 	</nav>

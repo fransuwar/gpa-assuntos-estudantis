@@ -6,22 +6,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <html>
 <head>
-
     <jsp:include page="../fragments/headTag.jsp" />
-
-   
-
-<title>Alunos</title>
+	<title>Alunos</title>
 </head>
 <body>
-
-
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
-	
 	<div class="container">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert">
@@ -93,7 +87,10 @@
 										<td>${aluno.ira}</td>
 										<td>${aluno.curso}</td>
 
-										<td><a id="editar"
+									
+										<td>
+										<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+										<a id="editar"
 											href="<c:url value="/aluno/${aluno.id}/editar" ></c:url>">
 												<button class="btn btn-info">
 													Editar <span class="glyphicon glyphicon-pencil"></span>
@@ -104,10 +101,11 @@
 												<button class="btn btn-danger">
 													Excluir <span class="glyphicon glyphicon-trash"></span>
 												</button>
-										</a></td>
+										</a></sec:authorize></td>
+										
 								</c:forEach>
-								
 							</tbody>
+							</table>
 
 					</div>
 					</c:if>
