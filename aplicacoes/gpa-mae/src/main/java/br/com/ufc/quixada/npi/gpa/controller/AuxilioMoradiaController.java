@@ -25,13 +25,14 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import br.com.ufc.quixada.npi.gpa.model.MoraCom;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.Estado;
+//import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.Estado;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.Finalidade_Veiculo;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.GrauParentescoImovelRural;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.GrauParentescoVeiculos;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.SituacaoImovel;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.TipoEnsinoFundamental;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.TipoEnsinoMedio;
+import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.Uf;
 import br.com.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 
 @Controller
@@ -65,7 +66,7 @@ public class AuxilioMoradiaController {
 		model.addAttribute("questionarioAuxilioMoradia",
 				new QuestionarioAuxilioMoradia());
 
-		List<Estado> ufs = new ArrayList<Estado>(Arrays.asList(Estado.values()));
+		List<Uf> ufs = new ArrayList<Uf>(Arrays.asList(Uf.values()));
 		model.addAttribute("ufs", ufs);
 		System.out.println(ufs.toString());
 
@@ -102,7 +103,7 @@ public class AuxilioMoradiaController {
 
 	model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 		
-	model.addAttribute("ufs", Estado.values());
+	model.addAttribute("ufs", Uf.values());
 	
 	model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
 	
