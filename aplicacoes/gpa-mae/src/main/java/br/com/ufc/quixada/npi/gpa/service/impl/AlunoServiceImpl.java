@@ -13,6 +13,6 @@ public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements Aluno
 
 	@Override
 	public Aluno getAlunoByMatricula(String matricula) {
-		return findFirst("from Aluno where matricula = :matricula", new NamedParams("matricula", matricula));
+		return findFirst("Aluno.findAlunoByMatricula", new NamedParams("matricula", matricula));
 	}
 }
