@@ -1,6 +1,5 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
-
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,7 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -17,62 +19,65 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+@NamedQueries({ @NamedQuery(name = "Aluno.findAlunoByMatricula", 
+								query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula") })
 @Entity
 public class Aluno {
-	
-	public Aluno() {}
-		
+
+	public Aluno() {
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@NotEmpty
 	private String matricula;
-	
-	@ManyToMany(mappedBy="alunosSelecao")
+
+	@ManyToMany(mappedBy = "alunosSelecao")
 	private List<SelecaoBolsa> editais;
-	
+
 	@OneToMany
 	private List<QuestionarioAuxilioMoradia> auxilioMoradia;
-	
+
 	@OneToMany
 	private List<QuestionarioIniciacaoAcademica> iniciacaoAcademica;
 
 	@NotEmpty
 	private String curso;
-	
+
 	private String nome;
-	
-	@NotEmpty		
+
+	@NotEmpty
 	private String anoIngresso;
-	
+
 	@NotNull
-	@Min(value= 1, message="IRA deve ser maior que 0")
-	@Max(value= 10, message="IRA deve ter valor máximo à 10")
+	@Min(value = 1, message = "IRA deve ser maior que 0")
+	@Max(value = 10, message = "IRA deve ter valor máximo à 10")
 	private double ira;
-	
+
 	@NotEmpty
 	private String banco;
-	
+
 	@NotEmpty
-	@Size(max= 10, message="Agencia de possuir no máximo 10 dígitos")
+	@Size(max = 10, message = "Agencia de possuir no máximo 10 dígitos")
 	private String agencia;
-	
+
 	@NotEmpty
-	@Size(max= 20, message="Conta deve possuir no máximo 20 dígitos")
+	@Size(max = 20, message = "Conta deve possuir no máximo 20 dígitos")
 	private String conta;
-    
+
 	@ManyToOne
 	private Pessoa pessoa;
 	
 	private byte[] foto;
 
-
 	public List<QuestionarioAuxilioMoradia> getAuxilioMoradia() {
 		return auxilioMoradia;
 	}
 
-	public void setAuxilioMoradia(List<QuestionarioAuxilioMoradia> auxilioMoradia) {
+	public void setAuxilioMoradia(
+			List<QuestionarioAuxilioMoradia> auxilioMoradia) {
 		this.auxilioMoradia = auxilioMoradia;
 	}
 
@@ -84,7 +89,7 @@ public class Aluno {
 			List<QuestionarioIniciacaoAcademica> iniciacaoAcademica) {
 		this.iniciacaoAcademica = iniciacaoAcademica;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -92,7 +97,7 @@ public class Aluno {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -100,8 +105,7 @@ public class Aluno {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
+
 	public String getMatricula() {
 		return matricula;
 	}
@@ -109,7 +113,7 @@ public class Aluno {
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
-	
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -184,7 +188,5 @@ public class Aluno {
 				+ ", ira=" + ira + ", banco=" + banco + ", agencia=" + agencia
 				+ ", conta=" + conta + ", pessoa=" + pessoa + "]";
 	}
-	
-	
 
 }

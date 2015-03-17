@@ -69,12 +69,13 @@ public class SelecaoBolsa {
 	
 	@ManyToOne
 	private  Pessoa autor;
-
 	
 	@OneToMany(mappedBy = "selecaoBolsa", cascade = CascadeType.REMOVE)
 	private List<Documento> documentos;
+	
 	@NotNull
 	private Integer sequencial;
+	
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
