@@ -1,6 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -56,7 +57,7 @@ public class QuestionarioAuxilioMoradia {
 	private String nomePai;
 	
 	@Column(nullable = false)
-	private String rua;
+	private String logradouro;
 	
 	@Column(nullable = false)
 	private int numeroCasa;
@@ -73,12 +74,15 @@ public class QuestionarioAuxilioMoradia {
 	private String cep;
 	
 	@Column(nullable = false)
-	private String pontoReferencia;
+	private String ponto_referencia;
 	
 	@Column(nullable = false)
 	private String telefone;
+	
+	@Column (nullable = false)
+	private Date data_inscricao;
 
-	public enum Estado {
+	public enum Uf{
 		ACRE("Acre"), ALAGOAS("Alagoas"), AMAPA("Amapa"), AMAZONAS("Amazonas"), BAHIA("Bahia"), CEARA("Ceará"), DISTRITO_FEDERAL("Distrito Federal"), 
 		ESPIRITO_SANTO("Espirito Santo"), GOIAS("Goiás"), MARANHAO("Maranhão"), MATO_GROSSO("Mato Grosso"), MATO_GROSSO_DO_SUL("Mato Grosso do Sul"),
 		MINAS_GERAIS("Minas Gerais"), PARA("Pará"), Paraiba("Paraíba"), PARANA("Paraná"), PERNAMBUCO("Pernambuco"), PIAUI("Piauí"), 
@@ -87,7 +91,7 @@ public class QuestionarioAuxilioMoradia {
 		
 		private String estado;
 
-		Estado(String estado){
+		Uf(String estado){
 			this.estado = estado;
 		}
 		
@@ -97,7 +101,7 @@ public class QuestionarioAuxilioMoradia {
 	}
 
 	@Enumerated(EnumType.STRING)
-	private Estado estado;
+	private Uf estado;
 
 	public enum SituacaoImovel{
 		CEDIDO("Cedido"), ALUGADO("Alugado"), PROPRIO("Próprio"), FINANCIADO("Financiado");
@@ -161,20 +165,20 @@ public class QuestionarioAuxilioMoradia {
 	@Enumerated(EnumType.STRING)
 	private GrauParentescoVeiculos grauParentescoVeiculos;
 
-	private String tipo;
+	private String tipoVeiculo;
 	
-	private String marca;
+	private String marcaVeiculo;
 	
-	private String modelo;
+	private String modeloVeiculo;
 	
-	private String ano;
+	private String anoVeiculo;
 
-	public enum FinalidadeVeiculo{
+	public enum Finalidade_Veiculo{
 		PASSEIO("Passeio"), TAXI("Táxi"), FRETE("Frete");
 		
 		private String veiculo;
 		
-		FinalidadeVeiculo(String veiculo){
+		Finalidade_Veiculo(String veiculo){
 			this.veiculo = veiculo;
 		}
 		public String getVeiculo(){
@@ -182,7 +186,7 @@ public class QuestionarioAuxilioMoradia {
 		}
 	}
 	@Enumerated(EnumType.STRING)
-	private FinalidadeVeiculo finalidadeVeiculo;
+	private Finalidade_Veiculo finalidadeVeiculo;
 
 	public enum TipoEnsinoFundamental{
 		PUBLICO("Público"), PARTICULAR("Particular"), PARTICULAR_COM_BOLSA("Particular com Bolsa");
@@ -274,10 +278,10 @@ public class QuestionarioAuxilioMoradia {
 		this.nomePai = nomePai;
 	}
 	public String getRua() {
-		return rua;
+		return logradouro;
 	}
 	public void setRua(String rua) {
-		this.rua = rua;
+		this.logradouro = rua;
 	}
 	public int getNumeroCasa() {
 		return numeroCasa;
@@ -310,10 +314,10 @@ public class QuestionarioAuxilioMoradia {
 		this.cep = cep;
 	}
 	public String getPontoReferencia() {
-		return pontoReferencia;
+		return ponto_referencia;
 	}
 	public void setPontoReferencia(String pontoReferencia) {
-		this.pontoReferencia = pontoReferencia;
+		this.ponto_referencia = pontoReferencia;
 	}
 	public String getTelefone() {
 		return telefone;
@@ -321,10 +325,10 @@ public class QuestionarioAuxilioMoradia {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	public Estado getEstado() {
+	public Uf getEstado() {
 		return estado;
 	}
-	public void setEstado(Estado estado) {
+	public void setEstado(Uf estado) {
 		this.estado = estado;
 	}
 	public SituacaoImovel getSituacaoImovel() {
@@ -378,33 +382,33 @@ public class QuestionarioAuxilioMoradia {
 		this.grauParentescoVeiculos = grauParentescoVeiculos;
 	}
 	public String getTipo() {
-		return tipo;
+		return tipoVeiculo;
 	}
 	public void setTipo(String tipo) {
-		this.tipo = tipo;
+		this.tipoVeiculo = tipo;
 	}
 	public String getMarca() {
-		return marca;
+		return marcaVeiculo;
 	}
 	public void setMarca(String marca) {
-		this.marca = marca;
+		this.marcaVeiculo = marca;
 	}
 	public String getModelo() {
-		return modelo;
+		return modeloVeiculo;
 	}
 	public void setModelo(String modelo) {
-		this.modelo = modelo;
+		this.modeloVeiculo = modelo;
 	}
 	public String getAno() {
-		return ano;
+		return anoVeiculo;
 	}
 	public void setAno(String ano) {
-		this.ano = ano;
+		this.anoVeiculo = ano;
 	}
-	public FinalidadeVeiculo getFinalidadeVeiculo() {
+	public Finalidade_Veiculo getFinalidadeVeiculo() {
 		return finalidadeVeiculo;
 	}
-	public void setFinalidadeVeiculo(FinalidadeVeiculo finalidadeVeiculo) {
+	public void setFinalidadeVeiculo(Finalidade_Veiculo finalidadeVeiculo) {
 		this.finalidadeVeiculo = finalidadeVeiculo;
 	}
 	public TipoEnsinoFundamental getEnsinoFundamental() {
@@ -499,9 +503,9 @@ public class QuestionarioAuxilioMoradia {
 				+ selecaoBolsa + ", pessoas=" + pessoas + ", moraCom="
 				+ moraCom + ", enderecoSedeCurso=" + enderecoSedeCurso
 				+ ", nomeMae=" + nomeMae + ", nomePai=" + nomePai + ", rua="
-				+ rua + ", numeroCasa=" + numeroCasa + ", bairro=" + bairro
+				+ logradouro + ", numeroCasa=" + numeroCasa + ", bairro=" + bairro
 				+ ", complemento=" + complemento + ", cidade=" + cidade
-				+ ", cep=" + cep + ", pontoReferencia=" + pontoReferencia
+				+ ", cep=" + cep + ", pontoReferencia=" + ponto_referencia
 				+ ", telefone=" + telefone + ", estado=" + estado
 				+ ", situacaoImovel=" + situacaoImovel
 				+ ", valorMensalFinanciamento=" + valorMensalFinanciamento
@@ -510,8 +514,8 @@ public class QuestionarioAuxilioMoradia {
 				+ ", areaPropriedade=" + areaPropriedade + ", cidadeEstado="
 				+ cidadeEstado + ", veiculos=" + veiculos
 				+ ", grauParentescoVeiculos=" + grauParentescoVeiculos
-				+ ", tipo=" + tipo + ", marca=" + marca + ", modelo=" + modelo
-				+ ", ano=" + ano + ", finalidadeVeiculo=" + finalidadeVeiculo
+				+ ", tipo=" + tipoVeiculo + ", marca=" + marcaVeiculo + ", modelo=" + modeloVeiculo
+				+ ", ano=" + anoVeiculo + ", finalidadeVeiculo=" + finalidadeVeiculo
 				+ ", ensinoFundamental=" + ensinoFundamental
 				+ ", percentualParticularFundamental="
 				+ percentualParticularFundamental + ", ensinoMedio="

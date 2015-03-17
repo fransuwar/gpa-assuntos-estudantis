@@ -95,7 +95,9 @@ public class SelecaoBolsa {
 	@Size(min = 2, message = "Mínimo 2 caracteres")
 	private String comentarios;
 	
-	private String edital;
+	private byte[] edital;
+
+	
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Servidor> membrosBanca;
@@ -161,10 +163,7 @@ public class SelecaoBolsa {
 		return duracao;
 	}
 
-	public String getEdital() {
-		return edital;
-	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -197,6 +196,15 @@ public class SelecaoBolsa {
 		return tipoBolsa;
 	}
 
+	
+	public byte[] getEdital() {
+		return edital;
+	}
+
+	public void setEdital(byte[] edital) {
+		this.edital = edital;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -237,9 +245,7 @@ public class SelecaoBolsa {
 		this.duracao = duracao;
 	}
 
-	public void setEdital(String Edital) {
-		this.edital = Edital;
-	}
+	
 
 	public void setId(Integer id) {
 		this.id = id;

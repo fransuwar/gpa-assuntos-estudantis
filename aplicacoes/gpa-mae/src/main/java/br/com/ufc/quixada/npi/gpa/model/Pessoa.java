@@ -56,7 +56,7 @@ public class Pessoa {
 		AC, AL, AM, AP, BA, CE, DF, ES, GO, MA, MG, MS, MT, PA, PB, PE, PI, PR, RJ, RN, RO, RR, RS, SC, SE, SP, TO;
 	}
 	
-	private Uf uf;
+	private Uf uf_naturalidade;
 	
 	private String sexo;
 	
@@ -64,18 +64,17 @@ public class Pessoa {
 	
 	private String rg;
 	
-	public Uf getUf() {
-		return uf;
-	}
-
-	public void setUf(Uf uf) {
-		this.uf = uf;
-	}
-
 	private String telefone;
 	
 	private String estadoCivil;
 	
+	public Uf getUf() {
+		return uf_naturalidade;
+	}
+
+	public void setUf(Uf uf) {
+		this.uf_naturalidade = uf;
+	}
 		
 	public String getPassword() {
 		return password;
@@ -234,7 +233,7 @@ public class Pessoa {
 				+ password + ", habilitado=" + habilitado + ", email=" + email
 				+ ", nome=" + nome + ", dataNascimento=" + dataNascimento
 				+ ", nacionalidade=" + nacionalidade + ", naturalidade="
-				+ naturalidade + ", uf=" + uf + ", sexo=" + sexo + ", cpf="
+				+ naturalidade + ", uf=" + uf_naturalidade + ", sexo=" + sexo + ", cpf="
 				+ cpf + ", rg=" + rg + ", telefone=" + telefone
 				+ ", estadoCivil=" + estadoCivil + ", alunos=" + alunos
 				+ ", servidores=" + servidores + ", papeis=" + papeis + "]";
