@@ -10,11 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.com.ufc.quixada.npi.enums.Cargo;
+
+@NamedQueries({ @NamedQuery(name = "Servidor.findServidorBySiape", 
+								query = "SELECT s FROM Servidor s WHERE s.siape = :siape") })
 
 @Entity
 public class Servidor {

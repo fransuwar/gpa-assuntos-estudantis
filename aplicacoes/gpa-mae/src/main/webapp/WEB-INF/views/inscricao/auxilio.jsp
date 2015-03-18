@@ -34,15 +34,15 @@
 			
 
 			<form:form id="questionarioForm" role="form" modelAttribute="questionarioAuxilioMoradia"
-				commandName="questionarioAuxilioMoradia" servletRelativeAction="/inscricao/auxilio/"
+				commandName="questionarioAuxilioMoradia" servletRelativeAction="/auxilio/inscricao/"
 				method="POST" cssClass="form-horizontal">
 
 				<input type="hidden" name="id"
 					value="${QuestionarioAuxilioMoradia.id }" />
-
-
-						<form:checkboxes items="${moraCom}" path="moraCom" />					
-	
+					
+					
+					<form:checkboxes items="${moraCom}" path="moraCom"/>
+ 	
 
 				<div class="form-group">
 					<label for="nomeMae" class="col-sm-2 control-label">Nome da Mãe:</label>
