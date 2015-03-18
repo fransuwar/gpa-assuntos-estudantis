@@ -1,13 +1,15 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-public enum SituacaoResidencial{
+public enum SituacaoResidencia {
 	cedido("Cedido"), proprio("Próprio"), alugado("Alugado"), doado("Doado");
+
 	private String nome;
-	SituacaoResidencial(String nome){
+
+	SituacaoResidencia(String nome) {
 		this.nome = nome;
 	}
-	
-	public String getNome(){
+
+	public String getNome() {
 		return nome;
 	}
 }
