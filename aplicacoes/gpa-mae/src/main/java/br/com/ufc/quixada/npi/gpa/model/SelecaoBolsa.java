@@ -1,5 +1,6 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -101,8 +102,6 @@ public class SelecaoBolsa {
 	
 	private byte[] edital;
 
-	
-
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Servidor> membrosBanca;
 
@@ -111,9 +110,6 @@ public class SelecaoBolsa {
 
 	@ManyToMany
 	private List<Aluno> alunosSelecao;
-
-
-	
 
 	@Enumerated(EnumType.STRING)
 	private TipoBolsa tipoBolsa;
@@ -249,8 +245,6 @@ public class SelecaoBolsa {
 		this.duracao = duracao;
 	}
 
-	
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -284,5 +278,31 @@ public class SelecaoBolsa {
 	}
 	
 	
+	
+	
+	public int verificaData(Date dataIn, Date dataFim){
+		Calendar c1= Calendar.getInstance();
+		c1.setTime(dataIn);
+		Calendar c2 = Calendar.getInstance();
+		c2.setTime(dataFim);
+		
+		if(c1.get(Calendar.YEAR) > c2.get(Calendar.YEAR)){
+			return 1;
+		} else if(c1.get(Calendar.MONTH) > c2.get(Calendar.MONTH)){
+			return 1;
+		}else if(c1.get(Calendar.DAY_OF_MONTH) > c2.get(Calendar.DAY_OF_MONTH)){
+			return 1;
+		}
+		
+		return 0;
+	}//
+	
+	public boolean dataValida(){
+		if((verificaData(getDataInicio(), getDataTermino())) == 1){
+			return false;
+		}
+		return true;
+	}
+
 
 }
