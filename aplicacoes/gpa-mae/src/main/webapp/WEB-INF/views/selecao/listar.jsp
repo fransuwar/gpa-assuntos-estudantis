@@ -16,6 +16,19 @@ uri="http://www.springframework.org/security/tags"%>
       <li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
     </ol>
 	<div class="container">
+	
+		<c:if test="${not empty erro}">
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<c:out value="${erro}"></c:out>
+			</div>
+		</c:if>
+		<c:if test="${not empty info}">
+			<div class="alert alert-success alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<c:out value="${info}"></c:out>
+			</div>
+		</c:if>
 		
 		<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDENADOR')">
 		<div align="right" style="margin-bottom: 20px;">

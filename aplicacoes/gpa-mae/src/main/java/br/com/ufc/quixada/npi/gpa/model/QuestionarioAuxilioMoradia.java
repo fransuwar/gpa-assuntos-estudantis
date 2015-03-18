@@ -35,13 +35,6 @@ public class QuestionarioAuxilioMoradia {
 	@JoinColumn(name= "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
 	
-	public enum MoraCom{
-		PAIS("Pais"), PAI("Pai"), MAE("Mãe"), IRMAOS("irmãos"), PARENTES("Parentes"),
-		CONJUGE_COMPANHEIRO("Cônjuge ou Companheiro(a)"), FILHOS("Filhos(as)"), OUTRA_MORADIA("Outros");
-		MoraCom(String nome) {
-
-		}
-	}
 	
 	@Enumerated(EnumType.STRING)
 	@ElementCollection(targetClass = MoraCom.class) 

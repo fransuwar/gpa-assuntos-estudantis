@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ufc.quixada.npi.gpa.model.MoraCom;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
@@ -101,44 +102,44 @@ public class AuxilioMoradiaController {
 
 		
 
-	model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
+		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
+			
+
+		model.addAttribute("ufs", Uf.values());
 		
-	model.addAttribute("ufs", Uf.values());
-	
-	model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-	
-	model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-	
-	model.addAttribute("situacaoImovel", SituacaoImovel.values());
+		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
 		
-	model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-	
-	model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
-	
-	model.addAttribute("finalidadeVeiculo", Finalidade_Veiculo.values());
-	
-	model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());	
-	
-	inicialMoraCom(model);
-	
-	return "inscricao/auxilio";
-	
-	
+		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
+		
+		model.addAttribute("situacaoImovel", SituacaoImovel.values());
+			
+		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
+		
+		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
+		
+		model.addAttribute("finalidadeVeiculo", Finalidade_Veiculo.values());
+		
+		model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());	
+		
+		inicialMoraCom(model);
+		
+		return "inscricao/auxilio";
 
 	}
 
 	private void inicialMoraCom(Model model) {
 
 		Map<MoraCom, String> moraCom = new TreeMap<MoraCom, String>();
+		
 
-		moraCom.put(MoraCom.Pais, " Pais ");
-		moraCom.put(MoraCom.Pai, " Pai ");
-		moraCom.put(MoraCom.Mae, " Mãe ");
-		moraCom.put(MoraCom.Irmaos, " Irmãos ");
-		moraCom.put(MoraCom.Parentes, " Parentes ");
-		moraCom.put(MoraCom.Conjuge_Companheiro, " Conjuge ou Companheiro ");
-		moraCom.put(MoraCom.Filhos, " Filhos ");
-		moraCom.put(MoraCom.Outra_moradia, " Outra Moradia ");
+		moraCom.put(MoraCom.Pais, "Pais");
+		moraCom.put(MoraCom.Pai, "Pai");
+		moraCom.put(MoraCom.Mae, "Mãe");
+		moraCom.put(MoraCom.Irmaos, "Irmãos");
+		moraCom.put(MoraCom.Parentes, "Parentes");
+		moraCom.put(MoraCom.Conjuge_Companheiro, "Cônjuge ou Companheiro(a)");
+		moraCom.put(MoraCom.Filhos, "Filhos(as)");
+		moraCom.put(MoraCom.Outra_moradia, "Outros");
 
 		model.addAttribute("moraCom", moraCom);
 
@@ -147,7 +148,7 @@ public class AuxilioMoradiaController {
 	@RequestMapping(value = "/inscricao", method = RequestMethod.POST)
 	public String selecaoAluno(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
-			BindingResult result, Model model) {
+			BindingResult result, RedirectAttributes redirect) {
 
 		System.out.println();
 
@@ -155,6 +156,7 @@ public class AuxilioMoradiaController {
 			return ("inscricao/auxilio");
 		} else {
 			this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
+			redirect.addFlashAttribute("info", "Inscrição realizada com sucesso.");
 		}
 		return "redirect:/selecao/listar";
 		
