@@ -21,6 +21,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.junit.After;
 import org.junit.Before;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -80,7 +81,8 @@ public class SelecaoBolsa {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	//@Before() 
+	//@Before
+	@Future
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
