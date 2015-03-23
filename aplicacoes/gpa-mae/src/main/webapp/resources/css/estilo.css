@@ -9,8 +9,60 @@ div.container{
 	padding-bottom:20px;
 }
 
+#label-select{
+	margin-top: 0.5%;
+}
+
+#div-select{
+	padding-top: 0%;
+}
+
+#form-btn{
+	margin-top: 5%;
+	margin-bottom: 0%;
+	width:100%;
+}
+
+#div-form-btn{
+	float: right;
+}
+
+#listar-btn-inserir{
+	width:100%;
+}
+
+#div-form-buscar{
+	margin-bottom:1%; 
+	padding-left:0%
+}
+
+#div-btn-inserir{
+	margin-bottom:1%; 
+	padding-left:0%; 
+	padding-right:0%;
+}
+
+#form-label{
+	width: 12%;
+	text-align: right;
+}
+
+#form-label-1{
+	width: 15%;
+	text-align: right;
+}
+
 div.row {
 	width: 100%;
+}
+
+#form-input{
+	width: 13%;
+}
+
+#form-imput-1{
+	padding-top: 0%;
+	width: 19%;
 }
 
 .navbar {
