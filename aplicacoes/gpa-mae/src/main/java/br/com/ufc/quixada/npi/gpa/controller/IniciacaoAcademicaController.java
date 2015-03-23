@@ -16,60 +16,58 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica.Estado;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica.HorarioDisponivel;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica.NivelInstrucao;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica.SituacaoResidencia;
 import br.com.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
-
+import br.com.ufc.quixada.npi.gpa.enums.Estado;
+import br.com.ufc.quixada.npi.gpa.enums.HorarioDisponivel;
+import br.com.ufc.quixada.npi.gpa.enums.NivelInstrucao;
+import br.com.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 
 @Controller
 @RequestMapping("iniciacaoAcademica")
 public class IniciacaoAcademicaController {
-	
-	
-	
+
 	@Inject
 	private IniciacaoAcademicaService iniciacaoAcademicaService;
 
-	
-	@RequestMapping(value="/inscricao", method = RequestMethod.GET)
-	 public String cadastro(Model modelo){
-		
-		modelo.addAttribute("questionarioIniciacaoAcademica", new QuestionarioIniciacaoAcademica());
-		
-		List<NivelInstrucao> nivelInstrucao = new ArrayList<NivelInstrucao>(Arrays.asList(NivelInstrucao.values()));
-		List<HorarioDisponivel> horarioDisponivel = new ArrayList<HorarioDisponivel>(Arrays.asList(HorarioDisponivel.values()));
-		List<SituacaoResidencia> situacaoResidencia = new ArrayList<SituacaoResidencia>(Arrays.asList(SituacaoResidencia.values()));
-		List<Estado> estado = new ArrayList<Estado>(Arrays.asList(Estado.values()));
-		
+	@RequestMapping(value = "/inscricao", method = RequestMethod.GET)
+	public String cadastro(Model modelo) {
+
+		modelo.addAttribute("questionarioIniciacaoAcademica",
+				new QuestionarioIniciacaoAcademica());
+
+		List<NivelInstrucao> nivelInstrucao = new ArrayList<NivelInstrucao>(
+				Arrays.asList(NivelInstrucao.values()));
+		List<HorarioDisponivel> horarioDisponivel = new ArrayList<HorarioDisponivel>(
+				Arrays.asList(HorarioDisponivel.values()));
+		List<SituacaoResidencia> situacaoResidencia = new ArrayList<SituacaoResidencia>(
+				Arrays.asList(SituacaoResidencia.values()));
+		List<Estado> estado = new ArrayList<Estado>(Arrays.asList(Estado
+				.values()));
+
 		modelo.addAttribute("NivelInstrucao", nivelInstrucao);
 		modelo.addAttribute("HorarioDisponivel", horarioDisponivel);
 		modelo.addAttribute("SituacaoResidencia", situacaoResidencia);
 		modelo.addAttribute("TotalEstado", estado);
-		
+
 		return "inscricao/iniciacaoAcademica";
 	}
-	
-	
-	@RequestMapping(value="/inscricao", method = RequestMethod.POST)
-     public String adicionaIniciacaoAcademica(@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica, 
-    		 BindingResult result, 
-    		 RedirectAttributes redirect ){
-		
-		if(result.hasErrors()){
-			questionarioIniciacaoAcademica = new QuestionarioIniciacaoAcademica();
+
+	@RequestMapping(value = "/inscricao", method = RequestMethod.POST)
+	public String adicionaIniciacaoAcademica(
+			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
+			BindingResult result, RedirectAttributes redirect) {
+
+		if (result.hasErrors()) {
+
 			return ("inscricao/iniciacaoAcademica");
-		
+
 		} else {
-		
+
 			this.iniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
-			redirect.addFlashAttribute("info", "Projeto cadastrado com sucesso.");
+			redirect.addFlashAttribute("info",
+					"Projeto cadastrado com sucesso.");
 		}
-		
+
 		return "redirect:/selecao/listar";
 	}
-}	 
-	
-	
-
+}

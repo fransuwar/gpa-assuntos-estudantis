@@ -281,17 +281,24 @@ public class SelecaoBolsa {
 	
 	
 	public int verificaData(Date dataIn, Date dataFim){
-		Calendar c1= Calendar.getInstance();
-		c1.setTime(dataIn);
-		Calendar c2 = Calendar.getInstance();
-		c2.setTime(dataFim);
+		Calendar data1= Calendar.getInstance();
+		data1.setTime(dataIn);
+		Calendar data2 = Calendar.getInstance();
+		data2.setTime(dataFim);
 		
-		if(c1.get(Calendar.YEAR) > c2.get(Calendar.YEAR)){
+		if(data1.get(Calendar.YEAR) > data2.get(Calendar.YEAR)){
 			return 1;
-		} else if(c1.get(Calendar.MONTH) > c2.get(Calendar.MONTH)){
+		}else if(data1.get(Calendar.YEAR) < data2.get(Calendar.YEAR)){
+			return -1;
+		}if(data1.get(Calendar.MONTH) > data2.get(Calendar.MONTH)){
 			return 1;
-		}else if(c1.get(Calendar.DAY_OF_MONTH) > c2.get(Calendar.DAY_OF_MONTH)){
+		}else if(data1.get(Calendar.MONTH) < data2.get(Calendar.MONTH)){
+			return -1;
+		}
+		if(data1.get(Calendar.DAY_OF_MONTH) > data2.get(Calendar.DAY_OF_MONTH)){
 			return 1;
+		}else if(data1.get(Calendar.DAY_OF_MONTH) < data2.get(Calendar.DAY_OF_MONTH)){
+			return -1;
 		}
 		
 		return 0;

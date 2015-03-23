@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import br.com.ufc.quixada.npi.gpa.enums.MoraCom;
+
 @Entity
 public class QuestionarioAuxilioMoradia {
 
@@ -37,7 +39,7 @@ public class QuestionarioAuxilioMoradia {
 	
 	
 	@Enumerated(EnumType.STRING)
-	@ElementCollection(targetClass = MoraCom.class) 
+	@ElementCollection(targetClass = MoraCom.class)
 	private List<MoraCom> moraCom;
 	
 	@Column(nullable = false)

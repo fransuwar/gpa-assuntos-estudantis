@@ -18,11 +18,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import br.com.ufc.quixada.npi.gpa.enums.Estado;
+import br.com.ufc.quixada.npi.gpa.enums.GrauParentesco;
+import br.com.ufc.quixada.npi.gpa.enums.HorarioDisponivel;
+import br.com.ufc.quixada.npi.gpa.enums.NivelInstrucao;
+import br.com.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
+
 @Entity
 public class QuestionarioIniciacaoAcademica {
-
-	public QuestionarioIniciacaoAcademica() {
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,141 +33,6 @@ public class QuestionarioIniciacaoAcademica {
 
 	@ManyToOne
 	private SelecaoBolsa selecaoBolsa;
-
-	public SelecaoBolsa getSelecaoBolsa() {
-		return selecaoBolsa;
-	}
-
-	public void setSelecaoBolsa(SelecaoBolsa selecaoBolsa) {
-		this.selecaoBolsa = selecaoBolsa;
-	}
-
-	@Column(nullable = false)
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "iniciacaoacademica_id")
-	private List<PessoaFamilia> pessoas;
-
-	@NotNull
-	@Size(min = 5, message = "Preenchimento Obrigatório")
-	private String enderecoAtual;
-	private int numero;
-	private String complemento;
-	@NotNull
-	@Size(min = 1, message = "Preenchimento Obrigatório")
-	private String bairro;
-	private String uf;
-	@Pattern(regexp = "^[0-9]{8}$", message = "CEP Inválido")
-	private String cep;
-	@NotNull
-	@Size(min = 3, message = "Preenchimento Obrigatório")
-	private String cidade;
-	private String pontoReferencia;
-	@Pattern(regexp = "\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message = "Telefone Incorreto formato (00) 0000-0000")
-	private String telefoneFixo;
-	@Pattern(regexp = "\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message = "Telefone Incorreto formato (00) 0000-0000")
-	private String telefoneCelular;
-	private String email;
-
-	@NotNull
-	@Size(min = 1, message = "Preenchimento Obrigatório")
-	private String enderecoFamilia;
-	private int numeroFamilia;
-	@NotNull
-	@Size(min = 1, message = "Preenchimento Obrigatório")
-	private String bairroFamilia;
-	private String ufFamilia;
-	private String complementoFamilia;
-	@Pattern(regexp = "^[0-9]{8}$", message = "CEP Inválido")
-	private String cepFamilia;
-	@NotNull
-	@Size(min = 3, message = "Preenchimento Obrigatório")
-	private String cidadeFamilia;
-	private String pontoReferenciaFamilia;
-
-	private int anosEstudoPrivado;
-
-	public enum NivelInstrucao {
-
-		EnsinoFundamentalCompleto("Ensino Fundamental Completo"), EnsinoMedioCompleto(
-				"Ensino Médio Completo"), EnsinoSuperiorCompleto(
-				"Ensino Superior Completo"), EnsinoFundamentalIncompleto(
-				"Ensino Fundamental Incompleto"), EnsinoMedioIncompleto(
-				"Ensino Médio Incompleto"), EnsinoSuperiorIncompleto(
-				"Ensino Superior Incompleto");
-		private String nome;
-
-		NivelInstrucao(String tipo) {
-			this.nome = tipo;
-		}
-
-		public String getNome() {
-			return nome;
-		}
-	}
-
-	@Enumerated(EnumType.STRING)
-	private NivelInstrucao nivelInstrucaoMae;
-
-	
-	private NivelInstrucao nivelInstrucaoPai;
-	@NotNull
-	@Size(min=1,message="Preenchimento Obrigatório")
-	private String reside_Atualmente;
-	
-	@NotNull
-	@Size(min=1,message="Preenchimento Obrigatório")
-	private String definicao_Local_Atual;
-	
-
-	@NotNull
-	@Size(min = 1, message = "Preenchimento Obrigatório")
-	private String definicaoLocalAtual;
-
-	public enum SituacaoResidencia {
-		cedido("Cedido"), proprio("Próprio"), alugado("Alugado"), doado("Doado");
-		private String nome;
-
-		SituacaoResidencia(String nome) {
-			this.nome = nome;
-		}
-
-		public String getNome() {
-			return nome;
-		}
-	}
-
-	public enum Estado {
-		Acre("Acre"), Alagoas("Alagoas"), Amapa("Amapa"), Amazonas("Amazonas"), Bahia(
-				"Bahia"), Ceara("Ceará"), Distrito_Federal("Distrito Federal"), Espirito_Santo(
-				"Espirito Santo"), Goias("Goiás"), Maranhao("Maranhão"), Mato_Grosso(
-				"Mato Grosso"), Mato_Grosso_do_Sul("Mato Grosso do Sul"), Minas_Gerais(
-				"Minas Gerais"), Para("Pará"), Paraiba("Paraíba"), Parana(
-				"Paraná"), Pernambuco("Pernambuco"), Piaui("Piauí"), Rio_de_Janeiro(
-				"Rio de Janeiro"), Rio_Grande_do_Norte("Rio Grande do Norte"), Rio_Grande_do_Sul(
-				"Rio Grande do Sul"), Rondonia("Rondonia"), Roraima("Roraima"), Santa_Catarina(
-				"Santa Catarina"), Sao_Paulo("São Paulo"), Sergipe("Sergipe"), Tocantins(
-				"Tocantins");
-		private String estado;
-
-		Estado(String estado) {
-			this.estado = estado;
-		}
-
-		public String getEstado() {
-			return estado;
-		}
-	}
-
-	@Enumerated(EnumType.STRING)
-	private Estado estado;
-
-	@Enumerated(EnumType.STRING)
-	private Estado estadoFamilia;
-
-	@Enumerated(EnumType.STRING)
-	private SituacaoResidencia situacaoResidencia;
-
-	
 	
 	private int qtd_aparelho_som;
 	private int qtd_televisao;
@@ -185,8 +53,99 @@ public class QuestionarioIniciacaoAcademica {
 	private int qtd_empregados_domesticos;
 	private int total_membros_familia;
 	
-
 	private String nome;
+	private int idade;
+	private String atividade;
+	private float renda;
+	private float rendaTotalFamilia;
+
+	@Column(nullable = false)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "iniciacaoacademica_id")
+	private List<PessoaFamilia> pessoas;
+
+	@NotNull
+	@Size(min = 5, message = "Preenchimento Obrigatório")
+	private String enderecoAtual;
+
+	private int numero;
+
+	private String complemento;
+
+	@NotNull
+	@Size(min = 1, message = "Preenchimento Obrigatório")
+	private String bairro;
+
+	private String uf;
+
+	@Pattern(regexp = "^[0-9]{8}$", message = "CEP Inválido")
+	private String cep;
+
+	@NotNull
+	@Size(min = 3, message = "Preenchimento Obrigatório")
+	private String cidade;
+
+	private String pontoReferencia;
+	@Pattern(regexp = "\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message = "Telefone Incorreto formato (00) 0000-0000")
+	private String telefoneFixo;
+
+	@Pattern(regexp = "\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message = "Telefone Incorreto formato (00) 0000-0000")
+	private String telefoneCelular;
+
+	private String email;
+
+	@NotNull
+	@Size(min = 1, message = "Preenchimento Obrigatório")
+	private String enderecoFamilia;
+
+	private int numeroFamilia;
+
+	@NotNull
+	@Size(min = 1, message = "Preenchimento Obrigatório")
+	private String bairroFamilia;
+
+	private String ufFamilia;
+
+	private String complementoFamilia;
+
+	@Pattern(regexp = "^[0-9]{8}$", message = "CEP Inválido")
+	private String cepFamilia;
+
+	@NotNull
+	@Size(min = 3, message = "Preenchimento Obrigatório")
+	private String cidadeFamilia;
+
+	private String pontoReferenciaFamilia;
+
+	private int anosEstudoPrivado;
+
+	@Enumerated(EnumType.STRING)
+	private NivelInstrucao nivelInstrucaoMae;
+
+	
+	private NivelInstrucao nivelInstrucaoPai;
+
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
+	private String reside_Atualmente;
+	
+	@NotNull
+	@Size(min=1,message="Preenchimento Obrigatório")
+	private String definicao_Local_Atual;
+	
+
+	@NotNull
+	@Size(min = 1, message = "Preenchimento Obrigatório")
+	private String definicaoLocalAtual;
+
+	@Enumerated(EnumType.STRING)
+	private Estado estado;
+
+	@Enumerated(EnumType.STRING)
+	private Estado estadoFamilia;
+
+	@Enumerated(EnumType.STRING)
+	private SituacaoResidencia situacaoResidencia;
 
 	public enum GrauParentesco {
 		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao(
@@ -196,13 +155,6 @@ public class QuestionarioIniciacaoAcademica {
 		private GrauParentesco(String nome) {
 		}
 	}
-
-	private GrauParentesco parentesco;
-
-	private int idade;
-	private String atividade;
-	private float renda;
-	private float rendaTotalFamilia;
 
 	private String campus_preferido;
 	private Date data_inscricao;
@@ -221,8 +173,6 @@ public class QuestionarioIniciacaoAcademica {
 			return nome;
 		}
 	}
-
-	
 	
 	public String getReside_Atualmente() {
 		return reside_Atualmente;
@@ -345,6 +295,11 @@ public class QuestionarioIniciacaoAcademica {
 		this.total_membros_familia = total_membros_familia;
 	}
 
+
+	@Enumerated(EnumType.ORDINAL)
+	private GrauParentesco parentesco;
+
+
 	@Enumerated(EnumType.STRING)
 	private HorarioDisponivel horariodisponivelBolsa;
 
@@ -354,8 +309,13 @@ public class QuestionarioIniciacaoAcademica {
 
 	@Pattern(regexp = "\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message = "Telefone Incorreto formato (00) 0000-0000")
 	private String telefoneFixoFamilia;
+
 	@Pattern(regexp = "\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message = "Telefone Incorreto formato (00) 0000-0000")
 	private String telefoneCelularFamilia;
+
+	public QuestionarioIniciacaoAcademica() {
+
+	}
 
 	public Integer getId() {
 		return id;
@@ -363,6 +323,14 @@ public class QuestionarioIniciacaoAcademica {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public SelecaoBolsa getSelecaoBolsa() {
+		return selecaoBolsa;
+	}
+
+	public void setSelecaoBolsa(SelecaoBolsa selecaoBolsa) {
+		this.selecaoBolsa = selecaoBolsa;
 	}
 
 	public List<PessoaFamilia> getPessoas() {
@@ -590,15 +558,6 @@ public class QuestionarioIniciacaoAcademica {
 		this.estadoFamilia = estadoFamilia;
 	}
 
-	public int getQtdAparelhoSom() {
-		return qtd_aparelho_som;
-	}
-
-	public void setQtdAparelhoSom(int qtdAparelhoSom) {
-
-		this.qtd_aparelho_som = qtdAparelhoSom;
-	}
-	
 	public String getCampus_preferido() {
 		return campus_preferido;
 	}
@@ -653,7 +612,7 @@ public class QuestionarioIniciacaoAcademica {
 		this.renda = renda;
 	}
 
-	public float getRendaTotalFamilia() {
+	public float getRenda_total_familia() {
 		return rendaTotalFamilia;
 	}
 
