@@ -1,6 +1,5 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -22,8 +21,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.junit.After;
-import org.junit.Before;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -82,13 +79,10 @@ public class SelecaoBolsa {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	//@Before
 	@Future
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
-	
-	
 	
 	@NotNull
 	private String duracao;

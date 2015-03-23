@@ -68,21 +68,26 @@ public class SelecaoBolsaController {
 			BindingResult result, RedirectAttributes redirect, Model model) {
 		GregorianCalendar gc = new GregorianCalendar();
 		
-		SelecaoBolsa selecaoBolsa = new SelecaoBolsa();
-
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
 		if (result.hasErrors()) {
 			return ("selecao/cadastrar");
 		}
-		if (selecao.getAno() < gc.get(Calendar.YEAR)) {
-			
-			if (selecaoBolsa.validarData() == false){
-			
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			model.addAttribute("dataError",
-					"Digite um ano maior ou igual ao atual");
-			return ("selecao/cadastrar");}
+		
+		if(selecao.getDataInicio().after(selecao.getDataTermino())){
+			model.addAttribute("dataInicioError",
+					"Digite uma data início menor ou igual que a de término");
+			return ("selecao/cadastrar");
 		}
+		
+		if (selecao.getAno() < gc.get(Calendar.YEAR)) {	
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("anoError",
+					"Digite um ano maior ou igual ao atual");
+			return ("selecao/cadastrar");
+		}
+		
+		
+		
 		if (selecaoService.existsSelecaoEquals(selecao)) {
 			model.addAttribute("editalError",
 					"Numero do edital ou tipo de Bolsa ja existente");
@@ -97,13 +102,21 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
+		SelecaoBolsa selecao1 = new SelecaoBolsa();
+		
 		if (selecao.getStatus().equals(Status.NOVA)) {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "editar");
 			List<TipoBolsa> tiposBolsa = new ArrayList<TipoBolsa>(
 					Arrays.asList(TipoBolsa.values()));
 			model.addAttribute("tiposBolsa", tiposBolsa);
-			return "selecao/editar";
+			return "selecao/editar";		
+		}
+		
+		if(selecao1.getDataInicio().after(selecao1.getDataTermino())){
+			model.addAttribute("dataInicioError",
+					"Digite uma data início menor ou igual que a de término");
+			return ("selecao/editar");
 		}
 		return "redirect:/selecao/listar";
 	}

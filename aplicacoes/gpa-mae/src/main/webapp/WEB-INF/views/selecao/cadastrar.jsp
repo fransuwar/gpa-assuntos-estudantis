@@ -39,6 +39,7 @@
 						<div class="col-sm-2">
 							<form:input id="dataInicio" type="text" path="dataInicio" cssClass="form-control data" placeholder="Data de Início"/>
 							<div class="error-validation">
+								${dataInicioError }
 								<form:errors path="dataInicio"></form:errors>
 							</div>
 						</div>
