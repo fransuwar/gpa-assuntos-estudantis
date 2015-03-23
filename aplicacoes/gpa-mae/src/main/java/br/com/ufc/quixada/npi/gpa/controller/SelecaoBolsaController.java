@@ -67,16 +67,21 @@ public class SelecaoBolsaController {
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
 		GregorianCalendar gc = new GregorianCalendar();
+		
+		SelecaoBolsa selecaoBolsa = new SelecaoBolsa();
 
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
 		if (result.hasErrors()) {
 			return ("selecao/cadastrar");
 		}
 		if (selecao.getAno() < gc.get(Calendar.YEAR)) {
+			
+			if (selecaoBolsa.validarData() == false){
+			
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("dataError",
 					"Digite um ano maior ou igual ao atual");
-			return ("selecao/cadastrar");
+			return ("selecao/cadastrar");}
 		}
 		if (selecaoService.existsSelecaoEquals(selecao)) {
 			model.addAttribute("editalError",

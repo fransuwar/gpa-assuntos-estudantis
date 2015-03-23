@@ -87,7 +87,9 @@ public class SelecaoBolsa {
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
-
+	
+	
+	
 	@NotNull
 	private String duracao;
 
@@ -163,7 +165,6 @@ public class SelecaoBolsa {
 		return duracao;
 	}
 
-	
 	public Integer getId() {
 		return id;
 	}
@@ -196,7 +197,6 @@ public class SelecaoBolsa {
 		return tipoBolsa;
 	}
 
-	
 	public byte[] getEdital() {
 		return edital;
 	}
@@ -276,11 +276,8 @@ public class SelecaoBolsa {
 	public void setTipoBolsa(TipoBolsa tipoBolsa) {
 		this.tipoBolsa = tipoBolsa;
 	}
-	
-	
-	
-	
-	public int verificaData(Date dataIn, Date dataFim){
+		
+	/*public int verificaData(Date dataIn, Date dataFim){
 		Calendar data1= Calendar.getInstance();
 		data1.setTime(dataIn);
 		Calendar data2 = Calendar.getInstance();
@@ -304,12 +301,15 @@ public class SelecaoBolsa {
 		return 0;
 	}//
 	
-	public boolean dataValida(){
-		if((verificaData(getDataInicio(), getDataTermino())) == 1){
+	public boolean validarData(){
+		if(verificaData(getDataInicio(), getDataTermino()) == -1){
 			return false;
 		}
 		return true;
-	}
+	}*/
 
+	
+	
+	
 
 }
