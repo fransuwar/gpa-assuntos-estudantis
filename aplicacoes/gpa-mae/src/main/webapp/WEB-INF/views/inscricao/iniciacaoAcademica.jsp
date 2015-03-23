@@ -122,7 +122,7 @@
 									<option selected="selected">Selecione Estado</option>
 								<c:forEach items="${TotalEstado}" var="opcao">
 									<option value="${opcao}">
-										<c:out value="${opcao.estado}"></c:out>
+										<c:out value="${opcao.nome}"></c:out>
 									</option>
 								</c:forEach>
 							</form:select>

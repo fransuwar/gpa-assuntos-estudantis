@@ -120,6 +120,7 @@ public class QuestionarioIniciacaoAcademica {
 	@Enumerated(EnumType.STRING)
 	private NivelInstrucao nivelInstrucaoMae;
 
+	@Enumerated(EnumType.STRING)
 	private NivelInstrucao nivelInstrucaoPai;
 
 	@NotNull

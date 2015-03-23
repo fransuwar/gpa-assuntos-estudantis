@@ -1,15 +1,25 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum SituacaoImovel{
-	Cedido("Cedido"), Alugado("Alugado"), Proprio("Próprio"), Financiado("Financiado");
+	CEDIDO("Cedido"), ALUGADO("Alugado"), PROPRIO("Próprio"), FINANCIADO("Financiado");
 	
-	private String imovel;
-	
-	SituacaoImovel(String imovel){
-		this.imovel = imovel;
+	private String nome;
+	private static Map<SituacaoImovel, String> map;
+
+	SituacaoImovel(String nome) {
+		this.nome = nome;
 	}
-	
-	public String getImovel(){
-		return imovel;
+
+	public static Map<SituacaoImovel, String> toMap() {
+		if (map == null) {
+			map = new HashMap<SituacaoImovel, String>();
+			for (SituacaoImovel si : SituacaoImovel.values()) {
+				map.put(si, si.nome);
+			}
+		}
+		return map;
 	}
 }
