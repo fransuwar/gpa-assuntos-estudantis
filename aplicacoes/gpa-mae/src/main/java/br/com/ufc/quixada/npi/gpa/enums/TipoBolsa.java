@@ -1,19 +1,25 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum TipoBolsa {
-	INICIACAO_ACADEMICA("Iniciação Acadêmica"), AUXILIO_MORADIA(
-			"Auxilio Moradia");
-	private String tipo;
+	INIC_ACAD("Iniciação Acadêmica"), AUX_MOR("Auxilio Moradia");
 
-	TipoBolsa(String tipo) {
-		this.tipo = tipo;
+	private String nome;
+	private static Map<TipoBolsa, String> map;
+
+	TipoBolsa(String nome) {
+		this.nome = nome;
 	}
 
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public static Map<TipoBolsa, String> toMap() {
+		if (map == null) {
+			map = new HashMap<TipoBolsa, String>();
+			for (TipoBolsa tb : TipoBolsa.values()) {
+				map.put(tb, tb.nome);
+			}
+		}
+		return map;
 	}
 }

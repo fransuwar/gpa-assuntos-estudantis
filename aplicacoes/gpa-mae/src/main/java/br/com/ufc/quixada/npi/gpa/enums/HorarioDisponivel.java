@@ -1,15 +1,25 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-public enum HorarioDisponivel {
-	Manhã("Manhã"), Tarde("Tarde"), Noite("Noite");
-	
-	private String nome;
+import java.util.HashMap;
+import java.util.Map;
 
-	private HorarioDisponivel(String nome) {
+public enum HorarioDisponivel {
+	M("Manhã"), T("Tarde"), N("Noite");
+
+	private String nome;
+	private static Map<HorarioDisponivel, String> map;
+
+	HorarioDisponivel(String nome) {
 		this.nome = nome;
 	}
 
-	public String getNome() {
-		return nome;
+	public static Map<HorarioDisponivel, String> toMap() {
+		if (map == null) {
+			map = new HashMap<HorarioDisponivel, String>();
+			for (HorarioDisponivel hd : HorarioDisponivel.values()) {
+				map.put(hd, hd.nome);
+			}
+		}
+		return map;
 	}
 }

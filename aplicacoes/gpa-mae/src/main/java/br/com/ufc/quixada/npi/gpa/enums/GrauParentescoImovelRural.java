@@ -1,16 +1,29 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-public enum GrauParentescoImovelRural{
-	SemPropriedadeRural("Sem Propriedade Rural"), Pai("Pai"), Avô("Avô"), Tio("Tio"), Irmao("Irmão"),
-	Conjuge("Cônjuge ou Companheiro(a)"), Outros("Outros");
+import java.util.HashMap;
+import java.util.Map;
 
-	private String imovelRural;
-	
-	GrauParentescoImovelRural(String imovelRural){
-		this.imovelRural = imovelRural;
+public enum GrauParentescoImovelRural {
+	SEMPROPRUR("Sem propriedade rural"), PAI("Pai"), AVO("Avô"), TIO("Tio"), IRMAO(
+			"Irmão"), CONJUGUE("Cônjuge ou Companheiro(a)"), OUTROS("Outros");
+
+	private String nome;
+	private static Map<GrauParentescoImovelRural, String> map;
+
+	GrauParentescoImovelRural(String nome) {
+		this.nome = nome;
 	}
-	
-	public String getImovelRural(){
-		return imovelRural;
+
+	public static Map<GrauParentescoImovelRural, String> toMap() {
+		if (map == null) {
+			map = new HashMap<GrauParentescoImovelRural, String>();
+			for (GrauParentescoImovelRural gpir : GrauParentescoImovelRural
+					.values()) {
+				map.put(gpir, gpir.nome);
+			}
+		}
+
+		return map;
 	}
+
 }

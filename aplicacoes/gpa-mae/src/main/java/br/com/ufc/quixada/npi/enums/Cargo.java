@@ -1,19 +1,25 @@
 package br.com.ufc.quixada.npi.enums;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Cargo {
-	PROFESSOR("Professor"), TECADMINISTRATIVO("Tec Administrativo");
+    PROF("Professor"), TADM("Técnico Administrativo");
 
-	private String cargo;
+    private String nome;
+    private static Map<Cargo, String> map;
 
-	Cargo(String cargo) {
-		this.cargo = cargo;
-	}
+    Cargo(String nome) {
+        this.nome = nome;
+    }
 
-	public String getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
+    public static Map<Cargo, String> toMap() {
+        if (map == null) {
+            map = new HashMap<Cargo, String>();
+            for (Cargo c : Cargo.values()) {
+                map.put(c, c.nome);
+            }
+        }
+        return map;
+    }
 }
