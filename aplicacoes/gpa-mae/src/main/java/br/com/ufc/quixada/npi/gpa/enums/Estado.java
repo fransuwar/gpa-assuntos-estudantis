@@ -1,23 +1,33 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Estado {
-	Acre("Acre"), Alagoas("Alagoas"), Amapa("Amapa"), Amazonas("Amazonas"), Bahia(
-			"Bahia"), Ceara("Ceará"), Distrito_Federal("Distrito Federal"), Espirito_Santo(
-			"Espirito Santo"), Goias("Goiás"), Maranhao("Maranhão"), Mato_Grosso(
-			"Mato Grosso"), Mato_Grosso_do_Sul("Mato Grosso do Sul"), Minas_Gerais(
-			"Minas Gerais"), Para("Pará"), Paraiba("Paraíba"), Parana("Paraná"), Pernambuco(
-			"Pernambuco"), Piaui("Piauí"), Rio_de_Janeiro("Rio de Janeiro"), Rio_Grande_do_Norte(
-			"Rio Grande do Norte"), Rio_Grande_do_Sul("Rio Grande do Sul"), Rondonia(
-			"Rondonia"), Roraima("Roraima"), Santa_Catarina("Santa Catarina"), Sao_Paulo(
-			"São Paulo"), Sergipe("Sergipe"), Tocantins("Tocantins");
+	AC("Acre"), AL("Alagoas"), AP("Amapa"), AM("Amazonas"), BA("Bahia"), CE(
+			"Ceará"), DF("Distrito Federal"), ES("Espirito Santo"), GO("Goiás"), MA(
+			"Maranhão"), MT("Mato Grosso"), MS("Mato Grosso do Sul"), MG(
+			"Minas Gerais"), PA("Pará"), PB("Paraíba"), PR("Paraná"), PE(
+			"Pernambuco"), PI("Piauí"), RJ("Rio de Janeiro"), RN(
+			"Rio Grande do Norte"), RS("Rio Grande do Sul"), RO("Rondonia"), RR(
+			"Roraima"), SC("Santa Catarina"), SP("São Paulo"), SE("Sergipe"), TO(
+			"Tocantins");
 
-	private String estado;
+	private String nome;
+	private static Map<Estado, String> map;
 
-	Estado(String estado) {
-		this.estado = estado;
+	Estado(String nome) {
+		this.nome = nome;
 	}
 
-	public String getEstado() {
-		return estado;
+	public static Map<Estado, String> toMap() {
+		if (map == null) {
+			map = new HashMap<Estado, String>();
+			for (Estado e : Estado.values()) {
+				map.put(e, e.nome);
+			}
+		}
+		return map;
 	}
+
 }

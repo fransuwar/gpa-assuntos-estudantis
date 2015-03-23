@@ -20,7 +20,7 @@ public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements Pes
 	public Pessoa getPessoaByLogin(String login) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put( "login", login);
-		Pessoa pessoaLogada = find(QueryType.JPQL, "from Pessoa where login = :login", params).get(0);
+		Pessoa pessoaLogada = (Pessoa) find(QueryType.JPQL, "from Pessoa where login = :login", params).get(0);
 		return pessoaLogada;
 	}
 

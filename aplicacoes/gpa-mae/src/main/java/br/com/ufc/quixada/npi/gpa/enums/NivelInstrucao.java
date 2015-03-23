@@ -1,21 +1,31 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum NivelInstrucao {
 
-	EnsinoFundamentalCompleto("Ensino Fundamental Completo"), EnsinoMedioCompleto(
-			"Ensino Médio Completo"), EnsinoSuperiorCompleto(
-			"Ensino Superior Completo"), EnsinoFundamentalIncompleto(
-			"Ensino Fundamental Incompleto"), EnsinoMedioIncompleto(
-			"Ensino Médio Incompleto"), EnsinoSuperiorIncompleto(
+	ENS_FUND_COMP("Ensino Fundamental Completo"), ENS_MED_COMP(
+			"Ensino Médio Completo"), ENS_SUP_COMP(
+			"Ensino Superior Completo"), ENS_FUND_INCOMP(
+			"Ensino Fundamental Incompleto"), ENS_MED_INCOMP(
+			"Ensino Médio Incompleto"), ENS_SUP_INCOMP(
 			"Ensino Superior Incompleto");
 	
 	private String nome;
+	private static Map<NivelInstrucao, String> map;
 
-	NivelInstrucao(String tipo) {
-		this.nome = tipo;
+	NivelInstrucao(String nome) {
+		this.nome = nome;
 	}
 
-	public String getNome() {
-		return nome;
+	public static Map<NivelInstrucao, String> toMap() {
+		if (map == null) {
+			map = new HashMap<NivelInstrucao, String>();
+			for (NivelInstrucao ni : NivelInstrucao.values()) {
+				map.put(ni, ni.nome);
+			}
+		}
+		return map;
 	}
 }

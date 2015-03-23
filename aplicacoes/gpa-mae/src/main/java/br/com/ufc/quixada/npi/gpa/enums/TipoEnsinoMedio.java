@@ -1,14 +1,26 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum TipoEnsinoMedio{
-	Publico("Público"), Particular("Particular"), Particular_Com_Bolsa("Particular com Bolsa");
-	private String media;	
+	PUBLICO("Público"), PARTICULAR("Particular"), PART_COM_BOLSA("Particular com Bolsa");
 	
-	TipoEnsinoMedio(String media){
-		this.media = media;
+	private String nome;
+	private static Map<TipoEnsinoMedio, String> map;
+
+	TipoEnsinoMedio(String nome) {
+		this.nome = nome;
 	}
-	public String getMedia(){
-		return media;
+
+	public static Map<TipoEnsinoMedio, String> toMap() {
+		if (map == null) {
+			map = new HashMap<TipoEnsinoMedio, String>();
+			for (TipoEnsinoMedio tem : TipoEnsinoMedio.values()) {
+				map.put(tem, tem.nome);
+			}
+		}
+		return map;
 	}
 }
 
