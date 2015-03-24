@@ -35,8 +35,6 @@ public class QuestionarioIniciacaoAcademica {
 	private SelecaoBolsa selecaoBolsa;
 	
 	private int qtdAparelhoSom;
-	
-
 	private int qtdTelevisao;
 	private int qtdRadio;
 	private int qtdAutomovel;

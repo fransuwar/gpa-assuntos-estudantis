@@ -26,7 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ufc.quixada.npi.gpa.model.MoraCom;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
-//import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.Estado;
+
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.FinalidadeVeiculo;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.GrauParentescoImovelRural;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.GrauParentescoVeiculos;
