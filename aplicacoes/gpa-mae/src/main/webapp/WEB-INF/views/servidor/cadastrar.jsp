@@ -42,14 +42,13 @@
 					</div>
 
 					<div class="form-group">
-						<label for="Cargo" class="col-sm-1 control-label" id="label-select">Cargo:</label>
+						<label for="Cargo" class="col-sm-1 control-label"
+							id="label-select">Cargo:</label>
 						<div class="col-sm-3 control-label">
-							<select name="cargo" id="cargoServidor" class="form-control">
-								<c:forEach items="${cargos}" var="opcao">
-									<option value="${opcao}">
-										<c:out value="${opcao.cargo}"></c:out>
-									</option>
-								</c:forEach>
+							<form:select path="cargo" id="cargoServidor">
+								<form:option value="">Selecione Cargo</form:option>
+								<form:options items="${cargos}" />
+							</form:select>
 							</select>
 						</div>
 					</div>
@@ -58,7 +57,7 @@
 					<div class="form-group">
 						<div class="col-sm-2" id="div-form-btn">
 							<input name="submit" type="submit" class="btn btn-primary"
-								value="Cadastrar" id="form-btn"/>
+								value="Cadastrar" id="form-btn" />
 						</div>
 						<div class="col-sm-2" id="div-form-btn">
 							<a href="<c:url value="/servidor/listar"></c:url>"
