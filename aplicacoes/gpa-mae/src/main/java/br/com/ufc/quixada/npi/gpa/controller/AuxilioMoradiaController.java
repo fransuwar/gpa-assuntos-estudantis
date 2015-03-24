@@ -27,7 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.ufc.quixada.npi.gpa.model.MoraCom;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 //import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.Estado;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.Finalidade_Veiculo;
+import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.FinalidadeVeiculo;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.GrauParentescoImovelRural;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.GrauParentescoVeiculos;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.SituacaoImovel;
@@ -92,8 +92,8 @@ public class AuxilioMoradiaController {
 				Arrays.asList(GrauParentescoVeiculos.values()));
 		model.addAttribute("grauParentescoVeiculos", grauParentescoVeiculos);
 
-		List<Finalidade_Veiculo> finalidadeVeiculo = new ArrayList<Finalidade_Veiculo>(
-				Arrays.asList(Finalidade_Veiculo.values()));
+		List<FinalidadeVeiculo> finalidadeVeiculo = new ArrayList<FinalidadeVeiculo>(
+				Arrays.asList(FinalidadeVeiculo.values()));
 		model.addAttribute("finalidadeVeiculo", finalidadeVeiculo);
 
 		model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());
@@ -117,7 +117,7 @@ public class AuxilioMoradiaController {
 		
 		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
 		
-		model.addAttribute("finalidadeVeiculo", Finalidade_Veiculo.values());
+		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 		
 		model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());	
 		

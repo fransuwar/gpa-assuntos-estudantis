@@ -69,13 +69,13 @@ public class QuestionarioAuxilioMoradia {
 	private String cep;
 	
 	@Column(nullable = false)
-	private String ponto_referencia;
+	private String pontoReferencia;
 	
 	@Column(nullable = false)
 	private String telefone;
 	
 	@Column (nullable = false)
-	private Date data_inscricao;
+	private Date dataInscricao;
 
 	public enum Uf{
 		ACRE("Acre"), ALAGOAS("Alagoas"), AMAPA("Amapa"), AMAZONAS("Amazonas"), BAHIA("Bahia"), CEARA("Ceará"), DISTRITO_FEDERAL("Distrito Federal"), 
@@ -168,12 +168,12 @@ public class QuestionarioAuxilioMoradia {
 	
 	private String anoVeiculo;
 
-	public enum Finalidade_Veiculo{
+	public enum FinalidadeVeiculo{
 		PASSEIO("Passeio"), TAXI("Táxi"), FRETE("Frete");
 		
 		private String veiculo;
 		
-		Finalidade_Veiculo(String veiculo){
+		FinalidadeVeiculo(String veiculo){
 			this.veiculo = veiculo;
 		}
 		public String getVeiculo(){
@@ -181,7 +181,7 @@ public class QuestionarioAuxilioMoradia {
 		}
 	}
 	@Enumerated(EnumType.STRING)
-	private Finalidade_Veiculo finalidadeVeiculo;
+	private FinalidadeVeiculo finalidadeVeiculo;
 
 	public enum TipoEnsinoFundamental{
 		PUBLICO("Público"), PARTICULAR("Particular"), PARTICULAR_COM_BOLSA("Particular com Bolsa");
@@ -309,10 +309,10 @@ public class QuestionarioAuxilioMoradia {
 		this.cep = cep;
 	}
 	public String getPontoReferencia() {
-		return ponto_referencia;
+		return pontoReferencia;
 	}
 	public void setPontoReferencia(String pontoReferencia) {
-		this.ponto_referencia = pontoReferencia;
+		this.pontoReferencia = pontoReferencia;
 	}
 	public String getTelefone() {
 		return telefone;
@@ -400,10 +400,10 @@ public class QuestionarioAuxilioMoradia {
 	public void setAno(String ano) {
 		this.anoVeiculo = ano;
 	}
-	public Finalidade_Veiculo getFinalidadeVeiculo() {
+	public FinalidadeVeiculo getFinalidadeVeiculo() {
 		return finalidadeVeiculo;
 	}
-	public void setFinalidadeVeiculo(Finalidade_Veiculo finalidadeVeiculo) {
+	public void setFinalidadeVeiculo(FinalidadeVeiculo finalidadeVeiculo) {
 		this.finalidadeVeiculo = finalidadeVeiculo;
 	}
 	public TipoEnsinoFundamental getEnsinoFundamental() {
@@ -500,7 +500,7 @@ public class QuestionarioAuxilioMoradia {
 				+ ", nomeMae=" + nomeMae + ", nomePai=" + nomePai + ", rua="
 				+ logradouro + ", numeroCasa=" + numeroCasa + ", bairro=" + bairro
 				+ ", complemento=" + complemento + ", cidade=" + cidade
-				+ ", cep=" + cep + ", pontoReferencia=" + ponto_referencia
+				+ ", cep=" + cep + ", pontoReferencia=" + pontoReferencia
 				+ ", telefone=" + telefone + ", estado=" + estado
 				+ ", situacaoImovel=" + situacaoImovel
 				+ ", valorMensalFinanciamento=" + valorMensalFinanciamento

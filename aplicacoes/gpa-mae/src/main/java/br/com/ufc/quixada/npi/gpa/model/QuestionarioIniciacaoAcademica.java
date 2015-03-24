@@ -34,24 +34,26 @@ public class QuestionarioIniciacaoAcademica {
 	@ManyToOne
 	private SelecaoBolsa selecaoBolsa;
 	
-	private int qtd_aparelho_som;
-	private int qtd_televisao;
-	private int qtd_radio;
-	private int qtd_automovel;
-	private int qtd_motocicleta;
-	private int qtd_maquina_lavar;
-	private int qtd_dvd_videocassete;
-	private int qtd_geladeira;
-	private int qtd_freezer;
-	private int qtd_telefone_fixo;
-	private int qtd_celular_residentes;
-	private int qtd_computador;
-	private int qtd_fogao_gas;
-	private int qtd_maquina_costura;
-	private int qtd_comodos_sem_banheiro;
-	private int qtd_banheiros;
-	private int qtd_empregados_domesticos;
-	private int total_membros_familia;
+	private int qtdAparelhoSom;
+	
+
+	private int qtdTelevisao;
+	private int qtdRadio;
+	private int qtdAutomovel;
+	private int qtdMotocicleta;
+	private int qtdMaquinaLavar;
+	private int qtdDvdVideocassete;
+	private int qtdGeladeira;
+	private int qtdFreezer;
+	private int qtdTelefoneFixo;
+	private int qtdCelularResidentes;
+	private int qtdComputador;
+	private int qtdFogaoGas;
+	private int qtdMaquinaCostura;
+	private int qtdComodosSemBanheiro;
+	private int qtdBanheiros;
+	private int qtdEmpregadosDomesticos;
+	private int totalMembrosFamilia;
 	
 	private String nome;
 	private int idade;
@@ -128,13 +130,8 @@ public class QuestionarioIniciacaoAcademica {
 
 	@NotNull
 	@Size(min=1,message="Preenchimento Obrigatório")
-	private String reside_Atualmente;
+	private String resideAtualmente;
 	
-	@NotNull
-	@Size(min=1,message="Preenchimento Obrigatório")
-	private String definicao_Local_Atual;
-	
-
 	@NotNull
 	@Size(min = 1, message = "Preenchimento Obrigatório")
 	private String definicaoLocalAtual;
@@ -157,8 +154,8 @@ public class QuestionarioIniciacaoAcademica {
 		}
 	}
 
-	private String campus_preferido;
-	private Date data_inscricao;
+	private String campusPreferido;
+	private Date dataInscricao;
 	
 	
 	public enum HorarioDisponivel {
@@ -175,128 +172,7 @@ public class QuestionarioIniciacaoAcademica {
 		}
 	}
 	
-	public String getReside_Atualmente() {
-		return reside_Atualmente;
-	}
-	public void setReside_Atualmente(String reside_Atualmente) {
-		this.reside_Atualmente = reside_Atualmente;
-	}
-	public String getDefinicao_Local_Atual() {
-		return definicao_Local_Atual;
-	}
-	public void setDefinicao_Local_Atual(String definicao_Local_Atual) {
-		this.definicao_Local_Atual = definicao_Local_Atual;
-	}
-	public int getQtd_aparelho_som() {
-		return qtd_aparelho_som;
-	}
-	public void setQtd_aparelho_som(int qtd_aparelho_som) {
-		this.qtd_aparelho_som = qtd_aparelho_som;
-	}
-	public int getQtd_televisao() {
-		return qtd_televisao;
-	}
-	public void setQtd_televisao(int qtd_televisao) {
-		this.qtd_televisao = qtd_televisao;
-	}
-	public int getQtd_radio() {
-		return qtd_radio;
-	}
-	public void setQtd_radio(int qtd_radio) {
-		this.qtd_radio = qtd_radio;
-	}
-	public int getQtd_automovel() {
-		return qtd_automovel;
-	}
-	public void setQtd_automovel(int qtd_automovel) {
-		this.qtd_automovel = qtd_automovel;
-	}
-	public int getQtd_motocicleta() {
-		return qtd_motocicleta;
-	}
-	public void setQtd_motocicleta(int qtd_motocicleta) {
-		this.qtd_motocicleta = qtd_motocicleta;
-	}
-	public int getQtd_maquina_lavar() {
-		return qtd_maquina_lavar;
-	}
-	public void setQtd_maquina_lavar(int qtd_maquina_lavar) {
-		this.qtd_maquina_lavar = qtd_maquina_lavar;
-	}
-	public int getQtd_dvd_videocassete() {
-		return qtd_dvd_videocassete;
-	}
-	public void setQtd_dvd_videocassete(int qtd_dvd_videocassete) {
-		this.qtd_dvd_videocassete = qtd_dvd_videocassete;
-	}
-	public int getQtd_geladeira() {
-		return qtd_geladeira;
-	}
-	public void setQtd_geladeira(int qtd_geladeira) {
-		this.qtd_geladeira = qtd_geladeira;
-	}
-	public int getQtd_freezer() {
-		return qtd_freezer;
-	}
-	public void setQtd_freezer(int qtd_freezer) {
-		this.qtd_freezer = qtd_freezer;
-	}
-	public int getQtd_telefone_fixo() {
-		return qtd_telefone_fixo;
-	}
-	public void setQtd_telefone_fixo(int qtd_telefone_fixo) {
-		this.qtd_telefone_fixo = qtd_telefone_fixo;
-	}
-	public int getQtd_celular_residentes() {
-		return qtd_celular_residentes;
-	}
-	public void setQtd_celular_residentes(int qtd_celular_residentes) {
-		this.qtd_celular_residentes = qtd_celular_residentes;
-	}
-	public int getQtd_computador() {
-		return qtd_computador;
-	}
-	public void setQtd_computador(int qtd_computador) {
-		this.qtd_computador = qtd_computador;
-	}
-	public int getQtd_fogao_gas() {
-		return qtd_fogao_gas;
-	}
-	public void setQtd_fogao_gas(int qtd_fogao_gas) {
-		this.qtd_fogao_gas = qtd_fogao_gas;
-	}
-	public int getQtd_maquina_costura() {
-		return qtd_maquina_costura;
-	}
-	public void setQtd_maquina_costura(int qtd_maquina_costura) {
-		this.qtd_maquina_costura = qtd_maquina_costura;
-	}
-	public int getQtd_comodos_sem_banheiro() {
-		return qtd_comodos_sem_banheiro;
-	}
-	public void setQtd_comodos_sem_banheiro(int qtd_comodos_sem_banheiro) {
-		this.qtd_comodos_sem_banheiro = qtd_comodos_sem_banheiro;
-	}
-	public int getQtd_banheiros() {
-		return qtd_banheiros;
-	}
-	public void setQtd_banheiros(int qtd_banheiros) {
-		this.qtd_banheiros = qtd_banheiros;
-	}
-	public int getQtd_empregados_domesticos() {
-		return qtd_empregados_domesticos;
-	}
-	public void setQtd_empregados_domesticos(int qtd_empregados_domesticos) {
-		this.qtd_empregados_domesticos = qtd_empregados_domesticos;
-	}
-	public int getTotal_membros_familia() {
-		return total_membros_familia;
-	}
-	public void setTotal_membros_familia(int total_membros_familia) {
-		this.total_membros_familia = total_membros_familia;
-	}
-
-
+	
 	@Enumerated(EnumType.ORDINAL)
 	private GrauParentesco parentesco;
 
@@ -317,6 +193,132 @@ public class QuestionarioIniciacaoAcademica {
 	public QuestionarioIniciacaoAcademica() {
 
 	}
+	
+	
+	public int getQtdAparelhoSom() {
+		return qtdAparelhoSom;
+	}
+	public void setQtdAparelhoSom(int qtdAparelhoSom) {
+		this.qtdAparelhoSom = qtdAparelhoSom;
+	}
+	public int getQtdTelevisao() {
+		return qtdTelevisao;
+	}
+	public void setQtdTelevisao(int qtdTelevisao) {
+		this.qtdTelevisao = qtdTelevisao;
+	}
+	public int getQtdRadio() {
+		return qtdRadio;
+	}
+	public void setQtdRadio(int qtdRadio) {
+		this.qtdRadio = qtdRadio;
+	}
+	public int getQtdAutomovel() {
+		return qtdAutomovel;
+	}
+	public void setQtdAutomovel(int qtdAutomovel) {
+		this.qtdAutomovel = qtdAutomovel;
+	}
+	public int getQtdMotocicleta() {
+		return qtdMotocicleta;
+	}
+	public void setQtdMotocicleta(int qtdMotocicleta) {
+		this.qtdMotocicleta = qtdMotocicleta;
+	}
+	public int getQtdMaquinaLavar() {
+		return qtdMaquinaLavar;
+	}
+	public void setQtdMaquinaLavar(int qtdMaquinaLavar) {
+		this.qtdMaquinaLavar = qtdMaquinaLavar;
+	}
+	public int getQtdDvdVideocassete() {
+		return qtdDvdVideocassete;
+	}
+	public void setQtdDvdVideocassete(int qtdDvdVideocassete) {
+		this.qtdDvdVideocassete = qtdDvdVideocassete;
+	}
+	public int getQtdGeladeira() {
+		return qtdGeladeira;
+	}
+	public void setQtdGeladeira(int qtdGeladeira) {
+		this.qtdGeladeira = qtdGeladeira;
+	}
+	public int getQtdFreezer() {
+		return qtdFreezer;
+	}
+	public void setQtdFreezer(int qtdFreezer) {
+		this.qtdFreezer = qtdFreezer;
+	}
+	public int getQtdTelefoneFixo() {
+		return qtdTelefoneFixo;
+	}
+	public void setQtdTelefoneFixo(int qtdTelefoneFixo) {
+		this.qtdTelefoneFixo = qtdTelefoneFixo;
+	}
+	public int getQtdCelularResidentes() {
+		return qtdCelularResidentes;
+	}
+	public void setQtdCelularResidentes(int qtdCelularResidentes) {
+		this.qtdCelularResidentes = qtdCelularResidentes;
+	}
+	public int getQtdComputador() {
+		return qtdComputador;
+	}
+	public void setQtdComputador(int qtdComputador) {
+		this.qtdComputador = qtdComputador;
+	}
+	public int getQtdFogaoGas() {
+		return qtdFogaoGas;
+	}
+	public void setQtdFogaoGas(int qtdFogaoGas) {
+		this.qtdFogaoGas = qtdFogaoGas;
+	}
+	public int getQtdMaquinaCostura() {
+		return qtdMaquinaCostura;
+	}
+	public void setQtdMaquinaCostura(int qtdMaquinaCostura) {
+		this.qtdMaquinaCostura = qtdMaquinaCostura;
+	}
+	public int getQtdComodosSemBanheiro() {
+		return qtdComodosSemBanheiro;
+	}
+	public void setQtdComodosSemBanheiro(int qtdComodosSemBanheiro) {
+		this.qtdComodosSemBanheiro = qtdComodosSemBanheiro;
+	}
+	public int getQtdBanheiros() {
+		return qtdBanheiros;
+	}
+	public void setQtdBanheiros(int qtdBanheiros) {
+		this.qtdBanheiros = qtdBanheiros;
+	}
+	public int getQtdEmpregadosDomesticos() {
+		return qtdEmpregadosDomesticos;
+	}
+	public void setQtdEmpregadosDomesticos(int qtdEmpregadosDomesticos) {
+		this.qtdEmpregadosDomesticos = qtdEmpregadosDomesticos;
+	}
+	public int getTotalMembrosFamilia() {
+		return totalMembrosFamilia;
+	}
+	public void setTotalMembrosFamilia(int totalMembrosFamilia) {
+		this.totalMembrosFamilia = totalMembrosFamilia;
+	}
+	public String getCampusPreferido() {
+		return campusPreferido;
+	}
+	public void setCampusPreferido(String campusPreferido) {
+		this.campusPreferido = campusPreferido;
+	}
+	public Date getDataInscricao() {
+		return dataInscricao;
+	}
+	public void setDataInscricao(Date dataInscricao) {
+		this.dataInscricao = dataInscricao;
+	}
+	public float getRendaTotalFamilia() {
+		return rendaTotalFamilia;
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -520,19 +522,19 @@ public class QuestionarioIniciacaoAcademica {
 	}
 
 	public String getResideAtualmente() {
-		return reside_Atualmente;
+		return resideAtualmente;
 	}
 
 	public void setResideAtualmente(String resideAtualmente) {
-		this.reside_Atualmente = resideAtualmente;
+		this.resideAtualmente = resideAtualmente;
 	}
 
 	public String getDefinicaoLocalAtual() {
-		return definicao_Local_Atual;
+		return definicaoLocalAtual;
 	}
 
 	public void setDefinicaoLocalAtual(String definicaoLocalAtual) {
-		this.definicao_Local_Atual = definicaoLocalAtual;
+		this.definicaoLocalAtual = definicaoLocalAtual;
 	}
 
 	public SituacaoResidencia getSituacaoResidencia() {
@@ -560,17 +562,17 @@ public class QuestionarioIniciacaoAcademica {
 	}
 
 	public String getCampus_preferido() {
-		return campus_preferido;
+		return campusPreferido;
 	}
 	public void setCampus_preferido(String campus_preferido) {
-		this.campus_preferido = campus_preferido;
+		this.campusPreferido = campus_preferido;
 	}
 
 	public Date getData_inscrcao() {
-		return data_inscricao;
+		return dataInscricao;
 	}
 	public void setData_inscrcao(Date data_inscrcao) {
-		this.data_inscricao = data_inscrcao;
+		this.dataInscricao = data_inscrcao;
 	}
 
 	public String getNome() {
@@ -670,28 +672,28 @@ public class QuestionarioIniciacaoAcademica {
 				+ ", anosEstudoPrivado=" + anosEstudoPrivado
 				+ ", nivelInstrucaoMae=" + nivelInstrucaoMae
 				+ ", nivelInstrucaoPai=" + nivelInstrucaoPai
-				+ ", resideAtualmente=" + reside_Atualmente
+				+ ", resideAtualmente=" + resideAtualmente
 
-				+ ", definicaoLocalAtual=" + definicao_Local_Atual + ", estado="
+				+ ", definicaoLocalAtual=" + definicaoLocalAtual + ", estado="
 				+ estado + ", estadoFamilia=" + estadoFamilia
 				+ ", situacaoResidencia=" + situacaoResidencia
-				+ ", definicaoLocalAtual=" + definicao_Local_Atual
+				+ ", definicaoLocalAtual=" + definicaoLocalAtual
 				+ ", situacaoResidencia=" + situacaoResidencia + ", estado="
 				+ estado + ", estadoFamilia=" + estadoFamilia
-				+ ", qtdAparelhoSom=" + qtd_aparelho_som + ", qtdTelevisao="
-				+ qtd_televisao + ", qtdRadio=" + qtd_radio + ", qtdAutomovel="
-				+ qtd_automovel + ", qtdMotocicleta=" + qtd_motocicleta
-				+ ", qtdMaquinaLavar=" + qtd_maquina_lavar
-				+ ", qtdDvdVideocassete=" + qtd_dvd_videocassete
-				+ ", qtdGeladeira=" + qtd_geladeira + ", qtdFreezer="
-				+ qtd_freezer + ", qtdTelefoneFixo=" + qtd_telefone_fixo
-				+ ", qtdCelularResidentes=" + qtd_celular_residentes
-				+ ", qtdComputador=" + qtd_computador + ", qtdFogaoGas="
-				+ qtd_fogao_gas + ", qtdMaquinaCostura=" + qtd_maquina_costura
-				+ ", qtdComodosSemBanheiro=" + qtd_comodos_sem_banheiro
-				+ ", qtdBanheiros=" + qtd_banheiros
-				+ ", qtdEmpregadosDomesticos=" + qtd_empregados_domesticos
-				+ ", totalMembrosFamilia=" + total_membros_familia + ", nome="
+				+ ", qtdAparelhoSom=" + qtdAparelhoSom + ", qtdTelevisao="
+				+ qtdTelevisao + ", qtdRadio=" + qtdRadio + ", qtdAutomovel="
+				+ qtdAutomovel + ", qtdMotocicleta=" + qtdMotocicleta
+				+ ", qtdMaquinaLavar=" + qtdMaquinaLavar
+				+ ", qtdDvdVideocassete=" + qtdDvdVideocassete
+				+ ", qtdGeladeira=" + qtdGeladeira + ", qtdFreezer="
+				+ qtdFreezer + ", qtdTelefoneFixo=" + qtdTelefoneFixo
+				+ ", qtdCelularResidentes=" + qtdCelularResidentes
+				+ ", qtdComputador=" + qtdComputador + ", qtdFogaoGas="
+				+ qtdFogaoGas + ", qtdMaquinaCostura=" + qtdMaquinaCostura
+				+ ", qtdComodosSemBanheiro=" + qtdComodosSemBanheiro
+				+ ", qtdBanheiros=" + qtdBanheiros
+				+ ", qtdEmpregadosDomesticos=" + qtdEmpregadosDomesticos
+				+ ", totalMembrosFamilia=" + totalMembrosFamilia + ", nome="
 				+ nome + ", parentesco=" + parentesco + ", idade=" + idade
 				+ ", atividade=" + atividade + ", renda=" + renda
 				+ ", rendaTotalFamilia=" + rendaTotalFamilia

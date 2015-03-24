@@ -271,39 +271,4 @@ public class SelecaoBolsa {
 		this.tipoBolsa = tipoBolsa;
 	}
 		
-	/*public int verificaData(Date dataIn, Date dataFim){
-		Calendar data1= Calendar.getInstance();
-		data1.setTime(dataIn);
-		Calendar data2 = Calendar.getInstance();
-		data2.setTime(dataFim);
-		
-		if(data1.get(Calendar.YEAR) > data2.get(Calendar.YEAR)){
-			return 1;
-		}else if(data1.get(Calendar.YEAR) < data2.get(Calendar.YEAR)){
-			return -1;
-		}if(data1.get(Calendar.MONTH) > data2.get(Calendar.MONTH)){
-			return 1;
-		}else if(data1.get(Calendar.MONTH) < data2.get(Calendar.MONTH)){
-			return -1;
-		}
-		if(data1.get(Calendar.DAY_OF_MONTH) > data2.get(Calendar.DAY_OF_MONTH)){
-			return 1;
-		}else if(data1.get(Calendar.DAY_OF_MONTH) < data2.get(Calendar.DAY_OF_MONTH)){
-			return -1;
-		}
-		
-		return 0;
-	}//
-	
-	public boolean validarData(){
-		if(verificaData(getDataInicio(), getDataTermino()) == -1){
-			return false;
-		}
-		return true;
-	}*/
-
-	
-	
-	
-
 }
