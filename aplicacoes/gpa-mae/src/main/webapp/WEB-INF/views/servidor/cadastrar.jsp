@@ -45,11 +45,10 @@
 						<label for="Cargo" class="col-sm-1 control-label"
 							id="label-select">Cargo:</label>
 						<div class="col-sm-3 control-label">
-							<form:select path="cargo" id="cargoServidor">
+							<form:select path="cargo" id="cargoServidor" class="form-control">
 								<form:option value="">Selecione Cargo</form:option>
 								<form:options items="${cargos}" />
 							</form:select>
-							</select>
 						</div>
 					</div>
 
