@@ -1,7 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public enum Estado {
 	AC("Acre"), AL("Alagoas"), AP("Amapa"), AM("Amazonas"), BA("Bahia"), CE(
@@ -19,10 +19,14 @@ public enum Estado {
 	Estado(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
 
 	public static Map<Estado, String> toMap() {
 		if (map == null) {
-			map = new HashMap<Estado, String>();
+			map = new TreeMap<Estado, String>();
 			for (Estado e : Estado.values()) {
 				map.put(e, e.nome);
 			}

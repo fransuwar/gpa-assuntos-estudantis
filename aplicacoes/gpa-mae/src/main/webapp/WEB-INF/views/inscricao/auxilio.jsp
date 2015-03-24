@@ -6,7 +6,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables"%>
+<%@ taglib prefix="datatables"
+	uri="http://github.com/dandelion/datatables"%>
 <%@ taglib prefix="gpa" tagdir="/WEB-INF/tags"%>
 
 
@@ -31,23 +32,27 @@
 		<div class="novo-aluno" align="left">
 			<h2>Novo Cadastro</h2>
 
-			
 
-			<form:form id="questionarioForm" role="form" modelAttribute="questionarioAuxilioMoradia"
-				commandName="questionarioAuxilioMoradia" servletRelativeAction="/auxilio/inscricao/"
-				method="POST" cssClass="form-horizontal">
+
+			<form:form id="questionarioForm" role="form"
+				modelAttribute="questionarioAuxilioMoradia"
+				commandName="questionarioAuxilioMoradia"
+				servletRelativeAction="/auxilio/inscricao/" method="POST"
+				cssClass="form-horizontal">
 
 				<input type="hidden" name="id"
 					value="${QuestionarioAuxilioMoradia.id }" />
-					
-					
-					<form:checkboxes items="${moraCom}" path="moraCom"/>
- 	
+
+
+				<form:checkboxes items="${moraCom}" path="moraCom" />
+
 
 				<div class="form-group">
-					<label for="nomeMae" class="col-sm-2 control-label">Nome da Mãe:</label>
+					<label for="nomeMae" class="col-sm-2 control-label">Nome da
+						Mãe:</label>
 					<div class="col-sm-10">
-						<form:input id="nomeMae" type="text" path="nomeMae" cssClass="form-control" placeholder="Nome da Mãe" />
+						<form:input id="nomeMae" type="text" path="nomeMae"
+							cssClass="form-control" placeholder="Nome da Mãe" />
 						<div class="error-validation">
 							<form:errors path="nomeMae"></form:errors>
 						</div>
@@ -193,29 +198,28 @@
 					</div>
 				</div>
 
+
+
 				<h4>Selecione um estado:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
-						<select name="estado" id="estado">
-							<c:forEach items="${ufs}" var="opcao">
-								<option value="${opcao}">
-									<c:out value="${opcao.estado}"></c:out>
-								</option>
-							</c:forEach>
-						</select><br>
+						<form:select path="estado" id="estado">
+							<form:option value="" >Selecione Estado</form:option>
+							<form:options items="${estado}" />
+						</form:select>
+						<br>
 					</div>
 				</div>
+
+
 
 				<h4>Selecione a situação atual do ímovel</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
-						<select name="imovel" id="imovel">
-							<c:forEach items="${situacaoImovel }" var="opcao">
-								<option value="${opcao}">
-									<c:out value="${opcao.imovel}"></c:out>
-								</option>
-							</c:forEach>
-						</select>
+						<form:select path="situacaoImovel" id="situacaoImovel">
+							<form:option value="">Situação Imóvel</form:option>
+							<form:options items="${situacaoImovel}" />
+						</form:select>
 					</div>
 				</div>
 
@@ -235,21 +239,18 @@
 				</div>
 
 				<h4>Selecione o grau de parentesco da propriedade rural:</h4>
-				
+
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
-						<select name="${status.expression}"
-							name="grauParentescoImovelRural" id="grauParentescoImovelRural">
-							<c:forEach items="${grauParentescoImovelRural }" var="opcao">
-								<option value="${opcao}">
-									<c:out value="${opcao.imovelRural}"></c:out>
-								</option>
-							</c:forEach>
-						</select>
+						<form:select path="grauParentescoImovelRural"
+							id="grauParentescoImovelRural">
+							<form:option value="" label="Selecione o Grau" />
+							<form:options items="${grauParentescoImovelRural}" />
+						</form:select>
 					</div>
 				</div>
-				
-				
+
+
 				<div class="form-group">
 					<label for="propriedadeRural" class="col-sm-2 control-label">Propriedade
 						Rural:</label>
@@ -261,8 +262,8 @@
 						</div>
 					</div>
 				</div>
-				
-				
+
+
 
 				<div class="form-group">
 					<label for="areaPropriedade" class="col-sm-2 control-label">Área
@@ -288,25 +289,22 @@
 					</div>
 				</div>
 
-				
-				
 
-			<h4>Selecione o grau de parentesco para com o veículo:</h4>
-			
-			
+
+
+				<h4>Selecione o grau de parentesco para com o veículo:</h4>
+
+
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
-						<select name="${status.expression}" name="grauParentescoVeiculos"
+						<form:select path="grauParentescoVeiculos"
 							id="grauParentescoVeiculos">
-							<c:forEach items="${grauParentescoVeiculos }" var="opcao">
-								<option value="${opcao}">
-									<c:out value="${opcao.parentesco}"></c:out>
-								</option>
-							</c:forEach>
-						</select>
+							<form:option value="" label="Selecione o Grau" />
+							<form:options items="${grauParentescoVeiculos}" />
+						</form:select>
 					</div>
 				</div>
-			
+
 				<div class="form-group">
 					<label for="veiculos" class="col-sm-2 control-label">Veículos:</label>
 					<div class="col-sm-4">
@@ -318,7 +316,7 @@
 					</div>
 				</div>
 
-			
+
 
 
 
@@ -373,65 +371,58 @@
 				<h4>Selecione a finalidade do veículo:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
-						<select name="${status.expression}" name="finalidadeVeiculo"
-							id="finalidadeVeiculo">
-							<c:forEach items="${finalidadeVeiculo }" var="opcao">
-								<option value="${opcao}">
-									<c:out value="${opcao.veiculo}"></c:out>
-								</option>
-							</c:forEach>
-						</select>
+						<form:select path="finalidadeVeiculo" id="finalidadeVeiculo">
+							<form:option value="" label="Selecione a Finalidade" />
+							<form:options items="${finalidadeVeiculo}" />
+						</form:select>
 					</div>
 				</div>
 
 
-			<h4>Selecione o tipo escolar que você frequentou:</h4>
+				<h4>Selecione o tipo escolar que você frequentou:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
 						<h5>Ensino Fundamental</h5>
-						<select name="${status.expression}" name="ensinoFundamental"
+						<form:select path="ensinoFundamental"
 							id="ensinoFundamental">
-							<c:forEach items="${tipoEnsinoFundamental }" var="opcao">
-								<option value="${opcao}">
-									<c:out value="${opcao.nome}"></c:out>
-								</option>
-							</c:forEach>
-						</select>
+							<form:option value="" label="Selecione o Tipo" />
+							<form:options items="${tipoEnsinoFundamental}" />
+						</form:select>
 					</div>
 				</div>
-				
-				
+
+
 				<div class="form-group">
-					<label for="percentualParticularFundamental" class="col-sm-2 control-label">Percentual de bolsa:</label>
+					<label for="percentualParticularFundamental"
+						class="col-sm-2 control-label">Percentual de bolsa:</label>
 					<div class="col-sm-1">
-						<form:input id="percentualParticularFundamental" path="percentualParticularFundamental" cssClass="form-control"
+						<form:input id="percentualParticularFundamental"
+							path="percentualParticularFundamental" cssClass="form-control"
 							placeholder="Percentual de bolsa Particular ensino Fundamental" />
 						<div class="error-validation">
 							<form:errors path="percentualParticularFundamental"></form:errors>
 						</div>
 					</div>
 				</div>
-				
+
 
 				<h4>Selecione o tipo escolar que você frequentou:</h4>
 				<div class="form-group">
 					<div class="col-sm-3 control-label">
 						<h5>Ensino Médio</h5>
-						<select name="${status.expression}" name="tipoEnsinoMedio"
-							id="tipoEnsinoMedio">
-							<c:forEach items="${tipoEnsinoMedio }" var="opcao">
-								<option value="${opcao}">
-									<c:out value="${opcao.media}"></c:out>
-								</option>
-							</c:forEach>
-						</select>
+						<form:select path="ensinoMedio" id="ensinoMedio">
+							<form:option value="" label="Selecione o Tipo" />
+							<form:options items="${tipoEnsinoMedio}" />
+						</form:select>
 					</div>
 				</div>
-				
+
 				<div class="form-group">
-					<label for="percentualParticularMedio" class="col-sm-2 control-label">Percentual de bolsa:</label>
+					<label for="percentualParticularMedio"
+						class="col-sm-2 control-label">Percentual de bolsa:</label>
 					<div class="col-sm-1">
-						<form:input id="percentualParticularMedio" path="percentualParticularMedio" cssClass="form-control"
+						<form:input id="percentualParticularMedio"
+							path="percentualParticularMedio" cssClass="form-control"
 							placeholder="Percentual de bolsa Particular ensino Medio" />
 						<div class="error-validation">
 							<form:errors path="percentualParticularMedio"></form:errors>
@@ -466,30 +457,30 @@
 
 
 
-<!-- 				<div class="form-group"> -->
-<!-- 					<label for="rendaMediaFamilia" class="col-sm-2 control-label">Renda -->
-<!-- 						Media da Familia:</label> -->
-<!-- 					<div class="col-sm-2"> -->
-<%-- 						<form:input id="rendaMediaFamilia" path="rendaMediaFamilia" --%>
-<%-- 							cssClass="form-control" placeholder="rendaMediaFamilia" /> --%>
-<!-- 						<div class="error-validation"> -->
-<%-- 							<form:errors path="rendaMediaFamilia"></form:errors> --%>
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
+				<!-- 				<div class="form-group"> -->
+				<!-- 					<label for="rendaMediaFamilia" class="col-sm-2 control-label">Renda -->
+				<!-- 						Media da Familia:</label> -->
+				<!-- 					<div class="col-sm-2"> -->
+				<%-- 						<form:input id="rendaMediaFamilia" path="rendaMediaFamilia" --%>
+				<%-- 							cssClass="form-control" placeholder="rendaMediaFamilia" /> --%>
+				<!-- 						<div class="error-validation"> -->
+				<%-- 							<form:errors path="rendaMediaFamilia"></form:errors> --%>
+				<!-- 						</div> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
 
 
-<!-- 				<div class="form-group"> -->
-<!-- 					<label for="rendaMediaPessoa" class="col-sm-2 control-label">Renda -->
-<!-- 						Media por Pessoa:</label> -->
-<!-- 					<div class="col-sm-2"> -->
-<%-- 						<form:input id="rendaMediaPessoa" path="rendaMediaPessoa" --%>
-<%-- 							cssClass="form-control" placeholder="rendaMediaPessoa" /> --%>
-<!-- 						<div class="error-validation"> -->
-<%-- 							<form:errors path="rendaMediaPessoa"></form:errors> --%>
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
+				<!-- 				<div class="form-group"> -->
+				<!-- 					<label for="rendaMediaPessoa" class="col-sm-2 control-label">Renda -->
+				<!-- 						Media por Pessoa:</label> -->
+				<!-- 					<div class="col-sm-2"> -->
+				<%-- 						<form:input id="rendaMediaPessoa" path="rendaMediaPessoa" --%>
+				<%-- 							cssClass="form-control" placeholder="rendaMediaPessoa" /> --%>
+				<!-- 						<div class="error-validation"> -->
+				<%-- 							<form:errors path="rendaMediaPessoa"></form:errors> --%>
+				<!-- 						</div> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
 
 
 				<div class="form-group">
@@ -557,22 +548,24 @@
 					</div>
 				</div>
 				<jsp:include page="pessoaFamilia.jsp" />
-				
-	<div class="controls">
-		<input name="submit" type="submit" class="btn btn-primary" value="Cadastrar" id="btn-cadastrar"/>
-		 <a href="<c:url value="/inscricao/auxilio" ></c:url>" class="btn btn-default" >Cancelar</a>
-	</div>
+
+				<div class="controls">
+					<input name="submit" type="submit" class="btn btn-primary"
+						value="Cadastrar" id="btn-cadastrar" /> <a
+						href="<c:url value="/selecao/listar" ></c:url>"
+						class="btn btn-default">Cancelar</a>
+				</div>
 
 
-		
-</form:form>
+
+			</form:form>
 		</div>
 	</div>
 
 
 
 
-	
+
 </body>
 
 

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+
+import br.com.ufc.quixada.npi.gpa.enums.Estado;
 
 @Entity
 @Table(uniqueConstraints=@UniqueConstraint(columnNames = {"id", "login"}))
@@ -51,31 +55,27 @@ public class Pessoa {
 	private String nacionalidade;
 	
 	private String naturalidade;
-	
-	public enum Uf{
-		AC, AL, AM, AP, BA, CE, DF, ES, GO, MA, MG, MS, MT, PA, PB, PE, PI, PR, RJ, RN, RO, RR, RS, SC, SE, SP, TO;
-	}
-	
-	private Uf uf;
+
+	@Enumerated(EnumType.STRING)
+	private Estado uf;
 	
 	private String sexo;
 	
 	private String cpf;
 	
 	private String rg;
-	
-	public Uf getUf() {
-		return uf;
-	}
-
-	public void setUf(Uf uf) {
-		this.uf = uf;
-	}
 
 	private String telefone;
 	
 	private String estadoCivil;
 	
+	public Estado getUf() {
+		return uf;
+	}
+	
+	public void setUf(Estado uf) {
+		this.uf = uf;
+	}
 		
 	public String getPassword() {
 		return password;

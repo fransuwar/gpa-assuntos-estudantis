@@ -1,11 +1,5 @@
 package br.com.ufc.quixada.npi.gpa.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,15 +18,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.ufc.quixada.npi.gpa.model.MoraCom;
+import br.com.ufc.quixada.npi.gpa.enums.Estado;
+import br.com.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
+import br.com.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
+import br.com.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
+import br.com.ufc.quixada.npi.gpa.enums.MoraCom;
+import br.com.ufc.quixada.npi.gpa.enums.SituacaoImovel;
+import br.com.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
+import br.com.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.Estado;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.FinalidadeVeiculo;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.GrauParentescoImovelRural;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.GrauParentescoVeiculos;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.SituacaoImovel;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.TipoEnsinoFundamental;
-import br.com.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia.TipoEnsinoMedio;
 import br.com.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 
 @Controller
@@ -65,83 +59,25 @@ public class AuxilioMoradiaController {
 
 		model.addAttribute("questionarioAuxilioMoradia",
 				new QuestionarioAuxilioMoradia());
+		
+		model.addAttribute("estado", Estado.toMap());
+		
+		model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
 
-		List<Estado> ufs = new ArrayList<Estado>(Arrays.asList(Estado.values()));
-		model.addAttribute("ufs", ufs);
-		System.out.println(ufs.toString());
+		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.toMap());
 
-		List<TipoEnsinoFundamental> tipoEnsinoFundamental = new ArrayList<TipoEnsinoFundamental>(
-				Arrays.asList(TipoEnsinoFundamental.values()));
-		model.addAttribute("tipoEnsinoFundamental", tipoEnsinoFundamental);
+		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.toMap());
 
-		List<TipoEnsinoMedio> tipoEnsinoMedio = new ArrayList<TipoEnsinoMedio>(
-				Arrays.asList(TipoEnsinoMedio.values()));
-		model.addAttribute("tipoEnsinoMedio", tipoEnsinoMedio);
-
-		List<SituacaoImovel> situacaoImovel = new ArrayList<SituacaoImovel>(
-				Arrays.asList(SituacaoImovel.values()));
-		model.addAttribute("situacaoImovel", situacaoImovel);
-
-		List<GrauParentescoImovelRural> grauParentescoImovelRural = new ArrayList<GrauParentescoImovelRural>(
-				Arrays.asList(GrauParentescoImovelRural.values()));
 		model.addAttribute("grauParentescoImovelRural",
-				grauParentescoImovelRural);
+				GrauParentescoImovelRural.toMap());
 
-		List<GrauParentescoVeiculos> grauParentescoVeiculos = new ArrayList<GrauParentescoVeiculos>(
-				Arrays.asList(GrauParentescoVeiculos.values()));
-		model.addAttribute("grauParentescoVeiculos", grauParentescoVeiculos);
+		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.toMap());
 
-		List<FinalidadeVeiculo> finalidadeVeiculo = new ArrayList<FinalidadeVeiculo>(
-				Arrays.asList(FinalidadeVeiculo.values()));
-		model.addAttribute("finalidadeVeiculo", finalidadeVeiculo);
-
-		model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());
-
-		inicialMoraCom(model);
-
+		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 		
-
-		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
-			
-		model.addAttribute("ufs", Estado.values());
-		
-		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-		
-		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-		
-		model.addAttribute("situacaoImovel", SituacaoImovel.values());
-			
-		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-		
-		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
-		
-		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-		
-		model.addAttribute("auxilio", new QuestionarioAuxilioMoradia());	
-		
-		inicialMoraCom(model);
+		model.addAttribute("moraCom", MoraCom.toMap());
 		
 		return "inscricao/auxilio";
-	
-	
-
-	}
-
-	private void inicialMoraCom(Model model) {
-
-		Map<MoraCom, String> moraCom = new TreeMap<MoraCom, String>();
-		
-
-		moraCom.put(MoraCom.Pais, "Pais");
-		moraCom.put(MoraCom.Pai, "Pai");
-		moraCom.put(MoraCom.Mae, "Mãe");
-		moraCom.put(MoraCom.Irmaos, "Irmãos");
-		moraCom.put(MoraCom.Parentes, "Parentes");
-		moraCom.put(MoraCom.Conjuge_Companheiro, "Cônjuge ou Companheiro(a)");
-		moraCom.put(MoraCom.Filhos, "Filhos(as)");
-		moraCom.put(MoraCom.Outra_moradia, "Outros");
-
-		model.addAttribute("moraCom", moraCom);
 
 	}
 

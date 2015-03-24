@@ -10,8 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -23,32 +21,12 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import br.com.ufc.quixada.npi.gpa.enums.Status;
+import br.com.ufc.quixada.npi.gpa.enums.TipoBolsa;
+
 @Entity
 public class SelecaoBolsa {
 
-	public enum Status {
-		NOVA, SUBMETIDO, INSCRICAO_ABERTA, PROCESSO_SELETIVO, FINALIZADA, CANCELADA
-	}
-
-
-	public enum TipoBolsa {
-		INICIACAO_ACADEMICA("Iniciação Acadêmica"), AUXILIO_MORADIA(
-				"Auxilio Moradia");
-		private String tipo;
-
-		TipoBolsa(String tipo) {
-			this.tipo = tipo;
-		}
-
-		public String getTipo() {
-			return tipo;
-		}
-
-		public void setTipo(String tipo) {
-			this.tipo = tipo;
-		}
-	}
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -106,9 +84,6 @@ public class SelecaoBolsa {
 
 	@ManyToMany
 	private List<Aluno> alunosSelecao;
-
-
-	
 
 	@Enumerated(EnumType.STRING)
 	private TipoBolsa tipoBolsa;

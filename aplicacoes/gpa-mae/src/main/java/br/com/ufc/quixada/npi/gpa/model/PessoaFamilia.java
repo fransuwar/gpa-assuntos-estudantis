@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import br.com.ufc.quixada.npi.gpa.enums.GrauParentesco;
+
 
 @Entity
 
@@ -102,14 +104,7 @@ public class PessoaFamilia {
 	private String escolaridade;
 	private String atividadeProfissao;
 	private double rendaMensal;
-	
-	public enum GrauParentesco{
-		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao("Irmão"),
-		Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros("Outros");
 
-		GrauParentesco(String nome){}
-	}
-	
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco grauParentesco;
 
