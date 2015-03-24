@@ -1,7 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public enum TipoEnsinoMedio{
 	PUBLICO("Público"), PARTICULAR("Particular"), PART_COM_BOLSA("Particular com Bolsa");
@@ -12,10 +12,14 @@ public enum TipoEnsinoMedio{
 	TipoEnsinoMedio(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
 
 	public static Map<TipoEnsinoMedio, String> toMap() {
 		if (map == null) {
-			map = new HashMap<TipoEnsinoMedio, String>();
+			map = new TreeMap<TipoEnsinoMedio, String>();
 			for (TipoEnsinoMedio tem : TipoEnsinoMedio.values()) {
 				map.put(tem, tem.nome);
 			}

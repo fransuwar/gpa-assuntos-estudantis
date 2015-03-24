@@ -1,7 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public enum GrauParentescoVeiculos {
 	SEMVEIC("Sem veículo"), PAI("Pai"), AVO("Avô"), TIO("Tio"), IRMAO("Irmão"), CONJ(
@@ -13,10 +13,15 @@ public enum GrauParentescoVeiculos {
 	GrauParentescoVeiculos(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
+
 
 	public static Map<GrauParentescoVeiculos, String> toMap() {
 		if (map == null) {
-			map = new HashMap<GrauParentescoVeiculos, String>();
+			map = new TreeMap<GrauParentescoVeiculos, String>();
 			for (GrauParentescoVeiculos gpveic : GrauParentescoVeiculos
 					.values()) {
 				map.put(gpveic, gpveic.nome);

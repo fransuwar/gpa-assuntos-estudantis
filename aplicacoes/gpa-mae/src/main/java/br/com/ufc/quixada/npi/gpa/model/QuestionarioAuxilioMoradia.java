@@ -16,7 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import br.com.ufc.quixada.npi.gpa.enums.Estado;
+import br.com.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
+import br.com.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
+import br.com.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
 import br.com.ufc.quixada.npi.gpa.enums.MoraCom;
+import br.com.ufc.quixada.npi.gpa.enums.SituacaoImovel;
+import br.com.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
+import br.com.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 
 @Entity
 public class QuestionarioAuxilioMoradia {
@@ -31,7 +38,6 @@ public class QuestionarioAuxilioMoradia {
 	private SelecaoBolsa selecaoBolsa;
 
 	@Column(nullable = false)
-	//@OneToMany(mappedBy="auxilioMoradia", cascade = CascadeType.ALL)
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name= "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
@@ -73,40 +79,8 @@ public class QuestionarioAuxilioMoradia {
 	@Column(nullable = false)
 	private String telefone;
 
-	public enum Estado {
-		ACRE("Acre"), ALAGOAS("Alagoas"), AMAPA("Amapa"), AMAZONAS("Amazonas"), BAHIA("Bahia"), CEARA("Ceará"), DISTRITO_FEDERAL("Distrito Federal"), 
-		ESPIRITO_SANTO("Espirito Santo"), GOIAS("Goiás"), MARANHAO("Maranhão"), MATO_GROSSO("Mato Grosso"), MATO_GROSSO_DO_SUL("Mato Grosso do Sul"),
-		MINAS_GERAIS("Minas Gerais"), PARA("Pará"), Paraiba("Paraíba"), PARANA("Paraná"), PERNAMBUCO("Pernambuco"), PIAUI("Piauí"), 
-		RIO_DE_JANEIRO("Rio de Janeiro"), RIO_GRANDE_DO_NORTE("Rio Grande do Norte"), RIO_GRANDE_DO_SUL("Rio Grande do Sul"), RONDONIA("Rondonia"),
-		RORAIMA("Roraima"), SANTA_CATARINA("Santa Catarina"), SAO_PAULO("São Paulo"), SERGIPE("Sergipe"), TOCANTINS("Tocantins");
-		
-		private String estado;
-
-		Estado(String estado){
-			this.estado = estado;
-		}
-		
-		public String getEstado(){
-			return estado;
-		}
-	}
-
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
-
-	public enum SituacaoImovel{
-		CEDIDO("Cedido"), ALUGADO("Alugado"), PROPRIO("Próprio"), FINANCIADO("Financiado");
-		
-		private String imovel;
-		
-		SituacaoImovel(String imovel){
-			this.imovel = imovel;
-		}
-		
-		public String getImovel(){
-			return imovel;
-		}
-	}
 
 	@Enumerated(EnumType.STRING)
 	private SituacaoImovel situacaoImovel;
@@ -115,20 +89,6 @@ public class QuestionarioAuxilioMoradia {
 	
 	private String propriedadeRural;
 
-	public enum GrauParentescoImovelRural{
-		SEM_PROPRIEDADE_RURAL("Sem Propriedade Rural"), PAI("Pai"), AVO("Avô"), TIO("Tio"), IRMAO("Irmão"),
-		CONJUGE("Cônjuge ou Companheiro(a)"), OUTROS("Outros");
-
-		private String imovelRural;
-		
-		GrauParentescoImovelRural(String imovelRural){
-			this.imovelRural = imovelRural;
-		}
-		
-		public String getImovelRural(){
-			return imovelRural;
-		}
-	}
 	@Enumerated(EnumType.STRING)
 	private GrauParentescoImovelRural grauParentescoImovelRural;
 	
@@ -137,22 +97,7 @@ public class QuestionarioAuxilioMoradia {
 	private String cidadeEstado;
 	
 	private String veiculos;
-	
-	public enum GrauParentescoVeiculos{
-		SEM_VEICULO("Sem Veículo"), PAI("Pai"), AVO("Avô"), TIO("Tio"), IRMAO("Irmão"),
-		CONJUGE("Cônjuge ou Companheiro(a)"), OUTROS("Outros");
 
-
-		private String parentesco;
-		
-		GrauParentescoVeiculos(String parentesco){
-			this.parentesco = parentesco;
-		}
-		
-		public String getParentesco(){
-			return parentesco;
-		}
-	}
 	@Enumerated(EnumType.STRING)
 	private GrauParentescoVeiculos grauParentescoVeiculos;
 
@@ -164,51 +109,14 @@ public class QuestionarioAuxilioMoradia {
 	
 	private String ano;
 
-	public enum FinalidadeVeiculo{
-		PASSEIO("Passeio"), TAXI("Táxi"), FRETE("Frete");
-		
-		private String veiculo;
-		
-		FinalidadeVeiculo(String veiculo){
-			this.veiculo = veiculo;
-		}
-		public String getVeiculo(){
-			return veiculo;
-		}
-	}
 	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidadeVeiculo;
 
-	public enum TipoEnsinoFundamental{
-		PUBLICO("Público"), PARTICULAR("Particular"), PARTICULAR_COM_BOLSA("Particular com Bolsa");
-		
-		private String nome;
-		
-		TipoEnsinoFundamental(String nome){
-			this.nome = nome;
-		}
-		public String getNome(){
-			return nome;
-		}
-	} 
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoFundamental ensinoFundamental;
 	
 	private int percentualParticularFundamental;
 
-	public enum TipoEnsinoMedio{
-		PUBLICO("Público"), PARTICULAR("Particular"), PARTICULAR_COM_BOLSA("Particular com Bolsa");
-		
-	private String media;	
-	
-		TipoEnsinoMedio(String media){
-			this.media = media;
-		}
-		public String getMedia(){
-			return media;
-		}
-	}
-	
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoMedio ensinoMedio;
 	

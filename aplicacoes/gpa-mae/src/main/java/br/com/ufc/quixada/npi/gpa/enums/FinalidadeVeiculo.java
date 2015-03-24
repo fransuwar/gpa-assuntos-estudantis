@@ -1,7 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public enum FinalidadeVeiculo {
 	PASSEIO("Passeio"), TAXI("Táxi"), FRETE("Frete");
@@ -12,10 +12,15 @@ public enum FinalidadeVeiculo {
 	FinalidadeVeiculo(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
+
 
 	public static Map<FinalidadeVeiculo, String> toMap() {
 		if (map == null) {
-			map = new HashMap<FinalidadeVeiculo, String>();
+			map = new TreeMap<FinalidadeVeiculo, String>();
 			for (FinalidadeVeiculo fv : FinalidadeVeiculo.values()) {
 				map.put(fv, fv.nome);
 			}

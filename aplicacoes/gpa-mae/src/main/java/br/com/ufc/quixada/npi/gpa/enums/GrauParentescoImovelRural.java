@@ -1,7 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public enum GrauParentescoImovelRural {
 	SEMPROPRUR("Sem propriedade rural"), PAI("Pai"), AVO("Avô"), TIO("Tio"), IRMAO(
@@ -13,10 +13,15 @@ public enum GrauParentescoImovelRural {
 	GrauParentescoImovelRural(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
+
 
 	public static Map<GrauParentescoImovelRural, String> toMap() {
 		if (map == null) {
-			map = new HashMap<GrauParentescoImovelRural, String>();
+			map = new TreeMap<GrauParentescoImovelRural, String>();
 			for (GrauParentescoImovelRural gpir : GrauParentescoImovelRural
 					.values()) {
 				map.put(gpir, gpir.nome);

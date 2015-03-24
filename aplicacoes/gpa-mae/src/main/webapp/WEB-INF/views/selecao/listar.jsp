@@ -59,7 +59,7 @@ uri="http://www.springframework.org/security/tags"%>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 								
-								<td>${selecao.tipoBolsa.tipo}</td>
+								<td>${selecao.tipoBolsa.nome}</td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
@@ -90,14 +90,14 @@ uri="http://www.springframework.org/security/tags"%>
 
 										
 										<sec:authorize access="hasAnyRole('ROLE_ALUNO')">
-										<c:if test="${selecao.tipoBolsa =='INICIACAO_ACADEMICA'}">
+										<c:if test="${selecao.tipoBolsa == inic_acad}">
 										<a id="inscrever" href="<c:url value="/iniciacaoAcademica/inscricao" ></c:url>">
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>
 										</c:if>
 										
 										
-										<c:if test="${selecao.tipoBolsa =='AUXILIO_MORADIA'}">
+										<c:if test="${selecao.tipoBolsa == aux_mor}">
 										<a id="inscrever" href="<c:url value="/auxilio/inscricao/" ></c:url>">
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>

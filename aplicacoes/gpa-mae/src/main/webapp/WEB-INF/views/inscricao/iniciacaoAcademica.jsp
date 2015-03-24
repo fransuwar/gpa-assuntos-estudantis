@@ -117,15 +117,11 @@
 							</div>
 
 							<label for="cidade" class="col-sm-2 control-label">UF:</label>
-							<form:select name="${status.expression}" path="estadoFamilia"
-								id="estadoFamilia">
-									<option selected="selected">Selecione Estado</option>
-								<c:forEach items="${TotalEstado}" var="opcao">
-									<option value="${opcao}">
-										<c:out value="${opcao.nome}"></c:out>
-									</option>
-								</c:forEach>
+							<form:select path="estadoFamilia" id="estadoFamilia">
+								<form:option value="" label="Selecione Estado" />
+								<form:options items="${TotalEstado}" />
 							</form:select>
+
 						</div>
 
 						<div class="form-group">
@@ -232,14 +228,11 @@
 						</div>
 
 						<label for="cidade" class="col-sm-2 control-label">UF:</label>
-						<form:select name="${status.expression}" path="" id="estado">
-							<option selected="selected">Selecione Estado</option>
-							<c:forEach items="${TotalEstado}" var="opcao">
-								<option value="${opcao}">
-									<c:out value="${opcao.estado}"></c:out>
-								</option>
-							</c:forEach>
+						<form:select path="estado" id="estado">
+							<form:option value="" label="Selecione Estado" />
+							<form:options items="${TotalEstado}" />
 						</form:select>
+
 					</div>
 
 					<div class="form-group">
@@ -287,15 +280,11 @@
 							<label for="cidade" class="col-sm-2 control-label">Qual a
 								situação da sua residencia:</label>
 							<div class="col-sm-2">
-								<form:select name="${status.expression}"
-									path="situacaoResidencia" id="situacaoResidencia">
-									<option selected="selected">Situação da Residência</option>
-									<c:forEach items="${SituacaoResidencia}" var="opcao">
-										<option value="${opcao}">
-											<c:out value="${opcao.nome}"></c:out>
-										</option>
-									</c:forEach>
+								<form:select path="situacaoResidencia" id="situacaoResidencia">
+									<form:option value="" label="Situação da Residência" />
+									<form:options items="${SituacaoResidencia}" />
 								</form:select>
+
 							</div>
 						</div>
 
@@ -491,14 +480,10 @@
 							<label for="horariodisponivelBolsa"
 								class="col-sm-2 control-label">Segunda:</label>
 							<div class="col-sm-2">
-								<form:select name="${status.expression}"
-									path="horariodisponivelBolsa" id="horariodisponivelBolsa">
-									<option selected="selected">Selecione Horário</option>
-									<c:forEach items="${HorarioDisponivel}" var="opcao">
-										<option value="${opcao}">
-											<c:out value="${opcao.nome}"></c:out>
-										</option>
-									</c:forEach>
+								<form:select path="horariodisponivelBolsa"
+									id="horariodisponivelBolsa">
+									<form:option value="" label="Selecione Horário" />
+									<form:options items="${HorarioDisponivel}" />
 								</form:select>
 							</div>
 						</div>
@@ -506,14 +491,10 @@
 							<label for="horariodisponivelBolsa"
 								class="col-sm-2 control-label">Terça:</label>
 							<div class="col-sm-2">
-								<form:select name="${status.expression}"
-									path="horariodisponivelBolsa" id="horariodisponivelBolsa">
-									<option selected="selected">Selecione Horário</option>
-									<c:forEach items="${HorarioDisponivel}" var="opcao">
-										<option value="${opcao}">
-											<c:out value="${opcao.nome}"></c:out>
-										</option>
-									</c:forEach>
+								<form:select path="horariodisponivelBolsa"
+									id="horariodisponivelBolsa">
+									<form:option value="" label="Selecione Horário" />
+									<form:options items="${HorarioDisponivel}" />
 								</form:select>
 							</div>
 						</div>
@@ -522,14 +503,10 @@
 							<label for="horariodisponivelBolsa"
 								class="col-sm-2 control-label">Quarta:</label>
 							<div class="col-sm-2">
-								<form:select name="${status.expression}"
-									path="horariodisponivelBolsa" id="horariodisponivelBolsa">
-									<option selected="selected">Selecione Horário</option>
-									<c:forEach items="${HorarioDisponivel}" var="opcao">
-										<option value="${opcao}">
-											<c:out value="${opcao.nome}"></c:out>
-										</option>
-									</c:forEach>
+								<form:select path="horariodisponivelBolsa"
+									id="horariodisponivelBolsa">
+									<form:option value="" label="Selecione Horário" />
+									<form:options items="${HorarioDisponivel}" />
 								</form:select>
 							</div>
 						</div>
@@ -539,14 +516,10 @@
 							<label for="horariodisponivelBolsa"
 								class="col-sm-2 control-label">Quinta:</label>
 							<div class="col-sm-2">
-								<form:select name="${status.expression}"
-									path="horariodisponivelBolsa" id="horariodisponivelBolsa">
-									<option selected="selected">Selecione Horário</option>
-									<c:forEach items="${HorarioDisponivel}" var="opcao">
-										<option value="${opcao}">
-											<c:out value="${opcao.nome}"></c:out>
-										</option>
-									</c:forEach>
+								<form:select path="horariodisponivelBolsa"
+									id="horariodisponivelBolsa">
+									<form:option value="" label="Selecione Horário" />
+									<form:options items="${HorarioDisponivel}" />
 								</form:select>
 							</div>
 						</div>
@@ -556,14 +529,10 @@
 							<label for="horariodisponivelBolsa"
 								class="col-sm-2 control-label">Sexta:</label>
 							<div class="col-sm-2">
-								<form:select name="${status.expression}"
-									path="horariodisponivelBolsa" id="horariodisponivelBolsa">
-									<option selected="selected">Selecione Horário</option>
-									<c:forEach items="${HorarioDisponivel}" var="opcao">
-										<option value="${opcao}">
-											<c:out value="${opcao.nome}"></c:out>
-										</option>
-									</c:forEach>
+								<form:select path="horariodisponivelBolsa"
+									id="horariodisponivelBolsa">
+									<form:option value="" label="Selecione Horário" />
+									<form:options items="${HorarioDisponivel}" />
 								</form:select>
 							</div>
 						</div>

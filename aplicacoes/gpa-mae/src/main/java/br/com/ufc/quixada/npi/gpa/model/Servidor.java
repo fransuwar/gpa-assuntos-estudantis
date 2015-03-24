@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import br.com.ufc.quixada.npi.enums.Cargo;
+import br.com.ufc.quixada.npi.gpa.enums.Cargo;
 
 @NamedQueries({ @NamedQuery(name = "Servidor.findServidorBySiape", 
 								query = "SELECT s FROM Servidor s WHERE s.siape = :siape") })

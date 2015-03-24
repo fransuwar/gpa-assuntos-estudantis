@@ -1,7 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public enum SituacaoImovel{
 	CEDIDO("Cedido"), ALUGADO("Alugado"), PROPRIO("Próprio"), FINANCIADO("Financiado");
@@ -12,10 +12,15 @@ public enum SituacaoImovel{
 	SituacaoImovel(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
+
 
 	public static Map<SituacaoImovel, String> toMap() {
 		if (map == null) {
-			map = new HashMap<SituacaoImovel, String>();
+			map = new TreeMap<SituacaoImovel, String>();
 			for (SituacaoImovel si : SituacaoImovel.values()) {
 				map.put(si, si.nome);
 			}
