@@ -1,7 +1,7 @@
-package br.com.ufc.quixada.npi.enums;
+package br.com.ufc.quixada.npi.gpa.enums;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public enum Cargo {
     PROF("Professor"), TADM("Técnico Administrativo");
@@ -15,7 +15,7 @@ public enum Cargo {
 
     public static Map<Cargo, String> toMap() {
         if (map == null) {
-            map = new HashMap<Cargo, String>();
+            map = new TreeMap<Cargo, String>();
             for (Cargo c : Cargo.values()) {
                 map.put(c, c.nome);
             }

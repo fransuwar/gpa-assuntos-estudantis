@@ -44,13 +44,9 @@
 						<label for="tipoBolsa" class="col-sm-2 control-label">Tipo
 							de Bolsa:</label>
 						<div class="col-sm-5 control-labe" id="div-select">
-							<form:select name="${status.expression}" path="tipoBolsa"
-								id="tipoBolsa" cssClass="form-control">
-								<c:forEach items="${tipoBolsa}" var="opcao">
-									<option value="${opcao}">
-										<c:out value="${opcao.tipo}"></c:out>
-									</option>
-								</c:forEach>
+							<form:select path="tipoBolsa" id="tipoBolsa" cssClass="form-control">
+								<form:option value="" label="Selecione o tipo de bolsa" />
+								<form:options items="${tipoBolsa}" />
 							</form:select>
 						</div>
 
@@ -102,7 +98,7 @@
 							</div>
 							<div class="error-validation">${quantidadeError}</div>
 						</div>
-						
+
 						<label for="duracao" class="col-sm-2 control-label">Duração:</label>
 						<div class="col-sm-2">
 							<form:input id="duracao" type="text" path="duracao"
@@ -112,7 +108,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
 						<div class="col-sm-9">

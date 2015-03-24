@@ -1,7 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public enum MoraCom{
 	PAI("Pai"), MAE("Mãe"), IRMAOS("Irmãos"), PARENTES("Parentes"),
@@ -13,10 +13,15 @@ public enum MoraCom{
 	MoraCom(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
+
 
 	public static Map<MoraCom, String> toMap() {
 		if (map == null) {
-			map = new HashMap<MoraCom, String>();
+			map = new TreeMap<MoraCom, String>();
 			for (MoraCom mc : MoraCom.values()) {
 				map.put(mc, mc.nome);
 			}

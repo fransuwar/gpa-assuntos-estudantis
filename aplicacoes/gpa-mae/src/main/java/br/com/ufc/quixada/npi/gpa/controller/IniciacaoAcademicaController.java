@@ -1,9 +1,5 @@
 package br.com.ufc.quixada.npi.gpa.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -35,19 +31,10 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("questionarioIniciacaoAcademica",
 				new QuestionarioIniciacaoAcademica());
 
-		List<NivelInstrucao> nivelInstrucao = new ArrayList<NivelInstrucao>(
-				Arrays.asList(NivelInstrucao.values()));
-		List<HorarioDisponivel> horarioDisponivel = new ArrayList<HorarioDisponivel>(
-				Arrays.asList(HorarioDisponivel.values()));
-		List<SituacaoResidencia> situacaoResidencia = new ArrayList<SituacaoResidencia>(
-				Arrays.asList(SituacaoResidencia.values()));
-		List<Estado> estado = new ArrayList<Estado>(Arrays.asList(Estado
-				.values()));
-
-		modelo.addAttribute("NivelInstrucao", nivelInstrucao);
-		modelo.addAttribute("HorarioDisponivel", horarioDisponivel);
-		modelo.addAttribute("SituacaoResidencia", situacaoResidencia);
-		modelo.addAttribute("TotalEstado", estado);
+		modelo.addAttribute("NivelInstrucao", NivelInstrucao.toMap());
+		modelo.addAttribute("HorarioDisponivel", HorarioDisponivel.toMap());
+		modelo.addAttribute("SituacaoResidencia", SituacaoResidencia.toMap());
+		modelo.addAttribute("TotalEstado", Estado.toMap());
 
 		return "inscricao/iniciacaoAcademica";
 	}
@@ -59,7 +46,7 @@ public class IniciacaoAcademicaController {
 
 		if (result.hasErrors()) {
 
-			return ("inscricao/iniciacaoAcademica");
+			return "redirect:/iniciacaoAcademica/inscricao";
 
 		} else {
 

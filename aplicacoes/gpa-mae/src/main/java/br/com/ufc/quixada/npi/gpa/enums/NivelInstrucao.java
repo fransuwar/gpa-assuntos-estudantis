@@ -1,7 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public enum NivelInstrucao {
 
@@ -18,10 +18,15 @@ public enum NivelInstrucao {
 	NivelInstrucao(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
+
 
 	public static Map<NivelInstrucao, String> toMap() {
 		if (map == null) {
-			map = new HashMap<NivelInstrucao, String>();
+			map = new TreeMap<NivelInstrucao, String>();
 			for (NivelInstrucao ni : NivelInstrucao.values()) {
 				map.put(ni, ni.nome);
 			}

@@ -1,7 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.enums;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public enum HorarioDisponivel {
 	M("Manhã"), T("Tarde"), N("Noite");
@@ -12,10 +12,15 @@ public enum HorarioDisponivel {
 	HorarioDisponivel(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
+
 
 	public static Map<HorarioDisponivel, String> toMap() {
 		if (map == null) {
-			map = new HashMap<HorarioDisponivel, String>();
+			map = new TreeMap<HorarioDisponivel, String>();
 			for (HorarioDisponivel hd : HorarioDisponivel.values()) {
 				map.put(hd, hd.nome);
 			}

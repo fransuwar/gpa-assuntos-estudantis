@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.ufc.quixada.npi.gpa.enums.Status;
+import br.com.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.com.ufc.quixada.npi.gpa.model.Documento;
 import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa;
-import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa.Status;
-import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa.TipoBolsa;
 import br.com.ufc.quixada.npi.gpa.model.Servidor;
 import br.com.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
@@ -58,7 +58,7 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("selecao", new SelecaoBolsa());
-		model.addAttribute("tipoBolsa", TipoBolsa.values());
+		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 		return "selecao/cadastrar";
 	}
 
@@ -67,8 +67,9 @@ public class SelecaoBolsaController {
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
 		GregorianCalendar gc = new GregorianCalendar();
-		
-		model.addAttribute("tipoBolsa", TipoBolsa.values());
+
+
+		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 		if (result.hasErrors()) {
 			return ("selecao/cadastrar");
 		}
@@ -177,6 +178,8 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("selecoes", selecaoService.find(SelecaoBolsa.class));
+		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 		return "selecao/listar";
 	}
 
