@@ -95,6 +95,8 @@ public class SelecaoBolsaController {
 		} else {
 			selecao.setStatus(Status.NOVA);
 			this.selecaoService.save(selecao);
+			redirect
+			.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		}
 		return "redirect:/selecao/listar";
 	}
