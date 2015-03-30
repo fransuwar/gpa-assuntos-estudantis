@@ -27,9 +27,9 @@
 	<td>9</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//div[@id='sizzle-1427228262606']/div/table/tbody/tr[2]/td[5]</td>
-	<td></td>
+	<td>type</td>
+	<td>id=anoIngresso</td>
+	<td>01/01/11</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -51,7 +51,6 @@
 	<td>id=form-btn</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
