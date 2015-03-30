@@ -78,6 +78,7 @@ public class ServidorController {
 		results.add(servidorService.getServidorBySiape(siape));
 		model.addAttribute("servidores", results);
 		
+		
 		return "/servidor/listar";
 	}
 
@@ -128,4 +129,5 @@ public class ServidorController {
 		return "redirect:/servidor/listar";
 		
 	}
+	
 }
