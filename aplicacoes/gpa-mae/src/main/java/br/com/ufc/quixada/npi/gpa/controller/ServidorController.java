@@ -2,7 +2,6 @@ package br.com.ufc.quixada.npi.gpa.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,8 +31,7 @@ public class ServidorController {
 
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
-		List<Cargo> cargos = new ArrayList<Cargo>(Arrays.asList(Cargo.values()));
-		model.addAttribute("cargos", cargos);
+		model.addAttribute("cargos", Cargo.toMap());
 		
 		model.addAttribute("servidor", new Servidor());
 		return "/servidor/cadastrar";
@@ -78,8 +76,7 @@ public class ServidorController {
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		    
 			Servidor servidor = servidorService.find(Servidor.class, id);
-			List<Cargo> cargos = new ArrayList<Cargo>(Arrays.asList(Cargo.values()));
-			model.addAttribute("cargos", cargos);
+			model.addAttribute("cargos", Cargo.toMap());
 			model.addAttribute("servidor", servidor);
 			model.addAttribute("action", "editar");
 			
