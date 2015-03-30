@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import javax.validation.Valid;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,8 +48,15 @@ public class ServidorController {
 			return ("servidor/cadastrar");
 		}
 		
-		this.servidorService.save(servidor);
-		this.servidorService.update(servidor);
+		try{
+			this.servidorService.save(servidor);
+		} catch (PersistenceException e) {
+			if (e.getCause() instanceof ConstraintViolationException) {
+				redirect.addFlashAttribute("erro", "Não é possível cadastrar um siape já existente.");
+
+				return "redirect:/servidor/listar";
+			}
+		}
 		redirect.addFlashAttribute("info", "Servidor cadastrado com sucesso.");
 
 		return "redirect:/servidor/listar";
