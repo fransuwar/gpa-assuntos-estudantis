@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -22,6 +24,7 @@ import br.com.ufc.quixada.npi.gpa.enums.Cargo;
 								query = "SELECT s FROM Servidor s WHERE s.siape = :siape") })
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "siape" }))
 public class Servidor {
 
 	
