@@ -154,23 +154,7 @@ public class QuestionarioIniciacaoAcademica {
 
 	private String campusPreferido;
 	private Date dataInscricao;
-	
-	
-	public enum HorarioDisponivel {
-
-		Manhã("Manhã"), Tarde("Tarde"), Noite("Noite");
-		private String nome;
-
-		private HorarioDisponivel(String nome) {
-			this.nome = nome;
-		}
-
-		public String getNome() {
-			return nome;
-		}
-	}
-	
-	
+			
 	@Enumerated(EnumType.ORDINAL)
 	private GrauParentesco parentesco;
 
@@ -191,7 +175,6 @@ public class QuestionarioIniciacaoAcademica {
 	public QuestionarioIniciacaoAcademica() {
 
 	}
-	
 	
 	public int getQtdAparelhoSom() {
 		return qtdAparelhoSom;
@@ -317,7 +300,6 @@ public class QuestionarioIniciacaoAcademica {
 		return rendaTotalFamilia;
 	}
 
-
 	public Integer getId() {
 		return id;
 	}
@@ -349,7 +331,6 @@ public class QuestionarioIniciacaoAcademica {
 	public void setEnderecoAtual(String enderecoAtual) {
 		this.enderecoAtual = enderecoAtual;
 	}
-
 
 	public int getNumero() {
 		return numero;
@@ -558,21 +539,7 @@ public class QuestionarioIniciacaoAcademica {
 	public void setEstadoFamilia(Estado estadoFamilia) {
 		this.estadoFamilia = estadoFamilia;
 	}
-
-	public String getCampus_preferido() {
-		return campusPreferido;
-	}
-	public void setCampus_preferido(String campus_preferido) {
-		this.campusPreferido = campus_preferido;
-	}
-
-	public Date getData_inscrcao() {
-		return dataInscricao;
-	}
-	public void setData_inscrcao(Date data_inscrcao) {
-		this.dataInscricao = data_inscrcao;
-	}
-
+	
 	public String getNome() {
 		return nome;
 	}

@@ -51,10 +51,4 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 		return true;
 	
 	}
-	
-
-	
-	
-
-
 }
