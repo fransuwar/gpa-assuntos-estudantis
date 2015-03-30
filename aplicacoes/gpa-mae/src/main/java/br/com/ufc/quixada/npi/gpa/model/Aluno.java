@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -22,6 +23,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @NamedQueries({ @NamedQuery(name = "Aluno.findAlunoByMatricula", 
 								query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula") })
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula" }))
 public class Aluno {
 
 	public Aluno() {

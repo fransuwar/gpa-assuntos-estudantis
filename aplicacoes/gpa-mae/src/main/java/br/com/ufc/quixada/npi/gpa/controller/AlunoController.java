@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import javax.validation.Valid;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +26,7 @@ import br.com.ufc.quixada.npi.gpa.service.AlunoService;
 @Controller
 @RequestMapping("aluno")
 public class AlunoController {
-
+	
 	@Inject
 	private AlunoService alunoService;
 	
@@ -43,8 +45,15 @@ public class AlunoController {
 			return ("aluno/cadastrar");
 		}
 		
-		this.alunoService.save(aluno);
-		this.alunoService.update(aluno);
+		try{
+			this.alunoService.save(aluno);
+		} catch (PersistenceException e){
+			if(e.getCause() instanceof ConstraintViolationException){
+				redirect.addFlashAttribute("erro", "Não é possível cadastrar uma matrícula já existente.");
+				return "redirect:/aluno/listar";
+			}
+		}
+		
 		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
 
 		return "redirect:/aluno/listar";
