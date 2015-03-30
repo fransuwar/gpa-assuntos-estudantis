@@ -71,6 +71,8 @@ public class Aluno {
 
 	@ManyToOne
 	private Pessoa pessoa;
+	
+	private byte[] foto;
 
 	public List<QuestionarioAuxilioMoradia> getAuxilioMoradia() {
 		return auxilioMoradia;
@@ -169,6 +171,15 @@ public class Aluno {
 	public void setConta(String conta) {
 		this.conta = conta;
 	}
+	
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+
 
 	@Override
 	public String toString() {

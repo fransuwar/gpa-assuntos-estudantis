@@ -3,14 +3,13 @@ package br.com.ufc.quixada.npi.gpa.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.Valid;
 
+import org.joda.time.DateTime;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -66,18 +65,28 @@ public class SelecaoBolsaController {
 	public String adicionarselecao(
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
-		GregorianCalendar gc = new GregorianCalendar();
+
 
 		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 		if (result.hasErrors()) {
 			return ("selecao/cadastrar");
 		}
-		if (selecao.getAno() < gc.get(Calendar.YEAR)) {
+		
+		if(selecao.getDataInicio().after(selecao.getDataTermino())){
+			model.addAttribute("dataInicioError",
+					"Digite uma data início menor ou igual que a de término");
+			return ("selecao/cadastrar");
+		}
+		
+		if (selecao.getAno() < DateTime.now().getYear()) {
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			model.addAttribute("dataError",
+			model.addAttribute("anoError",
 					"Digite um ano maior ou igual ao atual");
 			return ("selecao/cadastrar");
 		}
+		
+		
+		
 		if (selecaoService.existsSelecaoEquals(selecao)) {
 			model.addAttribute("editalError",
 					"Numero do edital ou tipo de Bolsa ja existente");
@@ -94,13 +103,20 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
+		
 		if (selecao.getStatus().equals(Status.NOVA)) {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "editar");
 			List<TipoBolsa> tiposBolsa = new ArrayList<TipoBolsa>(
 					Arrays.asList(TipoBolsa.values()));
 			model.addAttribute("tiposBolsa", tiposBolsa);
-			return "selecao/editar";
+			return "selecao/editar";		
+		}
+		
+		if(selecao.getDataInicio().after(selecao.getDataTermino())){
+			model.addAttribute("dataInicioError",
+					"Digite uma data início menor ou igual que a de término");
+			return ("selecao/editar");
 		}
 		return "redirect:/selecao/listar";
 	}
