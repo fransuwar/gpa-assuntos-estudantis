@@ -31,16 +31,29 @@ public class ServidorController {
 	@Inject
 	private ServidorService servidorService;
 
+	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
+	public String salvarServidor(@Valid @ModelAttribute(value = "servidor") Servidor servidor,
+			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
+		
+		if(servidor.getId() != null){
+			return atualizarServidor(servidor.getId(), servidor, result, model, redirect);
+		} else {
+			return adicionarServidor(servidor, result, redirect);
+		}
+		
+	}
+	
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
-		model.addAttribute("cargos", Cargo.toMap());
 		
+		model.addAttribute("action", "cadastrar");
+		model.addAttribute("cargos", Cargo.toMap());
 		model.addAttribute("servidor", new Servidor());
 		return "/servidor/cadastrar";
 	}
 	
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
-	public String adcionaServidor(
+	public String adicionarServidor(
 			@Valid @ModelAttribute("servidor") Servidor servidor,
 			BindingResult result,RedirectAttributes redirect) {
 	
@@ -66,7 +79,6 @@ public class ServidorController {
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listaServidor(Servidor servidor, BindingResult result,
 			Model model) {
-			
 			List<Servidor> results = servidorService.find(Servidor.class);	
 			model.addAttribute("servidores", results);
 			return "servidor/listar";
@@ -93,11 +105,12 @@ public class ServidorController {
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		    
 			Servidor servidor = servidorService.find(Servidor.class, id);
+			
 			model.addAttribute("cargos", Cargo.toMap());
 			model.addAttribute("servidor", servidor);
 			model.addAttribute("action", "editar");
 			
-			return "servidor/editar";
+			return "servidor/cadastrar";
 	}
 	
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.POST)
@@ -107,10 +120,11 @@ public class ServidorController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("action", "editar");
-			return "servidor/editar";
+			return "servidor/cadastrar";
 		}
 	
 		Servidor servidor = servidorService.find(Servidor.class, id);
+		
 		servidor.setSiape(servidorAtualizado.getSiape());
 		servidor.setCargo(servidorAtualizado.getCargo());
 				
