@@ -69,7 +69,6 @@ public class AlunoController {
 	public String listarAluno(@RequestParam("matricula") String matricula, Model model, RedirectAttributes redirect) {
 		List<Aluno> results = new ArrayList<Aluno>();
 		Aluno aluno = alunoService.getAlunoByMatricula(matricula);
-		
 		results.add(aluno);
 		model.addAttribute("alunos", results);
 		
