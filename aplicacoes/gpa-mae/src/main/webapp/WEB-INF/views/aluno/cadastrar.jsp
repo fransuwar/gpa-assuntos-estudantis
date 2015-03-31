@@ -12,7 +12,7 @@
 <html>
 <head>
 <jsp:include page="../fragments/headTag.jsp" />
-<title>Cadastra alunos</title>
+<title>Cadastra/Edita alunos</title>
 </head>
 
 <body>
@@ -26,12 +26,21 @@
 	<div class="container">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h2>Novo Aluno</h2>
+			<c:choose>
+				<c:when test="${action == 'cadastrar'}">
+					<h2>Novo Aluno</h2>
+				</c:when>
+				<c:otherwise>
+					<h2>Editar Aluno</h2>
+				</c:otherwise>
+			</c:choose>
+			
 			</div>
 			<div class="panel-body">
 				<form:form id="adicionarAlunoForm" role="form" commandName="aluno"
-					servletRelativeAction="/aluno/cadastrar" method="POST"
+					servletRelativeAction="/aluno/salvar" method="POST"
 					cssClass="form-horizontal">
+					<input type="hidden" name="id" value="${aluno.id}" />
 					<div class="form-group">
 						<label for="matricula" class="col-sm-1 control-label" id="form-label">Matrícula:</label>
 						<div class="col-sm-3">

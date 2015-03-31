@@ -46,8 +46,8 @@
 				<div class="input-group">
 					<input id="matricula" name="matricula" class="form-control"
 						placeholder="Digite sua busca aqui..." size="20"
-						required="required" autofocus="true" /> <span
-						class="input-group-btn">
+						required="required" autofocus="true" />
+						<span class="input-group-btn">
 						<button class="btn btn-primary" name="submit" type="submit"
 							class="btn btn-primary" value="Buscar">
 							Buscar <span class="glyphicon glyphicon-search" />

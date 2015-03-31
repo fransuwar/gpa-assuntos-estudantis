@@ -30,13 +30,28 @@ public class AlunoController {
 	@Inject
 	private AlunoService alunoService;
 	
+	
+	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
+	public String salvarAluno(@Valid @ModelAttribute(value = "aluno") Aluno aluno,
+			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
+		
+		if(aluno.getId()!=null){
+			return atualizarAluno(aluno.getId(), aluno, result, model, redirect);
+		}else{
+			return adicionarAluno(aluno, result, redirect);
+		}
+		
+	}
+	
+	
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
+		
+		model.addAttribute("action", "cadastrar");
 		model.addAttribute("aluno", new Aluno());
 		return "/aluno/cadastrar";
 	}
 
-	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
 	public String adicionarAluno(
 			@Valid @ModelAttribute("aluno") Aluno aluno,
 			BindingResult result,RedirectAttributes redirect) {
@@ -83,34 +98,27 @@ public class AlunoController {
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		Aluno aluno = alunoService.find(Aluno.class, id);
-		
-		{
-			model.addAttribute("aluno", aluno);
-			model.addAttribute("action", "editar");
-			return "aluno/editar";
-		}
+		//chamamos a tela de cadastro/editar
+		model.addAttribute("aluno", aluno);
+		model.addAttribute("action", "editar");
+		return "aluno/cadastrar";		
 	}
 	
-	@RequestMapping(value = "/{id}/editar", method = RequestMethod.POST)
-	public String atualizarAluno(@PathVariable("id") Integer id,
-			@Valid @ModelAttribute(value = "aluno") Aluno alunoAtualizado,
+	public String atualizarAluno(Integer id,Aluno alunoAtualizado,
 			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
 
 		if (result.hasErrors()) {
-			model.addAttribute("action", "editar");
+			model.addAttribute("action", "editar"); 
 			return "aluno/editar";
 		}
 	
 		Aluno aluno = alunoService.find(Aluno.class, id);	
-		aluno.setMatricula(alunoAtualizado.getMatricula());
-		aluno.setAnoIngresso(alunoAtualizado.getAnoIngresso());
-		aluno.setIra(alunoAtualizado.getIra());
-		aluno.setCurso(alunoAtualizado.getCurso());
-		aluno.setBanco(alunoAtualizado.getBanco());
-		aluno.setAgencia(alunoAtualizado.getAgencia());
-		aluno.setConta(alunoAtualizado.getConta());
 		
-		this.alunoService.update(aluno);
+		alunoAtualizado.setAuxilioMoradia(aluno.getAuxilioMoradia());
+		alunoAtualizado.setIniciacaoAcademica(aluno.getIniciacaoAcademica());
+		alunoAtualizado.setPessoa(aluno.getPessoa());
+		
+		this.alunoService.update(alunoAtualizado);
 		redirect.addFlashAttribute("info", "Aluno atualizado com sucesso.");
 		return "redirect:/aluno/listar";
 	}
