@@ -55,7 +55,7 @@
 				</div>
 			</form:form>
 		</div>
-		
+
 		<div class="col-md-2 col-md-offset-6" id="div-btn-inserir">
 			<a href="<c:url value="/servidor/cadastrar" ></c:url>">
 				<button class="btn btn-primary" id="listar-btn-inserir">
@@ -95,24 +95,31 @@
 								<th id="acoes">Ações</th>
 							</tr>
 							<tbody>
-								<c:forEach var="servidor" items="${servidores}">
-									<tr class="linha">
-										<td>${servidor.id}</td>
-										<td>${servidor.siape}</td>
-										<td>${servidor.cargo}</td>
-										<td><a id="editar"
-											href="<c:url value="/servidor/${servidor.id}/editar" ></c:url>">
-												<button class="btn btn-info">
-													Editar <span class="glyphicon glyphicon-pencil"></span>
-												</button>
-										</a> <a id="excluir" data-toggle="modal"
-											data-target="#confirm-delete" href="#"
-											data-href="<c:url value="/servidor/${servidor.id}/excluir" ></c:url>">
-												<button class="btn btn-danger">
-													Excluir <span class="glyphicon glyphicon-trash"></span>
-												</button>
-										</a></td>
-								</c:forEach>
+								<c:choose>
+									<c:when test="${not empty servidorEncontrado}">
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="servidor" items="${servidores}">
+											<tr class="linha">
+												<td>${servidor.id}</td>
+												<td>${servidor.siape}</td>
+												<td>${servidor.cargo}</td>
+												<td><a id="editar"
+													href="<c:url value="/servidor/${servidor.id}/editar" ></c:url>">
+														<button class="btn btn-info">
+															Editar <span class="glyphicon glyphicon-pencil"></span>
+														</button>
+												</a> <a id="excluir" data-toggle="modal"
+													data-target="#confirm-delete" href="#"
+													data-href="<c:url value="/servidor/${servidor.id}/excluir" ></c:url>">
+														<button class="btn btn-danger">
+															Excluir <span class="glyphicon glyphicon-trash"></span>
+														</button>
+												</a></td>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+
 
 							</tbody>
 						</table>

@@ -67,10 +67,8 @@ public class AlunoController {
 				redirect.addFlashAttribute("erro", "Não é possível cadastrar uma matrícula já existente.");
 				return "redirect:/aluno/listar";
 			}
-		}
-		
+		}	
 		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
-
 		return "redirect:/aluno/listar";
 
 	}
@@ -83,11 +81,17 @@ public class AlunoController {
 	}
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.POST)
-	public String listarAluno(@RequestParam("matricula") String matricula, Model model) {
+	public String listarAluno(@RequestParam("matricula") String matricula, Model model, RedirectAttributes redirect) {
 		List<Aluno> results = new ArrayList<Aluno>();
-		results.add(alunoService.getAlunoByMatricula(matricula));
+		Aluno aluno = alunoService.getAlunoByMatricula(matricula);
+		results.add(aluno);
 		model.addAttribute("alunos", results);
 		
+		if(aluno == null){
+			redirect.addFlashAttribute("erro", "Aluno não encontrado");
+			redirect.addFlashAttribute("alunoEncontrado", false);	
+			return "redirect:/aluno/listar";
+		}
 		return "/aluno/listar";
 	}
 	

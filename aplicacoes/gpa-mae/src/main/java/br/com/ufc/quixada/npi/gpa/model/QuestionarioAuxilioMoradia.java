@@ -1,6 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -57,7 +58,7 @@ public class QuestionarioAuxilioMoradia {
 	private String nomePai;
 	
 	@Column(nullable = false)
-	private String rua;
+	private String logradouro;
 	
 	@Column(nullable = false)
 	private int numeroCasa;
@@ -78,6 +79,9 @@ public class QuestionarioAuxilioMoradia {
 	
 	@Column(nullable = false)
 	private String telefone;
+	
+	@Column (nullable = false)
+	private Date dataInscricao;
 
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
@@ -101,13 +105,13 @@ public class QuestionarioAuxilioMoradia {
 	@Enumerated(EnumType.STRING)
 	private GrauParentescoVeiculos grauParentescoVeiculos;
 
-	private String tipo;
+	private String tipoVeiculo;
 	
-	private String marca;
+	private String marcaVeiculo;
 	
-	private String modelo;
+	private String modeloVeiculo;
 	
-	private String ano;
+	private String anoVeiculo;
 
 	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidadeVeiculo;
@@ -177,10 +181,10 @@ public class QuestionarioAuxilioMoradia {
 		this.nomePai = nomePai;
 	}
 	public String getRua() {
-		return rua;
+		return logradouro;
 	}
 	public void setRua(String rua) {
-		this.rua = rua;
+		this.logradouro = rua;
 	}
 	public int getNumeroCasa() {
 		return numeroCasa;
@@ -281,28 +285,28 @@ public class QuestionarioAuxilioMoradia {
 		this.grauParentescoVeiculos = grauParentescoVeiculos;
 	}
 	public String getTipo() {
-		return tipo;
+		return tipoVeiculo;
 	}
 	public void setTipo(String tipo) {
-		this.tipo = tipo;
+		this.tipoVeiculo = tipo;
 	}
 	public String getMarca() {
-		return marca;
+		return marcaVeiculo;
 	}
 	public void setMarca(String marca) {
-		this.marca = marca;
+		this.marcaVeiculo = marca;
 	}
 	public String getModelo() {
-		return modelo;
+		return modeloVeiculo;
 	}
 	public void setModelo(String modelo) {
-		this.modelo = modelo;
+		this.modeloVeiculo = modelo;
 	}
 	public String getAno() {
-		return ano;
+		return anoVeiculo;
 	}
 	public void setAno(String ano) {
-		this.ano = ano;
+		this.anoVeiculo = ano;
 	}
 	public FinalidadeVeiculo getFinalidadeVeiculo() {
 		return finalidadeVeiculo;
@@ -402,7 +406,7 @@ public class QuestionarioAuxilioMoradia {
 				+ selecaoBolsa + ", pessoas=" + pessoas + ", moraCom="
 				+ moraCom + ", enderecoSedeCurso=" + enderecoSedeCurso
 				+ ", nomeMae=" + nomeMae + ", nomePai=" + nomePai + ", rua="
-				+ rua + ", numeroCasa=" + numeroCasa + ", bairro=" + bairro
+				+ logradouro + ", numeroCasa=" + numeroCasa + ", bairro=" + bairro
 				+ ", complemento=" + complemento + ", cidade=" + cidade
 				+ ", cep=" + cep + ", pontoReferencia=" + pontoReferencia
 				+ ", telefone=" + telefone + ", estado=" + estado
@@ -413,8 +417,8 @@ public class QuestionarioAuxilioMoradia {
 				+ ", areaPropriedade=" + areaPropriedade + ", cidadeEstado="
 				+ cidadeEstado + ", veiculos=" + veiculos
 				+ ", grauParentescoVeiculos=" + grauParentescoVeiculos
-				+ ", tipo=" + tipo + ", marca=" + marca + ", modelo=" + modelo
-				+ ", ano=" + ano + ", finalidadeVeiculo=" + finalidadeVeiculo
+				+ ", tipo=" + tipoVeiculo + ", marca=" + marcaVeiculo + ", modelo=" + modeloVeiculo
+				+ ", ano=" + anoVeiculo + ", finalidadeVeiculo=" + finalidadeVeiculo
 				+ ", ensinoFundamental=" + ensinoFundamental
 				+ ", percentualParticularFundamental="
 				+ percentualParticularFundamental + ", ensinoMedio="

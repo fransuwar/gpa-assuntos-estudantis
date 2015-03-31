@@ -1,5 +1,6 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -32,7 +33,7 @@ public class QuestionarioIniciacaoAcademica {
 
 	@ManyToOne
 	private SelecaoBolsa selecaoBolsa;
-
+	
 	private int qtdAparelhoSom;
 	private int qtdTelevisao;
 	private int qtdRadio;
@@ -51,6 +52,7 @@ public class QuestionarioIniciacaoAcademica {
 	private int qtdBanheiros;
 	private int qtdEmpregadosDomesticos;
 	private int totalMembrosFamilia;
+	
 	private String nome;
 	private int idade;
 	private String atividade;
@@ -121,12 +123,13 @@ public class QuestionarioIniciacaoAcademica {
 	private NivelInstrucao nivelInstrucaoMae;
 
 	@Enumerated(EnumType.STRING)
+
 	private NivelInstrucao nivelInstrucaoPai;
 
 	@NotNull
-	@Size(min = 1, message = "Preenchimento Obrigatório")
+	@Size(min=1,message="Preenchimento Obrigatório")
 	private String resideAtualmente;
-
+	
 	@NotNull
 	@Size(min = 1, message = "Preenchimento Obrigatório")
 	private String definicaoLocalAtual;
@@ -140,8 +143,21 @@ public class QuestionarioIniciacaoAcademica {
 	@Enumerated(EnumType.STRING)
 	private SituacaoResidencia situacaoResidencia;
 
+	public enum GrauParentesco {
+		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao(
+				"Irmão"), Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros(
+				"Outros");
+
+		private GrauParentesco(String nome) {
+		}
+	}
+
+	private String campusPreferido;
+	private Date dataInscricao;
+			
 	@Enumerated(EnumType.ORDINAL)
 	private GrauParentesco parentesco;
+
 
 	@Enumerated(EnumType.STRING)
 	private HorarioDisponivel horariodisponivelBolsa;
@@ -158,6 +174,130 @@ public class QuestionarioIniciacaoAcademica {
 
 	public QuestionarioIniciacaoAcademica() {
 
+	}
+	
+	public int getQtdAparelhoSom() {
+		return qtdAparelhoSom;
+	}
+	public void setQtdAparelhoSom(int qtdAparelhoSom) {
+		this.qtdAparelhoSom = qtdAparelhoSom;
+	}
+	public int getQtdTelevisao() {
+		return qtdTelevisao;
+	}
+	public void setQtdTelevisao(int qtdTelevisao) {
+		this.qtdTelevisao = qtdTelevisao;
+	}
+	public int getQtdRadio() {
+		return qtdRadio;
+	}
+	public void setQtdRadio(int qtdRadio) {
+		this.qtdRadio = qtdRadio;
+	}
+	public int getQtdAutomovel() {
+		return qtdAutomovel;
+	}
+	public void setQtdAutomovel(int qtdAutomovel) {
+		this.qtdAutomovel = qtdAutomovel;
+	}
+	public int getQtdMotocicleta() {
+		return qtdMotocicleta;
+	}
+	public void setQtdMotocicleta(int qtdMotocicleta) {
+		this.qtdMotocicleta = qtdMotocicleta;
+	}
+	public int getQtdMaquinaLavar() {
+		return qtdMaquinaLavar;
+	}
+	public void setQtdMaquinaLavar(int qtdMaquinaLavar) {
+		this.qtdMaquinaLavar = qtdMaquinaLavar;
+	}
+	public int getQtdDvdVideocassete() {
+		return qtdDvdVideocassete;
+	}
+	public void setQtdDvdVideocassete(int qtdDvdVideocassete) {
+		this.qtdDvdVideocassete = qtdDvdVideocassete;
+	}
+	public int getQtdGeladeira() {
+		return qtdGeladeira;
+	}
+	public void setQtdGeladeira(int qtdGeladeira) {
+		this.qtdGeladeira = qtdGeladeira;
+	}
+	public int getQtdFreezer() {
+		return qtdFreezer;
+	}
+	public void setQtdFreezer(int qtdFreezer) {
+		this.qtdFreezer = qtdFreezer;
+	}
+	public int getQtdTelefoneFixo() {
+		return qtdTelefoneFixo;
+	}
+	public void setQtdTelefoneFixo(int qtdTelefoneFixo) {
+		this.qtdTelefoneFixo = qtdTelefoneFixo;
+	}
+	public int getQtdCelularResidentes() {
+		return qtdCelularResidentes;
+	}
+	public void setQtdCelularResidentes(int qtdCelularResidentes) {
+		this.qtdCelularResidentes = qtdCelularResidentes;
+	}
+	public int getQtdComputador() {
+		return qtdComputador;
+	}
+	public void setQtdComputador(int qtdComputador) {
+		this.qtdComputador = qtdComputador;
+	}
+	public int getQtdFogaoGas() {
+		return qtdFogaoGas;
+	}
+	public void setQtdFogaoGas(int qtdFogaoGas) {
+		this.qtdFogaoGas = qtdFogaoGas;
+	}
+	public int getQtdMaquinaCostura() {
+		return qtdMaquinaCostura;
+	}
+	public void setQtdMaquinaCostura(int qtdMaquinaCostura) {
+		this.qtdMaquinaCostura = qtdMaquinaCostura;
+	}
+	public int getQtdComodosSemBanheiro() {
+		return qtdComodosSemBanheiro;
+	}
+	public void setQtdComodosSemBanheiro(int qtdComodosSemBanheiro) {
+		this.qtdComodosSemBanheiro = qtdComodosSemBanheiro;
+	}
+	public int getQtdBanheiros() {
+		return qtdBanheiros;
+	}
+	public void setQtdBanheiros(int qtdBanheiros) {
+		this.qtdBanheiros = qtdBanheiros;
+	}
+	public int getQtdEmpregadosDomesticos() {
+		return qtdEmpregadosDomesticos;
+	}
+	public void setQtdEmpregadosDomesticos(int qtdEmpregadosDomesticos) {
+		this.qtdEmpregadosDomesticos = qtdEmpregadosDomesticos;
+	}
+	public int getTotalMembrosFamilia() {
+		return totalMembrosFamilia;
+	}
+	public void setTotalMembrosFamilia(int totalMembrosFamilia) {
+		this.totalMembrosFamilia = totalMembrosFamilia;
+	}
+	public String getCampusPreferido() {
+		return campusPreferido;
+	}
+	public void setCampusPreferido(String campusPreferido) {
+		this.campusPreferido = campusPreferido;
+	}
+	public Date getDataInscricao() {
+		return dataInscricao;
+	}
+	public void setDataInscricao(Date dataInscricao) {
+		this.dataInscricao = dataInscricao;
+	}
+	public float getRendaTotalFamilia() {
+		return rendaTotalFamilia;
 	}
 
 	public Integer getId() {
@@ -399,151 +539,7 @@ public class QuestionarioIniciacaoAcademica {
 	public void setEstadoFamilia(Estado estadoFamilia) {
 		this.estadoFamilia = estadoFamilia;
 	}
-
-	public int getQtdAparelhoSom() {
-		return qtdAparelhoSom;
-	}
-
-	public void setQtdAparelhoSom(int qtdAparelhoSom) {
-		this.qtdAparelhoSom = qtdAparelhoSom;
-	}
-
-	public int getQtdTelevisao() {
-		return qtdTelevisao;
-	}
-
-	public void setQtdTelevisao(int qtdTelevisao) {
-		this.qtdTelevisao = qtdTelevisao;
-	}
-
-	public int getQtdRadio() {
-		return qtdRadio;
-	}
-
-	public void setQtdRadio(int qtdRadio) {
-		this.qtdRadio = qtdRadio;
-	}
-
-	public int getQtdAutomovel() {
-		return qtdAutomovel;
-	}
-
-	public void setQtdAutomovel(int qtdAutomovel) {
-		this.qtdAutomovel = qtdAutomovel;
-	}
-
-	public int getQtdMotocicleta() {
-		return qtdMotocicleta;
-	}
-
-	public void setQtdMotocicleta(int qtdMotocicleta) {
-		this.qtdMotocicleta = qtdMotocicleta;
-	}
-
-	public int getQtdMaquinaLavar() {
-		return qtdMaquinaLavar;
-	}
-
-	public void setQtdMaquinaLavar(int qtdMaquinaLavar) {
-		this.qtdMaquinaLavar = qtdMaquinaLavar;
-	}
-
-	public int getQtdDvdVideocassete() {
-		return qtdDvdVideocassete;
-	}
-
-	public void setQtdDvdVideocassete(int qtdDvdVideocassete) {
-		this.qtdDvdVideocassete = qtdDvdVideocassete;
-	}
-
-	public int getQtdGeladeira() {
-		return qtdGeladeira;
-	}
-
-	public void setQtdGeladeira(int qtdGeladeira) {
-		this.qtdGeladeira = qtdGeladeira;
-	}
-
-	public int getQtdFreezer() {
-		return qtdFreezer;
-	}
-
-	public void setQtdFreezer(int qtdFreezer) {
-		this.qtdFreezer = qtdFreezer;
-	}
-
-	public int getQtdTelefoneFixo() {
-		return qtdTelefoneFixo;
-	}
-
-	public void setQtdTelefoneFixo(int qtdTelefoneFixo) {
-		this.qtdTelefoneFixo = qtdTelefoneFixo;
-	}
-
-	public int getQtdCelularResidentes() {
-		return qtdCelularResidentes;
-	}
-
-	public void setQtdCelularResidentes(int qtdCelularResidentes) {
-		this.qtdCelularResidentes = qtdCelularResidentes;
-	}
-
-	public int getQtdComputador() {
-		return qtdComputador;
-	}
-
-	public void setQtdComputador(int qtdComputador) {
-		this.qtdComputador = qtdComputador;
-	}
-
-	public int getQtdFogaoGas() {
-		return qtdFogaoGas;
-	}
-
-	public void setQtdFogaoGas(int qtdFogaoGas) {
-		this.qtdFogaoGas = qtdFogaoGas;
-	}
-
-	public int getQtdMaquinaCostura() {
-		return qtdMaquinaCostura;
-	}
-
-	public void setQtdMaquinaCostura(int qtdMaquinaCostura) {
-		this.qtdMaquinaCostura = qtdMaquinaCostura;
-	}
-
-	public int getQtdComodosSemBanheiro() {
-		return qtdComodosSemBanheiro;
-	}
-
-	public void setQtdComodosSemBanheiro(int qtdComodosSemBanheiro) {
-		this.qtdComodosSemBanheiro = qtdComodosSemBanheiro;
-	}
-
-	public int getQtdBanheiros() {
-		return qtdBanheiros;
-	}
-
-	public void setQtdBanheiros(int qtdBanheiros) {
-		this.qtdBanheiros = qtdBanheiros;
-	}
-
-	public int getQtdEmpregadosDomesticos() {
-		return qtdEmpregadosDomesticos;
-	}
-
-	public void setQtdEmpregadosDomesticos(int qtdEmpregadosDomesticos) {
-		this.qtdEmpregadosDomesticos = qtdEmpregadosDomesticos;
-	}
-
-	public int getTotalMembrosFamilia() {
-		return totalMembrosFamilia;
-	}
-
-	public void setTotalMembrosFamilia(int totalMembrosFamilia) {
-		this.totalMembrosFamilia = totalMembrosFamilia;
-	}
-
+	
 	public String getNome() {
 		return nome;
 	}
@@ -584,7 +580,7 @@ public class QuestionarioIniciacaoAcademica {
 		this.renda = renda;
 	}
 
-	public float getRendaTotalFamilia() {
+	public float getRenda_total_familia() {
 		return rendaTotalFamilia;
 	}
 
@@ -624,8 +620,6 @@ public class QuestionarioIniciacaoAcademica {
 	public void setTelefoneCelularFamilia(String telefoneCelularFamilia) {
 		this.telefoneCelularFamilia = telefoneCelularFamilia;
 	}
-
-	@Override
 	public String toString() {
 		return "QuestionarioIniciacaoAcademica [id=" + id + ", selecaoBolsa="
 				+ selecaoBolsa + ", pessoas=" + pessoas + ", enderecoAtual="

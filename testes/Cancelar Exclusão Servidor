@@ -4,53 +4,29 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>Cadastrar Aluno-Campo em Branco</title>
+<title>Cancelar Excluisao de Servidor</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Cadastrar Aluno-Campo em Branco</td></tr>
+<tr><td rowspan="1" colspan="3">Cancelar Excluisao de Servidor</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/MAE/aluno/cadastrar</td>
+	<td>/MAE/servidor/listar</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=curso</td>
-	<td>es</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=ira</td>
-	<td>9</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=anoIngresso</td>
-	<td>01/01/11</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=banco</td>
-	<td>152</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=agencia</td>
-	<td>152</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=conta</td>
-	<td>152</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=form-btn</td>
+	<td>click</td>
+	<td>css=button.btn.btn-danger</td>
 	<td></td>
 </tr>
+<tr>
+	<td>click</td>
+	<td>css=button.btn.btn-default</td>
+	<td></td>
+</tr>
+
 </tbody></table>
 </body>
 </html>

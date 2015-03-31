@@ -4,58 +4,29 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>CadastrarAluno/Dados Duplicados</title>
+<title>Buscar aluno- Matricula inexistente</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">CadastrarAluno/Dados Duplicados</td></tr>
+<tr><td rowspan="1" colspan="3">Buscar aluno- Matricula inexistente</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/MAE/aluno/cadastrar</td>
+	<td>/MAE/aluno/listar</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=matricula</td>
-	<td>338895</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=curso</td>
-	<td>ee</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=ira</td>
-	<td>9</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=anoIngresso</td>
-	<td>01/01/11</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=banco</td>
-	<td>111</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=agencia</td>
-	<td>111</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=conta</td>
-	<td>111</td>
+	<td>454752557</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=form-btn</td>
+	<td>name=submit</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>
