@@ -78,7 +78,6 @@ public class ServidorController {
 		results.add(servidorService.getServidorBySiape(siape));
 		model.addAttribute("servidores", results);
 		
-		
 		return "/servidor/listar";
 	}
 
@@ -91,7 +90,6 @@ public class ServidorController {
 			model.addAttribute("action", "editar");
 			
 			return "servidor/editar";
-		
 	}
 	
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.POST)
@@ -100,7 +98,6 @@ public class ServidorController {
 			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
 
 		if (result.hasErrors()) {
-		
 			model.addAttribute("action", "editar");
 			return "servidor/editar";
 		}
@@ -125,9 +122,7 @@ public class ServidorController {
 			this.servidorService.delete(servidor);
 			redirectAttributes.addFlashAttribute("info", "Servidor excluído com sucesso.");
 		}
-		
 		return "redirect:/servidor/listar";
-		
 	}
 	
 }
