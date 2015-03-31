@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.com.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
 import br.com.ufc.quixada.npi.gpa.enums.Estado;
+import br.com.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.com.ufc.quixada.npi.gpa.enums.HorarioDisponivel;
 import br.com.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.com.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
@@ -35,6 +36,7 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("HorarioDisponivel", HorarioDisponivel.toMap());
 		modelo.addAttribute("SituacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("TotalEstado", Estado.toMap());
+		modelo.addAttribute("GrauParentesco", GrauParentesco.toMap());
 
 		return "inscricao/iniciacaoAcademica";
 	}
