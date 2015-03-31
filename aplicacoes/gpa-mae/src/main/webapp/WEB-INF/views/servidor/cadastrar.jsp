@@ -10,7 +10,7 @@
 <html>
 <head>
 <jsp:include page="../fragments/headTag.jsp" />
-<title>Cadastra servidor</title>
+<title>Cadastra/Edita servidor</title>
 
 </head>
 <body>
@@ -23,13 +23,21 @@
 	<div class="container">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h2>Novo Servidor</h2>
+				<c:choose>
+					<c:when test="${action == 'cadastrar'}">
+						<h2>Novo Servidor</h2>
+					</c:when>
+					<c:otherwise>
+						<h2>Editar Servidor</h2>
+					</c:otherwise>
+				</c:choose>
 			</div>
+
 			<div class="panel-body">
 				<form:form id="adicionarServidorForm" role="form"
-					commandName="servidor" servletRelativeAction="/servidor/cadastrar"
+					commandName="servidor" servletRelativeAction="/servidor/salvar"
 					method="POST" cssClass="form-horizontal">
-
+					<input type="hidden" name="id" value="${servidor.id}" />
 					<div class="form-group">
 						<label for="SIAPE" class="col-sm-1 control-label">SIAPE:</label>
 						<div class="col-sm-3">
