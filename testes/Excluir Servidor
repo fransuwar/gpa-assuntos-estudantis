@@ -4,56 +4,26 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>Adicionar aluno com conta usando string</title>
+<title>Excluir Servidor</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Adicionar aluno com conta usando string</td></tr>
+<tr><td rowspan="1" colspan="3">Excluir Servidor</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/MAE/aluno/cadastrar</td>
+	<td>/MAE/servidor/listar</td>
 	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=matricula</td>
-	<td>338895</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=ira</td>
-	<td>9</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=curso</td>
-	<td>ed</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@id='sizzle-1427227288028']/div/table/tbody/tr[2]/td[5]</td>
+	<td>xpath=(//a[@id='excluir']/button)[2]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=agencia</td>
-	<td>152</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=banco</td>
-	<td>152</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=conta</td>
-	<td>jahd</td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
-	<td>id=form-btn</td>
+	<td>css=a.btn.btn-danger</td>
 	<td></td>
 </tr>
 
