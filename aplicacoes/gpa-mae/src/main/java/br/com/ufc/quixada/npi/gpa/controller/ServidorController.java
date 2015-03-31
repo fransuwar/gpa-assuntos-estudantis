@@ -85,6 +85,7 @@ public class ServidorController {
 			return "redirect:/servidor/listar";
 		}
 		
+
 		return "/servidor/listar";
 	}
 
@@ -105,7 +106,6 @@ public class ServidorController {
 			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
 
 		if (result.hasErrors()) {
-		
 			model.addAttribute("action", "editar");
 			return "servidor/editar";
 		}
@@ -131,9 +131,7 @@ public class ServidorController {
 			this.servidorService.delete(servidor);
 			redirectAttributes.addFlashAttribute("info", "Servidor excluído com sucesso.");
 		}
-		
 		return "redirect:/servidor/listar";
-		
 	}
 	
 }
