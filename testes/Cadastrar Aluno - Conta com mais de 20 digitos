@@ -4,16 +4,21 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>CadastrarAluno/Dados Duplicados</title>
+<title>cad aluno - Conta com mais de 20 digitos</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">CadastrarAluno/Dados Duplicados</td></tr>
+<tr><td rowspan="1" colspan="3">cad aluno - Conta com mais de 20 digitos</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/MAE/aluno/cadastrar</td>
+	<td>/MAE/aluno/listar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=listar-btn-inserir</td>
 	<td></td>
 </tr>
 <tr>
@@ -24,7 +29,7 @@
 <tr>
 	<td>type</td>
 	<td>id=curso</td>
-	<td>ee</td>
+	<td>es</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -39,23 +44,24 @@
 <tr>
 	<td>type</td>
 	<td>id=banco</td>
-	<td>111</td>
+	<td>bb</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=agencia</td>
-	<td>111</td>
+	<td>152</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=conta</td>
-	<td>111</td>
+	<td>12345678912345678912345</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>id=form-btn</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>

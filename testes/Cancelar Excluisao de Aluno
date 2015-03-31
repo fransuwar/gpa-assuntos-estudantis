@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>Cadastrar Aluno</title>
+<title>Cancelar excluisão aluno</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Cadastrar Aluno</td></tr>
+<tr><td rowspan="1" colspan="3">Cancelar excluisão aluno</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -17,50 +17,16 @@
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>id=listar-btn-inserir</td>
+	<td>click</td>
+	<td>xpath=(//a[@id='excluir']/button)[3]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=matricula</td>
-	<td>338895</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=curso</td>
-	<td>es</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=ira</td>
-	<td>9</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=anoIngresso</td>
-	<td>01/01/11</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=banco</td>
-	<td>152</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=agencia</td>
-	<td>152</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=conta</td>
-	<td>152</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=form-btn</td>
+	<td>click</td>
+	<td>css=button.btn.btn-default</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>
