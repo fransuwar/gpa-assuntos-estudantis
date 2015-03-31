@@ -73,11 +73,17 @@ public class ServidorController {
 	}
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.POST)
-	public String listarServidor(@RequestParam("siape") String siape, Model model) {
+	public String listarServidor(@RequestParam("siape") String siape, Model model, RedirectAttributes redirect) {
 		List<Servidor> results = new ArrayList<Servidor>();
-		results.add(servidorService.getServidorBySiape(siape));
+		Servidor servidor = servidorService.getServidorBySiape(siape);
+		results.add(servidor);
 		model.addAttribute("servidores", results);
 		
+		if(servidor == null){
+			redirect.addFlashAttribute("erro", "Servidor não encontrado");
+			redirect.addFlashAttribute("servidorEncontrado", false);
+			return "redirect:/servidor/listar";
+		}
 		
 		return "/servidor/listar";
 	}
@@ -91,7 +97,6 @@ public class ServidorController {
 			model.addAttribute("action", "editar");
 			
 			return "servidor/editar";
-		
 	}
 	
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.POST)
@@ -118,6 +123,7 @@ public class ServidorController {
 	public String excluirServidor(Servidor p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes
 			) {
 		Servidor servidor = servidorService.find(Servidor.class, id);
+		
 		if (servidor == null) {
 			redirectAttributes.addFlashAttribute("erro", "Servidor inexistente.");
 		}else{

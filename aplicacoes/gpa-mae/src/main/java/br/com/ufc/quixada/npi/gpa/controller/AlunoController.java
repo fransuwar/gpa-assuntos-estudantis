@@ -70,7 +70,8 @@ public class AlunoController {
 	@RequestMapping(value = "/listar", method = RequestMethod.POST)
 	public String listarAluno(@RequestParam("matricula") String matricula, Model model) {
 		List<Aluno> results = new ArrayList<Aluno>();
-		results.add(alunoService.getAlunoByMatricula(matricula));
+		Aluno aluno = alunoService.getAlunoByMatricula(matricula); 
+		results.add(aluno);
 		model.addAttribute("alunos", results);
 		
 		return "/aluno/listar";
