@@ -63,7 +63,7 @@ uri="http://www.springframework.org/security/tags"%>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
-								<td>${selecao.status}</td>
+								<td>${selecao.status.nome}</td>
 								
 								<td>												
 										<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDENADOR')">

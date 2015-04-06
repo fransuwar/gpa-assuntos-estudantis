@@ -5,8 +5,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,9 +33,6 @@ public class AuxilioMoradiaController {
 
 	@Inject
 	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
-
-
-	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@InitBinder
 	protected void initBinder(HttpServletRequest request,
@@ -86,8 +81,6 @@ public class AuxilioMoradiaController {
 	public String selecaoAluno(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
 			BindingResult result, RedirectAttributes redirect) {
-
-		System.out.println();
 
 		if (result.hasErrors()) {
 			return ("inscricao/auxilio");

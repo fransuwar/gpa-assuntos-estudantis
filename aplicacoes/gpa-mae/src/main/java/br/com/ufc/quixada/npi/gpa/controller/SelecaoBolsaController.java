@@ -2,7 +2,6 @@ package br.com.ufc.quixada.npi.gpa.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -54,39 +53,87 @@ public class SelecaoBolsaController {
 		return "selecao/informacoes";
 	}
 
+	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
+	public String salvarSelecaoBolsa(
+			@Valid @ModelAttribute(value = "selecaoBolsa") SelecaoBolsa selecaoBolsa,
+			BindingResult result, Model model, RedirectAttributes redirect)
+			throws IOException {
+
+		if (selecaoBolsa.getId() != null) {
+			if (result.hasErrors()) {
+				model.addAttribute("tiposBolsa", TipoBolsa.toMap());
+				model.addAttribute("action", "editar");
+				return ("selecao/editar");
+			}
+
+			model.addAttribute("selecao", selecaoBolsa);
+			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+
+			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
+				model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+				model.addAttribute("dataError",
+						"Digite um ano maior ou igual ao atual");
+				return ("selecao/cadastrar");
+			}
+			if (selecaoService.existsSelecaoEquals(selecaoBolsa)) {
+				model.addAttribute("editalError",
+						"Numero do edital ou tipo de Bolsa ja existente");
+				return "selecao/cadastrar";
+			} else {
+
+				this.selecaoService.update(selecaoBolsa);
+				redirect.addFlashAttribute("info",
+						"Seleção atualizada com sucesso.");
+				return "redirect:/selecao/listar";
+			}
+
+		} else {
+			return adicionarselecao(null, selecaoBolsa, result, redirect, model);
+		}
+
+	}
+
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
+		model.addAttribute("action", "cadastrar");
 		model.addAttribute("selecao", new SelecaoBolsa());
 		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 		return "selecao/cadastrar";
 	}
 
-	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
-	public String adicionarselecao(
+	public String adicionarselecao(MultipartFile[] files,
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
-
 
 		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 		if (result.hasErrors()) {
 			return ("selecao/cadastrar");
 		}
-		
-		if(selecao.getDataInicio().after(selecao.getDataTermino())){
-			model.addAttribute("dataInicioError",
-					"Digite uma data início menor ou igual que a de término");
-			return ("selecao/cadastrar");
+
+		for (MultipartFile mpf : files) {
+			try {
+				
+				if (mpf.getBytes().length > 0) {
+					Documento documento = new Documento();
+					documento.setNomeOriginal(mpf.getOriginalFilename());
+					documento.setTipo(mpf.getContentType());
+					documento.setSelecaoBolsa(selecao);
+					documento.setArquivo(mpf.getBytes());
+
+					documentoService.save(documento);
+				}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		
+
 		if (selecao.getAno() < DateTime.now().getYear()) {
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			model.addAttribute("anoError",
+			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+			model.addAttribute("dataError",
 					"Digite um ano maior ou igual ao atual");
 			return ("selecao/cadastrar");
 		}
-		
-		
-		
 		if (selecaoService.existsSelecaoEquals(selecao)) {
 			model.addAttribute("editalError",
 					"Numero do edital ou tipo de Bolsa ja existente");
@@ -94,8 +141,7 @@ public class SelecaoBolsaController {
 		} else {
 			selecao.setStatus(Status.NOVA);
 			this.selecaoService.save(selecao);
-			redirect
-			.addFlashAttribute("info", "Seleção realizada com Sucesso.");
+			redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		}
 		return "redirect:/selecao/listar";
 	}
@@ -103,52 +149,14 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
-		
+
 		if (selecao.getStatus().equals(Status.NOVA)) {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "editar");
-			List<TipoBolsa> tiposBolsa = new ArrayList<TipoBolsa>(
-					Arrays.asList(TipoBolsa.values()));
-			model.addAttribute("tiposBolsa", tiposBolsa);
-			return "selecao/editar";		
+			model.addAttribute("tiposBolsa", TipoBolsa.toMap());
 		}
-		
-		if(selecao.getDataInicio().after(selecao.getDataTermino())){
-			model.addAttribute("dataInicioError",
-					"Digite uma data início menor ou igual que a de término");
-			return ("selecao/editar");
-		}
-		return "redirect:/selecao/listar";
-	}
+		return "selecao/cadastrar";
 
-	@RequestMapping(value = "/{id}/editar", method = RequestMethod.POST)
-	public String atualizarSelecao(
-			@RequestParam("file") MultipartFile[] files,
-			@PathVariable("id") Integer id,
-			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoAtualizado,
-			BindingResult result, Model model) throws IOException {
-
-		if (result.hasErrors()) {
-			List<TipoBolsa> tiposBolsa = new ArrayList<TipoBolsa>(
-					Arrays.asList(TipoBolsa.values()));
-			model.addAttribute("tiposBolsa", tiposBolsa);
-			model.addAttribute("action", "editar");
-			return ("selecao/editar");
-		}
-		for (MultipartFile mpf : files) {
-			if (mpf.getBytes().length > 0) {
-				Documento documento = new Documento();
-				documento.setNomeOriginal(mpf.getOriginalFilename());
-				documento.setTipo(mpf.getContentType());
-				documento.setSelecaoBolsa(selecaoAtualizado);
-				documento.setArquivo(mpf.getBytes());
-
-				documentoService.save(documento);
-			}
-
-			this.selecaoService.update(selecaoAtualizado);
-		}
-		return "redirect:/selecao/listar";
 	}
 
 	@RequestMapping(value = "/{id}/excluir")
@@ -194,11 +202,12 @@ public class SelecaoBolsaController {
 			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
 			@RequestParam("id3") Integer id3, @RequestParam("id") Integer id,
 			RedirectAttributes redirect) {
-		
+
 		if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
-			redirect.addFlashAttribute("erro", "Não é permitida repetição de membros na banca.");
+			redirect.addFlashAttribute("erro",
+					"Não é permitida repetição de membros na banca.");
 			return "redirect:/selecao/" + id + "/atribuir";
-		}else {
+		} else {
 			SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 			redirect.addFlashAttribute("selecao", id);
 			redirect.addFlashAttribute("membrosBanca", (selecao.getId()));
@@ -225,7 +234,6 @@ public class SelecaoBolsaController {
 			return "redirect:/selecao/listar";
 		}
 
-		
 	}
 
 }
