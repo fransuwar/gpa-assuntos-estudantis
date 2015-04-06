@@ -2,14 +2,13 @@ package br.com.ufc.quixada.npi.gpa.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.Valid;
 
+import org.joda.time.DateTime;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -66,12 +65,11 @@ public class SelecaoBolsaController {
 				model.addAttribute("action", "editar");
 				return ("selecao/editar");
 			}
-			
+
 			model.addAttribute("selecao", selecaoBolsa);
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
-			
-			GregorianCalendar gc = new GregorianCalendar();
-			if (selecaoBolsa.getAno() < gc.get(Calendar.YEAR)) {
+
+			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
 				model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 				model.addAttribute("dataError",
 						"Digite um ano maior ou igual ao atual");
@@ -90,7 +88,7 @@ public class SelecaoBolsaController {
 			}
 
 		} else {
-			return adicionarselecao(selecaoBolsa, result, redirect, model);
+			return adicionarselecao(null, selecaoBolsa, result, redirect, model);
 		}
 
 	}
@@ -103,16 +101,34 @@ public class SelecaoBolsaController {
 		return "selecao/cadastrar";
 	}
 
-	public String adicionarselecao(
+	public String adicionarselecao(MultipartFile[] files,
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
-		GregorianCalendar gc = new GregorianCalendar();
 
 		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 		if (result.hasErrors()) {
 			return ("selecao/cadastrar");
 		}
-		if (selecao.getAno() < gc.get(Calendar.YEAR)) {
+
+		for (MultipartFile mpf : files) {
+			try {
+				
+				if (mpf.getBytes().length > 0) {
+					Documento documento = new Documento();
+					documento.setNomeOriginal(mpf.getOriginalFilename());
+					documento.setTipo(mpf.getContentType());
+					documento.setSelecaoBolsa(selecao);
+					documento.setArquivo(mpf.getBytes());
+
+					documentoService.save(documento);
+				}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (selecao.getAno() < DateTime.now().getYear()) {
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			model.addAttribute("dataError",
 					"Digite um ano maior ou igual ao atual");
@@ -142,46 +158,6 @@ public class SelecaoBolsaController {
 		return "selecao/cadastrar";
 
 	}
-
-	// public String atualizarSelecao(MultipartFile[] files, Integer id,
-	// SelecaoBolsa selecaoAtualizado, BindingResult result, Model model,
-	// RedirectAttributes redirect) throws IOException {
-	//
-	// if (result.hasErrors()) {
-	// model.addAttribute("tiposBolsa", TipoBolsa.toMap());
-	// model.addAttribute("action", "editar");
-	// return ("selecao/editar");
-	// }
-	//
-	// for (MultipartFile mpf : files) {
-	// if (mpf.getBytes().length > 0) {
-	// Documento documento = new Documento();
-	// documento.setNomeOriginal(mpf.getOriginalFilename());
-	// documento.setTipo(mpf.getContentType());
-	// documento.setSelecaoBolsa(selecaoAtualizado);
-	// documento.setArquivo(mpf.getBytes());
-	//
-	// documentoService.save(documento);
-	// }
-	//
-	// }
-	//
-	// SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
-	//
-	// selecaoAtualizado.setEdital(selecao.getEdital());
-	// selecaoAtualizado.setTipoBolsa(selecao.getTipoBolsa());
-	// selecaoAtualizado.setDataInicio(selecao.getDataInicio());
-	// selecaoAtualizado.setDataTermino(selecao.getDataTermino());
-	// selecaoAtualizado.setAno(selecao.getAno());
-	// selecaoAtualizado.setQuantidadeVagas(selecao.getQuantidadeVagas());
-	// selecaoAtualizado.setDuracao(selecao.getDuracao());
-	// selecaoAtualizado.setComentarios(selecao.getComentarios());
-	// selecaoAtualizado.setDocumentos(selecao.getDocumentos());
-	//
-	// this.selecaoService.update(selecaoAtualizado);
-	// redirect.addFlashAttribute("info", "Seleção atualizada com sucesso.");
-	// return "redirect:/selecao/listar";
-	// }
 
 	@RequestMapping(value = "/{id}/excluir")
 	public String excluirSelecao(SelecaoBolsa p,

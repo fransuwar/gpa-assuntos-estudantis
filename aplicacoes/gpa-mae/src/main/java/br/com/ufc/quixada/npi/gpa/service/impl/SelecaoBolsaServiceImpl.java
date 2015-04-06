@@ -52,14 +52,10 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 		return true;
 	
 	}
-<<<<<<< HEAD
 
 	@Override
 	public SelecaoBolsa getSelecaoBolsaComDocumentos() {
 		return (SelecaoBolsa) findFirst("SelecaoBolsa.findSelecaoBolsaComDocumentos", new SimpleMap<String, Object>());
 	}
 
-
-=======
->>>>>>> 64f6bd126b0dc26889c00a44d5dea9cb89bd2ea5
 }

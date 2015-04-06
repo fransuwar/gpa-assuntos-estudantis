@@ -17,7 +17,15 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<ol class="breadcrumb">
 		<li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
-		<li class="active">Cadastra/Edita Seleções</li>
+		<c:choose>
+			<c:when test="${action == 'cadastrar'}">
+				<li class="active">Cadastrar Seleções</li>
+			</c:when>
+			<c:otherwise>
+				<li class="active">Editar Seleções</li>
+			</c:otherwise>
+		</c:choose>
+		
 	</ol>
 	<div class="container">
 		<div class="panel panel-primary">
