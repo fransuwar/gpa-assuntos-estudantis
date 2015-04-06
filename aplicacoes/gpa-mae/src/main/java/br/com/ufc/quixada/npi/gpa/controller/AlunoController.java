@@ -1,6 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,9 @@ import javax.persistence.PersistenceException;
 import javax.validation.Valid;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.validator.internal.util.privilegedactions.GetAnnotationParameter;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeComparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,7 +47,6 @@ public class AlunoController {
 		
 	}
 	
-	
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		
@@ -59,18 +62,17 @@ public class AlunoController {
 		if (result.hasErrors()) {
 			return ("aluno/cadastrar");
 		}
-		
 		try{
 			this.alunoService.save(aluno);
 		} catch (PersistenceException e){
 			if(e.getCause() instanceof ConstraintViolationException){
 				redirect.addFlashAttribute("erro", "Não é possível cadastrar uma matrícula já existente.");
+				System.out.println("Entrou");
 				return "redirect:/aluno/listar";
 			}
 		}	
 		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
 		return "redirect:/aluno/listar";
-
 	}
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
@@ -136,6 +138,5 @@ public class AlunoController {
 		}
 		
 		return "redirect:/aluno/listar";
-		
 	}	
 }
