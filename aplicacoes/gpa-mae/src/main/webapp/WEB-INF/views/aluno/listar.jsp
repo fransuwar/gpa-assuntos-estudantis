@@ -46,8 +46,8 @@
 				<div class="input-group">
 					<input id="matricula" name="matricula" class="form-control"
 						placeholder="Digite sua busca aqui..." size="20"
-						required="required" autofocus="true" /> <span
-						class="input-group-btn">
+						required="required" autofocus="true" />
+						<span class="input-group-btn">
 						<button class="btn btn-primary" name="submit" type="submit"
 							class="btn btn-primary" value="Buscar">
 							Buscar <span class="glyphicon glyphicon-search" />
@@ -101,29 +101,34 @@
 								</sec:authorize>
 							</tr>
 							<tbody>
-								<c:forEach var="aluno" items="${alunos}">
-									<tr class="linha">
-										<td>${aluno.id}</td>
-										<td>${aluno.matricula}</td>
-										<td>${aluno.ira}</td>
-										<td>${aluno.curso}</td>
+							<c:choose>
+								<c:when test="${not empty alunoEncontrado}"></c:when>
+								<c:otherwise>
+										<c:forEach var="aluno" items="${alunos}">
+											<tr class="linha">
+												<td>${aluno.id}</td>
+												<td>${aluno.matricula}</td>
+												<td>${aluno.ira}</td>
+												<td>${aluno.curso}</td>
 
-										<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-											<td><a id="editar"
-												href="<c:url value="/aluno/${aluno.id}/editar" ></c:url>">
-													<button class="btn btn-info">
-														Editar <span class="glyphicon glyphicon-pencil"></span>
-													</button>
-											</a> <a id="excluir" data-toggle="modal"
-												data-target="#confirm-delete" href="#"
-												data-href="<c:url value="/aluno/${aluno.id}/excluir" ></c:url>">
-													<button class="btn btn-danger">
-														Excluir <span class="glyphicon glyphicon-trash"></span>
-													</button>
+												<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+													<td><a id="editar"
+														href="<c:url value="/aluno/${aluno.id}/editar" ></c:url>">
+															<button class="btn btn-info">
+																Editar <span class="glyphicon glyphicon-pencil"></span>
+															</button>
+													</a> <a id="excluir" data-toggle="modal"
+														data-target="#confirm-delete" href="#"
+														data-href="<c:url value="/aluno/${aluno.id}/excluir" ></c:url>">
+															<button class="btn btn-danger">
+																Excluir <span class="glyphicon glyphicon-trash"></span>
+															</button>
+													</a></td>
+												</sec:authorize>
+										</c:forEach>
+									</c:otherwise>
+							</c:choose>
 
-											</a></td>
-										</sec:authorize>
-								</c:forEach>
 							</tbody>
 						</table>
 

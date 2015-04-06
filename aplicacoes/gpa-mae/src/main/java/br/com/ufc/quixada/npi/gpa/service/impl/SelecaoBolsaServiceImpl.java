@@ -50,7 +50,9 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 			return false;
 		}
 		return true;
+	
 	}
+<<<<<<< HEAD
 
 	@Override
 	public SelecaoBolsa getSelecaoBolsaComDocumentos() {
@@ -58,4 +60,6 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 	}
 
 
+=======
+>>>>>>> 64f6bd126b0dc26889c00a44d5dea9cb89bd2ea5
 }
