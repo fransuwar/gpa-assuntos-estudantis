@@ -81,8 +81,6 @@ public class AuxilioMoradiaController {
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
 			BindingResult result, RedirectAttributes redirect) {
 
-		System.out.println();
-
 		if (result.hasErrors()) {
 			return ("inscricao/auxilio");
 		} else {

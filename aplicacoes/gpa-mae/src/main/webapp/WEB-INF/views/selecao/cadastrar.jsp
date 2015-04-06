@@ -17,18 +17,25 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<ol class="breadcrumb">
 		<li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
-		<li class="active">Cadastrar Seleção</li>
+		<li class="active">Cadastra/Edita Seleções</li>
 	</ol>
 	<div class="container">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h2>Nova Seleção</h2>
+				<c:choose>
+					<c:when test="${action == 'cadastrar'}">
+						<h2>Novo Seleção</h2>
+					</c:when>
+					<c:otherwise>
+						<h2>Editar Seleção</h2>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="panel-body">
 				<form:form id="adicionarSelecaoForm" role="form"
-					commandName="selecao" servletRelativeAction="/selecao/cadastrar"
+					commandName="selecao" servletRelativeAction="/selecao/salvar"
 					method="POST" cssClass="form-horizontal">
-
+					<input type="hidden" name="id" value="${selecao.id}" />
 					<div class="form-group">
 						<label for="sequencial" class="col-sm-2 control-label">Número
 							do Edital:</label>
@@ -44,7 +51,8 @@
 						<label for="tipoBolsa" class="col-sm-2 control-label">Tipo
 							de Bolsa:</label>
 						<div class="col-sm-5 control-labe" id="div-select">
-							<form:select path="tipoBolsa" id="tipoBolsa" cssClass="form-control">
+							<form:select path="tipoBolsa" id="tipoBolsa"
+								cssClass="form-control">
 								<form:option value="" label="Selecione o tipo de bolsa" />
 								<form:options items="${tipoBolsa}" />
 							</form:select>
@@ -120,7 +128,6 @@
 					</div>
 
 					<div class="form-group">
-
 						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
 						<div class="col-sm-5 files">
 							<input class="btn btn-primary" type="file" name="file"

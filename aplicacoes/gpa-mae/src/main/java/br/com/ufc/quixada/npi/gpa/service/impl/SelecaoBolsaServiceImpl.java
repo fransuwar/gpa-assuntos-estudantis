@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.ufc.quixada.npi.gpa.model.Aluno;
 import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.enumeration.QueryType;
@@ -49,6 +50,11 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public SelecaoBolsa getSelecaoBolsaComDocumentos() {
+		return (SelecaoBolsa) findFirst("SelecaoBolsa.findSelecaoBolsaComDocumentos", new SimpleMap<String, Object>());
 	}
 
 

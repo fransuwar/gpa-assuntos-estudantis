@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
@@ -24,39 +26,40 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.com.ufc.quixada.npi.gpa.enums.Status;
 import br.com.ufc.quixada.npi.gpa.enums.TipoBolsa;
 
+@NamedQueries({ @NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaComDocumentos", query = "SELECT sb FROM SelecaoBolsa sb JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId ") })
 @Entity
 public class SelecaoBolsa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
-	@OneToMany(mappedBy="selecaoBolsa")
+
+	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<QuestionarioIniciacaoAcademica> questionariosIniciacaoAcademica;
-	
-	@OneToMany(mappedBy="selecaoBolsa")
+
+	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia;
-		
+
 	@Min(value = 1, message = "Número de bolsas deve ser maior que 0")
 	private int quantidadeVagas;
-		
+
 	@Future
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
-	
+
 	@ManyToOne
-	private  Pessoa autor;
-	
+	private Pessoa autor;
+
 	@OneToMany(mappedBy = "selecaoBolsa", cascade = CascadeType.REMOVE)
 	private List<Documento> documentos;
-	
+
 	@NotNull
 	private Integer sequencial;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
+
 	@Future
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -69,11 +72,11 @@ public class SelecaoBolsa {
 
 	@NotNull
 	private Integer ano;
-	
+
 	@Lob
 	@Size(min = 2, message = "Mínimo 2 caracteres")
 	private String comentarios;
-	
+
 	private String edital;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
@@ -124,7 +127,7 @@ public class SelecaoBolsa {
 	public Date getDataInicio() {
 		return dataInicio;
 	}
-	
+
 	public Date getDataTermino() {
 		return dataTermino;
 	}
@@ -248,7 +251,5 @@ public class SelecaoBolsa {
 	public void setTipoBolsa(TipoBolsa tipoBolsa) {
 		this.tipoBolsa = tipoBolsa;
 	}
-	
-	
 
 }
