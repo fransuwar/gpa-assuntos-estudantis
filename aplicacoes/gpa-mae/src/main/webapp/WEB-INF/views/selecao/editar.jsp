@@ -98,9 +98,8 @@
 			<div class="form-group"> 
 					<label for="tipoBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>	
 					<form:select  name="${status.expression}" path="tipoBolsa" id="tipoBolsa">
-						<c:forEach var="item" items="${tiposBolsa}">
-							<form:option value="${item}"><spring:eval expression="item.tipo"/></form:option>
-						</c:forEach>
+						<form:option value="">Selecione o tipo de bolsa</form:option>
+						<form:options items="${tipoBolsa}" />
 					</form:select>
 					</div>
 					

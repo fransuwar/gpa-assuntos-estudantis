@@ -2,7 +2,6 @@ package br.com.ufc.quixada.npi.gpa.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -95,11 +94,12 @@ public class SelecaoBolsaController {
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 		if (selecao.getStatus().equals(Status.NOVA)) {
+
+			selecao.setDocumentos(new ArrayList<Documento>());
+
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "editar");
-			List<TipoBolsa> tiposBolsa = new ArrayList<TipoBolsa>(
-					Arrays.asList(TipoBolsa.values()));
-			model.addAttribute("tiposBolsa", tiposBolsa);
+			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			return "selecao/editar";
 		}
 		return "redirect:/selecao/listar";
@@ -111,11 +111,8 @@ public class SelecaoBolsaController {
 			@PathVariable("id") Integer id,
 			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoAtualizado,
 			BindingResult result, Model model) throws IOException {
-
 		if (result.hasErrors()) {
-			List<TipoBolsa> tiposBolsa = new ArrayList<TipoBolsa>(
-					Arrays.asList(TipoBolsa.values()));
-			model.addAttribute("tiposBolsa", tiposBolsa);
+			model.addAttribute("tiposBolsa", TipoBolsa.toMap());
 			model.addAttribute("action", "editar");
 			return ("selecao/editar");
 		}
@@ -142,7 +139,7 @@ public class SelecaoBolsaController {
 		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 		if (selecao == null) {
 			redirectAttributes
-					.addFlashAttribute("erro", "Seleção inexistente.");
+			.addFlashAttribute("erro", "Seleção inexistente.");
 			return "redirect:/selecao/listar";
 		}
 		if (selecao.getStatus().equals(Status.NOVA)) {
@@ -178,7 +175,7 @@ public class SelecaoBolsaController {
 			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
 			@RequestParam("id3") Integer id3, @RequestParam("id") Integer id,
 			RedirectAttributes redirect) {
-		
+
 		if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
 			redirect.addFlashAttribute("erro", "Não é permitida repetição de membros na banca.");
 			return "redirect:/selecao/" + id + "/atribuir";
@@ -209,7 +206,7 @@ public class SelecaoBolsaController {
 			return "redirect:/selecao/listar";
 		}
 
-		
+
 	}
 
 }
