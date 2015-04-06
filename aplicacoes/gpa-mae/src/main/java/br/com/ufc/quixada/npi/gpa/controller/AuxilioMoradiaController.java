@@ -64,6 +64,7 @@ public class AuxilioMoradiaController {
 		
 		model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
 
+
 		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.toMap());
 
 		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.toMap());
@@ -73,12 +74,12 @@ public class AuxilioMoradiaController {
 
 		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.toMap());
 
+
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 		
 		model.addAttribute("moraCom", MoraCom.toMap());
 		
 		return "inscricao/auxilio";
-
 	}
 
 	@RequestMapping(value = "/inscricao", method = RequestMethod.POST)

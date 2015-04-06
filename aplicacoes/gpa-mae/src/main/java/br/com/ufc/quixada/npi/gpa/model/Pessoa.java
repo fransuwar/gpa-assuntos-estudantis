@@ -56,6 +56,7 @@ public class Pessoa {
 	
 	private String naturalidade;
 
+
 	@Enumerated(EnumType.STRING)
 	private Estado uf;
 	
@@ -69,6 +70,7 @@ public class Pessoa {
 	
 	private String estadoCivil;
 	
+
 	public Estado getUf() {
 		return uf;
 	}

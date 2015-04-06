@@ -9,12 +9,22 @@ div.container{
 	padding-bottom:20px;
 }
 
+.h2-form{
+	padding: 2%;
+}
+
 #label-select{
 	margin-top: 0.5%;
 }
 
 #div-select{
 	padding-top: 0%;
+}
+
+input[type=checkbox]{
+	margin-left: 1.5%;
+	margin-top: 0.86%;
+	margin-right: 0.3%;
 }
 
 #form-btn{
@@ -50,6 +60,36 @@ div.container{
 #form-label-1{
 	width: 15%;
 	text-align: right;
+}
+
+#form-label-right{
+	width:13%;
+	text-align: right;
+}
+
+#form-label-right-select{
+	width:13%;
+	text-align: right;
+	margin-top:0.5%;
+}
+
+#form-label-right-select-tam-padrao{
+	text-align: right;
+	margin-top:0.5%;
+}
+
+#form-label-right-checkbox-tam-padrao{
+	text-align: right;
+	margin-top:4%;
+}
+
+#form-label-left-1{
+	width:13%;
+	text-align: right;
+}
+
+#label-left{
+	text-align: left;
 }
 
 div.row {
