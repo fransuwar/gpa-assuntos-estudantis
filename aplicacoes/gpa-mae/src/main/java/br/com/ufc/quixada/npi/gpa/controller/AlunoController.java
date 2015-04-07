@@ -108,7 +108,6 @@ public class AlunoController {
 			model.addAttribute("action", "editar"); 
 			return "aluno/editar";
 		}
-	
 		Aluno aluno = alunoService.find(Aluno.class, id);	
 		
 		alunoAtualizado.setAuxilioMoradia(aluno.getAuxilioMoradia());
@@ -131,7 +130,6 @@ public class AlunoController {
 			this.alunoService.delete(aluno);
 			redirectAttributes.addFlashAttribute("info", "Aluno excluído com sucesso.");
 		}
-		
 		return "redirect:/aluno/listar";
 	}	
 }
