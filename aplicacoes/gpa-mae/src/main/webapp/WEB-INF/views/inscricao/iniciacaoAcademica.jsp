@@ -166,8 +166,8 @@
 										</div>
 										<label for="bairro" class="col-sm-2 control-label">Bairro:</label>
 										<div class="col-sm-4">
-											<form:input id="bairro" path="bairro"
-												cssClass="form-control" placeholder="Bairro" />
+											<form:input id="bairro" path="bairro" cssClass="form-control"
+												placeholder="Bairro" />
 											<div class="error-validation">
 												<form:errors path="bairro"></form:errors>
 											</div>
@@ -612,38 +612,36 @@
 
 
 	<jsp:include page="../fragments/footer.jsp" />
-	
-<script type="text/javascript">
-	function rowAdded(rowElement) {
-		$(rowElement).find("input").val('');
-	}
-	function rowRemoved(rowElement) {
-	}
 
-	$(document)
-			.ready(
-					function() {
+	<script type="text/javascript">
+		function rowAdded(rowElement) {
+			$(rowElement).find("input").val('');
+		}
+		function rowRemoved(rowElement) {
+		}
 
-						var config = {
-							rowClass : 'pessoaFamilia',
-							addRowId : 'addPessoa',
-							removeRowClass : 'removePessoa',
-							formId : 'questionarioForm',
-							rowContainerId : 'pessoaFamiliaContainer',
-							indexedPropertyName : 'pessoas',
-							indexedPropertyMemberNames : 'nome, grauParentesco, escolaridade, atividade, renda',
-							rowAddedListener : rowAdded,
-							rowRemovedListener : rowRemoved,
-						};
-						new DynamicListHelper(config);
-					});
-</script>
-	
+		$(document)
+				.ready(
+						function() {
+
+							var config = {
+								rowClass : 'pessoaFamilia',
+								addRowId : 'addPessoa',
+								removeRowClass : 'removePessoa',
+								formId : 'questionarioForm',
+								rowContainerId : 'pessoaFamiliaContainer',
+								indexedPropertyName : 'pessoas',
+								indexedPropertyMemberNames : 'nome, grauParentesco, escolaridade, atividade, renda',
+								rowAddedListener : rowAdded,
+								rowRemovedListener : rowRemoved,
+							};
+							new DynamicListHelper(config);
+						});
+	</script>
+
 
 
 	<script type="text/javascript">
-		<script type="text/javascript">
-
 		$(document)
 				.ready(
 						function() {
