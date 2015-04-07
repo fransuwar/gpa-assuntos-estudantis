@@ -57,7 +57,7 @@
 							<form:input id="dataInicio" type="text" path="dataInicio"
 								cssClass="form-control data" placeholder="Data de Início" />
 							<div class="error-validation">
-								
+
 								<form:errors path="dataInicio"></form:errors>
 							</div>
 						</div>
@@ -111,27 +111,15 @@
 							</div>
 						</div>
 					</div>
-<<<<<<< HEAD
-					
-							
-			<div class="form-group"> 
-					<label for="tipoBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>	
-					<form:select  name="${status.expression}" path="tipoBolsa" id="tipoBolsa">
-						<form:option value="">Selecione o tipo de bolsa</form:option>
-						<form:options items="${tipoBolsa}" />
-					</form:select>
-=======
-
 
 					<div class="form-group">
 						<label for="tipoBolsa" class="col-sm-2 control-label">Tipo
 							de Bolsa:</label>
 						<form:select name="${status.expression}" path="tipoBolsa"
 							id="tipoBolsa">
-							<form:option value=""></form:option>
-							<form:options items="${tiposBolsa}" />
+							<form:option value="">Selecione o tipo de bolsa</form:option>
+							<form:options items="${tipoBolsa}" />
 						</form:select>
->>>>>>> 4938871637ecb0ff86695fb9e2639308b9f542d2
 					</div>
 
 					<div class="form-group">

@@ -74,8 +74,8 @@
 						<label for="anoIngresso" class="col-sm-2 control-label"
 							id="form-label">Ano Ingresso:</label>
 						<div class="col-sm-2">
-							<form:input id="anoIngresso" type="text" path="anoIngresso"
-								cssClass="form-control data" placeholder="Ano de Ingresso" />
+							<form:input id="anoIngresso" type="text" maxlength="4" path="anoIngresso"
+								cssClass="form-control " data-mask="9999" placeholder="Ano de Ingresso" />
 							<div class="error-validation">
 								<form:errors path="anoIngresso"></form:errors>
 							</div>
