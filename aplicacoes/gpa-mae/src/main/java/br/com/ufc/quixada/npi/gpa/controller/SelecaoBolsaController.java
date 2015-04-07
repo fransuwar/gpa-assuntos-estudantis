@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ufc.quixada.npi.gpa.enums.Status;
 import br.com.ufc.quixada.npi.gpa.enums.TipoBolsa;
-import br.com.ufc.quixada.npi.gpa.model.Documento;
 import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.com.ufc.quixada.npi.gpa.model.Servidor;
 import br.com.ufc.quixada.npi.gpa.service.DocumentoService;
@@ -61,16 +59,14 @@ public class SelecaoBolsaController {
 
 		if (selecaoBolsa.getId() != null) {
 			if (result.hasErrors()) {
-				model.addAttribute("tiposBolsa", TipoBolsa.toMap());
-				model.addAttribute("action", "editar");
-				return ("selecao/editar");
+				model.addAttribute("action", "editar"); 
+				return "selecao/editar";
 			}
 
 			model.addAttribute("selecao", selecaoBolsa);
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 
 			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
-				model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 				model.addAttribute("dataError",
 						"Digite um ano maior ou igual ao atual");
 				return ("selecao/cadastrar");
@@ -82,13 +78,14 @@ public class SelecaoBolsaController {
 			} else {
 
 				this.selecaoService.update(selecaoBolsa);
-				redirect.addFlashAttribute("info",
-						"Seleção atualizada com sucesso.");
-				return "redirect:/selecao/listar";
 			}
 
+			redirect.addFlashAttribute("info",
+					"Seleção atualizada com sucesso.");
+			return "redirect:/selecao/listar";
+
 		} else {
-			return adicionarselecao(null, selecaoBolsa, result, redirect, model);
+			return adicionarselecao(selecaoBolsa, result, redirect, model);
 		}
 
 	}
@@ -98,34 +95,15 @@ public class SelecaoBolsaController {
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("selecao", new SelecaoBolsa());
 		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
-		return "selecao/cadastrar";
+		return "/selecao/cadastrar";
 	}
 
-	public String adicionarselecao(MultipartFile[] files,
+	public String adicionarselecao(
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
 
-		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 		if (result.hasErrors()) {
 			return ("selecao/cadastrar");
-		}
-
-		for (MultipartFile mpf : files) {
-			try {
-				
-				if (mpf.getBytes().length > 0) {
-					Documento documento = new Documento();
-					documento.setNomeOriginal(mpf.getOriginalFilename());
-					documento.setTipo(mpf.getContentType());
-					documento.setSelecaoBolsa(selecao);
-					documento.setArquivo(mpf.getBytes());
-
-					documentoService.save(documento);
-				}
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 
 		if (selecao.getAno() < DateTime.now().getYear()) {
@@ -141,8 +119,8 @@ public class SelecaoBolsaController {
 		} else {
 			selecao.setStatus(Status.NOVA);
 			this.selecaoService.save(selecao);
-			redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		}
+		redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		return "redirect:/selecao/listar";
 	}
 
@@ -151,9 +129,11 @@ public class SelecaoBolsaController {
 		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 
 		if (selecao.getStatus().equals(Status.NOVA)) {
+
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "editar");
 			model.addAttribute("tiposBolsa", TipoBolsa.toMap());
+
 		}
 		return "selecao/cadastrar";
 
