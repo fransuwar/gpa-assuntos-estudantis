@@ -1,5 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.controller;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ufc.quixada.npi.gpa.enums.Estado;
 import br.com.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
+import br.com.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.com.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
 import br.com.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
 import br.com.ufc.quixada.npi.gpa.enums.MoraCom;
@@ -73,12 +76,14 @@ public class AuxilioMoradiaController {
 				GrauParentescoImovelRural.toMap());
 
 		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.toMap());
+		
+		model.addAttribute("grauParentesco", GrauParentesco.toMap());
 
 
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 		
 		model.addAttribute("moraCom", MoraCom.toMap());
-		
+				
 		return "inscricao/auxilio";
 	}
 
@@ -87,11 +92,14 @@ public class AuxilioMoradiaController {
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
 			BindingResult result, RedirectAttributes redirect) {
 
-		System.out.println();
-
 		if (result.hasErrors()) {
-			return ("inscricao/auxilio");
+			
+			
+			System.out.println("=========\n"+result.getAllErrors()+"=========\n");
+			
+			return ("redirect:/auxilio/inscricao");
 		} else {
+			questionarioAuxilioMoradia.setDataInscricao(new Date());
 			this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
 			redirect.addFlashAttribute("info", "Inscrição realizada com sucesso.");
 		}
