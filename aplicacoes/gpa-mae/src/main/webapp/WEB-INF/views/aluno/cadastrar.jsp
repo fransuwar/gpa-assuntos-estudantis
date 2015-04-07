@@ -50,7 +50,11 @@
 								cssClass="form-control" data-mask="9999999"
 								placeholder="Matricula do aluno" />
 							<div class="error-validation">
-								<form:errors path="matricula"></form:errors>
+								<form:errors path="matricula">
+									<label class="col-sm-10 control-label" id="label-erro">
+										Campo Obrigatório!
+									</label>
+								</form:errors>
 							</div>
 						</div>
 						<label for="curso" class="col-sm-1 control-label" id="form-label">Curso:</label>
@@ -58,7 +62,11 @@
 							<form:input id="curso" path="curso" cssClass="form-control"
 								placeholder="Curso" />
 							<div class="error-validation">
-								<form:errors path="curso"></form:errors>
+								<form:errors path="curso">
+									<label class="col-sm-10 control-label" id="label-erro">
+										Campo Obrigatório!
+									</label>
+								</form:errors>
 							</div>
 						</div>
 					</div>
@@ -68,7 +76,11 @@
 							<form:input id="ira" path="ira" cssClass="form-control"
 								placeholder="Ira do aluno" />
 							<div class="error-validation">
-								<form:errors path="ira"></form:errors>
+								<form:errors path="ira">
+									<label class="col-sm-10 control-label" id="label-erro">
+										Campo Obrigatório!
+									</label>
+								</form:errors>
 							</div>
 						</div>
 						<label for="anoIngresso" class="col-sm-2 control-label"
@@ -77,7 +89,11 @@
 							<form:input id="anoIngresso" type="text" path="anoIngresso"
 								cssClass="form-control data" placeholder="Ano de Ingresso" />
 							<div class="error-validation">
-								<form:errors path="anoIngresso"></form:errors>
+								<form:errors path="anoIngresso">
+									<label class="col-sm-10 control-label" id="label-erro">
+										Campo Obrigatório!
+									</label>
+								</form:errors>
 							</div>
 						</div>
 					</div>
@@ -87,7 +103,11 @@
 							<form:input id="banco" path="banco" cssClass="form-control"
 								placeholder="Banco" />
 							<div class="error-validation">
-								<form:errors path="banco"></form:errors>
+								<form:errors path="banco">
+									<label class="col-sm-10 control-label" id="label-erro">
+										Campo Obrigatório!
+									</label>
+								</form:errors>
 							</div>
 						</div>
 						<label for="agencia" class="col-sm-1 control-label"
@@ -96,7 +116,11 @@
 							<form:input id="agencia" path="agencia" cssClass="form-control"
 								placeholder="Agência" />
 							<div class="error-validation">
-								<form:errors path="agencia"></form:errors>
+								<form:errors path="agencia">
+									<label class="col-sm-10 control-label" id="label-erro">
+										Campo Obrigatório!
+									</label>
+								</form:errors>
 							</div>
 						</div>
 					</div>
@@ -106,7 +130,11 @@
 							<form:input id="conta" path="conta" cssClass="form-control"
 								placeholder="Conta" />
 							<div class="error-validation">
-								<form:errors path="conta"></form:errors>
+								<form:errors path="conta">
+									<label class="col-sm-10 control-label" id="label-erro">
+										Campo Obrigatório!
+									</label>
+								</form:errors>
 							</div>
 						</div>
 					</div>
@@ -126,7 +154,6 @@
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
-
 
 </body>
 
