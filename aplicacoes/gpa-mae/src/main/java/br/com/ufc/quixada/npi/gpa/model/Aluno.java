@@ -19,7 +19,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.jboss.logging.annotations.FormatWith;
 
 @NamedQueries({ @NamedQuery(name = "Aluno.findAlunoByMatricula", 
 								query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula") })
