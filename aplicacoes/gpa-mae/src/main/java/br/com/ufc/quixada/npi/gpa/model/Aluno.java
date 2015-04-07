@@ -131,7 +131,7 @@ public class Aluno {
 	public void setAnoIngresso(String anoIngresso) {
 		this.anoIngresso = anoIngresso;
 	}
-
+	
 	public double getIra() {
 		return ira;
 	}
@@ -179,7 +179,6 @@ public class Aluno {
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
 	}
-
 
 	@Override
 	public String toString() {

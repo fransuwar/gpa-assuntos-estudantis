@@ -43,7 +43,6 @@ public class AlunoController {
 		
 	}
 	
-	
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		
@@ -59,7 +58,6 @@ public class AlunoController {
 		if (result.hasErrors()) {
 			return ("aluno/cadastrar");
 		}
-		
 		try{
 			this.alunoService.save(aluno);
 		} catch (PersistenceException e){
@@ -70,7 +68,6 @@ public class AlunoController {
 		}	
 		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
 		return "redirect:/aluno/listar";
-
 	}
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
@@ -111,7 +108,6 @@ public class AlunoController {
 			model.addAttribute("action", "editar"); 
 			return "aluno/editar";
 		}
-	
 		Aluno aluno = alunoService.find(Aluno.class, id);	
 		
 		alunoAtualizado.setAuxilioMoradia(aluno.getAuxilioMoradia());
@@ -134,8 +130,6 @@ public class AlunoController {
 			this.alunoService.delete(aluno);
 			redirectAttributes.addFlashAttribute("info", "Aluno excluído com sucesso.");
 		}
-		
 		return "redirect:/aluno/listar";
-		
 	}	
 }
