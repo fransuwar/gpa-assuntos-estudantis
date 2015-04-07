@@ -88,10 +88,6 @@ public class AuxilioMoradiaController {
 			BindingResult result, RedirectAttributes redirect) {
 
 		if (result.hasErrors()) {
-			
-			
-			System.out.println("=========\n"+result.getAllErrors()+"=========\n");
-			
 			return ("redirect:/auxilio/inscricao");
 		} else {
 			questionarioAuxilioMoradia.setDataInscricao(new Date());
