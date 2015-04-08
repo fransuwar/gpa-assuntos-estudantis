@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="CadastrarAluno/Cadastrar Aluno">Cadastrar Aluno</a></td></tr>
+<tr><td><a href="CadastrarAluno/Cadastrar Aluno - Agencia com mais de 10 digitos">Cadastrar Aluno - Agencia com mais de 10 digitos</a></td></tr>
+<tr><td><a href="CadastrarAluno/Cadastrar Aluno- Agencia preenchido com String">Cadastrar Aluno- Agencia preenchido com String</a></td></tr>
+<tr><td><a href="CadastrarAluno/Cadastrar Aluno- Ano posterior ao atual">Cadastrar Aluno- Ano posterior ao atual</a></td></tr>
+<tr><td><a href="CadastrarAluno/Cadastrar Aluno-Campo em Branco">Cadastrar Aluno-Campo em Branco</a></td></tr>
+<tr><td><a href="CadastrarAluno/Cadastrar Aluno-Cancelar">Cadastrar Aluno-Cancelar</a></td></tr>
+<tr><td><a href="CadastrarAluno/Cadastrar Aluno - Conta com mais de 20 digitos">Cadastrar Aluno - Conta com mais de 20 digitos</a></td></tr>
+<tr><td><a href="CadastrarAluno/Cadastrar Aluno-Dados Duplicados">Cadastrar Aluno-Dados Duplicados</a></td></tr>
+<tr><td><a href="CadastrarAluno/Cadastrar Aluno- Ira com String">Cadastrar Aluno- Ira com String</a></td></tr>
+<tr><td><a href="CadastrarAluno/Cadastrar aluno - Ira maior que 10">Cadastrar aluno - Ira maior que 10</a></td></tr>
+<tr><td><a href="CadastrarAluno/Cadastrar Aluno - Ira menor que 0">Cadastrar Aluno - Ira menor que 0</a></td></tr>
+</tbody></table>
+</body>
+</html>

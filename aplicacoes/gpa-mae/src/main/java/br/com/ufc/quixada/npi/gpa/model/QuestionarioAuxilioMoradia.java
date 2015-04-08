@@ -1,7 +1,7 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -301,6 +301,12 @@ public class QuestionarioAuxilioMoradia {
 	}
 	public void setModelo(String modelo) {
 		this.modeloVeiculo = modelo;
+	}
+	public Date getDataInscricao() {
+		return dataInscricao;
+	}
+	public void setDataInscricao(Date dataInscricao) {
+		this.dataInscricao = dataInscricao;
 	}
 	public String getAno() {
 		return anoVeiculo;

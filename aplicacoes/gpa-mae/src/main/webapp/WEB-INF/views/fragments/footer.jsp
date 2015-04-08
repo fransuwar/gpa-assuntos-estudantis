@@ -18,6 +18,7 @@
 <script src="<c:url value="/resources/js/bootstrap-datepicker.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrap-datepicker.pt-BR.js" />"></script>
 <script src="<c:url value="/resources/js/npi.js" />"></script>
+<script src="<c:url value="/resources/js/validacao.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrap.file-input.js" />"></script>
 <script src="<c:url value="/resources/js/bootbox.min.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrapValidator.min.js" />"></script>
