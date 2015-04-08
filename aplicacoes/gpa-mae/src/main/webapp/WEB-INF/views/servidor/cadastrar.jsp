@@ -44,7 +44,11 @@
 							<form:input id="siape" maxlength="7" path="siape"
 								cssClass="form-control" placeholder="SIAPE do servidor" />
 							<div class="error-validation">
-								<form:errors path="siape"></form:errors>
+								<form:errors path="siape">
+									<label class="col-sm-10 control-label" id="label-erro">
+										Campo Obrigatório!
+									</label>
+								</form:errors>
 							</div>
 						</div>
 					</div>
@@ -53,10 +57,17 @@
 						<label for="Cargo" class="col-sm-1 control-label"
 							id="label-select">Cargo:</label>
 						<div class="col-sm-3 control-label">
-							<form:select path="cargo" id="cargoServidor" class="form-control">
+							<form:select path="cargo" id="cargo" class="form-control">
 								<form:option value="">Selecione Cargo</form:option>
 								<form:options items="${cargos}" />
 							</form:select>
+							<div class="error-validation">
+								<form:errors path="siape">
+									<label class="col-sm-10 control-label" id="label-erro">
+										Campo Obrigatório!
+									</label>
+								</form:errors>
+							</div>
 						</div>
 					</div>
 
@@ -77,7 +88,8 @@
 		</div>
 	</div>
 
-
 	<jsp:include page="../fragments/footer.jsp" />
+
 </body>
+
 </html>

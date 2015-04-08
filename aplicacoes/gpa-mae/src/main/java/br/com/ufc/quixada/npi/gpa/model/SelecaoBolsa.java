@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
@@ -24,44 +26,45 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.com.ufc.quixada.npi.gpa.enums.Status;
 import br.com.ufc.quixada.npi.gpa.enums.TipoBolsa;
 
+@NamedQueries({ @NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaComDocumentos", query = "SELECT sb FROM SelecaoBolsa sb JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId ") })
 @Entity
 public class SelecaoBolsa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
-	@OneToMany(mappedBy="selecaoBolsa")
+
+	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<QuestionarioIniciacaoAcademica> questionariosIniciacaoAcademica;
-	
-	@OneToMany(mappedBy="selecaoBolsa")
+
+	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia;
-		
+
 	@Min(value = 1, message = "Número de bolsas deve ser maior que 0")
 	private int quantidadeVagas;
-		
+
 	@Future
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
-	
+
 	@ManyToOne
-	private  Pessoa autor;
-	
+	private Pessoa autor;
+
 	@OneToMany(mappedBy = "selecaoBolsa", cascade = CascadeType.REMOVE)
 	private List<Documento> documentos;
-	
+
 	@NotNull
 	private Integer sequencial;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
+
 	@Future
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
-	
+
 	@NotNull
 	private String duracao;
 
@@ -69,12 +72,12 @@ public class SelecaoBolsa {
 
 	@NotNull
 	private Integer ano;
-	
+
 	@Lob
 	@Size(min = 2, message = "Mínimo 2 caracteres")
 	private String comentarios;
-	
-	private byte[] edital;
+
+	private String edital;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Servidor> membrosBanca;
@@ -85,6 +88,7 @@ public class SelecaoBolsa {
 	@ManyToMany
 	private List<Aluno> alunosSelecao;
 
+	@NotNull(message="Selecione o tipo de bolsa.")
 	@Enumerated(EnumType.STRING)
 	private TipoBolsa tipoBolsa;
 
@@ -124,7 +128,7 @@ public class SelecaoBolsa {
 	public Date getDataInicio() {
 		return dataInicio;
 	}
-	
+
 	public Date getDataTermino() {
 		return dataTermino;
 	}
@@ -135,6 +139,10 @@ public class SelecaoBolsa {
 
 	public String getDuracao() {
 		return duracao;
+	}
+
+	public String getEdital() {
+		return edital;
 	}
 
 	public Integer getId() {
@@ -169,14 +177,6 @@ public class SelecaoBolsa {
 		return tipoBolsa;
 	}
 
-	public byte[] getEdital() {
-		return edital;
-	}
-
-	public void setEdital(byte[] edital) {
-		this.edital = edital;
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -217,6 +217,10 @@ public class SelecaoBolsa {
 		this.duracao = duracao;
 	}
 
+	public void setEdital(String Edital) {
+		this.edital = Edital;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -248,5 +252,5 @@ public class SelecaoBolsa {
 	public void setTipoBolsa(TipoBolsa tipoBolsa) {
 		this.tipoBolsa = tipoBolsa;
 	}
-		
+
 }
