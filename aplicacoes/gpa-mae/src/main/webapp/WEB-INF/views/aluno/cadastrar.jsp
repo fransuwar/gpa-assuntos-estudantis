@@ -12,15 +12,23 @@
 <html>
 <head>
 <jsp:include page="../fragments/headTag.jsp" />
-<title>Cadastra/Edita alunos</title>
+<title>Cadastrar/Editar alunos</title>
 </head>
 
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<ol class="breadcrumb">
-		<li><a href="/MAE/aluno/listar">Listar Aluno</a></li>
-		<li class="active">Cadastrar Aluno</li>
+		<c:choose>
+			<c:when test="${action == 'cadastrar'}">
+				<li><a href="/MAE/aluno/listar">Listar Aluno</a></li>
+				<li class="active">Cadastrar Aluno</li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="/MAE/aluno/listar">Listar Aluno</a></li>
+				<li class="active">Editar Aluno</li>
+			</c:otherwise>
+		</c:choose>
 	</ol>
 
 	<div class="container">
@@ -87,9 +95,9 @@
 								<form:errors path="banco"></form:errors>
 							</div>
 						</div>
-						<label for="agencia" class="col-sm-1 control-label" id="form-label">Agência:</label>
+						<label for="agencia" class="col-sm-1 control-label" id="form-label">Agência(Com DV):</label>
 						<div class="col-sm-2">
-							<form:input id="agencia" path="agencia" cssClass="form-control"
+							<form:input id="agencia" data-mask="0000-x" path="agencia" cssClass="form-control"
 								placeholder="Agência" />
 							<div class="error-validation">
 								<form:errors path="agencia"></form:errors>
@@ -99,7 +107,7 @@
 					<div class="form-group">	
 						<label for="conta" class="col-sm-1 control-label" id="form-label">Conta:</label>
 						<div class="col-sm-2">
-							<form:input id="conta" path="conta" cssClass="form-control"
+							<form:input id="conta" data-mask="00000000000000" path="conta" cssClass="form-control"
 								placeholder="Conta" />
 							<div class="error-validation">
 								<form:errors path="conta"></form:errors>
