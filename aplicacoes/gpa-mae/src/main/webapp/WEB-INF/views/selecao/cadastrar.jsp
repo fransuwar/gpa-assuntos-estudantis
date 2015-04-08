@@ -25,7 +25,7 @@
 				<li class="active">Editar Seleções</li>
 			</c:otherwise>
 		</c:choose>
-		
+
 	</ol>
 	<div class="container">
 		<div class="panel panel-primary">
