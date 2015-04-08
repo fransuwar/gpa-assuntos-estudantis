@@ -2,6 +2,11 @@ div.container{
 	margin-bottom: 70px;
 }
 
+#label-erro{
+	color: #ff0000;
+	text-align: left;
+}
+
 #header-page{
 	width: 100%;
 	background-color:#0064A1;
