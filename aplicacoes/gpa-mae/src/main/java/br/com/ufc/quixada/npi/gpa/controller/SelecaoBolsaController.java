@@ -132,6 +132,7 @@ public class SelecaoBolsaController {
 
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "editar");
+
 			model.addAttribute("tiposBolsa", TipoBolsa.toMap());
 
 		}
@@ -146,7 +147,7 @@ public class SelecaoBolsaController {
 		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 		if (selecao == null) {
 			redirectAttributes
-					.addFlashAttribute("erro", "Seleção inexistente.");
+			.addFlashAttribute("erro", "Seleção inexistente.");
 			return "redirect:/selecao/listar";
 		}
 		if (selecao.getStatus().equals(Status.NOVA)) {
@@ -213,7 +214,6 @@ public class SelecaoBolsaController {
 
 			return "redirect:/selecao/listar";
 		}
-
 	}
 
 }

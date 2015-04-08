@@ -1,6 +1,6 @@
 package br.com.ufc.quixada.npi.gpa.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -142,20 +142,10 @@ public class QuestionarioIniciacaoAcademica {
 
 	@Enumerated(EnumType.STRING)
 	private SituacaoResidencia situacaoResidencia;
-
-	public enum GrauParentesco {
-		Filho_a("Filho(a)"), Neto("Neto(a)"), Sobrinho("Sobrinho(a)"), Irmao(
-				"Irmão"), Conjuge_Companheiro("Cônjuge ou Companheiro(a)"), Outros(
-				"Outros");
-
-		private GrauParentesco(String nome) {
-		}
-	}
-
 	private String campusPreferido;
 	private Date dataInscricao;
 			
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
 
 
