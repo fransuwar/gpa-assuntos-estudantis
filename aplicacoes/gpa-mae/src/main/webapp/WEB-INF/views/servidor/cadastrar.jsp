@@ -46,8 +46,7 @@
 							<div class="error-validation">
 								<form:errors path="siape">
 									<label class="col-sm-10 control-label" id="label-erro">
-										Campo Obrigatório!
-									</label>
+										Campo Obrigatório! </label>
 								</form:errors>
 							</div>
 						</div>
@@ -61,31 +60,29 @@
 								<form:option value="">Selecione Cargo</form:option>
 								<form:options items="${cargos}" />
 							</form:select>
-							<div class="error-validation">
-								<form:errors path="siape">
-									<label class="col-sm-10 control-label" id="label-erro">
-										Campo Obrigatório!
-									</label>
-								</form:errors>
-							</div>
+							<form:errors path="cargo">
+								<label class="col-sm-10 control-label" id="label-erro">
+									Campo Obrigatório! </label>
+							</form:errors>
 						</div>
 					</div>
-
-
-					<div class="form-group">
-						<div class="col-sm-2" id="div-form-btn">
-							<input name="submit" type="submit" class="btn btn-primary"
-								value="Cadastrar" id="form-btn" />
-						</div>
-						<div class="col-sm-2" id="div-form-btn">
-							<a href="<c:url value="/servidor/listar"></c:url>"
-								class="btn btn-default" id="form-btn">Cancelar</a>
-						</div>
-					</div>
-
-				</form:form>
 			</div>
+
+
+			<div class="form-group">
+				<div class="col-sm-2" id="div-form-btn">
+					<input name="submit" type="submit" class="btn btn-primary"
+						value="Cadastrar" id="form-btn" />
+				</div>
+				<div class="col-sm-2" id="div-form-btn">
+					<a href="<c:url value="/servidor/listar"></c:url>"
+						class="btn btn-default" id="form-btn">Cancelar</a>
+				</div>
+			</div>
+
+			</form:form>
 		</div>
+	</div>
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />

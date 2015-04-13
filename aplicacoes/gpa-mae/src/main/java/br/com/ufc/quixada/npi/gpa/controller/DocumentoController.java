@@ -70,15 +70,5 @@ public class DocumentoController {
 	public void setPessoaService(PessoaService pessoaService) {
 		PessoaService = pessoaService;
 	}
-	
-	/*private Pessoa getUsuarioLogado(HttpSession session) {
-		if (session.getAttribute(Constants.USUARIO_LOGADO) == null) {
-			Pessoa usuario = servicePessoaService
-					.getUsuarioByLogin(SecurityContextHolder.getContext()
-							.getAuthentication().getName());
-			session.setAttribute(Constants.USUARIO_LOGADO, usuario);
-		}
-		return (Pessoa) session.getAttribute(Constants.USUARIO_LOGADO);
-	}*/
 
 }
