@@ -4,52 +4,62 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>Cadastrar Aluno - Ira com String</title>
+<title>BolsaIdenticaAExistente</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Cadastrar Aluno - Ira com String</td></tr>
+<tr><td rowspan="1" colspan="3">BolsaIdenticaAExistente</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/MAE/aluno/cadastrar</td>
+	<td>/MAE/selecao/listar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=matricula</td>
-	<td>338895</td>
+	<td>id=sequencial</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=tipoBolsa</td>
+	<td>label=Auxilio Moradia</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=curso</td>
-	<td>es</td>
+	<td>id=dataInicio</td>
+	<td>02/05/2015</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=ira</td>
-	<td>asd</td>
+	<td>id=dataTermino</td>
+	<td>02/06/2015</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=anoIngresso</td>
-	<td>30/03/11</td>
+	<td>id=ano</td>
+	<td>2015</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=banco</td>
-	<td>152</td>
+	<td>id=quantidadeVagas</td>
+	<td>10</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=agencia</td>
-	<td>152</td>
+	<td>id=duracao</td>
+	<td>2</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=conta</td>
-	<td>152</td>
+	<td>id=comentarios</td>
+	<td>ok</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -57,14 +67,14 @@
 	<td></td>
 </tr>
 <tr>
-	<td>waitForElementPresent</td>
+	<td>verifyTextPresent</td>
 	<td>css=div.panel-body</td>
-	<td></td>
+	<td>*Campo Obrigatorio*</td>
 </tr>
 <tr>
-	<td>verifyText</td>
-	<td>css=div.panel-body</td>
-	<td>*Preencha o campo corretamente*</td>
+	<td></td>
+	<td></td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>
