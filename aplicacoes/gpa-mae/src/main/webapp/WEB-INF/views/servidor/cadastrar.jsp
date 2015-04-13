@@ -37,6 +37,7 @@
 				<form:form id="adicionarServidorForm" role="form"
 					commandName="servidor" servletRelativeAction="/servidor/salvar"
 					method="POST" cssClass="form-horizontal">
+
 					<input type="hidden" name="id" value="${servidor.id}" />
 					<div class="form-group">
 						<label for="SIAPE" class="col-sm-1 control-label">SIAPE:</label>
@@ -66,6 +67,7 @@
 							</form:errors>
 						</div>
 					</div>
+				</form:form>
 			</div>
 
 
@@ -80,9 +82,9 @@
 				</div>
 			</div>
 
-			</form:form>
+
 		</div>
-	</div>
+
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />

@@ -109,11 +109,10 @@ public class SelecaoBolsaController {
 			model.addAttribute("dataInicioError", "Data de início deve ser menor que a de termino");
 			return ("selecao/cadastrar");  
 		}
-		
 		if (selecaoService.existsSelecaoEquals(selecao)) {
-			model.addAttribute("editalError",
-					"Numero do edital ou tipo de Bolsa ja existente");
-			return "selecao/cadastrar";
+			redirect.addFlashAttribute("erro", "Número do edital ou tipo de Bolsa já existente");
+			return "redirect:/selecao/listar";
+
 		}
 
 		selecao.setStatus(Status.NOVA);
