@@ -15,8 +15,6 @@ function mascaraIra(ira) {
 
 function submeterForm() {
 
-	console.log("Teste de submite OK");
-
 	var idEdital = $('#id').val();
 
 	var form = $('#add-edital-form');
