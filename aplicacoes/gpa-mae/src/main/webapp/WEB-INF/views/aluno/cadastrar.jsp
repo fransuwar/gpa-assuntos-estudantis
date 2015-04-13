@@ -74,7 +74,7 @@
 						<label for="ira" class="col-sm-1 control-label" id="form-label">IRA:</label>
 						<div class="col-sm-3">
 							<form:input id="ira" path="ira" cssClass="form-control"
-								placeholder="Ira do aluno" />
+								placeholder="Ira do aluno" maxlength="5" onkeyup="mascaraIra(this);"/>
 							<div class="error-validation">
 								<form:errors path="ira">
 									<label class="col-sm-10 control-label" id="label-erro">
@@ -89,6 +89,9 @@
 							<form:input id="anoIngresso" type="text" maxlength="4" path="anoIngresso"
 								cssClass="form-control " data-mask="9999" placeholder="Ano de Ingresso" />
 							<div class="error-validation">
+								<label class="col-sm-10 control-label" id="label-erro">
+									${anoIngressoError} 
+								</label>
 								<form:errors path="anoIngresso">
 									<label class="col-sm-10 control-label" id="label-erro">
 										Campo Obrigatório!

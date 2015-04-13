@@ -95,6 +95,7 @@ public class SelecaoBolsaController {
 		if (result.hasErrors()) {
 			return ("selecao/cadastrar");
 		}
+		
 
 		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 
