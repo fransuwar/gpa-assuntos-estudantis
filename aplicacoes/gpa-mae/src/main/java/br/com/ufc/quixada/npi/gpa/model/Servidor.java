@@ -15,6 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -39,6 +40,7 @@ public class Servidor {
 	@NotEmpty
 	private String siape;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Cargo cargo;
 	

@@ -53,41 +53,29 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvarSelecaoBolsa(
-			@Valid @ModelAttribute(value = "selecaoBolsa") SelecaoBolsa selecaoBolsa,
+			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoBolsa,
 			BindingResult result, Model model, RedirectAttributes redirect)
 			throws IOException {
 
 		if (selecaoBolsa.getId() != null) {
 			if (result.hasErrors()) {
 				model.addAttribute("action", "editar");
-				model.addAttribute("selecao", selecaoBolsa);
-				model.addAttribute("tipoBolsa", TipoBolsa.toMap());
-				return "selecao/cadastrar";
+				return "selecao/editar";
 			}
-
-			model.addAttribute("selecao", selecaoBolsa);
-			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 
 			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
 				model.addAttribute("dataError",
 						"Digite um ano maior ou igual ao atual");
 				return ("selecao/cadastrar");
 			}
-			if (selecaoService.existsSelecaoEquals(selecaoBolsa)) {
-				model.addAttribute("editalError",
-						"Numero do edital ou tipo de Bolsa ja existente");
-				return "selecao/cadastrar";
-			} else {
 
-				this.selecaoService.update(selecaoBolsa);
-			}
-
+			this.selecaoService.update(selecaoBolsa);
 			redirect.addFlashAttribute("info",
 					"Seleção atualizada com sucesso.");
 			return "redirect:/selecao/listar";
 
 		} else {
-			return adicionarselecao(selecaoBolsa, result, redirect, model);
+			return adicionarSelecao(selecaoBolsa, result, redirect, model);
 		}
 
 	}
@@ -95,24 +83,23 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("action", "cadastrar");
-		model.addAttribute("selecao", new SelecaoBolsa());
 		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+		model.addAttribute("selecao", new SelecaoBolsa());
 		return "/selecao/cadastrar";
 	}
 
-	public String adicionarselecao(
+	public String adicionarSelecao(
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
 			BindingResult result, RedirectAttributes redirect, Model model) {
 
 		if (result.hasErrors()) {
-			model.addAttribute("selecao", selecao);
-			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			return ("selecao/cadastrar");
 		}
 		
 
+		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+
 		if (selecao.getAno() < DateTime.now().getYear()) {
-			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			model.addAttribute("dataError",
 					"Digite um ano maior ou igual ao atual");
 			return ("selecao/cadastrar");
@@ -121,10 +108,10 @@ public class SelecaoBolsaController {
 			model.addAttribute("editalError",
 					"Numero do edital ou tipo de Bolsa ja existente");
 			return "selecao/cadastrar";
-		} else {
-			selecao.setStatus(Status.NOVA);
-			this.selecaoService.save(selecao);
 		}
+
+		selecao.setStatus(Status.NOVA);
+		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		return "redirect:/selecao/listar";
 	}
@@ -135,10 +122,9 @@ public class SelecaoBolsaController {
 
 		if (selecao.getStatus().equals(Status.NOVA)) {
 
+			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "editar");
-
-			model.addAttribute("tiposBolsa", TipoBolsa.toMap());
 
 		}
 		return "selecao/cadastrar";
@@ -152,7 +138,7 @@ public class SelecaoBolsaController {
 		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 		if (selecao == null) {
 			redirectAttributes
-			.addFlashAttribute("erro", "Seleção inexistente.");
+					.addFlashAttribute("erro", "Seleção inexistente.");
 			return "redirect:/selecao/listar";
 		}
 		if (selecao.getStatus().equals(Status.NOVA)) {
