@@ -41,7 +41,7 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "{id}/informacoes")
 	public String getInformacoes(@PathVariable("id") Integer id, Model model,
 			RedirectAttributes redirectAttributes) {
-		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
+		SelecaoBolsa selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
 		if (selecao == null) {
 			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
 			return "redirect:/selecao/listar";
