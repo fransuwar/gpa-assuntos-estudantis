@@ -66,12 +66,6 @@
 								<form:option value="" label="Selecione o tipo de bolsa" />
 								<form:options items="${tipoBolsa}" />
 							</form:select>
-<<<<<<< HEAD
-=======
-							<div class="error-validation" style="text-align: left">
-								<form:errors path="tipoBolsa"></form:errors>
-							</div>
->>>>>>> fa9cd9f0187d805051a889daa4942284f80a4b9f
 						</div>
 
 					</div>
@@ -82,16 +76,11 @@
 						<div class="col-sm-2">
 							<form:input id="dataInicio" type="text" path="dataInicio"
 								cssClass="form-control data" placeholder="Data de Início" />
-<<<<<<< HEAD
 							<div class="error-validation">		
 							<label class="col-sm-10 control-label" id="label-erro">
 							${dataInicioError}
 							</label>
 								<form:errors path="dataInicio"/>
-=======
-							<div class="error-validation">
-								<form:errors path="dataInicio"></form:errors>
->>>>>>> fa9cd9f0187d805051a889daa4942284f80a4b9f
 							</div>
 						</div>
 
