@@ -63,12 +63,6 @@ public class SelecaoBolsaController {
 				return "selecao/editar";
 			}
 
-			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
-				model.addAttribute("dataError",
-						"Digite um ano maior ou igual ao atual");
-				return ("selecao/cadastrar");
-			}
-
 			this.selecaoService.update(selecaoBolsa);
 			redirect.addFlashAttribute("info",
 					"Seleção atualizada com sucesso.");
@@ -99,15 +93,10 @@ public class SelecaoBolsaController {
 
 		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 
-		if (selecao.getAno() < DateTime.now().getYear()) {
-			model.addAttribute("dataError",
-					"Digite um ano maior ou igual ao atual");
-			return ("selecao/cadastrar");
-		}
 		if (selecaoService.existsSelecaoEquals(selecao)) {
-			model.addAttribute("editalError",
-					"Numero do edital ou tipo de Bolsa ja existente");
-			return "selecao/cadastrar";
+			redirect.addFlashAttribute("erro", "Número do edital ou tipo de Bolsa já existente");
+			return "redirect:/selecao/listar";
+
 		}
 
 		selecao.setStatus(Status.NOVA);

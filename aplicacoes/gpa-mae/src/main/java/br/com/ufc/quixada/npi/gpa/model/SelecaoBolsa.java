@@ -43,8 +43,8 @@ public class SelecaoBolsa {
 	@Min(value = 1, message = "Número de bolsas deve ser maior que 0")
 	private int quantidadeVagas;
 
-	@Future
-	@NotNull
+	@Future(message = "Data de início deve ser maior que a data atual")
+	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
 
@@ -54,23 +54,23 @@ public class SelecaoBolsa {
 	@OneToMany(mappedBy = "selecaoBolsa", cascade = CascadeType.REMOVE)
 	private List<Documento> documentos;
 
-	@NotNull
+	@NotNull(message="Campo obrigatório")
 	private Integer sequencial;
 
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
-	@Future
-	@NotNull
+	@Future(message = "Data de término deve ser maior que a data atual")
+	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
 
-	@NotNull
+	@NotNull(message = "Campo obrigatório")
 	private String duracao;
 
 	private String local;
 
-	@NotNull
+	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
 
 	@Lob
@@ -88,7 +88,7 @@ public class SelecaoBolsa {
 	@ManyToMany
 	private List<Aluno> alunosSelecao;
 
-	@NotNull(message="Selecione o tipo de bolsa.")
+	@NotNull(message="Selecione o tipo de bolsa")
 	@Enumerated(EnumType.STRING)
 	private TipoBolsa tipoBolsa;
 
