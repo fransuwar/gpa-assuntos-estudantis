@@ -88,6 +88,7 @@ public class SelecaoBolsa {
 	@ManyToMany
 	private List<Aluno> alunosSelecao;
 
+	@NotNull(message="Selecione o tipo de bolsa.")
 	@Enumerated(EnumType.STRING)
 	private TipoBolsa tipoBolsa;
 
