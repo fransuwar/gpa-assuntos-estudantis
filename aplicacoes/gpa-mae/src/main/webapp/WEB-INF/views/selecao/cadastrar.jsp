@@ -64,6 +64,10 @@
 								<form:option value="" label="Selecione o tipo de bolsa" />
 								<form:options items="${tipoBolsa}" />
 							</form:select>
+							<form:errors path="tipoBolsa">
+								<label class="col-sm-10 control-label" id="label-erro">
+									Campo Obrigatório </label>
+							</form:errors>
 						</div>
 
 					</div>
