@@ -9,6 +9,7 @@ import javax.persistence.PersistenceException;
 import javax.validation.Valid;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,13 +39,14 @@ public class AlunoController {
 		if(aluno.getId()!=null){
 			return atualizarAluno(aluno.getId(), aluno, result, model, redirect);
 		}else{
-			return adicionarAluno(aluno, result, redirect);
+			return adicionarAluno(aluno, result, redirect, model);
 		}
 		
 	}
 	
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
+		
 		
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("aluno", new Aluno());
@@ -53,11 +55,18 @@ public class AlunoController {
 
 	public String adicionarAluno(
 			@Valid @ModelAttribute("aluno") Aluno aluno,
-			BindingResult result,RedirectAttributes redirect) {
+			BindingResult result,RedirectAttributes redirect, Model model) {
 		
 		if (result.hasErrors()) {
 			return ("aluno/cadastrar");
 		}
+
+		DateTime anoIngresso = DateTime.parse(aluno.getAnoIngresso());
+		if(anoIngresso.isAfterNow()){
+			model.addAttribute("anoIngressoError", "Informe um ano menor igual ao atual");
+			return "aluno/cadastrar";
+		}
+		
 		try{
 			this.alunoService.save(aluno);
 		} catch (PersistenceException e){
