@@ -24,9 +24,7 @@ function submeterForm() {
 	var dt = $("#editals").dataTable();
 
 	if (idEdital != "" || idEdital.val != null) {
-		console.log("Chamou método que envia requisição AjaxS");
-		// Chamada AJAX para EDITAR edital
-
+		
 		var request = $.ajax({
 			contentType : "application/json; charset=utf-8",
 			type : "PUT",
@@ -48,13 +46,10 @@ function submeterForm() {
 			dt.fnUpdate(data.DatadeInicio, linha, 1);
 			dt.fnUpdate(data.DatadeTermino, linha, 2);
 			dt.fnUpdate(data.comentarios, linha, 3);
-			console.log("SUCESSO ao editar Edital");
-
+		
 		});
 
 		request.fail(function(data) {
-			console.log("ERRO ao editar Edital");
-
 		});
 
 	} else {
@@ -75,7 +70,6 @@ function submeterForm() {
 					$('#mensagens').show();
 					$('#mensagens').text("Adição feita com sucesso");
 					$('#mensagens').fadeOut(4000);
-					console.log("SUCESSO ao adicionar edital");
 					dt
 							.fnAddData({
 								"DatadeInicio" : data.DatadeInicio,
@@ -92,7 +86,6 @@ function submeterForm() {
 				});
 
 		request.fail(function(data) {
-			console.log("ERRO ao adicionar contato");
 		});
 	}
 
@@ -130,15 +123,9 @@ $(document).ready(
 				$("#btnSubmitForm").text("Adicionar");
 			});
 
-			/*
-			 * $("#gravar").click(function(ev) {
-			 * 
-			 * submeterForm(); });
-			 */
 			$("#myModal").on("hidden.bs.modal", function(e) {
 				document.getElementById("add-contato-form").reset();
 				var id = $('#id');
-				console.log(id.attr('value', ''));
 			});
 
 			$("input.data").datepicker({
@@ -166,14 +153,12 @@ function povoaForm(uri, form, row) {
 
 	$("#myModalLabel").text("Atualizar contato");
 	$("#btnSubmitForm").text("Atualizar");
-	console.log("Verificação da linha" + row.value);
 	$.ajax({
 		type : "GET",
 		dataType : "json",
 		url : uri,
 		success : function(data) {
 
-			console.log(data);
 			populate(form, data);
 
 			// Adiciona a linha da tabela que está sendo editada, será usada na
@@ -220,15 +205,3 @@ function excluir(idTable, uri, row) {
 		}
 	});
 };
-
-/*
- * 
- * //this is the id of the form $("#idForm").submit(function() { var url =
- * "path/to/your/script.php"; var method = $("#idform").Attr('method'); // the
- * script where you handle the form input. $.ajax({ type: method, url: url,
- * data: $("#idForm").serialize(), // serializes the form's elements. success:
- * function(data) { alert(data); // show response from the php script. } });
- * return false; // avoid to execute the actual submit of the form. });
- * 
- * 
- */
