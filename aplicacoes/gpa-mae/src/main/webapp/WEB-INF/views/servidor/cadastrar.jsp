@@ -46,7 +46,7 @@
 							<div class="error-validation">
 								<form:errors path="siape">
 									<label class="col-sm-10 control-label" id="label-erro">
-										Campo Obrigatório! </label>
+										Campo Obrigatório </label>
 								</form:errors>
 							</div>
 						</div>
@@ -62,7 +62,7 @@
 							</form:select>
 							<form:errors path="cargo">
 								<label class="col-sm-10 control-label" id="label-erro">
-									Campo Obrigatório! </label>
+									Campo Obrigatório </label>
 							</form:errors>
 						</div>
 					</div>
