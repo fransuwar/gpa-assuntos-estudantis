@@ -89,6 +89,9 @@
 							<form:input id="anoIngresso" type="text" maxlength="4" path="anoIngresso"
 								cssClass="form-control " data-mask="9999" placeholder="Ano de Ingresso" />
 							<div class="error-validation">
+								<label class="col-sm-10 control-label" id="label-erro">
+									${anoIngressoError} 
+								</label>
 								<form:errors path="anoIngresso">
 									<label class="col-sm-10 control-label" id="label-erro">
 										Campo Obrigatório!

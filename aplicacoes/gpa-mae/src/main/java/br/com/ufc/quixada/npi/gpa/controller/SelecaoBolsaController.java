@@ -109,6 +109,7 @@ public class SelecaoBolsaController {
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			return ("selecao/cadastrar");
 		}
+		
 
 		if (selecao.getAno() < DateTime.now().getYear()) {
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
