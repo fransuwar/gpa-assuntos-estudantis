@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>Cadastrar Aluno - Ira com String</title>
+<title>Cad aluno- Ano posterior ao atual</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Cadastrar Aluno - Ira com String</td></tr>
+<tr><td rowspan="1" colspan="3">Cad aluno- Ano posterior ao atual</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -19,7 +19,7 @@
 <tr>
 	<td>type</td>
 	<td>id=matricula</td>
-	<td>338895</td>
+	<td>2346</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -29,27 +29,27 @@
 <tr>
 	<td>type</td>
 	<td>id=ira</td>
-	<td>asd</td>
+	<td>10</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=anoIngresso</td>
-	<td>30/03/11</td>
+	<td>2016</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=banco</td>
-	<td>152</td>
+	<td>245</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=agencia</td>
-	<td>152</td>
+	<td>2465</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=conta</td>
-	<td>152</td>
+	<td>54</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -58,13 +58,13 @@
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>css=div.panel-body</td>
+	<td>id=label-erro</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.panel-body</td>
-	<td>*Preencha o campo corretamente*</td>
+	<td>id=label-erro</td>
+	<td>*Informe um ano menor ou igual ao atual*</td>
 </tr>
 </tbody></table>
 </body>
