@@ -78,8 +78,7 @@
 							<label class="col-sm-10 control-label" id="label-erro">
 							${dataInicioError}
 							</label>
-								<form:errors path="dataInicio">
-								</form:errors>
+								<form:errors path="dataInicio"/>
 							</div>
 						</div>
 

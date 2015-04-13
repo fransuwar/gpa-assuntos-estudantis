@@ -117,6 +117,13 @@ public class AlunoController {
 			model.addAttribute("action", "editar"); 
 			return "aluno/editar";
 		}
+		
+		DateTime anoIngresso = DateTime.parse(alunoAtualizado.getAnoIngresso());
+		if(anoIngresso.isAfterNow()){
+			model.addAttribute("anoIngressoError", "Informe um ano menor ou igual ao atual");
+			return "aluno/cadastrar";
+		}
+		
 		Aluno aluno = alunoService.find(Aluno.class, id);	
 		
 		alunoAtualizado.setAuxilioMoradia(aluno.getAuxilioMoradia());
