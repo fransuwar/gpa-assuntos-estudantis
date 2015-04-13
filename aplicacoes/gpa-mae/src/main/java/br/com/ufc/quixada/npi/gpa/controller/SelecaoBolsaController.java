@@ -81,7 +81,7 @@ public class SelecaoBolsaController {
 
 				this.selecaoService.update(selecaoBolsa);
 			}
-
+			
 			redirect.addFlashAttribute("info",
 					"Seleção atualizada com sucesso.");
 			return "redirect:/selecao/listar";
@@ -110,13 +110,20 @@ public class SelecaoBolsaController {
 			return ("selecao/cadastrar");
 		}
 		
-
 		if (selecao.getAno() < DateTime.now().getYear()) {
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			model.addAttribute("dataError",
 					"Digite um ano maior ou igual ao atual");
 			return ("selecao/cadastrar");
 		}
+		
+		if(selecao.getDataInicio().after(selecao.getDataTermino())){
+			//model.addAttribute("dataInicioError", "Informe data de inicio menor que a de termino");
+			redirect.addFlashAttribute("dataInicioError", "Data Inválida.");
+			return "redirect:/selecao/listar"; 
+		}
+		
+		
 		if (selecaoService.existsSelecaoEquals(selecao)) {
 			model.addAttribute("editalError",
 					"Numero do edital ou tipo de Bolsa ja existente");

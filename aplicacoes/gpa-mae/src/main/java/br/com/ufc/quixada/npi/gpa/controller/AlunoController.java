@@ -63,7 +63,7 @@ public class AlunoController {
 
 		DateTime anoIngresso = DateTime.parse(aluno.getAnoIngresso());
 		if(anoIngresso.isAfterNow()){
-			model.addAttribute("anoIngressoError", "Informe um ano menor igual ao atual");
+			model.addAttribute("anoIngressoError", "Informe um ano menor ou igual ao atual");
 			return "aluno/cadastrar";
 		}
 		
