@@ -17,6 +17,6 @@ public interface SelecaoBolsaService extends GenericService<SelecaoBolsa> {
 	
 	public abstract boolean existsSelecaoEquals(SelecaoBolsa selecaoBolsa);
 
-	public abstract SelecaoBolsa getSelecaoBolsaComDocumentos();
+	public abstract SelecaoBolsa getSelecaoBolsaComDocumentos(Integer id);
 
 }

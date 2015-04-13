@@ -26,7 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.com.ufc.quixada.npi.gpa.enums.Status;
 import br.com.ufc.quixada.npi.gpa.enums.TipoBolsa;
 
-@NamedQueries({ @NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaComDocumentos", query = "SELECT sb FROM SelecaoBolsa sb JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId ") })
+@NamedQueries({ @NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaComDocumentos", query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId ") })
 @Entity
 public class SelecaoBolsa {
 
