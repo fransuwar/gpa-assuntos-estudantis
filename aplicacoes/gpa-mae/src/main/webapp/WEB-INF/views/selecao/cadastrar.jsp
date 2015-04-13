@@ -74,13 +74,12 @@
 						<div class="col-sm-2">
 							<form:input id="dataInicio" type="text" path="dataInicio"
 								cssClass="form-control data" placeholder="Data de Início" />
-							<div class="error-validation">
-									${dataInicioError}
-								
+							<div class="error-validation">		
+							<label class="col-sm-10 control-label" id="label-erro">
+							${dataInicioError}
+							</label>
 								<form:errors path="dataInicio">
-								
 								</form:errors>
-								
 							</div>
 						</div>
 
