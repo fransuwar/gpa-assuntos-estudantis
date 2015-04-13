@@ -63,7 +63,16 @@ public class SelecaoBolsaController {
 				return "selecao/editar";
 			}
 
-			this.selecaoService.update(selecaoBolsa);
+			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
+				model.addAttribute("dataError",
+						"Digite um ano maior ou igual ao atual");
+				return ("selecao/cadastrar");
+			}
+			if(selecaoBolsa.getDataInicio().after(selecaoBolsa.getDataTermino())){
+				model.addAttribute("dataInicioError", "Data de início deve ser menor que a de termino");
+				return ("selecao/cadastrar");  
+			}
+
 			redirect.addFlashAttribute("info",
 					"Seleção atualizada com sucesso.");
 			return "redirect:/selecao/listar";
@@ -90,9 +99,16 @@ public class SelecaoBolsaController {
 			return ("selecao/cadastrar");
 		}
 		
-
-		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
-
+		if (selecao.getAno() < DateTime.now().getYear()) {
+			model.addAttribute("dataError",
+					"Digite um ano maior ou igual ao atual");
+			return ("selecao/cadastrar");
+		}
+		
+		if(selecao.getDataInicio().after(selecao.getDataTermino())){
+			model.addAttribute("dataInicioError", "Data de início deve ser menor que a de termino");
+			return ("selecao/cadastrar");  
+		}
 		if (selecaoService.existsSelecaoEquals(selecao)) {
 			redirect.addFlashAttribute("erro", "Número do edital ou tipo de Bolsa já existente");
 			return "redirect:/selecao/listar";
@@ -117,7 +133,6 @@ public class SelecaoBolsaController {
 
 		}
 		return "selecao/cadastrar";
-
 	}
 
 	@RequestMapping(value = "/{id}/excluir")
@@ -138,7 +153,6 @@ public class SelecaoBolsaController {
 			redirectAttributes.addFlashAttribute("erro", "Permissão negada.");
 		}
 		return "redirect:/selecao/listar";
-
 	}
 
 	@RequestMapping(value = "/listar")
