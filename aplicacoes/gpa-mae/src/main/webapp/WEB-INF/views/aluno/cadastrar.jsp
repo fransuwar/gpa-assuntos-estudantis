@@ -49,11 +49,8 @@
 							<form:input id="matricula" maxlength="7" path="matricula"
 								cssClass="form-control" data-mask="9999999"
 								placeholder="Matricula do aluno" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-matricula">
 								<form:errors path="matricula">
-									<label class="col-sm-10 control-label" id="label-erro">
-										Campo Obrigatório!
-									</label>
 								</form:errors>
 							</div>
 						</div>
@@ -61,11 +58,8 @@
 						<div class="col-sm-3">
 							<form:input id="curso" path="curso" cssClass="form-control"
 								placeholder="Curso" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-curso">
 								<form:errors path="curso">
-									<label class="col-sm-10 control-label" id="label-erro">
-										Campo Obrigatório!
-									</label>
 								</form:errors>
 							</div>
 						</div>
@@ -75,11 +69,8 @@
 						<div class="col-sm-3">
 							<form:input id="ira" path="ira" cssClass="form-control"
 								placeholder="Ira do aluno" maxlength="5" onkeyup="mascaraIra(this);"/>
-							<div class="error-validation">
+							<div class="error-validation" id="erro-ira">
 								<form:errors path="ira">
-									<label class="col-sm-10 control-label" id="label-erro">
-										Campo Obrigatório!
-									</label>
 								</form:errors>
 							</div>
 						</div>
@@ -88,14 +79,11 @@
 						<div class="col-sm-2">
 							<form:input id="anoIngresso" type="text" maxlength="4" path="anoIngresso"
 								cssClass="form-control " data-mask="9999" placeholder="Ano de Ingresso" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-anoIngresso">
 								<label class="col-sm-10 control-label" id="label-erro">
 									${anoIngressoError} 
 								</label>
 								<form:errors path="anoIngresso">
-									<label class="col-sm-10 control-label" id="label-erro">
-										Campo Obrigatório!
-									</label>
 								</form:errors>
 							</div>
 						</div>
@@ -105,11 +93,8 @@
 						<div class="col-sm-3">
 							<form:input id="banco" path="banco" cssClass="form-control"
 								placeholder="Banco" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-banco">
 								<form:errors path="banco">
-									<label class="col-sm-10 control-label" id="label-erro">
-										Campo Obrigatório!
-									</label>
 								</form:errors>
 							</div>
 						</div>
@@ -118,11 +103,8 @@
 						<div class="col-sm-2">
 							<form:input id="agencia" path="agencia" cssClass="form-control"
 								placeholder="Agência" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-agencia">
 								<form:errors path="agencia">
-									<label class="col-sm-10 control-label" id="label-erro">
-										Campo Obrigatório!
-									</label>
 								</form:errors>
 							</div>
 						</div>
@@ -132,11 +114,8 @@
 						<div class="col-sm-2">
 							<form:input id="conta" path="conta" cssClass="form-control"
 								placeholder="Conta" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-conta">
 								<form:errors path="conta">
-									<label class="col-sm-10 control-label" id="label-erro">
-										Campo Obrigatório!
-									</label>
 								</form:errors>
 							</div>
 						</div>

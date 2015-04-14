@@ -50,11 +50,8 @@
 						<div class="col-sm-2">
 							<form:input id="sequencial" path="sequencial"
 								cssClass="form-control" placeholder="000" data-mask="999" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-sequencial">
 								<form:errors path="sequencial"></form:errors>
-							</div>
-							<div class="error-validation">
-								<form:errors path="sequencial">${editalErro}</form:errors>
 							</div>
 						</div>
 
@@ -66,6 +63,9 @@
 								<form:option value="" label="Selecione o tipo de bolsa" />
 								<form:options items="${tipoBolsa}" />
 							</form:select>
+							<div class="error-validation label-erro-select" id="erro-tipoBolsa">
+								<form:errors path="sequencial"></form:errors>
+							</div>
 						</div>
 
 					</div>
@@ -76,9 +76,9 @@
 						<div class="col-sm-2">
 							<form:input id="dataInicio" type="text" path="dataInicio"
 								cssClass="form-control data" placeholder="Data de Início" />
-							<div class="error-validation">		
+							<div class="error-validation" id="erro-dataInicio">		
 							<label class="col-sm-10 control-label" id="label-erro">
-							${dataInicioError}
+								${dataInicioError}
 							</label>
 								<form:errors path="dataInicio"/>
 							</div>
@@ -89,7 +89,7 @@
 						<div class="col-sm-2">
 							<form:input id="dataTermino" type="text" path="dataTermino"
 								cssClass="form-control data" placeholder="Data de Término" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-dataTermino">
 								<form:errors path="dataTermino"></form:errors>
 							</div>
 						</div>
@@ -99,7 +99,7 @@
 							<form:input id="ano" type="text" path="ano"
 								cssClass="form-control" placeholder="0"
 								onkeypress="mascara(this,soNumeros)" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-ano">
 								<form:errors path="ano"></form:errors>
 							</div>
 						</div>
@@ -110,9 +110,9 @@
 						<label for="quantidadeVagas" class="col-sm-2 control-label">Quant.
 							de Vagas:</label>
 						<div class="col-sm-2">
-							<form:input id="quantidadeVagas" type="number" min="0"
+							<form:input id="quantidadeVagas" min="0" data-mask="999"
 								placeholder="0" path="quantidadeVagas" cssClass="form-control" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-qtdVagas">
 								<form:errors path="quantidadeVagas"></form:errors>
 							</div>
 						</div>
@@ -121,7 +121,7 @@
 						<div class="col-sm-2">
 							<form:input id="duracao" type="text" path="duracao"
 								cssClass="form-control" placeholder="0" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-duracao">
 								<form:errors path="duracao"></form:errors>
 							</div>
 						</div>
@@ -132,7 +132,7 @@
 						<div class="col-sm-9">
 							<form:textarea id="comentarios" path="comentarios"
 								class="form-control" rows="3"></form:textarea>
-							<div class="error-validation">
+							<div class="error-validation" id="erro-comentarios">
 								<form:errors path="comentarios"></form:errors>
 							</div>
 						</div>
