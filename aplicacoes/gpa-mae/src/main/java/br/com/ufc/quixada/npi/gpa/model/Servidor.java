@@ -37,10 +37,10 @@ public class Servidor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotEmpty
+	@NotEmpty(message = "Campo obrigatório")
 	private String siape;
 	
-	@NotNull
+	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Cargo cargo;
 	

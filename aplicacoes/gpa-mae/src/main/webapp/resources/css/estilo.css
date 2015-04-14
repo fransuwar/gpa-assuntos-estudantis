@@ -2,8 +2,7 @@ div.container{
 	margin-bottom: 70px;
 }
 
-#label-erro{
-	color: #ff0000;
+.label-erro-select{
 	text-align: left;
 }
 

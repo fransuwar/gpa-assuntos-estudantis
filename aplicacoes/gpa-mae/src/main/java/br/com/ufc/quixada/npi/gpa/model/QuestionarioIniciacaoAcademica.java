@@ -65,7 +65,7 @@ public class QuestionarioIniciacaoAcademica {
 	private List<PessoaFamilia> pessoas;
 
 	@NotNull
-	@Size(min = 5, message = "Preenchimento Obrigatório")
+	@Size(min = 5, message = "Campo Obrigatório")
 	private String enderecoAtual;
 
 	private int numero;
@@ -73,46 +73,43 @@ public class QuestionarioIniciacaoAcademica {
 	private String complemento;
 
 	@NotNull
-	@Size(min = 1, message = "Preenchimento Obrigatório")
+	@Size(min = 1, message = "Campo Obrigatório")
 	private String bairro;
 
 	private String uf;
 
-	@Pattern(regexp = "^[0-9]{8}$", message = "CEP Inválido")
 	private String cep;
 
 	@NotNull
-	@Size(min = 3, message = "Preenchimento Obrigatório")
+	@Size(min = 3, message = "Campo Obrigatório")
 	private String cidade;
 
 	private String pontoReferencia;
-	@Pattern(regexp = "\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message = "Telefone Incorreto formato (00) 0000-0000")
+	
 	private String telefoneFixo;
-
-	@Pattern(regexp = "\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message = "Telefone Incorreto formato (00) 0000-0000")
+	
 	private String telefoneCelular;
 
 	private String email;
 
 	@NotNull
-	@Size(min = 1, message = "Preenchimento Obrigatório")
+	@Size(min = 1, message = "Campo Obrigatório")
 	private String enderecoFamilia;
 
 	private int numeroFamilia;
 
 	@NotNull
-	@Size(min = 1, message = "Preenchimento Obrigatório")
+	@Size(min = 1, message = "Campo Obrigatório")
 	private String bairroFamilia;
 
 	private String ufFamilia;
 
 	private String complementoFamilia;
 
-	@Pattern(regexp = "^[0-9]{8}$", message = "CEP Inválido")
 	private String cepFamilia;
 
 	@NotNull
-	@Size(min = 3, message = "Preenchimento Obrigatório")
+	@Size(min = 3, message = "Campo Obrigatório")
 	private String cidadeFamilia;
 
 	private String pontoReferenciaFamilia;
@@ -127,11 +124,11 @@ public class QuestionarioIniciacaoAcademica {
 	private NivelInstrucao nivelInstrucaoPai;
 
 	@NotNull
-	@Size(min=1,message="Preenchimento Obrigatório")
+	@Size(min=1,message="Campo Obrigatório")
 	private String resideAtualmente;
 	
 	@NotNull
-	@Size(min = 1, message = "Preenchimento Obrigatório")
+	@Size(min = 1, message = "Campo Obrigatório")
 	private String definicaoLocalAtual;
 
 	@Enumerated(EnumType.STRING)
@@ -142,24 +139,23 @@ public class QuestionarioIniciacaoAcademica {
 
 	@Enumerated(EnumType.STRING)
 	private SituacaoResidencia situacaoResidencia;
+	
 	private String campusPreferido;
+	
 	private Date dataInscricao;
 			
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
 
-
 	@Enumerated(EnumType.STRING)
 	private HorarioDisponivel horariodisponivelBolsa;
 
 	@NotNull
-	@Size(min = 1, message = "Preenchimento Obrigatório")
+	@Size(min = 1, message = "Campo Obrigatório")
 	private String justificativaPedido;
 
-	@Pattern(regexp = "\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message = "Telefone Incorreto formato (00) 0000-0000")
 	private String telefoneFixoFamilia;
 
-	@Pattern(regexp = "\\(?\\b([0-9]{2})\\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})\\b", message = "Telefone Incorreto formato (00) 0000-0000")
 	private String telefoneCelularFamilia;
 
 	public QuestionarioIniciacaoAcademica() {
