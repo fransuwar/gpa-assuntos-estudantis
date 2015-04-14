@@ -21,6 +21,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.ufc.quixada.npi.gpa.enums.Status;
@@ -65,7 +66,7 @@ public class SelecaoBolsa {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
 
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String duracao;
 
 	private String local;

@@ -1,15 +1,29 @@
 var linha;
 
-function mascaraIra(ira) {
-
-	var value = ira.value;
-	value = value.replace(",", ".");
-	if (parseFloat(value) > 10) {
-		value = "10";
-	} else if (parseFloat(value) < 0) {
-		value = "0";
+function mascaraIra(obj) {
+	var str = obj.value;
+	
+	if(parseInt(str.substring(0, str.length-1)) == 10){
+		obj.value = 10;
+		return;
 	}
-	ira.value = value;
+	
+	var aux = "";
+	for (var k = 0, p = false; k < str.length; k++) {
+		if (str[k] == ',' || str[k] == '.') {
+			if (!p) {
+				aux += '.';
+				p = true;
+			}
+		} else
+			aux += str[k];
+	}
+	obj.value = str = aux;
+	var tam = str.length - 1;
+	var ch = str[tam];
+	var sub = str.substring(0, tam);
+	if (ch == '.' && (tam < 1))
+		obj.value = sub;
 
 }
 
@@ -24,7 +38,7 @@ function submeterForm() {
 	var dt = $("#editals").dataTable();
 
 	if (idEdital != "" || idEdital.val != null) {
-		
+
 		var request = $.ajax({
 			contentType : "application/json; charset=utf-8",
 			type : "PUT",
@@ -46,7 +60,7 @@ function submeterForm() {
 			dt.fnUpdate(data.DatadeInicio, linha, 1);
 			dt.fnUpdate(data.DatadeTermino, linha, 2);
 			dt.fnUpdate(data.comentarios, linha, 3);
-		
+
 		});
 
 		request.fail(function(data) {

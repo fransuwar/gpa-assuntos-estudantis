@@ -74,7 +74,7 @@ public class AlunoController {
 				redirect.addFlashAttribute("erro", "Não é possível cadastrar uma matrícula já existente.");
 				return "redirect:/aluno/listar";
 			}
-		}	
+		} 
 		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
 		return "redirect:/aluno/listar";
 	}

@@ -33,7 +33,7 @@ public class Aluno {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotEmpty
+	@NotEmpty(message = "Campo obrigatório")
 	private String matricula;
 
 	@ManyToMany(mappedBy = "alunosSelecao")
@@ -45,27 +45,27 @@ public class Aluno {
 	@OneToMany
 	private List<QuestionarioIniciacaoAcademica> iniciacaoAcademica;
 
-	@NotEmpty
+	@NotEmpty(message = "Campo obrigatório")
 	private String curso;
 
 	private String nome;
 
-	@NotEmpty
+	@NotEmpty(message = "Campo obrigatório")
 	private String anoIngresso;
 
-	@NotNull
+	@NotNull(message = "Campo obrigatório")
 	@Min(value = 1, message = "IRA deve ser maior que 0")
-	@Max(value = 10, message = "IRA deve ter valor máximo à 10")
+	@Max(value = 10, message = "IRA deve ter valor máximo 10")
 	private double ira;
 
-	@NotEmpty
+	@NotEmpty(message = "Campo obrigatório")
 	private String banco;
 
-	@NotEmpty
+	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 10, message = "Agencia de possuir no máximo 10 dígitos")
 	private String agencia;
 
-	@NotEmpty
+	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 20, message = "Conta deve possuir no máximo 20 dígitos")
 	private String conta;
 
