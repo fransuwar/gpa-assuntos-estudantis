@@ -114,8 +114,14 @@ public class SelecaoBolsaController {
 			return "redirect:/selecao/listar";
 
 		}
-
-		selecao.setStatus(Status.NOVA);
+		DateTime dataInicio = new DateTime(selecao.getDataInicio());
+		
+		if(dataInicio.isBefore(DateTime.now())){
+			selecao.setStatus(Status.INSC_ABERTA);
+		}else{
+			selecao.setStatus(Status.NOVA);
+		}
+		
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		return "redirect:/selecao/listar";
