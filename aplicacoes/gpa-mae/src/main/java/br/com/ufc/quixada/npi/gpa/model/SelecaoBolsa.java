@@ -51,7 +51,7 @@ public class SelecaoBolsa {
 	@ManyToOne
 	private Pessoa autor;
 
-	@OneToMany(mappedBy = "selecaoBolsa", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "selecaoBolsa", cascade = {CascadeType.REMOVE, CascadeType.PERSIST} )
 	private List<Documento> documentos;
 
 	@NotNull
@@ -77,6 +77,7 @@ public class SelecaoBolsa {
 	@Size(min = 2, message = "Mínimo 2 caracteres")
 	private String comentarios;
 
+	@NotNull
 	private String edital;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
