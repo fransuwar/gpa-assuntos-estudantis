@@ -115,8 +115,11 @@ public class SelecaoBolsaController {
 		}
 		
 		DateTime dataInicio = new DateTime(selecao.getDataInicio());
+		DateTime dataTermino = new DateTime(selecao.getDataTermino());
 		if(dataInicio.isBefore(DateTime.now())){
 			selecao.setStatus(Status.INSC_ABERTA);
+		}else if(dataTermino.compareTo(DateTime.now())>1){
+			selecao.setStatus(Status.PROC_SELETIVO);
 		}else{
 			selecao.setStatus(Status.NOVA);
 		}
