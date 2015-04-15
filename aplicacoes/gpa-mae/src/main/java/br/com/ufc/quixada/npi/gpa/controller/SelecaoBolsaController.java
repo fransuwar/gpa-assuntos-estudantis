@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ufc.quixada.npi.gpa.enums.Status;
 import br.com.ufc.quixada.npi.gpa.enums.TipoBolsa;
+import br.com.ufc.quixada.npi.gpa.model.Documento;
 import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.com.ufc.quixada.npi.gpa.model.Servidor;
 import br.com.ufc.quixada.npi.gpa.service.DocumentoService;
@@ -53,34 +55,65 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvarSelecaoBolsa(
-			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoBolsa,
+			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoBolsa,@RequestParam("files") List<MultipartFile> files,
 			BindingResult result, Model model, RedirectAttributes redirect)
 			throws IOException {
 
-		if (selecaoBolsa.getId() != null) {
-			if (result.hasErrors()) {
-				model.addAttribute("action", "editar");
-				return "selecao/editar";
+		// verificar se os documentos foram anexados
+		List<Documento> documentos = new ArrayList<Documento>();
+		if (files != null && !files.isEmpty()) {
+			
+			for (MultipartFile mfiles : files) {
+				try {
+					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
+						Documento documento = new Documento();
+						documento.setArquivo(mfiles.getBytes());
+						documento.setNome(mfiles.getOriginalFilename());
+						documento.setTipo(mfiles.getContentType());
+						documento.setSelecaoBolsa(selecaoBolsa);
+						documentos.add(documento);
+					}
+				} catch (IOException e) {
+					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
+					return "selecao/cadastrar";
+				}
 			}
-
-			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
-				model.addAttribute("dataError",
-						"Digite um ano maior ou igual ao atual");
-				return ("selecao/cadastrar");
+			
+			if(!documentos.isEmpty()){
+				selecaoBolsa.setDocumentos(documentos);
 			}
 			if(selecaoBolsa.getDataInicio().after(selecaoBolsa.getDataTermino())){
 				model.addAttribute("dataInicioError", "Data de início deve ser menor que a de termino");
 				return ("selecao/cadastrar");  
 			}
 
-			redirect.addFlashAttribute("info",
-					"Seleção atualizada com sucesso.");
-			return "redirect:/selecao/listar";
+			if (selecaoBolsa.getId() != null) {
+				if (result.hasErrors()) {
+					model.addAttribute("action", "editar");
+					return "selecao/cadastrar";
+				}
 
-		} else {
-			return adicionarSelecao(selecaoBolsa, result, redirect, model);
+				if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
+					model.addAttribute("dataError",
+							"Digite um ano maior ou igual ao atual");
+					return ("selecao/cadastrar");
+				}
+
+				this.selecaoService.update(selecaoBolsa);
+				redirect.addFlashAttribute("info",
+						"Seleção atualizada com sucesso.");
+				return "redirect:/selecao/listar";
+
+			} else {
+				return adicionarSelecao(selecaoBolsa, result, redirect, model);
+			}
+		}else{
+			redirect.addFlashAttribute("erro",
+			"Você não anexou os arquivos.");
+			return "selecao/cadastrar";
 		}
 
+		
 	}
 
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
@@ -98,7 +131,7 @@ public class SelecaoBolsaController {
 		if (result.hasErrors()) {
 			return ("selecao/cadastrar");
 		}
-		
+
 		if (selecao.getAno() < DateTime.now().getYear()) {
 			model.addAttribute("dataError",
 					"Digite um ano maior ou igual ao atual");
@@ -109,6 +142,7 @@ public class SelecaoBolsaController {
 			model.addAttribute("dataInicioError", "Data de início deve ser menor que a de termino");
 			return ("selecao/cadastrar");  
 		}
+
 		if (selecaoService.existsSelecaoEquals(selecao)) {
 			redirect.addFlashAttribute("erro", "Número do edital ou tipo de Bolsa já existente");
 			return "redirect:/selecao/listar";
