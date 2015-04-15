@@ -37,16 +37,15 @@
 				<form:form id="adicionarServidorForm" role="form"
 					commandName="servidor" servletRelativeAction="/servidor/salvar"
 					method="POST" cssClass="form-horizontal">
+
 					<input type="hidden" name="id" value="${servidor.id}" />
 					<div class="form-group">
 						<label for="SIAPE" class="col-sm-1 control-label">SIAPE:</label>
 						<div class="col-sm-3">
 							<form:input id="siape" maxlength="7" path="siape"
 								cssClass="form-control" placeholder="SIAPE do servidor" />
-							<div class="error-validation">
+							<div class="error-validation" id="erro-siape">
 								<form:errors path="siape">
-									<label class="col-sm-10 control-label" id="label-erro">
-										Campo Obrigatório </label>
 								</form:errors>
 							</div>
 						</div>
@@ -60,29 +59,29 @@
 								<form:option value="">Selecione Cargo</form:option>
 								<form:options items="${cargos}" />
 							</form:select>
-							<form:errors path="cargo">
-								<label class="col-sm-10 control-label" id="label-erro">
-									Campo Obrigatório </label>
-							</form:errors>
+							<div class="error-validation label-erro-select" id="erro-cargo">
+								<form:errors path="siape">
+								</form:errors>
+							</div>
 						</div>
 					</div>
+
+					<div class="form-group">
+						<div class="col-sm-2" id="div-form-btn">
+							<input name="submit" type="submit" class="btn btn-primary"
+								value="Cadastrar" id="form-btn" />
+						</div>
+						<div class="col-sm-2" id="div-form-btn">
+							<a href="<c:url value="/servidor/listar"></c:url>"
+								class="btn btn-default" id="form-btn">Cancelar</a>
+						</div>
+					</div>
+
+				</form:form>
 			</div>
 
-
-			<div class="form-group">
-				<div class="col-sm-2" id="div-form-btn">
-					<input name="submit" type="submit" class="btn btn-primary"
-						value="Cadastrar" id="form-btn" />
-				</div>
-				<div class="col-sm-2" id="div-form-btn">
-					<a href="<c:url value="/servidor/listar"></c:url>"
-						class="btn btn-default" id="form-btn">Cancelar</a>
-				</div>
-			</div>
-
-			</form:form>
 		</div>
-	</div>
+
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />

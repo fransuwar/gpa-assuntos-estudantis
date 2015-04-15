@@ -47,9 +47,7 @@ public class IniciacaoAcademicaController {
 			BindingResult result, RedirectAttributes redirect) {
 
 		if (result.hasErrors()) {
-
-			return "redirect:/iniciacaoAcademica/inscricao";
-
+			return "inscricao/iniciacaoAcademica";
 		} else {
 
 			this.iniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
