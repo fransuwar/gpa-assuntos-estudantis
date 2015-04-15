@@ -77,8 +77,8 @@ public class SelecaoBolsa {
 	@Size(min = 2, message = "Mínimo 2 caracteres")
 	private String comentarios;
 
-	@NotNull
-	private String edital;
+//	@NotNull
+//	private String edital;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Servidor> membrosBanca;
@@ -142,9 +142,9 @@ public class SelecaoBolsa {
 		return duracao;
 	}
 
-	public String getEdital() {
-		return edital;
-	}
+//	public String getEdital() {
+//		return edital;
+//	}
 
 	public Integer getId() {
 		return id;
@@ -218,9 +218,9 @@ public class SelecaoBolsa {
 		this.duracao = duracao;
 	}
 
-	public void setEdital(String Edital) {
-		this.edital = Edital;
-	}
+//	public void setEdital(String Edital) {
+//		this.edital = Edital;
+//	}
 
 	public void setId(Integer id) {
 		this.id = id;

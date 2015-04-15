@@ -42,7 +42,7 @@
 			<div class="panel-body">
 				<form:form id="adicionarSelecaoForm" role="form"
 					commandName="selecao" servletRelativeAction="/selecao/salvar"
-					method="POST" cssClass="form-horizontal">
+					method="POST" cssClass="form-horizontal" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${selecao.id}" />
 					<div class="form-group">
 						<label for="sequencial" class="col-sm-2 control-label">Número

@@ -60,8 +60,9 @@ public class SelecaoBolsaController {
 			throws IOException {
 
 		// verificar se os documentos foram anexados
+		List<Documento> documentos = new ArrayList<Documento>();
 		if (files != null && !files.isEmpty()) {
-			List<Documento> documentos = new ArrayList<Documento>();
+			
 			for (MultipartFile mfiles : files) {
 				try {
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
