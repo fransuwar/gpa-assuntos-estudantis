@@ -113,17 +113,7 @@ public class SelecaoBolsaController {
 			redirect.addFlashAttribute("erro", "Número do edital ou tipo de Bolsa já existente");
 			return "redirect:/selecao/listar";
 		}
-		
-		DateTime dataInicio = new DateTime(selecao.getDataInicio());
-		DateTime dataTermino = new DateTime(selecao.getDataTermino());
-		if(dataInicio.isBefore(DateTime.now())){
-			selecao.setStatus(Status.INSC_ABERTA);
-		}else if(dataTermino.compareTo(DateTime.now())>1){
-			selecao.setStatus(Status.PROC_SELETIVO);
-		}else{
-			selecao.setStatus(Status.NOVA);
-		}
-		
+		selecao.setStatus(Status.NOVA);
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		return "redirect:/selecao/listar";
@@ -165,9 +155,27 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("selecoes", selecaoService.find(SelecaoBolsa.class));
+		
+		List<SelecaoBolsa> selecoes =selecaoService.find(SelecaoBolsa.class);
+		
+		for(SelecaoBolsa selecao:selecoes){
+			DateTime dataTermino = new DateTime(selecao.getDataTermino());
+			DateTime dataInicio = new DateTime(selecao.getDataInicio());
+			if( (dataInicio.isBeforeNow() || dataInicio.isEqualNow()) 
+				&& selecao.getStatus().equals(Status.NOVA)){
+				selecao.setStatus(Status.INSC_ABERTA);
+				this.selecaoService.update(selecao);
+			}else if( (dataTermino.isBeforeNow() || dataTermino.isEqualNow() )
+					  && selecao.getStatus().equals(Status.INSC_ABERTA)){
+				selecao.setStatus(Status.PROC_SELETIVO);
+				this.selecaoService.update(selecao);
+			}
+		}
+		
+		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+		
 		return "selecao/listar";
 	}
 
