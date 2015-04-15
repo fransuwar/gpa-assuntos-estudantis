@@ -161,15 +161,18 @@ public class SelecaoBolsaController {
 	}
 
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
-	public String editar(@PathVariable("id") Integer id, Model model) {
+	public String editar(@PathVariable("id") Integer id, RedirectAttributes redirect, Model model) {
 		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 
-		if (selecao.getStatus().equals(Status.NOVA)) {
+		if (selecao.getStatus()!=null && selecao.getStatus().equals(Status.NOVA)) {
 
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "editar");
 
+		} else {
+			redirect.addFlashAttribute("erro", "Permissão negada.");
+			return "redirect:/selecao/listar";
 		}
 		return "selecao/cadastrar";
 	}
