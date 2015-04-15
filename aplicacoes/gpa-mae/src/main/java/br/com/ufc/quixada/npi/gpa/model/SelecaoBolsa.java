@@ -27,6 +27,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.com.ufc.quixada.npi.gpa.enums.Status;
 import br.com.ufc.quixada.npi.gpa.enums.TipoBolsa;
 
+
 @NamedQueries({ @NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaComDocumentos", query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId ") })
 @Entity
 public class SelecaoBolsa {
@@ -52,7 +53,7 @@ public class SelecaoBolsa {
 	@ManyToOne
 	private Pessoa autor;
 
-	@OneToMany(mappedBy = "selecaoBolsa", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "selecaoBolsa", cascade = {CascadeType.REMOVE, CascadeType.PERSIST} )
 	private List<Documento> documentos;
 
 	@NotNull(message="Campo obrigatório")
@@ -77,8 +78,6 @@ public class SelecaoBolsa {
 	@Lob
 	@Size(min = 2, message = "Mínimo 2 caracteres")
 	private String comentarios;
-
-	private String edital;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Servidor> membrosBanca;
@@ -142,9 +141,6 @@ public class SelecaoBolsa {
 		return duracao;
 	}
 
-	public String getEdital() {
-		return edital;
-	}
 
 	public Integer getId() {
 		return id;
@@ -216,10 +212,6 @@ public class SelecaoBolsa {
 
 	public void setDuracao(String duracao) {
 		this.duracao = duracao;
-	}
-
-	public void setEdital(String Edital) {
-		this.edital = Edital;
 	}
 
 	public void setId(Integer id) {
