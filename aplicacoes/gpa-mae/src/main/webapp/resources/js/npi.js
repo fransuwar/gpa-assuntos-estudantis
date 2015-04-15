@@ -27,6 +27,26 @@ function mascaraIra(obj) {
 
 }
 
+function mascaraAgencia(obj){
+	var str = obj.value;
+
+	str = str.replace("x", "X");
+	str = str.replace("-", "");
+	var aux = "";
+	for(var k=0;k<str.length;k++){
+	if(aux.length==5) break;
+	if(str[k]>='0' && str[k]<='9') aux += str[k];
+	else {
+	if(aux.length==4 && str[k]=='X' ) aux += 'X';
+	}
+	}
+	obj.value = str = aux;
+
+	if(str.length >= 5){
+	obj.value = str.substring(0,4)+"-"+str.substring(4,5);
+	}
+}
+
 function submeterForm() {
 
 	var idEdital = $('#id').val();
