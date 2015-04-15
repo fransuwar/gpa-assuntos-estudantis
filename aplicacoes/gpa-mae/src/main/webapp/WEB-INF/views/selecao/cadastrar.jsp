@@ -142,17 +142,14 @@
 						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
 						<div class="col-sm-5 files">
 						<input type="file" id="files" name="files" class="file" multiple="multiple" ></input>
-							<c:if test="${not empty selecao.documentos }">
+							
 								<table id="file-upload" role="presentation"
 									class="table table-striped">
 									<tbody class="files">
 										<c:forEach items="${selecao.documentos}" var="documento">
 											<tr class="template-upload fade in">
-												<td><a
-													href="<c:url value="/documento/${documento.id }" />">${documento.nomeOriginal}</a>
-													<strong class="error text-danger"></strong></td>
-												<td><a id="${documento.id}" href="#"
-													class="delete-document">
+												<td>${documento.nome}<strong class="error text-danger"></strong></td>
+												<td><a id="${documento.id}" href="#" class="delete-document">
 														<button type="button" class="btn btn-danger">
 															Excluir <span class="glyphicon glyphicon-trash"></span>
 														</button>
@@ -161,7 +158,7 @@
 										</c:forEach>
 									</tbody>
 								</table>
-							</c:if>
+				
 						</div>
 
 					</div>
