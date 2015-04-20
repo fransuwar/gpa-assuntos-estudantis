@@ -192,24 +192,10 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model) {
+
+		selecaoService.atualizaStatusSelecaoBolsa();
 		
-		List<SelecaoBolsa> selecoes =selecaoService.find(SelecaoBolsa.class);
-		
-		for(SelecaoBolsa selecao:selecoes){
-			DateTime dataTermino = new DateTime(selecao.getDataTermino());
-			DateTime dataInicio = new DateTime(selecao.getDataInicio());
-			if( (dataInicio.isBeforeNow() || dataInicio.isEqualNow()) 
-				&& selecao.getStatus().equals(Status.NOVA)){
-				selecao.setStatus(Status.INSC_ABERTA);
-				this.selecaoService.update(selecao);
-			}else if( (dataTermino.isBeforeNow() || dataTermino.isEqualNow() )
-					  && selecao.getStatus().equals(Status.INSC_ABERTA)){
-				selecao.setStatus(Status.PROC_SELETIVO);
-				this.selecaoService.update(selecao);
-			}
-		}
-		
-		model.addAttribute("selecoes", selecoes);
+		model.addAttribute("selecoes", this.selecaoService.find(SelecaoBolsa.class));
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 		

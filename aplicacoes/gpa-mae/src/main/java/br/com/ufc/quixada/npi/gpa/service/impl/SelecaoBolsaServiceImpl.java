@@ -6,8 +6,10 @@ import java.util.Map;
 
 import javax.inject.Named;
 
+import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.ufc.quixada.npi.gpa.enums.Status;
 import br.com.ufc.quixada.npi.gpa.model.Aluno;
 import br.com.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.com.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
@@ -57,6 +59,25 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 	@Transactional
 	public SelecaoBolsa getSelecaoBolsaComDocumentos(Integer id) {
 		return (SelecaoBolsa) findFirst("SelecaoBolsa.findSelecaoBolsaComDocumentos", new SimpleMap<String, Object>("selecaoBolsaId", id));
+	}
+
+	@Override
+	@Transactional
+	public void atualizaStatusSelecaoBolsa() {
+		
+		for(SelecaoBolsa selecao:this.find(SelecaoBolsa.class)){
+			DateTime dataTermino = new DateTime(selecao.getDataTermino());
+			DateTime dataInicio = new DateTime(selecao.getDataInicio());
+			if( (dataInicio.isBeforeNow() || dataInicio.isEqualNow()) 
+				&& selecao.getStatus().equals(Status.NOVA)){
+				selecao.setStatus(Status.INSC_ABERTA);
+				this.update(selecao);
+			}else if( (dataTermino.isBeforeNow() || dataTermino.isEqualNow() )
+					  && selecao.getStatus().equals(Status.INSC_ABERTA)){
+				selecao.setStatus(Status.PROC_SELETIVO);
+				this.update(selecao);
+			}
+		}
 	}
 
 }

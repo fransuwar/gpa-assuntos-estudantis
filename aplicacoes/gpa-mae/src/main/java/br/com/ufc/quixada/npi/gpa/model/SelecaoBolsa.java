@@ -45,7 +45,7 @@ public class SelecaoBolsa {
 	@Min(value = 1, message = "Número de bolsas deve ser maior que 0")
 	private int quantidadeVagas;
 
-	//@Future(message = "Data de início deve ser maior que a data atual")
+	@Future(message = "Data de início deve ser maior que a data atual")
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
@@ -62,7 +62,7 @@ public class SelecaoBolsa {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
-	//@Future(message = "Data de término deve ser maior que a data atual")
+	@Future(message = "Data de término deve ser maior que a data atual")
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
