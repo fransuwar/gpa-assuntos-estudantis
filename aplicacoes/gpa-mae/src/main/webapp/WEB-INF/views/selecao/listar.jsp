@@ -66,30 +66,27 @@ uri="http://www.springframework.org/security/tags"%>
 								<td>${selecao.status.nome}</td>
 								
 								<td>												
-										<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDENADOR')">
-								<a id="editar" href="<c:url value="/selecao/${selecao.id}/editar" ></c:url>">
-									<button class="btn btn-info"> Editar <span class="glyphicon glyphicon-pencil"></span></button>
-								</a>
+								<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDENADOR')">
+									<a id="editar" href="<c:url value="/selecao/${selecao.id}/editar" ></c:url>">
+										<button class="btn btn-info"> Editar <span class="glyphicon glyphicon-pencil"></span></button>
+									</a>
+	
+									<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/selecao/${selecao.id}/excluir" ></c:url>">
+										<button class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
+									</a>
+								</sec:authorize>
 
-								<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/selecao/${selecao.id}/excluir" ></c:url>">
-											<button class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
-										</a>
-
-										</sec:authorize>
-
-											<sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
-											<a id="atribuirBanca"
-														href="<c:url value="/selecao/${selecao.id}/atribuir" ></c:url>">
-														<button class="btn btn-primary">
-															Atribuir Membro à Banca <span
-																class="glyphicon glyphicon-user"></span>
-														</button>
-													</a>
-											</sec:authorize>	
+								<sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
+									<a id="atribuirBanca" href="<c:url value="/selecao/${selecao.id}/atribuir" ></c:url>">
+										<button class="btn btn-primary">Atribuir Membro à Banca 
+										<span class="glyphicon glyphicon-user"></span>
+										</button>
+									</a>
+								</sec:authorize>	
 
 
 										
-										<sec:authorize access="hasAnyRole('ROLE_ALUNO')">
+								<sec:authorize access="hasAnyRole('ROLE_ALUNO')">
 										<c:if test="${selecao.tipoBolsa == inic_acad}">
 										<a id="inscrever" href="<c:url value="/iniciacaoAcademica/inscricao" ></c:url>">
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
@@ -102,13 +99,14 @@ uri="http://www.springframework.org/security/tags"%>
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>
 										</c:if>
-										</sec:authorize>
-										<sec:authorize access="isAnonymous()">
+								</sec:authorize>
+								
+								<sec:authorize access="isAnonymous()">
 										
 										<a id="informacoes" href="<c:url value="/selecao/${selecao.id}/informacoes"></c:url>">
 											<button class=" btn btn-success">+ Informações <span class="glyphicon glyphicon-zoom-in"></span></button>
 										</a>
-										</sec:authorize>
+								</sec:authorize>
 										
 										
 										

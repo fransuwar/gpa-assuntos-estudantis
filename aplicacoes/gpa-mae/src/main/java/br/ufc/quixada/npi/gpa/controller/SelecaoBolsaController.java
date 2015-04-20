@@ -25,7 +25,6 @@ import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.model.Servidor;
-import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 
@@ -33,8 +32,6 @@ import br.ufc.quixada.npi.gpa.service.ServidorService;
 @RequestMapping("selecao")
 public class SelecaoBolsaController {
 
-	@Inject
-	private DocumentoService documentoService;
 	@Inject
 	private ServidorService servidorService;
 	@Inject
@@ -61,7 +58,7 @@ public class SelecaoBolsaController {
 
 		// verificar se os documentos foram anexados
 		List<Documento> documentos = new ArrayList<Documento>();
-		if (files != null && !files.isEmpty()) {
+		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
 			
 			for (MultipartFile mfiles : files) {
 				try {
@@ -108,8 +105,13 @@ public class SelecaoBolsaController {
 				return adicionarSelecao(selecaoBolsa, result, redirect, model);
 			}
 		}else{
-			redirect.addFlashAttribute("erro",
-			"Você não anexou os arquivos.");
+			if (selecaoBolsa.getId() != null) {
+				model.addAttribute("action", "editar");
+			}else{
+				model.addAttribute("action", "cadastrar");
+			}
+			model.addAttribute("anexoError",
+					"Adicione anexo a seleção");
 			return "selecao/cadastrar";
 		}
 
@@ -118,8 +120,8 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
-		model.addAttribute("action", "cadastrar");
 		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+		model.addAttribute("action", "cadastrar");
 		model.addAttribute("selecao", new SelecaoBolsa());
 		return "/selecao/cadastrar";
 	}
