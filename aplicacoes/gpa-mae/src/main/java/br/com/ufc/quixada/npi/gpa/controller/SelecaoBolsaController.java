@@ -147,14 +147,7 @@ public class SelecaoBolsaController {
 			redirect.addFlashAttribute("erro", "Número do edital ou tipo de Bolsa já existente");
 			return "redirect:/selecao/listar";
 		}
-		
-		DateTime dataInicio = new DateTime(selecao.getDataInicio());
-		if(dataInicio.isBefore(DateTime.now())){
-			selecao.setStatus(Status.INSC_ABERTA);
-		}else{
-			selecao.setStatus(Status.NOVA);
-		}
-		
+		selecao.setStatus(Status.NOVA);
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		return "redirect:/selecao/listar";
@@ -199,9 +192,13 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("selecoes", selecaoService.find(SelecaoBolsa.class));
+
+		selecaoService.atualizaStatusSelecaoBolsa();
+		
+		model.addAttribute("selecoes", this.selecaoService.find(SelecaoBolsa.class));
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+		
 		return "selecao/listar";
 	}
 
