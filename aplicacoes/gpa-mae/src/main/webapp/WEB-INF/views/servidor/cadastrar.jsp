@@ -60,7 +60,7 @@
 								<form:options items="${cargos}" />
 							</form:select>
 							<div class="error-validation label-erro-select" id="erro-cargo">
-								<form:errors path="siape">
+								<form:errors path="cargo">
 								</form:errors>
 							</div>
 						</div>
