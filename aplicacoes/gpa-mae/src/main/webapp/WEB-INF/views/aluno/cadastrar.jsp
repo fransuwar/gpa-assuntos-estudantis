@@ -116,7 +116,7 @@
 						<label for="agencia" class="col-sm-1 control-label" id="form-label">Agência(Com DV):</label>
 
 						<div class="col-sm-2">
-							<form:input id="agencia" data-mask="0000-x" path="agencia" cssClass="form-control"
+							<form:input id="agencia" onkeyup="mascaraAgencia(this);" path="agencia" cssClass="form-control"
 								placeholder="Agência" />
 							<div class="error-validation" id="erro-agencia">
 								<form:errors path="agencia">

@@ -155,8 +155,8 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, RedirectAttributes redirect, Model model) {
-		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
-
+		SelecaoBolsa selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
+		
 		if (selecao.getStatus()!=null && selecao.getStatus().equals(Status.NOVA)) {
 
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());

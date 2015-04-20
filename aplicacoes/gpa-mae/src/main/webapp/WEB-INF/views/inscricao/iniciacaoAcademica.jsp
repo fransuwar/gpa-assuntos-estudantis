@@ -81,7 +81,7 @@
 										<label for="numeroFamilia" class="col-sm-1 control-label">Número:</label>
 										<div class="col-sm-1">
 											<form:input id="numeroFamilia" path="numeroFamilia"
-												cssClass="form-control" placeholder="Número" />
+												cssClass="form-control" placeholder="Número" data-mask="9999"/>
 											<div class="error-validation" id="erro-numeroFamilia">
 												<form:errors path="numeroFamilia"></form:errors>
 											</div>
@@ -190,7 +190,7 @@
 										<label for="numero" class="col-sm-1 control-label">Número:</label>
 										<div class="col-sm-1">
 											<form:input id="numero" path="numero" cssClass="form-control"
-												placeholder="Número" />
+												placeholder="Número" data-mask="9999"/>
 											<div class="error-validation" id="erro-numeroAtual">
 												<form:errors path="numero"></form:errors>
 											</div>
