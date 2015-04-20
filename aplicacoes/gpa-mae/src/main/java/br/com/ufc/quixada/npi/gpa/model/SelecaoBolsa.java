@@ -52,7 +52,7 @@ public class SelecaoBolsa {
 
 	@ManyToOne
 	private Pessoa autor;
-
+	
 	@OneToMany(mappedBy = "selecaoBolsa", cascade = {CascadeType.REMOVE, CascadeType.PERSIST} )
 	private List<Documento> documentos;
 
