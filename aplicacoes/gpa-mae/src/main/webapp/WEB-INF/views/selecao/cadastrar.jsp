@@ -80,7 +80,7 @@
 							<label class="col-sm-10 control-label" id="label-erro">
 								${dataInicioError}
 							</label>
-								<form:errors path="dataInicio"/>
+							<form:errors path="dataInicio"/>
 							</div>
 						</div>
 
@@ -138,11 +138,17 @@
 						</div>
 					</div>
 
+
+
 					<div class="form-group">
 						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
 						<div class="col-sm-5 files">
 						<input type="file" id="files" name="files" class="file" multiple="multiple" ></input>
-							
+						<div class="error-validation" id="erro-Anexo">		
+							<label class="col-sm-10 control-label" id="label-erro">
+								${anexoError}
+							</label>
+						</div>	
 								<table id="file-upload" role="presentation"
 									class="table table-striped">
 									<tbody class="files">
