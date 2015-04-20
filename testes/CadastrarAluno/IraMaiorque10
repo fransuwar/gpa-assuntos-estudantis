@@ -12,8 +12,33 @@
 <tr><td rowspan="1" colspan="3">Cad aluno- ira maior que 10</td></tr>
 </thead><tbody>
 <tr>
-	<td>open</td>
-	<td>/MAE/aluno/listar</td>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Listar Alunos</td>
 	<td></td>
 </tr>
 <tr>
@@ -39,7 +64,7 @@
 <tr>
 	<td>type</td>
 	<td>id=anoIngresso</td>
-	<td>30/03/11</td>
+	<td>2011</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -59,6 +84,21 @@
 <tr>
 	<td>clickAndWait</td>
 	<td>id=form-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=ira.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=ira.errors</td>
+	<td>*IRA deve ter valor máximo 10*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
 	<td></td>
 </tr>
 </tbody></table>
