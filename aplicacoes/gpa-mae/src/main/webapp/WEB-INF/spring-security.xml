@@ -31,7 +31,7 @@
  		<logout logout-success-url="/selecao/listar" invalidate-session="true"/>
  	</http>
 
-		<beans:bean id="authenticationSuccessHandlerImpl" class="br.com.ufc.quixada.npi.gpa.controller.AuthenticationSuccessHandlerImpl" />
+		<beans:bean id="authenticationSuccessHandlerImpl" class="br.ufc.quixada.npi.gpa.controller.AuthenticationSuccessHandlerImpl" />
 
  	<authentication-manager>
 		<authentication-provider>
