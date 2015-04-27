@@ -38,7 +38,7 @@ public class ServidorController {
 		if(servidor.getId() != null){
 			return atualizarServidor(servidor.getId(), servidor, result, model, redirect);
 		} else {
-			return adicionarServidor(servidor, result, redirect);
+			return adicionarServidor(servidor, result, redirect, model);
 		}
 		
 	}
@@ -55,9 +55,10 @@ public class ServidorController {
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
 	public String adicionarServidor(
 			@Valid @ModelAttribute("servidor") Servidor servidor,
-			BindingResult result,RedirectAttributes redirect) {
+			BindingResult result,RedirectAttributes redirect, Model model) {
 	
 		if (result.hasErrors()) {
+			model.addAttribute("cargos", Cargo.toMap());
 			return ("servidor/cadastrar");
 		}
 		

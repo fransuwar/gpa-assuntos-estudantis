@@ -103,7 +103,7 @@
 											<tr class="linha">
 												<td>${servidor.id}</td>
 												<td>${servidor.siape}</td>
-												<td>${servidor.cargo}</td>
+												<td>${servidor.cargo.nome}</td>
 												<td><a id="editar"
 													href="<c:url value="/servidor/${servidor.id}/editar" ></c:url>">
 														<button class="btn btn-info">
