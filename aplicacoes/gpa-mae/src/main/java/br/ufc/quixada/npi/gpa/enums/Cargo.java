@@ -22,4 +22,8 @@ public enum Cargo {
         }
         return map;
     }
+    
+	public String getNome() {
+		return nome;
+	}
 }

@@ -22,4 +22,9 @@ public enum Bancos {
 		}
 		return map;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+	
 }

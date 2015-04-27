@@ -44,9 +44,14 @@ public class IniciacaoAcademicaController {
 	@RequestMapping(value = "/inscricao", method = RequestMethod.POST)
 	public String adicionaIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
-			BindingResult result, RedirectAttributes redirect) {
+			BindingResult result, RedirectAttributes redirect, Model modelo) {
 
 		if (result.hasErrors()) {
+			modelo.addAttribute("NivelInstrucao", NivelInstrucao.toMap());
+			modelo.addAttribute("HorarioDisponivel", HorarioDisponivel.toMap());
+			modelo.addAttribute("SituacaoResidencia", SituacaoResidencia.toMap());
+			modelo.addAttribute("TotalEstado", Estado.toMap());
+			modelo.addAttribute("GrauParentesco", GrauParentesco.toMap());
 			return "inscricao/iniciacaoAcademica";
 		} else {
 
