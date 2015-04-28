@@ -43,9 +43,6 @@ public class AuxilioMoradiaController {
 		binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
 	}
 	
-	
-	
-	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
 		return "index";
@@ -57,26 +54,15 @@ public class AuxilioMoradiaController {
 
 		model.addAttribute("questionarioAuxilioMoradia",
 				new QuestionarioAuxilioMoradia());
-		
 		model.addAttribute("estado", Estado.toMap());
-		
 		model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
-
-
 		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.toMap());
-
 		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.toMap());
-
 		model.addAttribute("grauParentescoImovelRural",
 				GrauParentescoImovelRural.toMap());
-
 		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.toMap());
-		
 		model.addAttribute("grauParentesco", GrauParentesco.toMap());
-
-
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
-		
 		model.addAttribute("moraCom", MoraCom.toMap());
 				
 		return "inscricao/auxilio";
@@ -85,10 +71,20 @@ public class AuxilioMoradiaController {
 	@RequestMapping(value = "/inscricao", method = RequestMethod.POST)
 	public String selecaoAluno(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
-			BindingResult result, RedirectAttributes redirect) {
+			BindingResult result, RedirectAttributes redirect, Model model) {
 
 		if (result.hasErrors()) {
-			return ("redirect:/auxilio/inscricao");
+			model.addAttribute("estado", Estado.toMap());
+			model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
+			model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.toMap());
+			model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.toMap());
+			model.addAttribute("grauParentescoImovelRural",
+					GrauParentescoImovelRural.toMap());
+			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.toMap());
+			model.addAttribute("grauParentesco", GrauParentesco.toMap());
+			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
+			model.addAttribute("moraCom", MoraCom.toMap());
+			return "inscricao/auxilio";
 		} else {
 			questionarioAuxilioMoradia.setDataInscricao(new Date());
 			this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
