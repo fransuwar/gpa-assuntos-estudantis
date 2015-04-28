@@ -81,7 +81,7 @@
 										<label for="numeroFamilia" class="col-sm-1 control-label">Número:</label>
 										<div class="col-sm-1">
 											<form:input id="numeroFamilia" path="numeroFamilia"
-												cssClass="form-control" placeholder="Número" data-mask="9999"/>
+												cssClass="form-control" placeholder="Num" data-mask="9999"/>
 											<div class="error-validation" id="erro-numeroFamilia">
 												<form:errors path="numeroFamilia"></form:errors>
 											</div>
@@ -190,7 +190,7 @@
 										<label for="numero" class="col-sm-1 control-label">Número:</label>
 										<div class="col-sm-1">
 											<form:input id="numero" path="numero" cssClass="form-control"
-												placeholder="Número" data-mask="9999"/>
+												placeholder="Num" data-mask="9999"/>
 											<div class="error-validation" id="erro-numeroAtual">
 												<form:errors path="numero"></form:errors>
 											</div>
@@ -386,7 +386,7 @@
 												path="qtdMaquinaLavar" cssClass="form-control"
 												placeholder="0" />
 											<div class="error-validation" id="erro-qtdMaquinaLavar">
-												<form:errors path="qtdTelevisao"></form:errors>
+												<form:errors path="qtdMaquinaLavar"></form:errors>
 											</div>
 										</div>
 
@@ -504,7 +504,7 @@
 										<div class="col-sm-1">
 											<form:input id="totalMembrosFamilia" data-mask="999" min="0"
 												path="totalMembrosFamilia" cssClass="form-control"
-												placeholder="Fone" />
+												placeholder="0" />
 											<div class="error-validation" id="erro-totalMembrosFamilia">
 												<form:errors path="totalMembrosFamilia"></form:errors>
 											</div>
