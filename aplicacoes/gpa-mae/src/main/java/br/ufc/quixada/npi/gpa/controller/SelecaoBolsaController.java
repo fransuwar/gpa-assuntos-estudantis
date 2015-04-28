@@ -110,6 +110,7 @@ public class SelecaoBolsaController {
 			}else{
 				model.addAttribute("action", "cadastrar");
 			}
+			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			model.addAttribute("anexoError",
 					"Adicione anexo a seleção");
 			return "selecao/cadastrar";
@@ -131,6 +132,7 @@ public class SelecaoBolsaController {
 			BindingResult result, RedirectAttributes redirect, Model model) {
 
 		if (result.hasErrors()) {
+			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			return ("selecao/cadastrar");
 		}
 
