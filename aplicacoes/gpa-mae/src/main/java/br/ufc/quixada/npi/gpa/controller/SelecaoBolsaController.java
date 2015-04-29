@@ -34,6 +34,7 @@ public class SelecaoBolsaController {
 
 	@Inject
 	private ServidorService servidorService;
+	
 	@Inject
 	private SelecaoBolsaService selecaoService;
 
