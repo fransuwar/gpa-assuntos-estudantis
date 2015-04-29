@@ -36,7 +36,7 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("HorarioDisponivel", HorarioDisponivel.toMap());
 		modelo.addAttribute("SituacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("TotalEstado", Estado.toMap());
-		modelo.addAttribute("GrauParentesco", GrauParentesco.toMap());
+		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 
 		return "inscricao/iniciacaoAcademica";
 	}
