@@ -649,34 +649,6 @@
 	<jsp:include page="../fragments/footer.jsp" />
 
 	<script type="text/javascript">
-		function rowAdded(rowElement) {
-			$(rowElement).find("input").val('');
-		}
-		function rowRemoved(rowElement) {
-		}
-
-		$(document)
-				.ready(
-						function() {
-
-							var config = {
-								rowClass : 'pessoaFamilia',
-								addRowId : 'addPessoa',
-								removeRowClass : 'removePessoa',
-								formId : 'questionarioForm',
-								rowContainerId : 'pessoaFamiliaContainer',
-								indexedPropertyName : 'pessoas',
-								indexedPropertyMemberNames : 'nome, grauParentesco, escolaridade, atividade, renda',
-								rowAddedListener : rowAdded,
-								rowRemovedListener : rowRemoved,
-							};
-							new DynamicListHelper(config);
-						});
-	</script>
-
-
-
-	<script type="text/javascript">
 		$(document)
 				.ready(
 						function() {
