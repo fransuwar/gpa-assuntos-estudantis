@@ -17,11 +17,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Future;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Status;
@@ -42,8 +41,9 @@ public class SelecaoBolsa {
 	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia;
 
-	@Min(value = 1, message = "Número de bolsas deve ser maior que 0")
-	private int quantidadeVagas;
+	@NotNull(message = "Campo obrigatório")
+	@Range(min=1, max=999, message="O número de vagas deve ser maior ou igual a 1")
+	private Integer quantidadeVagas;
 
 	@Future(message = "Data de início deve ser maior que a data atual")
 	@NotNull(message = "Campo obrigatório")
@@ -67,8 +67,9 @@ public class SelecaoBolsa {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
 
-	@NotEmpty(message = "Campo obrigatório")
-	private String duracao;
+	@NotNull(message = "Campo obrigatório")
+	@Range(min=1, max=999, message="A duração da seleção deve ser maior ou igual a 1 mês")
+	private Integer duracao;
 
 	private String local;
 
@@ -137,7 +138,7 @@ public class SelecaoBolsa {
 		return documentos;
 	}
 
-	public String getDuracao() {
+	public Integer getDuracao() {
 		return duracao;
 	}
 
@@ -154,7 +155,7 @@ public class SelecaoBolsa {
 		return membrosBanca;
 	}
 
-	public int getQuantidadeVagas() {
+	public Integer getQuantidadeVagas() {
 		return quantidadeVagas;
 	}
 
@@ -210,7 +211,7 @@ public class SelecaoBolsa {
 		this.documentos = documentos;
 	}
 
-	public void setDuracao(String duracao) {
+	public void setDuracao(Integer duracao) {
 		this.duracao = duracao;
 	}
 
@@ -226,8 +227,8 @@ public class SelecaoBolsa {
 		this.membrosBanca = membrosBanca;
 	}
 
-	public void setQuantidadeVagas(int QuantidadeVagas) {
-		this.quantidadeVagas = QuantidadeVagas;
+	public void setQuantidadeVagas(Integer quantidadeVagas) {
+		this.quantidadeVagas = quantidadeVagas;
 	}
 
 	public void setResponsavel(Servidor responsavel) {
