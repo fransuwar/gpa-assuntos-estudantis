@@ -1,5 +1,10 @@
 var linha;
 
+$(document).ready(function(){
+	$('#valorMensalFinanciamento').mask("###0000000.00", {reverse: true});
+	$('#areaPropriedadeRural').mask("#####0.00", {reverse: true});
+});
+
 function mascaraIra(obj) {
 	var str = obj.value;
 	
