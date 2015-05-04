@@ -3,13 +3,13 @@ package br.ufc.quixada.npi.gpa.enums;
 import java.util.Map;
 import java.util.TreeMap;
 
-public enum HorarioDisponivel {
+public enum Turno {
 	M("Manhã"), T("Tarde"), N("Noite");
 
 	private String nome;
-	private static Map<HorarioDisponivel, String> map;
+	private static Map<Turno, String> map;
 
-	HorarioDisponivel(String nome) {
+	Turno(String nome) {
 		this.nome = nome;
 	}
 	
@@ -18,10 +18,10 @@ public enum HorarioDisponivel {
 	}
 
 
-	public static Map<HorarioDisponivel, String> toMap() {
+	public static Map<Turno, String> toMap() {
 		if (map == null) {
-			map = new TreeMap<HorarioDisponivel, String>();
-			for (HorarioDisponivel hd : HorarioDisponivel.values()) {
+			map = new TreeMap<Turno, String>();
+			for (Turno hd : Turno.values()) {
 				map.put(hd, hd.nome);
 			}
 		}

@@ -19,7 +19,6 @@ import javax.validation.constraints.Size;
 
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
-import br.ufc.quixada.npi.gpa.enums.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 
@@ -81,6 +80,11 @@ public class QuestionarioIniciacaoAcademica {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "iniciacaoacademica_id")
 	private List<PessoaFamilia> pessoas;
+	
+	@Column(nullable = false)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "questionarioiniciacaoacademica_id")
+	private List<HorarioDisponivel> horariosDisponiveisBolsa;
 
 	@NotNull
 	@Size(min = 5, message = "Campo Obrigatório")
@@ -166,9 +170,6 @@ public class QuestionarioIniciacaoAcademica {
 			
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
-
-	@Enumerated(EnumType.STRING)
-	private HorarioDisponivel horariodisponivelBolsa;
 
 	@NotNull
 	@Size(min = 1, message = "Campo Obrigatório")
@@ -594,13 +595,13 @@ public class QuestionarioIniciacaoAcademica {
 		this.rendaTotalFamilia = rendaTotalFamilia;
 	}
 
-	public HorarioDisponivel getHorariodisponivelBolsa() {
-		return horariodisponivelBolsa;
+	public List<HorarioDisponivel> getHorariodisponivelBolsa() {
+		return horariosDisponiveisBolsa;
 	}
 
 	public void setHorariodisponivelBolsa(
-			HorarioDisponivel horariodisponivelBolsa) {
-		this.horariodisponivelBolsa = horariodisponivelBolsa;
+			List<HorarioDisponivel> horariosDisponiveisBolsa) {
+		this.horariosDisponiveisBolsa = horariosDisponiveisBolsa;
 	}
 
 	public String getJustificativaPedido() {
@@ -668,7 +669,7 @@ public class QuestionarioIniciacaoAcademica {
 				+ nome + ", parentesco=" + parentesco + ", idade=" + idade
 				+ ", atividade=" + atividade + ", renda=" + renda
 				+ ", rendaTotalFamilia=" + rendaTotalFamilia
-				+ ", horariodisponivelBolsa=" + horariodisponivelBolsa
+				+ ", horariodisponivelBolsa=" + horariosDisponiveisBolsa
 				+ ", justificativaPedido=" + justificativaPedido
 				+ ", telefoneFixoFamilia=" + telefoneFixoFamilia
 				+ ", telefoneCelularFamilia=" + telefoneCelularFamilia + "]";

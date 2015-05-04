@@ -32,8 +32,8 @@
 			</td>
 
 			<td><input type="text" name="pessoas[].escolaridade" value="" /></td>
-			<td><input type="text" name="pessoas[].atividade" value="" /></td>
-			<td><input type="text" name="pessoas[].renda" value="" /></td>
+			<td><input type="text" name="pessoas[].atividadeProfissao" value="" /></td>
+			<td><input type="text" name="pessoas[].rendaMensal" value="" /></td>
 
 			<td><a href="#" class="removePessoa">Remover Pessoa</a></td>
 		</tr>
@@ -66,7 +66,7 @@
 							formId : 'questionarioForm',
 							rowContainerId : 'pessoaFamiliaContainer',
 							indexedPropertyName : 'pessoas',
-							indexedPropertyMemberNames : 'nome, grauParentesco, escolaridade, atividade, renda',
+							indexedPropertyMemberNames : 'nome, grauParentesco, escolaridade, atividadeProfissao, rendaMensal',
 							rowAddedListener : rowAdded,
 							rowRemovedListener : rowRemoved,
 						};

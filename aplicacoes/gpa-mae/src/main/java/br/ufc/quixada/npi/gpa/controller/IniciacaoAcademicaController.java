@@ -1,5 +1,7 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -11,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.ufc.quixada.npi.gpa.enums.DiasUteis;
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
-import br.ufc.quixada.npi.gpa.enums.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
+import br.ufc.quixada.npi.gpa.enums.Turno;
+import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
 
@@ -29,14 +33,16 @@ public class IniciacaoAcademicaController {
 	@RequestMapping(value = "/inscricao", method = RequestMethod.GET)
 	public String cadastro(Model modelo) {
 
+		QuestionarioIniciacaoAcademica q = new QuestionarioIniciacaoAcademica();
 		modelo.addAttribute("questionarioIniciacaoAcademica",
-				new QuestionarioIniciacaoAcademica());
+				q);
 
 		modelo.addAttribute("NivelInstrucao", NivelInstrucao.toMap());
-		modelo.addAttribute("HorarioDisponivel", HorarioDisponivel.toMap());
+		modelo.addAttribute("Turno", Turno.toMap());
+		modelo.addAttribute("DiasUteis", DiasUteis.toMap());
 		modelo.addAttribute("SituacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("TotalEstado", Estado.toMap());
-		modelo.addAttribute("GrauParentesco", GrauParentesco.toMap());
+		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 
 		return "inscricao/iniciacaoAcademica";
 	}
@@ -48,16 +54,22 @@ public class IniciacaoAcademicaController {
 
 		if (result.hasErrors()) {
 			modelo.addAttribute("NivelInstrucao", NivelInstrucao.toMap());
-			modelo.addAttribute("HorarioDisponivel", HorarioDisponivel.toMap());
+			modelo.addAttribute("Turno", Turno.toMap());
+			modelo.addAttribute("DiasUteis", DiasUteis.toMap());
 			modelo.addAttribute("SituacaoResidencia", SituacaoResidencia.toMap());
 			modelo.addAttribute("TotalEstado", Estado.toMap());
-			modelo.addAttribute("GrauParentesco", GrauParentesco.toMap());
+			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 			return "inscricao/iniciacaoAcademica";
 		} else {
+			
+//			questionarioIniciacaoAcademica.setHorariodisponivelBolsa(new ArrayList<HorarioDisponivel>());
+//			HorarioDisponivel h = new HorarioDisponivel();
+//			h.setDia(SEG);
+//			questionarioIniciacaoAcademica.getHorariodisponivelBolsa().add(h);
 
 			this.iniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
 			redirect.addFlashAttribute("info",
-					"Projeto cadastrado com sucesso.");
+					"Incrição realizada com sucesso.");
 		}
 
 		return "redirect:/selecao/listar";

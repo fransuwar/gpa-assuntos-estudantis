@@ -1,0 +1,66 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+    
+<table class="table">
+
+	<thead>
+		<tr>
+			<th class="form-group">Dia</th>
+			<th class="form-group">Turno</th>
+		</tr>
+	</thead>
+	<tbody id="horarioDisponivelContainer">
+		<tr class="horarioDisponivel defaultRow">
+			<td>
+				<form:select path="" name="horariosDisponiveisBolsa[].dia" class="form-control" >
+					<form:option value="">Selecione um dia</form:option>
+					<form:options items="${DiasUteis}" />
+				</form:select>
+			</td>
+			
+			<td>
+				<form:select path="" name="horariosDisponiveisBolsa[].turno" class="form-control" >
+					<form:option value="">Selecione um turno</form:option>
+					<form:options items="${Turno}" />
+				</form:select>
+			</td>
+
+			<td><a href="#" class="removerHorario">Remover Horário</a></td>
+		</tr>
+	</tbody>
+</table>
+
+<a href="#" id="addHorario" class="btn btn-primary">Adicionar Horário</a>
+
+<jsp:include page="../fragments/footer.jsp"></jsp:include>
+
+<script type="text/javascript">
+	function rowAdded(rowElement) {
+		$(rowElement).find("input").val('');
+	}
+	function rowRemoved(rowElement) {
+	}
+
+	$(document)
+			.ready(
+					function() {
+
+						var config = {
+							rowClass : 'horarioDisponivel',
+							addRowId : 'addHorario',
+							removeRowClass : 'removerHorario',
+							formId : 'questionarioForm',
+							rowContainerId : 'horarioDisponivelContainer',
+							indexedPropertyName : 'horariosDisponiveisBolsa',
+							indexedPropertyMemberNames : 'turno, dia',
+							rowAddedListener : rowAdded,
+							rowRemovedListener : rowRemoved,
+						};
+						new DynamicListHelper(config);
+					});
+</script>
