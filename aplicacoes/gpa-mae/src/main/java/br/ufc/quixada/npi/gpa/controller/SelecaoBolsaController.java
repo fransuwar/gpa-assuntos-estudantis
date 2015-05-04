@@ -89,7 +89,7 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
-		model.addAttribute("action" + ",", "cadastrar");
+		model.addAttribute("action", "cadastrar");
 		model.addAttribute("selecao", new SelecaoBolsa());
 		return "/selecao/cadastrar";
 	}
