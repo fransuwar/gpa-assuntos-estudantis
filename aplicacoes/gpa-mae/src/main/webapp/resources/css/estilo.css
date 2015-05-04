@@ -17,7 +17,8 @@ div.container{
 	padding: 2%;
 }
 
-.h2-form-subtitle{
+.h3-form-subtitle{
+	font-weight: bold;
 	padding: 2%;
 	text-align: left;
 }
