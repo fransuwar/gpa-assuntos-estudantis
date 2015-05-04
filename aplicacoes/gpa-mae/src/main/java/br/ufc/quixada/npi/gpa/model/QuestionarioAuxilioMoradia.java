@@ -47,6 +47,7 @@ public class QuestionarioAuxilioMoradia {
 	private List<PessoaFamilia> pessoas;
 	
 	
+	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	@ElementCollection(targetClass = MoraCom.class)
 	private List<MoraCom> moraCom;
@@ -122,12 +123,14 @@ public class QuestionarioAuxilioMoradia {
 
 	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidadeVeiculo;
-
+	
+	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoFundamental ensinoFundamental;
 	
 	private Integer percentualParticularFundamental;
-
+	
+	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoMedio ensinoMedio;
 	
