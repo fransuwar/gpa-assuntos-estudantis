@@ -12,8 +12,8 @@
 <tr><td rowspan="1" colspan="3">Cadastrar Aluno-Campo em Branco</td></tr>
 </thead><tbody>
 <tr>
-	<td>selectWindow</td>
-	<td>null</td>
+	<td>open</td>
+	<td>/MAE/selecao/listar</td>
 	<td></td>
 </tr>
 <tr>
