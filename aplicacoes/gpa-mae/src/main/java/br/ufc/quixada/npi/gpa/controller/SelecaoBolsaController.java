@@ -52,71 +52,38 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvarSelecaoBolsa(
-			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoBolsa,@RequestParam("files") List<MultipartFile> files,
-			BindingResult result, Model model, RedirectAttributes redirect)
+			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoBolsa, BindingResult result,
+			@RequestParam("files") List<MultipartFile> files, Model model, RedirectAttributes redirect)
 			throws IOException {
 
-		// verificar se os documentos foram anexados
-		List<Documento> documentos = new ArrayList<Documento>();
-		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
+		if (selecaoBolsa.getId() != null) {
+
+			model.addAttribute("action", "editar");
 			
-			for (MultipartFile mfiles : files) {
-				try {
-					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-						Documento documento = new Documento();
-						documento.setArquivo(mfiles.getBytes());
-						documento.setNome(mfiles.getOriginalFilename());
-						documento.setTipo(mfiles.getContentType());
-						documento.setSelecaoBolsa(selecaoBolsa);
-						documentos.add(documento);
-					}
-				} catch (IOException e) {
-					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
-					return "selecao/cadastrar";
-				}
-			}
-			
-			if(!documentos.isEmpty()){
-				selecaoBolsa.setDocumentos(documentos);
-			}
-			if(selecaoBolsa.getDataInicio().after(selecaoBolsa.getDataTermino())){
-				model.addAttribute("dataInicioError", "Data de início deve ser menor que a de termino");
-				return ("selecao/cadastrar");  
-			}
-
-			if (selecaoBolsa.getId() != null) {
-				if (result.hasErrors()) {
-					model.addAttribute("action", "editar");
-					return "selecao/cadastrar";
-				}
-
-				if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
-					model.addAttribute("dataError",
-							"Digite um ano maior ou igual ao atual");
-					return ("selecao/cadastrar");
-				}
-
-				this.selecaoService.update(selecaoBolsa);
-				redirect.addFlashAttribute("info",
-						"Seleção atualizada com sucesso.");
-				return "redirect:/selecao/listar";
-
-			} else {
-				return adicionarSelecao(selecaoBolsa, result, redirect, model);
-			}
-		}else{
-			if (selecaoBolsa.getId() != null) {
+			if (result.hasErrors()) {
 				model.addAttribute("action", "editar");
-			}else{
-				model.addAttribute("action", "cadastrar");
+				return "selecao/cadastrar";
 			}
-			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
-			model.addAttribute("anexoError",
-					"Adicione anexo a seleção");
-			return "selecao/cadastrar";
-		}
 
-		
+			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
+				model.addAttribute("dataError",
+						"Digite um ano maior ou igual ao atual");
+				return ("selecao/cadastrar");
+			}
+
+			this.selecaoService.update(selecaoBolsa);
+			redirect.addFlashAttribute("info",
+					"Seleção atualizada com sucesso.");
+			return "redirect:/selecao/listar";
+
+		} else {
+			
+			model.addAttribute("action", "cadastrar");
+
+			return adicionarSelecao(selecaoBolsa, result, files,redirect,
+					model);
+
+		}
 	}
 
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
@@ -128,29 +95,52 @@ public class SelecaoBolsaController {
 	}
 
 	public String adicionarSelecao(
-			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
-			BindingResult result, RedirectAttributes redirect, Model model) {
+			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, BindingResult result,
+			@RequestParam("files") List<MultipartFile> files, 
+			RedirectAttributes redirect, Model model) {
 
 		if (result.hasErrors()) {
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			return ("selecao/cadastrar");
 		}
-
+		
+		List<Documento> documentos = new ArrayList<Documento>();
+		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
+			for (MultipartFile mfiles : files) {
+				try {
+					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0){
+						Documento documento = new Documento();
+						documento.setArquivo(mfiles.getBytes());
+						documento.setNome(mfiles.getOriginalFilename());
+						documento.setTipo(mfiles.getContentType());
+						documento.setSelecaoBolsa(selecao);
+						documentos.add(documento);
+					}
+				} catch (IOException ioe) {
+					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
+					return "selecao/cadastrar";
+				}
+			}
+			if (!documentos.isEmpty()) {
+				selecao.setDocumentos(documentos);
+			}
+		} else {
+			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+			model.addAttribute("anexoError", "Adicione anexo a seleção.");
+			return "selecao/cadastrar";
+		}
+		
 		if (selecao.getAno() < DateTime.now().getYear()) {
 			model.addAttribute("dataError",
 					"Digite um ano maior ou igual ao atual");
 			return ("selecao/cadastrar");
 		}
-		
-		if(selecao.getDataInicio().after(selecao.getDataTermino())){
-			model.addAttribute("dataInicioError", "Data de início deve ser menor que a de termino");
-			return ("selecao/cadastrar");  
-		}
 
 		if (selecaoService.existsSelecaoEquals(selecao)) {
-			redirect.addFlashAttribute("erro", "Número do edital ou tipo de Bolsa já existente");
+			redirect.addFlashAttribute("erro", "Número do edital ou tipo de bolsa já existente");
 			return "redirect:/selecao/listar";
 		}
+		
 		selecao.setStatus(Status.NOVA);
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
@@ -158,10 +148,12 @@ public class SelecaoBolsaController {
 	}
 
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
-	public String editar(@PathVariable("id") Integer id, RedirectAttributes redirect, Model model) {
+	public String editar(@PathVariable("id") Integer id,
+			RedirectAttributes redirect, Model model) {
 		SelecaoBolsa selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
-		
-		if (selecao.getStatus()!=null && selecao.getStatus().equals(Status.NOVA)) {
+
+		if (selecao.getStatus() != null
+				&& selecao.getStatus().equals(Status.NOVA)) {
 
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			model.addAttribute("selecao", selecao);
@@ -198,11 +190,12 @@ public class SelecaoBolsaController {
 	public String listar(ModelMap model) {
 
 		selecaoService.atualizaStatusSelecaoBolsa();
-		
-		model.addAttribute("selecoes", this.selecaoService.find(SelecaoBolsa.class));
+
+		model.addAttribute("selecoes",
+				this.selecaoService.find(SelecaoBolsa.class));
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-		
+
 		return "selecao/listar";
 	}
 
