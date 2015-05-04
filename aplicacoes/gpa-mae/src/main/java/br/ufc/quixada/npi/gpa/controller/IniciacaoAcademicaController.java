@@ -1,7 +1,5 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import java.util.ArrayList;
-
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -19,7 +17,6 @@ import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 import br.ufc.quixada.npi.gpa.enums.Turno;
-import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
 
@@ -36,12 +33,11 @@ public class IniciacaoAcademicaController {
 		QuestionarioIniciacaoAcademica q = new QuestionarioIniciacaoAcademica();
 		modelo.addAttribute("questionarioIniciacaoAcademica",
 				q);
-
-		modelo.addAttribute("NivelInstrucao", NivelInstrucao.toMap());
-		modelo.addAttribute("Turno", Turno.toMap());
-		modelo.addAttribute("DiasUteis", DiasUteis.toMap());
-		modelo.addAttribute("SituacaoResidencia", SituacaoResidencia.toMap());
-		modelo.addAttribute("TotalEstado", Estado.toMap());
+		modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+		modelo.addAttribute("turno", Turno.toMap());
+		modelo.addAttribute("diasUteis", DiasUteis.toMap());
+		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
+		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 
 		return "inscricao/iniciacaoAcademica";
@@ -53,11 +49,11 @@ public class IniciacaoAcademicaController {
 			BindingResult result, RedirectAttributes redirect, Model modelo) {
 
 		if (result.hasErrors()) {
-			modelo.addAttribute("NivelInstrucao", NivelInstrucao.toMap());
-			modelo.addAttribute("Turno", Turno.toMap());
-			modelo.addAttribute("DiasUteis", DiasUteis.toMap());
-			modelo.addAttribute("SituacaoResidencia", SituacaoResidencia.toMap());
-			modelo.addAttribute("TotalEstado", Estado.toMap());
+			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+			modelo.addAttribute("turno", Turno.toMap());
+			modelo.addAttribute("diasUteis", DiasUteis.toMap());
+			modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
+			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 			return "inscricao/iniciacaoAcademica";
 		} else {

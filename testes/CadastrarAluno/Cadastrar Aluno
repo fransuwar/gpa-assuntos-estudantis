@@ -12,8 +12,8 @@
 <tr><td rowspan="1" colspan="3">Cadastrar Aluno</td></tr>
 </thead><tbody>
 <tr>
-	<td>selectWindow</td>
-	<td>null</td>
+	<td>open</td>
+	<td>/MAE/selecao/listar</td>
 	<td></td>
 </tr>
 <tr>
@@ -39,16 +39,6 @@
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Listar Alunos</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=listar-btn-inserir</td>
-	<td></td>
-</tr>
-<tr>
-	<td>open</td>
-	<td>/MAE/aluno/listar</td>
 	<td></td>
 </tr>
 <tr>

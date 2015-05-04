@@ -120,7 +120,7 @@
 											<form:select path="estadoFamilia" id="estadoFamilia"
 												cssClass="form-control">
 												<form:option value="" label="Selecione Estado" />
-												<form:options items="${TotalEstado}" />
+												<form:options items="${totalEstado}" />
 											</form:select>
 											<div class="error-validation" id="erro-estadoFamilia">
 												<form:errors path="estadoFamilia"></form:errors>
@@ -296,7 +296,7 @@
 											<form:select path="situacaoResidencia"
 												id="situacaoResidencia" cssClass="form-control">
 												<form:option value="" label="Situação da Residência" />
-												<form:options items="${SituacaoResidencia}" />
+												<form:options items="${situacaoResidencia}" />
 											</form:select>
 											<div class="error-validation" id="erro-situacaoResidencia">
 												<form:errors path="situacaoResidencia"></form:errors>
@@ -535,6 +535,7 @@
 								</div>
 								<div class="panel-body">
 									<h3>Horários Disponíves Para Bolsa</h3>
+
 									<div class="panel-body">
 										 <jsp:include page="horarioDisponivel.jsp" /> 
 									</div>
@@ -577,7 +578,6 @@
 
 
 	<jsp:include page="../fragments/footer.jsp" />
-
 
 	<script type="text/javascript">
 		$(document)
