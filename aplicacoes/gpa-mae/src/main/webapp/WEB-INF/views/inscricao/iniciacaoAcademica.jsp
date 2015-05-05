@@ -225,7 +225,7 @@
 											<form:select path="estado" id="estado"
 												cssClass="form-control">
 												<form:option value="" label="Selecione Estado" />
-												<form:options items="${TotalEstado}" />
+												<form:options items="${totalEstado}" />
 											</form:select>
 											<div class="error-validation" id="erro-estadoAtual">
 												<form:errors path="estado"></form:errors>

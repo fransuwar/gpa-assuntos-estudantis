@@ -13,6 +13,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
@@ -65,7 +66,11 @@ public class AuthenticationSuccessHandlerImpl implements
 	
 	private void usuarioLogado(HttpServletRequest request, Authentication authentication) {
 		if (request.getSession().getAttribute(Constants.USUARIO_LOGADO) == null) {
-			request.getSession().setAttribute(Constants.USUARIO_LOGADO, servicePessoa.getPessoaByLogin(authentication.getName()));
+			Pessoa pessoa = servicePessoa.getPessoaByLogin(authentication.getName());
+			String nome = pessoa.getNome();
+			Integer id = pessoa.getId();
+			request.getSession().setAttribute(Constants.USUARIO_ID, id);
+			request.getSession().setAttribute(Constants.USUARIO_LOGADO, nome);
 		}
 	}
 	

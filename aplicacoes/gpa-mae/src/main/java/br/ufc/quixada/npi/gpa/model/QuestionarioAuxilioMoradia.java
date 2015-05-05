@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -29,6 +31,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"aluno_id"}))
 public class QuestionarioAuxilioMoradia {
 
 	public QuestionarioAuxilioMoradia(){}

@@ -20,14 +20,13 @@ import br.ufc.quixada.npi.gpa.enums.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 import br.ufc.quixada.npi.gpa.model.Aluno;
-import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
 
 @Controller
 @RequestMapping("iniciacaoAcademica")
-@SessionAttributes({"usuario"})
+@SessionAttributes({ "id", "usuario" })
 public class IniciacaoAcademicaController {
 
 	@Inject
@@ -53,26 +52,26 @@ public class IniciacaoAcademicaController {
 	@RequestMapping(value = "/inscricao", method = RequestMethod.POST)
 	public String adicionaIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
-			@ModelAttribute("usuario") Pessoa pessoa, BindingResult result,
+			BindingResult result, @ModelAttribute("id") Integer id,
 			RedirectAttributes redirect, Model modelo) {
 
 		if (result.hasErrors()) {
 
-			modelo.addAttribute("NivelInstrucao", NivelInstrucao.toMap());
-			modelo.addAttribute("HorarioDisponivel", HorarioDisponivel.toMap());
-			modelo.addAttribute("SituacaoResidencia",
+			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+			modelo.addAttribute("horarioDisponivel", HorarioDisponivel.toMap());
+			modelo.addAttribute("situacaoResidencia",
 					SituacaoResidencia.toMap());
-			modelo.addAttribute("TotalEstado", Estado.toMap());
-			modelo.addAttribute("GrauParentesco", GrauParentesco.toMap());
+			modelo.addAttribute("totalEstado", Estado.toMap());
+			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 
 			return "inscricao/iniciacaoAcademica";
-			
+
 		} else {
-			
-			Aluno aluno = alunoService.getAlunoById(pessoa.getId());
-			
+
+			Aluno aluno = alunoService.getAlunoById(id);
+
 			questionarioIniciacaoAcademica.setAluno(aluno);
-			
+
 			try {
 				this.iniciacaoAcademicaService
 						.save(questionarioIniciacaoAcademica);
