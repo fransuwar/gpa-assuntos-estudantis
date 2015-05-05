@@ -41,11 +41,11 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("questionarioIniciacaoAcademica",
 				new QuestionarioIniciacaoAcademica());
 
-		modelo.addAttribute("NivelInstrucao", NivelInstrucao.toMap());
-		modelo.addAttribute("HorarioDisponivel", HorarioDisponivel.toMap());
-		modelo.addAttribute("SituacaoResidencia", SituacaoResidencia.toMap());
-		modelo.addAttribute("TotalEstado", Estado.toMap());
-		modelo.addAttribute("GrauParentesco", GrauParentesco.toMap());
+		modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+		modelo.addAttribute("horarioDisponivel", HorarioDisponivel.toMap());
+		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
+		modelo.addAttribute("totalEstado", Estado.toMap());
+		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 
 		return "inscricao/iniciacaoAcademica";
 	}
@@ -57,12 +57,14 @@ public class IniciacaoAcademicaController {
 			RedirectAttributes redirect, Model modelo) {
 
 		if (result.hasErrors()) {
+
 			modelo.addAttribute("NivelInstrucao", NivelInstrucao.toMap());
 			modelo.addAttribute("HorarioDisponivel", HorarioDisponivel.toMap());
 			modelo.addAttribute("SituacaoResidencia",
 					SituacaoResidencia.toMap());
 			modelo.addAttribute("TotalEstado", Estado.toMap());
 			modelo.addAttribute("GrauParentesco", GrauParentesco.toMap());
+
 			return "inscricao/iniciacaoAcademica";
 			
 		} else {

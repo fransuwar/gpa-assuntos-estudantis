@@ -63,9 +63,9 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 
 	@Override
 	@Transactional
-	public void atualizaStatusSelecaoBolsa() {
+	public void atualizaStatusSelecaoBolsa(List<SelecaoBolsa> selecoes) {
 		
-		for(SelecaoBolsa selecao:this.find(SelecaoBolsa.class)){
+		for(SelecaoBolsa selecao:selecoes){
 			DateTime dataTermino = new DateTime(selecao.getDataTermino());
 			DateTime dataInicio = new DateTime(selecao.getDataInicio());
 			if( (dataInicio.isBeforeNow() || dataInicio.isEqualNow()) 

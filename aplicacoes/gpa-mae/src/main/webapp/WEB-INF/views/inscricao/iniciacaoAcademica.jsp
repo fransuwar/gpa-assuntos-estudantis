@@ -117,7 +117,7 @@
 											<form:select path="estadoFamilia" id="estadoFamilia"
 												cssClass="form-control">
 												<form:option value="" label="Selecione Estado" />
-												<form:options items="${TotalEstado}" />
+												<form:options items="${totalEstado}" />
 											</form:select>
 											<div class="error-validation" id="erro-estadoFamilia">
 												<form:errors path="estadoFamilia"></form:errors>
@@ -293,7 +293,7 @@
 											<form:select path="situacaoResidencia"
 												id="situacaoResidencia" cssClass="form-control">
 												<form:option value="" label="Situação da Residência" />
-												<form:options items="${SituacaoResidencia}" />
+												<form:options items="${situacaoResidencia}" />
 											</form:select>
 											<div class="error-validation" id="erro-situacaoResidencia">
 												<form:errors path="situacaoResidencia"></form:errors>
@@ -540,7 +540,7 @@
 											<form:select path="horariodisponivelBolsa"
 												id="horariodisponivelBolsaSegunda" cssClass="form-control">
 												<form:option value="" label="Selecione Horário" />
-												<form:options items="${HorarioDisponivel}" />
+												<form:options items="${horarioDisponivel}" />
 											</form:select>
 											<div class="error-validation"
 												id="erro-horariodisponivelBolsaSegunda">
@@ -553,7 +553,7 @@
 											<form:select path="horariodisponivelBolsa"
 												id="horariodisponivelBolsaTerca" cssClass="form-control">
 												<form:option value="" label="Selecione Horário" />
-												<form:options items="${HorarioDisponivel}" />
+												<form:options items="${horarioDisponivel}" />
 											</form:select>
 											<div class="error-validation"
 												id="erro-horariodisponivelBolsaTerca">
@@ -569,7 +569,7 @@
 											<form:select path="horariodisponivelBolsa"
 												id="horariodisponivelBolsaQuarta" cssClass="form-control">
 												<form:option value="" label="Selecione Horário" />
-												<form:options items="${HorarioDisponivel}" />
+												<form:options items="${horarioDisponivel}" />
 											</form:select>
 											<div class="error-validation"
 												id="erro-horariodisponivelBolsaQuarta">
@@ -582,7 +582,7 @@
 											<form:select path="horariodisponivelBolsa"
 												id="horariodisponivelBolsaQuinta" cssClass="form-control">
 												<form:option value="" label="Selecione Horário" />
-												<form:options items="${HorarioDisponivel}" />
+												<form:options items="${horarioDisponivel}" />
 											</form:select>
 											<div class="error-validation"
 												id="erro-horariodisponivelBolsaQuinta">
@@ -598,7 +598,7 @@
 											<form:select path="horariodisponivelBolsa"
 												id="horariodisponivelBolsaSexta" cssClass="form-control">
 												<form:option value="" label="Selecione Horário" />
-												<form:options items="${HorarioDisponivel}" />
+												<form:options items="${horarioDisponivel}" />
 											</form:select>
 											<div class="error-validation"
 												id="erro-horariodisponivelBolsaSexta">
@@ -645,34 +645,6 @@
 
 
 	<jsp:include page="../fragments/footer.jsp" />
-
-	<script type="text/javascript">
-		function rowAdded(rowElement) {
-			$(rowElement).find("input").val('');
-		}
-		function rowRemoved(rowElement) {
-		}
-
-		$(document)
-				.ready(
-						function() {
-
-							var config = {
-								rowClass : 'pessoaFamilia',
-								addRowId : 'addPessoa',
-								removeRowClass : 'removePessoa',
-								formId : 'questionarioForm',
-								rowContainerId : 'pessoaFamiliaContainer',
-								indexedPropertyName : 'pessoas',
-								indexedPropertyMemberNames : 'nome, grauParentesco, escolaridade, atividade, renda',
-								rowAddedListener : rowAdded,
-								rowRemovedListener : rowRemoved,
-							};
-							new DynamicListHelper(config);
-						});
-	</script>
-
-
 
 	<script type="text/javascript">
 		$(document)
