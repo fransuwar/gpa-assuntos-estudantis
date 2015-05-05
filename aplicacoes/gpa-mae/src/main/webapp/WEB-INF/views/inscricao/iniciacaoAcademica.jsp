@@ -45,9 +45,7 @@
 					commandName="questionarioIniciacaoAcademica"
 					servletRelativeAction="/iniciacaoAcademica/inscricao/"
 					method="POST" cssClass="form-horizontal">
-
 					<div class="tab-content">
-
 						<div class="tab-pane active" id="moradia-tab">
 
 							<div class="panel panel-primary">

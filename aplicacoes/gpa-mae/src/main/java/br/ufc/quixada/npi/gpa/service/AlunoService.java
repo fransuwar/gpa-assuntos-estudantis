@@ -7,5 +7,6 @@ public interface AlunoService extends GenericService<Aluno>{
 
 	public abstract Aluno getAlunoByMatricula(String matricula);
 	
+	public abstract Aluno getAlunoById(Integer id);
 
 }

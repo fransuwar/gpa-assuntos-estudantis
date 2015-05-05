@@ -21,13 +21,12 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @NamedQueries({ @NamedQuery(name = "Aluno.findAlunoByMatricula", 
-								query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula") })
+								query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
+				@NamedQuery(name = "Aluno.findAlunoById",
+								query = "SELECT a FROM Aluno a WHERE a.pessoa.id = :idPessoa")})
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula" }))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula"}))
 public class Aluno {
-
-	public Aluno() {
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,10 +38,10 @@ public class Aluno {
 	@ManyToMany(mappedBy = "alunosSelecao")
 	private List<SelecaoBolsa> editais;
 
-	@OneToMany
+	@OneToMany(mappedBy = "aluno")
 	private List<QuestionarioAuxilioMoradia> auxilioMoradia;
 
-	@OneToMany
+	@OneToMany(mappedBy = "aluno")
 	private List<QuestionarioIniciacaoAcademica> iniciacaoAcademica;
 
 	@NotEmpty(message = "Campo obrigatório")
@@ -182,12 +181,7 @@ public class Aluno {
 
 	@Override
 	public String toString() {
-		return "Aluno [id=" + id + ", matricula=" + matricula + ", editais="
-				+ editais + ", auxilioMoradia=" + auxilioMoradia
-				+ ", iniciacaoAcademica=" + iniciacaoAcademica + ", curso="
-				+ curso + ", nome=" + nome + ", anoIngresso=" + anoIngresso
-				+ ", ira=" + ira + ", banco=" + banco + ", agencia=" + agencia
-				+ ", conta=" + conta + ", pessoa=" + pessoa + "]";
+		return "Aluno [id=" + id + "]";
 	}
 
 }
