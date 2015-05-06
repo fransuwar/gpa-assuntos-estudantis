@@ -23,10 +23,11 @@ import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
+import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
 @RequestMapping("iniciacaoAcademica")
-@SessionAttributes({ "id", "usuario" })
+@SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
 public class IniciacaoAcademicaController {
 
 	@Inject

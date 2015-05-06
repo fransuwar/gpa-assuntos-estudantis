@@ -34,10 +34,11 @@ import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
+import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
 @RequestMapping("auxilio")
-@SessionAttributes({ "id", "usuario" })
+@SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
 public class AuxilioMoradiaController {
 
 	@Inject
@@ -105,11 +106,11 @@ public class AuxilioMoradiaController {
 			Aluno aluno = alunoService.getAlunoById(id);
 
 			questionarioAuxilioMoradia.setAluno(aluno);
-			questionarioAuxilioMoradia.setDataInscricao(new Date());
 			
 			try {
 				this.questionarioAuxMoradiaService
 						.save(questionarioAuxilioMoradia);
+				questionarioAuxilioMoradia.setDataInscricao(new Date());
 			} catch (PersistenceException e) {
 				if (e.getCause() instanceof ConstraintViolationException) {
 					redirect.addFlashAttribute("erro",
