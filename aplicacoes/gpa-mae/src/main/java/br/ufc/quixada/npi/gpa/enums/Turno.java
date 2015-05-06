@@ -9,7 +9,7 @@ public enum Turno {
 	private String nome;
 	private static Map<Turno, String> map;
 
-	Turno(String nome) {
+	private Turno(String nome) {
 		this.nome = nome;
 	}
 	

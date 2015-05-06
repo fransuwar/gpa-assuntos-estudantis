@@ -13,9 +13,8 @@ import br.ufc.quixada.npi.gpa.enums.Turno;
 
 @Entity
 public class HorarioDisponivel {
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
 	@ManyToOne
@@ -26,7 +25,9 @@ public class HorarioDisponivel {
 	
 	@Enumerated(EnumType.STRING)
 	private DiasUteis dia;
-
+	
+	public HorarioDisponivel(){}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -59,7 +60,8 @@ public class HorarioDisponivel {
 	public void setDia(DiasUteis dia) {
 		this.dia = dia;
 	}
-	
+
+
 	
 	
 

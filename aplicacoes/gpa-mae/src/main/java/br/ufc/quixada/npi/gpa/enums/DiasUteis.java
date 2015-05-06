@@ -10,7 +10,7 @@ public enum DiasUteis {
 	private String nome;
 	private static Map<DiasUteis, String> map;
 	
-	DiasUteis(String nome){
+	private DiasUteis(String nome){
 		this.nome = nome;
 	}
 	

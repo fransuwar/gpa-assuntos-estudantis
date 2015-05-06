@@ -42,6 +42,7 @@
 				</ul>
 
 				<form:form id="questionarioForm" role="form"
+				    onsubmit="return validaHorariosDisponiveisBolsa();"
 					commandName="questionarioIniciacaoAcademica"
 					modelAttribute="questionarioIniciacaoAcademica"
 					servletRelativeAction="/iniciacaoAcademica/inscricao/"

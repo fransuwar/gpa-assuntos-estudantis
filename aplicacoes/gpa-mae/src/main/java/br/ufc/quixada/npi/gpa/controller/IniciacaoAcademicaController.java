@@ -57,11 +57,7 @@ public class IniciacaoAcademicaController {
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 			return "inscricao/iniciacaoAcademica";
 		} else {
-			
-//			questionarioIniciacaoAcademica.setHorariodisponivelBolsa(new ArrayList<HorarioDisponivel>());
-//			HorarioDisponivel h = new HorarioDisponivel();
-//			h.setDia(SEG);
-//			questionarioIniciacaoAcademica.getHorariodisponivelBolsa().add(h);
+
 
 			this.iniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
 			redirect.addFlashAttribute("info",

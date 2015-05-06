@@ -595,11 +595,11 @@ public class QuestionarioIniciacaoAcademica {
 		this.rendaTotalFamilia = rendaTotalFamilia;
 	}
 
-	public List<HorarioDisponivel> getHorariodisponivelBolsa() {
+	public List<HorarioDisponivel> getHorariosDisponiveisBolsa() {
 		return horariosDisponiveisBolsa;
 	}
 
-	public void setHorariodisponivelBolsa(
+	public void setHorariosDisponiveisBolsa(
 			List<HorarioDisponivel> horariosDisponiveisBolsa) {
 		this.horariosDisponiveisBolsa = horariosDisponiveisBolsa;
 	}

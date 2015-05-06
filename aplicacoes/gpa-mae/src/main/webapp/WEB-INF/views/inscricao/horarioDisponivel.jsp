@@ -6,7 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
     
-<table class="table">
+<table class="table" id="tabelaHorariosDisponiveis">
 
 	<thead>
 		<tr>
@@ -19,14 +19,14 @@
 			<td>
 				<form:select path="" name="horariosDisponiveisBolsa[].dia" class="form-control" >
 					<form:option value="">Selecione um dia</form:option>
-					<form:options items="${DiasUteis}" />
+					<form:options items="${diasUteis}" />
 				</form:select>
 			</td>
 			
 			<td>
 				<form:select path="" name="horariosDisponiveisBolsa[].turno" class="form-control" >
 					<form:option value="">Selecione um turno</form:option>
-					<form:options items="${Turno}" />
+					<form:options items="${turno}" />
 				</form:select>
 			</td>
 

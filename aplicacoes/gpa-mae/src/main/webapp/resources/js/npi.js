@@ -244,3 +244,32 @@ function excluir(idTable, uri, row) {
 		}
 	});
 };
+
+function validaHorariosDisponiveisBolsa(){
+		
+	var res = "";
+	var table = document.getElementById("tabelaHorariosDisponiveis");
+
+	valores = table.querySelectorAll('td select');
+	if(valores.length < 6){
+		alert("Selecione pelo menos três horários diferentes para a bolsa.");
+		return false;
+	} else {
+		var horarios = new Set();
+		for(var k=0;k<valores.length;k+=2){
+			var dia = valores[k].value;
+			var turno = valores[k+1].value;
+		    if(dia == "" || turno == ""){
+		    	alert("Os campos de horários disponíveis são obrigatórios.");
+		    	return false;
+		    }
+		    horarios.add(dia+turno);
+		}
+		console.log(horarios.size);
+		if(horarios.size < 3){
+			alert("Selecione pelo menos três horários diferentes para a bolsa.");
+			return false;
+		}
+	}
+	return true;
+}
