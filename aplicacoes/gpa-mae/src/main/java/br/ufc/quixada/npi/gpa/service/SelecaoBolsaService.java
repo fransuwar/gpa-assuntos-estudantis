@@ -11,7 +11,7 @@ public interface SelecaoBolsaService extends GenericService<SelecaoBolsa> {
 	
 	public List<SelecaoBolsa> getSelecaoBolsasAtribuidos();
 
-	public abstract List<SelecaoBolsa> getSelecaoBolsasByUsuario(Long id);
+	public abstract List<SelecaoBolsa> getSelecaoBolsasByUsuario(Integer id);
 	
 	public abstract List<SelecaoBolsa> getSelecaoBolsasAguardandoParecer();
 	
@@ -19,6 +19,6 @@ public interface SelecaoBolsaService extends GenericService<SelecaoBolsa> {
 
 	public abstract SelecaoBolsa getSelecaoBolsaComDocumentos(Integer id);
 	
-	public abstract void atualizaStatusSelecaoBolsa();
+	public abstract void atualizaStatusSelecaoBolsa(List<SelecaoBolsa> selecoes);
 
 }

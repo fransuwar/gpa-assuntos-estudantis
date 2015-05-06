@@ -15,4 +15,9 @@ public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements Aluno
 	public Aluno getAlunoByMatricula(String matricula) {
 		return (Aluno) findFirst("Aluno.findAlunoByMatricula", new SimpleMap<String, Object>("matricula", matricula));
 	}
+
+	@Override
+	public Aluno getAlunoById(Integer id) {
+		return (Aluno) findFirst("Aluno.findAlunoById", new SimpleMap<String, Object>("idPessoa", id));
+	}
 }

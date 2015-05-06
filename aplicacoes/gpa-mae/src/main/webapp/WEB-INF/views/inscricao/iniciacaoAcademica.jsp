@@ -47,9 +47,7 @@
 					modelAttribute="questionarioIniciacaoAcademica"
 					servletRelativeAction="/iniciacaoAcademica/inscricao/"
 					method="POST" cssClass="form-horizontal">
-
 					<div class="tab-content">
-
 						<div class="tab-pane active" id="moradia-tab">
 
 							<div class="panel panel-primary">
@@ -229,7 +227,7 @@
 											<form:select path="estado" id="estado"
 												cssClass="form-control">
 												<form:option value="" label="Selecione Estado" />
-												<form:options items="${TotalEstado}" />
+												<form:options items="${totalEstado}" />
 											</form:select>
 											<div class="error-validation" id="erro-estadoAtual">
 												<form:errors path="estado"></form:errors>

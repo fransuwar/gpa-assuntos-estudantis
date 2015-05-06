@@ -99,7 +99,11 @@ public class SelecaoBolsaController {
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, BindingResult result,
 			@RequestParam("files") List<MultipartFile> files, 
 			RedirectAttributes redirect, Model model) {
-
+		
+		if (selecao == null || selecao.getAno() == null || selecao.getAno() < DateTime.now().getYear()) {
+			result.rejectValue("ano", "selecao.ano", "Digite um ano maior ou igual ao atual");
+		}
+		
 		if (result.hasErrors()) {
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			return ("selecao/cadastrar");
@@ -131,12 +135,6 @@ public class SelecaoBolsaController {
 			return "selecao/cadastrar";
 		}
 		
-		if (selecao.getAno() < DateTime.now().getYear()) {
-			model.addAttribute("dataError",
-					"Digite um ano maior ou igual ao atual");
-			return ("selecao/cadastrar");
-		}
-
 		if (selecaoService.existsSelecaoEquals(selecao)) {
 			redirect.addFlashAttribute("erro", "Número do edital ou tipo de bolsa já existente");
 			return "redirect:/selecao/listar";
@@ -189,11 +187,12 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model) {
+		
+		List<SelecaoBolsa> selecoes = this.selecaoService.find(SelecaoBolsa.class);
 
-		selecaoService.atualizaStatusSelecaoBolsa();
+		selecaoService.atualizaStatusSelecaoBolsa(selecoes);
 
-		model.addAttribute("selecoes",
-				this.selecaoService.find(SelecaoBolsa.class));
+		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 
