@@ -18,6 +18,26 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>coord</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
 	<td>css=button.btn.btn-primary</td>
 	<td></td>
 </tr>
@@ -39,7 +59,7 @@
 <tr>
 	<td>type</td>
 	<td>id=dataTermino</td>
-	<td>12/04/2015</td>
+	<td>04/06/2015</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -67,11 +87,20 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>css=body</td>
-	<td>campo invalido</td>
+	<td>waitForElementPresent</td>
+	<td>id=dataTermino.errors</td>
+	<td></td>
 </tr>
-
+<tr>
+	<td>verifyText</td>
+	<td>id=dataTermino.errors</td>
+	<td>*Data de término deve ser maior que a data atual*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>
