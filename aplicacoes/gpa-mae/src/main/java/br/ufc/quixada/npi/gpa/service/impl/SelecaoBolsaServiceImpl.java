@@ -63,6 +63,18 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 
 	@Override
 	@Transactional
+	public List<SelecaoBolsa> getSelecaoBolsaComMembros() {
+		return ((List<SelecaoBolsa>)find("SelecaoBolsa.findSelecaoBolsaComMembros", new SimpleMap<String, Object>()));		
+	}
+	
+	@Override
+	@Transactional
+	public SelecaoBolsa getSelecaoBolsaComMembros(Integer id) {
+		return (SelecaoBolsa) findFirst("SelecaoBolsa.findSelecaoBolsaIdComMembros", new SimpleMap<String, Object>("selecaoBolsaId", id));
+	}
+	
+	@Override
+	@Transactional
 	public void atualizaStatusSelecaoBolsa() {
 		
 		for(SelecaoBolsa selecao:this.find(SelecaoBolsa.class)){
@@ -79,5 +91,5 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 			}
 		}
 	}
-
+	
 }
