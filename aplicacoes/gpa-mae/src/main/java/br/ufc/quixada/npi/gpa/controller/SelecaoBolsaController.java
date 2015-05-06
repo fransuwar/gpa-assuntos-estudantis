@@ -99,7 +99,11 @@ public class SelecaoBolsaController {
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, BindingResult result,
 			@RequestParam("files") List<MultipartFile> files, 
 			RedirectAttributes redirect, Model model) {
-
+		
+		if (selecao == null || selecao.getAno() == null || selecao.getAno() < DateTime.now().getYear()) {
+			result.rejectValue("ano", "selecao.ano", "Digite um ano maior ou igual ao atual");
+		}
+		
 		if (result.hasErrors()) {
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			return ("selecao/cadastrar");
@@ -129,12 +133,6 @@ public class SelecaoBolsaController {
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			model.addAttribute("anexoError", "Adicione anexo a seleção.");
 			return "selecao/cadastrar";
-		}
-		
-		if (selecao.getAno() < DateTime.now().getYear()) {
-			model.addAttribute("dataError",
-					"Digite um ano maior ou igual ao atual");
-			return ("selecao/cadastrar");
 		}
 		
 		if (selecaoService.existsSelecaoEquals(selecao)) {
