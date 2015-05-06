@@ -42,7 +42,8 @@
 			<div class="panel-body">
 				<form:form id="adicionarSelecaoForm" role="form"
 					commandName="selecao" servletRelativeAction="/selecao/salvar"
-					method="POST" cssClass="form-horizontal" enctype="multipart/form-data">
+					method="POST" cssClass="form-horizontal"
+					enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${selecao.id}" />
 					<div class="form-group">
 						<label for="sequencial" class="col-sm-2 control-label">Número
@@ -63,7 +64,8 @@
 								<form:option value="" label="Selecione o tipo de bolsa" />
 								<form:options items="${tipoBolsa}" />
 							</form:select>
-							<div class="error-validation label-erro-select" id="erro-tipoBolsa">
+							<div class="error-validation label-erro-select"
+								id="erro-tipoBolsa">
 								<form:errors path="sequencial"></form:errors>
 							</div>
 						</div>
@@ -76,11 +78,10 @@
 						<div class="col-sm-2">
 							<form:input id="dataInicio" type="text" path="dataInicio"
 								cssClass="form-control data" placeholder="Data de Início" />
-							<div class="error-validation" id="erro-dataInicio">		
-							<label class="col-sm-10 control-label" id="label-erro">
-								${dataInicioError}
-							</label>
-							<form:errors path="dataInicio"/>
+							<div class="error-validation" id="erro-dataInicio">
+								<label class="col-sm-10 control-label" id="label-erro">
+									${dataInicioError} </label>
+								<form:errors path="dataInicio" />
 							</div>
 						</div>
 
@@ -110,8 +111,8 @@
 						<label for="quantidadeVagas" class="col-sm-2 control-label">Quant.
 							de Vagas:</label>
 						<div class="col-sm-2">
-							<form:input id="quantidadeVagas" min="0" data-mask="999"
-								placeholder="0" path="quantidadeVagas" cssClass="form-control" />
+							<form:input id="quantidadeVagas" path="quantidadeVagas"
+								cssClass="form-control" placeholder="0" min="1" data-mask="999" />
 							<div class="error-validation" id="erro-qtdVagas">
 								<form:errors path="quantidadeVagas"></form:errors>
 							</div>
@@ -120,7 +121,7 @@
 						<label for="duracao" class="col-sm-2 control-label">Duração:</label>
 						<div class="col-sm-2">
 							<form:input id="duracao" type="text" path="duracao"
-								cssClass="form-control" placeholder="0" />
+								cssClass="form-control" placeholder="0" min="1" data-mask="999"/>
 							<div class="error-validation" id="erro-duracao">
 								<form:errors path="duracao"></form:errors>
 							</div>
@@ -143,28 +144,29 @@
 					<div class="form-group">
 						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
 						<div class="col-sm-5 files">
-						<input type="file" id="files" name="files" class="file" multiple="multiple" ></input>
-						<div class="error-validation" id="erro-Anexo">		
-							<label class="col-sm-10 control-label" id="label-erro">
-								${anexoError}
-							</label>
-						</div>	
-								<table id="file-upload" role="presentation"
-									class="table table-striped">
-									<tbody class="files">
-										<c:forEach items="${selecao.documentos}" var="documento">
-											<tr class="template-upload fade in">
-												<td>${documento.nome}<strong class="error text-danger"></strong></td>
-												<td><a id="${documento.id}" href="#" class="delete-document">
-														<button type="button" class="btn btn-danger">
-															Excluir <span class="glyphicon glyphicon-trash"></span>
-														</button>
-												</a></td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-				
+							<input type="file" id="files" name="files" class="file"
+								multiple="multiple"></input>
+							<div class="error-validation" id="erro-Anexo">
+								<label class="col-sm-10 control-label" id="label-erro">
+									${anexoError} </label>
+							</div>
+							<table id="file-upload" role="presentation"
+								class="table table-striped">
+								<tbody class="files">
+									<c:forEach items="${selecao.documentos}" var="documento">
+										<tr class="template-upload fade in">
+											<td>${documento.nome}<strong class="error text-danger"></strong></td>
+											<td><a id="${documento.id}" href="#"
+												class="delete-document">
+													<button type="button" class="btn btn-danger">
+														Excluir <span class="glyphicon glyphicon-trash"></span>
+													</button>
+											</a></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+
 						</div>
 
 					</div>

@@ -17,12 +17,22 @@ div.container{
 	padding: 2%;
 }
 
+.h3-form-subtitle{
+	font-weight: bold;
+	padding: 2%;
+	text-align: left;
+}
+
 #label-select{
 	margin-top: 0.5%;
 }
 
 #div-select{
 	padding-top: 0%;
+}
+
+#col-sm-radio{
+	margin-top: 0.4%;
 }
 
 input[type=checkbox]{
@@ -67,14 +77,12 @@ input[type=checkbox]{
 }
 
 #form-label-right{
-	width:13%;
+	width:12.7%;
 	text-align: right;
 }
 
-#form-label-right-select{
-	width:13%;
-	text-align: right;
-	margin-top:0.5%;
+#checkbox-div{
+	padding: 0%;
 }
 
 #form-label-right-select-tam-padrao{

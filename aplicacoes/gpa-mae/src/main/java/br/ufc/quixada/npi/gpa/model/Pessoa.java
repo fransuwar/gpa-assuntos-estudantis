@@ -237,14 +237,7 @@ public class Pessoa {
 
 	@Override
 	public String toString() {
-		return "Pessoa [id=" + id + ", login=" + login + ", password="
-				+ password + ", habilitado=" + habilitado + ", email=" + email
-				+ ", nome=" + nome + ", dataNascimento=" + dataNascimento
-				+ ", nacionalidade=" + nacionalidade + ", naturalidade="
-				+ naturalidade + ", uf=" + uf + ", sexo=" + sexo + ", cpf="
-				+ cpf + ", rg=" + rg + ", telefone=" + telefone
-				+ ", estadoCivil=" + estadoCivil + ", alunos=" + alunos
-				+ ", servidores=" + servidores + ", papeis=" + papeis + "]";
+		return "Pessoa [id=" + id + "]";
 	}
 	
 }

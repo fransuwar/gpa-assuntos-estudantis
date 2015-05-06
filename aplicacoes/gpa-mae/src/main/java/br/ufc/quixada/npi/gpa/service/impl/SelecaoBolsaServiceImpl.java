@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.ufc.quixada.npi.enumeration.QueryType;
 import br.ufc.quixada.npi.gpa.enums.Status;
-import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
@@ -32,10 +31,10 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 	}
 
 	@Override
-	public List<SelecaoBolsa> getSelecaoBolsasByUsuario(Long id) {
+	public List<SelecaoBolsa> getSelecaoBolsasByUsuario(Integer id) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
-		return find(QueryType.JPQL, "from SelecaoBolsa where usuario_id = :id", params);
+		return find(QueryType.JPQL, "from SelecaoBolsa where usuario.id = :id", params);
 	}
 	
 	@Override
@@ -75,9 +74,8 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 	
 	@Override
 	@Transactional
-	public void atualizaStatusSelecaoBolsa() {
-		
-		for(SelecaoBolsa selecao:this.find(SelecaoBolsa.class)){
+	public void atualizaStatusSelecaoBolsa(List<SelecaoBolsa> selecoes) {
+		for(SelecaoBolsa selecao:selecoes){
 			DateTime dataTermino = new DateTime(selecao.getDataTermino());
 			DateTime dataInicio = new DateTime(selecao.getDataInicio());
 			if( (dataInicio.isBeforeNow() || dataInicio.isEqualNow()) 
