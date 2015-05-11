@@ -36,7 +36,7 @@ public class AuxilioMoradiaController {
 
 	@Inject
 	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
-
+	
 	@InitBinder
 	protected void initBinder(HttpServletRequest request,
 			ServletRequestDataBinder binder) throws ServletException {
@@ -72,26 +72,26 @@ public class AuxilioMoradiaController {
 	public String selecaoAluno(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
 			BindingResult result, RedirectAttributes redirect, Model model) {
-
-		if (result.hasErrors()) {
-			model.addAttribute("estado", Estado.toMap());
-			model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
-			model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.toMap());
-			model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.toMap());
-			model.addAttribute("grauParentescoImovelRural",
-					GrauParentescoImovelRural.toMap());
-			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.toMap());
-			model.addAttribute("grauParentesco", GrauParentesco.toMap());
-			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
-			model.addAttribute("moraCom", MoraCom.toMap());
-			return "inscricao/auxilio";
-		} else {
-			questionarioAuxilioMoradia.setDataInscricao(new Date());
-			this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
-			redirect.addFlashAttribute("info", "Inscrição realizada com sucesso.");
-		}
-		return "redirect:/selecao/listar";
 		
+			if (result.hasErrors()) {
+				model.addAttribute("estado", Estado.toMap());
+				model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
+				model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.toMap());
+				model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.toMap());
+				model.addAttribute("grauParentescoImovelRural",
+						GrauParentescoImovelRural.toMap());
+				model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.toMap());
+				model.addAttribute("grauParentesco", GrauParentesco.toMap());
+				model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
+				model.addAttribute("moraCom", MoraCom.toMap());
+				return "inscricao/auxilio";
+			} else {
+				questionarioAuxilioMoradia.setDataInscricao(new Date());
+				this.questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
+				redirect.addFlashAttribute("info", "Inscrição realizada com sucesso.");
+			}
+			return "redirect:/selecao/listar";
+
 
 	}
 

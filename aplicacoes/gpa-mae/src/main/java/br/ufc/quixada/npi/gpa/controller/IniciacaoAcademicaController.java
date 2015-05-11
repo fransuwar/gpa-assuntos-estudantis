@@ -25,7 +25,7 @@ public class IniciacaoAcademicaController {
 
 	@Inject
 	private IniciacaoAcademicaService iniciacaoAcademicaService;
-
+	
 	@RequestMapping(value = "/inscricao", method = RequestMethod.GET)
 	public String cadastro(Model modelo) {
 
@@ -45,6 +45,7 @@ public class IniciacaoAcademicaController {
 	public String adicionaIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
 			BindingResult result, RedirectAttributes redirect, Model modelo) {
+		
 
 		if (result.hasErrors()) {
 			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
@@ -59,6 +60,8 @@ public class IniciacaoAcademicaController {
 			redirect.addFlashAttribute("info",
 					"Projeto cadastrado com sucesso.");
 		}
+		
+		
 
 		return "redirect:/selecao/listar";
 	}

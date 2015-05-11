@@ -21,7 +21,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
-import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Status;
@@ -173,9 +172,10 @@ public class SelecaoBolsa {
 				return Status.PROC_SELETIVO;
 			} else if (dataInicio.getTime() <= System.currentTimeMillis()) {
 				return Status.INSC_ABERTA;
-			} else {
-				throw new RuntimeException("Status inválido.");
-			}
+			}else {
+				return Status.NOVA;
+			} 
+			
 		}
 		return status;
 	}
