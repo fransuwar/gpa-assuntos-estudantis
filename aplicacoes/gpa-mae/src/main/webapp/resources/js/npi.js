@@ -273,3 +273,10 @@ function validaHorariosDisponiveisBolsa(){
 	}
 	return true;
 }
+
+function removerDocumento(docId){
+	var row = document.getElementById("row-"+docId);
+	row.style.display = "none";
+	var input = '<input type="hidden" value="'+docId+'" name="doc" />';
+	row.innerHTML = input;
+}

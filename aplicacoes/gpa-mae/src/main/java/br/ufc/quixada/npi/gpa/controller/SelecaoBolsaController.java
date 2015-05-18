@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.joda.time.DateTime;
@@ -25,6 +26,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.model.Servidor;
+import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 
@@ -34,6 +36,9 @@ public class SelecaoBolsaController {
 
 	@Inject
 	private ServidorService servidorService;
+	
+	@Inject
+	private DocumentoService documentoService;
 	
 	@Inject
 	private SelecaoBolsaService selecaoService;
@@ -50,11 +55,13 @@ public class SelecaoBolsaController {
 
 		return "selecao/informacoes";
 	}
+	
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvarSelecaoBolsa(
 			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoBolsa, BindingResult result,
-			@RequestParam("files") List<MultipartFile> files, Model model, RedirectAttributes redirect)
+			@RequestParam("files") List<MultipartFile> files, Model model, RedirectAttributes redirect,
+			HttpServletRequest request)
 			throws IOException {
 
 		if (selecaoBolsa.getId() != null) {
@@ -71,7 +78,17 @@ public class SelecaoBolsaController {
 						"Digite um ano maior ou igual ao atual");
 				return ("selecao/cadastrar");
 			}
-
+			
+			String doc[] = request.getParameterValues("doc");
+			
+			if(doc != null){
+				for(int k=0;k<doc.length;k++){
+					Documento d = new Documento();
+					d.setId(Long.parseLong(doc[k]));
+					documentoService.delete(d);
+				}
+			}
+			
 			this.selecaoService.update(selecaoBolsa);
 			redirect.addFlashAttribute("info",
 					"Seleção atualizada com sucesso.");
