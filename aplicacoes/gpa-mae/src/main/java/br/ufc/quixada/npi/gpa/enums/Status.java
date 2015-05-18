@@ -4,8 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public enum Status {
-	NOVA("Nova"), SUBMETIDO("Submetido"), INSC_ABERTA("Aberta"), PROC_SELETIVO("Em processo seletivo"), FINALIZADA("Finalizada"), CANCELADA("Cancelada");
-	
+	NOVA("Nova"), INSC_ABERTA("Aberta"), PROC_SELETIVO("Em processo seletivo"), FINALIZADA("Finalizada"), CANCELADA("Cancelada");
 	
 	private String nome;
 	private static Map<Status, String> map;

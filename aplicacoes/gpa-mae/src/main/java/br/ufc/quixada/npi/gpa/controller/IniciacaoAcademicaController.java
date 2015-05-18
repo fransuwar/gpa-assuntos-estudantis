@@ -36,6 +36,7 @@ public class IniciacaoAcademicaController {
 
 	@Inject
 	private IniciacaoAcademicaService iniciacaoAcademicaService;
+
 	@Inject
 	private AlunoService alunoService;
 
@@ -91,6 +92,8 @@ public class IniciacaoAcademicaController {
 			redirect.addFlashAttribute("info",
 					"Cadastro realizado com sucesso.");
 		}
+		
+		
 
 		return "redirect:/selecao/listar";
 	}
