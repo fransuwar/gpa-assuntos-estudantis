@@ -3,20 +3,20 @@ package br.ufc.quixada.npi.gpa.enums;
 import java.util.Map;
 import java.util.TreeMap;
 
-public enum Bancos {
+public enum Banco {
 	BB("Banco do Brasil"), CX("Caixa");
 
 	private String nome;
-	private static Map<Bancos, String> map;
+	private static Map<Banco, String> map;
 
-	Bancos(String nome) {
+	Banco(String nome) {
 		this.nome = nome;
 	}
 
-	public static Map<Bancos, String> toMap() {
+	public static Map<Banco, String> toMap() {
 		if (map == null) {
-			map = new TreeMap<Bancos, String>();
-			for (Bancos b : Bancos.values()) {
+			map = new TreeMap<Banco, String>();
+			for (Banco b : Banco.values()) {
 				map.put(b, b.nome);
 			}
 		}

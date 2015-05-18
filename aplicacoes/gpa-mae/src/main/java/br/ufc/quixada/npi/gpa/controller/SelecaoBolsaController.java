@@ -190,7 +190,7 @@ public class SelecaoBolsaController {
 					.addFlashAttribute("erro", "Seleção inexistente.");
 			return "redirect:/selecao/listar";
 		}
-		if (selecao.getStatus().equals(Status.NOVA)) {
+		if (selecao.getStatus().equals(Status.NOVA)) { 
 			this.selecaoService.delete(selecao);
 			redirectAttributes.addFlashAttribute("info",
 					"Seleção excluída com sucesso.");
@@ -203,19 +203,26 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model) {
 		
-		List<SelecaoBolsa> selecoes = this.selecaoService.find(SelecaoBolsa.class);
-
-		model.addAttribute("selecoes", selecoes);
+		List<SelecaoBolsa> selec = this.selecaoService.getSelecaoBolsaComMembros();
+		selecaoService.atualizaStatusSelecaoBolsa(selec);
+		model.addAttribute("selecoes", selec);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
+		
 		return "selecao/listar";
 	}
 
 	@RequestMapping(value = "/{id}/atribuir", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirectAttributes) {
-
+		
+		List<Servidor> servidoresBanca = selecaoService.getSelecaoBolsaComMembros(id).getMembrosBanca();
+		
+		if(!servidoresBanca.isEmpty()){
+			model.addAttribute("m1", servidoresBanca.get(0).getId());
+			model.addAttribute("m2", servidoresBanca.get(1).getId());
+			model.addAttribute("m3", servidoresBanca.get(2).getId());
+		}
 		model.addAttribute("selecao", id);
 		model.addAttribute("servidores", servidorService.find(Servidor.class));
 		return "selecao/atribuir";
@@ -223,37 +230,34 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/atribuir", method = RequestMethod.POST)
 	public String atribuirPareceristaNoProjeto(
-			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
-			@RequestParam("id3") Integer id3, @RequestParam("id") Integer id,
+			@RequestParam("id") Integer id,@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
+			@RequestParam("id3") Integer id3, Model model,
 			RedirectAttributes redirect) {
-
-		if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
-			redirect.addFlashAttribute("erro",
-					"Não é permitida repetição de membros na banca.");
-			return "redirect:/selecao/" + id + "/atribuir";
+		
+		if(id1 == null || id2 == null || id3 == null){
+			model.addAttribute("selecao", id);
+			model.addAttribute("servidores", servidorService.find(Servidor.class));
+			model.addAttribute("erroMembros", "Informe os três membros.");
+			return "selecao/atribuir";
+			
+		} else if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
+			model.addAttribute("selecao", id);
+			model.addAttribute("servidores", servidorService.find(Servidor.class));
+			model.addAttribute("erroMembros", "Não é permitida repetição de membros na banca.");
+			return "selecao/atribuir";
 		} else {
 			SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
-			redirect.addFlashAttribute("selecao", id);
-			redirect.addFlashAttribute("membrosBanca", (selecao.getId()));
 
 			List<Servidor> list = new ArrayList<Servidor>();
-			Servidor servidor = servidorService.find(Servidor.class, id1);
-			servidor.getParticipaBancas().add(selecao);
-			list.add(servidor);
-
-			servidor = servidorService.find(Servidor.class, id2);
-			servidor.getParticipaBancas().add(selecao);
-			list.add(servidor);
-
-			servidor = servidorService.find(Servidor.class, id3);
-			servidor.getParticipaBancas().add(selecao);
-			list.add(servidor);
+			list.add(new Servidor(id1));
+			list.add(new Servidor(id2));
+			list.add(new Servidor(id3));
 
 			selecao.setMembrosBanca(list);
 
 			selecaoService.update(selecao);
 			redirect.addFlashAttribute("info",
-					"O Membro da banca foi atribuído com sucesso.");
+					"Banca formada com sucesso.");
 
 			return "redirect:/selecao/listar";
 		}

@@ -3,14 +3,14 @@ package br.ufc.quixada.npi.gpa.enums;
 import java.util.Map;
 import java.util.TreeMap;
 
-public enum DiasUteis {
+public enum DiaUtil {
 
 	SEG("Segunda"), TER("Terça"), QUA("Quarta"), QUI("Quinta"), SEX("Sexta");
 	
 	private String nome;
-	private static Map<DiasUteis, String> map;
+	private static Map<DiaUtil, String> map;
 	
-	private DiasUteis(String nome){
+	private DiaUtil(String nome){
 		this.nome = nome;
 	}
 	
@@ -18,10 +18,10 @@ public enum DiasUteis {
 		return nome;
 	}
 
-	public static Map<DiasUteis, String> toMap() {
+	public static Map<DiaUtil, String> toMap() {
 		if (map == null) {
-			map = new TreeMap<DiasUteis, String>();
-			for (DiasUteis du : DiasUteis.values()) {
+			map = new TreeMap<DiaUtil, String>();
+			for (DiaUtil du : DiaUtil.values()) {
 				map.put(du, du.nome);
 			}
 		}
