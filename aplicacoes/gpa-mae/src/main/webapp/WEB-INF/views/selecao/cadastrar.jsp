@@ -156,10 +156,10 @@
 								class="table table-striped">
 								<tbody class="files">
 									<c:forEach items="${selecao.documentos}" var="documento">
-										<tr class="template-upload fade in">
+										<tr class="template-upload fade in" id="row-${documento.id}">
 											<td>${documento.nome}<strong class="error text-danger"></strong></td>
-											<td><a id="${documento.id}" href="#"
-												class="delete-document">
+											<td><a onclick="removerDocumento(${documento.id});"
+												   class="delete-document">
 													<button type="button" class="btn btn-danger">
 														Excluir <span class="glyphicon glyphicon-trash"></span>
 													</button>
