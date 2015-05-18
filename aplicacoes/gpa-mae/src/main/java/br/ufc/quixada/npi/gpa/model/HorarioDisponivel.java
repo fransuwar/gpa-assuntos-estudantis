@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import br.ufc.quixada.npi.gpa.enums.DiasUteis;
+import br.ufc.quixada.npi.gpa.enums.DiaUtil;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 
 @Entity
@@ -24,7 +24,7 @@ public class HorarioDisponivel {
 	private Turno turno;
 	
 	@Enumerated(EnumType.STRING)
-	private DiasUteis dia;
+	private DiaUtil dia;
 	
 	public HorarioDisponivel(){}
 	
@@ -53,11 +53,11 @@ public class HorarioDisponivel {
 		this.turno = turno;
 	}
 
-	public DiasUteis getDia() {
+	public DiaUtil getDia() {
 		return dia;
 	}
 
-	public void setDia(DiasUteis dia) {
+	public void setDia(DiaUtil dia) {
 		this.dia = dia;
 	}
 

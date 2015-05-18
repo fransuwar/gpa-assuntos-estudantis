@@ -68,83 +68,92 @@
 								</form:errors>
 							</div>
 						</div>
-						<label for="curso" class="col-sm-1 control-label" id="form-label">Curso:</label>
-						<div class="col-sm-3">
-							<form:input id="curso" path="curso" cssClass="form-control"
-								placeholder="Curso" />
+
+						<label for="curso" class="col-sm-1 control-label">Curso:</label>
+						<div class="col-sm-5 control-label" id="div-select">
+							<form:select path="curso" id="curso" cssClass="form-control">
+								<form:option value="" label="Selecione o curso" />
+								<form:options items="${curso}" />
+							</form:select>
 							<div class="error-validation" id="erro-curso">
-								<form:errors path="curso">
-								</form:errors>
+								<div class="error-validation label-erro-select" id="erro-curso">
+									<form:errors path="curso"></form:errors>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="ira" class="col-sm-1 control-label" id="form-label">IRA:</label>
-						<div class="col-sm-3">
-							<form:input id="ira" path="ira" cssClass="form-control"
-								placeholder="Ira do aluno" maxlength="5" onkeyup="mascaraIra(this);"/>
-							<div class="error-validation" id="erro-ira">
-								<form:errors path="ira">
-								</form:errors>
+					</div>	
+						<div class="form-group">
+							<label for="ira" class="col-sm-1 control-label" id="form-label">IRA:</label>
+							<div class="col-sm-3">
+								<form:input id="ira" path="ira" cssClass="form-control"
+									placeholder="Ira do aluno" maxlength="5"
+									onkeyup="mascaraIra(this);" />
+								<div class="error-validation" id="erro-ira">
+									<form:errors path="ira">
+									</form:errors>
+								</div>
+							</div>
+							<label for="anoIngresso" class="col-sm-2 control-label"
+								id="form-label">Ano Ingresso:</label>
+							<div class="col-sm-2">
+								<form:input id="anoIngresso" type="text" maxlength="4"
+									path="anoIngresso" cssClass="form-control " data-mask="9999"
+									placeholder="Ano de Ingresso" />
+								<div class="error-validation" id="erro-anoIngresso">
+									<label class="col-sm-10 control-label" id="label-erro">
+										${anoIngressoError} </label>
+									<form:errors path="anoIngresso">
+									</form:errors>
+								</div>
 							</div>
 						</div>
-						<label for="anoIngresso" class="col-sm-2 control-label"
-							id="form-label">Ano Ingresso:</label>
-						<div class="col-sm-2">
-							<form:input id="anoIngresso" type="text" maxlength="4" path="anoIngresso"
-								cssClass="form-control " data-mask="9999" placeholder="Ano de Ingresso" />
-							<div class="error-validation" id="erro-anoIngresso">
-								<label class="col-sm-10 control-label" id="label-erro">
-									${anoIngressoError} 
-								</label>
-								<form:errors path="anoIngresso">
-								</form:errors>
+						<div class="form-group">
+							<label for="banco" class="col-sm-1 control-label" id="form-label">Banco:</label>
+							<div class="col-sm-5 control-label" id="div-select">
+								<form:select path="banco" id="banco" cssClass="form-control">
+									<form:option value="" label="Selecione o banco" />
+									<form:options items="${banco}" />
+								</form:select>
+								<div class="error-validation" id="erro-banco">
+									<div class="error-validation label-erro-select" id="erro-banco">
+										<form:errors path="banco"></form:errors>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="banco" class="col-sm-1 control-label" id="form-label">Banco:</label>
-						<div class="col-sm-3">
-							<form:input id="banco" path="banco" cssClass="form-control"
-								placeholder="Banco" />
-							<div class="error-validation" id="erro-banco">
-								<form:errors path="banco">
-								</form:errors>
-							</div>
-						</div>
 
-						<label for="agencia" class="col-sm-1 control-label" id="form-label">Agência(Com DV):</label>
+							<label for="agencia" class="col-sm-2 control-label"
+								id="form-label">Agência(Com DV):</label>
 
-						<div class="col-sm-2">
-							<form:input id="agencia" onkeyup="mascaraAgencia(this);" path="agencia" cssClass="form-control"
-								placeholder="Agência" />
-							<div class="error-validation" id="erro-agencia">
-								<form:errors path="agencia">
-								</form:errors>
+							<div class="col-sm-2">
+								<form:input id="agencia" onkeyup="mascaraAgencia(this);"
+									path="agencia" cssClass="form-control" placeholder="Agência" />
+								<div class="error-validation" id="erro-agencia">
+									<form:errors path="agencia">
+									</form:errors>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="conta" class="col-sm-1 control-label" id="form-label">Conta:</label>
-						<div class="col-sm-2">
-							<form:input id="conta" data-mask="00000000000000" path="conta" cssClass="form-control"
-								placeholder="Conta" />
-							<div class="error-validation" id="erro-conta">
-								<form:errors path="conta">
-								</form:errors>
+						<div class="form-group">
+							<label for="conta" class="col-sm-1 control-label" id="form-label">Conta:</label>
+							<div class="col-sm-2">
+								<form:input id="conta" data-mask="00000000000000" path="conta"
+									cssClass="form-control" placeholder="Conta" />
+								<div class="error-validation" id="erro-conta">
+									<form:errors path="conta">
+									</form:errors>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-2" id="div-form-btn">
-							<input name="submit" type="submit" class="btn btn-primary"
-								value="Cadastrar" id="form-btn" />
+						<div class="form-group">
+							<div class="col-sm-2" id="div-form-btn">
+								<input name="submit" type="submit" class="btn btn-primary"
+									value="Cadastrar" id="form-btn" />
+							</div>
+							<div class="col-sm-2" id="div-form-btn">
+								<a href="<c:url value="/aluno/listar"></c:url>"
+									class="btn btn-default" id="form-btn">Cancelar</a>
+							</div>
 						</div>
-						<div class="col-sm-2" id="div-form-btn">
-							<a href="<c:url value="/aluno/listar"></c:url>"
-								class="btn btn-default" id="form-btn">Cancelar</a>
-						</div>
-					</div>
 				</form:form>
 			</div>
 		</div>

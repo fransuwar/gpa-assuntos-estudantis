@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.enums.DiasUteis;
+import br.ufc.quixada.npi.gpa.enums.DiaUtil;
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
@@ -45,7 +45,7 @@ public class IniciacaoAcademicaController {
 				q);
 		modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 		modelo.addAttribute("turno", Turno.toMap());
-		modelo.addAttribute("diasUteis", DiasUteis.toMap());
+		modelo.addAttribute("diasUteis", DiaUtil.toMap());
 		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
@@ -63,7 +63,7 @@ public class IniciacaoAcademicaController {
 
 			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			modelo.addAttribute("turno", Turno.toMap());
-			modelo.addAttribute("diasUteis", DiasUteis.toMap());
+			modelo.addAttribute("diasUteis", DiaUtil.toMap());
 			modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
