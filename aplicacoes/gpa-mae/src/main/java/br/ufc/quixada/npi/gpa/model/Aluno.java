@@ -22,8 +22,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import br.ufc.quixada.npi.gpa.enums.Bancos;
-import br.ufc.quixada.npi.gpa.enums.Cursos;
+import br.ufc.quixada.npi.gpa.enums.Banco;
+import br.ufc.quixada.npi.gpa.enums.Curso;
 
 @NamedQueries({ @NamedQuery(name = "Aluno.findAlunoByMatricula", 
 								query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
@@ -51,7 +51,7 @@ public class Aluno {
 
 	@NotNull(message="Campo obrigatório")
 	@Enumerated(EnumType.STRING)
-	private Cursos curso;
+	private Curso curso;
 
 	private String nome;
 
@@ -65,7 +65,7 @@ public class Aluno {
 
 	@NotNull(message="Campo obrigatório")
 	@Enumerated(EnumType.STRING)
-	private Bancos banco;
+	private Banco banco;
 
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 10, message = "Agencia de possuir no máximo 10 dígitos")
@@ -146,19 +146,19 @@ public class Aluno {
 		this.ira = ira;
 	}
 
-	public Cursos getCurso() {
+	public Curso getCurso() {
 		return curso;
 	}
 
-	public void setCurso(Cursos curso) {
+	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
 
-	public Bancos getBanco() {
+	public Banco getBanco() {
 		return banco;
 	}
 
-	public void setBanco(Bancos banco) {
+	public void setBanco(Banco banco) {
 		this.banco = banco;
 	}
 

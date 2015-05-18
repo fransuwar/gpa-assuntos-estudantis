@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.enums.Bancos;
-import br.ufc.quixada.npi.gpa.enums.Cursos;
+import br.ufc.quixada.npi.gpa.enums.Banco;
+import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 
@@ -49,8 +49,8 @@ public class AlunoController {
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("action", "cadastrar");
-		model.addAttribute("banco", Bancos.toMap());
-		model.addAttribute("curso", Cursos.toMap());
+		model.addAttribute("banco", Banco.toMap());
+		model.addAttribute("curso", Curso.toMap());
 		model.addAttribute("aluno", new Aluno());
 		return "/aluno/cadastrar";
 	}
@@ -60,16 +60,16 @@ public class AlunoController {
 			BindingResult result,RedirectAttributes redirect, Model model) {
 		
 		if (result.hasErrors()) {
-			model.addAttribute("banco", Bancos.toMap());
-			model.addAttribute("curso", Cursos.toMap());
+			model.addAttribute("banco", Banco.toMap());
+			model.addAttribute("curso", Curso.toMap());
 			return ("aluno/cadastrar");
 		}
 
 		DateTime anoIngresso = DateTime.parse(aluno.getAnoIngresso());
 		if(anoIngresso.isAfterNow()){
 			model.addAttribute("anoIngressoError", "Informe um ano menor ou igual ao atual");
-			model.addAttribute("banco", Bancos.toMap());
-			model.addAttribute("curso", Cursos.toMap());
+			model.addAttribute("banco", Banco.toMap());
+			model.addAttribute("curso", Curso.toMap());
 			return "aluno/cadastrar";
 		}
 		
@@ -112,8 +112,8 @@ public class AlunoController {
 		Aluno aluno = alunoService.find(Aluno.class, id);
 		//chamamos a tela de cadastro/editar
 		model.addAttribute("aluno", aluno);
-		model.addAttribute("banco", Bancos.toMap());
-		model.addAttribute("curso", Cursos.toMap());
+		model.addAttribute("banco", Banco.toMap());
+		model.addAttribute("curso", Curso.toMap());
 		model.addAttribute("action", "editar");
 		return "aluno/cadastrar";		
 	}
