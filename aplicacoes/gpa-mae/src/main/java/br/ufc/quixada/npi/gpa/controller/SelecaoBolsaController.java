@@ -65,7 +65,7 @@ public class SelecaoBolsaController {
 				model.addAttribute("action", "editar");
 				return "selecao/cadastrar";
 			}
-
+		
 			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
 				model.addAttribute("dataError",
 						"Digite um ano maior ou igual ao atual");
@@ -83,7 +83,6 @@ public class SelecaoBolsaController {
 
 			return adicionarSelecao(selecaoBolsa, result, files,redirect,
 					model);
-
 		}
 	}
 
@@ -140,7 +139,6 @@ public class SelecaoBolsaController {
 			return "redirect:/selecao/listar";
 		}
 		
-		selecao.setStatus(Status.NOVA);
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		return "redirect:/selecao/listar";
@@ -187,6 +185,7 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model) {
+		
 		List<SelecaoBolsa> selec = this.selecaoService.getSelecaoBolsaComMembros();
 		selecaoService.atualizaStatusSelecaoBolsa(selec);
 		model.addAttribute("selecoes", selec);

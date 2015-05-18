@@ -59,7 +59,7 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 	public SelecaoBolsa getSelecaoBolsaComDocumentos(Integer id) {
 		return (SelecaoBolsa) findFirst("SelecaoBolsa.findSelecaoBolsaComDocumentos", new SimpleMap<String, Object>("selecaoBolsaId", id));
 	}
-
+	
 	@Override
 	@Transactional
 	public List<SelecaoBolsa> getSelecaoBolsaComMembros() {
@@ -89,5 +89,4 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 			}
 		}
 	}
-	
 }

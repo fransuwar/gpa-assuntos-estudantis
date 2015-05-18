@@ -18,12 +18,11 @@ public interface SelecaoBolsaService extends GenericService<SelecaoBolsa> {
 	public abstract boolean existsSelecaoEquals(SelecaoBolsa selecaoBolsa);
 
 	public abstract SelecaoBolsa getSelecaoBolsaComDocumentos(Integer id);
-	
+
 	public abstract List<SelecaoBolsa> getSelecaoBolsaComMembros();
 
 	public abstract SelecaoBolsa getSelecaoBolsaComMembros(Integer id);
 	
 	public abstract void atualizaStatusSelecaoBolsa(List<SelecaoBolsa> selecoes);
-
 
 }

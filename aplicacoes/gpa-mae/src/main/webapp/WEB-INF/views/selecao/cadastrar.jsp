@@ -101,6 +101,8 @@
 								cssClass="form-control" placeholder="0"
 								onkeypress="mascara(this,soNumeros)" />
 							<div class="error-validation" id="erro-ano">
+							<label class="col-sm-10 control-label" id="label-erro">
+									${dataError} </label>
 								<form:errors path="ano"></form:errors>
 							</div>
 						</div>

@@ -151,7 +151,6 @@ public class SelecaoBolsa {
 		return duracao;
 	}
 
-
 	public Integer getId() {
 		return id;
 	}
@@ -177,9 +176,18 @@ public class SelecaoBolsa {
 	}
 
 	public Status getStatus() {
+		if (status == null) {
+			if (dataTermino.getTime() <= System.currentTimeMillis()) {
+				return Status.PROC_SELETIVO;
+			} else if (dataInicio.getTime() <= System.currentTimeMillis()) {
+				return Status.INSC_ABERTA;
+			}else {
+				return Status.NOVA;
+			} 
+			
+		}
 		return status;
 	}
-
 	public TipoBolsa getTipoBolsa() {
 		return tipoBolsa;
 	}
