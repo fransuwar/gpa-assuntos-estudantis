@@ -78,14 +78,22 @@ uri="http://www.springframework.org/security/tags"%>
 
 								<sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
 									<a id="atribuirBanca" href="<c:url value="/selecao/${selecao.id}/atribuir" ></c:url>">
-										<button class="btn btn-primary">Atribuir Membro à Banca 
-										<span class="glyphicon glyphicon-user"></span>
-										</button>
+										<c:choose>
+											<c:when test="${empty selecao.membrosBanca}">
+												<button class="btn btn-primary">Atribuir Membro à Banca 
+												<span class="glyphicon glyphicon-user"></span>
+												</button>
+											</c:when>
+											<c:otherwise>
+												<button class="btn btn-primary">Editar Membros da Banca 
+												<span class="glyphicon glyphicon-user"></span>
+												</button>
+											</c:otherwise>
+										</c:choose>
 									</a>
+																		
 								</sec:authorize>	
 
-
-										
 								<sec:authorize access="hasAnyRole('ROLE_ALUNO')">
 										<c:if test="${selecao.tipoBolsa == inic_acad}">
 										<a id="inscrever" href="<c:url value="/iniciacaoAcademica/inscricao" ></c:url>">

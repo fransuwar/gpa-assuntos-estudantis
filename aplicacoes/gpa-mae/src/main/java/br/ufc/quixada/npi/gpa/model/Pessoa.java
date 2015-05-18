@@ -29,6 +29,11 @@ public class Pessoa {
 		super();
 	}
 	
+	public Pessoa(Integer id, String nome){
+		this.id = id;
+		this.nome = nome;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
