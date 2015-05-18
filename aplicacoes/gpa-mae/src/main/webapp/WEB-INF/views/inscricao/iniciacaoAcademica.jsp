@@ -42,7 +42,9 @@
 				</ul>
 
 				<form:form id="questionarioForm" role="form"
+				    onsubmit="return validaHorariosDisponiveisBolsa();"
 					commandName="questionarioIniciacaoAcademica"
+					modelAttribute="questionarioIniciacaoAcademica"
 					servletRelativeAction="/iniciacaoAcademica/inscricao/"
 					method="POST" cssClass="form-horizontal">
 					<div class="tab-content">
@@ -318,9 +320,9 @@
 										<label for="qtd_aparelho_som" class="col-sm-2 control-label">Aparelho
 											de Som:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdAparelhoSom" data-mask="999" min="0"
+											<form:input id="qtdAparelhoSom" data-mask="999" min="0" value="0" 
 												path="qtdAparelhoSom" cssClass="form-control"
-												placeholder="0" />
+												/>
 											<div class="error-validation" id="erro-qtdAparelhoSom">
 												<form:errors path="qtdAparelhoSom"></form:errors>
 											</div>
@@ -328,8 +330,8 @@
 
 										<label for="qtdTelevisao" class="col-sm-3 control-label">Televisão:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdTelevisao" data-mask="999" min="0"
-												path="qtdTelevisao" cssClass="form-control" placeholder="0" />
+											<form:input id="qtdTelevisao" data-mask="999" min="0" value="0" 
+												path="qtdTelevisao" cssClass="form-control" />
 											<div class="error-validation" id="erro-qtdTelevisao">
 												<form:errors path="qtdTelevisao"></form:errors>
 											</div>
@@ -337,8 +339,8 @@
 
 										<label for="qtdRadio" class="col-sm-4 control-label">Radio:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdRadio" data-mask="999" min="0"
-												path="qtdRadio" cssClass="form-control" placeholder="0" />
+											<form:input id="qtdRadio" data-mask="999" min="0" value="0" 
+												path="qtdRadio" cssClass="form-control"  />
 											<div class="error-validation" id="erro-qtdRadio">
 												<form:errors path="qtdRadio"></form:errors>
 											</div>
@@ -348,8 +350,8 @@
 									<div class="form-group">
 										<label for="qtdAutomovel" class="col-sm-2 control-label">Automovel:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdAutomovel" data-mask="999" min="0"
-												path="qtdAutomovel" cssClass="form-control" placeholder="0" />
+											<form:input id="qtdAutomovel" data-mask="999" min="0" value="0" 
+												path="qtdAutomovel" cssClass="form-control"  />
 											<div class="error-validation" id="erro-qtdAutomovel">
 												<form:errors path="qtdAutomovel"></form:errors>
 											</div>
@@ -357,9 +359,9 @@
 
 										<label for="qtdMotocicleta" class="col-sm-3 control-label">Motocicleta:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdMotocicleta" data-mask="999" min="0"
+											<form:input id="qtdMotocicleta" data-mask="999" min="0" value="0" 
 												path="qtdMotocicleta" cssClass="form-control"
-												placeholder="0" />
+												/>
 											<div class="error-validation" id="erro-qtdMotocicleta">
 												<form:errors path="qtdMotocicleta"></form:errors>
 											</div>
@@ -367,9 +369,9 @@
 
 										<label for="qtdDvdVideocassete" class="col-sm-4 control-label">Dvd/VideoCassete:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdDvdVideocassete" data-mask="999" min="0"
+											<form:input id="qtdDvdVideocassete" data-mask="999" min="0" value="0" 
 												path="qtdDvdVideocassete" cssClass="form-control"
-												placeholder="0" />
+												/>
 											<div class="error-validation" id="erro-qtdDvdVideocassete">
 												<form:errors path="qtdDvdVideocassete"></form:errors>
 											</div>
@@ -380,9 +382,9 @@
 										<label for="qtdMaquinaLavar" class="col-sm-2 control-label">Maquina
 											de Lavar:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdMaquinaLavar" data-mask="999" min="0"
+											<form:input id="qtdMaquinaLavar" data-mask="999" min="0" value="0" 
 												path="qtdMaquinaLavar" cssClass="form-control"
-												placeholder="0" />
+												/>
 											<div class="error-validation" id="erro-qtdMaquinaLavar">
 												<form:errors path="qtdMaquinaLavar"></form:errors>
 											</div>
@@ -390,8 +392,8 @@
 
 										<label for="qtdGeladeira" class="col-sm-3 control-label">Geladeira:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdGeladeira" data-mask="999" min="0"
-												path="qtdGeladeira" cssClass="form-control" placeholder="0" />
+											<form:input id="qtdGeladeira" data-mask="999" min="0" value="0" 
+												path="qtdGeladeira" cssClass="form-control"  />
 											<div class="error-validation" id="erro-qtdGeladeira">
 												<form:errors path="qtdGeladeira"></form:errors>
 											</div>
@@ -399,8 +401,8 @@
 
 										<label for="qtdFreezer" class="col-sm-4 control-label">Freezer:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdFreezer" data-mask="999" min="0"
-												path="qtdFreezer" cssClass="form-control" placeholder="0" />
+											<form:input id="qtdFreezer" data-mask="999" min="0" value="0" 
+												path="qtdFreezer" cssClass="form-control" />
 											<div class="error-validation" id="erro-qtdFreezer">
 												<form:errors path="qtdFreezer"></form:errors>
 											</div>
@@ -411,9 +413,9 @@
 										<label for="qtdTelefoneFixo" class="col-sm-2 control-label">Telefone
 											Fixo:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdTefoneFixo" data-mask="999" min="0"
+											<form:input id="qtdTefoneFixo" data-mask="999" min="0" value="0" 
 												path="qtdTelefoneFixo" cssClass="form-control"
-												placeholder="0" />
+												 />
 											<div class="error-validation" id="erro-qtdTelefoneFixo">
 												<form:errors path="qtdTelefoneFixo"></form:errors>
 											</div>
@@ -422,9 +424,9 @@
 										<label for="qtdCelularResidentes"
 											class="col-sm-3 control-label">Celular Residentes:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdCelularResidentes" data-mask="999" min="0"
+											<form:input id="qtdCelularResidentes" data-mask="999" min="0" value="0" 
 												path="qtdCelularResidentes" cssClass="form-control"
-												placeholder="0" />
+												 />
 											<div class="error-validation" id="erro-qtdCelularResidentes">
 												<form:errors path="qtdCelularResidentes"></form:errors>
 											</div>
@@ -432,8 +434,8 @@
 
 										<label for="qtdComputador" class="col-sm-4 control-label">Computador:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdComputador" data-mask="999" min="0"
-												path="qtdComputador" cssClass="form-control" placeholder="0" />
+											<form:input id="qtdComputador" data-mask="999" min="0" value="0" 
+												path="qtdComputador" cssClass="form-control" />
 											<div class="error-validation" id="erro-qtdComputador">
 												<form:errors path="qtdComputador"></form:errors>
 											</div>
@@ -444,8 +446,8 @@
 										<label for="qtdFogaoGas" class="col-sm-2 control-label">Fogao
 											A Gás:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdFogaoGas" data-mask="999" min="0"
-												path="qtdFogaoGas" cssClass="form-control" placeholder="0" />
+											<form:input id="qtdFogaoGas" data-mask="999" min="0" value="0" 
+												path="qtdFogaoGas" cssClass="form-control" />
 											<div class="error-validation" id="erro-qtdFogaoGas">
 												<form:errors path="qtdFogaoGas"></form:errors>
 											</div>
@@ -454,9 +456,9 @@
 										<label for="qtdMaquinaCostura" class="col-sm-3 control-label">Máquina
 											de Costura:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdMaquinaCostura" data-mask="999" min="0"
+											<form:input id="qtdMaquinaCostura" data-mask="999" min="0" value="0" 
 												path="qtdMaquinaCostura" cssClass="form-control"
-												placeholder="0" />
+												/>
 											<div class="error-validation" id="erro-qtdMaquinaCostura">
 												<form:errors path="qtdMaquinaCostura"></form:errors>
 											</div>
@@ -465,9 +467,9 @@
 										<label for="qtdComodosSemBanheiro"
 											class="col-sm-4 control-label">Comodo sem Banheiro:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdComodosSemBanheiro" data-mask="999"
+											<form:input id="qtdComodosSemBanheiro" data-mask="999" value="0" 
 												min="0" path="qtdComodosSemBanheiro" cssClass="form-control"
-												placeholder="0" />
+												 />
 											<div class="error-validation" id="erro-qtdComodosSemBanheiro">
 												<form:errors path="qtdComodosSemBanheiro"></form:errors>
 											</div>
@@ -477,8 +479,8 @@
 									<div class="form-group">
 										<label for="qtdBanheiros" class="col-sm-2 control-label">Banheiros:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdBanheiros" data-mask="999" min="0"
-												path="qtdBanheiros" cssClass="form-control" placeholder="0" />
+											<form:input id="qtdBanheiros" data-mask="999" min="0" value="0" 
+												path="qtdBanheiros" cssClass="form-control"  />
 											<div class="error-validation" id="erro-qtdBanheiros">
 												<form:errors path="qtdBanheiros"></form:errors>
 											</div>
@@ -488,8 +490,8 @@
 											class="col-sm-3 control-label">Empregados Domesticos:</label>
 										<div class="col-sm-1">
 											<form:input id="qtdEmpregadosDomesticos" data-mask="999"
-												min="0" path="qtdEmpregadosDomesticos"
-												cssClass="form-control" placeholder="0" />
+												min="0" value="0" path="qtdEmpregadosDomesticos"
+												cssClass="form-control"  />
 											<div class="error-validation"
 												id="erro-qtdEmpregadosDomesticos">
 												<form:errors path="qtdEmpregadosDomesticos"></form:errors>
@@ -500,9 +502,9 @@
 											class="col-sm-4 control-label">Quantidade de Membros
 											da Familia:</label>
 										<div class="col-sm-1">
-											<form:input id="totalMembrosFamilia" data-mask="999" min="0"
+											<form:input id="totalMembrosFamilia" data-mask="999" min="0" value="0" 
 												path="totalMembrosFamilia" cssClass="form-control"
-												placeholder="0" />
+												/>
 											<div class="error-validation" id="erro-totalMembrosFamilia">
 												<form:errors path="totalMembrosFamilia"></form:errors>
 											</div>
@@ -533,80 +535,10 @@
 								<div class="panel-body">
 									<h3>Horários Disponíves Para Bolsa</h3>
 
-									<div class="form-group">
-										<label for="horariodisponivelBolsaSegunda"
-											class="col-sm-2 control-label">Segunda:</label>
-										<div class="col-sm-3">
-											<form:select path="horariodisponivelBolsa"
-												id="horariodisponivelBolsaSegunda" cssClass="form-control">
-												<form:option value="" label="Selecione Horário" />
-												<form:options items="${horarioDisponivel}" />
-											</form:select>
-											<div class="error-validation"
-												id="erro-horariodisponivelBolsaSegunda">
-												<form:errors path="horariodisponivelBolsa"></form:errors>
-											</div>
-										</div>
-										<label for="horariodisponivelBolsaTerca"
-											class="col-sm-2 control-label">Terça:</label>
-										<div class="col-sm-3">
-											<form:select path="horariodisponivelBolsa"
-												id="horariodisponivelBolsaTerca" cssClass="form-control">
-												<form:option value="" label="Selecione Horário" />
-												<form:options items="${horarioDisponivel}" />
-											</form:select>
-											<div class="error-validation"
-												id="erro-horariodisponivelBolsaTerca">
-												<form:errors path="horariodisponivelBolsa"></form:errors>
-											</div>
-										</div>
+									<div class="panel-body">
+										 <jsp:include page="horarioDisponivel.jsp" /> 
 									</div>
-
-									<div class="form-group">
-										<label for="horariodisponivelBolsaQuarta"
-											class="col-sm-2 control-label">Quarta:</label>
-										<div class="col-sm-3">
-											<form:select path="horariodisponivelBolsa"
-												id="horariodisponivelBolsaQuarta" cssClass="form-control">
-												<form:option value="" label="Selecione Horário" />
-												<form:options items="${horarioDisponivel}" />
-											</form:select>
-											<div class="error-validation"
-												id="erro-horariodisponivelBolsaQuarta">
-												<form:errors path="horariodisponivelBolsa"></form:errors>
-											</div>
-										</div>
-										<label for="horariodisponivelBolsaQuinta"
-											class="col-sm-2 control-label">Quinta:</label>
-										<div class="col-sm-3">
-											<form:select path="horariodisponivelBolsa"
-												id="horariodisponivelBolsaQuinta" cssClass="form-control">
-												<form:option value="" label="Selecione Horário" />
-												<form:options items="${horarioDisponivel}" />
-											</form:select>
-											<div class="error-validation"
-												id="erro-horariodisponivelBolsaQuinta">
-												<form:errors path="horariodisponivelBolsa"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label for="horariodisponivelBolsaSexta"
-											class="col-sm-2 control-label">Sexta:</label>
-										<div class="col-sm-3">
-											<form:select path="horariodisponivelBolsa"
-												id="horariodisponivelBolsaSexta" cssClass="form-control">
-												<form:option value="" label="Selecione Horário" />
-												<form:options items="${horarioDisponivel}" />
-											</form:select>
-											<div class="error-validation"
-												id="erro-horariodisponivelBolsaSexta">
-												<form:errors path="horariodisponivelBolsa"></form:errors>
-											</div>
-										</div>
-									</div>
-
+									
 									<div class="form-group">
 										<label for="justificativaPedido"
 											class="col-sm-2 control-label">Justificativa do

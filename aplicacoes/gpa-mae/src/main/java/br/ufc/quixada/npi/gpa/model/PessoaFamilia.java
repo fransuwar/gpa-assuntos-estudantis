@@ -12,9 +12,27 @@ import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
 
 @Entity
-
 public class PessoaFamilia {
 
+	@ManyToOne
+	private QuestionarioAuxilioMoradia auxilioMoradia;
+
+	@ManyToOne
+	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	
+	private String nome;
+	private int idade;
+	private String escolaridade;
+	private String atividadeProfissao;
+	private double rendaMensal;
+
+	@Enumerated(EnumType.STRING)
+	private GrauParentesco grauParentesco;
+	
 	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
 		return auxilioMoradia;
 	}
@@ -87,26 +105,7 @@ public class PessoaFamilia {
 	public void setGrauParentesco(GrauParentesco grauParentesco) {
 		this.grauParentesco = grauParentesco;
 	}
-	
 
-	@ManyToOne
-	private QuestionarioAuxilioMoradia auxilioMoradia;
-
-	@ManyToOne
-	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-	
-	private String nome;
-	private int idade;
-	private String escolaridade;
-	private String atividadeProfissao;
-	private double rendaMensal;
-
-	@Enumerated(EnumType.STRING)
-	private GrauParentesco grauParentesco;
 
 	@Override
 	public String toString() {
