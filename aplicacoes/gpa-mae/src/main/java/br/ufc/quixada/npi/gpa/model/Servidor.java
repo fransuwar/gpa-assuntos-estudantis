@@ -58,7 +58,7 @@ public class Servidor {
 	@OneToMany(mappedBy="responsavel")
 	private List<SelecaoBolsa> responsavelBancas;
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	private Pessoa pessoa;
 
 	public Pessoa getPessoa() {
