@@ -19,11 +19,8 @@ import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
-
 import br.ufc.quixada.npi.gpa.enums.Turno;
-
 import br.ufc.quixada.npi.gpa.model.Aluno;
-
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
@@ -39,7 +36,7 @@ public class IniciacaoAcademicaController {
 
 	@Inject
 	private AlunoService alunoService;
-
+	
 	@RequestMapping(value = "/inscricao", method = RequestMethod.GET)
 	public String cadastro(Model modelo) {
 
@@ -94,7 +91,6 @@ public class IniciacaoAcademicaController {
 		}
 		
 		
-
 		return "redirect:/selecao/listar";
 	}
 }

@@ -87,14 +87,13 @@ uri="http://www.springframework.org/security/tags"%>
 
 										
 								<sec:authorize access="hasAnyRole('ROLE_ALUNO')">
-										<c:if test="${selecao.tipoBolsa == inic_acad}">
+										<c:if test="${selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
 										<a id="inscrever" href="<c:url value="/iniciacaoAcademica/inscricao" ></c:url>">
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>
 										</c:if>
 										
-										
-										<c:if test="${selecao.tipoBolsa == aux_mor}">
+										<c:if test="${selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
 										<a id="inscrever" href="<c:url value="/auxilio/inscricao/" ></c:url>">
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>

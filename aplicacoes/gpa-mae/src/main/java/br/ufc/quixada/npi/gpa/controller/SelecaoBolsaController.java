@@ -173,7 +173,7 @@ public class SelecaoBolsaController {
 					.addFlashAttribute("erro", "Seleção inexistente.");
 			return "redirect:/selecao/listar";
 		}
-		if (selecao.getStatus().equals(Status.NOVA)) {
+		if (selecao.getStatus().equals(Status.NOVA)) { 
 			this.selecaoService.delete(selecao);
 			redirectAttributes.addFlashAttribute("info",
 					"Seleção excluída com sucesso.");
@@ -191,7 +191,7 @@ public class SelecaoBolsaController {
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
+		
 		return "selecao/listar";
 	}
 
