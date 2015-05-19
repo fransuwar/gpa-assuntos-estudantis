@@ -14,25 +14,37 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
-import br.ufc.quixada.npi.gpa.enums.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"aluno_id"}))
 public class QuestionarioIniciacaoAcademica {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
 	@ManyToOne
 	private SelecaoBolsa selecaoBolsa;
 	
+	@ManyToOne
+	private Aluno aluno;
+
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
 	@NotNull(message = "Campo Obrigatório")
 	private Integer qtdAparelhoSom;
 	@NotNull(message = "Campo Obrigatório")
@@ -81,6 +93,11 @@ public class QuestionarioIniciacaoAcademica {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "iniciacaoacademica_id")
 	private List<PessoaFamilia> pessoas;
+	
+	@Column(nullable = false)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "questionarioiniciacaoacademica_id")
+	private List<HorarioDisponivel> horariosDisponiveisBolsa;
 
 	@NotNull
 	@Size(min = 5, message = "Campo Obrigatório")
@@ -166,9 +183,6 @@ public class QuestionarioIniciacaoAcademica {
 			
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
-
-	@Enumerated(EnumType.STRING)
-	private HorarioDisponivel horariodisponivelBolsa;
 
 	@NotNull
 	@Size(min = 1, message = "Campo Obrigatório")
@@ -594,13 +608,13 @@ public class QuestionarioIniciacaoAcademica {
 		this.rendaTotalFamilia = rendaTotalFamilia;
 	}
 
-	public HorarioDisponivel getHorariodisponivelBolsa() {
-		return horariodisponivelBolsa;
+	public List<HorarioDisponivel> getHorariosDisponiveisBolsa() {
+		return horariosDisponiveisBolsa;
 	}
 
-	public void setHorariodisponivelBolsa(
-			HorarioDisponivel horariodisponivelBolsa) {
-		this.horariodisponivelBolsa = horariodisponivelBolsa;
+	public void setHorariosDisponiveisBolsa(
+			List<HorarioDisponivel> horariosDisponiveisBolsa) {
+		this.horariosDisponiveisBolsa = horariosDisponiveisBolsa;
 	}
 
 	public String getJustificativaPedido() {
@@ -627,51 +641,7 @@ public class QuestionarioIniciacaoAcademica {
 		this.telefoneCelularFamilia = telefoneCelularFamilia;
 	}
 	public String toString() {
-		return "QuestionarioIniciacaoAcademica [id=" + id + ", selecaoBolsa="
-				+ selecaoBolsa + ", pessoas=" + pessoas + ", enderecoAtual="
-				+ enderecoAtual + ", numero=" + numero + ", complemento="
-				+ complemento + ", bairro=" + bairro + ", uf=" + uf + ", cep="
-				+ cep + ", cidade=" + cidade + ", pontoReferencia="
-				+ pontoReferencia + ", telefoneFixo=" + telefoneFixo
-				+ ", telefoneCelular=" + telefoneCelular + ", email=" + email
-				+ ", enderecoFamilia=" + enderecoFamilia + ", numeroFamilia="
-				+ numeroFamilia + ", bairroFamilia=" + bairroFamilia
-				+ ", ufFamilia=" + ufFamilia + ", complementoFamilia="
-				+ complementoFamilia + ", cepFamilia=" + cepFamilia
-				+ ", cidadeFamilia=" + cidadeFamilia
-				+ ", pontoReferenciaFamilia=" + pontoReferenciaFamilia
-				+ ", anosEstudoPrivado=" + anosEstudoPrivado
-				+ ", nivelInstrucaoMae=" + nivelInstrucaoMae
-				+ ", nivelInstrucaoPai=" + nivelInstrucaoPai
-				+ ", resideAtualmente=" + resideAtualmente
-
-				+ ", definicaoLocalAtual=" + definicaoLocalAtual + ", estado="
-				+ estado + ", estadoFamilia=" + estadoFamilia
-				+ ", situacaoResidencia=" + situacaoResidencia
-				+ ", definicaoLocalAtual=" + definicaoLocalAtual
-				+ ", situacaoResidencia=" + situacaoResidencia + ", estado="
-				+ estado + ", estadoFamilia=" + estadoFamilia
-				+ ", qtdAparelhoSom=" + qtdAparelhoSom + ", qtdTelevisao="
-				+ qtdTelevisao + ", qtdRadio=" + qtdRadio + ", qtdAutomovel="
-				+ qtdAutomovel + ", qtdMotocicleta=" + qtdMotocicleta
-				+ ", qtdMaquinaLavar=" + qtdMaquinaLavar
-				+ ", qtdDvdVideocassete=" + qtdDvdVideocassete
-				+ ", qtdGeladeira=" + qtdGeladeira + ", qtdFreezer="
-				+ qtdFreezer + ", qtdTelefoneFixo=" + qtdTelefoneFixo
-				+ ", qtdCelularResidentes=" + qtdCelularResidentes
-				+ ", qtdComputador=" + qtdComputador + ", qtdFogaoGas="
-				+ qtdFogaoGas + ", qtdMaquinaCostura=" + qtdMaquinaCostura
-				+ ", qtdComodosSemBanheiro=" + qtdComodosSemBanheiro
-				+ ", qtdBanheiros=" + qtdBanheiros
-				+ ", qtdEmpregadosDomesticos=" + qtdEmpregadosDomesticos
-				+ ", totalMembrosFamilia=" + totalMembrosFamilia + ", nome="
-				+ nome + ", parentesco=" + parentesco + ", idade=" + idade
-				+ ", atividade=" + atividade + ", renda=" + renda
-				+ ", rendaTotalFamilia=" + rendaTotalFamilia
-				+ ", horariodisponivelBolsa=" + horariodisponivelBolsa
-				+ ", justificativaPedido=" + justificativaPedido
-				+ ", telefoneFixoFamilia=" + telefoneFixoFamilia
-				+ ", telefoneCelularFamilia=" + telefoneCelularFamilia + "]";
+		return "QuestionarioIniciacaoAcademica [id=" + id + "]";
 	}
 
 }

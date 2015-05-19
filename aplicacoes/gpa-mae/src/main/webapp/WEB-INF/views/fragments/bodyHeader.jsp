@@ -72,7 +72,7 @@
 				<sec:authorize access="isAuthenticated()">
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a style="font-weight: bold;">Bem vindo, ${sessionScope.usuario.nome}!</a> 
+						<a style="font-weight: bold;">Bem vindo, ${sessionScope.usuario}!</a> 
 					</li>
 				</ul>
 				</sec:authorize>

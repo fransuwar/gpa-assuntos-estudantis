@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.joda.time.DateTime;
@@ -25,6 +26,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.model.Servidor;
+import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 
@@ -34,6 +36,9 @@ public class SelecaoBolsaController {
 
 	@Inject
 	private ServidorService servidorService;
+	
+	@Inject
+	private DocumentoService documentoService;
 	
 	@Inject
 	private SelecaoBolsaService selecaoService;
@@ -50,11 +55,13 @@ public class SelecaoBolsaController {
 
 		return "selecao/informacoes";
 	}
+	
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvarSelecaoBolsa(
 			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoBolsa, BindingResult result,
-			@RequestParam("files") List<MultipartFile> files, Model model, RedirectAttributes redirect)
+			@RequestParam("files") List<MultipartFile> files, Model model, RedirectAttributes redirect,
+			HttpServletRequest request)
 			throws IOException {
 
 		if (selecaoBolsa.getId() != null) {
@@ -65,13 +72,23 @@ public class SelecaoBolsaController {
 				model.addAttribute("action", "editar");
 				return "selecao/cadastrar";
 			}
-
+		
 			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
 				model.addAttribute("dataError",
 						"Digite um ano maior ou igual ao atual");
 				return ("selecao/cadastrar");
 			}
-
+			
+			String doc[] = request.getParameterValues("doc");
+			
+			if(doc != null){
+				for(int k=0;k<doc.length;k++){
+					Documento d = new Documento();
+					d.setId(Long.parseLong(doc[k]));
+					documentoService.delete(d);
+				}
+			}
+			
 			this.selecaoService.update(selecaoBolsa);
 			redirect.addFlashAttribute("info",
 					"Seleção atualizada com sucesso.");
@@ -83,7 +100,6 @@ public class SelecaoBolsaController {
 
 			return adicionarSelecao(selecaoBolsa, result, files,redirect,
 					model);
-
 		}
 	}
 
@@ -99,7 +115,11 @@ public class SelecaoBolsaController {
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, BindingResult result,
 			@RequestParam("files") List<MultipartFile> files, 
 			RedirectAttributes redirect, Model model) {
-
+		
+		if (selecao == null || selecao.getAno() == null || selecao.getAno() < DateTime.now().getYear()) {
+			result.rejectValue("ano", "selecao.ano", "Digite um ano maior ou igual ao atual");
+		}
+		
 		if (result.hasErrors()) {
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			return ("selecao/cadastrar");
@@ -131,18 +151,11 @@ public class SelecaoBolsaController {
 			return "selecao/cadastrar";
 		}
 		
-		if (selecao.getAno() < DateTime.now().getYear()) {
-			model.addAttribute("dataError",
-					"Digite um ano maior ou igual ao atual");
-			return ("selecao/cadastrar");
-		}
-		
 		if (selecaoService.existsSelecaoEquals(selecao)) {
 			redirect.addFlashAttribute("erro", "Número do edital ou tipo de bolsa já existente");
 			return "redirect:/selecao/listar";
 		}
 		
-		selecao.setStatus(Status.NOVA);
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		return "redirect:/selecao/listar";
@@ -177,7 +190,7 @@ public class SelecaoBolsaController {
 					.addFlashAttribute("erro", "Seleção inexistente.");
 			return "redirect:/selecao/listar";
 		}
-		if (selecao.getStatus().equals(Status.NOVA)) {
+		if (selecao.getStatus().equals(Status.NOVA)) { 
 			this.selecaoService.delete(selecao);
 			redirectAttributes.addFlashAttribute("info",
 					"Seleção excluída com sucesso.");
@@ -190,21 +203,26 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model) {
 		
-		List<SelecaoBolsa> selecoes = this.selecaoService.find(SelecaoBolsa.class);
-
-		selecaoService.atualizaStatusSelecaoBolsa(selecoes);
-
-		model.addAttribute("selecoes", selecoes);
+		List<SelecaoBolsa> selec = this.selecaoService.getSelecaoBolsaComMembros();
+		selecaoService.atualizaStatusSelecaoBolsa(selec);
+		model.addAttribute("selecoes", selec);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
+		
 		return "selecao/listar";
 	}
 
 	@RequestMapping(value = "/{id}/atribuir", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirectAttributes) {
-
+		
+		List<Servidor> servidoresBanca = selecaoService.getSelecaoBolsaComMembros(id).getMembrosBanca();
+		
+		if(!servidoresBanca.isEmpty()){
+			model.addAttribute("m1", servidoresBanca.get(0).getId());
+			model.addAttribute("m2", servidoresBanca.get(1).getId());
+			model.addAttribute("m3", servidoresBanca.get(2).getId());
+		}
 		model.addAttribute("selecao", id);
 		model.addAttribute("servidores", servidorService.find(Servidor.class));
 		return "selecao/atribuir";
@@ -212,37 +230,34 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/atribuir", method = RequestMethod.POST)
 	public String atribuirPareceristaNoProjeto(
-			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
-			@RequestParam("id3") Integer id3, @RequestParam("id") Integer id,
+			@RequestParam("id") Integer id,@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
+			@RequestParam("id3") Integer id3, Model model,
 			RedirectAttributes redirect) {
-
-		if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
-			redirect.addFlashAttribute("erro",
-					"Não é permitida repetição de membros na banca.");
-			return "redirect:/selecao/" + id + "/atribuir";
+		
+		if(id1 == null || id2 == null || id3 == null){
+			model.addAttribute("selecao", id);
+			model.addAttribute("servidores", servidorService.find(Servidor.class));
+			model.addAttribute("erroMembros", "Informe os três membros.");
+			return "selecao/atribuir";
+			
+		} else if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
+			model.addAttribute("selecao", id);
+			model.addAttribute("servidores", servidorService.find(Servidor.class));
+			model.addAttribute("erroMembros", "Não é permitida repetição de membros na banca.");
+			return "selecao/atribuir";
 		} else {
 			SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
-			redirect.addFlashAttribute("selecao", id);
-			redirect.addFlashAttribute("membrosBanca", (selecao.getId()));
 
 			List<Servidor> list = new ArrayList<Servidor>();
-			Servidor servidor = servidorService.find(Servidor.class, id1);
-			servidor.getParticipaBancas().add(selecao);
-			list.add(servidor);
-
-			servidor = servidorService.find(Servidor.class, id2);
-			servidor.getParticipaBancas().add(selecao);
-			list.add(servidor);
-
-			servidor = servidorService.find(Servidor.class, id3);
-			servidor.getParticipaBancas().add(selecao);
-			list.add(servidor);
+			list.add(new Servidor(id1));
+			list.add(new Servidor(id2));
+			list.add(new Servidor(id3));
 
 			selecao.setMembrosBanca(list);
 
 			selecaoService.update(selecao);
 			redirect.addFlashAttribute("info",
-					"O Membro da banca foi atribuído com sucesso.");
+					"Banca formada com sucesso.");
 
 			return "redirect:/selecao/listar";
 		}

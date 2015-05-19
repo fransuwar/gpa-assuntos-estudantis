@@ -11,13 +11,17 @@ public interface SelecaoBolsaService extends GenericService<SelecaoBolsa> {
 	
 	public List<SelecaoBolsa> getSelecaoBolsasAtribuidos();
 
-	public abstract List<SelecaoBolsa> getSelecaoBolsasByUsuario(Long id);
+	public abstract List<SelecaoBolsa> getSelecaoBolsasByUsuario(Integer id);
 	
 	public abstract List<SelecaoBolsa> getSelecaoBolsasAguardandoParecer();
 	
 	public abstract boolean existsSelecaoEquals(SelecaoBolsa selecaoBolsa);
 
 	public abstract SelecaoBolsa getSelecaoBolsaComDocumentos(Integer id);
+
+	public abstract List<SelecaoBolsa> getSelecaoBolsaComMembros();
+
+	public abstract SelecaoBolsa getSelecaoBolsaComMembros(Integer id);
 	
 	public abstract void atualizaStatusSelecaoBolsa(List<SelecaoBolsa> selecoes);
 
