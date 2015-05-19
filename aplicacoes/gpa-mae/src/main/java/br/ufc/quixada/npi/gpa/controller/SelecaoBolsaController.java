@@ -203,9 +203,9 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model) {
 		
-		List<SelecaoBolsa> selec = this.selecaoService.getSelecaoBolsaComMembros();
-		selecaoService.atualizaStatusSelecaoBolsa(selec);
-		model.addAttribute("selecoes", selec);
+		List<SelecaoBolsa> selecoes = this.selecaoService.getSelecaoBolsaComMembros();
+		
+		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 		
