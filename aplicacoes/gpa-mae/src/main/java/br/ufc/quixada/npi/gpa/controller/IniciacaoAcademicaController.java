@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -22,8 +23,10 @@ import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
+import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
+import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
@@ -37,8 +40,11 @@ public class IniciacaoAcademicaController {
 	@Inject
 	private AlunoService alunoService;
 	
-	@RequestMapping(value = "/inscricao", method = RequestMethod.GET)
-	public String cadastro(Model modelo) {
+	@Inject
+	private SelecaoBolsaService selecaoBolsaService;
+	
+	@RequestMapping(value = "/{id}/inscricao", method = RequestMethod.GET)
+	public String cadastro(@PathVariable("id") Integer id, Model modelo) {
 
 		QuestionarioIniciacaoAcademica q = new QuestionarioIniciacaoAcademica();
 		modelo.addAttribute("questionarioIniciacaoAcademica",
@@ -49,14 +55,16 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
+		
+		modelo.addAttribute("selecaoBolsa", id);
 
 		return "inscricao/iniciacaoAcademica";
 	}
 
-	@RequestMapping(value = "/inscricao", method = RequestMethod.POST)
+	@RequestMapping(value = "/{idselecao}/inscricao", method = RequestMethod.POST)
 	public String adicionaIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
-			BindingResult result, @ModelAttribute("id") Integer id,
+			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model modelo) {
 
 		if (result.hasErrors()) {
@@ -67,14 +75,17 @@ public class IniciacaoAcademicaController {
 			modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-
+			modelo.addAttribute("selecaoBolsa", id);
+			
 			return "inscricao/iniciacaoAcademica";
 
 		} else {
 			Aluno aluno = alunoService.getAlunoById(id);
-
 			questionarioIniciacaoAcademica.setAluno(aluno);
-
+			
+			SelecaoBolsa selecao = selecaoBolsaService.getSelecaoBolsaById(idSelecao);
+			questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
+			
 			try {
 				this.iniciacaoAcademicaService
 						.save(questionarioIniciacaoAcademica);
@@ -89,7 +100,6 @@ public class IniciacaoAcademicaController {
 			redirect.addFlashAttribute("info",
 					"Cadastro realizado com sucesso.");
 		}
-		
 		
 		return "redirect:/selecao/listar";
 	}

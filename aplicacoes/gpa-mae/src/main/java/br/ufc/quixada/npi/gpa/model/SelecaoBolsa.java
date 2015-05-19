@@ -35,7 +35,11 @@ import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 				query = "SELECT distinct sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.membrosBanca"),
 				@NamedQuery(
 				name = "SelecaoBolsa.findSelecaoBolsaIdComMembros", 
-				query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId")})
+				query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId"),
+				@NamedQuery(
+				name = "SelecaoBolsa.findSelecao",
+				query = "SELECT s FROM SelecaoBolsa s WHERE s.id = :selecaoBolsaId")
+			})
 
 @Entity
 public class SelecaoBolsa {

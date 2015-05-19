@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -32,8 +33,10 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
+import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
+import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
@@ -43,9 +46,13 @@ public class AuxilioMoradiaController {
 
 	@Inject
 	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
+	
 	@Inject
 	private AlunoService alunoService;
 
+	@Inject
+	private SelecaoBolsaService selecaoBolsaService;
+	
 	@InitBinder
 	protected void initBinder(HttpServletRequest request,
 			ServletRequestDataBinder binder) throws ServletException {
@@ -59,8 +66,8 @@ public class AuxilioMoradiaController {
 
 	}
 
-	@RequestMapping(value = "/inscricao", method = RequestMethod.GET)
-	public String cadastro(Model model) {
+	@RequestMapping(value = "/{id}/inscricao", method = RequestMethod.GET)
+	public String cadastro(@PathVariable("id") Integer id, Model model) {
 
 		model.addAttribute("questionarioAuxilioMoradia",
 				new QuestionarioAuxilioMoradia());
@@ -76,14 +83,15 @@ public class AuxilioMoradiaController {
 		model.addAttribute("grauParentesco", GrauParentesco.toMap());
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 		model.addAttribute("moraCom", MoraCom.toMap());
+		model.addAttribute("selecaoBolsa", id);
 
 		return "inscricao/auxilio";
 	}
 
-	@RequestMapping(value = "/inscricao", method = RequestMethod.POST)
+	@RequestMapping(value = "/{idselecao}/inscricao", method = RequestMethod.POST)
 	public String selecaoAluno(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
-			BindingResult result, @ModelAttribute("id") Integer id,
+			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model model) {
 
 		if (result.hasErrors()) {
@@ -99,13 +107,17 @@ public class AuxilioMoradiaController {
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 			model.addAttribute("moraCom", MoraCom.toMap());
+			model.addAttribute("selecaoBolsa", id);
+			
 			return "inscricao/auxilio";
 			
 		} else {
 
 			Aluno aluno = alunoService.getAlunoById(id);
-
 			questionarioAuxilioMoradia.setAluno(aluno);
+			
+			SelecaoBolsa selecao = selecaoBolsaService.getSelecaoBolsaById(idSelecao);
+			questionarioAuxilioMoradia.setSelecaoBolsa(selecao);
 			
 			try {
 				this.questionarioAuxMoradiaService
