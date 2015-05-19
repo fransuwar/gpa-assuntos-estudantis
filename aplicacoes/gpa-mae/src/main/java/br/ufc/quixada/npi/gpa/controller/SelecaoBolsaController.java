@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
+import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.model.Servidor;
@@ -210,6 +211,15 @@ public class SelecaoBolsaController {
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 		
 		return "selecao/listar";
+	}
+	
+	@RequestMapping(value = "/{id}/inscritos", method = RequestMethod.GET)
+	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
+		
+		List<Aluno> alunosSelecao = this.selecaoService.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
+		model.addAttribute("alunos", alunosSelecao);
+		
+		return "selecao/listarInscritos";
 	}
 
 	@RequestMapping(value = "/{id}/atribuir", method = RequestMethod.GET)
