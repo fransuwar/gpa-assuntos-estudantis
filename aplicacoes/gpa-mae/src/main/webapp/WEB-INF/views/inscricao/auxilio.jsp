@@ -56,7 +56,7 @@
 				<form:form id="questionarioForm" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
-					servletRelativeAction="/auxilio/inscricao/" method="POST"
+					servletRelativeAction="/auxilio/${selecaoBolsa}/inscricao/" method="POST"
 					cssClass="form-horizontal">
 
 					<div class="tab-content">
