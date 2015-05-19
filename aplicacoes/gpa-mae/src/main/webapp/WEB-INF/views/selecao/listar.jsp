@@ -91,7 +91,12 @@ uri="http://www.springframework.org/security/tags"%>
 											</c:otherwise>
 										</c:choose>
 									</a>
-																		
+										
+									<a id="visualizarInscritos" href="<c:url value="/selecao/${selecao.id}/inscritos" ></c:url>">
+										<button class="btn btn-primary">Visualizar Inscritos 
+											<span class="glyphicon glyphicon-user"></span>
+										</button>
+									</a>								
 								</sec:authorize>	
 
 								<sec:authorize access="hasAnyRole('ROLE_ALUNO')">
