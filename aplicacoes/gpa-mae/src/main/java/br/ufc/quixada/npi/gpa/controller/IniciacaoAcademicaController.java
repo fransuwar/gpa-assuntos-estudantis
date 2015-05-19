@@ -62,7 +62,7 @@ public class IniciacaoAcademicaController {
 			BindingResult result, @ModelAttribute("id") Integer id,
 			RedirectAttributes redirect, Model modelo) {
 		
-		if (questionarioIniciacaoAcademica.getAluno().getId() != null) {
+		if (id != null) {
 
 			if (result.hasErrors()) {
 				modelo.addAttribute("action", "editar");
