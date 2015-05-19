@@ -83,7 +83,7 @@ public class IniciacaoAcademicaController {
 			Aluno aluno = alunoService.getAlunoById(id);
 			questionarioIniciacaoAcademica.setAluno(aluno);
 			
-			SelecaoBolsa selecao = selecaoBolsaService.getSelecaoBolsaById(idSelecao);
+			SelecaoBolsa selecao = selecaoBolsaService.find(SelecaoBolsa.class, idSelecao);
 			questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
 			
 			try {

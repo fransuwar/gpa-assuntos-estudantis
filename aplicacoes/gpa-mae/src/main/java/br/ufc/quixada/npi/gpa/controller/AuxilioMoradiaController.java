@@ -116,7 +116,7 @@ public class AuxilioMoradiaController {
 			Aluno aluno = alunoService.getAlunoById(id);
 			questionarioAuxilioMoradia.setAluno(aluno);
 			
-			SelecaoBolsa selecao = selecaoBolsaService.getSelecaoBolsaById(idSelecao);
+			SelecaoBolsa selecao = selecaoBolsaService.find(SelecaoBolsa.class, idSelecao);
 			questionarioAuxilioMoradia.setSelecaoBolsa(selecao);
 			
 			try {
