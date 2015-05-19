@@ -95,4 +95,5 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 	public SelecaoBolsa getSelecaoBolsaById(Integer id) {
 		return (SelecaoBolsa) findFirst("SelecaoBolsa.findSelecao", new SimpleMap<String, Object>("selecaoBolsaId", id));
 	}
+
 }
