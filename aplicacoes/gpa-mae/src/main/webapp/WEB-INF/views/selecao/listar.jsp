@@ -98,6 +98,9 @@ uri="http://www.springframework.org/security/tags"%>
 										
 										
 										<c:if test="${selecao.tipoBolsa == aux_mor}">
+										<a id="editar" href="<c:url value="/auxilio/${sessionScope.id}/editar" ></c:url>">
+											<button class="btn btn-info"> Editar <span class="glyphicon glyphicon-pencil"></span></button>
+										</a>
 										<a id="inscrever" href="<c:url value="/auxilio/inscricao/" ></c:url>">
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>

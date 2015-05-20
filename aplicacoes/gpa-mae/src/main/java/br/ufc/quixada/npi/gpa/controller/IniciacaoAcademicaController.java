@@ -65,7 +65,13 @@ public class IniciacaoAcademicaController {
 		if (id != null) {
 
 			if (result.hasErrors()) {
-				modelo.addAttribute("action", "editar");
+				modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+				modelo.addAttribute("turno", Turno.toMap());
+				modelo.addAttribute("diasUteis", DiasUteis.toMap());
+				modelo.addAttribute("situacaoResidencia",
+						SituacaoResidencia.toMap());
+				modelo.addAttribute("totalEstado", Estado.toMap());
+				modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 				return "inscricao/iniciacaoAcademica";
 			}
 			
@@ -146,7 +152,7 @@ public class IniciacaoAcademicaController {
 			model.addAttribute("action", "editar");
 
 		} else {
-			redirect.addFlashAttribute("erro", "Permissão negada.");
+			redirect.addFlashAttribute("erro", "Só pode editar sua inscrição enquanto a seleção estiver aberta.");
 			return "redirect:/selecao/listar";
 		}
 
