@@ -8,64 +8,77 @@
 
 <html>
 <head>
-	<jsp:include page="../fragments/bodyHeader.jsp" />
+	<jsp:include page="../fragments/headTag.jsp" />
 	<title>Atribuir Parecerista</title>
 </head>
 
 <body>
-	<jsp:include page="../fragments/headTag.jsp" />
-<ol class="breadcrumb">
+	<jsp:include page="../fragments/bodyHeader.jsp" />
+	<ol class="breadcrumb">
       <li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
       <li class="active">Atribuir Membro Banca</li>
     </ol>
 	<div class="container">
-		<c:if test="${not empty erro}">
-			<div class="alert alert-danger alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<c:out value="${erro}"></c:out>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h2>Atribuir Membro Banca</h2>
 			</div>
-		</c:if>
-		<div class="atribuirBanca" align="center">
-			<div class="form" align="center">
-				<h2>Atribuir Membros da Banca</h2>
-				
-
-				<form:form id="adicionarBancaForm" role="form" commandName="atribuir" servletRelativeAction="/selecao/atribuir" method="POST" cssClass="form-horizontal">
-						<input type="hidden" name="id" value="${selecao}">
-					<div class="form-group">
-						<label for="servidor" class="col-sm-2 control-label">Parecerista:</label>
-						<div class="col-sm-4">
-							<select name="id1" class="form-control">
-								<c:forEach items="${servidores}" var="servidor">
-									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
-								</c:forEach>
-							</select>
-							<label for="servidor" class="col-sm-2 control-label">Parecerista:</label>
-							<select name="id2" class="form-control">
-								<c:forEach items="${servidores}" var="servidor">
-									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
-								</c:forEach>
-							</select>
-							<label for="servidor" class="col-sm-2 control-label">Parecerista:</label>
-							<select name="id3" class="form-control">
-								<c:forEach items="${servidores}" var="servidor">
-									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
-								</c:forEach>
-							</select>
+			<div class="panel-body">
+				<form:form id="adicionarBancaForm" role="form" commandName="selecao" servletRelativeAction="/selecao/atribuir" method="POST" cssClass="form-horizontal">
+					<input type="hidden" name="id" value="${selecao}">
 					
+					<div class="form-group">
+						<label class="col-sm-1 control-label">Membro:</label>
+						<div class="col-sm-4">
+							<form:select path="" cssClass="form-control" name="id1">
+								<option value="">Selecione o primeiro membro</option>
+								<c:forEach var="servidor" items="${servidores}">
+									<option value="${servidor.id}" ${servidor.id == m1 ? 'selected="selected"' : ''}>${servidor.pessoa.nome}</option>	 
+								</c:forEach>
+							</form:select>	
 						</div>
 					</div>
-					
-					
-			
-						<div class="controls">
-						<input name="submit" type="submit" class="btn btn-primary" value="Atribuir" />
-						<a href="<c:url value="/selecao/listar"></c:url>" class="btn btn-default">Cancelar</a>
+					<div class="form-group">
+						<label class="col-sm-1 control-label">Membro:</label>
+						<div class="col-sm-4">
+						<form:select path="" cssClass="form-control" name="id2">
+							<option value="">Selecione o segundo membro</option>
+								<c:forEach var="servidor" items="${servidores}">
+									<option value="${servidor.id}" ${servidor.id == m2 ? 'selected="selected"' : ''}>${servidor.pessoa.nome}</option>	 
+								</c:forEach>
+							</form:select>
+						</div>
 					</div>
-			</form:form>
+					<div class="form-group">
+						<label class="col-sm-1 control-label">Membro:</label>
+						<div class="col-sm-4">
+							<form:select path="" cssClass="form-control" name="id3">
+								<option value="">Selecione o terceiro membro</option>	
+								<c:forEach var="servidor" items="${servidores}">
+									<option value="${servidor.id}" ${servidor.id == m3 ? 'selected="selected"' : ''}>${servidor.pessoa.nome}</option>	 
+								</c:forEach>
+							</form:select>
+						</div>
+					</div>
+					<div class="error-validation" id="erro-membros">
+						<label class="col-sm-4 control-label" id="label-erro">
+							${erroMembros}
+						</label>
+						<form:errors path=""></form:errors>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-2" id="div-form-btn">
+							<input name="submit" type="submit" class="btn btn-primary"
+								value="Adicionar Membros" id="form-btn" />
+						</div>
+						<div class="col-sm-2" id="div-form-btn">
+							<a href="<c:url value="/selecao/listar"></c:url>"
+								class="btn btn-default" id="form-btn">Cancelar</a>
+						</div>
+					</div>
+				</form:form>
 			</div>
-
-		</div>
+		</div>	
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>

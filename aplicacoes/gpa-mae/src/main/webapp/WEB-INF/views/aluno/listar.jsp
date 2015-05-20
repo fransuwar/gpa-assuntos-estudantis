@@ -109,7 +109,7 @@
 												<td>${aluno.id}</td>
 												<td>${aluno.matricula}</td>
 												<td>${aluno.ira}</td>
-												<td>${aluno.curso}</td>
+												<td>${aluno.curso.nome}</td>
 
 												<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 													<td><a id="editar"

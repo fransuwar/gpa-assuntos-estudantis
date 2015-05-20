@@ -56,7 +56,11 @@
 				<form:form id="questionarioForm" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
+<<<<<<< HEAD
 					servletRelativeAction="/auxilio/salvar" method="POST"
+=======
+					servletRelativeAction="/auxilio/${selecaoBolsa}/inscricao/" method="POST"
+>>>>>>> 0a3bf28d1968b7ee10969de23ec49ffe2d5f5f0e
 					cssClass="form-horizontal">
 					<input type="hidden" name="id" value="${sessionScope.id}" />
 					<div class="tab-content">

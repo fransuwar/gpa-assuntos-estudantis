@@ -78,30 +78,53 @@ uri="http://www.springframework.org/security/tags"%>
 
 								<sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
 									<a id="atribuirBanca" href="<c:url value="/selecao/${selecao.id}/atribuir" ></c:url>">
-										<button class="btn btn-primary">Atribuir Membro à Banca 
-										<span class="glyphicon glyphicon-user"></span>
-										</button>
+										<c:choose>
+											<c:when test="${empty selecao.membrosBanca}">
+												<button class="btn btn-primary">Atribuir Membro à Banca 
+												<span class="glyphicon glyphicon-user"></span>
+												</button>
+											</c:when>
+											<c:otherwise>
+												<button class="btn btn-primary">Editar Membros da Banca 
+												<span class="glyphicon glyphicon-user"></span>
+												</button>
+											</c:otherwise>
+										</c:choose>
 									</a>
+										
+									<a id="visualizarInscritos" href="<c:url value="/selecao/${selecao.id}/inscritos" ></c:url>">
+										<button class="btn btn-primary">Visualizar Inscritos 
+											<span class="glyphicon glyphicon-user"></span>
+										</button>
+									</a>								
 								</sec:authorize>	
 
-
-										
 								<sec:authorize access="hasAnyRole('ROLE_ALUNO')">
+<<<<<<< HEAD
 										<c:if test="${selecao.tipoBolsa == inic_acad}">
 										<a id="editar" href="<c:url value="/iniciacaoAcademica/${sessionScope.id}/editar" ></c:url>">
 											<button class="btn btn-info"> Editar <span class="glyphicon glyphicon-pencil"></span></button>
 										</a>
 										<a id="inscrever" href="<c:url value="/iniciacaoAcademica/inscricao" ></c:url>">
+=======
+										<c:if test="${selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
+										<a id="inscrever" href="<c:url value="/iniciacaoAcademica/${selecao.id}/inscricao" ></c:url>">
+>>>>>>> 0a3bf28d1968b7ee10969de23ec49ffe2d5f5f0e
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>
 										</c:if>
 										
+<<<<<<< HEAD
 										
 										<c:if test="${selecao.tipoBolsa == aux_mor}">
 										<a id="editar" href="<c:url value="/auxilio/${sessionScope.id}/editar" ></c:url>">
 											<button class="btn btn-info"> Editar <span class="glyphicon glyphicon-pencil"></span></button>
 										</a>
 										<a id="inscrever" href="<c:url value="/auxilio/inscricao/" ></c:url>">
+=======
+										<c:if test="${selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
+										<a id="inscrever" href="<c:url value="/auxilio/${selecao.id}/inscricao/" ></c:url>">
+>>>>>>> 0a3bf28d1968b7ee10969de23ec49ffe2d5f5f0e
 											<button class=" btn btn-success">inscrever-se <span class="glyphicon glyphicon-user"></span></button>
 										</a>
 										</c:if>

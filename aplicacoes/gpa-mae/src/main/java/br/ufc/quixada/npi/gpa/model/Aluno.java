@@ -3,6 +3,8 @@ package br.ufc.quixada.npi.gpa.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +21,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import br.ufc.quixada.npi.gpa.enums.Banco;
+import br.ufc.quixada.npi.gpa.enums.Curso;
 
 @NamedQueries({ @NamedQuery(name = "Aluno.findAlunoByMatricula", 
 								query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
@@ -44,8 +49,9 @@ public class Aluno {
 	@OneToMany(mappedBy = "aluno")
 	private List<QuestionarioIniciacaoAcademica> iniciacaoAcademica;
 
-	@NotEmpty(message = "Campo obrigatório")
-	private String curso;
+	@NotNull(message="Campo obrigatório")
+	@Enumerated(EnumType.STRING)
+	private Curso curso;
 
 	private String nome;
 
@@ -57,8 +63,9 @@ public class Aluno {
 	@Max(value = 10, message = "IRA deve ter valor máximo 10")
 	private double ira;
 
-	@NotEmpty(message = "Campo obrigatório")
-	private String banco;
+	@NotNull(message="Campo obrigatório")
+	@Enumerated(EnumType.STRING)
+	private Banco banco;
 
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 10, message = "Agencia de possuir no máximo 10 dígitos")
@@ -139,19 +146,19 @@ public class Aluno {
 		this.ira = ira;
 	}
 
-	public String getCurso() {
+	public Curso getCurso() {
 		return curso;
 	}
 
-	public void setCurso(String curso) {
+	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
 
-	public String getBanco() {
+	public Banco getBanco() {
 		return banco;
 	}
 
-	public void setBanco(String banco) {
+	public void setBanco(Banco banco) {
 		this.banco = banco;
 	}
 
