@@ -92,14 +92,15 @@ public class AuxilioMoradiaController {
 
 		return "inscricao/auxilio";
 	}
-
-	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
-	public String salvar(
+	
+	@RequestMapping(value = "/{idselecao}/inscricao", method = RequestMethod.POST)
+	public String selecaoAluno(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
 			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model model) {
-		
+
 		if (id != null) {
+			
 			if (result.hasErrors()) {
 				model.addAttribute("estado", Estado.toMap());
 				model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
@@ -121,19 +122,8 @@ public class AuxilioMoradiaController {
 			redirect.addFlashAttribute("info",
 					"Inscrição atualizada com sucesso.");
 			return "redirect:/selecao/listar";
-		} else {
-			model.addAttribute("action", "inscricao");
-			return selecaoAluno(questionarioAuxilioMoradia, result, id, idSelecao, redirect, model);
-		}	
-	}
-
-	@RequestMapping(value = "/{idselecao}/inscricao", method = RequestMethod.POST)
-	public String selecaoAluno(
-			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
-			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
-			RedirectAttributes redirect, Model model) {
-
-		if (result.hasErrors()) {
+			
+		} else if (result.hasErrors()) {
 			model.addAttribute("estado", Estado.toMap());
 			model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
 			model.addAttribute("tipoEnsinoFundamental",
