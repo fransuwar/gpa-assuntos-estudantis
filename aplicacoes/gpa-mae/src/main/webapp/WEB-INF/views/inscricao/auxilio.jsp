@@ -58,7 +58,7 @@
 					commandName="questionarioAuxilioMoradia"
 					servletRelativeAction="/auxilio/${selecaoBolsa}/inscricao/" method="POST"
 					cssClass="form-horizontal">
-
+					<input type="hidden" name="id" value="${sessionScope.id}" />
 					<div class="tab-content">
 
 						<div class="tab-pane active" id="moradia-tab">
