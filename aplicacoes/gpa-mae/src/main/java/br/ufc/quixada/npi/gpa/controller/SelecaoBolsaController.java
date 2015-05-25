@@ -99,6 +99,15 @@ public class SelecaoBolsaController {
 			String doc[] = request.getParameterValues("doc");
 
 			if(doc != null){
+				
+				if(selecaoService.getSelecaoBolsaComDocumentos(selecaoBolsa.getId()).getDocumentos().size() == doc.length 
+						&& (files.isEmpty() || files.get(0).getSize()<=0)){
+					model.addAttribute("action", "editar");
+					redirect.addFlashAttribute("erro",
+							"Não foi possível excluir seu(s) anexo(s), pois não é possível salvar a seleção sem nenhum anexo.");
+					return "redirect:/selecao/"+selecaoBolsa.getId()+"/editar";
+				}
+				
 				for(int k=0;k<doc.length;k++){
 					Documento d = new Documento();
 					d.setId(Long.parseLong(doc[k]));
