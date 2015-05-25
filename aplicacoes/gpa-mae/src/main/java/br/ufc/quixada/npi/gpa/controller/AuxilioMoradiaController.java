@@ -15,25 +15,33 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.ufc.quixada.npi.gpa.enums.DiaUtil;
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
 import br.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
 import br.ufc.quixada.npi.gpa.enums.MoraCom;
+import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
+import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
+import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
+import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
+import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
+import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
@@ -43,9 +51,13 @@ public class AuxilioMoradiaController {
 
 	@Inject
 	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
+	
 	@Inject
 	private AlunoService alunoService;
 
+	@Inject
+	private SelecaoBolsaService selecaoBolsaService;
+	
 	@InitBinder
 	protected void initBinder(HttpServletRequest request,
 			ServletRequestDataBinder binder) throws ServletException {
@@ -59,8 +71,8 @@ public class AuxilioMoradiaController {
 
 	}
 
-	@RequestMapping(value = "/inscricao", method = RequestMethod.GET)
-	public String cadastro(Model model) {
+	@RequestMapping(value = "/{id}/inscricao", method = RequestMethod.GET)
+	public String cadastro(@PathVariable("id") Integer id, Model model) {
 
 		model.addAttribute("questionarioAuxilioMoradia",
 				new QuestionarioAuxilioMoradia());
@@ -76,17 +88,42 @@ public class AuxilioMoradiaController {
 		model.addAttribute("grauParentesco", GrauParentesco.toMap());
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 		model.addAttribute("moraCom", MoraCom.toMap());
+		model.addAttribute("selecaoBolsa", id);
 
 		return "inscricao/auxilio";
 	}
-
-	@RequestMapping(value = "/inscricao", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/{idselecao}/inscricao", method = RequestMethod.POST)
 	public String selecaoAluno(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
-			BindingResult result, @ModelAttribute("id") Integer id,
+			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model model) {
 
-		if (result.hasErrors()) {
+		if (id != null) {
+			
+			if (result.hasErrors()) {
+				model.addAttribute("estado", Estado.toMap());
+				model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
+				model.addAttribute("tipoEnsinoFundamental",
+						TipoEnsinoFundamental.toMap());
+				model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.toMap());
+				model.addAttribute("grauParentescoImovelRural",
+						GrauParentescoImovelRural.toMap());
+				model.addAttribute("grauParentescoVeiculos",
+						GrauParentescoVeiculos.toMap());
+				model.addAttribute("grauParentesco", GrauParentesco.toMap());
+				model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
+				model.addAttribute("moraCom", MoraCom.toMap());
+				model.addAttribute("action", "editar");
+				return "inscricao/auxilio";
+			}
+			
+			this.questionarioAuxMoradiaService.update(questionarioAuxilioMoradia);
+			redirect.addFlashAttribute("info",
+					"Inscrição atualizada com sucesso.");
+			return "redirect:/selecao/listar";
+			
+		} else if (result.hasErrors()) {
 			model.addAttribute("estado", Estado.toMap());
 			model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
 			model.addAttribute("tipoEnsinoFundamental",
@@ -99,14 +136,18 @@ public class AuxilioMoradiaController {
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 			model.addAttribute("moraCom", MoraCom.toMap());
-			return "inscricao/auxilio";
+			model.addAttribute("selecaoBolsa", id);
 			
+			return "inscricao/auxilio";
+
 		} else {
 
 			Aluno aluno = alunoService.getAlunoById(id);
-
 			questionarioAuxilioMoradia.setAluno(aluno);
 			
+			SelecaoBolsa selecao = selecaoBolsaService.find(SelecaoBolsa.class, idSelecao);
+			questionarioAuxilioMoradia.setSelecaoBolsa(selecao);
+
 			try {
 				this.questionarioAuxMoradiaService
 						.save(questionarioAuxilioMoradia);
@@ -124,6 +165,36 @@ public class AuxilioMoradiaController {
 		}
 		return "redirect:/selecao/listar";
 
+	}
+
+	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
+	public String editar(@PathVariable("id") Integer id,
+			RedirectAttributes redirect, Model model) {
+
+		QuestionarioAuxilioMoradia q = questionarioAuxMoradiaService
+				.getQuestAuxMorById(id);
+
+		SelecaoBolsa selecao = q.getSelecaoBolsa();
+
+		if (q.getSelecaoBolsa().getStatus() != null
+				&& q.getSelecaoBolsa().getStatus().equals(Status.INSC_ABERTA)) {
+
+			model.addAttribute("questionarioAuxilioMoradia", q);
+			model.addAttribute("selecao", selecao);
+			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+			model.addAttribute("turno", Turno.toMap());
+			model.addAttribute("diasUteis", DiaUtil.toMap());
+			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
+			model.addAttribute("totalEstado", Estado.toMap());
+			model.addAttribute("grauParentesco", GrauParentesco.toMap());
+			model.addAttribute("action", "editar");
+
+		} else {
+			redirect.addFlashAttribute("erro", "Permissão negada.");
+			return "redirect:/selecao/listar";
+		}
+
+		return "inscricao/auxilio";
 	}
 
 }

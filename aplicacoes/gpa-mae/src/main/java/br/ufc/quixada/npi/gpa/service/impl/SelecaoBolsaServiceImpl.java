@@ -71,22 +71,11 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 	public SelecaoBolsa getSelecaoBolsaComMembros(Integer id) {
 		return (SelecaoBolsa) findFirst("SelecaoBolsa.findSelecaoBolsaIdComMembros", new SimpleMap<String, Object>("selecaoBolsaId", id));
 	}
-	
+
 	@Override
 	@Transactional
-	public void atualizaStatusSelecaoBolsa(List<SelecaoBolsa> selecoes) {
-		for(SelecaoBolsa selecao:selecoes){
-			DateTime dataTermino = new DateTime(selecao.getDataTermino());
-			DateTime dataInicio = new DateTime(selecao.getDataInicio());
-			if( (dataInicio.isBeforeNow() || dataInicio.isEqualNow()) 
-				&& selecao.getStatus().equals(Status.NOVA)){
-				selecao.setStatus(Status.INSC_ABERTA);
-				this.update(selecao);
-			}else if( (dataTermino.isBeforeNow() || dataTermino.isEqualNow() )
-					  && selecao.getStatus().equals(Status.INSC_ABERTA)){
-				selecao.setStatus(Status.PROC_SELETIVO);
-				this.update(selecao);
-			}
-		}
+	public SelecaoBolsa getSelecaoBolsaComAlunos(Integer id) {
+		return (SelecaoBolsa) findFirst("SelecaoBolsa.findSelecaoBolsaIdComAlunos", new SimpleMap<String, Object>("selecaoBolsaId", id));
 	}
+	
 }

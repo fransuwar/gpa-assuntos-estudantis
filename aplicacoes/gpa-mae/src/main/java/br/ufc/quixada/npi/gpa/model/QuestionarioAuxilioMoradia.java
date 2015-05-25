@@ -1,6 +1,5 @@
 package br.ufc.quixada.npi.gpa.model;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -31,18 +32,20 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"aluno_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "aluno_id" }))
+@NamedQueries({ @NamedQuery(name = "AuxMor.findAuxMorById", query = "SELECT am FROM QuestionarioAuxilioMoradia am WHERE am.aluno.id = :idAluno") })
 public class QuestionarioAuxilioMoradia {
 
-	public QuestionarioAuxilioMoradia(){}
+	public QuestionarioAuxilioMoradia() {
+	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)  
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@ManyToOne
 	private SelecaoBolsa selecaoBolsa;
-	
+
 	@ManyToOne
 	private Aluno aluno;
 
@@ -56,10 +59,9 @@ public class QuestionarioAuxilioMoradia {
 
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name= "auxiliomoradia_id")
+	@JoinColumn(name = "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
-	
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	@ElementCollection(targetClass = MoraCom.class)
@@ -67,59 +69,59 @@ public class QuestionarioAuxilioMoradia {
 
 	@NotEmpty(message = "Campo obrigatório")
 	private String nomeMae;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String nomePai;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String ruaSedeCurso;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	private Integer numeroSedeCurso;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String bairroSedeCurso;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String ruaOrigem;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	private Integer numeroOrigem;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String bairroOrigem;
-	
+
 	private String complementoOrigem;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String cidadeOrigem;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String cepOrigem;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String pontoReferenciaOrigem;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String telefoneOrigem;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Estado estadoOrigem;
-	
+
 	private Date dataInscricao;
 
 	@Enumerated(EnumType.STRING)
 	private SituacaoImovel situacaoImovel;
-	
+
 	private double valorMensalFinanciamento;
-	
+
 	@Enumerated(EnumType.STRING)
 	private GrauParentescoImovelRural grauParentescoImovelRural;
-	
+
 	private double areaPropriedadeRural;
-	
+
 	private String cidadePropriedadeRural;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Estado estadoPropriedadeRural;
 
@@ -127,52 +129,52 @@ public class QuestionarioAuxilioMoradia {
 	private GrauParentescoVeiculos grauParentescoVeiculos;
 
 	private String tipoVeiculo;
-	
+
 	private String marcaVeiculo;
-	
+
 	private String modeloVeiculo;
-	
+
 	private String anoVeiculo;
 
 	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidadeVeiculo;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoFundamental ensinoFundamental;
-	
+
 	private Integer percentualParticularFundamental;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoMedio ensinoMedio;
-	
+
 	private Integer percentualParticularMedio;
 
 	@NotNull(message = "Campo obrigatório")
 	private boolean cursinho;
-	
+
 	private String nomeCursinho;
 
 	@NotNull(message = "Campo obrigatório")
 	private double rendaMediaFamilia;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	private double rendaMediaPessoa;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	private boolean bolsista;
-	
+
 	private String tipoBolsa;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	private boolean possuiGraduacao;
-	
+
 	private String descricaoGraduacao;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String justificativa;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -533,16 +535,15 @@ public class QuestionarioAuxilioMoradia {
 		return "QuestionarioAuxilioMoradia [id=" + id + ", selecaoBolsa="
 				+ selecaoBolsa + ", pessoas=" + pessoas + ", moraCom="
 				+ moraCom + ", nomeMae=" + nomeMae + ", nomePai=" + nomePai
-				+ ", enderecoSedeCurso=" + ruaSedeCurso
-				+ ", numeroSedeCurso=" + numeroSedeCurso + ", bairroSedeCurso="
-				+ bairroSedeCurso + ", ruaOrigem=" + ruaOrigem
-				+ ", numeroOrigem=" + numeroOrigem + ", bairroOrigem="
-				+ bairroOrigem + ", complementoOrigem=" + complementoOrigem
-				+ ", cidadeOrigem=" + cidadeOrigem + ", cepOrigem=" + cepOrigem
-				+ ", pontoReferenciaOrigem=" + pontoReferenciaOrigem
-				+ ", telefoneOrigem=" + telefoneOrigem + ", estadoOrigem="
-				+ estadoOrigem + ", dataInscricao=" + dataInscricao
-				+ ", situacaoImovel=" + situacaoImovel
+				+ ", enderecoSedeCurso=" + ruaSedeCurso + ", numeroSedeCurso="
+				+ numeroSedeCurso + ", bairroSedeCurso=" + bairroSedeCurso
+				+ ", ruaOrigem=" + ruaOrigem + ", numeroOrigem=" + numeroOrigem
+				+ ", bairroOrigem=" + bairroOrigem + ", complementoOrigem="
+				+ complementoOrigem + ", cidadeOrigem=" + cidadeOrigem
+				+ ", cepOrigem=" + cepOrigem + ", pontoReferenciaOrigem="
+				+ pontoReferenciaOrigem + ", telefoneOrigem=" + telefoneOrigem
+				+ ", estadoOrigem=" + estadoOrigem + ", dataInscricao="
+				+ dataInscricao + ", situacaoImovel=" + situacaoImovel
 				+ ", valorMensalFinanciamento=" + valorMensalFinanciamento
 				+ ", grauParentescoImovelRural=" + grauParentescoImovelRural
 				+ ", areaPropriedadeRural=" + areaPropriedadeRural
@@ -564,5 +565,5 @@ public class QuestionarioAuxilioMoradia {
 				+ ", descricaoGraduacao=" + descricaoGraduacao
 				+ ", justificativa=" + justificativa + "]";
 	}
-	
+
 }
