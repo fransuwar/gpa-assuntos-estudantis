@@ -28,6 +28,24 @@
 
 	</ol>
 	<div class="container">
+		<c:if test="${not empty erro}">
+			<div class="alert alert-danger alert-dismissible" role="alert"
+				id="alert-erro">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<c:out value="${erro}"></c:out>
+			</div>
+		</c:if>
+		<c:if test="${not empty info}">
+			<div class="alert alert-success alert-dismissible" role="alert"
+				id="alert-info">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<c:out value="${info}"></c:out>
+			</div>
+		</c:if>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<c:choose>
@@ -157,7 +175,10 @@
 								<tbody class="files">
 									<c:forEach items="${selecao.documentos}" var="documento">
 										<tr class="template-upload fade in" id="row-${documento.id}">
-											<td>${documento.nome}<strong class="error text-danger"></strong></td>
+											<td>
+												<a href="<c:url value="/selecao/${documento.id}/downloadDocumento"></c:url>">${documento.nome}</a>
+												<strong class="error text-danger"></strong>
+											</td>
 											<td><a onclick="removerDocumento(${documento.id});"
 												   class="delete-document">
 													<button type="button" class="btn btn-danger">
