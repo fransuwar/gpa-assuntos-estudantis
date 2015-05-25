@@ -35,9 +35,12 @@
 			<tr>
 				<td class="head" valign="top">Arquivos:</td>
 				<c:forEach var="documento" items="${selecao.documentos}">
+					<br>
 					<!-- <a href="<c:url value="/documento/${documento.id}"></c:url>">${documento.nomeOriginal}</a>-->
-					<td class="content"><a
-						href="<c:url value="/documento/${documento.id}"></c:url>">${documento.nomeOriginal}</a></td>
+					<sec:authorize access="isAnonymous()">
+						<td class="content"><a 
+							href="<c:url value="/selecao/${documento.id}/downloadDocumento"></c:url>">${documento.nome}</a></td>
+					</sec:authorize>
 				</c:forEach>
 			</tr>
 		</div>
