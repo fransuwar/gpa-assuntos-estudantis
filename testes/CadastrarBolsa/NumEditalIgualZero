@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>AnoAnteriorAoAtual</title>
+<title>NumEditalIgualZero</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">AnoAnteriorAoAtual</td></tr>
+<tr><td rowspan="1" colspan="3">NumEditalIgualZero</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -44,7 +44,7 @@
 <tr>
 	<td>type</td>
 	<td>id=sequencial</td>
-	<td>0100</td>
+	<td>0</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -54,37 +54,37 @@
 <tr>
 	<td>type</td>
 	<td>id=dataInicio</td>
-	<td>30/05/2015</td>
+	<td>15/06/2015</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=dataTermino</td>
-	<td>10/06/2015</td>
+	<td>04/06/2015</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=ano</td>
-	<td>2013</td>
+	<td>2016</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=quantidadeVagas</td>
-	<td>10</td>
+	<td>5</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=duracao</td>
-	<td>03</td>
+	<td>1</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=comentarios</td>
-	<td>okjkj</td>
+	<td>ok</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=files</td>
-	<td>/home/ingrid.carneiro/Documentos/ComprovanteMatricula-IngridCarneiro.pdf</td>
+	<td>/home/ingrid.carneiro/Documentos/Novo.java</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -93,19 +93,20 @@
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>id=ano.errors</td>
+	<td>css=label.col-sm-2.control-label</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>id=ano.errors</td>
-	<td>*Digite um ano maior ou igual ao atual*</td>
+	<td>css=label.col-sm-2.control-label</td>
+	<td>*Numero do edital deve ser maior ou igual a 1*</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Sair</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>
