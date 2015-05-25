@@ -30,7 +30,7 @@ uri="http://www.springframework.org/security/tags"%>
 			</div>
 		</c:if>
 		
-		<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDENADOR')">
+		<sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
 		<div align="right" style="margin-bottom: 20px;">
 			<a href="<c:url value="/selecao/cadastrar" ></c:url>">
 				<button class="btn btn-primary">Nova seleção <span class="glyphicon glyphicon-plus"></span></button>
@@ -66,7 +66,7 @@ uri="http://www.springframework.org/security/tags"%>
 								<td>${selecao.status.nome}</td>
 								
 								<td>												
-								<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDENADOR')">
+								<sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
 									<a id="editar" href="<c:url value="/selecao/${selecao.id}/editar" ></c:url>">
 										<button class="btn btn-info"> Editar <span class="glyphicon glyphicon-pencil"></span></button>
 									</a>
@@ -74,9 +74,6 @@ uri="http://www.springframework.org/security/tags"%>
 									<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#" data-href="<c:url value="/selecao/${selecao.id}/excluir" ></c:url>">
 										<button class="btn btn-danger">Excluir <span class="glyphicon glyphicon-trash"></span></button>
 									</a>
-								</sec:authorize>
-
-								<sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
 									<a id="atribuirBanca" href="<c:url value="/selecao/${selecao.id}/atribuir" ></c:url>">
 										<c:choose>
 											<c:when test="${empty selecao.membrosBanca}">
@@ -112,7 +109,15 @@ uri="http://www.springframework.org/security/tags"%>
 										</a>
 										</c:if>
 								</sec:authorize>
-								
+								<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+									<c:if test="${avaliar}">
+										<a id="avaliarSelecao" href="<c:url value="" ></c:url>">
+											<button class="btn btn-primary">Avaliar Inscritos
+												<span class="glyphicon glyphicon-user"></span>
+											</button>
+										</a>
+									</c:if>
+								</sec:authorize>
 								<sec:authorize access="isAnonymous()">
 										
 										<a id="informacoes" href="<c:url value="/selecao/${selecao.id}/informacoes"></c:url>">
