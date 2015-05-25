@@ -45,8 +45,10 @@
 				    onsubmit="return validaHorariosDisponiveisBolsa();"
 					commandName="questionarioIniciacaoAcademica"
 					modelAttribute="questionarioIniciacaoAcademica"
-					servletRelativeAction="/iniciacaoAcademica/inscricao/"
+					servletRelativeAction="/iniciacaoAcademica/${selecaoBolsa}/inscricao/"
 					method="POST" cssClass="form-horizontal">
+					<input type="hidden" name="id" value="${sessionScope.id}" />
+					
 					<div class="tab-content">
 						<div class="tab-pane active" id="moradia-tab">
 

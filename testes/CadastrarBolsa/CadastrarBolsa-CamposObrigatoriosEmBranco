@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>DataTerminoInvalida</title>
+<title>Cadastro Bolsa - Campos Obrigatorios em Branco</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">DataTerminoInvalida</td></tr>
+<tr><td rowspan="1" colspan="3">Cadastro Bolsa - Campos Obrigatorios em Branco</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -42,24 +42,9 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=sequencial</td>
-	<td>010</td>
-</tr>
-<tr>
 	<td>select</td>
 	<td>id=tipoBolsa</td>
-	<td>label=Iniciação Acadêmica</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=dataInicio</td>
-	<td>10/05/2015</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=dataTermino</td>
-	<td>100/06/2015</td>
+	<td>label=Auxilio Moradia</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -67,24 +52,59 @@
 	<td>2016</td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=quantidadeVagas</td>
-	<td>10</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=duracao</td>
-	<td>03</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=comentarios</td>
-	<td>okjkj</td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
 	<td>id=form-btn</td>
 	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=sequencial.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=dataInicio.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=dataTermino.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=quantidadeVagas.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=duracao.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=dataInicio.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=dataTermino.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=duracao.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=sequencial.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=quantidadeVagas.errors</td>
+	<td>*Campo obrigatório*</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>

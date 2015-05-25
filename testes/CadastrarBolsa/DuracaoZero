@@ -4,16 +4,41 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>Cancelar Cadastro bolsa</title>
+<title>Duraçao0</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Cancelar Cadastro bolsa</td></tr>
+<tr><td rowspan="1" colspan="3">Duraçao0</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
 	<td>/MAE/selecao/listar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>coord</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>null</td>
 	<td></td>
 </tr>
 <tr>
@@ -24,22 +49,22 @@
 <tr>
 	<td>type</td>
 	<td>id=sequencial</td>
-	<td>02</td>
+	<td>05</td>
 </tr>
 <tr>
 	<td>select</td>
 	<td>id=tipoBolsa</td>
-	<td>label=Auxilio Moradia</td>
+	<td>label=Iniciação Acadêmica</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=dataInicio</td>
-	<td>02/02/2016</td>
+	<td>15/05/2015</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=dataTermino</td>
-	<td>20/02/2016</td>
+	<td>04/06/2015</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -48,12 +73,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=quantidadeVagas</td>
-	<td>01</td>
+	<td>id=duracao</td>
+	<td>0</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=duracao</td>
+	<td>id=quantidadeVagas</td>
 	<td>10</td>
 </tr>
 <tr>
@@ -62,11 +87,30 @@
 	<td>ok</td>
 </tr>
 <tr>
+	<td>type</td>
+	<td>id=files</td>
+	<td>/home/ingrid.carneiro/Documentos/ComprovanteMatricula-IngridCarneiro.pdf</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
-	<td>link=Cancelar</td>
+	<td>id=form-btn</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=duracao.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=duracao.errors</td>
+	<td>*A duração da seleção deve ser maior ou igual a 1 mês*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

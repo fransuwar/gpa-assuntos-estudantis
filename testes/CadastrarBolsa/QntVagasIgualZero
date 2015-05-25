@@ -18,6 +18,31 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>coord</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
 	<td>css=button.btn.btn-primary</td>
 	<td></td>
 </tr>
@@ -67,9 +92,19 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>css=#adicionarSelecaoForm</td>
-	<td>Campo Invalido</td>
+	<td>waitForElementPresent</td>
+	<td>id=quantidadeVagas.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=quantidadeVagas.errors</td>
+	<td>*O número de vagas deve ser maior ou igual a 1*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>

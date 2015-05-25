@@ -18,6 +18,26 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>coord</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
 	<td>css=button.btn.btn-primary</td>
 	<td></td>
 </tr>
@@ -34,7 +54,7 @@
 <tr>
 	<td>type</td>
 	<td>id=dataInicio</td>
-	<td>02/05/2015</td>
+	<td>14/05/2015</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -62,18 +82,28 @@
 	<td>ok</td>
 </tr>
 <tr>
+	<td>type</td>
+	<td>id=files</td>
+	<td>/home/ingrid.carneiro/Documentos/ComprovanteMatricula-IngridCarneiro.pdf</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>id=form-btn</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>css=div.panel-body</td>
-	<td>*Campo Obrigatorio*</td>
+	<td>waitForElementPresent</td>
+	<td>id=alert-erro</td>
+	<td></td>
 </tr>
 <tr>
-	<td></td>
-	<td></td>
+	<td>verifyText</td>
+	<td>id=alert-erro</td>
+	<td>*Número do edital ou tipo de bolsa já existente*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
 	<td></td>
 </tr>
 </tbody></table>
