@@ -9,7 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,16 +20,15 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 
 @Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames={"id"}))
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"aluno_id"}))
 public class RelatorioVisitaDomiciliar {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@Column(nullable = false)
-	@OneToOne
-	private Aluno candidato;
+	@ManyToOne
+	private Aluno aluno;
 	
 	@Column(nullable = false)
 	private String endereco;
@@ -149,11 +148,11 @@ public class RelatorioVisitaDomiciliar {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Aluno getCandidato() {
-		return candidato;
+	public Aluno getAluno() {
+		return aluno;
 	}
-	public void setCandidato(Aluno candidato) {
-		this.candidato = candidato;
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 	public String getEndereco() {
 		return endereco;
@@ -551,7 +550,7 @@ public class RelatorioVisitaDomiciliar {
 	@Override
 	public String toString() {
 		return "RelatorioVisitaDomiciliar [id=" + id + ", candidato="
-				+ candidato + ", endereco=" + endereco + ", formaAcessoCasa="
+				+ aluno + ", endereco=" + endereco + ", formaAcessoCasa="
 				+ formaAcessoCasa + ", curso=" + curso + ", semestre="
 				+ semestre + ", dataVisita=" + dataVisita + ", despesaMoradia="
 				+ despesaMoradia + ", despesaEnergia=" + despesaEnergia
