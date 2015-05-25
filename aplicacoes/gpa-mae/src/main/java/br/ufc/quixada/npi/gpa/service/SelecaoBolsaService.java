@@ -22,6 +22,8 @@ public interface SelecaoBolsaService extends GenericService<SelecaoBolsa> {
 	public abstract List<SelecaoBolsa> getSelecaoBolsaComMembros();
 
 	public abstract SelecaoBolsa getSelecaoBolsaComMembros(Integer id);
+
+	public abstract SelecaoBolsa getSelecaoBolsaComAlunos(Integer id);
 	
 
 }

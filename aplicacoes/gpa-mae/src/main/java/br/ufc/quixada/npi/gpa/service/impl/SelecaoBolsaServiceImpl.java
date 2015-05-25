@@ -6,9 +6,11 @@ import java.util.Map;
 
 import javax.inject.Named;
 
+import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufc.quixada.npi.enumeration.QueryType;
+import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
@@ -69,6 +71,11 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 	public SelecaoBolsa getSelecaoBolsaComMembros(Integer id) {
 		return (SelecaoBolsa) findFirst("SelecaoBolsa.findSelecaoBolsaIdComMembros", new SimpleMap<String, Object>("selecaoBolsaId", id));
 	}
-	
+
+	@Override
+	@Transactional
+	public SelecaoBolsa getSelecaoBolsaComAlunos(Integer id) {
+		return (SelecaoBolsa) findFirst("SelecaoBolsa.findSelecaoBolsaIdComAlunos", new SimpleMap<String, Object>("selecaoBolsaId", id));
+	}
 	
 }
