@@ -4,13 +4,18 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>Cadastro servidor - dados duplicados</title>
+<title>cad aluno - Conta com mais de 20 digitos</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Cadastro servidor - dados duplicados</td></tr>
+<tr><td rowspan="1" colspan="3">cad aluno - Conta com mais de 20 digitos</td></tr>
 </thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/MAE/selecao/listar</td>
+	<td></td>
+</tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Login</td>
@@ -32,34 +37,54 @@
 	<td></td>
 </tr>
 <tr>
-	<td>open</td>
-	<td>/MAE/servidor/cadastrar</td>
+	<td>clickAndWait</td>
+	<td>link=Listar Alunos</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=listar-btn-inserir</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=siape</td>
-	<td>6544</td>
+	<td>id=matricula</td>
+	<td>338893</td>
 </tr>
 <tr>
-	<td>select</td>
-	<td>id=cargo</td>
-	<td>label=Técnico Administrativo</td>
+	<td>type</td>
+	<td>id=curso</td>
+	<td>es</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ira</td>
+	<td>9</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=anoIngresso</td>
+	<td>2011</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=banco</td>
+	<td>bb</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=agencia</td>
+	<td>152</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=conta</td>
+	<td>12345678912345678912345</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>id=form-btn</td>
 	<td></td>
-</tr>
-<tr>
-	<td>waitForElementPresent 	</td>
-	<td>id=alert-erro</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>id=alert-erro</td>
-	<td>*×Close Não é possível cadastrar um siape já existente.*</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>

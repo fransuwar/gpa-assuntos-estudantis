@@ -12,6 +12,26 @@
 <tr><td rowspan="1" colspan="3">Cancela Cadastro Servidor</td></tr>
 </thead><tbody>
 <tr>
+	<td>clickAndWait</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
 	<td>open</td>
 	<td>/MAE/servidor/cadastrar</td>
 	<td></td>
@@ -29,6 +49,11 @@
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Cancelar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
 	<td></td>
 </tr>
 </tbody></table>
