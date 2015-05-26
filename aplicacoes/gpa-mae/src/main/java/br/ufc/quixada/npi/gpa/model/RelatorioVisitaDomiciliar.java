@@ -23,6 +23,9 @@ import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 @Table(uniqueConstraints=@UniqueConstraint(columnNames={"aluno_id"}))
 public class RelatorioVisitaDomiciliar {
 	
+	public RelatorioVisitaDomiciliar() {
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;

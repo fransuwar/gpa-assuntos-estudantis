@@ -50,7 +50,7 @@ public class AlunoController {
 	public String cadastro(Model model) {
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("banco", Banco.toMap());
-		model.addAttribute("curso", Curso.toMap());
+		model.addAttribute("curso", Curso.values());
 		model.addAttribute("aluno", new Aluno());
 		return "/aluno/cadastrar";
 	}
@@ -61,7 +61,7 @@ public class AlunoController {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("banco", Banco.toMap());
-			model.addAttribute("curso", Curso.toMap());
+			model.addAttribute("curso", Curso.values());
 			return ("aluno/cadastrar");
 		}
 
@@ -69,7 +69,7 @@ public class AlunoController {
 		if(anoIngresso.isAfterNow()){
 			model.addAttribute("anoIngressoError", "Informe um ano menor ou igual ao atual");
 			model.addAttribute("banco", Banco.toMap());
-			model.addAttribute("curso", Curso.toMap());
+			model.addAttribute("curso", Curso.values());
 			return "aluno/cadastrar";
 		}
 		
@@ -113,7 +113,7 @@ public class AlunoController {
 		//chamamos a tela de cadastro/editar
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("banco", Banco.toMap());
-		model.addAttribute("curso", Curso.toMap());
+		model.addAttribute("curso", Curso.values());
 		model.addAttribute("action", "editar");
 		return "aluno/cadastrar";		
 	}
