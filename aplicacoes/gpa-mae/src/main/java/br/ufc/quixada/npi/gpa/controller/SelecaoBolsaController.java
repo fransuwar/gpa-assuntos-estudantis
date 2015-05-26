@@ -87,15 +87,16 @@ public class SelecaoBolsaController {
 
 			
 
-			if (selecaoBolsa == null || selecaoBolsa.getAno() == null || selecaoBolsa.getAno() < DateTime.now().getYear()) {
-				model.addAttribute("dataError",
-						"Digite um ano maior ou igual ao atual");
-				return ("selecao/cadastrar");
+			if (selecaoBolsa != null && selecaoBolsa.getAno() != null) { 
+				if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
+					result.rejectValue("ano", "selecaoBolsa.ano", "Digite um ano maior ou igual ao atual");
+				}
 			}
 			
-			if(selecaoBolsa.getDataInicio()==null || selecaoBolsa.getDataTermino()==null ||
-					(new DateTime(selecaoBolsa.getDataTermino())).isBefore(new DateTime(selecaoBolsa.getDataInicio())) ){
-				result.rejectValue("dataTermino", "selecaoBolsa.dataTermino", "A data de término não pode ser anterior a data de início");
+			if(selecaoBolsa !=null && selecaoBolsa.getDataInicio()!=null && selecaoBolsa.getDataTermino()!=null) {
+				if ( (new DateTime(selecaoBolsa.getDataTermino())).isBefore(new DateTime(selecaoBolsa.getDataInicio()) ) ){
+					result.rejectValue("dataTermino", "selecaoBolsa.dataTermino", "A data de término não pode ser anterior a data de início");
+				}
 			}
 			
 			if (result.hasErrors()) {
@@ -170,13 +171,16 @@ public class SelecaoBolsaController {
 			@RequestParam("files") List<MultipartFile> files, 
 			RedirectAttributes redirect, Model model) {
 
-		if (selecao == null || selecao.getAno() == null || selecao.getAno() < DateTime.now().getYear()) {
-			result.rejectValue("ano", "selecao.ano", "Digite um ano maior ou igual ao atual");
+		if (selecao != null && selecao.getAno() != null) {
+			if (selecao.getAno() < DateTime.now().getYear()) {
+				result.rejectValue("ano", "selecao.ano", "Digite um ano maior ou igual ao atual");
+			}
 		}
 		
-		if(selecao.getDataInicio()==null || selecao.getDataTermino()==null ||
-				(new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio())) ){
-			result.rejectValue("dataTermino", "selecao.dataTermino", "A data de término não pode ser anterior a data de início");
+		if(selecao != null && selecao.getDataInicio()!=null && selecao.getDataTermino()!=null) {
+			if ( (new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio())) ){
+				result.rejectValue("dataTermino", "selecao.dataTermino", "A data de término não pode ser anterior a data de início");
+			}
 		}
 
 		if (result.hasErrors()) {

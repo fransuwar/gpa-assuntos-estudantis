@@ -84,7 +84,7 @@
 							</form:select>
 							<div class="error-validation label-erro-select"
 								id="erro-tipoBolsa">
-								<form:errors path="sequencial"></form:errors>
+								<form:errors path="tipoBolsa"></form:errors>
 							</div>
 						</div>
 
