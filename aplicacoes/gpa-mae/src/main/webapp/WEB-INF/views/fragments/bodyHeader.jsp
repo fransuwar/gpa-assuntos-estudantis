@@ -37,6 +37,9 @@
 						<a href="<c:url value="/servidor/listar" />">Listar Servidor <span class="glyphicon glyphicon-list"></span></a>
 					</li>
 					<li>
+						<a href="<c:url value="/selecao/listarPorServidor/${sessionScope.id}" />">Listar Seleções <span class="glyphicon glyphicon-list"></span></a>
+					</li>
+					<li>
 						<a href="<c:url value="/aluno/listar" />">Listar Alunos <span class="glyphicon glyphicon-plus"></span></a>
 					</li>
 					</sec:authorize>

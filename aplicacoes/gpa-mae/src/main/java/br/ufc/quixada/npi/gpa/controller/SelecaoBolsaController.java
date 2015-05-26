@@ -259,6 +259,19 @@ public class SelecaoBolsaController {
 		return "selecao/listar";
 	}
 	
+	@RequestMapping(value = "/listarPorServidor/{id}")
+	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
+		List<SelecaoBolsa> selecoes = this.servidorService.getPessoaServidorComBancas(id).getParticipaBancas();
+		
+		
+		model.addAttribute("selecoes", selecoes);
+		model.addAttribute("avaliar", true);
+		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+	
+		return "selecao/listar";
+	}
+	
 	@RequestMapping(value = "/{id}/inscritos", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
 		
