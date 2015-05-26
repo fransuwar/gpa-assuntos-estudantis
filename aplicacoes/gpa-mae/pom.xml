@@ -93,11 +93,7 @@
 			<version>${java.validation.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.github.dandelion</groupId>
-			<artifactId>datatables-jsp</artifactId>
-			<version>${dandelion.datatables.version}</version>
-		</dependency>
+		
 
 		<!-- SPRING -->
 		<dependency>
@@ -198,7 +194,7 @@
 			<version>${jquery-ui.version}</version>
 		</dependency>
 
-		<!-- Dandelion -->
+		<!-- Dandelion -->	
 		<dependency>
 			<groupId>com.github.dandelion</groupId>
 			<artifactId>datatables-jsp</artifactId>

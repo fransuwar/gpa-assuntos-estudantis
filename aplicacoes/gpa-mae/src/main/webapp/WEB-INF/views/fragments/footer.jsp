@@ -4,11 +4,9 @@
 <div id="footer">
 	<div id="text-ufc">
 		<div class="row">
-			<div class="col-md-3"></div>
-			<div class="col-md-6">
+			<div class="col-md-6 col-md-offset-3">
 				<p class="text-muted">Universidade Federal do Ceará - Todos os direitos reservados &copy</p>
 			</div>
-			<div class="col-md-3"></div>
 		</div>
 	</div>
 </div>

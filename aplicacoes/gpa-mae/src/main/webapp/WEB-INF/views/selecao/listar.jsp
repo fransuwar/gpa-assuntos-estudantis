@@ -37,7 +37,7 @@
 			</div>
 		</c:if>
 
-		<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDENADOR')">
+		<sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
 			<div align="right" style="margin-bottom: 20px;">
 				<a href="<c:url value="/selecao/cadastrar" ></c:url>">
 					<button class="btn btn-primary">
@@ -54,14 +54,11 @@
 		<table class="table" id="table">
 			<thead>
 				<tr>
-
 					<th>Tipo de</th>
 					<th>Ano</th>
 					<th>Número do Edital</th>
 					<th>Vagas</th>
 					<th>Status</th>
-
-
 				</tr>
 			</thead>
 			<tbody>
@@ -74,15 +71,13 @@
 						<td>${selecao.quantidadeVagas}</td>
 						<td>${selecao.status.nome}</td>
 
-						<td><sec:authorize
-								access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDENADOR')">
+						<td><sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
 								<a id="editar"
 									href="<c:url value="/selecao/${selecao.id}/editar" ></c:url>">
 									<button class="btn btn-info">
 										Editar <span class="glyphicon glyphicon-pencil"></span>
 									</button>
 								</a>
-
 								<a id="excluir" data-toggle="modal"
 									data-target="#confirm-delete" href="#"
 									data-href="<c:url value="/selecao/${selecao.id}/excluir" ></c:url>">
@@ -90,7 +85,7 @@
 										Excluir <span class="glyphicon glyphicon-trash"></span>
 									</button>
 								</a>
-							</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
+
 								<a id="atribuirBanca"
 									href="<c:url value="/selecao/${selecao.id}/atribuir" ></c:url>">
 									<c:choose>
@@ -115,7 +110,8 @@
 										Visualizar Inscritos <span class="glyphicon glyphicon-user"></span>
 									</button>
 								</a>
-							</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_ALUNO')">
+							</sec:authorize> 
+							<sec:authorize access="hasAnyRole('ROLE_ALUNO')">
 								<c:if
 									test="${selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
 									<a id="editar"
@@ -147,7 +143,17 @@
 										</button>
 									</a>
 								</c:if>
-							</sec:authorize> <sec:authorize access="isAnonymous()">
+							</sec:authorize> 
+							<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+								<c:if test="${avaliar}">
+									<a id="avaliarSelecao" href="<c:url value="" ></c:url>">
+										<button class="btn btn-primary">
+											Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
+										</button>
+									</a>
+								</c:if>
+							</sec:authorize> 
+							<sec:authorize access="isAnonymous()">
 
 								<a id="informacoes"
 									href="<c:url value="/selecao/${selecao.id}/informacoes"></c:url>">
@@ -163,10 +169,7 @@
 		</table>
 	</div>
 
-
 	<jsp:include page="../fragments/footer.jsp" />
-
-
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -181,10 +184,5 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
 </body>
 </html>

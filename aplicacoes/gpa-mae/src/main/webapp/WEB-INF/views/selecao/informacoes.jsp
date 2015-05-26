@@ -18,7 +18,7 @@
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
-	<div class="center col-md-6" align="left">
+	<div class="col-md-6 dist-footer" align="left">
 
 		<div class="panel panel-primary" align="left">
 			<div class="panel-heading">
@@ -52,7 +52,7 @@
 				</dl>
 				<dl class="dl-horizontal">
 					<dt>Duração da Bolsa:</dt>
-					<dd>${selecao.duracao} meses</dd>
+					<dd>${selecao.duracao}meses</dd>
 				</dl>
 				<dl class="dl-horizontal">
 					<dt>Qtd. de vagas:</dt>
@@ -72,8 +72,25 @@
 				</dl>
 			</div>
 		</div>
-
-
+		<div class="panel panel-primary" align="left">
+			<div class="panel-heading">
+				<h3 class="panel-title">Resultado da seleção</h3>
+			</div>
+			<div class="panel-body">
+				<p>Classificados (Em ordem alfabética)</p>
+			</div>
+			<table class="table">
+				<thead>
+					<tr class="info">
+						<td>Nome</td>
+						<td>Matrícula</td>
+					</tr>
+				</thead>
+				<tr>
+					<td>Não existem classificados no momento</td>
+				</tr>
+			</table>
+		</div>
 
 	</div>
 	<div class="col-md-4">
@@ -107,7 +124,7 @@
 						<div class="form-group">
 							<div class="col-md-2 col-md-offset-7">
 								<input class="btn btn-primary" name="submit" type="submit"
-									value="Login" value="Login" />
+									value="Login" />
 							</div>
 							<div class="col-md-2">
 								<input class="btn btn-default" name="reset" type="reset"
@@ -121,20 +138,6 @@
 
 
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	<jsp:include page="../fragments/footer.jsp" />
 </body>

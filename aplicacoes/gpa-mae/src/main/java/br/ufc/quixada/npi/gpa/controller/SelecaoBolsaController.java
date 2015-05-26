@@ -85,15 +85,23 @@ public class SelecaoBolsaController {
 
 			model.addAttribute("action", "editar");
 
-			if (result.hasErrors()) {
-				model.addAttribute("action", "editar");
-				return "selecao/cadastrar";
-			}
+			
 
-			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
+			if (selecaoBolsa == null || selecaoBolsa.getAno() == null || selecaoBolsa.getAno() < DateTime.now().getYear()) {
 				model.addAttribute("dataError",
 						"Digite um ano maior ou igual ao atual");
 				return ("selecao/cadastrar");
+			}
+			
+			if(selecaoBolsa.getDataInicio()==null || selecaoBolsa.getDataTermino()==null ||
+					(new DateTime(selecaoBolsa.getDataTermino())).isBefore(new DateTime(selecaoBolsa.getDataInicio())) ){
+				result.rejectValue("dataTermino", "selecaoBolsa.dataTermino", "A data de término não pode ser anterior a data de início");
+			}
+			
+			if (result.hasErrors()) {
+				model.addAttribute("action", "editar");
+				model.addAttribute("tipoBolsa", TipoBolsa.values());
+				return "selecao/cadastrar";
 			}
 
 			String doc[] = request.getParameterValues("doc");
@@ -151,7 +159,7 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
-		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+		model.addAttribute("tipoBolsa", TipoBolsa.values());
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("selecao", new SelecaoBolsa());
 		return "/selecao/cadastrar";
@@ -165,9 +173,14 @@ public class SelecaoBolsaController {
 		if (selecao == null || selecao.getAno() == null || selecao.getAno() < DateTime.now().getYear()) {
 			result.rejectValue("ano", "selecao.ano", "Digite um ano maior ou igual ao atual");
 		}
+		
+		if(selecao.getDataInicio()==null || selecao.getDataTermino()==null ||
+				(new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio())) ){
+			result.rejectValue("dataTermino", "selecao.dataTermino", "A data de término não pode ser anterior a data de início");
+		}
 
 		if (result.hasErrors()) {
-			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			return ("selecao/cadastrar");
 		}
 
@@ -192,7 +205,7 @@ public class SelecaoBolsaController {
 				selecao.setDocumentos(documentos);
 			}
 		} else {
-			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("anexoError", "Adicione anexo a seleção.");
 			return "selecao/cadastrar";
 		}
@@ -216,7 +229,7 @@ public class SelecaoBolsaController {
 		if (selecao.getStatus() != null
 				&& selecao.getStatus().equals(Status.NOVA)) {
 
-			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "editar");
 
@@ -256,6 +269,19 @@ public class SelecaoBolsaController {
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 
+		return "selecao/listar";
+	}
+	
+	@RequestMapping(value = "/listarPorServidor/{id}")
+	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
+		List<SelecaoBolsa> selecoes = this.servidorService.getPessoaServidorComBancas(id).getParticipaBancas();
+		
+		
+		model.addAttribute("selecoes", selecoes);
+		model.addAttribute("avaliar", true);
+		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+	
 		return "selecao/listar";
 	}
 	
