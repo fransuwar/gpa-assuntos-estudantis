@@ -100,7 +100,7 @@ public class SelecaoBolsaController {
 			
 			if (result.hasErrors()) {
 				model.addAttribute("action", "editar");
-				model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+				model.addAttribute("tipoBolsa", TipoBolsa.values());
 				return "selecao/cadastrar";
 			}
 
@@ -159,7 +159,7 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
 	public String cadastro(Model model) {
-		model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+		model.addAttribute("tipoBolsa", TipoBolsa.values());
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("selecao", new SelecaoBolsa());
 		return "/selecao/cadastrar";
@@ -180,7 +180,7 @@ public class SelecaoBolsaController {
 		}
 
 		if (result.hasErrors()) {
-			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			return ("selecao/cadastrar");
 		}
 
@@ -205,7 +205,7 @@ public class SelecaoBolsaController {
 				selecao.setDocumentos(documentos);
 			}
 		} else {
-			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("anexoError", "Adicione anexo a seleção.");
 			return "selecao/cadastrar";
 		}
@@ -229,7 +229,7 @@ public class SelecaoBolsaController {
 		if (selecao.getStatus() != null
 				&& selecao.getStatus().equals(Status.NOVA)) {
 
-			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "editar");
 

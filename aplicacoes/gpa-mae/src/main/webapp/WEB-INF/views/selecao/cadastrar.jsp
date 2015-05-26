@@ -80,7 +80,7 @@
 							<form:select path="tipoBolsa" id="tipoBolsa"
 								cssClass="form-control">
 								<form:option value="" label="Selecione o tipo de bolsa" />
-								<form:options items="${tipoBolsa}" />
+								<form:options items="${tipoBolsa}" itemLabel="nome" />
 							</form:select>
 							<div class="error-validation label-erro-select"
 								id="erro-tipoBolsa">
