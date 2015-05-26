@@ -13,7 +13,32 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/MAE/selecao/cadastrar</td>
+	<td>/MAE/selecao/listar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>coord</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
 	<td></td>
 </tr>
 <tr>
@@ -29,12 +54,17 @@
 <tr>
 	<td>type</td>
 	<td>id=dataInicio</td>
-	<td>05/05/2015</td>
+	<td>15/05/2015</td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=dataTermino</td>
-	<td>05/05/2015</td>
+	<td>15/05/2015</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -52,14 +82,29 @@
 	<td>1</td>
 </tr>
 <tr>
+	<td>type</td>
+	<td>id=files</td>
+	<td>/home/ingrid.carneiro/Documentos/ComprovanteMatricula-IngridCarneiro.pdf</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>id=form-btn</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>css=div.panel-body</td>
-	<td>*Campo Obrigatorio*</td>
+	<td>waitForElementPresent</td>
+	<td>id=comentarios.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=comentarios.errors</td>
+	<td>*Mínimo 2 caracteres*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>

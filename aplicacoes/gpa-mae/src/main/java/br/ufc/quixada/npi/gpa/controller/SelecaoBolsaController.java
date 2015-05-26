@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.joda.time.DateTime;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -37,10 +40,10 @@ public class SelecaoBolsaController {
 
 	@Inject
 	private ServidorService servidorService;
-	
+
 	@Inject
 	private DocumentoService documentoService;
-	
+
 	@Inject
 	private SelecaoBolsaService selecaoService;
 
@@ -57,32 +60,54 @@ public class SelecaoBolsaController {
 		return "selecao/informacoes";
 	}
 	
+	@RequestMapping(value = {"{id}/downloadDocumento"}, method = RequestMethod.GET)
+	public HttpEntity<byte[]> downloadDocumento(@PathVariable("id") Long id, 
+			RedirectAttributes redirectAttributes){
+		Documento documento = documentoService.find(Documento.class, id);
+		byte[] arquivo = documento.getArquivo();
+		String[] tipo = documento.getTipo().split("/");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType(tipo[0], tipo[1]));
+		headers.set("Content-Disposition", "attachment; filename=" + documento.getNome().replace(" ", "_"));
+		headers.setContentLength(arquivo.length);
+		redirectAttributes.addFlashAttribute("success", "Download do Documento realizado com sucesso");
+		return new HttpEntity<byte[]>(arquivo, headers);
+	}
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvarSelecaoBolsa(
 			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoBolsa, BindingResult result,
 			@RequestParam("files") List<MultipartFile> files, Model model, RedirectAttributes redirect,
 			HttpServletRequest request)
-			throws IOException {
+					throws IOException {
 
 		if (selecaoBolsa.getId() != null) {
 
 			model.addAttribute("action", "editar");
-			
+
 			if (result.hasErrors()) {
 				model.addAttribute("action", "editar");
 				return "selecao/cadastrar";
 			}
-		
+
 			if (selecaoBolsa.getAno() < DateTime.now().getYear()) {
 				model.addAttribute("dataError",
 						"Digite um ano maior ou igual ao atual");
 				return ("selecao/cadastrar");
 			}
-			
+
 			String doc[] = request.getParameterValues("doc");
-			
+
 			if(doc != null){
+				
+				if(selecaoService.getSelecaoBolsaComDocumentos(selecaoBolsa.getId()).getDocumentos().size() == doc.length 
+						&& (files.isEmpty() || files.get(0).getSize()<=0)){
+					model.addAttribute("action", "editar");
+					redirect.addFlashAttribute("erro",
+							"Não foi possível excluir seu(s) anexo(s), pois não é possível salvar a seleção sem nenhum anexo.");
+					return "redirect:/selecao/"+selecaoBolsa.getId()+"/editar";
+				}
+				
 				for(int k=0;k<doc.length;k++){
 					Documento d = new Documento();
 					d.setId(Long.parseLong(doc[k]));
@@ -90,13 +115,33 @@ public class SelecaoBolsaController {
 				}
 			}
 			
+			List<Documento> documentos = new ArrayList<Documento>();
+			if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
+				for (MultipartFile mfiles : files) {
+					try {
+						if (mfiles.getBytes() != null && mfiles.getBytes().length != 0){
+							Documento documento = new Documento();
+							documento.setArquivo(mfiles.getBytes());
+							documento.setNome(mfiles.getOriginalFilename());
+							documento.setTipo(mfiles.getContentType());
+							documento.setSelecaoBolsa(selecaoBolsa);
+							documentos.add(documento);
+							documentoService.save(documento);
+						}
+					} catch (IOException ioe) {
+						model.addAttribute("erro", "Não foi possivel salvar os documentos.");
+						return "selecao/cadastrar";
+					}
+				}
+			}
+
 			this.selecaoService.update(selecaoBolsa);
 			redirect.addFlashAttribute("info",
 					"Seleção atualizada com sucesso.");
 			return "redirect:/selecao/listar";
 
 		} else {
-			
+
 			model.addAttribute("action", "cadastrar");
 
 			return adicionarSelecao(selecaoBolsa, result, files,redirect,
@@ -116,16 +161,16 @@ public class SelecaoBolsaController {
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, BindingResult result,
 			@RequestParam("files") List<MultipartFile> files, 
 			RedirectAttributes redirect, Model model) {
-		
+
 		if (selecao == null || selecao.getAno() == null || selecao.getAno() < DateTime.now().getYear()) {
 			result.rejectValue("ano", "selecao.ano", "Digite um ano maior ou igual ao atual");
 		}
-		
+
 		if (result.hasErrors()) {
 			model.addAttribute("tipoBolsa", TipoBolsa.toMap());
 			return ("selecao/cadastrar");
 		}
-		
+
 		List<Documento> documentos = new ArrayList<Documento>();
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
 			for (MultipartFile mfiles : files) {
@@ -151,16 +196,17 @@ public class SelecaoBolsaController {
 			model.addAttribute("anexoError", "Adicione anexo a seleção.");
 			return "selecao/cadastrar";
 		}
-		
+
 		if (selecaoService.existsSelecaoEquals(selecao)) {
 			redirect.addFlashAttribute("erro", "Número do edital ou tipo de bolsa já existente");
 			return "redirect:/selecao/listar";
 		}
-		
+
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		return "redirect:/selecao/listar";
 	}
+	
 
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id,
@@ -188,7 +234,7 @@ public class SelecaoBolsaController {
 		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
 		if (selecao == null) {
 			redirectAttributes
-					.addFlashAttribute("erro", "Seleção inexistente.");
+			.addFlashAttribute("erro", "Seleção inexistente.");
 			return "redirect:/selecao/listar";
 		}
 		if (selecao.getStatus().equals(Status.NOVA)) { 
@@ -209,7 +255,7 @@ public class SelecaoBolsaController {
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-		
+
 		return "selecao/listar";
 	}
 	
@@ -238,9 +284,9 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/{id}/atribuir", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirectAttributes) {
-		
+
 		List<Servidor> servidoresBanca = selecaoService.getSelecaoBolsaComMembros(id).getMembrosBanca();
-		
+
 		if(!servidoresBanca.isEmpty()){
 			model.addAttribute("m1", servidoresBanca.get(0).getId());
 			model.addAttribute("m2", servidoresBanca.get(1).getId());
@@ -256,13 +302,13 @@ public class SelecaoBolsaController {
 			@RequestParam("id") Integer id,@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
 			@RequestParam("id3") Integer id3, Model model,
 			RedirectAttributes redirect) {
-		
+
 		if(id1 == null || id2 == null || id3 == null){
 			model.addAttribute("selecao", id);
 			model.addAttribute("servidores", servidorService.find(Servidor.class));
 			model.addAttribute("erroMembros", "Informe os três membros.");
 			return "selecao/atribuir";
-			
+
 		} else if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
 			model.addAttribute("selecao", id);
 			model.addAttribute("servidores", servidorService.find(Servidor.class));
@@ -285,5 +331,8 @@ public class SelecaoBolsaController {
 			return "redirect:/selecao/listar";
 		}
 	}
+	
+
+	
 
 }

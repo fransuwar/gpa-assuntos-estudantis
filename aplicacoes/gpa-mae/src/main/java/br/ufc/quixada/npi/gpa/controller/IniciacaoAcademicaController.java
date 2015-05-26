@@ -20,6 +20,7 @@ import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
+import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
@@ -39,23 +40,21 @@ public class IniciacaoAcademicaController {
 
 	@Inject
 	private AlunoService alunoService;
-	
+
 	@Inject
 	private SelecaoBolsaService selecaoBolsaService;
-	
+
 	@RequestMapping(value = "/{id}/inscricao", method = RequestMethod.GET)
 	public String cadastro(@PathVariable("id") Integer id, Model modelo) {
 
 		QuestionarioIniciacaoAcademica q = new QuestionarioIniciacaoAcademica();
-		modelo.addAttribute("questionarioIniciacaoAcademica",
-				q);
+		modelo.addAttribute("questionarioIniciacaoAcademica", q);
 		modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 		modelo.addAttribute("turno", Turno.toMap());
 		modelo.addAttribute("diasUteis", DiaUtil.toMap());
 		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-		
 		modelo.addAttribute("selecaoBolsa", id);
 
 		return "inscricao/iniciacaoAcademica";
@@ -64,29 +63,52 @@ public class IniciacaoAcademicaController {
 	@RequestMapping(value = "/{idselecao}/inscricao", method = RequestMethod.POST)
 	public String adicionaIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
-			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
+			BindingResult result, @ModelAttribute("id") Integer id,
+			@PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model modelo) {
 
-		if (result.hasErrors()) {
+		if (id != null) {
+
+			if (result.hasErrors()) {
+				modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+				modelo.addAttribute("turno", Turno.toMap());
+				modelo.addAttribute("diasUteis", DiaUtil.toMap());
+				modelo.addAttribute("situacaoResidencia",
+						SituacaoResidencia.toMap());
+				modelo.addAttribute("totalEstado", Estado.toMap());
+				modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
+				return "inscricao/iniciacaoAcademica";
+			}
+
+			this.iniciacaoAcademicaService
+					.update(questionarioIniciacaoAcademica);
+			redirect.addFlashAttribute("info",
+					"Inscrição atualizada com sucesso.");
+			return "redirect:/selecao/listar";
+			
+		} else if (result.hasErrors()) {
 
 			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			modelo.addAttribute("turno", Turno.toMap());
 			modelo.addAttribute("diasUteis", DiaUtil.toMap());
-			modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
+			modelo.addAttribute("situacaoResidencia",
+					SituacaoResidencia.toMap());
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 			modelo.addAttribute("selecaoBolsa", id);
-			
+
 			return "inscricao/iniciacaoAcademica";
 
 		} else {
 			Aluno aluno = alunoService.getAlunoById(id);
 			questionarioIniciacaoAcademica.setAluno(aluno);
-			
-			SelecaoBolsa selecao = selecaoBolsaService.find(SelecaoBolsa.class, idSelecao);
+
+			SelecaoBolsa selecao = selecaoBolsaService.find(SelecaoBolsa.class,
+					idSelecao);
 			questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
-			
+
 			try {
+
 				this.iniciacaoAcademicaService
 						.save(questionarioIniciacaoAcademica);
 			} catch (PersistenceException e) {
@@ -100,7 +122,38 @@ public class IniciacaoAcademicaController {
 			redirect.addFlashAttribute("info",
 					"Cadastro realizado com sucesso.");
 		}
-		
+
 		return "redirect:/selecao/listar";
+	}
+
+	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
+	public String editar(@PathVariable("id") Integer id,
+			RedirectAttributes redirect, Model model) {
+
+		QuestionarioIniciacaoAcademica q = iniciacaoAcademicaService
+				.getQuestIniAcadById(id);
+
+		SelecaoBolsa selecao = q.getSelecaoBolsa();
+
+		if (q.getSelecaoBolsa().getStatus() != null
+				&& q.getSelecaoBolsa().getStatus().equals(Status.INSC_ABERTA)) {
+
+			model.addAttribute("questionarioIniciacaoAcademica", q);
+			model.addAttribute("selecao", selecao);
+			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+			model.addAttribute("turno", Turno.toMap());
+			model.addAttribute("diasUteis", DiaUtil.toMap());
+			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
+			model.addAttribute("totalEstado", Estado.toMap());
+			model.addAttribute("grauParentesco", GrauParentesco.toMap());
+			model.addAttribute("action", "editar");
+
+		} else {
+			redirect.addFlashAttribute("erro",
+					"Só pode editar sua inscrição enquanto a seleção estiver aberta.");
+			return "redirect:/selecao/listar";
+		}
+
+		return "inscricao/iniciacaoAcademica";
 	}
 }

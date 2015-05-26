@@ -14,6 +14,8 @@
  		<intercept-url pattern="/webjars/**" access="permitAll" />
  		<intercept-url pattern="/selecao/*/informacoes" access="permitAll"/>
  		<intercept-url pattern="/selecao/listar" access="permitAll"/>
+ 		<intercept-url pattern="/selecao/*/downloadDocumento" access="permitAll"/>
+ 		
  		
  		<intercept-url pattern="/selecao/listarPorServidor/*" access="hasRole('ROLE_ADMIN')" />	
  		
