@@ -70,6 +70,7 @@ public class SelecaoBolsa {
 	private List<Documento> documentos;
 
 	@NotNull(message="Campo obrigatório")
+	@Range(min=1, message="O valor do edital deve ser maior que 0")
 	private Integer sequencial;
 
 	@Enumerated(EnumType.STRING)
