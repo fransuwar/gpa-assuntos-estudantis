@@ -270,8 +270,7 @@ public class SelecaoBolsaController {
 		List<SelecaoBolsa> selecoes = this.selecaoService.getSelecaoBolsaComMembros();
 		
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+		model.addAttribute("tipoBolsa", TipoBolsa.values());
 
 		return "selecao/listar";
 	}

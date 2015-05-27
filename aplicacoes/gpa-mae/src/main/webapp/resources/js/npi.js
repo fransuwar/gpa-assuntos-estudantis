@@ -280,3 +280,29 @@ function removerDocumento(docId){
 	var input = '<input type="hidden" value="'+docId+'" name="doc" />';
 	row.innerHTML = input;
 }
+
+
+function buscarSelecao(){
+	
+	var editalPesq = document.getElementById("editalBusca").value;
+	var anoPesq = document.getElementById("anoBusca").value;
+	var tipoBolsaPesq = document.getElementById("tipoBolsaBusca").value;
+	
+	
+	var table = document.getElementById("table");
+	valores = table.querySelectorAll('td');
+	
+	for(var k=0;k<valores.length;k+=6){
+		
+		var tipoBolsa = valores[k].innerHTML;
+		var ano = valores[k+1].innerHTML;
+		var edital = valores[k+2].innerHTML;
+		
+		
+		if(!tipoBolsa.contains(tipoBolsaPesq) || !edital.contains(editalPesq) || !ano.contains(anoPesq)){
+			valores[k].parentNode.style.display = "none";
+		} else {
+			valores[k].parentNode.style.display = "table-row";
+		}
+	}
+}
