@@ -42,13 +42,23 @@
 	<td></td>
 </tr>
 <tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
 	<td>type</td>
-	<td>id=curso</td>
-	<td>SI</td>
+	<td>id=anoIngresso</td>
+	<td>2015</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=banco</td>
+	<td>label=Caixa</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=submit</td>
+	<td>id=form-btn</td>
 	<td></td>
 </tr>
 <tr>
