@@ -39,8 +39,8 @@
 		</c:if>
 
 		<div class="col-md-4" id="div-form-buscar">
-			<form:form id="buscarServidorForm" role="form"
-				servletReltiveAction="/servidor/listar" method="POST"
+			<form:form id="buscarSelecaoForm" role="form"
+				servletRelativeAction="/servidor/listar" method="POST"
 				cssClass="form-horizontal" class="inline">
 				<div class="input-group">
 					<input id="siape" name="siape" class="form-control"
