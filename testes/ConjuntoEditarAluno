@@ -8,9 +8,9 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="EditarAluno/Editar Aluno">Editar Aluno</a></td></tr>
-<tr><td><a href="EditarAluno/Editar Aluno - Ano de Ingresso posterior ao atual">Editar Aluno - Ano de Ingresso posterior ao atual</a></td></tr>
-<tr><td><a href="EditarAluno/Editar Aluno - Matricula com String">Editar Aluno - Matricula com String</a></td></tr>
+<tr><td><a href="../../../../git/npi/gpa-assuntos-estudantis/testes/EditarAluno/EditarCamposObrigatoriosEmBranco">CampoObrigatorioEmBranco</a></td></tr>
+<tr><td><a href="EditarAluno/Editar_Aluno_Ano_de_Ingresso_posterior_ao_atual">Editar_Aluno_Ano_de_Ingresso_posterior_ao_atual</a></td></tr>
+<tr><td><a href="EditarAluno/Editar_Aluno">Editar_Aluno</a></td></tr>
 </tbody></table>
 </body>
 </html>
