@@ -61,11 +61,10 @@
 				<dl class="dl-horizontal">
 					<dt>Arquivos:</dt>
 					<c:forEach var="documento" items="${selecao.documentos}">
-						<!-- <a href="<c:url value="/documento/${documento.id}"></c:url>">${documento.nomeOriginal}</a>-->
 						<sec:authorize access="isAnonymous()">
 							<dd>
 								<a
-									href="<c:url value="/selecao/${documento.id}/downloadDocumento"></c:url>">${documento.nome}</a>
+									href="<c:url value="/selecao/downloadDocumento/${documento.id}"></c:url>">${documento.nome}</a>
 							</dd>
 						</sec:authorize>
 					</c:forEach>

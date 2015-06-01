@@ -118,21 +118,21 @@
 
 							<td><sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
 									<a id="editar"
-										href="<c:url value="/selecao/${selecao.id}/editar" ></c:url>">
+										href="<c:url value="/selecao/editar/${selecao.id}" ></c:url>">
 										<button class="btn btn-info">
 											Editar <span class="glyphicon glyphicon-pencil"></span>
 										</button>
 									</a>
 									<a id="excluir" data-toggle="modal"
 										data-target="#confirm-delete" href="#"
-										data-href="<c:url value="/selecao/${selecao.id}/excluir" ></c:url>">
+										data-href="<c:url value="/selecao/excluir/${selecao.id}" ></c:url>">
 										<button class="btn btn-danger">
 											Excluir <span class="glyphicon glyphicon-trash"></span>
 										</button>
 									</a>
 
 									<a id="atribuirBanca"
-										href="<c:url value="/selecao/${selecao.id}/atribuir" ></c:url>">
+										href="<c:url value="/selecao/atribuir/${selecao.id}" ></c:url>">
 										<c:choose>
 											<c:when test="${empty selecao.membrosBanca}">
 												<button class="btn btn-primary">
@@ -150,7 +150,7 @@
 									</a>
 
 									<a id="visualizarInscritos"
-										href="<c:url value="/selecao/${selecao.id}/inscritos" ></c:url>">
+										href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 										<button class="btn btn-primary">
 											Visualizar Inscritos <span class="glyphicon glyphicon-user"></span>
 										</button>
@@ -198,7 +198,7 @@
 								</sec:authorize> <sec:authorize access="isAnonymous()">
 
 									<a id="informacoes"
-										href="<c:url value="/selecao/${selecao.id}/informacoes"></c:url>">
+										href="<c:url value="/selecao/informacoes/${selecao.id}"></c:url>">
 										<button class=" btn btn-success">
 											+ Informações <span class="glyphicon glyphicon-zoom-in"></span>
 										</button>

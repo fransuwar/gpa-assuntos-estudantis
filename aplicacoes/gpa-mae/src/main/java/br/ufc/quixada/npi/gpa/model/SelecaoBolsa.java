@@ -10,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -90,7 +89,6 @@ public class SelecaoBolsa {
 	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
 
-	@Lob
 	@Size(min = 2, message = "Mínimo 2 caracteres")
 	private String comentarios;
 
