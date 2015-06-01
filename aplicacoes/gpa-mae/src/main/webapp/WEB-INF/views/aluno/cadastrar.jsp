@@ -100,8 +100,6 @@
 									path="anoIngresso" cssClass="form-control " data-mask="9999"
 									placeholder="Ano de Ingresso" />
 								<div class="error-validation" id="erro-anoIngresso">
-									<label class="col-sm-10 control-label" id="label-erro">
-										${anoIngressoError} </label>
 									<form:errors path="anoIngresso">
 									</form:errors>
 								</div>
@@ -112,7 +110,7 @@
 							<div class="col-sm-5 control-label" id="div-select">
 								<form:select path="banco" id="banco" cssClass="form-control">
 									<form:option value="" label="Selecione o banco" />
-									<form:options items="${banco}" />
+									<form:options items="${banco}" itemLabel="nome" />
 								</form:select>
 								<div class="error-validation" id="erro-banco">
 									<div class="error-validation label-erro-select" id="erro-banco">

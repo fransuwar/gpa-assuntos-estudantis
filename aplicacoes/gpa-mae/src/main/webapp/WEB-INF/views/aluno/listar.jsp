@@ -113,13 +113,13 @@
 
 												<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 													<td><a id="editar"
-														href="<c:url value="/aluno/${aluno.id}/editar" ></c:url>">
+														href="<c:url value="/aluno/editar/${aluno.id}" ></c:url>">
 															<button class="btn btn-info">
 																Editar <span class="glyphicon glyphicon-pencil"></span>
 															</button>
 													</a> <a id="excluir" data-toggle="modal"
 														data-target="#confirm-delete" href="#"
-														data-href="<c:url value="/aluno/${aluno.id}/excluir" ></c:url>">
+														data-href="<c:url value="/aluno/excluir/${aluno.id}" ></c:url>">
 															<button class="btn btn-danger">
 																Excluir <span class="glyphicon glyphicon-trash"></span>
 															</button>
