@@ -47,7 +47,7 @@ public class SelecaoBolsaController {
 	@Inject
 	private SelecaoBolsaService selecaoService;
 
-	@RequestMapping(value = "{id}/informacoes")
+	@RequestMapping(value = "informacoes/{id}")
 	public String getInformacoes(@PathVariable("id") Integer id, Model model,
 			RedirectAttributes redirectAttributes) {
 		SelecaoBolsa selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
@@ -60,7 +60,7 @@ public class SelecaoBolsaController {
 		return "selecao/informacoes";
 	}
 	
-	@RequestMapping(value = {"{id}/downloadDocumento"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"downloadDocumento/{id}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("id") Long id, 
 			RedirectAttributes redirectAttributes){
 		Documento documento = documentoService.find(Documento.class, id);
@@ -114,7 +114,7 @@ public class SelecaoBolsaController {
 					model.addAttribute("action", "editar");
 					redirect.addFlashAttribute("erro",
 							"Não foi possível excluir seu(s) anexo(s), pois não é possível salvar a seleção sem nenhum anexo.");
-					return "redirect:/selecao/"+selecaoBolsa.getId()+"/editar";
+					return "redirect:/selecao/editar/"+selecaoBolsa.getId();
 				}
 				
 				for(int k=0;k<doc.length;k++){
@@ -225,7 +225,7 @@ public class SelecaoBolsaController {
 	}
 	
 
-	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
+	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id,
 			RedirectAttributes redirect, Model model) {
 		SelecaoBolsa selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
@@ -244,7 +244,7 @@ public class SelecaoBolsaController {
 		return "selecao/cadastrar";
 	}
 
-	@RequestMapping(value = "/{id}/excluir")
+	@RequestMapping(value = "/excluir/{id}")
 	public String excluirSelecao(SelecaoBolsa p,
 			@PathVariable("id") Integer id,
 			RedirectAttributes redirectAttributes) {
@@ -288,7 +288,7 @@ public class SelecaoBolsaController {
 		return "selecao/listar";
 	}
 	
-	@RequestMapping(value = "/{id}/inscritos", method = RequestMethod.GET)
+	@RequestMapping(value = "/inscritos/{id}", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
 		
 		List<Aluno> alunosSelecao = this.selecaoService.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
@@ -297,7 +297,7 @@ public class SelecaoBolsaController {
 		return "selecao/listarInscritos";
 	}
 
-	@RequestMapping(value = "/{id}/atribuir", method = RequestMethod.GET)
+	@RequestMapping(value = "/atribuir/{id}", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirectAttributes) {
 
