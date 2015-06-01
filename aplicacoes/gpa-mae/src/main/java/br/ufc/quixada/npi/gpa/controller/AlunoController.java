@@ -124,7 +124,7 @@ public class AlunoController {
 		return "/aluno/listar";
 	}
 
-	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
+	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		Aluno aluno = alunoService.find(Aluno.class, id);
 		//chamamos a tela de cadastro/editar
@@ -178,7 +178,7 @@ public class AlunoController {
 		return "redirect:/aluno/listar";
 	}
 
-	@RequestMapping(value = "/{id}/excluir")
+	@RequestMapping(value = "/excluir/{id}")
 	public String excluirAluno(Aluno p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes
 			) {
 		Aluno aluno = alunoService.find(Aluno.class, id);
