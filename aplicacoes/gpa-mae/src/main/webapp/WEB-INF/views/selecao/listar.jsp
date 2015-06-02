@@ -14,7 +14,7 @@
 <html>
 <head>
 <jsp:include page="../fragments/bodyHeader.jsp" />
-<title>seleções</title>
+<title>Seleções</title>
 </head>
 <body>
 
@@ -88,9 +88,8 @@
 				</a>
 			</div>
 		</sec:authorize>
-
 		<div class="panel panel-default pane-edit">
-			
+
 			<div class="panel-heading">
 				<h4>Seleções</h4>
 			</div>
@@ -99,7 +98,7 @@
 			<table class="table" id="table">
 				<thead>
 					<tr>
-						<th>Tipo de</th>
+						<th>Tipo de Bolsa</th>
 						<th>Ano</th>
 						<th>Número do Edital</th>
 						<th>Vagas</th>
@@ -156,37 +155,44 @@
 										</button>
 									</a>
 								</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_ALUNO')">
-									<c:if
-										test="${selecao.tipoBolsa == tipoBolsa[0] && selecao.status == 'INSC_ABERTA'}">
-										<a id="editar"
-											href="<c:url value="/iniciacaoAcademica/${sessionScope.id}/editar" ></c:url>">
-											<button class="btn btn-info">
-												Editar <span class="glyphicon glyphicon-pencil"></span>
-											</button>
-										</a>
-										<a id="inscrever"
-											href="<c:url value="/iniciacaoAcademica/${selecao.id}/inscricao" ></c:url>">
-											<button class=" btn btn-success">
-												inscrever-se <span class="glyphicon glyphicon-user"></span>
-											</button>
-										</a>
-									</c:if>
-
-									<c:if
-										test="${selecao.tipoBolsa == tipoBolsa[1] && selecao.status == 'INSC_ABERTA'}">
-										<a id="editar"
-											href="<c:url value="/auxilio/${sessionScope.id}/editar" ></c:url>">
-											<button class="btn btn-info">
-												Editar <span class="glyphicon glyphicon-pencil"></span>
-											</button>
-										</a>
-										<a id="inscrever"
-											href="<c:url value="/auxilio/${selecao.id}/inscricao/" ></c:url>">
-											<button class=" btn btn-success">
-												inscrever-se <span class="glyphicon glyphicon-user"></span>
-											</button>
-										</a>
-									</c:if>
+									<c:choose>
+										<c:when
+											test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
+											<a id="inscrever"
+												href="<c:url value="/iniciacaoAcademica/inscricao/${selecao.id}/" ></c:url>">
+												<button class=" btn btn-success">
+													inscrever-se <span class="glyphicon glyphicon-user"></span>
+												</button>
+											</a>
+										</c:when>
+										<c:when
+											test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
+											<a id="editar"
+												href="<c:url value="/iniciacaoAcademica/editar/${sessionScope.id}/" ></c:url>">
+												<button class=" btn btn-info">
+													editar <span class="glyphicon glyphicon-pencil"></span>
+												</button>
+											</a>
+										</c:when>
+										<c:when
+											test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
+											<a id="inscrever"
+												href="<c:url value="/auxilio/inscricao/${selecao.id}/" ></c:url>">
+												<button class=" btn btn-success">
+													inscrever-se <span class="glyphicon glyphicon-user"></span>
+												</button>
+											</a>
+										</c:when>
+										<c:when
+											test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
+											<a id="editar"
+												href="<c:url value="/auxilio/editar/${sessionScope.id}/" ></c:url>">
+												<button class=" btn btn-info">
+													editar <span class="glyphicon glyphicon-pencil"></span>
+												</button>
+											</a>
+										</c:when>
+									</c:choose>
 								</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 									<c:if test="${avaliar}">
 										<a id="avaliarSelecao" href="<c:url value="" ></c:url>">
@@ -207,7 +213,6 @@
 						</tr>
 					</c:forEach>
 				</tbody>
-
 			</table>
 		</div>
 	</div>

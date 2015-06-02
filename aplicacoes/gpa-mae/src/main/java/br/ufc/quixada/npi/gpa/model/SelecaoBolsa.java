@@ -37,7 +37,11 @@ import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 				query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId"),
 				@NamedQuery(
 				name = "SelecaoBolsa.findSelecaoBolsaIdComAlunos", 
-				query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.alunosSelecao WHERE sb.id = :selecaoBolsaId")})
+				query = "SELECT DISTINCT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.alunosSelecao WHERE sb.id = :selecaoBolsaId"),
+				@NamedQuery(
+				name = "SelecaoBolsa.findSelecaoComAlunos",
+				query = "SELECT DISTINCT sb from SelecaoBolsa as sb LEFT JOIN FETCH sb.alunosSelecao")
+			})
 
 
 @Entity
@@ -98,29 +102,12 @@ public class SelecaoBolsa {
 	@ManyToOne
 	private Servidor responsavel;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Aluno> alunosSelecao;
 
 	@NotNull(message="Selecione o tipo de bolsa")
 	@Enumerated(EnumType.STRING)
 	private TipoBolsa tipoBolsa;
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SelecaoBolsa other = (SelecaoBolsa) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
 
 	public List<Aluno> getAlunosSelecao() {
 		return alunosSelecao;
@@ -195,16 +182,15 @@ public class SelecaoBolsa {
 		return tipoBolsa;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	
+	public void setAlunosSelecao(List<Aluno> alunosSeleAlunos) {
+		this.alunosSelecao = alunosSeleAlunos;
 	}
 
-	public void setAlunosSelecao(List<Aluno> alunosSelecao) {
-		this.alunosSelecao = alunosSelecao;
+	public void addAlunosSelecao(Aluno... a) {
+		for (int i = 0; i < a.length; i++) {
+			this.alunosSelecao.add(a[i]);
+		}
 	}
 
 	public void setAno(Integer ano) {
@@ -267,4 +253,29 @@ public class SelecaoBolsa {
 		this.tipoBolsa = tipoBolsa;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SelecaoBolsa other = (SelecaoBolsa) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
 }
