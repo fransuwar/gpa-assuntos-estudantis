@@ -35,8 +35,13 @@
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<sec:authorize ifAnyGranted="ROLE_ADMIN">
+
 						<li><a href="<c:url value="/servidor/listar" />">Listar
 								Servidor <span class="glyphicon glyphicon-list"></span>
+						</a></li>
+						<li><a
+							href="<c:url value="/selecao/listarPorServidor/${sessionScope.id}" />">Listar
+								Seleções <span class="glyphicon glyphicon-list"></span>
 						</a></li>
 						<li><a href="<c:url value="/aluno/listar" />">Listar
 								Alunos <span class="glyphicon glyphicon-plus"></span>
@@ -44,15 +49,15 @@
 					</sec:authorize>
 
 					<sec:authorize ifAllGranted="ROLE_ALUNO">
-						<li><a href="<c:url value="/selecao/listar/${sessionScope.id}" />">Listar
-								Seleções<span class="glyphicon glyphicon-plus"></span>
-						</a></li>
+						<input type="hidden" name="id"
+							value="${sessionScope.id}" />
 					</sec:authorize>
 					<sec:authorize ifAllGranted="ROLE_COORDENADOR">
 						<li><a href="<c:url value="/aluno/listar" />">Listar
 								Alunos <span class="glyphicon glyphicon-plus"></span>
 						</a></li>
-						<li><a href="<c:url value="/selecao/listar/${sessionScope.id}" />">Listar
+						<li><a
+							href="<c:url value="/selecao/listar/${sessionScope.id}" />">Listar
 								Seleções <span class="glyphicon glyphicon-plus"></span>
 						</a></li>
 					</sec:authorize>

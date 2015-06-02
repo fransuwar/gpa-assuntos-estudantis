@@ -2,6 +2,8 @@ package br.ufc.quixada.npi.gpa.service.impl;
 
 import javax.inject.Named;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -18,9 +20,16 @@ public class ServidorServiceImpl extends GenericServiceImpl<Servidor> implements
 	}
 
 	@Override
+	@Transactional
 	public Servidor getServidorComBancas(Integer id) {
 		
 		return (Servidor) findFirst("Servidor.findServidorComBancas", new SimpleMap<String, Object>("servidorId", id));
 		
+	}
+
+	@Override
+	@Transactional
+	public Servidor getPessoaServidorComBancas(Integer id) {
+		return (Servidor) findFirst("Servidor.findPessoaServidorComBancas", new SimpleMap<String, Object>("pessoaId", id));
 	}
 }

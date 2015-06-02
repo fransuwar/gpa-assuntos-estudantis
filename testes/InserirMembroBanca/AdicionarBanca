@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>BolsaIdenticaAExistente</title>
+<title>AdicionarBanca</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">BolsaIdenticaAExistente</td></tr>
+<tr><td rowspan="1" colspan="3">AdicionarBanca</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -18,48 +18,48 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>css=button.btn.btn-primary</td>
+	<td>link=Login</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=sequencial</td>
-	<td>10</td>
+	<td>name=j_username</td>
+	<td>coord</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Listar Seleções</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[@id='atribuirBanca']/button)[2]</td>
+	<td></td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>id=tipoBolsa</td>
-	<td>label=Auxilio Moradia</td>
+	<td>name=id1</td>
+	<td>label=NServidor</td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=dataInicio</td>
-	<td>02/05/2015</td>
+	<td>select</td>
+	<td>name=id2</td>
+	<td>label=Usuário Admin</td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=dataTermino</td>
-	<td>02/06/2015</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=ano</td>
-	<td>2015</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=quantidadeVagas</td>
-	<td>10</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=duracao</td>
-	<td>2</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=comentarios</td>
-	<td>ok</td>
+	<td>select</td>
+	<td>name=id3</td>
+	<td>label=Servidor</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -67,15 +67,21 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>css=div.panel-body</td>
-	<td>*Campo Obrigatorio*</td>
+	<td>waitForElementPresent</td>
+	<td>id=alert-info</td>
+	<td></td>
 </tr>
 <tr>
-	<td></td>
-	<td></td>
+	<td>verifyText</td>
+	<td>id=alert-info</td>
+	<td>*Banca formada com sucesso.*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=span.glyphicon.glyphicon-off</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>

@@ -10,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -74,6 +73,7 @@ public class SelecaoBolsa {
 	private List<Documento> documentos;
 
 	@NotNull(message="Campo obrigatório")
+	@Range(min=1, message="O valor do edital deve ser maior que 0")
 	private Integer sequencial;
 
 	@Enumerated(EnumType.STRING)
@@ -93,7 +93,6 @@ public class SelecaoBolsa {
 	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
 
-	@Lob
 	@Size(min = 2, message = "Mínimo 2 caracteres")
 	private String comentarios;
 

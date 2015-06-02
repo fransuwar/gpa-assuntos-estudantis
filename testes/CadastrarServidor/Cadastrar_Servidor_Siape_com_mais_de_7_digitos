@@ -12,13 +12,28 @@
 <tr><td rowspan="1" colspan="3">Cadastrar Servidor - Siape com mais de 7 digitos</td></tr>
 </thead><tbody>
 <tr>
-	<td>open</td>
-	<td>/MAE/servidor/listar</td>
+	<td>clickAndWait</td>
+	<td>link=Login</td>
 	<td></td>
 </tr>
 <tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
-	<td>id=listar-btn-inserir</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/MAE/servidor/cadastrar</td>
 	<td></td>
 </tr>
 <tr>
@@ -28,12 +43,17 @@
 </tr>
 <tr>
 	<td>select</td>
-	<td>id=cargoServidor</td>
+	<td>id=cargo</td>
 	<td>label=Professor</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>id=form-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
 	<td></td>
 </tr>
 </tbody></table>

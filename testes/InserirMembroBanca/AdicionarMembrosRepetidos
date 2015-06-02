@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>Status de bolsa aberta</title>
+<title>AdicionarMembrosRepetidos</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Status de bolsa aberta</td></tr>
+<tr><td rowspan="1" colspan="3">AdicionarMembrosRepetidos</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -24,7 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>name=j_username</td>
-	<td>aluno</td>
+	<td>coord</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -34,6 +34,51 @@
 <tr>
 	<td>clickAndWait</td>
 	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Listar Seleções</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[@id='atribuirBanca']/button)[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=id1</td>
+	<td>label=Usuário Admin</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=id2</td>
+	<td>label=Servidor</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=id3</td>
+	<td>label=Usuário Admin</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=form-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=label-erro</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=label-erro</td>
+	<td>*Não é permitida repetição de membros na banca.*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
 	<td></td>
 </tr>
 

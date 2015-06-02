@@ -4,16 +4,36 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>Cadastrar bolsa - num edital string</title>
+<title>AnoAnteriorAoAtual</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Cadastrar bolsa - num edital string</td></tr>
+<tr><td rowspan="1" colspan="3">AnoAnteriorAoAtual</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
 	<td>/MAE/selecao/listar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>coord</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
 	<td></td>
 </tr>
 <tr>
@@ -24,46 +44,46 @@
 <tr>
 	<td>type</td>
 	<td>id=sequencial</td>
-	<td>jhd</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=dataInicio</td>
-	<td>13/04/2015</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=dataTermino</td>
-	<td>13/04/2015</td>
+	<td>0100</td>
 </tr>
 <tr>
 	<td>select</td>
 	<td>id=tipoBolsa</td>
-	<td>label=Auxilio Moradia</td>
+	<td>label=Iniciação Acadêmica</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=quantidadeVagas</td>
-	<td>5</td>
+	<td>id=dataInicio</td>
+	<td>30/05/2015</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=duracao</td>
-	<td>10</td>
+	<td>id=dataTermino</td>
+	<td>10/06/2015</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=ano</td>
-	<td>2015</td>
+	<td>2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=quantidadeVagas</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=duracao</td>
+	<td>03</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=comentarios</td>
-	<td>ok</td>
+	<td>okjkj</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>name=file</td>
+	<td>id=files</td>
 	<td>/home/ingrid.carneiro/Documentos/ComprovanteMatricula-IngridCarneiro.pdf</td>
 </tr>
 <tr>
@@ -71,7 +91,21 @@
 	<td>id=form-btn</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=ano.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=ano.errors</td>
+	<td>*Digite um ano maior ou igual ao atual*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

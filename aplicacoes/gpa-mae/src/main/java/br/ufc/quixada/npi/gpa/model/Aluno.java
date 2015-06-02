@@ -47,6 +47,9 @@ public class Aluno {
 
 	@OneToMany(mappedBy = "aluno")
 	private List<QuestionarioAuxilioMoradia> auxilioMoradia;
+	
+	@OneToMany(mappedBy= "aluno")
+	private List<RelatorioVisitaDomiciliar>relatorioVisitaDomiciliar;
 
 	@OneToMany(mappedBy = "aluno")
 	private List<QuestionarioIniciacaoAcademica> iniciacaoAcademica;

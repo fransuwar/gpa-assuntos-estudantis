@@ -8,11 +8,9 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="login coord">login coord</a></td></tr>
-<tr><td><a href="Cadastrar bolsa">Cadastrar seleção bolsa</a></td></tr>
-<tr><td><a href="Cadastrar Bolsa - Num Edital com String">Cadastrar bolsa - num edital string</a></td></tr>
-<tr><td><a href="Cancelar Cadastro Bolsa">Cancelar Cadastro bolsa</a></td></tr>
-<tr><td><a href="Cadastrar Bolsa - Campos Obrigatorios em branco">Cadastro Bolsa - Campos Obrigatorios em Branco</a></td></tr>
+<tr><td><a href="../../../../git/npi/gpa-assuntos-estudantis/testes/FazerUploadDeAnexos/UploadAnexos">UploadAnexos</a></td></tr>
+<tr><td><a href="../../../../git/npi/gpa-assuntos-estudantis/testes/FazerUploadDeAnexos/UploadVariosAnexos">CancelarUploadAnexos</a></td></tr>
+<tr><td><a href="../../../../git/npi/gpa-assuntos-estudantis/testes/FazerUploadDeAnexos/EditarAnexos">EditarAnexos</a></td></tr>
 </tbody></table>
 </body>
 </html>

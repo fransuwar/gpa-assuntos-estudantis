@@ -8,12 +8,12 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="CadastrarServidor/Cadastrar servidor">Cadastrar servidor</a></td></tr>
-<tr><td><a href="CadastrarServidor/Cadastrar servidor - Campo Cargo em branco">Cadastrar servidor - Campo Cargo em branco</a></td></tr>
-<tr><td><a href="CadastrarServidor/Cadastrar Servidor - Campo em Branco">Cadastrar Servidor - Campo em Branco</a></td></tr>
-<tr><td><a href="CadastrarServidor/Cadastrar Servidor - Dados Duplicados">Cadastrar Servidor - Dados Duplicados</a></td></tr>
-<tr><td><a href="CadastrarServidor/Cadastrar Servidor - Siape com mais de 7 digitos">Cadastrar Servidor - Siape com mais de 7 digitos</a></td></tr>
-<tr><td><a href="CadastrarServidor/Cancelar cadastro servidor">Cancelar cadastro servidor</a></td></tr>
+<tr><td><a href="CadastrarServidor/Cadastrar_servidor">Cadastrar_servidor</a></td></tr>
+<tr><td><a href="CadastrarServidor/Cancelar_cadastro_servidor">Cancelar_cadastro_servidor</a></td></tr>
+<tr><td><a href="CadastrarServidor/Cadastrar_Servidor_Siape_com_mais_de_7_digitos">Cadastrar_Servidor_Siape_com_mais_de_7_digitos</a></td></tr>
+<tr><td><a href="CadastrarServidor/Cadastrar_Servidor_Dados_Duplicados">Cadastrar_Servidor_Dados_Duplicados</a></td></tr>
+<tr><td><a href="CadastrarServidor/Cadastrar_Servidor_Campo_em_Branco">Cadastrar_Servidor_Campo_em_Branco</a></td></tr>
+<tr><td><a href="CadastrarServidor/Cadastrar_servidor_Campo_Cargo_em_branco">Cadastrar_servidor_Campo_Cargo_em_branco</a></td></tr>
 </tbody></table>
 </body>
 </html>
