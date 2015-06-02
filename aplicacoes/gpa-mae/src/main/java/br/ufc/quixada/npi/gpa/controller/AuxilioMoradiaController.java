@@ -3,12 +3,10 @@ package br.ufc.quixada.npi.gpa.controller;
 import java.util.Date;
 
 import javax.inject.Inject;
-import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,13 +49,13 @@ public class AuxilioMoradiaController {
 
 	@Inject
 	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
-	
+
 	@Inject
 	private AlunoService alunoService;
 
 	@Inject
 	private SelecaoBolsaService selecaoBolsaService;
-	
+
 	@InitBinder
 	protected void initBinder(HttpServletRequest request,
 			ServletRequestDataBinder binder) throws ServletException {
@@ -71,11 +69,11 @@ public class AuxilioMoradiaController {
 
 	}
 
-	@RequestMapping(value = "/{id}/inscricao", method = RequestMethod.GET)
-	public String cadastro(@PathVariable("id") Integer id, Model model) {
+	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.GET)
+	public String cadastro(@PathVariable("idselecao") Integer id, Model model) {
 
-		model.addAttribute("questionarioAuxilioMoradia",
-				new QuestionarioAuxilioMoradia());
+		QuestionarioAuxilioMoradia q = new QuestionarioAuxilioMoradia();
+		model.addAttribute("questionarioAuxilioMoradia", q);
 		model.addAttribute("estado", Estado.toMap());
 		model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
 		model.addAttribute("tipoEnsinoFundamental",
@@ -92,38 +90,16 @@ public class AuxilioMoradiaController {
 
 		return "inscricao/auxilio";
 	}
-	
-	@RequestMapping(value = "/{idselecao}/inscricao", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.POST)
 	public String selecaoAluno(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
-			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
+			BindingResult result, @ModelAttribute("id") Integer id,
+			@PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model model) {
 
-		if (id != null) {
+		if (result.hasErrors()) {
 			
-			if (result.hasErrors()) {
-				model.addAttribute("estado", Estado.toMap());
-				model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
-				model.addAttribute("tipoEnsinoFundamental",
-						TipoEnsinoFundamental.toMap());
-				model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.toMap());
-				model.addAttribute("grauParentescoImovelRural",
-						GrauParentescoImovelRural.toMap());
-				model.addAttribute("grauParentescoVeiculos",
-						GrauParentescoVeiculos.toMap());
-				model.addAttribute("grauParentesco", GrauParentesco.toMap());
-				model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
-				model.addAttribute("moraCom", MoraCom.toMap());
-				model.addAttribute("action", "editar");
-				return "inscricao/auxilio";
-			}
-			
-			this.questionarioAuxMoradiaService.update(questionarioAuxilioMoradia);
-			redirect.addFlashAttribute("info",
-					"Inscrição atualizada com sucesso.");
-			return "redirect:/selecao/listar";
-			
-		} else if (result.hasErrors()) {
 			model.addAttribute("estado", Estado.toMap());
 			model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
 			model.addAttribute("tipoEnsinoFundamental",
@@ -137,29 +113,21 @@ public class AuxilioMoradiaController {
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 			model.addAttribute("moraCom", MoraCom.toMap());
 			model.addAttribute("selecaoBolsa", id);
-			
+
 			return "inscricao/auxilio";
 
 		} else {
 
 			Aluno aluno = alunoService.getAlunoById(id);
 			questionarioAuxilioMoradia.setAluno(aluno);
-			
-			SelecaoBolsa selecao = selecaoBolsaService.find(SelecaoBolsa.class, idSelecao);
+			SelecaoBolsa selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
+			selecao.addAlunosSelecao(aluno);
+			this.selecaoBolsaService.update(selecao);
 			questionarioAuxilioMoradia.setSelecaoBolsa(selecao);
+			questionarioAuxilioMoradia.setDataInscricao(new Date());
+			this.questionarioAuxMoradiaService
+					.update(questionarioAuxilioMoradia);
 
-			try {
-				this.questionarioAuxMoradiaService
-						.save(questionarioAuxilioMoradia);
-				questionarioAuxilioMoradia.setDataInscricao(new Date());
-			} catch (PersistenceException e) {
-				if (e.getCause() instanceof ConstraintViolationException) {
-					redirect.addFlashAttribute("erro",
-							"Você já realizou cadastrao nessa seleção.");
-
-					return "redirect:/selecao/listar";
-				}
-			}
 			redirect.addFlashAttribute("info",
 					"Cadastro realizado com sucesso.");
 		}
@@ -167,7 +135,7 @@ public class AuxilioMoradiaController {
 
 	}
 
-	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
+	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id,
 			RedirectAttributes redirect, Model model) {
 
@@ -180,17 +148,17 @@ public class AuxilioMoradiaController {
 				&& q.getSelecaoBolsa().getStatus().equals(Status.INSC_ABERTA)) {
 
 			model.addAttribute("questionarioAuxilioMoradia", q);
-			model.addAttribute("selecao", selecao);
+			model.addAttribute("selecaoBolsa", selecao.getId());
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			model.addAttribute("turno", Turno.toMap());
 			model.addAttribute("diasUteis", DiaUtil.toMap());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
-			model.addAttribute("action", "editar");
+			model.addAttribute("moraCom", MoraCom.toMap());
 
 		} else {
-			redirect.addFlashAttribute("erro", "Permissão negada.");
+			redirect.addFlashAttribute("erro", "Só pode editar sua inscrição enquanto a seleção estiver aberta.");
 			return "redirect:/selecao/listar";
 		}
 

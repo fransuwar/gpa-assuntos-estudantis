@@ -116,37 +116,44 @@
 									</button>
 								</a>
 							</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_ALUNO')">
-								<c:if
-									test="${selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
-									<a id="editar"
-										href="<c:url value="/iniciacaoAcademica/${sessionScope.id}/editar" ></c:url>">
-										<button class="btn btn-info">
-											Editar <span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</a>
-									<a id="inscrever"
-										href="<c:url value="/iniciacaoAcademica/${selecao.id}/inscricao" ></c:url>">
-										<button class=" btn btn-success">
-											inscrever-se <span class="glyphicon glyphicon-user"></span>
-										</button>
-									</a>
-								</c:if>
-
-								<c:if
-									test="${selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
-									<a id="editar"
-										href="<c:url value="/auxilio/${sessionScope.id}/editar" ></c:url>">
-										<button class="btn btn-info">
-											Editar <span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</a>
-									<a id="inscrever"
-										href="<c:url value="/auxilio/${selecao.id}/inscricao/" ></c:url>">
-										<button class=" btn btn-success">
-											inscrever-se <span class="glyphicon glyphicon-user"></span>
-										</button>
-									</a>
-								</c:if>
+								<c:choose>
+									<c:when
+										test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
+										<a id="inscrever"
+											href="<c:url value="/iniciacaoAcademica/inscricao/${selecao.id}/" ></c:url>">
+											<button class=" btn btn-success">
+												inscrever-se <span class="glyphicon glyphicon-user"></span>
+											</button>
+										</a>
+									</c:when>
+									<c:when
+										test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
+										<a id="editar"
+											href="<c:url value="/iniciacaoAcademica/editar/${sessionScope.id}/" ></c:url>">
+											<button class=" btn btn-info">
+												editar <span class="glyphicon glyphicon-pencil"></span>
+											</button>
+										</a>
+									</c:when>
+									<c:when
+										test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
+										<a id="inscrever"
+											href="<c:url value="/auxilio/inscricao/${selecao.id}/" ></c:url>">
+											<button class=" btn btn-success">
+												inscrever-se <span class="glyphicon glyphicon-user"></span>
+											</button>
+										</a>
+									</c:when>
+									<c:when
+										test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
+										<a id="editar"
+											href="<c:url value="/auxilio/editar/${sessionScope.id}/" ></c:url>">
+											<button class=" btn btn-info">
+												editar <span class="glyphicon glyphicon-pencil"></span>
+											</button>
+										</a>
+									</c:when>
+								</c:choose>
 							</sec:authorize> <sec:authorize access="isAnonymous()">
 
 								<a id="informacoes"
