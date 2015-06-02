@@ -13,6 +13,7 @@ import org.joda.time.DateTime;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,22 +30,29 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
+import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.model.Servidor;
+import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
+import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Named
 @RequestMapping("selecao")
+@SessionAttributes({ Constants.USUARIO_ID })
 public class SelecaoBolsaController {
 
 	@Inject
 	private ServidorService servidorService;
-
+	@Inject
+	private AlunoService alunoService;
 	@Inject
 	private DocumentoService documentoService;
-
+	@Inject
+	private PessoaService servicePessoa;
 	@Inject
 	private SelecaoBolsaService selecaoService;
 
@@ -59,6 +68,7 @@ public class SelecaoBolsaController {
 
 		return "selecao/informacoes";
 	}
+
 	
 	@RequestMapping(value = {"downloadDocumento/{id}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("id") Long id, 
@@ -84,7 +94,6 @@ public class SelecaoBolsaController {
 		if (selecaoBolsa.getId() != null) {
 
 			model.addAttribute("action", "editar");
-
 			
 
 			if (selecaoBolsa != null && selecaoBolsa.getAno() != null) { 
@@ -123,7 +132,7 @@ public class SelecaoBolsaController {
 					documentoService.delete(d);
 				}
 			}
-			
+
 			List<Documento> documentos = new ArrayList<Documento>();
 			if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
 				for (MultipartFile mfiles : files) {
@@ -143,7 +152,7 @@ public class SelecaoBolsaController {
 					}
 				}
 			}
-
+			
 			this.selecaoService.update(selecaoBolsa);
 			redirect.addFlashAttribute("info",
 					"Seleção atualizada com sucesso.");
@@ -153,7 +162,7 @@ public class SelecaoBolsaController {
 
 			model.addAttribute("action", "cadastrar");
 
-			return adicionarSelecao(selecaoBolsa, result, files,redirect,
+			return adicionarSelecao(selecaoBolsa, result, files, redirect,
 					model);
 		}
 	}
@@ -167,8 +176,9 @@ public class SelecaoBolsaController {
 	}
 
 	public String adicionarSelecao(
-			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, BindingResult result,
-			@RequestParam("files") List<MultipartFile> files, 
+			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
+			BindingResult result,
+			@RequestParam("files") List<MultipartFile> files,
 			RedirectAttributes redirect, Model model) {
 
 		if (selecao != null && selecao.getAno() != null) {
@@ -192,7 +202,8 @@ public class SelecaoBolsaController {
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
 			for (MultipartFile mfiles : files) {
 				try {
-					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0){
+					if (mfiles.getBytes() != null
+							&& mfiles.getBytes().length != 0) {
 						Documento documento = new Documento();
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
@@ -201,7 +212,8 @@ public class SelecaoBolsaController {
 						documentos.add(documento);
 					}
 				} catch (IOException ioe) {
-					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
+					model.addAttribute("erro",
+							"Não foi possivel salvar os documentos.");
 					return "selecao/cadastrar";
 				}
 			}
@@ -215,7 +227,8 @@ public class SelecaoBolsaController {
 		}
 
 		if (selecaoService.existsSelecaoEquals(selecao)) {
-			redirect.addFlashAttribute("erro", "Número do edital ou tipo de bolsa já existente");
+			redirect.addFlashAttribute("erro",
+					"Número do edital ou tipo de bolsa já existente");
 			return "redirect:/selecao/listar";
 		}
 
@@ -223,7 +236,6 @@ public class SelecaoBolsaController {
 		redirect.addFlashAttribute("info", "Seleção realizada com Sucesso.");
 		return "redirect:/selecao/listar";
 	}
-	
 
 	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id,
@@ -254,7 +266,7 @@ public class SelecaoBolsaController {
 			.addFlashAttribute("erro", "Seleção inexistente.");
 			return "redirect:/selecao/listar";
 		}
-		if (selecao.getStatus().equals(Status.NOVA)) { 
+		if (selecao.getStatus().equals(Status.NOVA)) {
 			this.selecaoService.delete(selecao);
 			redirectAttributes.addFlashAttribute("info",
 					"Seleção excluída com sucesso.");
@@ -265,15 +277,30 @@ public class SelecaoBolsaController {
 	}
 
 	@RequestMapping(value = "/listar")
-	public String listar(ModelMap model) {
-		
+	public String listar(ModelMap model, HttpServletRequest request, Authentication authentication) {
 		List<SelecaoBolsa> selecoes = this.selecaoService.getSelecaoBolsaComMembros();
-		
-		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("tipoBolsa", TipoBolsa.values());
+
+		if (request.isUserInRole("ROLE_ALUNO")) {
+
+			Pessoa pessoa = servicePessoa.getPessoaByLogin(authentication.getName());
+			Integer id = pessoa.getId();
+
+			Aluno aluno = this.alunoService.getAlunoComSelecoes(id);
+			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("aluno", aluno);
+			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+
+		} else {
+
+			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+		}
 
 		return "selecao/listar";
 	}
+
 	
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
@@ -290,10 +317,11 @@ public class SelecaoBolsaController {
 	
 	@RequestMapping(value = "/inscritos/{id}", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
-		
-		List<Aluno> alunosSelecao = this.selecaoService.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
+
+		List<Aluno> alunosSelecao = this.selecaoService
+				.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
 		model.addAttribute("alunos", alunosSelecao);
-		
+
 		return "selecao/listarInscritos";
 	}
 
@@ -314,21 +342,24 @@ public class SelecaoBolsaController {
 	}
 
 	@RequestMapping(value = "/atribuir", method = RequestMethod.POST)
-	public String atribuirPareceristaNoProjeto(
-			@RequestParam("id") Integer id,@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
+	public String atribuirPareceristaNoProjeto(@RequestParam("id") Integer id,
+			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
 			@RequestParam("id3") Integer id3, Model model,
 			RedirectAttributes redirect) {
 
-		if(id1 == null || id2 == null || id3 == null){
+		if (id1 == null || id2 == null || id3 == null) {
 			model.addAttribute("selecao", id);
-			model.addAttribute("servidores", servidorService.find(Servidor.class));
+			model.addAttribute("servidores",
+					servidorService.find(Servidor.class));
 			model.addAttribute("erroMembros", "Informe os três membros.");
 			return "selecao/atribuir";
 
 		} else if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
 			model.addAttribute("selecao", id);
-			model.addAttribute("servidores", servidorService.find(Servidor.class));
-			model.addAttribute("erroMembros", "Não é permitida repetição de membros na banca.");
+			model.addAttribute("servidores",
+					servidorService.find(Servidor.class));
+			model.addAttribute("erroMembros",
+					"Não é permitida repetição de membros na banca.");
 			return "selecao/atribuir";
 		} else {
 			SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
@@ -341,8 +372,7 @@ public class SelecaoBolsaController {
 			selecao.setMembrosBanca(list);
 
 			selecaoService.update(selecao);
-			redirect.addFlashAttribute("info",
-					"Banca formada com sucesso.");
+			redirect.addFlashAttribute("info", "Banca formada com sucesso.");
 
 			return "redirect:/selecao/listar";
 		}

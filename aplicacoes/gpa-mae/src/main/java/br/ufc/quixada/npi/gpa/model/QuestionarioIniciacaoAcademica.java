@@ -16,8 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,19 +25,17 @@ import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"aluno_id"}))
-@NamedQueries({ @NamedQuery(name = "IniAcad.findIniAcadById", 
-							query = "SELECT ia FROM QuestionarioIniciacaoAcademica ia WHERE ia.aluno.id = :idAluno")})
+@NamedQueries({ @NamedQuery(name = "IniAcad.findIniAcadById", query = "SELECT ia FROM QuestionarioIniciacaoAcademica ia WHERE ia.aluno.id = :idAluno") })
 public class QuestionarioIniciacaoAcademica {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@ManyToOne
 	private SelecaoBolsa selecaoBolsa;
-	
-	@ManyToOne
+
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Aluno aluno;
 
 	public Aluno getAluno() {
@@ -49,6 +45,7 @@ public class QuestionarioIniciacaoAcademica {
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
+
 	@NotNull(message = "Campo Obrigatório")
 	private Integer qtdAparelhoSom;
 	@NotNull(message = "Campo Obrigatório")
@@ -85,8 +82,7 @@ public class QuestionarioIniciacaoAcademica {
 	private Integer qtdEmpregadosDomesticos;
 	@NotNull(message = "Campo Obrigatório")
 	private Integer totalMembrosFamilia;
-	
-	
+
 	private String nome;
 	private int idade;
 	private String atividade;
@@ -97,7 +93,7 @@ public class QuestionarioIniciacaoAcademica {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "iniciacaoacademica_id")
 	private List<PessoaFamilia> pessoas;
-	
+
 	@Column(nullable = false)
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "questionarioiniciacaoacademica_id")
@@ -125,9 +121,9 @@ public class QuestionarioIniciacaoAcademica {
 	private String cidade;
 
 	private String pontoReferencia;
-	
+
 	private String telefoneFixo;
-	
+
 	private String telefoneCelular;
 
 	private String email;
@@ -161,13 +157,12 @@ public class QuestionarioIniciacaoAcademica {
 	private NivelInstrucao nivelInstrucaoMae;
 
 	@Enumerated(EnumType.STRING)
-
 	private NivelInstrucao nivelInstrucaoPai;
 
 	@NotNull
-	@Size(min=1,message="Campo Obrigatório")
+	@Size(min = 1, message = "Campo Obrigatório")
 	private String resideAtualmente;
-	
+
 	@NotNull
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String definicaoLocalAtual;
@@ -180,11 +175,11 @@ public class QuestionarioIniciacaoAcademica {
 
 	@Enumerated(EnumType.STRING)
 	private SituacaoResidencia situacaoResidencia;
-	
+
 	private String campusPreferido;
-	
+
 	private Date dataInscricao;
-			
+
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
 
@@ -199,127 +194,167 @@ public class QuestionarioIniciacaoAcademica {
 	public QuestionarioIniciacaoAcademica() {
 
 	}
-	
+
 	public Integer getQtdAparelhoSom() {
 		return qtdAparelhoSom;
 	}
+
 	public void setQtdAparelhoSom(Integer qtdAparelhoSom) {
 		this.qtdAparelhoSom = qtdAparelhoSom;
 	}
+
 	public Integer getQtdTelevisao() {
 		return qtdTelevisao;
 	}
+
 	public void setQtdTelevisao(Integer qtdTelevisao) {
 		this.qtdTelevisao = qtdTelevisao;
 	}
+
 	public Integer getQtdRadio() {
 		return qtdRadio;
 	}
+
 	public void setQtdRadio(Integer qtdRadio) {
 		this.qtdRadio = qtdRadio;
 	}
+
 	public Integer getQtdAutomovel() {
 		return qtdAutomovel;
 	}
+
 	public void setQtdAutomovel(Integer qtdAutomovel) {
 		this.qtdAutomovel = qtdAutomovel;
 	}
+
 	public Integer getQtdMotocicleta() {
 		return qtdMotocicleta;
 	}
+
 	public void setQtdMotocicleta(Integer qtdMotocicleta) {
 		this.qtdMotocicleta = qtdMotocicleta;
 	}
+
 	public Integer getQtdMaquinaLavar() {
 		return qtdMaquinaLavar;
 	}
+
 	public void setQtdMaquinaLavar(Integer qtdMaquinaLavar) {
 		this.qtdMaquinaLavar = qtdMaquinaLavar;
 	}
+
 	public Integer getQtdDvdVideocassete() {
 		return qtdDvdVideocassete;
 	}
+
 	public void setQtdDvdVideocassete(Integer qtdDvdVideocassete) {
 		this.qtdDvdVideocassete = qtdDvdVideocassete;
 	}
+
 	public Integer getQtdGeladeira() {
 		return qtdGeladeira;
 	}
+
 	public void setQtdGeladeira(Integer qtdGeladeira) {
 		this.qtdGeladeira = qtdGeladeira;
 	}
+
 	public Integer getQtdFreezer() {
 		return qtdFreezer;
 	}
+
 	public void setQtdFreezer(Integer qtdFreezer) {
 		this.qtdFreezer = qtdFreezer;
 	}
+
 	public Integer getQtdTelefoneFixo() {
 		return qtdTelefoneFixo;
 	}
+
 	public void setQtdTelefoneFixo(Integer qtdTelefoneFixo) {
 		this.qtdTelefoneFixo = qtdTelefoneFixo;
 	}
+
 	public Integer getQtdCelularResidentes() {
 		return qtdCelularResidentes;
 	}
+
 	public void setQtdCelularResidentes(Integer qtdCelularResidentes) {
 		this.qtdCelularResidentes = qtdCelularResidentes;
 	}
+
 	public Integer getQtdComputador() {
 		return qtdComputador;
 	}
+
 	public void setQtdComputador(Integer qtdComputador) {
 		this.qtdComputador = qtdComputador;
 	}
+
 	public Integer getQtdFogaoGas() {
 		return qtdFogaoGas;
 	}
+
 	public void setQtdFogaoGas(Integer qtdFogaoGas) {
 		this.qtdFogaoGas = qtdFogaoGas;
 	}
+
 	public Integer getQtdMaquinaCostura() {
 		return qtdMaquinaCostura;
 	}
+
 	public void setQtdMaquinaCostura(Integer qtdMaquinaCostura) {
 		this.qtdMaquinaCostura = qtdMaquinaCostura;
 	}
+
 	public Integer getQtdComodosSemBanheiro() {
 		return qtdComodosSemBanheiro;
 	}
+
 	public void setQtdComodosSemBanheiro(Integer qtdComodosSemBanheiro) {
 		this.qtdComodosSemBanheiro = qtdComodosSemBanheiro;
 	}
+
 	public Integer getQtdBanheiros() {
 		return qtdBanheiros;
 	}
+
 	public void setQtdBanheiros(Integer qtdBanheiros) {
 		this.qtdBanheiros = qtdBanheiros;
 	}
+
 	public Integer getQtdEmpregadosDomesticos() {
 		return qtdEmpregadosDomesticos;
 	}
+
 	public void setQtdEmpregadosDomesticos(Integer qtdEmpregadosDomesticos) {
 		this.qtdEmpregadosDomesticos = qtdEmpregadosDomesticos;
 	}
+
 	public Integer getTotalMembrosFamilia() {
 		return totalMembrosFamilia;
 	}
+
 	public void setTotalMembrosFamilia(Integer totalMembrosFamilia) {
 		this.totalMembrosFamilia = totalMembrosFamilia;
 	}
+
 	public String getCampusPreferido() {
 		return campusPreferido;
 	}
+
 	public void setCampusPreferido(String campusPreferido) {
 		this.campusPreferido = campusPreferido;
 	}
+
 	public Date getDataInscricao() {
 		return dataInscricao;
 	}
+
 	public void setDataInscricao(Date dataInscricao) {
 		this.dataInscricao = dataInscricao;
 	}
+
 	public float getRendaTotalFamilia() {
 		return rendaTotalFamilia;
 	}
@@ -563,7 +598,7 @@ public class QuestionarioIniciacaoAcademica {
 	public void setEstadoFamilia(Estado estadoFamilia) {
 		this.estadoFamilia = estadoFamilia;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -644,6 +679,7 @@ public class QuestionarioIniciacaoAcademica {
 	public void setTelefoneCelularFamilia(String telefoneCelularFamilia) {
 		this.telefoneCelularFamilia = telefoneCelularFamilia;
 	}
+
 	public String toString() {
 		return "QuestionarioIniciacaoAcademica [id=" + id + "]";
 	}

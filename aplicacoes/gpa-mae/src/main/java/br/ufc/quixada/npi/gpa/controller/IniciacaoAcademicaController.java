@@ -1,10 +1,8 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import javax.inject.Inject;
-import javax.persistence.PersistenceException;
 import javax.validation.Valid;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,8 +42,8 @@ public class IniciacaoAcademicaController {
 	@Inject
 	private SelecaoBolsaService selecaoBolsaService;
 
-	@RequestMapping(value = "/{id}/inscricao", method = RequestMethod.GET)
-	public String cadastro(@PathVariable("id") Integer id, Model modelo) {
+	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.GET)
+	public String cadastro(@PathVariable("idselecao") Integer id, Model modelo) {
 
 		QuestionarioIniciacaoAcademica q = new QuestionarioIniciacaoAcademica();
 		modelo.addAttribute("questionarioIniciacaoAcademica", q);
@@ -60,33 +58,14 @@ public class IniciacaoAcademicaController {
 		return "inscricao/iniciacaoAcademica";
 	}
 
-	@RequestMapping(value = "/{idselecao}/inscricao", method = RequestMethod.POST)
+	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.POST)
 	public String adicionaIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
 			BindingResult result, @ModelAttribute("id") Integer id,
 			@PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model modelo) {
 
-		if (id != null) {
-
-			if (result.hasErrors()) {
-				modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-				modelo.addAttribute("turno", Turno.toMap());
-				modelo.addAttribute("diasUteis", DiaUtil.toMap());
-				modelo.addAttribute("situacaoResidencia",
-						SituacaoResidencia.toMap());
-				modelo.addAttribute("totalEstado", Estado.toMap());
-				modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-				return "inscricao/iniciacaoAcademica";
-			}
-
-			this.iniciacaoAcademicaService
-					.update(questionarioIniciacaoAcademica);
-			redirect.addFlashAttribute("info",
-					"Inscrição atualizada com sucesso.");
-			return "redirect:/selecao/listar";
-			
-		} else if (result.hasErrors()) {
+		if (result.hasErrors()) {
 
 			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			modelo.addAttribute("turno", Turno.toMap());
@@ -100,25 +79,16 @@ public class IniciacaoAcademicaController {
 			return "inscricao/iniciacaoAcademica";
 
 		} else {
+
 			Aluno aluno = alunoService.getAlunoById(id);
 			questionarioIniciacaoAcademica.setAluno(aluno);
-
-			SelecaoBolsa selecao = selecaoBolsaService.find(SelecaoBolsa.class,
-					idSelecao);
+			SelecaoBolsa selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
+			selecao.addAlunosSelecao(aluno);
+			this.selecaoBolsaService.update(selecao);
 			questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
-
-			try {
-
-				this.iniciacaoAcademicaService
-						.save(questionarioIniciacaoAcademica);
-			} catch (PersistenceException e) {
-				if (e.getCause() instanceof ConstraintViolationException) {
-					redirect.addFlashAttribute("erro",
-							"Você já realizou cadastrao nessa seleção.");
-
-					return "redirect:/selecao/listar";
-				}
-			}
+			this.iniciacaoAcademicaService
+					.update(questionarioIniciacaoAcademica);
+			
 			redirect.addFlashAttribute("info",
 					"Cadastro realizado com sucesso.");
 		}
@@ -126,7 +96,7 @@ public class IniciacaoAcademicaController {
 		return "redirect:/selecao/listar";
 	}
 
-	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
+	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id,
 			RedirectAttributes redirect, Model model) {
 
@@ -139,14 +109,13 @@ public class IniciacaoAcademicaController {
 				&& q.getSelecaoBolsa().getStatus().equals(Status.INSC_ABERTA)) {
 
 			model.addAttribute("questionarioIniciacaoAcademica", q);
-			model.addAttribute("selecao", selecao);
+			model.addAttribute("selecaoBolsa", selecao.getId());
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			model.addAttribute("turno", Turno.toMap());
 			model.addAttribute("diasUteis", DiaUtil.toMap());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
-			model.addAttribute("action", "editar");
 
 		} else {
 			redirect.addFlashAttribute("erro",

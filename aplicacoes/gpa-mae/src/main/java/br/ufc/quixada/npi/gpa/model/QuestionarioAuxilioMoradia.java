@@ -16,8 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -32,8 +30,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "aluno_id" }))
-@NamedQueries({ @NamedQuery(name = "AuxMor.findAuxMorById", query = "SELECT am FROM QuestionarioAuxilioMoradia am WHERE am.aluno.id = :idAluno") })
+@NamedQueries({ @NamedQuery(name = "AuxMor.findAuxMorById", query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am LEFT JOIN FETCH am.moraCom WHERE am.aluno.id = :idAluno") })
 public class QuestionarioAuxilioMoradia {
 
 	public QuestionarioAuxilioMoradia() {
@@ -46,7 +43,7 @@ public class QuestionarioAuxilioMoradia {
 	@ManyToOne
 	private SelecaoBolsa selecaoBolsa;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Aluno aluno;
 
 	public Aluno getAluno() {
@@ -532,38 +529,7 @@ public class QuestionarioAuxilioMoradia {
 
 	@Override
 	public String toString() {
-		return "QuestionarioAuxilioMoradia [id=" + id + ", selecaoBolsa="
-				+ selecaoBolsa + ", pessoas=" + pessoas + ", moraCom="
-				+ moraCom + ", nomeMae=" + nomeMae + ", nomePai=" + nomePai
-				+ ", enderecoSedeCurso=" + ruaSedeCurso + ", numeroSedeCurso="
-				+ numeroSedeCurso + ", bairroSedeCurso=" + bairroSedeCurso
-				+ ", ruaOrigem=" + ruaOrigem + ", numeroOrigem=" + numeroOrigem
-				+ ", bairroOrigem=" + bairroOrigem + ", complementoOrigem="
-				+ complementoOrigem + ", cidadeOrigem=" + cidadeOrigem
-				+ ", cepOrigem=" + cepOrigem + ", pontoReferenciaOrigem="
-				+ pontoReferenciaOrigem + ", telefoneOrigem=" + telefoneOrigem
-				+ ", estadoOrigem=" + estadoOrigem + ", dataInscricao="
-				+ dataInscricao + ", situacaoImovel=" + situacaoImovel
-				+ ", valorMensalFinanciamento=" + valorMensalFinanciamento
-				+ ", grauParentescoImovelRural=" + grauParentescoImovelRural
-				+ ", areaPropriedadeRural=" + areaPropriedadeRural
-				+ ", cidadePropriedadeRural=" + cidadePropriedadeRural
-				+ ", estadoPropriedadeRural=" + estadoPropriedadeRural
-				+ ", grauParentescoVeiculos=" + grauParentescoVeiculos
-				+ ", tipoVeiculo=" + tipoVeiculo + ", marcaVeiculo="
-				+ marcaVeiculo + ", modeloVeiculo=" + modeloVeiculo
-				+ ", anoVeiculo=" + anoVeiculo + ", finalidadeVeiculo="
-				+ finalidadeVeiculo + ", ensinoFundamental="
-				+ ensinoFundamental + ", percentualParticularFundamental="
-				+ percentualParticularFundamental + ", ensinoMedio="
-				+ ensinoMedio + ", percentualParticularMedio="
-				+ percentualParticularMedio + ", cursinho=" + cursinho
-				+ ", nomeCursinho=" + nomeCursinho + ", rendaMediaFamilia="
-				+ rendaMediaFamilia + ", rendaMediaPessoa=" + rendaMediaPessoa
-				+ ", bolsista=" + bolsista + ", tipoBolsa=" + tipoBolsa
-				+ ", possuiGraduacao=" + possuiGraduacao
-				+ ", descricaoGraduacao=" + descricaoGraduacao
-				+ ", justificativa=" + justificativa + "]";
+		return "QuestionarioAuxilioMoradia [id=" + id + "]";
 	}
 
 }
