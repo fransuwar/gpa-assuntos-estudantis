@@ -68,7 +68,6 @@ public class SelecaoBolsaController {
 
 		return "selecao/informacoes";
 	}
-
 	
 	@RequestMapping(value = {"downloadDocumento/{id}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("id") Long id, 
@@ -294,6 +293,7 @@ public class SelecaoBolsaController {
 		} else {
 
 			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 		}
@@ -301,7 +301,6 @@ public class SelecaoBolsaController {
 		return "selecao/listar";
 	}
 
-	
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 		List<SelecaoBolsa> selecoes = this.servidorService.getPessoaServidorComBancas(id).getParticipaBancas();
@@ -378,7 +377,8 @@ public class SelecaoBolsaController {
 		}
 	}
 	
-
-	
-
+	@RequestMapping(value = "/visualizarFormulario/{idaluno}")
+	public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model){
+		return null;
+	}
 }

@@ -8,6 +8,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 
 @Entity
-@NamedQueries({ @NamedQuery(name = "AuxMor.findAuxMorById", query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am LEFT JOIN FETCH am.moraCom WHERE am.aluno.id = :idAluno") })
+@NamedQueries({ @NamedQuery(name = "AuxMor.findAuxMorById", query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.aluno.id = :idAluno") })
 public class QuestionarioAuxilioMoradia {
 
 	public QuestionarioAuxilioMoradia() {
@@ -61,7 +62,7 @@ public class QuestionarioAuxilioMoradia {
 
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
-	@ElementCollection(targetClass = MoraCom.class)
+	@ElementCollection(targetClass = MoraCom.class, fetch = FetchType.EAGER)
 	private List<MoraCom> moraCom;
 
 	@NotEmpty(message = "Campo obrigatório")

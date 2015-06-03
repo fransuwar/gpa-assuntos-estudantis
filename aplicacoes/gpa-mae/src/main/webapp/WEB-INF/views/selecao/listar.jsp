@@ -147,7 +147,6 @@
 											</c:otherwise>
 										</c:choose>
 									</a>
-
 									<a id="visualizarInscritos"
 										href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 										<button class="btn btn-primary">
