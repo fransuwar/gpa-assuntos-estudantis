@@ -53,7 +53,7 @@
 					<form:form id="relatorioForm" role="form"
 						modelAttribute="relatorioVisitaDomiciliar"
 						commandName="relatorioVisitaDomiciliar"
-						servletRelativeAction="/relatorioVisita/${auxilioMoradia}/cadastrar/"
+						servletRelativeAction="/relatorioVisita/cadastrar/${idAuxilioMoradia}/"
 						method="POST" cssClass="form-horizontal">
 
 						<div class="tab-content">

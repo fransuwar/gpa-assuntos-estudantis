@@ -18,7 +18,7 @@
  		
  		
  		<intercept-url pattern="/selecao/listarPorServidor/*" access="hasRole('ROLE_ADMIN')" />	
- 		<intercept-url pattern="/selecao/inscritos/*/relatorioVisita" access="hasRole('ROLE_ADMIN')" />
+ 		<intercept-url pattern="/selecao/inscritos/relatorioVisita/*" access="hasRole('ROLE_ADMIN')" />
  		<intercept-url pattern="/selecao/inscritos/*" access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')" />
  		<intercept-url pattern="/selecao/**" access="hasRole('ROLE_COORDENADOR')" />
  		
