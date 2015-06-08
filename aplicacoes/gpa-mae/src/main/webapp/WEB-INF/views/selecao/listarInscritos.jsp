@@ -16,7 +16,7 @@ uri="http://www.springframework.org/security/tags"%>
     	<li>Listar Inscritos</li>
     </ol>
     <div class="container">
-    	<sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
+    	<sec:authorize access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')">
     		<div class="panel-heading" align="center">
 				<h4>Alunos inscritos</h4>
 			</div>
@@ -34,6 +34,20 @@ uri="http://www.springframework.org/security/tags"%>
 							<td>${aluno.matricula}</td>
 							<td>${aluno.nome}</td>
 							<td>${aluno.curso}</td>
+							
+							
+							<td>
+							<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+								<a id="preencherRelatorio"
+									href="<c:url value="${aluno.id}/relatorioVisita" ></c:url>">
+									<button class="btn btn-primary">
+										Relatório de Visita Domiciliar <span class="glyphicon glyphicon-user"></span>
+									</button>
+								</a>
+							</sec:authorize>
+							</td>
+							
+							
 						</tr>
 					</c:forEach>
 				</tbody>

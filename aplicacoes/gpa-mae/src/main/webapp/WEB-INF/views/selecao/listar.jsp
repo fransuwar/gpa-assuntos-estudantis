@@ -104,11 +104,14 @@
 									</c:choose>
 								</a>
 
+								
+							</sec:authorize> 
+							<sec:authorize access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')">
 								<a id="visualizarInscritos"
-									href="<c:url value="/selecao/${selecao.id}/inscritos" ></c:url>">
-									<button class="btn btn-primary">
-										Visualizar Inscritos <span class="glyphicon glyphicon-user"></span>
-									</button>
+										href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
+										<button class="btn btn-primary">
+											Visualizar Inscritos <span class="glyphicon glyphicon-user"></span>
+										</button>
 								</a>
 							</sec:authorize> 
 							<sec:authorize access="hasAnyRole('ROLE_ALUNO')">
@@ -140,15 +143,6 @@
 										href="<c:url value="/auxilio/${selecao.id}/inscricao/" ></c:url>">
 										<button class=" btn btn-success">
 											inscrever-se <span class="glyphicon glyphicon-user"></span>
-										</button>
-									</a>
-								</c:if>
-							</sec:authorize> 
-							<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-								<c:if test="${avaliar}">
-									<a id="avaliarSelecao" href="<c:url value="" ></c:url>">
-										<button class="btn btn-primary">
-											Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
 										</button>
 									</a>
 								</c:if>

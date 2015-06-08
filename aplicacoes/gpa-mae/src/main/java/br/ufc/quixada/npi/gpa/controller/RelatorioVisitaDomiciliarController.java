@@ -32,27 +32,29 @@ public class RelatorioVisitaDomiciliarController {
 	@Inject
 	private AlunoService alunoService;
 	
-	@RequestMapping(value="/{id}/cadastrar", method = RequestMethod.GET)
+	@RequestMapping(value="{id}/cadastrar", method = RequestMethod.GET)
 	public String cadastrar(@PathVariable("id") Integer id, Model modelo){
 		modelo.addAttribute("relatorioVisitaDomiciliar", new RelatorioVisitaDomiciliar());
 		modelo.addAttribute("curso", Curso.values());
 		modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
 		modelo.addAttribute("auxilioMoradia", id);
-		return "relatorioVisita/cadastrar";
+		modelo.addAttribute("aluno", alunoService.find(Aluno.class, id));
+		return "/selecao/relatorioVisita";
 	}
 	
 	@RequestMapping(value="/{idAuxilio}/cadastrar", method= RequestMethod.POST)
 	public String adicionarRelatorio(@Valid @ModelAttribute("relatorioVisitaDomiciliar") 
 	RelatorioVisitaDomiciliar relatorioVisitaDomiciliar, BindingResult result, 
-	@ModelAttribute ("id") Integer id, RedirectAttributes redirect, Model modelo){
+	@ModelAttribute ("idAuxilio") Integer id, RedirectAttributes redirect, Model modelo){
 		
 		if(id!=null){
 			if(result.hasErrors()){
-				modelo.addAttribute("relatorioVisitaDomiciliar", new RelatorioVisitaDomiciliar());
+				System.out.println("NATYYYYYYYYYYYYY");
+				modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 				modelo.addAttribute("curso", Curso.values());
 				modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
 				modelo.addAttribute("action", "editar");
-				return "relatorioVisita/cadastrar";
+				return "relatorioVisita/"+id+"/cadastrar";
 			}
 			
 			this.relatorioVisitaService.update(relatorioVisitaDomiciliar);
