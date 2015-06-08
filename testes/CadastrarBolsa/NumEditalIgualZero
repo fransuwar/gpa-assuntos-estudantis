@@ -59,7 +59,7 @@
 <tr>
 	<td>type</td>
 	<td>id=dataTermino</td>
-	<td>04/06/2015</td>
+	<td>24/06/2015</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -93,20 +93,19 @@
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>css=label.col-sm-2.control-label</td>
+	<td>id=sequencial.errors</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=label.col-sm-2.control-label</td>
-	<td>*Numero do edital deve ser maior ou igual a 1*</td>
+	<td>id=erro-sequencial</td>
+	<td>*O valor do edital deve ser maior que 0*</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Sair</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

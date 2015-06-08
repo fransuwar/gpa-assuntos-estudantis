@@ -59,7 +59,7 @@
 <tr>
 	<td>type</td>
 	<td>id=dataTermino</td>
-	<td>01/05/2015</td>
+	<td>30/05/2015</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -93,13 +93,13 @@
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td></td>
+	<td>id=dataInicio.errors</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td></td>
-	<td>*Data de inicio deve ser posterior a de termino*</td>
+	<td>id=dataInicio.errors</td>
+	<td>*Data de início deve ser maior que a data atual*</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>

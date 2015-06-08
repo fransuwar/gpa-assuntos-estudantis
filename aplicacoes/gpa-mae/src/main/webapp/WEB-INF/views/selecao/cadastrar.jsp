@@ -84,7 +84,7 @@
 							</form:select>
 							<div class="error-validation label-erro-select"
 								id="erro-tipoBolsa">
-								<form:errors path="sequencial"></form:errors>
+								<form:errors path="tipoBolsa"></form:errors>
 							</div>
 						</div>
 
@@ -176,7 +176,7 @@
 									<c:forEach items="${selecao.documentos}" var="documento">
 										<tr class="template-upload fade in" id="row-${documento.id}">
 											<td>
-												<a href="<c:url value="/selecao/${documento.id}/downloadDocumento"></c:url>">${documento.nome}</a>
+												<a href="<c:url value="/selecao/downloadDocumento/${documento.id}"></c:url>">${documento.nome}</a>
 												<strong class="error text-danger"></strong>
 											</td>
 											<td><a onclick="removerDocumento(${documento.id});"

@@ -8,9 +8,9 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="../../../../git/npi/gpa-assuntos-estudantis/testes/EditarAluno/EditarCamposObrigatoriosEmBranco">CampoObrigatorioEmBranco</a></td></tr>
-<tr><td><a href="EditarAluno/Editar_Aluno_Ano_de_Ingresso_posterior_ao_atual">Editar_Aluno_Ano_de_Ingresso_posterior_ao_atual</a></td></tr>
-<tr><td><a href="EditarAluno/Editar_Aluno">Editar_Aluno</a></td></tr>
+<tr><td><a href="../../../../git/npi/gpa-assuntos-estudantis/testes/FazerUploadDeAnexos/UploadAnexos">UploadAnexos</a></td></tr>
+<tr><td><a href="../../../../git/npi/gpa-assuntos-estudantis/testes/FazerUploadDeAnexos/UploadVariosAnexos">CancelarUploadAnexos</a></td></tr>
+<tr><td><a href="../../../../git/npi/gpa-assuntos-estudantis/testes/FazerUploadDeAnexos/EditarAnexos">EditarAnexos</a></td></tr>
 </tbody></table>
 </body>
 </html>

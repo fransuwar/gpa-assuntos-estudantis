@@ -56,9 +56,10 @@
 				<form:form id="questionarioForm" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
-					servletRelativeAction="/auxilio/${selecaoBolsa}/inscricao/" method="POST"
-					cssClass="form-horizontal">
-					<input type="hidden" name="id" value="${sessionScope.id}" />
+					servletRelativeAction="/auxilio/inscricao/${selecaoBolsa}/"
+					method="POST" cssClass="form-horizontal">
+					<input type="hidden" name="id"
+						value="${questionarioAuxilioMoradia.id}" />
 					<div class="tab-content">
 
 						<div class="tab-pane active" id="moradia-tab">
@@ -68,7 +69,6 @@
 									<h3>Mora com</h3>
 								</div>
 								<div class="panel-body">
-
 									<div class="form-group">
 										<div class="col-sm-9" id="col-sm-radio">
 											<form:checkboxes items="${moraCom}" path="moraCom" />
