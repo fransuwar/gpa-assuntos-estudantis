@@ -49,12 +49,11 @@ public class RelatorioVisitaDomiciliarController {
 		
 		if(id!=null){
 			if(result.hasErrors()){
-				System.out.println("NATYYYYYYYYYYYYY");
 				modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 				modelo.addAttribute("curso", Curso.values());
 				modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
 				modelo.addAttribute("action", "editar");
-				return "relatorioVisita/"+id+"/cadastrar";
+				return "redirect:/relatorioVisita/"+id+"/cadastrar";
 			}
 			
 			this.relatorioVisitaService.update(relatorioVisitaDomiciliar);
