@@ -68,6 +68,11 @@ public class SelecaoBolsaController {
 
 		return "selecao/informacoes";
 	}
+					
+	@RequestMapping(value="inscritos/relatorioVisita/{id}")
+	public String cadastrarRelatorio(@PathVariable("id") Integer id, Model modelo){
+		return "redirect:/relatorioVisita/cadastrar/{id}";
+	}
 	
 	@RequestMapping(value = {"downloadDocumento/{id}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("id") Long id, 
@@ -307,7 +312,6 @@ public class SelecaoBolsaController {
 		
 		
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("avaliar", true);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 	

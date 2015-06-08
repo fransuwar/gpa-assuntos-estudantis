@@ -115,7 +115,15 @@
 							<td>${selecao.quantidadeVagas}</td>
 							<td>${selecao.status.nome}</td>
 
-							<td><sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
+							<td><sec:authorize
+									access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')">
+									<a id="visualizarInscritos"
+										href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
+										<button class="btn btn-primary">
+											Visualizar Inscritos <span class="glyphicon glyphicon-user"></span>
+										</button>
+									</a>
+								</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
 									<a id="editar"
 										href="<c:url value="/selecao/editar/${selecao.id}" ></c:url>">
 										<button class="btn btn-info">
@@ -147,12 +155,7 @@
 											</c:otherwise>
 										</c:choose>
 									</a>
-									<a id="visualizarInscritos"
-										href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-										<button class="btn btn-primary">
-											Visualizar Inscritos <span class="glyphicon glyphicon-user"></span>
-										</button>
-									</a>
+
 								</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_ALUNO')">
 									<c:choose>
 										<c:when

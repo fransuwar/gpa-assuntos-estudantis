@@ -32,32 +32,33 @@ public class RelatorioVisitaDomiciliarController {
 	@Inject
 	private AlunoService alunoService;
 	
-	@RequestMapping(value="/{id}/cadastrar", method = RequestMethod.GET)
+	@RequestMapping(value="cadastrar/{id}", method = RequestMethod.GET)
 	public String cadastrar(@PathVariable("id") Integer id, Model modelo){
 		modelo.addAttribute("relatorioVisitaDomiciliar", new RelatorioVisitaDomiciliar());
 		modelo.addAttribute("curso", Curso.values());
 		modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
-		modelo.addAttribute("auxilioMoradia", id);
-		return "relatorioVisita/cadastrar";
+		modelo.addAttribute("idAuxilioMoradia", id);
+		modelo.addAttribute("aluno", alunoService.find(Aluno.class, id));
+		return "/selecao/relatorioVisita";
 	}
 	
-	@RequestMapping(value="/{idAuxilio}/cadastrar", method= RequestMethod.POST)
+	@RequestMapping(value="/cadastrar/{idAuxilio}", method= RequestMethod.POST)
 	public String adicionarRelatorio(@Valid @ModelAttribute("relatorioVisitaDomiciliar") 
 	RelatorioVisitaDomiciliar relatorioVisitaDomiciliar, BindingResult result, 
-	@ModelAttribute ("id") Integer id, RedirectAttributes redirect, Model modelo){
+	@ModelAttribute ("idAuxilio") Integer id, RedirectAttributes redirect, Model modelo){
 		
 		if(id!=null){
 			if(result.hasErrors()){
-				modelo.addAttribute("relatorioVisitaDomiciliar", new RelatorioVisitaDomiciliar());
+				modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 				modelo.addAttribute("curso", Curso.values());
 				modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
 				modelo.addAttribute("action", "editar");
-				return "relatorioVisita/cadastrar";
+				return "redirect:/relatorioVisita/cadastrar/"+id;
 			}
 			
 			this.relatorioVisitaService.update(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatório Atualizado com sucesso.");
-			return "redirect:/selecao/{id}/inscritos";
+			return "redirect:/selecao/inscritos/{id}";
 			
 		}else if(result.hasErrors()){
 			modelo.addAttribute("relatorioVisitaDomiciliar", new RelatorioVisitaDomiciliar());
@@ -73,7 +74,7 @@ public class RelatorioVisitaDomiciliarController {
 			this.relatorioVisitaService.save(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatorio cadastrado com sucesso.");
 			
-			return "redirect:/selecao/{id}/inscritos";
+			return "redirect:/selecao/inscritos/{id}";
 		}
 	}
 }
