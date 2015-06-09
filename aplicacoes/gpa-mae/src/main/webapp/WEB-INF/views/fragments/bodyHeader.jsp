@@ -7,11 +7,19 @@
 <div id="header-page">
 	<div class="row">
 		<div class="col-md-6">
-			<img width="370"
-				src="<c:url value="/resources/images/brasao-qxd.png" />"
+			<img src="<c:url value="/resources/images/logo-GPA.png" />"
 				alt="Brasão UFC Quixadá">
 		</div>
-		<div class="col-md-6"></div>
+		<div class="col-md-3 col-md-offset-3">
+			<sec:authorize access="isAuthenticated()">
+				<ul class="logado">
+					<li><h4>Bem vindo, ${sessionScope.usuario}!</h4></li>
+					<li><a href="<c:url value="/j_spring_security_logout" />">Sair
+							<span class="glyphicon glyphicon-off"></span>
+					</a></li>
+				</ul>
+			</sec:authorize>
+		</div>
 	</div>
 </div>
 <div>
@@ -19,6 +27,7 @@
 
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
+
 			<sec:authorize access="isAuthenticated()">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -27,62 +36,52 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="<c:url value="#" />">GPA - MAE</a>
+					<a class="navbar-brand" href="<c:url value="#" />"><font>GPA-MAE</font></a>
 				</div>
 			</sec:authorize>
-
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
 					<sec:authorize ifAnyGranted="ROLE_ADMIN">
 
-						<li><a href="<c:url value="/servidor/listar" />">Listar
-								Servidor <span class="glyphicon glyphicon-list"></span>
+						<li role="presentation"><a
+							href="<c:url value="/servidor/listar" />">Listar Servidor <span
+								class="glyphicon glyphicon-list"></span>
 						</a></li>
-						<li><a
+						<li role="presentation"><a
 							href="<c:url value="/selecao/listarPorServidor/${sessionScope.id}" />">Listar
 								Seleções <span class="glyphicon glyphicon-list"></span>
 						</a></li>
-						<li><a href="<c:url value="/aluno/listar" />">Listar
-								Alunos <span class="glyphicon glyphicon-plus"></span>
+						<li role="presentation"><a
+							href="<c:url value="/aluno/listar" />">Listar Alunos <span
+								class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>
 
 					<sec:authorize ifAllGranted="ROLE_ALUNO">
-						<input type="hidden" name="id"
-							value="${sessionScope.id}" />
+						<input type="hidden" name="id" value="${sessionScope.id}" />
+						<li role="presentation"><a
+							href="<c:url value="/selecao/listar" />">Listar
+								Seleções <span class="glyphicon glyphicon-list"></span>
+						</a></li>
 					</sec:authorize>
 					<sec:authorize ifAllGranted="ROLE_COORDENADOR">
-						<li><a href="<c:url value="/aluno/listar" />">Listar
-								Alunos <span class="glyphicon glyphicon-plus"></span>
+						<li role="presentation"><a
+							href="<c:url value="/aluno/listar" />">Listar Alunos <span
+								class="glyphicon glyphicon-list"></span>
 						</a></li>
-						<li><a
-							href="<c:url value="/selecao/listar/${sessionScope.id}" />">Listar
-								Seleções <span class="glyphicon glyphicon-plus"></span>
-						</a></li>
-					</sec:authorize>
-
-					<sec:authorize access="isAuthenticated()">
-
-						<li><a href="<c:url value="/j_spring_security_logout" />">Sair
-								<span class="glyphicon glyphicon-off"></span>
+						<li role="presentation"><a
+							href="<c:url value="/selecao/listar" />">Listar
+								Seleções <span class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>
 
 					<sec:authorize access="isAnonymous()">
 						<li><a href="<c:url value="/login" />">Login </a></li>
 					</sec:authorize>
-
 				</ul>
-				<sec:authorize access="isAuthenticated()">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a style="font-weight: bold;">Bem vindo,
-								${sessionScope.usuario}!</a></li>
-					</ul>
-				</sec:authorize>
 			</div>
+
 		</div>
 	</nav>
-
 
 </div>
