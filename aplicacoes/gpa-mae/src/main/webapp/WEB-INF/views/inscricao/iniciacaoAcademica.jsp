@@ -16,11 +16,6 @@
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
-	<ol class="breadcrumb">
-		<li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
-		<li class="active">Cadastrar Inscrição</li>
-	</ol>
-
 	<div class="container">
 		<div class="novo-projeto" align="left">
 			<div class="form" align="center">
