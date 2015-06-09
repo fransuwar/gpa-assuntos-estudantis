@@ -30,14 +30,10 @@ div.container {
 
 .logado {
 	list-style-type: none;
-	padding-top: 15%;
+	padding-top: 9%;
 	padding-left: 20%;
 	color: #3288B2;
 	text-align: right;
-}
-
-font {
-	color: #3288B2;
 }
 
 .h2-form {
@@ -149,7 +145,7 @@ div.row {
 }
 
 .navbar-nav>li>a, .navbar-brand {
-	color: black !important;
+	color: #3288B2 !important;
 }
 
 .navbar-nav>li>a:HOVER, .navbar-brand:HOVER {
