@@ -83,7 +83,7 @@
 												</div>
 											</div>
 											<label for="formaAcesso" class="col-sm-2 control-label"
-												id="form-label-2" style="padding-left: 4px;">Forma
+												id="form-label-2" style="padding-left: 4px">Forma
 												de acesso a casa:</label>
 											<div class="col-sm-4">
 												<form:input id="formaAcesso" type="text"
@@ -219,7 +219,7 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<label class="col-sm-4 control-label" for="qtdResidente">
-											Nº de Pessoas Residentes nodomicilio:</label>
+											Nº de Pessoas Residentes no domicilio:</label>
 										<div class="col-sm-2">
 											<form:input id="qtdResidente" data-mask="999" min="0"
 												value="0" path="qtdPessoasResidentes"
@@ -776,7 +776,7 @@
 									value="Cadastrar" id="form-btn" />
 							</div>
 							<div class="col-sm-2" id="div-form-btn">
-								<a href="<c:url value="selecao/inscritos/" ></c:url>"
+								<a href="<c:url value="/selecao/inscritos/${id}" ></c:url>"
 									class="btn btn-default" id="form-btn">Cancelar</a>
 							</div>
 						</div>

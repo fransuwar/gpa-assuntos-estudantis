@@ -74,6 +74,12 @@ public class SelecaoBolsaController {
 		return "redirect:/relatorioVisita/cadastrar/{id}";
 	}
 	
+	@RequestMapping(value="inscritos/informacoesRelatorio/{id}")
+	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo){
+		return "redirect:/relatorioVisita/informacoesRelatorio/"+id;
+	}
+	
+	
 	@RequestMapping(value = {"downloadDocumento/{id}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("id") Long id, 
 			RedirectAttributes redirectAttributes){

@@ -43,13 +43,19 @@
 								<a id="preencherRelatorio"
 									href="<c:url value="relatorioVisita/${aluno.id}" ></c:url>">
 									<button class="btn btn-primary">
-										Relatório de Visita Domiciliar <span class="glyphicon glyphicon-user"></span>
+										Relatório de Visita Domiciliar 
 									</button>
 								</a>
 							</sec:authorize>
 							</td>
 							
-							<td><button class="btn btn-primary">Visualizar Formulário</button></td>
+							<td>
+							
+								<a id="visualizarRelatorio" 
+								href="<c:url value="informacoesRelatorio/${aluno.id}"></c:url>">
+								<button class="btn btn-primary">Visualizar Formulário</button>
+								</a>
+							</td>
 							<td><button class="btn btn-primary">Visualizar
 									Entrevista</button></td>
 							<td><button class="btn btn-primary">Visualizar

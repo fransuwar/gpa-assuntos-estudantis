@@ -58,6 +58,7 @@ public class RelatorioVisitaDomiciliar {
 	private double despesaOutros;
 	
 	@Column(nullable = false)
+	@NotNull(message = "Campo Obrigatório")
 	private int qtdPessoasResidentes;
 	private double rendaTrabalhoFormal;
 	private double rendaTrabalhoInformal;
