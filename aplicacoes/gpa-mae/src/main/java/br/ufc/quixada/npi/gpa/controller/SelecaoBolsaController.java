@@ -69,9 +69,11 @@ public class SelecaoBolsaController {
 		return "selecao/informacoes";
 	}
 					
-	@RequestMapping(value="inscritos/relatorioVisita/{id}")
-	public String cadastrarRelatorio(@PathVariable("id") Integer id, Model modelo){
-		return "redirect:/relatorioVisita/cadastrar/"+id;
+	@RequestMapping(value="inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
+	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
+									 @PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa,
+									 Model modelo){
+		return "redirect:/relatorioVisita/cadastrar/"+idAluno+"/"+idSelecaoBolsa;
 	}
 	
 	@RequestMapping(value = {"downloadDocumento/{id}"}, method = RequestMethod.GET)
