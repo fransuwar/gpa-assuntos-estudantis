@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -33,48 +34,48 @@ public class RelatorioVisitaDomiciliarController {
 	private AlunoService alunoService;
 	
 	@RequestMapping(value="cadastrar/{id}", method = RequestMethod.GET)
-	public String cadastrar(@PathVariable("id") Integer id, Model modelo){
+	public String cadastrar(@PathVariable("id") Integer id,
+			@RequestParam("idSelecaoBolsa") Integer idBolsa, Model modelo){
+		Aluno aluno = alunoService.find(Aluno.class, id);
 		modelo.addAttribute("relatorioVisitaDomiciliar", new RelatorioVisitaDomiciliar());
 		modelo.addAttribute("curso", Curso.values());
 		modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
-		modelo.addAttribute("idAuxilioMoradia", id);
-		modelo.addAttribute("aluno", alunoService.find(Aluno.class, id));
+		modelo.addAttribute("aluno", aluno);
 		return "/selecao/relatorioVisita";
 	}
 	
-	@RequestMapping(value="/cadastrar/{idAuxilio}", method= RequestMethod.POST)
-	public String adicionarRelatorio(@Valid @ModelAttribute("relatorioVisitaDomiciliar") 
-	RelatorioVisitaDomiciliar relatorioVisitaDomiciliar, BindingResult result, 
-	@ModelAttribute ("idAuxilio") Integer id, RedirectAttributes redirect, Model modelo){
+	@RequestMapping(value="/cadastrar/{id}", method= RequestMethod.POST)
+	public String adicionarRelatorio(
+			@PathVariable("id") Integer idAluno,
+			@Valid @ModelAttribute("relatorioVisitaDomiciliar") RelatorioVisitaDomiciliar relatorioVisitaDomiciliar,
+			BindingResult result, RedirectAttributes redirect, Model modelo){
 		
-		if(id!=null){
-			if(result.hasErrors()){
-				modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
-				modelo.addAttribute("curso", Curso.values());
-				modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
+		
+		if(result.hasErrors()){
+			Aluno aluno = alunoService.find(Aluno.class, idAluno);
+			modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
+			modelo.addAttribute("curso", Curso.values());
+			modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
+			modelo.addAttribute("aluno", aluno);
+			if(relatorioVisitaDomiciliar.getId() != null) 
 				modelo.addAttribute("action", "editar");
-				return "redirect:/relatorioVisita/cadastrar/"+id;
-			}
+			return "/selecao/relatorioVisita";
+		}
+		
+		if(relatorioVisitaDomiciliar.getId() != null){
 			
 			this.relatorioVisitaService.update(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatório Atualizado com sucesso.");
-			return "redirect:/selecao/inscritos/{id}";
+			return "redirect:/selecao/inscritos/"+2123123123;
 			
-		}else if(result.hasErrors()){
-			modelo.addAttribute("relatorioVisitaDomiciliar", new RelatorioVisitaDomiciliar());
-			modelo.addAttribute("curso", Curso.values());
-			modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
-			modelo.addAttribute("auxilioMoradia", id);
-			
-			return "relatorioVisita/Cadastrar";
-		}else{
-			Aluno aluno = alunoService.getAlunoById(id);
+		} else {
+			Aluno aluno = alunoService.getAlunoById(idAluno);
 			relatorioVisitaDomiciliar.setAluno(aluno);
 			
 			this.relatorioVisitaService.save(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatorio cadastrado com sucesso.");
 			
-			return "redirect:/selecao/inscritos/{id}";
+			return "redirect:/selecao/inscritos/"+567556;
 		}
 	}
 }

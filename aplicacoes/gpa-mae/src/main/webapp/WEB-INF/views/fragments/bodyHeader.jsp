@@ -57,7 +57,7 @@
 								Alunos <span class="glyphicon glyphicon-plus"></span>
 						</a></li>
 						<li><a
-							href="<c:url value="/selecao/listar/${sessionScope.id}" />">Listar
+							href="<c:url value="/selecao/listar" />">Listar
 								Seleções <span class="glyphicon glyphicon-plus"></span>
 						</a></li>
 					</sec:authorize>

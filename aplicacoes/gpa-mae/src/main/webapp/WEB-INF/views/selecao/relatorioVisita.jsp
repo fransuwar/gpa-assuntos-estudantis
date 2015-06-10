@@ -53,7 +53,7 @@
 					<form:form id="relatorioForm" role="form"
 						modelAttribute="relatorioVisitaDomiciliar"
 						commandName="relatorioVisitaDomiciliar"
-						servletRelativeAction="/relatorioVisita/cadastrar/${idAuxilioMoradia}/"
+						servletRelativeAction="/relatorioVisita/cadastrar/${aluno.id}/"
 						method="POST" cssClass="form-horizontal">
 
 						<div class="tab-content">
@@ -67,7 +67,7 @@
 											<label for="nomeAluno" class="col-sm-2 control-label"
 												id="form-label-2">Candidato:</label>
 											<div class="col-sm-4">
-												<form:input id="nomeAluno" type="text" path="aluno" value="${aluno.nome}"
+												<form:input id="nomeAluno" type="text" readonly="true" path="" value="${aluno.nome}"
 													cssClass="form-control" placeholder="Nome do candidato" />
 												<div class="error-validation">
 													<form:errors path="aluno"></form:errors>

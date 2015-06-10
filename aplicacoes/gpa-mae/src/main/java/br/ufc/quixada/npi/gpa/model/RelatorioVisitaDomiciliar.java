@@ -11,10 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
@@ -45,8 +45,8 @@ public class RelatorioVisitaDomiciliar {
 	@Column(nullable = false)
 	private int semestre;
 	
-	@Column(name="dataVisita", columnDefinition="DATE")
-	@Temporal(TemporalType.DATE) 
+	@NotNull(message = "Campo obrigatório")
+	@DateTimeFormat(pattern = "dd/MM/yyyy") 
 	private Date dataVisita;
 	
 	private double despesaMoradia;
@@ -141,8 +141,9 @@ public class RelatorioVisitaDomiciliar {
 	private String analiseDescricaoRealidade;
 	@Column(nullable = false)
 	private boolean parecerFinalDeferido;
-	@Column(name="dataRelatorio", columnDefinition="DATE")
-	@Temporal(TemporalType.DATE) 
+	
+	@NotNull(message = "Campo obrigatório")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataRelatorio;
 	
 	public Integer getId() {

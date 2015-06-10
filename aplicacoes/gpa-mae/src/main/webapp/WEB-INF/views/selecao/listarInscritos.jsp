@@ -41,7 +41,7 @@
 							<td>
 							<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 								<a id="preencherRelatorio"
-									href="<c:url value="relatorioVisita/${aluno.id}" ></c:url>">
+									href="<c:url value="relatorioVisita/${aluno.id}/${idSelecaoBolsa}" ></c:url>">
 									<button class="btn btn-primary">
 										Relatório de Visita Domiciliar <span class="glyphicon glyphicon-user"></span>
 									</button>
