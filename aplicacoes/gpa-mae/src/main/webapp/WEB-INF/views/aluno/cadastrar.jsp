@@ -25,19 +25,6 @@
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
-	<ol class="breadcrumb">
-		<c:choose>
-			<c:when test="${action == 'cadastrar'}">
-				<li><a href="/MAE/aluno/listar">Listar Aluno</a></li>
-				<li class="active">Cadastrar Aluno</li>
-			</c:when>
-			<c:otherwise>
-				<li><a href="/MAE/aluno/listar">Listar Aluno</a></li>
-				<li class="active">Editar Aluno</li>
-			</c:otherwise>
-		</c:choose>
-	</ol>
-
 	<div class="container">
 		<div class="panel panel-primary">
 			<div class="panel-heading">

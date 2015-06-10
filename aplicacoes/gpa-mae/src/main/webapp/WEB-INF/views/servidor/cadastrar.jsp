@@ -15,10 +15,6 @@
 </head>
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
-	<ol class="breadcrumb">
-		<li><a href="/MAE/servidor/listar">Listar Servidor</a></li>
-		<li class="active">Cadastrar Servidor</li>
-	</ol>
 
 	<div class="container">
 		<div class="panel panel-primary">

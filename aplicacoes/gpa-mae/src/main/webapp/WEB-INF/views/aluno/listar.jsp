@@ -18,12 +18,10 @@
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
-	<ol class="breadcrumb">
-		<li><a href="/MAE/aluno/listar">Listar Aluno</a></li>
-	</ol>
 	<div class="container">
 		<c:if test="${not empty erro}">
-			<div class="alert alert-danger alert-dismissible" role="alert" id="alert-erro">
+			<div class="alert alert-danger alert-dismissible" role="alert"
+				id="alert-erro">
 				<button type="button" class="close" data-dismiss="alert">
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 				</button>
@@ -31,7 +29,8 @@
 			</div>
 		</c:if>
 		<c:if test="${not empty info}">
-			<div class="alert alert-success alert-dismissible" role="alert" id="alert-info">
+			<div class="alert alert-success alert-dismissible" role="alert"
+				id="alert-info">
 				<button type="button" class="close" data-dismiss="alert">
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 				</button>
@@ -39,104 +38,92 @@
 			</div>
 		</c:if>
 
-		<div class="col-md-4" id="div-form-buscar">
-			<form:form id="buscarAlunoForm" role="form"
-				servletReltiveAction="/aluno/listar" method="POST"
-				cssClass="form-horizontal" class="inline">
-				<div class="input-group">
-					<input id="matricula" name="matricula" class="form-control"
-						placeholder="Digite sua busca aqui..." size="20"
-						required="required" autofocus="true" />
-						<span class="input-group-btn">
-						<button class="btn btn-primary" name="submit" type="submit"
-							class="btn btn-primary" value="Buscar">
-							Buscar <span class="glyphicon glyphicon-search" />
+		<div class="col-md-12">
+			<div class="col-md-4" id="div-form-buscar">
+				<form:form id="buscarAlunoForm" role="form"
+					servletReltiveAction="/aluno/listar" method="POST"
+					cssClass="form-horizontal" class="inline">
+					<div class="input-group">
+						<input id="matricula" name="matricula" class="form-control"
+							placeholder="Digite sua busca aqui..." size="20"
+							required="required" autofocus="true" /> <span
+							class="input-group-btn">
+							<button class="btn btn-primary" name="submit" type="submit"
+								class="btn btn-primary" value="Buscar">
+								Buscar <span class="glyphicon glyphicon-search" />
+							</button>
+						</span>
+					</div>
+				</form:form>
+			</div>
+
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+				<div class="col-md-2 col-md-offset-6" id="div-btn-inserir">
+					<a href="<c:url value="/aluno/cadastrar" ></c:url>">
+						<button class="btn btn-primary" id="listar-btn-inserir">
+							Novo Aluno <span class="glyphicon glyphicon-plus"></span>
 						</button>
-					</span>
+					</a>
 				</div>
-			</form:form>
+			</sec:authorize>
 		</div>
 		
-		<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-			<div class="col-md-2 col-md-offset-6" 
-				id="div-btn-inserir">
-				<a href="<c:url value="/aluno/cadastrar" ></c:url>">
-					<button class="btn btn-primary" id="listar-btn-inserir">
-						Novo Aluno <span class="glyphicon glyphicon-plus"></span>
-					</button>
-				</a>
-			</div>
-		</sec:authorize>
-
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs" role="tablist">
-			<li class="active"><a href="#meus-alunos" role="tab"
-				data-toggle="tab">Alunos Cadastrados</a></li>
-		</ul>
-
-		<div class="tab-content">
-
-			<!-- Meus Alunos -->
-			<div class="tab-pane active" id="alunos-cadastrados">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading" align="center">
+					<h3 class="panel-title">Todos os Alunos</h3>
+				</div>
 				<c:if test="${empty alunos}">
-					<div class="alert alert-warning" role="alert">Não há alunos
-						cadastrados.</div>
+					<div class="panel-body">
+						<div class="alert alert-warning" role="alert">Não há alunos
+							cadastrados.</div>
+					</div>
 				</c:if>
 				<c:if test="${not empty alunos}">
-					<div class="panel panel-default">
-						<div class="panel-heading" align="center">
-							<h4>Todos os Alunos</h4>
-						</div>
-
-						<!-- Table -->
-						<table class="table">
-
-							<tr>
-								<th id="teste">Id</th>
-								<th>Matricula</th>
-								<th>Ira</th>
-								<th>Curso</th>
-								<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-									<th id="acoes">Ações</th>
-								</sec:authorize>
-							</tr>
-							<tbody>
+					<table class="table table-striped">
+						<tr class="info">
+							<th>Matricula</th>
+							<th>Ira</th>
+							<th>Curso</th>
+							<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+								<th id="acoes">Ações</th>
+							</sec:authorize>
+						</tr>
+						<tbody>
 							<c:choose>
 								<c:when test="${not empty alunoEncontrado}"></c:when>
 								<c:otherwise>
-										<c:forEach var="aluno" items="${alunos}">
-											<tr class="linha">
-												<td>${aluno.id}</td>
-												<td>${aluno.matricula}</td>
-												<td>${aluno.ira}</td>
-												<td>${aluno.curso.nome}</td>
+									<c:forEach var="aluno" items="${alunos}">
+										<tr class="linha">
+											<td>${aluno.matricula}</td>
+											<td>${aluno.ira}</td>
+											<td>${aluno.curso.nome}</td>
 
-												<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-													<td><a id="editar"
-														href="<c:url value="/aluno/editar/${aluno.id}" ></c:url>">
-															<button class="btn btn-info">
-																Editar <span class="glyphicon glyphicon-pencil"></span>
-															</button>
-													</a> <a id="excluir" data-toggle="modal"
-														data-target="#confirm-delete" href="#"
-														data-href="<c:url value="/aluno/excluir/${aluno.id}" ></c:url>">
-															<button class="btn btn-danger">
-																Excluir <span class="glyphicon glyphicon-trash"></span>
-															</button>
-													</a></td>
-												</sec:authorize>
-										</c:forEach>
-									</c:otherwise>
+											<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+												<td><a id="editar"
+													href="<c:url value="/aluno/editar/${aluno.id}" ></c:url>">
+														<button class="btn btn-info">
+															Editar <span class="glyphicon glyphicon-pencil"></span>
+														</button>
+												</a> <a id="excluir" data-toggle="modal"
+													data-target="#confirm-delete" href="#"
+													data-href="<c:url value="/aluno/excluir/${aluno.id}" ></c:url>">
+														<button class="btn btn-danger">
+															Excluir <span class="glyphicon glyphicon-trash"></span>
+														</button>
+												</a></td>
+											</sec:authorize>
+									</c:forEach>
+								</c:otherwise>
 							</c:choose>
-
-							</tbody>
-						</table>
-
-					</div>
+						</tbody>
+					</table>
 				</c:if>
 			</div>
 		</div>
 	</div>
+
+
 	<jsp:include page="../fragments/footer.jsp" />
 
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"

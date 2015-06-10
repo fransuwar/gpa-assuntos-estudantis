@@ -18,7 +18,7 @@
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
-	<div class="col-md-6 dist-footer" align="left">
+	<div class="col-md-6 col-md-offset-1 dist-footer" align="left">
 
 		<div class="panel panel-primary" align="left">
 			<div class="panel-heading">
@@ -52,7 +52,7 @@
 				</dl>
 				<dl class="dl-horizontal">
 					<dt>Duração da Bolsa:</dt>
-					<dd>${selecao.duracao}meses</dd>
+					<dd>${selecao.duracao} meses</dd>
 				</dl>
 				<dl class="dl-horizontal">
 					<dt>Qtd. de vagas:</dt>
@@ -74,9 +74,6 @@
 		<div class="panel panel-primary" align="left">
 			<div class="panel-heading">
 				<h3 class="panel-title">Resultado da seleção</h3>
-			</div>
-			<div class="panel-body">
-				<p>Classificados (Em ordem alfabética)</p>
 			</div>
 			<table class="table">
 				<thead>
@@ -107,28 +104,30 @@
 				<form name='f' action="<c:url value='/j_spring_security_check' />"
 					method='POST' class="form-horizontal">
 					<div class="form-group">
-						<label class="col-md-2 control-label">Usuário:</label>
+						<label class="col-md-3 control-label">Usuário:</label>
 						<div class="col-sm-9">
-							<input class="form-control" type='text' name='j_username'
-								value=''>
+							<div class="input-group">
+								<span class="input-group-addon"><span
+									class="glyphicon glyphicon-user"></span></span> <input
+									class="form-control" type='text' name='j_username' value=''>
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-2 control-label">Senha:</label>
+						<label class="col-md-3 control-label">Senha:</label>
 						<div class="col-sm-9">
-							<input class="form-control" type='password' name='j_password' />
+							<div class="input-group">
+								<span class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span> <input
+									class="form-control" type='password' name='j_password' />
+							</div>
 						</div>
 					</div>
-					<div class="form-group col-md-12">
-						<div class="form-group">
-							<div class="col-md-2 col-md-offset-7">
-								<input class="btn btn-primary" name="submit" type="submit"
-									value="Login" />
-							</div>
-							<div class="col-md-2">
-								<input class="btn btn-default" name="reset" type="reset"
-									value="Limpar" />
-							</div>
+					<div class="form-group">
+						<div class="col-md-offset-7">
+							<input class="btn btn-primary" name="submit" type="submit"
+								value="Login" /> <input class="btn btn-default" name="reset"
+								type="reset" value="Limpar" />
 						</div>
 					</div>
 				</form>
