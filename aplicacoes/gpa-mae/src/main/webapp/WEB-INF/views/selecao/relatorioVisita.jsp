@@ -53,7 +53,7 @@
 					<form:form id="relatorioForm" role="form"
 						modelAttribute="relatorioVisitaDomiciliar"
 						commandName="relatorioVisitaDomiciliar"
-						servletRelativeAction="/relatorioVisita/cadastrar/${idAuxilioMoradia}/"
+						servletRelativeAction="/relatorioVisita/cadastrar/${aluno.id}/${idSelecaoBolsa}"
 						method="POST" cssClass="form-horizontal">
 
 						<div class="tab-content">
@@ -67,7 +67,7 @@
 											<label for="nomeAluno" class="col-sm-2 control-label"
 												id="form-label-2">Candidato:</label>
 											<div class="col-sm-4">
-												<form:input id="nomeAluno" type="text" path="aluno" value="${aluno.nome}"
+												<form:input id="nomeAluno" type="text" readonly="true" path="" value="${aluno.nome}"
 													cssClass="form-control" placeholder="Nome do candidato" />
 												<div class="error-validation">
 													<form:errors path="aluno"></form:errors>
@@ -83,7 +83,7 @@
 												</div>
 											</div>
 											<label for="formaAcesso" class="col-sm-2 control-label"
-												id="form-label-2" style="padding-left: 4px;">Forma
+												id="form-label-2" style="padding-left: 2px;">Forma
 												de acesso a casa:</label>
 											<div class="col-sm-4">
 												<form:input id="formaAcesso" type="text"
@@ -108,7 +108,7 @@
 												id="form-label-2">Semestre:</label>
 											<div class="col-sm-4">
 												<form:input id="semestre" type="text" path="semestre"
-													cssClass="form-control" placeholder="Semestre" />
+													cssClass="form-control" placeholder="Semestre" value="0" />
 												<div class="error-validation">
 													<form:errors path="semestre"></form:errors>
 												</div>
@@ -445,12 +445,12 @@
 												<form:errors path="utensilioComputadorQtd"
 													id="utensilioComputadorQtd" cssClass="form-control" />
 											</div>
-											<form:input id="utensilioSomObservacao"
-												path="utensilioSomObservacao" placeholder="Observação"
-												cssClass="form-control" />
+											<form:input id="utensilioComputadorObservacao"
+												path="utensilioComputadorObservacao" placeholder="Observação"
+												cssClass="form-control" value="" />
 											<div class="error-validation">
-												<form:errors path="utensilioSomObservacao"
-													id="utensilioSomObservacao" cssClass="form-control" />
+												<form:errors path="utensilioComputadorObservacao"
+													id="utensilioComputadorObservacao" cssClass="form-control" />
 											</div>
 										</div>
 										<label for="utensilioFogaoQtd" class="col-sm-2 control-label"
@@ -581,73 +581,70 @@
 										<label for="bemMovelMoto" class="col-sm-2 control-label"
 											id="form-label-right">Moto:</label>
 										<div class="col-sm-4">
-											<form:input id="bemMovelMotoQtd" data-mask="999" min="0"
+											<form:input id="bemMovelMotoQtd" data-mask="999" min="0" value="0" 
 												placeholder="Quantidade de Motos" path="bemMovelMotoQtd" cssClass="form-control" />
 											<div class="error-validation">
-												<form:errors path="bemMovelMotoQtd" id="bemMovelMotoQtd"
-													cssClass="form-control" />
+												<form:errors path="bemMovelMotoQtd" id="bemMovelMotoQtd" />
 											</div>
 											<form:input id="bemMovelMotoObservacao"
 												path="bemMovelMotoObservacao" placeholder="Observação"
 												cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelMotoObservacao"
-													id="bemMovelMotoObservacao" cssClass="form-control" />
+													id="bemMovelMotoObservacao"  />
 											</div>
 										</div>
 
 										<label for="bemMovelBicicleta" class="col-sm-2 control-label"
 											id="form-label-right">Bicicleta:</label>
 										<div class="col-sm-4">
-											<form:input id="bemMovelBicicletaQtd" data-mask="999" min="0"
+											<form:input id="bemMovelBicicletaQtd" data-mask="999" min="0" value="0" 
 												placeholder="Quantidade de Bicicletas" path="bemMovelBicicletaQtd"
 												cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelBicicletaQtd"
-													id="bemMovelBicicletaQtd" cssClass="form-control" />
+													id="bemMovelBicicletaQtd" />
 											</div>
 											<form:input id="bemMovelBicicletaObservacao"
 												path="bemMovelBicicletaObservacao" placeholder="Observação"
 												cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelBicicletaObservacao"
-													id="bemMovelBicicletaObservacao" cssClass="form-control" />
+													id="bemMovelBicicletaObservacao"  />
 											</div>
 										</div>
 
 										<label for="bemMovelCarro" class="col-sm-2 control-label"
 											id="form-label-right">Carro:</label>
 										<div class="col-sm-4">
-											<form:input id="bemMovelCarroQtd" data-mask="999" min="0"
+											<form:input id="bemMovelCarroQtd" data-mask="999" min="0" value="0" 
 												placeholder="Quantidade de Carros" path="bemMovelCarroQtd" cssClass="form-control" />
 											<div class="error-validation">
-												<form:errors path="bemMovelCarroQtd" id="bemMovelCarroQtd"
-													cssClass="form-control" />
+												<form:errors path="bemMovelCarroQtd" id="bemMovelCarroQtd"  />
 											</div>
 											<form:input id="bemMovelCarroObservacao"
 												path="bemMovelCarroObservacao" placeholder="Observação"
 												cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelCarroObservacao"
-													id="bemMovelCarroObservacao" cssClass="form-control" />
+													id="bemMovelCarroObservacao"  />
 											</div>
 										</div>
 
 										<label for="bemMovelOutros" class="col-sm-2 control-label"
 											id="form-label-right">Outros:</label>
 										<div class="col-sm-4">
-											<form:input id="bemMovelOutrosQtd" data-mask="999" min="0"
+											<form:input id="bemMovelOutrosQtd" data-mask="999" min="0" value="0" 
 												placeholder="Quantidade de Outros bens móveis" path="bemMovelOutrosQtd" cssClass="form-control" />
 											<div class="error-validation">
-												<form:errors path="bemMovelOutrosQtd" id="bemMovelOutrosQtd"
-													cssClass="form-control" />
+												<form:errors path="bemMovelOutrosQtd" id="bemMovelOutrosQtd"  />
 											</div>
 											<form:input id="bemMovelOutrosObservacao"
 												path="bemMovelOutrosObservacao" placeholder="Observação"
 												cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelOutrosObservacao"
-													id="bemMovelOutrosObservacao" cssClass="form-control" />
+													id="bemMovelOutrosObservacao" />
 											</div>
 										</div>
 									</div>
@@ -758,8 +755,7 @@
 											<form:input id="dataRelatorio" path="dataRelatorio"
 												cssClass="form-control data" placeholder="Data" />
 											<div class="error-validation">
-												<form:errors path="dataRelatorio" id="dataRelatorio"
-													cssClass="form-control" />
+												<form:errors path="dataRelatorio" />
 											</div>
 										</div>
 

@@ -17,6 +17,24 @@
     	<li>Listar Inscritos</li>
     </ol>
     <div class="container">
+    	<c:if test="${not empty erro}">
+			<div class="alert alert-danger alert-dismissible" role="alert"
+				id="alert-erro">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<c:out value="${erro}"></c:out>
+			</div>
+		</c:if>
+		<c:if test="${not empty info}">
+			<div class="alert alert-success alert-dismissible" role="alert"
+				id="alert-info">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<c:out value="${info}"></c:out>
+			</div>
+		</c:if>
     	<sec:authorize access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')">
     		<div class="panel-heading" align="center">
 
@@ -41,7 +59,7 @@
 							<td>
 							<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 								<a id="preencherRelatorio"
-									href="<c:url value="relatorioVisita/${aluno.id}" ></c:url>">
+									href="<c:url value="relatorioVisita/${aluno.id}/${idSelecaoBolsa}" ></c:url>">
 									<button class="btn btn-primary">
 										Relatório de Visita Domiciliar <span class="glyphicon glyphicon-user"></span>
 									</button>

@@ -56,6 +56,9 @@ public class SelecaoBolsa {
 
 	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia;
+	
+	@OneToMany(mappedBy = "selecaoBolsa")
+	private List<RelatorioVisitaDomiciliar> relatoriosVisitaDomiciliar;
 
 	@NotNull(message = "Campo obrigatório")
 	@Range(min=1, max=999, message="O número de vagas deve ser maior ou igual a 1")
@@ -224,6 +227,8 @@ public class SelecaoBolsa {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	
 
 	public void setLocal(String local) {
 		this.local = local;
@@ -251,6 +256,35 @@ public class SelecaoBolsa {
 
 	public void setTipoBolsa(TipoBolsa tipoBolsa) {
 		this.tipoBolsa = tipoBolsa;
+	}
+	
+	
+
+	public List<QuestionarioIniciacaoAcademica> getQuestionariosIniciacaoAcademica() {
+		return questionariosIniciacaoAcademica;
+	}
+
+	public void setQuestionariosIniciacaoAcademica(
+			List<QuestionarioIniciacaoAcademica> questionariosIniciacaoAcademica) {
+		this.questionariosIniciacaoAcademica = questionariosIniciacaoAcademica;
+	}
+
+	public List<QuestionarioAuxilioMoradia> getQuestionariosAuxilioMoradia() {
+		return questionariosAuxilioMoradia;
+	}
+
+	public void setQuestionariosAuxilioMoradia(
+			List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia) {
+		this.questionariosAuxilioMoradia = questionariosAuxilioMoradia;
+	}
+
+	public List<RelatorioVisitaDomiciliar> getRelatoriosVisitaDomiciliar() {
+		return relatoriosVisitaDomiciliar;
+	}
+
+	public void setRelatoriosVisitaDomiciliar(
+			List<RelatorioVisitaDomiciliar> relatoriosVisitaDomiciliar) {
+		this.relatoriosVisitaDomiciliar = relatoriosVisitaDomiciliar;
 	}
 
 	@Override
