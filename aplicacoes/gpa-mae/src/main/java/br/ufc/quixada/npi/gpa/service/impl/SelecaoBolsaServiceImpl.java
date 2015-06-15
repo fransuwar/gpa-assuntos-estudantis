@@ -71,7 +71,7 @@ public class SelecaoBolsaServiceImpl extends GenericServiceImpl<SelecaoBolsa> im
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public SelecaoBolsa getSelecaoBolsaComAlunos(Integer id) {
 		return (SelecaoBolsa) findFirst("SelecaoBolsa.findSelecaoBolsaIdComAlunos", new SimpleMap<String, Object>("selecaoBolsaId", id));
 	}

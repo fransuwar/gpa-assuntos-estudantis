@@ -34,6 +34,10 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula"}))
 public class Aluno {
+	
+	public Aluno() {
+		
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
