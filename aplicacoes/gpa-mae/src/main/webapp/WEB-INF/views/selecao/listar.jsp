@@ -199,20 +199,12 @@
 										</c:choose>
 									</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 										<c:if test="${avaliar}">
-											<a id="avaliarSelecao" href="<c:url value="" ></c:url>">
+											<a id="avaliarSelecao"
+												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 												<button class="btn btn-primary">
 													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
 												</button>
 											</a>
-<<<<<<< HEAD
-										</c:when>
-									</c:choose>
-								</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-									<c:if test="${avaliar}">
-										<a id="avaliarSelecao" href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary">
-												Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-=======
 										</c:if>
 									</sec:authorize> <sec:authorize access="isAnonymous()">
 
@@ -220,7 +212,6 @@
 											href="<c:url value="/selecao/informacoes/${selecao.id}"></c:url>">
 											<button class=" btn btn-success">
 												+ Informações <span class="glyphicon glyphicon-zoom-in"></span>
->>>>>>> d5a3b5d8926b79a82ba9cbc147ac76698fd3f755
 											</button>
 										</a>
 									</sec:authorize></td>

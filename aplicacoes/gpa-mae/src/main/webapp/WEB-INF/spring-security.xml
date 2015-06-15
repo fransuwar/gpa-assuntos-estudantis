@@ -16,17 +16,11 @@
  		<intercept-url pattern="/selecao/listar" access="permitAll"/>
  		<intercept-url pattern="/selecao/downloadDocumento/*" access="permitAll"/>
  		
-<<<<<<< HEAD
  		<intercept-url pattern="/selecao/**" access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')" />
-=======
- 		
- 		<intercept-url pattern="/selecao/listarPorServidor/*" access="hasRole('ROLE_ADMIN')" />	
  		<intercept-url pattern="/selecao/inscritos/relatorioVisita/**" access="hasRole('ROLE_ADMIN')" />
  		<intercept-url pattern="/selecao/inscritos/*" access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')" />
  		<intercept-url pattern="/selecao/**" access="hasRole('ROLE_COORDENADOR')" />
  		
- 		
->>>>>>> d5a3b5d8926b79a82ba9cbc147ac76698fd3f755
 		<intercept-url pattern="/aluno/*/editar" access="hasAnyRole('ROLE_ALUNO', 'ROLE_ADMIN')" />
 
 		<intercept-url pattern="/aluno/listar" access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')" />
