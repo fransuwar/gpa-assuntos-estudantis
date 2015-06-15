@@ -112,7 +112,7 @@ public class AuxilioMoradiaController {
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 			model.addAttribute("moraCom", MoraCom.toMap());
-			model.addAttribute("selecaoBolsa", id);
+			model.addAttribute("selecaoBolsa", idSelecao);
 
 			return "inscricao/auxilio";
 

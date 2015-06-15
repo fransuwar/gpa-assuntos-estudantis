@@ -73,10 +73,17 @@ public class SelecaoBolsaController {
 
 		return "selecao/informacoes";
 	}
-
-	@RequestMapping(value = { "downloadDocumento/{id}" }, method = RequestMethod.GET)
-	public HttpEntity<byte[]> downloadDocumento(@PathVariable("id") Long id,
-			RedirectAttributes redirectAttributes) {
+	
+	@RequestMapping(value="inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
+	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
+									 @PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa,
+									 Model modelo){
+		return "redirect:/relatorioVisita/cadastrar/"+idAluno+"/"+idSelecaoBolsa;
+	}
+	
+	@RequestMapping(value = {"downloadDocumento/{id}"}, method = RequestMethod.GET)
+	public HttpEntity<byte[]> downloadDocumento(@PathVariable("id") Long id, 
+			RedirectAttributes redirectAttributes){
 		Documento documento = documentoService.find(Documento.class, id);
 		byte[] arquivo = documento.getArquivo();
 		String[] tipo = documento.getTipo().split("/");
@@ -332,7 +339,6 @@ public class SelecaoBolsaController {
 				.getPessoaServidorComBancas(id).getParticipaBancas();
 
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("avaliar", true);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 

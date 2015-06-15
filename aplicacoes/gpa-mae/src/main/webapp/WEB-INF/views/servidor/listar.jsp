@@ -16,13 +16,11 @@
 <body>
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
-	<ol class="breadcrumb">
-		<li><a href="/MAE/servidor/listar">Listar Servidor</a></li>
-	</ol>
 
 	<div class="container">
 		<c:if test="${not empty erro}">
-			<div class="alert alert-danger alert-dismissible" role="alert" id="alert-erro">
+			<div class="alert alert-danger alert-dismissible" role="alert"
+				id="alert-erro">
 				<button type="button" class="close" data-dismiss="alert">
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 				</button>
@@ -30,106 +28,91 @@
 			</div>
 		</c:if>
 		<c:if test="${not empty info}">
-			<div class="alert alert-success alert-dismissible" role="alert" id="alert-info">
+			<div class="alert alert-success alert-dismissible" role="alert"
+				id="alert-info">
 				<button type="button" class="close" data-dismiss="alert">
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 				</button>
 				<c:out value="${info}"></c:out>
 			</div>
 		</c:if>
+		<div class="col-md-12">
+			<div class="col-md-4" id="div-form-buscar">
+				<form:form id="buscarSelecaoForm" role="form"
+					servletRelativeAction="/servidor/listar" method="POST"
+					cssClass="form-horizontal" class="inline">
+					<div class="input-group">
+						<input id="siape" name="siape" class="form-control"
+							placeholder="Digite sua busca aqui..." size="20"
+							required="required" autofocus="true" /> <span
+							class="input-group-btn">
+							<button class="btn btn-primary" name="submit" type="submit"
+								class="btn btn-primary" value="Buscar">
+								Buscar <span class="glyphicon glyphicon-search" />
+							</button>
+						</span>
+					</div>
+				</form:form>
+			</div>
 
-		<div class="col-md-4" id="div-form-buscar">
-			<form:form id="buscarSelecaoForm" role="form"
-				servletRelativeAction="/servidor/listar" method="POST"
-				cssClass="form-horizontal" class="inline">
-				<div class="input-group">
-					<input id="siape" name="siape" class="form-control"
-						placeholder="Digite sua busca aqui..." size="20"
-						required="required" autofocus="true" /> <span
-						class="input-group-btn">
-						<button class="btn btn-primary" name="submit" type="submit"
-							class="btn btn-primary" value="Buscar">
-							Buscar <span class="glyphicon glyphicon-search" />
-						</button>
-					</span>
+			<div class="col-md-2 col-md-offset-6" id="div-btn-inserir">
+				<a href="<c:url value="/servidor/cadastrar" ></c:url>">
+					<button class="btn btn-primary" id="listar-btn-inserir">
+						Novo Servidor <span class="glyphicon glyphicon-plus"></span>
+					</button>
+				</a>
+			</div>
+		</div>
+
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading" align="center">
+					<h3 class="panel-title">Servidores Cadastrados</h3>
 				</div>
-			</form:form>
-		</div>
-
-		<div class="col-md-2 col-md-offset-6" id="div-btn-inserir">
-			<a href="<c:url value="/servidor/cadastrar" ></c:url>">
-				<button class="btn btn-primary" id="listar-btn-inserir">
-					Novo Servidor <span class="glyphicon glyphicon-plus"></span>
-				</button>
-			</a>
-		</div>
-
-
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs" role="tablist">
-			<li class="active"><a href="#meus-servidores" role="tab"
-				data-toggle="tab">Servidores Cadastrados</a></li>
-		</ul>
-
-		<div class="tab-content">
-
-			<!-- Meus Servidores -->
-			<div class="tab-pane active" id="servidores-cadastrados">
 				<c:if test="${empty servidores}">
-					<div class="alert alert-warning" role="alert">Não há
-						servidores cadastrados.</div>
+					<div class="panel-body">
+						<div class="alert alert-warning" role="alert">Não há
+							servidores cadastrados.</div>
+					</div>
 				</c:if>
 				<c:if test="${not empty servidores}">
-					<div class="panel panel-default">
-						<div class="panel-heading" align="center">
-							<h4>Todos os Servidores</h4>
-						</div>
-
-						<!-- Table -->
-						<table class="table table-striped">
-
-							<tr>
-								<th id="teste">Id</th>
-								<th>SIAPE</th>
-								<th>Cargo</th>
-								<th id="acoes">Ações</th>
-							</tr>
-							<tbody>
-								<c:choose>
-									<c:when test="${not empty servidorEncontrado}">
-									</c:when>
-									<c:otherwise>
-										<c:forEach var="servidor" items="${servidores}">
-											<tr class="linha">
-												<td>${servidor.id}</td>
-												<td>${servidor.siape}</td>
-												<td>${servidor.cargo.nome}</td>
-												<td><a id="editar"
-													href="<c:url value="/servidor/${servidor.id}/editar" ></c:url>">
-														<button class="btn btn-info">
-															Editar <span class="glyphicon glyphicon-pencil"></span>
-														</button>
-												</a> <a id="excluir" data-toggle="modal"
-													data-target="#confirm-delete" href="#"
-													data-href="<c:url value="/servidor/${servidor.id}/excluir" ></c:url>">
-														<button class="btn btn-danger">
-															Excluir <span class="glyphicon glyphicon-trash"></span>
-														</button>
-												</a></td>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-
-
-							</tbody>
-						</table>
-
-					</div>
+					<!-- Table -->
+					<table class="table table-striped">
+						<tr class="info">
+							<th>SIAPE</th>
+							<th>Cargo</th>
+							<th id="acoes">Ações</th>
+						</tr>
+						<tbody>
+							<c:choose>
+								<c:when test="${not empty servidorEncontrado}">
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="servidor" items="${servidores}">
+										<tr>
+											<td>${servidor.siape}</td>
+											<td>${servidor.cargo.nome}</td>
+											<td><a id="editar"
+												href="<c:url value="/servidor/${servidor.id}/editar" ></c:url>">
+													<button class="btn btn-info">
+														Editar <span class="glyphicon glyphicon-pencil"></span>
+													</button>
+											</a> <a id="excluir" data-toggle="modal"
+												data-target="#confirm-delete" href="#"
+												data-href="<c:url value="/servidor/${servidor.id}/excluir" ></c:url>">
+													<button class="btn btn-danger">
+														Excluir <span class="glyphicon glyphicon-trash"></span>
+													</button>
+											</a></td>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</tbody>
+					</table>
 				</c:if>
 			</div>
 		</div>
 	</div>
-
 
 	<jsp:include page="../fragments/footer.jsp" />
 
@@ -147,6 +130,6 @@
 			</div>
 		</div>
 	</div>
-	</div>
+	
 </body>
 </html>
