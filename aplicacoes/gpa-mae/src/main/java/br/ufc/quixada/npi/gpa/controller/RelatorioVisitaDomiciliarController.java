@@ -84,13 +84,13 @@ public class RelatorioVisitaDomiciliarController {
 		
 		RelatorioVisitaDomiciliar relatorio= relatorioVisitaService.find(RelatorioVisitaDomiciliar.class, id);
 		
-		if(relatorio == null){
+		/*if(relatorio == null){
 			redirect.addFlashAttribute("erro", "Relatório não existe");
 			return "redirect:/selecao/inscritos/{id}";
 		}
 		
 		modelo.addAttribute(relatorio);
-		
+		*/
 		return "/selecao/informacoesRelatorio";
 	}//Rever método
 }
