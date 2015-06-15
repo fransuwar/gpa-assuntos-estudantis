@@ -10,17 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 
 @Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames={"aluno_id"}))
 public class RelatorioVisitaDomiciliar {
 	
 	public RelatorioVisitaDomiciliar() {
@@ -33,98 +30,120 @@ public class RelatorioVisitaDomiciliar {
 	@ManyToOne
 	private Aluno aluno;
 	
-	@Column(nullable = false)
+	@ManyToOne
+	private SelecaoBolsa selecaoBolsa;
+	
+	@NotNull(message = "Campo obrigatório")
 	private String endereco;
 	
-	@Column(nullable = false)
+	@NotNull(message = "Campo obrigatório")
 	private String formaAcessoCasa;
 	
+	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Curso curso;
 	
-	@Column(nullable = false)
-	private int semestre;
+	@NotNull(message = "Campo obrigatório")
+	private Integer semestre;
 	
-	@Column(name="dataVisita", columnDefinition="DATE")
-	@Temporal(TemporalType.DATE) 
+	@NotNull(message = "Campo obrigatório")
+	@DateTimeFormat(pattern = "dd/MM/yyyy") 
 	private Date dataVisita;
 	
-	private double despesaMoradia;
-	private double despesaEnergia;
-	private double despesaTelefone;
-	private double despesaEducacao;
-	private double despesaSaude;
-	private double despesaAlimentacao;
-	private double despesaOutros;
+	@NotNull(message = "Campo obrigatório")
+	private Double despesaMoradia;
+	@NotNull(message = "Campo obrigatório")
+	private Double despesaEnergia;
+	@NotNull(message = "Campo obrigatório")
+	private Double despesaTelefone;
+	@NotNull(message = "Campo obrigatório")
+	private Double despesaEducacao;
+	@NotNull(message = "Campo obrigatório")
+	private Double despesaSaude;
+	@NotNull(message = "Campo obrigatório")
+	private Double despesaAlimentacao;
+	@NotNull(message = "Campo obrigatório")
+	private Double despesaOutros;
 	
-	@Column(nullable = false)
-	@NotNull(message = "Campo Obrigatório")
-	private int qtdPessoasResidentes;
-	private double rendaTrabalhoFormal;
-	private double rendaTrabalhoInformal;
-	private double rendaAposentadoria;
-	private double rendaBeneficioSocial;
-	private double rendaAuxilioParente;
-	private double rendaOutros;
+	@NotNull(message = "Campo obrigatório")
+	private Integer qtdPessoasResidentes;
+	@NotNull(message = "Campo obrigatório")
+	private Double rendaTrabalhoFormal;
+	@NotNull(message = "Campo obrigatório")
+	private Double rendaTrabalhoInformal;
+	@NotNull(message = "Campo obrigatório")
+	private Double rendaAposentadoria;
+	@NotNull(message = "Campo obrigatório")
+	private Double rendaBeneficioSocial;
+	@NotNull(message = "Campo obrigatório")
+	private Double rendaAuxilioParente;
+	@NotNull(message = "Campo obrigatório")
+	private Double rendaOutros;
 	
-	private int moradiaVarandaQtd;
+	@NotNull(message = "Campo obrigatório")
+	private Integer moradiaVarandaQtd;
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaVarandaEstado;
-	private int moradiaSalaQtd;
+	@NotNull(message = "Campo obrigatório")
+	private Integer moradiaSalaQtd;
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaSalaEstado;
-	private int moradiaBanheiroQtd;
+	@NotNull(message = "Campo obrigatório")
+	private Integer moradiaBanheiroQtd;
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaBanheiroEstado;
-	private int moradiaQuartoQtd;
+	@NotNull(message = "Campo obrigatório")
+	private Integer moradiaQuartoQtd;
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaQuartoEstado;
-	private int moradiaCozinhaQtd;
+	@NotNull(message = "Campo obrigatório")
+	private Integer moradiaCozinhaQtd;
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaCozinhaEstado;
-	private int moradiaQuintalQtd;
+	@NotNull(message = "Campo obrigatório")
+	private Integer moradiaQuintalQtd;
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaQuintalEstado;
 	
 	@NotNull(message = "Campo Obrigatório")
-	private int utensilioTvQtd;
+	private Integer utensilioTvQtd;
 	private String utensilioTvObservacao;
 	@NotNull(message = "Campo Obrigatório")
-	private int utensilioSomQtd;
+	private Integer utensilioSomQtd;
 	private String utensilioSomObservacao;
 	@NotNull(message = "Campo Obrigatório")
-	private int utensilioComputadorQtd;
+	private Integer utensilioComputadorQtd;
 	private String utensilioComputadorObservacao;
 	@NotNull(message = "Campo Obrigatório")
-	private int utensilioFogaoQtd;
+	private Integer utensilioFogaoQtd;
 	private String utensilioFogaoObservacao;
 	@NotNull(message = "Campo Obrigatório")
-	private int utensilioGeladeiraQtd;
+	private Integer utensilioGeladeiraQtd;
 	private String utensilioGeladeiraObservacao;
 	@NotNull(message = "Campo Obrigatório")
-	private int utensilioFreezerQtd;
+	private Integer utensilioFreezerQtd;
 	private String utensilioFreezerObservacao;
 	@NotNull(message = "Campo Obrigatório")
-	private int utensilioLavadoraQtd;
+	private Integer utensilioLavadoraQtd;
 	private String utensilioLavadoraObservacao;
 	@NotNull(message = "Campo Obrigatório")
-	private int utensilioDvdQtd;
+	private Integer utensilioDvdQtd;
 	private String utensilioDvdObservacao;
 	@NotNull(message = "Campo Obrigatório")
-	private int utensilioOutrosQtd;
+	private Integer utensilioOutrosQtd;
 	private String utensilioOutrosObservacao;
 	
 	@NotNull(message = "Campo Obrigatório")
-	private int bemMovelMotoQtd;
+	private Integer bemMovelMotoQtd;
 	private String bemMovelMotoObservacao;
 	@NotNull(message = "Campo Obrigatório")
-	private int bemMovelBicicletaQtd;
+	private Integer bemMovelBicicletaQtd;
 	private String bemMovelBicicletaObservacao;
 	@NotNull(message = "Campo Obrigatório")
-	private int bemMovelCarroQtd;
+	private Integer bemMovelCarroQtd;
 	private String bemMovelCarroObservacao;
 	@NotNull(message = "Campo Obrigatório")
-	private int bemMovelOutrosQtd;
+	private Integer bemMovelOutrosQtd;
 	private String bemMovelOutrosObservacao;
 	
 	@Column(nullable = false)
@@ -138,12 +157,13 @@ public class RelatorioVisitaDomiciliar {
 	@Column(nullable = false)
 	private boolean perfilCompativelOutros;
 	
-	@Column(nullable = false)
+	@NotNull(message = "Campo obrigatório")
 	private String analiseDescricaoRealidade;
 	@Column(nullable = false)
 	private boolean parecerFinalDeferido;
-	@Column(name="dataRelatorio", columnDefinition="DATE")
-	@Temporal(TemporalType.DATE) 
+	
+	@NotNull(message = "Campo obrigatório")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataRelatorio;
 	
 	public Integer getId() {
@@ -176,10 +196,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
-	public int getSemestre() {
+	public Integer getSemestre() {
 		return semestre;
 	}
-	public void setSemestre(int semestre) {
+	public void setSemestre(Integer semestre) {
 		this.semestre = semestre;
 	}
 	public Date getDataVisita() {
@@ -188,94 +208,94 @@ public class RelatorioVisitaDomiciliar {
 	public void setDataVisita(Date dataVisita) {
 		this.dataVisita = dataVisita;
 	}
-	public double getDespesaMoradia() {
+	public Double getDespesaMoradia() {
 		return despesaMoradia;
 	}
-	public void setDespesaMoradia(double despesaMoradia) {
+	public void setDespesaMoradia(Double despesaMoradia) {
 		this.despesaMoradia = despesaMoradia;
 	}
-	public double getDespesaEnergia() {
+	public Double getDespesaEnergia() {
 		return despesaEnergia;
 	}
-	public void setDespesaEnergia(double despesaEnergia) {
+	public void setDespesaEnergia(Double despesaEnergia) {
 		this.despesaEnergia = despesaEnergia;
 	}
-	public double getDespesaTelefone() {
+	public Double getDespesaTelefone() {
 		return despesaTelefone;
 	}
-	public void setDespesaTelefone(double despesaTelefone) {
+	public void setDespesaTelefone(Double despesaTelefone) {
 		this.despesaTelefone = despesaTelefone;
 	}
-	public double getDespesaEducacao() {
+	public Double getDespesaEducacao() {
 		return despesaEducacao;
 	}
-	public void setDespesaEducacao(double despesaEducacao) {
+	public void setDespesaEducacao(Double despesaEducacao) {
 		this.despesaEducacao = despesaEducacao;
 	}
-	public double getDespesaSaude() {
+	public Double getDespesaSaude() {
 		return despesaSaude;
 	}
-	public void setDespesaSaude(double despesaSaude) {
+	public void setDespesaSaude(Double despesaSaude) {
 		this.despesaSaude = despesaSaude;
 	}
-	public double getDespesaAlimentacao() {
+	public Double getDespesaAlimentacao() {
 		return despesaAlimentacao;
 	}
-	public void setDespesaAlimentacao(double despesaAlimentacao) {
+	public void setDespesaAlimentacao(Double despesaAlimentacao) {
 		this.despesaAlimentacao = despesaAlimentacao;
 	}
-	public double getDespesaOutros() {
+	public Double getDespesaOutros() {
 		return despesaOutros;
 	}
-	public void setDespesaOutros(double despesaOutros) {
+	public void setDespesaOutros(Double despesaOutros) {
 		this.despesaOutros = despesaOutros;
 	}
-	public int getQtdPessoasResidentes() {
+	public Integer getQtdPessoasResidentes() {
 		return qtdPessoasResidentes;
 	}
-	public void setQtdPessoasResidentes(int qtdPessoasResidentes) {
+	public void setQtdPessoasResidentes(Integer qtdPessoasResidentes) {
 		this.qtdPessoasResidentes = qtdPessoasResidentes;
 	}
-	public double getRendaTrabalhoFormal() {
+	public Double getRendaTrabalhoFormal() {
 		return rendaTrabalhoFormal;
 	}
-	public void setRendaTrabalhoFormal(double rendaTrabalhoFormal) {
+	public void setRendaTrabalhoFormal(Double rendaTrabalhoFormal) {
 		this.rendaTrabalhoFormal = rendaTrabalhoFormal;
 	}
-	public double getRendaTrabalhoInformal() {
+	public Double getRendaTrabalhoInformal() {
 		return rendaTrabalhoInformal;
 	}
-	public void setRendaTrabalhoInformal(double rendaTrabalhoInformal) {
+	public void setRendaTrabalhoInformal(Double rendaTrabalhoInformal) {
 		this.rendaTrabalhoInformal = rendaTrabalhoInformal;
 	}
-	public double getRendaAposentadoria() {
+	public Double getRendaAposentadoria() {
 		return rendaAposentadoria;
 	}
-	public void setRendaAposentadoria(double rendaAposentadoria) {
+	public void setRendaAposentadoria(Double rendaAposentadoria) {
 		this.rendaAposentadoria = rendaAposentadoria;
 	}
-	public double getRendaBeneficioSocial() {
+	public Double getRendaBeneficioSocial() {
 		return rendaBeneficioSocial;
 	}
-	public void setRendaBeneficioSocial(double rendaBeneficioSocial) {
+	public void setRendaBeneficioSocial(Double rendaBeneficioSocial) {
 		this.rendaBeneficioSocial = rendaBeneficioSocial;
 	}
-	public double getRendaAuxilioParente() {
+	public Double getRendaAuxilioParente() {
 		return rendaAuxilioParente;
 	}
-	public void setRendaAuxilioParente(double rendaAuxilioParente) {
+	public void setRendaAuxilioParente(Double rendaAuxilioParente) {
 		this.rendaAuxilioParente = rendaAuxilioParente;
 	}
-	public double getRendaOutros() {
+	public Double getRendaOutros() {
 		return rendaOutros;
 	}
-	public void setRendaOutros(double rendaOutros) {
+	public void setRendaOutros(Double rendaOutros) {
 		this.rendaOutros = rendaOutros;
 	}
-	public int getMoradiaVarandaQtd() {
+	public Integer getMoradiaVarandaQtd() {
 		return moradiaVarandaQtd;
 	}
-	public void setMoradiaVarandaQtd(int moradiaVarandaQtd) {
+	public void setMoradiaVarandaQtd(Integer moradiaVarandaQtd) {
 		this.moradiaVarandaQtd = moradiaVarandaQtd;
 	}
 	public EstadoMoradia getMoradiaVarandaEstado() {
@@ -284,10 +304,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setMoradiaVarandaEstado(EstadoMoradia moradiaVarandaEstado) {
 		this.moradiaVarandaEstado = moradiaVarandaEstado;
 	}
-	public int getMoradiaSalaQtd() {
+	public Integer getMoradiaSalaQtd() {
 		return moradiaSalaQtd;
 	}
-	public void setMoradiaSalaQtd(int moradiaSalaQtd) {
+	public void setMoradiaSalaQtd(Integer moradiaSalaQtd) {
 		this.moradiaSalaQtd = moradiaSalaQtd;
 	}
 	public EstadoMoradia getMoradiaSalaEstado() {
@@ -296,10 +316,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setMoradiaSalaEstado(EstadoMoradia moradiaSalaEstado) {
 		this.moradiaSalaEstado = moradiaSalaEstado;
 	}
-	public int getMoradiaBanheiroQtd() {
+	public Integer getMoradiaBanheiroQtd() {
 		return moradiaBanheiroQtd;
 	}
-	public void setMoradiaBanheiroQtd(int moradiaBanheiroQtd) {
+	public void setMoradiaBanheiroQtd(Integer moradiaBanheiroQtd) {
 		this.moradiaBanheiroQtd = moradiaBanheiroQtd;
 	}
 	public EstadoMoradia getMoradiaBanheiroEstado() {
@@ -308,10 +328,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setMoradiaBanheiroEstado(EstadoMoradia moradiaBanheiroEstado) {
 		this.moradiaBanheiroEstado = moradiaBanheiroEstado;
 	}
-	public int getMoradiaQuartoQtd() {
+	public Integer getMoradiaQuartoQtd() {
 		return moradiaQuartoQtd;
 	}
-	public void setMoradiaQuartoQtd(int moradiaQuartoQtd) {
+	public void setMoradiaQuartoQtd(Integer moradiaQuartoQtd) {
 		this.moradiaQuartoQtd = moradiaQuartoQtd;
 	}
 	public EstadoMoradia getMoradiaQuartoEstado() {
@@ -320,10 +340,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setMoradiaQuartoEstado(EstadoMoradia moradiaQuartoEstado) {
 		this.moradiaQuartoEstado = moradiaQuartoEstado;
 	}
-	public int getMoradiaCozinhaQtd() {
+	public Integer getMoradiaCozinhaQtd() {
 		return moradiaCozinhaQtd;
 	}
-	public void setMoradiaCozinhaQtd(int moradiaCozinhaQtd) {
+	public void setMoradiaCozinhaQtd(Integer moradiaCozinhaQtd) {
 		this.moradiaCozinhaQtd = moradiaCozinhaQtd;
 	}
 	public EstadoMoradia getMoradiaCozinhaEstado() {
@@ -332,10 +352,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setMoradiaCozinhaEstado(EstadoMoradia moradiaCozinhaEstado) {
 		this.moradiaCozinhaEstado = moradiaCozinhaEstado;
 	}
-	public int getMoradiaQuintalQtd() {
+	public Integer getMoradiaQuintalQtd() {
 		return moradiaQuintalQtd;
 	}
-	public void setMoradiaQuintalQtd(int moradiaQuintalQtd) {
+	public void setMoradiaQuintalQtd(Integer moradiaQuintalQtd) {
 		this.moradiaQuintalQtd = moradiaQuintalQtd;
 	}
 	public EstadoMoradia getMoradiaQuintalEstado() {
@@ -344,10 +364,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setMoradiaQuintalEstado(EstadoMoradia moradiaQuintalEstado) {
 		this.moradiaQuintalEstado = moradiaQuintalEstado;
 	}
-	public int getUtensilioTvQtd() {
+	public Integer getUtensilioTvQtd() {
 		return utensilioTvQtd;
 	}
-	public void setUtensilioTvQtd(int utensilioTvQtd) {
+	public void setUtensilioTvQtd(Integer utensilioTvQtd) {
 		this.utensilioTvQtd = utensilioTvQtd;
 	}
 	public String getUtensilioTvObservacao() {
@@ -356,10 +376,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setUtensilioTvObservacao(String utensilioTvObservacao) {
 		this.utensilioTvObservacao = utensilioTvObservacao;
 	}
-	public int getUtensilioSomQtd() {
+	public Integer getUtensilioSomQtd() {
 		return utensilioSomQtd;
 	}
-	public void setUtensilioSomQtd(int utensilioSomQtd) {
+	public void setUtensilioSomQtd(Integer utensilioSomQtd) {
 		this.utensilioSomQtd = utensilioSomQtd;
 	}
 	public String getUtensilioSomObservacao() {
@@ -368,10 +388,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setUtensilioSomObservacao(String utensilioSomObservacao) {
 		this.utensilioSomObservacao = utensilioSomObservacao;
 	}
-	public int getUtensilioComputadorQtd() {
+	public Integer getUtensilioComputadorQtd() {
 		return utensilioComputadorQtd;
 	}
-	public void setUtensilioComputadorQtd(int utensilioComputadorQtd) {
+	public void setUtensilioComputadorQtd(Integer utensilioComputadorQtd) {
 		this.utensilioComputadorQtd = utensilioComputadorQtd;
 	}
 	public String getUtensilioComputadorObservacao() {
@@ -381,10 +401,10 @@ public class RelatorioVisitaDomiciliar {
 			String utensilioComputadorObservacao) {
 		this.utensilioComputadorObservacao = utensilioComputadorObservacao;
 	}
-	public int getUtensilioFogaoQtd() {
+	public Integer getUtensilioFogaoQtd() {
 		return utensilioFogaoQtd;
 	}
-	public void setUtensilioFogaoQtd(int utensilioFogaoQtd) {
+	public void setUtensilioFogaoQtd(Integer utensilioFogaoQtd) {
 		this.utensilioFogaoQtd = utensilioFogaoQtd;
 	}
 	public String getUtensilioFogaoObservacao() {
@@ -393,10 +413,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setUtensilioFogaoObservacao(String utensilioFogaoObservacao) {
 		this.utensilioFogaoObservacao = utensilioFogaoObservacao;
 	}
-	public int getUtensilioGeladeiraQtd() {
+	public Integer getUtensilioGeladeiraQtd() {
 		return utensilioGeladeiraQtd;
 	}
-	public void setUtensilioGeladeiraQtd(int utensilioGeladeiraQtd) {
+	public void setUtensilioGeladeiraQtd(Integer utensilioGeladeiraQtd) {
 		this.utensilioGeladeiraQtd = utensilioGeladeiraQtd;
 	}
 	public String getUtensilioGeladeiraObservacao() {
@@ -405,10 +425,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setUtensilioGeladeiraObservacao(String utensilioGeladeiraObservacao) {
 		this.utensilioGeladeiraObservacao = utensilioGeladeiraObservacao;
 	}
-	public int getUtensilioFreezerQtd() {
+	public Integer getUtensilioFreezerQtd() {
 		return utensilioFreezerQtd;
 	}
-	public void setUtensilioFreezerQtd(int utensilioFreezerQtd) {
+	public void setUtensilioFreezerQtd(Integer utensilioFreezerQtd) {
 		this.utensilioFreezerQtd = utensilioFreezerQtd;
 	}
 	public String getUtensilioFreezerObservacao() {
@@ -417,10 +437,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setUtensilioFreezerObservacao(String utensilioFreezerObservacao) {
 		this.utensilioFreezerObservacao = utensilioFreezerObservacao;
 	}
-	public int getUtensilioLavadoraQtd() {
+	public Integer getUtensilioLavadoraQtd() {
 		return utensilioLavadoraQtd;
 	}
-	public void setUtensilioLavadoraQtd(int utensilioLavadoraQtd) {
+	public void setUtensilioLavadoraQtd(Integer utensilioLavadoraQtd) {
 		this.utensilioLavadoraQtd = utensilioLavadoraQtd;
 	}
 	public String getUtensilioLavadoraObservacao() {
@@ -429,10 +449,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setUtensilioLavadoraObservacao(String utensilioLavadoraObservacao) {
 		this.utensilioLavadoraObservacao = utensilioLavadoraObservacao;
 	}
-	public int getUtensilioDvdQtd() {
+	public Integer getUtensilioDvdQtd() {
 		return utensilioDvdQtd;
 	}
-	public void setUtensilioDvdQtd(int utensilioDvdQtd) {
+	public void setUtensilioDvdQtd(Integer utensilioDvdQtd) {
 		this.utensilioDvdQtd = utensilioDvdQtd;
 	}
 	public String getUtensilioDvdObservacao() {
@@ -441,10 +461,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setUtensilioDvdObservacao(String utensilioDvdObservacao) {
 		this.utensilioDvdObservacao = utensilioDvdObservacao;
 	}
-	public int getUtensilioOutrosQtd() {
+	public Integer getUtensilioOutrosQtd() {
 		return utensilioOutrosQtd;
 	}
-	public void setUtensilioOutrosQtd(int utensilioOutrosQtd) {
+	public void setUtensilioOutrosQtd(Integer utensilioOutrosQtd) {
 		this.utensilioOutrosQtd = utensilioOutrosQtd;
 	}
 	public String getUtensilioOutrosObservacao() {
@@ -453,10 +473,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setUtensilioOutrosObservacao(String utensilioOutrosObservacao) {
 		this.utensilioOutrosObservacao = utensilioOutrosObservacao;
 	}
-	public int getBemMovelMotoQtd() {
+	public Integer getBemMovelMotoQtd() {
 		return bemMovelMotoQtd;
 	}
-	public void setBemMovelMotoQtd(int bemMovelMotoQtd) {
+	public void setBemMovelMotoQtd(Integer bemMovelMotoQtd) {
 		this.bemMovelMotoQtd = bemMovelMotoQtd;
 	}
 	public String getBemMovelMotoObservacao() {
@@ -465,10 +485,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setBemMovelMotoObservacao(String bemMovelMotoObservacao) {
 		this.bemMovelMotoObservacao = bemMovelMotoObservacao;
 	}
-	public int getBemMovelBicicletaQtd() {
+	public Integer getBemMovelBicicletaQtd() {
 		return bemMovelBicicletaQtd;
 	}
-	public void setBemMovelBicicletaQtd(int bemMovelBicicletaQtd) {
+	public void setBemMovelBicicletaQtd(Integer bemMovelBicicletaQtd) {
 		this.bemMovelBicicletaQtd = bemMovelBicicletaQtd;
 	}
 	public String getBemMovelBicicletaObservacao() {
@@ -477,10 +497,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setBemMovelBicicletaObservacao(String bemMovelBicicletaObservacao) {
 		this.bemMovelBicicletaObservacao = bemMovelBicicletaObservacao;
 	}
-	public int getBemMovelCarroQtd() {
+	public Integer getBemMovelCarroQtd() {
 		return bemMovelCarroQtd;
 	}
-	public void setBemMovelCarroQtd(int bemMovelCarroQtd) {
+	public void setBemMovelCarroQtd(Integer bemMovelCarroQtd) {
 		this.bemMovelCarroQtd = bemMovelCarroQtd;
 	}
 	public String getBemMovelCarroObservacao() {
@@ -489,10 +509,10 @@ public class RelatorioVisitaDomiciliar {
 	public void setBemMovelCarroObservacao(String bemMovelCarroObservacao) {
 		this.bemMovelCarroObservacao = bemMovelCarroObservacao;
 	}
-	public int getBemMovelOutrosQtd() {
+	public Integer getBemMovelOutrosQtd() {
 		return bemMovelOutrosQtd;
 	}
-	public void setBemMovelOutrosQtd(int bemMovelOutrosQtd) {
+	public void setBemMovelOutrosQtd(Integer bemMovelOutrosQtd) {
 		this.bemMovelOutrosQtd = bemMovelOutrosQtd;
 	}
 	public String getBemMovelOutrosObservacao() {
@@ -550,6 +570,12 @@ public class RelatorioVisitaDomiciliar {
 	}
 	public void setDataRelatorio(Date dataRelatorio) {
 		this.dataRelatorio = dataRelatorio;
+	}
+	public SelecaoBolsa getSelecaoBolsa() {
+		return selecaoBolsa;
+	}
+	public void setSelecaoBolsa(SelecaoBolsa selecaoBolsa) {
+		this.selecaoBolsa = selecaoBolsa;
 	}
 	@Override
 	public String toString() {

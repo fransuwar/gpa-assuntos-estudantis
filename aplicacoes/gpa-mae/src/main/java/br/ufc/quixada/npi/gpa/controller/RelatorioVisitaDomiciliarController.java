@@ -17,8 +17,10 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.RelatorioVisitaDomiciliar;
+import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.RelatorioVisitaDomiciliarService;
+import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
@@ -31,51 +33,56 @@ public class RelatorioVisitaDomiciliarController {
 	private RelatorioVisitaDomiciliarService relatorioVisitaService;
 	@Inject
 	private AlunoService alunoService;
+	@Inject
+	private SelecaoBolsaService selecaoBolsaService;
 	
-	
-	@RequestMapping(value="cadastrar/{id}", method = RequestMethod.GET)
-	public String cadastrar(@PathVariable("id") Integer id, Model modelo){
+
+	@RequestMapping(value="cadastrar/{idAluno}/{idSelecaoBolsa}", method = RequestMethod.GET)
+	public String cadastrar(@PathVariable("idAluno") Integer id,
+							@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo){
+		Aluno aluno = alunoService.find(Aluno.class, id);
 		modelo.addAttribute("relatorioVisitaDomiciliar", new RelatorioVisitaDomiciliar());
 		modelo.addAttribute("curso", Curso.values());
 		modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
-		modelo.addAttribute("idAuxilioMoradia", id);
-		modelo.addAttribute("aluno", alunoService.find(Aluno.class, id));
+		modelo.addAttribute("aluno", aluno);
+		modelo.addAttribute("idSelecaoBolsa", idSelecaoBolsa);
 		return "/selecao/relatorioVisita";
 	}
 	
-	@RequestMapping(value="/cadastrar/{idAuxilio}", method= RequestMethod.POST)
-	public String adicionarRelatorio(@Valid @ModelAttribute("relatorioVisitaDomiciliar") 
-	RelatorioVisitaDomiciliar relatorioVisitaDomiciliar, BindingResult result, 
-	@ModelAttribute ("idAuxilio") Integer id, RedirectAttributes redirect, Model modelo){
+	@RequestMapping(value="/cadastrar/{idAluno}/{idSelecaoBolsa}", method= RequestMethod.POST)
+	public String adicionarRelatorio(
+			@PathVariable("idAluno") Integer idAluno,
+			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, 
+			@Valid @ModelAttribute("relatorioVisitaDomiciliar") RelatorioVisitaDomiciliar relatorioVisitaDomiciliar,
+			BindingResult result, RedirectAttributes redirect, Model modelo){
 		
-		if(id!=null){
-			if(result.hasErrors()){
-				modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
-				modelo.addAttribute("curso", Curso.values());
-				modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
+		
+		if(result.hasErrors()){
+			Aluno aluno = alunoService.find(Aluno.class, idAluno);
+			modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
+			modelo.addAttribute("curso", Curso.values());
+			modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
+			modelo.addAttribute("aluno", aluno);
+			modelo.addAttribute("idSelecaoBolsa", idSelecaoBolsa);
+			if(relatorioVisitaDomiciliar.getId() != null) 
 				modelo.addAttribute("action", "editar");
-				return "redirect:/relatorioVisita/cadastrar/"+id;
-			}
+			return "/selecao/relatorioVisita";
+		}
+		
+		if(relatorioVisitaDomiciliar.getId() != null){
 			
 			this.relatorioVisitaService.update(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatório Atualizado com sucesso.");
-			return "redirect:/selecao/inscritos/{id}";
+			return "redirect:/selecao/inscritos/"+idSelecaoBolsa;
 			
-		}else if(result.hasErrors()){
-			modelo.addAttribute("relatorioVisitaDomiciliar", new RelatorioVisitaDomiciliar());
-			modelo.addAttribute("curso", Curso.values());
-			modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
-			modelo.addAttribute("auxilioMoradia", id);
-			
-			return "relatorioVisita/Cadastrar";
-		}else{
-			Aluno aluno = alunoService.getAlunoById(id);
-			relatorioVisitaDomiciliar.setAluno(aluno);
+		} else {
+			relatorioVisitaDomiciliar.setAluno(alunoService.getAlunoById(idAluno));
+			relatorioVisitaDomiciliar.setSelecaoBolsa(selecaoBolsaService.find(SelecaoBolsa.class, idSelecaoBolsa));
 			
 			this.relatorioVisitaService.save(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatorio cadastrado com sucesso.");
 			
-			return "redirect:/selecao/inscritos/{id}";
+			return "redirect:/selecao/inscritos/"+idSelecaoBolsa;
 		}
 	}
 	
