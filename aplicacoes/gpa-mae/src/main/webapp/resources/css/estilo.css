@@ -108,15 +108,12 @@ input[type=checkbox] {
 	padding: 0%;
 }
 
-<<<<<<< HEAD
+
 .checkbox{
 	margin-top: 0%;
 }
 
 #form-label-right-select-tam-padrao{
-=======
-#form-label-right-select-tam-padrao {
->>>>>>> d5a3b5d8926b79a82ba9cbc147ac76698fd3f755
 	text-align: right;
 	margin-top: 0.5%;
 }
