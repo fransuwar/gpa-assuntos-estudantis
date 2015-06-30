@@ -8,19 +8,19 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="CadastrarBolsa/AnoAnteriorAoAtual">AnoAnteriorAoAtual</a></td></tr>
-<tr><td><a href="CadastrarBolsa/BolsaIdenticaAJaExistente">BolsaIdenticaAJaExistente</a></td></tr>
-<tr><td><a href="CadastrarBolsa/CadastrarBolsa">CadastrarBolsa</a></td></tr>
-<tr><td><a href="CadastrarBolsa/CadastrarBolsa-CamposObrigatoriosEmBranco">CadastrarBolsa-CamposObrigatoriosEmBranco</a></td></tr>
-<tr><td><a href="CadastrarBolsa/CadastrarBolsaSemAnexo">CadastrarBolsaSemAnexo</a></td></tr>
-<tr><td><a href="CadastrarBolsa/CampoComentariosEmBranco">CampoComentariosEmBranco</a></td></tr>
-<tr><td><a href="CadastrarBolsa/CancelarCadastroBolsa">CancelarCadastroBolsa</a></td></tr>
-<tr><td><a href="CadastrarBolsa/DataInicioAnteriorAAtual">DataInicioAnteriorAAtual</a></td></tr>
-<tr><td><a href="CadastrarBolsa/DataInicioMaiorQueTermino">DataInicioMaiorQueTermino</a></td></tr>
-<tr><td><a href="CadastrarBolsa/DataTerminoMenorQueAtual">DataTerminoMenorQueAtual</a></td></tr>
-<tr><td><a href="CadastrarBolsa/DuracaoZero">DuracaoZero</a></td></tr>
-<tr><td><a href="CadastrarBolsa/NumEditalIgualZero">NumEditalIgualZero</a></td></tr>
-<tr><td><a href="CadastrarBolsa/QntVagasIgualZero">QntVagasIgualZero</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Ano-Anterior-Ao-Atual">Ano-Anterior-Ao-Atual</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Bolsa-Identica-A-Ja-Existente">Bolsa-Identica-A-Ja-Existente</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Cadastrar-Bolsa">Cadastrar-Bolsa</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Cadastrar-Bolsa-Campos-Obrigatorios-Em-Branco">Cadastrar-Bolsa-Campos-Obrigatorios-Em-Branco</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Cadastrar-Bolsa-Sem-Anexos">Cadastrar-Bolsa-Sem-Anexos</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Campo-Comentarios-Em-Branco">Campo-Comentarios-Em-Branco</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Cancelar-Cadastro-Bolsa">Cancelar-Cadastro-Bolsa</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Data-Inicio-Anterior-A-Atual">Data-Inicio-Anterior-A-Atual</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Data-Inicio-Maior-Que-Termino">Data-Inicio-Maior-Que-Termino</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Data-Termino-Menor-Que-Atual">Data-Termino-Menor-Que-Atual</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Duracao-Zero">Duracao-Zero</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Num-Edital-Igual-Zero">Num-Edital-Igual-Zero</a></td></tr>
+<tr><td><a href="Cadastrar-Bolsa/Qnt-Vagas-Igual-Zero">Qnt-Vagas-Igual-Zero</a></td></tr>
 </tbody></table>
 </body>
 </html>

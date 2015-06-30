@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>Cadastro servidor - dados duplicados</title>
+<title>Editar Aluno - Ano posterior ao atual</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Cadastro servidor - dados duplicados</td></tr>
+<tr><td rowspan="1" colspan="3">Editar Aluno - Ano posterior ao atual</td></tr>
 </thead><tbody>
 <tr>
 	<td>clickAndWait</td>
@@ -33,42 +33,37 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Listar Servidor</td>
+	<td>link=Listar Alunos</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=listar-btn-inserir</td>
+	<td>css=button.btn.btn-info</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=siape</td>
-	<td>54541</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>id=cargo</td>
-	<td>label=Professor</td>
+	<td>id=anoIngresso</td>
+	<td>2016</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=form-btn</td>
+	<td>name=submit</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>id=alert-erro</td>
+	<td>id=anoIngresso.errors</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>id=alert-erro</td>
-	<td>*×Close Não é possível cadastrar um siape já existente.*</td>
+	<td>id=anoIngresso.errors</td>
+	<td>*Informe um ano menor ou igual ao atual*</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Sair</td>
+	<td>css=span.glyphicon.glyphicon-off</td>
 	<td></td>
 </tr>
 </tbody></table>

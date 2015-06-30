@@ -100,6 +100,7 @@ public class IniciacaoAcademicaController {
 	public String editar(@PathVariable("id") Integer id,
 			RedirectAttributes redirect, Model model) {
 
+		
 		QuestionarioIniciacaoAcademica q = iniciacaoAcademicaService
 				.getQuestIniAcadById(id);
 

@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>Cadastro servidor - dados duplicados</title>
+<title>CancelarAdicionarBanca</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Cadastro servidor - dados duplicados</td></tr>
+<tr><td rowspan="1" colspan="3">CancelarAdicionarBanca</td></tr>
 </thead><tbody>
 <tr>
 	<td>clickAndWait</td>
@@ -19,7 +19,7 @@
 <tr>
 	<td>type</td>
 	<td>name=j_username</td>
-	<td>admin</td>
+	<td>coord</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -33,42 +33,37 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Listar Servidor</td>
+	<td>link=Listar Seleções</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=listar-btn-inserir</td>
+	<td>xpath=(//a[@id='atribuirBanca']/button)[2]</td>
 	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=siape</td>
-	<td>54541</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>id=cargo</td>
-	<td>label=Professor</td>
+	<td>name=id1</td>
+	<td>label=Usuário Admin</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=id2</td>
+	<td>label=Servidor</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=id3</td>
+	<td>label=Prof</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=form-btn</td>
+	<td>link=Cancelar</td>
 	<td></td>
-</tr>
-<tr>
-	<td>waitForElementPresent</td>
-	<td>id=alert-erro</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>id=alert-erro</td>
-	<td>*×Close Não é possível cadastrar um siape já existente.*</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Sair</td>
+	<td>css=span.glyphicon.glyphicon-off</td>
 	<td></td>
 </tr>
 </tbody></table>

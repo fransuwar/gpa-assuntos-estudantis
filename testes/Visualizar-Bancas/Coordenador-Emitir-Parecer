@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost:8080/" />
-<title>Cadastro servidor - dados duplicados</title>
+<link rel="selenium.base" href="http://localhost:8585/" />
+<title>Coordenador-Emitir-Parecer</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Cadastro servidor - dados duplicados</td></tr>
+<tr><td rowspan="1" colspan="3">Coordenador-Emitir-Parecer</td></tr>
 </thead><tbody>
 <tr>
 	<td>clickAndWait</td>
@@ -19,7 +19,7 @@
 <tr>
 	<td>type</td>
 	<td>name=j_username</td>
-	<td>admin</td>
+	<td>coord</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -33,23 +33,13 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Listar Servidor</td>
+	<td>//a[contains(text(),'Listar<br />								Seleções')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=listar-btn-inserir</td>
+	<td>xpath=(//a[@id='visualizarInscritos']/button)[3]</td>
 	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=siape</td>
-	<td>54541</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>id=cargo</td>
-	<td>label=Professor</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -57,20 +47,11 @@
 	<td></td>
 </tr>
 <tr>
-	<td>waitForElementPresent</td>
-	<td>id=alert-erro</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>id=alert-erro</td>
-	<td>*×Close Não é possível cadastrar um siape já existente.*</td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
-	<td>link=Sair</td>
+	<td>css=span.glyphicon.glyphicon-off</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>
