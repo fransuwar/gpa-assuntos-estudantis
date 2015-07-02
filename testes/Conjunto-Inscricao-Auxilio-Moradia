@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Auxilio-Moradia/Inscricao-Auxilio-Moradia">Inscição-Auxilio-Moradia</a></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Auxilio-Moradia/Inscricao-Cancelar">Inscricao-Cancelar</a></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Auxilio-Moradia/Campos-Obrigatorios-Em-Branco">Campos-Obrigatorios-Em-Branco</a></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Auxilio-Moradia/Campo-TelefoneOrigem-Preenchido-Incompleto">Campo-Telefone-Preenchido-Incompleto</a></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Auxilio-Moradia/Campo-CEP-Preenchido-Incompleto">Campo-CEP-Preenchido-Incompleto.</a></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Auxilio-Moradia/Marcar-Bolsista-Sem-Preencher-Tipo-Bolsa">Marcar-Bolsista-Sem-Preencher-Tipo-Bolsa</a></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Auxilio-Moradia/Marcar-Possui-Graduacao-Sem-Preencher-Descricao-Graduacao">Marcar-Possui-Graduacao-Sem-Preencher-Descricao-Graduacao</a></td></tr>
+</tbody></table>
+</body>
+</html>

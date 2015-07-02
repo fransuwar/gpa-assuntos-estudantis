@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:9000/" />
+<title>Campos-Obrigatorios-Em-Branco</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Campos-Obrigatorios-Em-Branco</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/MAE/login;jsessionid=34DB1D821D2D6FD8A32573A64AB9ACD2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>aluno</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Listar<br />								Seleções')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='inscrever']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=estadoOrigem</td>
+	<td>label=Ceará</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=telefoneOrigem</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=pontoReferenciaOrigem</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[contains(text(),'Histórico<br />							Escolar')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[contains(text(),'Situação<br />							Sócio Econômica')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[contains(text(),'Outras<br />							Informações')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Justificativa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=form-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=justificativa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=moraCom.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=moraCom.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=nomeMae.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=nomeMae.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=nomePai.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=nomePai.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=ruaSedeCurso.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=ruaSedeCurso.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=bairroSedeCurso.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=numeroSedeCurso.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=ruaOrigem.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=ruaOrigem.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=bairroOrigem.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=bairroOrigem.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=numeroOrigem.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=numeroOrigem.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=cepOrigem.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=cepOrigem.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=cidadeOrigem.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=cidadeOrigem.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=telefoneOrigem.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=telefoneOrigem.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=pontoReferenciaOrigem.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=pontoReferenciaOrigem.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=ensinoFundamental.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=ensinoFundamental.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=ensinoMedio.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=ensinoMedio.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=pessoas.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=pessoas.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=justificativa.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=justificativa.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
