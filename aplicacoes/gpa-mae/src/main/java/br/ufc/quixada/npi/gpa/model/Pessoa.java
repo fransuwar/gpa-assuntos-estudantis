@@ -46,7 +46,6 @@ public class Pessoa {
 	
 	@Column(nullable = false)
 	private boolean habilitado;
-
 	
 	@Column(nullable = false)
 	private String email;
@@ -74,7 +73,6 @@ public class Pessoa {
 	private String telefone;
 	
 	private String estadoCivil;
-	
 
 	public Estado getUf() {
 		return uf;
