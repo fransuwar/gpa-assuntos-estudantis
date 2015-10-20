@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -17,12 +18,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import br.ufc.quixada.npi.gpa.enums.Estado;
 
 @Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames = {"id", "login"}))
+@EntityListeners(PessoaEntityListener.class)
+@Table(uniqueConstraints=@UniqueConstraint(columnNames = {"id"}))
 public class Pessoa {
 
 	public Pessoa() {
@@ -38,18 +41,14 @@ public class Pessoa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(nullable = false)
-	private String login;
+	@ManyToMany
+	@JoinTable(name = "papel_pessoa", joinColumns = @JoinColumn(name = "pessoa_id"), inverseJoinColumns = @JoinColumn(name = "papel_id"))
+	private List<Papel> papeis;
 	
-	@Column(nullable = false)
-	private String password;
-	
-	@Column(nullable = false)
-	private boolean habilitado;
-	
-	@Column(nullable = false)
+	@Transient
 	private String email;
 	
+	@Transient
 	private String nome;
 	
 	@Column(name = "datanascimento", columnDefinition="DATE") 
@@ -59,7 +58,6 @@ public class Pessoa {
 	private String nacionalidade;
 	
 	private String naturalidade;
-
 
 	@Enumerated(EnumType.STRING)
 	private Estado uf;
@@ -82,14 +80,6 @@ public class Pessoa {
 		this.uf = uf;
 	}
 		
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -200,14 +190,8 @@ public class Pessoa {
 		this.servidores = servidores;
 	}
 
-	
 	@OneToMany(mappedBy="pessoa")
 	private List<Servidor> servidores;
-	
-
-	@ManyToMany
-	@JoinTable(name = "papel_pessoa", joinColumns = @JoinColumn(name = "pessoa_id"), inverseJoinColumns = @JoinColumn(name = "papel_id"))
-	private List<Papel> papeis;
 	
 	public Integer getId() {
 		return id;
@@ -215,22 +199,6 @@ public class Pessoa {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public boolean isHabilitado() {
-		return habilitado;
-	}
-
-	public void setHabilitado(boolean habilitado) {
-		this.habilitado = habilitado;
 	}
 
 	@Override
