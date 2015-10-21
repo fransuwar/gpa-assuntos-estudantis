@@ -22,12 +22,9 @@ public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements Pes
 	private GenericRepository<Papel> papelRepository;
 	
 	@Override
-	public Pessoa getPessoaByLogin(String login) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put( "login", login);
-		Pessoa pessoaLogada = (Pessoa) find(QueryType.JPQL, "from Pessoa where login = :login", params).get(0);
-		return pessoaLogada;
-	}
+	public Pessoa getPessoaByCpf(String cpf) {
+		return (Pessoa) findFirst("Pessoa.findPessoaByCpf", new SimpleMap<String, Object>("cpf", cpf));
+		}
 
 	@Override
 	public List<Pessoa> getPareceristas(Long id) {

@@ -13,7 +13,7 @@
 		   http://www.springframework.org/schema/jee
 		   http://www.springframework.org/schema/jee/spring-jee-3.2.xsd">
 		   
-	<!-- <bean id="applicationContextProvider" class="br.ufc.quixada.npi.gpa.model.PessoaEntityListener" /> -->
+	<bean id="applicationContextProvider" class="br.ufc.quixada.npi.gpa.model.PessoaEntityListener" />
 
 	<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<!-- Specify the name of the EntityManagerFactory configuration. -->

@@ -8,11 +8,11 @@ import br.ufc.quixada.npi.service.GenericService;
 
 public interface PessoaService extends GenericService<Pessoa> {
 
-	public abstract Pessoa getPessoaByLogin(String login);
-
 	public abstract List<Pessoa> getPareceristas(Long id);
 	
 	public abstract List<Papel> getPapeis(String cpf);
+	
+	public abstract Pessoa getPessoaByCpf(String cpf);
 
 	public abstract boolean isCoordenador(Pessoa pessoa);
 }
