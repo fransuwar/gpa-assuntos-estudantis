@@ -61,7 +61,7 @@
 								<a id="preencherRelatorio"
 									href="<c:url value="relatorioVisita/${aluno.id}/${idSelecaoBolsa}" ></c:url>">
 									<button class="btn btn-primary">
-										Relatório de Visita Domiciliar 
+										Preencher Relatório de Visita Domiciliar 
 									</button>
 								</a>
 							</sec:authorize>
@@ -71,7 +71,7 @@
 							
 								<a id="visualizarRelatorio" 
 								href="<c:url value="informacoesRelatorio/${aluno.id}"></c:url>">
-								<button class="btn btn-primary">Visualizar Formulário</button>
+								<button class="btn btn-primary">Visualizar Formulário Preenchido</button>
 								</a>
 							</td>
 							<td><button class="btn btn-primary">Visualizar

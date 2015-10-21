@@ -96,10 +96,9 @@
 											<label for="curso" class="col-sm-2 control-label"
 												id="form-label-1">Curso</label>
 											<div class="col-sm-4">
-												<form:select path="curso" id="curso" cssClass="form-control">
-													<form:option value="">Selecione o Curso</form:option>
-													<form:options items="${curso}" itemLabel="nome" />
-												</form:select>
+									
+												<form:input id="curso" type="text" readonly="true" path="curso"
+													cssClass="form-control" placeholder="" value="${aluno.curso}" />
 												<div class="error-validation">
 													<form:errors path="curso"></form:errors>
 												</div>
@@ -108,7 +107,7 @@
 												id="form-label-2">Semestre:</label>
 											<div class="col-sm-4">
 												<form:input id="semestre" type="text" path="semestre"
-													cssClass="form-control" placeholder="Semestre" value="0" />
+													cssClass="form-control" placeholder="Semestre"  value="0" />
 												<div class="error-validation">
 													<form:errors path="semestre"></form:errors>
 												</div>

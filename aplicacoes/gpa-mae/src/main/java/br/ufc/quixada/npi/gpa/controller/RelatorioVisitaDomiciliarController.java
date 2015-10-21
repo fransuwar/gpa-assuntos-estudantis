@@ -86,18 +86,18 @@ public class RelatorioVisitaDomiciliarController {
 		}
 	}
 	
-	@RequestMapping(value="/informacoesRelatorio/{id}", method= RequestMethod.GET)
-	public String visualizarInformacoes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect){
+	@RequestMapping(value="informacoesRelatorio/{id}", method= RequestMethod.GET)
+	public String visualizarInformacoes(@PathVariable("id") Integer idRelatorio, Model modelo, RedirectAttributes redirect){
 		
-		RelatorioVisitaDomiciliar relatorio= relatorioVisitaService.find(RelatorioVisitaDomiciliar.class, id);
+		RelatorioVisitaDomiciliar relatorio= relatorioVisitaService.find(RelatorioVisitaDomiciliar.class, idRelatorio);
 		
-		/*if(relatorio == null){
+		if(relatorio == null){
 			redirect.addFlashAttribute("erro", "Relatório não existe");
 			return "redirect:/selecao/inscritos/{id}";
 		}
 		
-		modelo.addAttribute(relatorio);
-		*/
-		return "/selecao/informacoesRelatorio";
-	}//Rever método
+		modelo.addAttribute("relatorio",relatorio);
+		
+		return "selecao/informacoesRelatorio";
+	}
 }

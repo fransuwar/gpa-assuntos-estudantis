@@ -30,31 +30,31 @@
 
 					<dl class="dl-horizontal">
 						<dt>Candidato:</dt>
-						<dd>${aluno.nome}</dd>
+						<dd>${relatorio.aluno.nome}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Endereço:</dt>
-						<!-- <dd></dd> -->
+						<dd>${relatorio.endereco}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Forma de acesso a casa:</dt>
-						<!-- <dd></dd> -->
+						<dd>${relatorio.formaAcessoCasa }</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Curso:</dt>
-						<dd>${aluno.curso}</dd>
+						<dd>${relatorio.aluno.curso}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Semestre:</dt>
-						<!-- <dd></dd> -->
+						 <dd>${relatorio.semestre}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Data da visita:</dt>
-						<dd>${dataVisita}</dd>
+						<dd>${relatorio.dataVisita}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Técnicos Responsáveis:</dt>
-						<!-- <dd></dd> -->
+						<dd></dd>
 					</dl>
 
 				</div>
@@ -70,31 +70,31 @@
 
 					<dl class="dl-horizontal">
 						<dt>Moradia:</dt>
-						<dd>${despesaMoradia}</dd>
+						<dd>${relatorio.despesaMoradia}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Energia:</dt>
-						<dd>${despesaEnergia}</dd>
+						<dd>${relatorio.despesaEnergia}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Telefone:</dt>
-						<dd>${despesaTelefone}</dd>
+						<dd>${relatorio.despesaTelefone}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Educação:</dt>
-						<dd>${despesaEducacao}</dd>
+						<dd>${relatorio.despesaEducacao}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Saúde:</dt>
-						<dd>${despesaSaude}</dd>
+						<dd>${relatorio.despesaSaude}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Alimentação:</dt>
-						<dd>${despesaAlimentacao}</dd>
+						<dd>${relatorio.despesaAlimentacao}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Outros:</dt>
-						<dd>${despesaOutros}</dd>
+						<dd>${relatorio.despesaOutros}</dd>
 					</dl>
 
 
@@ -111,27 +111,27 @@
 
 					<dl>
 						<dt>Nº de Pessoas residentes no domicílio:</dt>
-						<dd>${qtdPessoasResidentes}</dd>
+						<dd>${relatorio.qtdPessoasResidentes}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Trabalho Formal:</dt>
-						<!-- <dd>${aluno.nome}</dd> -->
+						<dd>${relatorio.rendaTrabalhoFormal}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Trabalho Informal:</dt>
-						<!-- <dd>${aluno.nome}</dd> -->
+						<dd>${relatorio.rendaTrabalhoInformal}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Aposentadoria:</dt>
-						<!-- <dd>${aluno.nome}</dd> -->
+						<dd>${relatorio.rendaAposentadoria}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Benefícios Sociais:</dt>
-						<!-- <dd>${aluno.nome}</dd> -->
+						<dd>${relatorio.rendaBeneficioSocial}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Auxílio de Parentes:</dt>
-						<!-- <dd>${aluno.nome}</dd> -->
+						<dd>${relatorio.rendaAuxilioParente}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Outros:</dt>
@@ -162,55 +162,53 @@
 							<td><dl class="dl-horizontal">
 									<dt>Varanda:</dt>
 								</dl></td>
-							<td>
-								<!-- <dd>${varanda.moradiaqtd}</dd> -->
-							</td>
-							<td>${varanda.moradiaEstado}</td>
+							<td>${relatorio.moradiaVarandaQtd}</td>
+							<td>${relatorio.moradiaVarandaEstado}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Sala:</dt>
 								</dl></td>
 							<td>
-								<!-- ${sala.moradiaqtd} -->
+								${relatorio.moradiaSalaQtd}
 							</td>
-							<td>${sala.moradiaEstado}</td>
+							<td>${relatorio.moradiaSalaEstado}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Banheiro:</dt>
 								</dl></td>
 							<td>
-								<!-- ${banheiro.moradiaqtd} -->
+								${relatorio.moradiaBanheiroQtd}
 							</td>
-							<td>${banheiro.moradiaEstado}</td>
+							<td>${relatorio.moradiaBanheiroEstado}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Quarto:</dt>
 								</dl></td>
 							<td>
-								<!-- ${quarto.moradiaqtd} -->
+								${relatorio.moradiaQuartoQtd}
 							</td>
-							<td>${quarto.moradiaEstado}</td>
+							<td>${relatorio.moradiaQuartoEstado}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Cozinha:</dt>
 								</dl></td>
 							<td>
-								<!-- ${cozinha.moradiaqtd} -->
+								${relatorio.moradiaCozinhaQtd}
 							</td>
-							<td>${cozinha.moradiaEstado}</td>
+							<td>${relatorio.moradiaCozinhaEstado}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Quintal:</dt>
 								</dl></td>
 							<td>
-								<!-- ${quintal.moradiaqtd} -->
+								${relatorio.moradiaQuintalQtd}
 							</td>
-							<td>${quintal.moradiaEstado}</td>
+							<td>${relatorio.moradiaQuintalEstado}</td>
 						</tr>
 
 					</table>
@@ -236,64 +234,64 @@
 							<td><dl class="dl-horizontal">
 									<dt>TV:</dt>
 								</dl></td>
-							<td>${utensilioTvQtd}</td>
-							<td>${utensilioTvObservacao}</td>
+							<td>${relatorio.utensilioTvQtd}</td>
+							<td>${relatorio.utensilioTvObservacao}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Som:</dt>
 								</dl></td>
-							<td>${utensilioSomQtd}</td>
-							<td>${utensilioSomObservacao}</td>
+							<td>${relatorio.utensilioSomQtd}</td>
+							<td>${relatorio.utensilioSomObservacao}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Computador:</dt>
 								</dl></td>
-							<td>${utensilioComputadorQtd}</td>
-							<td>${utensilioComputadorObservacao}</td>
+							<td>${relatorio.utensilioComputadorQtd}</td>
+							<td>${relatorio.utensilioComputadorObservacao}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Fogão:</dt>
 								</dl></td>
-							<td>${utensilioFogaoQtd}</td>
-							<td>${utensilioFogaoObservacao}</td>
+							<td>${relatorio.utensilioFogaoQtd}</td>
+							<td>${relatorio.utensilioFogaoObservacao}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Geladeira:</dt>
 								</dl></td>
-							<td>${utensilioGeladeiraQtd}</td>
-							<td>${utensilioGeladeiraObservacao}</td>
+							<td>${relatorio.utensilioGeladeiraQtd}</td>
+							<td>${relatorio.utensilioGeladeiraObservacao}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Freezer:</dt>
 								</dl></td>
-							<td>${utensilioFreezerQtd}</td>
-							<td>${utensilioFreezerObservacao}</td>
+							<td>${relatorio.utensilioFreezerQtd}</td>
+							<td>${relatorio.utensilioFreezerObservacao}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Lavadora:</dt>
 								</dl></td>
-							<td>${utensilioLavadoraQtd}</td>
-							<td>${utensilioLavadoraObservacao}</td>
+							<td>${relatorio.utensilioLavadoraQtd}</td>
+							<td>${relatorio.utensilioLavadoraObservacao}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>DVD:</dt>
 								</dl></td>
-							<td>${utensilioDvdQtd}</td>
-							<td>${utensilioDvdObservacao}</td>
+							<td>${relatorio.utensilioDvdQtd}</td>
+							<td>${relatorio.utensilioDvdObservacao}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Outros:</dt>
 								</dl></td>
-							<td>${utensilioOutrosQtd}</td>
-							<td>${utensilioOutrosObservacao}</td>
+							<td>${relatorio.utensilioOutrosQtd}</td>
+							<td>${relatorio.utensilioOutrosObservacao}</td>
 						</tr>
 					</table>
 				</div>
@@ -321,29 +319,29 @@
 							<td><dl class="dl-horizontal">
 									<dt>Moto:</dt>
 								</dl></td>
-							<td>${bemMovelMotoQtd}</td>
-							<td>${bemMovelMotoObservacao}</td>
+							<td>${relatorio.bemMovelMotoQtd}</td>
+							<td>${relatorio.bemMovelMotoObservacao}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Bicicleta:</dt>
 								</dl></td>
-							<td>${bemMovelBicicletaQtd}</td>
-							<td>${bemMovelBicicletaObservacao}</td>
+							<td>${relatorio.bemMovelBicicletaQtd}</td>
+							<td>${relatorio.bemMovelBicicletaObservacao}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Carro:</dt>
 								</dl></td>
-							<td>${bemMovelCarroQtd}</td>
-							<td>${bemMovelCarroObservacao}</td>
+							<td>${relatorio.bemMovelCarroQtd}</td>
+							<td>${relatorio.bemMovelCarroObservacao}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Outros:</dt>
 								</dl></td>
-							<td>${bemMovelOutrosQtd}</td>
-							<td>${bemMovelOutrosObservacao}</td>
+							<td>${relatorio.bemMovelOutrosQtd}</td>
+							<td>${relatorio.bemMovelOutrosObservacao}</td>
 						</tr>
 					</table>
 				</div>
@@ -371,31 +369,31 @@
 							<td><dl class="dl-horizontal">
 									<dt>Utensílios Doméstico (eletro eletrônicos):</dt>
 								</dl></td>
-							<td>${perfilCompativelUtensilioDomestico}</td>
+							<td>${relatorio.perfilCompativelUtensilioDomestico}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Bens Móveis:</dt>
 								</dl></td>
-							<td>${perfilCompativelBensMoveis}</td>
+							<td>${relatorio.perfilCompativelBensMoveis}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Maquinário:</dt>
 								</dl></td>
-							<td>${perfilCompativelMaquinario}</td>
+							<td>${relatorio.perfilCompativelMaquinario}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Aspecto físico da residência:</dt>
 								</dl></td>
-							<td>${perfilCompativelAspectoFisicoResidencia}</td>
+							<td>${relatorio.perfilCompativelAspectoFisicoResidencia}</td>
 						</tr>
 						<tr>
 							<td><dl class="dl-horizontal">
 									<dt>Outros:</dt>
 								</dl></td>
-							<td>${perfilCompativelOutros}</td>
+							<td>${relatorio.perfilCompativelOutros}</td>
 						</tr>
 
 					</table>
@@ -415,7 +413,7 @@
 			<div class="panel-body">
 				<div class="form-group">
 					<dl>
-						<dd>${analiseDescricaoRealidade}</dd>
+						<dd>${relatorio.analiseDescricaoRealidade}</dd>
 					</dl>
 				</div>
 			</div>
@@ -427,11 +425,11 @@
 
 					<dl class="dl-horizontal">
 						<dt>Deferido:</dt>
-						<dd>${parecerFinalDeferido}</dd>
+						<dd>${relatorio.parecerFinalDeferido}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Data do Relatório:</dt>
-						<dd>${dataRelatorio}</dd>
+						<dd>${relatorio.dataRelatorio}</dd>
 					</dl>
 				</div>
 			</div>
