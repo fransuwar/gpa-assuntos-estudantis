@@ -25,7 +25,7 @@ import br.ufc.quixada.npi.gpa.enums.Estado;
 
 @Entity
 @EntityListeners(PessoaEntityListener.class)
-@Table(uniqueConstraints=@UniqueConstraint(columnNames = {"id"}))
+@Table(uniqueConstraints=@UniqueConstraint(columnNames = {"id", "cpf" }))
 public class Pessoa {
 
 	public Pessoa() {

@@ -1,7 +1,5 @@
 package br.ufc.quixada.npi.gpa.service;
 
-import java.util.Collection;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -10,7 +8,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 
 import br.ufc.quixada.npi.ldap.model.Constants;
 import br.ufc.quixada.npi.ldap.model.Usuario;
@@ -22,9 +19,6 @@ public class LdapAuthentication implements AuthenticationProvider{
 	@Inject
 	private UsuarioService 	usuarioService;
 	
-	@Inject
-	private PessoaService 	pessoaService;
-	
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 		String username = auth.getName();
@@ -32,13 +26,11 @@ public class LdapAuthentication implements AuthenticationProvider{
 		
 		Usuario usuario = usuarioService.getByCpf(username);
 		
-		Collection<? extends GrantedAuthority> authorities = pessoaService.getPapeis(username);
-		
-		if (usuario == null || !usuarioService.autentica(username, password) || authorities.isEmpty()) {
+		if (usuario == null || !usuarioService.autentica(username, password) || usuario.getAuthorities().isEmpty()) {
 			throw new BadCredentialsException(Constants.LOGIN_INVALIDO);
 		}
 		
-		return new UsernamePasswordAuthenticationToken(username, password, authorities);
+		return new UsernamePasswordAuthenticationToken(username, password, usuario.getAuthorities());
 	}
 
 	@Override
