@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
@@ -92,6 +94,7 @@ public class QuestionarioIniciacaoAcademica {
 	@Column(nullable = false)
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "iniciacaoacademica_id")
+	@NotEmpty(message = "Campo obrigatório")
 	private List<PessoaFamilia> pessoas;
 
 	@Column(nullable = false)
@@ -131,7 +134,7 @@ public class QuestionarioIniciacaoAcademica {
 	@NotNull
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String enderecoFamilia;
-
+	@NotEmpty(message = "Campo obrigatório")
 	@NotNull(message = "Campo Obrigatório")
 	private Integer numeroFamilia;
 
