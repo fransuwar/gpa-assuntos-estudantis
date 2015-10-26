@@ -48,13 +48,13 @@ public class AuthenticationSuccessHandlerImpl implements
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		for (GrantedAuthority grantedAuthority : authorities) {
 			switch (grantedAuthority.getAuthority()) {
-			case "ROLE_ADMIN":
+			case "DISCENTE":
 				return "/servidor/listar";
 
 			case "ROLE_COORDENADOR":
 				return "/selecao/listar";
 
-			case "ROLE_ALUNO":
+			case "DOCENTE":
 				return "/selecao/listar";
 
 			default:
