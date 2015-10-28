@@ -11,11 +11,11 @@
 
 	<thead>
 		<tr>
-			<th class="form-group" width="10">Nome</th>
-			<th class="form-group">Parentesco</th>
-			<th class="form-group">Escolaridade</th>
-			<th class="form-group">Atividade</th>
-			<th class="form-group">Renda R$</th>
+			<th class="form-group" width="10"><span class="red">*</span> Nome</th>
+			<th class="form-group"><span class="red">*</span> Parentesco</th>
+			<th class="form-group"><span class="red">*</span> Escolaridade</th>
+			<th class="form-group"><span class="red">*</span> Atividade</th>
+			<th class="form-group"><span class="red">*</span> Renda R$</th>
 		</tr>
 	</thead>
 	<tbody id="pessoaFamiliaContainer">

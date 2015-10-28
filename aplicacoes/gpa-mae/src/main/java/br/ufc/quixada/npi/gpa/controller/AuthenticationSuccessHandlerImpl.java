@@ -52,13 +52,14 @@ public class AuthenticationSuccessHandlerImpl implements
 		
 		for (GrantedAuthority grantedAuthority : usuario.getAuthorities()) {
 			switch (grantedAuthority.getAuthority()) {
-				case "ROLE_ADMIN":
+
+				case "DISCENTE":
 					return "/servidor/listar";
 	
 				case "COORD_ASS_ESTUDANTIS":
 					return "/selecao/listar";
 	
-				case "ROLE_ALUNO":
+				case "DOCENTE":
 					return "/selecao/listar";
 			}
 		}

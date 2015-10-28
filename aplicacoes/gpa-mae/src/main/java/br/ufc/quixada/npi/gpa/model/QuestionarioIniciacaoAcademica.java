@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
@@ -37,14 +39,6 @@ public class QuestionarioIniciacaoAcademica {
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Aluno aluno;
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
 
 	@NotNull(message = "Campo Obrigatório")
 	private Integer qtdAparelhoSom;
@@ -111,9 +105,11 @@ public class QuestionarioIniciacaoAcademica {
 	@NotNull
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String bairro;
-
+	
+	@NotEmpty(message = "Campo Obrigatório")
 	private String uf;
-
+	
+	@NotEmpty(message = "Campo Obrigatório")
 	private String cep;
 
 	@NotNull
@@ -193,6 +189,14 @@ public class QuestionarioIniciacaoAcademica {
 
 	public QuestionarioIniciacaoAcademica() {
 
+	}
+	
+	public Aluno getAluno() {
+		return aluno;
+	}
+	
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
 	public Integer getQtdAparelhoSom() {

@@ -9,36 +9,39 @@
 
 	<http auto-config="true" use-expressions="true">
 		<access-denied-handler error-page="/403" />
-		<intercept-url pattern="/login*" access="permitAll" />
+ 		<intercept-url pattern="/login*" access="permitAll" />
+ 		<intercept-url pattern="/webjars/**" access="permitAll" />
+ 		
+ 		<intercept-url pattern="/selecao/informacoes/*" access="permitAll"/>
+ 		<intercept-url pattern="/selecao/listar" access="permitAll"/>
+ 		<intercept-url pattern="/selecao/downloadDocumento/*" access="permitAll"/>
+ 		<intercept-url pattern="/selecao/**" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'DISCENTE')" />
+ 		<intercept-url pattern="/selecao/inscritos/relatorioVisita/**" access="hasRole('DISCENTE')" />
+ 		<intercept-url pattern="/selecao/inscritos/*" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'DISCENTE')" />
+ 		<intercept-url pattern="/selecao/**" access="hasRole('COORD_ASS_ESTUDANTIS')" />
+ 		
+		<intercept-url pattern="/aluno/*/editar" access="hasAnyRole('DOCENTE', 'DISCENTE')" />
+		<intercept-url pattern="/aluno/listar" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'DISCENTE')" />
+		<intercept-url pattern="/aluno/**" access="hasRole('DISCENTE')" />
 		
-		<intercept-url pattern="/webjars/**" access="permitAll" />
-		
-		<intercept-url pattern="/selecao/informacoes/*" access="permitAll" />
-		<intercept-url pattern="/selecao/listar" access="permitAll" />
-		<intercept-url pattern="/selecao/downloadDocumento/*" access="permitAll" />
-		<intercept-url pattern="/selecao/**" access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')" />
-		<intercept-url pattern="/selecao/inscritos/relatorioVisita/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/selecao/inscritos/*" access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')" />
-		<intercept-url pattern="/selecao/**" access="hasRole('ROLE_COORDENADOR')" />
-		
-		<intercept-url pattern="/aluno/*/editar" access="hasAnyRole('ROLE_ALUNO', 'ROLE_ADMIN')" />
-		<intercept-url pattern="/aluno/listar" access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')" />
-		<intercept-url pattern="/aluno/**" access="hasRole('ROLE_ADMIN')" />
-		
-		<intercept-url pattern="/servidor/**" access="hasRole('ROLE_ADMIN')" />
-		
-		<intercept-url pattern="/auxilio/**" access="hasRole('ROLE_ALUNO')" />
-		
-		<intercept-url pattern="/iniciacao/**" access="hasRole('ROLE_ALUNO')" />
-
-		<form-login login-page="/login" default-target-url="/"
+ 		<intercept-url pattern="/servidor/**" access="hasRole('DISCENTE')" />
+ 		
+ 		<intercept-url pattern="/auxilio/**" access="hasRole('DOCENTE')" />
+ 		
+ 		<intercept-url pattern="/iniciacao/**" access="hasRole('DOCENTE')" />
+ 		
+ 
+ 		<form-login login-page="/login" default-target-url="/"
 			authentication-success-handler-ref="authenticationSuccessHandlerImpl"
 			authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/selecao/listar" invalidate-session="true" />
-	</http>
+ 		
+ 	</http>
+
 	<beans:bean id="authenticationSuccessHandlerImpl" class="br.ufc.quixada.npi.gpa.controller.AuthenticationSuccessHandlerImpl" />
 	
 	<beans:bean id="ldapAuthentication" class="br.ufc.quixada.npi.gpa.service.LdapAuthentication"></beans:bean>
+	
 		<authentication-manager alias="authenticationManager">
 			<authentication-provider ref="ldapAuthentication"></authentication-provider>
 		</authentication-manager>
