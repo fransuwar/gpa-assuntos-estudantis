@@ -311,7 +311,7 @@ public class SelecaoBolsaController {
 
 		if (request.isUserInRole("ROLE_ALUNO")) {
 
-			Pessoa pessoa = servicePessoa.getPessoaByLogin(authentication
+			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication
 					.getName());
 			Integer id = pessoa.getId();
 

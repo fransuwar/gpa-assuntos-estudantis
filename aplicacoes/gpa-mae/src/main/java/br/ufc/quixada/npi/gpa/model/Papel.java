@@ -8,26 +8,36 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.springframework.security.core.GrantedAuthority;
+
 @Entity
 @Table(uniqueConstraints=@UniqueConstraint(columnNames = {"id"}))
-public class Papel {
+public class Papel implements GrantedAuthority {
+	
+	private static final long serialVersionUID = 1L;
 
 	public Papel() {
 		super();
 	}
 	
+	public Papel(Long id, String descricao) {
+		super();
+		this.id = id;
+		this.nome = descricao;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(nullable = false)
 	private String nome;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -38,9 +48,9 @@ public class Papel {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	
 	@Override
-	public String toString() {
-		return "Papel [id=" + id + ", nome=" + nome + "]";
+	public String getAuthority() {
+		return this.nome;
 	}
 }
