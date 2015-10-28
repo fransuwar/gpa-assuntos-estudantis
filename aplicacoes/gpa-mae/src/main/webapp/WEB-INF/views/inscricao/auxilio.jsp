@@ -80,7 +80,7 @@
 
 									<div class="form-group">
 										<label for="nomeMae" class="col-sm-2 control-label"
-											id="form-label-right"><span class="red">*</span> Mãe:</label>
+											id="form-label-right"><span class="red">*</span>Mãe:</label>
 										<div class="col-sm-4">
 											<form:input id="nomeMae" type="text" path="nomeMae"
 												cssClass="form-control" placeholder="Nome da Mãe" />
@@ -88,7 +88,7 @@
 												<form:errors path="nomeMae"></form:errors>
 											</div>
 										</div>
-										<label for="nomePai" class="col-sm-1 control-label"><span class="red">*</span> Pai:</label>
+										<label for="nomePai" class="col-sm-1 control-label"><span class="red">*</span>Pai:</label>
 										<div class="col-sm-4">
 											<form:input id="nomePai" path="nomePai"
 												cssClass="form-control" placeholder="Nome do Pai" />
@@ -106,7 +106,7 @@
 
 									<div class="form-group">
 										<label for="ruaSedeCurso" class="col-sm-2 control-label"
-											id="form-label-right"><span class="red">*</span> Rua/Av:</label>
+											id="form-label-right"><span class="red">*</span>Rua/Av:</label>
 										<div class="col-sm-5">
 											<form:input id="ruaSedeCurso" path="ruaSedeCurso"
 												cssClass="form-control" placeholder="Rua/Av." />
@@ -114,7 +114,7 @@
 												<form:errors path="ruaSedeCurso"></form:errors>
 											</div>
 										</div>
-										<label for="bairroSedeCurso" class="col-sm-1 control-label"><span class="red">*</span> Bairro:</label>
+										<label for="bairroSedeCurso" class="col-sm-1 control-label"><span class="red">*</span>Bairro:</label>
 										<div class="col-sm-4">
 											<form:input id="bairroSedeCurso" path="bairroSedeCurso"
 												cssClass="form-control" placeholder="Bairro" />
@@ -125,7 +125,7 @@
 									</div>
 									<div class="form-group">
 										<label for="numeroSedeCurso" class="col-sm-2 control-label"
-											id="form-label-right"><span class="red">*</span> Número:</label>
+											id="form-label-right"><span class="red">*</span>Número:</label>
 										<div class="col-sm-2">
 											<form:input id="numeroSedeCurso" path="numeroSedeCurso"
 												data-mask="999999" cssClass="form-control" placeholder="Num" />
@@ -144,7 +144,7 @@
 
 									<div class="form-group">
 										<label for="ruaOrigem" class="col-sm-2 control-label"
-											id="form-label-right"><span class="red">*</span> Rua/Av:</label>
+											id="form-label-right"><span class="red">*</span>Rua/Av:</label>
 										<div class="col-sm-5">
 											<form:input id="ruaOrigem" path="ruaOrigem"
 												cssClass="form-control" placeholder="Rua da sede do curso" />
@@ -152,7 +152,7 @@
 												<form:errors path="ruaOrigem"></form:errors>
 											</div>
 										</div>
-										<label for="bairroOrigem" class="col-sm-1 control-label"><span class="red">*</span> Bairro:</label>
+										<label for="bairroOrigem" class="col-sm-1 control-label"><span class="red">*</span>Bairro:</label>
 										<div class="col-sm-4">
 											<form:input id="bairroOrigem" path="bairroOrigem"
 												cssClass="form-control" placeholder="Bairro" />
@@ -164,7 +164,7 @@
 
 									<div class="form-group">
 										<label for="numeroOrigem" class="col-sm-2 control-label"
-											id="form-label-right"><span class="red">*</span> Número </label>
+											id="form-label-right"><span class="red">*</span>Número </label>
 										<div class="col-sm-2">
 											<form:input id="numeroOrigem" path="numeroOrigem"
 												cssClass="form-control" data-mask="999999" placeholder="Num" />
@@ -172,7 +172,7 @@
 												<form:errors path="numeroOrigem"></form:errors>
 											</div>
 										</div>
-										<label for="cepOrigem" class="col-sm-1 control-label"><span class="red">*</span> CEP:</label>
+										<label for="cepOrigem" class="col-sm-1 control-label"><span class="red">*</span>CEP:</label>
 										<div class="col-sm-2">
 											<form:input id="cepOrigem" path="cepOrigem"
 												data-mask="99999-999" cssClass="form-control"
@@ -181,7 +181,7 @@
 												<form:errors path="cepOrigem"></form:errors>
 											</div>
 										</div>
-										<label for="cidadeOrigem" class="col-sm-1 control-label"><span class="red">*</span> Cidade:</label>
+										<label for="cidadeOrigem" class="col-sm-1 control-label"><span class="red">*</span>Cidade:</label>
 										<div class="col-sm-4">
 											<form:input id="cidadeOrigem" path="cidadeOrigem"
 												cssClass="form-control" placeholder="Cidade" />
@@ -218,7 +218,7 @@
 
 									<div class="form-group">
 										<label for="telefoneOrigem" class="col-sm-2 control-label"
-											id="form-label-right"><span class="red">*</span> Telefone:</label>
+											id="form-label-right"><span class="red">*</span>Telefone:</label>
 										<div class="col-sm-2">
 											<form:input id="telefoneOrigem" path="telefoneOrigem"
 												data-mask="(99) 9999-9999" cssClass="form-control"
@@ -228,7 +228,7 @@
 											</div>
 										</div>
 										<label for="pontoReferenciaOrigem"
-											class="col-sm-3 control-label"><span class="red">*</span> Ponto de Referencia:</label>
+											class="col-sm-3 control-label"><span class="red">*</span>Ponto de Referencia:</label>
 										<div class="col-sm-5">
 											<form:input id="pontoReferenciaOrigem"
 												path="pontoReferenciaOrigem" cssClass="form-control"
@@ -416,7 +416,7 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<label for="ensinoFundamental" class="col-sm-2 control-label"
-											id="form-label-right-select-tam-padrao"><span class="red">*</span> Tipo de escola</label>
+											id="form-label-right-select-tam-padrao"><span class="red">*</span>Tipo de escola</label>
 										<div class="col-sm-3 control-label">
 											<form:select path="ensinoFundamental" id="ensinoFundamental"
 												cssClass="form-control">
@@ -454,7 +454,7 @@
 
 									<div class="form-group">
 										<label for="ensinoMedio" class="col-sm-2 control-label"
-											id="form-label-right-select-tam-padrao"><span class="red">*</span> Tipo de escola</label>
+											id="form-label-right-select-tam-padrao"><span class="red">*</span>Tipo de escola</label>
 										<div class="col-sm-3 control-label">
 											<form:select path="ensinoMedio" id="ensinoMedio"
 												cssClass="form-control">
@@ -602,7 +602,7 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<div class="form-group">
-											<label for="justificativa" class="col-sm-3 control-label"><span class="red">*</span> Justificativa para Bolsa:</label>
+											<label for="justificativa" class="col-sm-3 control-label"><span class="red">*</span>Justificativa para Bolsa:</label>
 											<div class="col-sm-8">
 												<form:textarea id="justificativa" path="justificativa"
 													cssClass="form-control" placeholder="Justificativa"

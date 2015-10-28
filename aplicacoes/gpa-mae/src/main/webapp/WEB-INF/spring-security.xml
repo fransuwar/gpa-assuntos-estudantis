@@ -24,11 +24,11 @@
 		<intercept-url pattern="/aluno/listar" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'DISCENTE')" />
 		<intercept-url pattern="/aluno/**" access="hasRole('DISCENTE')" />
 		
- 		<intercept-url pattern="/servidor/**" access="hasRole('DISCENTE')" />
+ 		<intercept-url pattern="/servidor/**" access="hasRole('SERVIDOR')" />
  		
- 		<intercept-url pattern="/auxilio/**" access="hasRole('SERVIDOR')" />
+ 		<intercept-url pattern="/auxilio/**" access="hasRole('DISCENTE')" />
  		
- 		<intercept-url pattern="/iniciacao/**" access="hasRole('DOCENTE')" />
+ 		<intercept-url pattern="/iniciacao/**" access="hasRole('DISCENTE')" />
  		
  
  		<form-login login-page="/login" default-target-url="/"
