@@ -39,7 +39,7 @@
 			<div class="panel-heading">
 				<c:choose>
 					<c:when test="${action == 'cadastrar'}">
-						<h2>Novo Seleção</h2>
+						<h2>Nova Seleção</h2>
 					</c:when>
 					<c:otherwise>
 						<h2>Editar Seleção</h2>

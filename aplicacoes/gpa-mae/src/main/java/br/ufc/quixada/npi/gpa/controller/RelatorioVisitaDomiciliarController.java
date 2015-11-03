@@ -35,7 +35,7 @@ public class RelatorioVisitaDomiciliarController {
 	private AlunoService alunoService;
 	@Inject
 	private SelecaoBolsaService selecaoBolsaService;
-	
+
 	@RequestMapping(value="cadastrar/{idAluno}/{idSelecaoBolsa}", method = RequestMethod.GET)
 	public String cadastrar(@PathVariable("idAluno") Integer id,
 							@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo){
@@ -83,5 +83,20 @@ public class RelatorioVisitaDomiciliarController {
 			
 			return "redirect:/selecao/inscritos/"+idSelecaoBolsa;
 		}
+	}
+	
+	@RequestMapping(value="informacoesRelatorio/{id}", method= RequestMethod.GET)
+	public String visualizarInformacoes(@PathVariable("id") Integer idRelatorio, Model modelo, RedirectAttributes redirect){
+		
+		RelatorioVisitaDomiciliar relatorio= relatorioVisitaService.find(RelatorioVisitaDomiciliar.class, idRelatorio);
+		
+		if(relatorio == null){
+			redirect.addFlashAttribute("erro", "Relatório não existe");
+			return "redirect:/selecao/inscritos/{id}";
+		}
+		
+		modelo.addAttribute("relatorio",relatorio);
+		
+		return "selecao/informacoesRelatorio";
 	}
 }
