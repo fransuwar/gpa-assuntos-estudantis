@@ -64,7 +64,9 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-
+		modelo.addAttribute("selecaoBolsa", id);
+		System.out.println("id -------------" + id);
+		
 		return "inscricao/iniciacaoAcademica";
 	}
 
@@ -74,8 +76,8 @@ public class IniciacaoAcademicaController {
 			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model modelo) {
 		
-		System.out.println();
-		
+		System.out.println("outro id = " + idSelecao);
+		 
 		if (result.hasErrors()) {
 
 			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
@@ -85,7 +87,6 @@ public class IniciacaoAcademicaController {
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 			modelo.addAttribute("selecaoBolsa", id);
-
 			return "inscricao/iniciacaoAcademica";
 
 		} else {
@@ -94,7 +95,7 @@ public class IniciacaoAcademicaController {
 			questionarioIniciacaoAcademica.setAluno(aluno);
 			SelecaoBolsa selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
 			questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
-
+			
 			selecao.getAlunosSelecao().add(aluno);
 
 			if (questionarioIniciacaoAcademica.getId() == null)
