@@ -108,7 +108,12 @@ input[type=checkbox] {
 	padding: 0%;
 }
 
-#form-label-right-select-tam-padrao {
+
+.checkbox{
+	margin-top: 0%;
+}
+
+#form-label-right-select-tam-padrao{
 	text-align: right;
 	margin-top: 0.5%;
 }

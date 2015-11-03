@@ -37,7 +37,7 @@
 							Escolar<i class="fa"></i>
 					</a></li>
 					<li><a href="#situacao-socio-economica-tab" data-toggle="tab">Situação
-							Sócio Econômica<i class="fa"></i>
+							Sócioeconômica<i class="fa"></i>
 					</a></li>
 					<li><a href="#outras-informacoes-tab" data-toggle="tab">Outras
 							Informações<i class="fa"></i>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>CampoObrigatorioEmBranco</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CampoObrigatorioEmBranco</td></tr>
+</thead><tbody>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Listar Alunos</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-info</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=curso</td>
+	<td>label=Selecione o curso</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=matricula</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ira</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=anoIngresso</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=banco</td>
+	<td>label=Selecione o banco</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=form-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Listar Alunos</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=listar-btn-inserir</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=form-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=matricula.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=ira.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=anoIngresso.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=curso.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=banco.errors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=matricula.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=banco.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=curso.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=anoIngresso.errors</td>
+	<td>*Campo obrigatório*</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

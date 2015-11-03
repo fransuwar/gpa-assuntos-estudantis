@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="Cadastrar-Aluno/AnoIngressoPosteiorAoAtual">AnoIngressoPosteiorAoAtual</a></td></tr>
+<tr><td><a href="Cadastrar-Aluno/CadastrarAluno">CadastrarAluno</a></td></tr>
+<tr><td><a href="Cadastrar-Aluno/CadastrarAlunoCancelar">CadastrarAlunoCancelar</a></td></tr>
+<tr><td><a href="Cadastrar-Aluno/CadastrarMatriculaJaCadastrada">CadastrarMatriculaJaCadastrada</a></td></tr>
+<tr><td><a href="Cadastrar-Aluno/CamposObrigatoriosEmBranco">CamposObrigatoriosEmBranco</a></td></tr>
+<tr><td><a href="Cadastrar-Aluno/IraMaiorque10">IraMaiorque10</a></td></tr>
+<tr><td><a href="Cadastrar-Aluno/IraMenorQue0">IraMenorQue0</a></td></tr>
+<tr><td><a href="Cadastrar-Aluno/Conta-Menos-4-Digitos">Conta-Menos-Quatro-Digitos</a></td></tr>
+<tr><td><a href="Cadastrar-Aluno/Agencia-Menos-Cinco-Digitos">Agencia-menos-5-Digitos</a></td></tr>
+<tr><td><a href="Cadastrar-Aluno/Matricula-Menos-de-Seis-Numeros">Matricula-Menos-6-Numeros</a></td></tr>
+</tbody></table>
+</body>
+</html>

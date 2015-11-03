@@ -35,7 +35,6 @@ public class RelatorioVisitaDomiciliarController {
 	private AlunoService alunoService;
 	@Inject
 	private SelecaoBolsaService selecaoBolsaService;
-	
 
 	@RequestMapping(value="cadastrar/{idAluno}/{idSelecaoBolsa}", method = RequestMethod.GET)
 	public String cadastrar(@PathVariable("idAluno") Integer id,

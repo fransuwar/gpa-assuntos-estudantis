@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:9000/" />
+<title>Marcar-Bolsista-Sem-Preencher-Tipo-Bolsa</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Marcar-Bolsista-Sem-Preencher-Tipo-Bolsa</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/MAE/login;jsessionid=34DB1D821D2D6FD8A32573A64AB9ACD2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_username</td>
+	<td>aluno</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_password</td>
+	<td>teste1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Listar<br />								Seleções')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='inscrever']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=moraCom1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=moraCom2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=nomeMae</td>
+	<td>maria</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=nomePai</td>
+	<td>joão</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ruaSedeCurso</td>
+	<td>Raimundo X</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=bairroSedeCurso</td>
+	<td>centro</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=numeroSedeCurso</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ruaOrigem</td>
+	<td>Francisco z</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=bairroOrigem</td>
+	<td>cedro</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=numeroOrigem</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=cepOrigem</td>
+	<td>12345-645</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=cidadeOrigem</td>
+	<td>quixada</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=estadoOrigem</td>
+	<td>label=Ceará</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=telefoneOrigem</td>
+	<td>(88) 9578-9462</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=pontoReferenciaOrigem</td>
+	<td>açude</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[contains(text(),'Histórico<br />							Escolar')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=ensinoFundamental</td>
+	<td>label=Público</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=ensinoMedio</td>
+	<td>label=Público</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[contains(text(),'Situação<br />							Sócio Econômica')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addPessoa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=pessoas[0].nome</td>
+	<td>thaty</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=pessoas[0].grauParentesco</td>
+	<td>label=Irmão</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=pessoas[0].rendaMensal</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[contains(text(),'Outras<br />							Informações')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=bolsista</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Justificativa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=justificativa</td>
+	<td>aluno de Es</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=form-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sair</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

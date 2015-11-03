@@ -199,7 +199,8 @@
 										</c:choose>
 									</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 										<c:if test="${avaliar}">
-											<a id="avaliarSelecao" href="<c:url value="" ></c:url>">
+											<a id="avaliarSelecao"
+												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 												<button class="btn btn-primary">
 													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
 												</button>

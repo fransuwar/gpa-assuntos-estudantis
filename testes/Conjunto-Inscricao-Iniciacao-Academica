@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Iniciacao-Academica/Cancelar-Inscrição-Iniciacao-Academica">Cancelar-Inscrição-Iniciação-Academica</a></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Iniciacao-Academica/Submeter-Inscricao-Iniciacao-Academica">Submeter-Inscricao-Iniciacao-Academica</a></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Iniciacao-Academica/Inscricao-Iniciacao-Academica-Campos-Obrigatorios-Em-Branco">Inscricao-Iniciacao-Academica-Campos-Obrigatorios-Em-Branco</a></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Iniciacao-Academica/Inscricao-Iniciacao-Academica-Horario-Disponivel-Repetido">Inscricao-Iniciacao-Academica-Horario-Disponivel-Repetido</a></td></tr>
+<tr><td><a href="Submeter-Inscricao-Selecao-Iniciacao-Academica/Inscricao-Iniciacao-Academica-Horario-Disponivel-Informar-Somente-Dias">Inscricao-Iniciacao-Academica-Horario-Disponivel-Informar-Somente-Dias</a></td></tr>
+</tbody></table>
+</body>
+</html>
