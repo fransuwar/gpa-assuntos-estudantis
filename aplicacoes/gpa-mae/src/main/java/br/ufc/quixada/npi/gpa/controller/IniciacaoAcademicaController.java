@@ -140,4 +140,5 @@ public class IniciacaoAcademicaController {
 
 		return "inscricao/iniciacaoAcademica";
 	}
+
 }
