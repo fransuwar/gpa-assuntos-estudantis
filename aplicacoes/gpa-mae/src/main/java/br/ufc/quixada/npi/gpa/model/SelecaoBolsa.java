@@ -87,9 +87,7 @@ public class SelecaoBolsa {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
 
-	@NotNull(message = "Campo obrigatório")
-	@Range(min=1, max=999, message="A duração da seleção deve ser maior ou igual a 1 mês")
-	private Integer duracao;
+	
 
 	private String local;
 
@@ -140,9 +138,6 @@ public class SelecaoBolsa {
 		return documentos;
 	}
 
-	public Integer getDuracao() {
-		return duracao;
-	}
 
 	public Integer getId() {
 		return id;
@@ -220,9 +215,7 @@ public class SelecaoBolsa {
 		this.documentos = documentos;
 	}
 
-	public void setDuracao(Integer duracao) {
-		this.duracao = duracao;
-	}
+	
 
 	public void setId(Integer id) {
 		this.id = id;
