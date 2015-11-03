@@ -50,7 +50,10 @@ public class Servidor {
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Cargo cargo;
-
+	
+	@OneToMany(mappedBy = "servidor")
+	private List<VisitaDomiciliar> visitas; 
+	
 	@ManyToMany(mappedBy = "membrosBanca")
 	private List<SelecaoBolsa> participaBancas;
 
