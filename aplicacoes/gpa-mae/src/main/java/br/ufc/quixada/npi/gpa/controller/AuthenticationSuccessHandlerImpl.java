@@ -59,7 +59,7 @@ public class AuthenticationSuccessHandlerImpl implements
 				case "COORD_ASS_ESTUDANTIS":
 					return "/selecao/listar";
 	
-				case "DOCENTE":
+				case "SERVIDOR":
 					return "/selecao/listar";
 			}
 		}

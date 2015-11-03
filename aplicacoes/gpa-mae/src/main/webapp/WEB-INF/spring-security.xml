@@ -20,15 +20,15 @@
  		<intercept-url pattern="/selecao/inscritos/*" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'DISCENTE')" />
  		<intercept-url pattern="/selecao/**" access="hasRole('COORD_ASS_ESTUDANTIS')" />
  		
-		<intercept-url pattern="/aluno/*/editar" access="hasAnyRole('DOCENTE', 'DISCENTE')" />
+		<intercept-url pattern="/aluno/*/editar" access="hasAnyRole('SERVIDOR', 'DISCENTE')" />
 		<intercept-url pattern="/aluno/listar" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'DISCENTE')" />
 		<intercept-url pattern="/aluno/**" access="hasRole('DISCENTE')" />
 		
- 		<intercept-url pattern="/servidor/**" access="hasRole('DISCENTE')" />
+ 		<intercept-url pattern="/servidor/**" access="hasRole('SERVIDOR')" />
  		
- 		<intercept-url pattern="/auxilio/**" access="hasRole('DOCENTE')" />
+ 		<intercept-url pattern="/auxilio/**" access="hasRole('DISCENTE')" />
  		
- 		<intercept-url pattern="/iniciacao/**" access="hasRole('DOCENTE')" />
+ 		<intercept-url pattern="/iniciacao/**" access="hasRole('DISCENTE')" />
  		
  
  		<form-login login-page="/login" default-target-url="/"

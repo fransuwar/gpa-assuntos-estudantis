@@ -41,7 +41,7 @@
 			</sec:authorize>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<sec:authorize ifAnyGranted="ROLE_ADMIN">
+					<sec:authorize ifAnyGranted="SERVIDOR">
 
 						<li role="presentation"><a
 							href="<c:url value="/servidor/listar" />">Listar Servidor <span
@@ -57,14 +57,14 @@
 						</a></li>
 					</sec:authorize>
 
-					<sec:authorize ifAllGranted="ROLE_ALUNO">
+					<sec:authorize ifAllGranted="DISCENTE">
 						<input type="hidden" name="id" value="${sessionScope.id}" />
 						<li role="presentation"><a
 							href="<c:url value="/selecao/listar" />">Listar
 								Seleções <span class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>
-					<sec:authorize ifAllGranted="ROLE_COORDENADOR">
+					<sec:authorize ifAllGranted="COORD_ASS_ESTUDANTIS">
 						<li role="presentation"><a
 							href="<c:url value="/aluno/listar" />">Listar Alunos <span
 								class="glyphicon glyphicon-list"></span>
