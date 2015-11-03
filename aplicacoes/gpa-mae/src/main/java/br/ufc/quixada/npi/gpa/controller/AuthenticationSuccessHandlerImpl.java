@@ -54,7 +54,7 @@ public class AuthenticationSuccessHandlerImpl implements
 			switch (grantedAuthority.getAuthority()) {
 
 				case "DISCENTE":
-					return "/servidor/listar";
+					return "/selecao/listar";
 	
 				case "COORD_ASS_ESTUDANTIS":
 					return "/selecao/listar";
