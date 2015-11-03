@@ -94,8 +94,11 @@ public class IniciacaoAcademicaController {
 			questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
 
 			selecao.getAlunosSelecao().add(aluno);
-			
-			this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
+
+			if (questionarioIniciacaoAcademica.getId() == null)
+				this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
+			else
+				this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
 			this.selecaoBolsaService.update(selecao);
 
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
