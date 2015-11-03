@@ -33,12 +33,15 @@ import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Parecer;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.Pessoa;
+import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
+import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.ParecerService;
 import br.ufc.quixada.npi.gpa.service.PessoaService;
+import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
@@ -60,6 +63,8 @@ public class SelecaoBolsaController {
 	private PessoaService servicePessoa;
 	@Inject
 	private SelecaoBolsaService selecaoService;
+	@Inject
+	private QuestionarioAuxMoradiaService auxService;
 
 	@RequestMapping(value = "informacoes/{id}")
 	public String getInformacoes(@PathVariable("id") Integer id, Model model,
@@ -80,6 +85,12 @@ public class SelecaoBolsaController {
 									 Model modelo){
 		return "redirect:/relatorioVisita/cadastrar/"+idAluno+"/"+idSelecaoBolsa;
 	}
+	
+	@RequestMapping(value="inscritos/informacoesRelatorio/{id}")
+	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo){
+		return "redirect:/relatorioVisita/informacoesRelatorio/"+id;
+	}
+	
 	
 	@RequestMapping(value = {"downloadDocumento/{id}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("id") Long id, 
@@ -333,15 +344,14 @@ public class SelecaoBolsaController {
 	}
 
 	@RequestMapping(value = "/listarPorServidor/{id}")
-	public String listarSelecaoPorServidor(@PathVariable("id") Integer id,
-			ModelMap model) {
-		List<SelecaoBolsa> selecoes = this.servidorService
-				.getPessoaServidorComBancas(id).getParticipaBancas();
+	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
+		
+		List<SelecaoBolsa> selecoes = this.servidorService.getPessoaServidorComBancas(id).getParticipaBancas();
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
+		
 		return "selecao/listar";
 	}
 
@@ -455,5 +465,25 @@ public class SelecaoBolsaController {
 		
 		redirect.addFlashAttribute("info", "Parecer emitido com sucesso.");
 		return "redirect:/selecao/listar";
+	}
+	
+	@RequestMapping(value="formularioInscricaoPreenchido/{id}/{idSelecao}", method= RequestMethod.GET)
+	public String visualizarDadosInscricao(@PathVariable("id") Integer idAluno, @PathVariable("idSelecao") Integer idSelecao, Model modelo, RedirectAttributes redirect){
+		
+		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, idSelecao);
+		Aluno aluno = alunoService.find(Aluno.class, idAluno);
+		QuestionarioAuxilioMoradia questionario = auxService.find(QuestionarioAuxilioMoradia.class,idAluno );
+		
+		
+		
+		if(selecao == null){
+			redirect.addFlashAttribute("erro", "Relatório não existe");
+			return "redirect:/selecao/inscritos/{id}";
+		}
+		modelo.addAttribute("aluno", aluno);
+		modelo.addAttribute("selecao", selecao);
+		modelo.addAttribute("questionario", questionario);
+	
+		return "selecao/formularioInscricaoPreenchido";
 	}
 }

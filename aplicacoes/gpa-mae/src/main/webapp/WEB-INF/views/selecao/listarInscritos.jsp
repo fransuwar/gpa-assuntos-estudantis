@@ -25,9 +25,11 @@
 			<div class="panel-heading" align="center">
 				<h4>Alunos inscritos</h4>
 			</div>
+
 			<form:form id="emitirParecerForm" role="form" commandName="pareceres"
 				servletRelativeAction="/selecao/parecer/${idSelecao}" method="POST"
 				cssClass="form-horizontal">
+
 				<table class="table" id="table">
 					<thead>
 						<tr>
@@ -44,12 +46,25 @@
 								<td>${parecer.alunoApto.nome}</td>
 								<td>${parecer.alunoApto.curso.nome}</td>
 
-								<td><button class="btn btn-primary">Visualizar
-										Formulário</button></td>
-								<td><button class="btn btn-primary">Visualizar
+								<td><a id="preencherRelatorio" class="btn btn-primary"
+									href="<c:url value="relatorioVisita/${parecer.alunoApto.id}/${idSelecao}" ></c:url>">
+										Preencher Formulário
+								</a></td>
+								<td>								
+								<a id="visualizarRelatorio" class="btn btn-primary"
+									href="<c:url value="informacoesRelatorio/${parecer.alunoApto.id}"></c:url>">
+									Ver Dados da Visita
+								</a>
+								</td>
+								<td><button class="btn btn-primary">Ver
 										Entrevista</button></td>
-								<td><button class="btn btn-primary">Visualizar
-										Visita</button></td>
+										
+								<td>
+								<a id="visualizarDadosInscricao" class="btn btn-primary" 
+								href="<c:url value="/selecao/formularioInscricaoPreenchido/${parecer.alunoApto.id}/${idSelecao}"></c:url>">Ver Formulário de Inscricao
+								</a>
+								
+								</td>
 								<td><form:input id="peso" maxlength="3"
 										path="pareceres[${i.index}].peso" data-mask="999"
 										placeholder="Parecer" cssClass="form-control" /></td>
@@ -65,6 +80,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
+
 				<div class="col-md-2 col-md-offset-5">
 					<input name="submit" type="submit" class="btn btn-success"
 						value="Emitir Parecer" id="form-btn" />

@@ -98,10 +98,9 @@
 											<label for="curso" class="col-sm-2 control-label"
 												id="form-label-1">Curso</label>
 											<div class="col-sm-4">
-												<form:select path="curso" id="curso" cssClass="form-control">
-													<form:option value="">Selecione o Curso</form:option>
-													<form:options items="${curso}" itemLabel="nome" />
-												</form:select>
+									
+												<form:input id="curso" type="text" readonly="true" path="curso"
+													cssClass="form-control" placeholder="" value="${aluno.curso}" />
 												<div class="error-validation">
 													<form:errors path="curso"></form:errors>
 												</div>
@@ -110,7 +109,7 @@
 												id="form-label-2">Semestre:</label>
 											<div class="col-sm-4">
 												<form:input id="semestre" type="text" path="semestre"
-													cssClass="form-control" placeholder="Semestre" value="0" />
+													cssClass="form-control" placeholder="Semestre"  value="0" />
 												<div class="error-validation">
 													<form:errors path="semestre"></form:errors>
 												</div>
@@ -221,7 +220,7 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<label class="col-sm-4 control-label" for="qtdResidente">
-											Nº de Pessoas Residentes nodomicilio:</label>
+											Nº de Pessoas Residentes no domicilio:</label>
 										<div class="col-sm-2">
 											<form:input id="qtdResidente" data-mask="999" min="0"
 												value="0" path="qtdPessoasResidentes"
@@ -773,7 +772,7 @@
 									value="Cadastrar" id="form-btn" />
 							</div>
 							<div class="col-sm-2" id="div-form-btn">
-								<a href="<c:url value="selecao/inscritos/" ></c:url>"
+								<a href="<c:url value="/selecao/inscritos/${id}" ></c:url>"
 									class="btn btn-default" id="form-btn">Cancelar</a>
 							</div>
 						</div>
