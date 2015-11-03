@@ -7,27 +7,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import br.ufc.quixada.npi.gpa.enums.DiaUtil;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 
+@NamedQueries({
+		@NamedQuery(name = "HorarioDisponivel.findHorarioDisponivelByIdQuest", query = "Select hd from HorarioDisponivel hd where hd.questionarioIniciacaoAcademica.id=:idQuest ") })
 @Entity
 public class HorarioDisponivel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@ManyToOne
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Turno turno;
-	
+
 	@Enumerated(EnumType.STRING)
 	private DiaUtil dia;
-	
-	public HorarioDisponivel(){}
-	
+
+	public HorarioDisponivel() {
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -40,8 +45,7 @@ public class HorarioDisponivel {
 		return questionarioIniciacaoAcademica;
 	}
 
-	public void setQuestionarioIniciacaoAcademica(
-			QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica) {
+	public void setQuestionarioIniciacaoAcademica(QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica) {
 		this.questionarioIniciacaoAcademica = questionarioIniciacaoAcademica;
 	}
 
@@ -60,9 +64,5 @@ public class HorarioDisponivel {
 	public void setDia(DiaUtil dia) {
 		this.dia = dia;
 	}
-
-
-	
-	
 
 }
