@@ -515,6 +515,9 @@
 								</div>
 								<div class="panel-body">
 									<jsp:include page="pessoaFamilia.jsp" />
+									<div class="error-validation">
+											<form:errors path="pessoas"></form:errors>
+									</div>
 								</div>
 							</div>
 						</div>
