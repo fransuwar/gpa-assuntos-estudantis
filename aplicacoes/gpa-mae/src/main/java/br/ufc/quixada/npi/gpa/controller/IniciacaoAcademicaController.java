@@ -73,7 +73,9 @@ public class IniciacaoAcademicaController {
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
 			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model modelo) {
-
+		
+		System.out.println();
+		
 		if (result.hasErrors()) {
 
 			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
