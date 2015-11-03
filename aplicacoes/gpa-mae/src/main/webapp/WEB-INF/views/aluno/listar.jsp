@@ -57,7 +57,7 @@
 				</form:form>
 			</div>
 
-			<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+			<sec:authorize access="hasAnyRole('SERVIDOR')">
 				<div class="col-md-2 col-md-offset-6" id="div-btn-inserir">
 					<a href="<c:url value="/aluno/cadastrar" ></c:url>">
 						<button class="btn btn-primary" id="listar-btn-inserir">
@@ -85,7 +85,7 @@
 							<th>Matricula</th>
 							<th>Ira</th>
 							<th>Curso</th>
-							<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+							<sec:authorize access="hasAnyRole('SERVIDOR')">
 								<th id="acoes">Ações</th>
 							</sec:authorize>
 						</tr>
@@ -99,7 +99,7 @@
 											<td>${aluno.ira}</td>
 											<td>${aluno.curso.nome}</td>
 
-											<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+											<sec:authorize access="hasAnyRole('SERVIDOR')">
 												<td><a id="editar"
 													href="<c:url value="/aluno/editar/${aluno.id}" ></c:url>">
 														<button class="btn btn-info">

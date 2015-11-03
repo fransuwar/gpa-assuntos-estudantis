@@ -21,7 +21,7 @@
 		<li>Listar Inscritos</li>
 	</ol>
 	<div class="container">
-		<sec:authorize access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')">
+		<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
 			<div class="panel-heading" align="center">
 				<h4>Alunos inscritos</h4>
 			</div>

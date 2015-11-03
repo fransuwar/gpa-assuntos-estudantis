@@ -249,3 +249,7 @@ table#file-upload {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.red {
+	color: red;
+}

@@ -42,7 +42,7 @@
 		</c:if>
 
 		<div class="col-md-14">
-			<sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
+			<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
 				<div class="col-md-6" id="div-form-buscar">
 
 					<ul class="nav nav-tabs">
@@ -118,14 +118,14 @@
 								<td>${selecao.status.nome}</td>
 
 								<td><sec:authorize
-										access="hasAnyRole('ROLE_COORDENADOR', 'ROLE_ADMIN')">
+										access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary">
 												Visualizar Inscritos <span class="glyphicon glyphicon-user"></span>
 											</button>
 										</a>
-									</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_COORDENADOR')">
+									</sec:authorize> <sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
 										<a id="editar"
 											href="<c:url value="/selecao/editar/${selecao.id}" ></c:url>">
 											<button class="btn btn-info">
@@ -158,7 +158,7 @@
 											</c:choose>
 										</a>
 
-									</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_ALUNO')">
+									</sec:authorize> <sec:authorize access="hasAnyRole('DISCENTE')">
 										<c:choose>
 											<c:when
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
@@ -197,7 +197,7 @@
 												</a>
 											</c:when>
 										</c:choose>
-									</sec:authorize> <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+									</sec:authorize> <sec:authorize access="hasAnyRole('SERVIDOR')">
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">

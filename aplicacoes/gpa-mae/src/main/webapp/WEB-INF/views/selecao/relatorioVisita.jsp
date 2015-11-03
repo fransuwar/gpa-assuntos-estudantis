@@ -9,6 +9,8 @@
 <%@ taglib prefix="datatables"
 	uri="http://github.com/dandelion/datatables"%>
 <%@ taglib prefix="gpa" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <html>
 <head>
@@ -24,7 +26,7 @@
 	</ol>
 
 	<div class="container">
-		<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+		<sec:authorize access="hasAnyRole('SERVIDOR')">
 			<div class="novo-projeto" align="left">
 				<div class="form" align="center">
 					<h2>Relatório de Visita Domiciliar</h2>
@@ -671,8 +673,7 @@
 											</div>
 										</div>
 										<label for="perfilCompativelBensMoveis"
-											class="col-sm-4 control-label" ">Bens
-											Móveis:</label>
+											class="col-sm-4 control-label" >Bens Móveis:</label>
 										<div class="col-sm-1" id="col-sm-radio">
 											<form:checkbox path="perfilCompativelBensMoveis" />
 											<div class="error-validation">
