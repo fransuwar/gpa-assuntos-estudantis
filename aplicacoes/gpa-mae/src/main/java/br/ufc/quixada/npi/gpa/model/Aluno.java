@@ -53,7 +53,7 @@ public class Aluno {
 	private List<QuestionarioAuxilioMoradia> auxilioMoradia;
 	
 	@OneToMany(mappedBy= "aluno")
-	private List<RelatorioVisitaDomiciliar>relatorioVisitaDomiciliar;
+	private List<VisitaDomiciliar>relatorioVisitaDomiciliar;
 
 	@OneToMany(mappedBy = "aluno")
 	private List<QuestionarioIniciacaoAcademica> iniciacaoAcademica;
