@@ -1,5 +1,7 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -21,10 +23,13 @@ import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
+import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
+import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
 import br.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
+import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
@@ -42,6 +47,12 @@ public class IniciacaoAcademicaController {
 	@Inject
 	private SelecaoBolsaService selecaoBolsaService;
 
+	@Inject
+	private QuestionarioIniciacaoAcademicaService questionarioIniciacaoAcademicaService;
+
+	@Inject
+	private HorarioDisponivelService horarioDisponivelService;
+
 	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.GET)
 	public String cadastro(@PathVariable("idselecao") Integer id, Model modelo) {
 
@@ -54,28 +65,28 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 		modelo.addAttribute("selecaoBolsa", id);
-
+		System.out.println("id -------------" + id);
+		
 		return "inscricao/iniciacaoAcademica";
 	}
 
 	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.POST)
 	public String adicionaIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
-			BindingResult result, @ModelAttribute("id") Integer id,
-			@PathVariable("idselecao") Integer idSelecao,
+			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model modelo) {
-
+		
+		System.out.println("outro id = " + idSelecao);
+		 
 		if (result.hasErrors()) {
 
 			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			modelo.addAttribute("turno", Turno.toMap());
 			modelo.addAttribute("diasUteis", DiaUtil.toMap());
-			modelo.addAttribute("situacaoResidencia",
-					SituacaoResidencia.toMap());
+			modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 			modelo.addAttribute("selecaoBolsa", id);
-
 			return "inscricao/iniciacaoAcademica";
 
 		} else {
@@ -83,44 +94,47 @@ public class IniciacaoAcademicaController {
 			Aluno aluno = alunoService.getAlunoById(id);
 			questionarioIniciacaoAcademica.setAluno(aluno);
 			SelecaoBolsa selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
-			selecao.addAlunosSelecao(aluno);
-			this.selecaoBolsaService.update(selecao);
 			questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
-			this.iniciacaoAcademicaService
-					.update(questionarioIniciacaoAcademica);
 			
-			redirect.addFlashAttribute("info",
-					"Cadastro realizado com sucesso.");
+			selecao.getAlunosSelecao().add(aluno);
+
+			if (questionarioIniciacaoAcademica.getId() == null)
+				this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
+			else
+				this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
+			this.selecaoBolsaService.update(selecao);
+
+			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
 
 		return "redirect:/selecao/listar";
 	}
 
 	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
-	public String editar(@PathVariable("id") Integer id,
-			RedirectAttributes redirect, Model model) {
+	public String editar(@PathVariable("id") Integer id, RedirectAttributes redirect, Model model) {
 
-		
-		QuestionarioIniciacaoAcademica q = iniciacaoAcademicaService
-				.getQuestIniAcadById(id);
+		QuestionarioIniciacaoAcademica q = iniciacaoAcademicaService.getQuestIniAcadById(id);
 
 		SelecaoBolsa selecao = q.getSelecaoBolsa();
 
-		if (q.getSelecaoBolsa().getStatus() != null
-				&& q.getSelecaoBolsa().getStatus().equals(Status.INSC_ABERTA)) {
+		if (q.getSelecaoBolsa().getStatus() != null && q.getSelecaoBolsa().getStatus().equals(Status.INSC_ABERTA)) {
 
 			model.addAttribute("questionarioIniciacaoAcademica", q);
 			model.addAttribute("selecaoBolsa", selecao.getId());
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-			model.addAttribute("turno", Turno.toMap());
-			model.addAttribute("diasUteis", DiaUtil.toMap());
+			model.addAttribute("turno", Turno.values());
+			model.addAttribute("diasUteis", DiaUtil.values());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 
+			List<HorarioDisponivel> horariosDisponiveis = this.horarioDisponivelService
+					.getHorariosDisponiveisByQuest(id);
+			if (horariosDisponiveis != null)
+				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
+
 		} else {
-			redirect.addFlashAttribute("erro",
-					"Só pode editar sua inscrição enquanto a seleção estiver aberta.");
+			redirect.addFlashAttribute("erro", "Só pode editar sua inscrição enquanto a seleção estiver aberta.");
 			return "redirect:/selecao/listar";
 		}
 
