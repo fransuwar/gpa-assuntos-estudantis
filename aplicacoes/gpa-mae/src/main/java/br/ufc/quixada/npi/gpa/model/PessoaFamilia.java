@@ -23,7 +23,6 @@ public class PessoaFamilia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
 	private String nome;
 	private int idade;
 	private String escolaridade;

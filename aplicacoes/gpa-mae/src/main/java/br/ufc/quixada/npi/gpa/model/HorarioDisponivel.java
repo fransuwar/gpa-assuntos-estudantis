@@ -11,6 +11,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 import br.ufc.quixada.npi.gpa.enums.DiaUtil;
+import br.ufc.quixada.npi.gpa.enums.Escolaridade;
+import br.ufc.quixada.npi.gpa.enums.Parentesco;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 
 @NamedQueries({
@@ -19,25 +21,30 @@ import br.ufc.quixada.npi.gpa.enums.Turno;
 public class HorarioDisponivel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-
-	@ManyToOne
-	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
-
+	private Long id;
+	private String nome;
+	private int idade;
+	private String profissao;
+	private Double rendaMensal;
+	@Enumerated(EnumType.STRING) 
+	private Parentesco parentesco;
 	@Enumerated(EnumType.STRING)
 	private Turno turno;
-
 	@Enumerated(EnumType.STRING)
 	private DiaUtil dia;
+	@Enumerated(EnumType.STRING)
+	private Escolaridade escolaridade;
+	@ManyToOne
+	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
 
 	public HorarioDisponivel() {
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -63,6 +70,54 @@ public class HorarioDisponivel {
 
 	public void setDia(DiaUtil dia) {
 		this.dia = dia;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
+	}
+
+	public String getProfissao() {
+		return profissao;
+	}
+
+	public void setProfissao(String profissao) {
+		this.profissao = profissao;
+	}
+
+	public Double getRendaMensal() {
+		return rendaMensal;
+	}
+
+	public void setRendaMensal(Double rendaMensal) {
+		this.rendaMensal = rendaMensal;
+	}
+
+	public Parentesco getParentesco() {
+		return parentesco;
+	}
+
+	public void setParentesco(Parentesco parentesco) {
+		this.parentesco = parentesco;
+	}
+
+	public Escolaridade getEscolaridade() {
+		return escolaridade;
+	}
+
+	public void setEscolaridade(Escolaridade escolaridade) {
+		this.escolaridade = escolaridade;
 	}
 
 }
