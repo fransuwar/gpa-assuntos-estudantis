@@ -39,7 +39,7 @@ public class QuestionarioAuxilioMoradia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Long id;
 
 	@ManyToOne
 	private SelecaoBolsa selecaoBolsa;
@@ -75,7 +75,7 @@ public class QuestionarioAuxilioMoradia {
 	private String ruaSedeCurso;
 
 	@NotNull(message = "Campo obrigatório")
-	private Integer numeroSedeCurso;
+	private Long numeroSedeCurso;
 
 	@NotEmpty(message = "Campo obrigatório")
 	private String bairroSedeCurso;
@@ -84,7 +84,7 @@ public class QuestionarioAuxilioMoradia {
 	private String ruaOrigem;
 
 	@NotNull(message = "Campo obrigatório")
-	private Integer numeroOrigem;
+	private Long numeroOrigem;
 
 	@NotEmpty(message = "Campo obrigatório")
 	private String bairroOrigem;
@@ -141,13 +141,13 @@ public class QuestionarioAuxilioMoradia {
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoFundamental ensinoFundamental;
 
-	private Integer percentualParticularFundamental;
+	private Long percentualParticularFundamental;
 
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoMedio ensinoMedio;
 
-	private Integer percentualParticularMedio;
+	private Long percentualParticularMedio;
 
 	@NotNull(message = "Campo obrigatório")
 	private boolean cursinho;
@@ -173,11 +173,11 @@ public class QuestionarioAuxilioMoradia {
 	@NotEmpty(message = "Campo obrigatório")
 	private String justificativa;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -229,11 +229,11 @@ public class QuestionarioAuxilioMoradia {
 		this.ruaSedeCurso = ruaSedeCurso;
 	}
 
-	public Integer getNumeroSedeCurso() {
+	public Long getNumeroSedeCurso() {
 		return numeroSedeCurso;
 	}
 
-	public void setNumeroSedeCurso(Integer numeroSedeCurso) {
+	public void setNumeroSedeCurso(Long numeroSedeCurso) {
 		this.numeroSedeCurso = numeroSedeCurso;
 	}
 
@@ -253,11 +253,11 @@ public class QuestionarioAuxilioMoradia {
 		this.ruaOrigem = ruaOrigem;
 	}
 
-	public Integer getNumeroOrigem() {
+	public Long getNumeroOrigem() {
 		return numeroOrigem;
 	}
 
-	public void setNumeroOrigem(Integer numeroOrigem) {
+	public void setNumeroOrigem(Long numeroOrigem) {
 		this.numeroOrigem = numeroOrigem;
 	}
 
@@ -431,12 +431,12 @@ public class QuestionarioAuxilioMoradia {
 		this.ensinoFundamental = ensinoFundamental;
 	}
 
-	public Integer getPercentualParticularFundamental() {
+	public Long getPercentualParticularFundamental() {
 		return percentualParticularFundamental;
 	}
 
 	public void setPercentualParticularFundamental(
-			Integer percentualParticularFundamental) {
+			Long percentualParticularFundamental) {
 		this.percentualParticularFundamental = percentualParticularFundamental;
 	}
 
@@ -448,11 +448,11 @@ public class QuestionarioAuxilioMoradia {
 		this.ensinoMedio = ensinoMedio;
 	}
 
-	public Integer getPercentualParticularMedio() {
+	public Long getPercentualParticularMedio() {
 		return percentualParticularMedio;
 	}
 
-	public void setPercentualParticularMedio(Integer percentualParticularMedio) {
+	public void setPercentualParticularMedio(Long percentualParticularMedio) {
 		this.percentualParticularMedio = percentualParticularMedio;
 	}
 
