@@ -7,10 +7,22 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<c:if test="${action eq 'cadastrar' }"> 
+	<c:url var="url" value="/coordenador/cadastrar-selecao" />
+	<c:set var="titulo" value="Nova Seleção"/>
+	<c:set var="botao" value="Cadastrar"/>
+</c:if>
+
+<c:if test="${action eq 'editar' }"> 
+	<c:url var="url" value="/coordenador/editar-selecao/${selecao.id }" />
+	<c:set var="titulo" value="Editar Seleção"/>
+	<c:set var="botao" value="Atualizar"/>
+</c:if>
+
 <html>
 <head>
-<jsp:include page="../fragments/headTag.jsp" />
-<title>Cadastro de seleções</title>
+	<jsp:include page="../fragments/headTag.jsp" />
+	<title>Cadastro de Seleções</title>
 </head>
 <body>
 
@@ -37,18 +49,11 @@
 		</c:if>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<c:choose>
-					<c:when test="${action == 'cadastrar'}">
-						<h2>Nova Seleção</h2>
-					</c:when>
-					<c:otherwise>
-						<h2>Editar Seleção</h2>
-					</c:otherwise>
-				</c:choose>
+				<h2>${titulo }</h2>
 			</div>
 			<div class="panel-body">
 				<form:form id="adicionarSelecaoForm" role="form"
-					commandName="selecao" servletRelativeAction="/selecao/salvar"
+					commandName="selecao" servletRelativeAction="${url }"
 					method="POST" cssClass="form-horizontal"
 					enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${selecao.id}" />
@@ -186,7 +191,7 @@
 					<div class="form-group">
 						<div class="col-sm-2" id="div-form-btn">
 							<input name="submit" type="submit" class="btn btn-primary"
-								value="Cadastrar" id="form-btn" />
+								value="${botao }" id="form-btn" />
 						</div>
 						<div class="col-sm-2" id="div-form-btn">
 							<a href="<c:url value="/selecao/listar"></c:url>"

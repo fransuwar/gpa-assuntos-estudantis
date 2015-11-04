@@ -34,7 +34,6 @@ import br.ufc.quixada.npi.gpa.model.Parecer;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
-import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
@@ -320,7 +319,7 @@ public class SelecaoBolsaController {
 		List<SelecaoBolsa> selecoes = this.selecaoService
 				.getSelecaoBolsaComMembros();
 
-		if (request.isUserInRole("ROLE_ALUNO")) {
+		if (request.isUserInRole("DISCENTE")) {
 
 			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication
 					.getName());
