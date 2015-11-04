@@ -12,6 +12,7 @@ import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 @Entity
 public class SituacaoSocioEconomica {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
