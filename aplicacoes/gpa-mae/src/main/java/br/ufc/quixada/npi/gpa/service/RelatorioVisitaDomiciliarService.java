@@ -1,9 +1,9 @@
 package br.ufc.quixada.npi.gpa.service;
 
-import br.ufc.quixada.npi.gpa.model.RelatorioVisitaDomiciliar;
+import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 
-public interface RelatorioVisitaDomiciliarService extends GenericService<RelatorioVisitaDomiciliar>{
-	public abstract RelatorioVisitaDomiciliar getRelatorioVisitaById(Integer id);
+public interface RelatorioVisitaDomiciliarService extends GenericService<VisitaDomiciliar>{
+	public abstract VisitaDomiciliar getRelatorioVisitaById(Integer id);
 
 
 }

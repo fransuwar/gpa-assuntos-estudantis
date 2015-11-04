@@ -22,6 +22,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.ufc.quixada.npi.gpa.enums.Banco;
+import br.ufc.quixada.npi.gpa.enums.Curso;
 
 @NamedQueries({
 		@NamedQuery(name = "Aluno.findAlunoByMatricula", query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
@@ -39,6 +40,9 @@ public class Aluno {
 	private Long id;
 	@NotEmpty(message = "Campo obrigatório")
 	private String matricula;
+	@NotNull(message = "Campo obrigatório")
+	@Enumerated(EnumType.STRING)
+	private Curso curso;
 	private String nome;
 	@NotEmpty(message = "Campo obrigatório")
 	private String anoIngresso;
@@ -60,6 +64,8 @@ public class Aluno {
 	private Pessoa pessoa;
 	@OneToMany
 	private List<Inscricao> inscricoes;
+	@OneToMany(mappedBy = "aluno")
+	private List<VisitaDomiciliar> relatorioVisitaDomiciliar;
 
 	@Override
 	public int hashCode() {

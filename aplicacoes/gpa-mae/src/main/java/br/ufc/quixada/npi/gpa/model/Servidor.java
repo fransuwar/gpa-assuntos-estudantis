@@ -24,12 +24,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import br.ufc.quixada.npi.gpa.enums.Cargo;
 
-@NamedQueries({ @NamedQuery(name = "Servidor.findServidorBySiape", 
-query = "SELECT s FROM Servidor s WHERE s.siape = :siape"), 
-@NamedQuery(name = "Servidor.findServidorComBancas", 
-query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.id = :servidorId"), 
-@NamedQuery(name = "Servidor.findPessoaServidorComBancas", 
-query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.pessoa.id = :pessoaId")})
+@NamedQueries({ @NamedQuery(name = "Servidor.findServidorBySiape", query = "SELECT s FROM Servidor s WHERE s.siape = :siape"), 
+@NamedQuery(name = "Servidor.findServidorComBancas", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.id = :servidorId"), 
+@NamedQuery(name = "Servidor.findPessoaServidorComBancas", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.pessoa.id = :pessoaId")})
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "siape" }))
 public class Servidor {
@@ -53,7 +50,10 @@ public class Servidor {
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Cargo cargo;
-
+	
+	@OneToMany(mappedBy = "servidor")
+	private List<VisitaDomiciliar> visitas; 
+	
 	@ManyToMany(mappedBy = "membrosBanca")
 	private List<SelecaoBolsa> participaBancas;
 

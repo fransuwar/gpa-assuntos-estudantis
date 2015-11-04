@@ -38,59 +38,42 @@ public class SelecaoBolsa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-
 	private List<QuestionarioIniciacaoAcademica> questionariosIniciacaoAcademica;
-
 	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia;
-
 	@OneToMany(mappedBy = "selecaoBolsa")
-	private List<RelatorioVisitaDomiciliar> relatoriosVisitaDomiciliar;
-
+	private List<VisitaDomiciliar> relatoriosVisitaDomiciliar;
 	@NotNull(message = "Campo obrigatório")
 	@Range(min = 1, max = 999, message = "O número de vagas deve ser maior ou igual a 1")
 	private Integer quantidadeVagas;
-
 	@Future(message = "Data de início deve ser maior que a data atual")
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
-
 	@ManyToOne
 	private Pessoa autor;
-
 	@OneToMany(mappedBy = "selecaoBolsa", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	private List<Documento> documentos;
-
 	@NotNull(message = "Campo obrigatório")
 	@Range(min = 1, message = "O valor do edital deve ser maior que 0")
 	private Integer sequencial;
-
 	@Enumerated(EnumType.STRING)
 	private Status status;
-
 	@Future(message = "Data de término deve ser maior que a data atual")
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
-
 	private String local;
-
 	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
-
 	@Size(min = 2, message = "Mínimo 2 caracteres")
 	private String comentarios;
-
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Servidor> membrosBanca;
-
 	@ManyToOne
 	private Servidor responsavel;
-
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Aluno> alunosSelecao;
-
 	@NotNull(message = "Selecione o tipo de bolsa")
 	@Enumerated(EnumType.STRING)
 	private TipoBolsa tipoBolsa;
@@ -248,11 +231,12 @@ public class SelecaoBolsa {
 		this.questionariosAuxilioMoradia = questionariosAuxilioMoradia;
 	}
 
-	public List<RelatorioVisitaDomiciliar> getRelatoriosVisitaDomiciliar() {
+	public List<VisitaDomiciliar> getRelatoriosVisitaDomiciliar() {
 		return relatoriosVisitaDomiciliar;
 	}
 
-	public void setRelatoriosVisitaDomiciliar(List<RelatorioVisitaDomiciliar> relatoriosVisitaDomiciliar) {
+	public void setRelatoriosVisitaDomiciliar(List<VisitaDomiciliar> relatoriosVisitaDomiciliar) {
+
 		this.relatoriosVisitaDomiciliar = relatoriosVisitaDomiciliar;
 	}
 

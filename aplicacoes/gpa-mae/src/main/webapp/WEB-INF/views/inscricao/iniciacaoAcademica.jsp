@@ -53,7 +53,7 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<label for="enderecoFamilia" class="col-sm-1 control-label"><span class="red">*</span> Rua/Av:</label>
+										<label for="enderecoFamilia" class="col-sm-1 control-label"><span class="red">*</span>Rua/Av:</label>
 										<div class="col-sm-5">
 											<form:input id="enderecoFamilia" type="text"
 												path="enderecoFamilia" cssClass="form-control"
@@ -63,7 +63,7 @@
 												</form:errors>
 											</div>
 										</div>
-										<label for="bairroFamilia" class="col-sm-2 control-label"><span class="red">*</span> Bairro:</label>
+										<label for="bairroFamilia" class="col-sm-2 control-label"><span class="red">*</span>Bairro:</label>
 										<div class="col-sm-4">
 											<form:input id="bairroFamilia" path="bairroFamilia"
 												cssClass="form-control" placeholder="Bairro" />
@@ -74,7 +74,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="numeroFamilia" class="col-sm-1 control-label"><span class="red">*</span> Número:</label>
+										<label for="numeroFamilia" class="col-sm-1 control-label"><span class="red">*</span>Número:</label>
 										<div class="col-sm-1">
 											<form:input id="numeroFamilia" path="numeroFamilia"
 												cssClass="form-control" placeholder="Num" data-mask="9999"/>
@@ -82,7 +82,7 @@
 												<form:errors path="numeroFamilia"></form:errors>
 											</div>
 										</div>
-										<label for="cidade" class="col-sm-1 control-label"><span class="red">*</span> Cidade:</label>
+										<label for="cidade" class="col-sm-1 control-label"><span class="red">*</span>Cidade:</label>
 										<div class="col-sm-3">
 											<form:input id="cidade" type="text" path="cidade"
 												cssClass="form-control" placeholder="Cidade" />
@@ -163,8 +163,7 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<label for="enderecoAtual" class="col-sm-1 control-label"><span class="red">*</span> Rua/Av
-											:</label>
+										<label for="enderecoAtual" class="col-sm-1 control-label"><span class="red">*</span>Rua/Av:</label>
 										<div class="col-sm-5">
 											<form:input id="enderecoAtual" path="enderecoAtual"
 												cssClass="form-control" placeholder="Rua /Av" />
@@ -172,7 +171,7 @@
 												<form:errors path="enderecoAtual"></form:errors>
 											</div>
 										</div>
-										<label for="bairro" class="col-sm-2 control-label"><span class="red">*</span> Bairro:</label>
+										<label for="bairro" class="col-sm-2 control-label"><span class="red">*</span>Bairro:</label>
 										<div class="col-sm-4">
 											<form:input id="bairro" path="bairro" cssClass="form-control"
 												placeholder="Bairro" />
@@ -183,7 +182,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="numero" class="col-sm-1 control-label"><span class="red">*</span> Número:</label>
+										<label for="numero" class="col-sm-1 control-label"><span class="red">*</span>Número:</label>
 										<div class="col-sm-1">
 											<form:input id="numero" path="numero" cssClass="form-control"
 												placeholder="Num" data-mask="9999"/>
@@ -191,7 +190,7 @@
 												<form:errors path="numero"></form:errors>
 											</div>
 										</div>
-										<label for="cidade" class="col-sm-1 control-label"><span class="red">*</span> Cidade:</label>
+										<label for="cidade" class="col-sm-1 control-label"><span class="red">*</span>Cidade:</label>
 										<div class="col-sm-3">
 											<form:input id="cidade" type="text" path="cidadeFamilia"
 												cssClass="form-control" placeholder="Cidade" />
@@ -210,7 +209,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="cep_familia" class="col-sm-1 control-label"><span class="red">*</span> CEP:</label>
+										<label for="cep_familia" class="col-sm-1 control-label"><span class="red">*</span>CEP:</label>
 										<div class="col-sm-2">
 											<form:input id="cepFamilia" path="cep" data-mask="99999999"
 												cssClass="form-control" placeholder="CEP" />
@@ -229,7 +228,7 @@
 												<form:errors path="estado"></form:errors>
 											</div>
 										</div>
-										<label for="pontoReferencia" class="col-sm-2 control-label"><span class="red">*</span> Ponto de referencia:</label>
+										<label for="pontoReferencia" class="col-sm-2 control-label"><span class="red">*</span>Ponto de referencia:</label>
 										<div class="col-sm-4">
 											<form:input id="pontoReferencia" type="text"
 												path="pontoReferencia" cssClass="form-control"
@@ -274,7 +273,7 @@
 								<div class="panel-body">
 
 									<div class="form-group">
-										<label for="reside_atualmente" class="col-sm-3 control-label"><span class="red">*</span> Com quem você reside Atualmente?</label>
+										<label for="reside_atualmente" class="col-sm-3 control-label"><span class="red">*</span>Com quem você reside Atualmente?</label>
 										<div class="col-sm-3">
 											<form:input id="resideAtualmente" path="resideAtualmente"
 												cssClass="form-control" placeholder="Ex: Familia, amigos" />
@@ -298,7 +297,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="reside_atualmente" class="col-sm-3 control-label"><span class="red">*</span> Como define a localidade na qual vive atualmente?</label>
+										<label for="reside_atualmente" class="col-sm-3 control-label"><span class="red">*</span>Como define a localidade na qual vive atualmente?</label>
 										<div class="col-sm-3">
 											<form:input id="definicaoLocalAtual"
 												path="definicaoLocalAtual" cssClass="form-control"
@@ -516,6 +515,9 @@
 								</div>
 								<div class="panel-body">
 									<jsp:include page="pessoaFamilia.jsp" />
+									<div class="error-validation">
+											<form:errors path="pessoas"></form:errors>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -534,7 +536,7 @@
 									
 									<div class="form-group">
 										<label for="justificativaPedido"
-											class="col-sm-2 control-label"><span class="red">*</span> Justificativa do pedido:</label>
+											class="col-sm-2 control-label"><span class="red">*</span>Justificativa do pedido:</label>
 										<div class="col-sm-9">
 											<form:textarea id="justificativaPedido" type="text"
 												path="justificativaPedido" cssClass="form-control"

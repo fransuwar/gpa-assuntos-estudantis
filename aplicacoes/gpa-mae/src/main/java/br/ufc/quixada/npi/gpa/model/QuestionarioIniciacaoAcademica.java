@@ -16,10 +16,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 
 @Entity
-@NamedQueries({
-		// @NamedQuery(name = "IniAcad.findIniAcadById", query = "SELECT ia FROM
-		// QuestionarioIniciacaoAcademica ia WHERE ia.aluno.id = :idAluno")
-})
+@NamedQueries({})
 public class QuestionarioIniciacaoAcademica {
 
 	@Id
@@ -51,7 +48,6 @@ public class QuestionarioIniciacaoAcademica {
 	@NotEmpty(message = "Campo Obrigatório")
 	private String estado;
 	private String referencia;
-
 	@NotNull(message = "Campo Obrigatório")
 	private String enderecoFamilia;
 	@NotNull(message = "Campo Obrigatório")
