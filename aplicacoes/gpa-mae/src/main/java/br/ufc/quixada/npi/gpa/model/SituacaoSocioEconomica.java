@@ -16,6 +16,7 @@ public class SituacaoSocioEconomica {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String comQuemReside;
 	private String tipoResidencia;
 	@Enumerated(EnumType.STRING)
@@ -37,6 +38,7 @@ public class SituacaoSocioEconomica {
 	private Integer qtdComodos;
 	private Integer qtdBanheiros;
 	private Integer qtdEmpregadosDomesticos;
+
 
 	public SituacaoSocioEconomica() {
 		// TODO Auto-generated constructor stub
