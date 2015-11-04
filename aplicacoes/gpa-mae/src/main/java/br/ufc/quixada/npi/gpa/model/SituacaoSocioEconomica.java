@@ -12,8 +12,6 @@ public class SituacaoSocioEconomica {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	
-
 	public SituacaoSocioEconomica() {
 		// TODO Auto-generated constructor stub
 	}
