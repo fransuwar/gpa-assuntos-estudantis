@@ -25,24 +25,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 
-
-@NamedQueries({ @NamedQuery(
-				name = "SelecaoBolsa.findSelecaoBolsaComDocumentos", 
-				query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId "),
-				@NamedQuery(
-				name = "SelecaoBolsa.findSelecaoBolsaComMembros", 
-				query = "SELECT distinct sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.membrosBanca"),
-				@NamedQuery(
-				name = "SelecaoBolsa.findSelecaoBolsaIdComMembros", 
-				query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId"),
-				@NamedQuery(
-				name = "SelecaoBolsa.findSelecaoBolsaIdComAlunos", 
-				query = "SELECT DISTINCT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.alunosSelecao WHERE sb.id = :selecaoBolsaId"),
-				@NamedQuery(
-				name = "SelecaoBolsa.findSelecaoComAlunos",
-				query = "SELECT DISTINCT sb from SelecaoBolsa as sb LEFT JOIN FETCH sb.alunosSelecao")
-			})
-
+@NamedQueries({
+		@NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaComDocumentos", query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId "),
+		@NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaComMembros", query = "SELECT distinct sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.membrosBanca"),
+		@NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaIdComMembros", query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId"),
+		@NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaIdComAlunos", query = "SELECT DISTINCT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.alunosSelecao WHERE sb.id = :selecaoBolsaId"),
+		@NamedQuery(name = "SelecaoBolsa.findSelecaoComAlunos", query = "SELECT DISTINCT sb from SelecaoBolsa as sb LEFT JOIN FETCH sb.alunosSelecao") })
 
 @Entity
 public class SelecaoBolsa {
@@ -51,17 +39,16 @@ public class SelecaoBolsa {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<QuestionarioIniciacaoAcademica> questionariosIniciacaoAcademica;
 
 	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia;
-	
+
 	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<RelatorioVisitaDomiciliar> relatoriosVisitaDomiciliar;
 
 	@NotNull(message = "Campo obrigatório")
-	@Range(min=1, max=999, message="O número de vagas deve ser maior ou igual a 1")
+	@Range(min = 1, max = 999, message = "O número de vagas deve ser maior ou igual a 1")
 	private Integer quantidadeVagas;
 
 	@Future(message = "Data de início deve ser maior que a data atual")
@@ -71,12 +58,12 @@ public class SelecaoBolsa {
 
 	@ManyToOne
 	private Pessoa autor;
-	
-	@OneToMany(mappedBy = "selecaoBolsa", cascade = {CascadeType.REMOVE, CascadeType.PERSIST} )
+
+	@OneToMany(mappedBy = "selecaoBolsa", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	private List<Documento> documentos;
 
-	@NotNull(message="Campo obrigatório")
-	@Range(min=1, message="O valor do edital deve ser maior que 0")
+	@NotNull(message = "Campo obrigatório")
+	@Range(min = 1, message = "O valor do edital deve ser maior que 0")
 	private Integer sequencial;
 
 	@Enumerated(EnumType.STRING)
@@ -86,10 +73,6 @@ public class SelecaoBolsa {
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
-
-	@NotNull(message = "Campo obrigatório")
-	@Range(min=1, max=999, message="A duração da seleção deve ser maior ou igual a 1 mês")
-	private Integer duracao;
 
 	private String local;
 
@@ -108,7 +91,7 @@ public class SelecaoBolsa {
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Aluno> alunosSelecao;
 
-	@NotNull(message="Selecione o tipo de bolsa")
+	@NotNull(message = "Selecione o tipo de bolsa")
 	@Enumerated(EnumType.STRING)
 	private TipoBolsa tipoBolsa;
 
@@ -138,10 +121,6 @@ public class SelecaoBolsa {
 
 	public List<Documento> getDocumentos() {
 		return documentos;
-	}
-
-	public Integer getDuracao() {
-		return duracao;
 	}
 
 	public Integer getId() {
@@ -174,18 +153,18 @@ public class SelecaoBolsa {
 				return Status.PROC_SELETIVO;
 			} else if (dataInicio.getTime() <= System.currentTimeMillis()) {
 				return Status.INSC_ABERTA;
-			}else {
+			} else {
 				return Status.NOVA;
-			} 
-			
+			}
+
 		}
 		return status;
 	}
+
 	public TipoBolsa getTipoBolsa() {
 		return tipoBolsa;
 	}
 
-	
 	public void setAlunosSelecao(List<Aluno> alunosSeleAlunos) {
 		this.alunosSelecao = alunosSeleAlunos;
 	}
@@ -220,15 +199,9 @@ public class SelecaoBolsa {
 		this.documentos = documentos;
 	}
 
-	public void setDuracao(Integer duracao) {
-		this.duracao = duracao;
-	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
 
 	public void setLocal(String local) {
 		this.local = local;
@@ -257,8 +230,6 @@ public class SelecaoBolsa {
 	public void setTipoBolsa(TipoBolsa tipoBolsa) {
 		this.tipoBolsa = tipoBolsa;
 	}
-	
-	
 
 	public List<QuestionarioIniciacaoAcademica> getQuestionariosIniciacaoAcademica() {
 		return questionariosIniciacaoAcademica;
@@ -273,8 +244,7 @@ public class SelecaoBolsa {
 		return questionariosAuxilioMoradia;
 	}
 
-	public void setQuestionariosAuxilioMoradia(
-			List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia) {
+	public void setQuestionariosAuxilioMoradia(List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia) {
 		this.questionariosAuxilioMoradia = questionariosAuxilioMoradia;
 	}
 
@@ -282,8 +252,7 @@ public class SelecaoBolsa {
 		return relatoriosVisitaDomiciliar;
 	}
 
-	public void setRelatoriosVisitaDomiciliar(
-			List<RelatorioVisitaDomiciliar> relatoriosVisitaDomiciliar) {
+	public void setRelatoriosVisitaDomiciliar(List<RelatorioVisitaDomiciliar> relatoriosVisitaDomiciliar) {
 		this.relatoriosVisitaDomiciliar = relatoriosVisitaDomiciliar;
 	}
 
@@ -311,5 +280,5 @@ public class SelecaoBolsa {
 			return false;
 		return true;
 	}
-	
+
 }
