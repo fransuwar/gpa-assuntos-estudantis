@@ -127,11 +127,12 @@ public class AlunoController {
 	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		Aluno aluno = alunoService.find(Aluno.class, id);
-		//chamamos a tela de cadastro/editar
+
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("banco", Banco.values());
 		model.addAttribute("curso", Curso.values());
 		model.addAttribute("action", "editar");
+		
 		return "aluno/cadastrar";		
 	}
 
