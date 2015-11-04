@@ -1,5 +1,7 @@
 package br.ufc.quixada.npi.gpa.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -7,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -66,6 +69,8 @@ public class QuestionarioIniciacaoAcademica {
 	private String referenciaFamilia;
 	@OneToOne
 	private SituacaoSocioEconomica situacaoSocioEconomica;
+	@OneToMany
+	private List<HorarioDisponivel> horariosDisponiveis;
 
 	public QuestionarioIniciacaoAcademica() {
 
@@ -261,6 +266,14 @@ public class QuestionarioIniciacaoAcademica {
 
 	public void setSituacaoSocioEconomica(SituacaoSocioEconomica situacaoSocioEconomica) {
 		this.situacaoSocioEconomica = situacaoSocioEconomica;
+	}
+
+	public List<HorarioDisponivel> getHorariosDisponiveis() {
+		return horariosDisponiveis;
+	}
+
+	public void setHorariosDisponiveis(List<HorarioDisponivel> horariosDisponiveis) {
+		this.horariosDisponiveis = horariosDisponiveis;
 	}
 
 }

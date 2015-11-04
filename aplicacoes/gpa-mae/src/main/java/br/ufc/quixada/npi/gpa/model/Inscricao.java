@@ -25,6 +25,12 @@ public class Inscricao {
 	private String observacoes;
 	@OneToOne
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
+	@OneToOne
+	private SelecaoBolsa selecaoBolsa;
+
+	public Inscricao() {
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -71,5 +77,13 @@ public class Inscricao {
 
 	public void setQuestionarioIniciacaoAcademica(QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica) {
 		this.questionarioIniciacaoAcademica = questionarioIniciacaoAcademica;
+	}
+
+	public SelecaoBolsa getSelecaoBolsa() {
+		return selecaoBolsa;
+	}
+
+	public void setSelecaoBolsa(SelecaoBolsa selecaoBolsa) {
+		this.selecaoBolsa = selecaoBolsa;
 	}
 }
