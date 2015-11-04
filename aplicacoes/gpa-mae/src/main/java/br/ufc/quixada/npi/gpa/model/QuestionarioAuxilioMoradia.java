@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -31,7 +30,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 
 @Entity
-@NamedQueries({ @NamedQuery(name = "AuxMor.findAuxMorById", query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.aluno.id = :idAluno") })
+@NamedQueries({})
 public class QuestionarioAuxilioMoradia {
 
 	public QuestionarioAuxilioMoradia() {
@@ -40,46 +39,27 @@ public class QuestionarioAuxilioMoradia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
 	@ManyToOne
-	private SelecaoBolsa selecaoBolsa;
-
-	@ManyToOne(cascade = CascadeType.MERGE)
-	private Aluno aluno;
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
-
+	private Inscricao inscricao;
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
-
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	@ElementCollection(targetClass = MoraCom.class, fetch = FetchType.EAGER)
 	private List<MoraCom> moraCom;
-
 	@NotEmpty(message = "Campo obrigatório")
 	private String nomeMae;
-
 	@NotEmpty(message = "Campo obrigatório")
 	private String nomePai;
-
 	@NotEmpty(message = "Campo obrigatório")
 	private String ruaSedeCurso;
-
 	@NotNull(message = "Campo obrigatório")
 	private Long numeroSedeCurso;
 
 	@NotEmpty(message = "Campo obrigatório")
 	private String bairroSedeCurso;
-
 	@NotEmpty(message = "Campo obrigatório")
 	private String ruaOrigem;
 
@@ -179,14 +159,6 @@ public class QuestionarioAuxilioMoradia {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public SelecaoBolsa getSelecaoBolsa() {
-		return selecaoBolsa;
-	}
-
-	public void setSelecaoBolsa(SelecaoBolsa selecaoBolsa) {
-		this.selecaoBolsa = selecaoBolsa;
 	}
 
 	public List<PessoaFamilia> getPessoas() {
@@ -345,8 +317,7 @@ public class QuestionarioAuxilioMoradia {
 		return grauParentescoImovelRural;
 	}
 
-	public void setGrauParentescoImovelRural(
-			GrauParentescoImovelRural grauParentescoImovelRural) {
+	public void setGrauParentescoImovelRural(GrauParentescoImovelRural grauParentescoImovelRural) {
 		this.grauParentescoImovelRural = grauParentescoImovelRural;
 	}
 
@@ -378,8 +349,7 @@ public class QuestionarioAuxilioMoradia {
 		return grauParentescoVeiculos;
 	}
 
-	public void setGrauParentescoVeiculos(
-			GrauParentescoVeiculos grauParentescoVeiculos) {
+	public void setGrauParentescoVeiculos(GrauParentescoVeiculos grauParentescoVeiculos) {
 		this.grauParentescoVeiculos = grauParentescoVeiculos;
 	}
 
@@ -435,8 +405,7 @@ public class QuestionarioAuxilioMoradia {
 		return percentualParticularFundamental;
 	}
 
-	public void setPercentualParticularFundamental(
-			Long percentualParticularFundamental) {
+	public void setPercentualParticularFundamental(Long percentualParticularFundamental) {
 		this.percentualParticularFundamental = percentualParticularFundamental;
 	}
 
@@ -531,6 +500,14 @@ public class QuestionarioAuxilioMoradia {
 	@Override
 	public String toString() {
 		return "QuestionarioAuxilioMoradia [id=" + id + "]";
+	}
+
+	public Inscricao getInscricao() {
+		return inscricao;
+	}
+
+	public void setInscricao(Inscricao inscricao) {
+		this.inscricao = inscricao;
 	}
 
 }

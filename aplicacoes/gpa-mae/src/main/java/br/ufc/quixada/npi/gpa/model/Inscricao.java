@@ -27,7 +27,7 @@ public class Inscricao {
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
 	@OneToOne
 	private SelecaoBolsa selecaoBolsa;
-
+	
 	public Inscricao() {
 	}
 
