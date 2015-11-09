@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.joda.time.DateTime;
@@ -23,6 +24,7 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
+import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 
 @Controller
@@ -32,7 +34,10 @@ public class CoordenadorController {
 	@Inject
 	private SelecaoBolsaService selecaoService;
 	
-	@RequestMapping(value = { "/cadastrar-selecao" }, method = RequestMethod.GET)
+	@Inject
+	private DocumentoService documentoService;
+	
+	@RequestMapping(value = { "cadastrar-selecao" }, method = RequestMethod.GET)
 	public String cadastroSelecao(Model model) {
 		
 		model.addAttribute("action", "cadastrar");
@@ -42,7 +47,7 @@ public class CoordenadorController {
 		return "selecao/cadastrar";
 	}
 	
-	@RequestMapping(value = { "/cadastrar-selecao" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "cadastrar-selecao" }, method = RequestMethod.POST)
 	public String cadastroSelecao(@RequestParam("files") List<MultipartFile> files, Model model,
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, BindingResult result, 
 			RedirectAttributes redirect) {
@@ -130,9 +135,9 @@ public class CoordenadorController {
 	}
 	
 	@RequestMapping(value = { "editar-selecao/{idSelecao}" }, method = RequestMethod.POST)
-	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao,
+	public String editarSelecao(@RequestParam("files") List<MultipartFile> files, @PathVariable("idSelecao") Integer idSelecao,
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, Model model,
-			BindingResult result, RedirectAttributes redirect) {
+			BindingResult result, RedirectAttributes redirect, HttpServletRequest request) {
 		
 		model.addAttribute("action", "editar");
 		
@@ -157,6 +162,55 @@ public class CoordenadorController {
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			return "selecao/cadastrar";
+		}
+		
+		String doc[] = request.getParameterValues("doc");
+
+		if (doc != null) {
+
+			if (selecaoService.getSelecaoBolsaComDocumentos(selecao.getId()).getDocumentos().size() == doc.length
+				&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
+				model.addAttribute("action", "editar");
+				redirect.addFlashAttribute("erro", "Não foi possível excluir seu(s) anexo(s), pois não é possível salvar a seleção sem nenhum anexo.");
+				return "redirect:/selecao/cadastrar";
+			}
+
+			for (int k = 0; k < doc.length; k++) {
+				Documento d = new Documento();
+				d.setId(Long.parseLong(doc[k]));
+				documentoService.delete(d);
+			}
+		}
+		
+		List<Documento> documentos = new ArrayList<Documento>();
+		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
+			for (MultipartFile mfiles : files) {
+				try {
+					
+					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
+						
+						Documento documento = new Documento();
+						documento.setArquivo(mfiles.getBytes());
+						documento.setNome(mfiles.getOriginalFilename());
+						documento.setTipo(mfiles.getContentType());
+						documento.setSelecaoBolsa(selecao);
+						documentos.add(documento);
+					}
+					
+					if (!documentos.isEmpty()) {
+						selecao.setDocumentos(documentos);
+					}
+					
+				} catch (IOException ioe) {
+					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
+					return "selecao/cadastrar";
+				}
+			} 
+		} else {
+			
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("anexoError", "Adicione anexo a seleção.");
 			return "selecao/cadastrar";
 		}
 		

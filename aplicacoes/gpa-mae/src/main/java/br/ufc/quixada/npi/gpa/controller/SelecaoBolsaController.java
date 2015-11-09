@@ -90,7 +90,6 @@ public class SelecaoBolsaController {
 		return "redirect:/relatorioVisita/informacoesRelatorio/"+id;
 	}
 	
-	
 	@RequestMapping(value = {"downloadDocumento/{id}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("id") Long id, 
 			RedirectAttributes redirectAttributes){
@@ -106,7 +105,8 @@ public class SelecaoBolsaController {
 				"Download do Documento realizado com sucesso");
 		return new HttpEntity<byte[]>(arquivo, headers);
 	}
-
+/** CRUD PERTENCE AO COORDENADOR CONTROLLER
+ * 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvarSelecaoBolsa(
 			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoBolsa,
@@ -146,10 +146,8 @@ public class SelecaoBolsaController {
 
 			if (doc != null) {
 
-				if (selecaoService
-						.getSelecaoBolsaComDocumentos(selecaoBolsa.getId())
-						.getDocumentos().size() == doc.length
-						&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
+				if (selecaoService.getSelecaoBolsaComDocumentos(selecaoBolsa.getId()).getDocumentos().size() == doc.length
+					&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
 					model.addAttribute("action", "editar");
 					redirect.addFlashAttribute(
 							"erro",
@@ -312,7 +310,7 @@ public class SelecaoBolsaController {
 		}
 		return "redirect:/selecao/listar";
 	}
-
+**/
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model, HttpServletRequest request,
 			Authentication authentication) {

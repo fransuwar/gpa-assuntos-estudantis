@@ -13,8 +13,8 @@
 
 <html>
 <head>
-<jsp:include page="../fragments/headTag.jsp" />
-<title>Seleções</title>
+	<jsp:include page="../fragments/headTag.jsp" />
+	<title>Seleções</title>
 </head>
 <body>
 
@@ -110,7 +110,6 @@
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
-
 								<td>${selecao.tipoBolsa.nome}</td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>

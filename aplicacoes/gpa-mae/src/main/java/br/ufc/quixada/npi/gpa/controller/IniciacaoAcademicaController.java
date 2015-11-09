@@ -65,7 +65,6 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 		modelo.addAttribute("selecaoBolsa", id);
-		System.out.println("id -------------" + id);
 		
 		return "inscricao/iniciacaoAcademica";
 	}
@@ -87,6 +86,7 @@ public class IniciacaoAcademicaController {
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 			modelo.addAttribute("selecaoBolsa", id);
+			
 			return "inscricao/iniciacaoAcademica";
 
 		} else {

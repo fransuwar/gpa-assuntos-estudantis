@@ -49,7 +49,7 @@ public class ServidorController {
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("cargos", Cargo.toMap());
 		model.addAttribute("servidor", new Servidor());
-		return "/servidor/cadastrar";
+		return "servidor/cadastrar";
 	}
 	
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
