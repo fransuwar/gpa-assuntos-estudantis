@@ -88,7 +88,7 @@ public class AuxilioMoradiaController {
 		model.addAttribute("moraCom", MoraCom.toMap());
 		model.addAttribute("selecaoBolsa", id);
 
-		return "inscricao/auxilio";
+		return "aluno/inscricaoAuxilio";
 	}
 
 	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.POST)
@@ -114,7 +114,7 @@ public class AuxilioMoradiaController {
 			model.addAttribute("moraCom", MoraCom.toMap());
 			model.addAttribute("selecaoBolsa", idSelecao);
 
-			return "inscricao/auxilio";
+			return "aluno/inscricaoAuxilio";
 
 		} else {
 
@@ -162,7 +162,7 @@ public class AuxilioMoradiaController {
 			return "redirect:/selecao/listar";
 		}
 
-		return "inscricao/auxilio";
+		return "aluno/inscricaoAuxilio";
 	}
 
 }

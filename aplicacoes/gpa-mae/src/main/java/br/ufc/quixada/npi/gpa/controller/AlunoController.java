@@ -36,7 +36,7 @@ public class AlunoController {
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvarAluno(@Valid @ModelAttribute(value = "aluno") Aluno aluno,
-			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
+			Model model, BindingResult result, RedirectAttributes redirect) throws IOException {
 
 		if(aluno.getId()!=null){
 			return atualizarAluno(aluno.getId(), aluno, result, model, redirect);
@@ -52,7 +52,7 @@ public class AlunoController {
 		model.addAttribute("banco", Banco.values());
 		model.addAttribute("curso", Curso.values());
 		model.addAttribute("aluno", new Aluno());
-		return "/aluno/cadastrar";
+		return "servidor/cadastrarAluno";
 	}
 
 	public String adicionarAluno(
@@ -86,7 +86,7 @@ public class AlunoController {
 		if (result.hasErrors()) {
 			model.addAttribute("banco", Banco.values());
 			model.addAttribute("curso", Curso.values());
-			return ("aluno/cadastrar");
+			return ("servidor/cadastrarAluno");
 		}
 
 
@@ -106,7 +106,7 @@ public class AlunoController {
 	public String listaAluno(Aluno aluno, Model model) {	
 		List<Aluno> results = alunoService.find(Aluno.class);
 		model.addAttribute("alunos", results);
-		return "aluno/listar";
+		return "selecao/listarAlunos";
 	}
 
 	@RequestMapping(value = "/listar", method = RequestMethod.POST)
@@ -121,7 +121,7 @@ public class AlunoController {
 			redirect.addFlashAttribute("alunoEncontrado", false);	
 			return "redirect:/aluno/listar";
 		}
-		return "/aluno/listar";
+		return "/selecao/listarAlunos";
 	}
 
 	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
@@ -132,10 +132,10 @@ public class AlunoController {
 		model.addAttribute("banco", Banco.values());
 		model.addAttribute("curso", Curso.values());
 		model.addAttribute("action", "editar");
-		return "aluno/cadastrar";		
+		return "servidor/cadastrarAluno";		
 	}
 
-	public String atualizarAluno(Integer id,Aluno alunoAtualizado,
+	public String atualizarAluno(Integer id, Aluno alunoAtualizado,
 			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
 		
 		if(alunoAtualizado.getAnoIngresso() != null && !alunoAtualizado.getAnoIngresso().equals("")){
@@ -163,7 +163,7 @@ public class AlunoController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("action", "editar"); 
-			return "aluno/cadastrar";
+			return "servidor/cadastrarAluno";
 		}
 
 
