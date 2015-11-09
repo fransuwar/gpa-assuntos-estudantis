@@ -40,8 +40,6 @@ public class SelecaoBolsa {
 	private Integer id;
 	private List<QuestionarioIniciacaoAcademica> questionariosIniciacaoAcademica;
 	@OneToMany(mappedBy = "selecaoBolsa")
-	private List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia;
-	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<VisitaDomiciliar> relatoriosVisitaDomiciliar;
 	@NotNull(message = "Campo obrigatório")
 	@Range(min = 1, max = 999, message = "O número de vagas deve ser maior ou igual a 1")
@@ -221,14 +219,6 @@ public class SelecaoBolsa {
 	public void setQuestionariosIniciacaoAcademica(
 			List<QuestionarioIniciacaoAcademica> questionariosIniciacaoAcademica) {
 		this.questionariosIniciacaoAcademica = questionariosIniciacaoAcademica;
-	}
-
-	public List<QuestionarioAuxilioMoradia> getQuestionariosAuxilioMoradia() {
-		return questionariosAuxilioMoradia;
-	}
-
-	public void setQuestionariosAuxilioMoradia(List<QuestionarioAuxilioMoradia> questionariosAuxilioMoradia) {
-		this.questionariosAuxilioMoradia = questionariosAuxilioMoradia;
 	}
 
 	public List<VisitaDomiciliar> getRelatoriosVisitaDomiciliar() {
