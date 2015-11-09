@@ -20,7 +20,7 @@ public class Papel implements GrantedAuthority {
 		super();
 	}
 	
-	public Papel(Long id, String descricao) {
+	public Papel(int id, String descricao) {
 		super();
 		this.id = id;
 		this.nome = descricao;
@@ -28,16 +28,16 @@ public class Papel implements GrantedAuthority {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 	
 	@Column(nullable = false)
 	private String nome;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

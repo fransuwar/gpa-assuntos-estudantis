@@ -37,7 +37,7 @@ public class Aluno {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 	@NotEmpty(message = "Campo obrigatório")
 	private String matricula;
 	@NotNull(message = "Campo obrigatório")
@@ -92,11 +92,11 @@ public class Aluno {
 		return true;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

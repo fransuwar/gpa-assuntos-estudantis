@@ -26,7 +26,7 @@ public class VisitaDomiciliar {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private int id;
 	
 	@ManyToOne
 	private Aluno aluno;
@@ -146,10 +146,10 @@ public class VisitaDomiciliar {
 	@OneToOne
 	private Receita receita;
 	
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public Aluno getAluno() {

@@ -39,7 +39,7 @@ public class Servidor {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 
 	@NotEmpty(message = "Campo obrigatório")
 	private String siape;
@@ -68,11 +68,11 @@ public class Servidor {
 		this.pessoa = pessoa;
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

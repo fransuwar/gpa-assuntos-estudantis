@@ -37,14 +37,14 @@ public class Pessoa {
 		super();
 	}
 	
-	public Pessoa(Integer id, String nome){
+	public Pessoa(int id, String nome){
 		this.id = id;
 		this.nome = nome;
 	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 	
 	@ManyToMany
 	@JoinTable(name = "papel_pessoa", joinColumns = @JoinColumn(name = "pessoa_id"), inverseJoinColumns = @JoinColumn(name = "papel_id"))
@@ -198,11 +198,11 @@ public class Pessoa {
 	@OneToMany(mappedBy="pessoa")
 	private List<Servidor> servidores;
 	
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
