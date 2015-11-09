@@ -15,7 +15,7 @@ public class Documento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	private String nomeOriginal;
 	
 	private String nome;
@@ -27,7 +27,7 @@ public class Documento {
 
 	@ManyToOne
 	@JoinColumn(name = "selecaoBolsa_id")
-	private SelecaoBolsa selecaoBolsa;
+	private Selecao selecaoBolsa;
 	
 	
 
@@ -35,7 +35,7 @@ public class Documento {
 		super();
 	}	
 	
-	public Documento(String nomeOriginal, String nome, String tipo, byte[] arquivo, SelecaoBolsa selecaoBolsa){
+	public Documento(String nomeOriginal, String nome, String tipo, byte[] arquivo, Selecao selecaoBolsa){
 		super();
 		this.nomeOriginal = nomeOriginal;
 		this.nome = nome;
@@ -44,11 +44,11 @@ public class Documento {
 		this.selecaoBolsa = selecaoBolsa;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -86,11 +86,11 @@ public class Documento {
 	}
 	
 	
-	public SelecaoBolsa getSelecaoBolsa() {
+	public Selecao getSelecaoBolsa() {
 		return selecaoBolsa;
 	}
 
-	public void setSelecaoBolsa(SelecaoBolsa selecaoBolsa) {
+	public void setSelecaoBolsa(Selecao selecaoBolsa) {
 		this.selecaoBolsa = selecaoBolsa;
 	}
 

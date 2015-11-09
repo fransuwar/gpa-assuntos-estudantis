@@ -14,12 +14,12 @@ public class Parecer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	private Boolean selecionado;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
-	private SelecaoBolsa selecao;
+	private Selecao selecao;
 	
 	@OneToOne
 	private Aluno alunoApto;
@@ -27,11 +27,11 @@ public class Parecer {
 	@NotNull(message = "Campo obrigatório.")
 	private String peso;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -43,11 +43,11 @@ public class Parecer {
 		this.selecionado = selecionado;
 	}
 
-	public SelecaoBolsa getSelecao() {
+	public Selecao getSelecao() {
 		return selecao;
 	}
 
-	public void setSelecao(SelecaoBolsa selecao) {
+	public void setSelecao(Selecao selecao) {
 		this.selecao = selecao;
 	}
 

@@ -26,14 +26,14 @@ public class VisitaDomiciliar {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	
 	@ManyToOne
 	private Aluno aluno;
 	@ManyToOne
 	private Servidor servidor;
 	@ManyToOne
-	private SelecaoBolsa selecaoBolsa;
+	private Selecao selecaoBolsa;
 	@NotNull(message = "Campo obrigatório")
 	private String formaAcessoCasa;
 	@NotNull(message = "Campo obrigatório")
@@ -132,10 +132,10 @@ public class VisitaDomiciliar {
 	@OneToOne
 	private Receita receita;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Aluno getAluno() {
@@ -455,10 +455,10 @@ public class VisitaDomiciliar {
 	public void setDataRelatorio(Date dataRelatorio) {
 		this.dataRelatorio = dataRelatorio;
 	}
-	public SelecaoBolsa getSelecaoBolsa() {
+	public Selecao getSelecaoBolsa() {
 		return selecaoBolsa;
 	}
-	public void setSelecaoBolsa(SelecaoBolsa selecaoBolsa) {
+	public void setSelecaoBolsa(Selecao selecaoBolsa) {
 		this.selecaoBolsa = selecaoBolsa;
 	}
 	public Despesa getDespesa() {

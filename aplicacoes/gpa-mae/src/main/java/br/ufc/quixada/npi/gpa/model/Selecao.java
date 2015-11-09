@@ -34,7 +34,7 @@ public class Selecao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
 	@NotNull(message = "Campo obrigatório")
@@ -64,7 +64,7 @@ public class Selecao {
 	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<Inscricao> inscritos;
 
-	public int getAno() {
+	public Integer getAno() {
 		return ano;
 	}
 
@@ -134,7 +134,7 @@ public class Selecao {
 		this.documentos = documentos;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

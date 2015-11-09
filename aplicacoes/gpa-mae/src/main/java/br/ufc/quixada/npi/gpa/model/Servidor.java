@@ -39,7 +39,7 @@ public class Servidor {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@NotEmpty(message = "Campo obrigatório")
 	private String siape;
@@ -52,10 +52,10 @@ public class Servidor {
 	private List<VisitaDomiciliar> visitas; 
 	
 	@ManyToMany(mappedBy = "membrosBanca")
-	private List<SelecaoBolsa> participaBancas;
+	private List<Selecao> participaBancas;
 
 	@OneToMany(mappedBy="responsavel")
-	private List<SelecaoBolsa> responsavelBancas;
+	private List<Selecao> responsavelBancas;
 
 	@ManyToOne
 	private Pessoa pessoa;
@@ -68,11 +68,11 @@ public class Servidor {
 		this.pessoa = pessoa;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -84,19 +84,19 @@ public class Servidor {
 		this.siape = siape;
 	}
 
-	public List<SelecaoBolsa> getParticipaBancas() {
+	public List<Selecao> getParticipaBancas() {
 		return participaBancas;
 	}
 
-	public void setParticipaBancas(List<SelecaoBolsa> participaBancas) {
+	public void setParticipaBancas(List<Selecao> participaBancas) {
 		this.participaBancas = participaBancas;
 	}
 
-	public List<SelecaoBolsa> getResponsavelBancas() {
+	public List<Selecao> getResponsavelBancas() {
 		return responsavelBancas;
 	}
 
-	public void setResponsavelBancas(List<SelecaoBolsa> responsavelBancas) {
+	public void setResponsavelBancas(List<Selecao> responsavelBancas) {
 		this.responsavelBancas = responsavelBancas;
 	}
 

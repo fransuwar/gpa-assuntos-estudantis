@@ -38,7 +38,7 @@ public class AlunoController {
 	public String salvarAluno(@Valid @ModelAttribute(value = "aluno") Aluno aluno,
 			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
 
-		if(aluno.getId()!=null){
+		if(aluno.getId() != null){
 			return atualizarAluno(aluno.getId(), aluno, result, model, redirect);
 		}else{
 			return adicionarAluno(aluno, result, redirect, model);

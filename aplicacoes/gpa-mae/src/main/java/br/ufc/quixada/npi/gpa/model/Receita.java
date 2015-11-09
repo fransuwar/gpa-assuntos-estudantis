@@ -14,7 +14,7 @@ public class Receita {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@NotNull(message = "Campo obrigatório")
 	private Double trabalhoFormal;
@@ -27,11 +27,11 @@ public class Receita {
 	@NotNull(message = "Campo obrigatório")
 	private Double outro;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

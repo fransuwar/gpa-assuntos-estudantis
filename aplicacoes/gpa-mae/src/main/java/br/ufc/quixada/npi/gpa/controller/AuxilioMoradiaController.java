@@ -36,10 +36,10 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
-import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
-import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
+import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
@@ -54,7 +54,7 @@ public class AuxilioMoradiaController {
 	private AlunoService alunoService;
 
 	@Inject
-	private SelecaoBolsaService selecaoBolsaService;
+	private SelecaoService selecaoBolsaService;
 
 	@InitBinder
 	protected void initBinder(HttpServletRequest request,
@@ -120,7 +120,7 @@ public class AuxilioMoradiaController {
 
 			Aluno aluno = alunoService.getAlunoById(id);
 			questionarioAuxilioMoradia.setAluno(aluno);
-			SelecaoBolsa selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
+			Selecao selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
 			selecao.addAlunosSelecao(aluno);
 			this.selecaoBolsaService.update(selecao);
 			questionarioAuxilioMoradia.setSelecaoBolsa(selecao);
@@ -142,7 +142,7 @@ public class AuxilioMoradiaController {
 		QuestionarioAuxilioMoradia q = questionarioAuxMoradiaService
 				.getQuestAuxMorById(id);
 
-		SelecaoBolsa selecao = q.getSelecaoBolsa();
+		Selecao selecao = q.getSelecaoBolsa();
 
 		if (q.getSelecaoBolsa().getStatus() != null
 				&& q.getSelecaoBolsa().getStatus().equals(Status.INSC_ABERTA)) {

@@ -32,7 +32,7 @@ public class QuestionarioAuxilioMoradia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoFundamental ensinoFundamental;
@@ -114,11 +114,11 @@ public class QuestionarioAuxilioMoradia {
 	public QuestionarioAuxilioMoradia() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

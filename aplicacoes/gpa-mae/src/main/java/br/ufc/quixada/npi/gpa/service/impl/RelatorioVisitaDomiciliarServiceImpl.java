@@ -5,13 +5,13 @@ import javax.inject.Named;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
-import br.ufc.quixada.npi.gpa.service.RelatorioVisitaDomiciliarService;
+import br.ufc.quixada.npi.gpa.service.VisitaDomiciliarService;
 import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
 import br.ufc.quixada.npi.util.SimpleMap;
 
 @Named
 public class RelatorioVisitaDomiciliarServiceImpl extends GenericServiceImpl<VisitaDomiciliar> 
-implements RelatorioVisitaDomiciliarService{
+implements VisitaDomiciliarService{
 
 	@Override
 	@Transactional(readOnly = true)

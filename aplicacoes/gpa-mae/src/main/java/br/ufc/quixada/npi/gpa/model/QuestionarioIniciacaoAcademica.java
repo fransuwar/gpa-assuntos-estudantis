@@ -26,7 +26,7 @@ public class QuestionarioIniciacaoAcademica {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	private String telefoneFixo;
 	private String telefoneCelular;
 	private int anosEstudoPrivado;
@@ -101,11 +101,11 @@ public class QuestionarioIniciacaoAcademica {
 
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
