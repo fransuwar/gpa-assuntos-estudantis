@@ -88,7 +88,8 @@
 												<form:errors path="nomeMae"></form:errors>
 											</div>
 										</div>
-										<label for="nomePai" class="col-sm-1 control-label"><span class="red">*</span>Pai:</label>
+										<label for="nomePai" class="col-sm-1 control-label"><span
+											class="red">*</span>Pai:</label>
 										<div class="col-sm-4">
 											<form:input id="nomePai" path="nomePai"
 												cssClass="form-control" placeholder="Nome do Pai" />
@@ -114,7 +115,8 @@
 												<form:errors path="ruaSedeCurso"></form:errors>
 											</div>
 										</div>
-										<label for="bairroSedeCurso" class="col-sm-1 control-label"><span class="red">*</span>Bairro:</label>
+										<label for="bairroSedeCurso" class="col-sm-1 control-label"><span
+											class="red">*</span>Bairro:</label>
 										<div class="col-sm-4">
 											<form:input id="bairroSedeCurso" path="bairroSedeCurso"
 												cssClass="form-control" placeholder="Bairro" />
@@ -143,8 +145,9 @@
 								<div class="panel-body">
 
 									<div class="form-group">
-										<label for="ruaOrigem" class="col-sm-2 control-label"
-											id="form-label-right"><span class="red">*</span>Rua/Av:</label>
+										<label for="ruaOrigem" class="col-sm-1 control-label">
+											<span class="red">*</span>Rua/Av:
+										</label>
 										<div class="col-sm-5">
 											<form:input id="ruaOrigem" path="ruaOrigem"
 												cssClass="form-control" placeholder="Rua da sede do curso" />
@@ -152,7 +155,8 @@
 												<form:errors path="ruaOrigem"></form:errors>
 											</div>
 										</div>
-										<label for="bairroOrigem" class="col-sm-1 control-label"><span class="red">*</span>Bairro:</label>
+										<label for="bairroOrigem" class="col-sm-2 control-label"><span
+											class="red">*</span>Bairro:</label>
 										<div class="col-sm-4">
 											<form:input id="bairroOrigem" path="bairroOrigem"
 												cssClass="form-control" placeholder="Bairro" />
@@ -163,16 +167,45 @@
 									</div>
 
 									<div class="form-group">
-										<label for="numeroOrigem" class="col-sm-2 control-label"
-											id="form-label-right"><span class="red">*</span>Número </label>
-										<div class="col-sm-2">
+										<label for="numeroOrigem" class="col-sm-1 control-label"><span
+											class="red">*</span>Número </label>
+										<div class="col-sm-1">
 											<form:input id="numeroOrigem" path="numeroOrigem"
 												cssClass="form-control" data-mask="999999" placeholder="Num" />
 											<div class="error-validation">
 												<form:errors path="numeroOrigem"></form:errors>
 											</div>
 										</div>
-										<label for="cepOrigem" class="col-sm-1 control-label"><span class="red">*</span>CEP:</label>
+										<label for="cidadeOrigem" class="col-sm-1 control-label"><span
+											class="red">*</span>Cidade:</label>
+										<div class="col-sm-3">
+											<form:input id="cidadeOrigem" path="cidadeOrigem"
+												cssClass="form-control" placeholder="Cidade" />
+											<div class="error-validation">
+												<form:errors path="cidadeOrigem"></form:errors>
+											</div>
+										</div>
+
+
+										<label for="complementoOrigem" class="col-sm-2 control-label">Complemento:</label>
+										<div class="col-sm-4">
+											<form:input id="complementoOrigem" path="complementoOrigem"
+												cssClass="form-control"
+												placeholder="Complemento da sede do curso" />
+											<div class="error-validation">
+												<form:errors path="complementoOrigem"></form:errors>
+											</div>
+										</div>
+
+
+
+
+
+									</div>
+
+									<div class="form-group">
+										<label for="cepOrigem" class="col-sm-1 control-label"><span
+											class="red">*</span>CEP:</label>
 										<div class="col-sm-2">
 											<form:input id="cepOrigem" path="cepOrigem"
 												data-mask="99999-999" cssClass="form-control"
@@ -181,29 +214,8 @@
 												<form:errors path="cepOrigem"></form:errors>
 											</div>
 										</div>
-										<label for="cidadeOrigem" class="col-sm-1 control-label"><span class="red">*</span>Cidade:</label>
-										<div class="col-sm-4">
-											<form:input id="cidadeOrigem" path="cidadeOrigem"
-												cssClass="form-control" placeholder="Cidade" />
-											<div class="error-validation">
-												<form:errors path="cidadeOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label for="complementoOrigem" class="col-sm-2 control-label"
-											id="form-label-right">Complemento:</label>
-										<div class="col-sm-5">
-											<form:input id="complementoOrigem" path="complementoOrigem"
-												cssClass="form-control"
-												placeholder="Complemento da sede do curso" />
-											<div class="error-validation">
-												<form:errors path="complementoOrigem"></form:errors>
-											</div>
-										</div>
 										<label for="estadoOrigem" class="col-sm-1 control-label">Estado:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-2">
 											<form:select path="estadoOrigem" id="estadoOrigem"
 												cssClass="form-control">
 												<form:option value="">Selecione Estado</form:option>
@@ -213,23 +225,11 @@
 												<form:errors path="estadoOrigem"></form:errors>
 											</div>
 										</div>
-
-									</div>
-
-									<div class="form-group">
-										<label for="telefoneOrigem" class="col-sm-2 control-label"
-											id="form-label-right"><span class="red">*</span>Telefone:</label>
-										<div class="col-sm-2">
-											<form:input id="telefoneOrigem" path="telefoneOrigem"
-												data-mask="(99) 9999-9999" cssClass="form-control"
-												placeholder="(00) 0000-0000" />
-											<div class="error-validation">
-												<form:errors path="telefoneOrigem"></form:errors>
-											</div>
-										</div>
-										<label for="pontoReferenciaOrigem"
-											class="col-sm-3 control-label"><span class="red">*</span>Ponto de Referencia:</label>
-										<div class="col-sm-5">
+										
+																				<label for="pontoReferenciaOrigem"
+											class="col-sm-2 control-label"><span class="red">*</span>Ponto
+											de Referencia:</label>
+										<div class="col-sm-4">
 											<form:input id="pontoReferenciaOrigem"
 												path="pontoReferenciaOrigem" cssClass="form-control"
 												placeholder="Ponto de Referencia" />
@@ -240,9 +240,24 @@
 									</div>
 
 									<div class="form-group">
-										<label for="situacaoImovel" class="col-sm-3 control-label"
-											id="form-label-right">Situação Imóvel:</label>
-										<div class="col-sm-4">
+										<label for="telefoneOrigem" class="col-sm-1 control-label">
+											<span class="red">*</span>Telefone:
+										</label>
+										<div class="col-sm-2">
+											<form:input id="telefoneOrigem" path="telefoneOrigem"
+												data-mask="(99) 9 9999-9999" cssClass="form-control"
+												placeholder="(00) 0 0000-0000" />
+											<div class="error-validation">
+												<form:errors path="telefoneOrigem"></form:errors>
+											</div>
+										</div>
+
+									</div>
+
+									<div class="form-group">
+										<label for="situacaoImovel" class="col-sm-2 control-label"
+											>Situação do Imóvel:</label>
+										<div class="col-sm-2">
 											<form:select path="situacaoImovel" id="situacaoImovel"
 												cssClass="form-control">
 												<form:option value="">Situação Imóvel</form:option>
@@ -255,7 +270,7 @@
 										<label for="valorMensalFinanciamento"
 											class="col-sm-3 control-label">Valor Mensal do
 											Financiamento:</label>
-										<div class="col-sm-3">
+										<div class="col-sm-1">
 											<form:input id="valorMensalFinanciamento"
 												path="valorMensalFinanciamento" cssClass="form-control"
 												placeholder="Valor Mensal Financiamento" />
@@ -274,7 +289,7 @@
 
 									<div class="form-group">
 										<label for="grauParentescoImovelRural"
-											class="col-sm-3 control-label">Grau de parentesco do
+											class="col-sm-2 control-label">Grau de parentesco do
 											proprietário:</label>
 										<div class="col-sm-3">
 											<form:select path="grauParentescoImovelRural"
@@ -301,7 +316,7 @@
 									<div class="form-group">
 										<label for="cidadePropriedadeRural"
 											class="col-sm-2 control-label">Cidade:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-3">
 											<form:input id="cidadePropriedadeRural"
 												path="cidadePropriedadeRural" cssClass="form-control"
 												placeholder="Cidade" />
@@ -332,7 +347,7 @@
 
 									<div class="form-group">
 										<label for="grauParentescoVeiculos"
-											class="col-sm-3 control-label">Grau de parentesco do
+											class="col-sm-2 control-label">Grau de parentesco do
 											proprietário:</label>
 										<div class="col-sm-3">
 											<form:select path="grauParentescoVeiculos"
@@ -358,7 +373,7 @@
 									<div class="form-group">
 										<label for="marcaVeiculo" class="col-sm-2 control-label">Marca
 											do veículo:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-3">
 											<form:input id="marcaVeiculo" path="marcaVeiculo"
 												cssClass="form-control" placeholder="Marca do veículo" />
 											<div class="error-validation">
@@ -387,7 +402,7 @@
 												<form:errors path="anoVeiculo"></form:errors>
 											</div>
 										</div>
-										<label for="finalidadeVeiculo" class="col-sm-3 control-label">Finalidade
+										<label for="finalidadeVeiculo" class="col-sm-2 control-label">Finalidade
 											do veículo:</label>
 										<div class="col-sm-3">
 											<form:select path="finalidadeVeiculo" id="finalidadeVeiculo"
@@ -416,7 +431,8 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<label for="ensinoFundamental" class="col-sm-2 control-label"
-											id="form-label-right-select-tam-padrao"><span class="red">*</span>Tipo de escola</label>
+											id="form-label-right-select-tam-padrao"><span
+											class="red">*</span>Tipo de escola</label>
 										<div class="col-sm-3 control-label">
 											<form:select path="ensinoFundamental" id="ensinoFundamental"
 												cssClass="form-control">
@@ -454,7 +470,8 @@
 
 									<div class="form-group">
 										<label for="ensinoMedio" class="col-sm-2 control-label"
-											id="form-label-right-select-tam-padrao"><span class="red">*</span>Tipo de escola</label>
+											id="form-label-right-select-tam-padrao"><span
+											class="red">*</span>Tipo de escola</label>
 										<div class="col-sm-3 control-label">
 											<form:select path="ensinoMedio" id="ensinoMedio"
 												cssClass="form-control">
@@ -484,7 +501,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="cursinho" class="col-sm-2 control-label">Fez
+										<label for="cursinho" class="col-sm-3 control-label">Fez
 											cursinho pré-vestibular? </label>
 										<div class="col-sm-1">
 											<div class="checkbox" id="checkbox-div">
@@ -496,7 +513,7 @@
 											<form:errors path="cursinho"></form:errors>
 										</div>
 
-										<label for="nomeCursinho" class="col-sm-2 control-label">Nome
+										<label for="nomeCursinho" class="col-sm-3 control-label">Nome
 											do Cursinho:</label>
 										<div class="col-sm-4">
 											<form:input id="nomeCursinho" path="nomeCursinho"
@@ -602,7 +619,8 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<div class="form-group">
-											<label for="justificativa" class="col-sm-3 control-label"><span class="red">*</span>Justificativa para Bolsa:</label>
+											<label for="justificativa" class="col-sm-3 control-label"><span
+												class="red">*</span>Justificativa para Bolsa:</label>
 											<div class="col-sm-8">
 												<form:textarea id="justificativa" path="justificativa"
 													cssClass="form-control" placeholder="Justificativa"
