@@ -15,7 +15,7 @@ public class Documento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
 	private String nomeOriginal;
 	
@@ -45,11 +45,11 @@ public class Documento {
 		this.selecaoBolsa = selecaoBolsa;
 	}
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

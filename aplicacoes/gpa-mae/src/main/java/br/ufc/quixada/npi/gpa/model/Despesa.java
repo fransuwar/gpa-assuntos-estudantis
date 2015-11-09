@@ -8,13 +8,14 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Despesa {
-	
+
 	public Despesa() {
-		
+
 	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	@NotNull(message = "Campo obrigatório")
 	private Double moradia;
 	@NotNull(message = "Campo obrigatório")
@@ -29,58 +30,71 @@ public class Despesa {
 	private Double alimentacao;
 	@NotNull(message = "Campo obrigatório")
 	private Double outro;
-	
-	
-	public Long getId() {
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public Double getMoradia() {
 		return moradia;
 	}
+
 	public void setMoradia(Double moradia) {
 		this.moradia = moradia;
 	}
+
 	public Double getEnergia() {
 		return energia;
 	}
+
 	public void setEnergia(Double energia) {
 		this.energia = energia;
 	}
+
 	public Double getTelefone() {
 		return telefone;
 	}
+
 	public void setTelefone(Double telefone) {
 		this.telefone = telefone;
 	}
+
 	public Double getEducacao() {
 		return educacao;
 	}
+
 	public void setEducacao(Double educacao) {
 		this.educacao = educacao;
 	}
+
 	public Double getSaude() {
 		return saude;
 	}
+
 	public void setSaude(Double saude) {
 		this.saude = saude;
 	}
+
 	public Double getAlimentacao() {
 		return alimentacao;
 	}
+
 	public void setAlimentacao(Double alimentacao) {
 		this.alimentacao = alimentacao;
 	}
+
 	public Double getOutro() {
 		return outro;
 	}
+
 	public void setOutro(Double outro) {
 		this.outro = outro;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -88,6 +102,7 @@ public class Despesa {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -104,10 +119,10 @@ public class Despesa {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Despesa [id=" + id + "]";
 	}
 
-	
 }

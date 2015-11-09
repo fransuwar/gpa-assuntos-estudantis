@@ -17,7 +17,7 @@ public class Inscricao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date data;
 	private boolean avaliacaoDocumentos;
@@ -31,11 +31,11 @@ public class Inscricao {
 	public Inscricao() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
