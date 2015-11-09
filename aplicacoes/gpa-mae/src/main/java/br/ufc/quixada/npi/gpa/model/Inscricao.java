@@ -26,8 +26,11 @@ public class Inscricao {
 	@OneToOne
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
 	@OneToOne
+	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
+	@OneToOne
 	private SelecaoBolsa selecaoBolsa;
-	
+	@OneToOne
+	private VisitaDomiciliar visitaDomiciliar;
 	
 	public Inscricao() {
 	}
@@ -86,5 +89,21 @@ public class Inscricao {
 
 	public void setSelecaoBolsa(SelecaoBolsa selecaoBolsa) {
 		this.selecaoBolsa = selecaoBolsa;
+	}
+
+	public QuestionarioAuxilioMoradia getQuestionarioAuxilioMoradia() {
+		return questionarioAuxilioMoradia;
+	}
+
+	public void setQuestionarioAuxilioMoradia(QuestionarioAuxilioMoradia questionarioAuxilioMoradia) {
+		this.questionarioAuxilioMoradia = questionarioAuxilioMoradia;
+	}
+
+	public VisitaDomiciliar getVisitaDomiciliar() {
+		return visitaDomiciliar;
+	}
+
+	public void setVisitaDomiciliar(VisitaDomiciliar visitaDomiciliar) {
+		this.visitaDomiciliar = visitaDomiciliar;
 	}
 }

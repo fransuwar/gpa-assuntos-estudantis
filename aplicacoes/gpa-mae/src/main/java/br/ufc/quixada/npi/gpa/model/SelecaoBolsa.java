@@ -17,7 +17,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,9 +27,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 @NamedQueries({
 		@NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaComDocumentos", query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId "),
 		@NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaComMembros", query = "SELECT distinct sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.membrosBanca"),
-		@NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaIdComMembros", query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId"),
-		@NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaIdComAlunos", query = "SELECT DISTINCT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.alunosSelecao WHERE sb.id = :selecaoBolsaId"),
-		@NamedQuery(name = "SelecaoBolsa.findSelecaoComAlunos", query = "SELECT DISTINCT sb from SelecaoBolsa as sb LEFT JOIN FETCH sb.alunosSelecao") })
+		@NamedQuery(name = "SelecaoBolsa.findSelecaoBolsaIdComMembros", query = "SELECT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId"), })
 
 @Entity
 public class SelecaoBolsa {
@@ -38,9 +35,11 @@ public class SelecaoBolsa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private List<QuestionarioIniciacaoAcademica> questionariosIniciacaoAcademica;
-	@OneToMany(mappedBy = "selecaoBolsa")
-	private List<VisitaDomiciliar> relatoriosVisitaDomiciliar;
+	@NotNull(message = "Campo obrigatório")
+	private Integer ano;
+	@NotNull(message = "Campo obrigatório")
+	@Range(min = 1, message = "O valor do edital deve ser maior que 0")
+	private Integer sequencial;
 	@NotNull(message = "Campo obrigatório")
 	@Range(min = 1, max = 999, message = "O número de vagas deve ser maior ou igual a 1")
 	private Integer quantidadeVagas;
@@ -48,48 +47,25 @@ public class SelecaoBolsa {
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
-	@ManyToOne
-	private Pessoa autor;
-	@OneToMany(mappedBy = "selecaoBolsa", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
-	private List<Documento> documentos;
-	@NotNull(message = "Campo obrigatório")
-	@Range(min = 1, message = "O valor do edital deve ser maior que 0")
-	private Integer sequencial;
-	@Enumerated(EnumType.STRING)
-	private Status status;
 	@Future(message = "Data de término deve ser maior que a data atual")
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
-	private String local;
-	@NotNull(message = "Campo obrigatório")
-	private Integer ano;
-	@Size(min = 2, message = "Mínimo 2 caracteres")
-	private String comentarios;
+	@Enumerated(EnumType.STRING)
+	private Status status;
+	@Enumerated(EnumType.STRING)
+	private TipoBolsa tipoBolsa;
+	@OneToMany(mappedBy = "selecaoBolsa", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
+	private List<Documento> documentos;
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Servidor> membrosBanca;
 	@ManyToOne
 	private Servidor responsavel;
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<Aluno> alunosSelecao;
-	@NotNull(message = "Selecione o tipo de bolsa")
-	@Enumerated(EnumType.STRING)
-	private TipoBolsa tipoBolsa;
-
-	public List<Aluno> getAlunosSelecao() {
-		return alunosSelecao;
-	}
+	@OneToMany(mappedBy = "selecaoBolsa")
+	private List<Inscricao> inscritos;
 
 	public int getAno() {
 		return ano;
-	}
-
-	public Pessoa getAutor() {
-		return autor;
-	}
-
-	public String getComentarios() {
-		return comentarios;
 	}
 
 	public Date getDataInicio() {
@@ -106,10 +82,6 @@ public class SelecaoBolsa {
 
 	public Integer getId() {
 		return id;
-	}
-
-	public String getLocal() {
-		return local;
 	}
 
 	public List<Servidor> getMembrosBanca() {
@@ -146,26 +118,8 @@ public class SelecaoBolsa {
 		return tipoBolsa;
 	}
 
-	public void setAlunosSelecao(List<Aluno> alunosSeleAlunos) {
-		this.alunosSelecao = alunosSeleAlunos;
-	}
-
-	public void addAlunosSelecao(Aluno... a) {
-		for (int i = 0; i < a.length; i++) {
-			this.alunosSelecao.add(a[i]);
-		}
-	}
-
 	public void setAno(Integer ano) {
 		this.ano = ano;
-	}
-
-	public void setAutor(Pessoa autor) {
-		this.autor = autor;
-	}
-
-	public void setComentarios(String comentarios) {
-		this.comentarios = comentarios;
 	}
 
 	public void setDataInicio(Date datadeInicio) {
@@ -182,10 +136,6 @@ public class SelecaoBolsa {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public void setLocal(String local) {
-		this.local = local;
 	}
 
 	public void setMembrosBanca(List<Servidor> membrosBanca) {
@@ -212,24 +162,6 @@ public class SelecaoBolsa {
 		this.tipoBolsa = tipoBolsa;
 	}
 
-	public List<QuestionarioIniciacaoAcademica> getQuestionariosIniciacaoAcademica() {
-		return questionariosIniciacaoAcademica;
-	}
-
-	public void setQuestionariosIniciacaoAcademica(
-			List<QuestionarioIniciacaoAcademica> questionariosIniciacaoAcademica) {
-		this.questionariosIniciacaoAcademica = questionariosIniciacaoAcademica;
-	}
-
-	public List<VisitaDomiciliar> getRelatoriosVisitaDomiciliar() {
-		return relatoriosVisitaDomiciliar;
-	}
-
-	public void setRelatoriosVisitaDomiciliar(List<VisitaDomiciliar> relatoriosVisitaDomiciliar) {
-
-		this.relatoriosVisitaDomiciliar = relatoriosVisitaDomiciliar;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -250,6 +182,14 @@ public class SelecaoBolsa {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	public List<Inscricao> getInscritos() {
+		return inscritos;
+	}
+
+	public void setInscritos(List<Inscricao> inscritos) {
+		this.inscritos = inscritos;
 	}
 
 }

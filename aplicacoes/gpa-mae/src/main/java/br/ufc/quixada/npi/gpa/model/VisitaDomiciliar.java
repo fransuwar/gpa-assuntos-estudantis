@@ -34,27 +34,18 @@ public class VisitaDomiciliar {
 	private Servidor servidor;
 	@ManyToOne
 	private SelecaoBolsa selecaoBolsa;
-	
 	@NotNull(message = "Campo obrigatório")
 	private String formaAcessoCasa;
-	
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Curso curso;
-	
 	@NotNull(message = "Campo obrigatório")
 	private Integer semestre;
-	
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy") 
 	private Date dataVisita;
-	
-	
-	
 	@NotNull(message = "Campo obrigatório")
 	private Integer qtdPessoasResidentes;
-	
-	
 	@NotNull(message = "Campo obrigatório")
 	private Integer moradiaVarandaQtd;
 	@Enumerated(EnumType.STRING)
@@ -79,7 +70,6 @@ public class VisitaDomiciliar {
 	private Integer moradiaQuintalQtd;
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaQuintalEstado;
-	
 	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioTvQtd;
 	private String utensilioTvObservacao;
@@ -107,7 +97,6 @@ public class VisitaDomiciliar {
 	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioOutrosQtd;
 	private String utensilioOutrosObservacao;
-	
 	@NotNull(message = "Campo Obrigatório")
 	private Integer bemMovelMotoQtd;
 	private String bemMovelMotoObservacao;
@@ -120,7 +109,6 @@ public class VisitaDomiciliar {
 	@NotNull(message = "Campo Obrigatório")
 	private Integer bemMovelOutrosQtd;
 	private String bemMovelOutrosObservacao;
-	
 	@Column(nullable = false)
 	private boolean perfilCompativelUtensilioDomestico;
 	@Column(nullable = false)
@@ -131,12 +119,10 @@ public class VisitaDomiciliar {
 	private boolean perfilCompativelAspectoFisicoResidencia;
 	@Column(nullable = false)
 	private boolean perfilCompativelOutros;
-	
 	@NotNull(message = "Campo obrigatório")
 	private String analiseDescricaoRealidade;
 	@Column(nullable = false)
 	private boolean parecerFinalDeferido;
-	
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataRelatorio;
