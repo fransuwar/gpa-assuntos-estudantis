@@ -1,13 +1,10 @@
 package br.ufc.quixada.npi.gpa.model;
 
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,12 +47,15 @@ public class Servidor {
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Cargo cargo;
-
+	
+	@OneToMany(mappedBy = "servidor")
+	private List<VisitaDomiciliar> visitas; 
+	
 	@ManyToMany(mappedBy = "membrosBanca")
-	private List<SelecaoBolsa> participaBancas;
+	private List<Selecao> participaBancas;
 
 	@OneToMany(mappedBy="responsavel")
-	private List<SelecaoBolsa> responsavelBancas;
+	private List<Selecao> responsavelBancas;
 
 	@ManyToOne
 	private Pessoa pessoa;
@@ -84,19 +84,19 @@ public class Servidor {
 		this.siape = siape;
 	}
 
-	public List<SelecaoBolsa> getParticipaBancas() {
+	public List<Selecao> getParticipaBancas() {
 		return participaBancas;
 	}
 
-	public void setParticipaBancas(List<SelecaoBolsa> participaBancas) {
+	public void setParticipaBancas(List<Selecao> participaBancas) {
 		this.participaBancas = participaBancas;
 	}
 
-	public List<SelecaoBolsa> getResponsavelBancas() {
+	public List<Selecao> getResponsavelBancas() {
 		return responsavelBancas;
 	}
 
-	public void setResponsavelBancas(List<SelecaoBolsa> responsavelBancas) {
+	public void setResponsavelBancas(List<Selecao> responsavelBancas) {
 		this.responsavelBancas = responsavelBancas;
 	}
 

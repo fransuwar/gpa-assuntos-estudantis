@@ -10,29 +10,24 @@ import javax.persistence.ManyToOne;
 
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
-
 @Entity
 public class PessoaFamilia {
 
-	@ManyToOne
-	private QuestionarioAuxilioMoradia auxilioMoradia;
-
-	@ManyToOne
-	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-	
+	private Long id;
 	private String nome;
 	private int idade;
 	private String escolaridade;
 	private String atividadeProfissao;
 	private double rendaMensal;
-
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco grauParentesco;
-	
+	@ManyToOne
+	private QuestionarioAuxilioMoradia auxilioMoradia;
+	@ManyToOne
+	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
+
 	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
 		return auxilioMoradia;
 	}
@@ -45,19 +40,18 @@ public class PessoaFamilia {
 		return iniciacaoAcademica;
 	}
 
-	public void setIniciacaoAcademica(
-			QuestionarioIniciacaoAcademica iniciacaoAcademica) {
+	public void setIniciacaoAcademica(QuestionarioIniciacaoAcademica iniciacaoAcademica) {
 		this.iniciacaoAcademica = iniciacaoAcademica;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getEscolaridade() {
 		return escolaridade;
 	}
@@ -106,14 +100,10 @@ public class PessoaFamilia {
 		this.grauParentesco = grauParentesco;
 	}
 
-
 	@Override
 	public String toString() {
-		return "PessoaFamilia [auxilioMoradia=" + auxilioMoradia
-				+ ", iniciacaoAcademica=" + iniciacaoAcademica + ", id=" + id
-				+ ", nome=" + nome + ", idade=" + idade
-				+ ", atividadeProfissao=" + atividadeProfissao
-				+ ", rendaMensal=" + rendaMensal + ", grauParentesco="
-				+ grauParentesco + "]";
+		return "PessoaFamilia [auxilioMoradia=" + auxilioMoradia + ", iniciacaoAcademica=" + iniciacaoAcademica
+				+ ", id=" + id + ", nome=" + nome + ", idade=" + idade + ", atividadeProfissao=" + atividadeProfissao
+				+ ", rendaMensal=" + rendaMensal + ", grauParentesco=" + grauParentesco + "]";
 	}
 }

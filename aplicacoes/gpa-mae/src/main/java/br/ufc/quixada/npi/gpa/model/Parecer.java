@@ -19,7 +19,7 @@ public class Parecer {
 	private Boolean selecionado;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
-	private SelecaoBolsa selecao;
+	private Selecao selecao;
 	
 	@OneToOne
 	private Aluno alunoApto;
@@ -43,11 +43,11 @@ public class Parecer {
 		this.selecionado = selecionado;
 	}
 
-	public SelecaoBolsa getSelecao() {
+	public Selecao getSelecao() {
 		return selecao;
 	}
 
-	public void setSelecao(SelecaoBolsa selecao) {
+	public void setSelecao(Selecao selecao) {
 		this.selecao = selecao;
 	}
 

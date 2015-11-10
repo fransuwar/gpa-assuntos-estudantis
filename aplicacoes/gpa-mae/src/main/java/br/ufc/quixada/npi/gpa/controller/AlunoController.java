@@ -38,7 +38,7 @@ public class AlunoController {
 	public String salvarAluno(@Valid @ModelAttribute(value = "aluno") Aluno aluno,
 			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
 
-		if(aluno.getId()!=null){
+		if(aluno.getId() != null){
 			return atualizarAluno(aluno.getId(), aluno, result, model, redirect);
 		}else{
 			return adicionarAluno(aluno, result, redirect, model);
@@ -168,9 +168,9 @@ public class AlunoController {
 
 
 		Aluno aluno = alunoService.find(Aluno.class, id);	
-
-		alunoAtualizado.setAuxilioMoradia(aluno.getAuxilioMoradia());
-		alunoAtualizado.setIniciacaoAcademica(aluno.getIniciacaoAcademica());
+		
+		//alunoAtualizado.setAuxilioMoradia(aluno.getAuxilioMoradia());
+		//alunoAtualizado.setIniciacaoAcademica(aluno.getIniciacaoAcademica());
 		alunoAtualizado.setPessoa(aluno.getPessoa());
 
 		this.alunoService.update(alunoAtualizado);

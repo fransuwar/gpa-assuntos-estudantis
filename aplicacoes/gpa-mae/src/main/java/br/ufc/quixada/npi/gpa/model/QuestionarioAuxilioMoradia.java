@@ -1,21 +1,17 @@
 package br.ufc.quixada.npi.gpa.model;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -31,147 +27,92 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 
 @Entity
-@NamedQueries({ @NamedQuery(name = "AuxMor.findAuxMorById", query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.aluno.id = :idAluno") })
+@NamedQueries({})
 public class QuestionarioAuxilioMoradia {
-
-	public QuestionarioAuxilioMoradia() {
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-
+	@NotNull(message = "Campo obrigatório")
+	@Enumerated(EnumType.STRING)
+	private TipoEnsinoFundamental ensinoFundamental;
+	private boolean bolsaEnsinoFundamental;
+	private int percentualParticularFundamental;
+	@NotNull(message = "Campo obrigatório")
+	@Enumerated(EnumType.STRING)
+	private TipoEnsinoMedio ensinoMedio;
+	private boolean bolsaEnsinoMedio;
+	private int percentualParticularMedio;
+	@NotNull(message = "Campo obrigatório")
+	private boolean cursinho;
+	private String nomeCursinho;
+	@NotNull(message = "Campo obrigatório")
+	private boolean bolsistaUfc;
+	private String descricaoBolsa;
+	@NotNull(message = "Campo obrigatório")
+	private boolean graduacao;
+	private String descricaoGraduacao;
+	@NotEmpty(message = "Campo obrigatório")
+	private String justificativa;
+	private MoraCom comQuemMora;
+	private String comQuemMoraOutros;
+	@NotEmpty(message = "Campo obrigatório")
+	private String nomePai;
+	@NotEmpty(message = "Campo obrigatório")
+	private String nomeMae;
+	@NotNull(message = "Campo obrigatório")
+	private String endereco;
+	@NotNull(message = "Campo obrigatório")
+	private String numero;
+	@NotNull(message = "Campo obrigatório")
+	private String complemento;
+	@NotNull(message = "Campo obrigatório")
+	private String bairro;
+	@NotNull(message = "Campo obrigatório")
+	private String cep;
+	@NotNull(message = "Campo obrigatório")
+	private String cidade;
+	@NotNull(message = "Campo obrigatório")
+	private String estado;
+	@NotNull(message = "Campo obrigatório")
+	private String referencia;
+	@NotNull(message = "Campo obrigatório")
+	private String enderecoOrigem;
+	@NotNull(message = "Campo obrigatório")
+	private Long numeroOrigem;
+	private String complementoOrigem;
+	@NotEmpty(message = "Campo obrigatório")
+	private String bairroOrigem;
+	@NotEmpty(message = "Campo obrigatório")
+	private String cepOrigem;
+	@NotEmpty(message = "Campo obrigatório")
+	private String cidadeOrigem;
+	@Enumerated(EnumType.STRING)
+	private Estado estadoOrigem;
+	@NotEmpty(message = "Campo obrigatório")
+	private String referenciaOrigem;
+	@NotEmpty(message = "Campo obrigatório")
+	private String telefoneOrigem;
+	@Enumerated(EnumType.STRING)
+	private SituacaoImovel situacaoImovel;
+	@Enumerated(EnumType.STRING)
+	private GrauParentescoImovelRural grauParentescoImovelRural;
+	private double areaPropriedadeRural;
+	private String cidadeEstadoImovelRural;
+	@Enumerated(EnumType.STRING)
+	private GrauParentescoVeiculos grauParentescoVeiculos;
+	private String veiculo;
+	@Enumerated(EnumType.STRING)
+	private FinalidadeVeiculo finalidadeVeiculo;
 	@ManyToOne
-	private SelecaoBolsa selecaoBolsa;
-
-	@ManyToOne(cascade = CascadeType.MERGE)
-	private Aluno aluno;
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
-
+	private Inscricao inscricao;
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
 
-	@NotNull(message = "Campo obrigatório")
-	@Enumerated(EnumType.STRING)
-	@ElementCollection(targetClass = MoraCom.class, fetch = FetchType.EAGER)
-	private List<MoraCom> moraCom;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String nomeMae;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String nomePai;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String ruaSedeCurso;
-
-	@NotNull(message = "Campo obrigatório")
-	private Integer numeroSedeCurso;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String bairroSedeCurso;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String ruaOrigem;
-
-	@NotNull(message = "Campo obrigatório")
-	private Integer numeroOrigem;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String bairroOrigem;
-
-	private String complementoOrigem;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String cidadeOrigem;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String cepOrigem;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String pontoReferenciaOrigem;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String telefoneOrigem;
-
-	@Enumerated(EnumType.STRING)
-	private Estado estadoOrigem;
-
-	private Date dataInscricao;
-
-	@Enumerated(EnumType.STRING)
-	private SituacaoImovel situacaoImovel;
-
-	private double valorMensalFinanciamento;
-
-	@Enumerated(EnumType.STRING)
-	private GrauParentescoImovelRural grauParentescoImovelRural;
-
-	private double areaPropriedadeRural;
-
-	private String cidadePropriedadeRural;
-
-	@Enumerated(EnumType.STRING)
-	private Estado estadoPropriedadeRural;
-
-	@Enumerated(EnumType.STRING)
-	private GrauParentescoVeiculos grauParentescoVeiculos;
-
-	private String tipoVeiculo;
-
-	private String marcaVeiculo;
-
-	private String modeloVeiculo;
-
-	private String anoVeiculo;
-
-	@Enumerated(EnumType.STRING)
-	private FinalidadeVeiculo finalidadeVeiculo;
-
-	@NotNull(message = "Campo obrigatório")
-	@Enumerated(EnumType.STRING)
-	private TipoEnsinoFundamental ensinoFundamental;
-
-	private Integer percentualParticularFundamental;
-
-	@NotNull(message = "Campo obrigatório")
-	@Enumerated(EnumType.STRING)
-	private TipoEnsinoMedio ensinoMedio;
-
-	private Integer percentualParticularMedio;
-
-	@NotNull(message = "Campo obrigatório")
-	private boolean cursinho;
-
-	private String nomeCursinho;
-
-	@NotNull(message = "Campo obrigatório")
-	private double rendaMediaFamilia;
-
-	@NotNull(message = "Campo obrigatório")
-	private double rendaMediaPessoa;
-
-	@NotNull(message = "Campo obrigatório")
-	private boolean bolsista;
-
-	private String tipoBolsa;
-
-	@NotNull(message = "Campo obrigatório")
-	private boolean possuiGraduacao;
-
-	private String descricaoGraduacao;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String justificativa;
+	public QuestionarioAuxilioMoradia() {
+	}
 
 	public Integer getId() {
 		return id;
@@ -181,28 +122,12 @@ public class QuestionarioAuxilioMoradia {
 		this.id = id;
 	}
 
-	public SelecaoBolsa getSelecaoBolsa() {
-		return selecaoBolsa;
-	}
-
-	public void setSelecaoBolsa(SelecaoBolsa selecaoBolsa) {
-		this.selecaoBolsa = selecaoBolsa;
-	}
-
 	public List<PessoaFamilia> getPessoas() {
 		return pessoas;
 	}
 
 	public void setPessoas(List<PessoaFamilia> pessoas) {
 		this.pessoas = pessoas;
-	}
-
-	public List<MoraCom> getMoraCom() {
-		return moraCom;
-	}
-
-	public void setMoraCom(List<MoraCom> moraCom) {
-		this.moraCom = moraCom;
 	}
 
 	public String getNomeMae() {
@@ -221,43 +146,11 @@ public class QuestionarioAuxilioMoradia {
 		this.nomePai = nomePai;
 	}
 
-	public String getRuaSedeCurso() {
-		return ruaSedeCurso;
-	}
-
-	public void setRuaSedeCurso(String ruaSedeCurso) {
-		this.ruaSedeCurso = ruaSedeCurso;
-	}
-
-	public Integer getNumeroSedeCurso() {
-		return numeroSedeCurso;
-	}
-
-	public void setNumeroSedeCurso(Integer numeroSedeCurso) {
-		this.numeroSedeCurso = numeroSedeCurso;
-	}
-
-	public String getBairroSedeCurso() {
-		return bairroSedeCurso;
-	}
-
-	public void setBairroSedeCurso(String bairroSedeCurso) {
-		this.bairroSedeCurso = bairroSedeCurso;
-	}
-
-	public String getRuaOrigem() {
-		return ruaOrigem;
-	}
-
-	public void setRuaOrigem(String ruaOrigem) {
-		this.ruaOrigem = ruaOrigem;
-	}
-
-	public Integer getNumeroOrigem() {
+	public Long getNumeroOrigem() {
 		return numeroOrigem;
 	}
 
-	public void setNumeroOrigem(Integer numeroOrigem) {
+	public void setNumeroOrigem(Long numeroOrigem) {
 		this.numeroOrigem = numeroOrigem;
 	}
 
@@ -294,11 +187,11 @@ public class QuestionarioAuxilioMoradia {
 	}
 
 	public String getPontoReferenciaOrigem() {
-		return pontoReferenciaOrigem;
+		return referenciaOrigem;
 	}
 
 	public void setPontoReferenciaOrigem(String pontoReferenciaOrigem) {
-		this.pontoReferenciaOrigem = pontoReferenciaOrigem;
+		this.referenciaOrigem = pontoReferenciaOrigem;
 	}
 
 	public String getTelefoneOrigem() {
@@ -317,14 +210,6 @@ public class QuestionarioAuxilioMoradia {
 		this.estadoOrigem = estadoOrigem;
 	}
 
-	public Date getDataInscricao() {
-		return dataInscricao;
-	}
-
-	public void setDataInscricao(Date dataInscricao) {
-		this.dataInscricao = dataInscricao;
-	}
-
 	public SituacaoImovel getSituacaoImovel() {
 		return situacaoImovel;
 	}
@@ -333,20 +218,11 @@ public class QuestionarioAuxilioMoradia {
 		this.situacaoImovel = situacaoImovel;
 	}
 
-	public double getValorMensalFinanciamento() {
-		return valorMensalFinanciamento;
-	}
-
-	public void setValorMensalFinanciamento(double valorMensalFinanciamento) {
-		this.valorMensalFinanciamento = valorMensalFinanciamento;
-	}
-
 	public GrauParentescoImovelRural getGrauParentescoImovelRural() {
 		return grauParentescoImovelRural;
 	}
 
-	public void setGrauParentescoImovelRural(
-			GrauParentescoImovelRural grauParentescoImovelRural) {
+	public void setGrauParentescoImovelRural(GrauParentescoImovelRural grauParentescoImovelRural) {
 		this.grauParentescoImovelRural = grauParentescoImovelRural;
 	}
 
@@ -359,60 +235,19 @@ public class QuestionarioAuxilioMoradia {
 	}
 
 	public String getCidadePropriedadeRural() {
-		return cidadePropriedadeRural;
+		return cidadeEstadoImovelRural;
 	}
 
 	public void setCidadePropriedadeRural(String cidadePropriedadeRural) {
-		this.cidadePropriedadeRural = cidadePropriedadeRural;
-	}
-
-	public Estado getEstadoPropriedadeRural() {
-		return estadoPropriedadeRural;
-	}
-
-	public void setEstadoPropriedadeRural(Estado estadoPropriedadeRural) {
-		this.estadoPropriedadeRural = estadoPropriedadeRural;
+		this.cidadeEstadoImovelRural = cidadePropriedadeRural;
 	}
 
 	public GrauParentescoVeiculos getGrauParentescoVeiculos() {
 		return grauParentescoVeiculos;
 	}
 
-	public void setGrauParentescoVeiculos(
-			GrauParentescoVeiculos grauParentescoVeiculos) {
+	public void setGrauParentescoVeiculos(GrauParentescoVeiculos grauParentescoVeiculos) {
 		this.grauParentescoVeiculos = grauParentescoVeiculos;
-	}
-
-	public String getTipoVeiculo() {
-		return tipoVeiculo;
-	}
-
-	public void setTipoVeiculo(String tipoVeiculo) {
-		this.tipoVeiculo = tipoVeiculo;
-	}
-
-	public String getMarcaVeiculo() {
-		return marcaVeiculo;
-	}
-
-	public void setMarcaVeiculo(String marcaVeiculo) {
-		this.marcaVeiculo = marcaVeiculo;
-	}
-
-	public String getModeloVeiculo() {
-		return modeloVeiculo;
-	}
-
-	public void setModeloVeiculo(String modeloVeiculo) {
-		this.modeloVeiculo = modeloVeiculo;
-	}
-
-	public String getAnoVeiculo() {
-		return anoVeiculo;
-	}
-
-	public void setAnoVeiculo(String anoVeiculo) {
-		this.anoVeiculo = anoVeiculo;
 	}
 
 	public FinalidadeVeiculo getFinalidadeVeiculo() {
@@ -431,12 +266,11 @@ public class QuestionarioAuxilioMoradia {
 		this.ensinoFundamental = ensinoFundamental;
 	}
 
-	public Integer getPercentualParticularFundamental() {
+	public int getPercentualParticularFundamental() {
 		return percentualParticularFundamental;
 	}
 
-	public void setPercentualParticularFundamental(
-			Integer percentualParticularFundamental) {
+	public void setPercentualParticularFundamental(int percentualParticularFundamental) {
 		this.percentualParticularFundamental = percentualParticularFundamental;
 	}
 
@@ -448,11 +282,11 @@ public class QuestionarioAuxilioMoradia {
 		this.ensinoMedio = ensinoMedio;
 	}
 
-	public Integer getPercentualParticularMedio() {
+	public int getPercentualParticularMedio() {
 		return percentualParticularMedio;
 	}
 
-	public void setPercentualParticularMedio(Integer percentualParticularMedio) {
+	public void setPercentualParticularMedio(int percentualParticularMedio) {
 		this.percentualParticularMedio = percentualParticularMedio;
 	}
 
@@ -472,44 +306,20 @@ public class QuestionarioAuxilioMoradia {
 		this.nomeCursinho = nomeCursinho;
 	}
 
-	public double getRendaMediaFamilia() {
-		return rendaMediaFamilia;
-	}
-
-	public void setRendaMediaFamilia(double rendaMediaFamilia) {
-		this.rendaMediaFamilia = rendaMediaFamilia;
-	}
-
-	public double getRendaMediaPessoa() {
-		return rendaMediaPessoa;
-	}
-
-	public void setRendaMediaPessoa(double rendaMediaPessoa) {
-		this.rendaMediaPessoa = rendaMediaPessoa;
-	}
-
 	public boolean isBolsista() {
-		return bolsista;
+		return bolsistaUfc;
 	}
 
 	public void setBolsista(boolean bolsista) {
-		this.bolsista = bolsista;
-	}
-
-	public String getTipoBolsa() {
-		return tipoBolsa;
-	}
-
-	public void setTipoBolsa(String tipoBolsa) {
-		this.tipoBolsa = tipoBolsa;
+		this.bolsistaUfc = bolsista;
 	}
 
 	public boolean isPossuiGraduacao() {
-		return possuiGraduacao;
+		return graduacao;
 	}
 
 	public void setPossuiGraduacao(boolean possuiGraduacao) {
-		this.possuiGraduacao = possuiGraduacao;
+		this.graduacao = possuiGraduacao;
 	}
 
 	public String getDescricaoGraduacao() {
@@ -531,6 +341,174 @@ public class QuestionarioAuxilioMoradia {
 	@Override
 	public String toString() {
 		return "QuestionarioAuxilioMoradia [id=" + id + "]";
+	}
+
+	public Inscricao getInscricao() {
+		return inscricao;
+	}
+
+	public void setInscricao(Inscricao inscricao) {
+		this.inscricao = inscricao;
+	}
+
+	public boolean isBolsaEnsinoFundamental() {
+		return bolsaEnsinoFundamental;
+	}
+
+	public void setBolsaEnsinoFundamental(boolean bolsaEnsinoFundamental) {
+		this.bolsaEnsinoFundamental = bolsaEnsinoFundamental;
+	}
+
+	public boolean isBolsaEnsinoMedio() {
+		return bolsaEnsinoMedio;
+	}
+
+	public void setBolsaEnsinoMedio(boolean bolsaEnsinoMedio) {
+		this.bolsaEnsinoMedio = bolsaEnsinoMedio;
+	}
+
+	public String getDescricaoBolsa() {
+		return descricaoBolsa;
+	}
+
+	public void setDescricaoBolsa(String descricaoBolsa) {
+		this.descricaoBolsa = descricaoBolsa;
+	}
+
+	public MoraCom getComQuemMora() {
+		return comQuemMora;
+	}
+
+	public void setComQuemMora(MoraCom comQuemMora) {
+		this.comQuemMora = comQuemMora;
+	}
+
+	public String getComQuemMoraOutros() {
+		return comQuemMoraOutros;
+	}
+
+	public void setComQuemMoraOutros(String comQuemMoraOutros) {
+		this.comQuemMoraOutros = comQuemMoraOutros;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getReferencia() {
+		return referencia;
+	}
+
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
+	}
+
+	public String getEnderecoDeOrigem() {
+		return enderecoOrigem;
+	}
+
+	public void setEnderecoDeOrigem(String enderecoDeOrigem) {
+		this.enderecoOrigem = enderecoDeOrigem;
+	}
+
+	public String getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(String veiculo) {
+		this.veiculo = veiculo;
+	}
+
+	public boolean isBolsistaUfc() {
+		return bolsistaUfc;
+	}
+
+	public void setBolsistaUfc(boolean bolsistaUfc) {
+		this.bolsistaUfc = bolsistaUfc;
+	}
+
+	public boolean isGraduacao() {
+		return graduacao;
+	}
+
+	public void setGraduacao(boolean graduacao) {
+		this.graduacao = graduacao;
+	}
+
+	public String getEnderecoOrigem() {
+		return enderecoOrigem;
+	}
+
+	public void setEnderecoOrigem(String enderecoOrigem) {
+		this.enderecoOrigem = enderecoOrigem;
+	}
+
+	public String getReferenciaOrigem() {
+		return referenciaOrigem;
+	}
+
+	public void setReferenciaOrigem(String referenciaOrigem) {
+		this.referenciaOrigem = referenciaOrigem;
+	}
+
+	public String getCidadeEstadoImovelRural() {
+		return cidadeEstadoImovelRural;
+	}
+
+	public void setCidadeEstadoImovelRural(String cidadeEstadoImovelRural) {
+		this.cidadeEstadoImovelRural = cidadeEstadoImovelRural;
 	}
 
 }
