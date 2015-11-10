@@ -27,10 +27,10 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 @Controller
 @RequestMapping("relatorioVisita")
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO})
-public class RelatorioVisitaDomiciliarController {
+public class VisitaDomiciliarController {
 	
 	@Inject
-	private VisitaDomiciliarService relatorioVisitaService;
+	private VisitaDomiciliarService visitaService;
 	@Inject
 	private AlunoService alunoService;
 	@Inject
@@ -70,7 +70,7 @@ public class RelatorioVisitaDomiciliarController {
 		
 		if(relatorioVisitaDomiciliar.getId() != null){
 			
-			this.relatorioVisitaService.update(relatorioVisitaDomiciliar);
+			this.visitaService.update(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatório Atualizado com sucesso.");
 			return "redirect:/selecao/inscritos/"+idSelecaoBolsa;
 			
@@ -78,7 +78,7 @@ public class RelatorioVisitaDomiciliarController {
 			relatorioVisitaDomiciliar.setAluno(alunoService.getAlunoById(idAluno));
 			relatorioVisitaDomiciliar.setSelecaoBolsa(selecaoBolsaService.find(Selecao.class, idSelecaoBolsa));
 			
-			this.relatorioVisitaService.save(relatorioVisitaDomiciliar);
+			this.visitaService.save(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatorio cadastrado com sucesso.");
 			
 			return "redirect:/selecao/inscritos/"+idSelecaoBolsa;
@@ -88,7 +88,7 @@ public class RelatorioVisitaDomiciliarController {
 	@RequestMapping(value="informacoesRelatorio/{id}", method= RequestMethod.GET)
 	public String visualizarInformacoes(@PathVariable("id") Integer idRelatorio, Model modelo, RedirectAttributes redirect){
 		
-		VisitaDomiciliar relatorio= relatorioVisitaService.find(VisitaDomiciliar.class, idRelatorio);
+		VisitaDomiciliar relatorio= visitaService.find(VisitaDomiciliar.class, idRelatorio);
 		
 		if(relatorio == null){
 			redirect.addFlashAttribute("erro", "Relatório não existe");
