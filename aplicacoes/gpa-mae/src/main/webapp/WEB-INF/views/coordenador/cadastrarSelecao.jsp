@@ -136,20 +136,7 @@
 							</div>
 						</div>
 					</div>
-
-					<div class="form-group">
-						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
-						<div class="col-sm-9">
-							<form:textarea id="comentarios" path="comentarios"
-								class="form-control" rows="3"></form:textarea>
-							<div class="error-validation" id="erro-comentarios">
-								<form:errors path="comentarios"></form:errors>
-							</div>
-						</div>
-					</div>
-
-
-
+					
 					<div class="form-group">
 						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
 						<div class="col-sm-5 files">
