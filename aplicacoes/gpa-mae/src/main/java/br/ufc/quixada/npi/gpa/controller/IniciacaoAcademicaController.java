@@ -67,7 +67,7 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("selecaoBolsa", id);
 		System.out.println("id -------------" + id);
 		
-		return "inscricao/iniciacaoAcademica";
+		return "aluno/InscricaoIniciacaoAcademica";
 	}
 
 	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.POST)
@@ -87,7 +87,7 @@ public class IniciacaoAcademicaController {
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
 			modelo.addAttribute("selecaoBolsa", id);
-			return "inscricao/iniciacaoAcademica";
+			return "aluno/InscricaoIniciacaoAcademica";
 
 		} else {
 
@@ -137,8 +137,12 @@ public class IniciacaoAcademicaController {
 			redirect.addFlashAttribute("erro", "Só pode editar sua inscrição enquanto a seleção estiver aberta.");
 			return "redirect:/selecao/listar";
 		}
+
 */
-		return "inscricao/iniciacaoAcademica";
+
+
+		return "aluno/InscricaoIniciacaoAcademica";
+
 	}
 
 }
