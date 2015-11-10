@@ -92,7 +92,7 @@ public class IniciacaoAcademicaController {
 		} else {
 
 			Aluno aluno = alunoService.getAlunoById(id);
-			questionarioIniciacaoAcademica.setAluno(aluno);
+			/*questionarioIniciacaoAcademica.setAluno(aluno);
 			Selecao selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
 			questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
 			
@@ -103,7 +103,7 @@ public class IniciacaoAcademicaController {
 			else
 				this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
 			this.selecaoBolsaService.update(selecao);
-
+*/
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
 
@@ -115,7 +115,7 @@ public class IniciacaoAcademicaController {
 
 		QuestionarioIniciacaoAcademica q = iniciacaoAcademicaService.getQuestIniAcadById(id);
 
-		Selecao selecao = q.getSelecaoBolsa();
+		/*Selecao selecao = q.getSelecaoBolsa();
 
 		if (q.getSelecaoBolsa().getStatus() != null && q.getSelecaoBolsa().getStatus().equals(Status.INSC_ABERTA)) {
 
@@ -137,7 +137,7 @@ public class IniciacaoAcademicaController {
 			redirect.addFlashAttribute("erro", "Só pode editar sua inscrição enquanto a seleção estiver aberta.");
 			return "redirect:/selecao/listar";
 		}
-
+*/
 		return "inscricao/iniciacaoAcademica";
 	}
 

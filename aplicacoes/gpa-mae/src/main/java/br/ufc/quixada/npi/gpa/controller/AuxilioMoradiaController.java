@@ -119,7 +119,7 @@ public class AuxilioMoradiaController {
 		} else {
 
 			Aluno aluno = alunoService.getAlunoById(id);
-			questionarioAuxilioMoradia.setAluno(aluno);
+		/*	questionarioAuxilioMoradia.setAluno(aluno);
 			Selecao selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
 			selecao.addAlunosSelecao(aluno);
 			this.selecaoBolsaService.update(selecao);
@@ -127,7 +127,7 @@ public class AuxilioMoradiaController {
 			questionarioAuxilioMoradia.setDataInscricao(new Date());
 			this.questionarioAuxMoradiaService
 					.update(questionarioAuxilioMoradia);
-
+*/
 			redirect.addFlashAttribute("info",
 					"Cadastro realizado com sucesso.");
 		}
@@ -141,7 +141,7 @@ public class AuxilioMoradiaController {
 
 		QuestionarioAuxilioMoradia q = questionarioAuxMoradiaService
 				.getQuestAuxMorById(id);
-
+/*
 		Selecao selecao = q.getSelecaoBolsa();
 
 		if (q.getSelecaoBolsa().getStatus() != null
@@ -161,7 +161,7 @@ public class AuxilioMoradiaController {
 			redirect.addFlashAttribute("erro", "Só pode editar sua inscrição enquanto a seleção estiver aberta.");
 			return "redirect:/selecao/listar";
 		}
-
+*/
 		return "inscricao/auxilio";
 	}
 

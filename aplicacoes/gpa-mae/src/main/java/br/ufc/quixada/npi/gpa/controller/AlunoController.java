@@ -168,9 +168,9 @@ public class AlunoController {
 
 
 		Aluno aluno = alunoService.find(Aluno.class, id);	
-
-		alunoAtualizado.setAuxilioMoradia(aluno.getAuxilioMoradia());
-		alunoAtualizado.setIniciacaoAcademica(aluno.getIniciacaoAcademica());
+		
+		//alunoAtualizado.setAuxilioMoradia(aluno.getAuxilioMoradia());
+		//alunoAtualizado.setIniciacaoAcademica(aluno.getIniciacaoAcademica());
 		alunoAtualizado.setPessoa(aluno.getPessoa());
 
 		this.alunoService.update(alunoAtualizado);

@@ -30,6 +30,7 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Parecer;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.Pessoa;
@@ -358,7 +359,7 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/inscritos/{id}", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
 
-		List<Aluno> alunosSelecao = this.selecaoService
+		/*List<Inscricao> alunosSelecao = this.selecaoService
 				.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
 		
 		List<Parecer> pareceres = new ArrayList<Parecer>();
@@ -373,7 +374,7 @@ public class SelecaoBolsaController {
 		
 		model.addAttribute("pareceres", parecerForm);
 		model.addAttribute("idSelecao", id);
-
+*/
 		return "selecao/listarInscritos";
 	}
 
@@ -448,7 +449,7 @@ public class SelecaoBolsaController {
 			return "selecao/listarInscritos";
 		}
 		
-		List<Aluno> alunosSelecao = this.selecaoService
+		/*List<Aluno> alunosSelecao = this.selecaoService
 				.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
 		Selecao selecao = this.selecaoService.getSelecaoBolsaComAlunos(id);
 		
@@ -461,7 +462,7 @@ public class SelecaoBolsaController {
 			}
 			
 			this.parecerService.save(parecer);
-		}
+		}*/
 		
 		redirect.addFlashAttribute("info", "Parecer emitido com sucesso.");
 		return "redirect:/selecao/listar";
