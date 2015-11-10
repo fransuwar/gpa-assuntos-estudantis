@@ -12,7 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -27,85 +29,130 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 
 @Entity
-@NamedQueries({})
+//@NamedQueries({ @NamedQuery(name = "AuxMor.findAuxMorById", query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.aluno.id = :idAluno") })
 public class QuestionarioAuxilioMoradia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoFundamental ensinoFundamental;
+
 	private boolean bolsaEnsinoFundamental;
+
 	private int percentualParticularFundamental;
+
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoMedio ensinoMedio;
+	
 	private boolean bolsaEnsinoMedio;
+	
 	private int percentualParticularMedio;
+
 	@NotNull(message = "Campo obrigatório")
 	private boolean cursinho;
+	
 	private String nomeCursinho;
+	
 	@NotNull(message = "Campo obrigatório")
 	private boolean bolsistaUfc;
+	
 	private String descricaoBolsa;
+	
 	@NotNull(message = "Campo obrigatório")
 	private boolean graduacao;
+	
 	private String descricaoGraduacao;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	private String justificativa;
+	
+	@Enumerated(EnumType.STRING)
 	private MoraCom comQuemMora;
+	
 	private String comQuemMoraOutros;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	private String nomePai;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	private String nomeMae;
+	
 	@NotNull(message = "Campo obrigatório")
 	private String endereco;
+	
 	@NotNull(message = "Campo obrigatório")
 	private String numero;
+	
 	@NotNull(message = "Campo obrigatório")
 	private String complemento;
+	
 	@NotNull(message = "Campo obrigatório")
 	private String bairro;
+	
 	@NotNull(message = "Campo obrigatório")
 	private String cep;
+	
 	@NotNull(message = "Campo obrigatório")
 	private String cidade;
+	
 	@NotNull(message = "Campo obrigatório")
 	private String estado;
+	
 	@NotNull(message = "Campo obrigatório")
 	private String referencia;
+	
 	@NotNull(message = "Campo obrigatório")
 	private String enderecoOrigem;
+	
 	@NotNull(message = "Campo obrigatório")
 	private Long numeroOrigem;
+	
 	private String complementoOrigem;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	private String bairroOrigem;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	private String cepOrigem;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	private String cidadeOrigem;
+	
 	@Enumerated(EnumType.STRING)
 	private Estado estadoOrigem;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	private String referenciaOrigem;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	private String telefoneOrigem;
+	
 	@Enumerated(EnumType.STRING)
 	private SituacaoImovel situacaoImovel;
+	
 	@Enumerated(EnumType.STRING)
 	private GrauParentescoImovelRural grauParentescoImovelRural;
+	
 	private double areaPropriedadeRural;
+	
 	private String cidadeEstadoImovelRural;
+	
 	@Enumerated(EnumType.STRING)
 	private GrauParentescoVeiculos grauParentescoVeiculos;
+	
 	private String veiculo;
+	
 	@Enumerated(EnumType.STRING)
+	
 	private FinalidadeVeiculo finalidadeVeiculo;
-	@ManyToOne
+	
+	@OneToOne
 	private Inscricao inscricao;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "auxiliomoradia_id")

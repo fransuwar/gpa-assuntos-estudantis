@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,77 +22,123 @@ import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 
 @Entity
-@NamedQueries({})
+@NamedQueries({ @NamedQuery(name = "IniAcad.findIniAcadById", query = "SELECT ia FROM QuestionarioIniciacaoAcademica ia WHERE ia.id = :idQuest") })
 public class QuestionarioIniciacaoAcademica {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String telefoneFixo;
+	
 	private String telefoneCelular;
+	
 	private int anosEstudoPrivado;
+	
 	@Enumerated(EnumType.STRING)
 	private NivelInstrucao nivelInstrucaoMae;
+	
 	@Enumerated(EnumType.STRING)
 	private NivelInstrucao nivelInstrucaoPai;
+	
 	@NotNull
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String justificativaPedido;
+	
 	@NotNull(message = "Campo Obrigatório")
 	private String endereco;
+	
 	@NotNull(message = "Campo Obrigatório")
 	private Integer numero;
+	
 	private String complemento;
+	
 	@NotNull
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String bairro;
+	
 	@NotEmpty(message = "Campo Obrigatório")
 	private String cep;
+	
 	@NotNull
 	@Size(min = 3, message = "Campo Obrigatório")
 	private String cidade;
+	
 	@NotEmpty(message = "Campo Obrigatório")
 	private String estado;
+	
 	private String referencia;
+	
 	@NotNull(message = "Campo Obrigatório")
 	private String enderecoFamilia;
+	
 	@NotNull(message = "Campo Obrigatório")
 	private Integer numeroFamilia;
+	
 	private String complementoFamilia;
+	
 	@NotNull
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String bairroFamilia;
+	
 	@NotEmpty(message = "Campo Obrigatório")
 	private String cepFamilia;
+	
 	@NotNull
 	@Size(min = 3, message = "Campo Obrigatório")
 	private String cidadeFamilia;
+	
 	@NotEmpty(message = "Campo Obrigatório")
 	private String estadoFamilia;
+	
 	private String referenciaFamilia;
+	
 	private String comQuemReside;
+	
 	private String tipoResidencia;
+	
 	@Enumerated(EnumType.STRING)
 	private SituacaoResidencia situacaoResidencia;
+	
 	private Integer qtdAparelhoSom;
+	
 	private Integer qtdTelevisao;
+	
 	private Integer qtdRadio;
+	
 	private Integer qtdAutomovel;
+	
 	private Integer qtdMotocicleta;
+	
 	private Integer qtdMaquinaLavar;
+	
 	private Integer qtdDvd;
+	
 	private Integer qtdGeladeira;
+	
 	private Integer qtdFreezer;
+	
 	private Integer qtdTelefoneFixo;
+	
 	private Integer qtdCelular;
+	
 	private Integer qtdComputador;
+	
 	private Integer qtdFogaoGas;
+	
 	private Integer qtdMaquinaDeCostura;
+	
 	private Integer qtdComodos;
+	
 	private Integer qtdBanheiros;
+	
 	private Integer qtdEmpregadosDomesticos;
-	@OneToMany
-	private List<HorarioDisponivel> horariosDisponiveis;
+	
+	@NotEmpty(message = "Campo obrigatório")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "questionarioiniciacaoacademica_id")
+	private List<HorarioDisponivel> horariosDisponiveisBolsa;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "iniciacaoacademica_id")
@@ -446,16 +493,22 @@ public class QuestionarioIniciacaoAcademica {
 	public void setQtdEmpregadosDomesticos(Integer qtdEmpregadosDomesticos) {
 		this.qtdEmpregadosDomesticos = qtdEmpregadosDomesticos;
 	}
-
-	public List<HorarioDisponivel> getHorariosDisponiveis() {
-		return horariosDisponiveis;
-	}
-
-	public void setHorariosDisponiveis(List<HorarioDisponivel> horariosDisponiveis) {
-		this.horariosDisponiveis = horariosDisponiveis;
-	}
-
 	
+	public List<HorarioDisponivel> getHorariosDisponiveisBolsa() {
+		return horariosDisponiveisBolsa;
+	}
+
+	public void setHorariosDisponiveisBolsa(List<HorarioDisponivel> horariosDisponiveisBolsa) {
+		this.horariosDisponiveisBolsa = horariosDisponiveisBolsa;
+	}
+
+	public List<PessoaFamilia> getPessoas() {
+		return pessoas;
+	}
+
+	public void setPessoas(List<PessoaFamilia> pessoas) {
+		this.pessoas = pessoas;
+	}
 
 	@Override
 	public int hashCode() {

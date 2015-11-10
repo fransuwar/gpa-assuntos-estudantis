@@ -141,7 +141,7 @@ public class SelecaoBolsaController {
 			if (result.hasErrors()) {
 				model.addAttribute("action", "editar");
 				model.addAttribute("tipoBolsa", TipoBolsa.values());
-				return "selecao/cadastrar";
+				return "coordenador/cadastrarSelecao";
 			}
 
 			String doc[] = request.getParameterValues("doc");
@@ -183,7 +183,7 @@ public class SelecaoBolsaController {
 					} catch (IOException ioe) {
 						model.addAttribute("erro",
 								"Não foi possivel salvar os documentos.");
-						return "selecao/cadastrar";
+						return "coordenador/cadastrarSelecao";
 					}
 				}
 			}
@@ -191,7 +191,7 @@ public class SelecaoBolsaController {
 			this.selecaoService.update(selecaoBolsa);
 			redirect.addFlashAttribute("info",
 					"Seleção atualizada com sucesso.");
-			return "redirect:/selecao/listar";
+			return "redirect:/selecao/listarSelecao";
 
 		} else {
 
@@ -206,8 +206,10 @@ public class SelecaoBolsaController {
 	public String cadastro(Model model) {
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
 		model.addAttribute("action", "cadastrar");
+
 		model.addAttribute("selecao", new Selecao());
-		return "/selecao/cadastrar";
+		return "/coordenador/cadastrarSelecao";
+
 	}
 
 	public String adicionarSelecao(
@@ -234,7 +236,7 @@ public class SelecaoBolsaController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			return ("selecao/cadastrar");
+			return ("coordenador/cadastrarSelecao");
 		}
 
 		List<Documento> documentos = new ArrayList<Documento>();
@@ -253,7 +255,7 @@ public class SelecaoBolsaController {
 				} catch (IOException ioe) {
 					model.addAttribute("erro",
 							"Não foi possivel salvar os documentos.");
-					return "selecao/cadastrar";
+					return "coordenador/cadastrarSelecao";
 				}
 			}
 			if (!documentos.isEmpty()) {
@@ -262,7 +264,7 @@ public class SelecaoBolsaController {
 		} else {
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("anexoError", "Adicione anexo a seleção.");
-			return "selecao/cadastrar";
+			return "coordenador/cadastrarSelecao";
 		}
 
 		if (selecaoService.existsSelecaoEquals(selecao)) {
@@ -292,7 +294,7 @@ public class SelecaoBolsaController {
 			redirect.addFlashAttribute("erro", "Permissão negada.");
 			return "redirect:/selecao/listar";
 		}
-		return "selecao/cadastrar";
+		return "coordenador/cadastrarSelecao";
 	}
 
 	@RequestMapping(value = "/excluir/{id}")
@@ -341,7 +343,7 @@ public class SelecaoBolsaController {
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 		}
 
-		return "selecao/listar";
+		return "selecao/listarSelecao";
 	}
 
 	@RequestMapping(value = "/listarPorServidor/{id}")
@@ -353,7 +355,7 @@ public class SelecaoBolsaController {
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 		
-		return "selecao/listar";
+		return "selecao/listarSelecao";
 	}
 
 	@RequestMapping(value = "/inscritos/{id}", method = RequestMethod.GET)
@@ -392,7 +394,7 @@ public class SelecaoBolsaController {
 		}
 		model.addAttribute("selecao", id);
 		model.addAttribute("servidores", servidorService.find(Servidor.class));
-		return "selecao/atribuir";
+		return "coordenador/atribuirMembroBanca";
 	}
 
 	@RequestMapping(value = "/atribuir", method = RequestMethod.POST)
@@ -406,7 +408,7 @@ public class SelecaoBolsaController {
 			model.addAttribute("servidores",
 					servidorService.find(Servidor.class));
 			model.addAttribute("erroMembros", "Informe os três membros.");
-			return "selecao/atribuir";
+			return "coordenador/atribuirMembroBanca";
 
 		} else if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
 			model.addAttribute("selecao", id);
@@ -414,7 +416,7 @@ public class SelecaoBolsaController {
 					servidorService.find(Servidor.class));
 			model.addAttribute("erroMembros",
 					"Não é permitida repetição de membros na banca.");
-			return "selecao/atribuir";
+			return "coordenador/atribuirMembroBanca";
 		} else {
 			Selecao selecao = selecaoService.find(Selecao.class, id);
 

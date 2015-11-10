@@ -59,8 +59,10 @@ public class Selecao {
 	private List<Documento> documentos;
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Servidor> membrosBanca;
+	
 	@ManyToOne
 	private Servidor responsavel;
+	
 	@OneToMany(mappedBy = "selecaoBolsa")
 	private List<Inscricao> inscritos;
 
