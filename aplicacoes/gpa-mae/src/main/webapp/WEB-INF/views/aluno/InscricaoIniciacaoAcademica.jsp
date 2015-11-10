@@ -139,8 +139,8 @@
 										<label for="telefoneFixo" class="col-sm-1 control-label">Fone:</label>
 										<div class="col-sm-2">
 											<form:input id="telefone" path="telefoneFixo"
-												data-mask="(00) 0000-0000" cssClass="form-control"
-												placeholder="(00) 0000-0000" />
+												data-mask="(00) 0 0000-0000" cssClass="form-control"
+												placeholder="(00) 0 0000-0000" />
 											<div class="error-validation" id="erro-telefoneFixo">
 												<form:errors path="telefoneFixo"></form:errors>
 											</div>

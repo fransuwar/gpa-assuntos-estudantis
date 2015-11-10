@@ -11,6 +11,10 @@ body {
 	margin-bottom: 5%;
 }
 
+div.center.col-md-4{
+	float:none;
+}
+
 div.container {
 	margin-bottom: 70px;
 }
@@ -150,7 +154,7 @@ div.row {
 }
 
 .navbar-nav>li>a, .navbar-brand {
-	color: #3288B2 !important;
+	color: #ffffff!important;
 }
 
 .navbar-nav>li>a:HOVER, .navbar-brand:HOVER {
@@ -252,4 +256,8 @@ table#file-upload {
 
 .red {
 	color: red;
+}
+
+.panel-title{
+	text-align:center;
 }
