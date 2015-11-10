@@ -13,7 +13,7 @@
 	<c:set var="botao" value="Finalizar Inscrição"></c:set>
 </c:if>
 <c:if test="${action eq 'editar-inciacao-academica' }">
-	<c:url var="url" value="/aluno/inscricao/${sessionScope.id}/iniciacao-academica/editar"></c:url>
+	<c:url var="url" value="/aluno/${sessionScope.id}/inscricao/iniciacao-academica/editar"></c:url>
 	<c:set var="titulo" value="Editar Inscrição"></c:set>
 	<c:set var="botao" value="Atualizar Inscrição"></c:set>
 </c:if>

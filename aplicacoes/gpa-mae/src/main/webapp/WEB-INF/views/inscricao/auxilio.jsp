@@ -16,7 +16,7 @@
 	<c:set var="botao" value="Finalizar Inscrição"></c:set>
 </c:if>
 <c:if test="${action eq 'editar-auxilio-moradia' }">
-	<c:url var="url" value="/aluno/inscricao/${sessionScope.id}/auxilio-moradia/editar"></c:url>
+	<c:url var="url" value="/aluno/${sessionScope.id}/inscricao/auxilio-moradia/editar"></c:url>
 	<c:set var="titulo" value="Editar Inscrição"></c:set>
 	<c:set var="botao" value="Atualizar Inscrição"></c:set>
 </c:if>

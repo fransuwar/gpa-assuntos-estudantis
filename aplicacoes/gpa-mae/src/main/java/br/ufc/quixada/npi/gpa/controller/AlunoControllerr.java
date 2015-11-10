@@ -113,7 +113,7 @@ public class AlunoControllerr {
 		return "redirect:/selecao/listar";
 	}
 
-	@RequestMapping(value = { "inscricao/{idAluno}/iniciacao-academica/editar" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "{idAluno}/inscricao/iniciacao-academica/editar" }, method = RequestMethod.GET)
 	public String editarInscricaoBIA(@PathVariable("idAluno") Integer idAluno, Model model, RedirectAttributes redirect) {
 		
 		QuestionarioIniciacaoAcademica iniciacaoAcademica = this.iniciacaoAcademicaService.getQuestIniAcadById(idAluno);
@@ -146,7 +146,7 @@ public class AlunoControllerr {
 		return "inscricao/iniciacaoAcademica";
 	}
 	
-	@RequestMapping(value = { "inscricao/{idAluno}/iniciacao-academica/editar" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "{idAluno}/inscricao/iniciacao-academica/editar" }, method = RequestMethod.POST)
 	public String editarInscricaoBIA(@PathVariable("idAluno") Integer idAluno,
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
 			Model model,BindingResult result, RedirectAttributes redirect) {
@@ -236,7 +236,7 @@ public class AlunoControllerr {
 		return "redirect:/selecao/listar";
 	}
 	
-	@RequestMapping(value = { "inscricao/{idAluno}/auxilio-moradia/editar" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "{idAluno}/inscricao/auxilio-moradia/editar" }, method = RequestMethod.GET)
 	public String editarInscricaoAMOR(@PathVariable("idAluno") Integer idAluno, Model model, RedirectAttributes redirect) {
 		
 		QuestionarioAuxilioMoradia auxilioMoradia = this.auxilioMoradiaService.getQuestAuxMorById(idAluno);
@@ -264,7 +264,7 @@ public class AlunoControllerr {
 		return "inscricao/auxilio";
 	}
 	
-	@RequestMapping(value = { "inscricao/{idAluno}/auxilio-moradia/editar" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "{idAluno}/inscricao/auxilio-moradia/editar" }, method = RequestMethod.POST)
 	public String editarInscricaoAMOR(@PathVariable("idAluno") Integer idAluno, @Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model, BindingResult result, RedirectAttributes redirect) {
 		
 		model.addAttribute("action", "editar-auxilio-moradia");
