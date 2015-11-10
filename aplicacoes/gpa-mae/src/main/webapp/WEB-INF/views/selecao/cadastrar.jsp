@@ -58,8 +58,7 @@
 					enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${selecao.id}" />
 					<div class="form-group">
-						<label for="sequencial" class="col-sm-2 control-label">Número
-							do Edital:</label>
+						<label for="sequencial" class="col-sm-2 control-label">Número do Edital:</label>
 						<div class="col-sm-2">
 							<form:input id="sequencial" path="sequencial"
 								cssClass="form-control" placeholder="000" data-mask="999" />
@@ -68,8 +67,7 @@
 							</div>
 						</div>
 
-						<label for="tipoBolsa" class="col-sm-2 control-label">Tipo
-							de Bolsa:</label>
+						<label for="tipoBolsa" class="col-sm-2 control-label">Tipo de Bolsa:</label>
 						<div class="col-sm-5 control-label" id="div-select">
 							<form:select path="tipoBolsa" id="tipoBolsa"
 								cssClass="form-control">

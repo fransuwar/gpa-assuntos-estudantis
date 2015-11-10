@@ -22,21 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Banco;
 import br.ufc.quixada.npi.gpa.enums.Curso;
-import br.ufc.quixada.npi.gpa.enums.DiaUtil;
-import br.ufc.quixada.npi.gpa.enums.Estado;
-import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
-import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
-import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
-import br.ufc.quixada.npi.gpa.enums.Status;
-import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
-import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
-import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
-import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
-import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
-import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
-import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
 
 
 @Controller
@@ -45,15 +32,6 @@ public class AlunoController {
 
 	@Inject
 	private AlunoService alunoService;
-	
-	@Inject
-	private SelecaoBolsaService selecaoBolsaService;
-	
-	@Inject
-	private QuestionarioIniciacaoAcademicaService questionarioIniciacaoAcademicaService;
-	
-	@Inject
-	private HorarioDisponivelService horarioDisponivelService;
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvarAluno(@Valid @ModelAttribute(value = "aluno") Aluno aluno,
@@ -214,96 +192,5 @@ public class AlunoController {
 		return "redirect:/aluno/listar";
 	}
 	
-	@RequestMapping(value = {"inscricao-bia/{idSelecao}"}, method = RequestMethod.GET)
-	public String inscreverInicAcad(@PathVariable("idSelecao") Integer idSelecao, Model model) {
-		
-		model.addAttribute("action","incricao-bia");
-		
-		model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-		model.addAttribute("turno", Turno.toMap());
-		model.addAttribute("diasUteis", DiaUtil.toMap());
-		model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
-		model.addAttribute("totalEstado", Estado.toMap());
-		model.addAttribute("grauParentesco", GrauParentesco.toMap());
-		model.addAttribute("selecaoBolsa", idSelecao);
-		model.addAttribute("questionarioIniciacaoAcademica", new QuestionarioIniciacaoAcademica());
-		
-		return "inscricao/iniciacaoAcademica";
-	}
 	
-	@RequestMapping(value = {"inscricao-bia/{idSelecao}"}, method = RequestMethod.POST)
-	public String inscreverInicAcad(@PathVariable("idselecao") Integer idSelecao,
-			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
-			@ModelAttribute("id") Integer id, Model model, BindingResult result, RedirectAttributes redirect) {
-		
-		model.addAttribute("action","incricao-bia");
-		
-		if (result.hasErrors()) {
-
-			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-			model.addAttribute("turno", Turno.toMap());
-			model.addAttribute("diasUteis", DiaUtil.toMap());
-			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
-			model.addAttribute("totalEstado", Estado.toMap());
-			model.addAttribute("grauParentesco", GrauParentesco.toMap());
-			model.addAttribute("selecaoBolsa", id);
-			model.addAttribute("questionarioIniciacaoAcademica", questionarioIniciacaoAcademica);
-			
-			return "inscricao/iniciacaoAcademica";
-		}
-		
-		Aluno aluno = alunoService.getAlunoById(id);
-		questionarioIniciacaoAcademica.setAluno(aluno);
-		
-		SelecaoBolsa selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
-		questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
-		
-		selecao.getAlunosSelecao().add(aluno);
-
-		if (questionarioIniciacaoAcademica.getId() == null) {
-			
-			this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
-			
-		} else {
-			
-			this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
-		}
-		
-		this.selecaoBolsaService.update(selecao);
-
-		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
-		
-		return "redirect:/selecao/listar";
-	}
-	
-	@RequestMapping(value = { "editar-incricao-bia/{idInscricao}" }, method = RequestMethod.GET)
-	public String editarInscicaoInicAcad(@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect, Model model) {
-
-		QuestionarioIniciacaoAcademica q = this.questionarioIniciacaoAcademicaService.find(QuestionarioIniciacaoAcademica.class, idInscricao);
-
-		SelecaoBolsa selecao = q.getSelecaoBolsa();
-
-		if (q.getSelecaoBolsa().getStatus() != null && q.getSelecaoBolsa().getStatus().equals(Status.INSC_ABERTA)) {
-
-			model.addAttribute("questionarioIniciacaoAcademica", q);
-			model.addAttribute("selecaoBolsa", selecao.getId());
-			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-			model.addAttribute("turno", Turno.values());
-			model.addAttribute("diasUteis", DiaUtil.values());
-			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
-			model.addAttribute("totalEstado", Estado.toMap());
-			model.addAttribute("grauParentesco", GrauParentesco.toMap());
-
-			List<HorarioDisponivel> horariosDisponiveis = this.horarioDisponivelService
-					.getHorariosDisponiveisByQuest(idInscricao);
-			if (horariosDisponiveis != null)
-				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
-
-		} else {
-			redirect.addFlashAttribute("erro", "Só pode editar sua inscrição enquanto a seleção estiver aberta.");
-			return "redirect:/selecao/listar";
-		}
-
-		return "inscricao/iniciacaoAcademica";
-	}
 }

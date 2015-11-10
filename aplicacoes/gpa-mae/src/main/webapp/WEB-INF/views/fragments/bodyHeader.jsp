@@ -70,8 +70,7 @@
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 						<li role="presentation"><a
-							href="<c:url value="/selecao/listar" />">Listar
-								Seleções <span class="glyphicon glyphicon-list"></span>
+							href="<c:url value="/selecao/listar" />">Listar Seleções <span class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>
 

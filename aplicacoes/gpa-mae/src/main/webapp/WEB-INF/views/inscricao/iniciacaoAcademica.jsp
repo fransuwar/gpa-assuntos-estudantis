@@ -7,6 +7,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<c:if test="${action eq 'incricao-inciacao-academica' }">
+	<c:url var="url" value="/aluno/inscricao/${selecaoBolsa}/iniciacao-academica"></c:url>
+	<c:set var="titulo" value="Nova Inscrição"></c:set>
+	<c:set var="botao" value="Finalizar Inscrição"></c:set>
+</c:if>
+<c:if test="${action eq 'editar-inciacao-academica' }">
+	<c:url var="url" value="/aluno/inscricao/${sessionScope.id}/iniciacao-academica/editar"></c:url>
+	<c:set var="titulo" value="Editar Inscrição"></c:set>
+	<c:set var="botao" value="Atualizar Inscrição"></c:set>
+</c:if>
+
+
 <html>
 <head>
 <jsp:include page="../fragments/headTag.jsp" />
@@ -40,8 +52,9 @@
 				    onsubmit="return validaHorariosDisponiveisBolsa();"
 					commandName="questionarioIniciacaoAcademica"
 					modelAttribute="questionarioIniciacaoAcademica"
-					servletRelativeAction="/iniciacaoAcademica/inscricao/${selecaoBolsa}/"
+					servletRelativeAction="${url }"
 					method="POST" cssClass="form-horizontal">
+					
 					<input type="hidden" name="id" value="${questionarioIniciacaoAcademica.id}" />
 					
 					<div class="tab-content">
@@ -556,7 +569,7 @@
 					<div class="form-group">
 						<div class="col-sm-2" id="div-form-btn">
 							<input name="submit" type="submit" class="btn btn-primary"
-								value="Cadastrar" id="form-btn" />
+								value="${botao }" id="form-btn" />
 						</div>
 						<div class="col-sm-2" id="div-form-btn">
 							<a href="<c:url value="/selecao/listar"></c:url>"

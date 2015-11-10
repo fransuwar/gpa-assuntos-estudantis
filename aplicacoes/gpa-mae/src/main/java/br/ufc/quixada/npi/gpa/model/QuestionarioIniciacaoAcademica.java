@@ -26,8 +26,8 @@ import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 
-@Entity
-@NamedQueries({ @NamedQuery(name = "IniAcad.findIniAcadById", query = "SELECT ia FROM QuestionarioIniciacaoAcademica ia WHERE ia.id = :idQuest") })
+@Entity																	
+@NamedQueries({ @NamedQuery(name = "IniAcad.findIniAcadById", query = "SELECT DISTINCT am FROM QuestionarioIniciacaoAcademica am WHERE am.aluno.id = :idAluno") })
 public class QuestionarioIniciacaoAcademica {
 
 	@Id

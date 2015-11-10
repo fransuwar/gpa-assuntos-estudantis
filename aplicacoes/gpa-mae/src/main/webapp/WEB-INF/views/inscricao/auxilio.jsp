@@ -10,16 +10,23 @@
 	uri="http://github.com/dandelion/datatables"%>
 <%@ taglib prefix="gpa" tagdir="/WEB-INF/tags"%>
 
+<c:if test="${action eq 'incricao-auxilio-moraida' }">
+	<c:url var="url" value="/aluno/inscricao/${selecaoBolsa}/auxilio-moradia"></c:url>
+	<c:set var="titulo" value="Nova Inscrição"></c:set>
+	<c:set var="botao" value="Finalizar Inscrição"></c:set>
+</c:if>
+<c:if test="${action eq 'editar-auxilio-moradia' }">
+	<c:url var="url" value="/aluno/inscricao/${sessionScope.id}/auxilio-moradia/editar"></c:url>
+	<c:set var="titulo" value="Editar Inscrição"></c:set>
+	<c:set var="botao" value="Atualizar Inscrição"></c:set>
+</c:if>
+
+
 <html>
-
 <head>
-
-<jsp:include page="../fragments/headTag.jsp" />
-
-<title>Cadastro Auxilio Moradia</title>
-
+	<jsp:include page="../fragments/headTag.jsp" />
+	<title>Cadastro Auxilio Moradia</title>
 </head>
-
 <body>
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
@@ -51,10 +58,11 @@
 				<form:form id="questionarioForm" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
-					servletRelativeAction="/auxilio/inscricao/${selecaoBolsa}/"
+					servletRelativeAction="${url }"
 					method="POST" cssClass="form-horizontal">
-					<input type="hidden" name="id"
-						value="${questionarioAuxilioMoradia.id}" />
+					
+					<input type="hidden" name="id" value="${questionarioAuxilioMoradia.id}" />
+					
 					<div class="tab-content">
 
 						<div class="tab-pane active" id="moradia-tab">
@@ -622,7 +630,7 @@
 					<div class="form-group">
 						<div class="col-sm-2" id="div-form-btn">
 							<input name="submit" type="submit" class="btn btn-primary"
-								value="Cadastrar" id="form-btn" />
+								value="${botao }" id="form-btn" />
 						</div>
 						<div class="col-sm-2" id="div-form-btn">
 							<a href="<c:url value="/selecao/listar" ></c:url>"

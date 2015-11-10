@@ -65,6 +65,35 @@ public class SelecaoBolsaController {
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
 
+	@RequestMapping(value = "/listar")
+	public String listar(ModelMap model, HttpServletRequest request,
+			Authentication authentication) {
+		List<SelecaoBolsa> selecoes = this.selecaoService
+				.getSelecaoBolsaComMembros();
+		
+		if (request.isUserInRole("DISCENTE")) {
+			
+			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication
+					.getName());
+			Integer id = pessoa.getId();
+			
+			Aluno aluno = this.alunoService.getAlunoComSelecoes(id);
+			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("aluno", aluno);
+			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+			
+		} else {
+			
+			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+		}
+		
+		return "selecao/listar";
+	}
+	
 	@RequestMapping(value = "informacoes/{id}")
 	public String getInformacoes(@PathVariable("id") Integer id, Model model,
 			RedirectAttributes redirectAttributes) {
@@ -311,34 +340,6 @@ public class SelecaoBolsaController {
 		return "redirect:/selecao/listar";
 	}
 **/
-	@RequestMapping(value = "/listar")
-	public String listar(ModelMap model, HttpServletRequest request,
-			Authentication authentication) {
-		List<SelecaoBolsa> selecoes = this.selecaoService
-				.getSelecaoBolsaComMembros();
-
-		if (request.isUserInRole("DISCENTE")) {
-
-			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication
-					.getName());
-			Integer id = pessoa.getId();
-
-			Aluno aluno = this.alunoService.getAlunoComSelecoes(id);
-			model.addAttribute("selecoes", selecoes);
-			model.addAttribute("aluno", aluno);
-			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
-		} else {
-
-			model.addAttribute("selecoes", selecoes);
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-		}
-
-		return "selecao/listar";
-	}
 
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
