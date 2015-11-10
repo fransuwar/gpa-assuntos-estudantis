@@ -15,14 +15,14 @@ public class PessoaFamilia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	private String nome;
 	private int idade;
 	private String escolaridade;
-	private String atividadeProfissao;
+	private String profissao;
 	private double rendaMensal;
 	@Enumerated(EnumType.STRING)
-	private GrauParentesco grauParentesco;
+	private GrauParentesco parentesco;
 	@ManyToOne
 	private QuestionarioAuxilioMoradia auxilioMoradia;
 	@ManyToOne
@@ -44,11 +44,11 @@ public class PessoaFamilia {
 		this.iniciacaoAcademica = iniciacaoAcademica;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -76,12 +76,12 @@ public class PessoaFamilia {
 		this.idade = idade;
 	}
 
-	public String getAtividadeProfissao() {
-		return atividadeProfissao;
+	public String getProfissao() {
+		return profissao;
 	}
 
-	public void setAtividadeProfissao(String atividadeProfissao) {
-		this.atividadeProfissao = atividadeProfissao;
+	public void setProfissao(String atividadeProfissao) {
+		this.profissao = atividadeProfissao;
 	}
 
 	public double getRendaMensal() {
@@ -92,18 +92,18 @@ public class PessoaFamilia {
 		this.rendaMensal = rendaMensal;
 	}
 
-	public GrauParentesco getGrauParentesco() {
-		return grauParentesco;
+	public GrauParentesco getParentesco() {
+		return parentesco;
 	}
 
-	public void setGrauParentesco(GrauParentesco grauParentesco) {
-		this.grauParentesco = grauParentesco;
+	public void setParentesco(GrauParentesco grauParentesco) {
+		this.parentesco = grauParentesco;
 	}
 
 	@Override
 	public String toString() {
 		return "PessoaFamilia [auxilioMoradia=" + auxilioMoradia + ", iniciacaoAcademica=" + iniciacaoAcademica
-				+ ", id=" + id + ", nome=" + nome + ", idade=" + idade + ", atividadeProfissao=" + atividadeProfissao
-				+ ", rendaMensal=" + rendaMensal + ", grauParentesco=" + grauParentesco + "]";
+				+ ", id=" + id + ", nome=" + nome + ", idade=" + idade + ", Profissao=" + profissao
+				+ ", rendaMensal=" + rendaMensal + ", Parentesco=" + parentesco + "]";
 	}
 }

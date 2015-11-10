@@ -24,9 +24,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import br.ufc.quixada.npi.gpa.enums.Banco;
 import br.ufc.quixada.npi.gpa.enums.Curso;
 
-@NamedQueries({
-		@NamedQuery(name = "Aluno.findAlunoByMatricula", query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
-		@NamedQuery(name = "Aluno.findAlunoById", query = "SELECT a FROM Aluno a WHERE a.pessoa.id = :idPessoa") })
+@NamedQueries({ @NamedQuery(name = "Aluno.findAlunoByMatricula",
+query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
+@NamedQuery(name = "Aluno.findAlunoById",
+query = "SELECT a FROM Aluno a WHERE a.pessoa.id = :idPessoa"),
+/*@NamedQuery(name = "Aluno.findAlunoComSelecoes",
+query = "SELECT DISTINCT a FROM Aluno a LEFT JOIN FETCH a.editais WHERE a.pessoa.id = :idPessoa")*/})
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula" }) )
 public class Aluno {

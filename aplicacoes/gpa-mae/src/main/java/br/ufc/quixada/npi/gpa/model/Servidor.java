@@ -54,8 +54,6 @@ public class Servidor {
 	@ManyToMany(mappedBy = "membrosBanca")
 	private List<Selecao> participaBancas;
 
-	@OneToMany(mappedBy="responsavel")
-	private List<Selecao> responsavelBancas;
 
 	@ManyToOne
 	private Pessoa pessoa;
@@ -91,15 +89,7 @@ public class Servidor {
 	public void setParticipaBancas(List<Selecao> participaBancas) {
 		this.participaBancas = participaBancas;
 	}
-
-	public List<Selecao> getResponsavelBancas() {
-		return responsavelBancas;
-	}
-
-	public void setResponsavelBancas(List<Selecao> responsavelBancas) {
-		this.responsavelBancas = responsavelBancas;
-	}
-
+	
 	public Cargo getCargo() {
 		return cargo;
 	}
