@@ -3,6 +3,27 @@ var linha;
 $(document).ready(function(){
 	$('#valorMensalFinanciamento').mask("###0000000.00", {reverse: true});
 	$('#areaPropriedadeRural').mask("#####0.00", {reverse: true});
+	
+	$('#tabela-alunos').DataTable({
+		"language": {
+            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+        }
+	});
+	$('#tabela-selecoes').DataTable({
+		"language": {
+            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+        }
+	});
+	$('#tabela-servidores').DataTable({
+		"language": {
+            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+        }
+	});
+	$('#tabela-inscritos').DataTable({
+		"language": {
+            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+        }
+	});
 });
 
 function mascaraIra(obj) {

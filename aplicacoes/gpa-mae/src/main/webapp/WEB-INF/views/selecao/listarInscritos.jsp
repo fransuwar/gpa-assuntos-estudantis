@@ -30,12 +30,18 @@
 				servletRelativeAction="/selecao/parecer/${idSelecao}" method="POST"
 				cssClass="form-horizontal">
 
-				<table class="table" id="table">
+				<table class="table" id="tabela-inscritos">
 					<thead>
 						<tr>
 							<th>Matricula</th>
 							<th>Nome</th>
 							<th>Curso</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>

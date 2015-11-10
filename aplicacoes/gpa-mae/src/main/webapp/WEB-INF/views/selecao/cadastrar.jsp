@@ -53,7 +53,7 @@
 					enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${selecao.id}" />
 					<div class="form-group">
-						<label for="sequencial" class="col-sm-2 control-label">Número
+						<label for="sequencial" class="col-sm-2 control-label"><span class="red">*</span>Número
 							do Edital:</label>
 						<div class="col-sm-2">
 							<form:input id="sequencial" path="sequencial"
@@ -63,7 +63,7 @@
 							</div>
 						</div>
 
-						<label for="tipoBolsa" class="col-sm-2 control-label">Tipo
+						<label for="tipoBolsa" class="col-sm-2 control-label"><span class="red">*</span>Tipo
 							de Bolsa:</label>
 						<div class="col-sm-5 control-label" id="div-select">
 							<form:select path="tipoBolsa" id="tipoBolsa"
@@ -80,7 +80,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="dataInicio" class="col-sm-2 control-label">Data
+						<label for="dataInicio" class="col-sm-2 control-label"><span class="red">*</span>Data
 							de Início:</label>
 						<div class="col-sm-2">
 							<form:input id="dataInicio" type="text" path="dataInicio"
@@ -92,7 +92,7 @@
 							</div>
 						</div>
 
-						<label for="dataTermino" class="col-sm-2 control-label">Data
+						<label for="dataTermino" class="col-sm-2 control-label"><span class="red">*</span>Data
 							de Término:</label>
 						<div class="col-sm-2">
 							<form:input id="dataTermino" type="text" path="dataTermino"
@@ -102,7 +102,7 @@
 							</div>
 						</div>
 
-						<label for="ano" class="col-sm-1 control-label">Ano:</label>
+						<label for="ano" class="col-sm-1 control-label"><span class="red">*</span>Ano:</label>
 						<div class="col-sm-2">
 							<form:input id="ano" type="text" path="ano"
 								cssClass="form-control" placeholder="0"
@@ -117,7 +117,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="quantidadeVagas" class="col-sm-2 control-label">Quant.
+						<label for="quantidadeVagas" class="col-sm-2 control-label"><span class="red">*</span>Quant.
 							de Vagas:</label>
 						<div class="col-sm-2">
 							<form:input id="quantidadeVagas" path="quantidadeVagas"
@@ -127,7 +127,7 @@
 							</div>
 						</div>
 
-						<label for="duracao" class="col-sm-2 control-label">Duração:</label>
+						<label for="duracao" class="col-sm-2 control-label"><span class="red">*</span>Duração:</label>
 						<div class="col-sm-2">
 							<form:input id="duracao" type="text" path="duracao"
 								cssClass="form-control" placeholder="0" min="1" data-mask="999"/>
@@ -138,7 +138,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
+						<label for="comentarios" class="col-sm-2 control-label"><span class="red">*</span>Comentarios:</label>
 						<div class="col-sm-9">
 							<form:textarea id="comentarios" path="comentarios"
 								class="form-control" rows="3"></form:textarea>
@@ -151,7 +151,7 @@
 
 
 					<div class="form-group">
-						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
+						<label for="arquivo" class="col-sm-2 control-label"><span class="red">*</span>Arquivos:</label>
 						<div class="col-sm-5 files">
 							<input type="file" id="files" name="files" class="file"
 								multiple="multiple"></input>

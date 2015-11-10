@@ -39,36 +39,6 @@
 		</c:if>
 
 		<div class="col-md-12">
-			<div class="col-md-4" id="div-form-buscar">
-				<form:form id="buscarAlunoForm" role="form"
-					servletReltiveAction="/aluno/listar" method="POST"
-					cssClass="form-horizontal" class="inline">
-					<div class="input-group">
-						<input id="matricula" name="matricula" class="form-control"
-							placeholder="Digite sua busca aqui..." size="20"
-							required="required" autofocus="true" /> <span
-							class="input-group-btn">
-							<button class="btn btn-primary" name="submit" type="submit"
-								class="btn btn-primary" value="Buscar">
-								Buscar <span class="glyphicon glyphicon-search" />
-							</button>
-						</span>
-					</div>
-				</form:form>
-			</div>
-
-			<sec:authorize access="hasAnyRole('SERVIDOR')">
-				<div class="col-md-2 col-md-offset-6" id="div-btn-inserir">
-					<a href="<c:url value="/aluno/cadastrar" ></c:url>">
-						<button class="btn btn-primary" id="listar-btn-inserir">
-							Novo Aluno <span class="glyphicon glyphicon-plus"></span>
-						</button>
-					</a>
-				</div>
-			</sec:authorize>
-		</div>
-		
-		<div class="col-md-12">
 			<div class="panel panel-info">
 				<div class="panel-heading" align="center">
 					<h3 class="panel-title">Todos os Alunos</h3>
@@ -80,15 +50,17 @@
 					</div>
 				</c:if>
 				<c:if test="${not empty alunos}">
-					<table class="table table-striped">
-						<tr class="info">
-							<th>Matricula</th>
-							<th>Ira</th>
-							<th>Curso</th>
-							<sec:authorize access="hasAnyRole('SERVIDOR')">
-								<th id="acoes">Ações</th>
-							</sec:authorize>
-						</tr>
+					<table class="table display table-striped" id="tabela-alunos">
+						<thead>
+							<tr class="info">
+								<th>Matricula</th>
+								<th>Ira</th>
+								<th>Curso</th>
+								<sec:authorize access="hasAnyRole('SERVIDOR')">
+									<th id="acoes">Ações</th>
+								</sec:authorize>
+							</tr>
+						</thead>
 						<tbody>
 							<c:choose>
 								<c:when test="${not empty alunoEncontrado}"></c:when>
@@ -103,13 +75,13 @@
 												<td><a id="editar"
 													href="<c:url value="/aluno/editar/${aluno.id}" ></c:url>">
 														<button class="btn btn-info">
-															Editar <span class="glyphicon glyphicon-pencil"></span>
+															<span class="glyphicon glyphicon-pencil"></span>
 														</button>
 												</a> <a id="excluir" data-toggle="modal"
 													data-target="#confirm-delete" href="#"
 													data-href="<c:url value="/aluno/excluir/${aluno.id}" ></c:url>">
 														<button class="btn btn-danger">
-															Excluir <span class="glyphicon glyphicon-trash"></span>
+															<span class="glyphicon glyphicon-trash"></span>
 														</button>
 												</a></td>
 											</sec:authorize>
