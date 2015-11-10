@@ -30,19 +30,20 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Parecer;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
-import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.ParecerService;
 import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
-import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
+import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
@@ -62,14 +63,14 @@ public class SelecaoBolsaController {
 	@Inject
 	private PessoaService servicePessoa;
 	@Inject
-	private SelecaoBolsaService selecaoService;
+	private SelecaoService selecaoService;
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
 
 	@RequestMapping(value = "informacoes/{id}")
 	public String getInformacoes(@PathVariable("id") Integer id, Model model,
 			RedirectAttributes redirectAttributes) {
-		SelecaoBolsa selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
+		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
 		if (selecao == null) {
 			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
 			return "redirect:/selecao/listar";
@@ -110,7 +111,7 @@ public class SelecaoBolsaController {
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvarSelecaoBolsa(
-			@Valid @ModelAttribute(value = "selecao") SelecaoBolsa selecaoBolsa,
+			@Valid @ModelAttribute(value = "selecao") Selecao selecaoBolsa,
 			BindingResult result,
 			@RequestParam("files") List<MultipartFile> files, Model model,
 			RedirectAttributes redirect, HttpServletRequest request)
@@ -160,7 +161,7 @@ public class SelecaoBolsaController {
 
 				for (int k = 0; k < doc.length; k++) {
 					Documento d = new Documento();
-					d.setId(Long.parseLong(doc[k]));
+					d.setId(Integer.parseInt(doc[k]));
 					documentoService.delete(d);
 				}
 			}
@@ -205,12 +206,14 @@ public class SelecaoBolsaController {
 	public String cadastro(Model model) {
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
 		model.addAttribute("action", "cadastrar");
-		model.addAttribute("selecao", new SelecaoBolsa());
+
+		model.addAttribute("selecao", new Selecao());
 		return "/coordenador/cadastrarSelecao";
+
 	}
 
 	public String adicionarSelecao(
-			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao,
+			@Valid @ModelAttribute("selecao") Selecao selecao,
 			BindingResult result,
 			@RequestParam("files") List<MultipartFile> files,
 			RedirectAttributes redirect, Model model) {
@@ -278,7 +281,7 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id,
 			RedirectAttributes redirect, Model model) {
-		SelecaoBolsa selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
+		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
 
 		if (selecao.getStatus() != null
 				&& selecao.getStatus().equals(Status.NOVA)) {
@@ -295,10 +298,10 @@ public class SelecaoBolsaController {
 	}
 
 	@RequestMapping(value = "/excluir/{id}")
-	public String excluirSelecao(SelecaoBolsa p,
+	public String excluirSelecao(Selecao p,
 			@PathVariable("id") Integer id,
 			RedirectAttributes redirectAttributes) {
-		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
+		Selecao selecao = selecaoService.find(Selecao.class, id);
 		if (selecao == null) {
 			redirectAttributes
 					.addFlashAttribute("erro", "Seleção inexistente.");
@@ -317,7 +320,7 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/listar")
 	public String listar(ModelMap model, HttpServletRequest request,
 			Authentication authentication) {
-		List<SelecaoBolsa> selecoes = this.selecaoService
+		List<Selecao> selecoes = this.selecaoService
 				.getSelecaoBolsaComMembros();
 
 		if (request.isUserInRole("ROLE_ALUNO")) {
@@ -346,7 +349,7 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 		
-		List<SelecaoBolsa> selecoes = this.servidorService.getPessoaServidorComBancas(id).getParticipaBancas();
+		List<Selecao> selecoes = this.servidorService.getPessoaServidorComBancas(id).getParticipaBancas();
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
@@ -358,7 +361,7 @@ public class SelecaoBolsaController {
 	@RequestMapping(value = "/inscritos/{id}", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
 
-		List<Aluno> alunosSelecao = this.selecaoService
+		/*List<Inscricao> alunosSelecao = this.selecaoService
 				.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
 		
 		List<Parecer> pareceres = new ArrayList<Parecer>();
@@ -373,7 +376,7 @@ public class SelecaoBolsaController {
 		
 		model.addAttribute("pareceres", parecerForm);
 		model.addAttribute("idSelecao", id);
-
+*/
 		return "selecao/listarInscritos";
 	}
 
@@ -415,7 +418,7 @@ public class SelecaoBolsaController {
 					"Não é permitida repetição de membros na banca.");
 			return "coordenador/atribuirMembroBanca";
 		} else {
-			SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
+			Selecao selecao = selecaoService.find(Selecao.class, id);
 
 			List<Servidor> list = new ArrayList<Servidor>();
 			list.add(new Servidor(id1));
@@ -448,9 +451,9 @@ public class SelecaoBolsaController {
 			return "selecao/listarInscritos";
 		}
 		
-		List<Aluno> alunosSelecao = this.selecaoService
+		/*List<Aluno> alunosSelecao = this.selecaoService
 				.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
-		SelecaoBolsa selecao = this.selecaoService.getSelecaoBolsaComAlunos(id);
+		Selecao selecao = this.selecaoService.getSelecaoBolsaComAlunos(id);
 		
  		List<Parecer> pareceres = parecerForm.getPareceres();
 		
@@ -461,7 +464,7 @@ public class SelecaoBolsaController {
 			}
 			
 			this.parecerService.save(parecer);
-		}
+		}*/
 		
 		redirect.addFlashAttribute("info", "Parecer emitido com sucesso.");
 		return "redirect:/selecao/listar";
@@ -470,7 +473,7 @@ public class SelecaoBolsaController {
 	@RequestMapping(value="formularioInscricaoPreenchido/{id}/{idSelecao}", method= RequestMethod.GET)
 	public String visualizarDadosInscricao(@PathVariable("id") Integer idAluno, @PathVariable("idSelecao") Integer idSelecao, Model modelo, RedirectAttributes redirect){
 		
-		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, idSelecao);
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 		Aluno aluno = alunoService.find(Aluno.class, idAluno);
 		QuestionarioAuxilioMoradia questionario = auxService.find(QuestionarioAuxilioMoradia.class,idAluno );
 		
