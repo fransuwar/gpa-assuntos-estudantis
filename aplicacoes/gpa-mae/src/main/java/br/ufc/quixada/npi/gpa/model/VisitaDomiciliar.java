@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,9 +19,9 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 
 @Entity
-public class RelatorioVisitaDomiciliar {
+public class VisitaDomiciliar {
 	
-	public RelatorioVisitaDomiciliar() {
+	public VisitaDomiciliar() {
 	}
 	
 	@Id
@@ -29,57 +30,22 @@ public class RelatorioVisitaDomiciliar {
 	
 	@ManyToOne
 	private Aluno aluno;
-	
 	@ManyToOne
-	private SelecaoBolsa selecaoBolsa;
-	
-	@NotNull(message = "Campo obrigatório")
-	private String endereco;
-	
+	private Servidor servidor;
+	@ManyToOne
+	private Selecao selecaoBolsa;
 	@NotNull(message = "Campo obrigatório")
 	private String formaAcessoCasa;
-	
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Curso curso;
-	
 	@NotNull(message = "Campo obrigatório")
 	private Integer semestre;
-	
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy") 
 	private Date dataVisita;
-	
-	@NotNull(message = "Campo obrigatório")
-	private Double despesaMoradia;
-	@NotNull(message = "Campo obrigatório")
-	private Double despesaEnergia;
-	@NotNull(message = "Campo obrigatório")
-	private Double despesaTelefone;
-	@NotNull(message = "Campo obrigatório")
-	private Double despesaEducacao;
-	@NotNull(message = "Campo obrigatório")
-	private Double despesaSaude;
-	@NotNull(message = "Campo obrigatório")
-	private Double despesaAlimentacao;
-	@NotNull(message = "Campo obrigatório")
-	private Double despesaOutros;
-	
 	@NotNull(message = "Campo obrigatório")
 	private Integer qtdPessoasResidentes;
-	@NotNull(message = "Campo obrigatório")
-	private Double rendaTrabalhoFormal;
-	@NotNull(message = "Campo obrigatório")
-	private Double rendaTrabalhoInformal;
-	@NotNull(message = "Campo obrigatório")
-	private Double rendaAposentadoria;
-	@NotNull(message = "Campo obrigatório")
-	private Double rendaBeneficioSocial;
-	@NotNull(message = "Campo obrigatório")
-	private Double rendaAuxilioParente;
-	@NotNull(message = "Campo obrigatório")
-	private Double rendaOutros;
-	
 	@NotNull(message = "Campo obrigatório")
 	private Integer moradiaVarandaQtd;
 	@Enumerated(EnumType.STRING)
@@ -104,7 +70,6 @@ public class RelatorioVisitaDomiciliar {
 	private Integer moradiaQuintalQtd;
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaQuintalEstado;
-	
 	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioTvQtd;
 	private String utensilioTvObservacao;
@@ -132,7 +97,6 @@ public class RelatorioVisitaDomiciliar {
 	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioOutrosQtd;
 	private String utensilioOutrosObservacao;
-	
 	@NotNull(message = "Campo Obrigatório")
 	private Integer bemMovelMotoQtd;
 	private String bemMovelMotoObservacao;
@@ -145,7 +109,6 @@ public class RelatorioVisitaDomiciliar {
 	@NotNull(message = "Campo Obrigatório")
 	private Integer bemMovelOutrosQtd;
 	private String bemMovelOutrosObservacao;
-	
 	@Column(nullable = false)
 	private boolean perfilCompativelUtensilioDomestico;
 	@Column(nullable = false)
@@ -156,15 +119,18 @@ public class RelatorioVisitaDomiciliar {
 	private boolean perfilCompativelAspectoFisicoResidencia;
 	@Column(nullable = false)
 	private boolean perfilCompativelOutros;
-	
 	@NotNull(message = "Campo obrigatório")
 	private String analiseDescricaoRealidade;
 	@Column(nullable = false)
 	private boolean parecerFinalDeferido;
-	
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataRelatorio;
+	private String observacaoParecer;
+	@OneToOne
+	private Despesa despesa;
+	@OneToOne
+	private Receita receita;
 	
 	public Integer getId() {
 		return id;
@@ -177,12 +143,6 @@ public class RelatorioVisitaDomiciliar {
 	}
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
-	}
-	public String getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
 	}
 	public String getFormaAcessoCasa() {
 		return formaAcessoCasa;
@@ -208,90 +168,14 @@ public class RelatorioVisitaDomiciliar {
 	public void setDataVisita(Date dataVisita) {
 		this.dataVisita = dataVisita;
 	}
-	public Double getDespesaMoradia() {
-		return despesaMoradia;
-	}
-	public void setDespesaMoradia(Double despesaMoradia) {
-		this.despesaMoradia = despesaMoradia;
-	}
-	public Double getDespesaEnergia() {
-		return despesaEnergia;
-	}
-	public void setDespesaEnergia(Double despesaEnergia) {
-		this.despesaEnergia = despesaEnergia;
-	}
-	public Double getDespesaTelefone() {
-		return despesaTelefone;
-	}
-	public void setDespesaTelefone(Double despesaTelefone) {
-		this.despesaTelefone = despesaTelefone;
-	}
-	public Double getDespesaEducacao() {
-		return despesaEducacao;
-	}
-	public void setDespesaEducacao(Double despesaEducacao) {
-		this.despesaEducacao = despesaEducacao;
-	}
-	public Double getDespesaSaude() {
-		return despesaSaude;
-	}
-	public void setDespesaSaude(Double despesaSaude) {
-		this.despesaSaude = despesaSaude;
-	}
-	public Double getDespesaAlimentacao() {
-		return despesaAlimentacao;
-	}
-	public void setDespesaAlimentacao(Double despesaAlimentacao) {
-		this.despesaAlimentacao = despesaAlimentacao;
-	}
-	public Double getDespesaOutros() {
-		return despesaOutros;
-	}
-	public void setDespesaOutros(Double despesaOutros) {
-		this.despesaOutros = despesaOutros;
-	}
+	
 	public Integer getQtdPessoasResidentes() {
 		return qtdPessoasResidentes;
 	}
 	public void setQtdPessoasResidentes(Integer qtdPessoasResidentes) {
 		this.qtdPessoasResidentes = qtdPessoasResidentes;
 	}
-	public Double getRendaTrabalhoFormal() {
-		return rendaTrabalhoFormal;
-	}
-	public void setRendaTrabalhoFormal(Double rendaTrabalhoFormal) {
-		this.rendaTrabalhoFormal = rendaTrabalhoFormal;
-	}
-	public Double getRendaTrabalhoInformal() {
-		return rendaTrabalhoInformal;
-	}
-	public void setRendaTrabalhoInformal(Double rendaTrabalhoInformal) {
-		this.rendaTrabalhoInformal = rendaTrabalhoInformal;
-	}
-	public Double getRendaAposentadoria() {
-		return rendaAposentadoria;
-	}
-	public void setRendaAposentadoria(Double rendaAposentadoria) {
-		this.rendaAposentadoria = rendaAposentadoria;
-	}
-	public Double getRendaBeneficioSocial() {
-		return rendaBeneficioSocial;
-	}
-	public void setRendaBeneficioSocial(Double rendaBeneficioSocial) {
-		this.rendaBeneficioSocial = rendaBeneficioSocial;
-	}
-	public Double getRendaAuxilioParente() {
-		return rendaAuxilioParente;
-	}
-	public void setRendaAuxilioParente(Double rendaAuxilioParente) {
-		this.rendaAuxilioParente = rendaAuxilioParente;
-	}
-	public Double getRendaOutros() {
-		return rendaOutros;
-	}
-	public void setRendaOutros(Double rendaOutros) {
-		this.rendaOutros = rendaOutros;
-	}
+	
 	public Integer getMoradiaVarandaQtd() {
 		return moradiaVarandaQtd;
 	}
@@ -571,79 +455,39 @@ public class RelatorioVisitaDomiciliar {
 	public void setDataRelatorio(Date dataRelatorio) {
 		this.dataRelatorio = dataRelatorio;
 	}
-	public SelecaoBolsa getSelecaoBolsa() {
+	public Selecao getSelecaoBolsa() {
 		return selecaoBolsa;
 	}
-	public void setSelecaoBolsa(SelecaoBolsa selecaoBolsa) {
+	public void setSelecaoBolsa(Selecao selecaoBolsa) {
 		this.selecaoBolsa = selecaoBolsa;
 	}
-	@Override
-	public String toString() {
-		return "RelatorioVisitaDomiciliar [id=" + id + ", candidato="
-				+ aluno + ", endereco=" + endereco + ", formaAcessoCasa="
-				+ formaAcessoCasa + ", curso=" + curso + ", semestre="
-				+ semestre + ", dataVisita=" + dataVisita + ", despesaMoradia="
-				+ despesaMoradia + ", despesaEnergia=" + despesaEnergia
-				+ ", despesaTelefone=" + despesaTelefone + ", despesaEducacao="
-				+ despesaEducacao + ", despesaSaude=" + despesaSaude
-				+ ", despesaAlimentacao=" + despesaAlimentacao
-				+ ", despesaOutros=" + despesaOutros
-				+ ", qtdPessoasResidentes=" + qtdPessoasResidentes
-				+ ", rendaTrabalhoFormal=" + rendaTrabalhoFormal
-				+ ", rendaTrabalhoInformal=" + rendaTrabalhoInformal
-				+ ", rendaAposentadoria=" + rendaAposentadoria
-				+ ", rendaBeneficioSocial=" + rendaBeneficioSocial
-				+ ", rendaAuxilioParente=" + rendaAuxilioParente
-				+ ", rendaOutros=" + rendaOutros + ", moradiaVarandaQtd="
-				+ moradiaVarandaQtd + ", moradiaVarandaEstado="
-				+ moradiaVarandaEstado + ", moradiaSalaQtd=" + moradiaSalaQtd
-				+ ", moradiaSalaEstado=" + moradiaSalaEstado
-				+ ", moradiaBanheiroQtd=" + moradiaBanheiroQtd
-				+ ", moradiaBanheiroEstado=" + moradiaBanheiroEstado
-				+ ", moradiaQuartoQtd=" + moradiaQuartoQtd
-				+ ", moradiaQuartoEstado=" + moradiaQuartoEstado
-				+ ", moradiaCozinhaQtd=" + moradiaCozinhaQtd
-				+ ", moradiaCozinhaEstado=" + moradiaCozinhaEstado
-				+ ", moradiaQuintalQtd=" + moradiaQuintalQtd
-				+ ", moradiaQuintalEstado=" + moradiaQuintalEstado
-				+ ", utensilioTvQtd=" + utensilioTvQtd
-				+ ", utensilioTvObservacao=" + utensilioTvObservacao
-				+ ", utensilioSomQtd=" + utensilioSomQtd
-				+ ", utensilioSomObservacao=" + utensilioSomObservacao
-				+ ", utensilioComputadorQtd=" + utensilioComputadorQtd
-				+ ", utensilioComputadorObservacao="
-				+ utensilioComputadorObservacao + ", utensilioFogaoQtd="
-				+ utensilioFogaoQtd + ", utensilioFogaoObservacao="
-				+ utensilioFogaoObservacao + ", utensilioGeladeiraQtd="
-				+ utensilioGeladeiraQtd + ", utensilioGeladeiraObservacao="
-				+ utensilioGeladeiraObservacao + ", utensilioFreezerQtd="
-				+ utensilioFreezerQtd + ", utensilioFreezerObservacao="
-				+ utensilioFreezerObservacao + ", utensilioLavadoraQtd="
-				+ utensilioLavadoraQtd + ", utensilioLavadoraObservacao="
-				+ utensilioLavadoraObservacao + ", utensilioDvdQtd="
-				+ utensilioDvdQtd + ", utensilioDvdObservacao="
-				+ utensilioDvdObservacao + ", utensilioOutrosQtd="
-				+ utensilioOutrosQtd + ", utensilioOutrosObservacao="
-				+ utensilioOutrosObservacao + ", bemMovelMotoQtd="
-				+ bemMovelMotoQtd + ", bemMovelMotoObservacao="
-				+ bemMovelMotoObservacao + ", bemMovelBicicletaQtd="
-				+ bemMovelBicicletaQtd + ", bemMovelBicicletaObservacao="
-				+ bemMovelBicicletaObservacao + ", bemMovelCarroQtd="
-				+ bemMovelCarroQtd + ", bemMovelCarroObservacao="
-				+ bemMovelCarroObservacao + ", bemMovelOutrosQtd="
-				+ bemMovelOutrosQtd + ", bemMovelOutrosObservacao="
-				+ bemMovelOutrosObservacao
-				+ ", perfilCompativelUtensilioDomestico="
-				+ perfilCompativelUtensilioDomestico
-				+ ", perfilCompativelBensMoveis=" + perfilCompativelBensMoveis
-				+ ", perfilCompativelMaquinario=" + perfilCompativelMaquinario
-				+ ", perfilCompativelAspectoFisicoResidencia="
-				+ perfilCompativelAspectoFisicoResidencia
-				+ ", perfilCompativelOutros=" + perfilCompativelOutros
-				+ ", analiseDescricaoRealidade=" + analiseDescricaoRealidade
-				+ ", parecerFinalDeferido=" + parecerFinalDeferido
-				+ ", dataRelatorio=" + dataRelatorio + "]";
+	public Despesa getDespesa() {
+		return despesa;
 	}
+	public void setDespesa(Despesa despesa) {
+		this.despesa = despesa;
+	}
+	public Receita getReceita() {
+		return receita;
+	}
+	public void setReceita(Receita receita) {
+		this.receita = receita;
+	}
+	public String getObservacaoParecer() {
+		return observacaoParecer;
+	}
+	public void setObservacaoParecer(String observacaoParecer) {
+		this.observacaoParecer = observacaoParecer;
+	}
+	public Servidor getServidor() {
+		return servidor;
+	}
+	public void setServidor(Servidor servidor) {
+		this.servidor = servidor;
+	}
+	
+	
+	
 	
 	
 }
