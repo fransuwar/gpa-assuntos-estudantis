@@ -121,15 +121,15 @@
 												<form:errors path="estadoFamilia"></form:errors>
 											</div>
 										</div>
-										<label for="pontoReferenciaFamilia"
+										<label for="referencia"
 											class="col-sm-2 control-label">Ponto de referencia:</label>
 										<div class="col-sm-4">
-											<form:input id="pontoReferenciaFamilia" type="text"
-												path="pontoReferenciaFamilia" cssClass="form-control"
+											<form:input id="referencia" type="text"
+												path="referencia" cssClass="form-control"
 												placeholder="Ponto de referencia" />
 											<div class="error-validation"
-												id="erro-pontoReferenciaFamilia">
-												<form:errors path="pontoReferenciaFamilia"></form:errors>
+												id="erro-referencia">
+												<form:errors path="referencia"></form:errors>
 											</div>
 										</div>
 									</div>
