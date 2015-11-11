@@ -79,6 +79,18 @@ public class SelecaoBolsaController {
 		return "selecao/informacoes";
 	}
 	
+	@RequestMapping(value="detalhesSelecao/{id}")
+	public String detalhes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect){
+		SelecaoBolsa selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
+		if (selecao == null) {
+			redirect.addFlashAttribute("erro", "seleção Inexistente");
+			return "redirect:/selecao/listar";
+		}
+		modelo.addAttribute("selecao", selecao);
+		
+		return "selecao/detalhesSelecao";
+	}
+	
 	@RequestMapping(value="inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
 	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
 									 @PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa,
