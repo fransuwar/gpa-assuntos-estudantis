@@ -94,8 +94,7 @@ public class QuestionarioIniciacaoAcademica {
 	@JoinColumn(name = "questionarioiniciacaoacademica_id")
 	private List<HorarioDisponivel> horariosDisponiveisBolsa;
 
-	@NotNull
-	@Size(min = 5, message = "Campo Obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String enderecoAtual;
 
 	@NotNull(message = "Campo Obrigatório")
@@ -103,17 +102,14 @@ public class QuestionarioIniciacaoAcademica {
 
 	private String complemento;
 
-	@NotNull
+	@NotEmpty
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String bairro;
 	
 	@NotEmpty(message = "Campo Obrigatório")
-	private String uf;
-	
-	@NotEmpty(message = "Campo Obrigatório")
 	private String cep;
 
-	@NotNull
+	@NotEmpty
 	@Size(min = 3, message = "Campo Obrigatório")
 	private String cidade;
 
@@ -125,14 +121,13 @@ public class QuestionarioIniciacaoAcademica {
 
 	private String email;
 
-	@NotNull
+	@NotEmpty
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String enderecoFamilia;
-	@NotEmpty(message = "Campo obrigatório")
 	@NotNull(message = "Campo Obrigatório")
 	private Integer numeroFamilia;
 
-	@NotNull
+	@NotEmpty
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String bairroFamilia;
 
@@ -142,7 +137,7 @@ public class QuestionarioIniciacaoAcademica {
 
 	private String cepFamilia;
 
-	@NotNull
+	@NotEmpty
 	@Size(min = 3, message = "Campo Obrigatório")
 	private String cidadeFamilia;
 
@@ -156,11 +151,11 @@ public class QuestionarioIniciacaoAcademica {
 	@Enumerated(EnumType.STRING)
 	private NivelInstrucao nivelInstrucaoPai;
 
-	@NotNull
+	@NotEmpty
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String resideAtualmente;
 
-	@NotNull
+	@NotEmpty
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String definicaoLocalAtual;
 
@@ -180,7 +175,7 @@ public class QuestionarioIniciacaoAcademica {
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
 
-	@NotNull
+	@NotEmpty
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String justificativaPedido;
 
@@ -419,15 +414,7 @@ public class QuestionarioIniciacaoAcademica {
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-
-	public String getUf() {
-		return uf;
-	}
-
-	public void setUf(String uf) {
-		this.uf = uf;
-	}
-
+	
 	public String getCep() {
 		return cep;
 	}

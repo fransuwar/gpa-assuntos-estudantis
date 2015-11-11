@@ -81,7 +81,7 @@
 				</div>
 
 				<div align="right" style="margin-bottom: 20px;">
-					<a href="<c:url value="/selecao/cadastrar" ></c:url>">
+					<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">
 						<button class="btn btn-primary">
 							Nova seleção <span class="glyphicon glyphicon-plus"></span>
 						</button>
@@ -126,32 +126,30 @@
 										</a>
 									</sec:authorize> <sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
 										<a id="editar"
-											href="<c:url value="/selecao/editar/${selecao.id}" ></c:url>">
+											href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
 											<button class="btn btn-info">
 												Editar <span class="glyphicon glyphicon-pencil"></span>
 											</button>
 										</a>
 										<a id="excluir" data-toggle="modal"
 											data-target="#confirm-delete" href="#"
-											data-href="<c:url value="/selecao/excluir/${selecao.id}" ></c:url>">
+											data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
 											<button class="btn btn-danger">
 												Excluir <span class="glyphicon glyphicon-trash"></span>
 											</button>
 										</a>
 
 										<a id="atribuirBanca"
-											href="<c:url value="/selecao/atribuir/${selecao.id}" ></c:url>">
+											href="<c:url value="/coordenador/selecao/${selecao.id}/atribuir-comissao" ></c:url>">
 											<c:choose>
 												<c:when test="${empty selecao.membrosBanca}">
 													<button class="btn btn-primary">
-														Atribuir Membro à Banca <span
-															class="glyphicon glyphicon-user"></span>
+														Atribuir Membro à Banca <span class="glyphicon glyphicon-user"></span>
 													</button>
 												</c:when>
 												<c:otherwise>
 													<button class="btn btn-primary">
-														Editar Membros da Banca <span
-															class="glyphicon glyphicon-user"></span>
+														Editar Membros da Banca <span class="glyphicon glyphicon-user"></span>
 													</button>
 												</c:otherwise>
 											</c:choose>
@@ -162,7 +160,7 @@
 											<c:when
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
-													href="<c:url value="/iniciacaoAcademica/inscricao/${selecao.id}/" ></c:url>">
+													href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
 													<button class=" btn btn-success">
 														inscrever-se <span class="glyphicon glyphicon-user"></span>
 													</button>
@@ -171,7 +169,7 @@
 											<c:when
 												test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
-													href="<c:url value="/iniciacaoAcademica/editar/${sessionScope.id}/" ></c:url>">
+													href="<c:url value="/aluno/${sessionScope.id}/editar/inscricao/iniciacao-academica" ></c:url>">
 													<button class=" btn btn-info">
 														editar <span class="glyphicon glyphicon-pencil"></span>
 													</button>
@@ -180,7 +178,7 @@
 											<c:when
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
-													href="<c:url value="/auxilio/inscricao/${selecao.id}/" ></c:url>">
+													href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
 													<button class=" btn btn-success">
 														inscrever-se <span class="glyphicon glyphicon-user"></span>
 													</button>
@@ -189,7 +187,7 @@
 											<c:when
 												test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
-													href="<c:url value="/auxilio/editar/${sessionScope.id}/" ></c:url>">
+													href="<c:url value="/aluno/${sessionScope.id}/editar/inscricao/auxilio-moradia" ></c:url>">
 													<button class=" btn btn-info">
 														editar <span class="glyphicon glyphicon-pencil"></span>
 													</button>

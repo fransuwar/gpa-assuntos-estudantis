@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,6 +37,7 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
+import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
@@ -60,6 +62,9 @@ public class AlunoController {
 	
 	@Inject
 	private AlunoService alunoService;
+	
+	@Inject
+	private PessoaService pessoaService;
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
 	public String realizarInscricaoBIA(@PathVariable("idSelecao") Integer idSelecao, Model model) {
@@ -79,9 +84,9 @@ public class AlunoController {
 	}
 	
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.POST)
-	public String realizarInscricaoBIA(@PathVariable("idSelecao") Integer idSelecao, @Valid @ModelAttribute("id") Integer idAluno,
-			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
-			Model model, BindingResult result, RedirectAttributes redirect) {
+	public String realizarInscricaoBIA(@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica, 
+			BindingResult result, @RequestParam("idAluno") Integer idAluno, @PathVariable("idSelecao") Integer idSelecao, 
+			Model model, RedirectAttributes redirect) {
 		
 		model.addAttribute("action", "incricao-inciacao-academica");
 		
@@ -99,21 +104,22 @@ public class AlunoController {
 			return "inscricao/iniciacaoAcademica";
 		}
 		
-		Aluno aluno = this.alunoService.find(Aluno.class, idAluno);
+		Aluno aluno = this.alunoService.getAlunoById(idAluno);
+		iniciacaoAcademica.setAluno(aluno);
 		SelecaoBolsa selecao = this.selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
-		
 		selecao.getAlunosSelecao().add(aluno);
+		
 		this.selecaoBolsaService.update(selecao);
 		
-		iniciacaoAcademica.setAluno(aluno);
 		iniciacaoAcademica.setSelecaoBolsa(selecao);
 		
 		this.iniciacaoAcademicaService.save(iniciacaoAcademica);
+		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		
 		return "redirect:/selecao/listar";
 	}
 
-	@RequestMapping(value = { "{idAluno}/inscricao/iniciacao-academica/editar" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "{idAluno}/editar/inscricao/iniciacao-academica" }, method = RequestMethod.GET)
 	public String editarInscricaoBIA(@PathVariable("idAluno") Integer idAluno, Model model, RedirectAttributes redirect) {
 		
 		QuestionarioIniciacaoAcademica iniciacaoAcademica = this.iniciacaoAcademicaService.getQuestIniAcadById(idAluno);
@@ -146,7 +152,7 @@ public class AlunoController {
 		return "inscricao/iniciacaoAcademica";
 	}
 	
-	@RequestMapping(value = { "{idAluno}/inscricao/iniciacao-academica/editar" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "{idAluno}/editar/inscricao/iniciacao-academica" }, method = RequestMethod.POST)
 	public String editarInscricaoBIA(@PathVariable("idAluno") Integer idAluno,
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
 			Model model,BindingResult result, RedirectAttributes redirect) {
@@ -199,7 +205,7 @@ public class AlunoController {
 	
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.POST)
 	public String realizarInscricaoAmor(@PathVariable("idSelecao") Integer idSelecao,
-			@Valid @ModelAttribute("id") Integer idAluno,
+			@Valid @ModelAttribute("idAluno") Integer idAluno,
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, 
 			Model model, BindingResult result, RedirectAttributes redirect) {
 		
@@ -222,21 +228,22 @@ public class AlunoController {
 			return "inscricao/auxilio";
 		}
 		
-		Aluno aluno = this.alunoService.find(Aluno.class, idAluno);
+		Aluno aluno = this.alunoService.getAlunoById(idAluno);
+		auxilioMoradia.setAluno(aluno);
 		SelecaoBolsa selecao = this.selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
-		
 		selecao.getAlunosSelecao().add(aluno);
+		
 		this.selecaoBolsaService.update(selecao);
 		
-		auxilioMoradia.setAluno(aluno);
 		auxilioMoradia.setSelecaoBolsa(selecao);
 		
 		this.auxilioMoradiaService.save(auxilioMoradia);
+		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		
 		return "redirect:/selecao/listar";
 	}
 	
-	@RequestMapping(value = { "{idAluno}/inscricao/auxilio-moradia/editar" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "{idAluno}/editar/inscricao/auxilio-moradia" }, method = RequestMethod.GET)
 	public String editarInscricaoAMOR(@PathVariable("idAluno") Integer idAluno, Model model, RedirectAttributes redirect) {
 		
 		QuestionarioAuxilioMoradia auxilioMoradia = this.auxilioMoradiaService.getQuestAuxMorById(idAluno);
@@ -264,8 +271,8 @@ public class AlunoController {
 		return "inscricao/auxilio";
 	}
 	
-	@RequestMapping(value = { "{idAluno}/inscricao/auxilio-moradia/editar" }, method = RequestMethod.POST)
-	public String editarInscricaoAMOR(@PathVariable("idAluno") Integer idAluno, @Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model, BindingResult result, RedirectAttributes redirect) {
+	@RequestMapping(value = { "/editar/inscricao/auxilio-moradia" }, method = RequestMethod.POST)
+	public String editarInscricaoAMOR(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model, BindingResult result, RedirectAttributes redirect) {
 		
 		model.addAttribute("action", "editar-auxilio-moradia");
 		
@@ -287,7 +294,8 @@ public class AlunoController {
 		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
 		return "redirect:/selecao/listar";
 	}
-	
+
+//	FUNÇÕES QUE NÃO SERÃO MAIS NECESSÁRIAS POR CONTA DO LDAP
 //	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 //	public String salvarAluno(@Valid @ModelAttribute(value = "aluno") Aluno aluno,
 //			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {

@@ -13,7 +13,7 @@
 	<c:set var="botao" value="Finalizar Inscrição"></c:set>
 </c:if>
 <c:if test="${action eq 'editar-inciacao-academica' }">
-	<c:url var="url" value="/aluno/${sessionScope.id}/inscricao/iniciacao-academica/editar"></c:url>
+	<c:url var="url" value="/aluno/${sessionScope.id}/editar/inscricao/iniciacao-academica"></c:url>
 	<c:set var="titulo" value="Editar Inscrição"></c:set>
 	<c:set var="botao" value="Atualizar Inscrição"></c:set>
 </c:if>
@@ -55,7 +55,7 @@
 					servletRelativeAction="${url }"
 					method="POST" cssClass="form-horizontal">
 					
-					<input type="hidden" name="id" value="${questionarioIniciacaoAcademica.id}" />
+					<input id="idAluno"name="idAluno" type="hidden" value="${sessionScope.id}" />
 					
 					<div class="tab-content">
 						<div class="tab-pane active" id="moradia-tab">
@@ -70,7 +70,7 @@
 										<div class="col-sm-5">
 											<form:input id="enderecoFamilia" type="text"
 												path="enderecoFamilia" cssClass="form-control"
-												placeholder="Rua /Av" />
+												placeholder="Rua/Av" />
 											<div class="error-validation" id="erro-enderecoFamilia">
 												<form:errors path="enderecoFamilia">
 												</form:errors>

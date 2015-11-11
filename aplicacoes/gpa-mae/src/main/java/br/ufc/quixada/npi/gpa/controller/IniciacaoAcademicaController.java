@@ -70,8 +70,7 @@ public class IniciacaoAcademicaController {
 	}
 
 	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.POST)
-	public String adicionaIniciacaoAcademica(
-			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
+	public String adicionaIniciacaoAcademica(@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
 			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model modelo) {
 		

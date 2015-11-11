@@ -24,8 +24,10 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
+import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
+import br.ufc.quixada.npi.gpa.service.ServidorService;
 
 @Controller
 @RequestMapping("coordenador")
@@ -37,7 +39,10 @@ public class CoordenadorController {
 	@Inject
 	private DocumentoService documentoService;
 	
-	@RequestMapping(value = { "cadastrar-selecao" }, method = RequestMethod.GET)
+	@Inject
+	private ServidorService servidorService;
+	
+	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.GET)
 	public String cadastroSelecao(Model model) {
 		
 		model.addAttribute("action", "cadastrar");
@@ -47,7 +52,7 @@ public class CoordenadorController {
 		return "selecao/cadastrar";
 	}
 	
-	@RequestMapping(value = { "cadastrar-selecao" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
 	public String cadastroSelecao(@RequestParam("files") List<MultipartFile> files, Model model,
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, BindingResult result, 
 			RedirectAttributes redirect) {
@@ -93,15 +98,17 @@ public class CoordenadorController {
 						documentos.add(documento);
 					}
 					
-					if (!documentos.isEmpty()) {
-						selecao.setDocumentos(documentos);
-					}
 					
 				} catch (IOException ioe) {
 					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
 					return "selecao/cadastrar";
 				}
 			} 
+			
+			if (!documentos.isEmpty()) {
+				selecao.setDocumentos(documentos);
+			}
+			
 		} else {
 			
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
@@ -115,10 +122,10 @@ public class CoordenadorController {
 		
 	}
 	
-	@RequestMapping(value = { "editar-selecao/{idSelecao}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		
-		SelecaoBolsa selecao = this.selecaoService.find(SelecaoBolsa.class, idSelecao);
+		SelecaoBolsa selecao = this.selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
 
 		if (selecao != null && selecao.getStatus() != null && selecao.getStatus().equals(Status.NOVA)) {
 		
@@ -134,8 +141,8 @@ public class CoordenadorController {
 		return "selecao/cadastrar";
 	}
 	
-	@RequestMapping(value = { "editar-selecao/{idSelecao}" }, method = RequestMethod.POST)
-	public String editarSelecao(@RequestParam("files") List<MultipartFile> files, @PathVariable("idSelecao") Integer idSelecao,
+	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
+	public String editarSelecao(@RequestParam("files") List<MultipartFile> files,
 			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, Model model,
 			BindingResult result, RedirectAttributes redirect, HttpServletRequest request) {
 		
@@ -150,12 +157,6 @@ public class CoordenadorController {
 		if (selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) {
 			if ((new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio()))) {
 				result.rejectValue("dataTermino", "selecao.dataTermino", "A data de término não pode ser anterior a data de início.");
-			}
-		}
-		
-		if (selecao != null)  {
-			if (selecaoService.existsSelecaoEquals(selecao)) {
-				result.rejectValue("sequencial", "selecao.sequencial", "Número do edital com esse tipo de bolsa já existente");
 			}
 		}
 		
@@ -184,29 +185,23 @@ public class CoordenadorController {
 		}
 		
 		List<Documento> documentos = new ArrayList<Documento>();
-		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
+		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
 			for (MultipartFile mfiles : files) {
 				try {
-					
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-						
 						Documento documento = new Documento();
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
 						documento.setTipo(mfiles.getContentType());
 						documento.setSelecaoBolsa(selecao);
 						documentos.add(documento);
+						documentoService.save(documento);
 					}
-					
-					if (!documentos.isEmpty()) {
-						selecao.setDocumentos(documentos);
-					}
-					
 				} catch (IOException ioe) {
 					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
 					return "selecao/cadastrar";
 				}
-			} 
+			}
 		} else {
 			
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
@@ -214,13 +209,14 @@ public class CoordenadorController {
 			return "selecao/cadastrar";
 		}
 		
+		
 		this.selecaoService.update(selecao);
 		redirect.addFlashAttribute("info", "Seleção atualizada com sucesso.");
 		
 		return "redirect:/selecao/listar";
 	}
 	
-	@RequestMapping(value = { "excluir-selecao/{idSelecao}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "selecao/excluir/{idSelecao}" }, method = RequestMethod.GET)
 	public String excluirSelecao(@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect) {
 		
 		SelecaoBolsa selecao = this.selecaoService.find(SelecaoBolsa.class, idSelecao);
@@ -237,5 +233,62 @@ public class CoordenadorController {
 		}
 		
 		return "redirect:/selecao/listar";
+	}
+	
+	@RequestMapping(value = { "selecao/{idSelecao}/atribuir-comissao/" }, method = RequestMethod.GET)
+	public String atribuirComissao(@PathVariable("idSelecao") Integer idSelecao, Model model,
+			RedirectAttributes redirect) {
+		
+		List<Servidor> comissao = this.selecaoService.getSelecaoBolsaComMembros(idSelecao).getMembrosBanca();
+		
+		if (!comissao.isEmpty()) {
+			model.addAttribute("m1", comissao.get(0).getId());
+			model.addAttribute("m2", comissao.get(1).getId());
+			model.addAttribute("m3", comissao.get(2).getId());
+		}
+		
+		model.addAttribute("selecao", idSelecao);
+		model.addAttribute("servidores", this.servidorService.find(Servidor.class));
+		
+		return "selecao/atribuir";
+	}
+	
+	@RequestMapping(value = { "selecao/atribuir-comissao" }, method = RequestMethod.POST)
+	public String atribuirComissao(@RequestParam("id") Integer id,
+			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
+			@RequestParam("id3") Integer id3, Model model,
+			RedirectAttributes redirect) {
+		
+		if (id1 == null || id2 == null || id3 == null) {
+			model.addAttribute("selecao", id);
+			model.addAttribute("servidores", this.servidorService.find(Servidor.class));
+			model.addAttribute("erroMembros", "Informe os três membros.");
+			return "selecao/atribuir";
+			
+		} else if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
+			model.addAttribute("selecao", id);
+			model.addAttribute("servidores",
+					servidorService.find(Servidor.class));
+			model.addAttribute("erroMembros",
+					"Não é permitida repetição de membros na banca.");
+			return "selecao/atribuir";
+			
+		} else {
+			
+			SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
+			
+			List<Servidor> list = new ArrayList<Servidor>();
+			
+			list.add(new Servidor(id1));
+			list.add(new Servidor(id2));
+			list.add(new Servidor(id3));
+			
+			selecao.setMembrosBanca(list);
+			
+			this.selecaoService.update(selecao);
+			redirect.addFlashAttribute("info", "Comissão formada com sucesso.");
+			
+			return "redirect:/selecao/listar";
+		}
 	}
 }

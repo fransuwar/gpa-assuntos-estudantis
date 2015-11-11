@@ -8,13 +8,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:if test="${action eq 'cadastrar' }"> 
-	<c:url var="url" value="/coordenador/cadastrar-selecao" />
+	<c:url var="url" value="/coordenador/selecao/cadastrar" />
 	<c:set var="titulo" value="Nova Seleção"/>
 	<c:set var="botao" value="Cadastrar"/>
 </c:if>
 
 <c:if test="${action eq 'editar' }"> 
-	<c:url var="url" value="/coordenador/editar-selecao/${selecao.id }" />
+	<c:url var="url" value="/coordenador/selecao/editar" />
 	<c:set var="titulo" value="Editar Seleção"/>
 	<c:set var="botao" value="Atualizar"/>
 </c:if>
@@ -29,6 +29,7 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 	
 	<div class="container">
+	
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert"
 				id="alert-erro">
@@ -47,6 +48,7 @@
 				<c:out value="${info}"></c:out>
 			</div>
 		</c:if>
+		
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h2>${titulo }</h2>
@@ -83,8 +85,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="dataInicio" class="col-sm-2 control-label">Data
-							de Início:</label>
+						<label for="dataInicio" class="col-sm-2 control-label">Data de Início:</label>
 						<div class="col-sm-2">
 							<form:input id="dataInicio" type="text" path="dataInicio"
 								cssClass="form-control data" placeholder="Data de Início" />
@@ -150,8 +151,6 @@
 							</div>
 						</div>
 					</div>
-
-
 
 					<div class="form-group">
 						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
