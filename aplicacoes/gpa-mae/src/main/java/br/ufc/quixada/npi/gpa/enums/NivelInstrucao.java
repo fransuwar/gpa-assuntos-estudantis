@@ -5,25 +5,11 @@ import java.util.TreeMap;
 
 public enum NivelInstrucao {
 
-	ENS_FUND_COMP("Ensino Fundamental Completo"), ENS_MED_COMP(
-			"Ensino Médio Completo"), ENS_SUP_COMP(
-			"Ensino Superior Completo"), ENS_FUND_INCOMP(
-			"Ensino Fundamental Incompleto"), ENS_MED_INCOMP(
-			"Ensino Médio Incompleto"), ENS_SUP_INCOMP(
-			"Ensino Superior Incompleto");
-	
-	private String nome;
+	ENS_FUND_COMP("Ensino Fundamental Completo"), ENS_MED_COMP("Ensino Médio Completo"), ENS_SUP_COMP(
+			"Ensino Superior Completo"), ENS_FUND_INCOMP("Ensino Fundamental Incompleto"), ENS_MED_INCOMP(
+					"Ensino Médio Incompleto"), ENS_SUP_INCOMP("Ensino Superior Incompleto");
 	private static Map<NivelInstrucao, String> map;
-
-	NivelInstrucao(String nome) {
-		this.nome = nome;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-
-
+	private String nome;
 	public static Map<NivelInstrucao, String> toMap() {
 		if (map == null) {
 			map = new TreeMap<NivelInstrucao, String>();
@@ -33,4 +19,13 @@ public enum NivelInstrucao {
 		}
 		return map;
 	}
+
+	NivelInstrucao(String nome) {
+		this.nome = nome;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
 }
