@@ -163,12 +163,12 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<label for="enderecoAtual" class="col-sm-1 control-label"><span class="red">*</span>Rua/Av:</label>
+										<label for="endereco" class="col-sm-1 control-label"><span class="red">*</span>Rua/Av:</label>
 										<div class="col-sm-5">
-											<form:input id="enderecoAtual" path="enderecoAtual"
+											<form:input id="endereco" path="endereco"
 												cssClass="form-control" placeholder="Rua /Av" />
-											<div class="error-validation" id="erro-enderecoAtual">
-												<form:errors path="enderecoAtual"></form:errors>
+											<div class="error-validation" id="erro-endereco">
+												<form:errors path="endereco"></form:errors>
 											</div>
 										</div>
 										<label for="bairro" class="col-sm-2 control-label"><span class="red">*</span>Bairro:</label>
@@ -228,10 +228,10 @@
 												<form:errors path="estado"></form:errors>
 											</div>
 										</div>
-										<label for="pontoReferencia" class="col-sm-2 control-label"><span class="red">*</span>Ponto de referencia:</label>
+										<label for="referenciaFamilia" class="col-sm-2 control-label"><span class="red">*</span>Ponto de referencia:</label>
 										<div class="col-sm-4">
-											<form:input id="pontoReferencia" type="text"
-												path="pontoReferencia" cssClass="form-control"
+											<form:input id="referenciaFamilia" type="text"
+												path="referenciaFamilia" cssClass="form-control"
 												placeholder="Cidade" />
 											<div class="error-validation" id="erro-cidadeAtual">
 												<form:errors path="cidade"></form:errors>
