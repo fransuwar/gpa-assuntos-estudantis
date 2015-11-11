@@ -24,7 +24,96 @@ $(document).ready(function(){
             "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
         }
 	});
+	
+	$.extend(jQuery.validator.messages, {
+	    required: "Campo obrigatório",
+	});
+	
+	$.validate({
+		  borderColorOnError : '#FFF',
+		  addValidClassOnAll : true
+		});
+	
+	
+	
+//	
+//	$.validator.setDefaults({
+//	    highlight: function(element) {
+//	        $(element).closest('.form-group').addClass('has-error');
+//	    },
+//	    unhighlight: function(element) {
+//	        $(element).closest('.form-group').removeClass('has-error');
+//	    },
+//	    errorElement: 'span',
+//	    errorClass: 'help-block',
+//	    errorPlacement: function(error, element) {
+//	        if(element.parent('.input-group').length) {
+//	            error.insertAfter(element.parent());
+//	        } else {
+//	            error.insertAfter(element);
+//	        }
+//	    }
+//	});
+	
+	$('#adicionarSelecaoForm').validate({
+		  
+		 rules: {
+			 dataInicio:{
+				 required:true			 
+			 },
+			 dataTermino:{
+				 required:true
+			 },
+	         ano: {
+	             required: true
+	         },
+	         quantidadeVagas: {
+	             required: true
+	         },
+	         tipoBolsa:{
+	        	 required:true
+	         },
+	         sequencial:{
+	        	 required:true
+	         },
+	         duracao:{
+	        	 required:true
+	         },
+	         comentarios:{
+	        	 required:true
+	         },
+	         files:{
+	        	 required:true
+	         },
+	         agree: "required"
+	     }, 
+	     highlight : function(element) {
+				$(element).closest('.form-control')
+						.addClass('has-error');
+			},
+		unhighlight : function(element) {
+				$(element).closest('.form-control')
+						.removeClass('has-error');
+			},
+			errorElement : 'span',
+			errorClass : 'help-block',
+			errorPlacement : function(error,
+					element) {
+				error.insertAfter(element.parent()
+						.children().last());
+				var itemForm = element.parent();
+				var id = element.attr("name");
+				$(itemForm).find("span").attr("id",id);
+			}/*,
+	     submitHandler: function(form) {
+	            form.submit();
+	        }*/
+	     
+		 });	
 });
+
+
+
 
 function mascaraIra(obj) {
 	var str = obj.value;
@@ -327,3 +416,5 @@ function buscarSelecao(){
 		}
 	}
 }
+
+

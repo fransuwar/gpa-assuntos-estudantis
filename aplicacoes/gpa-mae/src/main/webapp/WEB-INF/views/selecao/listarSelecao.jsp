@@ -100,7 +100,7 @@
 										<a id="excluir" data-toggle="modal"
 											data-target="#confirm-delete" href="#"
 											data-href="<c:url value="/selecao/excluir/${selecao.id}" ></c:url>">
-											<button class="btn btn-danger" title="Excluir Bolsa">
+											<button class="btn btn-danger" title="Excluir">
 												<span class="glyphicon glyphicon-trash"></span>
 											</button>
 										</a>
@@ -109,7 +109,7 @@
 											href="<c:url value="/selecao/atribuir/${selecao.id}" ></c:url>">
 											<c:choose>
 												<c:when test="${empty selecao.membrosBanca}">
-													<button class="btn btn-primary" title="Atribuir Membros à Banca">
+													<button class="btn btn-primary" title="Gerenciar Comissão">
 														<span class="glyphicon glyphicon-user"></span>
 													</button>
 												</c:when>
@@ -128,7 +128,7 @@
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
 													href="<c:url value="/iniciacaoAcademica/inscricao/${selecao.id}/" ></c:url>">
-													<button class=" btn btn-success" title="Se Inscrever">
+													<button class=" btn btn-success" title="Realizar Inscrição">
 														<span class="glyphicon glyphicon-user"></span>
 													</button>
 												</a>
