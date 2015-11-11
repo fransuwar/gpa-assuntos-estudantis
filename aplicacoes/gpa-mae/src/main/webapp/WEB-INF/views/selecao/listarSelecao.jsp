@@ -93,7 +93,7 @@
 									</sec:authorize> <sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
 										<a id="editar"
 											href="<c:url value="/selecao/editar/${selecao.id}" ></c:url>">
-											<button class="btn btn-info" title="Editar Bolsa">
+											<button class="btn btn-info" title="Editar">
 												<span class="glyphicon glyphicon-pencil"></span>
 											</button>
 										</a>
@@ -146,7 +146,7 @@
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
 													href="<c:url value="/auxilio/inscricao/${selecao.id}/" ></c:url>">
-													<button class=" btn btn-success" title="Se Inscrever"s>
+													<button class=" btn btn-success" title="Realizar Inscrição">
 														<span class="glyphicon glyphicon-user"></span>
 													</button>
 												</a>

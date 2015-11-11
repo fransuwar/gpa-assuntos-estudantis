@@ -29,33 +29,30 @@ $(document).ready(function(){
 	    required: "Campo obrigatório",
 	});
 	
-	$.validate({
-		  borderColorOnError : '#FFF',
-		  addValidClassOnAll : true
-		});
 	
 	
 	
-//	
-//	$.validator.setDefaults({
-//	    highlight: function(element) {
-//	        $(element).closest('.form-group').addClass('has-error');
-//	    },
-//	    unhighlight: function(element) {
-//	        $(element).closest('.form-group').removeClass('has-error');
-//	    },
-//	    errorElement: 'span',
-//	    errorClass: 'help-block',
-//	    errorPlacement: function(error, element) {
-//	        if(element.parent('.input-group').length) {
-//	            error.insertAfter(element.parent());
-//	        } else {
-//	            error.insertAfter(element);
-//	        }
-//	    }
-//	});
+	$.validator.setDefaults({
+		 highlight : function(element) {
+				$(element).closest('.form-item').addClass('has-error');
+			},
+			unhighlight : function(element) {
+				$(element).closest('.form-group').removeClass('has-error');
+			},
+			errorElement : 'span',
+			errorClass : 'text-danger',
+			errorPlacement : function(error,
+					element) {
+				error.insertAfter(element.parent()
+						.children().last());
+				var itemForm = element.parent();
+				var id = element.attr("name");
+				$(itemForm).find("span").attr("id",id);
+			}
+	});
 	
 	$('#adicionarSelecaoForm').validate({
+		
 		  
 		 rules: {
 			 dataInicio:{
@@ -86,29 +83,12 @@ $(document).ready(function(){
 	        	 required:true
 	         },
 	         agree: "required"
-	     }, 
-	     highlight : function(element) {
-				$(element).closest('.form-control')
-						.addClass('has-error');
-			},
-		unhighlight : function(element) {
-				$(element).closest('.form-control')
-						.removeClass('has-error');
-			},
-			errorElement : 'span',
-			errorClass : 'help-block',
-			errorPlacement : function(error,
-					element) {
-				error.insertAfter(element.parent()
-						.children().last());
-				var itemForm = element.parent();
-				var id = element.attr("name");
-				$(itemForm).find("span").attr("id",id);
-			}/*,
+	     },
+	     
 	     submitHandler: function(form) {
 	            form.submit();
-	        }*/
-	     
+	        }
+	    
 		 });	
 });
 
