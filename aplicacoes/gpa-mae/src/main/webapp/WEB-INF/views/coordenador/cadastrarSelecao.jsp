@@ -53,16 +53,6 @@
 					enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${selecao.id}" />
 					<div class="form-group">
-						<label for="sequencial" class="col-sm-2 control-label">Número
-							do Edital:</label>
-						<div class="col-sm-2">
-							<form:input id="sequencial" path="sequencial"
-								cssClass="form-control" placeholder="000" data-mask="999" />
-							<div class="error-validation" id="erro-sequencial">
-								<form:errors path="sequencial"></form:errors>
-							</div>
-						</div>
-
 						<label for="tipoBolsa" class="col-sm-2 control-label">Tipo
 							de Bolsa:</label>
 						<div class="col-sm-5 control-label" id="div-select">
@@ -76,6 +66,38 @@
 								<form:errors path="tipoBolsa"></form:errors>
 							</div>
 						</div>
+						
+						<div class="form-group">
+						<label for="quantidadeVagas" class="col-sm-2 control-label">Vagas:</label>
+						<div class="col-sm-2">
+							<form:input id="quantidadeVagas" path="quantidadeVagas"
+								cssClass="form-control" placeholder="0" min="1" data-mask="999" />
+							<div class="error-validation" id="erro-qtdVagas">
+								<form:errors path="quantidadeVagas"></form:errors>
+							</div>
+						</div>
+					</div>
+						
+						<label for="sequencial" class="col-sm-2 control-label">Sequencial:</label>
+						<div class="col-sm-2">
+							<form:input id="sequencial" path="sequencial"
+								cssClass="form-control" placeholder="000" data-mask="999" />
+							<div class="error-validation" id="erro-sequencial">
+								<form:errors path="sequencial"></form:errors>
+							</div>
+						</div>
+						<label for="ano" class="col-sm-1 control-label">Ano:</label>
+						<div class="col-sm-2">
+							<form:input id="ano" type="text" path="ano"
+								cssClass="form-control" placeholder="0"
+								onkeypress="mascara(this,soNumeros)" />
+							<div class="error-validation" id="erro-ano">
+							<label class="col-sm-10 control-label" id="label-erro">
+									${dataError} </label>
+								<form:errors path="ano"></form:errors>
+							</div>
+						</div>
+
 
 					</div>
 
@@ -102,39 +124,8 @@
 							</div>
 						</div>
 
-						<label for="ano" class="col-sm-1 control-label">Ano:</label>
-						<div class="col-sm-2">
-							<form:input id="ano" type="text" path="ano"
-								cssClass="form-control" placeholder="0"
-								onkeypress="mascara(this,soNumeros)" />
-							<div class="error-validation" id="erro-ano">
-							<label class="col-sm-10 control-label" id="label-erro">
-									${dataError} </label>
-								<form:errors path="ano"></form:errors>
-							</div>
-						</div>
+						
 
-					</div>
-
-					<div class="form-group">
-						<label for="quantidadeVagas" class="col-sm-2 control-label">Quant.
-							de Vagas:</label>
-						<div class="col-sm-2">
-							<form:input id="quantidadeVagas" path="quantidadeVagas"
-								cssClass="form-control" placeholder="0" min="1" data-mask="999" />
-							<div class="error-validation" id="erro-qtdVagas">
-								<form:errors path="quantidadeVagas"></form:errors>
-							</div>
-						</div>
-
-						<label for="duracao" class="col-sm-2 control-label">Duração:</label>
-						<div class="col-sm-2">
-							<form:input id="duracao" type="text" path="duracao"
-								cssClass="form-control" placeholder="0" min="1" data-mask="999"/>
-							<div class="error-validation" id="erro-duracao">
-								<form:errors path="duracao"></form:errors>
-							</div>
-						</div>
 					</div>
 					
 					<div class="form-group">
