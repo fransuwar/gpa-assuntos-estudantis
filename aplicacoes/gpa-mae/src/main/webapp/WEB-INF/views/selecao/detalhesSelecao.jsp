@@ -31,18 +31,13 @@
 					<dl class="col-sm-12">
 						<dt class="col-sm-3">Ano do Edital:</dt>
 						<dd class="col-sm-3">${selecao.ano}</dd>
-						<dt class="col-sm-3">Duração da Bolsa:</dt>
-						<dd class="col-sm-3">${selecao.duracao} meses</dd>
-					</dl>
-					<dl class="col-sm-12">
 						<dt class="col-sm-3">Status:</dt>
 						<dd class="col-sm-3">${selecao.status.nome}</dd>
-						<dt class="col-sm-3">Quantidade de vagas:</dt>
-						<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
+						
 					</dl>
 					<dl class="col-sm-12">
-						<dt class="col-sm-3">Autor:</dt>
-						<dd class="col-sm-3">${selecao.autor.nome}</dd>
+						<dt class="col-sm-3">Quantidade de vagas:</dt>
+						<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
 						<dt class="col-sm-3">Responsável:</dt>
 						<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
 					</dl>
@@ -57,12 +52,6 @@
 							<fmt:formatDate value="${selecao.dataTermino}"
 								pattern="dd/MM/yyyy" />
 						</dd>
-						<dt class="col-sm-3">Local:</dt>
-						<dd class="col-sm-3">${selecao.local}</dd>
-					</dl>
-					<dl class="col-sm-12">
-						<dt class="col-sm-3">Descrição:</dt>
-						<dd class="col-sm-6">${selecao.comentarios}</dd>
 					</dl>
 			</div>
 		</div>

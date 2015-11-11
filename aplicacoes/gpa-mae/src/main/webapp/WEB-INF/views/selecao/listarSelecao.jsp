@@ -111,7 +111,9 @@
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 
-								<td>${selecao.tipoBolsa.nome}</td>
+								<td><a id="detalhesSelecao"
+									href="<c:url value="/selecao/detalhesSelecao/${selecao.id}">  </c:url>">
+										${selecao.tipoBolsa.nome} </a></td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
@@ -119,14 +121,6 @@
 
 								<td><sec:authorize
 										access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
-																				<a id="detalhesSelecao"
-										href="<c:url value="/selecao/detalhesSelecao/${selecao.id}">  </c:url>">
-											<button class="btn btn-info">
-												Detalhes<span class="glyphicon glyphicon-info-sign"></span>
-											</button>
-									</a>
-										
-										
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary">
@@ -166,12 +160,7 @@
 											</c:choose>
 										</a>
 									</sec:authorize> <sec:authorize access="hasAnyRole('DISCENTE')">
-										<a id="detalhesSelecao"
-											href="<c:url value="/selecao/detalhesSelecao/${selecao.id}">  </c:url>">
-											<button class="btn btn-info">
-												Detalhes<span class="glyphicon glyphicon-info-sign"></span>
-											</button>
-										</a>
+										
 										<c:choose>
 											<c:when
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
