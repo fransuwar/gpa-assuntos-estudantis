@@ -25,12 +25,12 @@ import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
-import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
 import br.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
-import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
+import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
@@ -45,7 +45,7 @@ public class IniciacaoAcademicaController {
 	private AlunoService alunoService;
 
 	@Inject
-	private SelecaoBolsaService selecaoBolsaService;
+	private SelecaoService selecaoBolsaService;
 
 	@Inject
 	private QuestionarioIniciacaoAcademicaService questionarioIniciacaoAcademicaService;
@@ -92,8 +92,8 @@ public class IniciacaoAcademicaController {
 		} else {
 
 			Aluno aluno = alunoService.getAlunoById(id);
-			questionarioIniciacaoAcademica.setAluno(aluno);
-			SelecaoBolsa selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
+			/*questionarioIniciacaoAcademica.setAluno(aluno);
+			Selecao selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
 			questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
 			
 			selecao.getAlunosSelecao().add(aluno);
@@ -103,7 +103,7 @@ public class IniciacaoAcademicaController {
 			else
 				this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
 			this.selecaoBolsaService.update(selecao);
-
+*/
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
 
@@ -115,7 +115,7 @@ public class IniciacaoAcademicaController {
 
 		QuestionarioIniciacaoAcademica q = iniciacaoAcademicaService.getQuestIniAcadById(id);
 
-		SelecaoBolsa selecao = q.getSelecaoBolsa();
+		/*Selecao selecao = q.getSelecaoBolsa();
 
 		if (q.getSelecaoBolsa().getStatus() != null && q.getSelecaoBolsa().getStatus().equals(Status.INSC_ABERTA)) {
 
@@ -138,7 +138,11 @@ public class IniciacaoAcademicaController {
 			return "redirect:/selecao/listar";
 		}
 
+*/
+
+
 		return "aluno/InscricaoIniciacaoAcademica";
+
 	}
 
 }
