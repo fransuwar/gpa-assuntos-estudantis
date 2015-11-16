@@ -3,7 +3,97 @@ var linha;
 $(document).ready(function(){
 	$('#valorMensalFinanciamento').mask("###0000000.00", {reverse: true});
 	$('#areaPropriedadeRural').mask("#####0.00", {reverse: true});
+	
+	$('#tabela-alunos').DataTable({
+		"language": {
+            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+        }
+	});
+	$('#tabela-selecoes').DataTable({
+		"language": {
+            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+        }
+	});
+	$('#tabela-servidores').DataTable({
+		"language": {
+            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+        }
+	});
+	$('#tabela-inscritos').DataTable({
+		"language": {
+            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+        }
+	});
+	
+	$.extend(jQuery.validator.messages, {
+	    required: "Campo obrigatório",
+	});
+	
+	
+	
+	
+	$.validator.setDefaults({
+		 highlight : function(element) {
+				$(element).closest('.form-item').addClass('has-error');
+			},
+			unhighlight : function(element) {
+				$(element).closest('.form-group').removeClass('has-error');
+			},
+			errorElement : 'span',
+			errorClass : 'text-danger',
+			errorPlacement : function(error,
+					element) {
+				error.insertAfter(element.parent()
+						.children().last());
+				var itemForm = element.parent();
+				var id = element.attr("name");
+				$(itemForm).find("span").attr("id",id);
+			}
+	});
+	
+	$('#adicionarSelecaoForm').validate({
+		
+		  
+		 rules: {
+			 dataInicio:{
+				 required:true			 
+			 },
+			 dataTermino:{
+				 required:true
+			 },
+	         ano: {
+	             required: true
+	         },
+	         quantidadeVagas: {
+	             required: true
+	         },
+	         tipoBolsa:{
+	        	 required:true
+	         },
+	         sequencial:{
+	        	 required:true
+	         },
+	         duracao:{
+	        	 required:true
+	         },
+	         comentarios:{
+	        	 required:true
+	         },
+	         files:{
+	        	 required:true
+	         },
+	         agree: "required"
+	     },
+	     
+	     submitHandler: function(form) {
+	            form.submit();
+	        }
+	    
+		 });	
 });
+
+
+
 
 function mascaraIra(obj) {
 	var str = obj.value;
@@ -306,3 +396,5 @@ function buscarSelecao(){
 		}
 	}
 }
+
+
