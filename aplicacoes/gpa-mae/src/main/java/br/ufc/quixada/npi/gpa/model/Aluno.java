@@ -59,16 +59,20 @@ public class Aluno {
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 10, message = "Agencia de possuir no máximo 10 dígitos")
 	private String agencia;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 20, message = "Conta deve possuir no máximo 20 dígitos")
 	private String conta;
+	
 	private byte[] foto;
+	
 	@ManyToOne
 	private Pessoa pessoa;
+	
 	@OneToMany
 	private List<Inscricao> inscricoes;
-	@OneToMany(mappedBy = "aluno")
-	private List<VisitaDomiciliar> relatorioVisitaDomiciliar;
+	
+	
 
 	@Override
 	public int hashCode() {

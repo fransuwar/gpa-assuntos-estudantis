@@ -509,12 +509,12 @@ public class QuestionarioIniciacaoAcademica {
 	public void setPessoas(List<PessoaFamilia> pessoas) {
 		this.pessoas = pessoas;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((justificativaPedido == null) ? 0 : justificativaPedido.hashCode());
 		return result;
 	}
 
@@ -527,7 +527,10 @@ public class QuestionarioIniciacaoAcademica {
 		if (getClass() != obj.getClass())
 			return false;
 		QuestionarioIniciacaoAcademica other = (QuestionarioIniciacaoAcademica) obj;
-		if (id != other.id)
+		if (justificativaPedido == null) {
+			if (other.justificativaPedido != null)
+				return false;
+		} else if (!justificativaPedido.equals(other.justificativaPedido))
 			return false;
 		return true;
 	}

@@ -139,8 +139,8 @@
 										<label for="telefoneFixo" class="col-sm-1 control-label">Fone:</label>
 										<div class="col-sm-2">
 											<form:input id="telefone" path="telefoneFixo"
-												data-mask="(00) 0 0000-0000" cssClass="form-control"
-												placeholder="(00) 0 0000-0000" />
+												data-mask="(00) 0000-0000" cssClass="form-control"
+												placeholder="(00) 0000-0000" />
 											<div class="error-validation" id="erro-telefoneFixo">
 												<form:errors path="telefoneFixo"></form:errors>
 											</div>
@@ -358,16 +358,6 @@
 												<form:errors path="qtdMotocicleta"></form:errors>
 											</div>
 										</div>
-
-										<label for="qtdDvdVideocassete" class="col-sm-4 control-label">Dvd/VideoCassete:</label>
-										<div class="col-sm-1">
-											<form:input id="qtdDvdVideocassete" data-mask="999" min="0" value="0" 
-												path="qtdDvdVideocassete" cssClass="form-control"
-												/>
-											<div class="error-validation" id="erro-qtdDvdVideocassete">
-												<form:errors path="qtdDvdVideocassete"></form:errors>
-											</div>
-										</div>
 									</div>
 
 									<div class="form-group">
@@ -413,14 +403,14 @@
 											</div>
 										</div>
 
-										<label for="qtdCelularResidentes"
+										<label for="qtdCelular"
 											class="col-sm-3 control-label">Celular Residentes:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdCelularResidentes" data-mask="999" min="0" value="0" 
-												path="qtdCelularResidentes" cssClass="form-control"
+											<form:input id="qtdCelular" data-mask="999" min="0" value="0" 
+												path="qtdCelular" cssClass="form-control"
 												 />
 											<div class="error-validation" id="erro-qtdCelularResidentes">
-												<form:errors path="qtdCelularResidentes"></form:errors>
+												<form:errors path="qtdCelular"></form:errors>
 											</div>
 										</div>
 
@@ -445,25 +435,25 @@
 											</div>
 										</div>
 
-										<label for="qtdMaquinaCostura" class="col-sm-3 control-label">Máquina
+										<label for="qtdMaquinaDeCostura" class="col-sm-3 control-label">Máquina
 											de Costura:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdMaquinaCostura" data-mask="999" min="0" value="0" 
-												path="qtdMaquinaCostura" cssClass="form-control"
+											<form:input id="qtdMaquinaDeCostura" data-mask="999" min="0" value="0" 
+												path="qtdMaquinaDeCostura" cssClass="form-control"
 												/>
 											<div class="error-validation" id="erro-qtdMaquinaCostura">
-												<form:errors path="qtdMaquinaCostura"></form:errors>
+												<form:errors path="qtdMaquinaDeCostura"></form:errors>
 											</div>
 										</div>
 
-										<label for="qtdComodosSemBanheiro"
+										<label for="qtdComodos"
 											class="col-sm-4 control-label">Comodo sem Banheiro:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdComodosSemBanheiro" data-mask="999" value="0" 
-												min="0" path="qtdComodosSemBanheiro" cssClass="form-control"
+											<form:input id="qtdComodos" data-mask="999" value="0" 
+												min="0" path="qtdComodos" cssClass="form-control"
 												 />
 											<div class="error-validation" id="erro-qtdComodosSemBanheiro">
-												<form:errors path="qtdComodosSemBanheiro"></form:errors>
+												<form:errors path="qtdComodos"></form:errors>
 											</div>
 										</div>
 									</div>
@@ -490,17 +480,7 @@
 											</div>
 										</div>
 
-										<label for="totalMembrosFamilia"
-											class="col-sm-4 control-label">Quantidade de Membros
-											da Familia:</label>
-										<div class="col-sm-1">
-											<form:input id="totalMembrosFamilia" data-mask="999" min="0" value="0" 
-												path="totalMembrosFamilia" cssClass="form-control"
-												/>
-											<div class="error-validation" id="erro-totalMembrosFamilia">
-												<form:errors path="totalMembrosFamilia"></form:errors>
-											</div>
-										</div>
+										
 									</div>
 								</div>
 

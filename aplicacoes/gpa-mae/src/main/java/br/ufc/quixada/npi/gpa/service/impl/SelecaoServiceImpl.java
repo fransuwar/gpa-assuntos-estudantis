@@ -15,7 +15,7 @@ import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
 import br.ufc.quixada.npi.util.SimpleMap;
 
 @Named
-public class SelecaoBolsaServiceImpl extends GenericServiceImpl<Selecao> implements SelecaoService {
+public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements SelecaoService {
 
 	@SuppressWarnings("unchecked")
 	@Override

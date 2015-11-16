@@ -24,6 +24,7 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
@@ -90,20 +91,21 @@ public class IniciacaoAcademicaController {
 			return "aluno/InscricaoIniciacaoAcademica";
 
 		} else {
-
+			Inscricao inscricao =  new Inscricao();
 			Aluno aluno = alunoService.getAlunoById(id);
-			/*questionarioIniciacaoAcademica.setAluno(aluno);
-			Selecao selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
-			questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
-			
-			selecao.getAlunosSelecao().add(aluno);
+			inscricao.setQuestionarioIniciacaoAcademica(questionarioIniciacaoAcademica);
+			inscricao.setAluno(aluno);
+			//Selecao selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
+			Selecao selecao = selecaoBolsaService.find(Selecao.class, idSelecao);
+			inscricao.setSelecao(selecao);
+			//selecao.getAlunosSelecao().add(aluno);
 
 			if (questionarioIniciacaoAcademica.getId() == null)
 				this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
 			else
 				this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
 			this.selecaoBolsaService.update(selecao);
-*/
+
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
 
