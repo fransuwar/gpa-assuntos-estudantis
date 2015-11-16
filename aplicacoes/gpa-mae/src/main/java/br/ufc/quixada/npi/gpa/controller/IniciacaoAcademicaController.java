@@ -69,7 +69,6 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-		//modelo.addAttribute("selecaoBolsa", id);
 		modelo.addAttribute("alunoId", id);
 		System.out.println("id -------------" + id);
 		
@@ -92,7 +91,6 @@ public class IniciacaoAcademicaController {
 			modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-			//modelo.addAttribute("selecaoBolsa", id);
 			modelo.addAttribute("alunoId", id);
 			return "aluno/InscricaoIniciacaoAcademica";
 
@@ -101,16 +99,14 @@ public class IniciacaoAcademicaController {
 			Aluno aluno = alunoService.getAlunoById(id);
 			inscricao.setQuestionarioIniciacaoAcademica(questionarioIniciacaoAcademica);
 			inscricao.setAluno(aluno);
-			//Selecao selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
 			Selecao selecao = selecaoBolsaService.find(Selecao.class, idSelecao);
 			inscricao.setSelecao(selecao);
-			//selecao.getAlunosSelecao().add(aluno);
+			
 
 			if (questionarioIniciacaoAcademica.getId() == null)
 				this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
 			else
 				this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
-			//this.selecaoBolsaService.update(selecao);
 			this.inscricaoService.update(inscricao);
 			
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
