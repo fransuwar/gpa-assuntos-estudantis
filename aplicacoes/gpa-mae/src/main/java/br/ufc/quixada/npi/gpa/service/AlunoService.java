@@ -10,5 +10,7 @@ public interface AlunoService extends GenericService<Aluno>{
 	public abstract Aluno getAlunoById(Integer id);
 	
 	public abstract Aluno getAlunoComSelecoes(Integer id);
+	
+	public abstract boolean existsAlunoEquals(Aluno aluno);
 
 }

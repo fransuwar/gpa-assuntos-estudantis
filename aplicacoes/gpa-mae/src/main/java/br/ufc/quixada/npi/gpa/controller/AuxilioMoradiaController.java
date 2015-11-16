@@ -150,8 +150,8 @@ public class AuxilioMoradiaController {
 			model.addAttribute("questionarioAuxilioMoradia", q);
 			model.addAttribute("selecaoBolsa", selecao.getId());
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-			model.addAttribute("turno", Turno.toMap());
-			model.addAttribute("diasUteis", DiaUtil.toMap());
+			model.addAttribute("turno", Turno.values());
+			model.addAttribute("diasUteis", DiaUtil.values());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());

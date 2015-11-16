@@ -9,38 +9,29 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<c:if test="${action eq 'cadastrar' }">
+	<c:url var="url" value="/servidor/cadastrar/aluno" />
+	<c:set var="titulo" value="Nova Aluno"/>
+	<c:set var="botao" value="Cadastrar"/>
+</c:if>
+<c:if test="${action eq 'editar' }">
+<c:url var="url" value="/servidor/editar/aluno" />
+	<c:set var="titulo" value="Atualizar Aluno"/>
+	<c:set var="botao" value="Atualizar"/>
+</c:if>
+
 <html>
 <head>
-<jsp:include page="../fragments/headTag.jsp" />
-<c:choose>
-	<c:when test="${action == 'cadastrar'}">
-		<title>Cadastrar Alunos</title>
-	</c:when>
-	<c:otherwise>
-		<title>Editar Alunos</title>
-	</c:otherwise>
-</c:choose>
+	<jsp:include page="../fragments/headTag.jsp" />
 </head>
-
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">
 		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<c:choose>
-					<c:when test="${action == 'cadastrar'}">
-						<h2>Novo Aluno</h2>
-					</c:when>
-					<c:otherwise>
-						<h2>Editar Aluno</h2>
-					</c:otherwise>
-				</c:choose>
-
-			</div>
 			<div class="panel-body">
 				<form:form id="adicionarAlunoForm" role="form" commandName="aluno"
-					servletRelativeAction="/aluno/salvar" method="POST"
+					servletRelativeAction="${url }" method="POST"
 					cssClass="form-horizontal">
 					<input type="hidden" name="id" value="${aluno.id}" />
 					<div class="form-group">
@@ -132,10 +123,10 @@
 						<div class="form-group">
 							<div class="col-sm-2" id="div-form-btn">
 								<input name="submit" type="submit" class="btn btn-primary"
-									value="Cadastrar" id="form-btn" />
+									value="${botao }" id="form-btn" />
 							</div>
 							<div class="col-sm-2" id="div-form-btn">
-								<a href="<c:url value="/aluno/listar"></c:url>"
+								<a href="<c:url value="/servidor/listar/alunos"></c:url>"
 									class="btn btn-default" id="form-btn">Cancelar</a>
 							</div>
 						</div>

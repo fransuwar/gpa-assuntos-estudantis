@@ -37,7 +37,6 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
-import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
@@ -62,9 +61,6 @@ public class AlunoController {
 	
 	@Inject
 	private AlunoService alunoService;
-	
-	@Inject
-	private PessoaService pessoaService;
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
 	public String realizarInscricaoBIA(@PathVariable("idSelecao") Integer idSelecao, Model model) {
@@ -74,8 +70,8 @@ public class AlunoController {
 		model.addAttribute("questionarioIniciacaoAcademica", new QuestionarioIniciacaoAcademica());
 		model.addAttribute("selecaoBolsa", idSelecao);
 		model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-		model.addAttribute("turno", Turno.toMap());
-		model.addAttribute("diasUteis", DiaUtil.toMap());
+		model.addAttribute("turno", Turno.values());
+		model.addAttribute("diasUteis", DiaUtil.values());
 		model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		model.addAttribute("totalEstado", Estado.toMap());
 		model.addAttribute("grauParentesco", GrauParentesco.toMap());
@@ -95,8 +91,8 @@ public class AlunoController {
 			model.addAttribute("questionarioIniciacaoAcademica", iniciacaoAcademica);
 			model.addAttribute("selecaoBolsa", idSelecao);
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-			model.addAttribute("turno", Turno.toMap());
-			model.addAttribute("diasUteis", DiaUtil.toMap());
+			model.addAttribute("turno", Turno.values());
+			model.addAttribute("diasUteis", DiaUtil.values());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
@@ -132,8 +128,7 @@ public class AlunoController {
 			model.addAttribute("questionarioIniciacaoAcademica", iniciacaoAcademica);
 			model.addAttribute("selecaoBolsa", selecao.getId());
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-			model.addAttribute("turno", Turno.toMap());
-			model.addAttribute("diasUteis", DiaUtil.toMap());
+			model.addAttribute("turno", Turno.values());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
@@ -143,6 +138,7 @@ public class AlunoController {
 			if (horariosDisponiveis != null) {
 				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
 			}
+			model.addAttribute("diasUteis", DiaUtil.values());
 			
 		} else {
 			redirect.addFlashAttribute("erro", "Só pode editar sua inscrição enquanto a seleção estiver aberta.");
@@ -153,9 +149,9 @@ public class AlunoController {
 	}
 	
 	@RequestMapping(value = { "{idAluno}/editar/inscricao/iniciacao-academica" }, method = RequestMethod.POST)
-	public String editarInscricaoBIA(@PathVariable("idAluno") Integer idAluno,
+	public String editarInscricaoBIA(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
-			Model model,BindingResult result, RedirectAttributes redirect) {
+			BindingResult result, @PathVariable("idAluno") Integer idAluno, Model model, RedirectAttributes redirect) {
 		
 		model.addAttribute("action", "editar-inciacao-academica");
 		
@@ -164,16 +160,15 @@ public class AlunoController {
 			model.addAttribute("questionarioIniciacaoAcademica", iniciacaoAcademica);
 			model.addAttribute("selecaoBolsa", iniciacaoAcademica.getSelecaoBolsa().getId());
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-			model.addAttribute("turno", Turno.toMap());
-			model.addAttribute("diasUteis", DiaUtil.toMap());
+			model.addAttribute("turno", Turno.values());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
-			List<HorarioDisponivel> horariosDisponiveis = this.horarioDisponivelService
-					.getHorariosDisponiveisByQuest(idAluno);
+			List<HorarioDisponivel> horariosDisponiveis = this.horarioDisponivelService.getHorariosDisponiveisByQuest(idAluno);
 			if (horariosDisponiveis != null) {
 				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
 			}
+			model.addAttribute("diasUteis", DiaUtil.values());
 			
 			return "inscricao/iniciacaoAcademica";
 		}
@@ -256,8 +251,8 @@ public class AlunoController {
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
 			model.addAttribute("selecaoBolsa", selecao.getId());
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-			model.addAttribute("turno", Turno.toMap());
-			model.addAttribute("diasUteis", DiaUtil.toMap());
+			model.addAttribute("turno", Turno.values());
+			model.addAttribute("diasUteis", DiaUtil.values());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
@@ -280,8 +275,8 @@ public class AlunoController {
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
 			model.addAttribute("selecaoBolsa", auxilioMoradia.getSelecaoBolsa().getId());
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-			model.addAttribute("turno", Turno.toMap());
-			model.addAttribute("diasUteis", DiaUtil.toMap());
+			model.addAttribute("turno", Turno.values());
+			model.addAttribute("diasUteis", DiaUtil.values());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
@@ -294,164 +289,4 @@ public class AlunoController {
 		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
 		return "redirect:/selecao/listar";
 	}
-
-//	FUNÇÕES QUE NÃO SERÃO MAIS NECESSÁRIAS POR CONTA DO LDAP
-//	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
-//	public String salvarAluno(@Valid @ModelAttribute(value = "aluno") Aluno aluno,
-//			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
-//
-//		if(aluno.getId()!=null){
-//			return atualizarAluno(aluno.getId(), aluno, result, model, redirect);
-//		}else{
-//			return adicionarAluno(aluno, result, redirect, model);
-//		}
-//
-//	}
-//
-//	@RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
-//	public String cadastro(Model model) {
-//		model.addAttribute("action", "cadastrar");
-//		model.addAttribute("banco", Banco.values());
-//		model.addAttribute("curso", Curso.values());
-//		model.addAttribute("aluno", new Aluno());
-//		return "/aluno/cadastrar";
-//	}
-//
-//	public String adicionarAluno(
-//			@Valid @ModelAttribute("aluno") Aluno aluno,
-//			BindingResult result,RedirectAttributes redirect, Model model) {
-//
-//
-//		if(aluno.getAnoIngresso() != null && !aluno.getAnoIngresso().equals("")){
-//			if(aluno.getAnoIngresso().length() < 4){
-//				result.rejectValue("anoIngresso", "aluno.anoIngresso", "O ano deve possuir pelo menos quatro dígitos");
-//			} else {
-//				DateTime anoIngresso = DateTime.parse(aluno.getAnoIngresso());
-//				if(anoIngresso.isAfterNow()){
-//					result.rejectValue("anoIngresso", "aluno.anoIngresso", "Informe um ano menor ou igual ao atual");
-//				}
-//			}
-//		}
-//		
-//		if(aluno.getMatricula() != null && !aluno.getMatricula().equals("") && aluno.getMatricula().length() < 6){
-//			result.rejectValue("matricula", "aluno.matricula", "A matrícula deve possuir pelo menos seis dígitos");
-//		}
-//		
-//		if(aluno.getAgencia() != null && !aluno.getAgencia().equals("") && aluno.getAgencia().length() < 6){
-//			result.rejectValue("agencia", "aluno.agencia", "O número da agência deve possuir pelo menos seis dígitos");
-//		}
-//		
-//		if(aluno.getConta() != null && !aluno.getConta().equals("") && aluno.getConta().length() < 4){
-//			result.rejectValue("conta", "aluno.conta", "O número da conta deve possuir pelo menos quatro dígitos");
-//		}
-//
-//		if (result.hasErrors()) {
-//			model.addAttribute("banco", Banco.values());
-//			model.addAttribute("curso", Curso.values());
-//			return ("aluno/cadastrar");
-//		}
-//
-//
-//		try{
-//			this.alunoService.save(aluno);
-//		} catch (PersistenceException e){
-//			if(e.getCause() instanceof ConstraintViolationException){
-//				redirect.addFlashAttribute("erro", "Não é possível cadastrar uma matrícula já existente.");
-//				return "redirect:/aluno/listar";
-//			}
-//		} 
-//		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
-//		return "redirect:/aluno/listar";
-//	}
-//
-//	@RequestMapping(value = "/listar", method = RequestMethod.GET)
-//	public String listaAluno(Aluno aluno, Model model) {	
-//		List<Aluno> results = alunoService.find(Aluno.class);
-//		model.addAttribute("alunos", results);
-//		return "aluno/listar";
-//	}
-//
-//	@RequestMapping(value = "/listar", method = RequestMethod.POST)
-//	public String listarAluno(@RequestParam("matricula") String matricula, Model model, RedirectAttributes redirect) {
-//		List<Aluno> results = new ArrayList<Aluno>();
-//		Aluno aluno = alunoService.getAlunoByMatricula(matricula);
-//		results.add(aluno);
-//		model.addAttribute("alunos", results);
-//
-//		if(aluno == null){
-//			redirect.addFlashAttribute("erro", "Aluno não encontrado");
-//			redirect.addFlashAttribute("alunoEncontrado", false);	
-//			return "redirect:/aluno/listar";
-//		}
-//		return "/aluno/listar";
-//	}
-//
-//	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
-//	public String editar(@PathVariable("id") Integer id, Model model) {
-//		Aluno aluno = alunoService.find(Aluno.class, id);
-//
-//		model.addAttribute("aluno", aluno);
-//		model.addAttribute("banco", Banco.values());
-//		model.addAttribute("curso", Curso.values());
-//		model.addAttribute("action", "editar");
-//		
-//		return "aluno/cadastrar";		
-//	}
-//
-//	public String atualizarAluno(Integer id,Aluno alunoAtualizado,
-//			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
-//		
-//		if(alunoAtualizado.getAnoIngresso() != null && !alunoAtualizado.getAnoIngresso().equals("")){
-//			if(alunoAtualizado.getAnoIngresso().length() < 4){
-//				result.rejectValue("anoIngresso", "aluno.anoIngresso", "O ano deve possuir pelo menos quatro dígitos");
-//			} else {
-//				DateTime anoIngresso = DateTime.parse(alunoAtualizado.getAnoIngresso());
-//				if(anoIngresso.isAfterNow()){
-//					result.rejectValue("anoIngresso", "aluno.anoIngresso", "Informe um ano menor ou igual ao atual");
-//				}
-//			}
-//		}
-//		
-//		if(alunoAtualizado.getMatricula() != null && !alunoAtualizado.getMatricula().equals("") && alunoAtualizado.getMatricula().length() < 6){
-//			result.rejectValue("matricula", "aluno.matricula", "A matrícula deve possuir pelo menos seis dígitos");
-//		}
-//		
-//		if(alunoAtualizado.getAgencia() != null && !alunoAtualizado.getAgencia().equals("") && alunoAtualizado.getAgencia().length() < 6){
-//			result.rejectValue("agencia", "aluno.agencia", "O número da agência deve possuir pelo menos seis dígitos");
-//		}
-//		
-//		if(alunoAtualizado.getConta() != null && !alunoAtualizado.getConta().equals("") && alunoAtualizado.getConta().length() < 4){
-//			result.rejectValue("conta", "aluno.conta", "O número da conta deve possuir pelo menos quatro dígitos");
-//		}
-//
-//		if (result.hasErrors()) {
-//			model.addAttribute("action", "editar"); 
-//			return "aluno/cadastrar";
-//		}
-//
-//
-//		Aluno aluno = alunoService.find(Aluno.class, id);	
-//
-//		alunoAtualizado.setAuxilioMoradia(aluno.getAuxilioMoradia());
-//		alunoAtualizado.setIniciacaoAcademica(aluno.getIniciacaoAcademica());
-//		alunoAtualizado.setPessoa(aluno.getPessoa());
-//
-//		this.alunoService.update(alunoAtualizado);
-//		redirect.addFlashAttribute("info", "Aluno atualizado com sucesso.");
-//		return "redirect:/aluno/listar";
-//	}
-//
-//	@RequestMapping(value = "/excluir/{id}")
-//	public String excluirAluno(Aluno p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes
-//			) {
-//		Aluno aluno = alunoService.find(Aluno.class, id);
-//		if (aluno == null) {
-//			redirectAttributes.addFlashAttribute("erro", "Aluno inexistente.");
-//		}else{
-//
-//			this.alunoService.delete(aluno);
-//			redirectAttributes.addFlashAttribute("info", "Aluno excluído com sucesso.");
-//		}
-//		return "redirect:/aluno/listar";
-//	}
 }

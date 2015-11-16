@@ -14,7 +14,7 @@ import br.ufc.quixada.npi.gpa.enums.DiaUtil;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 
 @NamedQueries({
-		@NamedQuery(name = "HorarioDisponivel.findHorarioDisponivelByIdQuest", query = "Select hd from HorarioDisponivel hd where hd.questionarioIniciacaoAcademica.id=:idQuest ") })
+		@NamedQuery(name = "HorarioDisponivel.findHorarioDisponivelByIdQuest", query = "Select hd from HorarioDisponivel hd where hd.questionarioIniciacaoAcademica.id = :id ") })
 @Entity
 public class HorarioDisponivel {
 	@Id

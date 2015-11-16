@@ -59,8 +59,8 @@ public class IniciacaoAcademicaController {
 		QuestionarioIniciacaoAcademica q = new QuestionarioIniciacaoAcademica();
 		modelo.addAttribute("questionarioIniciacaoAcademica", q);
 		modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-		modelo.addAttribute("turno", Turno.toMap());
-		modelo.addAttribute("diasUteis", DiaUtil.toMap());
+		modelo.addAttribute("turno", Turno.values());
+		modelo.addAttribute("diasUteis", DiaUtil.values());
 		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
@@ -79,8 +79,8 @@ public class IniciacaoAcademicaController {
 		if (result.hasErrors()) {
 
 			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-			modelo.addAttribute("turno", Turno.toMap());
-			modelo.addAttribute("diasUteis", DiaUtil.toMap());
+			modelo.addAttribute("turno", Turno.values());
+			modelo.addAttribute("diasUteis", DiaUtil.values());
 			modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
