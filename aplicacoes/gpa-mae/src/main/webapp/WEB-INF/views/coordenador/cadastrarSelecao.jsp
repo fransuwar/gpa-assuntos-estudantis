@@ -53,17 +53,7 @@
 					enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${selecao.id}" />
 					<div class="form-group">
-						<label for="sequencial" class="col-sm-2 control-label">Número
-							do Edital:</label>
-						<div class="col-sm-2">
-							<form:input id="sequencial" path="sequencial"
-								cssClass="form-control" placeholder="000" data-mask="999" />
-							<div class="error-validation" id="erro-sequencial">
-								<form:errors path="sequencial"></form:errors>
-							</div>
-						</div>
-
-						<label for="tipoBolsa" class="col-sm-2 control-label">Tipo
+						<label for="tipoBolsa" class="col-sm-2 control-label"><span class="red">*</span>Tipo
 							de Bolsa:</label>
 						<div class="col-sm-5 control-label" id="div-select">
 							<form:select path="tipoBolsa" id="tipoBolsa"
@@ -76,33 +66,27 @@
 								<form:errors path="tipoBolsa"></form:errors>
 							</div>
 						</div>
-
+						
+						<div class="form-group">
+						<label for="quantidadeVagas" class="col-sm-2 control-label"><span class="red">*</span>Vagas:</label>
+						<div class="col-sm-2">
+							<form:input id="quantidadeVagas" path="quantidadeVagas"
+								cssClass="form-control" placeholder="0" min="1" data-mask="999" />
+							<div class="error-validation" id="erro-qtdVagas">
+								<form:errors path="quantidadeVagas"></form:errors>
+							</div>
+						</div>
 					</div>
-
-					<div class="form-group">
-						<label for="dataInicio" class="col-sm-2 control-label">Data
-							de Início:</label>
+						
+						<label for="sequencial" class="col-sm-2 control-label"><span class="red">*</span>Sequencial:</label>
 						<div class="col-sm-2">
-							<form:input id="dataInicio" type="text" path="dataInicio"
-								cssClass="form-control data" placeholder="Data de Início" />
-							<div class="error-validation" id="erro-dataInicio">
-								<label class="col-sm-10 control-label" id="label-erro">
-									${dataInicioError} </label>
-								<form:errors path="dataInicio" />
+							<form:input id="sequencial" path="sequencial"
+								cssClass="form-control" placeholder="000" data-mask="999" />
+							<div class="error-validation" id="erro-sequencial">
+								<form:errors path="sequencial"></form:errors>
 							</div>
 						</div>
-
-						<label for="dataTermino" class="col-sm-2 control-label">Data
-							de Término:</label>
-						<div class="col-sm-2">
-							<form:input id="dataTermino" type="text" path="dataTermino"
-								cssClass="form-control data" placeholder="Data de Término" />
-							<div class="error-validation" id="erro-dataTermino">
-								<form:errors path="dataTermino"></form:errors>
-							</div>
-						</div>
-
-						<label for="ano" class="col-sm-1 control-label">Ano:</label>
+						<label for="ano" class="col-sm-1 control-label"><span class="red">*</span>Ano:</label>
 						<div class="col-sm-2">
 							<form:input id="ano" type="text" path="ano"
 								cssClass="form-control" placeholder="0"
@@ -114,44 +98,38 @@
 							</div>
 						</div>
 
+
 					</div>
 
 					<div class="form-group">
-						<label for="quantidadeVagas" class="col-sm-2 control-label">Quant.
-							de Vagas:</label>
+						<label for="dataInicio" class="col-sm-2 control-label"><span class="red">*</span>Data
+							de Início:</label>
 						<div class="col-sm-2">
-							<form:input id="quantidadeVagas" path="quantidadeVagas"
-								cssClass="form-control" placeholder="0" min="1" data-mask="999" />
-							<div class="error-validation" id="erro-qtdVagas">
-								<form:errors path="quantidadeVagas"></form:errors>
+							<form:input id="dataInicio" type="text" path="dataInicio"
+								cssClass="form-control data" placeholder="Data de Início" />
+							<div class="error-validation" id="erro-dataInicio">
+								<label class="col-sm-10 control-label" id="label-erro">
+									${dataInicioError} </label>
+								<form:errors path="dataInicio" />
 							</div>
 						</div>
 
-						<label for="duracao" class="col-sm-2 control-label">Duração:</label>
+						<label for="dataTermino" class="col-sm-2 control-label"><span class="red">*</span>Data
+							de Término:</label>
 						<div class="col-sm-2">
-							<form:input id="duracao" type="text" path="duracao"
-								cssClass="form-control" placeholder="0" min="1" data-mask="999"/>
-							<div class="error-validation" id="erro-duracao">
-								<form:errors path="duracao"></form:errors>
+							<form:input id="dataTermino" type="text" path="dataTermino"
+								cssClass="form-control data" placeholder="Data de Término" />
+							<div class="error-validation" id="erro-dataTermino">
+								<form:errors path="dataTermino"></form:errors>
 							</div>
 						</div>
+
+						
+
 					</div>
-
+					
 					<div class="form-group">
-						<label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
-						<div class="col-sm-9">
-							<form:textarea id="comentarios" path="comentarios"
-								class="form-control" rows="3"></form:textarea>
-							<div class="error-validation" id="erro-comentarios">
-								<form:errors path="comentarios"></form:errors>
-							</div>
-						</div>
-					</div>
-
-
-
-					<div class="form-group">
-						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
+						<label for="arquivo" class="col-sm-2 control-label"><span class="red">*</span>Arquivos:</label>
 						<div class="col-sm-5 files">
 							<input type="file" id="files" name="files" class="file"
 								multiple="multiple"></input>
