@@ -86,21 +86,21 @@
 										access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary" tooltip="Usuário" title="Visualizar Inscritos">
+											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
 												<i class="fa fa-users fa-lg"></i>
 											</button>
 										</a>
 									</sec:authorize> <sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
 										<a id="editar"
 											href="<c:url value="/selecao/editar/${selecao.id}" ></c:url>">
-											<button class="btn btn-info" title="Editar">
+											<button class="btn btn-info btn-sm" title="Editar">
 												<span class="glyphicon glyphicon-pencil"></span>
 											</button>
 										</a>
 										<a id="excluir" data-toggle="modal"
 											data-target="#confirm-delete" href="#"
 											data-href="<c:url value="/selecao/excluir/${selecao.id}" ></c:url>">
-											<button class="btn btn-danger" title="Excluir">
+											<button class="btn btn-danger btn-sm" title="Excluir">
 												<span class="glyphicon glyphicon-trash"></span>
 											</button>
 										</a>
@@ -109,12 +109,12 @@
 											href="<c:url value="/selecao/atribuir/${selecao.id}" ></c:url>">
 											<c:choose>
 												<c:when test="${empty selecao.membrosBanca}">
-													<button class="btn btn-primary" title="Gerenciar Comissão">
+													<button class="btn btn-primary btn-sm" title="Gerenciar Comissão">
 														<span class="glyphicon glyphicon-user"></span>
 													</button>
 												</c:when>
 												<c:otherwise>
-													<button class="btn btn-primary">
+													<button class="btn btn-primary btn-sm">
 														Editar Membros da Banca <span
 															class="glyphicon glyphicon-user"></span>
 													</button>
@@ -128,7 +128,7 @@
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
 													href="<c:url value="/iniciacaoAcademica/inscricao/${selecao.id}/" ></c:url>">
-													<button class=" btn btn-success" title="Realizar Inscrição">
+													<button class=" btn btn-success btn-sm" title="Realizar Inscrição">
 														<span class="glyphicon glyphicon-user"></span>
 													</button>
 												</a>
@@ -137,7 +137,7 @@
 												test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
 													href="<c:url value="/iniciacaoAcademica/editar/${sessionScope.id}/" ></c:url>">
-													<button class=" btn btn-info">
+													<button class=" btn btn-info btn-sm">
 														editar <span class="glyphicon glyphicon-pencil"></span>
 													</button>
 												</a>
@@ -146,7 +146,7 @@
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
 													href="<c:url value="/auxilio/inscricao/${selecao.id}/" ></c:url>">
-													<button class=" btn btn-success" title="Realizar Inscrição">
+													<button class=" btn btn-success btn-sm" title="Realizar Inscrição">
 														<span class="glyphicon glyphicon-user"></span>
 													</button>
 												</a>
@@ -155,7 +155,7 @@
 												test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
 													href="<c:url value="/auxilio/editar/${sessionScope.id}/" ></c:url>">
-													<button class=" btn btn-info">
+													<button class=" btn btn-info btn-sm">
 														editar <span class="glyphicon glyphicon-pencil"></span>
 													</button>
 												</a>
@@ -165,7 +165,7 @@
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-												<button class="btn btn-primary">
+												<button class="btn btn-primary btn-sm">
 													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
 												</button>
 											</a>
@@ -174,7 +174,7 @@
 
 										<a id="informacoes"
 											href="<c:url value="/selecao/informacoes/${selecao.id}"></c:url>">
-											<button class=" btn btn-success" title="Informações">
+											<button class=" btn btn-success btn-sm" title="Informações">
 												<span class="glyphicon glyphicon-zoom-in"></span>
 											</button>
 										</a>
