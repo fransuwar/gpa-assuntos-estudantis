@@ -40,9 +40,9 @@
 				    onsubmit="return validaHorariosDisponiveisBolsa();"
 					commandName="questionarioIniciacaoAcademica"
 					modelAttribute="questionarioIniciacaoAcademica"
-					servletRelativeAction="/iniciacaoAcademica/inscricao/${selecaoBolsa}/"
+					servletRelativeAction="/iniciacaoAcademica/inscricao/${alunoId}/"
 					method="POST" cssClass="form-horizontal">
-					<input type="hidden" name="id" value="${questionarioIniciacaoAcademica.id}" />
+					<input type="hidden" name="id" value="${aluno.id}" />
 					
 					<div class="tab-content">
 						<div class="tab-pane active" id="moradia-tab">
@@ -358,6 +358,17 @@
 												<form:errors path="qtdMotocicleta"></form:errors>
 											</div>
 										</div>
+										
+										<label for="qtdEmpregadosDomesticos" class="col-sm-4 control-label">Empregados Domesticos:</label>
+										<div class="col-sm-1">
+											<form:input id="qtdEmpregadosDomesticos" data-mask="999"
+												min="0" value="0" path="qtdEmpregadosDomesticos"
+												cssClass="form-control"  />
+											<div class="error-validation"
+												id="erro-qtdEmpregadosDomesticos">
+												<form:errors path="qtdEmpregadosDomesticos"></form:errors>
+											</div>
+										</div>
 									</div>
 
 									<div class="form-group">
@@ -468,17 +479,7 @@
 											</div>
 										</div>
 
-										<label for="qtdEmpregadosDomesticos"
-											class="col-sm-3 control-label">Empregados Domesticos:</label>
-										<div class="col-sm-1">
-											<form:input id="qtdEmpregadosDomesticos" data-mask="999"
-												min="0" value="0" path="qtdEmpregadosDomesticos"
-												cssClass="form-control"  />
-											<div class="error-validation"
-												id="erro-qtdEmpregadosDomesticos">
-												<form:errors path="qtdEmpregadosDomesticos"></form:errors>
-											</div>
-										</div>
+										
 
 										
 									</div>

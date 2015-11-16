@@ -50,7 +50,7 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 @Named
 @RequestMapping("selecao")
 @SessionAttributes({ Constants.USUARIO_ID })
-public class SelecaoBolsaController {
+public class SelecaoController {
 
 	@Inject
 	private ParecerService parecerService;

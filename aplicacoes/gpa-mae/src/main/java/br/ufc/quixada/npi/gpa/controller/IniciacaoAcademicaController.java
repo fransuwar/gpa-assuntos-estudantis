@@ -30,6 +30,7 @@ import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
 import br.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
@@ -53,7 +54,10 @@ public class IniciacaoAcademicaController {
 
 	@Inject
 	private HorarioDisponivelService horarioDisponivelService;
-
+	
+	@Inject
+	private InscricaoService inscricaoService;
+	
 	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.GET)
 	public String cadastro(@PathVariable("idselecao") Integer id, Model modelo) {
 
@@ -65,7 +69,8 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-		modelo.addAttribute("selecaoBolsa", id);
+		//modelo.addAttribute("selecaoBolsa", id);
+		modelo.addAttribute("alunoId", id);
 		System.out.println("id -------------" + id);
 		
 		return "aluno/InscricaoIniciacaoAcademica";
@@ -87,11 +92,12 @@ public class IniciacaoAcademicaController {
 			modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-			modelo.addAttribute("selecaoBolsa", id);
+			//modelo.addAttribute("selecaoBolsa", id);
+			modelo.addAttribute("alunoId", id);
 			return "aluno/InscricaoIniciacaoAcademica";
 
 		} else {
-			Inscricao inscricao =  new Inscricao();
+			Inscricao inscricao = new Inscricao();
 			Aluno aluno = alunoService.getAlunoById(id);
 			inscricao.setQuestionarioIniciacaoAcademica(questionarioIniciacaoAcademica);
 			inscricao.setAluno(aluno);
@@ -104,8 +110,9 @@ public class IniciacaoAcademicaController {
 				this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
 			else
 				this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
-			this.selecaoBolsaService.update(selecao);
-
+			//this.selecaoBolsaService.update(selecao);
+			this.inscricaoService.update(inscricao);
+			
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
 
