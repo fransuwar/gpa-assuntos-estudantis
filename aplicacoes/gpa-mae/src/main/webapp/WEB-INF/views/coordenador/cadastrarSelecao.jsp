@@ -53,85 +53,99 @@
 					enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${selecao.id}" />
 					<div class="form-group">
-						<label for="tipoBolsa" class="col-sm-2 control-label">Tipo
+						<label for="sequencial" class="col-sm-2 control-label"><span class="red">*</span>Número
+							do Edital:</label>
+						<div class="col-sm-2">
+							<form:input id="sequencial" path="sequencial" name="sequencial"
+								cssClass="form-control" placeholder="000" data-mask="999" />
+							<div class="error-validation" id="erro-sequencial">
+							</div>
+						</div>
+
+						<label for="tipoBolsa" class="col-sm-2 control-label"><span class="red">*</span>Tipo
 							de Bolsa:</label>
 						<div class="col-sm-5 control-label" id="div-select">
-							<form:select path="tipoBolsa" id="tipoBolsa"
+							<form:select path="tipoBolsa" id="tipoBolsa" name="tipoBolsa"
 								cssClass="form-control">
 								<form:option value="" label="Selecione o tipo de bolsa" />
 								<form:options items="${tipoBolsa}" itemLabel="nome" />
 							</form:select>
 							<div class="error-validation label-erro-select"
 								id="erro-tipoBolsa">
-								<form:errors path="tipoBolsa"></form:errors>
 							</div>
 						</div>
-						
-						<div class="form-group">
-						<label for="quantidadeVagas" class="col-sm-2 control-label">Vagas:</label>
-						<div class="col-sm-2">
-							<form:input id="quantidadeVagas" path="quantidadeVagas"
-								cssClass="form-control" placeholder="0" min="1" data-mask="999" />
-							<div class="error-validation" id="erro-qtdVagas">
-								<form:errors path="quantidadeVagas"></form:errors>
-							</div>
-						</div>
+
 					</div>
-						
-						<label for="sequencial" class="col-sm-2 control-label">Sequencial:</label>
+
+					<div class="form-group">
+						<label for="dataInicio" class="col-sm-2 control-label"><span class="red">*</span>Data
+							de Início:</label>
 						<div class="col-sm-2">
-							<form:input id="sequencial" path="sequencial"
-								cssClass="form-control" placeholder="000" data-mask="999" />
-							<div class="error-validation" id="erro-sequencial">
-								<form:errors path="sequencial"></form:errors>
+							<form:input id="dataInicio" type="text" path="dataInicio" name="dataInicio"
+								cssClass="form-control data" placeholder="Data de Início" />
+							<div class="error-validation" id="erro-dataInicio">
+								<label class="col-sm-10 control-label" id="label-erro">
+									${dataInicioError} </label>
 							</div>
 						</div>
-						<label for="ano" class="col-sm-1 control-label">Ano:</label>
+
+						<label for="dataTermino" class="col-sm-2 control-label"><span class="red">*</span>Data
+							de Término:</label>
 						<div class="col-sm-2">
-							<form:input id="ano" type="text" path="ano"
+							<form:input id="dataTermino" type="text" path="dataTermino" name="dataTermino"
+								cssClass="form-control data" placeholder="Data de Término" />
+							<div class="error-validation" id="erro-dataTermino">
+							</div>
+						</div>
+
+						<label for="ano" class="col-sm-1 control-label"><span class="red">*</span>Ano:</label>
+						<div class="col-sm-2">
+							<form:input id="ano" type="text" path="ano" name="ano"
 								cssClass="form-control" placeholder="0"
 								onkeypress="mascara(this,soNumeros)" />
 							<div class="error-validation" id="erro-ano">
 							<label class="col-sm-10 control-label" id="label-erro">
 									${dataError} </label>
-								<form:errors path="ano"></form:errors>
 							</div>
 						</div>
-
 
 					</div>
 
 					<div class="form-group">
-						<label for="dataInicio" class="col-sm-2 control-label">Data
-							de Início:</label>
+						<label for="quantidadeVagas" class="col-sm-2 control-label"><span class="red">*</span>Quant.
+							de Vagas:</label>
 						<div class="col-sm-2">
-							<form:input id="dataInicio" type="text" path="dataInicio"
-								cssClass="form-control data" placeholder="Data de Início" />
-							<div class="error-validation" id="erro-dataInicio">
-								<label class="col-sm-10 control-label" id="label-erro">
-									${dataInicioError} </label>
-								<form:errors path="dataInicio" />
+							<form:input id="quantidadeVagas" path="quantidadeVagas" name="quantidadeVagas"
+								cssClass="form-control" placeholder="0" min="1" data-mask="999" />
+							<div class="error-validation" id="erro-qtdVagas">
 							</div>
 						</div>
 
-						<label for="dataTermino" class="col-sm-2 control-label">Data
-							de Término:</label>
+						<label for="duracao" class="col-sm-2 control-label"><span class="red">*</span>Duração:</label>
 						<div class="col-sm-2">
-							<form:input id="dataTermino" type="text" path="dataTermino"
-								cssClass="form-control data" placeholder="Data de Término" />
-							<div class="error-validation" id="erro-dataTermino">
-								<form:errors path="dataTermino"></form:errors>
+							<form:input id="duracao" type="text" path="duracao" name="duracao"
+								cssClass="form-control" placeholder="0" min="1" data-mask="999"/>
+							<div class="error-validation" id="erro-duracao">
 							</div>
 						</div>
-
-						
-
 					</div>
-					
+
 					<div class="form-group">
-						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
+						<label for="comentarios" class="col-sm-2 control-label"><span class="red">*</span>Comentarios:</label>
+						<div class="col-sm-9">
+							<form:textarea id="comentarios" path="comentarios" name="comentarios"
+								class="form-control" rows="3"></form:textarea>
+							<div class="error-validation" id="erro-comentarios">
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+						<label for="arquivo" class="col-sm-2 control-label"><span class="red">*</span>Arquivos:</label>
 						<div class="col-sm-5 files">
-							<input type="file" id="files" name="files" class="file"
+							<input type="file" id="files" name="files" class="file" name="files"
 								multiple="multiple"></input>
 							<div class="error-validation" id="erro-Anexo">
 								<label class="col-sm-10 control-label" id="label-erro">
