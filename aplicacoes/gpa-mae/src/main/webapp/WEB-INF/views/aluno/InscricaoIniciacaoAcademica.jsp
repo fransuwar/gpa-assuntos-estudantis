@@ -102,7 +102,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="cepFamilia" class="col-sm-1 control-label">CEP:</label>
+										<label for="cepFamilia" class="col-sm-1 control-label"><span class="red">*</span>CEP:</label>
 										<div class="col-sm-2">
 											<form:input id="cep" path="cepFamilia" data-mask="99999999"
 												cssClass="form-control" placeholder="Ex:63900000 " />
@@ -110,7 +110,7 @@
 												<form:errors path="cepFamilia"></form:errors>
 											</div>
 										</div>
-										<label for="uf" class="col-sm-1 control-label">UF:</label>
+										<label for="uf" class="col-sm-1 control-label"><span class="red">*</span>UF:</label>
 										<div class="col-sm-2">
 											<form:select path="estadoFamilia" id="estadoFamilia"
 												cssClass="form-control">
@@ -217,7 +217,7 @@
 												<form:errors path="cep"></form:errors>
 											</div>
 										</div>
-										<label for="uf" class="col-sm-1 control-label">UF:</label>
+										<label for="uf" class="col-sm-1 control-label"><span class="red">*</span>UF:</label>
 										<div class="col-sm-2">
 											<form:select path="estado" id="estado"
 												cssClass="form-control">

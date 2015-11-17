@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -77,7 +78,7 @@ public class IniciacaoAcademicaController {
 	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.POST)
 	public String adicionaIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
-			BindingResult result, @ModelAttribute("id") Integer idPessoa, @PathVariable("idselecao") Integer idSelecao,
+			BindingResult result,Authentication authentication, @ModelAttribute("id") Integer idPessoa, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model modelo) {
 		
 		
@@ -95,7 +96,7 @@ public class IniciacaoAcademicaController {
 
 		} else {
 			Inscricao inscricao = new Inscricao();
-			Aluno aluno = alunoService.getAlunoById(idPessoa);
+			Aluno aluno = alunoService.getAlunoByCpf(authentication.getName());
 			inscricao.setQuestionarioIniciacaoAcademica(questionarioIniciacaoAcademica);
 			inscricao.setAluno(aluno);
 			Selecao selecao = selecaoBolsaService.find(Selecao.class, idSelecao);
