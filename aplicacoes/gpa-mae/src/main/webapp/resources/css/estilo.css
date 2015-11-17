@@ -261,3 +261,13 @@ table#file-upload {
 .panel-title{
 	text-align:center;
 }
+
+#logo-gpa{
+	width: 250px;
+	height: 100%;
+
+}
+
+#navbar-brand{
+	padding: 0%;
+}

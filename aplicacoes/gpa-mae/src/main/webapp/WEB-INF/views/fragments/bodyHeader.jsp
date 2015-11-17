@@ -4,42 +4,26 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<div id="header-page">
-	<div class="row">
-		<div class="col-md-6">
-			<img src="<c:url value="/resources/images/logo-GPA.png" />"
-				alt="Brasão UFC Quixadá">
-		</div>
-		<div class="col-md-3 col-md-offset-3">
-			<sec:authorize access="isAuthenticated()">
-				<ul class="logado">
-					<li><h4>Bem vindo, ${sessionScope.usuario}!</h4></li>
-					<li><a href="<c:url value="/j_spring_security_logout" />">Sair
-							<span class="glyphicon glyphicon-off"></span>
-					</a></li>
-				</ul>
-			</sec:authorize>
-		</div>
-	</div>
-</div>
 <div>
-
-
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
 
-			<sec:authorize access="isAuthenticated()">
+			<sec:authorize access="isAuthenticated() || isAnonymous()">
 				<div class="navbar-header">
+					<a class="navbar-brand" id="navbar-brand" href="#"> <img
+						src="<c:url value="/resources/images/logo-GPA.png" />"
+						alt="Brasão UFC Quixadá" id="logo-gpa">
+					</a>
 					<button type="button" class="navbar-toggle" data-toggle="collapse"
 						data-target="#bs-example-navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span> <span
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="<c:url value="#" />">GPA-MAE</a>
 				</div>
 			</sec:authorize>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<sec:authorize ifAnyGranted="SERVIDOR">
 
@@ -60,8 +44,8 @@
 					<sec:authorize ifAllGranted="DISCENTE">
 						<input type="hidden" name="id" value="${sessionScope.id}" />
 						<li role="presentation"><a
-							href="<c:url value="/selecao/listar" />">Listar
-								Seleções <span class="glyphicon glyphicon-list"></span>
+							href="<c:url value="/selecao/listar" />">Listar Seleções <span
+								class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>
 					<sec:authorize ifAllGranted="COORD_ASS_ESTUDANTIS">
@@ -70,9 +54,19 @@
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 						<li role="presentation"><a
-							href="<c:url value="/selecao/listar" />">Listar
-								Seleções <span class="glyphicon glyphicon-list"></span>
+							href="<c:url value="/selecao/listar" />">Listar Seleções <span
+								class="glyphicon glyphicon-list"></span>
 						</a></li>
+					</sec:authorize>
+
+					<sec:authorize access="isAuthenticated()">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">${sessionScope.usuario}<span
+								class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="<c:url value="/j_spring_security_logout" />">Sair</a></li>
+							</ul></li>
 					</sec:authorize>
 
 					<sec:authorize access="isAnonymous()">
