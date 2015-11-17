@@ -30,6 +30,10 @@ query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
 query = "SELECT a FROM Aluno a WHERE a.pessoa.id = :idPessoa"),
 @NamedQuery(name = "Aluno.findAlunoByCpf",
 query = "SELECT a FROM Aluno a WHERE a.pessoa.cpf = :cpf"),
+@NamedQuery(name = "Aluno.findAlunoComInscricoes", 
+query = "SELECT DISTINCT a FROM Aluno a LEFT JOIN FETCH a.inscricoes WHERE a.pessoa.id = :idPessoa"),
+@NamedQuery(name = "Aluno.findAlunoComInscricoesCpf", 
+query = "SELECT DISTINCT a FROM Aluno a LEFT JOIN FETCH a.inscricoes WHERE a.pessoa.cpf = :cpf"),
 /*@NamedQuery(name = "Aluno.findAlunoComSelecoes",
 query = "SELECT DISTINCT a FROM Aluno a LEFT JOIN FETCH a.editais WHERE a.pessoa.id = :idPessoa")*/})
 @Entity

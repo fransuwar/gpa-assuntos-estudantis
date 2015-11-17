@@ -70,7 +70,7 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-		modelo.addAttribute("selecaoBolsa", id);
+		modelo.addAttribute("idSelecao", id);
 		
 		return "aluno/InscricaoIniciacaoAcademica";
 	}
@@ -93,8 +93,9 @@ public class IniciacaoAcademicaController {
 		} else {
 			this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
 			Inscricao inscricao = new Inscricao();
+			Aluno aluno = alunoService.getAlunoComInscricoesCpf(authentication.getName());
 			inscricao.setQuestionarioIniciacaoAcademica(questionarioIniciacaoAcademica);
-			inscricao.setAluno(alunoService.getAlunoByCpf(authentication.getName()));
+			aluno.getInscricoes().add(inscricao);
 			inscricao.setSelecao(selecaoBolsaService.find(Selecao.class, idSelecao));
 			
 			this.inscricaoService.save(inscricao);

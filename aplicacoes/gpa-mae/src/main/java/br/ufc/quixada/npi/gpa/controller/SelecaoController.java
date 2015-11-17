@@ -305,7 +305,7 @@ public class SelecaoController {
 			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication.getName());
 			Integer id = pessoa.getId();
 
-			Aluno aluno = this.alunoService.getAlunoComSelecoes(id);
+			Aluno aluno = this.alunoService.getAlunoComInscricoes(id);
 			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
