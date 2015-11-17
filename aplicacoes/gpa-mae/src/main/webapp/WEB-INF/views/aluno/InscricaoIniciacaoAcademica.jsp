@@ -40,7 +40,7 @@
 				    onsubmit="return validaHorariosDisponiveisBolsa();"
 					commandName="questionarioIniciacaoAcademica"
 					modelAttribute="questionarioIniciacaoAcademica"
-					servletRelativeAction="/iniciacaoAcademica/inscricao/${alunoId}/"
+					servletRelativeAction="/iniciacaoAcademica/inscricao/${selecaoBolsa}/"
 					method="POST" cssClass="form-horizontal">
 					<input type="hidden" name="id" value="${aluno.id}" />
 					
@@ -478,7 +478,14 @@
 												<form:errors path="qtdBanheiros"></form:errors>
 											</div>
 										</div>
-
+										<label for="qtdDvd" class="col-sm-3 control-label">Dvd:</label>
+										<div class="col-sm-1">
+											<form:input id="qtdDvd" data-mask="999" min="0" value="0"
+												path="qtdDvd" cssClass="form-control"/>
+											<div class="error-validation" id="erro-qtdDvdVideocassete">
+												<form:errors path="qtdDvd"></form:errors>
+											</div>
+										</div>
 										
 
 										

@@ -510,11 +510,12 @@ public class QuestionarioIniciacaoAcademica {
 		this.pessoas = pessoas;
 	}
 	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((justificativaPedido == null) ? 0 : justificativaPedido.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -527,10 +528,10 @@ public class QuestionarioIniciacaoAcademica {
 		if (getClass() != obj.getClass())
 			return false;
 		QuestionarioIniciacaoAcademica other = (QuestionarioIniciacaoAcademica) obj;
-		if (justificativaPedido == null) {
-			if (other.justificativaPedido != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!justificativaPedido.equals(other.justificativaPedido))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

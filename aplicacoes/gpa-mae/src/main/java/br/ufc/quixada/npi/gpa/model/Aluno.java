@@ -191,5 +191,4 @@ public class Aluno {
 	public void setInscricoes(List<Inscricao> inscricoes) {
 		this.inscricoes = inscricoes;
 	}
-
 }

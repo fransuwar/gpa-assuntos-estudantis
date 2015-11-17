@@ -69,8 +69,7 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-		modelo.addAttribute("alunoId", id);
-		System.out.println("id -------------" + id);
+		modelo.addAttribute("selecaoBolsa", id);
 		
 		return "aluno/InscricaoIniciacaoAcademica";
 	}
@@ -78,10 +77,10 @@ public class IniciacaoAcademicaController {
 	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.POST)
 	public String adicionaIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
-			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
+			BindingResult result, @ModelAttribute("id") Integer idPessoa, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model modelo) {
 		
-		System.out.println("outro id = " + idSelecao);
+		
 		 
 		if (result.hasErrors()) {
 
@@ -91,23 +90,25 @@ public class IniciacaoAcademicaController {
 			modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-			modelo.addAttribute("alunoId", id);
+			modelo.addAttribute("selecaoBolsa", idPessoa);
 			return "aluno/InscricaoIniciacaoAcademica";
 
 		} else {
 			Inscricao inscricao = new Inscricao();
-			Aluno aluno = alunoService.getAlunoById(id);
+			Aluno aluno = alunoService.getAlunoById(idPessoa);
 			inscricao.setQuestionarioIniciacaoAcademica(questionarioIniciacaoAcademica);
 			inscricao.setAluno(aluno);
 			Selecao selecao = selecaoBolsaService.find(Selecao.class, idSelecao);
 			inscricao.setSelecao(selecao);
+			
 			
 
 			if (questionarioIniciacaoAcademica.getId() == null)
 				this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
 			else
 				this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
-			this.inscricaoService.update(inscricao);
+				this.inscricaoService.update(inscricao);
+				
 			
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
