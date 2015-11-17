@@ -70,6 +70,16 @@ public class SelecaoController {
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 			
+		} else if(request.isUserInRole("SERVIDOR")){
+			
+			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication.getName());
+			Integer id = pessoa.getId(); 
+			
+			List<Selecao> selecoes2 = this.servidorService.getPessoaServidorComBancas(id).getParticipaBancas();
+			model.addAttribute("selecoes", selecoes2);
+			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+
 		} else {
 			
 			model.addAttribute("selecoes", selecoes);
@@ -80,17 +90,17 @@ public class SelecaoController {
 		
 		return "selecao/listar";
 	}
-	
-	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+		
+	@RequestMapping(value="detalhesSelecao/{id}")
+	public String detalhes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect){
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
 		if (selecao == null) {
-			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
+			redirect.addFlashAttribute("erro", "seleção Inexistente");
 			return "redirect:/selecao/listar";
 		}
-		model.addAttribute("selecao", selecao);
+		modelo.addAttribute("selecao", selecao);
 
-		return "selecao/informacoes";
+		return "selecao/detalhesSelecao";
 	}
 	
 //	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
@@ -117,7 +127,6 @@ public class SelecaoController {
 		redirectAttributes.addFlashAttribute("success", "Download do Documento realizado com sucesso");
 		return new HttpEntity<byte[]>(arquivo, headers);
 	}
-
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
