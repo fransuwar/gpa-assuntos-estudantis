@@ -12,6 +12,8 @@
  		<intercept-url pattern="/login*" access="permitAll" />
  		<intercept-url pattern="/webjars/**" access="permitAll" />
  		
+ 		<intercept-url pattern="/selecao/detalhesSelecao/*" access="permitAll"/>
+ 		
  		<intercept-url pattern="/selecao/informacoes/*" access="permitAll"/>
  		<intercept-url pattern="/selecao/listar" access="permitAll"/>
  		<intercept-url pattern="/selecao/downloadDocumento/*" access="permitAll"/>
@@ -27,6 +29,7 @@
 
 		<intercept-url pattern="/aluno/**" access="hasRole('DISCENTE')" />
 		<intercept-url pattern="/aluno/listar" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')" />
+
 		
  		<intercept-url pattern="/servidor/**" access="hasRole('SERVIDOR')" />
  		

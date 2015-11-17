@@ -8,7 +8,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -34,107 +33,48 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 				@NamedQuery(name = "Aluno.findAlunoByCPF",
 								query = "select a from Aluno a where a.pessoa.cpf = :cpf")
 			  })
+
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula" }) )
 public class Aluno {
-	
+
 	public Aluno() {
-		
+
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
 	@NotEmpty(message = "Campo obrigatório")
 	private String matricula;
-
-	@ManyToMany(mappedBy = "alunosSelecao")
-	private List<SelecaoBolsa> editais;
-
-	@OneToMany(mappedBy = "aluno")
-	private List<QuestionarioAuxilioMoradia> auxilioMoradia;
-	
-	@OneToMany(mappedBy= "aluno")
-	private List<RelatorioVisitaDomiciliar>relatorioVisitaDomiciliar;
-
-	@OneToMany(mappedBy = "aluno")
-	private List<QuestionarioIniciacaoAcademica> iniciacaoAcademica;
-
-	@NotNull(message="Campo obrigatório")
+	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Curso curso;
-
 	private String nome;
-
 	@NotEmpty(message = "Campo obrigatório")
 	private String anoIngresso;
-
 	@NotNull(message = "Campo obrigatório")
 	@Min(value = 1, message = "IRA deve ser maior que 0")
 	@Max(value = 10, message = "IRA deve ter valor máximo 10")
-	private double ira;
-
-	@NotNull(message="Campo obrigatório")
+	private Double ira;
+	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Banco banco;
-
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 10, message = "Agencia de possuir no máximo 10 dígitos")
 	private String agencia;
-
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 20, message = "Conta deve possuir no máximo 20 dígitos")
 	private String conta;
-
+	private byte[] foto;
 	@ManyToOne
 	private Pessoa pessoa;
+	@OneToMany
+	private List<Inscricao> inscricoes;
+	@OneToMany(mappedBy = "aluno")
+	private List<VisitaDomiciliar> relatorioVisitaDomiciliar;
+
 	
-	private byte[] foto;
-
-	public List<QuestionarioAuxilioMoradia> getAuxilioMoradia() {
-		return auxilioMoradia;
-	}
-
-	public void setAuxilioMoradia(
-			List<QuestionarioAuxilioMoradia> auxilioMoradia) {
-		this.auxilioMoradia = auxilioMoradia;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((matricula == null) ? 0 : matricula.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Aluno other = (Aluno) obj;
-		if (matricula == null) {
-			if (other.matricula != null)
-				return false;
-		} else if (!matricula.equals(other.matricula))
-			return false;
-		return true;
-	}
-
-	public List<QuestionarioIniciacaoAcademica> getIniciacaoAcademica() {
-		return iniciacaoAcademica;
-	}
-
-	public void setIniciacaoAcademica(
-			List<QuestionarioIniciacaoAcademica> iniciacaoAcademica) {
-		this.iniciacaoAcademica = iniciacaoAcademica;
-	}
 
 	public Integer getId() {
 		return id;
@@ -142,14 +82,6 @@ public class Aluno {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public List<SelecaoBolsa> getEditais() {
-		return editais;
-	}
-
-	public void setEditais(List<SelecaoBolsa> editais) {
-		this.editais = editais;
 	}
 
 	public String getNome() {
@@ -183,21 +115,13 @@ public class Aluno {
 	public void setAnoIngresso(String anoIngresso) {
 		this.anoIngresso = anoIngresso;
 	}
-	
-	public double getIra() {
+
+	public Double getIra() {
 		return ira;
 	}
 
 	public void setIra(Double ira) {
 		this.ira = ira;
-	}
-
-	public Curso getCurso() {
-		return curso;
-	}
-
-	public void setCurso(Curso curso) {
-		this.curso = curso;
 	}
 
 	public Banco getBanco() {
@@ -223,7 +147,7 @@ public class Aluno {
 	public void setConta(String conta) {
 		this.conta = conta;
 	}
-	
+
 	public byte[] getFoto() {
 		return foto;
 	}
@@ -237,5 +161,36 @@ public class Aluno {
 		return "Aluno [id=" + id + "]";
 	}
 
+	public List<Inscricao> getInscricoes() {
+		return inscricoes;
+	}
 
+	public void setInscricoes(List<Inscricao> inscricoes) {
+		this.inscricoes = inscricoes;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Aluno other = (Aluno) obj;
+		if (matricula == null) {
+			if (other.matricula != null)
+				return false;
+		} else if (!matricula.equals(other.matricula))
+			return false;
+		return true;
+	}
 }

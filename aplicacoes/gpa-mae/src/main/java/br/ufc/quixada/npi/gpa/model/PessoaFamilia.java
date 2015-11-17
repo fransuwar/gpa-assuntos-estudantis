@@ -12,7 +12,6 @@ import javax.persistence.NamedQuery;
 
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
-
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestBIA",  query = "select pf from PessoaFamilia pf where pf.iniciacaoAcademica.id = :idQuest"),
@@ -20,25 +19,21 @@ import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 })
 public class PessoaFamilia {
 
-	@ManyToOne
-	private QuestionarioAuxilioMoradia auxilioMoradia;
-
-	@ManyToOne
-	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
 	private String nome;
 	private int idade;
 	private String escolaridade;
-	private String atividadeProfissao;
+	private String profissao;
 	private double rendaMensal;
-
 	@Enumerated(EnumType.STRING)
-	private GrauParentesco grauParentesco;
-	
+	private GrauParentesco parentesco;
+	@ManyToOne
+	private QuestionarioAuxilioMoradia auxilioMoradia;
+	@ManyToOne
+	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
+
 	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
 		return auxilioMoradia;
 	}
@@ -51,8 +46,7 @@ public class PessoaFamilia {
 		return iniciacaoAcademica;
 	}
 
-	public void setIniciacaoAcademica(
-			QuestionarioIniciacaoAcademica iniciacaoAcademica) {
+	public void setIniciacaoAcademica(QuestionarioIniciacaoAcademica iniciacaoAcademica) {
 		this.iniciacaoAcademica = iniciacaoAcademica;
 	}
 
@@ -63,7 +57,7 @@ public class PessoaFamilia {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getEscolaridade() {
 		return escolaridade;
 	}
@@ -88,12 +82,12 @@ public class PessoaFamilia {
 		this.idade = idade;
 	}
 
-	public String getAtividadeProfissao() {
-		return atividadeProfissao;
+	public String getProfissao() {
+		return profissao;
 	}
 
-	public void setAtividadeProfissao(String atividadeProfissao) {
-		this.atividadeProfissao = atividadeProfissao;
+	public void setProfissao(String atividadeProfissao) {
+		this.profissao = atividadeProfissao;
 	}
 
 	public double getRendaMensal() {
@@ -104,22 +98,18 @@ public class PessoaFamilia {
 		this.rendaMensal = rendaMensal;
 	}
 
-	public GrauParentesco getGrauParentesco() {
-		return grauParentesco;
+	public GrauParentesco getParentesco() {
+		return parentesco;
 	}
 
-	public void setGrauParentesco(GrauParentesco grauParentesco) {
-		this.grauParentesco = grauParentesco;
+	public void setParentesco(GrauParentesco grauParentesco) {
+		this.parentesco = grauParentesco;
 	}
-
 
 	@Override
 	public String toString() {
-		return "PessoaFamilia [auxilioMoradia=" + auxilioMoradia
-				+ ", iniciacaoAcademica=" + iniciacaoAcademica + ", id=" + id
-				+ ", nome=" + nome + ", idade=" + idade
-				+ ", atividadeProfissao=" + atividadeProfissao
-				+ ", rendaMensal=" + rendaMensal + ", grauParentesco="
-				+ grauParentesco + "]";
+		return "PessoaFamilia [auxilioMoradia=" + auxilioMoradia + ", iniciacaoAcademica=" + iniciacaoAcademica
+				+ ", id=" + id + ", nome=" + nome + ", idade=" + idade + ", Profissao=" + profissao
+				+ ", rendaMensal=" + rendaMensal + ", Parentesco=" + parentesco + "]";
 	}
 }

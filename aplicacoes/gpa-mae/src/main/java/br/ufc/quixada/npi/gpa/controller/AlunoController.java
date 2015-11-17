@@ -35,6 +35,7 @@ import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
@@ -42,6 +43,7 @@ import br.ufc.quixada.npi.gpa.service.PessoaFamiliaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
+import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
@@ -59,7 +61,7 @@ public class AlunoController {
 	private HorarioDisponivelService horarioDisponivelService;
 	
 	@Inject
-	private SelecaoBolsaService selecaoBolsaService;
+	private SelecaoService selecaoBolsaService;
 	
 	@Inject
 	private AlunoService alunoService;
@@ -106,7 +108,7 @@ public class AlunoController {
 		
 		Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
 		iniciacaoAcademica.setAluno(aluno);
-		SelecaoBolsa selecao = this.selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
+		Selecao selecao = this.selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
 		selecao.getAlunosSelecao().add(aluno);
 		
 		this.selecaoBolsaService.update(selecao);
@@ -117,6 +119,7 @@ public class AlunoController {
 		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		
 		return "redirect:/selecao/listar";
+
 	}
 
 	@RequestMapping(value = { "editar/inscricao/iniciacao-academica" }, method = RequestMethod.GET)
@@ -313,5 +316,6 @@ public class AlunoController {
 		this.auxilioMoradiaService.update(auxilioMoradia);
 		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
 		return "redirect:/selecao/listar";
+
 	}
 }

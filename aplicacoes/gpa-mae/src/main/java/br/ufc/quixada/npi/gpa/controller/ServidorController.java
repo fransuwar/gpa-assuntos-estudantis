@@ -57,7 +57,8 @@ public class ServidorController {
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("cargos", Cargo.toMap());
 		model.addAttribute("servidor", new Servidor());
-		return "servidor/cadastrar";
+
+		return "/servidor/cadastrarServidor";
 	}
 	
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
@@ -67,7 +68,7 @@ public class ServidorController {
 	
 		if (result.hasErrors()) {
 			model.addAttribute("cargos", Cargo.toMap());
-			return ("servidor/cadastrar");
+			return ("servidor/cadastrarServidor");
 		}
 		
 		try{
@@ -76,12 +77,12 @@ public class ServidorController {
 			if (e.getCause() instanceof ConstraintViolationException) {
 				redirect.addFlashAttribute("erro", "Não é possível cadastrar um siape já existente.");
 
-				return "redirect:/servidor/listar";
+				return "redirect:/servidor/listarServidor";
 			}
 		}
 		redirect.addFlashAttribute("info", "Servidor cadastrado com sucesso.");
 
-		return "redirect:/servidor/listar";
+		return "redirect:/servidor/listarServidor";
 
 	}
 	
@@ -90,7 +91,7 @@ public class ServidorController {
 			Model model) {
 			List<Servidor> results = servidorService.find(Servidor.class);	
 			model.addAttribute("servidores", results);
-			return "servidor/listar";
+			return "servidor/listarServidor";
 	}
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.POST)
@@ -103,11 +104,11 @@ public class ServidorController {
 		if(servidor == null){
 			redirect.addFlashAttribute("erro", "Servidor não encontrado");
 			redirect.addFlashAttribute("servidorEncontrado", false);
-			return "redirect:/servidor/listar";
+			return "redirect:/servidor/listarServidor";
 		}
 		
 
-		return "/servidor/listar";
+		return "/servidor/listarServidor";
 	}
 
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
@@ -119,7 +120,7 @@ public class ServidorController {
 			model.addAttribute("servidor", servidor);
 			model.addAttribute("action", "editar");
 			
-			return "servidor/cadastrar";
+			return "servidor/cadastrarServidor";
 	}
 	
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.POST)
@@ -129,7 +130,7 @@ public class ServidorController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("action", "editar");
-			return "servidor/cadastrar";
+			return "servidor/cadastrarServidor";
 		}
 	
 		Servidor servidor = servidorService.find(Servidor.class, id);
@@ -139,7 +140,7 @@ public class ServidorController {
 				
 		this.servidorService.update(servidor);
 		redirect.addFlashAttribute("info", "Servidor atualizado com sucesso.");
-		return "redirect:/servidor/listar";
+		return "redirect:/servidor/listarServidor";
 	}
 	
 	@RequestMapping(value = "/{id}/excluir")
@@ -154,7 +155,7 @@ public class ServidorController {
 			this.servidorService.delete(servidor);
 			redirectAttributes.addFlashAttribute("info", "Servidor excluído com sucesso.");
 		}
-		return "redirect:/servidor/listar";
+		return "redirect:/servidor/listarServidor";
 	}
 	
 	@RequestMapping(value = { "listar/alunos" }, method = RequestMethod.GET)

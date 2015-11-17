@@ -4,7 +4,7 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
