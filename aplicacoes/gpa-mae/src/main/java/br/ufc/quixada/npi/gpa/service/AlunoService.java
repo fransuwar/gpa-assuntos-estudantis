@@ -11,6 +11,8 @@ public interface AlunoService extends GenericService<Aluno>{
 	
 	public abstract Aluno getAlunoComSelecoes(Integer id);
 	
+	public abstract Aluno getAlunoByCPF(String cpf);
+	
 	public abstract boolean existsAlunoEquals(Aluno aluno);
 
 }

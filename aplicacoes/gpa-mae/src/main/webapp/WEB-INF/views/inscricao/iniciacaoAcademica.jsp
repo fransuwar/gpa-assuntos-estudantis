@@ -55,8 +55,6 @@
 					servletRelativeAction="${url }"
 					method="POST" cssClass="form-horizontal">
 					
-					<input id="idAluno"name="idAluno" type="hidden" value="${sessionScope.id}" />
-					
 					<div class="tab-content">
 						<div class="tab-pane active" id="moradia-tab">
 

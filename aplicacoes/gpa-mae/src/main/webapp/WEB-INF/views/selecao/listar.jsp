@@ -169,7 +169,7 @@
 											<c:when
 												test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
-													href="<c:url value="/aluno/${sessionScope.id}/editar/inscricao/iniciacao-academica" ></c:url>">
+													href="<c:url value="/aluno/editar/inscricao/iniciacao-academica" ></c:url>">
 													<button class=" btn btn-info">
 														editar <span class="glyphicon glyphicon-pencil"></span>
 													</button>
@@ -187,7 +187,7 @@
 											<c:when
 												test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
-													href="<c:url value="/aluno/${sessionScope.id}/editar/inscricao/auxilio-moradia" ></c:url>">
+													href="<c:url value="/aluno/editar/inscricao/auxilio-moradia" ></c:url>">
 													<button class=" btn btn-info">
 														editar <span class="glyphicon glyphicon-pencil"></span>
 													</button>

@@ -29,6 +29,10 @@ public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements Aluno
 	}
 
 	@Override
+	public Aluno getAlunoByCPF(String cpf) {
+		return (Aluno) findFirst("Aluno.findAlunoByCPF", new SimpleMap<String, Object>("cpf", cpf));
+	}
+	@Override
 	@Transactional(readOnly = true)
 	public Aluno getAlunoComSelecoes(Integer id) {
 		return (Aluno) findFirst("Aluno.findAlunoComSelecoes", new SimpleMap<String, Object>("idPessoa", id));
@@ -47,4 +51,5 @@ public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements Aluno
 		
 		return true;
 	}
+
 }

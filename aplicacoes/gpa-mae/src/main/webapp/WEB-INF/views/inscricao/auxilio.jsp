@@ -61,7 +61,7 @@
 					servletRelativeAction="${url }"
 					method="POST" cssClass="form-horizontal">
 					
-					<input type="hidden" name="id" value="${questionarioAuxilioMoradia.id}" />
+					<input id="idAluno" name="idAluno" type="hidden" value="${sessionScope.id}" />
 					
 					<div class="tab-content">
 
