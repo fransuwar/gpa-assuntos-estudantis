@@ -29,10 +29,7 @@
 					<dt>Número do Edital:</dt>
 					<dd>${selecao.sequencial}</dd>
 				</dl>
-				<dl class="dl-horizontal">
-					<dt>Descrição:</dt>
-					<dd>${selecao.comentarios}</dd>
-				</dl>
+		
 				<dl class="dl-horizontal">
 					<dt>Data de Início Insc.:</dt>
 					<dd>
@@ -50,10 +47,7 @@
 					<dt>Ano Edital:</dt>
 					<dd>${selecao.ano}</dd>
 				</dl>
-				<dl class="dl-horizontal">
-					<dt>Duração da Bolsa:</dt>
-					<dd>${selecao.duracao} meses</dd>
-				</dl>
+				
 				<dl class="dl-horizontal">
 					<dt>Qtd. de vagas:</dt>
 					<dd>${selecao.quantidadeVagas}</dd>

@@ -76,7 +76,9 @@
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 
-								<td>${selecao.tipoBolsa.nome}</td>
+								<td><a id="detalhesSelecao"
+									href="<c:url value="/selecao/detalhesSelecao/${selecao.id}">  </c:url>">
+										${selecao.tipoBolsa.nome} </a></td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
@@ -121,8 +123,8 @@
 												</c:otherwise>
 											</c:choose>
 										</a>
-
 									</sec:authorize> <sec:authorize access="hasAnyRole('DISCENTE')">
+										
 										<c:choose>
 											<c:when
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
@@ -178,7 +180,7 @@
 												<span class="glyphicon glyphicon-zoom-in"></span>
 											</button>
 										</a>
-									</sec:authorize></td>
+									</sec:authorize>
 							</tr>
 						</c:forEach>
 					</tbody>
