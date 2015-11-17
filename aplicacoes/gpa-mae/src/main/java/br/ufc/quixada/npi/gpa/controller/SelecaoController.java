@@ -30,12 +30,9 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
-import br.ufc.quixada.npi.gpa.model.Inscricao;
-import br.ufc.quixada.npi.gpa.model.Parecer;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
-import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
@@ -78,7 +75,7 @@ public class SelecaoController {
 
 		return "selecao/informacoes";
 	}
-	
+
 	@RequestMapping(value="detalhesSelecao/{id}")
 	public String detalhes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect){
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
@@ -87,7 +84,7 @@ public class SelecaoController {
 			return "redirect:/selecao/listar";
 		}
 		modelo.addAttribute("selecao", selecao);
-		
+
 		return "selecao/detalhesSelecao";
 	}
 
@@ -310,7 +307,17 @@ public class SelecaoController {
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 
-		} else {
+		} else if(request.isUserInRole("SERVIDOR")){
+			
+			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication.getName());
+			Integer id = pessoa.getId(); 
+			
+			List<Selecao> selecoes2 = this.servidorService.getPessoaServidorComBancas(id).getParticipaBancas();
+			model.addAttribute("selecoes", selecoes2);
+			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+
+		}else {
 
 			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
