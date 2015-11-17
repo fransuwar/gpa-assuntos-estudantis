@@ -78,38 +78,26 @@ public class IniciacaoAcademicaController {
 	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.POST)
 	public String adicionaIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
-			BindingResult result,Authentication authentication, @ModelAttribute("id") Integer idPessoa, @PathVariable("idselecao") Integer idSelecao,
+			BindingResult result,Authentication authentication, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model modelo) {
-		
-		
-		 
 		if (result.hasErrors()) {
-
 			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			modelo.addAttribute("turno", Turno.toMap());
 			modelo.addAttribute("diasUteis", DiaUtil.toMap());
 			modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-			modelo.addAttribute("selecaoBolsa", idPessoa);
+			modelo.addAttribute("selecaoBolsa", idSelecao);
 			return "aluno/InscricaoIniciacaoAcademica";
 
 		} else {
+			this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
 			Inscricao inscricao = new Inscricao();
-			Aluno aluno = alunoService.getAlunoByCpf(authentication.getName());
 			inscricao.setQuestionarioIniciacaoAcademica(questionarioIniciacaoAcademica);
-			inscricao.setAluno(aluno);
-			Selecao selecao = selecaoBolsaService.find(Selecao.class, idSelecao);
-			inscricao.setSelecao(selecao);
+			inscricao.setAluno(alunoService.getAlunoByCpf(authentication.getName()));
+			inscricao.setSelecao(selecaoBolsaService.find(Selecao.class, idSelecao));
 			
-			
-
-			if (questionarioIniciacaoAcademica.getId() == null)
-				this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
-			else
-				this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
-				this.inscricaoService.update(inscricao);
-				
+			this.inscricaoService.save(inscricao);
 			
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
