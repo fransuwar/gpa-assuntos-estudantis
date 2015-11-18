@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,8 @@ public class Inscricao {
 	private boolean avaliacaoDocumentos;
 	private Resultado resultado;
 	private String observacoes;
+	@Column(nullable = false)
+	private boolean deferimento;
 	@OneToOne
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
 	@OneToOne
@@ -31,6 +34,10 @@ public class Inscricao {
 	private Selecao selecaoBolsa;
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
+	
+	@OneToOne
+	private Entrevista entrevista;
+	
 	
 	public Inscricao() {
 	}
@@ -106,4 +113,20 @@ public class Inscricao {
 	public void setVisitaDomiciliar(VisitaDomiciliar visitaDomiciliar) {
 		this.visitaDomiciliar = visitaDomiciliar;
 	}
+	public boolean isDeferimento() {
+		return deferimento;
+	}
+
+	public void setDeferimento(boolean deferimento) {
+		this.deferimento = deferimento;
+	}
+
+	public Entrevista getEntrevista() {
+		return entrevista;
+	}
+
+	public void setEntrevista(Entrevista entrevista) {
+		this.entrevista = entrevista;
+	}
+
 }
