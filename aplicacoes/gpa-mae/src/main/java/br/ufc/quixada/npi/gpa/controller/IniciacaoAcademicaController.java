@@ -93,9 +93,8 @@ public class IniciacaoAcademicaController {
 		} else {
 			this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
 			Inscricao inscricao = new Inscricao();
-			Aluno aluno = alunoService.getAlunoComInscricoesCpf(authentication.getName());
 			inscricao.setQuestionarioIniciacaoAcademica(questionarioIniciacaoAcademica);
-			aluno.getInscricoes().add(inscricao);
+			inscricao.setAluno(alunoService.getAlunoByCpf(authentication.getName()));
 			inscricao.setSelecao(selecaoBolsaService.find(Selecao.class, idSelecao));
 			
 			this.inscricaoService.save(inscricao);

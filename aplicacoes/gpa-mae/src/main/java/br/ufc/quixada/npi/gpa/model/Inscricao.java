@@ -41,7 +41,9 @@ public class Inscricao {
 	
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
-	
+
+	@ManyToOne
+	private Aluno aluno;
 	
 	
 	public Inscricao() {
@@ -118,8 +120,13 @@ public class Inscricao {
 	public void setVisitaDomiciliar(VisitaDomiciliar visitaDomiciliar) {
 		this.visitaDomiciliar = visitaDomiciliar;
 	}
+	public Aluno getAluno() {
+		return aluno;
+	}
 
-	
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
 
 	@Override
 	public int hashCode() {
