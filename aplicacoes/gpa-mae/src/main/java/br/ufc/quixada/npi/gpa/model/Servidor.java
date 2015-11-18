@@ -57,6 +57,25 @@ public class Servidor {
 
 	@ManyToOne
 	private Pessoa pessoa;
+	
+	@OneToMany
+	private List<Entrevista> participaEntrevista;
+
+	public List<VisitaDomiciliar> getVisitas() {
+		return visitas;
+	}
+
+	public void setVisitas(List<VisitaDomiciliar> visitas) {
+		this.visitas = visitas;
+	}
+
+	public List<Entrevista> getParticipaEntrevista() {
+		return participaEntrevista;
+	}
+
+	public void setParticipaEntrevista(List<Entrevista> participaEntrevista) {
+		this.participaEntrevista = participaEntrevista;
+	}
 
 	public Pessoa getPessoa() {
 		return pessoa;
