@@ -28,8 +28,6 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 								query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
 				@NamedQuery(name = "Aluno.findAlunoById",
 								query = "SELECT a FROM Aluno a WHERE a.pessoa.id = :idPessoa"),
-				@NamedQuery(name = "Aluno.findAlunoComSelecoes",
-								query = "SELECT DISTINCT a FROM Aluno a LEFT JOIN FETCH a.editais WHERE a.pessoa.id = :idPessoa"),
 				@NamedQuery(name = "Aluno.findAlunoByCPF",
 								query = "select a from Aluno a where a.pessoa.cpf = :cpf")
 			  })

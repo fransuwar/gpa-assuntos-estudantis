@@ -23,10 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Documento;
-import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
-import br.ufc.quixada.npi.gpa.service.SelecaoBolsaService;
+import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 
 @Controller
@@ -34,7 +34,7 @@ import br.ufc.quixada.npi.gpa.service.ServidorService;
 public class CoordenadorController {
 
 	@Inject
-	private SelecaoBolsaService selecaoService;
+	private SelecaoService selecaoService;
 	
 	@Inject
 	private DocumentoService documentoService;
@@ -47,14 +47,14 @@ public class CoordenadorController {
 		
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
-		model.addAttribute("selecao", new SelecaoBolsa());
+		model.addAttribute("selecao", new Selecao());
 		
 		return "selecao/cadastrar";
 	}
 	
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
 	public String cadastroSelecao(@RequestParam("files") List<MultipartFile> files, Model model,
-			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, BindingResult result, 
+			@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, 
 			RedirectAttributes redirect) {
 		
 		model.addAttribute("action", "cadastrar");
@@ -125,7 +125,7 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		
-		SelecaoBolsa selecao = this.selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
+		Selecao selecao = this.selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
 
 		if (selecao != null && selecao.getStatus() != null && selecao.getStatus().equals(Status.NOVA)) {
 		
@@ -143,7 +143,7 @@ public class CoordenadorController {
 	
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
 	public String editarSelecao(@RequestParam("files") List<MultipartFile> files,
-			@Valid @ModelAttribute("selecao") SelecaoBolsa selecao, Model model,
+			@Valid @ModelAttribute("selecao") Selecao selecao, Model model,
 			BindingResult result, RedirectAttributes redirect, HttpServletRequest request) {
 		
 		model.addAttribute("action", "editar");
@@ -179,7 +179,7 @@ public class CoordenadorController {
 
 			for (int k = 0; k < doc.length; k++) {
 				Documento d = new Documento();
-				d.setId(Long.parseLong(doc[k]));
+				d.setId(Integer.parseInt(doc[k]));
 				documentoService.delete(d);
 			}
 		}
@@ -219,7 +219,7 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/excluir/{idSelecao}" }, method = RequestMethod.GET)
 	public String excluirSelecao(@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect) {
 		
-		SelecaoBolsa selecao = this.selecaoService.find(SelecaoBolsa.class, idSelecao);
+		Selecao selecao = this.selecaoService.find(Selecao.class, idSelecao);
 		
 		if (selecao != null) {
 			if (selecao.getStatus().equals(Status.NOVA)) {
@@ -275,7 +275,7 @@ public class CoordenadorController {
 			
 		} else {
 			
-			SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
+			Selecao selecao = selecaoService.find(Selecao.class, id);
 			
 			List<Servidor> list = new ArrayList<Servidor>();
 			

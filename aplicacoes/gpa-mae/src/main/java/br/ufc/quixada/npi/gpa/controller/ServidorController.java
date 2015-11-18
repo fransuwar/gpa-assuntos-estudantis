@@ -58,7 +58,7 @@ public class ServidorController {
 		model.addAttribute("cargos", Cargo.toMap());
 		model.addAttribute("servidor", new Servidor());
 
-		return "/servidor/cadastrarServidor";
+		return "servidor/cadastrarServidor";
 	}
 	
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
@@ -68,7 +68,7 @@ public class ServidorController {
 	
 		if (result.hasErrors()) {
 			model.addAttribute("cargos", Cargo.toMap());
-			return ("servidor/cadastrarServidor");
+			return "servidor/cadastrarServidor";
 		}
 		
 		try{
@@ -82,7 +82,7 @@ public class ServidorController {
 		}
 		redirect.addFlashAttribute("info", "Servidor cadastrado com sucesso.");
 
-		return "redirect:/servidor/listarServidor";
+		return "redirect:/servidor/listar";
 
 	}
 	
@@ -108,10 +108,10 @@ public class ServidorController {
 		}
 		
 
-		return "/servidor/listarServidor";
+		return "servidor/listarServidor";
 	}
 
-	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET)
+	@RequestMapping(value = "{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 		    
 			Servidor servidor = servidorService.find(Servidor.class, id);
@@ -123,7 +123,7 @@ public class ServidorController {
 			return "servidor/cadastrarServidor";
 	}
 	
-	@RequestMapping(value = "/{id}/editar", method = RequestMethod.POST)
+	@RequestMapping(value = "{id}/editar", method = RequestMethod.POST)
 	public String atualizarServidor(@PathVariable("id") Integer id,
 			@Valid @ModelAttribute(value = "servidor") Servidor servidorAtualizado,
 			BindingResult result, Model model,RedirectAttributes redirect) throws IOException {
@@ -143,7 +143,7 @@ public class ServidorController {
 		return "redirect:/servidor/listarServidor";
 	}
 	
-	@RequestMapping(value = "/{id}/excluir")
+	@RequestMapping(value = "{id}/excluir")
 	public String excluirServidor(Servidor p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes
 			) {
 		Servidor servidor = servidorService.find(Servidor.class, id);
@@ -164,10 +164,10 @@ public class ServidorController {
 		List<Aluno> alunos = this.alunoService.find(Aluno.class);
 		model.addAttribute("alunos", alunos);
 		
-		return "aluno/listar";
+		return "selecao/listarAlunos";
 	}
 	
-	@RequestMapping(value = "/listar/alunos", method = RequestMethod.POST)
+	@RequestMapping(value = "listar/alunos", method = RequestMethod.POST)
 	public String listarAluno(@RequestParam("matricula") String matricula, Model model, RedirectAttributes redirect) {
 		
 		List<Aluno> alunos = new ArrayList<Aluno>();
@@ -181,7 +181,7 @@ public class ServidorController {
 			return "redirect:/servidor/listar/alunos";
 		}
 		
-		return "aluno/listar";
+		return "selecao/listarAlunos";
 	}
 	
 	@RequestMapping(value = { "cadastrar/aluno" }, method = RequestMethod.GET)
@@ -192,7 +192,7 @@ public class ServidorController {
 		model.addAttribute("curso", Curso.values());
 		model.addAttribute("aluno", new Aluno());
 		
-		return "aluno/cadastrar";
+		return "servidor/cadastrarAluno";
 	}
 	
 	@RequestMapping(value = { "cadastrar/aluno" }, method = RequestMethod.POST)
@@ -235,7 +235,7 @@ public class ServidorController {
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("banco", Banco.values());
 			model.addAttribute("curso", Curso.values());
-			return "aluno/cadastrar";
+			return "servidor/cadastrarAluno";
 			
 		}
 		
@@ -254,7 +254,7 @@ public class ServidorController {
 		model.addAttribute("curso", Curso.values());
 		model.addAttribute("aluno", aluno);
 		
-		return "aluno/cadastrar";
+		return "servidor/cadastrarAluno";
 	}
 	
 	@RequestMapping(value = { "editar/aluno" }, method = RequestMethod.POST)
@@ -289,7 +289,7 @@ public class ServidorController {
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("banco", Banco.values());
 			model.addAttribute("curso", Curso.values());
-			return "aluno/cadastrar";
+			return "servidor/cadastrarAluno";
 		}
 		
 		this.alunoService.update(aluno);

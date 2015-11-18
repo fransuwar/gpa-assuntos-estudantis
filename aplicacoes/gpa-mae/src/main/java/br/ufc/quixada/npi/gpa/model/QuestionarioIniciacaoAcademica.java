@@ -18,128 +18,47 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 
 @Entity																	
-@NamedQueries({ @NamedQuery(name = "IniAcad.findIniAcadById", query = "SELECT DISTINCT am FROM QuestionarioIniciacaoAcademica am WHERE am.aluno.id = :idAluno") })
+@NamedQueries({
+		@NamedQuery(name = "IniAcad.findIniAcadById", 
+					query = "SELECT DISTINCT am FROM QuestionarioIniciacaoAcademica am WHERE am.id = :idAluno") 
+			})
 public class QuestionarioIniciacaoAcademica {
+	
+	public QuestionarioIniciacaoAcademica() {
 
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-<<<<<<< HEAD
-
-	@ManyToOne
-	private SelecaoBolsa selecaoBolsa;
-
-	@ManyToOne(cascade = CascadeType.MERGE)
-	private Aluno aluno;
-
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdAparelhoSom;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdTelevisao;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdRadio;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdAutomovel;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdMotocicleta;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdMaquinaLavar;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdDvdVideocassete;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdGeladeira;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdFreezer;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdTelefoneFixo;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdCelularResidentes;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdComputador;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdFogaoGas;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdMaquinaCostura;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdComodosSemBanheiro;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdBanheiros;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer qtdEmpregadosDomesticos;
-	@NotNull(message = "Campo Obrigatório")
-	private Integer totalMembrosFamilia;
-
-	private String nome;
-	private int idade;
-	private String atividade;
-	private float renda;
-	private float rendaTotalFamilia;
-
-	@Column(nullable = false)
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "iniciacaoacademica_id")
-	@NotEmpty(message = "Campo obrigatório")
-	private List<PessoaFamilia> pessoas;
-
-	@Column(nullable = false)
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "questionarioiniciacaoacademica_id")
-	private List<HorarioDisponivel> horariosDisponiveisBolsa;
-
-	@NotEmpty(message = "Campo obrigatório")
-	private String enderecoAtual;
-
-=======
-	
-	private String telefoneFixo;
-	
-	private String telefoneCelular;
-	
-	private int anosEstudoPrivado;
-	
-	@Enumerated(EnumType.STRING)
-	private NivelInstrucao nivelInstrucaoMae;
-	
-	@Enumerated(EnumType.STRING)
-	private NivelInstrucao nivelInstrucaoPai;
-	
-	@NotNull
-	@Size(min = 1, message = "Campo Obrigatório")
-	private String justificativaPedido;
 	
 	@NotNull(message = "Campo Obrigatório")
 	private String endereco;
 	
->>>>>>> ff7b69fa2608d313f6e3609ad150ccf9e499fe9d
 	@NotNull(message = "Campo Obrigatório")
 	private Integer numero;
 	
 	private String complemento;
-<<<<<<< HEAD
 
 	@NotEmpty
 	private String bairro;
 	
 	@NotEmpty(message = "Campo Obrigatório")
 	private String cep;
-<<<<<<< HEAD
 
-	@NotEmpty
-	@Size(min = 3, message = "Campo Obrigatório")
+	@NotEmpty(message = "Campo Obrigatório")
 	private String cidade;
 
-	private String pontoReferencia;
+	private String referencia;
 
 	private String telefoneFixo;
 
 	private String telefoneCelular;
 
-	private String email;
-
 	@NotEmpty
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String enderecoFamilia;
@@ -147,39 +66,15 @@ public class QuestionarioIniciacaoAcademica {
 	private Integer numeroFamilia;
 
 	@NotEmpty
-=======
-	
-	@NotNull
-	@Size(min = 3, message = "Campo Obrigatório")
-	private String cidade;
-	
-	@NotEmpty(message = "Campo Obrigatório")
-	private String estado;
-	
-	private String referencia;
-	
-	@NotNull(message = "Campo Obrigatório")
-	private String enderecoFamilia;
-	
-	@NotNull(message = "Campo Obrigatório")
-	private Integer numeroFamilia;
-	
-	private String complementoFamilia;
-	
-	@NotNull
->>>>>>> ff7b69fa2608d313f6e3609ad150ccf9e499fe9d
-	@Size(min = 1, message = "Campo Obrigatório")
 	private String bairroFamilia;
 	
 	@NotEmpty(message = "Campo Obrigatório")
 	private String cepFamilia;
-<<<<<<< HEAD
 
-	@NotEmpty
-	@Size(min = 3, message = "Campo Obrigatório")
+	@NotEmpty(message = "Campo Obrigatório")
 	private String cidadeFamilia;
 
-	private String pontoReferenciaFamilia;
+	private String referenciaFamilia;
 
 	private int anosEstudoPrivado;
 
@@ -193,56 +88,24 @@ public class QuestionarioIniciacaoAcademica {
 	@Size(min = 1, message = "Campo Obrigatório")
 	private String resideAtualmente;
 
-	@NotEmpty
-	@Size(min = 1, message = "Campo Obrigatório")
+	@NotEmpty(message = "Campo Obrigatório")
 	private String definicaoLocalAtual;
 
-	@Enumerated(EnumType.STRING)
-	private Estado estado;
+	@NotEmpty(message = "Campo Obrigatório")
+	private String estado;
 
-	@Enumerated(EnumType.STRING)
-	private Estado estadoFamilia;
+	@NotEmpty(message = "Campo Obrigatório")
+	private String estadoFamilia;
 
 	@Enumerated(EnumType.STRING)
 	private SituacaoResidencia situacaoResidencia;
-
-	private String campusPreferido;
-
-	private Date dataInscricao;
 
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
 
-	@NotEmpty
-	@Size(min = 1, message = "Campo Obrigatório")
+	@NotEmpty(message = "Campo obrigatório.")
 	private String justificativaPedido;
 
-	private String telefoneFixoFamilia;
-
-	private String telefoneCelularFamilia;
-
-	public QuestionarioIniciacaoAcademica() {
-
-	}
-=======
-	
-	@NotNull
-	@Size(min = 3, message = "Campo Obrigatório")
-	private String cidadeFamilia;
-	
-	@NotEmpty(message = "Campo Obrigatório")
-	private String estadoFamilia;
-	
-	private String referenciaFamilia;
-	
-	private String comQuemReside;
-	
-	private String tipoResidencia;
-	
-	@Enumerated(EnumType.STRING)
-	private SituacaoResidencia situacaoResidencia;
->>>>>>> ff7b69fa2608d313f6e3609ad150ccf9e499fe9d
-	
 	private Integer qtdAparelhoSom;
 	
 	private Integer qtdTelevisao;
@@ -287,10 +150,10 @@ public class QuestionarioIniciacaoAcademica {
 	@JoinColumn(name = "iniciacaoacademica_id")
 	private List<PessoaFamilia> pessoas;
 	
-	public QuestionarioIniciacaoAcademica() {
-
-	}
-
+	private String comQuemReside;
+	
+	private String tipoResidencia;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -378,11 +241,7 @@ public class QuestionarioIniciacaoAcademica {
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> ff7b69fa2608d313f6e3609ad150ccf9e499fe9d
 	public String getCep() {
 		return cep;
 	}
@@ -439,13 +298,6 @@ public class QuestionarioIniciacaoAcademica {
 		this.numeroFamilia = numeroFamilia;
 	}
 
-	public String getComplementoFamilia() {
-		return complementoFamilia;
-	}
-
-	public void setComplementoFamilia(String complementoFamilia) {
-		this.complementoFamilia = complementoFamilia;
-	}
 
 	public String getBairroFamilia() {
 		return bairroFamilia;
@@ -478,8 +330,6 @@ public class QuestionarioIniciacaoAcademica {
 	public void setReferenciaFamilia(String referenciaFamilia) {
 		this.referenciaFamilia = referenciaFamilia;
 	}
-
-	
 
 	public String getComQuemReside() {
 		return comQuemReside;
