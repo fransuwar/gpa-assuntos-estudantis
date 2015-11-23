@@ -23,7 +23,7 @@
  		<intercept-url pattern="/selecao/detalhesSelecao/*" access="permitAll"/>
  		<intercept-url pattern="/selecao/informacoes/*" access="permitAll"/>
  		<intercept-url pattern="/selecao/listar" access="permitAll"/>
- 		<intercept-url pattern="/selecao/downloadDocumento/*" access="permitAll"/>
+ 		<intercept-url pattern="/selecao/documento/*" access="permitAll"/>
  		<intercept-url pattern="/selecao/inscritos/relatorioVisita/**" access="hasRole('SERVIDOR')" />
  		<intercept-url pattern="/selecao/inscritos/*" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')" />
  		<intercept-url pattern="/selecao/inscritos/informacoesRelatorio/*" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')" />	

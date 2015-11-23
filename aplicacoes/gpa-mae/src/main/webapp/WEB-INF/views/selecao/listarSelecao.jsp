@@ -112,8 +112,8 @@
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
-								<td><a id="detalhesSelecao"
-									href="<c:url value="/selecao/detalhesSelecao/${selecao.id}">  </c:url>">
+								<td><a id="detalhes"
+									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
 										${selecao.tipoBolsa.nome} </a>
 								</td>
 								<td>${selecao.ano}</td>
@@ -159,8 +159,8 @@
 												</c:otherwise>
 											</c:choose>
 										</a>
-									</sec:authorize> <sec:authorize access="hasAnyRole('DISCENTE')">
-										
+									</sec:authorize> 
+									<sec:authorize access="hasAnyRole('DISCENTE')">
 										<c:choose>
 											<c:when
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">

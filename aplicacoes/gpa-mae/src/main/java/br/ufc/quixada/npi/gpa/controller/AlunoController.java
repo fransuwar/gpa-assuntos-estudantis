@@ -41,7 +41,6 @@ import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
 import br.ufc.quixada.npi.gpa.service.PessoaFamiliaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
-import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
@@ -57,20 +56,27 @@ public class AlunoController {
 
 	@Inject
 	private HorarioDisponivelService horarioDisponivelService;
-	
+
 	@Inject
-	private SelecaoService selecaoBolsaService;
+	private PessoaFamiliaService pessoaFamiliaService;
 	
 	@Inject
 	private AlunoService alunoService;
 	
-	@Inject
-	private PessoaFamiliaService pessoaFamiliaService;
+	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
+	public String listarInscricoes(Model model, Authentication auth) {
+		
+		Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
+		
+		model.addAttribute("inscricoes", aluno.getInscricoes());
+		
+		return "";
+	}
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
 	public String realizarInscricaoBIA(@PathVariable("idSelecao") Integer idSelecao, Model model) {
 		
-		model.addAttribute("action", "incricao-inciacao-academica");
+		model.addAttribute("action", "inscricao");
 		
 		model.addAttribute("questionarioIniciacaoAcademica", new QuestionarioIniciacaoAcademica());
 		model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
@@ -80,20 +86,18 @@ public class AlunoController {
 		model.addAttribute("totalEstado", Estado.toMap());
 		model.addAttribute("grauParentesco", GrauParentesco.toMap());
 		
-		return "aluno/InscricaoIniciacaoAcademica";
+		return "aluno/inscricaoIniciacaoAcademica";
 	}
 	
-	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "inscricao/iniciacao-academica" }, method = RequestMethod.POST)
 	public String realizarInscricaoBIA(@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica, 
-			BindingResult result,@PathVariable("idSelecao") Integer idSelecao, 
-			Model model, RedirectAttributes redirect, Authentication auth) {
+			BindingResult result, Model model, RedirectAttributes redirect, Authentication auth) {
 		
-		model.addAttribute("action", "incricao-inciacao-academica");
+		model.addAttribute("action", "inscricao");
 		
 		if (result.hasErrors()) {
 			
 			model.addAttribute("questionarioIniciacaoAcademica", iniciacaoAcademica);
-			model.addAttribute("selecaoBolsa", idSelecao);
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			model.addAttribute("turno", Turno.toMap());
 			model.addAttribute("diasUteis", DiaUtil.toMap());
@@ -101,7 +105,7 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			
-			return "aluno/InscricaoIniciacaoAcademica";
+			return "aluno/inscricaoIniciacaoAcademica";
 		}
 		
 //		Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
@@ -120,16 +124,15 @@ public class AlunoController {
 
 	}
 
-//	@RequestMapping(value = { "editar/inscricao/iniciacao-academica" }, method = RequestMethod.GET)
-//	public String editarInscricaoBIA(@PathVariable("idAluno") Integer idAluno, Model model, RedirectAttributes redirect) {
+//	@RequestMapping(value = { "inscricao/editar/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
+//	public String editarInscricaoBIA(@PathVariable("idInscricao") Integer idInscricao, Model model, RedirectAttributes redirect) {
 //		
-//		QuestionarioIniciacaoAcademica iniciacaoAcademica = this.iniciacaoAcademicaService.getQuestIniAcadById(idAluno);
+//		QuestionarioIniciacaoAcademica iniciacaoAcademica = this.iniciacaoAcademicaService.getQuestIniAcadById(idInscricao);
 //		Selecao selecao = iniciacaoAcademica.getSelecaoBolsa();
 //		
 //		if (selecao.getStatus() != null && selecao.getStatus().equals(Status.INSC_ABERTA)) {
 //			
-//			model.addAttribute("action", "editar-inciacao-academica");
-//			model.addAttribute("idQuest", iniciacaoAcademica.getId());
+//			model.addAttribute("action", "editar");
 //			model.addAttribute("questionarioIniciacaoAcademica", iniciacaoAcademica);
 //			model.addAttribute("selecaoBolsa", selecao.getId());
 //			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
@@ -157,17 +160,15 @@ public class AlunoController {
 //		return "aluno/InscricaoIniciacaoAcademica";
 //	}
 	
-	@RequestMapping(value = { "{idAluno}/editar/inscricao/iniciacao-academica" }, method = RequestMethod.POST)
-	public String editarInscricaoBIA(
-			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
-			BindingResult result, @PathVariable("idAluno") Integer idAluno, Model model, RedirectAttributes redirect) {
+	@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
+	public String editarInscricaoBIA(@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
+			BindingResult result,Model model, RedirectAttributes redirect) {
 		
-		model.addAttribute("action", "editar-inciacao-academica");
+		model.addAttribute("action", "editar");
 		
 		if (result.hasErrors()) {
 			
 			model.addAttribute("questionarioIniciacaoAcademica", iniciacaoAcademica);
-			//model.addAttribute("selecaoBolsa", iniciacaoAcademica.getSelecaoBolsa().getId());
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			model.addAttribute("turno", Turno.values());
 			model.addAttribute("diasUteis", DiaUtil.values());
@@ -185,7 +186,7 @@ public class AlunoController {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
 			
-			return "aluno/InscricaoIniciacaoAcademica";
+			return "aluno/inscricaoIniciacaoAcademica";
 		}
 		
 		this.iniciacaoAcademicaService.update(iniciacaoAcademica);
@@ -196,7 +197,7 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
 	public String realizarInscricaoAMOR(@PathVariable("idSelecao") Integer idSelecao, Model model) {
 		
-		model.addAttribute("action", "incricao-auxilio-moraida");
+		model.addAttribute("action", "inscricao");
 		
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 		model.addAttribute("selecaoBolsa", idSelecao);
@@ -213,17 +214,15 @@ public class AlunoController {
 		return "aluno/inscricaoAuxilio";
 	}
 	
-	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.POST)
-	public String realizarInscricaoAMOR(@PathVariable("idSelecao") Integer idSelecao,
-			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, 
+	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
+	public String realizarInscricaoAMOR(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, 
 			Model model, BindingResult result, RedirectAttributes redirect, Authentication auth) {
 		
-		model.addAttribute("action", "incricao-auxilio-moraida");
+		model.addAttribute("action", "inscricao");
 		
 		if (result.hasErrors()) {
 			
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
-			model.addAttribute("selecaoBolsa", idSelecao);
 			model.addAttribute("estado", Estado.toMap());
 			model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
 			model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.toMap());
@@ -252,15 +251,15 @@ public class AlunoController {
 		return "redirect:/selecao/listar";
 	}
 	
-	@RequestMapping(value = { "{idAluno}/editar/inscricao/auxilio-moradia" }, method = RequestMethod.GET)
-	public String editarInscricaoAMOR(@PathVariable("idAluno") Integer idAluno, Model model, RedirectAttributes redirect) {
+	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
+	public String editarInscricaoAMOR(@PathVariable("idInscricao") Integer idInscricao, Model model, RedirectAttributes redirect) {
 		
-		QuestionarioAuxilioMoradia auxilioMoradia = this.auxilioMoradiaService.getQuestAuxMorById(idAluno);
+		QuestionarioAuxilioMoradia auxilioMoradia = this.auxilioMoradiaService.getQuestAuxMorById(idInscricao);
 		Selecao selecao = auxilioMoradia.getInscricao().getSelecaoBolsa();
 		
 		if (selecao.getStatus() != null && selecao.getStatus().equals(Status.INSC_ABERTA)) { 
 			
-			model.addAttribute("action", "editar-auxilio-moradia");
+			model.addAttribute("action", "editar");
 			
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
 			model.addAttribute("selecaoBolsa", selecao.getId());
@@ -273,6 +272,7 @@ public class AlunoController {
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 			model.addAttribute("moraCom", MoraCom.toMap());
+			
 			List<PessoaFamilia> pessoasDaFamilia = this.pessoaFamiliaService.getPessoaFamiliaByIdQuestBIA(auxilioMoradia.getId());
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
@@ -286,10 +286,11 @@ public class AlunoController {
 		return "aluno/inscricaoAuxilio";
 	}
 	
-	@RequestMapping(value = { "/editar/inscricao/auxilio-moradia" }, method = RequestMethod.POST)
-	public String editarInscricaoAMOR(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model, BindingResult result, RedirectAttributes redirect) {
+	@RequestMapping(value = { "inscricao/editar/auxilio-moradia" }, method = RequestMethod.POST)
+	public String editarInscricaoAMOR(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
+			BindingResult result, RedirectAttributes redirect) {
 		
-		model.addAttribute("action", "editar-auxilio-moradia");
+		model.addAttribute("action", "editar");
 		
 		if (result.hasErrors()) {
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
@@ -303,6 +304,7 @@ public class AlunoController {
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 			model.addAttribute("moraCom", MoraCom.toMap());
+			
 			List<PessoaFamilia> pessoasDaFamilia = this.pessoaFamiliaService.getPessoaFamiliaByIdQuestBIA(auxilioMoradia.getId());
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
@@ -316,4 +318,5 @@ public class AlunoController {
 		return "redirect:/selecao/listar";
 
 	}
+	
 }

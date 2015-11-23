@@ -30,7 +30,6 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
-import br.ufc.quixada.npi.gpa.service.ParecerService;
 import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
@@ -42,8 +41,6 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 @SessionAttributes({ Constants.USUARIO_ID })
 public class SelecaoController {
 
-	@Inject
-	private ParecerService parecerService;
 	@Inject
 	private ServidorService servidorService;
 	@Inject
@@ -57,7 +54,7 @@ public class SelecaoController {
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
 
-	@RequestMapping(value = "/listar")
+	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request, Authentication authentication) {
 		List<Selecao> selecoes = this.selecaoService
 				.getSelecaoBolsaComMembros();
@@ -84,7 +81,7 @@ public class SelecaoController {
 		return "selecao/listar";
 	}
 	
-	@RequestMapping(value = "informacoes/{id}")
+	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
 		if (selecao == null) {
@@ -96,31 +93,19 @@ public class SelecaoController {
 		return "selecao/informacoes";
 	}
 	
-	@RequestMapping(value="detalhesSelecao/{id}")
-	public String detalhes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect){
-		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
-		if (selecao == null) {
-			redirect.addFlashAttribute("erro", "seleção Inexistente");
-			return "redirect:/selecao/listar";
-		}
-		modelo.addAttribute("selecao", selecao);
-		
-		return "selecao/detalhesSelecao";
-	}
+//	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
+//	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
+//			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
+//		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
+//	}
 
-	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
-	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
-			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
-		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
-	}
-
-	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
-	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
-		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
-	}
+//	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
+//	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
+//		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
+//	}
 	
-	@RequestMapping(value = {"downloadDocumento/{id}"}, method = RequestMethod.GET)
-	public HttpEntity<byte[]> downloadDocumento(@PathVariable("id") Long id, 
+	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
+	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Long id, 
 			RedirectAttributes redirectAttributes){
 		Documento documento = documentoService.find(Documento.class, id);
 		byte[] arquivo = documento.getArquivo();
@@ -145,7 +130,7 @@ public class SelecaoController {
 		return "selecao/listarSelecao";
 	}
 
-//	@RequestMapping(value = "/inscritos/{id}", method = RequestMethod.GET)
+//	@RequestMapping(value = "inscritos/{id}", method = RequestMethod.GET)
 //	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
 //
 //		List<Aluno> alunosSelecao = this.selecaoService.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
@@ -165,11 +150,11 @@ public class SelecaoController {
 //
 //		return "selecao/listarInscritos";
 //	}
-	
-	@RequestMapping(value = "/visualizarFormulario/{idaluno}")
-	public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
-		return null;
-	}
+//	
+//	@RequestMapping(value = "/visualizarFormulario/{idaluno}")
+//	public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
+//		return null;
+//	}
 
 	@RequestMapping(value = "/parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,
