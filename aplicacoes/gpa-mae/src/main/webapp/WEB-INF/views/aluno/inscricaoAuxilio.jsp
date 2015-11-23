@@ -10,13 +10,13 @@
 	uri="http://github.com/dandelion/datatables"%>
 <%@ taglib prefix="gpa" tagdir="/WEB-INF/tags"%>
 
-<c:if test="${action eq 'incricao-auxilio-moraida' }">
-	<c:url var="url" value="/aluno/inscricao/${selecaoBolsa}/auxilio-moradia"></c:url>
+<c:if test="${action eq 'inscricao' }">
+	<c:url var="url" value="/aluno/inscricao/auxilio-moradia"></c:url>
 	<c:set var="titulo" value="Nova Inscrição"></c:set>
 	<c:set var="botao" value="Finalizar Inscrição"></c:set>
 </c:if>
-<c:if test="${action eq 'editar-auxilio-moradia' }">
-	<c:url var="url" value="/aluno/editar/inscricao/auxilio-moradia"></c:url>
+<c:if test="${action eq 'editar' }">
+	<c:url var="url" value="/aluno/inscricao/editar/auxilio-moradia"></c:url>
 	<c:set var="titulo" value="Editar Inscrição"></c:set>
 	<c:set var="botao" value="Atualizar Inscrição"></c:set>
 </c:if>

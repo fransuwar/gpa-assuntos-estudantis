@@ -235,7 +235,7 @@ public class CoordenadorController {
 		return "redirect:/selecao/listar";
 	}
 	
-	@RequestMapping(value = { "selecao/{idSelecao}/atribuir-comissao/" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "selecao/comissao/{idSelecao}" }, method = RequestMethod.GET)
 	public String atribuirComissao(@PathVariable("idSelecao") Integer idSelecao, Model model,
 			RedirectAttributes redirect) {
 		
@@ -253,7 +253,7 @@ public class CoordenadorController {
 		return "selecao/atribuir";
 	}
 	
-	@RequestMapping(value = { "selecao/atribuir-comissao" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "selecao/comissao" }, method = RequestMethod.POST)
 	public String atribuirComissao(@RequestParam("id") Integer id,
 			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
 			@RequestParam("id3") Integer id3, Model model,

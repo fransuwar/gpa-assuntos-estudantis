@@ -5,5 +5,5 @@ import br.ufc.quixada.npi.service.GenericService;
 
 public interface QuestionarioAuxMoradiaService extends GenericService<QuestionarioAuxilioMoradia>{
 
-	public abstract QuestionarioAuxilioMoradia getQuestAuxMorById(Integer id);
+	public abstract QuestionarioAuxilioMoradia getQuestAuxMorById(Integer idInscricao);
 }

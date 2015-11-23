@@ -25,13 +25,10 @@ import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 @Entity																	
 @NamedQueries({
 		@NamedQuery(name = "IniAcad.findIniAcadById", 
-					query = "SELECT DISTINCT am FROM QuestionarioIniciacaoAcademica am WHERE am.id = :idAluno") 
+					query = "SELECT DISTINCT am FROM QuestionarioIniciacaoAcademica am WHERE am.id = :idInscricao") 
 			})
 public class QuestionarioIniciacaoAcademica {
 	
-	public QuestionarioIniciacaoAcademica() {
-
-	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

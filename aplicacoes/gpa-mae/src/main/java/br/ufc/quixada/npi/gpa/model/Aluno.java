@@ -29,16 +29,12 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 				@NamedQuery(name = "Aluno.findAlunoById",
 								query = "SELECT a FROM Aluno a WHERE a.pessoa.id = :idPessoa"),
 				@NamedQuery(name = "Aluno.findAlunoByCPF",
-								query = "select a from Aluno a where a.pessoa.cpf = :cpf")
+								query = "select a from Aluno a where a.pessoa.cpf = :cpf"),
 			  })
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula" }) )
 public class Aluno {
-
-	public Aluno() {
-
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
