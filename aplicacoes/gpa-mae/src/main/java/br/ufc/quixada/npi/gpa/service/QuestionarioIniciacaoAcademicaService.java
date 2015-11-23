@@ -5,4 +5,5 @@ import br.ufc.quixada.npi.service.GenericService;
 
 public interface QuestionarioIniciacaoAcademicaService extends GenericService<QuestionarioIniciacaoAcademica>{
 
+	public abstract QuestionarioIniciacaoAcademica getQuestIniAcadById(Integer idInscricao);
 }
