@@ -257,7 +257,34 @@ table#file-upload {
 .red {
 	color: red;
 }
-
 .panel-title{
 	text-align:center;
+}
+
+#logo-gpa{
+	width: 250px;
+	height: 100%;
+
+}
+
+#navbar-brand{
+	padding: 0%;
+}
+
+dt.col-sm-3{
+text-align: right;
+}
+div.panel-primary-min{
+	width:986px;
+	border-color: #2C3E50;	
+}
+div.panel-primary-min>div.panel-heading{
+
+	background-color: #2C3E50;
+	border-color: #2C3E50;
+	padding: 10px;
+}
+div.panel-primary-min>div.panel-heading>.panel-title{
+	color: #FFF;
+
 }

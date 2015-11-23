@@ -18,8 +18,8 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<ol class="breadcrumb">
 		<li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
-		<li class="active">Atribuir Membro Banca</li>
-	</ol>
+      <li class="active">Atribuir Comissão</li>
+    </ol>
 	<div class="container">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert"
@@ -41,10 +41,11 @@
 		</c:if>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h2>Atribuir Membro Banca</h2>
+				<h2>Atribuir Comissão</h2>
 			</div>
 			<div class="panel-body">
-				<form:form id="adicionarBancaForm" role="form" commandName="selecao" servletRelativeAction="/selecao/atribuir" method="POST"
+
+				<form:form id="adicionarBancaForm" role="form" commandName="selecao" servletRelativeAction="/coordenador/comissao/atribuir" method="POST"
 					cssClass="form-horizontal">
 					<input type="hidden" name="idSelecao" value="${selecao}">
 					<div class="form-group">
@@ -66,7 +67,7 @@
 							<c:forEach var="servidor" items="${comissao.membrosBanca}">
 								<tr class="linha">
 									<td class="linha">${servidor.pessoa.nome}</td>
-									<td><a id="excluir" data-toggle="modal"	data-target="#confirm-delete" data-href="<c:url value="/selecao/excluirMembro/${selecao}/${servidor.id}"></c:url>">
+									<td><a id="excluir" data-toggle="modal"	data-target="#confirm-delete" data-href="<c:url value="/coordenador/comissao/excluir/${selecao}/${servidor.id}"></c:url>">
 											<button class="btn btn-danger">
 												Excluir <span class="glyphicon glyphicon-trash"></span>
 											</button>
@@ -74,6 +75,7 @@
 								</tr>
 							</c:forEach>
 						</table>
+
 					</div>
 					<div class="form-group col-sm-12">
 
@@ -85,11 +87,6 @@
 				</form:form>
 			</div>
 		</div>
-	</div>
-	<div class="error-validation" id="erro-membros">
-		<label class="col-sm-4 control-label" id="label-erro">${erroMembros}
-		</label>
-		<form:errors path=""></form:errors>
 	</div>
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
 	

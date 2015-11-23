@@ -15,8 +15,8 @@ public class QuestionarioAuxilioMoradiaServiceImpl extends GenericServiceImpl<Qu
 
 	@Override
 	@Transactional(readOnly = true)
-	public QuestionarioAuxilioMoradia getQuestAuxMorById(Integer id) {
-		return (QuestionarioAuxilioMoradia) findFirst("AuxMor.findAuxMorById", new SimpleMap<String, Object>("idAluno", id));
+	public QuestionarioAuxilioMoradia getQuestAuxMorById(Integer idInscricao) {
+		return (QuestionarioAuxilioMoradia) findFirst("AuxMor.findAuxMorById", new SimpleMap<String, Object>("idInscricao", idInscricao));
 	}
 
 	

@@ -6,14 +6,13 @@ import java.util.TreeMap;
 public enum DiaUtil {
 
 	SEG("Segunda"), TER("Terça"), QUA("Quarta"), QUI("Quinta"), SEX("Sexta");
-	
 	private String nome;
 	private static Map<DiaUtil, String> map;
-	
-	private DiaUtil(String nome){
+
+	private DiaUtil(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -27,4 +26,5 @@ public enum DiaUtil {
 		}
 		return map;
 	}
+	
 }
