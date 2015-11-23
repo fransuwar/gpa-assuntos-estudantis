@@ -68,12 +68,12 @@ public class ServidorController {
 			if (e.getCause() instanceof ConstraintViolationException) {
 				redirect.addFlashAttribute("erro", "Não é possível cadastrar um siape já existente.");
 
-				return "redirect:/servidor/listarServidor";
+				return "redirect:/servidor/listar";
 			}
 		}
 		redirect.addFlashAttribute("info", "Servidor cadastrado com sucesso.");
 
-		return "redirect:/servidor/listarServidor";
+		return "redirect:/servidor/listar";
 
 	}
 	
@@ -95,7 +95,7 @@ public class ServidorController {
 		if(servidor == null){
 			redirect.addFlashAttribute("erro", "Servidor não encontrado");
 			redirect.addFlashAttribute("servidorEncontrado", false);
-			return "redirect:/servidor/listarServidor";
+			return "redirect:/servidor/listar";
 		}
 		
 
@@ -131,10 +131,10 @@ public class ServidorController {
 				
 		this.servidorService.update(servidor);
 		redirect.addFlashAttribute("info", "Servidor atualizado com sucesso.");
-		return "redirect:/servidor/listarServidor";
+		return "redirect:/servidor/listar";
 	}
 	
-	@RequestMapping(value = "/{id}/excluir")
+	@RequestMapping(value = "excluir/{id}")
 	public String excluirServidor(Servidor p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes
 			) {
 		Servidor servidor = servidorService.find(Servidor.class, id);
@@ -146,7 +146,7 @@ public class ServidorController {
 			this.servidorService.delete(servidor);
 			redirectAttributes.addFlashAttribute("info", "Servidor excluído com sucesso.");
 		}
-		return "redirect:/servidor/listarServidor";
+		return "redirect:/servidor/listar";
 	}
 	
 }

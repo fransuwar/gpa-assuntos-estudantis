@@ -6,8 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 
 
@@ -126,8 +125,7 @@
 											</button>
 										</a>
 									</sec:authorize> <sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
-										<a id="editar"
-											href="<c:url value="/selecao/editar/${selecao.id}" ></c:url>">
+										<a id="editar" href="<c:url value="/selecao/editar/${selecao.id}" ></c:url>">
 											<button class="btn btn-info">
 												Editar <span class="glyphicon glyphicon-pencil"></span>
 											</button>

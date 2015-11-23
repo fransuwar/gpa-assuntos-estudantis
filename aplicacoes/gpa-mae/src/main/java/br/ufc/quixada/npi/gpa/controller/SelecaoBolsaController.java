@@ -34,7 +34,6 @@ import br.ufc.quixada.npi.gpa.model.Parecer;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
-import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.SelecaoBolsa;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
@@ -376,59 +375,91 @@ public class SelecaoBolsaController {
 
 		return "selecao/listarInscritos";
 	}
+	
+	@RequestMapping(value = "/excluirMembro/{idSelecao}/{idServidor}", method = RequestMethod.GET)
+	public String excluirMembroBanca(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
+			Model model, RedirectAttributes redirect) {
+		
+		
+		SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, idSelecao);
+		
+		List<Servidor> comissao = selecao.getMembrosBanca();
+		
+		Servidor servidor = new Servidor(idServidor);
+		
+		servidor = this.servidorService.find(Servidor.class, idServidor);
+
+		selecao.getMembrosBanca().remove(servidor);
+
+		selecaoService.update(selecao);
+
+		redirect.addFlashAttribute("info", "Membro excluido com sucesso.");
+
+		model.addAttribute("selecao", selecaoService.find(SelecaoBolsa.class, idSelecao));
+		model.addAttribute("servidores", servidorService.find(Servidor.class));
+		
+
+		
+		return "redirect:/selecao/atribuir/" + idSelecao;
+	}
 
 	@RequestMapping(value = "/atribuir/{id}", method = RequestMethod.GET)
-	public String atribuirParecerista(@PathVariable("id") Integer id,
+	public String atribuirParecerista(@PathVariable("id") Integer idSelecao,
 			Model model, RedirectAttributes redirectAttributes) {
 
-		List<Servidor> servidoresBanca = selecaoService
-				.getSelecaoBolsaComMembros(id).getMembrosBanca();
-
-		if (!servidoresBanca.isEmpty()) {
-			model.addAttribute("m1", servidoresBanca.get(0).getId());
-			model.addAttribute("m2", servidoresBanca.get(1).getId());
-			model.addAttribute("m3", servidoresBanca.get(2).getId());
-		}
-		model.addAttribute("selecao", id);
+		model.addAttribute("selecao", idSelecao);
 		model.addAttribute("servidores", servidorService.find(Servidor.class));
+		model.addAttribute("comissao", selecaoService.find(SelecaoBolsa.class, idSelecao));
+		
 		return "coordenador/atribuirMembroBanca";
 	}
 
 	@RequestMapping(value = "/atribuir", method = RequestMethod.POST)
-	public String atribuirPareceristaNoProjeto(@RequestParam("id") Integer id,
-			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
-			@RequestParam("id3") Integer id3, Model model,
-			RedirectAttributes redirect) {
+	public String atribuirPareceristaNoProjeto(@RequestParam("idSelecao") Integer idSelecao,
+			@RequestParam("idServidor") Integer idServidor, Model model, RedirectAttributes redirect) {
 
-		if (id1 == null || id2 == null || id3 == null) {
-			model.addAttribute("selecao", id);
-			model.addAttribute("servidores",
-					servidorService.find(Servidor.class));
-			model.addAttribute("erroMembros", "Informe os três membros.");
+
+		if (idServidor == null) {
+			
+			model.addAttribute("selecao", idSelecao);
+			model.addAttribute("servidores", servidorService.find(Servidor.class));
+			model.addAttribute("erroMembros", "Informe pelo menos um membro.");
+
 			return "coordenador/atribuirMembroBanca";
 
-		} else if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
-			model.addAttribute("selecao", id);
-			model.addAttribute("servidores",
-					servidorService.find(Servidor.class));
-			model.addAttribute("erroMembros",
-					"Não é permitida repetição de membros na banca.");
-			return "coordenador/atribuirMembroBanca";
 		} else {
-			SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, id);
+			SelecaoBolsa selecao = selecaoService.find(SelecaoBolsa.class, idSelecao);
+			
+			List<Servidor> comissao = selecao.getMembrosBanca();
+			Servidor servidor = new Servidor(idServidor);
+			
+			if (comissao.contains(servidor)) {
+				
+				model.addAttribute("selecao", idSelecao);
+				model.addAttribute("servidores", servidorService.find(Servidor.class));
+				redirect.addFlashAttribute("erro", "Não é permitida repetição de membros na banca.");
+				
+				return "redirect:/selecao/atribuir/" + idSelecao;
+				
+			} else {
+				servidor = this.servidorService.find(Servidor.class, idServidor);
 
-			List<Servidor> list = new ArrayList<Servidor>();
-			list.add(new Servidor(id1));
-			list.add(new Servidor(id2));
-			list.add(new Servidor(id3));
+				selecao.getMembrosBanca().add(servidor);
 
-			selecao.setMembrosBanca(list);
+				selecaoService.update(selecao);
 
-			selecaoService.update(selecao);
-			redirect.addFlashAttribute("info", "Banca formada com sucesso.");
+				redirect.addFlashAttribute("info", "Banca formada com sucesso.");
 
-			return "redirect:/selecao/listar";
+				model.addAttribute("selecao", selecaoService.find(SelecaoBolsa.class, idSelecao));
+				model.addAttribute("servidores", servidorService.find(Servidor.class));
+
+				return "redirect:/selecao/atribuir/" + idSelecao;
+				
+			}
+			
 		}
+		
+
 	}
 
 	@RequestMapping(value = "/visualizarFormulario/{idaluno}")
@@ -486,4 +517,7 @@ public class SelecaoBolsaController {
 	
 		return "selecao/formularioInscricaoPreenchido";
 	}
+	
+	
+	
 }

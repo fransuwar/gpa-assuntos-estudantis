@@ -285,8 +285,7 @@
 										<label for="cidade" class="col-sm-3 control-label">Qual
 											a situação da sua residencia:</label>
 										<div class="col-sm-3">
-											<form:select path="situacaoResidencia"
-												id="situacaoResidencia" cssClass="form-control">
+											<form:select path="situacaoResidencia" id="situacaoResidencia" cssClass="form-control">
 												<form:option value="" label="Situação da Residência" />
 												<form:options items="${situacaoResidencia}" />
 											</form:select>
@@ -309,8 +308,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="qtd_aparelho_som" class="col-sm-2 control-label">Aparelho
-											de Som:</label>
+										<label for="qtd_aparelho_som" class="col-sm-2 control-label">Aparelho de Som:</label>
 										<div class="col-sm-1">
 											<form:input id="qtdAparelhoSom" data-mask="999" min="0" value="0" 
 												path="qtdAparelhoSom" cssClass="form-control"
