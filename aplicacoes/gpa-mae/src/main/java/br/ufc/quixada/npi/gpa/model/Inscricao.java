@@ -4,15 +4,24 @@ import java.util.Date;
 
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Resultado;
+
+@NamedQueries({
+	@NamedQuery(name = "Incricao.findIncricaoId", 
+			query = "SELECT ins FROM Inscricao ins WHERE ins.id = :id"), 
+	})
 
 @Entity
 public class Inscricao {
@@ -26,6 +35,7 @@ public class Inscricao {
 	
 	private boolean avaliacaoDocumentos;
 	
+	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
 	
 	private String observacoes;
@@ -44,10 +54,6 @@ public class Inscricao {
 
 	@ManyToOne
 	private Aluno aluno;
-	
-	
-	public Inscricao() {
-	}
 
 	public Integer getId() {
 		return id;

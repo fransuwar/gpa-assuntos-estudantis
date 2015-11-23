@@ -297,7 +297,7 @@ public class SelecaoController {
 	}
 
 	@RequestMapping(value = "/listar")
-	public String listar(ModelMap model, HttpServletRequest request, Authentication authentication) {
+	public String listar(ModelMap model, HttpServletRequest request, Authentication authentication, Inscricao inscricao) {
 		List<Selecao> selecoes = this.selecaoService.getSelecaoBolsaComMembros();
 
 		if (request.isUserInRole("ROLE_ALUNO")) {
@@ -310,7 +310,7 @@ public class SelecaoController {
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
+			model.addAttribute("inscricao", inscricao);
 		} else {
 
 			model.addAttribute("selecoes", selecoes);

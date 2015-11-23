@@ -84,7 +84,7 @@
 										</div>
 										<label for="cidade" class="col-sm-1 control-label"><span class="red">*</span>Cidade:</label>
 										<div class="col-sm-3">
-											<form:input id="cidade" type="text" path="cidade"
+											<form:input id="cidadeFamilia" type="text" path="cidadeFamilia"
 												cssClass="form-control" placeholder="Cidade" />
 											<div class="error-validation" id="erro-cidade">
 												<form:errors path="cidade"></form:errors>
@@ -134,26 +134,7 @@
 										</div>
 									</div>
 
-									<div class="form-group">
-
-										<label for="telefoneFixo" class="col-sm-1 control-label">Fone:</label>
-										<div class="col-sm-2">
-											<form:input id="telefone" path="telefoneFixo"
-												data-mask="(00) 0000-0000" cssClass="form-control"
-												placeholder="(00) 0000-0000" />
-											<div class="error-validation" id="erro-telefoneFixo">
-												<form:errors path="telefoneFixo"></form:errors>
-											</div>
-										</div>
-										<label for="telefoneCelular" class="col-sm-1 control-label">Celular:</label>
-										<div class="col-sm-2">
-											<form:input id="telefoneCelular" path="telefoneCelular"
-												data-mask="(00) 0000-0000" cssClass="form-control"
-												placeholder="(00) 0000-0000" />
-											<div class="error-validation" id="erro-telefoneCelular">
-												<form:errors path="telefoneCelular"></form:errors>
-											</div>
-										</div>
+									<div class="form-group">	
 									</div>
 
 								</div>
@@ -192,7 +173,7 @@
 										</div>
 										<label for="cidade" class="col-sm-1 control-label"><span class="red">*</span>Cidade:</label>
 										<div class="col-sm-3">
-											<form:input id="cidade" type="text" path="cidadeFamilia"
+											<form:input id="cidade" type="text" path="cidade"
 												cssClass="form-control" placeholder="Cidade" />
 											<div class="error-validation" id="erro-cidadeAtual">
 												<form:errors path="cidade"></form:errors>
@@ -340,7 +321,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="qtdAutomovel" class="col-sm-2 control-label">Automovel:</label>
+										<label for="qtdAutomovel" class="col-sm-2 control-label">Automóvel:</label>
 										<div class="col-sm-1">
 											<form:input id="qtdAutomovel" data-mask="999" min="0" value="0" 
 												path="qtdAutomovel" cssClass="form-control"  />
@@ -359,7 +340,7 @@
 											</div>
 										</div>
 										
-										<label for="qtdEmpregadosDomesticos" class="col-sm-4 control-label">Empregados Domesticos:</label>
+										<label for="qtdEmpregadosDomesticos" class="col-sm-4 control-label">Empregados Domésticos:</label>
 										<div class="col-sm-1">
 											<form:input id="qtdEmpregadosDomesticos" data-mask="999"
 												min="0" value="0" path="qtdEmpregadosDomesticos"
@@ -372,7 +353,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="qtdMaquinaLavar" class="col-sm-2 control-label">Maquina
+										<label for="qtdMaquinaLavar" class="col-sm-2 control-label">Máquina
 											de Lavar:</label>
 										<div class="col-sm-1">
 											<form:input id="qtdMaquinaLavar" data-mask="999" min="0" value="0" 
@@ -436,8 +417,8 @@
 									</div>
 
 									<div class="form-group">
-										<label for="qtdFogaoGas" class="col-sm-2 control-label">Fogao
-											A Gás:</label>
+										<label for="qtdFogaoGas" class="col-sm-2 control-label">Fogão
+											a Gás:</label>
 										<div class="col-sm-1">
 											<form:input id="qtdFogaoGas" data-mask="999" min="0" value="0" 
 												path="qtdFogaoGas" cssClass="form-control" />
@@ -458,7 +439,7 @@
 										</div>
 
 										<label for="qtdComodos"
-											class="col-sm-4 control-label">Comodo sem Banheiro:</label>
+											class="col-sm-4 control-label">Cômodo sem Banheiro:</label>
 										<div class="col-sm-1">
 											<form:input id="qtdComodos" data-mask="999" value="0" 
 												min="0" path="qtdComodos" cssClass="form-control"

@@ -1,10 +1,9 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +20,7 @@ import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
-import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.Turno;
-import br.ufc.quixada.npi.gpa.model.Aluno;
-import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -52,9 +48,6 @@ public class IniciacaoAcademicaController {
 
 	@Inject
 	private QuestionarioIniciacaoAcademicaService questionarioIniciacaoAcademicaService;
-
-	@Inject
-	private HorarioDisponivelService horarioDisponivelService;
 	
 	@Inject
 	private InscricaoService inscricaoService;
@@ -96,6 +89,7 @@ public class IniciacaoAcademicaController {
 			inscricao.setQuestionarioIniciacaoAcademica(questionarioIniciacaoAcademica);
 			inscricao.setAluno(alunoService.getAlunoByCpf(authentication.getName()));
 			inscricao.setSelecao(selecaoBolsaService.find(Selecao.class, idSelecao));
+			inscricao.setData(new DateTime().toDate());
 			
 			this.inscricaoService.save(inscricao);
 			
@@ -138,6 +132,18 @@ public class IniciacaoAcademicaController {
 
 		return "aluno/InscricaoIniciacaoAcademica";
 
+	}
+	
+	@RequestMapping(value="detalhesInscricao/{id}")
+	public String detalhes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect){
+		Inscricao inscricao = inscricaoService.getInscricaoId(id);
+		if (inscricao == null) {
+			redirect.addFlashAttribute("erro", "seleção Inexistente");
+			return "redirect:/selecao/listar";
+		}
+		modelo.addAttribute("inscricao", inscricao);
+		
+		return "aluno/detalhesInscricao";
 	}
 
 }
