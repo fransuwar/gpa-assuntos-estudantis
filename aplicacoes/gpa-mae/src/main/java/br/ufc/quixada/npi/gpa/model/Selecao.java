@@ -72,7 +72,7 @@ public class Selecao {
 	@ManyToOne
 	private Servidor responsavel;
 	
-	@OneToMany(mappedBy = "selecaoBolsa")
+	@OneToMany(mappedBy = "selecao")
 	private List<Inscricao> inscritos;
 
 	public Integer getAno() {

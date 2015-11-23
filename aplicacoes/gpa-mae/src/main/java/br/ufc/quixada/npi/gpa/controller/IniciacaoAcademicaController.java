@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,11 +25,13 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
 import br.ufc.quixada.npi.gpa.service.IniciacaoAcademicaService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
@@ -52,7 +55,10 @@ public class IniciacaoAcademicaController {
 
 	@Inject
 	private HorarioDisponivelService horarioDisponivelService;
-
+	
+	@Inject
+	private InscricaoService inscricaoService;
+	
 	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.GET)
 	public String cadastro(@PathVariable("idselecao") Integer id, Model modelo) {
 
@@ -64,8 +70,7 @@ public class IniciacaoAcademicaController {
 		modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		modelo.addAttribute("totalEstado", Estado.toMap());
 		modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-		modelo.addAttribute("selecaoBolsa", id);
-		System.out.println("id -------------" + id);
+		modelo.addAttribute("idSelecao", id);
 		
 		return "aluno/InscricaoIniciacaoAcademica";
 	}
@@ -73,37 +78,27 @@ public class IniciacaoAcademicaController {
 	@RequestMapping(value = "/inscricao/{idselecao}", method = RequestMethod.POST)
 	public String adicionaIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica,
-			BindingResult result, @ModelAttribute("id") Integer id, @PathVariable("idselecao") Integer idSelecao,
+			BindingResult result,Authentication authentication, @PathVariable("idselecao") Integer idSelecao,
 			RedirectAttributes redirect, Model modelo) {
-		
-		System.out.println("outro id = " + idSelecao);
-		 
 		if (result.hasErrors()) {
-
 			modelo.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			modelo.addAttribute("turno", Turno.toMap());
 			modelo.addAttribute("diasUteis", DiaUtil.toMap());
 			modelo.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			modelo.addAttribute("totalEstado", Estado.toMap());
 			modelo.addAttribute("grauParentesco", GrauParentesco.toMap());
-			modelo.addAttribute("selecaoBolsa", id);
+			modelo.addAttribute("selecaoBolsa", idSelecao);
 			return "aluno/InscricaoIniciacaoAcademica";
 
 		} else {
-
-			Aluno aluno = alunoService.getAlunoById(id);
-			/*questionarioIniciacaoAcademica.setAluno(aluno);
-			Selecao selecao = selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
-			questionarioIniciacaoAcademica.setSelecaoBolsa(selecao);
+			this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
+			Inscricao inscricao = new Inscricao();
+			inscricao.setQuestionarioIniciacaoAcademica(questionarioIniciacaoAcademica);
+			inscricao.setAluno(alunoService.getAlunoByCpf(authentication.getName()));
+			inscricao.setSelecao(selecaoBolsaService.find(Selecao.class, idSelecao));
 			
-			selecao.getAlunosSelecao().add(aluno);
-
-			if (questionarioIniciacaoAcademica.getId() == null)
-				this.questionarioIniciacaoAcademicaService.save(questionarioIniciacaoAcademica);
-			else
-				this.questionarioIniciacaoAcademicaService.update(questionarioIniciacaoAcademica);
-			this.selecaoBolsaService.update(selecao);
-*/
+			this.inscricaoService.save(inscricao);
+			
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
 

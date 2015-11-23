@@ -9,6 +9,10 @@ public interface AlunoService extends GenericService<Aluno>{
 	
 	public abstract Aluno getAlunoById(Integer id);
 	
-	public abstract Aluno getAlunoComSelecoes(Integer id);
+	public abstract Aluno getAlunoComInscricoes(Integer id);
+
+	public abstract Aluno getAlunoByCpf(String cpf);
+
+	public abstract Aluno getAlunoComInscricoesCpf(String cpf);
 
 }

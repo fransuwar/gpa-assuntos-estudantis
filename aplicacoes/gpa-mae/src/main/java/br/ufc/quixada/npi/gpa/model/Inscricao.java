@@ -2,10 +2,12 @@ package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,19 +20,31 @@ public class Inscricao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date data;
+	
 	private boolean avaliacaoDocumentos;
+	
 	private Resultado resultado;
+	
 	private String observacoes;
+	
 	@OneToOne
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
+	
 	@OneToOne
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
+	
 	@OneToOne
-	private Selecao selecaoBolsa;
+	private Selecao selecao;
+	
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
+
+	@ManyToOne
+	private Aluno aluno;
+	
 	
 	public Inscricao() {
 	}
@@ -83,12 +97,12 @@ public class Inscricao {
 		this.questionarioIniciacaoAcademica = questionarioIniciacaoAcademica;
 	}
 
-	public Selecao getSelecaoBolsa() {
-		return selecaoBolsa;
+	public Selecao getSelecao() {
+		return selecao;
 	}
 
-	public void setSelecaoBolsa(Selecao selecaoBolsa) {
-		this.selecaoBolsa = selecaoBolsa;
+	public void setSelecao(Selecao selecao) {
+		this.selecao = selecao;
 	}
 
 	public QuestionarioAuxilioMoradia getQuestionarioAuxilioMoradia() {
@@ -106,4 +120,42 @@ public class Inscricao {
 	public void setVisitaDomiciliar(VisitaDomiciliar visitaDomiciliar) {
 		this.visitaDomiciliar = visitaDomiciliar;
 	}
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Inscricao other = (Inscricao) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Inscricao [id=" + id + "]";
+	}
+	
 }

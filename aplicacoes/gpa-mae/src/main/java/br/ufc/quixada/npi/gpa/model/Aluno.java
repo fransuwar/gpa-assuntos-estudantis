@@ -28,6 +28,12 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
 @NamedQuery(name = "Aluno.findAlunoById",
 query = "SELECT a FROM Aluno a WHERE a.pessoa.id = :idPessoa"),
+@NamedQuery(name = "Aluno.findAlunoByCpf",
+query = "SELECT a FROM Aluno a WHERE a.pessoa.cpf = :cpf"),
+@NamedQuery(name = "Aluno.findAlunoComInscricoes", 
+query = "SELECT DISTINCT a FROM Aluno a LEFT JOIN FETCH a.inscricoes WHERE a.pessoa.id = :idPessoa"),
+@NamedQuery(name = "Aluno.findAlunoComInscricoesCpf", 
+query = "SELECT DISTINCT a FROM Aluno a LEFT JOIN FETCH a.inscricoes WHERE a.pessoa.cpf = :cpf"),
 /*@NamedQuery(name = "Aluno.findAlunoComSelecoes",
 query = "SELECT DISTINCT a FROM Aluno a LEFT JOIN FETCH a.editais WHERE a.pessoa.id = :idPessoa")*/})
 @Entity
@@ -59,16 +65,20 @@ public class Aluno {
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 10, message = "Agencia de possuir no máximo 10 dígitos")
 	private String agencia;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 20, message = "Conta deve possuir no máximo 20 dígitos")
 	private String conta;
+	
 	private byte[] foto;
+	
 	@ManyToOne
 	private Pessoa pessoa;
+	
 	@OneToMany
 	private List<Inscricao> inscricoes;
-	@OneToMany(mappedBy = "aluno")
-	private List<VisitaDomiciliar> relatorioVisitaDomiciliar;
+	
+	
 
 	@Override
 	public int hashCode() {
@@ -187,5 +197,4 @@ public class Aluno {
 	public void setInscricoes(List<Inscricao> inscricoes) {
 		this.inscricoes = inscricoes;
 	}
-
 }

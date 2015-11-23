@@ -68,6 +68,7 @@ public class SelecaoController {
 	private QuestionarioAuxMoradiaService auxService;
 
 	@RequestMapping(value = "informacoes/{id}")
+
 	public String getInformacoes(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
 		if (selecao == null) {
@@ -304,7 +305,7 @@ public class SelecaoController {
 			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication.getName());
 			Integer id = pessoa.getId();
 
-			Aluno aluno = this.alunoService.getAlunoComSelecoes(id);
+			Aluno aluno = this.alunoService.getAlunoComInscricoes(id);
 			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
@@ -448,6 +449,7 @@ public class SelecaoController {
 		modelo.addAttribute("aluno", aluno);
 		modelo.addAttribute("selecao", selecao);
 		modelo.addAttribute("questionario", questionario);
+
 
 		return "selecao/formularioInscricaoPreenchido";
 	}

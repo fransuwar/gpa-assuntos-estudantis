@@ -40,9 +40,9 @@
 				    onsubmit="return validaHorariosDisponiveisBolsa();"
 					commandName="questionarioIniciacaoAcademica"
 					modelAttribute="questionarioIniciacaoAcademica"
-					servletRelativeAction="/iniciacaoAcademica/inscricao/${selecaoBolsa}/"
+					servletRelativeAction="/iniciacaoAcademica/inscricao/${idSelecao}/"
 					method="POST" cssClass="form-horizontal">
-					<input type="hidden" name="id" value="${questionarioIniciacaoAcademica.id}" />
+					<input type="hidden" name="id" value="${selecao.id}" />
 					
 					<div class="tab-content">
 						<div class="tab-pane active" id="moradia-tab">
@@ -102,7 +102,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="cepFamilia" class="col-sm-1 control-label">CEP:</label>
+										<label for="cepFamilia" class="col-sm-1 control-label"><span class="red">*</span>CEP:</label>
 										<div class="col-sm-2">
 											<form:input id="cep" path="cepFamilia" data-mask="99999999"
 												cssClass="form-control" placeholder="Ex:63900000 " />
@@ -110,7 +110,7 @@
 												<form:errors path="cepFamilia"></form:errors>
 											</div>
 										</div>
-										<label for="uf" class="col-sm-1 control-label">UF:</label>
+										<label for="uf" class="col-sm-1 control-label"><span class="red">*</span>UF:</label>
 										<div class="col-sm-2">
 											<form:select path="estadoFamilia" id="estadoFamilia"
 												cssClass="form-control">
@@ -121,15 +121,15 @@
 												<form:errors path="estadoFamilia"></form:errors>
 											</div>
 										</div>
-										<label for="pontoReferenciaFamilia"
+										<label for="referencia"
 											class="col-sm-2 control-label">Ponto de referencia:</label>
 										<div class="col-sm-4">
-											<form:input id="pontoReferenciaFamilia" type="text"
-												path="pontoReferenciaFamilia" cssClass="form-control"
+											<form:input id="referencia" type="text"
+												path="referencia" cssClass="form-control"
 												placeholder="Ponto de referencia" />
 											<div class="error-validation"
-												id="erro-pontoReferenciaFamilia">
-												<form:errors path="pontoReferenciaFamilia"></form:errors>
+												id="erro-referencia">
+												<form:errors path="referencia"></form:errors>
 											</div>
 										</div>
 									</div>
@@ -139,8 +139,8 @@
 										<label for="telefoneFixo" class="col-sm-1 control-label">Fone:</label>
 										<div class="col-sm-2">
 											<form:input id="telefone" path="telefoneFixo"
-												data-mask="(00) 0 0000-0000" cssClass="form-control"
-												placeholder="(00) 0 0000-0000" />
+												data-mask="(00) 0000-0000" cssClass="form-control"
+												placeholder="(00) 0000-0000" />
 											<div class="error-validation" id="erro-telefoneFixo">
 												<form:errors path="telefoneFixo"></form:errors>
 											</div>
@@ -163,12 +163,12 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<label for="enderecoAtual" class="col-sm-1 control-label"><span class="red">*</span>Rua/Av:</label>
+										<label for="endereco" class="col-sm-1 control-label"><span class="red">*</span>Rua/Av:</label>
 										<div class="col-sm-5">
-											<form:input id="enderecoAtual" path="enderecoAtual"
+											<form:input id="endereco" path="endereco"
 												cssClass="form-control" placeholder="Rua /Av" />
-											<div class="error-validation" id="erro-enderecoAtual">
-												<form:errors path="enderecoAtual"></form:errors>
+											<div class="error-validation" id="erro-endereco">
+												<form:errors path="endereco"></form:errors>
 											</div>
 										</div>
 										<label for="bairro" class="col-sm-2 control-label"><span class="red">*</span>Bairro:</label>
@@ -217,7 +217,7 @@
 												<form:errors path="cep"></form:errors>
 											</div>
 										</div>
-										<label for="uf" class="col-sm-1 control-label">UF:</label>
+										<label for="uf" class="col-sm-1 control-label"><span class="red">*</span>UF:</label>
 										<div class="col-sm-2">
 											<form:select path="estado" id="estado"
 												cssClass="form-control">
@@ -228,10 +228,10 @@
 												<form:errors path="estado"></form:errors>
 											</div>
 										</div>
-										<label for="pontoReferencia" class="col-sm-2 control-label"><span class="red">*</span>Ponto de referencia:</label>
+										<label for="referenciaFamilia" class="col-sm-2 control-label"><span class="red">*</span>Ponto de referencia:</label>
 										<div class="col-sm-4">
-											<form:input id="pontoReferencia" type="text"
-												path="pontoReferencia" cssClass="form-control"
+											<form:input id="referenciaFamilia" type="text"
+												path="referenciaFamilia" cssClass="form-control"
 												placeholder="Cidade" />
 											<div class="error-validation" id="erro-cidadeAtual">
 												<form:errors path="cidade"></form:errors>
@@ -242,7 +242,7 @@
 									<div class="form-group">
 										<label for="telefoneFixo" class="col-sm-1 control-label">Fone:</label>
 										<div class="col-sm-2">
-											<form:input id="telefoneFix" path="telefoneFixoFamilia"
+											<form:input id="telefoneFixo" path="telefoneFixo"
 												data-mask="(00) 0000-0000" cssClass="form-control"
 												placeholder="(00) 0000-0000" />
 											<div class="error-validation" id="erro-telefoneFixoAtual">
@@ -251,10 +251,10 @@
 										</div>
 										<label for="telefone_celular" class="col-sm-1 control-label">Celular:</label>
 										<div class="col-sm-2">
-											<form:input id="telefoneCel" path="telefoneCelularFamilia"
+											<form:input id="telefoneCelelular" path="telefoneCelular"
 												data-mask="(00) 0000-0000" cssClass="form-control"
 												placeholder="(00) 0000-0000" />
-											<div class="error-validation" id="erro-telefoneCelularAtual">
+											<div class="error-validation" id="erro-telefoneCelularatual">
 												<form:errors path="telefoneCelular"></form:errors>
 											</div>
 										</div>
@@ -275,11 +275,11 @@
 									<div class="form-group">
 										<label for="reside_atualmente" class="col-sm-3 control-label"><span class="red">*</span>Com quem você reside Atualmente?</label>
 										<div class="col-sm-3">
-											<form:input id="resideAtualmente" path="resideAtualmente"
+											<form:input id="comQuemReside" path="comQuemReside"
 												cssClass="form-control" placeholder="Ex: Familia, amigos" />
 											<div class="error-validation"
 												id="erro-enderecoAtualSitSocioEcon">
-												<form:errors path="enderecoAtual"></form:errors>
+												<form:errors path="comQuemReside"></form:errors>
 											</div>
 										</div>
 										<label for="cidade" class="col-sm-3 control-label">Qual
@@ -297,13 +297,13 @@
 									</div>
 
 									<div class="form-group">
-										<label for="reside_atualmente" class="col-sm-3 control-label"><span class="red">*</span>Como define a localidade na qual vive atualmente?</label>
+										<label for="tipoResidencia" class="col-sm-3 control-label"><span class="red">*</span>Como define a localidade na qual vive atualmente?</label>
 										<div class="col-sm-3">
-											<form:input id="definicaoLocalAtual"
-												path="definicaoLocalAtual" cssClass="form-control"
+											<form:input id="tipoResidencia"
+												path="tipoResidencia" cssClass="form-control"
 												placeholder="Ex: Casa/Apartamento" />
 											<div class="error-validation" id="erro-definicaoLocalAtual">
-												<form:errors path="definicaoLocalAtual"></form:errors>
+												<form:errors path="tipoResidencia"></form:errors>
 											</div>
 										</div>
 									</div>
@@ -358,14 +358,15 @@
 												<form:errors path="qtdMotocicleta"></form:errors>
 											</div>
 										</div>
-
-										<label for="qtdDvdVideocassete" class="col-sm-4 control-label">Dvd/VideoCassete:</label>
+										
+										<label for="qtdEmpregadosDomesticos" class="col-sm-4 control-label">Empregados Domesticos:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdDvdVideocassete" data-mask="999" min="0" value="0" 
-												path="qtdDvdVideocassete" cssClass="form-control"
-												/>
-											<div class="error-validation" id="erro-qtdDvdVideocassete">
-												<form:errors path="qtdDvdVideocassete"></form:errors>
+											<form:input id="qtdEmpregadosDomesticos" data-mask="999"
+												min="0" value="0" path="qtdEmpregadosDomesticos"
+												cssClass="form-control"  />
+											<div class="error-validation"
+												id="erro-qtdEmpregadosDomesticos">
+												<form:errors path="qtdEmpregadosDomesticos"></form:errors>
 											</div>
 										</div>
 									</div>
@@ -413,14 +414,14 @@
 											</div>
 										</div>
 
-										<label for="qtdCelularResidentes"
+										<label for="qtdCelular"
 											class="col-sm-3 control-label">Celular Residentes:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdCelularResidentes" data-mask="999" min="0" value="0" 
-												path="qtdCelularResidentes" cssClass="form-control"
+											<form:input id="qtdCelular" data-mask="999" min="0" value="0" 
+												path="qtdCelular" cssClass="form-control"
 												 />
 											<div class="error-validation" id="erro-qtdCelularResidentes">
-												<form:errors path="qtdCelularResidentes"></form:errors>
+												<form:errors path="qtdCelular"></form:errors>
 											</div>
 										</div>
 
@@ -445,25 +446,25 @@
 											</div>
 										</div>
 
-										<label for="qtdMaquinaCostura" class="col-sm-3 control-label">Máquina
+										<label for="qtdMaquinaDeCostura" class="col-sm-3 control-label">Máquina
 											de Costura:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdMaquinaCostura" data-mask="999" min="0" value="0" 
-												path="qtdMaquinaCostura" cssClass="form-control"
+											<form:input id="qtdMaquinaDeCostura" data-mask="999" min="0" value="0" 
+												path="qtdMaquinaDeCostura" cssClass="form-control"
 												/>
 											<div class="error-validation" id="erro-qtdMaquinaCostura">
-												<form:errors path="qtdMaquinaCostura"></form:errors>
+												<form:errors path="qtdMaquinaDeCostura"></form:errors>
 											</div>
 										</div>
 
-										<label for="qtdComodosSemBanheiro"
+										<label for="qtdComodos"
 											class="col-sm-4 control-label">Comodo sem Banheiro:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdComodosSemBanheiro" data-mask="999" value="0" 
-												min="0" path="qtdComodosSemBanheiro" cssClass="form-control"
+											<form:input id="qtdComodos" data-mask="999" value="0" 
+												min="0" path="qtdComodos" cssClass="form-control"
 												 />
 											<div class="error-validation" id="erro-qtdComodosSemBanheiro">
-												<form:errors path="qtdComodosSemBanheiro"></form:errors>
+												<form:errors path="qtdComodos"></form:errors>
 											</div>
 										</div>
 									</div>
@@ -477,30 +478,17 @@
 												<form:errors path="qtdBanheiros"></form:errors>
 											</div>
 										</div>
-
-										<label for="qtdEmpregadosDomesticos"
-											class="col-sm-3 control-label">Empregados Domesticos:</label>
+										<label for="qtdDvd" class="col-sm-3 control-label">Dvd:</label>
 										<div class="col-sm-1">
-											<form:input id="qtdEmpregadosDomesticos" data-mask="999"
-												min="0" value="0" path="qtdEmpregadosDomesticos"
-												cssClass="form-control"  />
-											<div class="error-validation"
-												id="erro-qtdEmpregadosDomesticos">
-												<form:errors path="qtdEmpregadosDomesticos"></form:errors>
+											<form:input id="qtdDvd" data-mask="999" min="0" value="0"
+												path="qtdDvd" cssClass="form-control"/>
+											<div class="error-validation" id="erro-qtdDvdVideocassete">
+												<form:errors path="qtdDvd"></form:errors>
 											</div>
 										</div>
+										
 
-										<label for="totalMembrosFamilia"
-											class="col-sm-4 control-label">Quantidade de Membros
-											da Familia:</label>
-										<div class="col-sm-1">
-											<form:input id="totalMembrosFamilia" data-mask="999" min="0" value="0" 
-												path="totalMembrosFamilia" cssClass="form-control"
-												/>
-											<div class="error-validation" id="erro-totalMembrosFamilia">
-												<form:errors path="totalMembrosFamilia"></form:errors>
-											</div>
-										</div>
+										
 									</div>
 								</div>
 
