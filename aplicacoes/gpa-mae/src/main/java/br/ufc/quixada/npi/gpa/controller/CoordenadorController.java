@@ -1,5 +1,7 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,7 @@ public class CoordenadorController {
 		model.addAttribute("tipoBolsa", TipoBolsa.values());
 		model.addAttribute("selecao", new Selecao());
 		
-		return "selecao/cadastrar";
+		return PAGINA_CADASTRAR_SELECAO;
 	}
 	
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
@@ -80,7 +82,7 @@ public class CoordenadorController {
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			return "selecao/cadastrar";
+			return PAGINA_CADASTRAR_SELECAO;
 		}
 		
 		List<Documento> documentos = new ArrayList<Documento>();
@@ -101,7 +103,7 @@ public class CoordenadorController {
 					
 				} catch (IOException ioe) {
 					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
-					return "selecao/cadastrar";
+					return PAGINA_CADASTRAR_SELECAO;
 				}
 			} 
 			
@@ -113,12 +115,12 @@ public class CoordenadorController {
 			
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("anexoError", "Adicione anexo a seleção.");
-			return "selecao/cadastrar";
+			return PAGINA_CADASTRAR_SELECAO;
 		}
 		
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Nova seleção cadastrada com sucesso.");
-		return "redirect:/selecao/listar";
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 		
 	}
 	
@@ -135,10 +137,10 @@ public class CoordenadorController {
 			
 		} else {
 			redirect.addFlashAttribute("erro", "Permissão negada. Só é possível editar uma seleção enquanto seu status é nova.");
-			return "redirect:/selecao/listar";
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
-		return "selecao/cadastrar";
+		return PAGINA_CADASTRAR_SELECAO;
 	}
 	
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
@@ -163,7 +165,7 @@ public class CoordenadorController {
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			return "selecao/cadastrar";
+			return PAGINA_CADASTRAR_SELECAO;
 		}
 		
 		String doc[] = request.getParameterValues("doc");
@@ -174,7 +176,7 @@ public class CoordenadorController {
 				&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
 				model.addAttribute("action", "editar");
 				redirect.addFlashAttribute("erro", "Não foi possível excluir seu(s) anexo(s), pois não é possível salvar a seleção sem nenhum anexo.");
-				return "redirect:/selecao/cadastrar";
+				return PAGINA_CADASTRAR_SELECAO;
 			}
 
 			for (int k = 0; k < doc.length; k++) {
@@ -199,21 +201,21 @@ public class CoordenadorController {
 					}
 				} catch (IOException ioe) {
 					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
-					return "selecao/cadastrar";
+					return PAGINA_CADASTRAR_SELECAO;
 				}
 			}
 		} else {
 			
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("anexoError", "Adicione anexo a seleção.");
-			return "selecao/cadastrar";
+			return PAGINA_CADASTRAR_SELECAO;
 		}
 		
 		
 		this.selecaoService.update(selecao);
 		redirect.addFlashAttribute("info", "Seleção atualizada com sucesso.");
 		
-		return "redirect:/selecao/listar";
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
 	@RequestMapping(value = { "selecao/excluir/{idSelecao}" }, method = RequestMethod.GET)
@@ -232,7 +234,7 @@ public class CoordenadorController {
 			redirect.addFlashAttribute("erro", "Seleção inexistente.");
 		}
 		
-		return "redirect:/selecao/listar";
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
 	@RequestMapping(value = { "selecao/comissao/{idSelecao}" }, method = RequestMethod.GET)
@@ -263,14 +265,15 @@ public class CoordenadorController {
 			model.addAttribute("selecao", id);
 			model.addAttribute("servidores", this.servidorService.find(Servidor.class));
 			model.addAttribute("erroMembros", "Informe os três membros.");
+			
 			return "selecao/atribuir";
 			
 		} else if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
+			
 			model.addAttribute("selecao", id);
-			model.addAttribute("servidores",
-					servidorService.find(Servidor.class));
-			model.addAttribute("erroMembros",
-					"Não é permitida repetição de membros na banca.");
+			model.addAttribute("servidores",servidorService.find(Servidor.class));
+			model.addAttribute("erroMembros","Não é permitida repetição de membros na banca.");
+			
 			return "selecao/atribuir";
 			
 		} else {
