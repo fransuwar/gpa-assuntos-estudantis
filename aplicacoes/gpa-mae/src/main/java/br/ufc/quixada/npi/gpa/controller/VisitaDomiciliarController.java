@@ -75,7 +75,7 @@ public class VisitaDomiciliarController {
 			return "redirect:/selecao/inscritos/"+idSelecaoBolsa;
 			
 		} else {
-			relatorioVisitaDomiciliar.setAluno(alunoService.getAlunoById(idAluno));
+			relatorioVisitaDomiciliar.setAluno(alunoService.getAlunoByIdPessoa(idAluno));
 			relatorioVisitaDomiciliar.setSelecaoBolsa(selecaoBolsaService.find(Selecao.class, idSelecaoBolsa));
 			
 			this.visitaService.save(relatorioVisitaDomiciliar);

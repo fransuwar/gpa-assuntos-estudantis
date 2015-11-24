@@ -8,13 +8,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import br.ufc.quixada.npi.gpa.enums.DiaUtil;
 import br.ufc.quixada.npi.gpa.enums.Escolaridade;
-import br.ufc.quixada.npi.gpa.enums.Parentesco;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 
-@NamedQueries({ })
+@NamedQueries({
+		@NamedQuery(name = "HorarioDisponivel.findHorarioDisponivelByIdQuest", query = "Select hd from HorarioDisponivel hd where hd.iniciacaoAcademica.id = :id ") })
+
 @Entity
 public class HorarioDisponivel {
 	@Id

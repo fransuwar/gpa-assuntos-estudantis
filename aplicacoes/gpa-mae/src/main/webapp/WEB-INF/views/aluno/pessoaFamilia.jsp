@@ -19,7 +19,33 @@
 		</tr>
 	</thead>
 	<tbody id="pessoaFamiliaContainer">
-		<%-- 	<c:if test="${pessoas == null}"> --%>
+		<c:if test="${not empty pessoasDaFamilia }">
+			<c:forEach items="${pessoasDaFamilia }" var="pf">
+				<tr class="pessoaFamilia defaultRow">
+					<td>
+						<input type="text" name="pf.nome" value="${pf.nome }"/>
+					</td>
+					<td>
+						<form:select path="" name="pessoas[].grauParentesco" clas="form-control">
+							<form:option value="">Selecione um grau de parentesco</form:option>
+							<c:forEach items="${grauParentesco }" var="parentesco">
+								<form:option value="${parentesco }" selected="${parentesco == pf.grauParentesco ? 'selected' : '' }" >${parentesco.nome}</form:option>
+							</c:forEach>
+						</form:select>
+					</td>
+					<td>
+						<input type="text" name="pf.escolaridade" value="${pf.escolaridade }" />
+					</td>
+					<td>
+						<input type="text" name="pf.atividadeProfissao" value="${pf.atividadeProfissao }" />
+					</td>
+					<td>
+						<input type="text" name="pf.rendaMensal" value="${pf.rendaMensal }" size="10" />
+					</td>
+				</tr>
+			</c:forEach>
+		</c:if>
+	
 		<tr class="pessoaFamilia defaultRow">
 			<td><input type="text" name="pessoas[].nome" value="" /></td>
 
@@ -38,7 +64,6 @@
 			<td><a href="#" class="removePessoa">Remover Pessoa</a></td>
 		</tr>
 
-		<%-- 	</c:if> --%>
 	</tbody>
 
 
