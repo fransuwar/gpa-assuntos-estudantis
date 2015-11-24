@@ -235,22 +235,53 @@ public class CoordenadorController {
 		return "redirect:/selecao/listar";
 	}
 	
-	@RequestMapping(value = { "selecao/comissao/{idSelecao}" }, method = RequestMethod.GET)
-	public String atribuirComissao(@PathVariable("idSelecao") Integer idSelecao, Model model,
-			RedirectAttributes redirect) {
+	@RequestMapping(value = "/comissao/atribuir/{idSelecao}", method = RequestMethod.GET)
+	public String atribuirParecerista(@PathVariable("idSelecao") Integer idSelecao,
+			Model model, RedirectAttributes redirectAttributes) {
+
+		model.addAttribute("idSelecao", idSelecao);
+		model.addAttribute("servidores", servidorService.find(Servidor.class));
+		model.addAttribute("comissao", selecaoService.find(Selecao.class, idSelecao));
 		
-		List<Servidor> comissao = this.selecaoService.getSelecaoBolsaComMembros(idSelecao).getMembrosBanca();
-		
-		if (!comissao.isEmpty()) {
-			model.addAttribute("m1", comissao.get(0).getId());
-			model.addAttribute("m2", comissao.get(1).getId());
-			model.addAttribute("m3", comissao.get(2).getId());
+		return "coordenador/atribuirMembroComissao";
+	}
+
+	@RequestMapping(value = "/comissao/atribuir", method = RequestMethod.POST)
+	public String atribuirPareceristaNoProjeto(@RequestParam("idSelecao") Integer idSelecao,
+			@RequestParam("idServidor") Integer idServidor, Model model, RedirectAttributes redirect) {
+
+
+		if (idServidor == null) {
+			
+		redirect.addFlashAttribute("erro", "Informe pelo menos um membro.");
+
+			return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
+
+		} else {
+			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+			
+			List<Servidor> comissao = selecao.getMembrosBanca();
+	
+			Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
+			if (comissao.contains(servidor)) {
+				
+				redirect.addFlashAttribute("erro", "Não é permitida repetição de membros na comissão.");
+				
+				return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
+				
+			} else {
+				selecao.getMembrosBanca().add(servidor);
+
+				selecaoService.update(selecao);
+
+				redirect.addFlashAttribute("info", "Comissão formada com sucesso.");
+
+				return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
+				
+			}
+			
 		}
-		
-		model.addAttribute("selecao", idSelecao);
-		model.addAttribute("servidores", this.servidorService.find(Servidor.class));
-		
-		return "coordenador/atribuirMembroBanca";
+
 	}
 	
 	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
@@ -267,7 +298,7 @@ public class CoordenadorController {
 
 		selecaoService.update(selecao);
 
-		redirect.addFlashAttribute("info", "Membro excluido com sucesso.");
+		redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
 
 		model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
 		model.addAttribute("servidores", servidorService.find(Servidor.class));
@@ -277,62 +308,4 @@ public class CoordenadorController {
 		return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
 	}
 
-	@RequestMapping(value = "/comissao/atribuir/{id}", method = RequestMethod.GET)
-	public String atribuirParecerista(@PathVariable("id") Integer idSelecao,
-			Model model, RedirectAttributes redirectAttributes) {
-
-		model.addAttribute("selecao", idSelecao);
-		model.addAttribute("servidores", servidorService.find(Servidor.class));
-		model.addAttribute("comissao", selecaoService.find(Selecao.class, idSelecao));
-		
-		return "coordenador/atribuirMembroBanca";
-	}
-
-	@RequestMapping(value = "/comissao/atribuir", method = RequestMethod.POST)
-	public String atribuirPareceristaNoProjeto(@RequestParam("idSelecao") Integer idSelecao,
-			@RequestParam("idServidor") Integer idServidor, Model model, RedirectAttributes redirect) {
-
-
-		if (idServidor == null) {
-			
-			model.addAttribute("selecao", idSelecao);
-			model.addAttribute("servidores", servidorService.find(Servidor.class));
-			model.addAttribute("comissao", selecaoService.find(Selecao.class, idSelecao));
-			model.addAttribute("erro", "Informe pelo menos um membro.");
-
-			return "coordenador/atribuirMembroBanca";
-
-		} else {
-			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-			
-			List<Servidor> comissao = selecao.getMembrosBanca();
-			Servidor servidor = new Servidor(idServidor);
-			
-			if (comissao.contains(servidor)) {
-				
-				model.addAttribute("selecao", idSelecao);
-				model.addAttribute("servidores", servidorService.find(Servidor.class));
-				redirect.addFlashAttribute("erro", "Não é permitida repetição de membros na banca.");
-				
-				return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
-				
-			} else {
-				servidor = this.servidorService.find(Servidor.class, idServidor);
-
-				selecao.getMembrosBanca().add(servidor);
-
-				selecaoService.update(selecao);
-
-				redirect.addFlashAttribute("info", "Banca formada com sucesso.");
-
-				model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
-				model.addAttribute("servidores", servidorService.find(Servidor.class));
-
-				return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
-				
-			}
-			
-		}
-
-	}
 }

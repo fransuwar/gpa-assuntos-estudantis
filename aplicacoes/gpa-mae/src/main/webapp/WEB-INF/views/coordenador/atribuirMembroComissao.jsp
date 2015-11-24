@@ -45,21 +45,21 @@
 			</div>
 			<div class="panel-body">
 
-				<form:form id="adicionarBancaForm" role="form" commandName="selecao" servletRelativeAction="/coordenador/comissao/atribuir" method="POST"
-					cssClass="form-horizontal">
-					<input type="hidden" name="idSelecao" value="${selecao}">
+				<form:form id="adicionarBancaForm" role="form" servletRelativeAction="/coordenador/comissao/atribuir" method="POST"
+					class="form-horizontal">
+					<input type="hidden" name="idSelecao" value="${idSelecao}">
 					<div class="form-group">
 						<label class="col-sm-1 control-label">Membro:</label>
 						<div class="col-sm-4">
-							<form:select path="" id="" cssClass="form-control" name="idServidor">
-								<form:option value="" label="Selecione os membro da banca"></form:option>
+							<select id="" class="form-control" name="idServidor">
+								<option value="">Selecione os membro da banca</option>
 								<c:forEach items="${servidores}" var="servidor">
-									<form:option value="${servidor.id}">${servidor.pessoa.nome}</form:option>
+									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
 								</c:forEach>
-							</form:select>
+							</select>
 						</div>
 						<div class="col-sm-2" id="div-form-btn" align="left">
-							<input name="submit" type="submit" class="btn btn-primary" value="Adicionar Membros" id="form-btn" />
+							<input type="submit" class="btn btn-primary" value="Adicionar Membros" id="form-btn" />
 						</div>
 					</div>
 					<div class="col-sm-5">
@@ -67,7 +67,7 @@
 							<c:forEach var="servidor" items="${comissao.membrosBanca}">
 								<tr class="linha">
 									<td class="linha">${servidor.pessoa.nome}</td>
-									<td><a id="excluir" data-toggle="modal"	data-target="#confirm-delete" data-href="<c:url value="/coordenador/comissao/excluir/${selecao}/${servidor.id}"></c:url>">
+									<td><a id="excluir" data-toggle="modal"	data-target="#confirm-delete" data-href="<c:url value="/coordenador/comissao/excluir/${idSelecao}/${servidor.id}"></c:url>">
 											<button class="btn btn-danger">
 												Excluir <span class="glyphicon glyphicon-trash"></span>
 											</button>
