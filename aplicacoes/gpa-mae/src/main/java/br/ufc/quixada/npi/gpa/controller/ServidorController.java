@@ -77,7 +77,7 @@ public class ServidorController {
 			this.servidorService.save(servidor);
 		} catch (PersistenceException e) {
 			if (e.getCause() instanceof ConstraintViolationException) {
-				redirect.addFlashAttribute("erro", "Não é possível cadastrar um siape já existente.");
+				redirect.addFlashAttribute("erro", "Não é possível cadastrar um SIAPE já existente.");
 
 				return REDIRECT_PAGINA_LISTAR_SERVIDOR;
 			}
