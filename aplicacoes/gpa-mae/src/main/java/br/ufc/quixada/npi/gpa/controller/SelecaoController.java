@@ -24,11 +24,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -54,38 +56,42 @@ public class SelecaoController {
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
 
+	@Inject
+	private InscricaoService inscricaoService;
+	
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
 		
-		List<Selecao> selecoes = this.selecaoService.getSelecaoBolsaComMembros();
+		List<Inscricao> inscricoes = this.inscricaoService.find(Inscricao.class);
 		
 		if (request.isUserInRole("DISCENTE")) {
 			
 			Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
 			
-			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("inscricoes", inscricoes);
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 			
 		} else {
 			
-			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("inscricoes", inscricoes);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 		}
 		
-		return "selecao/listar";
+		return "selecao/listarSelecao";
 	}
 	
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
-		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
+	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirectAttributes) {
+		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
 		if (selecao == null) {
 			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
 			return "redirect:/selecao/listar";
 		}
+		
 		model.addAttribute("selecao", selecao);
 
 		return "selecao/informacoes";

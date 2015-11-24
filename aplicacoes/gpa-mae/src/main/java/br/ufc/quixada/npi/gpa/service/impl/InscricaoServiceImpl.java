@@ -2,6 +2,8 @@ package br.ufc.quixada.npi.gpa.service.impl;
 
 
 
+
+
 import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;

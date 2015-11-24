@@ -29,7 +29,7 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 		@NamedQuery(name = "Aluno.findAlunoByIdPessoa", query = "SELECT a FROM Aluno a WHERE a.pessoa.id = :idPessoa"),
 		@NamedQuery(name = "Aluno.findAlunoByCpf", query = "SELECT a FROM Aluno a WHERE a.pessoa.cpf = :cpf"),
 		@NamedQuery(name = "Aluno.findAlunoComInscricoes", query = "SELECT DISTINCT a FROM Aluno a LEFT JOIN FETCH a.inscricoes WHERE a.pessoa.id = :idPessoa"),
-		@NamedQuery(name = "Aluno.findAlunoComInscricoesCpf", query = "SELECT DISTINCT a FROM Aluno a LEFT JOIN FETCH a.inscricoes WHERE a.pessoa.cpf = :cpf") })
+		@NamedQuery(name = "Aluno.findAlunoComInscricoesCpf", query = "SELECT a FROM Aluno a LEFT JOIN FETCH a.inscricoes WHERE a.pessoa.cpf = :cpf") })
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula" }) )
 public class Aluno {

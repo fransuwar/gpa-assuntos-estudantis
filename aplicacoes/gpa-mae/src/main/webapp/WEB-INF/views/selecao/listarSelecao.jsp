@@ -114,8 +114,7 @@
 							<tr class="linha">
 								<td><a id="detalhes"
 									href="<c:url value="/selecao/detalhes/${inscricao.selecao.id}">  </c:url>">
-										${inscricao.selecao.tipoBolsa.nome} </a>
-								</td>
+										${inscricao.selecao.tipoBolsa.nome} </a></td>
 								<td>${inscricao.selecao.ano}</td>
 								<td>${inscricao.selecao.sequencial}</td>
 								<td>${inscricao.selecao.quantidadeVagas}</td>
@@ -163,7 +162,7 @@
 									<sec:authorize access="hasAnyRole('DISCENTE')">
 										<c:choose>
 											<c:when
-												test="${!aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == 'INIC_ACAD' and inscricao.selecao.status == 'INSC_ABERTA'}">
+												test="${!aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == inic_acad and inscricao.selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
 													href="<c:url value="/aluno/inscricao/${inscricao.selecao.id}/iniciacao-academica" ></c:url>">
 													<button class=" btn btn-success">
@@ -172,7 +171,7 @@
 												</a>
 											</c:when>
 											<c:when
-												test="${aluno.incricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == 'INIC_ACAD' and inscricao.selecao.status == 'INSC_ABERTA'}">
+												test="${aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == inic_acad and inscricao.selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
 													href="<c:url value="/aluno/editar/inscricao/iniciacao-academica" ></c:url>">
 													<button class=" btn btn-info">
@@ -181,7 +180,7 @@
 												</a>
 											</c:when>											
 											<c:when
-												test="${!aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == 'AUX_MOR' and inscricao.selecao.status == 'INSC_ABERTA'}">
+												test="${!aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == aux_mor and inscricao.selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
 													href="<c:url value="/aluno/inscricao/${inscricao.selecao.id}/auxilio-moradia" ></c:url>">
 													<button class=" btn btn-success">
@@ -190,7 +189,7 @@
 												</a>
 											</c:when>
 											<c:when
-												test="${aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == 'AUX_MOR' and inscricao.selecao.status == 'INSC_ABERTA'}">
+												test="${aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == aux_mor and inscricao.selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
 													href="<c:url value="/aluno/editar/inscricao/auxilio-moradia" ></c:url>">
 													<button class=" btn btn-info">

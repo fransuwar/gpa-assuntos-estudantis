@@ -18,20 +18,32 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 
-@Entity																	
-@NamedQueries({
-		@NamedQuery(name = "IniAcad.findIniAcadById", 
-					query = "SELECT DISTINCT am FROM QuestionarioIniciacaoAcademica am WHERE am.id = :idInscricao") 
-			})
+@Entity
+@NamedQueries({ @NamedQuery(name = "IniAcad.findIniAcadById", query = "SELECT ia FROM QuestionarioIniciacaoAcademica ia WHERE ia.id = :idQuest") })
 public class QuestionarioIniciacaoAcademica {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	private String telefoneFixo;
+	
+	private String telefoneCelular;
+	
+	private int anosEstudoPrivado;
+	
+	@Enumerated(EnumType.STRING)
+	private NivelInstrucao nivelInstrucaoMae;
+	
+	@Enumerated(EnumType.STRING)
+	private NivelInstrucao nivelInstrucaoPai;
+	
+	@NotNull
+	@Size(min = 1, message = "Campo Obrigatório")
+	private String justificativaPedido;
 	
 	@NotNull(message = "Campo Obrigatório")
 	private String endereco;
@@ -40,69 +52,54 @@ public class QuestionarioIniciacaoAcademica {
 	private Integer numero;
 	
 	private String complemento;
-
-	@NotEmpty
+	
+	@NotNull
+	@Size(min = 1, message = "Campo Obrigatório")
 	private String bairro;
 	
 	@NotEmpty(message = "Campo Obrigatório")
 	private String cep;
-
-	@NotEmpty(message = "Campo Obrigatório")
+	
+	@NotNull
+	@Size(min = 3, message = "Campo Obrigatório")
 	private String cidade;
-
+	
+	@NotEmpty(message = "Campo Obrigatório")
+	private String estado;
+	
 	private String referencia;
-
-	private String telefoneFixo;
-
-	private String telefoneCelular;
-
-	@NotEmpty
-	@Size(min = 1, message = "Campo Obrigatório")
+	
+	@NotNull(message = "Campo Obrigatório")
 	private String enderecoFamilia;
+	
 	@NotNull(message = "Campo Obrigatório")
 	private Integer numeroFamilia;
-
-	@NotEmpty
+	
+	private String complementoFamilia;
+	
+	@NotNull
+	@Size(min = 1, message = "Campo Obrigatório")
 	private String bairroFamilia;
 	
 	@NotEmpty(message = "Campo Obrigatório")
 	private String cepFamilia;
-
-	@NotEmpty(message = "Campo Obrigatório")
+	
+	@NotNull
+	@Size(min = 3, message = "Campo Obrigatório")
 	private String cidadeFamilia;
-
-	private String referenciaFamilia;
-
-	private int anosEstudoPrivado;
-
-	@Enumerated(EnumType.STRING)
-	private NivelInstrucao nivelInstrucaoMae;
-
-	@Enumerated(EnumType.STRING)
-	private NivelInstrucao nivelInstrucaoPai;
-
-	@NotEmpty
-	@Size(min = 1, message = "Campo Obrigatório")
-	private String resideAtualmente;
-
-	@NotEmpty(message = "Campo Obrigatório")
-	private String definicaoLocalAtual;
-
-	@NotEmpty(message = "Campo Obrigatório")
-	private String estado;
-
+	
 	@NotEmpty(message = "Campo Obrigatório")
 	private String estadoFamilia;
-
+	
+	private String referenciaFamilia;
+	
+	private String comQuemReside;
+	
+	private String tipoResidencia;
+	
 	@Enumerated(EnumType.STRING)
 	private SituacaoResidencia situacaoResidencia;
-
-	@Enumerated(EnumType.STRING)
-	private GrauParentesco parentesco;
-
-	@NotEmpty(message = "Campo obrigatório.")
-	private String justificativaPedido;
-
+	
 	private Integer qtdAparelhoSom;
 	
 	private Integer qtdTelevisao;
@@ -147,10 +144,10 @@ public class QuestionarioIniciacaoAcademica {
 	@JoinColumn(name = "iniciacaoacademica_id")
 	private List<PessoaFamilia> pessoas;
 	
-	private String comQuemReside;
-	
-	private String tipoResidencia;
-	
+	public QuestionarioIniciacaoAcademica() {
+
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -295,6 +292,13 @@ public class QuestionarioIniciacaoAcademica {
 		this.numeroFamilia = numeroFamilia;
 	}
 
+	public String getComplementoFamilia() {
+		return complementoFamilia;
+	}
+
+	public void setComplementoFamilia(String complementoFamilia) {
+		this.complementoFamilia = complementoFamilia;
+	}
 
 	public String getBairroFamilia() {
 		return bairroFamilia;
@@ -327,6 +331,8 @@ public class QuestionarioIniciacaoAcademica {
 	public void setReferenciaFamilia(String referenciaFamilia) {
 		this.referenciaFamilia = referenciaFamilia;
 	}
+
+	
 
 	public String getComQuemReside() {
 		return comQuemReside;

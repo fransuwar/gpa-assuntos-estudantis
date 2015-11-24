@@ -50,9 +50,9 @@
 			<td><input type="text" name="pessoas[].nome" value="" /></td>
 
 			<td>
-				<form:select path="" name="pessoas[].grauParentesco" class="form-control" >
+				<form:select path="" name="pessoas[].parentesco" class="form-control" >
 					<form:option value="">Selecione um grau de parentesco</form:option>
-					<form:options items="${parentesco}" />
+					<form:options items="${grauParentesco}" />
 				</form:select>
 				
 			</td>
@@ -91,7 +91,7 @@
 							formId : 'questionarioForm',
 							rowContainerId : 'pessoaFamiliaContainer',
 							indexedPropertyName : 'pessoas',
-							indexedPropertyMemberNames : 'nome, grauParentesco, escolaridade, atividadeProfissao, rendaMensal',
+							indexedPropertyMemberNames : 'nome, parentesco, escolaridade, profissao, rendaMensal',
 							rowAddedListener : rowAdded,
 							rowRemovedListener : rowRemoved,
 						};
