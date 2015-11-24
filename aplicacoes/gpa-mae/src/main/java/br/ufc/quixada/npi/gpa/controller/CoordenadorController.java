@@ -52,6 +52,7 @@ public class CoordenadorController {
 		model.addAttribute("selecao", new Selecao());
 		
 		return PAGINA_CADASTRAR_SELECAO;
+
 	}
 	
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
@@ -82,6 +83,7 @@ public class CoordenadorController {
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
+
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 		
@@ -103,6 +105,7 @@ public class CoordenadorController {
 					
 				} catch (IOException ioe) {
 					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
+
 					return PAGINA_CADASTRAR_SELECAO;
 				}
 			} 
@@ -115,6 +118,7 @@ public class CoordenadorController {
 			
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("anexoError", "Adicione anexo a seleção.");
+
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 		
@@ -141,6 +145,7 @@ public class CoordenadorController {
 		}
 		
 		return PAGINA_CADASTRAR_SELECAO;
+
 	}
 	
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
@@ -165,6 +170,7 @@ public class CoordenadorController {
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
+
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 		
@@ -176,7 +182,9 @@ public class CoordenadorController {
 				&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
 				model.addAttribute("action", "editar");
 				redirect.addFlashAttribute("erro", "Não foi possível excluir seu(s) anexo(s), pois não é possível salvar a seleção sem nenhum anexo.");
+
 				return PAGINA_CADASTRAR_SELECAO;
+
 			}
 
 			for (int k = 0; k < doc.length; k++) {
@@ -201,6 +209,7 @@ public class CoordenadorController {
 					}
 				} catch (IOException ioe) {
 					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
+
 					return PAGINA_CADASTRAR_SELECAO;
 				}
 			}
@@ -208,6 +217,7 @@ public class CoordenadorController {
 			
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("anexoError", "Adicione anexo a seleção.");
+
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 		
@@ -237,61 +247,70 @@ public class CoordenadorController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
-	@RequestMapping(value = { "selecao/comissao/{idSelecao}" }, method = RequestMethod.GET)
-	public String atribuirComissao(@PathVariable("idSelecao") Integer idSelecao, Model model,
-			RedirectAttributes redirect) {
+	@RequestMapping(value = "/comissao/atribuir/{idSelecao}", method = RequestMethod.GET)
+	public String atribuirParecerista(@PathVariable("idSelecao") Integer idSelecao,
+			Model model, RedirectAttributes redirectAttributes) {
+
+		model.addAttribute("idSelecao", idSelecao);
+		model.addAttribute("servidores", servidorService.find(Servidor.class));
+		model.addAttribute("comissao", selecaoService.find(Selecao.class, idSelecao));
 		
-		List<Servidor> comissao = this.selecaoService.getSelecaoBolsaComMembros(idSelecao).getMembrosBanca();
-		
-		if (!comissao.isEmpty()) {
-			model.addAttribute("m1", comissao.get(0).getId());
-			model.addAttribute("m2", comissao.get(1).getId());
-			model.addAttribute("m3", comissao.get(2).getId());
+		return "coordenador/atribuirMembroComissao";
+	}
+
+	@RequestMapping(value = "/comissao/atribuir", method = RequestMethod.POST)
+	public String atribuirPareceristaNoProjeto(@RequestParam("idSelecao") Integer idSelecao,
+			@RequestParam("idServidor") Integer idServidor, Model model, RedirectAttributes redirect) {
+
+
+		if (idServidor == null) {
+			
+		redirect.addFlashAttribute("erro", "Informe pelo menos um membro.");
+
+			return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
+
+		} else {
+			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+			
+			List<Servidor> comissao = selecao.getMembrosBanca();
+	
+			Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
+			if (comissao.contains(servidor)) {
+				
+				redirect.addFlashAttribute("erro", "Não é permitida repetição de membros na comissão.");
+				
+				return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
+				
+			} else {
+				selecao.getMembrosBanca().add(servidor);
+
+				selecaoService.update(selecao);
+
+				redirect.addFlashAttribute("info", "Comissão formada com sucesso.");
+
+				return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
+				
+			}
+			
 		}
-		
-		model.addAttribute("selecao", idSelecao);
-		model.addAttribute("servidores", this.servidorService.find(Servidor.class));
-		
-		return "selecao/atribuir";
+
 	}
 	
-	@RequestMapping(value = { "selecao/comissao" }, method = RequestMethod.POST)
-	public String atribuirComissao(@RequestParam("id") Integer id,
-			@RequestParam("id1") Integer id1, @RequestParam("id2") Integer id2,
-			@RequestParam("id3") Integer id3, Model model,
-			RedirectAttributes redirect) {
+	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
+	public String excluirMembroBanca(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
+			Model model, RedirectAttributes redirect) {
 		
-		if (id1 == null || id2 == null || id3 == null) {
-			model.addAttribute("selecao", id);
-			model.addAttribute("servidores", this.servidorService.find(Servidor.class));
-			model.addAttribute("erroMembros", "Informe os três membros.");
-			
-			return "selecao/atribuir";
-			
-		} else if (id1.equals(id2) || id1.equals(id3) || id2.equals(id3)) {
-			
-			model.addAttribute("selecao", id);
-			model.addAttribute("servidores",servidorService.find(Servidor.class));
-			model.addAttribute("erroMembros","Não é permitida repetição de membros na banca.");
-			
-			return "selecao/atribuir";
-			
-		} else {
-			
-			Selecao selecao = selecaoService.find(Selecao.class, id);
-			
-			List<Servidor> list = new ArrayList<Servidor>();
-			
-			list.add(new Servidor(id1));
-			list.add(new Servidor(id2));
-			list.add(new Servidor(id3));
-			
-			selecao.setMembrosBanca(list);
-			
-			this.selecaoService.update(selecao);
-			redirect.addFlashAttribute("info", "Comissão formada com sucesso.");
-			
-			return "redirect:/selecao/listar";
-		}
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+				
+		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
+
+		selecao.getMembrosBanca().remove(servidor);
+
+		selecaoService.update(selecao);
+
+		redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
+		
+		return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
 	}
+
 }

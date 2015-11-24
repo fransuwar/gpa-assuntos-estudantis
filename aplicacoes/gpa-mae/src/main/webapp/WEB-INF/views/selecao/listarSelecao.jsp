@@ -6,8 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 
 
@@ -43,43 +42,6 @@
 
 		<div class="col-md-14">
 			<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
-				<div class="col-md-6" id="div-form-buscar">
-
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="#buscar-edital-tab"
-							data-toggle="tab">Buscar por Edital<i class="fa"></i>
-						</a></li>
-						<li><a href="#buscar-ano-tab" data-toggle="tab">Buscar
-								por Ano<i class="fa"></i>
-						</a></li>
-						<li><a href="#buscar-tipo-tab" data-toggle="tab">Buscar
-								por Tipo<i class="fa"></i>
-						</a></li>
-
-					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active" id="buscar-edital-tab">
-							<input id="editalBusca" name="edital" class="form-control"
-								placeholder="Digite o edital a ser buscado" size="20"
-								required="required" data-mask="999999"
-								onkeyup="buscarSelecao();" />
-						</div>
-						<div class="tab-pane" id="buscar-ano-tab">
-							<input id="anoBusca" name="ano" class="form-control"
-								placeholder="Digite o ano a ser buscado" size="20"
-								required="required" data-mask="9999" onkeyup="buscarSelecao();" />
-						</div>
-						<div class="tab-pane" id="buscar-tipo-tab">
-							<form:select path="tipoBolsa" id="tipoBolsaBusca"
-								class="form-control" onchange="buscarSelecao();">
-								<form:option value="">Selecione o tipo de bolsa</form:option>
-								<form:options items="${tipoBolsa}" itemLabel="nome"
-									itemValue="nome" />
-							</form:select>
-						</div>
-					</div>
-				</div>
-
 				<div align="right" style="margin-bottom: 20px;">
 					<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">
 						<button class="btn btn-primary">
@@ -113,7 +75,7 @@
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 								<td><a id="detalhes"
-									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
+									href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
 										${selecao.tipoBolsa.nome} </a>
 								</td>
 								<td>${selecao.ano}</td>
@@ -129,35 +91,27 @@
 												<i class="fa fa-users fa-lg"></i>
 											</button>
 										</a>
-									</sec:authorize> <sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
+									</sec:authorize>
+									<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
 										<a id="editar"
 											href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
-											<button class="btn btn-info">
-												Editar <span class="glyphicon glyphicon-pencil"></span>
+											<button class="btn btn-info btn-sm" title="Editar">
+												<span class="glyphicon glyphicon-pencil"></span>
 											</button>
 										</a>
 										<a id="excluir" data-toggle="modal"
 											data-target="#confirm-delete" href="#"
 											data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
-											<button class="btn btn-danger">
-												Excluir <span class="glyphicon glyphicon-trash"></span>
+											<button class="btn btn-danger btn-sm">
+												<span class="glyphicon glyphicon-trash"></span>
 											</button>
 										</a>
 
 										<a id="atribuirBanca"
-											href="<c:url value="/coordenador/selecao/${selecao.id}/atribuir-comissao" ></c:url>">
-											<c:choose>
-												<c:when test="${empty selecao.membrosBanca}">
-													<button class="btn btn-primary">
-														Atribuir Membro à Banca <span class="glyphicon glyphicon-user"></span>
-													</button>
-												</c:when>
-												<c:otherwise>
-													<button class="btn btn-primary">
-														Editar Membros da Banca <span class="glyphicon glyphicon-user"></span>
-													</button>
-												</c:otherwise>
-											</c:choose>
+											href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
+											<button class="btn btn-primary btn-sm" title="Gerenciar Comissão">
+												<span class="glyphicon glyphicon-user"></span>
+											</button>
 										</a>
 									</sec:authorize> 
 									<sec:authorize access="hasAnyRole('DISCENTE')">
@@ -166,8 +120,8 @@
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
 													href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
-													<button class=" btn btn-success">
-														inscrever-se <span class="glyphicon glyphicon-user"></span>
+													<button class=" btn btn-success btn-sm" title="Realizar Inscrição">
+														<span class="glyphicon glyphicon-user"></span>
 													</button>
 												</a>
 											</c:when>
@@ -175,8 +129,8 @@
 												test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
 													href="<c:url value="/aluno/editar/inscricao/iniciacao-academica" ></c:url>">
-													<button class=" btn btn-info">
-														editar <span class="glyphicon glyphicon-pencil"></span>
+													<button class=" btn btn-info btn-sm" title="Editar Inscrição">
+														<span class="glyphicon glyphicon-pencil"></span>
 													</button>
 												</a>
 											</c:when>
@@ -184,7 +138,7 @@
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
 													href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-													<button class=" btn btn-success">
+													<button class=" btn btn-success btn-sm" title="Realizar Inscrição">
 														inscrever-se <span class="glyphicon glyphicon-user"></span>
 													</button>
 												</a>
@@ -193,7 +147,7 @@
 												test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
 													href="<c:url value="/aluno/editar/inscricao/auxilio-moradia" ></c:url>">
-													<button class=" btn btn-info">
+													<button class=" btn btn-info btn-sm" title="Editar Inscrição">
 														editar <span class="glyphicon glyphicon-pencil"></span>
 													</button>
 												</a>
@@ -203,8 +157,8 @@
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-												<button class="btn btn-primary btn-sm">
-													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
+												<button class="btn btn-primary btn-sm" title="Avaliar inscritos">
+													<span class="glyphicon glyphicon-user"></span>
 												</button>
 											</a>
 										</c:if>

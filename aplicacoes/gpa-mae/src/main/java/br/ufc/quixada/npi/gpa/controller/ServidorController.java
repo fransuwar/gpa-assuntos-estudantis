@@ -143,6 +143,7 @@ public class ServidorController {
 				
 		this.servidorService.update(servidor);
 		redirect.addFlashAttribute("info", "Servidor atualizado com sucesso.");
+		
 		return REDIRECT_PAGINA_LISTAR_SERVIDOR;
 	}
 	
@@ -159,6 +160,7 @@ public class ServidorController {
 		}
 		
 		return REDIRECT_PAGINA_LISTAR_SERVIDOR;
+
 	}
 	
 	@RequestMapping(value = { "listar/alunos" }, method = RequestMethod.GET)

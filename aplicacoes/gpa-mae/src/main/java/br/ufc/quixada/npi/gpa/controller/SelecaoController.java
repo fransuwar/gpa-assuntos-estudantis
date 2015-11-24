@@ -79,8 +79,8 @@ public class SelecaoController {
 		return PAGINA_LISTAR_SELECAO;
 	}
 	
-	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = { "/detalhes/{idSelecao}" }, method = RequestMethod.GET)
+	public String getInformacoes(@PathVariable("idSelecao") Integer id, Model model, RedirectAttributes redirectAttributes) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
 		if (selecao == null) {
 			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
