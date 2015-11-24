@@ -24,6 +24,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 
+/*@NamedQueries({ @NamedQuery(
+				name = "SelecaoBolsa.findSelecaoBolsaIdComAlunos", 
+				query = "SELECT DISTINCT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.alunosSelecao WHERE sb.id = :selecaoBolsaId"),
+				@NamedQuery(
+				name = "SelecaoBolsa.findSelecaoComAlunos",
+				query = "SELECT DISTINCT sb from SelecaoBolsa as sb LEFT JOIN FETCH sb.alunosSelecao")
+			})*/
+
 @NamedQueries({
 		@NamedQuery(name = "Selecao.findSelecaoBolsaComDocumentos", query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId "),
 		@NamedQuery(name = "Selecao.findSelecaoBolsaComMembros", query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca"),
