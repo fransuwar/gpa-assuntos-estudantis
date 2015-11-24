@@ -91,24 +91,13 @@ public class SelecaoController {
 		return "selecao/listarSelecao";
 	}
 
-	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
-		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
-		if (selecao == null) {
-			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
-			return "redirect:/selecao/listar";
-		}
-		model.addAttribute("selecao", selecao);
 
-		return "selecao/informacoes";
-	}
-
-	@RequestMapping(value="detalhesSelecao/{id}")
+	@RequestMapping(value={ "detalhesSelecao/{id}" }, method = RequestMethod.GET)
 	public String detalhes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect){
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
-			return "redirect:/selecao/listar";
+			return "redirect:/selecao/listarSelecao";
 		}
 		modelo.addAttribute("selecao", selecao);
 
