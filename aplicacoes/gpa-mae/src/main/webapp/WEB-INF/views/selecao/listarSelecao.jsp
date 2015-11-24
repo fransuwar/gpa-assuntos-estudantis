@@ -145,6 +145,15 @@
 												</a>
 											</c:when>
 											<c:when
+												test="${aluno.editais.contains(selecao) && selecao.tipoBolsa == inic_acad && selecao.status == 'INSC_ABERTA'}">
+												<a id="detalhesInscricao"
+													href="<c:url value="/iniciacaoAcademica/detalhesIncricao/${sessionScope.id} }/" ></c:url>">
+													<button class=" btn btn-info btn-sm">
+														Detalhes <span class="glyphicon glyphicon-pencil"></span>
+													</button>
+												</a>
+											</c:when>
+											<c:when
 												test="${!aluno.editais.contains(selecao) && selecao.tipoBolsa == aux_mor && selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
 													href="<c:url value="/auxilio/inscricao/${selecao.id}/" ></c:url>">
