@@ -51,18 +51,15 @@ public class AuthenticationSuccessHandlerImpl implements
 		Usuario usuario = serviceUsuario.getByCpf(authentication.getName());
 		
 		for (GrantedAuthority grantedAuthority : usuario.getAuthorities()) {
-			switch (grantedAuthority.getAuthority()) {
-
-				case "DISCENTE":
-					return "/selecao/listar";
-	
-				case "COORD_ASS_ESTUDANTIS":
-					return "/selecao/listar";
-	
-				case "SERVIDOR":
-					return "/selecao/listar";
+			if (grantedAuthority.getAuthority().equalsIgnoreCase("DISCENTE") || 
+				grantedAuthority.getAuthority().equalsIgnoreCase("SERVIDOR") || 
+				grantedAuthority.getAuthority().equalsIgnoreCase("COORD_ASS_ESTUDANTIS")) {
+				
+				return "/selecao/listar";
+				
 			}
 		}
+		
 		return "/login";
 	}
 	

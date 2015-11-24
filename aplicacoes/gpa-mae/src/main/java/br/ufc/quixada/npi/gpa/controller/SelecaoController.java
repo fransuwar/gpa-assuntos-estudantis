@@ -56,8 +56,7 @@ public class SelecaoController {
 
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request, Authentication authentication) {
-		List<Selecao> selecoes = this.selecaoService
-				.getSelecaoBolsaComMembros();
+		List<Selecao> selecoes = this.selecaoService.getSelecaoBolsaComMembros();
 		
 		if (request.isUserInRole("DISCENTE")) {
 			
@@ -90,12 +89,10 @@ public class SelecaoController {
 		
 		return "selecao/listarSelecao";
 	}
-		
 
+	@RequestMapping(value={ "detalhesSelecao/{idSelecao}" }, method = RequestMethod.GET)
+	public String detalhes(@PathVariable("idSelecao") Integer id, Model modelo, RedirectAttributes redirect){
 
-
-	@RequestMapping(value={ "detalhesSelecao/{id}" }, method = RequestMethod.GET)
-	public String detalhes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect){
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
