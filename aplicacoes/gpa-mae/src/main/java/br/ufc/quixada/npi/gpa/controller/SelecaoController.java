@@ -58,16 +58,18 @@ public class SelecaoController {
 	public String listar(ModelMap model, HttpServletRequest request, Authentication authentication) {
 		List<Selecao> selecoes = this.selecaoService.getSelecaoBolsaComMembros();
 		
+
 		if (request.isUserInRole("DISCENTE")) {
-			
+
 			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication.getName());
 			Integer id = pessoa.getId();
-			
+
 			Aluno aluno = this.alunoService.getAlunoComSelecoes(id);
 			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+
 			
 		} else if(request.isUserInRole("SERVIDOR")){
 			
@@ -80,13 +82,13 @@ public class SelecaoController {
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 
 		} else {
-			
+
 			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 		}
-		
+
 		return "selecao/listarSelecao";
 	}
 
@@ -102,18 +104,18 @@ public class SelecaoController {
 
 		return "selecao/detalhesSelecao";
 	}
-	
-//	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
-//	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
-//			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
-//		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
-//	}
 
-//	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
-//	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
-//		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
-//	}
-	
+	//	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
+	//	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
+	//			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
+	//		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
+	//	}
+
+	//	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
+	//	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
+	//		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
+	//	}
+
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Long id, 
 			RedirectAttributes redirectAttributes){
@@ -139,31 +141,31 @@ public class SelecaoController {
 		return "selecao/listarSelecao";
 	}
 
-//	@RequestMapping(value = "inscritos/{id}", method = RequestMethod.GET)
-//	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
-//
-//		List<Aluno> alunosSelecao = this.selecaoService.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
-//		
-//		List<Parecer> pareceres = new ArrayList<Parecer>();
-//		for (Aluno aluno : alunosSelecao) {
-//			Parecer parecer = new Parecer();
-//			parecer.setAlunoApto(aluno);
-//			pareceres.add(parecer);
-//		}
-//		
-//		ParecerForm parecerForm = new ParecerForm();
-//		parecerForm.setPareceres(pareceres);
-//		
-//		model.addAttribute("pareceres", parecerForm);
-//		model.addAttribute("idSelecao", id);
-//
-//		return "selecao/listarInscritos";
-//	}
-//	
-//	@RequestMapping(value = "/visualizarFormulario/{idaluno}")
-//	public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
-//		return null;
-//	}
+	//	@RequestMapping(value = "inscritos/{id}", method = RequestMethod.GET)
+	//	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
+	//
+	//		List<Aluno> alunosSelecao = this.selecaoService.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
+	//		
+	//		List<Parecer> pareceres = new ArrayList<Parecer>();
+	//		for (Aluno aluno : alunosSelecao) {
+	//			Parecer parecer = new Parecer();
+	//			parecer.setAlunoApto(aluno);
+	//			pareceres.add(parecer);
+	//		}
+	//		
+	//		ParecerForm parecerForm = new ParecerForm();
+	//		parecerForm.setPareceres(pareceres);
+	//		
+	//		model.addAttribute("pareceres", parecerForm);
+	//		model.addAttribute("idSelecao", id);
+	//
+	//		return "selecao/listarInscritos";
+	//	}
+	//	
+	//	@RequestMapping(value = "/visualizarFormulario/{idaluno}")
+	//	public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
+	//		return null;
+	//	}
 
 	@RequestMapping(value = "/parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,
@@ -209,5 +211,5 @@ public class SelecaoController {
 
 		return "selecao/formularioInscricaoPreenchido";
 	}
-	
+
 }

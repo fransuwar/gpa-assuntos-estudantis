@@ -60,13 +60,6 @@ public class Servidor {
 	@OneToMany
 	private List<Entrevista> entrevistas;
 
-	public List<VisitaDomiciliar> getVisitas() {
-		return visitas;
-	}
-
-	public void setVisitas(List<VisitaDomiciliar> visitas) {
-		this.visitas = visitas;
-	}
 
 	public List<Entrevista> getEntrevistas() {
 		return entrevistas;
@@ -74,6 +67,15 @@ public class Servidor {
 
 	public void setEntrevistas(List<Entrevista> entrevistas) {
 		this.entrevistas = entrevistas;
+
+	}
+
+	public List<VisitaDomiciliar> getVisitas() {
+		return visitas;
+	}
+
+	public void setVisitas(List<VisitaDomiciliar> visitas) {
+		this.visitas = visitas;
 	}
 
 	public Pessoa getPessoa() {
