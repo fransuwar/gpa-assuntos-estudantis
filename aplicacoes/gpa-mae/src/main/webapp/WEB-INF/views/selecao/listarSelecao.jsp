@@ -6,8 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 
 
@@ -43,43 +42,6 @@
 
 		<div class="col-md-14">
 			<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
-				<div class="col-md-6" id="div-form-buscar">
-
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="#buscar-edital-tab"
-							data-toggle="tab">Buscar por Edital<i class="fa"></i>
-						</a></li>
-						<li><a href="#buscar-ano-tab" data-toggle="tab">Buscar
-								por Ano<i class="fa"></i>
-						</a></li>
-						<li><a href="#buscar-tipo-tab" data-toggle="tab">Buscar
-								por Tipo<i class="fa"></i>
-						</a></li>
-
-					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active" id="buscar-edital-tab">
-							<input id="editalBusca" name="edital" class="form-control"
-								placeholder="Digite o edital a ser buscado" size="20"
-								required="required" data-mask="999999"
-								onkeyup="buscarSelecao();" />
-						</div>
-						<div class="tab-pane" id="buscar-ano-tab">
-							<input id="anoBusca" name="ano" class="form-control"
-								placeholder="Digite o ano a ser buscado" size="20"
-								required="required" data-mask="9999" onkeyup="buscarSelecao();" />
-						</div>
-						<div class="tab-pane" id="buscar-tipo-tab">
-							<form:select path="tipoBolsa" id="tipoBolsaBusca"
-								class="form-control" onchange="buscarSelecao();">
-								<form:option value="">Selecione o tipo de bolsa</form:option>
-								<form:options items="${tipoBolsa}" itemLabel="nome"
-									itemValue="nome" />
-							</form:select>
-						</div>
-					</div>
-				</div>
-
 				<div align="right" style="margin-bottom: 20px;">
 					<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">
 						<button class="btn btn-primary">
@@ -113,12 +75,14 @@
 						<c:forEach var="inscricao" items="${inscricoes}">
 							<tr class="linha">
 								<td><a id="detalhes"
+<<<<<<< HEAD
 									href="<c:url value="/selecao/detalhes/${inscricao.selecao.id}">  </c:url>">
 										${inscricao.selecao.tipoBolsa.nome} </a></td>
 								<td>${inscricao.selecao.ano}</td>
 								<td>${inscricao.selecao.sequencial}</td>
 								<td>${inscricao.selecao.quantidadeVagas}</td>
 								<td>${inscricao.selecao.status.nome}</td>
+
 
 								<td><sec:authorize
 										access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
@@ -128,22 +92,28 @@
 												<i class="fa fa-users fa-lg"></i>
 											</button>
 										</a>
-									</sec:authorize> <sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
+									</sec:authorize>
+									<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
 										<a id="editar"
+
 											href="<c:url value="/coordenador/selecao/editar/${inscricao.selecao.id}" ></c:url>">
 											<button class="btn btn-info">
 												Editar <span class="glyphicon glyphicon-pencil"></span>
+
 											</button>
 										</a>
 										<a id="excluir" data-toggle="modal"
 											data-target="#confirm-delete" href="#"
+
 											data-href="<c:url value="/coordenador/selecao/excluir/${inscricao.selecao.id}" ></c:url>">
 											<button class="btn btn-danger">
 												Excluir <span class="glyphicon glyphicon-trash"></span>
+
 											</button>
 										</a>
 
 										<a id="atribuirBanca"
+
 											href="<c:url value="/coordenador/selecao/${inscricao.selecao.id}/atribuir-comissao" ></c:url>">
 											<c:choose>
 												<c:when test="${empty inscricao.selecao.membrosBanca}">
@@ -157,6 +127,7 @@
 													</button>
 												</c:otherwise>
 											</c:choose>
+
 										</a>
 									</sec:authorize> 
 									<sec:authorize access="hasAnyRole('DISCENTE')">
@@ -164,9 +135,11 @@
 											<c:when
 												test="${!aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == inic_acad and inscricao.selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
+<<<<<<< HEAD
 													href="<c:url value="/aluno/inscricao/${inscricao.selecao.id}/iniciacao-academica" ></c:url>">
 													<button class=" btn btn-success">
 														inscrever-se <span class="glyphicon glyphicon-user"></span>
+
 													</button>
 												</a>
 											</c:when>
@@ -174,16 +147,20 @@
 												test="${aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == inic_acad and inscricao.selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
 													href="<c:url value="/aluno/editar/inscricao/iniciacao-academica" ></c:url>">
-													<button class=" btn btn-info">
-														editar <span class="glyphicon glyphicon-pencil"></span>
+													<button class=" btn btn-info btn-sm" title="Editar Inscrição">
+														<span class="glyphicon glyphicon-pencil"></span>
 													</button>
 												</a>
 											</c:when>											
 											<c:when
 												test="${!aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == aux_mor and inscricao.selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
+
+
 													href="<c:url value="/aluno/inscricao/${inscricao.selecao.id}/auxilio-moradia" ></c:url>">
 													<button class=" btn btn-success">
+
+
 														inscrever-se <span class="glyphicon glyphicon-user"></span>
 													</button>
 												</a>
@@ -192,7 +169,7 @@
 												test="${aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == aux_mor and inscricao.selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
 													href="<c:url value="/aluno/editar/inscricao/auxilio-moradia" ></c:url>">
-													<button class=" btn btn-info">
+													<button class=" btn btn-info btn-sm" title="Editar Inscrição">
 														editar <span class="glyphicon glyphicon-pencil"></span>
 													</button>
 												</a>
@@ -201,9 +178,13 @@
 									</sec:authorize> <sec:authorize access="hasAnyRole('SERVIDOR')">
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
+
+
 												href="<c:url value="/selecao/inscritos/${inscricao.selecao.id}" ></c:url>">
 												<button class="btn btn-primary btn-sm">
 													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
+
+
 												</button>
 											</a>
 										</c:if>

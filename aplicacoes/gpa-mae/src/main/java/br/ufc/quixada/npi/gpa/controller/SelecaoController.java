@@ -60,9 +60,11 @@ public class SelecaoController {
 	private InscricaoService inscricaoService;
 	
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
+
 	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
 		
 		List<Inscricao> inscricoes = this.inscricaoService.find(Inscricao.class);
+
 		
 		if (request.isUserInRole("DISCENTE")) {
 			
@@ -84,9 +86,11 @@ public class SelecaoController {
 		return "selecao/listarSelecao";
 	}
 	
-	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirectAttributes) {
-		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
+
+	@RequestMapping(value = { "/detalhes/{idSelecao}" }, method = RequestMethod.GET)
+	public String getInformacoes(@PathVariable("idSelecao") Integer id, Model model, RedirectAttributes redirectAttributes) {
+		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
+
 		if (selecao == null) {
 			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
 			return "redirect:/selecao/listar";
@@ -94,7 +98,7 @@ public class SelecaoController {
 		
 		model.addAttribute("selecao", selecao);
 
-		return "selecao/informacoes";
+		return "selecao/detalhesSelecao";
 	}
 	
 //	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
