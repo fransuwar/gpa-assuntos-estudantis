@@ -113,7 +113,7 @@
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 								<td><a id="detalhes"
-									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
+									href="<c:url value="/selecao/detalhesSelecao/${selecao.id}">  </c:url>">
 										${selecao.tipoBolsa.nome} </a>
 								</td>
 								<td>${selecao.ano}</td>
