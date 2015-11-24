@@ -14,18 +14,14 @@ public class Entrevista {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String observacao;
-	
+
 	@Column(nullable = false)
 	private boolean deferimento;
 	@OneToOne
 	private Inscricao inscricao;
-	
+
 	@ManyToOne
 	private Servidor servidor;
-	
-	public Entrevista(){
-		
-	}
 
 	public Integer getId() {
 		return id;
@@ -71,11 +67,7 @@ public class Entrevista {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (deferimento ? 1231 : 1237);
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((inscricao == null) ? 0 : inscricao.hashCode());
-		result = prime * result + ((observacao == null) ? 0 : observacao.hashCode());
-		result = prime * result + ((servidor == null) ? 0 : servidor.hashCode());
 		return result;
 	}
 
@@ -88,27 +80,10 @@ public class Entrevista {
 		if (getClass() != obj.getClass())
 			return false;
 		Entrevista other = (Entrevista) obj;
-		if (deferimento != other.deferimento)
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (inscricao == null) {
-			if (other.inscricao != null)
-				return false;
-		} else if (!inscricao.equals(other.inscricao))
-			return false;
-		if (observacao == null) {
-			if (other.observacao != null)
-				return false;
-		} else if (!observacao.equals(other.observacao))
-			return false;
-		if (servidor == null) {
-			if (other.servidor != null)
-				return false;
-		} else if (!servidor.equals(other.servidor))
 			return false;
 		return true;
 	}
@@ -118,7 +93,4 @@ public class Entrevista {
 		return "Entrevista [id=" + id + ", observacao=" + observacao + ", deferimento=" + deferimento + ", inscricao="
 				+ inscricao + ", servidor=" + servidor + "]";
 	}
-	
-	
-
 }
