@@ -289,21 +289,14 @@ public class CoordenadorController {
 			Model model, RedirectAttributes redirect) {
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		
-		Servidor servidor = new Servidor(idServidor);
-		
-		servidor = this.servidorService.find(Servidor.class, idServidor);
+				
+		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 
 		selecao.getMembrosBanca().remove(servidor);
 
 		selecaoService.update(selecao);
 
 		redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
-
-		model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
-		model.addAttribute("servidores", servidorService.find(Servidor.class));
-		
-
 		
 		return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
 	}
