@@ -122,7 +122,7 @@ public class VisitaDomiciliar {
 	@NotNull(message = "Campo obrigatório")
 	private String analiseDescricaoRealidade;
 	@Column(nullable = false)
-	private boolean parecerFinalDeferido;
+	private boolean deferimento;
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataRelatorio;
@@ -444,10 +444,10 @@ public class VisitaDomiciliar {
 		this.analiseDescricaoRealidade = analiseDescricaoRealidade;
 	}
 	public boolean isParecerFinalDeferido() {
-		return parecerFinalDeferido;
+		return deferimento;
 	}
 	public void setParecerFinalDeferido(boolean parecerFinalDeferido) {
-		this.parecerFinalDeferido = parecerFinalDeferido;
+		this.deferimento = parecerFinalDeferido;
 	}
 	public Date getDataRelatorio() {
 		return dataRelatorio;
