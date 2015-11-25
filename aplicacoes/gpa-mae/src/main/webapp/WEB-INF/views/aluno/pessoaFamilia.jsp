@@ -50,7 +50,7 @@
 			<td><input type="text" name="pessoas[].nome" value="" /></td>
 
 			<td>
-				<form:select path="" name="pessoas[].grauParentesco" class="form-control" >
+				<form:select path="" name="pessoas[].parentesco" class="form-control" >
 					<form:option value="">Selecione um grau de parentesco</form:option>
 					<form:options items="${grauParentesco}" />
 				</form:select>
@@ -58,7 +58,7 @@
 			</td>
 
 			<td><input type="text" name="pessoas[].escolaridade" value="" /></td>
-			<td><input type="text" name="pessoas[].atividadeProfissao" value="" /></td>
+			<td><input type="text" name="pessoas[].profissao" value="" /></td>
 			<td><input type="text" name="pessoas[].rendaMensal" value="" /></td>
 
 			<td><a href="#" class="removePessoa">Remover Pessoa</a></td>
@@ -91,7 +91,7 @@
 							formId : 'questionarioForm',
 							rowContainerId : 'pessoaFamiliaContainer',
 							indexedPropertyName : 'pessoas',
-							indexedPropertyMemberNames : 'nome, grauParentesco, escolaridade, atividadeProfissao, rendaMensal',
+							indexedPropertyMemberNames : 'nome, parentesco, escolaridade, profissao, rendaMensal',
 							rowAddedListener : rowAdded,
 							rowRemovedListener : rowRemoved,
 						};
