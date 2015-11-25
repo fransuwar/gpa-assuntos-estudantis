@@ -159,7 +159,7 @@ public class AlunoController {
 //			return REDIRECT_PAGINA_LISTAR_SELECAO;
 //		}
 //		
-//		return PAGINA_INSCREVER_INIACAO_ACADEMICA;
+//		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 //	}
 	
 	@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
