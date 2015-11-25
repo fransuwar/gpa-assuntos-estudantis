@@ -1,5 +1,11 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,12 +31,10 @@ import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
-import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
-import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -48,8 +52,6 @@ public class SelecaoController {
 	@Inject
 	private DocumentoService documentoService;
 	@Inject
-	private PessoaService servicePessoa;
-	@Inject
 	private SelecaoService selecaoService;
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
@@ -60,10 +62,7 @@ public class SelecaoController {
 		
 		if (request.isUserInRole("DISCENTE")) {
 			
-			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication.getName());
-			Integer id = pessoa.getId();
-			
-			Aluno aluno = this.alunoService.getAlunoComSelecoes(id);
+			Aluno aluno = this.alunoService.getAlunoByCPF(authentication.getName());
 			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
@@ -77,7 +76,7 @@ public class SelecaoController {
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 		}
 		
-		return "selecao/listarSelecao";
+		return PAGINA_LISTAR_SELECAO;
 	}
 	
 	@RequestMapping(value = { "/detalhes/{idSelecao}" }, method = RequestMethod.GET)
@@ -85,11 +84,11 @@ public class SelecaoController {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
 		if (selecao == null) {
 			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
-			return "redirect:/selecao/listar";
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		model.addAttribute("selecao", selecao);
 
-		return "selecao/detalhesSelecao";
+		return PAGINA_INFORMACOES_SELECAO;
 	}
 	
 //	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
@@ -126,7 +125,7 @@ public class SelecaoController {
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 
-		return "selecao/listarSelecao";
+		return PAGINA_LISTAR_SELECAO;
 	}
 
 //	@RequestMapping(value = "inscritos/{id}", method = RequestMethod.GET)
@@ -147,7 +146,7 @@ public class SelecaoController {
 //		model.addAttribute("pareceres", parecerForm);
 //		model.addAttribute("idSelecao", id);
 //
-//		return "selecao/listarInscritos";
+//		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 //	}
 //	
 //	@RequestMapping(value = "/visualizarFormulario/{idaluno}")
@@ -161,7 +160,7 @@ public class SelecaoController {
 			RedirectAttributes redirect) {
 
 		if (result.hasErrors()) {
-			return "selecao/listarInscritos";
+			return PAGINA_LISTAR_INSCRITOS_SELECAO;
 		}
 
 		/*
@@ -178,7 +177,8 @@ public class SelecaoController {
 		 */
 
 		redirect.addFlashAttribute("info", "Parecer emitido com sucesso.");
-		return "redirect:/selecao/listar";
+		
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
 	@RequestMapping(value = "formularioInscricaoPreenchido/{id}/{idSelecao}", method = RequestMethod.GET)
@@ -197,7 +197,7 @@ public class SelecaoController {
 		modelo.addAttribute("selecao", selecao);
 		modelo.addAttribute("questionario", questionario);
 
-		return "selecao/formularioInscricaoPreenchido";
+		return PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
 	}
 	
 }

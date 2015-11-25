@@ -1,5 +1,7 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -86,7 +88,7 @@ public class AlunoController {
 		model.addAttribute("totalEstado", Estado.toMap());
 		model.addAttribute("grauParentesco", GrauParentesco.toMap());
 		
-		return "aluno/inscricaoIniciacaoAcademica";
+		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
 	
 	@RequestMapping(value = { "inscricao/iniciacao-academica" }, method = RequestMethod.POST)
@@ -105,7 +107,7 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			
-			return "aluno/inscricaoIniciacaoAcademica";
+			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 		
 //		Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
@@ -120,7 +122,7 @@ public class AlunoController {
 		this.iniciacaoAcademicaService.save(iniciacaoAcademica);
 		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		
-		return "redirect:/selecao/listar";
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
 
@@ -154,10 +156,10 @@ public class AlunoController {
 //			
 //		} else {
 //			redirect.addFlashAttribute("erro", "Só pode editar sua inscrição enquanto a seleção estiver aberta.");
-//			return "redirect:/selecao/listar";
+//			return REDIRECT_PAGINA_LISTAR_SELECAO;
 //		}
 //		
-//		return "aluno/InscricaoIniciacaoAcademica";
+//		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 //	}
 	
 	@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
@@ -186,12 +188,12 @@ public class AlunoController {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
 			
-			return "aluno/inscricaoIniciacaoAcademica";
+			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 		
 		this.iniciacaoAcademicaService.update(iniciacaoAcademica);
 		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
-		return "redirect:/selecao/listar";
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
@@ -211,7 +213,7 @@ public class AlunoController {
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 		model.addAttribute("moraCom", MoraCom.toMap());
 		
-		return "aluno/inscricaoAuxilio";
+		return PAGINA_INSCREVER_AUXILIO_MORADIA;
 	}
 	
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
@@ -233,7 +235,7 @@ public class AlunoController {
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 			model.addAttribute("moraCom", MoraCom.toMap());
 			
-			return "aluno/inscricaoAuxilio";
+			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 		}
 		
 //		Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
@@ -248,7 +250,7 @@ public class AlunoController {
 //		this.auxilioMoradiaService.save(auxilioMoradia);
 		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		
-		return "redirect:/selecao/listar";
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
 	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
@@ -280,10 +282,10 @@ public class AlunoController {
 			
 		} else {
 			redirect.addFlashAttribute("erro", "Só pode editar sua inscrição enquanto a seleção estiver aberta.");
-			return "redirect:/selecao/listar";
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
-		return "aluno/inscricaoAuxilio";
+		return PAGINA_INSCREVER_AUXILIO_MORADIA;
 	}
 	
 	@RequestMapping(value = { "inscricao/editar/auxilio-moradia" }, method = RequestMethod.POST)
@@ -310,12 +312,12 @@ public class AlunoController {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
 			
-			return "aluno/inscricaoAuxilio";
+			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 		}
 		
 		this.auxilioMoradiaService.update(auxilioMoradia);
 		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
-		return "redirect:/selecao/listar";
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
 	
