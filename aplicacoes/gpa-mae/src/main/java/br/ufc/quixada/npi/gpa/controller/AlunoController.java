@@ -23,7 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufc.quixada.npi.gpa.enums.Banco;
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.model.Aluno;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
 
 
 @Controller
@@ -32,6 +35,8 @@ public class AlunoController {
 
 	@Inject
 	private AlunoService alunoService;
+	@Inject
+	private InscricaoService inscricaoService;
 
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
@@ -190,5 +195,37 @@ public class AlunoController {
 			redirectAttributes.addFlashAttribute("info", "Aluno excluído com sucesso.");
 		}
 		return "redirect:/aluno/listar";
-	}	
+	}
+	
+	
+	@RequestMapping(value="/inscricao/listar/{idAluno}", method = RequestMethod.GET)
+	public String listarInscricoes(@PathVariable("idAluno") Integer idAluno, Model model){
+		
+		Aluno aluno= alunoService.find(Aluno.class, idAluno);
+		
+		List<Inscricao> inscricoes = inscricaoService.listarInscricoesByIdAluno(idAluno);
+		
+		model.addAttribute("aluno",aluno);
+		model.addAttribute("inscricoes",inscricoes);
+		
+		
+		return "aluno/minhasInscricoes";
+		
+	}
+	@RequestMapping(value="/inscricao/excluir/{idAluno}/{idInscricao}",method = RequestMethod.GET)
+	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno, @PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirectAttributes){
+		
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		
+		if(inscricao == null){
+			redirectAttributes.addFlashAttribute("erro", "Inscrição Inexistente.");
+		}else{
+			this.inscricaoService.delete(inscricao);
+			redirectAttributes.addFlashAttribute("erro", "Inscrição Inexistente.");
+		}
+		return "redirect:/aluno/minhasInscricoes/{idAluno}";
+		
+	}
+	
+	
 }

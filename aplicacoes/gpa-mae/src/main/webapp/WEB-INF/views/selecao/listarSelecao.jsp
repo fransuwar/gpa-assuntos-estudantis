@@ -61,7 +61,7 @@
 					<h3 class="panel-title">Seleções</h3>
 				</div>
 
-				<table class="table display" id="tabela-selecoes">
+				<table class="table-display" id="tabela-selecoes">
 					<thead>
 						<tr>
 							<th>Tipo de Bolsa</th>
@@ -88,7 +88,7 @@
 										access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
+											<button class="btn btn-primary btn-sm" title="Visualizar Inscritos">
 												<i class="fa fa-users fa-lg"></i>
 											</button>
 										</a>

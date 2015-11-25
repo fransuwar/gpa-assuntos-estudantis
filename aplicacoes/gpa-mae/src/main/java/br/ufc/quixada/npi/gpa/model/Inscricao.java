@@ -2,10 +2,12 @@ package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,22 +20,30 @@ public class Inscricao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date data;
+	
 	private boolean avaliacaoDocumentos;
+	
 	private Resultado resultado;
+	
 	private String observacoes;
+	
 	@OneToOne
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
+	
 	@OneToOne
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
+	
 	@OneToOne
 	private Selecao selecaoBolsa;
+	
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
 	
-	public Inscricao() {
-	}
+	@ManyToOne(cascade= CascadeType.REMOVE)
+	private Aluno aluno;
 
 	public Integer getId() {
 		return id;
@@ -105,5 +115,13 @@ public class Inscricao {
 
 	public void setVisitaDomiciliar(VisitaDomiciliar visitaDomiciliar) {
 		this.visitaDomiciliar = visitaDomiciliar;
+	}
+
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 }
