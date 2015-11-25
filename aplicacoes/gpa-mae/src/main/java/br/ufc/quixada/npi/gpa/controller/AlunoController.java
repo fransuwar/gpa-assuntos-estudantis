@@ -28,7 +28,6 @@ import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
-import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 import br.ufc.quixada.npi.gpa.enums.Turno;
@@ -74,6 +73,12 @@ public class AlunoController {
 	@Inject
 	private InscricaoService inscricaoService;
 	
+	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
+	public String listarSelecoesAbertas() {
+		return "";
+	}
+	
+	//PARA IMPLEMENTAR ESTE MÉTODO
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
 		

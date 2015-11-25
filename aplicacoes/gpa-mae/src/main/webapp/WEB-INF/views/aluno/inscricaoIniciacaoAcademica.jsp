@@ -54,6 +54,7 @@
 					method="POST" cssClass="form-horizontal">
 					
 					<input type="hidden" name="idSelecao" value="${idSelecao }"/>
+					
 					<div class="tab-content">
 						<div class="tab-pane active" id="moradia-tab">
 							<div class="panel panel-primary">
