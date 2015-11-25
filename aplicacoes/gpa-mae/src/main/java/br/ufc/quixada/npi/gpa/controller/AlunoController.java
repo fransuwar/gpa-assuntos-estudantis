@@ -212,6 +212,7 @@ public class AlunoController {
 		return "aluno/minhasInscricoes";
 		
 	}
+	
 	@RequestMapping(value="/inscricao/excluir/{idAluno}/{idInscricao}",method = RequestMethod.GET)
 	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno, @PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirectAttributes){
 		
@@ -221,9 +222,9 @@ public class AlunoController {
 			redirectAttributes.addFlashAttribute("erro", "Inscrição Inexistente.");
 		}else{
 			this.inscricaoService.delete(inscricao);
-			redirectAttributes.addFlashAttribute("erro", "Inscrição Inexistente.");
+			redirectAttributes.addFlashAttribute("info", "Inscrição Excluída com Sucesso.");
 		}
-		return "redirect:/aluno/minhasInscricoes/{idAluno}";
+		return "redirect:/aluno/inscricao/listar/{idAluno}";
 		
 	}
 	
