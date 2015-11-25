@@ -90,8 +90,6 @@ public class SelecaoController {
 			
 		} else if(request.isUserInRole("SERVIDOR")){
 			
-			//Pessoa pessoa = servicePessoa.getPessoaByCpf(auth.getName());
-			//Integer id = pessoa.getId(); 
 			Servidor servidor = this.servidorService.getServidorByCpf(auth.getName());
 			
 			selecoes = servidor.getParticipaBancas();
