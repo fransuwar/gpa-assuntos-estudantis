@@ -22,15 +22,23 @@ public class PessoaFamilia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	
 	private String nome;
+	
 	private int idade;
+	
 	private String escolaridade;
+	
 	private String profissao;
+	
 	private double rendaMensal;
+	
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
+	
 	@ManyToOne
 	private QuestionarioAuxilioMoradia auxilioMoradia;
+	
 	@ManyToOne
 	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
 
