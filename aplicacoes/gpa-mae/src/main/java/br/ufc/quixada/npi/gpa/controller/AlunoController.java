@@ -1,8 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MORADIA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.util.List;
 
@@ -82,7 +80,6 @@ public class AlunoController {
 		return "";
 	}
 	
-	//PARA IMPLEMENTAR ESTE MÉTODO
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
 		
@@ -93,7 +90,7 @@ public class AlunoController {
 		return "";
 	}
 
-	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
+	@RequestMapping(value = { " inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
 	public String realizarInscricaoBIA(@PathVariable("idSelecao") Integer idSelecao, Model model) {
 		
 		model.addAttribute("action", "inscricao");
@@ -340,16 +337,19 @@ public class AlunoController {
 
 	}
 	
-	@RequestMapping(value="detalhes-inscricaoInic/{id}", method = RequestMethod.GET)
-	public String detalhes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect){
-		Inscricao inscricao = inscricaoService.getInscricaoId(id);
+	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
+	public String detalhes(@PathVariable("idInscricao") Integer idInscricao, Model modelo, RedirectAttributes redirect){
+		
+		Inscricao inscricao = inscricaoService.getInscricaoId(idInscricao);
+		
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
-			return "redirect:/selecao/listar";
+			
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		modelo.addAttribute("inscricao", inscricao);
-		
-		return "aluno/detalhesInscricao";
+
+		return PAGINA_DETALHES_INSCRICAO;
 	}
 	
 }

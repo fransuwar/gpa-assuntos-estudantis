@@ -89,8 +89,7 @@ public class ServidorController {
 	}
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
-	public String listaServidor(Servidor servidor, BindingResult result,
-			Model model) {
+	public String listaServidor(Servidor servidor, BindingResult result, Model model) {
 			List<Servidor> results = servidorService.find(Servidor.class);	
 			model.addAttribute("servidores", results);
 			return PAGINA_LISTAR_SERVIDOR;
@@ -317,5 +316,35 @@ public class ServidorController {
 		}
 		
 		return REDIRECT_PAGINA_LISTAR_ALUNOS;
+	}
+
+	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
+	public String listarSelecoes(Model model) {
+		
+		return PAGINA_LISTAR_SELECAO;
+	}
+	
+	@RequestMapping(value = { "entrevista/{idInscricao}" }, method = RequestMethod.GET)
+	public String realizarEstrevista() {
+		
+		return "";
+	}
+	
+	@RequestMapping(value = { "entrevista" }, method = RequestMethod.POST)
+	public String realizarEntrevista() {
+		
+		return "";
+	}
+	
+	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
+	public String realizarVisita(Model model) {
+		
+		return "";
+	}
+	
+	@RequestMapping(value = { "visita" }, method = RequestMethod.POST)
+	public String realizarVisita() {
+		
+		return "";
 	}
 }

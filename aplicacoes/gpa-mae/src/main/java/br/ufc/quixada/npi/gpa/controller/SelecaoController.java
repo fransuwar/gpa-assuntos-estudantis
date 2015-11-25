@@ -1,10 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.util.List;
 
@@ -66,7 +62,6 @@ public class SelecaoController {
 	private InscricaoService inscricaoService;
 	
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
-
 	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
 		
 		List<Inscricao> inscricoes = this.inscricaoService.find(Inscricao.class);
@@ -93,7 +88,7 @@ public class SelecaoController {
 	}
 	
 
-	@RequestMapping(value = { "/detalhes/{idSelecao}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer id, Model model, RedirectAttributes redirectAttributes) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
 
@@ -197,8 +192,8 @@ public class SelecaoController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
-	@RequestMapping(value = "formularioInscricaoPreenchido/{id}/{idSelecao}", method = RequestMethod.GET)
-	public String visualizarDadosInscricao(@PathVariable("id") Integer idAluno,
+	@RequestMapping(value = "formularioInscricaoPreenchido/{idAluno}/{idSelecao}", method = RequestMethod.GET)
+	public String visualizarDadosInscricao(@PathVariable("idAluno") Integer idAluno,
 			@PathVariable("idSelecao") Integer idSelecao, Model modelo, RedirectAttributes redirect) {
 
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
@@ -215,6 +210,11 @@ public class SelecaoController {
 
 		return PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
 
+	}
+	
+	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
+	public String detalhesInscricao() {
+		return "";
 	}
 	
 }
