@@ -24,13 +24,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
-import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
-import br.ufc.quixada.npi.gpa.service.PessoaService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -43,35 +43,41 @@ public class SelecaoController {
 
 	@Inject
 	private ServidorService servidorService;
+	
 	@Inject
 	private AlunoService alunoService;
+	
 	@Inject
 	private DocumentoService documentoService;
-	@Inject
-	private PessoaService servicePessoa;
+	
 	@Inject
 	private SelecaoService selecaoService;
+	
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
 
+	@Inject
+	private InscricaoService inscricaoService;
+	
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
-	public String listar(ModelMap model, HttpServletRequest request, Authentication authentication) {
-		List<Selecao> selecoes = this.selecaoService.getSelecaoBolsaComMembros();
+
+	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
+		
+		List<Inscricao> inscricoes = this.inscricaoService.find(Inscricao.class);
+
 		
 		if (request.isUserInRole("DISCENTE")) {
 			
-			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication.getName());
-			Integer id = pessoa.getId();
+			Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
 			
-			Aluno aluno = this.alunoService.getAlunoComSelecoes(id);
-			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("inscricoes", inscricoes);
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 			
 		} else {
 			
-			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("inscricoes", inscricoes);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
@@ -80,13 +86,16 @@ public class SelecaoController {
 		return "selecao/listarSelecao";
 	}
 	
+
 	@RequestMapping(value = { "/detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer id, Model model, RedirectAttributes redirectAttributes) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
+
 		if (selecao == null) {
 			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
 			return "redirect:/selecao/listar";
 		}
+		
 		model.addAttribute("selecao", selecao);
 
 		return "selecao/detalhesSelecao";
@@ -196,6 +205,7 @@ public class SelecaoController {
 		modelo.addAttribute("aluno", aluno);
 		modelo.addAttribute("selecao", selecao);
 		modelo.addAttribute("questionario", questionario);
+
 
 		return "selecao/formularioInscricaoPreenchido";
 	}
