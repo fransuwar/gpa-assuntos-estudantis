@@ -53,9 +53,58 @@
 								pattern="dd/MM/yyyy" />
 						</dd>
 					</dl>
+			<dl class="col-sm-12">
+					<dt class="col-sm-3">Arquivos:</dt>
+					<c:forEach var="documento" items="${selecao.documentos}">
+							<dd class="col-sm-3">
+								<a
+									href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
+									${documento.nome} 
+								</a>
+							</dd>
+					</c:forEach>
+				</dl>
 			</div>
 		</div>
+		<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
+		<div class="panel panel-primary-min" align="left">
+			<div class="panel-heading">
+				<h3 class="panel-title">Resultado da seleção</h3>
+			</div>
+			<table class="table">
+				<thead>
+					<tr class="info">
+						<td>Nome</td>
+						<td>Matrícula</td>
+					</tr>
+				</thead>
+				<tr>
+					<td>Não existem classificados no momento</td>
+				</tr>
+			</table>
+		</div>
+		<div class="panel panel-primary-min" align="left">
+			<div class="panel-heading">
+				<h3 class="panel-title">Incrições Participantes</h3>
+			</div>
+			<table class="table">
+				<thead>
+					<tr class="info">
+						<td>Número</td>
+						<td>Aluno</td>
+						<td>Data</td>
+					</tr>
+				</thead>
+				<tr>
+					<td>${inscricao.id }</td>
+					<td>${inscricao.aluno. }</td>
+				</tr>
+			</table>	
+		
+		</div>
+		</sec:authorize>
 	</div>
+
 	<jsp:include page="../fragments/footer.jsp" />
 </body>
 </html>
