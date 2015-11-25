@@ -88,7 +88,7 @@ public class AlunoController {
 		model.addAttribute("totalEstado", Estado.toMap());
 		model.addAttribute("grauParentesco", GrauParentesco.toMap());
 		
-		return PAGINA_INSCREVER_INIACAO_ACADEMICA;
+		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
 	
 	@RequestMapping(value = { "inscricao/iniciacao-academica" }, method = RequestMethod.POST)
@@ -107,7 +107,7 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			
-			return PAGINA_INSCREVER_INIACAO_ACADEMICA;
+			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 		
 //		Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
@@ -188,7 +188,7 @@ public class AlunoController {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
 			
-			return PAGINA_INSCREVER_INIACAO_ACADEMICA;
+			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 		
 		this.iniciacaoAcademicaService.update(iniciacaoAcademica);

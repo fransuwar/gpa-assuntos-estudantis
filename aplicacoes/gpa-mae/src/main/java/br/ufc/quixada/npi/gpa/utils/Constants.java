@@ -28,7 +28,7 @@ public class Constants {
 	
 	public static final String PAGINA_CADASTRAR_ALUNO				= "servidor/cadastrarAluno";
 	
-	public static final String PAGINA_INSCREVER_INIACAO_ACADEMICA 	= "aluno/inscricaoIniciacaoAcademica";
+	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
 	public static final String PAGINA_INSCREVER_AUXILIO_MORADIA 	= "aluno/inscricaoAuxilio";
 	
