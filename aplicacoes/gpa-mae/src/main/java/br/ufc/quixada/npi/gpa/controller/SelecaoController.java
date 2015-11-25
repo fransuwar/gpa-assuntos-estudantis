@@ -117,7 +117,7 @@ public class SelecaoController {
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
-			return "redirect:/selecao/listarSelecao";
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		model.addAttribute("selecao", selecao);
 
