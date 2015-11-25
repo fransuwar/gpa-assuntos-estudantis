@@ -75,7 +75,7 @@
 						<c:forEach var="inscricao" items="${inscricoes}">
 							<tr class="linha">
 								<td><a id="detalhes"
-<<<<<<< HEAD
+
 									href="<c:url value="/selecao/detalhes/${inscricao.selecao.id}">  </c:url>">
 										${inscricao.selecao.tipoBolsa.nome} </a></td>
 								<td>${inscricao.selecao.ano}</td>
@@ -135,7 +135,7 @@
 											<c:when
 												test="${!aluno.inscricoes.contains(inscricao) and inscricao.selecao.tipoBolsa == inic_acad and inscricao.selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
-<<<<<<< HEAD
+
 													href="<c:url value="/aluno/inscricao/${inscricao.selecao.id}/iniciacao-academica" ></c:url>">
 													<button class=" btn btn-success">
 														inscrever-se <span class="glyphicon glyphicon-user"></span>
