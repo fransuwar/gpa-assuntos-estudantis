@@ -2,15 +2,26 @@ package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Resultado;
+
+@NamedQueries({
+	@NamedQuery(name = "Incricao.findIncricaoId", 
+			query = "SELECT ins FROM Inscricao ins WHERE ins.id = :id"),
+	})
 
 @Entity
 public class Inscricao {
@@ -18,22 +29,37 @@ public class Inscricao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date data;
+	
 	private boolean avaliacaoDocumentos;
+	
+	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
+	
 	private String observacoes;
+
+	@Column(nullable = false)
+	private boolean deferimento;
 	@OneToOne
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
+	
 	@OneToOne
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
+	
 	@OneToOne
-	private Selecao selecaoBolsa;
+	private Selecao selecao;
+	
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
 	
-	public Inscricao() {
-	}
+	@OneToOne
+	private Entrevista entrevista;
+
+
+	@ManyToOne
+	private Aluno aluno;
 
 	public Integer getId() {
 		return id;
@@ -83,12 +109,12 @@ public class Inscricao {
 		this.questionarioIniciacaoAcademica = questionarioIniciacaoAcademica;
 	}
 
-	public Selecao getSelecaoBolsa() {
-		return selecaoBolsa;
+	public Selecao getSelecao() {
+		return selecao;
 	}
 
-	public void setSelecaoBolsa(Selecao selecaoBolsa) {
-		this.selecaoBolsa = selecaoBolsa;
+	public void setSelecao(Selecao selecao) {
+		this.selecao = selecao;
 	}
 
 	public QuestionarioAuxilioMoradia getQuestionarioAuxilioMoradia() {
@@ -106,4 +132,58 @@ public class Inscricao {
 	public void setVisitaDomiciliar(VisitaDomiciliar visitaDomiciliar) {
 		this.visitaDomiciliar = visitaDomiciliar;
 	}
+	public boolean isDeferimento() {
+		return deferimento;
+	}
+
+	public void setDeferimento(boolean deferimento) {
+		this.deferimento = deferimento;
+	}
+
+	public Entrevista getEntrevista() {
+		return entrevista;
+	}
+
+	public void setEntrevista(Entrevista entrevista) {
+		this.entrevista = entrevista;
+	}
+
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Inscricao other = (Inscricao) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Inscricao [id=" + id + "]";
+	}
+	
 }

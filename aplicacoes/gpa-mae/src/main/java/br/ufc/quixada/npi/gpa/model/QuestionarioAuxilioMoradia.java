@@ -152,8 +152,7 @@ public class QuestionarioAuxilioMoradia {
 	
 	private FinalidadeVeiculo finalidadeVeiculo;
 	
-	@OneToOne
-	private Inscricao inscricao;
+
 	
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
@@ -390,14 +389,6 @@ public class QuestionarioAuxilioMoradia {
 	@Override
 	public String toString() {
 		return "QuestionarioAuxilioMoradia [id=" + id + "]";
-	}
-
-	public Inscricao getInscricao() {
-		return inscricao;
-	}
-
-	public void setInscricao(Inscricao inscricao) {
-		this.inscricao = inscricao;
 	}
 
 	public boolean isBolsaEnsinoFundamental() {

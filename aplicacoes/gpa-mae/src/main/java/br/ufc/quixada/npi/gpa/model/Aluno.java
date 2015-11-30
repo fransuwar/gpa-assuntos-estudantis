@@ -24,14 +24,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import br.ufc.quixada.npi.gpa.enums.Banco;
 import br.ufc.quixada.npi.gpa.enums.Curso;
 
-@NamedQueries({ @NamedQuery(name = "Aluno.findAlunoByMatricula", 
-								query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
-				@NamedQuery(name = "Aluno.findAlunoById",
-								query = "SELECT a FROM Aluno a WHERE a.pessoa.id = :idPessoa"),
-				@NamedQuery(name = "Aluno.findAlunoByCPF",
-								query = "select a from Aluno a where a.pessoa.cpf = :cpf"),
-				})
-
+@NamedQueries({
+		@NamedQuery(name = "Aluno.findAlunoByMatricula", query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
+		@NamedQuery(name = "Aluno.findAlunoByIdPessoa", query = "SELECT a FROM Aluno a WHERE a.pessoa.id = :idPessoa"),
+		@NamedQuery(name = "Aluno.findAlunoByCpf", query = "SELECT a FROM Aluno a WHERE a.pessoa.cpf = :cpf"),
+		@NamedQuery(name = "Aluno.findAlunoComInscricoes", query = "SELECT DISTINCT a FROM Aluno a LEFT JOIN FETCH a.inscricoes WHERE a.pessoa.id = :idPessoa"),
+		@NamedQuery(name = "Aluno.findAlunoComInscricoesCpf", query = "SELECT a FROM Aluno a LEFT JOIN FETCH a.inscricoes WHERE a.pessoa.cpf = :cpf") })
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula" }) )
 public class Aluno {
@@ -39,36 +37,43 @@ public class Aluno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	private String matricula;
+	
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Curso curso;
+	
 	private String nome;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	private String anoIngresso;
+	
 	@NotNull(message = "Campo obrigatório")
 	@Min(value = 1, message = "IRA deve ser maior que 0")
 	@Max(value = 10, message = "IRA deve ter valor máximo 10")
 	private Double ira;
+	
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Banco banco;
+	
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 10, message = "Agencia de possuir no máximo 10 dígitos")
 	private String agencia;
+
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 20, message = "Conta deve possuir no máximo 20 dígitos")
 	private String conta;
+
 	private byte[] foto;
+
 	@ManyToOne
 	private Pessoa pessoa;
+
 	@OneToMany
 	private List<Inscricao> inscricoes;
-	@OneToMany(mappedBy = "aluno")
-	private List<VisitaDomiciliar> relatorioVisitaDomiciliar;
-
-	
 
 	public Integer getId() {
 		return id;
