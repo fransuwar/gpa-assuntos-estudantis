@@ -123,8 +123,9 @@ public class SelecaoController {
 	//	}
 
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
-	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Long id, 
+	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Integer id, 
 			RedirectAttributes redirectAttributes){
+		
 		Documento documento = documentoService.find(Documento.class, id);
 		byte[] arquivo = documento.getArquivo();
 		String[] tipo = documento.getTipo().split("/");
@@ -133,8 +134,11 @@ public class SelecaoController {
 		headers.set("Content-Disposition", "attachment; filename=" + documento.getNome().replace(" ", "_"));
 		headers.setContentLength(arquivo.length);
 		redirectAttributes.addFlashAttribute("success", "Download do Documento realizado com sucesso");
+		
 		return new HttpEntity<byte[]>(arquivo, headers);
+		
 	}
+	
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
@@ -173,7 +177,7 @@ public class SelecaoController {
 //		return null;
 //	}
 
-	@RequestMapping(value = "/parecer/{idSelecao}", method = RequestMethod.POST)
+	@RequestMapping(value = "parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,
 			@PathVariable("idSelecao") Integer id, BindingResult result, HttpServletRequest request,
 			RedirectAttributes redirect) {
