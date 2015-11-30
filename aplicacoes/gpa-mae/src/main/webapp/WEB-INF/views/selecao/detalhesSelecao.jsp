@@ -19,8 +19,9 @@
 	<div class="container" align="left" style="padding-left: 85px;">
 		<div class="panel panel-primary-min">
 			<div class="panel-heading">
-				<h3 class="panel-title">Detalhes da Seleção </h3>
+				<h3 class="panel-title">Detalhes da Seleção</h3>
 			</div>
+
 			<div class="panel-body" >
 					<dl class="col-sm-12">
 						<dt class="col-sm-3" >Número do Edital:</dt>
@@ -85,13 +86,14 @@
 		</div>
 		<div class="panel panel-primary-min" align="left">
 			<div class="panel-heading">
-				<h3 class="panel-title">Incrições Participantes</h3>
+				<h3 class="panel-title">Participantes da Seleção</h3>
 			</div>
 			<table class="table">
 				<thead>
 					<tr class="info">
 						<td>Número</td>
 						<td>Aluno</td>
+						<td>Matricula</td>
 						<td>Data</td>
 					</tr>
 				</thead>
@@ -100,14 +102,17 @@
 							items="${selecao.inscritos }">
 							<tr>
 								<td>${inscrito.id }</td>
-								<td>${inscrito.aluno.nome }</td>
-								<td>${incrito.data }</td>
+								<td>${inscrito.aluno.pessoa.nome }</td>
+								<td>${inscrito.aluno.matricula }</td>
+								<td><fmt:formatDate value="${inscrito.data}"
+								pattern="dd/MM/yyyy" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 			</table>	
 		
 		</div>
+
 		</sec:authorize>
 	</div>
 

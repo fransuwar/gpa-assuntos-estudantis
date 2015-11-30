@@ -24,18 +24,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 
-/*@NamedQueries({ @NamedQuery(
-				name = "SelecaoBolsa.findSelecaoBolsaIdComAlunos", 
-				query = "SELECT DISTINCT sb FROM SelecaoBolsa sb LEFT JOIN FETCH sb.alunosSelecao WHERE sb.id = :selecaoBolsaId"),
-				@NamedQuery(
-				name = "SelecaoBolsa.findSelecaoComAlunos",
-				query = "SELECT DISTINCT sb from SelecaoBolsa as sb LEFT JOIN FETCH sb.alunosSelecao")
-			})*/
-
 @NamedQueries({
-		@NamedQuery(name = "Selecao.findSelecaoBolsaComDocumentos", query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId "),
-		@NamedQuery(name = "Selecao.findSelecaoBolsaComMembros", query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca"),
-		@NamedQuery(name = "Selecao.findSelecaoBolsaIdComMembros", query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId"), })
+		@NamedQuery(name = "Selecao.findSelecaoBolsaComDocumentos", 
+				query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId "),
+		@NamedQuery(name = "Selecao.findSelecaoBolsaComMembros", 
+				query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca"),
+		@NamedQuery(name = "Selecao.findSelecaoBolsaIdComMembros", 
+				query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId"), })
 
 @Entity
 public class Selecao {
@@ -181,8 +176,13 @@ public class Selecao {
 		this.tipoBolsa = tipoBolsa;
 	}
 
-	
+	public List<Inscricao> getInscritos() {
+		return inscritos;
+	}
 
+	public void setInscritos(List<Inscricao> inscritos) {
+		this.inscritos = inscritos;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -207,13 +207,4 @@ public class Selecao {
 			return false;
 		return true;
 	}
-
-	public List<Inscricao> getInscritos() {
-		return inscritos;
-	}
-
-	public void setInscritos(List<Inscricao> inscritos) {
-		this.inscritos = inscritos;
-	}
-
 }
