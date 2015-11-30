@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -388,7 +387,24 @@ public class QuestionarioAuxilioMoradia {
 
 	@Override
 	public String toString() {
-		return "QuestionarioAuxilioMoradia [id=" + id + "]";
+		return "QuestionarioAuxilioMoradia [id=" + id + ", ensinoFundamental=" + ensinoFundamental
+				+ ", bolsaEnsinoFundamental=" + bolsaEnsinoFundamental + ", percentualParticularFundamental="
+				+ percentualParticularFundamental + ", ensinoMedio=" + ensinoMedio + ", bolsaEnsinoMedio="
+				+ bolsaEnsinoMedio + ", percentualParticularMedio=" + percentualParticularMedio + ", cursinho="
+				+ cursinho + ", nomeCursinho=" + nomeCursinho + ", bolsistaUfc=" + bolsistaUfc + ", descricaoBolsa="
+				+ descricaoBolsa + ", graduacao=" + graduacao + ", descricaoGraduacao=" + descricaoGraduacao
+				+ ", justificativa=" + justificativa + ", comQuemMora=" + comQuemMora + ", comQuemMoraOutros="
+				+ comQuemMoraOutros + ", nomePai=" + nomePai + ", nomeMae=" + nomeMae + ", endereco=" + endereco
+				+ ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", cep=" + cep
+				+ ", cidade=" + cidade + ", estado=" + estado + ", referencia=" + referencia + ", enderecoOrigem="
+				+ enderecoOrigem + ", numeroOrigem=" + numeroOrigem + ", complementoOrigem=" + complementoOrigem
+				+ ", bairroOrigem=" + bairroOrigem + ", cepOrigem=" + cepOrigem + ", cidadeOrigem=" + cidadeOrigem
+				+ ", estadoOrigem=" + estadoOrigem + ", referenciaOrigem=" + referenciaOrigem + ", telefoneOrigem="
+				+ telefoneOrigem + ", situacaoImovel=" + situacaoImovel + ", grauParentescoImovelRural="
+				+ grauParentescoImovelRural + ", areaPropriedadeRural=" + areaPropriedadeRural
+				+ ", cidadeEstadoImovelRural=" + cidadeEstadoImovelRural + ", grauParentescoVeiculos="
+				+ grauParentescoVeiculos + ", veiculo=" + veiculo + ", finalidadeVeiculo=" + finalidadeVeiculo
+				+ ", pessoas=" + pessoas + "]";
 	}
 
 	public boolean isBolsaEnsinoFundamental() {
@@ -550,5 +566,7 @@ public class QuestionarioAuxilioMoradia {
 	public void setCidadeEstadoImovelRural(String cidadeEstadoImovelRural) {
 		this.cidadeEstadoImovelRural = cidadeEstadoImovelRural;
 	}
-
+	
+	
+	
 }

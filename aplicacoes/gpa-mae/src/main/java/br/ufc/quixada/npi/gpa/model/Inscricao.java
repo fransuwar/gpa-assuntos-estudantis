@@ -2,14 +2,12 @@ package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
 
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -19,9 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 
 @NamedQueries({
-	@NamedQuery(name = "Incricao.findIncricaoId", 
-			query = "SELECT ins FROM Inscricao ins WHERE ins.id = :id"),
-	})
+		@NamedQuery(name = "Incricao.findIncricaoId", query = "SELECT ins FROM Inscricao ins WHERE ins.id = :id"), })
 
 @Entity
 public class Inscricao {
@@ -29,31 +25,28 @@ public class Inscricao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date data;
-	
+
 	private boolean avaliacaoDocumentos;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
-	
+
 	private String observacoes;
-	
+
 	@OneToOne
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
-	
+
 	@OneToOne
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
-	
+
 	@OneToOne
 	private Selecao selecao;
-	
+
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
-
-	@ManyToOne
-	private Aluno aluno;
 
 	public Integer getId() {
 		return id;
@@ -126,13 +119,6 @@ public class Inscricao {
 	public void setVisitaDomiciliar(VisitaDomiciliar visitaDomiciliar) {
 		this.visitaDomiciliar = visitaDomiciliar;
 	}
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
 
 	@Override
 	public int hashCode() {
@@ -163,5 +149,5 @@ public class Inscricao {
 	public String toString() {
 		return "Inscricao [id=" + id + "]";
 	}
-	
+
 }

@@ -216,4 +216,14 @@ public class Selecao {
 		this.inscritos = inscritos;
 	}
 
+	@Override
+	public String toString() {
+		return "Selecao [id=" + id + ", ano=" + ano + ", sequencial=" + sequencial + ", quantidadeVagas="
+				+ quantidadeVagas + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino + ", status=" + status
+				+ ", tipoBolsa=" + tipoBolsa + ", documentos=" + documentos + ", membrosBanca=" + membrosBanca
+				+ ", responsavel=" + responsavel + ", inscritos=" + inscritos + "]";
+	}
+	
+	
+	
 }
