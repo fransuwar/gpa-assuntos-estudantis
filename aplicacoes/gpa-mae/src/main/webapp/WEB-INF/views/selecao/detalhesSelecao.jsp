@@ -95,10 +95,16 @@
 						<td>Data</td>
 					</tr>
 				</thead>
-				<tr>
-					<td>${inscricao.id }</td>
-					<td>${inscricao.aluno. }</td>
-				</tr>
+				<tbody>
+						<c:forEach var="inscrito"
+							items="${selecao.inscritos }">
+							<tr>
+								<td>${inscrito.id }</td>
+								<td>${inscrito.aluno.nome }</td>
+								<td>${incrito.data }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
 			</table>	
 		
 		</div>
