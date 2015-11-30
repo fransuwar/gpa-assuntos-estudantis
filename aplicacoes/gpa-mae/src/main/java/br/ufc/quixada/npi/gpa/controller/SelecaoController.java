@@ -69,21 +69,21 @@ public class SelecaoController {
 
 	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
 		
-		List<Inscricao> inscricoes = this.inscricaoService.find(Inscricao.class);
+		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
 
 		
 		if (request.isUserInRole("DISCENTE")) {
 			
 			Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
 			
-			model.addAttribute("inscricoes", inscricoes);
+			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 			
 		} else {
 			
-			model.addAttribute("inscricoes", inscricoes);
+			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);

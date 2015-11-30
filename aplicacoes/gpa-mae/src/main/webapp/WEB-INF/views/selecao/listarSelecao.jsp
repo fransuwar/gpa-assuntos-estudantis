@@ -72,22 +72,22 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="inscricao" items="${inscricoes}">
+						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 								<td><a id="detalhes"
 
-									href="<c:url value="/selecao/detalhes/${inscricao.selecao.id}">  </c:url>">
-										${inscricao.selecao.tipoBolsa.nome} </a></td>
-								<td>${inscricao.selecao.ano}</td>
-								<td>${inscricao.selecao.sequencial}</td>
-								<td>${inscricao.selecao.quantidadeVagas}</td>
-								<td>${inscricao.selecao.status.nome}</td>
+									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
+										${selecao.tipoBolsa.nome} </a></td>
+								<td>${selecao.ano}</td>
+								<td>${selecao.sequencial}</td>
+								<td>${selecao.quantidadeVagas}</td>
+								<td>${selecao.status.nome}</td>
 
 
 								<td><sec:authorize
 										access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
 										<a id="visualizarInscritos"
-											href="<c:url value="/selecao/inscritos/${inscricao.selecao.id}" ></c:url>">
+											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
 												<i class="fa fa-users fa-lg"></i>
 											</button>
@@ -96,7 +96,7 @@
 									<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
 										<a id="editar"
 
-											href="<c:url value="/coordenador/selecao/editar/${inscricao.selecao.id}" ></c:url>">
+											href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
 											<button class="btn btn-info">
 												Editar <span class="glyphicon glyphicon-pencil"></span>
 
@@ -105,7 +105,7 @@
 										<a id="excluir" data-toggle="modal"
 											data-target="#confirm-delete" href="#"
 
-											data-href="<c:url value="/coordenador/selecao/excluir/${inscricao.selecao.id}" ></c:url>">
+											data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
 											<button class="btn btn-danger">
 												Excluir <span class="glyphicon glyphicon-trash"></span>
 
@@ -114,7 +114,7 @@
 
 										<a id="atribuirBanca"
 
-											href="<c:url value="/coordenador/selecao/${inscricao.selecao.id}/atribuir-comissao" ></c:url>">
+											href="<c:url value="/coordenador/selecao/${selecao.id}/atribuir-comissao" ></c:url>">
 											<c:choose>
 												<c:when test="${empty inscricao.selecao.membrosBanca}">
 													<button class="btn btn-primary">

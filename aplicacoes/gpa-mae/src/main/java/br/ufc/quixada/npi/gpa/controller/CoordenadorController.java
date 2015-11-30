@@ -234,14 +234,21 @@ public class CoordenadorController {
 		Selecao selecao = this.selecaoService.find(Selecao.class, idSelecao);
 		
 		if (selecao != null) {
-			if (selecao.getStatus().equals(Status.NOVA)) {
-				this.selecaoService.delete(selecao);
-				redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
+			
+				if (selecao.getStatus().equals(Status.NOVA)) {
+					this.selecaoService.delete(selecao);
+					redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
+				} else {
+					if(selecao.getInscritos() != null){
+						redirect.addFlashAttribute("erro", "Permissão negada. Só é possível remover uma seleção enquanto seu status é nova.");
+					}else{
+						this.selecaoService.delete(selecao);
+						redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
+					}
+				}
 			} else {
-				redirect.addFlashAttribute("erro", "Permissão negada. Só é possível remover uma seleção enquanto seu status é nova.");
-			}
-		} else {
-			redirect.addFlashAttribute("erro", "Seleção inexistente.");
+				redirect.addFlashAttribute("erro", "Seleção inexistente.");
+			
 		}
 		
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
