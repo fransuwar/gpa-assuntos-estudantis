@@ -376,7 +376,7 @@ public class AlunoController {
 
 	}
 	
-	@RequestMapping(value="detalhes-inscricaoInic/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="detalhes-inscricao/{id}", method = RequestMethod.GET)
 	public String detalhes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect){
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, id);
 		if (inscricao == null) {
@@ -387,6 +387,7 @@ public class AlunoController {
 		
 		return "aluno/detalhesInscricao";
 	}
+	
 
 	
 }

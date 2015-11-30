@@ -10,7 +10,7 @@ public class Constants {
 	
 	/** Páginas */
 	
-	public static final String PAGINA_CADASTRAR_SELECAO 			= "selecao/cadastrar";
+	public static final String PAGINA_CADASTRAR_SELECAO 			= "coordenador/cadastrarSelecao";
 	
 	public static final String PAGINA_LISTAR_SELECAO				= "selecao/listarSelecao";
 	
