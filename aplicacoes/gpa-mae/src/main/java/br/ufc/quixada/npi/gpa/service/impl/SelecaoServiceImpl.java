@@ -20,6 +20,7 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Selecao> getSelecaoBolsasSubmetidos() {
+
 		return find(QueryType.JPQL, "from Selecao as p where p.status != 'NOVO' ", null);
 	}
 
@@ -91,6 +92,7 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 	@Transactional(readOnly = true)
 	public List<Selecao> getSelecaoComAlunos() {
 		return ((List<Selecao>) find("Selecao.findSelecaoComAlunos", new SimpleMap<String, Object>()));
+
 	}
 
 

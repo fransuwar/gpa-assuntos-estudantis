@@ -1,5 +1,6 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,5 +25,6 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	}
 
 	
+
 
 }

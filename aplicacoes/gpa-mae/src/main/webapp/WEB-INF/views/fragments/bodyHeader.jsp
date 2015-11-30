@@ -36,7 +36,7 @@
 								Seleções <span class="glyphicon glyphicon-list"></span>
 						</a></li>
 						<li role="presentation"><a
-							href="<c:url value="/aluno/listar" />">Listar Alunos <span
+							href="<c:url value="/servidor/listar/alunos" />">Listar Alunos <span
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>
@@ -54,12 +54,10 @@
 					</sec:authorize>
 					<sec:authorize ifAllGranted="COORD_ASS_ESTUDANTIS">
 						<li role="presentation"><a
-							href="<c:url value="/aluno/listar" />">Listar Alunos <span
+							href="<c:url value="/servidor/listar/alunos" />">Listar Alunos <span
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
-						<li role="presentation"><a
-							href="<c:url value="/selecao/listar" />">Listar Seleções <span
-								class="glyphicon glyphicon-list"></span>
+						<li role="presentation"><a href="<c:url value="/selecao/listar" />">Listar Seleções <span class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>
 

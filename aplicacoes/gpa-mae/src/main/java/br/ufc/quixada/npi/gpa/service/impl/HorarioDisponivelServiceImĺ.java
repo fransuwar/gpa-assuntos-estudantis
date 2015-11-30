@@ -17,7 +17,7 @@ public class HorarioDisponivelServiceImĺ extends GenericServiceImpl<HorarioDisp
 	@Override
 	public List<HorarioDisponivel> getHorariosDisponiveisByQuest(Integer idQuest) {
 		return find("HorarioDisponivel.findHorarioDisponivelByIdQuest",
-				new SimpleMap<String, Object>("idQuest", idQuest));
+				new SimpleMap<String, Object>("id", idQuest));
 	}
 
 }

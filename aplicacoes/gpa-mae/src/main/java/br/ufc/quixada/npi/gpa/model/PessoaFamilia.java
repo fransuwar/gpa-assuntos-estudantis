@@ -7,24 +7,38 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestBIA",  query = "select pf from PessoaFamilia pf where pf.iniciacaoAcademica.id = :idQuest"),
+	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestAMOR", query = "select pf from PessoaFamilia pf where pf.auxilioMoradia.id = :idQuest")
+})
 public class PessoaFamilia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	
 	private String nome;
+	
 	private int idade;
+	
 	private String escolaridade;
+	
 	private String profissao;
+	
 	private double rendaMensal;
+	
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
+	
 	@ManyToOne
 	private QuestionarioAuxilioMoradia auxilioMoradia;
+	
 	@ManyToOne
 	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
 

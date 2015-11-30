@@ -58,7 +58,7 @@
 						<sec:authorize access="isAnonymous()">
 							<dd>
 								<a
-									href="<c:url value="/selecao/downloadDocumento/${documento.id}"></c:url>">${documento.nome}</a>
+									href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
 							</dd>
 						</sec:authorize>
 					</c:forEach>

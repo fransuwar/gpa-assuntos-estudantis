@@ -81,7 +81,7 @@ see here: http://static.springsource.org/spring/docs/current/spring-framework-re
 	</filter-mapping> 
 	
 	
-	<!--  
+	 
 	<filter>
 		<filter-name>OpenEntityManagerInViewFilter</filter-name>
 		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
@@ -90,6 +90,6 @@ see here: http://static.springsource.org/spring/docs/current/spring-framework-re
 		<filter-name>OpenEntityManagerInViewFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping> 
-	-->
+	
    
 </web-app>

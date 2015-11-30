@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,7 +28,10 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 
 @Entity
-//@NamedQueries({ @NamedQuery(name = "AuxMor.findAuxMorById", query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.aluno.id = :idAluno") })
+@NamedQueries({
+		@NamedQuery(name = "AuxMor.findAuxMorById", 
+					query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.id = :idInscricao") 
+			})
 public class QuestionarioAuxilioMoradia {
 
 	@Id
@@ -150,8 +152,7 @@ public class QuestionarioAuxilioMoradia {
 	
 	private FinalidadeVeiculo finalidadeVeiculo;
 	
-	@OneToOne
-	private Inscricao inscricao;
+
 	
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
@@ -388,14 +389,6 @@ public class QuestionarioAuxilioMoradia {
 	@Override
 	public String toString() {
 		return "QuestionarioAuxilioMoradia [id=" + id + "]";
-	}
-
-	public Inscricao getInscricao() {
-		return inscricao;
-	}
-
-	public void setInscricao(Inscricao inscricao) {
-		this.inscricao = inscricao;
 	}
 
 	public boolean isBolsaEnsinoFundamental() {
