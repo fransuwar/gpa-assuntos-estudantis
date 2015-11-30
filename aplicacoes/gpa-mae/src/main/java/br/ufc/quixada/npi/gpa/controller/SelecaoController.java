@@ -1,6 +1,10 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
 import java.util.List;
 
@@ -26,13 +30,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
-import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
-import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -57,28 +60,35 @@ public class SelecaoController {
 	
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
-
-	@Inject
-	private InscricaoService inscricaoService;
 	
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
 		
-		List<Inscricao> inscricoes = this.inscricaoService.find(Inscricao.class);
+		List<Selecao> selecoes = selecaoService.find(Selecao.class);
 
-		
 		if (request.isUserInRole("DISCENTE")) {
+
 			
 			Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
 			
-			model.addAttribute("inscricoes", inscricoes);
+			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+
 			
+		} else if(request.isUserInRole("SERVIDOR")){
+			
+			Servidor servidor = this.servidorService.getServidorByCpf(auth.getName());
+			
+			selecoes = servidor.getParticipaBancas();
+			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+
 		} else {
-			
-			model.addAttribute("inscricoes", inscricoes);
+
+			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
@@ -89,30 +99,29 @@ public class SelecaoController {
 	
 
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("idSelecao") Integer id, Model model, RedirectAttributes redirectAttributes) {
-		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(id);
+	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
+		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
 
 		if (selecao == null) {
-			redirectAttributes.addFlashAttribute("erro", "seleção Inexistente");
+			redirect.addFlashAttribute("erro", "seleção Inexistente");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
-		
 		model.addAttribute("selecao", selecao);
 
 		return PAGINA_INFORMACOES_SELECAO;
 	}
-	
-//	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
-//	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
-//			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
-//		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
-//	}
 
-//	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
-//	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
-//		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
-//	}
-	
+	//	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
+	//	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
+	//			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
+	//		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
+	//	}
+
+	//	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
+	//	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
+	//		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
+	//	}
+
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Long id, 
 			RedirectAttributes redirectAttributes){
@@ -126,7 +135,6 @@ public class SelecaoController {
 		redirectAttributes.addFlashAttribute("success", "Download do Documento realizado com sucesso");
 		return new HttpEntity<byte[]>(arquivo, headers);
 	}
-
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
@@ -211,10 +219,8 @@ public class SelecaoController {
 		return PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
 
 	}
-	
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhesInscricao() {
 		return "";
 	}
-	
 }
