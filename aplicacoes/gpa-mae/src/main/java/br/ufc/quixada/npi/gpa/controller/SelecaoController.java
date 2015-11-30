@@ -151,9 +151,9 @@ public class SelecaoController {
 		return PAGINA_LISTAR_SELECAO;
 	}
 
-//	@RequestMapping(value = "inscritos/{id}", method = RequestMethod.GET)
-//	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
-//
+	@RequestMapping(value = "inscritos/{id}", method = RequestMethod.GET)
+	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
+
 //		List<Aluno> alunosSelecao = this.selecaoService.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
 //		
 //		List<Parecer> pareceres = new ArrayList<Parecer>();
@@ -168,10 +168,10 @@ public class SelecaoController {
 //		
 //		model.addAttribute("pareceres", parecerForm);
 //		model.addAttribute("idSelecao", id);
-//
-//		return PAGINA_LISTAR_INSCRITOS_SELECAO;
-//	}
-//	
+
+		return PAGINA_LISTAR_INSCRITOS_SELECAO;
+	}
+	
 //	@RequestMapping(value = "/visualizarFormulario/{idaluno}")
 //	public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
 //		return null;
@@ -223,6 +223,7 @@ public class SelecaoController {
 		return PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
 
 	}
+	
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhesInscricao() {
 		return "";
