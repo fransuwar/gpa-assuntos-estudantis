@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -36,17 +37,18 @@ public class Inscricao {
 
 	private String observacoes;
 
+	@Column(nullable = false)
+	private boolean deferimento;
 	@OneToOne
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
-
 	@OneToOne
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
-
 	@OneToOne
 	private Selecao selecao;
-
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
+	@OneToOne
+	private Entrevista entrevista;
 
 	public Integer getId() {
 		return id;
@@ -118,6 +120,22 @@ public class Inscricao {
 
 	public void setVisitaDomiciliar(VisitaDomiciliar visitaDomiciliar) {
 		this.visitaDomiciliar = visitaDomiciliar;
+	}
+
+	public boolean isDeferimento() {
+		return deferimento;
+	}
+
+	public void setDeferimento(boolean deferimento) {
+		this.deferimento = deferimento;
+	}
+
+	public Entrevista getEntrevista() {
+		return entrevista;
+	}
+
+	public void setEntrevista(Entrevista entrevista) {
+		this.entrevista = entrevista;
 	}
 
 	@Override

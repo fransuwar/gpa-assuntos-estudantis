@@ -4,6 +4,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MO
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -271,11 +272,13 @@ public class AlunoController {
 			Inscricao inscricao = new Inscricao();
 			inscricao.setSelecao(selecao);
 			inscricao.setQuestionarioAuxilioMoradia(questionarioAuxilioMoradia);
+			inscricao.setDeferimento(false);
+			inscricao.setData(new Date());
 			aluno.getInscricoes().add(inscricao);
 
 			
 			questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
-			inscricaoService.save(inscricao);
+			//inscricaoService.save(inscricao);
 			alunoService.update(aluno);
 			
 			
