@@ -19,8 +19,9 @@
 	<div class="container" align="left" style="padding-left: 85px;">
 		<div class="panel panel-primary-min">
 			<div class="panel-heading">
-				<h3 class="panel-title">Detalhes da Seleção </h3>
+				<h3 class="panel-title">Detalhes da Seleção</h3>
 			</div>
+
 			<div class="panel-body" >
 					<dl class="col-sm-12">
 						<dt class="col-sm-3" >Número do Edital:</dt>
@@ -53,9 +54,68 @@
 								pattern="dd/MM/yyyy" />
 						</dd>
 					</dl>
+			<dl class="col-sm-12">
+					<dt class="col-sm-3">Arquivos:</dt>
+					<c:forEach var="documento" items="${selecao.documentos}">
+							<dd class="col-sm-3">
+								<a
+									href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
+									${documento.nome} 
+								</a>
+							</dd>
+					</c:forEach>
+				</dl>
 			</div>
 		</div>
+		<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
+		<div class="panel panel-primary-min" align="left">
+			<div class="panel-heading">
+				<h3 class="panel-title">Resultado da seleção</h3>
+			</div>
+			<table class="table">
+				<thead>
+					<tr class="info">
+						<td>Nome</td>
+						<td>Matrícula</td>
+					</tr>
+				</thead>
+				<tr>
+					<td>Não existem classificados no momento</td>
+				</tr>
+			</table>
+		</div>
+		<div class="panel panel-primary-min" align="left">
+			<div class="panel-heading">
+				<h3 class="panel-title">Participantes da Seleção</h3>
+			</div>
+			<table class="table">
+				<thead>
+					<tr class="info">
+						<td>Número</td>
+						<td>Aluno</td>
+						<td>Matricula</td>
+						<td>Data</td>
+					</tr>
+				</thead>
+				<tbody>
+						<c:forEach var="inscrito"
+							items="${selecao.inscritos }">
+							<tr>
+								<td>${inscrito.id }</td>
+								<td>${inscrito.aluno.pessoa.nome }</td>
+								<td>${inscrito.aluno.matricula }</td>
+								<td><fmt:formatDate value="${inscrito.data}"
+								pattern="dd/MM/yyyy" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+			</table>	
+		
+		</div>
+
+		</sec:authorize>
 	</div>
+
 	<jsp:include page="../fragments/footer.jsp" />
 </body>
 </html>

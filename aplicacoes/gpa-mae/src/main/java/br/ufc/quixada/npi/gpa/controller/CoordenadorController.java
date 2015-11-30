@@ -239,11 +239,11 @@ public class CoordenadorController {
 					this.selecaoService.delete(selecao);
 					redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
 				} else {
-					if(selecao.getInscritos() != null){
-						redirect.addFlashAttribute("erro", "Permissão negada. Só é possível remover uma seleção enquanto seu status é nova.");
-					}else{
+					if(selecao.getInscritos().size() == 0){
 						this.selecaoService.delete(selecao);
 						redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
+					}else{
+						redirect.addFlashAttribute("erro", "Permissão negada. Só é possível remover uma seleção enquanto seu status é nova.");
 					}
 				}
 			} else {
