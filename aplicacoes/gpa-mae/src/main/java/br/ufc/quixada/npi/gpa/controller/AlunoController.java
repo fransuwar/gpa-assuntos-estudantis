@@ -159,7 +159,7 @@ public class AlunoController {
 //		
 //		return "aluno/InscricaoIniciacaoAcademica";
 //	}
-	
+//	
 	@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
 	public String editarInscricaoBIA(@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
 			BindingResult result,Model model, RedirectAttributes redirect) {
