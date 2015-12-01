@@ -25,9 +25,12 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 
 @NamedQueries({
-		@NamedQuery(name = "Selecao.findSelecaoBolsaComDocumentos", query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId "),
-		@NamedQuery(name = "Selecao.findSelecaoBolsaComMembros", query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca"),
-		@NamedQuery(name = "Selecao.findSelecaoBolsaIdComMembros", query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId"), })
+		@NamedQuery(name = "Selecao.findSelecaoBolsaComDocumentos", 
+				query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId "),
+		@NamedQuery(name = "Selecao.findSelecaoBolsaComMembros", 
+				query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca"),
+		@NamedQuery(name = "Selecao.findSelecaoBolsaIdComMembros", 
+				query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId"), })
 
 @Entity
 public class Selecao {
@@ -173,8 +176,13 @@ public class Selecao {
 		this.tipoBolsa = tipoBolsa;
 	}
 
-	
+	public List<Inscricao> getInscritos() {
+		return inscritos;
+	}
 
+	public void setInscritos(List<Inscricao> inscritos) {
+		this.inscritos = inscritos;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -200,14 +208,8 @@ public class Selecao {
 		return true;
 	}
 
-	public List<Inscricao> getInscritos() {
-		return inscritos;
-	}
 
-	public void setInscritos(List<Inscricao> inscritos) {
-		this.inscritos = inscritos;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "Selecao [id=" + id + ", ano=" + ano + ", sequencial=" + sequencial + ", quantidadeVagas="
@@ -215,7 +217,5 @@ public class Selecao {
 				+ ", tipoBolsa=" + tipoBolsa + ", documentos=" + documentos + ", membrosBanca=" + membrosBanca
 				+ ", responsavel=" + responsavel + ", inscritos=" + inscritos + "]";
 	}
-	
-	
 	
 }

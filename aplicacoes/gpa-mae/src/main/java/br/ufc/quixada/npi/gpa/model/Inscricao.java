@@ -42,6 +42,7 @@ public class Inscricao {
 
 	@Column(nullable = false)
 	private boolean deferimento;
+	
 	@OneToOne
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
 	@OneToOne

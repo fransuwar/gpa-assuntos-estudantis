@@ -125,6 +125,8 @@ public class AlunoController {
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
+			model.addAttribute("idSelecao", idSelecao);
+			
 
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
