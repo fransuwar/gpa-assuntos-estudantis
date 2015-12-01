@@ -172,7 +172,8 @@
 												</a>
 											</c:when>
 										</c:choose>
-									</sec:authorize> <sec:authorize access="hasAnyRole('SERVIDOR')">
+									</sec:authorize> 
+									<sec:authorize access="hasAnyRole('SERVIDOR')">
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">

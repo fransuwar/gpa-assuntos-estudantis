@@ -37,4 +37,9 @@ public class ServidorServiceImpl extends GenericServiceImpl<Servidor> implements
 	public Servidor getServidorByCpf(String cpf) {
 			return (Servidor) findFirst("Servidor.findServidorByCpf", new SimpleMap<String, Object>("cpf", cpf));
 	}
+
+	@Override
+	public Servidor getServidorByCPFComBancas(String CPF) {
+		return (Servidor) findFirst("Servidor.findServidorByCPFComBancas", new SimpleMap<String, Object>("cpf", CPF));
+	}
 }
