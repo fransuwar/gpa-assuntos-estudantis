@@ -320,31 +320,31 @@ public class ServidorController {
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model) {
-		
+		//TODO - Método p/ ser implementado que realiza a listagem das seleções a quais um servidor pertence.
 		return PAGINA_LISTAR_SELECAO;
 	}
 	
 	@RequestMapping(value = { "entrevista/{idInscricao}" }, method = RequestMethod.GET)
-	public String realizarEstrevista() {
-		
+	public String realizarEntrevista(Model model) {
+		//TODO - Método p/ ser implementado que retorna página de realização de entrevista.
 		return "";
 	}
 	
 	@RequestMapping(value = { "entrevista" }, method = RequestMethod.POST)
 	public String realizarEntrevista() {
-		
+		//TODO - Método p/ ser implementado que realiza uma entrevista de uma determinada inscrição.
 		return "";
 	}
 	
 	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
 	public String realizarVisita(Model model) {
-		
+		//TODO - Método p/ ser implementado que retorna a página de realização uma visita.
 		return "";
 	}
 	
 	@RequestMapping(value = { "visita" }, method = RequestMethod.POST)
 	public String realizarVisita() {
-		
+		//TODO - Método p/ ser implementado que realiza uma visita de uma determinada inscrição.
 		return "";
 	}
 }
