@@ -64,7 +64,9 @@ public class SelecaoController {
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
 		
-		List<Selecao> selecoes = selecaoService.find(Selecao.class);
+
+		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
+
 
 		if (request.isUserInRole("DISCENTE")) {
 
@@ -87,6 +89,8 @@ public class SelecaoController {
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 
 		} else {
+
+
 
 			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());

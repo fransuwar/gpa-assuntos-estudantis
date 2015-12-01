@@ -1,5 +1,6 @@
 package br.ufc.quixada.npi.gpa.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -183,6 +184,12 @@ public class Selecao {
 	public void setInscritos(List<Inscricao> inscritos) {
 		this.inscritos = inscritos;
 	}
+	public void addCoordenador (Servidor coordenador){
+		if(this.membrosBanca == null){
+			membrosBanca = new ArrayList<Servidor>();
+		}
+		this.membrosBanca.add(coordenador);
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -208,7 +215,6 @@ public class Selecao {
 		return true;
 	}
 
-
 	
 	@Override
 	public String toString() {
@@ -217,5 +223,5 @@ public class Selecao {
 				+ ", tipoBolsa=" + tipoBolsa + ", documentos=" + documentos + ", membrosBanca=" + membrosBanca
 				+ ", responsavel=" + responsavel + ", inscritos=" + inscritos + "]";
 	}
-	
+
 }
