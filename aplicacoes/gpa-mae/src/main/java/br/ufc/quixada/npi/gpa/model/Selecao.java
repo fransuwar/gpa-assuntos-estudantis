@@ -214,6 +214,7 @@ public class Selecao {
 			return false;
 		return true;
 	}
+
 	
 	@Override
 	public String toString() {
