@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.joda.time.DateTime;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,7 +58,7 @@ public class CoordenadorController {
 	
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
 	public String cadastroSelecao(@RequestParam("files") List<MultipartFile> files, Model model,
-			@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, 
+			@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, Authentication auth, 
 			RedirectAttributes redirect) {
 		
 		model.addAttribute("action", "cadastrar");
@@ -121,7 +122,8 @@ public class CoordenadorController {
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-		
+		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());
+		selecao.addCoordenador(coordenador);	
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Nova seleção cadastrada com sucesso.");
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
