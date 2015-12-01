@@ -207,4 +207,12 @@ public class Selecao {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "Selecao [id=" + id + ", ano=" + ano + ", sequencial=" + sequencial + ", quantidadeVagas="
+				+ quantidadeVagas + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino + ", status=" + status
+				+ ", tipoBolsa=" + tipoBolsa + ", documentos=" + documentos + ", membrosBanca=" + membrosBanca
+				+ ", responsavel=" + responsavel + ", inscritos=" + inscritos + "]";
+	}
+
 }
