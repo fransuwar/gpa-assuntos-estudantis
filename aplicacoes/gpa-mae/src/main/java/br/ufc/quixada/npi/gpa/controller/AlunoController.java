@@ -1,9 +1,11 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MORADIA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_VISUALIZAR_INSC_AUX_MOR;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -43,9 +45,7 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
-import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.PessoaFamiliaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
@@ -60,13 +60,7 @@ public class AlunoController {
 	private QuestionarioIniciacaoAcademicaService iniciacaoAcademicaService;
 
 	@Inject
-	private QuestionarioAuxMoradiaService auxilioMoradiaService;
-
-	@Inject
-	private HorarioDisponivelService horarioDisponivelService;
-
-	@Inject
-	private PessoaFamiliaService pessoaFamiliaService;
+	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
 
 	@Inject
 	private AlunoService alunoService;
@@ -77,12 +71,21 @@ public class AlunoController {
 	@Inject
 	private InscricaoService inscricaoService;
 
+	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
+	public String listarSelecoesAbertas() {
+		// TODO - Método p/ implementar que retorna página com seleções em
+		// aberto
+		return "";
+	}
+
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
 
 		Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
 
 		model.addAttribute("inscricoes", aluno.getInscricoes());
+
+		// TODO - Criar página de retorno que mostra as inscrições dos alunos.
 
 		return "";
 	}
@@ -129,6 +132,7 @@ public class AlunoController {
 		inscricao.setQuestionarioIniciacaoAcademica(iniciacaoAcademica);
 		inscricao.setSelecao(selecaoService.find(Selecao.class, idSelecao));
 		inscricao.setData(new DateTime().toDate());
+		inscricao.setAluno(alunoService.getAlunoByCPF(auth.getName()));
 		this.inscricaoService.save(inscricao);
 
 		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
@@ -137,49 +141,15 @@ public class AlunoController {
 
 	}
 
-	// @RequestMapping(value = {
-	// "inscricao/editar/iniciacao-academica/{idInscricao}" }, method =
-	// RequestMethod.GET)
-	// public String editarInscricaoBIA(@PathVariable("idInscricao") Integer
-	// idInscricao, Model model, RedirectAttributes redirect) {
-	//
-	// QuestionarioIniciacaoAcademica iniciacaoAcademica =
-	// this.iniciacaoAcademicaService.getQuestIniAcadById(idInscricao);
-	// Selecao selecao = iniciacaoAcademica.getSelecaoBolsa();
-	//
-	// if (selecao.getStatus() != null &&
-	// selecao.getStatus().equals(Status.INSC_ABERTA)) {
-	//
-	// model.addAttribute("action", "editar");
-	// model.addAttribute("questionarioIniciacaoAcademica", iniciacaoAcademica);
-	// model.addAttribute("selecaoBolsa", selecao.getId());
-	// model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
-	// model.addAttribute("turno", Turno.values());
-	// model.addAttribute("diasUteis", DiaUtil.values());
-	// model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
-	// model.addAttribute("totalEstado", Estado.toMap());
-	// model.addAttribute("grauParentesco", GrauParentesco.values());
-	//
-	// List<HorarioDisponivel> horariosDisponiveis =
-	// this.horarioDisponivelService.getHorariosDisponiveisByQuest(iniciacaoAcademica.getId());
-	// if (horariosDisponiveis != null) {
-	// model.addAttribute("horariosDisponiveis", horariosDisponiveis);
-	// }
-	//
-	// List<PessoaFamilia> pessoasDaFamilia =
-	// this.pessoaFamiliaService.getPessoaFamiliaByIdQuestBIA(iniciacaoAcademica.getId());
-	// if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
-	// model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
-	// }
-	//
-	// } else {
-	// redirect.addFlashAttribute("erro", "Só pode editar sua inscrição enquanto
-	// a seleção estiver aberta.");
-	// return REDIRECT_PAGINA_LISTAR_SELECAO;
-	// }
-	//
-	// return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
-	// }
+	@RequestMapping(value = { "inscricao/editar/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
+	public String editarInscricaoBIA(@PathVariable("idInscricao") Integer idInscricao, Model model,
+			RedirectAttributes redirect) {
+
+		// TODO - Método p/ implementar que retorna página de formulário de
+		// inscrição em iniciação acadêmica.
+
+		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
+	}
 
 	@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
 	public String editarInscricaoBIA(
@@ -198,14 +168,16 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 
-			List<HorarioDisponivel> horariosDisponiveis = this.horarioDisponivelService
+			List<HorarioDisponivel> horariosDisponiveis = this.inscricaoService
 					.getHorariosDisponiveisByQuest(iniciacaoAcademica.getId());
+
 			if (horariosDisponiveis != null) {
 				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
 			}
 
-			List<PessoaFamilia> pessoasDaFamilia = this.pessoaFamiliaService
+			List<PessoaFamilia> pessoasDaFamilia = this.inscricaoService
 					.getPessoaFamiliaByIdQuestBIA(iniciacaoAcademica.getId());
+
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
@@ -219,59 +191,65 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
-	public String realizarInscricaoAMOR(@PathVariable("idSelecao") Integer idSelecao, Model model) {
+	public String inscreverAuxMoradia(@ModelAttribute("id") Integer idPessoa,
+			@ModelAttribute("idSelecao") Integer idSelecao, Model model) {
 
 		model.addAttribute("action", "inscricao");
-
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
-		model.addAttribute("selecaoBolsa", idSelecao);
-		model.addAttribute("estado", Estado.toMap());
-		model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
-		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.toMap());
-		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.toMap());
-		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.toMap());
-		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.toMap());
-		model.addAttribute("grauParentesco", GrauParentesco.toMap());
-		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
-		model.addAttribute("moraCom", MoraCom.toMap());
+		model.addAttribute("estado", Estado.values());
+		model.addAttribute("situacaoImovel", SituacaoImovel.values());
+		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
+		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
+		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
+		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
+		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
+		model.addAttribute("grauParentesco", GrauParentesco.values());
+		model.addAttribute("moraCom", MoraCom.values());
+		model.addAttribute("idSelecao", idSelecao);
 
 		return PAGINA_INSCREVER_AUXILIO_MORADIA;
 	}
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
-	public String realizarInscricaoAMOR(
-			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
-			BindingResult result, RedirectAttributes redirect, Authentication auth) {
-
-		model.addAttribute("action", "inscricao");
+	public String realizarInscricaoAuxMoradia(
+			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
+			BindingResult result, @ModelAttribute("id") Integer idPessoa,
+			@ModelAttribute("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
+			Model model) {
 
 		if (result.hasErrors()) {
-
-			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
-			model.addAttribute("estado", Estado.toMap());
-			model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
-			model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.toMap());
-			model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.toMap());
-			model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.toMap());
-			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.toMap());
-			model.addAttribute("grauParentesco", GrauParentesco.toMap());
-			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
-			model.addAttribute("moraCom", MoraCom.toMap());
+			model.addAttribute("estado", Estado.values());
+			model.addAttribute("situacaoImovel", SituacaoImovel.values());
+			model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
+			model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
+			model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
+			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
+			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
+			model.addAttribute("moraCom", MoraCom.values());
+			model.addAttribute("selecaoBolsa", idSelecao);
 
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
+
+		} else {
+
+			Aluno aluno = this.alunoService.getAlunoComInscricoes(idPessoa);
+			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+
+			Inscricao inscricao = new Inscricao();
+			inscricao.setSelecao(selecao);
+			inscricao.setQuestionarioAuxilioMoradia(questionarioAuxilioMoradia);
+			inscricao.setDeferimento(false);
+			inscricao.setData(new Date());
+
+			inscricao.setAluno(aluno);
+			aluno.getInscricoes().add(inscricao);
+
+			questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
+			alunoService.update(aluno);
+
+			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
 
-		// Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
-		// auxilioMoradia.setAluno(aluno);
-		// SelecaoBolsa selecao =
-		// this.selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
-		// selecao.getAlunosSelecao().add(aluno);
-		//
-		// this.selecaoBolsaService.update(selecao);
-		//
-		// auxilioMoradia.setSelecaoBolsa(selecao);
-		//
-		// this.auxilioMoradiaService.save(auxilioMoradia);
 		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -281,41 +259,9 @@ public class AlunoController {
 	public String editarInscricaoAMOR(@PathVariable("idInscricao") Integer idInscricao, Model model,
 			RedirectAttributes redirect) {
 
-		/*
-		 * QuestionarioAuxilioMoradia auxilioMoradia =
-		 * this.auxilioMoradiaService.getQuestAuxMorById(idInscricao); Selecao
-		 * selecao = auxilioMoradia.getInscricao().getSelecaoBolsa();
-		 * 
-		 * if (selecao.getStatus() != null &&
-		 * selecao.getStatus().equals(Status.INSC_ABERTA)) {
-		 * 
-		 * model.addAttribute("action", "editar");
-		 * 
-		 * model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
-		 * model.addAttribute("selecaoBolsa", selecao.getId());
-		 * model.addAttribute("estado", Estado.toMap());
-		 * model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
-		 * model.addAttribute("tipoEnsinoFundamental",
-		 * TipoEnsinoFundamental.toMap()); model.addAttribute("tipoEnsinoMedio",
-		 * TipoEnsinoMedio.toMap());
-		 * model.addAttribute("grauParentescoImovelRural",
-		 * GrauParentescoImovelRural.toMap());
-		 * model.addAttribute("grauParentescoVeiculos",
-		 * GrauParentescoVeiculos.toMap()); model.addAttribute("grauParentesco",
-		 * GrauParentesco.toMap()); model.addAttribute("finalidadeVeiculo",
-		 * FinalidadeVeiculo.toMap()); model.addAttribute("moraCom",
-		 * MoraCom.toMap());
-		 * 
-		 * List<PessoaFamilia> pessoasDaFamilia =
-		 * this.pessoaFamiliaService.getPessoaFamiliaByIdQuestBIA(auxilioMoradia
-		 * .getId()); if (pessoasDaFamilia != null &&
-		 * !pessoasDaFamilia.isEmpty()) { model.addAttribute("pessoasDaFamilia",
-		 * pessoasDaFamilia); }
-		 * 
-		 * } else { redirect.addFlashAttribute("erro",
-		 * "Só pode editar sua inscrição enquanto a seleção estiver aberta.");
-		 * return REDIRECT_PAGINA_LISTAR_SELECAO; }
-		 */
+		// TODO - Método p/ implementar que retorna página de edição do
+		// formulário de inscrição em auxílio moradia.
+
 		return PAGINA_INSCREVER_AUXILIO_MORADIA;
 
 	}
@@ -324,53 +270,26 @@ public class AlunoController {
 	public String editarInscricaoAMOR(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
 			BindingResult result, RedirectAttributes redirect) {
-		/*
-		 * model.addAttribute("action", "editar");
-		 * 
-		 * if (result.hasErrors()) {
-		 * model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
-		 * model.addAttribute("selecaoBolsa",
-		 * auxilioMoradia.getInscricao().getSelecaoBolsa().getId());
-		 * model.addAttribute("estado", Estado.toMap());
-		 * model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
-		 * model.addAttribute("tipoEnsinoFundamental",
-		 * TipoEnsinoFundamental.toMap()); model.addAttribute("tipoEnsinoMedio",
-		 * TipoEnsinoMedio.toMap());
-		 * model.addAttribute("grauParentescoImovelRural",
-		 * GrauParentescoImovelRural.toMap());
-		 * model.addAttribute("grauParentescoVeiculos",
-		 * GrauParentescoVeiculos.toMap()); model.addAttribute("grauParentesco",
-		 * GrauParentesco.toMap()); model.addAttribute("finalidadeVeiculo",
-		 * FinalidadeVeiculo.toMap()); model.addAttribute("moraCom",
-		 * MoraCom.toMap());
-		 * 
-		 * List<PessoaFamilia> pessoasDaFamilia =
-		 * this.pessoaFamiliaService.getPessoaFamiliaByIdQuestBIA(auxilioMoradia
-		 * .getId()); if (pessoasDaFamilia != null &&
-		 * !pessoasDaFamilia.isEmpty()) { model.addAttribute("pessoasDaFamilia",
-		 * pessoasDaFamilia); }
-		 * 
-		 * return PAGINA_INSCREVER_AUXILIO_MORADIA;
-		 * 
-		 * }
-		 */
-
-		this.auxilioMoradiaService.update(auxilioMoradia);
-		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
+		// TODO - Método p/ implementar que salva a edição de um formulário em
+		// uma incrição auxílio moradia.
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
 
-	@RequestMapping(value = "detalhes-inscricaoInic/{id}", method = RequestMethod.GET)
-	public String detalhes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect) {
-		Inscricao inscricao = inscricaoService.getInscricaoId(id);
+	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
+	public String detalhes(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
+			RedirectAttributes redirect) {
+
+		Inscricao inscricao = inscricaoService.getInscricaoId(idInscricao);
+
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
-			return "redirect:/selecao/listar";
+
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		modelo.addAttribute("inscricao", inscricao);
 
-		return "aluno/detalhesInscricao";
+		return PAGINA_DETALHES_INSCRICAO;
 	}
 
 	@RequestMapping(value = "detalhes-inscricaoAuxMor/{id}")
@@ -380,9 +299,10 @@ public class AlunoController {
 			redirect.addFlashAttribute("erro", "Incrição Inexistente");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
+		
 		modelo.addAttribute("inscricao", inscricao);
 		modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
-
+		//modelo.addAttribute("pessoasFamilia", inscricao.getQuestionarioIniciacaoAcademica().getPessoas());
 		return PAGINA_VISUALIZAR_INSC_AUX_MOR;
 	}
 

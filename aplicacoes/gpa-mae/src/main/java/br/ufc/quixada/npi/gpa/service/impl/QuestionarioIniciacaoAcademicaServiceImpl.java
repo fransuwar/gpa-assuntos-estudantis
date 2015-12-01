@@ -15,7 +15,7 @@ public class QuestionarioIniciacaoAcademicaServiceImpl extends GenericServiceImp
 	
 	@Override
 	@Transactional(readOnly = true)
-	public QuestionarioIniciacaoAcademica getQuestIniAcadById(Integer idInscricao) {
-		return (QuestionarioIniciacaoAcademica) findFirst("IniAcad.findIniAcadById", new SimpleMap<String, Object>("idInscricao", idInscricao));
+	public QuestionarioIniciacaoAcademica getQuestIniAcadById(Integer idQuest) {
+		return (QuestionarioIniciacaoAcademica) findFirst("IniAcad.findIniAcadById", new SimpleMap<String, Object>("idQuest", idQuest));
 	}
 }

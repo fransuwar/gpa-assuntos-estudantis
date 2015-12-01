@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -30,7 +30,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "AuxMor.findAuxMorById", 
-					query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.id = :idInscricao") 
+					query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.id = :idQuest") 
 			})
 public class QuestionarioAuxilioMoradia {
 
@@ -155,7 +155,7 @@ public class QuestionarioAuxilioMoradia {
 
 	
 	@NotEmpty(message = "Campo obrigatório")
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
 
@@ -388,7 +388,24 @@ public class QuestionarioAuxilioMoradia {
 
 	@Override
 	public String toString() {
-		return "QuestionarioAuxilioMoradia [id=" + id + "]";
+		return "QuestionarioAuxilioMoradia [id=" + id + ", ensinoFundamental=" + ensinoFundamental
+				+ ", bolsaEnsinoFundamental=" + bolsaEnsinoFundamental + ", percentualParticularFundamental="
+				+ percentualParticularFundamental + ", ensinoMedio=" + ensinoMedio + ", bolsaEnsinoMedio="
+				+ bolsaEnsinoMedio + ", percentualParticularMedio=" + percentualParticularMedio + ", cursinho="
+				+ cursinho + ", nomeCursinho=" + nomeCursinho + ", bolsistaUfc=" + bolsistaUfc + ", descricaoBolsa="
+				+ descricaoBolsa + ", graduacao=" + graduacao + ", descricaoGraduacao=" + descricaoGraduacao
+				+ ", justificativa=" + justificativa + ", comQuemMora=" + comQuemMora + ", comQuemMoraOutros="
+				+ comQuemMoraOutros + ", nomePai=" + nomePai + ", nomeMae=" + nomeMae + ", endereco=" + endereco
+				+ ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", cep=" + cep
+				+ ", cidade=" + cidade + ", estado=" + estado + ", referencia=" + referencia + ", enderecoOrigem="
+				+ enderecoOrigem + ", numeroOrigem=" + numeroOrigem + ", complementoOrigem=" + complementoOrigem
+				+ ", bairroOrigem=" + bairroOrigem + ", cepOrigem=" + cepOrigem + ", cidadeOrigem=" + cidadeOrigem
+				+ ", estadoOrigem=" + estadoOrigem + ", referenciaOrigem=" + referenciaOrigem + ", telefoneOrigem="
+				+ telefoneOrigem + ", situacaoImovel=" + situacaoImovel + ", grauParentescoImovelRural="
+				+ grauParentescoImovelRural + ", areaPropriedadeRural=" + areaPropriedadeRural
+				+ ", cidadeEstadoImovelRural=" + cidadeEstadoImovelRural + ", grauParentescoVeiculos="
+				+ grauParentescoVeiculos + ", veiculo=" + veiculo + ", finalidadeVeiculo=" + finalidadeVeiculo
+				+ ", pessoas=" + pessoas + "]";
 	}
 
 	public boolean isBolsaEnsinoFundamental() {
@@ -550,5 +567,7 @@ public class QuestionarioAuxilioMoradia {
 	public void setCidadeEstadoImovelRural(String cidadeEstadoImovelRural) {
 		this.cidadeEstadoImovelRural = cidadeEstadoImovelRural;
 	}
-
+	
+	
+	
 }

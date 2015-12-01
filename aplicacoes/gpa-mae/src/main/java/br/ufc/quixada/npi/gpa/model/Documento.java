@@ -16,6 +16,7 @@ public class Documento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String nomeOriginal;
 	
 	private String nome;
@@ -28,8 +29,6 @@ public class Documento {
 	@ManyToOne
 	@JoinColumn(name = "selecaoBolsa_id")
 	private Selecao selecaoBolsa;
-	
-	
 
 	public Documento(){
 		super();

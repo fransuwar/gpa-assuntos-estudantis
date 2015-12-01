@@ -1,22 +1,37 @@
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="datatables"
+	uri="http://github.com/dandelion/datatables"%>
+<%@ taglib prefix="gpa" tagdir="/WEB-INF/tags"%>
 
-<!DOCTYPE html>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<c:if test="${action eq 'inscricao' }">
+	<c:url var="url" value="/aluno/inscricao/auxilio-moradia"></c:url>
+	<c:set var="titulo" value="Nova Inscrição"></c:set>
+	<c:set var="botao" value="Finalizar Inscrição"></c:set>
+</c:if>
+<c:if test="${action eq 'editar' }">
+	<c:url var="url" value="/aluno/inscricao/editar/auxilio-moradia"></c:url>
+	<c:set var="titulo" value="Editar Inscrição"></c:set>
+	<c:set var="botao" value="Atualizar Inscrição"></c:set>
+</c:if>
+
 
 <html>
 <head>
-<jsp:include page="../fragments/bodyHeader.jsp" />
-<title>Detalhes da Inscrição</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Cadastro Auxilio Moradia</title>
 </head>
 <body>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<div class="container" align="left" style="padding-left: 85px;">
+
+	<jsp:include page="../fragments/bodyHeader.jsp" />
+
+	<div class="container">
 		<div class="novo-projeto" align="left">
 			<div class="form" align="center">
 				<h2>Programa de Auxílio Moradia</h2>
@@ -39,6 +54,7 @@
 					</a></li>
 
 				</ul>
+
 				<input id="idAluno" name="idAluno" type="hidden"
 					value="${sessionScope.id}" /> <input id="idSelecao"
 					name="idSelecao" type="hidden" value="${idSelecao}" />
@@ -52,18 +68,12 @@
 							</div>
 							<div class="panel-body">
 								<div class="form-group">
-									<div class="col-sm-13" id="col-sm-radio">
-										<form:checkboxes items="${moraCom}" path="comQuemMora" />
-									</div>
-								</div>
-
-								<div align="left" class="col-sm-16">
-									<label for=comQuemMoraOutros class="col-sm-7 control-label">
-										<span class="red">*</span>Com Que Mora essas pessoas ?
-									</label>
-									<form:input id="comQuemMoraOutros" path="comQuemMoraOutros"
-										cssClass="form-control"
-										placeholder="Com quem mora essas pessoas ?" />
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Mora com:</dt>
+										<dd class="col-sm-3">${quesAuxMor.comQuemMora}</dd>
+										<dt class=" col-sm-3">Com quem mora os outros:</dt>
+										<dd class="col-sm-3">${questAuxMor.comQuemMoraOutros}</dd>
+									</dl>
 								</div>
 							</div>
 							<div class="panel-heading">
@@ -72,18 +82,12 @@
 							<div class="panel-body">
 
 								<div class="form-group">
-									<label for="nomeMae" class="col-sm-2 control-label"
-										id="form-label-right"><span class="red">*</span>Mãe:</label>
-									<div class="col-sm-4">
-										<form:input id="nomeMae" type="text" path="nomeMae"
-											cssClass="form-control" placeholder="Nome da Mãe" />
-									</div>
-									<label for="nomePai" class="col-sm-1 control-label"><span
-										class="red">*</span>Pai:</label>
-									<div class="col-sm-4">
-										<form:input id="nomePai" path="nomePai"
-											cssClass="form-control" placeholder="Nome do Pai" />
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Mãe:</dt>
+										<dd class="col-sm-3">${quesAuxMor.nomeMae}</dd>
+										<dt class=" col-sm-3">Pai:</dt>
+										<dd class="col-sm-3">${questAuxMor.nomePai}</dd>
+									</dl>
 								</div>
 							</div>
 
@@ -93,67 +97,38 @@
 							<div class="panel-body">
 
 								<div class="form-group">
-									<label for="endereco" class="col-sm-1 control-label"> <span
-										class="red">*</span>Rua/Av:
-									</label>
-									<div class="col-sm-5">
-										<form:input id="endereco" path="endereco"
-											cssClass="form-control" placeholder="Rua da sede do curso" />
-									</div>
-									<label for="bairro" class="col-sm-2 control-label"><span
-										class="red">*</span>Bairro:</label>
-									<div class="col-sm-4">
-										<form:input id="bairro" path="bairro" cssClass="form-control"
-											placeholder="Bairro" />
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Rua/Av:</dt>
+										<dd class="col-sm-3">${quesAuxMor.endereco}</dd>
+										<dt class=" col-sm-3">Bairro:</dt>
+										<dd class="col-sm-3">${questAuxMor.bairro}</dd>
+									</dl>
 								</div>
 
 								<div class="form-group">
-									<label for="numero" class="col-sm-1 control-label"><span
-										class="red">*</span>Número </label>
-									<div class="col-sm-1">
-										<form:input id="numero" path="numero" cssClass="form-control"
-											data-mask="999999" placeholder="Num" />
-									</div>
-									<label for="cidade" class="col-sm-1 control-label"><span
-										class="red">*</span>Cidade:</label>
-									<div class="col-sm-3">
-										<form:input id="cidade" path="cidade" cssClass="form-control"
-											placeholder="Cidade" />
-										>
-									</div>
-
-
-									<label for="complemento" class="col-sm-2 control-label">Complemento:</label>
-									<div class="col-sm-4">
-										<form:input id="complemento" path="complemento"
-											cssClass="form-control"
-											placeholder="Complemento da sede do curso" />
-									</div>
-
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Número:</dt>
+										<dd class="col-sm-3">${quesAuxMor.numero}</dd>
+										<dt class=" col-sm-3">Cidade:</dt>
+										<dd class="col-sm-3">${questAuxMor.cidade}</dd>
+									</dl>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Complemento:</dt>
+										<dd class="col-sm-3">${quesAuxMor.complemento}</dd>
+									</dl>
 								</div>
 
 								<div class="form-group">
-									<label for="cep" class="col-sm-1 control-label"><span
-										class="red">*</span>CEP:</label>
-									<div class="col-sm-2">
-										<form:input id="cep" path="cep" data-mask="99999-999"
-											cssClass="form-control" placeholder="CEP" />
-									</div>
-									<label for="estado" class="col-sm-1 control-label">Estado:</label>
-									<div class="col-sm-2">
-										<form:select path="estado" id="estado" cssClass="form-control">
-											<form:option value="">Selecione Estado</form:option>
-											<form:options items="${estado}" />
-										</form:select>
-									</div>
-
-									<label for="pontoReferencia" class="col-sm-2 control-label"><span
-										class="red">*</span>Ponto de Referencia:</label>
-									<div class="col-sm-4">
-										<form:input id="referencia" path="referencia"
-											cssClass="form-control" placeholder="Ponto de Referencia" />
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Cep:</dt>
+										<dd class="col-sm-3">${quesAuxMor.cep}</dd>
+										<dt class=" col-sm-3">Estado:</dt>
+										<dd class="col-sm-3">${questAuxMor.estado}</dd>
+									</dl>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Referência:</dt>
+										<dd class="col-sm-3">${quesAuxMor.referencia}</dd>
+									</dl>
 								</div>
 								<!--  -->
 
@@ -166,88 +141,47 @@
 							<div class="panel-body">
 
 								<div class="form-group">
-									<label for="enderecoOrigem" class="col-sm-1 control-label">
-										<span class="red">*</span>Rua/Av:
-									</label>
-									<div class="col-sm-5">
-										<form:input id="enderecoOrigem" path="enderecoOrigem"
-											cssClass="form-control" placeholder="Rua da sede do curso" />
-									</div>
-									<label for="bairroOrigem" class="col-sm-2 control-label"><span
-										class="red">*</span>Bairro:</label>
-									<div class="col-sm-4">
-										<form:input id="bairroOrigem" path="bairroOrigem"
-											cssClass="form-control" placeholder="Bairro" />
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Rua/Av:</dt>
+										<dd class="col-sm-3">${quesAuxMor.enderecoOrigem}</dd>
+										<dt class=" col-sm-3">Bairro Origem:</dt>
+										<dd class="col-sm-3">${questAuxMor.bairroOrigem}</dd>
+									</dl>
 								</div>
 
 								<div class="form-group">
-									<label for="numeroOrigem" class="col-sm-1 control-label"><span
-										class="red">*</span>Número </label>
-									<div class="col-sm-1">
-										<form:input id="numeroOrigem" path="numeroOrigem"
-											cssClass="form-control" data-mask="999999" placeholder="Num" />
-									</div>
-									<label for="cidadeOrigem" class="col-sm-1 control-label"><span
-										class="red">*</span>Cidade:</label>
-									<div class="col-sm-3">
-										<form:input id="cidadeOrigem" path="cidadeOrigem"
-											cssClass="form-control" placeholder="Cidade" />
-									</div>
-
-
-									<label for="complementoOrigem" class="col-sm-2 control-label">Complemento:</label>
-									<div class="col-sm-4">
-										<form:input id="complementoOrigem" path="complementoOrigem"
-											cssClass="form-control"
-											placeholder="Complemento da sede do curso" />
-									</div>
-
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Numero:</dt>
+										<dd class="col-sm-3">${quesAuxMor.numeroOrigem}</dd>
+										<dt class=" col-sm-3">Cidade Origem:</dt>
+										<dd class="col-sm-3">${questAuxMor.cidadeOrigem}</dd>
+									</dl>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Complemento:</dt>
+										<dd class="col-sm-3">${quesAuxMor.complementoOrigem}</dd>
+									</dl>
 								</div>
 
 								<div class="form-group">
-									<label for="cepOrigem" class="col-sm-1 control-label"><span
-										class="red">*</span>CEP:</label>
-									<div class="col-sm-2">
-										<form:input id="cepOrigem" path="cepOrigem"
-											data-mask="99999-999" cssClass="form-control"
-											placeholder="CEP" />
-									</div>
-									<label for="estadoOrigem" class="col-sm-1 control-label">Estado:</label>
-									<div class="col-sm-2">
-										<form:select path="estadoOrigem" id="estadoOrigem"
-											cssClass="form-control">
-											<form:option value="">Selecione Estado</form:option>
-											<form:options items="${estado}" />
-										</form:select>
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Cep:</dt>
+										<dd class="col-sm-3">${quesAuxMor.cepOrigem}</dd>
+										<dt class=" col-sm-3">Estado Origem:</dt>
+										<dd class="col-sm-3">${questAuxMor.estadoOrigem}</dd>
+									</dl>
 
-									<label for="pontoReferenciaOrigem"
-										class="col-sm-2 control-label"><span class="red">*</span>Ponto
-										de Referencia:</label>
-									<div class="col-sm-4">
-										<form:input id="referenciaOrigem" path="referenciaOrigem"
-											cssClass="form-control" placeholder="Ponto de Referencia" />
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Ponto de referência:</dt>
+										<dd class="col-sm-3">${quesAuxMor.referenciaOrigem}</dd>
+									</dl>
 								</div>
 								<div class="form-group">
-									<label for="telefoneOrigem" class="col-sm-1 control-label">
-										<span class="red">*</span>Telefone:
-									</label>
-									<div class="col-sm-2">
-										<form:input id="telefoneOrigem" path="telefoneOrigem"
-											data-mask="(99) 9 9999-9999" cssClass="form-control"
-											placeholder="(00) 0 0000-0000" />
-									</div>
-									<label for="situacaoImovel" class="col-sm-2 control-label">Situação
-										do Imóvel:</label>
-									<div class="col-sm-2">
-										<form:select path="situacaoImovel" id="situacaoImovel"
-											cssClass="form-control">
-											<form:option value="">Situação Imóvel</form:option>
-											<form:options items="${situacaoImovel}" />
-										</form:select>
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Situação Imovel:</dt>
+										<dd class="col-sm-3">${quesAuxMor.situacaoImovel}</dd>
+										<dt class=" col-sm-3">Telefone Origem:</dt>
+										<dd class="col-sm-3">${questAuxMor.telefoneOrigem}</dd>
+									</dl>
 								</div>
 
 							</div>
@@ -258,33 +192,19 @@
 							<div class="panel-body">
 
 								<div class="form-group">
-									<label for="grauParentescoImovelRural"
-										class="col-sm-2 control-label">Grau de parentesco do
-										proprietário:</label>
-									<div class="col-sm-3">
-										<form:select path="grauParentescoImovelRural"
-											id="grauParentescoImovelRural" cssClass="form-control">
-											<form:option value="" label="Selecione o Grau" />
-											<form:options items="${grauParentescoImovelRural}" />
-										</form:select>
-									</div>
-									<label for="areaPropriedadeRural"
-										class="col-sm-2 control-label">Área Propriedade:</label>
-									<div class="col-sm-3">
-										<form:input id="areaPropriedadeRural"
-											path="areaPropriedadeRural" cssClass="form-control"
-											placeholder="Área da Propriedade" />
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Grau de parentesco do proprietário:</dt>
+										<dd class="col-sm-3">${quesAuxMor.grauParentescoImovelRural}</dd>
+										<dt class="col-sm-3">Área Propriedade:</dt>
+										<dd class="col-sm-3">${quesAuxMor.areaPropriedadeRural}</dd>
+									</dl>
 								</div>
 
 								<div class="form-group">
-									<label for="cidadeEstadoImovelRural"
-										class="col-sm-2 control-label">Cidade:</label>
-									<div class="col-sm-3">
-										<form:input id="cidadeEstadoImovelRural"
-											path="cidadeEstadoImovelRural" cssClass="form-control"
-											placeholder="Cidade e Estado do Imovel Rural" />
-									</div>
+									<dl class="col-sm-12">
+										<dt class=" col-sm-3">Cidade/Estado Imóvel:</dt>
+										<dd class="col-sm-3">${questAuxMor.cidadeEstadoImovelRural}</dd>
+									</dl>
 								</div>
 
 							</div>
@@ -295,39 +215,22 @@
 							<div class="panel-body">
 
 								<div class="form-group">
-									<label for="grauParentescoVeiculos"
-										class="col-sm-2 control-label">Grau de parentesco do
-										proprietário:</label>
-									<div class="col-sm-3">
-										<form:select path="grauParentescoVeiculos"
-											id="grauParentescoVeiculos" cssClass="form-control">
-											<form:option value="" label="Selecione o Grau" />
-											<form:options items="${grauParentescoVeiculos}" />
-										</form:select>
-									</div>
-									<label for="tipoVeiculo" class="col-sm-2 control-label">Veículo:</label>
-									<div class="col-sm-3">
-										<form:input id="veiculo" path="veiculo"
-											cssClass="form-control" placeholder="Tipo do veículo" />
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Grau de parentesco do proprietário:</dt>
+										<dd class="col-sm-3">${quesAuxMor.grauParentescoVeiculos}</dd>
+										<dt class=" col-sm-3">Finalidade do veículo:</dt>
+										<dd class="col-sm-3">${questAuxMor.veiculo}</dd>
+									</dl>
 								</div>
 
 								<div class="form-group">
-									<label for="finalidadeVeiculo" class="col-sm-2 control-label">Finalidade
-										do veículo:</label>
-									<div class="col-sm-3">
-										<form:select path="finalidadeVeiculo" id="finalidadeVeiculo"
-											cssClass="form-control">
-											<form:option value="">Selecione a Finalidade</form:option>
-											<form:options items="${finalidadeVeiculo}" />
-										</form:select>
-									</div>
+									<dl class="col-sm-12">
+										<dt class=" col-sm-3">Finalidade do veículo:</dt>
+										<dd class="col-sm-3">${questAuxMor.finalidadeVeiculo}</dd>
+									</dl>
 								</div>
-
 							</div>
-
 						</div>
-
 					</div>
 
 					<div class="tab-pane" id="historico-escolar-tab">
@@ -338,38 +241,19 @@
 							</div>
 							<div class="panel-body">
 								<div class="form-group">
-									<label for="ensinoFundamental" class="col-sm-2 control-label"
-										id="form-label-right-select-tam-padrao"><span
-										class="red">*</span>Tipo de escola</label>
-									<div class="col-sm-3 control-label">
-										<form:select path="ensinoFundamental" id="ensinoFundamental"
-											cssClass="form-control">
-											<form:option value="" label="Selecione o Tipo" />
-											<form:options items="${tipoEnsinoFundamental}" />
-										</form:select>
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Tipo de escola:</dt>
+										<dd class="col-sm-3">${quesAuxMor.tipoEnsinoFundamental}</dd>
+									</dl>
 								</div>
 
 								<div class="form-group">
-									<label for="bolsaEnsinoFundamental"
-										class="col-sm-2 control-label">Possuia bolsa? </label>
-									<div class="col-sm-1">
-										<div class="checkbox" id="checkbox-div">
-											<form:checkbox id="bolsaEnsinoFundamental"
-												path="bolsaEnsinoFundamental" cssClass="form-control" />
-										</div>
-									</div>
-									<label for="percentualParticularFundamental"
-										class="col-sm-4 control-label">Percentual de bolsa:</label>
-									<div class="col-sm-2">
-										<div class="input-group">
-											<form:input id="percentualParticularFundamental"
-												path="percentualParticularFundamental"
-												cssClass="form-control" data-mask="99" placeholder="0" />
-											<div class="input-group-addon">%</div>
-										</div>
-
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Possuia bolsa?</dt>
+										<dd class="col-sm-3">${quesAuxMor.bolsaEnsinoFundamental}</dd>
+										<dt class="col-sm-3">Percentual Particular Fundamental</dt>
+										<dd class="col-sm-3">${quesAuxMor.percentualParticularFundamental}</dd>
+									</dl>
 								</div>
 
 							</div>
@@ -380,58 +264,28 @@
 							<div class="panel-body">
 
 								<div class="form-group">
-									<label for="ensinoMedio" class="col-sm-2 control-label"
-										id="form-label-right-select-tam-padrao"><span
-										class="red">*</span>Tipo de escola</label>
-									<div class="col-sm-3 control-label">
-										<form:select path="ensinoMedio" id="ensinoMedio"
-											cssClass="form-control">
-											<form:option value="" label="Selecione o Tipo" />
-											<form:options items="${tipoEnsinoMedio}" />
-										</form:select>
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Tipo de escola</dt>
+										<dd class="col-sm-3">${quesAuxMor.tipoEnsinoMedio}</dd>
+									</dl>
 								</div>
 
 								<div class="form-group">
-
-									<label for="bolsaEnsinoMedio" class="col-sm-2 control-label">Possuia
-										bolsa? </label>
-									<div class="col-sm-1">
-										<div class="checkbox" id="checkbox-div">
-											<form:checkbox id="bolsaEnsinoMedio" path="bolsaEnsinoMedio"
-												cssClass="form-control" />
-										</div>
-									</div>
-
-									<label for="percentualParticularMedio"
-										class="col-sm-4 control-label">Percentual de bolsa:</label>
-									<div class="col-sm-2">
-										<div class="input-group">
-											<form:input id="percentualParticularMedio"
-												path="percentualParticularMedio" cssClass="form-control"
-												data-mask="99" placeholder="0" />
-											<div class="input-group-addon">%</div>
-										</div>
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Possuia bolsa?</dt>
+										<dd class="col-sm-3">${quesAuxMor.bolsaEnsinoMedio}</dd>
+										<dt class="col-sm-3">Percentual de bolsa:</dt>
+										<dd class="col-sm-3">${quesAuxMor.percentualParticularMedio}</dd>
+									</dl>
 								</div>
 
 								<div class="form-group">
-									<label for="cursinho" class="col-sm-3 control-label">Fez
-										cursinho pré-vestibular? </label>
-									<div class="col-sm-1">
-										<div class="checkbox" id="checkbox-div">
-											<form:checkbox id="cursinho" path="cursinho"
-												cssClass="form-control" />
-										</div>
-									</div>
-
-
-									<label for="nomeCursinho" class="col-sm-3 control-label">Nome
-										do Cursinho:</label>
-									<div class="col-sm-4">
-										<form:input id="nomeCursinho" path="nomeCursinho"
-											cssClass="form-control" placeholder="Nome do cursinho" />
-									</div>
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Fez cursinho pré-vestibular:</dt>
+										<dd class="col-sm-3">${quesAuxMor.cursinho}</dd>
+										<dt class="col-sm-3">Nome do Cursinho:</dt>
+										<dd class="col-sm-3">${quesAuxMor.nomeCursinho}</dd>
+									</dl>
 								</div>
 
 							</div>
@@ -448,7 +302,15 @@
 							</div>
 							<div class="panel-body">
 								<div class="form-group">
-									<jsp:include page="pessoaFamilia.jsp" />
+									<c:forEach items="${questionarioIniciacaoAcademica.pessoas }"
+										var="pessoa">
+										<dl class="col-sm-12">
+											<dt class="col-sm-3">Nome?</dt>
+											<dd class="col-sm-3">${pessoa.nome}</dd>
+											<dt class="col-sm-3">Escolaridade:</dt>
+											<dd class="col-sm-3">${pessoa.escolaridade}</dd>
+										</dl>
+									</c:forEach>
 								</div>
 							</div>
 						</div>
@@ -464,39 +326,21 @@
 							<div class="panel-body">
 								<div class="form-group">
 									<div class="form-group">
-										<label for="bolsista" class="col-sm-2 control-label">Bolsista
-											UFC:</label>
-										<div class="col-sm-1">
-											<div class="checkbox" id="checkbox-div">
-												<form:checkbox id="bolsistaUfc" path="bolsistaUfc"
-													cssClass="form-control" />
-											</div>
-										</div>
-
-										<label for="tipoBolsa" class="col-sm-2 control-label">Descrição
-											Bolsa:</label>
-										<div class="col-sm-3">
-											<form:input id="descricaoBolsa" path="descricaoBolsa"
-												cssClass="form-control" placeholder="Descrição Bolsa" />
-										</div>
+										<dl class="col-sm-12">
+											<dt class="col-sm-3">Bolsista UFC</dt>
+											<dd class="col-sm-3">${quesAuxMor.bolsistaUfc}</dd>
+											<dt class="col-sm-3">Descrição Bolsa:</dt>
+											<dd class="col-sm-3">${quesAuxMor.descricaoBolsa}</dd>
+										</dl>
 									</div>
 
 									<div class="form-group">
-										<label for="possuiGraduacao" class="col-sm-2 control-label">Possui
-											Graduação:</label>
-										<div class="col-sm-1">
-											<div class="checkbox" id="checkbox-div">
-												<form:checkbox id="graduacao" path="graduacao"
-													cssClass="form-control" />
-											</div>
-										</div>
-
-										<label for="descricaoGraduacao" class="col-sm-2 control-label">Descrição
-											da Graduação:</label>
-										<div class="col-sm-5">
-											<form:input id="descricaoGraduacao" path="descricaoGraduacao"
-												cssClass="form-control" placeholder="Descricao da Graduacao" />
-										</div>
+										<dl class="col-sm-12">
+											<dt class="col-sm-3">Possui Graduação:</dt>
+											<dd class="col-sm-3">${quesAuxMor.graduacao}</dd>
+											<dt class="col-sm-3">Descrição da Graduação:</dt>
+											<dd class="col-sm-3">${quesAuxMor.descricaoGraduacao}</dd>
+										</dl>
 									</div>
 								</div>
 							</div>
@@ -513,25 +357,27 @@
 							<div class="panel-body">
 								<div class="form-group">
 									<div class="form-group">
-										<label for="justificativa" class="col-sm-3 control-label"><span
-											class="red">*</span>Justificativa para Bolsa:</label>
-										<div class="col-sm-8">
-											<form:textarea id="justificativa" path="justificativa"
-												cssClass="form-control" placeholder="Justificativa"
-												rows="10" />
-										</div>
+										<dl class="col-sm-12">
+											<dt class="col-sm-3">Justificativa:</dt>
+											<dd class="col-sm-3">${quesAuxMor.justificativa}</dd>
+										</dl>
 									</div>
 								</div>
 							</div>
 						</div>
+
 					</div>
 				</div>
-			</div>
-		</div>
 
-	</div>
-	<a id="detalhes" href="<c:url value="/selecao/listar" ></c:url>">
-		<button class=" btn btn-info btn-sm">Voltar</button> <jsp:include
-			page="../fragments/footer.jsp" /></a>
+			</div>
+
+		</div>
+		<a id="detalhes" href="<c:url value="/selecao/listar" ></c:url>">
+			<button class=" btn btn-info btn-sm">Voltar</button>
+		</a></div>
+
+	<jsp:include page="../fragments/footer.jsp" />
+
 </body>
+
 </html>

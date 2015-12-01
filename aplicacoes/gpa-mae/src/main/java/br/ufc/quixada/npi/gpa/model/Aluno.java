@@ -1,7 +1,9 @@
 package br.ufc.quixada.npi.gpa.model;
 
+import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,28 +39,28 @@ public class Aluno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String matricula;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Curso curso;
-	
+
 	private String nome;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String anoIngresso;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Min(value = 1, message = "IRA deve ser maior que 0")
 	@Max(value = 10, message = "IRA deve ter valor máximo 10")
 	private Double ira;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Banco banco;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 10, message = "Agencia de possuir no máximo 10 dígitos")
 	private String agencia;
@@ -72,7 +74,7 @@ public class Aluno {
 	@ManyToOne
 	private Pessoa pessoa;
 
-	@OneToMany
+	@OneToMany(mappedBy = "aluno", cascade = {CascadeType.PERSIST})
 	private List<Inscricao> inscricoes;
 
 	public Integer getId() {
@@ -155,11 +157,6 @@ public class Aluno {
 		this.foto = foto;
 	}
 
-	@Override
-	public String toString() {
-		return "Aluno [id=" + id + "]";
-	}
-
 	public List<Inscricao> getInscricoes() {
 		return inscricoes;
 	}
@@ -192,4 +189,12 @@ public class Aluno {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Aluno [id=" + id + ", matricula=" + matricula + ", curso=" + curso + ", nome=" + nome + ", anoIngresso="
+				+ anoIngresso + ", ira=" + ira + ", banco=" + banco + ", agencia=" + agencia + ", conta=" + conta
+				+ ", foto=" + Arrays.toString(foto) + ", pessoa=" + pessoa + ", inscricoes=" + inscricoes + "]";
+	}
+
 }
