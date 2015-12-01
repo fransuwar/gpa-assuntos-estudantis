@@ -127,6 +127,7 @@ public class AlunoController {
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			model.addAttribute("idSelecao", idSelecao);
 
+
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 
