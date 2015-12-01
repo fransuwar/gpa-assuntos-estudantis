@@ -141,15 +141,15 @@ public class CoordenadorController {
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		
 		Selecao selecao = this.selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
-
-		if (selecao != null && selecao.getStatus() != null && selecao.getStatus().equals(Status.NOVA)) {
+		
+		if (selecao != null && selecao.getStatus() != null) {
 		
 			model.addAttribute("action", "editar");
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("selecao", selecao);
 			
 		} else {
-			redirect.addFlashAttribute("erro", "Permissão negada. Só é possível editar uma seleção enquanto seu status é nova.");
+			redirect.addFlashAttribute("erro", "Permissão negada.");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
