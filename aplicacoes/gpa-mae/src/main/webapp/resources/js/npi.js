@@ -25,11 +25,10 @@ $(document).ready(function(){
         }
 	});
 	
+	
 	$.extend(jQuery.validator.messages, {
 	    required: "Campo obrigatório",
 	});
-	
-	
 	
 	
 	$.validator.setDefaults({
@@ -118,7 +117,7 @@ $(document).ready(function(){
 	    
 		 });
 	
-	$('#questionarioForm').validate({
+	$('#questionarioIniciacao').validate({
 		
 		  
 		 rules: {
@@ -149,6 +148,86 @@ $(document).ready(function(){
 	         files:{
 	        	 required:true
 	         },
+	         agree: "required"
+	     },
+	     
+	     submitHandler: function(form) {
+	            form.submit();
+	        }
+	    
+		 });
+	
+	$('#questionarioAuxilio').validate({
+		
+		  
+		 rules: {
+			 comQuemMoraOutros:{
+				 required:true			 
+			 },
+			 nomeMae:{
+				 required:true
+			 },
+			 nomePai: {
+	             required: true
+	         },
+	         endereco: {
+	             required: true
+	         },
+	         bairro:{
+	        	 required:true
+	         },
+	         numero:{
+	        	 required:true
+	         },
+	         cidade:{
+	        	 required:true
+	         },
+	         cep:{
+	        	 required:true
+	         },
+	         estado:{
+	        	 required:true
+	         },
+	         referencia:{
+	        	 required:true
+	         },
+	         enderecoOrigem:{
+	        	 required:true
+	         },
+	         bairroOrigem:{
+	        	 required:true
+	         },
+	         numeroOrigem:{
+	        	 required:true
+	         },
+	         cidadeOrigem:{
+	        	 required:true
+	         },
+	         telefoneOrigem:{
+	        	 required:true
+	         },
+	         cepOrigem:{
+	        	 required:true
+	         },
+	         estadoOrigem:{
+	        	 required:true
+	         },
+	         referenciaOrigem:{
+	        	 required:true
+	         },
+	         ensinoFundamental:{
+	        	 required:true
+	         },
+	         ensinoMedio:{
+	        	 required:true
+	         },
+	         addPessoa:{
+	        	 required:true
+	         },
+	         justificativa:{
+	        	 required:true
+	         },
+	        
 	         agree: "required"
 	     },
 	     

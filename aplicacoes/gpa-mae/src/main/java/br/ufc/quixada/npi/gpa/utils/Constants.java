@@ -10,6 +10,8 @@ public class Constants {
 	
 	/** Páginas */
 	
+	public static final String PAGINA_ATRIBUIR_COMISSAO 			= "coordenador/atribuirMembroComissao";
+
 	public static final String PAGINA_CADASTRAR_SELECAO 			= "coordenador/cadastrarSelecao";
 	
 	public static final String PAGINA_LISTAR_SELECAO				= "selecao/listarSelecao";
@@ -32,8 +34,12 @@ public class Constants {
 
 	public static final String PAGINA_INSCREVER_AUXILIO_MORADIA 	= "aluno/inscricaoAuxilio";
 	
+	public static final String PAGINA_DETALHES_INSCRICAO			= "aluno/detalhesInscricao";
+	
 	
 	/** Redirecionamentos */
+	
+	public static final String REDIRECT_PAGINA_ATRIBUIR_COMISSAO 	= "redirect:/coordenador/comissao/atribuir/";
 	
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO 		= "redirect:/selecao/listar";
 	

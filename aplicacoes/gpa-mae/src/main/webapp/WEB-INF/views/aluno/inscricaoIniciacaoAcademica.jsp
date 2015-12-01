@@ -46,14 +46,15 @@
 					</a></li>
 				</ul>
 
-				<form:form id="questionarioForm" role="form"
+				<form:form id="questionarioIniciacao" role="form"
 				    onsubmit="return validaHorariosDisponiveisBolsa();"
 					commandName="questionarioIniciacaoAcademica"
 					modelAttribute="questionarioIniciacaoAcademica"
 					servletRelativeAction="${url }"
 					method="POST" cssClass="form-horizontal">
 					
-					<input type="hidden" name="idSelecao" value="${idSelecao }"/>
+					<input type="hidden" id="idSelecao" name="idSelecao" value="${idSelecao }"/>
+					
 					<div class="tab-content">
 						<div class="tab-pane active" id="moradia-tab">
 							<div class="panel panel-primary">
