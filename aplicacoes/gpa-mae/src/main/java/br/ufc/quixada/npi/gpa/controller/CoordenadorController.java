@@ -307,17 +307,19 @@ public class CoordenadorController {
 	
 	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
 	public String excluirMembroBanca(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
-			Model model, RedirectAttributes redirect) {
+			Model model, Authentication auth, RedirectAttributes redirect) {
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-				
+		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());		
 		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
-
-		selecao.getMembrosBanca().remove(servidor);
-
-		selecaoService.update(selecao);
-
-		redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
+		if(coordenador.getId() != servidor.getId()){
+		
+			selecao.getMembrosBanca().remove(servidor);
+			selecaoService.update(selecao);
+			redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
+		}
+		
+		redirect.addFlashAttribute("erro", "Não é possivel excluir o Coordenador da Comissão");
 		
 		return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
 	}
