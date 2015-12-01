@@ -87,38 +87,33 @@
 								<th>Matricula</th>
 								<th>Ira</th>
 								<th>Curso</th>
-								<sec:authorize access="hasAnyRole('SERVIDOR')">
+								<sec:authorize access="hasRole('SERVIDOR')">
 									<th id="acoes">Ações</th>
 								</sec:authorize>
 							</tr>
 						</thead>
 						<tbody>
-							<c:choose>
-								<c:when test="${not empty alunoEncontrado}"></c:when>
-								<c:otherwise>
-									<c:forEach var="aluno" items="${alunos}">
-										<tr class="linha">
-											<td>${aluno.matricula}</td>
-											<td>${aluno.ira}</td>
-											<td>${aluno.curso.nome}</td>
-
-											<sec:authorize access="hasAnyRole('SERVIDOR')">
-												<td><a id="editar"
-													href="<c:url value="/servidor/editar/aluno/${aluno.id}" ></c:url>">
-														<button class="btn btn-info">
-															<span class="glyphicon glyphicon-pencil"></span>
-														</button>
-												</a> <a id="excluir" data-toggle="modal"
-													data-target="#confirm-delete" href="#"
-													data-href="<c:url value="/servidor/excluir/aluno/${aluno.id}" ></c:url>">
-														<button class="btn btn-danger">
-															<span class="glyphicon glyphicon-trash"></span>
-														</button>
-												</a></td>
-											</sec:authorize>
-									</c:forEach>
-								</c:otherwise>
-							</c:choose>
+							<c:forEach var="aluno" items="${alunos}">
+								<tr class="linha">
+									<td>${aluno.matricula}</td>
+									<td>${aluno.ira}</td>
+									<td>${aluno.curso.nome}</td>
+									<sec:authorize access="hasRole('SERVIDOR')">
+										<td><a id="editar"
+											href="<c:url value="/servidor/editar/aluno/${aluno.id}" ></c:url>">
+												<button class="btn btn-info">
+													<span class="glyphicon glyphicon-pencil"></span>
+												</button>
+										</a> <a id="excluir" data-toggle="modal"
+											data-target="#confirm-delete" href="#"
+											data-href="<c:url value="/servidor/excluir/aluno/${aluno.id}" ></c:url>">
+												<button class="btn btn-danger">
+													<span class="glyphicon glyphicon-trash"></span>
+												</button>
+										</a></td>
+									</sec:authorize>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</c:if>
