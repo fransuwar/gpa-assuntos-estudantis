@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -30,7 +29,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "AuxMor.findAuxMorById", 
-					query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.id = :idInscricao") 
+					query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.id = :idQuest") 
 			})
 public class QuestionarioAuxilioMoradia {
 
