@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -42,10 +43,11 @@ public class Inscricao {
 
 	@Column(nullable = false)
 	private boolean deferimento;
-	@OneToOne
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
 	
 	@OneToOne
@@ -58,7 +60,7 @@ public class Inscricao {
 	private Entrevista entrevista;
 
 
-	@ManyToOne
+	@ManyToOne()
 	private Aluno aluno;
 
 	public Integer getId() {

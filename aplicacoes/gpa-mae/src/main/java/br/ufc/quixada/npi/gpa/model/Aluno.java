@@ -72,7 +72,7 @@ public class Aluno {
 	@ManyToOne
 	private Pessoa pessoa;
 
-	@OneToMany
+	@OneToMany(mappedBy = "aluno")
 	private List<Inscricao> inscricoes;
 
 	public Integer getId() {
@@ -153,6 +153,14 @@ public class Aluno {
 
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
 	}
 
 	@Override

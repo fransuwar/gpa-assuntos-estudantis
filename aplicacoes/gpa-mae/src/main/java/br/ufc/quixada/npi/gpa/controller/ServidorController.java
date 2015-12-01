@@ -194,7 +194,7 @@ public class ServidorController {
 		
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("banco", Banco.values());
-		model.addAttribute("curso", Curso.values());
+		model.addAttribute("cursos", Curso.values());
 		model.addAttribute("aluno", new Aluno());
 		
 		return PAGINA_CADASTRAR_ALUNO;

@@ -10,7 +10,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +44,6 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
@@ -53,10 +51,7 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 @RequestMapping("aluno")
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
 public class AlunoController {
-	
-	@Inject
-	private QuestionarioIniciacaoAcademicaService iniciacaoAcademicaService;
-	
+
 	@Inject
 	private AlunoService alunoService;
 	
@@ -118,16 +113,13 @@ public class AlunoController {
 			
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
-			
-			this.iniciacaoAcademicaService.save(iniciacaoAcademica);
-			Inscricao inscricao = new Inscricao();
-			inscricao.setQuestionarioIniciacaoAcademica(iniciacaoAcademica);
-			inscricao.setAluno(alunoService.getAlunoByCPF(auth.getName()));
-			inscricao.setSelecao(selecaoService.find(Selecao.class,idSelecao));
-			inscricao.setData(new DateTime().toDate());
-			this.inscricaoService.save(inscricao);
-			
-			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
+
+		Selecao selecao = selecaoService.find(Selecao.class,idSelecao);
+		Aluno aluno = alunoService.getAlunoByCPF(auth.getName()); 
+		inscricaoService.realizarInscricaoIniciacaoAcademica(selecao, aluno, iniciacaoAcademica);
+
+
+		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
@@ -157,12 +149,12 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			
-			List<HorarioDisponivel> horariosDisponiveis = this.inscricaoService.getHorariosDisponiveisByQuest(iniciacaoAcademica.getId());
+			List<HorarioDisponivel> horariosDisponiveis = this.inscricaoService.getHorariosDisponiveisIniciacaoAcademica(iniciacaoAcademica.getId());
 			if (horariosDisponiveis != null) {
 				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
 			}
 			
-			List<PessoaFamilia> pessoasDaFamilia = this.inscricaoService.getPessoaFamiliaByIdQuestBIA(iniciacaoAcademica.getId());
+			List<PessoaFamilia> pessoasDaFamilia = this.inscricaoService.getPessoaFamiliaByIdIniciacaoAcademica(iniciacaoAcademica.getId());
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
@@ -170,7 +162,8 @@ public class AlunoController {
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 		
-		this.iniciacaoAcademicaService.update(iniciacaoAcademica);
+		inscricaoService.atualizarInscricaoIniciacaoAcademica(iniciacaoAcademica);
+		
 		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
@@ -252,7 +245,7 @@ public class AlunoController {
 	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhes(@PathVariable("idInscricao") Integer idInscricao, Model modelo, RedirectAttributes redirect){
 		
-		Inscricao inscricao = inscricaoService.getInscricaoId(idInscricao);
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
