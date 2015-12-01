@@ -69,29 +69,20 @@
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
 								<td>
-									<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
 												<i class="fa fa-users fa-lg"></i>
 											</button>
 										</a>
-									</sec:authorize>
-									<sec:authorize access="hasAnyRole('SERVIDOR')">
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
-
-
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 												<button class="btn btn-primary btn-sm">
 													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-
-
 												</button>
 											</a>
 										</c:if>
-									</sec:authorize> 
-									
 									<sec:authorize access="isAnonymous()">
 										<a id="informacoes"
 											href="<c:url value="/selecao/informacoes/${selecao.id}"></c:url>">
