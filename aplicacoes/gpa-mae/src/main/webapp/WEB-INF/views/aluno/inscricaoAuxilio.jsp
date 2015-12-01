@@ -74,9 +74,9 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<div class="col-sm-9" id="col-sm-radio">
-											<form:checkboxes items="${moraCom}" path="moraCom" />
+											<form:checkboxes items="${comQuemMora}" path="comQuemMora" />
 											<div class="error-validation">
-												<form:errors path="moraCom"></form:errors>
+												<form:errors path="comQuemMora"></form:errors>
 											</div>
 										</div>
 									</div>
@@ -204,10 +204,6 @@
 												<form:errors path="complementoOrigem"></form:errors>
 											</div>
 										</div>
-
-
-
-
 
 									</div>
 

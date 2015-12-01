@@ -230,7 +230,7 @@ public class AlunoController {
 		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.toMap());
 		model.addAttribute("grauParentesco", GrauParentesco.toMap());
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
-		model.addAttribute("moraCom", MoraCom.toMap());
+		model.addAttribute("comQuemMora", MoraCom.toMap());
 		
 		return PAGINA_INSCREVER_AUXILIO_MORADIA;
 	}
@@ -263,9 +263,9 @@ public class AlunoController {
 	@RequestMapping(value="/inscricao/listar/{idAluno}", method = RequestMethod.GET)
 	public String listarInscricoes(@PathVariable("idAluno") Integer idAluno, Model model){
 		
-		Aluno aluno= alunoService.find(Aluno.class, idAluno);
+		Aluno aluno= this.alunoService.find(Aluno.class, idAluno);
 		
-		List<Inscricao> inscricoes = inscricaoService.listarInscricoesByIdAluno(idAluno);
+		List<Inscricao> inscricoes = this.inscricaoService.listarInscricoesByIdAluno(idAluno);
 		
 		model.addAttribute("aluno",aluno);
 		model.addAttribute("inscricoes",inscricoes);
@@ -278,7 +278,7 @@ public class AlunoController {
 	@RequestMapping(value="/inscricao/excluir/{idAluno}/{idInscricao}",method = RequestMethod.GET)
 	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno, @PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirectAttributes){
 		
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
 		
 		if(inscricao == null){
 			redirectAttributes.addFlashAttribute("erro", "Inscrição Inexistente.");
@@ -291,20 +291,6 @@ public class AlunoController {
 	}
 	
 		
-//		Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
-//		auxilioMoradia.setAluno(aluno);
-//		SelecaoBolsa selecao = this.selecaoBolsaService.getSelecaoBolsaComAlunos(idSelecao);
-//		selecao.getAlunosSelecao().add(aluno);
-//		
-//		this.selecaoBolsaService.update(selecao);
-//		
-//		auxilioMoradia.setSelecaoBolsa(selecao);
-//		
-//		this.auxilioMoradiaService.save(auxilioMoradia);
-//		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
-//		
-//		return REDIRECT_PAGINA_LISTAR_SELECAO;
-//	}
 	
 	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
 	public String editarInscricaoAMOR(@PathVariable("idInscricao") Integer idInscricao, Model model, RedirectAttributes redirect) {
@@ -345,30 +331,6 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/editar/auxilio-moradia" }, method = RequestMethod.POST)
 	public String editarInscricaoAMOR(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
 			BindingResult result, RedirectAttributes redirect) {
-		/*
-		model.addAttribute("action", "editar");
-		
-		if (result.hasErrors()) {
-			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
-			model.addAttribute("selecaoBolsa", auxilioMoradia.getInscricao().getSelecaoBolsa().getId());
-			model.addAttribute("estado", Estado.toMap());
-			model.addAttribute("situacaoImovel", SituacaoImovel.toMap());
-			model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.toMap());
-			model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.toMap());
-			model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.toMap());
-			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.toMap());
-			model.addAttribute("grauParentesco", GrauParentesco.toMap());
-			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
-			model.addAttribute("moraCom", MoraCom.toMap());
-			
-			List<PessoaFamilia> pessoasDaFamilia = this.pessoaFamiliaService.getPessoaFamiliaByIdQuestBIA(auxilioMoradia.getId());
-			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
-				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
-			}
-			
-			return PAGINA_INSCREVER_AUXILIO_MORADIA;
-
-		}*/
 		
 		this.auxilioMoradiaService.update(auxilioMoradia);
 		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
