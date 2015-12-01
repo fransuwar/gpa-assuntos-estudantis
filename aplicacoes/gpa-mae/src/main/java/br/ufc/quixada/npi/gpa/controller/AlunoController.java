@@ -41,9 +41,7 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
-import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.PessoaFamiliaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
@@ -59,12 +57,6 @@ public class AlunoController {
 	
 	@Inject
 	private QuestionarioAuxMoradiaService auxilioMoradiaService;
-
-	@Inject
-	private HorarioDisponivelService horarioDisponivelService;
-
-	@Inject
-	private PessoaFamiliaService pessoaFamiliaService;
 	
 	@Inject
 	private AlunoService alunoService;
@@ -158,12 +150,12 @@ public class AlunoController {
 //			model.addAttribute("totalEstado", Estado.toMap());
 //			model.addAttribute("grauParentesco", GrauParentesco.values());
 //			
-//			List<HorarioDisponivel> horariosDisponiveis = this.horarioDisponivelService.getHorariosDisponiveisByQuest(iniciacaoAcademica.getId());
+//			List<HorarioDisponivel> horariosDisponiveis = this.inscricaoService.getHorariosDisponiveisByQuest(iniciacaoAcademica.getId());
 //			if (horariosDisponiveis != null) {
 //				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
 //			}
 //			
-//			List<PessoaFamilia> pessoasDaFamilia = this.pessoaFamiliaService.getPessoaFamiliaByIdQuestBIA(iniciacaoAcademica.getId());
+//			List<PessoaFamilia> pessoasDaFamilia = this.inscricaoService.getPessoaFamiliaByIdQuestBIA(iniciacaoAcademica.getId());
 //			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 //				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 //			}
@@ -192,12 +184,12 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			
-			List<HorarioDisponivel> horariosDisponiveis = this.horarioDisponivelService.getHorariosDisponiveisByQuest(iniciacaoAcademica.getId());
+			List<HorarioDisponivel> horariosDisponiveis = this.inscricaoService.getHorariosDisponiveisByQuest(iniciacaoAcademica.getId());
 			if (horariosDisponiveis != null) {
 				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
 			}
 			
-			List<PessoaFamilia> pessoasDaFamilia = this.pessoaFamiliaService.getPessoaFamiliaByIdQuestBIA(iniciacaoAcademica.getId());
+			List<PessoaFamilia> pessoasDaFamilia = this.inscricaoService.getPessoaFamiliaByIdQuestBIA(iniciacaoAcademica.getId());
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
@@ -289,7 +281,7 @@ public class AlunoController {
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 			model.addAttribute("moraCom", MoraCom.toMap());
 			
-			List<PessoaFamilia> pessoasDaFamilia = this.pessoaFamiliaService.getPessoaFamiliaByIdQuestBIA(auxilioMoradia.getId());
+			List<PessoaFamilia> pessoasDaFamilia = this.inscricaoService.getPessoaFamiliaByIdQuestBIA(auxilioMoradia.getId());
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
@@ -322,7 +314,7 @@ public class AlunoController {
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.toMap());
 			model.addAttribute("moraCom", MoraCom.toMap());
 			
-			List<PessoaFamilia> pessoasDaFamilia = this.pessoaFamiliaService.getPessoaFamiliaByIdQuestBIA(auxilioMoradia.getId());
+			List<PessoaFamilia> pessoasDaFamilia = this.inscricaoService.getPessoaFamiliaByIdQuestBIA(auxilioMoradia.getId());
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
