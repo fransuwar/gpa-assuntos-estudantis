@@ -24,8 +24,8 @@
 
 <html>
 <head>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Cadastro Auxilio Moradia</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Cadastro Auxilio Moradia</title>
 </head>
 <body>
 
@@ -58,11 +58,13 @@
 				<form:form id="questionarioForm" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
-					servletRelativeAction="${url }"
-					method="POST" cssClass="form-horizontal">
-					
-					<input id="idAluno" name="idAluno" type="hidden" value="${sessionScope.id}" />
-					
+					servletRelativeAction="${url }" method="POST"
+					cssClass="form-horizontal">
+
+					<input id="idAluno" name="idAluno" type="hidden"
+						value="${sessionScope.id}" />
+					<input id="idSelecao" name="idSelecao" type="hidden"
+						value="${idSelecao}" />
 					<div class="tab-content">
 
 						<div class="tab-pane active" id="moradia-tab">
@@ -73,11 +75,23 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<div class="col-sm-9" id="col-sm-radio">
-											<form:checkboxes items="${moraCom}" path="moraCom" />
+										<div class="col-sm-13" id="col-sm-radio">
+											<form:checkboxes items="${moraCom}" path="comQuemMora" />
 											<div class="error-validation">
-												<form:errors path="moraCom"></form:errors>
+												<form:errors path="comQuemMora"></form:errors>
 											</div>
+										</div>
+									</div>
+
+									<div align="left" class="col-sm-16">
+										<label for=comQuemMoraOutros class="col-sm-7 control-label">
+											<span class="red">*</span>Com Que Mora essas pessoas ?
+										</label>
+										<form:input id="comQuemMoraOutros" path="comQuemMoraOutros"
+											cssClass="form-control"
+											placeholder="Com quem mora essas pessoas ?" />
+										<div class="error-validation">
+											<form:errors path="comQuemMoraOutros"></form:errors>
 										</div>
 									</div>
 								</div>
@@ -114,37 +128,95 @@
 								<div class="panel-body">
 
 									<div class="form-group">
-										<label for="ruaSedeCurso" class="col-sm-2 control-label"
-											id="form-label-right"><span class="red">*</span>Rua/Av:</label>
+										<label for="endereco" class="col-sm-1 control-label">
+											<span class="red">*</span>Rua/Av:
+										</label>
 										<div class="col-sm-5">
-											<form:input id="ruaSedeCurso" path="ruaSedeCurso"
-												cssClass="form-control" placeholder="Rua/Av." />
+											<form:input id="endereco" path="endereco"
+												cssClass="form-control" placeholder="Rua da sede do curso" />
 											<div class="error-validation">
-												<form:errors path="ruaSedeCurso"></form:errors>
+												<form:errors path="endereco"></form:errors>
 											</div>
 										</div>
-										<label for="bairroSedeCurso" class="col-sm-1 control-label"><span
+										<label for="bairro" class="col-sm-2 control-label"><span
 											class="red">*</span>Bairro:</label>
 										<div class="col-sm-4">
-											<form:input id="bairroSedeCurso" path="bairroSedeCurso"
-												cssClass="form-control" placeholder="Bairro" />
+											<form:input id="bairro" path="bairro" cssClass="form-control"
+												placeholder="Bairro" />
 											<div class="error-validation">
-												<form:errors path="bairroSedeCurso"></form:errors>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="numeroSedeCurso" class="col-sm-2 control-label"
-											id="form-label-right"><span class="red">*</span>Número:</label>
-										<div class="col-sm-2">
-											<form:input id="numeroSedeCurso" path="numeroSedeCurso"
-												data-mask="999999" cssClass="form-control" placeholder="Num" />
-											<div class="error-validation">
-												<form:errors path="numeroSedeCurso"></form:errors>
+												<form:errors path="bairro"></form:errors>
 											</div>
 										</div>
 									</div>
 
+									<div class="form-group">
+										<label for="numero" class="col-sm-1 control-label"><span
+											class="red">*</span>Número </label>
+										<div class="col-sm-1">
+											<form:input id="numero" path="numero" cssClass="form-control"
+												data-mask="999999" placeholder="Num" />
+											<div class="error-validation">
+												<form:errors path="numero"></form:errors>
+											</div>
+										</div>
+										<label for="cidade" class="col-sm-1 control-label"><span
+											class="red">*</span>Cidade:</label>
+										<div class="col-sm-3">
+											<form:input id="cidade" path="cidade" cssClass="form-control"
+												placeholder="Cidade" />
+											<div class="error-validation">
+												<form:errors path="cidade"></form:errors>
+											</div>
+										</div>
+
+
+										<label for="complemento" class="col-sm-2 control-label">Complemento:</label>
+										<div class="col-sm-4">
+											<form:input id="complemento" path="complemento"
+												cssClass="form-control"
+												placeholder="Complemento da sede do curso" />
+											<div class="error-validation">
+												<form:errors path="complemento"></form:errors>
+											</div>
+										</div>
+
+									</div>
+
+									<div class="form-group">
+										<label for="cep" class="col-sm-1 control-label"><span
+											class="red">*</span>CEP:</label>
+										<div class="col-sm-2">
+											<form:input id="cep" path="cep" data-mask="99999-999"
+												cssClass="form-control" placeholder="CEP" />
+											<div class="error-validation">
+												<form:errors path="cep"></form:errors>
+											</div>
+										</div>
+										<label for="estado" class="col-sm-1 control-label">Estado:</label>
+										<div class="col-sm-2">
+											<form:select path="estado" id="estado"
+												cssClass="form-control">
+												<form:option value="">Selecione Estado</form:option>
+												<form:options items="${estado}" />
+											</form:select>
+											<div class="error-validation">
+												<form:errors path="estado"></form:errors>
+											</div>
+										</div>
+
+										<label for="pontoReferencia" class="col-sm-2 control-label"><span
+											class="red">*</span>Ponto de Referencia:</label>
+										<div class="col-sm-4">
+											<form:input id="referencia" path="referencia"
+												cssClass="form-control" placeholder="Ponto de Referencia" />
+											<div class="error-validation">
+												<form:errors path="referencia"></form:errors>
+											</div>
+										</div>
+									</div>
+									<!--  -->
+
+									<!--  -->
 								</div>
 
 								<div class="panel-heading">
@@ -153,14 +225,14 @@
 								<div class="panel-body">
 
 									<div class="form-group">
-										<label for="ruaOrigem" class="col-sm-1 control-label">
+										<label for="enderecoOrigem" class="col-sm-1 control-label">
 											<span class="red">*</span>Rua/Av:
 										</label>
 										<div class="col-sm-5">
-											<form:input id="ruaOrigem" path="ruaOrigem"
+											<form:input id="enderecoOrigem" path="enderecoOrigem"
 												cssClass="form-control" placeholder="Rua da sede do curso" />
 											<div class="error-validation">
-												<form:errors path="ruaOrigem"></form:errors>
+												<form:errors path="enderecoOrigem"></form:errors>
 											</div>
 										</div>
 										<label for="bairroOrigem" class="col-sm-2 control-label"><span
@@ -205,10 +277,6 @@
 											</div>
 										</div>
 
-
-
-
-
 									</div>
 
 									<div class="form-group">
@@ -233,20 +301,18 @@
 												<form:errors path="estadoOrigem"></form:errors>
 											</div>
 										</div>
-										
-																				<label for="pontoReferenciaOrigem"
+
+										<label for="pontoReferenciaOrigem"
 											class="col-sm-2 control-label"><span class="red">*</span>Ponto
 											de Referencia:</label>
 										<div class="col-sm-4">
-											<form:input id="pontoReferenciaOrigem"
-												path="pontoReferenciaOrigem" cssClass="form-control"
-												placeholder="Ponto de Referencia" />
+											<form:input id="referenciaOrigem" path="referenciaOrigem"
+												cssClass="form-control" placeholder="Ponto de Referencia" />
 											<div class="error-validation">
-												<form:errors path="pontoReferenciaOrigem"></form:errors>
+												<form:errors path="referenciaOrigem"></form:errors>
 											</div>
 										</div>
 									</div>
-
 									<div class="form-group">
 										<label for="telefoneOrigem" class="col-sm-1 control-label">
 											<span class="red">*</span>Telefone:
@@ -259,12 +325,8 @@
 												<form:errors path="telefoneOrigem"></form:errors>
 											</div>
 										</div>
-
-									</div>
-
-									<div class="form-group">
-										<label for="situacaoImovel" class="col-sm-2 control-label"
-											>Situação do Imóvel:</label>
+										<label for="situacaoImovel" class="col-sm-2 control-label">Situação
+											do Imóvel:</label>
 										<div class="col-sm-2">
 											<form:select path="situacaoImovel" id="situacaoImovel"
 												cssClass="form-control">
@@ -273,17 +335,6 @@
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="situacaoImovel"></form:errors>
-											</div>
-										</div>
-										<label for="valorMensalFinanciamento"
-											class="col-sm-3 control-label">Valor Mensal do
-											Financiamento:</label>
-										<div class="col-sm-1">
-											<form:input id="valorMensalFinanciamento"
-												path="valorMensalFinanciamento" cssClass="form-control"
-												placeholder="Valor Mensal Financiamento" />
-											<div class="error-validation">
-												<form:errors path="valorMensalFinanciamento"></form:errors>
 											</div>
 										</div>
 									</div>
@@ -322,26 +373,14 @@
 									</div>
 
 									<div class="form-group">
-										<label for="cidadePropriedadeRural"
+										<label for="cidadeEstadoImovelRural"
 											class="col-sm-2 control-label">Cidade:</label>
 										<div class="col-sm-3">
-											<form:input id="cidadePropriedadeRural"
-												path="cidadePropriedadeRural" cssClass="form-control"
-												placeholder="Cidade" />
+											<form:input id="cidadeEstadoImovelRural"
+												path="cidadeEstadoImovelRural" cssClass="form-control"
+												placeholder="Cidade e Estado do Imovel Rural" />
 											<div class="error-validation">
-												<form:errors path="cidadePropriedadeRural"></form:errors>
-											</div>
-										</div>
-										<label for="estadoPropriedadeRural"
-											class="col-sm-2 control-label">Estado:</label>
-										<div class="col-sm-3">
-											<form:select path="estadoPropriedadeRural"
-												id="estadoPropriedadeRural" cssClass="form-control">
-												<form:option value="">Selecione Estado</form:option>
-												<form:options items="${estado}" />
-											</form:select>
-											<div class="error-validation">
-												<form:errors path="estadoPropriedadeRural"></form:errors>
+												<form:errors path="cidadeEstadoImovelRural"></form:errors>
 											</div>
 										</div>
 									</div>
@@ -367,49 +406,17 @@
 												<form:errors path="grauParentescoVeiculos"></form:errors>
 											</div>
 										</div>
-										<label for="tipoVeiculo" class="col-sm-2 control-label">Tipo
-											do veículo:</label>
+										<label for="tipoVeiculo" class="col-sm-2 control-label">Veículo:</label>
 										<div class="col-sm-3">
-											<form:input id="tipoVeiculo" path="tipoVeiculo"
+											<form:input id="veiculo" path="veiculo"
 												cssClass="form-control" placeholder="Tipo do veículo" />
 											<div class="error-validation">
-												<form:errors path="tipoVeiculo"></form:errors>
+												<form:errors path="veiculo"></form:errors>
 											</div>
 										</div>
 									</div>
 
 									<div class="form-group">
-										<label for="marcaVeiculo" class="col-sm-2 control-label">Marca
-											do veículo:</label>
-										<div class="col-sm-3">
-											<form:input id="marcaVeiculo" path="marcaVeiculo"
-												cssClass="form-control" placeholder="Marca do veículo" />
-											<div class="error-validation">
-												<form:errors path="marcaVeiculo"></form:errors>
-											</div>
-										</div>
-										<label for="modeloVeiculo" class="col-sm-2 control-label">Modelo
-											do veículo:</label>
-										<div class="col-sm-3">
-											<form:input id="modeloVeiculo" path="modeloVeiculo"
-												cssClass="form-control" placeholder="Modelo do veículo" />
-											<div class="error-validation">
-												<form:errors path="modeloVeiculo"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label for="anoVeiculo" class="col-sm-2 control-label">Ano
-											do veículo:</label>
-										<div class="col-sm-3">
-											<form:input id="anoVeiculo" path="anoVeiculo"
-												cssClass="form-control" placeholder="Ano do veículo"
-												data-mask="9999" />
-											<div class="error-validation">
-												<form:errors path="anoVeiculo"></form:errors>
-											</div>
-										</div>
 										<label for="finalidadeVeiculo" class="col-sm-2 control-label">Finalidade
 											do veículo:</label>
 										<div class="col-sm-3">
@@ -454,8 +461,16 @@
 									</div>
 
 									<div class="form-group">
+										<label for="bolsaEnsinoFundamental"
+											class="col-sm-2 control-label">Possuia bolsa? </label>
+										<div class="col-sm-1">
+											<div class="checkbox" id="checkbox-div">
+												<form:checkbox id="bolsaEnsinoFundamental"
+													path="bolsaEnsinoFundamental" cssClass="form-control" />
+											</div>
+										</div>
 										<label for="percentualParticularFundamental"
-											class="col-sm-2 control-label">Percentual de bolsa:</label>
+											class="col-sm-4 control-label">Percentual de bolsa:</label>
 										<div class="col-sm-2">
 											<div class="input-group">
 												<form:input id="percentualParticularFundamental"
@@ -493,8 +508,18 @@
 									</div>
 
 									<div class="form-group">
+
+										<label for="bolsaEnsinoMedio" class="col-sm-2 control-label">Possuia
+											bolsa? </label>
+										<div class="col-sm-1">
+											<div class="checkbox" id="checkbox-div">
+												<form:checkbox id="bolsaEnsinoMedio" path="bolsaEnsinoMedio"
+													cssClass="form-control" />
+											</div>
+										</div>
+
 										<label for="percentualParticularMedio"
-											class="col-sm-2 control-label">Percentual de bolsa:</label>
+											class="col-sm-4 control-label">Percentual de bolsa:</label>
 										<div class="col-sm-2">
 											<div class="input-group">
 												<form:input id="percentualParticularMedio"
@@ -565,24 +590,25 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<div class="form-group">
-											<label for="bolsista" class="col-sm-2 control-label">Bolsista:</label>
+											<label for="bolsista" class="col-sm-2 control-label">Bolsista
+												UFC:</label>
 											<div class="col-sm-1">
 												<div class="checkbox" id="checkbox-div">
-													<form:checkbox id="bolsista" path="bolsista"
+													<form:checkbox id="bolsistaUfc" path="bolsistaUfc"
 														cssClass="form-control" />
 												</div>
 												<div class="error-validation">
-													<form:errors path="bolsista"></form:errors>
+													<form:errors path="bolsistaUfc"></form:errors>
 												</div>
 											</div>
 
-											<label for="tipoBolsa" class="col-sm-2 control-label">Tipo
-												de Bolsa:</label>
+											<label for="tipoBolsa" class="col-sm-2 control-label">Descrição
+												Bolsa:</label>
 											<div class="col-sm-3">
-												<form:input id="tipoBolsa" path="tipoBolsa"
-													cssClass="form-control" placeholder="Tipo de Bolsa" />
+												<form:input id="descricaoBolsa" path="descricaoBolsa"
+													cssClass="form-control" placeholder="Descrição Bolsa" />
 												<div class="error-validation">
-													<form:errors path="tipoBolsa"></form:errors>
+													<form:errors path="descricaoBolsa"></form:errors>
 												</div>
 											</div>
 										</div>
@@ -592,11 +618,11 @@
 												Graduação:</label>
 											<div class="col-sm-1">
 												<div class="checkbox" id="checkbox-div">
-													<form:checkbox id="possuiGraduacao" path="possuiGraduacao"
+													<form:checkbox id="graduacao" path="graduacao"
 														cssClass="form-control" />
 												</div>
 												<div class="error-validation">
-													<form:errors path="possuiGraduacao"></form:errors>
+													<form:errors path="graduacao"></form:errors>
 												</div>
 											</div>
 

@@ -64,7 +64,9 @@ public class SelecaoController {
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
 		
-		List<Selecao> selecoes = selecaoService.find(Selecao.class);
+
+		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
+
 
 		if (request.isUserInRole("DISCENTE")) {
 
@@ -88,6 +90,8 @@ public class SelecaoController {
 
 		} else {
 
+
+
 			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
@@ -98,9 +102,11 @@ public class SelecaoController {
 	}
 	
 
+
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
+
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");

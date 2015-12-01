@@ -75,12 +75,14 @@
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 								<td><a id="detalhes"
+
 									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
 										${selecao.tipoBolsa.nome} </a></td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
+
 								<td><sec:authorize
 										access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
 										<a id="visualizarInscritos"
