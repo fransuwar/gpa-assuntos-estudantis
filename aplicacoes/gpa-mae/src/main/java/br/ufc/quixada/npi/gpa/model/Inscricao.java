@@ -9,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -56,10 +55,6 @@ public class Inscricao {
 	
 	@OneToOne
 	private Entrevista entrevista;
-
-
-	@ManyToOne
-	private Aluno aluno;
 
 	public Integer getId() {
 		return id;
@@ -146,14 +141,6 @@ public class Inscricao {
 
 	public void setEntrevista(Entrevista entrevista) {
 		this.entrevista = entrevista;
-	}
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
 	}
 
 	@Override
