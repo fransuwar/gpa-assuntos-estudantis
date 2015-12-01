@@ -14,7 +14,7 @@ public class Constants {
 	
 	public static final String PAGINA_LISTAR_SELECAO				= "selecao/listarSelecao";
 	
-	public static final String PAGINA_INFORMACOES_SELECAO			= "selecao/informacoes";
+	public static final String PAGINA_INFORMACOES_SELECAO			= "selecao/detalhesSelecao";
 	
 	public static final String PAGINA_LISTAR_INSCRITOS_SELECAO		= "selecao/listarInscritos";
 	

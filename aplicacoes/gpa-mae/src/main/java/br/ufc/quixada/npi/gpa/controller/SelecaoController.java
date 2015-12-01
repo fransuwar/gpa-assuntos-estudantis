@@ -30,7 +30,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
-import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -71,8 +70,8 @@ public class SelecaoController {
 		
 		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
 
-		
 		if (request.isUserInRole("DISCENTE")) {
+
 			
 			Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
 			

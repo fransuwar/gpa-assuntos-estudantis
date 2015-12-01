@@ -117,7 +117,7 @@
 										<label for="cepFamilia" class="col-sm-1 control-label"><span
 											class="red">*</span>CEP:</label>
 										<div class="col-sm-2">
-											<form:input id="cep" path="cepFamilia" data-mask="99999999"
+											<form:input id="cepFamilia" path="cepFamilia" data-mask="99999999"
 												cssClass="form-control" placeholder="Ex:63900000 " />
 											<div class="error-validation" id="erro-cepFamilia">
 												<form:errors path="cepFamilia"></form:errors>
@@ -203,7 +203,7 @@
 										<label for="cep_familia" class="col-sm-1 control-label"><span
 											class="red">*</span>CEP:</label>
 										<div class="col-sm-2">
-											<form:input id="cepFamilia" path="cep" data-mask="99999999"
+											<form:input id="cep" path="cep" data-mask="99999999"
 												cssClass="form-control" placeholder="CEP" />
 											<div class="error-validation" id="erro-cepAtual">
 												<form:errors path="cep"></form:errors>

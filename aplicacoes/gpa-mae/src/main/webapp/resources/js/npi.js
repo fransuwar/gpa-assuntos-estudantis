@@ -55,6 +55,73 @@ $(document).ready(function(){
 		
 		  
 		 rules: {
+			 enderecoFamilia:{
+				 required:true			 
+			 },
+			 bairroFamilia:{
+				 required:true
+			 },
+			 numeroFamilia: {
+	             required: true
+	         },
+	         cidadeFamilia: {
+	             required: true
+	         },
+	         cepFamilia:{
+	        	 required:true
+	         },
+	         estadoFamilia:{
+	        	 required:true
+	         },
+	         endereco:{
+	        	 required:true
+	         },
+	         bairro:{
+	        	 required:true
+	         },
+	         numero:{
+	        	 required:true
+	         },
+	         cidade:{
+	        	 required:true
+	         },
+	         cep:{
+	        	 required:true
+	         },
+	         estado:{
+	        	 required:true
+	         },
+	         referenciaFamilia:{
+	        	 required:true
+	         },
+	         comQuemReside:{
+	        	 required:true
+	         },
+	         tipoResidencia:{
+	        	 required:true
+	         },
+	         addPessoa:{
+	        	 required:true
+	         },
+	         addHorario:{
+	        	 required:true
+	         },
+	         justificativaPedido:{
+	        	 required:true
+	         },
+	         agree: "required"
+	     },
+	     
+	     submitHandler: function(form) {
+	            form.submit();
+	        }
+	    
+		 });
+	
+	$('#questionarioForm').validate({
+		
+		  
+		 rules: {
 			 dataInicio:{
 				 required:true			 
 			 },
@@ -89,7 +156,7 @@ $(document).ready(function(){
 	            form.submit();
 	        }
 	    
-		 });	
+		 });
 });
 
 
