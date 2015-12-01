@@ -317,11 +317,10 @@ public class CoordenadorController {
 			selecao.getMembrosBanca().remove(servidor);
 			selecaoService.update(selecao);
 			redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
-		}
+		}else
 		
 		redirect.addFlashAttribute("erro", "Não é possivel excluir o Coordenador da Comissão");
-		
-		return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
+		return "redirect:/coordenador/comissao/atribuir/" + idSelecao;	
 	}
-
+	
 }
