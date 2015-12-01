@@ -215,7 +215,6 @@ public class Selecao {
 		return true;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "Selecao [id=" + id + ", ano=" + ano + ", sequencial=" + sequencial + ", quantidadeVagas="
