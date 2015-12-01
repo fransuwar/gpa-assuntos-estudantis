@@ -46,7 +46,7 @@ public class CoordenadorController {
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model){
-		
+		//TODO - Método p/ implementar que retorna página com todas as seleções do sistema.
 		return "";
 	}
 	

@@ -226,6 +226,7 @@ public class SelecaoController {
 	
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhesInscricao() {
+		//TODO - Método p/ implementar que retorna página de detalhes de uma seleção.
 		return "";
 	}
 }

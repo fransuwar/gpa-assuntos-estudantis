@@ -69,6 +69,7 @@ public class AlunoController {
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoesAbertas() {
+		//TODO - Método p/ implementar que retorna página com seleções em aberto
 		return "";
 	}
 	
