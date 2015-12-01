@@ -80,12 +80,12 @@ public class SelecaoController {
 		if (request.isUserInRole("DISCENTE")) {
 
 			
-			Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
-			
-			model.addAttribute("selecoes", selecoes);
-			model.addAttribute("aluno", aluno);
-			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+//			Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
+//			
+//			model.addAttribute("selecoes", selecoes);
+//			model.addAttribute("aluno", aluno);
+//			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+//			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 
 			
 		} else if(request.isUserInRole("SERVIDOR")){

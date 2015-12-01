@@ -2,17 +2,20 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MORADIA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +35,7 @@ import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
+import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 import br.ufc.quixada.npi.gpa.enums.Turno;
@@ -42,6 +46,7 @@ import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -76,6 +81,21 @@ public class AlunoController {
 	
 	@Inject
 	private InscricaoService inscricaoService;
+	
+	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
+	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
+		
+		List<Selecao> selecoes = selecaoService.find(Selecao.class);
+		
+		Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
+		
+		model.addAttribute("selecoes", selecoes);
+		model.addAttribute("aluno", aluno);
+		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+		
+		return "aluno/aluno";
+	}
 	
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {

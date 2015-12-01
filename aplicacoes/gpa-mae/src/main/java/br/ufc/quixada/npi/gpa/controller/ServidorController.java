@@ -1,6 +1,11 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_CADASTRAR_ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_CADASTRAR_SERVIDOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_ALUNOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SERVIDOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_ALUNOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SERVIDOR;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +17,7 @@ import javax.validation.Valid;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.joda.time.DateTime;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufc.quixada.npi.gpa.enums.Banco;
 import br.ufc.quixada.npi.gpa.enums.Cargo;
 import br.ufc.quixada.npi.gpa.enums.Curso;
+import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
@@ -50,6 +57,27 @@ public class ServidorController {
 		} else {
 			return adicionarServidor(servidor, result, redirect, model);
 		}
+		
+	}
+	
+	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
+	public String listar(Model model, Authentication auth, RedirectAttributes redirect) {
+		
+		Servidor servidor = this.servidorService.getServidorByCPFComBancas(auth.getName());
+		
+		if (!servidor.getParticipaBancas().isEmpty()) {
+			
+			model.addAttribute("selecoes", servidor.getParticipaBancas());
+			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+			
+			return "servidor/servidor";
+			
+		}
+		
+		model.addAttribute("erro", "Você não está associado a nenhuma seleção.");
+		
+		return "servidor/servidor";
 		
 	}
 	
