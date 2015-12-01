@@ -13,7 +13,7 @@
 <html>
 <head>
 	<jsp:include page="../fragments/headTag.jsp" />
-	<title>SERVIDOR</title>
+	<title>Lista de Seleções</title>
 </head>
 <body>
 
