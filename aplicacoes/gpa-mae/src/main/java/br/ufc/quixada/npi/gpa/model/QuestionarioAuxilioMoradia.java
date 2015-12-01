@@ -29,7 +29,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "AuxMor.findAuxMorById", 
-					query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.id = :idInscricao") 
+					query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.id = :idQuest") 
 			})
 public class QuestionarioAuxilioMoradia {
 

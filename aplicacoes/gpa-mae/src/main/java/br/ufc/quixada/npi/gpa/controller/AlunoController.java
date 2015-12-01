@@ -1,5 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MORADIA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -44,9 +45,7 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
-import br.ufc.quixada.npi.gpa.service.HorarioDisponivelService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.PessoaFamiliaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
@@ -59,13 +58,10 @@ public class AlunoController {
 
 	@Inject
 	private QuestionarioIniciacaoAcademicaService iniciacaoAcademicaService;
-
+	
 	@Inject
-	private HorarioDisponivelService horarioDisponivelService;
-
-	@Inject
-	private PessoaFamiliaService pessoaFamiliaService;
-
+	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
+	
 	@Inject
 	private AlunoService alunoService;
 
@@ -74,10 +70,14 @@ public class AlunoController {
 
 	@Inject
 	private InscricaoService inscricaoService;
-	@Inject
-	private SelecaoService selecaoBolsaService;
-	@Inject
-	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
+
+	
+	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
+	public String listarSelecoesAbertas() {
+		//TODO - Método p/ implementar que retorna página com seleções em aberto
+		return "";
+	}
+	
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
@@ -85,6 +85,9 @@ public class AlunoController {
 		Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
 
 		model.addAttribute("inscricoes", aluno.getInscricoes());
+
+		
+		//TODO - Criar página de retorno que mostra as inscrições dos alunos.
 
 		return "";
 	}
@@ -140,6 +143,16 @@ public class AlunoController {
 
 	}
 
+
+	@RequestMapping(value = { "inscricao/editar/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
+	public String editarInscricaoBIA(@PathVariable("idInscricao") Integer idInscricao, Model model, RedirectAttributes redirect) {
+		
+		//TODO - Método p/ implementar que retorna página de formulário de inscrição em iniciação acadêmica.
+		
+		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
+	}
+	
+
 	@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
 	public String editarInscricaoBIA(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
@@ -157,14 +170,16 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 
-			List<HorarioDisponivel> horariosDisponiveis = this.horarioDisponivelService
-					.getHorariosDisponiveisByQuest(iniciacaoAcademica.getId());
+			
+			List<HorarioDisponivel> horariosDisponiveis = this.inscricaoService.getHorariosDisponiveisByQuest(iniciacaoAcademica.getId());
+
 			if (horariosDisponiveis != null) {
 				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
 			}
 
-			List<PessoaFamilia> pessoasDaFamilia = this.pessoaFamiliaService
-					.getPessoaFamiliaByIdQuestBIA(iniciacaoAcademica.getId());
+			
+			List<PessoaFamilia> pessoasDaFamilia = this.inscricaoService.getPessoaFamiliaByIdQuestBIA(iniciacaoAcademica.getId());
+
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
@@ -220,7 +235,7 @@ public class AlunoController {
 		} else {
 
 			Aluno aluno = this.alunoService.getAlunoComInscricoes(idPessoa);
-			Selecao selecao = selecaoBolsaService.find(Selecao.class, idSelecao);
+			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 	
 			Inscricao inscricao = new Inscricao();
 			inscricao.setSelecao(selecao);
@@ -238,22 +253,41 @@ public class AlunoController {
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
 
+		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
+		
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
+	}
+	
+	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
+	public String editarInscricaoAMOR(@PathVariable("idInscricao") Integer idInscricao, Model model, RedirectAttributes redirect) {
+		
+		//TODO - Método p/ implementar que retorna página de edição do formulário de inscrição em auxílio moradia.
+		
+		return PAGINA_INSCREVER_AUXILIO_MORADIA;
+		
+	}
+	
+	@RequestMapping(value = { "inscricao/editar/auxilio-moradia" }, method = RequestMethod.POST)
+	public String editarInscricaoAMOR(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
+			BindingResult result, RedirectAttributes redirect) {
+		//TODO - Método p/ implementar que salva a edição de um formulário em uma incrição auxílio moradia.
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
 
-
-
-	@RequestMapping(value = "detalhes-inscricaoInic/{id}", method = RequestMethod.GET)
-	public String detalhes(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect) {
-		Inscricao inscricao = inscricaoService.getInscricaoId(id);
+	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
+	public String detalhes(@PathVariable("idInscricao") Integer idInscricao, Model modelo, RedirectAttributes redirect){
+		
+		Inscricao inscricao = inscricaoService.getInscricaoId(idInscricao);
+		
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
-			return "redirect:/selecao/listar";
+			
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		modelo.addAttribute("inscricao", inscricao);
 
-		return "aluno/detalhesInscricao";
+		return PAGINA_DETALHES_INSCRICAO;
 	}
 
 }
