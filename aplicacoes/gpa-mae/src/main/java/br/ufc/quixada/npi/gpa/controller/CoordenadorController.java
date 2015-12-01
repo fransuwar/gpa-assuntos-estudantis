@@ -129,7 +129,8 @@ public class CoordenadorController {
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());
-		selecao.addCoordenador(coordenador);	
+		selecao.addCoordenador(coordenador);
+		selecao.setResponsavel(coordenador);
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Nova seleção cadastrada com sucesso.");
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
