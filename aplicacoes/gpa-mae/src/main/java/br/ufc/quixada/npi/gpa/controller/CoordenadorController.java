@@ -44,6 +44,12 @@ public class CoordenadorController {
 	@Inject
 	private ServidorService servidorService;
 	
+	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
+	public String listarSelecoes(Model model){
+		//TODO - Método p/ implementar que retorna página com todas as seleções do sistema.
+		return "";
+	}
+	
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.GET)
 	public String cadastroSelecao(Model model) {
 		
@@ -262,7 +268,7 @@ public class CoordenadorController {
 		model.addAttribute("servidores", servidorService.find(Servidor.class));
 		model.addAttribute("comissao", selecaoService.find(Selecao.class, idSelecao));
 		
-		return "coordenador/atribuirMembroComissao";
+		return PAGINA_ATRIBUIR_COMISSAO;
 	}
 
 	@RequestMapping(value = "/comissao/atribuir", method = RequestMethod.POST)
@@ -274,9 +280,10 @@ public class CoordenadorController {
 			
 		redirect.addFlashAttribute("erro", "Informe pelo menos um membro.");
 
-			return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
+			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 
 		} else {
+			
 			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 			
 			List<Servidor> comissao = selecao.getMembrosBanca();
@@ -286,16 +293,17 @@ public class CoordenadorController {
 				
 				redirect.addFlashAttribute("erro", "Não é permitida repetição de membros na comissão.");
 				
-				return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
+				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 				
 			} else {
+				
 				selecao.getMembrosBanca().add(servidor);
 
 				selecaoService.update(selecao);
 
 				redirect.addFlashAttribute("info", "Comissão formada com sucesso.");
 
-				return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
+				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 				
 			}
 			
@@ -317,7 +325,7 @@ public class CoordenadorController {
 
 		redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
 		
-		return "redirect:/coordenador/comissao/atribuir/" + idSelecao;
+		return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 	}
 
 }
