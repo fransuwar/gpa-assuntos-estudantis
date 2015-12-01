@@ -74,8 +74,7 @@ public class Aluno {
 	@ManyToOne
 	private Pessoa pessoa;
 
-	@OneToMany(cascade = {CascadeType.PERSIST})
-
+	@OneToMany(mappedBy = "aluno", cascade = {CascadeType.PERSIST})
 	private List<Inscricao> inscricoes;
 
 	public Integer getId() {
