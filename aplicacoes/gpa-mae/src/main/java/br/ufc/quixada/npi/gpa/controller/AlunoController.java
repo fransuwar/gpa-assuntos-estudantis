@@ -83,7 +83,7 @@ public class AlunoController {
 		return "";
 	}
 
-	@RequestMapping(value = { " inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
 	public String realizarInscricaoBIA(@PathVariable("idSelecao") Integer idSelecao, Model model) {
 		
 		model.addAttribute("action", "inscricao");
