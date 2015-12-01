@@ -1,5 +1,6 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
+
 import java.util.List;
 
 import javax.inject.Named;
@@ -17,8 +18,8 @@ import br.ufc.quixada.npi.util.SimpleMap;
 
 @SuppressWarnings("unchecked")
 @Named
-public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implements InscricaoService{
-	
+public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implements InscricaoService {
+
 	@Override
 	@Transactional(readOnly = true)
 	public Inscricao getInscricaoId(Integer idInscricao) {
@@ -55,5 +56,6 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	public QuestionarioIniciacaoAcademica getQuestIniAcadById(Integer idQuest) {
 		return (QuestionarioIniciacaoAcademica) findFirst("IniAcad.findIniAcadById", new SimpleMap<String, Object>("idQuest", idQuest));
 	}
+
 
 }
