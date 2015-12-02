@@ -25,11 +25,10 @@ $(document).ready(function(){
         }
 	});
 	
+	
 	$.extend(jQuery.validator.messages, {
 	    required: "Campo obrigatório",
 	});
-	
-	
 	
 	
 	$.validator.setDefaults({
@@ -52,6 +51,73 @@ $(document).ready(function(){
 	});
 	
 	$('#adicionarSelecaoForm').validate({
+		
+		  
+		 rules: {
+			 enderecoFamilia:{
+				 required:true			 
+			 },
+			 bairroFamilia:{
+				 required:true
+			 },
+			 numeroFamilia: {
+	             required: true
+	         },
+	         cidadeFamilia: {
+	             required: true
+	         },
+	         cepFamilia:{
+	        	 required:true
+	         },
+	         estadoFamilia:{
+	        	 required:true
+	         },
+	         endereco:{
+	        	 required:true
+	         },
+	         bairro:{
+	        	 required:true
+	         },
+	         numero:{
+	        	 required:true
+	         },
+	         cidade:{
+	        	 required:true
+	         },
+	         cep:{
+	        	 required:true
+	         },
+	         estado:{
+	        	 required:true
+	         },
+	         referenciaFamilia:{
+	        	 required:true
+	         },
+	         comQuemReside:{
+	        	 required:true
+	         },
+	         tipoResidencia:{
+	        	 required:true
+	         },
+	         addPessoa:{
+	        	 required:true
+	         },
+	         addHorario:{
+	        	 required:true
+	         },
+	         justificativaPedido:{
+	        	 required:true
+	         },
+	         agree: "required"
+	     },
+	     
+	     submitHandler: function(form) {
+	            form.submit();
+	        }
+	    
+		 });
+	
+	$('#questionarioIniciacao').validate({
 		
 		  
 		 rules: {
@@ -89,7 +155,87 @@ $(document).ready(function(){
 	            form.submit();
 	        }
 	    
-		 });	
+		 });
+	
+	$('#questionarioAuxilio').validate({
+		
+		  
+		 rules: {
+			 comQuemMoraOutros:{
+				 required:true			 
+			 },
+			 nomeMae:{
+				 required:true
+			 },
+			 nomePai: {
+	             required: true
+	         },
+	         endereco: {
+	             required: true
+	         },
+	         bairro:{
+	        	 required:true
+	         },
+	         numero:{
+	        	 required:true
+	         },
+	         cidade:{
+	        	 required:true
+	         },
+	         cep:{
+	        	 required:true
+	         },
+	         estado:{
+	        	 required:true
+	         },
+	         referencia:{
+	        	 required:true
+	         },
+	         enderecoOrigem:{
+	        	 required:true
+	         },
+	         bairroOrigem:{
+	        	 required:true
+	         },
+	         numeroOrigem:{
+	        	 required:true
+	         },
+	         cidadeOrigem:{
+	        	 required:true
+	         },
+	         telefoneOrigem:{
+	        	 required:true
+	         },
+	         cepOrigem:{
+	        	 required:true
+	         },
+	         estadoOrigem:{
+	        	 required:true
+	         },
+	         referenciaOrigem:{
+	        	 required:true
+	         },
+	         ensinoFundamental:{
+	        	 required:true
+	         },
+	         ensinoMedio:{
+	        	 required:true
+	         },
+	         addPessoa:{
+	        	 required:true
+	         },
+	         justificativa:{
+	        	 required:true
+	         },
+	        
+	         agree: "required"
+	     },
+	     
+	     submitHandler: function(form) {
+	            form.submit();
+	        }
+	    
+		 });
 });
 
 
