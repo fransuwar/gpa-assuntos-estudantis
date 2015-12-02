@@ -70,7 +70,7 @@
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Mora com:</dt>
-										<dd class="col-sm-3">${quesAuxMor.comQuemMora}</dd>
+										<dd class="col-sm-3">${questAuxMor.comQuemMora}</dd>
 										<dt class=" col-sm-3">Com quem mora os outros:</dt>
 										<dd class="col-sm-3">${questAuxMor.comQuemMoraOutros}</dd>
 									</dl>
@@ -84,7 +84,7 @@
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Mãe:</dt>
-										<dd class="col-sm-3">${quesAuxMor.nomeMae}</dd>
+										<dd class="col-sm-3">${questAuxMor.nomeMae}</dd>
 										<dt class=" col-sm-3">Pai:</dt>
 										<dd class="col-sm-3">${questAuxMor.nomePai}</dd>
 									</dl>
@@ -99,7 +99,7 @@
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Rua/Av:</dt>
-										<dd class="col-sm-3">${quesAuxMor.endereco}</dd>
+										<dd class="col-sm-3">${questAuxMor.endereco}</dd>
 										<dt class=" col-sm-3">Bairro:</dt>
 										<dd class="col-sm-3">${questAuxMor.bairro}</dd>
 									</dl>
@@ -108,26 +108,27 @@
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Número:</dt>
-										<dd class="col-sm-3">${quesAuxMor.numero}</dd>
+										<dd class="col-sm-3">${questAuxMor.numero}</dd>
 										<dt class=" col-sm-3">Cidade:</dt>
 										<dd class="col-sm-3">${questAuxMor.cidade}</dd>
 									</dl>
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Complemento:</dt>
-										<dd class="col-sm-3">${quesAuxMor.complemento}</dd>
+										<dd class="col-sm-3">${questAuxMor.complemento}</dd>
+										<dt class="col-sm-3">Cep:</dt>
+										<dd class="col-sm-3">${questAuxMor.cep}</dd>
 									</dl>
 								</div>
 
 								<div class="form-group">
 									<dl class="col-sm-12">
-										<dt class="col-sm-3">Cep:</dt>
-										<dd class="col-sm-3">${quesAuxMor.cep}</dd>
+										<dt class="col-sm-3">Referência:</dt>
+										<dd class="col-sm-3">${questAuxMor.referencia}</dd>
 										<dt class=" col-sm-3">Estado:</dt>
 										<dd class="col-sm-3">${questAuxMor.estado}</dd>
 									</dl>
 									<dl class="col-sm-12">
-										<dt class="col-sm-3">Referência:</dt>
-										<dd class="col-sm-3">${quesAuxMor.referencia}</dd>
+
 									</dl>
 								</div>
 								<!--  -->
@@ -143,7 +144,7 @@
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Rua/Av:</dt>
-										<dd class="col-sm-3">${quesAuxMor.enderecoOrigem}</dd>
+										<dd class="col-sm-3">${questAuxMor.enderecoOrigem}</dd>
 										<dt class=" col-sm-3">Bairro Origem:</dt>
 										<dd class="col-sm-3">${questAuxMor.bairroOrigem}</dd>
 									</dl>
@@ -152,33 +153,30 @@
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Numero:</dt>
-										<dd class="col-sm-3">${quesAuxMor.numeroOrigem}</dd>
+										<dd class="col-sm-3">${questAuxMor.numeroOrigem}</dd>
 										<dt class=" col-sm-3">Cidade Origem:</dt>
 										<dd class="col-sm-3">${questAuxMor.cidadeOrigem}</dd>
 									</dl>
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Complemento:</dt>
-										<dd class="col-sm-3">${quesAuxMor.complementoOrigem}</dd>
+										<dd class="col-sm-3">${questAuxMor.complementoOrigem}</dd>
+										<dt class="col-sm-3">Cep:</dt>
+										<dd class="col-sm-3">${questAuxMor.cepOrigem}</dd>
 									</dl>
 								</div>
 
 								<div class="form-group">
 									<dl class="col-sm-12">
-										<dt class="col-sm-3">Cep:</dt>
-										<dd class="col-sm-3">${quesAuxMor.cepOrigem}</dd>
+										<dt class="col-sm-3">Ponto de referência:</dt>
+										<dd class="col-sm-3">${questAuxMor.referenciaOrigem}</dd>
 										<dt class=" col-sm-3">Estado Origem:</dt>
 										<dd class="col-sm-3">${questAuxMor.estadoOrigem}</dd>
-									</dl>
-
-									<dl class="col-sm-12">
-										<dt class="col-sm-3">Ponto de referência:</dt>
-										<dd class="col-sm-3">${quesAuxMor.referenciaOrigem}</dd>
 									</dl>
 								</div>
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Situação Imovel:</dt>
-										<dd class="col-sm-3">${quesAuxMor.situacaoImovel}</dd>
+										<dd class="col-sm-3">${questAuxMor.situacaoImovel}</dd>
 										<dt class=" col-sm-3">Telefone Origem:</dt>
 										<dd class="col-sm-3">${questAuxMor.telefoneOrigem}</dd>
 									</dl>
@@ -194,9 +192,9 @@
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Grau de parentesco do proprietário:</dt>
-										<dd class="col-sm-3">${quesAuxMor.grauParentescoImovelRural}</dd>
+										<dd class="col-sm-3">${questAuxMor.grauParentescoImovelRural}</dd>
 										<dt class="col-sm-3">Área Propriedade:</dt>
-										<dd class="col-sm-3">${quesAuxMor.areaPropriedadeRural}</dd>
+										<dd class="col-sm-3">${questAuxMor.areaPropriedadeRural}</dd>
 									</dl>
 								</div>
 
@@ -217,7 +215,7 @@
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Grau de parentesco do proprietário:</dt>
-										<dd class="col-sm-3">${quesAuxMor.grauParentescoVeiculos}</dd>
+										<dd class="col-sm-3">${questAuxMor.grauParentescoVeiculos}</dd>
 										<dt class=" col-sm-3">Finalidade do veículo:</dt>
 										<dd class="col-sm-3">${questAuxMor.veiculo}</dd>
 									</dl>
@@ -243,16 +241,21 @@
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Tipo de escola:</dt>
-										<dd class="col-sm-3">${quesAuxMor.tipoEnsinoFundamental}</dd>
+										<dd class="col-sm-3">${questAuxMor.ensinoFundamental}</dd>
 									</dl>
 								</div>
 
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Possuia bolsa?</dt>
-										<dd class="col-sm-3">${quesAuxMor.bolsaEnsinoFundamental}</dd>
+										<dd class="col-sm-3">
+											<c:choose>
+												<c:when test="${questAuxMor.bolsaEnsinoMedio == true}"> Sim</c:when>
+												<c:otherwise>Não</c:otherwise>
+											</c:choose>
+										</dd>
 										<dt class="col-sm-3">Percentual Particular Fundamental</dt>
-										<dd class="col-sm-3">${quesAuxMor.percentualParticularFundamental}</dd>
+										<dd class="col-sm-3">${questAuxMor.percentualParticularFundamental}</dd>
 									</dl>
 								</div>
 
@@ -266,25 +269,35 @@
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Tipo de escola</dt>
-										<dd class="col-sm-3">${quesAuxMor.tipoEnsinoMedio}</dd>
+										<dd class="col-sm-3">${questAuxMor.ensinoMedio}</dd>
 									</dl>
 								</div>
 
 								<div class="form-group">
 									<dl class="col-sm-12">
-										<dt class="col-sm-3">Possuia bolsa?</dt>
-										<dd class="col-sm-3">${quesAuxMor.bolsaEnsinoMedio}</dd>
+										<dt class="col-sm-3">Possuia bolsa:</dt>
+										<dd class="col-sm-3">
+											<c:choose>
+												<c:when test="${questAuxMor.bolsaEnsinoMedio == true}"> Sim</c:when>
+												<c:otherwise>Não</c:otherwise>
+											</c:choose>
+										</dd>
 										<dt class="col-sm-3">Percentual de bolsa:</dt>
-										<dd class="col-sm-3">${quesAuxMor.percentualParticularMedio}</dd>
+										<dd class="col-sm-3">${questAuxMor.percentualParticularMedio}</dd>
 									</dl>
 								</div>
 
 								<div class="form-group">
 									<dl class="col-sm-12">
 										<dt class="col-sm-3">Fez cursinho pré-vestibular:</dt>
-										<dd class="col-sm-3">${quesAuxMor.cursinho}</dd>
+										<dd class="col-sm-3">
+											<c:choose>
+												<c:when test="${questAuxMor.cursinho == true}"> Sim</c:when>
+												<c:otherwise>Não</c:otherwise>
+											</c:choose>
+										</dd>
 										<dt class="col-sm-3">Nome do Cursinho:</dt>
-										<dd class="col-sm-3">${quesAuxMor.nomeCursinho}</dd>
+										<dd class="col-sm-3">${questAuxMor.nomeCursinho}</dd>
 									</dl>
 								</div>
 
@@ -302,15 +315,28 @@
 							</div>
 							<div class="panel-body">
 								<div class="form-group">
-									<c:forEach items="${questionarioIniciacaoAcademica.pessoas }"
-										var="pessoa">
-										<dl class="col-sm-12">
-											<dt class="col-sm-3">Nome?</dt>
-											<dd class="col-sm-3">${pessoa.nome}</dd>
-											<dt class="col-sm-3">Escolaridade:</dt>
-											<dd class="col-sm-3">${pessoa.escolaridade}</dd>
-										</dl>
-									</c:forEach>
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Nome:</th>
+												<th>Parentesco:</th>
+												<th>Escolaridade:</th>
+												<th>Atividade:</th>
+												<th>Renda R$:</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="pessoa" items="${questAuxMor.pessoas }">
+												<tr>
+													<td>${pessoa.nome }</td>
+													<td>${pessoa.parentesco }</td>
+													<td>${pessoa.escolaridade }</td>
+													<td>${pessoa.profissao}</td>
+													<td>${pessoa.rendaMensal }</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
@@ -327,19 +353,29 @@
 								<div class="form-group">
 									<div class="form-group">
 										<dl class="col-sm-12">
-											<dt class="col-sm-3">Bolsista UFC</dt>
-											<dd class="col-sm-3">${quesAuxMor.bolsistaUfc}</dd>
+											<dt class="col-sm-3">Bolsista UFC:</dt>
+											<dd class="col-sm-3">
+												<c:choose>
+													<c:when test="${questAuxMor.bolsistaUfc == true}"> Sim</c:when>
+													<c:otherwise>Não</c:otherwise>
+												</c:choose>
+											</dd>
 											<dt class="col-sm-3">Descrição Bolsa:</dt>
-											<dd class="col-sm-3">${quesAuxMor.descricaoBolsa}</dd>
+											<dd class="col-sm-3">${questAuxMor.descricaoBolsa}</dd>
 										</dl>
 									</div>
 
 									<div class="form-group">
 										<dl class="col-sm-12">
 											<dt class="col-sm-3">Possui Graduação:</dt>
-											<dd class="col-sm-3">${quesAuxMor.graduacao}</dd>
+											<dd class="col-sm-3">
+												<c:choose>
+													<c:when test="${questAuxMor.graduacao == true}"> Sim</c:when>
+													<c:otherwise>Não</c:otherwise>
+												</c:choose>
+											</dd>
 											<dt class="col-sm-3">Descrição da Graduação:</dt>
-											<dd class="col-sm-3">${quesAuxMor.descricaoGraduacao}</dd>
+											<dd class="col-sm-3">${questAuxMor.descricaoGraduacao}</dd>
 										</dl>
 									</div>
 								</div>
@@ -359,7 +395,7 @@
 									<div class="form-group">
 										<dl class="col-sm-12">
 											<dt class="col-sm-3">Justificativa:</dt>
-											<dd class="col-sm-3">${quesAuxMor.justificativa}</dd>
+											<dd class="col-sm-3">${questAuxMor.justificativa}</dd>
 										</dl>
 									</div>
 								</div>
@@ -374,7 +410,8 @@
 		</div>
 		<a id="detalhes" href="<c:url value="/selecao/listar" ></c:url>">
 			<button class=" btn btn-info btn-sm">Voltar</button>
-		</a></div>
+		</a>
+	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
 
