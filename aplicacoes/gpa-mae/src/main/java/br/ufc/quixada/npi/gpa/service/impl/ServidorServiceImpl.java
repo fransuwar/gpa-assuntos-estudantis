@@ -4,8 +4,6 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import br.ufc.quixada.npi.gpa.model.Aluno;
-import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
@@ -38,5 +36,10 @@ public class ServidorServiceImpl extends GenericServiceImpl<Servidor> implements
 	@Transactional(readOnly = true)
 	public Servidor getServidorByCpf(String cpf) {
 			return (Servidor) findFirst("Servidor.findServidorByCpf", new SimpleMap<String, Object>("cpf", cpf));
+	}
+
+	@Override
+	public Servidor getServidorByCPFComBancas(String CPF) {
+		return (Servidor) findFirst("Servidor.findServidorByCPFComBancas", new SimpleMap<String, Object>("cpf", CPF));
 	}
 }

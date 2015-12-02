@@ -75,12 +75,14 @@
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 								<td><a id="detalhes"
+
 									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
 										${selecao.tipoBolsa.nome} </a></td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
+
 								<td><sec:authorize
 										access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
 										<a id="visualizarInscritos"
@@ -111,7 +113,7 @@
 
 										<a id="atribuirBanca"
 
-											href="<c:url value="/coordenador/selecao/${selecao.id}/atribuir-comissao" ></c:url>">
+											href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
 											<c:choose>
 												<c:when test="${empty selecao.membrosBanca}">
 													<button class="btn btn-primary">
@@ -143,7 +145,7 @@
 											<c:when
 												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoBolsa == inic_acad and selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
-													href="<c:url value="/aluno/editar/inscricao/iniciacao-academica" ></c:url>">
+													href="<c:url value="/aluno/inscricao/editar/iniciacao-academica/${inscricao.id}" ></c:url>">
 													<button class=" btn btn-info btn-sm" title="Editar Inscrição">
 														<span class="glyphicon glyphicon-pencil"></span>
 													</button>
@@ -156,8 +158,6 @@
 
 													href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
 													<button class=" btn btn-success">
-
-
 														inscrever-se <span class="glyphicon glyphicon-user"></span>
 													</button>
 												</a>
@@ -165,18 +165,17 @@
 											<c:when
 												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoBolsa == aux_mor and selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
-													href="<c:url value="/aluno/editar/inscricao/auxilio-moradia" ></c:url>">
+													href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id}" ></c:url>">
 													<button class=" btn btn-info btn-sm" title="Editar Inscrição">
 														editar <span class="glyphicon glyphicon-pencil"></span>
 													</button>
 												</a>
 											</c:when>
 										</c:choose>
-									</sec:authorize> <sec:authorize access="hasAnyRole('SERVIDOR')">
+									</sec:authorize> 
+									<sec:authorize access="hasAnyRole('SERVIDOR')">
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
-
-
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 												<button class="btn btn-primary btn-sm">
 													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
@@ -188,7 +187,7 @@
 									</sec:authorize> <sec:authorize access="isAnonymous()">
 
 										<a id="informacoes"
-											href="<c:url value="/selecao/informacoes/${selecao.id}"></c:url>">
+											href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
 											<button class=" btn btn-success btn-sm" title="Informações">
 												<span class="glyphicon glyphicon-zoom-in"></span>
 											</button>

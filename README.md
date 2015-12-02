@@ -31,3 +31,4 @@ select * from papel_pessoa;
 CREATE EXTENSION pgcrypto;
 SELECT encode(digest('teste1234', 'sha256'), 'hex');
 ```
+
