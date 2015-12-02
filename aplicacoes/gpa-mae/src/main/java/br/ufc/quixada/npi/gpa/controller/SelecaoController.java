@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -30,6 +31,7 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -55,6 +57,34 @@ public class SelecaoController {
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
 
+	
+	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
+	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
+		
+		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
+
+		if (request.isUserInRole("DISCENTE")) {
+
+			
+			Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
+			
+			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("aluno", aluno);
+			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+			
+		} else {
+			
+			model.addAttribute("selecoes", selecoes);
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+		}
+		
+		return PAGINA_LISTAR_SELECAO;
+	}
+	
+
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
@@ -64,22 +94,23 @@ public class SelecaoController {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
+		
 		model.addAttribute("selecao", selecao);
 
 		return PAGINA_INFORMACOES_SELECAO;
 	}
+	
+//	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
+//	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
+//			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
+//		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
+//	}
 
-	//	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
-	//	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
-	//			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
-	//		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
-	//	}
-
-	//	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
-	//	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
-	//		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
-	//	}
-
+//	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
+//	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
+//		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
+//	}
+	
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Integer id, 
 			RedirectAttributes redirectAttributes){
@@ -96,7 +127,7 @@ public class SelecaoController {
 		return new HttpEntity<byte[]>(arquivo, headers);
 		
 	}
-	
+
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
@@ -187,4 +218,5 @@ public class SelecaoController {
 		//TODO - Método p/ implementar que retorna página de detalhes de uma seleção.
 		return "";
 	}
+
 }

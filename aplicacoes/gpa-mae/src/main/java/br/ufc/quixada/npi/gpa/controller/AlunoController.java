@@ -38,11 +38,14 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
-import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
+
 import br.ufc.quixada.npi.gpa.model.Inscricao;
+
+import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
+
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -50,7 +53,6 @@ import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
-
 @Controller
 @RequestMapping("aluno")
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
@@ -67,7 +69,7 @@ public class AlunoController {
 
 	@Inject
 	private SelecaoService selecaoService;
-
+	
 	@Inject
 	private InscricaoService inscricaoService;
 
@@ -100,6 +102,7 @@ public class AlunoController {
 		//TODO - Criar página de retorno que mostra as inscrições dos alunos.
 
 		return "";
+
 	}
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
@@ -268,6 +271,39 @@ public class AlunoController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
+	
+	@RequestMapping(value="/inscricao/listar/{idAluno}", method = RequestMethod.GET)
+	public String listarInscricoes(@PathVariable("idAluno") Integer idAluno, Model model){
+		
+		Aluno aluno= this.alunoService.find(Aluno.class, idAluno);
+		
+		List<Inscricao> inscricoes = this.inscricaoService.listarInscricoesByIdAluno(idAluno);
+		
+		model.addAttribute("aluno",aluno);
+		model.addAttribute("inscricoes",inscricoes);
+		
+		
+		return "aluno/minhasInscricoes";
+		
+	}
+	
+	@RequestMapping(value="/inscricao/excluir/{idAluno}/{idInscricao}",method = RequestMethod.GET)
+	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno, @PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirectAttributes){
+		
+		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
+		
+		if(inscricao == null){
+			redirectAttributes.addFlashAttribute("erro", "Inscrição Inexistente.");
+		}else{
+			this.inscricaoService.delete(inscricao);
+			redirectAttributes.addFlashAttribute("info", "Inscrição Excluída com Sucesso.");
+		}
+		return "redirect:/aluno/inscricao/listar/{idAluno}";
+		
+	}
+	
+		
+	
 	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
 	public String editarInscricaoAMOR(@PathVariable("idInscricao") Integer idInscricao, Model model, RedirectAttributes redirect) {
 		
@@ -280,10 +316,14 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/editar/auxilio-moradia" }, method = RequestMethod.POST)
 	public String editarInscricaoAMOR(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
 			BindingResult result, RedirectAttributes redirect) {
-		//TODO - Método p/ implementar que salva a edição de um formulário em uma incrição auxílio moradia.
+
+		this.questionarioAuxMoradiaService.update(auxilioMoradia);
+		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
+
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
+
 
 	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhes(@PathVariable("idInscricao") Integer idInscricao, Model modelo, RedirectAttributes redirect){
