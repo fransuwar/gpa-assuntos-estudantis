@@ -1,10 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.util.List;
 
@@ -60,6 +56,7 @@ public class SelecaoController {
 	
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
+
 	
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
@@ -87,9 +84,11 @@ public class SelecaoController {
 		return PAGINA_LISTAR_SELECAO;
 	}
 	
+
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
+
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");

@@ -9,6 +9,7 @@ public interface ServidorService extends GenericService<Servidor>{
 	public abstract Servidor getServidorComBancas(Integer id);
 	public abstract Servidor getPessoaServidorComBancas(Integer id);
 	public abstract Servidor getServidorByCpf(String cpf);
+	public abstract Servidor getServidorByCPFComBancas(String CPF);
 
 	
 
