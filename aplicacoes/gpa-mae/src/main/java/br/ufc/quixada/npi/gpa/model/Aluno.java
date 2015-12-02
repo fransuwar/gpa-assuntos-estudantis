@@ -76,6 +76,11 @@ public class Aluno {
 	@OneToMany(mappedBy = "aluno", cascade = {CascadeType.PERSIST})
 	private List<Inscricao> inscricoes;
 
+	
+	@OneToMany(mappedBy = "aluno")
+	private List<VisitaDomiciliar> relatorioVisitaDomiciliar;
+
+
 	public Integer getId() {
 		return id;
 	}

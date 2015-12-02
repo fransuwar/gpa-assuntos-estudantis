@@ -24,9 +24,9 @@ public class Constants {
 	
 	public static final String PAGINA_FORMULARIO_PREENCHIDO_SELECAO	= "selecao/formularioInscricaoPreenchido";
 	
-	public static final String PAGINA_RELATORIO_VISITA				= "selecao/relatorioVisita";
-	
 	public static final String PAGINA_INFORMACOES_RELATORIO			= "selecao/informacoesRelatorio";
+	
+	public static final String PAGINA_RELATORIO_VISITA				= "servidor/relatorioVisita";
 	
 	public static final String PAGINA_CADASTRAR_SERVIDOR			= "servidor/cadastrarServidor";
 	
@@ -34,13 +34,15 @@ public class Constants {
 	
 	public static final String PAGINA_CADASTRAR_ALUNO				= "servidor/cadastrarAluno";
 	
-			
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
 	public static final String PAGINA_INSCREVER_AUXILIO_MORADIA 	= "aluno/inscricaoAuxilio";
 	
 	public static final String PAGINA_DETALHES_INSCRICAO			= "aluno/detalhesInscricao";
 	
+	public static final String PAGINA_INSCRICOES_ALUNO				= "aluno/minhasInscricoes";
+	
+	public static final String PAGINA_SELECOES_ABERTAS				= "aluno/listarSelecoesAbertas";
 	
 	/** Redirecionamentos */
 	

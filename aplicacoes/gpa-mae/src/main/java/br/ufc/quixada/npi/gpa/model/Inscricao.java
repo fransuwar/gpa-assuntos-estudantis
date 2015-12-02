@@ -35,6 +35,7 @@ public class Inscricao {
 	private boolean avaliacaoDocumentos;
 
 	@Enumerated(EnumType.STRING)
+
 	private Resultado resultado;
 
 	private String observacoes;

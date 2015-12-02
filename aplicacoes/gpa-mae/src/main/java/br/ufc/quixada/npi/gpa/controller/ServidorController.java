@@ -355,8 +355,8 @@ public class ServidorController {
 
 	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
 	public String realizarVisita(Model model) {
-		//TODO - Método p/ ser implementado que retorna a página de realização uma visita.
-		return "";
+		
+		return PAGINA_RELATORIO_VISITA;
 	}
 
 	@RequestMapping(value = { "visita" }, method = RequestMethod.POST)

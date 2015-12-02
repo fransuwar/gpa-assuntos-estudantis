@@ -42,10 +42,10 @@ public class SelecaoController {
 
 	@Inject
 	private ServidorService servidorService;
-	
+
 	@Inject
 	private AlunoService alunoService;
-	
+
 	@Inject
 	private DocumentoService documentoService;
 
@@ -58,7 +58,6 @@ public class SelecaoController {
 		List<Selecao> selecoes = selecaoService.find(Selecao.class);
 
 		if (request.isUserInRole("DISCENTE")) {
-
 			
 			Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
 			
@@ -89,14 +88,15 @@ public class SelecaoController {
 	}
 
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
+	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model,
+			RedirectAttributes redirect) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
-
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
+		
 		model.addAttribute("selecao", selecao);
 
 		return PAGINA_INFORMACOES_SELECAO;
@@ -114,11 +114,25 @@ public class SelecaoController {
 		headers.set("Content-Disposition", "attachment; filename=" + documento.getNome().replace(" ", "_"));
 		headers.setContentLength(arquivo.length);
 		redirectAttributes.addFlashAttribute("success", "Download do Documento realizado com sucesso");
-		
+
 		return new HttpEntity<byte[]>(arquivo, headers);
-		
+
 	}
-	
+
+
+	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
+	public String listar(ModelMap model, HttpServletRequest request) {
+
+		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
+
+		model.addAttribute("selecoes", selecoes);
+		model.addAttribute("tipoBolsa", TipoBolsa.values());
+		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+
+		return PAGINA_LISTAR_SELECAO;
+	}
+
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
@@ -135,7 +149,6 @@ public class SelecaoController {
 	public String listarInscritos(@PathVariable("idSelecao") Integer idSelecao, ModelMap model) {
 		
 		// TODO - Implementar método que pode ser visualizar os inscritos em uma determinada seleção.
-
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
 
@@ -148,16 +161,17 @@ public class SelecaoController {
 			return PAGINA_LISTAR_INSCRITOS_SELECAO;
 		}
 		
-		// TODO - 
+		// TODO - Implementar o método que dará o parecer do aluno.
 
 		redirect.addFlashAttribute("info", "Parecer emitido com sucesso.");
-		
+
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
-	
+
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhesInscricao() {
-		//TODO - Método p/ implementar que retorna página de detalhes de uma seleção.
+		// TODO - Método p/ implementar que retorna página de detalhes de uma seleção.
 		return "";
 	}
+
 }
