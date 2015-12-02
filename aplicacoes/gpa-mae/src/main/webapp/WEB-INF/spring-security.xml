@@ -16,13 +16,13 @@
  		
  		<intercept-url pattern="/coordenador/**" access="hasRole('COORD_ASS_ESTUDANTIS')"/>
  		
- 		<intercept-url pattern="/servidor/listar/alunos" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')"/>
- 		<intercept-url pattern="/servidor/**" access="hasRole('SERVIDOR')"/>
+ 		<intercept-url pattern="/servidor/listar/alunos" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'DOCENTE', 'STA')"/>
+ 		<intercept-url pattern="/servidor/**" access="hasAnyRole('DOCENTE','STA')"/>
  		
  		<intercept-url pattern="/selecao/detalhes/*" access="permitAll"/>
  		<intercept-url pattern="/selecao/listar" access="permitAll"/>
  		<intercept-url pattern="/selecao/documento/*" access="permitAll"/>
- 		<intercept-url pattern="/selecao/**" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')" />
+ 		<intercept-url pattern="/selecao/**" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'DOCENTE','STA')" />
  
  		<form-login login-page="/login" default-target-url="/"
 			authentication-success-handler-ref="authenticationSuccessHandlerImpl"
