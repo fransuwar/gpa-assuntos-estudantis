@@ -20,5 +20,5 @@ public interface InscricaoService extends GenericService<Inscricao>{
 	public abstract void realizarInscricaoIniciacaoAcademica(Selecao selecao, Aluno aluno, QuestionarioIniciacaoAcademica iniciacaoAcademica);
 
 	public abstract void atualizarInscricaoIniciacaoAcademica(QuestionarioIniciacaoAcademica iniciacaoAcademica);
-
+	
 }

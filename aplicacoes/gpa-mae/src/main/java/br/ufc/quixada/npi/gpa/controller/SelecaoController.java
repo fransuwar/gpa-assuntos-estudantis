@@ -1,10 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.util.List;
 
@@ -31,12 +27,10 @@ import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
-import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
-import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
@@ -57,9 +51,6 @@ public class SelecaoController {
 
 	@Inject
 	private SelecaoService selecaoService;
-	
-	@Inject
-	private QuestionarioAuxMoradiaService auxService;
 	
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
@@ -202,26 +193,6 @@ public class SelecaoController {
 		redirect.addFlashAttribute("info", "Parecer emitido com sucesso.");
 		
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
-	}
-
-	@RequestMapping(value = "formularioInscricaoPreenchido/{idAluno}/{idSelecao}", method = RequestMethod.GET)
-	public String visualizarDadosInscricao(@PathVariable("idAluno") Integer idAluno,
-			@PathVariable("idSelecao") Integer idSelecao, Model modelo, RedirectAttributes redirect) {
-
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		Aluno aluno = alunoService.find(Aluno.class, idAluno);
-		QuestionarioAuxilioMoradia questionario = auxService.find(QuestionarioAuxilioMoradia.class, idAluno);
-
-		if (selecao == null) {
-			redirect.addFlashAttribute("erro", "Relatório não existe");
-			return "redirect:/selecao/inscritos/{id}";
-		}
-		modelo.addAttribute("aluno", aluno);
-		modelo.addAttribute("selecao", selecao);
-		modelo.addAttribute("questionario", questionario);
-
-		return PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
-
 	}
 	
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
