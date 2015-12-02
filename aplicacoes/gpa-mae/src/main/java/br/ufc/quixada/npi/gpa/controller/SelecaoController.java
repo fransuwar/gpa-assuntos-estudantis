@@ -12,7 +12,6 @@ import javax.validation.Valid;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -31,7 +30,6 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
-import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -120,22 +118,6 @@ public class SelecaoController {
 	@RequestMapping(value = "inscritos/{id}", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
 
-		// List<Aluno> alunosSelecao =
-		// this.selecaoService.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
-		//
-		// List<Parecer> pareceres = new ArrayList<Parecer>();
-		// for (Aluno aluno : alunosSelecao) {
-		// Parecer parecer = new Parecer();
-		// parecer.setAlunoApto(aluno);
-		// pareceres.add(parecer);
-		// }
-		//
-		// ParecerForm parecerForm = new ParecerForm();
-		// parecerForm.setPareceres(pareceres);
-		//
-		// model.addAttribute("pareceres", parecerForm);
-		// model.addAttribute("idSelecao", id);
-
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
 
@@ -147,20 +129,6 @@ public class SelecaoController {
 		if (result.hasErrors()) {
 			return PAGINA_LISTAR_INSCRITOS_SELECAO;
 		}
-
-		/*
-		 * List<Aluno> alunosSelecao = this.selecaoService
-		 * .getSelecaoBolsaComAlunos(id).getAlunosSelecao(); Selecao selecao =
-		 * this.selecaoService.getSelecaoBolsaComAlunos(id);
-		 * 
-		 * List<Parecer> pareceres = parecerForm.getPareceres();
-		 * 
-		 * for (Parecer parecer : pareceres) { for (Aluno aluno : alunosSelecao)
-		 * { parecer.setAlunoApto(aluno); parecer.setSelecao(selecao); }
-		 * 
-		 * this.parecerService.save(parecer); }
-		 */
-
 		redirect.addFlashAttribute("info", "Parecer emitido com sucesso.");
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
