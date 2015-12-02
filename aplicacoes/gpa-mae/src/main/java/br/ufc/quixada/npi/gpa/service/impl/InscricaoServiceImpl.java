@@ -1,7 +1,5 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
-import java.util.Date;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,14 +7,12 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
-import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
-import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
-import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
+import br.ufc.quixada.npi.repository.GenericRepository;
 import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
 import br.ufc.quixada.npi.util.SimpleMap;
 
@@ -25,11 +21,8 @@ import br.ufc.quixada.npi.util.SimpleMap;
 public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implements InscricaoService {
 	
 	@Inject
-	private GenericServiceImpl<QuestionarioIniciacaoAcademica> iniciacaoAcademicaService;
+	private GenericRepository<VisitaDomiciliar> visitaService;
 	
-	@Inject
-	private GenericServiceImpl<QuestionarioAuxilioMoradia> auxilioMoradiaService;
-
 	@Override
 	@Transactional(readOnly = true)
 	public List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica) {
@@ -51,48 +44,23 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	}
 
 	@Override
-	public void realizarInscricaoIniciacaoAcademica(Selecao selecao, Aluno aluno, QuestionarioIniciacaoAcademica iniciacaoAcademica) {
-
-		Inscricao inscricao = new Inscricao();
-		
-		inscricao.setData(new Date());
-		
-		inscricao.setAluno(aluno);
-		inscricao.setSelecao(selecao);
-		inscricao.setQuestionarioIniciacaoAcademica(iniciacaoAcademica);
-
-		this.save(inscricao);
-
-	}
-
-	@Override
-	public void atualizarInscricaoIniciacaoAcademica(QuestionarioIniciacaoAcademica iniciacaoAcademica) {
-		this.iniciacaoAcademicaService.update(iniciacaoAcademica);
+	public void salvarVisitaDocimiciliar(VisitaDomiciliar visitaDocimiciliar) {
+		visitaService.save(visitaDocimiciliar);
 		
 	}
 
 	@Override
-	public void realizarInscricaoAuxilioMoradia(Selecao selecao, Aluno aluno, QuestionarioAuxilioMoradia auxilioMoradia) {
-		
-		Inscricao inscricao = new Inscricao();
-		
-		inscricao.setData(new Date());
-		
-		inscricao.setAluno(aluno);
-		inscricao.setSelecao(selecao);
-		inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
-		
-		this.save(inscricao);
+	public void atualizarVisitaDomiciliar(VisitaDomiciliar visitaDocimiciliar) {
+		visitaService.update(visitaDocimiciliar);
 		
 	}
 
 	@Override
-	public void atualizarInscricaoAuxilioMoradia(QuestionarioAuxilioMoradia auxilioMoradia) {
-		this.auxilioMoradiaService.update(auxilioMoradia);
-		
+	@Transactional(readOnly = true)
+	public VisitaDomiciliar getVisitaDocimiciliarByIdVisitaDomiciliar(Integer idVisitaDomiciliar) {
+		return visitaService.find(VisitaDomiciliar.class, idVisitaDomiciliar);
 	}
 	
 	
-
 
 }

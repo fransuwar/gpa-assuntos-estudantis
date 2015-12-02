@@ -2,13 +2,10 @@ package br.ufc.quixada.npi.gpa.service;
 
 import java.util.List;
 
-import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
-import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
-import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
-import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 
 public interface InscricaoService extends GenericService<Inscricao>{
 	
@@ -17,13 +14,11 @@ public interface InscricaoService extends GenericService<Inscricao>{
 	public abstract List<PessoaFamilia> getPessoaFamiliaByIdIniciacaoAcademica(Integer idIniciacaoAcademica);
 	
 	public abstract List<PessoaFamilia> getPessoaFamiliaByIdAuxilioMoradia(Integer idAuxilioMoradia);
+	
+	public abstract VisitaDomiciliar getVisitaDocimiciliarByIdVisitaDomiciliar(Integer idVisitaDomiciliar);
+	
+	public abstract void salvarVisitaDocimiciliar(VisitaDomiciliar visitaDocimiciliar);
+	
+	public abstract void atualizarVisitaDomiciliar(VisitaDomiciliar visitaDocimiciliar);
 
-	public abstract void realizarInscricaoIniciacaoAcademica(Selecao selecao, Aluno aluno, QuestionarioIniciacaoAcademica iniciacaoAcademica);
-
-	public abstract void atualizarInscricaoIniciacaoAcademica(QuestionarioIniciacaoAcademica iniciacaoAcademica);
-	
-	public abstract void realizarInscricaoAuxilioMoradia(Selecao selecao, Aluno aluno, QuestionarioAuxilioMoradia auxilioMoradia);
-	
-	public abstract void atualizarInscricaoAuxilioMoradia(QuestionarioAuxilioMoradia auxilioMoradia);
-	
 }

@@ -7,23 +7,24 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<c:if test="${action eq 'inscricao' }">
+	<c:url var="url" value="/aluno/inscricao/iniciacao-academica"></c:url>
+	<c:set var="titulo" value="Nova Inscrição"></c:set>
+	<c:set var="botao" value="Finalizar Inscrição"></c:set>
+</c:if>
+
+<c:if test="${action eq 'editar' }">
+	<c:url var="url" value="/aluno/inscricao/editar/iniciacao-academica"></c:url>
+	<c:set var="titulo" value="Editar Inscrição"></c:set>
+	<c:set var="botao" value="Atualizar Inscrição"></c:set>
+</c:if>
+
 <html>
 <head>
 <jsp:include page="../fragments/headTag.jsp" />
 <title>Cadastro de Seleção de Bolsas</title>
 </head>
 <body>
-<c:if test="${action eq 'inscricao' }">
-	
-	<c:url var="url" value="/aluno/inscricao/iniciacao-academica"></c:url>
-	<c:set var="titulo" value="Nova Inscrição"></c:set>
-	<c:set var="botao" value="Finalizar Inscrição"></c:set>
-</c:if>
-<c:if test="${action eq 'editar' }">
-	<c:url var="url" value="/aluno/inscricao/editar/iniciacao-academica"></c:url>
-	<c:set var="titulo" value="Editar Inscrição"></c:set>
-	<c:set var="botao" value="Atualizar Inscrição"></c:set>
-</c:if>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">

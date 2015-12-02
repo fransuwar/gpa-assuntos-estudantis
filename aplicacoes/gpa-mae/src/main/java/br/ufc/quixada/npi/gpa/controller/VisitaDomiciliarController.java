@@ -1,5 +1,7 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -19,7 +21,7 @@ import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
-import br.ufc.quixada.npi.gpa.service.VisitaDomiciliarService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
@@ -30,73 +32,80 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 public class VisitaDomiciliarController {
 	
 	@Inject
-	private VisitaDomiciliarService visitaService;
-	@Inject
 	private AlunoService alunoService;
+	
+	@Inject
+	private InscricaoService inscricaoService;
+	
 	@Inject
 	private SelecaoService selecaoBolsaService;
 
 	@RequestMapping(value="cadastrar/{idAluno}/{idSelecaoBolsa}", method = RequestMethod.GET)
-	public String cadastrar(@PathVariable("idAluno") Integer id,
-							@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo){
-		Aluno aluno = alunoService.find(Aluno.class, id);
-		modelo.addAttribute("relatorioVisitaDomiciliar", new VisitaDomiciliar());
-		modelo.addAttribute("curso", Curso.values());
-		modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
-		modelo.addAttribute("aluno", aluno);
-		modelo.addAttribute("idSelecaoBolsa", idSelecaoBolsa);
-		return "/selecao/relatorioVisita";
+	public String cadastrar(@PathVariable("idAluno") Integer idAluno,
+							@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model model){
+		
+		Aluno aluno = alunoService.find(Aluno.class, idAluno);
+		
+		model.addAttribute("relatorioVisitaDomiciliar", new VisitaDomiciliar());
+		model.addAttribute("curso", Curso.values());
+		model.addAttribute("moradiaEstado", EstadoMoradia.values());
+		model.addAttribute("aluno", aluno);
+		model.addAttribute("idSelecaoBolsa", idSelecaoBolsa);
+		
+		return PAGINA_RELATORIO_VISITA;
 	}
 	
 	@RequestMapping(value="/cadastrar/{idAluno}/{idSelecaoBolsa}", method= RequestMethod.POST)
-	public String adicionarRelatorio(
-			@PathVariable("idAluno") Integer idAluno,
-			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, 
+	public String adicionarRelatorio(@PathVariable("idAluno") Integer idAluno,
+			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa,
 			@Valid @ModelAttribute("relatorioVisitaDomiciliar") VisitaDomiciliar relatorioVisitaDomiciliar,
-			BindingResult result, RedirectAttributes redirect, Model modelo){
+			BindingResult result, RedirectAttributes redirect, Model model) {
 		
 		
 		if(result.hasErrors()){
+			
 			Aluno aluno = alunoService.find(Aluno.class, idAluno);
-			modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
-			modelo.addAttribute("curso", Curso.values());
-			modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
-			modelo.addAttribute("aluno", aluno);
-			modelo.addAttribute("idSelecaoBolsa", idSelecaoBolsa);
+			
+			model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
+			model.addAttribute("curso", Curso.values());
+			model.addAttribute("moradiaEstado", EstadoMoradia.values());
+			model.addAttribute("aluno", aluno);
+			model.addAttribute("idSelecaoBolsa", idSelecaoBolsa);
+			
 			if(relatorioVisitaDomiciliar.getId() != null) 
-				modelo.addAttribute("action", "editar");
-			return "/selecao/relatorioVisita";
+				model.addAttribute("action", "editar");
+			return PAGINA_RELATORIO_VISITA;
 		}
 		
 		if(relatorioVisitaDomiciliar.getId() != null){
 			
-			this.visitaService.update(relatorioVisitaDomiciliar);
+			inscricaoService.atualizarVisitaDomiciliar(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatório Atualizado com sucesso.");
-			return "redirect:/selecao/inscritos/"+idSelecaoBolsa;
+			return REDIRECT_PAGINA_INSCRITOS_SELECAO + idSelecaoBolsa;
 			
 		} else {
 			relatorioVisitaDomiciliar.setAluno(alunoService.getAlunoByIdPessoa(idAluno));
 			relatorioVisitaDomiciliar.setSelecaoBolsa(selecaoBolsaService.find(Selecao.class, idSelecaoBolsa));
 			
-			this.visitaService.save(relatorioVisitaDomiciliar);
+			inscricaoService.salvarVisitaDocimiciliar(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatorio cadastrado com sucesso.");
 			
-			return "redirect:/selecao/inscritos/"+idSelecaoBolsa;
+			return REDIRECT_PAGINA_INSCRITOS_SELECAO  +idSelecaoBolsa;
 		}
 	}
 	
-	@RequestMapping(value="informacoesRelatorio/{id}", method= RequestMethod.GET)
-	public String visualizarInformacoes(@PathVariable("id") Integer idRelatorio, Model modelo, RedirectAttributes redirect){
+	@RequestMapping(value="informacoesRelatorio/{idRelatorio}", method= RequestMethod.GET)
+	public String visualizarInformacoes(@PathVariable("idRelatorio") Integer idRelatorio, Model model, RedirectAttributes redirect){
 		
-		VisitaDomiciliar relatorio= visitaService.find(VisitaDomiciliar.class, idRelatorio);
+		VisitaDomiciliar relatorio= inscricaoService.getVisitaDocimiciliarByIdVisitaDomiciliar(idRelatorio);
 		
 		if(relatorio == null){
 			redirect.addFlashAttribute("erro", "Relatório não existe");
-			return "redirect:/selecao/inscritos/{id}";
+			return REDIRECT_PAGINA_INSCRITOS_SELECAO;
 		}
 		
-		modelo.addAttribute("relatorio",relatorio);
+		model.addAttribute("relatorio",relatorio);
 		
-		return "selecao/informacoesRelatorio";
+		return PAGINA_INFORMACOES_RELATORIO;
 	}
 }

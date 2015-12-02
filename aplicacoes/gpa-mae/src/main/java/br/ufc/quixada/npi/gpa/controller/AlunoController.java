@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -67,7 +68,7 @@ public class AlunoController {
 		
 	List<Selecao> selecoes = selecaoService.find(Selecao.class);
 	
-	Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
+	Aluno aluno = alunoService.getAlunoComInscricoesCpf(auth.getName());
 	
 	model.addAttribute("selecoes", selecoes);
 	model.addAttribute("aluno", aluno);
@@ -82,7 +83,7 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
 
-		Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
+		Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
 
 		model.addAttribute("inscricoes", aluno.getInscricoes());
 
@@ -133,8 +134,16 @@ public class AlunoController {
 
 		Selecao selecao = selecaoService.find(Selecao.class,idSelecao);
 		Aluno aluno = alunoService.getAlunoByCPF(auth.getName()); 
-		inscricaoService.realizarInscricaoIniciacaoAcademica(selecao, aluno, iniciacaoAcademica);
-
+	
+		Inscricao inscricao = new Inscricao();
+		
+		inscricao.setData(new Date());
+		
+		inscricao.setAluno(aluno);
+		inscricao.setSelecao(selecao);
+		inscricao.setQuestionarioIniciacaoAcademica(iniciacaoAcademica);
+		
+		inscricaoService.save(inscricao);
 
 		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -167,12 +176,12 @@ public class AlunoController {
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 
 			
-			List<HorarioDisponivel> horariosDisponiveis = this.inscricaoService.getHorariosDisponiveisIniciacaoAcademica(iniciacaoAcademica.getId());
+			List<HorarioDisponivel> horariosDisponiveis = inscricaoService.getHorariosDisponiveisIniciacaoAcademica(iniciacaoAcademica.getId());
 			if (horariosDisponiveis != null) {
 				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
 			}
 			
-			List<PessoaFamilia> pessoasDaFamilia = this.inscricaoService.getPessoaFamiliaByIdIniciacaoAcademica(iniciacaoAcademica.getId());
+			List<PessoaFamilia> pessoasDaFamilia = inscricaoService.getPessoaFamiliaByIdIniciacaoAcademica(iniciacaoAcademica.getId());
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
@@ -180,7 +189,7 @@ public class AlunoController {
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 		
-		inscricaoService.atualizarInscricaoIniciacaoAcademica(iniciacaoAcademica);
+		// TODO - Realizar a atualização de uma iniciação acadêmica.
 		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
@@ -227,10 +236,18 @@ public class AlunoController {
 
 		} else {
 			
-			Selecao selecao = this.selecaoService.find(Selecao.class,idSelecao);
-			Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName()); 
+			Selecao selecao = selecaoService.find(Selecao.class,idSelecao);
+			Aluno aluno = alunoService.getAlunoByCPF(auth.getName()); 
+		
+			Inscricao inscricao = new Inscricao();
 			
-			this.inscricaoService.realizarInscricaoAuxilioMoradia(selecao, aluno, auxilioMoradia);
+			inscricao.setData(new Date());
+			
+			inscricao.setAluno(aluno);
+			inscricao.setSelecao(selecao);
+			inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
+			
+			inscricaoService.save(inscricao);
 			
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
@@ -252,7 +269,9 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/editar/auxilio-moradia" }, method = RequestMethod.POST)
 	public String editarInscricaoAMOR(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
 			BindingResult result, RedirectAttributes redirect) {
+		
 		//TODO - Método p/ implementar que salva a edição de um formulário em uma incrição auxílio moradia.
+		
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
