@@ -55,7 +55,7 @@
 
 				</ul>
 
-				<form:form id="questionarioForm" role="form"
+				<form:form id="questionarioAuxilio" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
 					servletRelativeAction="${url }" method="POST"
@@ -75,23 +75,24 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<div class="col-sm-13" id="col-sm-radio">
+										<div class="col-sm-9" id="col-sm-radio">
 											<form:checkboxes items="${moraCom}" path="comQuemMora" />
 											<div class="error-validation">
 												<form:errors path="comQuemMora"></form:errors>
 											</div>
 										</div>
 									</div>
-
-									<div align="left" class="col-sm-16">
+									<div class="form-group" align="left" class="col-sm-16">
 										<label for=comQuemMoraOutros class="col-sm-7 control-label">
 											<span class="red">*</span>Com Que Mora essas pessoas ?
 										</label>
-										<form:input id="comQuemMoraOutros" path="comQuemMoraOutros"
-											cssClass="form-control"
-											placeholder="Com quem mora essas pessoas ?" />
-										<div class="error-validation">
-											<form:errors path="comQuemMoraOutros"></form:errors>
+										<div class="col-sm-4">
+											<form:input id="comQuemMoraOutros" path="comQuemMoraOutros"
+												cssClass="form-control"
+												placeholder="Com quem mora essas pessoas ?" />
+											<div class="error-validation">
+												<form:errors path="comQuemMoraOutros"></form:errors>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -99,7 +100,6 @@
 									<h3>Nome dos pais</h3>
 								</div>
 								<div class="panel-body">
-
 									<div class="form-group">
 										<label for="nomeMae" class="col-sm-2 control-label"
 											id="form-label-right"><span class="red">*</span>Mãe:</label>
@@ -168,8 +168,6 @@
 												<form:errors path="cidade"></form:errors>
 											</div>
 										</div>
-
-
 										<label for="complemento" class="col-sm-2 control-label">Complemento:</label>
 										<div class="col-sm-4">
 											<form:input id="complemento" path="complemento"
@@ -192,7 +190,8 @@
 												<form:errors path="cep"></form:errors>
 											</div>
 										</div>
-										<label for="estado" class="col-sm-1 control-label">Estado:</label>
+										<label for="estado" class="col-sm-1 control-label"><span
+											class="red">*</span>Estado:</label>
 										<div class="col-sm-2">
 											<form:select path="estado" id="estado"
 												cssClass="form-control">
@@ -290,7 +289,8 @@
 												<form:errors path="cepOrigem"></form:errors>
 											</div>
 										</div>
-										<label for="estadoOrigem" class="col-sm-1 control-label">Estado:</label>
+										<label for="estadoOrigem" class="col-sm-1 control-label"><span
+											class="red">*</span>Estado:</label>
 										<div class="col-sm-2">
 											<form:select path="estadoOrigem" id="estadoOrigem"
 												cssClass="form-control">

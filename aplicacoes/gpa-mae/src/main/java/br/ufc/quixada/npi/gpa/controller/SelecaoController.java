@@ -56,44 +56,21 @@ public class SelecaoController {
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
 
-	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
-	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
-
-		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
-
-		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("tipoBolsa", TipoBolsa.values());
-		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
-		return PAGINA_LISTAR_SELECAO;
-	}
-
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
+	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model,
+			RedirectAttributes redirect) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
-
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
+		
 		model.addAttribute("selecao", selecao);
 
 		return PAGINA_INFORMACOES_SELECAO;
 	}
-
-	//	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
-	//	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
-	//			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
-	//		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
-	//	}
-
-	//	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
-	//	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
-	//		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
-	//	}
-
+	
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Integer id, 
 			RedirectAttributes redirectAttributes){
@@ -109,6 +86,19 @@ public class SelecaoController {
 
 		return new HttpEntity<byte[]>(arquivo, headers);
 
+	}
+
+	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
+	public String listar(ModelMap model, HttpServletRequest request) {
+
+		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
+
+		model.addAttribute("selecoes", selecoes);
+		model.addAttribute("tipoBolsa", TipoBolsa.values());
+		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+
+		return PAGINA_LISTAR_SELECAO;
 	}
 
 	@RequestMapping(value = "/listarPorServidor/{id}")
@@ -149,6 +139,7 @@ public class SelecaoController {
 	//		return null;
 	//	}
 
+
 	@RequestMapping(value = "parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,
 			@PathVariable("idSelecao") Integer id, BindingResult result, HttpServletRequest request,
@@ -157,20 +148,6 @@ public class SelecaoController {
 		if (result.hasErrors()) {
 			return PAGINA_LISTAR_INSCRITOS_SELECAO;
 		}
-
-		/*
-		 * List<Aluno> alunosSelecao = this.selecaoService
-		 * .getSelecaoBolsaComAlunos(id).getAlunosSelecao(); Selecao selecao =
-		 * this.selecaoService.getSelecaoBolsaComAlunos(id);
-		 * 
-		 * List<Parecer> pareceres = parecerForm.getPareceres();
-		 * 
-		 * for (Parecer parecer : pareceres) { for (Aluno aluno : alunosSelecao)
-		 * { parecer.setAlunoApto(aluno); parecer.setSelecao(selecao); }
-		 * 
-		 * this.parecerService.save(parecer); }
-		 */
-
 		redirect.addFlashAttribute("info", "Parecer emitido com sucesso.");
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -198,7 +175,9 @@ public class SelecaoController {
 
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhesInscricao() {
-		//TODO - Método p/ implementar que retorna página de detalhes de uma seleção.
+		// TODO - Método p/ implementar que retorna página de detalhes de uma
+		// seleção.
 		return "";
 	}
+
 }
