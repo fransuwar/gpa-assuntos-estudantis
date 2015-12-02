@@ -1,6 +1,7 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
 import java.util.Date;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,6 +13,7 @@ import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
+import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -24,6 +26,9 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	
 	@Inject
 	private GenericServiceImpl<QuestionarioIniciacaoAcademica> iniciacaoAcademicaService;
+	
+	@Inject
+	private GenericServiceImpl<QuestionarioAuxilioMoradia> auxilioMoradiaService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -62,10 +67,32 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 
 	@Override
 	public void atualizarInscricaoIniciacaoAcademica(QuestionarioIniciacaoAcademica iniciacaoAcademica) {
-		iniciacaoAcademicaService.update(iniciacaoAcademica);
+		this.iniciacaoAcademicaService.update(iniciacaoAcademica);
+		
+	}
+
+	@Override
+	public void realizarInscricaoAuxilioMoradia(Selecao selecao, Aluno aluno, QuestionarioAuxilioMoradia auxilioMoradia) {
+		
+		Inscricao inscricao = new Inscricao();
+		
+		inscricao.setData(new Date());
+		
+		inscricao.setAluno(aluno);
+		inscricao.setSelecao(selecao);
+		inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
+		
+		this.save(inscricao);
+		
+	}
+
+	@Override
+	public void atualizarInscricaoAuxilioMoradia(QuestionarioAuxilioMoradia auxilioMoradia) {
+		this.auxilioMoradiaService.update(auxilioMoradia);
 		
 	}
 	
 	
+
 
 }

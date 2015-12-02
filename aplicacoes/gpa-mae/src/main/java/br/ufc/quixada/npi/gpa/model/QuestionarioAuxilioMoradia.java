@@ -28,16 +28,15 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "AuxMor.findAuxMorById", 
-					query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.id = :idQuest") 
-			})
+		@NamedQuery(name = "AuxMor.findAuxMorById", query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.id = :idQuest") })
+
 public class QuestionarioAuxilioMoradia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoFundamental ensinoFundamental;
 
@@ -45,7 +44,7 @@ public class QuestionarioAuxilioMoradia {
 
 	private int percentualParticularFundamental;
 
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoMedio ensinoMedio;
 	
@@ -82,31 +81,31 @@ public class QuestionarioAuxilioMoradia {
 	@NotEmpty(message = "Campo obrigatório")
 	private String nomeMae;
 	
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String endereco;
 	
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String numero;
 	
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String complemento;
 	
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String bairro;
 	
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String cep;
 	
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String cidade;
 	
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String estado;
 	
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String referencia;
 	
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String enderecoOrigem;
 	
 	@NotNull(message = "Campo obrigatório")
@@ -138,7 +137,7 @@ public class QuestionarioAuxilioMoradia {
 	@Enumerated(EnumType.STRING)
 	private GrauParentescoImovelRural grauParentescoImovelRural;
 	
-	private double areaPropriedadeRural;
+	private Double areaPropriedadeRural;
 	
 	private String cidadeEstadoImovelRural;
 	
@@ -148,19 +147,17 @@ public class QuestionarioAuxilioMoradia {
 	private String veiculo;
 	
 	@Enumerated(EnumType.STRING)
-	
 	private FinalidadeVeiculo finalidadeVeiculo;
-	
-
 	
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
-
-	public QuestionarioAuxilioMoradia() {
+	
+	public QuestionarioAuxilioMoradia() {	
+		
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -385,11 +382,6 @@ public class QuestionarioAuxilioMoradia {
 		this.justificativa = justificativa;
 	}
 
-	@Override
-	public String toString() {
-		return "QuestionarioAuxilioMoradia [id=" + id + "]";
-	}
-
 	public boolean isBolsaEnsinoFundamental() {
 		return bolsaEnsinoFundamental;
 	}
@@ -550,4 +542,38 @@ public class QuestionarioAuxilioMoradia {
 		this.cidadeEstadoImovelRural = cidadeEstadoImovelRural;
 	}
 
+	
+	
+	@Override
+	public String toString() {
+		return "QuestionarioAuxilioMoradia [id=" + id + ", justificativa=" + justificativa + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		QuestionarioAuxilioMoradia other = (QuestionarioAuxilioMoradia) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
+	
 }

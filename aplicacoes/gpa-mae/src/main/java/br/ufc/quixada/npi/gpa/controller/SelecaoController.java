@@ -87,11 +87,11 @@ public class SelecaoController {
 		
 		return PAGINA_LISTAR_SELECAO;
 	}
-	
 
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
+
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
@@ -101,17 +101,6 @@ public class SelecaoController {
 
 		return PAGINA_INFORMACOES_SELECAO;
 	}
-
-	//	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
-	//	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
-	//			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
-	//		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
-	//	}
-
-	//	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
-	//	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
-	//		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
-	//	}
 
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Integer id, 
@@ -144,29 +133,11 @@ public class SelecaoController {
 
 	@RequestMapping(value = "inscritos/{id}", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("id") Integer id, ModelMap model) {
-
-//		List<Aluno> alunosSelecao = this.selecaoService.getSelecaoBolsaComAlunos(id).getAlunosSelecao();
-//		
-//		List<Parecer> pareceres = new ArrayList<Parecer>();
-//		for (Aluno aluno : alunosSelecao) {
-//			Parecer parecer = new Parecer();
-//			parecer.setAlunoApto(aluno);
-//			pareceres.add(parecer);
-//		}
-//		
-//		ParecerForm parecerForm = new ParecerForm();
-//		parecerForm.setPareceres(pareceres);
-//		
-//		model.addAttribute("pareceres", parecerForm);
-//		model.addAttribute("idSelecao", id);
+		
+		// TODO - Implementar método que pode ser visualizar os inscritos em uma determinada seleção.
 
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
-	
-//	@RequestMapping(value = "/visualizarFormulario/{idaluno}")
-//	public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
-//		return null;
-//	}
 
 	@RequestMapping(value = "parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,
@@ -176,19 +147,8 @@ public class SelecaoController {
 		if (result.hasErrors()) {
 			return PAGINA_LISTAR_INSCRITOS_SELECAO;
 		}
-
-		/*
-		 * List<Aluno> alunosSelecao = this.selecaoService
-		 * .getSelecaoBolsaComAlunos(id).getAlunosSelecao(); Selecao selecao =
-		 * this.selecaoService.getSelecaoBolsaComAlunos(id);
-		 * 
-		 * List<Parecer> pareceres = parecerForm.getPareceres();
-		 * 
-		 * for (Parecer parecer : pareceres) { for (Aluno aluno : alunosSelecao)
-		 * { parecer.setAlunoApto(aluno); parecer.setSelecao(selecao); }
-		 * 
-		 * this.parecerService.save(parecer); }
-		 */
+		
+		// TODO - 
 
 		redirect.addFlashAttribute("info", "Parecer emitido com sucesso.");
 		

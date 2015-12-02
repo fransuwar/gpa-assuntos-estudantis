@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,28 +38,28 @@ public class Aluno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String matricula;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Curso curso;
-	
+
 	private String nome;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	private String anoIngresso;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Min(value = 1, message = "IRA deve ser maior que 0")
 	@Max(value = 10, message = "IRA deve ter valor máximo 10")
 	private Double ira;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Banco banco;
-	
+
 	@NotEmpty(message = "Campo obrigatório")
 	@Size(max = 10, message = "Agencia de possuir no máximo 10 dígitos")
 	private String agencia;
@@ -72,7 +73,7 @@ public class Aluno {
 	@ManyToOne
 	private Pessoa pessoa;
 
-	@OneToMany(mappedBy = "aluno")
+	@OneToMany(mappedBy = "aluno", cascade = {CascadeType.PERSIST})
 	private List<Inscricao> inscricoes;
 
 	public Integer getId() {
@@ -162,12 +163,7 @@ public class Aluno {
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
-
-	@Override
-	public String toString() {
-		return "Aluno [id=" + id + "]";
-	}
-
+	
 	public List<Inscricao> getInscricoes() {
 		return inscricoes;
 	}
@@ -175,7 +171,12 @@ public class Aluno {
 	public void setInscricoes(List<Inscricao> inscricoes) {
 		this.inscricoes = inscricoes;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Aluno [id=" + id + "]";
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -200,4 +201,6 @@ public class Aluno {
 			return false;
 		return true;
 	}
+
+
 }

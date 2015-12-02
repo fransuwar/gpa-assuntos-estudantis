@@ -20,9 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 
 @NamedQueries({
-	@NamedQuery(name = "Incricao.findIncricaoId", 
-			query = "SELECT ins FROM Inscricao ins WHERE ins.id = :idInscricao"),
-	})
+		@NamedQuery(name = "Incricao.findIncricaoId", query = "SELECT ins FROM Inscricao ins WHERE ins.id = :idInscricao"), })
 
 @Entity
 public class Inscricao {
@@ -30,15 +28,15 @@ public class Inscricao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date data;
-	
+
 	private boolean avaliacaoDocumentos;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
-	
+
 	private String observacoes;
 
 	@Column(nullable = false)
@@ -49,18 +47,14 @@ public class Inscricao {
 	
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
-	
 	@OneToOne
 	private Selecao selecao;
-	
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
-	
 	@OneToOne
 	private Entrevista entrevista;
 
-
-	@ManyToOne()
+	@ManyToOne
 	private Aluno aluno;
 
 	public Integer getId() {
@@ -134,6 +128,7 @@ public class Inscricao {
 	public void setVisitaDomiciliar(VisitaDomiciliar visitaDomiciliar) {
 		this.visitaDomiciliar = visitaDomiciliar;
 	}
+
 	public boolean isDeferimento() {
 		return deferimento;
 	}
@@ -187,5 +182,5 @@ public class Inscricao {
 	public String toString() {
 		return "Inscricao [id=" + id + "]";
 	}
-	
+
 }

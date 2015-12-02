@@ -95,6 +95,4 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 
 	}
 
-
-
 }
