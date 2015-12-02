@@ -1,12 +1,11 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
-
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import javax.inject.Named;
-
+import br.ufc.quixada.npi.enumeration.QueryType;
 import org.springframework.transaction.annotation.Transactional;
-
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
@@ -21,6 +20,13 @@ import br.ufc.quixada.npi.util.SimpleMap;
 public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implements InscricaoService {
 
 	@Override
+	public List<Inscricao> listarInscricoesByIdAluno(Integer id) {
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		return find(QueryType.JPQL,"from Inscricao where aluno.id = :id",params);
+	}
+	
 	@Transactional(readOnly = true)
 	public Inscricao getInscricaoId(Integer idInscricao) {
 		return (Inscricao) findFirst("Incricao.findIncricaoId", new SimpleMap<String, Object>("idInscricao", idInscricao));
@@ -56,6 +62,5 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	public QuestionarioIniciacaoAcademica getQuestIniAcadById(Integer idQuest) {
 		return (QuestionarioIniciacaoAcademica) findFirst("IniAcad.findIniAcadById", new SimpleMap<String, Object>("idQuest", idQuest));
 	}
-
 
 }

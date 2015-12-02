@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -36,12 +37,14 @@ public class Inscricao {
 	private boolean avaliacaoDocumentos;
 
 	@Enumerated(EnumType.STRING)
+
 	private Resultado resultado;
 
 	private String observacoes;
 
 	@Column(nullable = false)
 	private boolean deferimento;
+	
 	@OneToOne
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
 	@OneToOne

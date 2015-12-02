@@ -1,10 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.util.List;
 
@@ -33,9 +29,9 @@ import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
-import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -60,11 +56,12 @@ public class SelecaoController {
 	
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
+
 	
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
 		
-		List<Selecao> selecoes = selecaoService.find(Selecao.class);
+		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
 
 		if (request.isUserInRole("DISCENTE")) {
 
@@ -75,19 +72,9 @@ public class SelecaoController {
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
 			
-		} else if(request.isUserInRole("SERVIDOR")){
-			
-			Servidor servidor = this.servidorService.getServidorByCpf(auth.getName());
-			
-			selecoes = servidor.getParticipaBancas();
-			model.addAttribute("selecoes", selecoes);
-			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
 		} else {
-
+			
 			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
@@ -102,26 +89,28 @@ public class SelecaoController {
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
 
+
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
+		
 		model.addAttribute("selecao", selecao);
 
 		return PAGINA_INFORMACOES_SELECAO;
 	}
+	
+//	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
+//	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
+//			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
+//		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
+//	}
 
-	//	@RequestMapping(value = "inscritos/relatorioVisita/{idAluno}/{idSelecaoBolsa}")
-	//	public String cadastrarRelatorio(@PathVariable("idAluno") Integer idAluno,
-	//			@PathVariable("idSelecaoBolsa") Integer idSelecaoBolsa, Model modelo) {
-	//		return "redirect:/relatorioVisita/cadastrar/" + idAluno + "/" + idSelecaoBolsa;
-	//	}
-
-	//	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
-	//	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
-	//		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
-	//	}
-
+//	@RequestMapping(value = "inscritos/informacoesRelatorio/{id}")
+//	public String visualizarRelatorioVisita(@PathVariable("id") Integer id, Model modelo) {
+//		return "redirect:/relatorioVisita/informacoesRelatorio/" + id;
+//	}
+	
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Integer id, 
 			RedirectAttributes redirectAttributes){
@@ -138,7 +127,7 @@ public class SelecaoController {
 		return new HttpEntity<byte[]>(arquivo, headers);
 		
 	}
-	
+
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
@@ -229,4 +218,5 @@ public class SelecaoController {
 		//TODO - Método p/ implementar que retorna página de detalhes de uma seleção.
 		return "";
 	}
+
 }

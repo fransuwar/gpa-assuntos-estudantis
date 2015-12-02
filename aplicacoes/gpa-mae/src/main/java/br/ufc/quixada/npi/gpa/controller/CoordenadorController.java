@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.joda.time.DateTime;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -63,7 +64,7 @@ public class CoordenadorController {
 	
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
 	public String cadastroSelecao(@RequestParam("files") List<MultipartFile> files, Model model,
-			@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, 
+			@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, Authentication auth, 
 			RedirectAttributes redirect) {
 		
 		model.addAttribute("action", "cadastrar");
@@ -127,7 +128,9 @@ public class CoordenadorController {
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-		
+		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());
+		selecao.addCoordenador(coordenador);
+		selecao.setResponsavel(coordenador);
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", "Nova seleção cadastrada com sucesso.");
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -138,15 +141,15 @@ public class CoordenadorController {
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		
 		Selecao selecao = this.selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
-
-		if (selecao != null && selecao.getStatus() != null && selecao.getStatus().equals(Status.NOVA)) {
+		
+		if (selecao != null && selecao.getStatus() != null) {
 		
 			model.addAttribute("action", "editar");
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("selecao", selecao);
 			
 		} else {
-			redirect.addFlashAttribute("erro", "Permissão negada. Só é possível editar uma seleção enquanto seu status é nova.");
+			redirect.addFlashAttribute("erro", "Permissão negada.");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
@@ -240,14 +243,21 @@ public class CoordenadorController {
 		Selecao selecao = this.selecaoService.find(Selecao.class, idSelecao);
 		
 		if (selecao != null) {
-			if (selecao.getStatus().equals(Status.NOVA)) {
-				this.selecaoService.delete(selecao);
-				redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
+			
+				if (selecao.getStatus().equals(Status.NOVA)) {
+					this.selecaoService.delete(selecao);
+					redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
+				} else {
+					if(selecao.getInscritos().size() == 0){
+						this.selecaoService.delete(selecao);
+						redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
+					}else{
+						redirect.addFlashAttribute("erro", "Permissão negada. Só é possível remover uma seleção enquanto seu status é nova.");
+					}
+				}
 			} else {
-				redirect.addFlashAttribute("erro", "Permissão negada. Só é possível remover uma seleção enquanto seu status é nova.");
-			}
-		} else {
-			redirect.addFlashAttribute("erro", "Seleção inexistente.");
+				redirect.addFlashAttribute("erro", "Seleção inexistente.");
+			
 		}
 		
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -306,19 +316,22 @@ public class CoordenadorController {
 	
 	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
 	public String excluirMembroBanca(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
-			Model model, RedirectAttributes redirect) {
+			Model model, Authentication auth, RedirectAttributes redirect) {
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-				
+		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());		
 		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
-
-		selecao.getMembrosBanca().remove(servidor);
-
-		selecaoService.update(selecao);
-
-		redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
+		if(coordenador.getId() != servidor.getId()){
+			
+			selecao.getMembrosBanca().remove(servidor);
+			selecaoService.update(selecao);
+			redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
+		}else
 		
-		return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
-	}
+		redirect.addFlashAttribute("erro", "Não é possivel excluir o Coordenador da Comissão");
 
+		return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
+
+	}
+	
 }

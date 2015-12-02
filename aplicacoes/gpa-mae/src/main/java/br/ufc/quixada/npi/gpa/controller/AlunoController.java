@@ -1,20 +1,18 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MORADIA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_VISUALIZAR_INSC_AUX_MOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,15 +32,19 @@ import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
+import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
-import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
+
 import br.ufc.quixada.npi.gpa.model.Inscricao;
+
+import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
+
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -72,10 +74,20 @@ public class AlunoController {
 	private InscricaoService inscricaoService;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
-	public String listarSelecoesAbertas() {
-		// TODO - Método p/ implementar que retorna página com seleções em
-		// aberto
-		return "";
+
+	public String listarSelecoesAbertas(ModelMap model, HttpServletRequest request, Authentication auth) {
+
+		List<Selecao> selecoes = selecaoService.find(Selecao.class);
+
+		Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
+
+		model.addAttribute("selecoes", selecoes);
+		model.addAttribute("aluno", aluno);
+		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+
+		return "aluno/listarSelecoesAbertas";
+
 	}
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
@@ -88,6 +100,7 @@ public class AlunoController {
 		// TODO - Criar página de retorno que mostra as inscrições dos alunos.
 
 		return "";
+
 	}
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
@@ -123,6 +136,7 @@ public class AlunoController {
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
+			model.addAttribute("idSelecao", idSelecao);
 
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
@@ -255,6 +269,36 @@ public class AlunoController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
+	@RequestMapping(value = "/inscricao/listar/{idAluno}", method = RequestMethod.GET)
+	public String listarInscricoes(@PathVariable("idAluno") Integer idAluno, Model model) {
+
+		Aluno aluno = this.alunoService.find(Aluno.class, idAluno);
+
+		List<Inscricao> inscricoes = this.inscricaoService.listarInscricoesByIdAluno(idAluno);
+
+		model.addAttribute("aluno", aluno);
+		model.addAttribute("inscricoes", inscricoes);
+
+		return "aluno/minhasInscricoes";
+
+	}
+
+	@RequestMapping(value = "/inscricao/excluir/{idAluno}/{idInscricao}", method = RequestMethod.GET)
+	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno,
+			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirectAttributes) {
+
+		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
+
+		if (inscricao == null) {
+			redirectAttributes.addFlashAttribute("erro", "Inscrição Inexistente.");
+		} else {
+			this.inscricaoService.delete(inscricao);
+			redirectAttributes.addFlashAttribute("info", "Inscrição Excluída com Sucesso.");
+		}
+		return "redirect:/aluno/inscricao/listar/{idAluno}";
+
+	}
+
 	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
 	public String editarInscricaoAMOR(@PathVariable("idInscricao") Integer idInscricao, Model model,
 			RedirectAttributes redirect) {
@@ -270,8 +314,10 @@ public class AlunoController {
 	public String editarInscricaoAMOR(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
 			BindingResult result, RedirectAttributes redirect) {
-		// TODO - Método p/ implementar que salva a edição de um formulário em
-		// uma incrição auxílio moradia.
+
+		this.questionarioAuxMoradiaService.update(auxilioMoradia);
+		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
+
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
@@ -299,10 +345,11 @@ public class AlunoController {
 			redirect.addFlashAttribute("erro", "Incrição Inexistente");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
-		
+
 		modelo.addAttribute("inscricao", inscricao);
 		modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
-		//modelo.addAttribute("pessoasFamilia", inscricao.getQuestionarioIniciacaoAcademica().getPessoas());
+		// modelo.addAttribute("pessoasFamilia",
+		// inscricao.getQuestionarioIniciacaoAcademica().getPessoas());
 		return PAGINA_VISUALIZAR_INSC_AUX_MOR;
 	}
 
