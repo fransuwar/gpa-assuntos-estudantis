@@ -51,7 +51,7 @@ public class AuthenticationSuccessHandlerImpl implements
 		Usuario usuario = serviceUsuario.getByCpf(authentication.getName());
 		
 		for (GrantedAuthority grantedAuthority : usuario.getAuthorities()) {
-			if (grantedAuthority.getAuthority().equalsIgnoreCase("COORD_ASS_ESTUDANTIS")) {
+			if (grantedAuthority.getAuthority().equalsIgnoreCase("COORDENADOR_ASSUNTOS_ESTUDANTIS")) {
 				
 				return "/selecao/listar";
 			}

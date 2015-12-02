@@ -47,8 +47,12 @@
 							href="<c:url value="/selecao/listar" />">Listar Seleções <span
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
+						<li role="presentation"><a
+							href="<c:url value="/aluno/inscricao/listar/${sessionScope.id}" />">Minhas Inscrições <span
+								class="glyphicon glyphicon-list"></span>
+						</a></li>
 					</sec:authorize>
-					<sec:authorize ifAllGranted="COORD_ASS_ESTUDANTIS">
+					<sec:authorize ifAllGranted="COORDENADOR_ASSUNTOS_ESTUDANTIS">
 						<li role="presentation"><a
 							href="<c:url value="/servidor/listar/alunos" />">Listar Alunos <span class="glyphicon glyphicon-list"></span>
 						</a></li>
