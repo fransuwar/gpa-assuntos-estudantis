@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Banco;
@@ -34,10 +35,12 @@ import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
+import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
 @Controller
 @RequestMapping ("servidor")
+@SessionAttributes({ Constants.USUARIO_ID , Constants.USUARIO_LOGADO})
 public class ServidorController {
 
 	@Inject
@@ -353,47 +356,31 @@ public class ServidorController {
 	public String realizarEntrevista(@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect, Model model ){
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
 		
-		
 		if(inscricao == null){
 			redirect.addFlashAttribute("erro", "Inscrição inexistente.");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}
-		
-		
-			//model.addAttribute("action", "entrevista");
-			model.addAttribute("entrevista",new Entrevista());
+		}		
+			model.addAttribute("entrevista", new Entrevista());
 			model.addAttribute("idInscricao", idInscricao);
-		
-//			if(inscricao.getId()!= null){
-//			this.inscricaoService.update(inscricao);
-//			redirect.addFlashAttribute("info", "Entrevista realizada com sucesso");
-//			return REDIRECT_PAGINA_LISTAR_SELECAO;
-//			}
 		
 		return PAGINA_REALIZAR_ENTREVISTA;
 	}
 	
 	@RequestMapping(value= {"entrevista"}, method = RequestMethod.POST)
-	public String realizarEntrevistaDeterminadaInscricao(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idServidor") Integer idServidor, 
-			@ModelAttribute("entrevista") Entrevista entrevista,Authentication auth, BindingResult result, RedirectAttributes redirect, Model model ){
-		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
+	public String realizarEntrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idServidor") Integer idPessoa, 
+			 BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 		
 		if(result.hasErrors()){
-			model.addAttribute("entrevista",new Entrevista());
+			model.addAttribute("entrevista",entrevista);
 			model.addAttribute("idInscricao", idInscricao);
-			
-			if(entrevista.getId()!= null){
-				model.addAttribute("action", "entrevista");
-				return PAGINA_REALIZAR_ENTREVISTA;
-			}	
 		}
 		
 		if(entrevista.getId()!=null){
 			redirect.addFlashAttribute("erro", "Entrevista já foi realizada.");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
-			//Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
-			entrevista.setServidor(servidorService.find(Servidor.class, idServidor));
+			Servidor servidor = this.servidorService.getPessoaServidorComBancas(idPessoa);
+			entrevista.setServidor(servidor);
 			entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));			
 			
 			inscricaoService.saveEntrevista(entrevista);
@@ -401,10 +388,7 @@ public class ServidorController {
 			redirect.addFlashAttribute("info", "Entrevista realizada com sucesso");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
-
 	}
-
-	
 
 	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
 	public String realizarVisita(Model model) {

@@ -16,18 +16,17 @@
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<div class="container">
-		<sec:authorize access="hasAnyRole('SERVIDOR')">
-
 			<div class="novo-projeto" align="left">
 				<div class="form" align="center">
 
 					<form:form id="relatorioForm" role="form"
 						modelAttribute="entrevista" commandName="entrevista"
-						servletRelativeAction="/entrevista" method="POST"
+						servletRelativeAction="/servidor/entrevista" method="POST"
 						cssClass="form-horizontal">
 						
-						<input type="hidden" name="idEntrevista" value="${entrevista.id}" />
-
+						<input type= "hidden" id="idServidor" name="idServidor" value="${sessionScope.id}"/>
+						<input type= "hidden" id="idInscricao" name="idInscricao" value="${idInscricao}"/>
+						
 						<div class="tab-content">
 							<div class="tab-pane active" id="dados-gerais-tab">
 								<div class="panel panel-primary">
@@ -75,7 +74,6 @@
 					</form:form>
 				</div>
 			</div>
-		</sec:authorize>
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
