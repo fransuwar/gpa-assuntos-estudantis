@@ -48,10 +48,13 @@ public class Inscricao {
 	
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
+	
 	@OneToOne
 	private Selecao selecao;
+	
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
+	
 	@OneToOne
 	private Entrevista entrevista;
 

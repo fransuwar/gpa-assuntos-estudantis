@@ -26,10 +26,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufc.quixada.npi.gpa.enums.Banco;
 import br.ufc.quixada.npi.gpa.enums.Cargo;
 import br.ufc.quixada.npi.gpa.enums.Curso;
+import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
+import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
+import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 
 
@@ -38,7 +44,13 @@ import br.ufc.quixada.npi.gpa.service.ServidorService;
 public class ServidorController {
 
 	@Inject
+	private InscricaoService inscricaoService;
+	
+	@Inject
 	private ServidorService servidorService;
+	
+	@Inject
+	private SelecaoService selecaoService;
 
 	@Inject
 	private AlunoService alunoService;
@@ -65,14 +77,13 @@ public class ServidorController {
 			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 
-			return "servidor/listaSelecoes";
+			return PAGINA_LISTAR_SELECAO;
 
 		}
 
 		model.addAttribute("erro", "Você não está associado a nenhuma seleção.");
 
-		return "servidor/listaSelecoes";
-		//return PAGINA_LISTAR_SELECAO;
+		return PAGINA_LISTAR_SELECAO;
 	}
 
 
@@ -354,14 +365,61 @@ public class ServidorController {
 	}
 
 	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
-	public String realizarVisita(Model model) {
+	public String realizarVisita(@PathVariable("idInscricao")Integer idInscricao, Model model) {
+		
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
+		
+		relatorioVisitaDomiciliar.setInscricao(inscricao);
+		
+		model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
+		model.addAttribute("curso", Curso.values());
+		model.addAttribute("moradiaEstado", EstadoMoradia.values());
+		model.addAttribute("idAluno", inscricao.getAluno().getId());
+		model.addAttribute("idSelecao", inscricao.getSelecao().getId());
 		
 		return PAGINA_RELATORIO_VISITA;
 	}
 
 	@RequestMapping(value = { "visita" }, method = RequestMethod.POST)
-	public String realizarVisita() {
-		//TODO - Método p/ ser implementado que realiza uma visita de uma determinada inscrição.
-		return "";
+	public String realizarVisita(@RequestParam("idAluno") Integer idAluno, @RequestParam("idSelecao") Integer idSelecao,
+			@Valid @ModelAttribute("relatorioVisitaDomiciliar") VisitaDomiciliar relatorioVisitaDomiciliar, Model model,
+			BindingResult result, RedirectAttributes redirect) {
+		
+		if (result.hasErrors()) {
+			
+			model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
+			model.addAttribute("curso", Curso.values());
+			model.addAttribute("moradiaEstado", EstadoMoradia.values());
+			model.addAttribute("idAluno", idAluno);
+			model.addAttribute("idSelecao", idSelecao);
+			
+			return PAGINA_RELATORIO_VISITA;
+			
+		}
+		
+		relatorioVisitaDomiciliar.setAluno(alunoService.find(Aluno.class, idAluno));
+		relatorioVisitaDomiciliar.setSelecaoBolsa(selecaoService.find(Selecao.class, idSelecao));
+		
+		inscricaoService.salvarVisitaDocimiciliar(relatorioVisitaDomiciliar);;
+		redirect.addFlashAttribute("info", "Relatório da visita cadastrado com sucesso.");
+		
+		return REDIRECT_PAGINA_INSCRITOS_SELECAO  + idSelecao;
+	}
+	
+	@RequestMapping(value = { "informacoes/visita-domiciliar/{idVisita}" }, method = RequestMethod.GET)
+	public String visulizarInformacoes(@PathVariable("idVisita") Integer idVisita, Model model, RedirectAttributes redirect) {
+		
+		VisitaDomiciliar visitaDomiciliar = inscricaoService.getVisitaDocimiciliarByIdVisitaDomiciliar(idVisita);
+		
+		if (visitaDomiciliar == null ) {
+			
+			redirect.addFlashAttribute("erro", "Informações não encontradas. Relatório sobre esta visita não existem.");
+			return REDIRECT_PAGINA_INSCRITOS_SELECAO;
+		}
+		
+		model.addAttribute("relatorio", visitaDomiciliar);
+		
+		return PAGINA_INFORMACOES_RELATORIO;
 	}
 }

@@ -24,7 +24,7 @@ public class Constants {
 	
 	public static final String PAGINA_FORMULARIO_PREENCHIDO_SELECAO	= "selecao/formularioInscricaoPreenchido";
 	
-	public static final String PAGINA_INFORMACOES_RELATORIO			= "selecao/informacoesRelatorio";
+	public static final String PAGINA_INFORMACOES_RELATORIO			= "servidor/informacoesRelatorio";
 	
 	public static final String PAGINA_RELATORIO_VISITA				= "servidor/relatorioVisita";
 	
@@ -50,7 +50,7 @@ public class Constants {
 	
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO 		= "redirect:/selecao/listar";
 	
-	public static final String REDIRECT_PAGINA_INSCRITOS_SELECAO	= "redirect:/selecao/inscritos/";
+	public static final String REDIRECT_PAGINA_INSCRITOS_SELECAO	= "redirect:/selecao/inscritos";
 	
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR		= "redirect:/servidor/listar";
 	

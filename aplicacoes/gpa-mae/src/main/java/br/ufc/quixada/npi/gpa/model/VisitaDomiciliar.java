@@ -189,6 +189,9 @@ public class VisitaDomiciliar {
 	@OneToOne
 	private Receita receita;
 	
+	@OneToOne
+	private Inscricao inscricao;
+	
 	public VisitaDomiciliar() {
 		
 	}
@@ -655,6 +658,22 @@ public class VisitaDomiciliar {
 		this.servidor = servidor;
 	}
 	
+	public boolean isDeferimento() {
+		return deferimento;
+	}
+
+	public void setDeferimento(boolean deferimento) {
+		this.deferimento = deferimento;
+	}
+
+	public Inscricao getInscricao() {
+		return inscricao;
+	}
+
+	public void setInscricao(Inscricao inscricao) {
+		this.inscricao = inscricao;
+	}
+
 	@Override
 	public String toString() {
 		return "VisitaDomiciliar [id=" + id + ", aluno=" + aluno + ", servidor=" + servidor + ", selecaoBolsa="

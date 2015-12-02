@@ -17,6 +17,7 @@ public class Entrevista {
 
 	@Column(nullable = false)
 	private boolean deferimento;
+	
 	@OneToOne
 	private Inscricao inscricao;
 
