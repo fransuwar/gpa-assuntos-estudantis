@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.joda.time.DateTime;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,8 +27,11 @@ import br.ufc.quixada.npi.gpa.enums.Banco;
 import br.ufc.quixada.npi.gpa.enums.Cargo;
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.model.Aluno;
+import br.ufc.quixada.npi.gpa.model.Entrevista;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 
 
@@ -40,6 +44,9 @@ public class ServidorController {
 	
 	@Inject
 	private AlunoService alunoService;
+	
+	@Inject
+	private InscricaoService inscricaoService;
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvarServidor(@Valid @ModelAttribute(value = "servidor") Servidor servidor,
@@ -317,5 +324,79 @@ public class ServidorController {
 		}
 		
 		return REDIRECT_PAGINA_LISTAR_ALUNOS;
+	}
+	@RequestMapping(value= {"/entrevista/{idInscricao}"}, method = RequestMethod.GET)
+	public String realizarEntrevista(@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect, Model model ){
+		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
+		
+		
+		if(inscricao == null){
+			redirect.addFlashAttribute("erro", "Inscrição inexistente.");
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
+		
+		
+			//model.addAttribute("action", "entrevista");
+			model.addAttribute("entrevista",new Entrevista());
+			model.addAttribute("idInscricao", idInscricao);
+		
+//			if(inscricao.getId()!= null){
+//			this.inscricaoService.update(inscricao);
+//			redirect.addFlashAttribute("info", "Entrevista realizada com sucesso");
+//			return REDIRECT_PAGINA_LISTAR_SELECAO;
+//			}
+		
+		return PAGINA_REALIZAR_ENTREVISTA;
+	}
+	
+	@RequestMapping(value= {"/entrevista"}, method = RequestMethod.POST)
+	public String realizarEntrevistaDeterminadaInscricao(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idServidor") Integer idServidor, 
+			@ModelAttribute("entrevista") Entrevista entrevista,Authentication auth, BindingResult result, RedirectAttributes redirect, Model model ){
+		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
+		
+		if(result.hasErrors()){
+			model.addAttribute("entrevista",new Entrevista());
+			model.addAttribute("idInscricao", idInscricao);
+			
+			if(entrevista.getId()!= null){
+				model.addAttribute("action", "entrevista");
+				return PAGINA_REALIZAR_ENTREVISTA;
+			}	
+		}
+		
+		if(entrevista.getId()!=null){
+			redirect.addFlashAttribute("erro", "Entrevista já foi realizada.");
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}else{
+			//Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
+			entrevista.setServidor(servidorService.find(Servidor.class, idServidor));
+			entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));			
+			
+			inscricaoService.saveEntrevista(entrevista);
+			
+			redirect.addFlashAttribute("info", "Entrevista realizada com sucesso");
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
+		
+//		
+//		if(inscricao == null){
+//			redirect.addFlashAttribute("erro", "Inscrição inexistente.");
+//			return REDIRECT_PAGINA_LISTAR_SELECAO;
+//		}else{
+//			Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
+//			
+//			
+//			entrevista.setServidor(servidor);
+//			entrevista.setInscricao(inscricao);
+//			model.addAttribute("entrevista", entrevista);
+//			
+//			
+//			//inscricaoService.update(entrevista);
+//			redirect.addFlashAttribute("info", "Entrevista realizada com sucesso");
+//			return PAGINA_REALIZAR_ENTREVISTA;
+//			
+//		}
+		
+	//return REDIRECT_PAGINA_LISTAR_SELECAO;	
 	}
 }
