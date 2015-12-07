@@ -31,6 +31,8 @@ public class Constants {
 	
 	public static final String PAGINA_CADASTRAR_ALUNO				= "servidor/cadastrarAluno";
 	
+	public static final String PAGINA_REALIZAR_ENTREVISTA			= "servidor/realizarEntrevista";
+	
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
 	public static final String PAGINA_VISUALIZAR_INSC_AUX_MOR = "aluno/detalhesInscAuxMor";
@@ -49,5 +51,10 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR		= "redirect:/servidor/listar";
 	
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS		= "redirect:/servidor/listar/alunos";
+	
+	/** Mensagens */
+	
+	public static final String MENSAGEM_DE_SUCESSO_ENTREVISTA		= "Entrevista realizada com sucesso.";
+	public static final String MENSAGEM_INSCRICAO_INEXISTENTE		= "Inscrição inexistente.";
 
 }

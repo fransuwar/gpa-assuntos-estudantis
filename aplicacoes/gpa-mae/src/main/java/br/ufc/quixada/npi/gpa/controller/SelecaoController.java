@@ -1,6 +1,10 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
 import java.util.List;
 
