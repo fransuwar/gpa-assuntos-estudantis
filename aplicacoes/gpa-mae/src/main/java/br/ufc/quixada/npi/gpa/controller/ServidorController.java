@@ -355,7 +355,7 @@ public class ServidorController {
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
 		
 		if(inscricao == null){
-			redirect.addFlashAttribute("erro", "Inscrição inexistente.");
+			redirect.addFlashAttribute("erro", MENSAGEM_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}		
 			model.addAttribute("entrevista", new Entrevista());
@@ -374,7 +374,7 @@ public class ServidorController {
 			
 			inscricaoService.saveEntrevista(entrevista);
 			
-			redirect.addFlashAttribute("info", "Entrevista realizada com sucesso");
+			redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 

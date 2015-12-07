@@ -51,5 +51,10 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR		= "redirect:/servidor/listar";
 	
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS		= "redirect:/servidor/listar/alunos";
+	
+	/** Mensagens */
+	
+	public static final String MENSAGEM_DE_SUCESSO_ENTREVISTA		= "Entrevista realizada com sucesso.";
+	public static final String MENSAGEM_INSCRICAO_INEXISTENTE		= "Inscrição inexistente.";
 
 }
