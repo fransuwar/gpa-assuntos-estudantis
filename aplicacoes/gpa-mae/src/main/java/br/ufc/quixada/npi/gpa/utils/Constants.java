@@ -1,14 +1,15 @@
 package br.ufc.quixada.npi.gpa.utils;
 
 public class Constants {
-	
+
 	/** Usuário */
-	
-	public static final String USUARIO_LOGADO 						= "usuario";
-	
-	public static final String USUARIO_ID 							= "id";
-	
+
+	public static final String USUARIO_LOGADO = "usuario";
+
+	public static final String USUARIO_ID = "id";
+
 	/** Páginas */
+
 	
 	public static final String PAGINA_ATRIBUIR_COMISSAO 			= "coordenador/atribuirMembroComissao";
 
@@ -32,13 +33,15 @@ public class Constants {
 	
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
+	public static final String PAGINA_VISUALIZAR_INSC_AUX_MOR = "aluno/detalhesInscAuxMor";
+
 	public static final String PAGINA_INSCREVER_AUXILIO_MORADIA 	= "aluno/inscricaoAuxilio";
 	
 	public static final String PAGINA_DETALHES_INSCRICAO			= "aluno/detalhesInscricao";
 	
-	
+
 	/** Redirecionamentos */
-	
+
 	public static final String REDIRECT_PAGINA_ATRIBUIR_COMISSAO 	= "redirect:/coordenador/comissao/atribuir/";
 	
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO 		= "redirect:/selecao/listar";
@@ -46,6 +49,7 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR		= "redirect:/servidor/listar";
 	
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS		= "redirect:/servidor/listar/alunos";
+
 	
 	/** Perfil */
 	
@@ -53,4 +57,5 @@ public class Constants {
 	public static final String DOCENTE = "DOCENTE";
 	public static final String DICENTE = "DISCENTE";
 	public static final String COORDENADOR_ASSUNTOS_ESTUDANTIS = "COORDENADOR_ASSUNTO_ESTUDANTIS";
+
 }
