@@ -105,7 +105,7 @@ public class SelecaoController {
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Integer id, 
 			RedirectAttributes redirectAttributes){
-		
+
 		Documento documento = documentoService.find(Documento.class, id);
 		byte[] arquivo = documento.getArquivo();
 		String[] tipo = documento.getTipo().split("/");
@@ -118,7 +118,6 @@ public class SelecaoController {
 		return new HttpEntity<byte[]>(arquivo, headers);
 
 	}
-
 
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request) {
@@ -151,6 +150,12 @@ public class SelecaoController {
 		// TODO - Implementar método que pode ser visualizar os inscritos em uma determinada seleção.
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
+
+		@RequestMapping(value = "/visualizarFormulario/{idaluno}")
+		public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
+			return null;
+		}
+
 
 	@RequestMapping(value = "parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,
