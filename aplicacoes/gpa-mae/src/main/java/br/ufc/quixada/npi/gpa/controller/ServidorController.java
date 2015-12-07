@@ -81,7 +81,7 @@ public class ServidorController {
 
 		}
 
-		model.addAttribute("erro", "Você não está associado a nenhuma seleção.");
+		model.addAttribute("erro", MENSAGEM_SERVIDOR_NAO_ASSOCIADO);
 
 		return PAGINA_LISTAR_SELECAO;
 	}
@@ -111,12 +111,13 @@ public class ServidorController {
 			this.servidorService.save(servidor);
 		} catch (PersistenceException e) {
 			if (e.getCause() instanceof ConstraintViolationException) {
-				redirect.addFlashAttribute("erro", "Não é possível cadastrar um SIAPE já existente.");
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SIAPE_EXISTENTE);
 
 				return REDIRECT_PAGINA_LISTAR_SERVIDOR;
 			}
 		}
-		redirect.addFlashAttribute("info", "Servidor cadastrado com sucesso.");
+		
+		redirect.addFlashAttribute("info", MENSAGEM_SERVIDOR_CADASTRADO);
 
 		return REDIRECT_PAGINA_LISTAR_SERVIDOR;
 
@@ -137,7 +138,7 @@ public class ServidorController {
 		model.addAttribute("servidores", results);
 
 		if(servidor == null){
-			redirect.addFlashAttribute("erro", "Servidor não encontrado");
+			redirect.addFlashAttribute("erro", MENSAGEM_SERVIDOR_NAO_ENCONTRADO);
 			redirect.addFlashAttribute("servidorEncontrado", false);
 
 			return REDIRECT_PAGINA_LISTAR_SERVIDOR;
@@ -175,7 +176,7 @@ public class ServidorController {
 		servidor.setCargo(servidorAtualizado.getCargo());
 
 		this.servidorService.update(servidor);
-		redirect.addFlashAttribute("info", "Servidor atualizado com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_SERVIDOR_ATUALIZADO);
 
 		return REDIRECT_PAGINA_LISTAR_SERVIDOR;
 	}
@@ -185,11 +186,11 @@ public class ServidorController {
 		Servidor servidor = servidorService.find(Servidor.class, id);
 
 		if (servidor == null) {
-			redirectAttributes.addFlashAttribute("erro", "Servidor inexistente.");
+			redirectAttributes.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_INEXISTENTE);
 		}else{
 
 			this.servidorService.delete(servidor);
-			redirectAttributes.addFlashAttribute("info", "Servidor excluído com sucesso.");
+			redirectAttributes.addFlashAttribute("info", MENSAGEM_SERVIDOR_EXCLUIDO);
 		}
 
 		return REDIRECT_PAGINA_LISTAR_SERVIDOR;
@@ -214,7 +215,7 @@ public class ServidorController {
 		model.addAttribute("alunos", alunos);
 
 		if (aluno == null) {
-			redirect.addFlashAttribute("erro", "Aluno não encontrado");
+			redirect.addFlashAttribute("erro", MENSAGEM_ALUNO_ENCONTRADO);
 			redirect.addFlashAttribute("alunoEncontrado", false);
 
 			return REDIRECT_PAGINA_LISTAR_ALUNOS;
@@ -243,30 +244,30 @@ public class ServidorController {
 
 		if (aluno.getAnoIngresso() != null && !aluno.getAnoIngresso().equals("")) {
 			if (aluno.getAnoIngresso().length() < 4) {
-				result.rejectValue("anoIngresso", "aluno.anoIngresso", "O ano deve possuir pelo menos quatro dígitos");
+				result.rejectValue("anoIngresso", "aluno.anoIngresso", MENSAGEM_ERRO_ANO_INGRESSO_DIGITOS);
 			} else {
 				DateTime anoIngresso = DateTime.parse(aluno.getAnoIngresso());
 				if (anoIngresso.isAfterNow()) {
-					result.rejectValue("anoIngresso", "aluno.anoIngresso", "Informe um ano menor ou igual ao atual");
+					result.rejectValue("anoIngresso", "aluno.anoIngresso", MENSAGEM_ERRO_ANO_INGRESSO);
 				}
 			}
 		}
 
 		if (aluno.getMatricula() != null && !aluno.getMatricula().equals("") && aluno.getMatricula().length() < 6) {
-			result.rejectValue("matricula", "aluno.matricula", "A matrícula deve possuir pelo menos seis dígitos");
+			result.rejectValue("matricula", "aluno.matricula", MENSAGEM_ERRO_MATRICULA_DIGITOS);
 		}
 
 		if (aluno.getAgencia() != null && !aluno.getAgencia().equals("") && aluno.getAgencia().length() < 6) {
-			result.rejectValue("agencia", "aluno.agencia", "O número da agência deve possuir pelo menos seis dígitos");
+			result.rejectValue("agencia", "aluno.agencia", MENSAGEM_ERRO_AGENCIA_DIGITOS);
 		}
 
 		if (aluno.getConta() != null && !aluno.getConta().equals("") && aluno.getConta().length() < 4) {
-			result.rejectValue("conta", "aluno.conta", "O número da conta deve possuir pelo menos quatro dígitos");
+			result.rejectValue("conta", "aluno.conta", MENSAGEM_ERRO_CONTA_DIGITOS);
 		}
 
 		if (aluno != null) {
 			if (this.alunoService.existsAlunoEquals(aluno)) {
-				result.rejectValue("matricula", "aluno.matricula", "Matrícula já existente.");
+				result.rejectValue("matricula", "aluno.matricula", MENSAGEM_ERRO_MATRICULA_EXISTENTE);
 			}
 		}
 
@@ -279,7 +280,7 @@ public class ServidorController {
 		}
 
 		this.alunoService.save(aluno);
-		redirect.addFlashAttribute("info", "Aluno cadastrado com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_ALUNO_CADASTRADO);
 		return REDIRECT_PAGINA_LISTAR_ALUNOS;
 	}
 
@@ -303,25 +304,25 @@ public class ServidorController {
 
 		if (aluno.getAnoIngresso() != null && !aluno.getAnoIngresso().equals("")) {
 			if (aluno.getAnoIngresso().length() < 4) {
-				result.rejectValue("anoIngresso", "aluno.anoIngresso", "O ano deve possuir pelo menos quatro dígitos");
+				result.rejectValue("anoIngresso", "aluno.anoIngresso", MENSAGEM_ERRO_ANO_INGRESSO_DIGITOS);
 			} else {
 				DateTime anoIngresso = DateTime.parse(aluno.getAnoIngresso());
 				if (anoIngresso.isAfterNow()) {
-					result.rejectValue("anoIngresso", "aluno.anoIngresso", "Informe um ano menor ou igual ao atual");
+					result.rejectValue("anoIngresso", "aluno.anoIngresso", MENSAGEM_ERRO_ANO_INGRESSO);
 				}
 			}
 		}
 
 		if (aluno.getMatricula() != null && !aluno.getMatricula().equals("") && aluno.getMatricula().length() < 6) {
-			result.rejectValue("matricula", "aluno.matricula", "A matrícula deve possuir pelo menos seis dígitos");
+			result.rejectValue("matricula", "aluno.matricula", MENSAGEM_ERRO_MATRICULA_DIGITOS);
 		}
 
 		if (aluno.getAgencia() != null && !aluno.getAgencia().equals("") && aluno.getAgencia().length() < 6) {
-			result.rejectValue("agencia", "aluno.agencia", "O número da agência deve possuir pelo menos seis dígitos");
+			result.rejectValue("agencia", "aluno.agencia", MENSAGEM_ERRO_AGENCIA_DIGITOS);
 		}
 
 		if (aluno.getConta() != null && !aluno.getConta().equals("") && aluno.getConta().length() < 4) {
-			result.rejectValue("conta", "aluno.conta", "O número da conta deve possuir pelo menos quatro dígitos");
+			result.rejectValue("conta", "aluno.conta", MENSAGEM_ERRO_CONTA_DIGITOS);
 		}
 
 		if (result.hasErrors()) {
@@ -333,7 +334,7 @@ public class ServidorController {
 		}
 
 		this.alunoService.update(aluno);
-		redirect.addFlashAttribute("info", "Aluno atualizado com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_ALUNO_ATUALIZADO);
 		return REDIRECT_PAGINA_LISTAR_ALUNOS;
 	}
 
@@ -344,9 +345,9 @@ public class ServidorController {
 
 		if (aluno != null) {
 			this.alunoService.delete(aluno);
-			redirect.addFlashAttribute("info", "Aluno removido com sucesso.");
+			redirect.addFlashAttribute("info", MENSAGEM_ALUNO_EXCLUIDO);
 		} else {
-			redirect.addFlashAttribute("erro", "Aluno inexistente.");
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_ALUNO_INEXISTENTE);
 		}
 
 		return REDIRECT_PAGINA_LISTAR_ALUNOS;
@@ -402,7 +403,7 @@ public class ServidorController {
 		relatorioVisitaDomiciliar.setSelecaoBolsa(selecaoService.find(Selecao.class, idSelecao));
 		
 		inscricaoService.salvarVisitaDocimiciliar(relatorioVisitaDomiciliar);;
-		redirect.addFlashAttribute("info", "Relatório da visita cadastrado com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_VISITA_CADASTRADA);
 		
 		return REDIRECT_PAGINA_INSCRITOS_SELECAO  + idSelecao;
 	}
@@ -414,7 +415,7 @@ public class ServidorController {
 		
 		if (visitaDomiciliar == null ) {
 			
-			redirect.addFlashAttribute("erro", "Informações não encontradas. Relatório sobre esta visita não existem.");
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_VISITA_INEXISTENTE);
 			return REDIRECT_PAGINA_INSCRITOS_SELECAO;
 		}
 		

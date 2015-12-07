@@ -56,5 +56,51 @@ public class Constants {
 	
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS		= "redirect:/servidor/listar/alunos";
 	
+	/** Mensagens */
+	
+	public static final String MENSAGEM_PERMISSAO_NEGADA			= "Permissão negada.";
+	
+	public static final String MENSAGEM_CAMPO_OBRIGATORIO			= "Campo obrigatório.";
+	
+	public static final String MENSAGEM_ALUNO_CADASTRADO			= "Aluno cadastrado com sucesso.";
+	
+	public static final String MENSAGEM_ALUNO_ATUALIZADO			= "Aluno atualizado com sucesso.";
+	
+	public static final String MENSAGEM_ALUNO_EXCLUIDO				= "Aluno removido com sucesso.";
+	
+	public static final String MENSAGEM_ALUNO_ENCONTRADO			= "Aluno não encontrado";
+	
+	public static final String MENSAGEM_SERVIDOR_CADASTRADO			= "Servidor cadastrado com sucesso.";
+	
+	public static final String MENSAGEM_SERVIDOR_ATUALIZADO			= "Servidor atualizado com sucesso.";
+	
+	public static final String MENSAGEM_SERVIDOR_EXCLUIDO			= "Servidor excluído com sucesso.";
+	
+	public static final String MENSAGEM_SERVIDOR_NAO_ENCONTRADO		= "Servidor não encontrado";
+	
+	public static final String MENSAGEM_SERVIDOR_NAO_ASSOCIADO 		= "Você não está associado a nenhuma seleção.";
+	
+	public static final String MENSAGEM_VISITA_CADASTRADA			= "Relatório da visita cadastrado com sucesso.";
+	
+	public static final String MENSAGEM_ERRO_ALUNO_INEXISTENTE		= "Aluno inexistente.";
+	
+	public static final String MENSAGEM_ERRO_SERVIDOR_INEXISTENTE	= "Servidor inexistente.";
+	
+	public static final String MENSAGEM_ERRO_SIAPE_EXISTENTE		= "Não é possível cadastrar um SIAPE já existente.";
+	
+	public static final String MENSAGEM_ERRO_MATRICULA_EXISTENTE	= "Matrícula já existente.";
+	
+	public static final String MENSAGEM_ERRO_MATRICULA_DIGITOS		= "A matrícula deve possuir pelo menos seis dígitos";
+	
+	public static final String MENSAGEM_ERRO_VISITA_INEXISTENTE		= "Informações não encontradas. Relatório sobre esta visita não existem.";
+	
+	public static final String MENSAGEM_ERRO_ANO_INGRESSO_DIGITOS	= "O ano deve possuir pelo menos quatro dígitos";
+	
+	public static final String MENSAGEM_ERRO_ANO_INGRESSO			= "Informe um ano menor ou igual ao atual";
+	
+	public static final String MENSAGEM_ERRO_AGENCIA_DIGITOS		= "O número da agência deve possuir pelo menos seis dígitos";
+	
+	public static final String MENSAGEM_ERRO_CONTA_DIGITOS			= "O número da conta deve possuir pelo menos quatro dígitos";
+	
 	
 }
