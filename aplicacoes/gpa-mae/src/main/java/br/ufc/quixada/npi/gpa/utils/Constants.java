@@ -108,7 +108,50 @@ public class Constants {
 
 	public static final String MENSAGEM_DE_SUCESSO_ENTREVISTA		= "Entrevista realizada com sucesso.";
 
-	public static final String MENSAGEM_INSCRICAO_INEXISTENTE		= "Inscrição inexistente.";
+	public static final String MENSAGEM_ERRO_INSCRICAO_INEXISTENTE	= "Inscrição inexistente.";
+	
+	public static final String MENSAGEM_ERRO_SELECAO_INEXISTENTE	= "Seleção Inexistente.";
+	
+	public static final String MENSAGEM_SUCESSO_PARECER_EMITIDO		= "Parecer emitido com sucesso.";
+	
+	public static final String MENSAGEM_SUCESSO_INSCRICAO_REALIZADA	= "Inscrição realizada com sucesso.";
+	
+	public static final String MENSAGEM_SUCESSO_SELECAO_EDITADA		= "Seleção editada com sucesso.";
+	
+	public static final String MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA	= "Inscrição Excluída com Sucesso.";
+	
+	public static final String MENSAGEM_ERRO_SALVAR_DOCUMENTOS		= "Não foi possível salvar os documentos.";
+	
+	public static final String MENSAGEM_DOCUMENTO_INEXISTENTE		= "Documento não existe";
+	
+	public static final String MENSAGEM_ERRO_ANEXO					= "Adicione anexo a seleção.";
+	
+	public static final String MENSAGEM_SUCESSO_SELECAO_CADASTRADA	= "Nova seleção cadastrada com sucesso.";
+	
+	public static final String MENSAGEM_SUCESSO_SELECAO_ATUALIZADA	= "Seleção atualizada com sucesso.";
+	
+	public static final String MENSAGEM_SUCESSO_SELECAO_REMOVIDA	= "Seleção removida com sucesso.";
+	
+	public static final String MENSAGEM_ERRO_SELECAO_REMOVER		= "Permissão negada. Só é possível remover uma seleção enquanto seu status é nova." ;
+	
+	public static final String MENSAGEM_ERRO_ANEXO_EXCLUIR			= "Não foi possível excluir seu(s) anexo(s), pois não é possível salvar a seleção sem nenhum anexo.";
+	
+	public static final String MENSAGEM_ERRO_MEMBRO_BANCA_ATRIBUIR	= "Informe pelo menos um membro.";
+	
+	public static final String MENSAGEM_ERRO_MEMBRO_BANCA_REPETICAO	= "Não é permitida repetição de membros na comissão.";
+	
+	public static final String MENSAGEM_SUCESSO_COMISSAO_FORMADA	= "Informe pelo menos um membro.";
+	
+	public static final String MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO		= "Membro excluído com sucesso.";
+	
+	public static final String MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR= "Não é possivel excluir o Coordenador da Comissão";
+	
+	
+	public static final String MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR	= "Digite um ano maior ou igual ao atual.";
+	
+	public static final String MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR	= "A data de término não pode ser anterior a data de início.";
+	
+	public static final String MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR	= "Número do edital com esse tipo de bolsa já existente"; 
 	
 	/** Perfis */
 	

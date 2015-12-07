@@ -363,7 +363,7 @@ public class ServidorController {
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
 		
 		if(inscricao == null){
-			redirect.addFlashAttribute("erro", MENSAGEM_INSCRICAO_INEXISTENTE);
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}		
 			model.addAttribute("entrevista", new Entrevista());

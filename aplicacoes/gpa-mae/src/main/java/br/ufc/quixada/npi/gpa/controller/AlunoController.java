@@ -144,7 +144,7 @@ public class AlunoController {
 		
 		inscricaoService.save(inscricao);
 
-		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
@@ -191,7 +191,7 @@ public class AlunoController {
 		}
 		
 		// TODO - Realizar a atualização de uma iniciação acadêmica.
-		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_EDITADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
@@ -250,10 +250,10 @@ public class AlunoController {
 			
 			inscricaoService.save(inscricao);
 			
-			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
+			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 		}
 
-		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
@@ -279,10 +279,10 @@ public class AlunoController {
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
 
 		if (inscricao == null) {
-			redirectAttributes.addFlashAttribute("erro", "Inscrição Inexistente.");
+			redirectAttributes.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 		} else {
 			this.inscricaoService.delete(inscricao);
-			redirectAttributes.addFlashAttribute("info", "Inscrição Excluída com Sucesso.");
+			redirectAttributes.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 		}
 		
 		return "redirect:/aluno/inscricao/listar/{idAluno}";
@@ -317,7 +317,7 @@ public class AlunoController {
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		
 		if (inscricao == null) {
-			redirect.addFlashAttribute("erro", "seleção Inexistente");
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
@@ -330,7 +330,7 @@ public class AlunoController {
 	public String detalhesInscricaoAuxilioMoradia(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect) {
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, id);
 		if (inscricao == null) {
-			redirect.addFlashAttribute("erro", "Incrição Inexistente");
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 
