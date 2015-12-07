@@ -3,6 +3,7 @@ package br.ufc.quixada.npi.gpa.model;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,32 +15,31 @@ import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestBIA",  query = "select pf from PessoaFamilia pf where pf.iniciacaoAcademica.id = :idQuest"),
-	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestAMOR", query = "select pf from PessoaFamilia pf where pf.auxilioMoradia.id = :idQuest")
-})
+		@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestBIA", query = "select pf from PessoaFamilia pf where pf.iniciacaoAcademica.id = :idQuest"),
+		@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestAMOR", query = "select pf from PessoaFamilia pf where pf.auxilioMoradia.id = :idQuest") })
 public class PessoaFamilia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	private String nome;
-	
+
 	private int idade;
-	
+
 	private String escolaridade;
-	
+
 	private String profissao;
-	
+
 	private double rendaMensal;
-	
+
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
-	
-	@ManyToOne
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private QuestionarioAuxilioMoradia auxilioMoradia;
-	
-	@ManyToOne
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
 
 	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
@@ -117,7 +117,7 @@ public class PessoaFamilia {
 	@Override
 	public String toString() {
 		return "PessoaFamilia [auxilioMoradia=" + auxilioMoradia + ", iniciacaoAcademica=" + iniciacaoAcademica
-				+ ", id=" + id + ", nome=" + nome + ", idade=" + idade + ", Profissao=" + profissao
-				+ ", rendaMensal=" + rendaMensal + ", Parentesco=" + parentesco + "]";
+				+ ", id=" + id + ", nome=" + nome + ", idade=" + idade + ", Profissao=" + profissao + ", rendaMensal="
+				+ rendaMensal + ", Parentesco=" + parentesco + "]";
 	}
 }
