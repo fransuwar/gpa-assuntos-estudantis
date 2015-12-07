@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -58,7 +59,7 @@ public class SelecaoController {
 
 	@Inject
 	private QuestionarioAuxMoradiaService auxService;
-		
+
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model,
 			RedirectAttributes redirect) {
@@ -77,7 +78,7 @@ public class SelecaoController {
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Integer id, 
 			RedirectAttributes redirectAttributes){
-		
+
 		Documento documento = documentoService.find(Documento.class, id);
 		byte[] arquivo = documento.getArquivo();
 		String[] tipo = documento.getTipo().split("/");
@@ -90,7 +91,6 @@ public class SelecaoController {
 		return new HttpEntity<byte[]>(arquivo, headers);
 
 	}
-
 
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request) {
@@ -122,6 +122,12 @@ public class SelecaoController {
 
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
+
+		@RequestMapping(value = "/visualizarFormulario/{idaluno}")
+		public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
+			return null;
+		}
+
 
 	@RequestMapping(value = "parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,

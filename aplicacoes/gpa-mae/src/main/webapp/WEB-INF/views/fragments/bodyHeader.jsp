@@ -54,10 +54,7 @@
 					</sec:authorize>
 					<sec:authorize ifAllGranted="COORD_ASS_ESTUDANTIS">
 						<li role="presentation"><a
-							href="<c:url value="/servidor/listar/alunos" />">Listar Alunos <span class="glyphicon glyphicon-list"></span>
-						</a></li>
-						<li role="presentation"><a
-							href="<c:url value="/selecao/listar" />">Listar Seleções <span
+							href="<c:url value="/coordenador/selecao/listar" />">Coordenação <span
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>

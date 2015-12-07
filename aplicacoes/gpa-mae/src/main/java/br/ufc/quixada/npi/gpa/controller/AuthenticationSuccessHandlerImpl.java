@@ -52,8 +52,7 @@ public class AuthenticationSuccessHandlerImpl implements
 		
 		for (GrantedAuthority grantedAuthority : usuario.getAuthorities()) {
 			if (grantedAuthority.getAuthority().equalsIgnoreCase("COORD_ASS_ESTUDANTIS")) {
-				
-				return "/selecao/listar";
+				return "/servidor/selecao/listar";
 			}
 			else if (grantedAuthority.getAuthority().equalsIgnoreCase("SERVIDOR")){
 				return "/servidor/selecao/listar";
