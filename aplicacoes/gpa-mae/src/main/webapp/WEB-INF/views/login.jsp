@@ -34,7 +34,7 @@
 					<div class="msg">${msg}</div>
 				</c:if>
 
-				<form class="form-horizontal" name='f'
+				<form id="loginForm" class="form-horizontal" name='f'
 					action="<c:url value='j_spring_security_check' />" method='POST'>
 					<div class="form-group">
 						<label class="col-md-3 control-label">Usuário:</label>
@@ -57,11 +57,9 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-md-offset-7">
-						<input class="btn btn-primary" name="submit" type="submit"
-							value="Login" value="Login" /> <input class="btn btn-default"
-							name="reset" type="reset" value="Limpar" />
-						</div>	
+						<div class="col-lg-5 col-lg-offset-2">
+							<button type="submit" class="btn btn-primary">Login</button>
+						</div>
 					</div>
 				</form>
 			</div>
@@ -69,6 +67,6 @@
 	</div>
 
 	<jsp:include page="fragments/footer.jsp" />
-
+	<script src="<c:url value="/resources/js/gpa-login.js" />"></script>
 </body>
 </html>
