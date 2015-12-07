@@ -22,8 +22,7 @@
 	<div class="col-md-7 col-md-offset-1 dist-footer" align="center">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h2 class="panel-title">Informações de Relatório de Visita
-					Domiciliar</h2>
+				<h2 class="panel-title">Informações de Relatório de Visita Domiciliar</h2>
 			</div>
 			<div class="panel-body">
 				<div class="form-group">

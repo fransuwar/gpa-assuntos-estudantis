@@ -55,8 +55,11 @@
 					<form:form id="relatorioForm" role="form"
 						modelAttribute="relatorioVisitaDomiciliar"
 						commandName="relatorioVisitaDomiciliar"
-						servletRelativeAction="/relatorioVisita/cadastrar/${aluno.id}/${idSelecaoBolsa}"
+						servletRelativeAction="/servidor/visita"
 						method="POST" cssClass="form-horizontal">
+						
+						<input type="hidden" id="idAluno" name="idAluno" value="${idAluno }">
+						<input type="hidden" id="idSelecao" name="idSelecao" value="${idSelecao }"/>
 
 						<div class="tab-content">
 							<div class="tab-pane active" id="dados-gerais-tab">

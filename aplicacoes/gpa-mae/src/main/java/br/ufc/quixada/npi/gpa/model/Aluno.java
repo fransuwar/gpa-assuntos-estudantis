@@ -1,6 +1,5 @@
 package br.ufc.quixada.npi.gpa.model;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -162,6 +161,14 @@ public class Aluno {
 		this.foto = foto;
 	}
 
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+	
 	public List<Inscricao> getInscricoes() {
 		return inscricoes;
 	}
@@ -169,7 +176,12 @@ public class Aluno {
 	public void setInscricoes(List<Inscricao> inscricoes) {
 		this.inscricoes = inscricoes;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Aluno [id=" + id + "]";
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -195,11 +207,5 @@ public class Aluno {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Aluno [id=" + id + ", matricula=" + matricula + ", curso=" + curso + ", nome=" + nome + ", anoIngresso="
-				+ anoIngresso + ", ira=" + ira + ", banco=" + banco + ", agencia=" + agencia + ", conta=" + conta
-				+ ", foto=" + Arrays.toString(foto) + ", pessoa=" + pessoa + ", inscricoes=" + inscricoes + "]";
-	}
 
 }
