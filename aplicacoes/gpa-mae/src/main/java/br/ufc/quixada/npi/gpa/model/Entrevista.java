@@ -24,10 +24,6 @@ public class Entrevista {
 
 	@ManyToOne
 	private Servidor servidor;
-
-	public Entrevista (){
-
-	}
 	
 	public Integer getId() {
 		return id;

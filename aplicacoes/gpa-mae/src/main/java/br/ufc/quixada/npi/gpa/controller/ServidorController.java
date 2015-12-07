@@ -350,9 +350,7 @@ public class ServidorController {
 		return REDIRECT_PAGINA_LISTAR_ALUNOS;
 	}
 
-
-
-	@RequestMapping(value= {"/entrevista/{idInscricao}"}, method = RequestMethod.GET)
+	@RequestMapping(value= {"entrevista/{idInscricao}"}, method = RequestMethod.GET)
 	public String realizarEntrevista(@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect, Model model ){
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
 		
@@ -369,16 +367,7 @@ public class ServidorController {
 	@RequestMapping(value= {"entrevista"}, method = RequestMethod.POST)
 	public String realizarEntrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idServidor") Integer idPessoa, 
 			 BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
-		
-		if(result.hasErrors()){
-			model.addAttribute("entrevista",entrevista);
-			model.addAttribute("idInscricao", idInscricao);
-		}
-		
-		if(entrevista.getId()!=null){
-			redirect.addFlashAttribute("erro", "Entrevista já foi realizada.");
-			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}else{
+			
 			Servidor servidor = this.servidorService.getPessoaServidorComBancas(idPessoa);
 			entrevista.setServidor(servidor);
 			entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));			
@@ -387,7 +376,6 @@ public class ServidorController {
 			
 			redirect.addFlashAttribute("info", "Entrevista realizada com sucesso");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}
 	}
 
 	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
