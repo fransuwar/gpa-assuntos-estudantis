@@ -87,7 +87,6 @@ public class AlunoController {
 		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 
 		return "aluno/listarSelecoesAbertas";
-
 	}
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
@@ -339,7 +338,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = "detalhes-inscricaoAuxMor/{id}")
-	public String detalhesInscAuxMor(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect) {
+	public String detalhesInscricaoAuxilioMoradia(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect) {
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, id);
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", "Incrição Inexistente");
@@ -348,8 +347,6 @@ public class AlunoController {
 
 		modelo.addAttribute("inscricao", inscricao);
 		modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
-		// modelo.addAttribute("pessoasFamilia",
-		// inscricao.getQuestionarioIniciacaoAcademica().getPessoas());
 		return PAGINA_VISUALIZAR_INSC_AUX_MOR;
 	}
 
