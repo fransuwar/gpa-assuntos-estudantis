@@ -55,7 +55,7 @@ public class Constants {
 	
 	public static final String STA = "STA";
 	public static final String DOCENTE = "DOCENTE";
-	public static final String DICENTE = "DISCENTE";
+	public static final String DISCENTE = "DISCENTE";
 	public static final String COORDENADOR_ASSUNTOS_ESTUDANTIS = "COORDENADOR_ASSUNTO_ESTUDANTIS";
 
 }

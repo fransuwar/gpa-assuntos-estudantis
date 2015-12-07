@@ -55,7 +55,7 @@ public class AuthenticationSuccessHandlerImpl implements
 			if (grantedAuthority.getAuthority().equalsIgnoreCase(STA) || grantedAuthority.getAuthority().equalsIgnoreCase(DOCENTE)){
 				return "/servidor/selecao/listar";
 			}
-			else if (grantedAuthority.getAuthority().equalsIgnoreCase(DICENTE)){
+			else if (grantedAuthority.getAuthority().equalsIgnoreCase(DISCENTE)){
 				
 				return "/aluno/selecao/listar";
 			}
