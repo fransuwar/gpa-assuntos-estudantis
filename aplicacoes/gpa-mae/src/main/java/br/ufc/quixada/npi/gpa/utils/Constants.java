@@ -57,4 +57,12 @@ public class Constants {
 	public static final String MENSAGEM_DE_SUCESSO_ENTREVISTA		= "Entrevista realizada com sucesso.";
 	public static final String MENSAGEM_INSCRICAO_INEXISTENTE		= "Inscrição inexistente.";
 
+	
+	/** Perfil */
+	
+	public static final String STA = "STA";
+	public static final String DOCENTE = "DOCENTE";
+	public static final String DISCENTE = "DISCENTE";
+	public static final String COORDENADOR_ASSUNTOS_ESTUDANTIS = "COORDENADOR_ASSUNTO_ESTUDANTIS";
+
 }

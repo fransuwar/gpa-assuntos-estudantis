@@ -25,7 +25,7 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<sec:authorize ifAnyGranted="SERVIDOR">
+					<sec:authorize  ifAnyGranted="(DOCENTE, STA)">
 
 						<li role="presentation"><a
 							href="<c:url value="/servidor/listar" />">Listar Servidor <span
@@ -52,7 +52,7 @@
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>
-					<sec:authorize ifAllGranted="COORD_ASS_ESTUDANTIS">
+					<sec:authorize ifAllGranted="COORDENADOR_ASSUNTOS_ESTUDANTIS">
 						<li role="presentation"><a
 							href="<c:url value="/coordenador/selecao/listar" />">Coordenação <span
 								class="glyphicon glyphicon-list"></span>
