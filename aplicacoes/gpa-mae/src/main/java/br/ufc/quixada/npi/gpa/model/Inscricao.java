@@ -58,6 +58,7 @@ public class Inscricao {
 	@ManyToOne
 	private Aluno aluno;
 
+
 	public Integer getId() {
 		return id;
 	}
