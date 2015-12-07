@@ -1,11 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_PARECER_EMITIDO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.util.List;
 
@@ -31,7 +26,6 @@ import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.Selecao;
-import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -44,9 +38,6 @@ public class SelecaoController {
 
 	@Inject
 	private ServidorService servidorService;
-
-	@Inject
-	private AlunoService alunoService;
 
 	@Inject
 	private DocumentoService documentoService;
@@ -80,7 +71,7 @@ public class SelecaoController {
 		headers.setContentType(new MediaType(tipo[0], tipo[1]));
 		headers.set("Content-Disposition", "attachment; filename=" + documento.getNome().replace(" ", "_"));
 		headers.setContentLength(arquivo.length);
-		redirectAttributes.addFlashAttribute("success", "Download do Documento realizado com sucesso");
+		redirectAttributes.addFlashAttribute("success", MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO);
 
 		return new HttpEntity<byte[]>(arquivo, headers);
 

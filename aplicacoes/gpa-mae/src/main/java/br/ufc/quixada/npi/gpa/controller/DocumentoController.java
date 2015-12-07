@@ -19,6 +19,8 @@ import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.PessoaService;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+
 @Controller
 @RequestMapping("documento")
 public class DocumentoController {
@@ -55,7 +57,7 @@ public class DocumentoController {
 		Documento documento = serviceDocumento.find(Documento.class, id);
 		if(documento == null) {
 			map.addAttribute("result", "erro");
-			map.addAttribute("mensagem", "Documento não existe");
+			map.addAttribute("mensagem", MENSAGEM_DOCUMENTO_INEXISTENTE);
 			return map;
 		}
 		serviceDocumento.delete(documento);

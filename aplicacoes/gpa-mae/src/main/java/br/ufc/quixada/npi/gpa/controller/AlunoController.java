@@ -191,7 +191,7 @@ public class AlunoController {
 		}
 		
 		// TODO - Realizar a atualização de uma iniciação acadêmica.
-		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_EDITADA);
+		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EDITADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
@@ -279,7 +279,7 @@ public class AlunoController {
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
 
 		if (inscricao == null) {
-			redirectAttributes.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			redirectAttributes.addFlashAttribute("erro", MENSAGEM_ALUNO_NAO_ENCONTRADO);
 		} else {
 			this.inscricaoService.delete(inscricao);
 			redirectAttributes.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
