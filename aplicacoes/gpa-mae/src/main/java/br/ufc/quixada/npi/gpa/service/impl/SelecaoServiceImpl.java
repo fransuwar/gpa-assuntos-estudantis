@@ -19,20 +19,20 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Selecao> getSelecaoBolsasSubmetidos() {
+	public List<Selecao> getSelecoesSubmetidos() {
 
 		return find(QueryType.JPQL, "from Selecao as p where p.status != 'NOVO' ", null);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Selecao> getSelecaoBolsasAtribuidos() {
+	public List<Selecao> getSelecoesAtribuidos() {
 		return find(QueryType.JPQL, "from Selecao as p where p.status = 'AGUARDANDO_PARECER' ", null);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Selecao> getSelecaoBolsasByUsuario(Integer id) {
+	public List<Selecao> getSelecoesByUsuario(Integer id) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		return find(QueryType.JPQL, "from Selecao where usuario.id = :id", params);
@@ -40,18 +40,18 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Selecao> getSelecaoBolsasAguardandoParecer() {
+	public List<Selecao> getSelecoesAguardandoParecer() {
 		return find(QueryType.JPQL, "from Selecao as p where p.status = 'AGUARDANDO_PARECER'", null);
 	}
 
 	@Override
 	@Transactional
-	public boolean existsSelecaoEquals(Selecao selecaoBolsa) {
+	public boolean existsSelecaoEquals(Selecao selecao) {
 		@SuppressWarnings("unchecked")
 		List<Selecao> selecoes = find(QueryType.JPQL,
-				"from Selecao as p where p.tipoBolsa = :tipo and p.ano = :ano and p.sequencial = :sequencial",
-				new SimpleMap<String, Object>("tipo", selecaoBolsa.getTipoBolsa(), "ano", selecaoBolsa.getAno(),
-						"sequencial", selecaoBolsa.getSequencial()));
+				"from Selecao as p where p.tipoSelecao = :tipo and p.ano = :ano and p.sequencial = :sequencial",
+				new SimpleMap<String, Object>("tipo", selecao.getTipoSelecao(), "ano", selecao.getAno(),
+						"sequencial", selecao.getSequencial()));
 		if (selecoes == null || selecoes.isEmpty()) {
 			return false;
 		}
@@ -61,36 +61,36 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 
 	@Override
 	@Transactional
-	public Selecao getSelecaoBolsaComDocumentos(Integer id) {
-		return (Selecao) findFirst("Selecao.findSelecaoBolsaComDocumentos",
-				new SimpleMap<String, Object>("selecaoBolsaId", id));
+	public Selecao getSelecaoComDocumentos(Integer id) {
+		return (Selecao) findFirst("Selecao.findSelecaoSelecaoComDocumentos",
+				new SimpleMap<String, Object>("selecaoId", id));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public List<Selecao> getSelecaoBolsaComMembros() {
-		return ((List<Selecao>) find("Selecao.findSelecaoBolsaComMembros", new SimpleMap<String, Object>()));
+	public List<Selecao> getSelecoesComMembros() {
+		return ((List<Selecao>) find("Selecao.findSelecoesComMembros", new SimpleMap<String, Object>()));
 	}
 
 	@Override
 	@Transactional
-	public Selecao getSelecaoBolsaComMembros(Integer id) {
-		return (Selecao) findFirst("Selecao.findSelecaoBolsaIdComMembros",
-				new SimpleMap<String, Object>("selecaoBolsaId", id));
+	public Selecao getSelecaoComMembros(Integer id) {
+		return (Selecao) findFirst("Selecao.findSelecaoIdComMembros",
+				new SimpleMap<String, Object>("selecaoId", id));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Selecao getSelecaoBolsaComAlunos(Integer id) {
-		return (Selecao) findFirst("Selecao.findSelecaoBolsaIdComAlunos",
-				new SimpleMap<String, Object>("selecaoBolsaId", id));
+	public Selecao getSelecaoComAlunos(Integer id) {
+		return (Selecao) findFirst("Selecao.findSelecaoIdComAlunos",
+				new SimpleMap<String, Object>("selecaoId", id));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
-	public List<Selecao> getSelecaoComAlunos() {
+	public List<Selecao> getSelecoesComAlunos() {
 		return ((List<Selecao>) find("Selecao.findSelecaoComAlunos", new SimpleMap<String, Object>()));
 
 	}

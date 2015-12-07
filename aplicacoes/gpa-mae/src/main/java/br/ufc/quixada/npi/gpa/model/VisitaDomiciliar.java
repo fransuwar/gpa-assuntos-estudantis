@@ -33,7 +33,7 @@ public class VisitaDomiciliar {
 	@ManyToOne
 	private Servidor servidor;
 	@ManyToOne
-	private Selecao selecaoBolsa;
+	private Selecao selecao;
 	@NotNull(message = "Campo obrigatório")
 	private String formaAcessoCasa;
 	@NotNull(message = "Campo obrigatório")
@@ -455,11 +455,11 @@ public class VisitaDomiciliar {
 	public void setDataRelatorio(Date dataRelatorio) {
 		this.dataRelatorio = dataRelatorio;
 	}
-	public Selecao getSelecaoBolsa() {
-		return selecaoBolsa;
+	public Selecao getSelecao() {
+		return selecao;
 	}
-	public void setSelecaoBolsa(Selecao selecaoBolsa) {
-		this.selecaoBolsa = selecaoBolsa;
+	public void setSelecao(Selecao selecao) {
+		this.selecao = selecao;
 	}
 	public Despesa getDespesa() {
 		return despesa;

@@ -133,7 +133,7 @@ $(document).ready(function(){
 	         quantidadeVagas: {
 	             required: true
 	         },
-	         tipoBolsa:{
+	         tipoSelecao:{
 	        	 required:true
 	         },
 	         sequencial:{
@@ -481,7 +481,7 @@ function excluir(idTable, uri, row) {
 	});
 };
 
-function validaHorariosDisponiveisBolsa(){
+function validaHorariosDisponiveisSelecao(){
 		
 	var res = "";
 	var table = document.getElementById("tabelaHorariosDisponiveis");

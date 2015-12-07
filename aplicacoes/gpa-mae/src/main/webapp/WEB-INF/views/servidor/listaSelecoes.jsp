@@ -47,10 +47,10 @@
 					<h3 class="panel-title">Seleções</h3>
 				</div>
 
-				<table class="table display" id="tabela-selecoes">
+				<table class="table table-display table-striped" id="tabela-selecoes">
 					<thead>
 						<tr>
-							<th>Tipo de Bolsa</th>
+							<th>Tipo de Seleção</th>
 							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
@@ -63,7 +63,7 @@
 							<tr class="linha">
 								<td><a id="detalhes"
 									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
-										${selecao.tipoBolsa.nome} </a></td>
+										${selecao.tipoSelecao.nome} </a></td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>

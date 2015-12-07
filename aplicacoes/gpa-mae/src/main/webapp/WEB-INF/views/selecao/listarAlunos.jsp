@@ -81,7 +81,7 @@
 					</div>
 				</c:if>
 				<c:if test="${not empty alunos}">
-					<table class="table display table-striped" id="tabela-alunos">
+					<table class="table table display table-striped" id="tabela-alunos">
 						<thead>
 							<tr class="info">
 								<th>Matricula</th>

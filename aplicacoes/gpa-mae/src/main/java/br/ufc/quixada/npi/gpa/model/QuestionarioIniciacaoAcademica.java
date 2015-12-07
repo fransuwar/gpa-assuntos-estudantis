@@ -137,7 +137,7 @@ public class QuestionarioIniciacaoAcademica {
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "questionarioiniciacaoacademica_id")
-	private List<HorarioDisponivel> horariosDisponiveisBolsa;
+	private List<HorarioDisponivel> horariosDisponiveisSelecao;
 	
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
@@ -494,12 +494,12 @@ public class QuestionarioIniciacaoAcademica {
 		this.qtdEmpregadosDomesticos = qtdEmpregadosDomesticos;
 	}
 	
-	public List<HorarioDisponivel> getHorariosDisponiveisBolsa() {
-		return horariosDisponiveisBolsa;
+	public List<HorarioDisponivel> getHorariosDisponiveisSelecao() {
+		return horariosDisponiveisSelecao;
 	}
 
-	public void setHorariosDisponiveisBolsa(List<HorarioDisponivel> horariosDisponiveisBolsa) {
-		this.horariosDisponiveisBolsa = horariosDisponiveisBolsa;
+	public void setHorariosDisponiveisSelecao(List<HorarioDisponivel> horariosDisponiveisSelecao) {
+		this.horariosDisponiveisSelecao = horariosDisponiveisSelecao;
 	}
 
 	public List<PessoaFamilia> getPessoas() {

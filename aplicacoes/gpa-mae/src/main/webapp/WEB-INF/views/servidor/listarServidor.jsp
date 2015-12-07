@@ -59,7 +59,7 @@
 				</c:if>
 				<c:if test="${not empty servidores}">
 					<!-- Table -->
-					<table class="table display table-striped" id="tabela-servidores">
+					<table class="table table-display table-striped" id="tabela-servidores">
 						<thead>
 							<tr class="info">
 								<th>SIAPE</th>

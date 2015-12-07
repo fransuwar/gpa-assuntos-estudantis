@@ -47,7 +47,7 @@
 				<form:form id="questionarioForm" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
-					servletRelativeAction="/auxilio/inscricao/${selecaoBolsa}/"
+					servletRelativeAction="/auxilio/inscricao/${selecao}/"
 					method="POST" cssClass="form-horizontal">
 					<input type="hidden" name="id"
 						value="${questionarioAuxilioMoradia.id}" />

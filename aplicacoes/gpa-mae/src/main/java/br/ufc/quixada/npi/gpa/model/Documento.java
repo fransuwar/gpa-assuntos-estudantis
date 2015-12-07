@@ -27,20 +27,20 @@ public class Documento {
 	private byte[] arquivo;
 
 	@ManyToOne
-	@JoinColumn(name = "selecaoBolsa_id")
-	private Selecao selecaoBolsa;
+	@JoinColumn(name = "selecao_id")
+	private Selecao selecao;
 
 	public Documento(){
 		super();
 	}	
 	
-	public Documento(String nomeOriginal, String nome, String tipo, byte[] arquivo, Selecao selecaoBolsa){
+	public Documento(String nomeOriginal, String nome, String tipo, byte[] arquivo, Selecao selecao){
 		super();
 		this.nomeOriginal = nomeOriginal;
 		this.nome = nome;
 		this.tipo = tipo;
 		this.arquivo = arquivo;
-		this.selecaoBolsa = selecaoBolsa;
+		this.selecao = selecao;
 	}
 	
 	public Integer getId() {
@@ -85,12 +85,12 @@ public class Documento {
 	}
 	
 	
-	public Selecao getSelecaoBolsa() {
-		return selecaoBolsa;
+	public Selecao getSelecao() {
+		return selecao;
 	}
 
-	public void setSelecaoBolsa(Selecao selecaoBolsa) {
-		this.selecaoBolsa = selecaoBolsa;
+	public void setSelecao(Selecao selecao) {
+		this.selecao = selecao;
 	}
 
 	@Override

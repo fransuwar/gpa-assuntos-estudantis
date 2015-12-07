@@ -30,7 +30,7 @@
 <%-- 				servletRelativeAction="/selecao/parecer/${idSelecao}" method="POST" --%>
 <%-- 				cssClass="form-horizontal"> --%>
 
-				<table class="table" id="tabela-inscritos">
+				<table class="table table-striped" id="tabela-inscritos">
 					<thead>
 						<tr>
 							<th>Matricula</th>

@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Status;
-import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
+import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
@@ -55,7 +55,7 @@ public class CoordenadorController {
 	public String cadastroSelecao(Model model) {
 		
 		model.addAttribute("action", "cadastrar");
-		model.addAttribute("tipoBolsa", TipoBolsa.values());
+		model.addAttribute("tipoSelecao", TipoSelecao.values());
 		model.addAttribute("selecao", new Selecao());
 		
 		return PAGINA_CADASTRAR_SELECAO;
@@ -83,13 +83,13 @@ public class CoordenadorController {
 		
 		if (selecao != null)  {
 			if (selecaoService.existsSelecaoEquals(selecao)) {
-				result.rejectValue("sequencial", "selecao.sequencial", "Número do edital com esse tipo de bolsa já existente");
+				result.rejectValue("sequencial", "selecao.sequencial", "Número do edital com esse tipo de selecao já existente");
 			}
 		}
 		
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("tipoSelecao", TipoSelecao.values());
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
@@ -105,7 +105,7 @@ public class CoordenadorController {
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
 						documento.setTipo(mfiles.getContentType());
-						documento.setSelecaoBolsa(selecao);
+						documento.setSelecao(selecao);
 						documentos.add(documento);
 					}
 					
@@ -123,7 +123,7 @@ public class CoordenadorController {
 			
 		} else {
 			
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("tipoSelecao", TipoSelecao.values());
 			model.addAttribute("anexoError", "Adicione anexo a seleção.");
 
 			return PAGINA_CADASTRAR_SELECAO;
@@ -140,12 +140,12 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		
-		Selecao selecao = this.selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
+		Selecao selecao = this.selecaoService.getSelecaoComDocumentos(idSelecao);
 
 		if (selecao != null && selecao.getStatus() != null && selecao.getStatus().equals(Status.NOVA)) {
 		
 			model.addAttribute("action", "editar");
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("tipoSelecao", TipoSelecao.values());
 			model.addAttribute("selecao", selecao);
 			
 		} else {
@@ -178,7 +178,7 @@ public class CoordenadorController {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("tipoSelecao", TipoSelecao.values());
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
@@ -187,7 +187,7 @@ public class CoordenadorController {
 
 		if (doc != null) {
 
-			if (selecaoService.getSelecaoBolsaComDocumentos(selecao.getId()).getDocumentos().size() == doc.length
+			if (selecaoService.getSelecaoComDocumentos(selecao.getId()).getDocumentos().size() == doc.length
 				&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
 				model.addAttribute("action", "editar");
 				redirect.addFlashAttribute("erro", "Não foi possível excluir seu(s) anexo(s), pois não é possível salvar a seleção sem nenhum anexo.");
@@ -212,7 +212,7 @@ public class CoordenadorController {
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
 						documento.setTipo(mfiles.getContentType());
-						documento.setSelecaoBolsa(selecao);
+						documento.setSelecao(selecao);
 						documentos.add(documento);
 						documentoService.save(documento);
 					}
@@ -224,7 +224,7 @@ public class CoordenadorController {
 			}
 		} else {
 			
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("tipoSelecao", TipoSelecao.values());
 			model.addAttribute("anexoError", "Adicione anexo a seleção.");
 
 			return PAGINA_CADASTRAR_SELECAO;
@@ -289,7 +289,7 @@ public class CoordenadorController {
 			
 			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 			
-			List<Servidor> comissao = selecao.getMembrosBanca();
+			List<Servidor> comissao = selecao.getMembrosComissao();
 	
 			Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 			if (comissao.contains(servidor)) {
@@ -300,7 +300,7 @@ public class CoordenadorController {
 				
 			} else {
 				
-				selecao.getMembrosBanca().add(servidor);
+				selecao.getMembrosComissao().add(servidor);
 
 				selecaoService.update(selecao);
 
@@ -315,7 +315,7 @@ public class CoordenadorController {
 	}
 	
 	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
-	public String excluirMembroBanca(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
+	public String excluirMembroComissao(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
 			Model model, Authentication auth, RedirectAttributes redirect) {
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
@@ -323,7 +323,7 @@ public class CoordenadorController {
 		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 		if(coordenador.getId() != servidor.getId()){
 			
-			selecao.getMembrosBanca().remove(servidor);
+			selecao.getMembrosComissao().remove(servidor);
 			selecaoService.update(selecao);
 			redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
 		}else

@@ -1,6 +1,10 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_FORMULARIO_PREENCHIDO_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
 import java.util.List;
 
@@ -23,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
+import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
@@ -31,7 +35,6 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
-import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -70,15 +73,15 @@ public class SelecaoController {
 			
 			model.addAttribute("selecoes", selecoes);
 			model.addAttribute("aluno", aluno);
-			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+			model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 			
 		} else {
 			
 			model.addAttribute("selecoes", selecoes);
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+			model.addAttribute("tipoSelecao", TipoSelecao.values());
+			model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 		}
 		
 		return PAGINA_LISTAR_SELECAO;
@@ -87,7 +90,7 @@ public class SelecaoController {
 
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
-		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
+		Selecao selecao = selecaoService.getSelecaoComDocumentos(idSelecao);
 
 
 		if (selecao == null) {
@@ -131,11 +134,11 @@ public class SelecaoController {
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
-		List<Selecao> selecoes = this.servidorService.getPessoaServidorComBancas(id).getParticipaBancas();
+		List<Selecao> selecoes = this.servidorService.getPessoaServidorComComissao(id).getParticipaComissao();
 
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
 		return PAGINA_LISTAR_SELECAO;
 	}
