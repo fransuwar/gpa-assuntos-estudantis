@@ -46,7 +46,7 @@ public class Constants {
 	
 	public static final String PAGINA_INSCRICOES_ALUNO				= "aluno/minhasInscricoes";
 	
-	public static final String PAGINA_SELECOES_ABERTAS				= "aluno/listarSelecoesAbertas";
+	public static final String PAGINA_SELECOES_ABERTAS				= "aluno/listarSelecoes";
 
 	/** Redirecionamentos */
 

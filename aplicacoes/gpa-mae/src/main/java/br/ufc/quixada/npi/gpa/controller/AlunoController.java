@@ -65,6 +65,7 @@ public class AlunoController {
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
+		
 		List<Selecao> selecoes = selecaoService.find(Selecao.class);
 
 		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
