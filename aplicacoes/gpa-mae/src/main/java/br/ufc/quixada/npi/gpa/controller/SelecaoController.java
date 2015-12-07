@@ -51,41 +51,6 @@ public class SelecaoController {
 
 	@Inject
 	private SelecaoService selecaoService;
-	
-	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
-	public String listar(ModelMap model, HttpServletRequest request, Authentication auth) {
-		
-		List<Selecao> selecoes = selecaoService.find(Selecao.class);
-
-		if (request.isUserInRole("DISCENTE")) {
-			
-			Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
-			
-			model.addAttribute("selecoes", selecoes);
-			model.addAttribute("aluno", aluno);
-			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
-			
-		} else if(request.isUserInRole("SERVIDOR")){
-			
-			Servidor servidor = this.servidorService.getServidorByCpf(auth.getName());
-			
-			selecoes = servidor.getParticipaBancas();
-			model.addAttribute("selecoes", selecoes);
-			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
-		} else {
-
-			model.addAttribute("selecoes", selecoes);
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-		}
-		
-		return PAGINA_LISTAR_SELECAO;
-	}
 
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model,
