@@ -1,28 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_ATUALIZADO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_CADASTRADO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_ENCONTRADO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_EXCLUIDO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_AGENCIA_DIGITOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ALUNO_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_INGRESSO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_INGRESSO_DIGITOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_CONTA_DIGITOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MATRICULA_DIGITOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MATRICULA_EXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SERVIDOR_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SIAPE_EXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SERVIDOR_ATUALIZADO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SERVIDOR_CADASTRADO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SERVIDOR_EXCLUIDO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SERVIDOR_NAO_ENCONTRADO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_CADASTRAR_ALUNO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_CADASTRAR_SERVIDOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_ALUNOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SERVIDOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_ALUNOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SERVIDOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,7 +33,7 @@ import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
-@RequestMapping ("admin")
+@RequestMapping ("administrador")
 @SessionAttributes({ Constants.USUARIO_ID , Constants.USUARIO_LOGADO})
 public class AdministradorController {
 	
@@ -289,6 +267,7 @@ public class AdministradorController {
 
 		return REDIRECT_PAGINA_LISTAR_ALUNOS;
 	}
+	
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listaServidor(Servidor servidor, BindingResult result, Model model) {
 		List<Servidor> results = servidorService.find(Servidor.class);	

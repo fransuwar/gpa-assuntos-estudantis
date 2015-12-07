@@ -10,12 +10,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:if test="${action eq 'cadastrar' }">
-	<c:url var="url" value="/admin/cadastrar/aluno" />
+	<c:url var="url" value="/administrador/cadastrar/aluno" />
 	<c:set var="titulo" value="Nova Aluno"/>
 	<c:set var="botao" value="Cadastrar"/>
 </c:if>
 <c:if test="${action eq 'editar' }">
-<c:url var="url" value="/admin/editar/aluno" />
+<c:url var="url" value="/administrador/editar/aluno" />
 	<c:set var="titulo" value="Atualizar Aluno"/>
 	<c:set var="botao" value="Atualizar"/>
 </c:if>

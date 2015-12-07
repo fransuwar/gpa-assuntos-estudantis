@@ -31,7 +31,7 @@
 
 			<div class="panel-body">
 				<form:form id="adicionarServidorForm" role="form"
-					commandName="servidor" servletRelativeAction="/admin/salvar"
+					commandName="servidor" servletRelativeAction="/administrador/salvar"
 					method="POST" cssClass="form-horizontal">
 
 					<input type="hidden" name="id" value="${servidor.id}" />

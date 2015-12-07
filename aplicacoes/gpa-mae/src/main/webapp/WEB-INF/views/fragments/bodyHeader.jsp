@@ -28,11 +28,11 @@
 					<sec:authorize  access="hasAnyRole('ADMINISTRADOR_GPA')">
 
 						<li role="presentation"><a
-							href="<c:url value="/servidor/listar" />">Listar Servidor <span
+							href="<c:url value="/administrador/listar" />">Listar Servidor <span
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 						<li role="presentation"><a
-							href="<c:url value="/servidor/listar/alunos" />">Listar Alunos <span
+							href="<c:url value="/administrador/listar/alunos" />">Listar Alunos <span
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>		

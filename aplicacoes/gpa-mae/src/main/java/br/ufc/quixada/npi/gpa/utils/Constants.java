@@ -30,7 +30,7 @@ public class Constants {
 	
 	public static final String PAGINA_CADASTRAR_SERVIDOR			= "servidor/cadastrarServidor";
 	
-	public static final String PAGINA_LISTAR_SERVIDOR				= "servidor/listarServidor";
+	public static final String PAGINA_LISTAR_SERVIDOR				= "administrador/listarServidor";
 	
 	public static final String PAGINA_CADASTRAR_ALUNO				= "servidor/cadastrarAluno";
 	
@@ -38,7 +38,7 @@ public class Constants {
 	
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
-	public static final String PAGINA_VISUALIZAR_INSC_AUX_MOR = "aluno/detalhesInscAuxMor";
+	public static final String PAGINA_VISUALIZAR_INSC_AUX_MOR 		= "aluno/detalhesInscAuxMor";
 
 	public static final String PAGINA_INSCREVER_AUXILIO_MORADIA 	= "aluno/inscricaoAuxilio";
 	
@@ -47,6 +47,7 @@ public class Constants {
 	public static final String PAGINA_INSCRICOES_ALUNO				= "aluno/minhasInscricoes";
 	
 	public static final String PAGINA_SELECOES_ABERTAS				= "aluno/listarSelecoesAbertas";
+	
 
 	/** Redirecionamentos */
 

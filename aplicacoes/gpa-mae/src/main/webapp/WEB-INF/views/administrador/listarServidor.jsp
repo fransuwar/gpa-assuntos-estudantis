@@ -38,7 +38,7 @@
 		</c:if>
 		<div class="col-md-12">
 			<div class="col-md-2 " id="div-btn-inserir">
-				<a href="<c:url value="/admin/cadastrar" ></c:url>">
+				<a href="<c:url value="/administrador/cadastrar" ></c:url>">
 					<button class="btn btn-primary" id="listar-btn-inserir">
 						Novo Servidor <span class="glyphicon glyphicon-plus"></span>
 					</button>
@@ -77,13 +77,13 @@
 											<td>${servidor.siape}</td>
 											<td>${servidor.cargo.nome}</td>
 											<td><a id="editar"
-												href="<c:url value="/admin/${servidor.id}/editar" ></c:url>">
+												href="<c:url value="/administrador/${servidor.id}/editar" ></c:url>">
 													<button class="btn btn-info">
 														<span class="glyphicon glyphicon-pencil"></span>
 													</button>
 											</a> <a id="excluir" data-toggle="modal"
 												data-target="#confirm-delete" href="#"
-												data-href="<c:url value="/admin/${servidor.id}/excluir" ></c:url>">
+												data-href="<c:url value="/administrador/${servidor.id}/excluir" ></c:url>">
 													<button class="btn btn-danger">
 														<span class="glyphicon glyphicon-trash"></span>
 													</button>
