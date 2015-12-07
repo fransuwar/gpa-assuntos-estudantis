@@ -215,7 +215,7 @@ public class ServidorController {
 	public String listarAluno(@RequestParam("matricula") String matricula, Model model, RedirectAttributes redirect) {
 
 		List<Aluno> alunos = new ArrayList<Aluno>();
-		Aluno aluno = alunoService.getAlunoByMatricula(matricula);
+		Aluno aluno = alunoService.getAluno(matricula);
 		alunos.add(aluno);
 		model.addAttribute("alunos", alunos);
 
@@ -271,7 +271,7 @@ public class ServidorController {
 		}
 
 		if (aluno != null) {
-			if (this.alunoService.existsAlunoEquals(aluno)) {
+			if (this.alunoService.isAlunoCadastrado(aluno)) {
 				result.rejectValue("matricula", "aluno.matricula", MENSAGEM_ERRO_MATRICULA_EXISTENTE);
 			}
 		}

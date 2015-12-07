@@ -11,7 +11,6 @@ import javax.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,11 +64,10 @@ public class AlunoController {
 	private InscricaoService inscricaoService;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
-
-	public String listarSelecoesAbertas(ModelMap model, HttpServletRequest request, Authentication auth) {
+	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 		List<Selecao> selecoes = selecaoService.find(Selecao.class);
 
-		Aluno aluno = alunoService.getAlunoComInscricoesCpf(auth.getName());
+		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("aluno", aluno);
@@ -80,21 +78,8 @@ public class AlunoController {
 
 	}
 
-	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
-	public String listarInscricoes(Model model, Authentication auth) {
-
-		Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
-
-		model.addAttribute("inscricoes", aluno.getInscricoes());
-
-		// TODO - Criar página de retorno que mostra as inscrições dos alunos.
-
-		return "";
-
-	}
-
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
-	public String realizarInscricaoBIA(@PathVariable("idSelecao") Integer idSelecao, Model model) {
+	public String realizarInscricaoIniciacaoAcademica(@PathVariable("idSelecao") Integer idSelecao, Model model) {
 
 		model.addAttribute("action", "inscricao");
 
@@ -111,7 +96,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/iniciacao-academica" }, method = RequestMethod.POST)
-	public String realizarInscricaoBIA(@RequestParam("idSelecao") Integer idSelecao,
+	public String realizarInscricaoIniciacaoAcademica(@RequestParam("idSelecao") Integer idSelecao,
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
 			BindingResult result, Model model, RedirectAttributes redirect, Authentication auth) {
 
@@ -150,7 +135,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/editar/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
-	public String editarInscricaoBIA(@PathVariable("idInscricao") Integer idInscricao, Model model,
+	public String editarInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model model,
 			RedirectAttributes redirect) {
 
 		// TODO - Método p/ implementar que retorna página de formulário de
@@ -160,8 +145,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
-	public String editarInscricaoBIA(
-			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
+	public String editarInscricaoIniciacaoAcademica(@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
 			BindingResult result, Model model, RedirectAttributes redirect) {
 
 		model.addAttribute("action", "editar");
@@ -196,8 +180,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
-	public String inscreverAuxMoradia(@ModelAttribute("id") Integer idPessoa,
-			@ModelAttribute("idSelecao") Integer idSelecao, Model model) {
+	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model) {
 
 		model.addAttribute("action", "inscricao");
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
@@ -216,10 +199,8 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
-	public String realizarInscricaoAuxMoradia(
-			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
-			BindingResult result, @ModelAttribute("id") Integer idPessoa,
-			@ModelAttribute("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
+	public String realizarInscricaoAuxilioMoradia(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
+			BindingResult result, @RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model) {
 
 		if (result.hasErrors()) {
@@ -257,6 +238,28 @@ public class AlunoController {
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
+	
+
+	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
+	public String editarInscricaoAuxilioMoradia(@PathVariable("idInscricao") Integer idInscricao, Model model,
+			RedirectAttributes redirect) {
+
+		// TODO - Método p/ implementar que retorna página de edição do
+		// formulário de inscrição em auxílio moradia.
+
+		return PAGINA_INSCREVER_AUXILIO_MORADIA;
+
+	}
+
+	@RequestMapping(value = { "inscricao/editar/auxilio-moradia" }, method = RequestMethod.POST)
+	public String editarInscricaoAuxilioMoradia(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
+			BindingResult result, RedirectAttributes redirect) {
+		
+		//TODO - Método p/ implementar que salva a edição de um formulário em uma incrição auxílio moradia.
+
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
+
+	}
 
 	@RequestMapping(value = "/inscricao/listar/{idAluno}", method = RequestMethod.GET)
 	public String listarInscricoes(@PathVariable("idAluno") Integer idAluno, Model model) {
@@ -289,30 +292,8 @@ public class AlunoController {
 
 	}
 
-	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
-	public String editarInscricaoAMOR(@PathVariable("idInscricao") Integer idInscricao, Model model,
-			RedirectAttributes redirect) {
-
-		// TODO - Método p/ implementar que retorna página de edição do
-		// formulário de inscrição em auxílio moradia.
-
-		return PAGINA_INSCREVER_AUXILIO_MORADIA;
-
-	}
-
-	@RequestMapping(value = { "inscricao/editar/auxilio-moradia" }, method = RequestMethod.POST)
-	public String editarInscricaoAMOR(
-			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
-			BindingResult result, RedirectAttributes redirect) {
-		
-		//TODO - Método p/ implementar que salva a edição de um formulário em uma incrição auxílio moradia.
-
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
-
-	}
-
 	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
-	public String detalhes(@PathVariable("idInscricao") Integer idInscricao, Model modelo, RedirectAttributes redirect){
+	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model modelo, RedirectAttributes redirect){
 		
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		

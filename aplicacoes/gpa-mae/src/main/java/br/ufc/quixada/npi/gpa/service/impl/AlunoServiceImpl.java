@@ -15,9 +15,10 @@ import br.ufc.quixada.npi.util.SimpleMap;
 @Named
 public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements AlunoService {
 
+
 	@Override
 	@Transactional(readOnly = true)
-	public Aluno getAlunoByMatricula(String matricula) {
+	public Aluno getAluno(String matricula) {
 		return (Aluno) findFirst("Aluno.findAlunoByMatricula", new SimpleMap<String, Object>("matricula", matricula));
 	}
 
@@ -35,13 +36,13 @@ public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements Aluno
 
 	@Override
 	@Transactional(readOnly = true)
-	public Aluno getAlunoComInscricoesCpf(String cpf) {
-		return (Aluno) findFirst("Aluno.findAlunoComInscricoesCpf", new SimpleMap<String, Object>("cpf", cpf));
+	public Aluno getAlunoComInscricoes(String cpf) {
+		return (Aluno) findFirst("Aluno.findAlunoByCPFComInscricoes", new SimpleMap<String, Object>("cpf", cpf));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public boolean existsAlunoEquals(Aluno aluno) {
+	public boolean isAlunoCadastrado(Aluno aluno) {
 		@SuppressWarnings("unchecked")
 		List<Aluno> alunos = find(QueryType.JPQL, "from Aluno as a where a.matricula = :matricula",
 				new SimpleMap<String, Object>("matricula", aluno.getMatricula()));
@@ -55,7 +56,7 @@ public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements Aluno
 	@Override
 	@Transactional(readOnly = true)
 	public Aluno getAlunoByCPF(String cpf) {
-		return (Aluno) findFirst("Aluno.findAlunoByCpf", new SimpleMap<String, Object>("cpf", cpf));
+		return (Aluno) findFirst("Aluno.findAlunoByCPF", new SimpleMap<String, Object>("cpf", cpf));
 	}
 
 }

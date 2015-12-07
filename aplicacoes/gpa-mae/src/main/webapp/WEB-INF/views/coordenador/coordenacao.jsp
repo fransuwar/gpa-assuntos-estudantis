@@ -41,7 +41,7 @@
 		</c:if>
 
 		<div class="col-md-14">
-			<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
+			<sec:authorize access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div align="right" style="margin-bottom: 20px;">
 					<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">
 						<button class="btn btn-primary">
@@ -84,7 +84,7 @@
 								<td>${selecao.status.nome}</td>
 
 								<td><sec:authorize
-										access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
+										access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA')">
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
@@ -92,7 +92,7 @@
 											</button>
 										</a>
 									</sec:authorize>
-									<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS')">
+									<sec:authorize access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 										<a id="editar"
 
 											href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
@@ -173,7 +173,7 @@
 											</c:when>
 										</c:choose>
 									</sec:authorize> 
-									<sec:authorize access="hasAnyRole('SERVIDOR')">
+									<sec:authorize access="hasAnyRole('STA')">
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">

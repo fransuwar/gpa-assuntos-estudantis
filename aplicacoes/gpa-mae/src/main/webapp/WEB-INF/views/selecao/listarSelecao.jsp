@@ -6,14 +6,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 
 
 <html>
 <head>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Seleções</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Seleções</title>
 </head>
 <body>
 
@@ -40,8 +41,6 @@
 			</div>
 		</c:if>
 
-		</div>
-
 		<div class="col-md-14">
 			<div class="panel panel-info">
 
@@ -63,8 +62,9 @@
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
-								<td><a id="detalhes" href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
-                                	${selecao.tipoBolsa.nome} </a></td>
+								<td><a id="detalhes"
+									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
+										${selecao.tipoBolsa.nome} </a></td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
@@ -74,13 +74,12 @@
 										access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm" title="Visualizar Inscritos">
+											<button class="btn btn-primary btn-sm"
+												title="Visualizar Inscritos">
 												<i class="fa fa-users fa-lg"></i>
 											</button>
 										</a>
-									</sec:authorize>
-
-									<sec:authorize access="hasAnyRole('SERVIDOR')">
+									</sec:authorize> <sec:authorize access="hasAnyRole('SERVIDOR')">
 
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
