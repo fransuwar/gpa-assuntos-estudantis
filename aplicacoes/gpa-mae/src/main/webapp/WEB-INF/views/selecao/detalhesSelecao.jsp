@@ -67,7 +67,7 @@
 				</dl>
 			</div>
 		</div>
-		<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
+		<sec:authorize access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
 		<div class="panel panel-primary-min" align="left">
 			<div class="panel-heading">
 				<h3 class="panel-title">Resultado da seleção</h3>

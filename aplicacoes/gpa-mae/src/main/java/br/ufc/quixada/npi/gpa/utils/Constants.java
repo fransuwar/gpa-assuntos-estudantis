@@ -34,6 +34,8 @@ public class Constants {
 	
 	public static final String PAGINA_CADASTRAR_ALUNO				= "servidor/cadastrarAluno";
 	
+	public static final String PAGINA_REALIZAR_ENTREVISTA			= "servidor/realizarEntrevista";
+	
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
 	public static final String PAGINA_VISUALIZAR_INSC_AUX_MOR = "aluno/detalhesInscAuxMor";
@@ -103,5 +105,19 @@ public class Constants {
 	public static final String MENSAGEM_ERRO_AGENCIA_DIGITOS		= "O número da agência deve possuir pelo menos seis dígitos";
 	
 	public static final String MENSAGEM_ERRO_CONTA_DIGITOS			= "O número da conta deve possuir pelo menos quatro dígitos";
+
+	public static final String MENSAGEM_DE_SUCESSO_ENTREVISTA		= "Entrevista realizada com sucesso.";
+
+	public static final String MENSAGEM_INSCRICAO_INEXISTENTE		= "Inscrição inexistente.";
+	
+	/** Perfis */
+	
+	public static final String STA = "STA";
+	
+	public static final String DOCENTE = "DOCENTE";
+	
+	public static final String DISCENTE = "DISCENTE";
+	
+	public static final String COORDENADOR_ASSUNTOS_ESTUDANTIS = "COORDENADOR_ASSUNTO_ESTUDANTIS";
 
 }

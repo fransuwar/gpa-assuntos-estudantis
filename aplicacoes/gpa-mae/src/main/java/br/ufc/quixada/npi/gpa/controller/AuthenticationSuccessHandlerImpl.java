@@ -18,7 +18,7 @@ import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.ldap.model.Usuario;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
-
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 @Named
 public class AuthenticationSuccessHandlerImpl implements
 		AuthenticationSuccessHandler {
@@ -51,13 +51,12 @@ public class AuthenticationSuccessHandlerImpl implements
 		Usuario usuario = serviceUsuario.getByCpf(authentication.getName());
 		
 		for (GrantedAuthority grantedAuthority : usuario.getAuthorities()) {
-			if (grantedAuthority.getAuthority().equalsIgnoreCase("COORD_ASS_ESTUDANTIS")) {
+			
+			if (grantedAuthority.getAuthority().equalsIgnoreCase(STA) || grantedAuthority.getAuthority().equalsIgnoreCase(DOCENTE)){
+
 				return "/servidor/selecao/listar";
 			}
-			else if (grantedAuthority.getAuthority().equalsIgnoreCase("SERVIDOR")){
-				return "/servidor/selecao/listar";
-			}
-			else if (grantedAuthority.getAuthority().equalsIgnoreCase("DISCENTE")){
+			else if (grantedAuthority.getAuthority().equalsIgnoreCase(DISCENTE)){
 				
 				return "/aluno/selecao/listar";
 			}

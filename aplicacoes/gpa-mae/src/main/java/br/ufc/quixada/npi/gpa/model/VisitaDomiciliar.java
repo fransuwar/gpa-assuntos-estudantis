@@ -21,9 +21,7 @@ import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 
 @Entity
 public class VisitaDomiciliar {
-	
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;

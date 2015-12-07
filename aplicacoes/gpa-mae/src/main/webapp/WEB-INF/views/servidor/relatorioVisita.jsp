@@ -26,7 +26,7 @@
 	</ol>
 
 	<div class="container">
-		<sec:authorize access="hasAnyRole('SERVIDOR')">
+		<sec:authorize access="hasAnyRole('STA','DOCENTE')">
 			<div class="novo-projeto" align="left">
 				<div class="form" align="center">
 					<h2>Relatório de Visita Domiciliar</h2>

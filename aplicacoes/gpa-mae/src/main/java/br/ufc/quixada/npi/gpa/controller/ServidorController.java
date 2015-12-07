@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Banco;
@@ -31,16 +32,20 @@ import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
+
 import br.ufc.quixada.npi.gpa.service.ServidorService;
+import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
 @Controller
 @RequestMapping ("servidor")
+@SessionAttributes({ Constants.USUARIO_ID , Constants.USUARIO_LOGADO})
 public class ServidorController {
 
 	@Inject
@@ -353,16 +358,32 @@ public class ServidorController {
 		return REDIRECT_PAGINA_LISTAR_ALUNOS;
 	}
 
-	@RequestMapping(value = { "entrevista/{idInscricao}" }, method = RequestMethod.GET)
-	public String realizarEntrevista(Model model) {
-		//TODO - Método p/ ser implementado que retorna página de realização de entrevista.
-		return "";
+	@RequestMapping(value= {"entrevista/{idInscricao}"}, method = RequestMethod.GET)
+	public String realizarEntrevista(@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect, Model model ){
+		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
+		
+		if(inscricao == null){
+			redirect.addFlashAttribute("erro", MENSAGEM_INSCRICAO_INEXISTENTE);
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}		
+			model.addAttribute("entrevista", new Entrevista());
+			model.addAttribute("idInscricao", idInscricao);
+		
+		return PAGINA_REALIZAR_ENTREVISTA;
 	}
-
-	@RequestMapping(value = { "entrevista" }, method = RequestMethod.POST)
-	public String realizarEntrevista() {
-		//TODO - Método p/ ser implementado que realiza uma entrevista de uma determinada inscrição.
-		return "";
+	
+	@RequestMapping(value= {"entrevista"}, method = RequestMethod.POST)
+	public String realizarEntrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idServidor") Integer idPessoa, 
+			 BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
+			
+			Servidor servidor = this.servidorService.getPessoaServidorComBancas(idPessoa);
+			entrevista.setServidor(servidor);
+			entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));			
+			
+			inscricaoService.saveEntrevista(entrevista);
+			
+			redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
 	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
