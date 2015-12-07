@@ -119,5 +119,7 @@ public class Constants {
 	public static final String DISCENTE = "DISCENTE";
 	
 	public static final String COORDENADOR_ASSUNTOS_ESTUDANTIS = "COORDENADOR_ASSUNTO_ESTUDANTIS";
+	
+	public static final String 	ADMINISTRADOR =	"ADMINISTRADOR_GPA";
 
 }
