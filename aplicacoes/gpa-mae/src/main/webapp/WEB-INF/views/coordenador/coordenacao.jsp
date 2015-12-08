@@ -6,7 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+
 <!DOCTYPE html>
 
 
@@ -40,7 +40,18 @@
 			</div>
 		</c:if>
 
+		<div class="col-md-14">
+			
+				<div align="right" style="margin-bottom: 20px;">
+					<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">
+						<button class="btn btn-primary">
+							Nova seleção <span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</a>
+				</div>
+		
 		</div>
+
 
 		<div class="col-md-14">
 			<div class="panel panel-info">
@@ -49,10 +60,10 @@
 					<h3 class="panel-title">Seleções</h3>
 				</div>
 
-				<table class="table table-display table-striped" id="tabela-selecoes">
+				<table class="table display" id="tabela-selecoes">
 					<thead>
 						<tr>
-							<th>Tipo de Seleção</th>
+							<th>Tipo de Bolsa</th>
 							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
@@ -63,8 +74,10 @@
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
-								<td><a id="detalhes" href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
-                                	${selecao.tipoSelecao.nome} </a></td>
+								<td><a id="detalhes"
+
+									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
+										${selecao.tipoBolsa.nome} </a></td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
@@ -74,17 +87,26 @@
 								
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm" title="Visualizar Inscritos">
+											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
 												<i class="fa fa-users fa-lg"></i>
 											</button>
 										</a>
-								
+
+							
+										<a id="editar"
+
+											href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
+											<button class="btn btn-info">
+												Editar <span class="glyphicon glyphicon-pencil"></span>
+
+											</button>
+										</a>
 										<a id="excluir" data-toggle="modal"
 											data-target="#confirm-delete" href="#"
 
 											data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
-											<button class="btn btn-danger btn-sm" Title="Excluir Seleção">
-												<span class="glyphicon glyphicon-trash"></span>
+											<button class="btn btn-danger">
+												Excluir <span class="glyphicon glyphicon-trash"></span>
 
 											</button>
 										</a>
@@ -94,8 +116,8 @@
 											href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
 											<c:choose>
 												<c:when test="${empty selecao.membrosBanca}">
-													<button class="btn btn-primary btn-sm" Title="Atribuir Membro à Banca ">
-														<span class="glyphicon glyphicon-user"></span>
+													<button class="btn btn-primary">
+														Atribuir Membro à Banca <span class="glyphicon glyphicon-user"></span>
 													</button>
 												</c:when>
 												<c:otherwise>
@@ -106,20 +128,22 @@
 											</c:choose>
 
 										</a>
-									<sec:authorize access="hasAnyRole('DISCENTE')">
+									
+								
 										<c:choose>
 											<c:when
-												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
+												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoBolsa == inic_acad and selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
+
 													href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
-													<button class=" btn btn-success btn-sm" title="Realizar Inscrição">
-														<span class="glyphicon glyphicon-user"></span>
+													<button class=" btn btn-success">
+														inscrever-se <span class="glyphicon glyphicon-user"></span>
 
 													</button>
 												</a>
 											</c:when>
 											<c:when
-												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
+												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoBolsa == inic_acad and selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
 													href="<c:url value="/aluno/inscricao/editar/iniciacao-academica/${inscricao.id}" ></c:url>">
 													<button class=" btn btn-info btn-sm" title="Editar Inscrição">
@@ -128,25 +152,28 @@
 												</a>
 											</c:when>											
 											<c:when
-												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
+												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoBolsa == aux_mor and selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
+
+
 													href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-													<button class=" btn btn-success btn-sm" Title="Realizar Inscrição">
-														<span class="glyphicon glyphicon-user"></span>
+													<button class=" btn btn-success">
+														inscrever-se <span class="glyphicon glyphicon-user"></span>
 													</button>
 												</a>
 											</c:when>
 											<c:when
-												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
+												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoBolsa == aux_mor and selecao.status == 'INSC_ABERTA'}">
 												<a id="editar"
 													href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id}" ></c:url>">
 													<button class=" btn btn-info btn-sm" title="Editar Inscrição">
-														<span class="glyphicon glyphicon-pencil"></span>
+														editar <span class="glyphicon glyphicon-pencil"></span>
 													</button>
 												</a>
 											</c:when>
 										</c:choose>
-									</sec:authorize> 
+									
+									
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">

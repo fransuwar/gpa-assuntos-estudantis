@@ -1,7 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
-
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,34 +47,27 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.QuestionarioAuxMoradiaService;
-import br.ufc.quixada.npi.gpa.service.QuestionarioIniciacaoAcademicaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
+
 @Controller
 @RequestMapping("aluno")
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
 public class AlunoController {
 
 	@Inject
-	private QuestionarioIniciacaoAcademicaService iniciacaoAcademicaService;
-	
-	@Inject
-	private QuestionarioAuxMoradiaService questionarioAuxMoradiaService;
-	
-	@Inject
 	private AlunoService alunoService;
 
 	@Inject
 	private SelecaoService selecaoService;
-	
+
 	@Inject
 	private InscricaoService inscricaoService;
 
-	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
+
 	public String listarSelecoesAbertas(ModelMap model, HttpServletRequest request, Authentication auth) {
-		
+
 	List<Selecao> selecoes = selecaoService.find(Selecao.class);
 	
 	Aluno aluno = this.alunoService.getAlunoComInscricoesCpf(auth.getName());
@@ -85,21 +76,19 @@ public class AlunoController {
 	model.addAttribute("aluno", aluno);
 	model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 	model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
-	
-	return "aluno/listarSelecoesAbertas";	
+
+		return PAGINA_SELECOES_ABERTAS;
 
 	}
-	
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
 
-		Aluno aluno = this.alunoService.getAlunoByCPF(auth.getName());
+		Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
 
 		model.addAttribute("inscricoes", aluno.getInscricoes());
 
-		
-		//TODO - Criar página de retorno que mostra as inscrições dos alunos.
+		// TODO - Criar página de retorno que mostra as inscrições dos alunos.
 
 		return "";
 
@@ -140,29 +129,34 @@ public class AlunoController {
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			model.addAttribute("idSelecao", idSelecao);
 
-
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 
-		this.iniciacaoAcademicaService.save(iniciacaoAcademica);
+		Selecao selecao = selecaoService.find(Selecao.class,idSelecao);
+		Aluno aluno = alunoService.getAlunoByCPF(auth.getName()); 
+	
 		Inscricao inscricao = new Inscricao();
+		
+		inscricao.setData(new Date());
+		
+		inscricao.setAluno(aluno);
+		inscricao.setSelecao(selecao);
 		inscricao.setQuestionarioIniciacaoAcademica(iniciacaoAcademica);
-		inscricao.setSelecao(selecaoService.find(Selecao.class, idSelecao));
-		inscricao.setData(new DateTime().toDate());
-		inscricao.setAluno(alunoService.getAlunoByCPF(auth.getName()));
-		this.inscricaoService.save(inscricao);
+		
+		inscricaoService.save(inscricao);
 
 		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
-
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
 
 	@RequestMapping(value = { "inscricao/editar/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
-	public String editarInscricaoBIA(@PathVariable("idInscricao") Integer idInscricao, Model model, RedirectAttributes redirect) {
-		
-		//TODO - Método p/ implementar que retorna página de formulário de inscrição em iniciação acadêmica.
-		
+	public String editarInscricaoBIA(@PathVariable("idInscricao") Integer idInscricao, Model model,
+			RedirectAttributes redirect) {
+
+		// TODO - Método p/ implementar que retorna página de formulário de
+		// inscrição em iniciação acadêmica.
+
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
 
@@ -183,15 +177,12 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 
-			
-			List<HorarioDisponivel> horariosDisponiveis = this.inscricaoService.getHorariosDisponiveisByQuest(iniciacaoAcademica.getId());
-
+			List<HorarioDisponivel> horariosDisponiveis = inscricaoService.getHorariosDisponiveisIniciacaoAcademica(iniciacaoAcademica.getId());
 			if (horariosDisponiveis != null) {
 				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
 			}
-
 			
-			List<PessoaFamilia> pessoasDaFamilia = this.inscricaoService.getPessoaFamiliaByIdQuestBIA(iniciacaoAcademica.getId());
+			List<PessoaFamilia> pessoasDaFamilia = inscricaoService.getPessoaFamiliaByIdIniciacaoAcademica(iniciacaoAcademica.getId());
 
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
@@ -199,8 +190,8 @@ public class AlunoController {
 
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
-
-		this.iniciacaoAcademicaService.update(iniciacaoAcademica);
+		
+		// TODO - Realizar a atualização de uma iniciação acadêmica.
 		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
@@ -227,7 +218,7 @@ public class AlunoController {
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
 	public String realizarInscricaoAuxMoradia(
-			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia questionarioAuxilioMoradia,
+			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
 			BindingResult result, @ModelAttribute("id") Integer idPessoa,
 			@ModelAttribute("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model) {
@@ -246,98 +237,107 @@ public class AlunoController {
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 
 		} else {
-
-			Aluno aluno = this.alunoService.getAlunoComInscricoes(idPessoa);
-			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-	
+			
+			Selecao selecao = selecaoService.find(Selecao.class,idSelecao);
+			Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
+			
 			Inscricao inscricao = new Inscricao();
-			inscricao.setSelecao(selecao);
-			inscricao.setQuestionarioAuxilioMoradia(questionarioAuxilioMoradia);
-			inscricao.setDeferimento(false);
+			
 			inscricao.setData(new Date());
-			
-			inscricao.setAluno(aluno);
-			aluno.getInscricoes().add(inscricao);
 
-			questionarioAuxMoradiaService.save(questionarioAuxilioMoradia);
-			alunoService.update(aluno);
+			inscricao.setAluno(aluno);
+			inscricao.setSelecao(selecao);
+			inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
 			
+			inscricaoService.save(inscricao);
 			
 			redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
 		}
 
 		redirect.addFlashAttribute("info", "Cadastro realizado com sucesso.");
-		
+
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
-	
-	
-	@RequestMapping(value="/inscricao/listar/{idAluno}", method = RequestMethod.GET)
-	public String listarInscricoes(@PathVariable("idAluno") Integer idAluno, Model model){
-		
-		Aluno aluno= this.alunoService.find(Aluno.class, idAluno);
-		
+
+	@RequestMapping(value = "/inscricao/listar/{idAluno}", method = RequestMethod.GET)
+	public String listarInscricoes(@PathVariable("idAluno") Integer idAluno, Model model) {
+
+		Aluno aluno = this.alunoService.find(Aluno.class, idAluno);
+
 		List<Inscricao> inscricoes = this.inscricaoService.listarInscricoesByIdAluno(idAluno);
 		
 		model.addAttribute("aluno",aluno);
 		model.addAttribute("inscricoes",inscricoes);
 		
-		
-		return "aluno/minhasInscricoes";
+		return PAGINA_INSCRICOES_ALUNO;
 		
 	}
-	
-	@RequestMapping(value="/inscricao/excluir/{idAluno}/{idInscricao}",method = RequestMethod.GET)
-	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno, @PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirectAttributes){
-		
+
+	@RequestMapping(value = "/inscricao/excluir/{idAluno}/{idInscricao}", method = RequestMethod.GET)
+	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno,
+			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirectAttributes) {
+
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
-		
-		if(inscricao == null){
+
+		if (inscricao == null) {
 			redirectAttributes.addFlashAttribute("erro", "Inscrição Inexistente.");
-		}else{
+		} else {
 			this.inscricaoService.delete(inscricao);
 			redirectAttributes.addFlashAttribute("info", "Inscrição Excluída com Sucesso.");
 		}
+		
 		return "redirect:/aluno/inscricao/listar/{idAluno}";
-		
-	}
-	
-		
-	
-	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
-	public String editarInscricaoAMOR(@PathVariable("idInscricao") Integer idInscricao, Model model, RedirectAttributes redirect) {
-		
-		//TODO - Método p/ implementar que retorna página de edição do formulário de inscrição em auxílio moradia.
-		
-		return PAGINA_INSCREVER_AUXILIO_MORADIA;
-		
-	}
-	
-	@RequestMapping(value = { "inscricao/editar/auxilio-moradia" }, method = RequestMethod.POST)
-	public String editarInscricaoAMOR(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
-			BindingResult result, RedirectAttributes redirect) {
 
-		this.questionarioAuxMoradiaService.update(auxilioMoradia);
-		redirect.addFlashAttribute("info", "Seleção editada com sucesso.");
+	}
+
+	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
+	public String editarInscricaoAMOR(@PathVariable("idInscricao") Integer idInscricao, Model model,
+			RedirectAttributes redirect) {
+
+		// TODO - Método p/ implementar que retorna página de edição do
+		// formulário de inscrição em auxílio moradia.
+
+		return PAGINA_INSCREVER_AUXILIO_MORADIA;
+
+	}
+
+	@RequestMapping(value = { "inscricao/editar/auxilio-moradia" }, method = RequestMethod.POST)
+	public String editarInscricaoAMOR(
+			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia, Model model,
+			BindingResult result, RedirectAttributes redirect) {
+		
+		//TODO - Método p/ implementar que salva a edição de um formulário em uma incrição auxílio moradia.
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
 
-
 	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhes(@PathVariable("idInscricao") Integer idInscricao, Model modelo, RedirectAttributes redirect){
 		
-		Inscricao inscricao = inscricaoService.getInscricaoId(idInscricao);
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", "seleção Inexistente");
-			
+
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		modelo.addAttribute("inscricao", inscricao);
 
 		return PAGINA_DETALHES_INSCRICAO;
+	}
+
+	@RequestMapping(value = "detalhes-inscricaoAuxMor/{id}")
+	public String detalhesInscricaoAuxilioMoradia(@PathVariable("id") Integer id, Model modelo, RedirectAttributes redirect) {
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, id);
+		if (inscricao == null) {
+			redirect.addFlashAttribute("erro", "Incrição Inexistente");
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
+
+		modelo.addAttribute("inscricao", inscricao);
+		modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
+		return PAGINA_VISUALIZAR_INSC_AUX_MOR;
 	}
 
 }

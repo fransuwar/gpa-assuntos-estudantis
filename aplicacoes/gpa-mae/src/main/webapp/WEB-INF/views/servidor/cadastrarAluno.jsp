@@ -51,7 +51,7 @@
 						<div class="col-sm-5 control-label" id="div-select">
 							<form:select path="curso" id="curso" cssClass="form-control">
 								<form:option value="" label="Selecione o curso" />
-								<form:options items="${curso}" itemLabel="nome"/>
+								<form:options items="${cursos}" itemLabel="nome"/>
 							</form:select>
 							<div class="error-validation" id="erro-curso">
 								<div class="error-validation label-erro-select" id="erro-curso">

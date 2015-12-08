@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,9 +47,16 @@ public class CoordenadorController {
 	private ServidorService servidorService;
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
-	public String listarSelecoes(Model model){
-		//TODO - Método p/ implementar que retorna página com todas as seleções do sistema.
-		return "";
+	public String listarSelecoes(ModelMap model, HttpServletRequest request, Authentication auth){
+		
+		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
+
+		model.addAttribute("selecoes", selecoes);
+		model.addAttribute("tipoBolsa", TipoSelecao.values());
+		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
+		
+		return "coordenador/coordenacao";
 	}
 	
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.GET)
@@ -149,7 +157,7 @@ public class CoordenadorController {
 			model.addAttribute("selecao", selecao);
 			
 		} else {
-			redirect.addFlashAttribute("erro", "Permissão negada. Só é possível editar uma seleção enquanto seu status é nova.");
+			redirect.addFlashAttribute("erro", "Permissão negada.");
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		

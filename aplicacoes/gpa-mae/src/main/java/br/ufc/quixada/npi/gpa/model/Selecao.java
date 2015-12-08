@@ -223,4 +223,9 @@ public class Selecao {
 				+ ", responsavel=" + responsavel + ", inscritos=" + inscritos + "]";
 	}
 
+	public List<Aluno> getAlunosSelecao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

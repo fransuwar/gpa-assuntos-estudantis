@@ -38,7 +38,7 @@ public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements Pes
 	public boolean isCoordenador(Pessoa pessoa) {
 		List<Papel> papeis = pessoa.getPapeis();
 		for(Papel p: papeis){
-			if(p.getNome().equals("ROLE_COORDENADOR")){
+			if(p.getNome().equals("COORD_ASS_ESTUDANTIS")){
 				return true;
 			}
 		}

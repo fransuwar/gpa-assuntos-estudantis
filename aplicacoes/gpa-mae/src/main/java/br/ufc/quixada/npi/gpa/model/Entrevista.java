@@ -13,16 +13,18 @@ public class Entrevista {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String observacao;
-
+	
 	@Column(nullable = false)
 	private boolean deferimento;
+	
 	@OneToOne
 	private Inscricao inscricao;
 
 	@ManyToOne
 	private Servidor servidor;
-
+	
 	public Integer getId() {
 		return id;
 	}

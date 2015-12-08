@@ -14,40 +14,17 @@
  		
  		<intercept-url pattern="/aluno/**" access="hasRole('DISCENTE')"/>
  		
- 		<intercept-url pattern="/coordenador/**" access="hasRole('COORD_ASS_ESTUDANTIS')"/>
+ 		<intercept-url pattern="/coordenador/**" access="hasRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')"/>
  		
- 		<intercept-url pattern="/servidor/listar/alunos" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')"/>
- 		<intercept-url pattern="/servidor/**" access="hasRole('SERVIDOR')"/>
+ 		
+ 		<intercept-url pattern="/servidor/**" access="hasAnyRole('DOCENTE','STA')"/>
  		
  		<intercept-url pattern="/selecao/detalhes/*" access="permitAll"/>
  		<intercept-url pattern="/selecao/listar" access="permitAll"/>
  		<intercept-url pattern="/selecao/documento/*" access="permitAll"/>
- 		<intercept-url pattern="/selecao/**" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')" />
- 		<intercept-url pattern="/selecao/inscritos/relatorioVisita/**" access="hasRole('SERVIDOR')" />
- 		<intercept-url pattern="/selecao/inscritos/*" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')" />
- 		
- 		<intercept-url pattern="/selecao/**" access="hasRole('COORD_ASS_ESTUDANTIS')" />
- 		
- 		<intercept-url pattern="/selecao/inscritos/informacoesRelatorio/*" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')" />	
- 		<intercept-url pattern="/selecao/listarPorServidor/*" access="hasRole('SERVIDOR')" />	
 
- 		<intercept-url pattern="/selecao/**" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')" />
- 		
-
- 		<intercept-url pattern="/selecao/inscritos/relatorioVisita/**" access="hasRole('SERVIDOR')" />
- 		<intercept-url pattern="/selecao/inscritos/*" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')" />
-
-		<intercept-url pattern="/aluno/*/editar" access="hasAnyRole('SERVIDOR', 'DISCENTE')" />
-		<intercept-url pattern="/aluno/listar" access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')" />
-		<intercept-url pattern="/aluno/minhasInscricoes" access="hasAnyRole('DISCENTE')" />
-
-		
- 		<intercept-url pattern="/servidor/**" access="hasRole('SERVIDOR')" />
- 		
- 		<intercept-url pattern="/auxilio/**" access="hasRole('DISCENTE')" />
- 		
- 		<intercept-url pattern="/iniciacao/**" access="hasRole('DISCENTE')" />
- 		
+ 		<intercept-url pattern="/selecao/**" access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'DOCENTE','STA')" />
+ 
  		<form-login login-page="/login" default-target-url="/"
 			authentication-success-handler-ref="authenticationSuccessHandlerImpl"
 			authentication-failure-url="/loginfailed" />

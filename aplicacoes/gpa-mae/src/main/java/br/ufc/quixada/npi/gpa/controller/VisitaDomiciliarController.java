@@ -19,7 +19,7 @@ import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
-import br.ufc.quixada.npi.gpa.service.VisitaDomiciliarService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
@@ -30,7 +30,7 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 public class VisitaDomiciliarController {
 	
 	@Inject
-	private VisitaDomiciliarService visitaService;
+	private InscricaoService inscricaoService;
 	@Inject
 	private AlunoService alunoService;
 	@Inject
@@ -70,7 +70,7 @@ public class VisitaDomiciliarController {
 		
 		if(relatorioVisitaDomiciliar.getId() != null){
 			
-			this.visitaService.update(relatorioVisitaDomiciliar);
+			this.inscricaoService.atualizarVisitaDomiciliar(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatório Atualizado com sucesso.");
 			return "redirect:/selecao/inscritos/"+idSelecao;
 			
@@ -78,7 +78,7 @@ public class VisitaDomiciliarController {
 			relatorioVisitaDomiciliar.setAluno(alunoService.getAlunoByIdPessoa(idAluno));
 			relatorioVisitaDomiciliar.setSelecao(selecaoService.find(Selecao.class, idSelecao));
 			
-			this.visitaService.save(relatorioVisitaDomiciliar);
+			this.inscricaoService.salvarVisitaDocimiciliar(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatorio cadastrado com sucesso.");
 			
 			return "redirect:/selecao/inscritos/"+idSelecao;
@@ -88,7 +88,7 @@ public class VisitaDomiciliarController {
 	@RequestMapping(value="informacoesRelatorio/{id}", method= RequestMethod.GET)
 	public String visualizarInformacoes(@PathVariable("id") Integer idRelatorio, Model modelo, RedirectAttributes redirect){
 		
-		VisitaDomiciliar relatorio= visitaService.find(VisitaDomiciliar.class, idRelatorio);
+		VisitaDomiciliar relatorio= inscricaoService.getVisitaDocimiciliarByIdVisitaDomiciliar(idRelatorio);
 		
 		if(relatorio == null){
 			redirect.addFlashAttribute("erro", "Relatório não existe");
