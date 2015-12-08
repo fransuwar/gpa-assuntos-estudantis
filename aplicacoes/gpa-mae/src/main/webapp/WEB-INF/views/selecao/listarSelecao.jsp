@@ -73,7 +73,7 @@
 								<td>
 								
 										<a id="visualizarInscritos"
-											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
+											href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary btn-sm"
 												title="Visualizar Inscritos">
 												<i class="fa fa-users fa-lg"></i>
@@ -82,7 +82,7 @@
 
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
-												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
+												href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
 												<button class="btn btn-primary btn-sm">
 													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
 
