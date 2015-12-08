@@ -50,7 +50,7 @@
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 						<li role="presentation"><a
-							href="<c:url value="/aluno/inscricao/listar/${sessionScope.id}" />">Minhas Inscrições <span
+							href="<c:url value="/aluno/inscricao/listar" />">Minhas Inscrições <span
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>
