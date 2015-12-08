@@ -62,7 +62,7 @@ public class LoginController {
 	public String acessoNegado(ModelMap model, Principal user) {
 		if (user != null) {
 			model.addAttribute("message", "Olá, " + user.getName() 
-			+ MENSAGEM_PERMISSAO_NEGADA_PAGINA);
+			+ MENSAGEM_PERMISSAO_NEGADA_USUARIO);
 		} else {
 			model.addAttribute("message", 
 			MENSAGEM_PERMISSAO_NEGADA);

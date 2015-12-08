@@ -46,7 +46,7 @@ public class DocumentoController {
 				response.flushBuffer();
 			}
 		} catch (IOException ex) {
-			throw new RuntimeException("IOError writing file to output stream");
+			throw new RuntimeException(MENSAGEM_RUNTIME_EXCEPTION_DOCUMENTO);
 		}
 
 	}
@@ -61,7 +61,7 @@ public class DocumentoController {
 			return map;
 		}
 		serviceDocumento.delete(documento);
-		map.addAttribute("result", "ok");
+		map.addAttribute("result", MENSAGEM_OK);
 		return map;
 	}
 

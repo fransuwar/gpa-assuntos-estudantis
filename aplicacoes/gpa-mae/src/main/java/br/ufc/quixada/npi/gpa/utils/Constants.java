@@ -62,9 +62,13 @@ public class Constants {
 	
 	/** Mensagens */
 	
+	public static final String MENSAGEM_OK							= "OK";
+	
+	public static final String MENSAGEM_RUNTIME_EXCEPTION_DOCUMENTO	= "IOError writing file to output stream";
+	
 	public static final String MENSAGEM_PERMISSAO_NEGADA			= "Você não tem permissão para acessar essa página!";
 	
-	public static final String MENSAGEM_PERMISSAO_NEGADA_PAGINA		= ", você não tem permissão para acessar essa página!";
+	public static final String MENSAGEM_PERMISSAO_NEGADA_USUARIO	= ", você não tem permissão para acessar essa página!";
 	
 	public static final String MENSAGEM_CAMPO_OBRIGATORIO			= "Campo obrigatório.";
 	
@@ -81,32 +85,6 @@ public class Constants {
 	public static final String MENSAGEM_SERVIDOR_ATUALIZADO			= "Servidor atualizado com sucesso.";
 	
 	public static final String MENSAGEM_SERVIDOR_EXCLUIDO			= "Servidor excluído com sucesso.";
-	
-	public static final String MENSAGEM_SERVIDOR_NAO_ENCONTRADO		= "Servidor não encontrado";
-	
-	public static final String MENSAGEM_SERVIDOR_NAO_ASSOCIADO 		= "Você não está associado a nenhuma seleção.";
-	
-	public static final String MENSAGEM_VISITA_CADASTRADA			= "Relatório da visita cadastrado com sucesso.";
-	
-	public static final String MENSAGEM_ERRO_SIAPE_EXISTENTE		= "Não é possível cadastrar um SIAPE já existente.";
-	
-	public static final String MENSAGEM_ERRO_MATRICULA_EXISTENTE	= "Matrícula já existente.";
-	
-	public static final String MENSAGEM_ERRO_MATRICULA_DIGITOS		= "A matrícula deve possuir pelo menos seis dígitos";
-	
-	public static final String MENSAGEM_ERRO_VISITA_INEXISTENTE		= "Informações não encontradas. Relatório sobre esta visita não existem.";
-	
-	public static final String MENSAGEM_ERRO_ANO_INGRESSO_DIGITOS	= "O ano deve possuir pelo menos quatro dígitos";
-	
-	public static final String MENSAGEM_ERRO_ANO_INGRESSO			= "Informe um ano menor ou igual ao atual";
-	
-	public static final String MENSAGEM_ERRO_AGENCIA_DIGITOS		= "O número da agência deve possuir pelo menos seis dígitos";
-	
-	public static final String MENSAGEM_ERRO_CONTA_DIGITOS			= "O número da conta deve possuir pelo menos quatro dígitos";
-	
-	public static final String MENSAGEM_ERRO_INSCRICAO_INEXISTENTE	= "Inscrição inexistente.";
-	
-	public static final String MENSAGEM_ERRO_SELECAO_INEXISTENTE	= "Seleção Inexistente.";
 	
 	public static final String MENSAGEM_DE_SUCESSO_ENTREVISTA		= "Entrevista realizada com sucesso.";
 	
@@ -131,6 +109,32 @@ public class Constants {
 	public static final String MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO		= "Membro excluído com sucesso.";
 	
 	public static final String MENSAGEM_SUCESSO_LOGIN				= "Logado com sucesso!";
+	
+	public static final String MENSAGEM_SERVIDOR_NAO_ENCONTRADO		= "Servidor não encontrado";
+	
+	public static final String MENSAGEM_SERVIDOR_NAO_ASSOCIADO 		= "Você não está associado a nenhuma seleção.";
+	
+	public static final String MENSAGEM_VISITA_CADASTRADA			= "Relatório de visita cadastrado com sucesso.";
+	
+	public static final String MENSAGEM_ERRO_SIAPE_EXISTENTE		= "Não é possível cadastrar um SIAPE já existente.";
+	
+	public static final String MENSAGEM_ERRO_MATRICULA_EXISTENTE	= "Matrícula já existente.";
+	
+	public static final String MENSAGEM_ERRO_MATRICULA_DIGITOS		= "A matrícula deve possuir pelo menos seis dígitos";
+	
+	public static final String MENSAGEM_ERRO_VISITA_INEXISTENTE		= "Informações não encontradas. Relatório sobre esta visita não existe.";
+	
+	public static final String MENSAGEM_ERRO_ANO_INGRESSO_DIGITOS	= "O ano deve possuir pelo menos quatro dígitos";
+	
+	public static final String MENSAGEM_ERRO_ANO_INGRESSO			= "Informe um ano menor ou igual ao atual";
+	
+	public static final String MENSAGEM_ERRO_AGENCIA_DIGITOS		= "O número da agência deve possuir pelo menos seis dígitos";
+	
+	public static final String MENSAGEM_ERRO_CONTA_DIGITOS			= "O número da conta deve possuir pelo menos quatro dígitos";
+	
+	public static final String MENSAGEM_ERRO_INSCRICAO_INEXISTENTE	= "Inscrição inexistente.";
+	
+	public static final String MENSAGEM_ERRO_SELECAO_INEXISTENTE	= "Seleção Inexistente.";
 	
 	public static final String MENSAGEM_ERRO_SALVAR_DOCUMENTOS		= "Não foi possível salvar os documentos.";
 	
