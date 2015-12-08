@@ -15,54 +15,63 @@
 <head>
 <jsp:include page="fragments/headTag.jsp" />
 <title>Login</title>
+<link href="<c:url value="/resources/css/style-login.css"/>"
+	rel="stylesheet">
+
+
+<style type="text/css">
+#loginForm .has-error .control-label, #loginForm .has-error .help-block,
+	#loginForm .has-error .form-control-feedback {
+	color: red;
+}
+</style>
 </head>
 <body>
-
-	<jsp:include page="fragments/bodyHeader.jsp" />
 <body onload='document.f.j_username.focus();'>
-	<div class="center col-md-4">
-		<div style="text-align: center" class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">Login</h3>
+	<div id="container">
+		<div id="header">
+			<img alt="Sistema de Afastamento de Professores"
+				src="<c:url value="/resources/images/logo-GPA.jpg" />">
+		</div>
+		<div class="formulario">
+			<div class="login-text">
+				<span>Faça seu login</span>
 			</div>
-			<div class="panel-body">
 
-				<c:if test="${not empty error}">
-					<div class="error">${error}</div>
-				</c:if>
-				<c:if test="${not empty msg}">
-					<div class="msg">${msg}</div>
+			<form id="loginForm" name="loginForm"
+				action="<c:url value='j_spring_security_check' />" method='POST'
+				class="form-horizontal">
+				<c:if test="${not empty erro}">
+					<div class="login-error">${erro }</div>
 				</c:if>
 
-				<form id="loginForm" class="form-horizontal" name='f'
-					action="<c:url value='j_spring_security_check' />" method='POST'>
-					<div class="form-group">
-						<label class="col-md-3 control-label">Usuário:</label>
-						<div class="col-md-9">
-							<div class="input-group">
-								<span class="input-group-addon"><span
-									class="glyphicon glyphicon-user"></span></span><input
-									class="form-control" type='text' name='j_username' value=''>
-							</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Usuário:</label>
+					<div class="col-md-9">
+						<div id="inputLogin" class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user"></i></span>
+							<input class="form-control" type='text' name='j_username'
+								placeholder="cpf" required="required" />
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label">Senha:</label>
-						<div class="col-md-9">
-							<div class="input-group">
-								<span class="input-group-addon"><span
-									class="glyphicon glyphicon-asterisk"></span></span> <input
-									class="form-control" type='password' name='j_password' />
-							</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Senha:</label>
+					<div class="col-md-9">
+						<div id="inputSenha" class="input-group">
+							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+							<input class="form-control" type='password' name='j_password'
+								placeholder="senha" required="required" />
 						</div>
 					</div>
-					<div class="form-group">
-						<div class="col-lg-5 col-lg-offset-2">
-							<button type="submit" class="btn btn-primary">Login</button>
-						</div>
-					</div>
-				</form>
-			</div>
+				</div>
+
+				<div class="controls">
+					<input id="btn-login" class="btn btn-primary" type="submit"
+						value="Login" />
+				</div>
+			</form>
 		</div>
 	</div>
 

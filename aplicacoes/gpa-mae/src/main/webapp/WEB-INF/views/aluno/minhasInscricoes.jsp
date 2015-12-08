@@ -38,9 +38,11 @@
 					<tbody>
 						<c:forEach var="inscricao" items="${inscricoes}">
 							<tr class="linha">
-								<sec:authorize access="hasAnyRole('DISCENTE')"><td>
-								<a id="detalhesSelecao" href="<c:url value="/aluno/detalhes-inscricao/${inscricao.id}"></c:url>">
-									${inscricao.selecao.tipoBolsa.nome} </a></td></sec:authorize>
+								<sec:authorize access="hasAnyRole('DISCENTE')">
+									<td><a id="detalhesSelecao"
+										href="<c:url value="/aluno/detalhes-inscricao/${inscricao.id}"></c:url>">
+											${inscricao.selecao.tipoBolsa.nome} </a></td>
+								</sec:authorize>
 								<td>${inscricao.selecao.ano}</td>
 								<td>${inscricao.selecao.sequencial}</td>
 								<td>${inscricao.selecao.quantidadeVagas}</td>

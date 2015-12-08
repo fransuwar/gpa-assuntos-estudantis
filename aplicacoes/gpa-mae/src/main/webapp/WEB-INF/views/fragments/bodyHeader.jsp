@@ -11,7 +11,7 @@
 			<sec:authorize access="isAuthenticated() || isAnonymous()">
 				<div class="navbar-header">
 					<a class="navbar-brand" id="navbar-brand" href="#"> <img
-						src="<c:url value="/resources/images/logo-GPA.png" />"
+						src="<c:url value="/resources/images/logo-GPA.jpg" />"
 						alt="Brasão UFC Quixadá" id="logo-gpa">
 					</a>
 					<button type="button" class="navbar-toggle" data-toggle="collapse"
