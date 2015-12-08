@@ -16,6 +16,7 @@
  		
  		<intercept-url pattern="/coordenador/**" access="hasRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')"/>
  		
+ 		<intercept-url pattern="/administrador/**" access="hasRole('ADMINISTRADOR_GPA')"/>
  		
  		<intercept-url pattern="/servidor/**" access="hasAnyRole('DOCENTE','STA')"/>
  		
