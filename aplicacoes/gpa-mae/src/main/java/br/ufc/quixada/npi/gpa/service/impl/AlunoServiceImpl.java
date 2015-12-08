@@ -24,20 +24,8 @@ public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements Aluno
 
 	@Override
 	@Transactional(readOnly = true)
-	public Aluno getAlunoByIdPessoa(Integer idPessoa) {
-		return (Aluno) findFirst("Aluno.findAlunoByIdPessoa", new SimpleMap<String, Object>("idPessoa", idPessoa));
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Aluno getAlunoComInscricoes(Integer id) {
-		return (Aluno) findFirst("Aluno.findAlunoComInscricoes", new SimpleMap<String, Object>("idPessoa", id));
-	}
-
-	@Override
-	@Transactional(readOnly = true)
 	public Aluno getAlunoComInscricoes(String cpf) {
-		return (Aluno) findFirst("Aluno.findAlunoByCPFComInscricoes", new SimpleMap<String, Object>("cpf", cpf));
+		return (Aluno) findFirst("Aluno.findAlunoComInscricoesByCPF", new SimpleMap<String, Object>("cpf", cpf));
 	}
 
 	@Override

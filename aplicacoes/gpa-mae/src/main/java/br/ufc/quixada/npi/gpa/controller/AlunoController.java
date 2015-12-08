@@ -267,7 +267,7 @@ public class AlunoController {
 
 		Aluno aluno = this.alunoService.find(Aluno.class, idAluno);
 
-		List<Inscricao> inscricoes = this.inscricaoService.listarInscricoesByIdAluno(idAluno);
+		List<Inscricao> inscricoes = this.inscricaoService.getInscricoes(idAluno);
 		
 		model.addAttribute("aluno",aluno);
 		model.addAttribute("inscricoes",inscricoes);
