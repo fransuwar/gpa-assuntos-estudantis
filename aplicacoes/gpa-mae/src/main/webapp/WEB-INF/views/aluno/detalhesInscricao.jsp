@@ -216,8 +216,7 @@
 		</div>
 		<a id="detalhes"
 		href="<c:url value="/selecao/listar" ></c:url>">
-		<button class=" btn btn-info btn-sm">
-		Voltar </button>
+		<button class=" btn btn-info btn-sm"> Voltar </button>
 	</a>
 	</div>
 	<jsp:include page="../fragments/footer.jsp" />

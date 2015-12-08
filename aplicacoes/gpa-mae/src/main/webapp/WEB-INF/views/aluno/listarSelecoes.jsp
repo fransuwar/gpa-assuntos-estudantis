@@ -10,8 +10,8 @@
 
 <html>
 <head>
-<jsp:include page="../fragments/headTag.jsp" />
-<title>Olá Aluno</title>
+	<jsp:include page="../fragments/headTag.jsp" />
+	<title>Seleções</title>
 </head>
 <body>
 <jsp:include page="../fragments/bodyHeader.jsp" />

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
-import br.ufc.quixada.npi.gpa.service.PessoaService;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
@@ -27,9 +26,6 @@ public class DocumentoController {
 	
 	@Inject
 	private DocumentoService serviceDocumento;
-	
-	@Inject
-	private PessoaService PessoaService;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public void getFile(@PathVariable("id") Long id, HttpServletResponse response) {
@@ -63,14 +59,6 @@ public class DocumentoController {
 		serviceDocumento.delete(documento);
 		map.addAttribute("result", MENSAGEM_OK);
 		return map;
-	}
-
-	public PessoaService getPessoaService() {
-		return PessoaService;
-	}
-
-	public void setPessoaService(PessoaService pessoaService) {
-		PessoaService = pessoaService;
 	}
 
 }

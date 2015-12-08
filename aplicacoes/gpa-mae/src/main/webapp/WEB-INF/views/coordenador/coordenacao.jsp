@@ -41,7 +41,6 @@
 		</c:if>
 
 		<div class="col-md-14">
-			
 				<div align="right" style="margin-bottom: 20px;">
 					<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">
 						<button class="btn btn-primary">
@@ -82,9 +81,8 @@
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
-
 								<td>
-								
+
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
@@ -92,7 +90,6 @@
 											</button>
 										</a>
 
-							
 										<a id="editar"
 
 											href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
@@ -172,8 +169,7 @@
 												</a>
 											</c:when>
 										</c:choose>
-									
-									
+
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">

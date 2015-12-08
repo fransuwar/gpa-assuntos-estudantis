@@ -11,8 +11,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
-<jsp:include page="../fragments/headTag.jsp" />
-<title>Minhas Inscrições</title>
+	<jsp:include page="../fragments/headTag.jsp" />
+	<title>Minhas Inscrições</title>
 </head>
 <body>
 

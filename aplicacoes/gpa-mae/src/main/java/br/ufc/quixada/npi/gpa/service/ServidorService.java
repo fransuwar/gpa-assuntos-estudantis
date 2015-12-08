@@ -5,11 +5,11 @@ import br.ufc.quixada.npi.service.GenericService;
 
 public interface ServidorService extends GenericService<Servidor>{
 	
-	public abstract Servidor getServidorBySiape(String siape);
-	public abstract Servidor getServidorComBancas(Integer id);
-	public abstract Servidor getPessoaServidorComBancas(Integer id);
-	public abstract Servidor getServidorByCpf(String cpf);
-	public abstract Servidor getServidorByCPFComBancas(String CPF);
+	public abstract Servidor getServidor(String siape);
+	
+	public abstract Servidor getServidorByCPF(String CPF);
+	
+	public abstract Servidor getServidorComBancas(String CPF);
 
 	
 

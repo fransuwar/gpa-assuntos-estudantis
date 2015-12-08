@@ -14,32 +14,21 @@ public class ServidorServiceImpl extends GenericServiceImpl<Servidor> implements
 
 	
 	@Override
-	public Servidor getServidorBySiape(String siape) {
+	@Transactional(readOnly = true)
+	public Servidor getServidor(String siape) {
+		
 		return (Servidor) findFirst("Servidor.findServidorBySiape", new SimpleMap<String, Object>("siape", siape));
 	}
 
 	@Override
-	@Transactional
-	public Servidor getServidorComBancas(Integer id) {
-		
-		return (Servidor) findFirst("Servidor.findServidorComBancas", new SimpleMap<String, Object>("servidorId", id));
-		
-	}
-
-	@Override
-	@Transactional
-	public Servidor getPessoaServidorComBancas(Integer id) {
-		return (Servidor) findFirst("Servidor.findPessoaServidorComBancas", new SimpleMap<String, Object>("pessoaId", id));
+	@Transactional(readOnly = true)
+	public Servidor getServidorByCPF(String CPF) {
+			return (Servidor) findFirst("Servidor.findServidorByCpf", new SimpleMap<String, Object>("cpf", CPF));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Servidor getServidorByCpf(String cpf) {
-			return (Servidor) findFirst("Servidor.findServidorByCpf", new SimpleMap<String, Object>("cpf", cpf));
-	}
-
-	@Override
-	public Servidor getServidorByCPFComBancas(String CPF) {
-		return (Servidor) findFirst("Servidor.findServidorByCPFComBancas", new SimpleMap<String, Object>("cpf", CPF));
+	public Servidor getServidorComBancas(String CPF) {
+		return (Servidor) findFirst("Servidor.findServidorComBancasByCPF", new SimpleMap<String, Object>("cpf", CPF));
 	}
 }
