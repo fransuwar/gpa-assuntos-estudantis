@@ -32,7 +32,7 @@
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 						<li role="presentation"><a
-							href="<c:url value="/selecao/listarPorServidor/${sessionScope.id}" />">Listar
+							href="<c:url value="/servidor/selecao/listar" />">Listar
 								Seleções <span class="glyphicon glyphicon-list"></span>
 						</a></li>
 						<li role="presentation"><a

@@ -52,7 +52,7 @@ public class CoordenadorController {
 		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
 
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("tipoBolsa", TipoSelecao.values());
+		model.addAttribute("tipoSelecao", TipoSelecao.values());
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 		

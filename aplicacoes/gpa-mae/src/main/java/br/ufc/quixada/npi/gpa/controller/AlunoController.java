@@ -232,7 +232,7 @@ public class AlunoController {
 			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 			model.addAttribute("moraCom", MoraCom.values());
-			model.addAttribute("selecao", idSelecao);
+			model.addAttribute("idSelecao", idSelecao);
 
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 

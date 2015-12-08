@@ -35,7 +35,7 @@ public class VisitaDomiciliar {
 	@ManyToOne
 	private Selecao selecao;
 	
-	@NotNull(message = "Campo obrigatório")
+	@NotEmpty(message = "Campo obrigatório")
 	private String formaAcessoCasa;
 	
 	@NotNull(message = "Campo obrigatório")
