@@ -6,7 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+
 <!DOCTYPE html>
 
 
@@ -41,7 +41,6 @@
 		</c:if>
 
 		<div class="col-md-14">
-			<sec:authorize access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div align="right" style="margin-bottom: 20px;">
 					<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">
 						<button class="btn btn-primary">
@@ -49,7 +48,7 @@
 						</button>
 					</a>
 				</div>
-			</sec:authorize>
+		
 		</div>
 
 
@@ -82,17 +81,15 @@
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
+								<td>
 
-								<td><sec:authorize
-										access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA')">
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
 												<i class="fa fa-users fa-lg"></i>
 											</button>
 										</a>
-									</sec:authorize>
-									<sec:authorize access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+
 										<a id="editar"
 
 											href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
@@ -128,8 +125,8 @@
 											</c:choose>
 
 										</a>
-									</sec:authorize> 
-									<sec:authorize access="hasAnyRole('DISCENTE')">
+									
+								
 										<c:choose>
 											<c:when
 												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoBolsa == inic_acad and selecao.status == 'INSC_ABERTA'}">
@@ -172,8 +169,7 @@
 												</a>
 											</c:when>
 										</c:choose>
-									</sec:authorize> 
-									<sec:authorize access="hasAnyRole('STA')">
+
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
@@ -184,7 +180,7 @@
 												</button>
 											</a>
 										</c:if>
-									</sec:authorize> <sec:authorize access="isAnonymous()">
+									
 
 										<a id="informacoes"
 											href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
@@ -192,7 +188,7 @@
 												<span class="glyphicon glyphicon-zoom-in"></span>
 											</button>
 										</a>
-									</sec:authorize>
+									
 							</tr>
 						</c:forEach>
 					</tbody>

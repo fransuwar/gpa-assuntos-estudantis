@@ -52,7 +52,7 @@ public class SelecaoController {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
 
 		if (selecao == null) {
-			redirect.addFlashAttribute("erro", "seleção Inexistente");
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
@@ -72,7 +72,7 @@ public class SelecaoController {
 		headers.setContentType(new MediaType(tipo[0], tipo[1]));
 		headers.set("Content-Disposition", "attachment; filename=" + documento.getNome().replace(" ", "_"));
 		headers.setContentLength(arquivo.length);
-		redirectAttributes.addFlashAttribute("success", "Download do Documento realizado com sucesso");
+		redirectAttributes.addFlashAttribute("success", MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO);
 
 		return new HttpEntity<byte[]>(arquivo, headers);
 
@@ -127,7 +127,7 @@ public class SelecaoController {
 		
 		// TODO - Implementar o método que dará o parecer do aluno.
 
-		redirect.addFlashAttribute("info", "Parecer emitido com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_PARECER_EMITIDO);
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}

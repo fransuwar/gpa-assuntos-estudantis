@@ -13,8 +13,8 @@
 
 <html>
 <head>
-<jsp:include page="../fragments/headTag.jsp" />
-<title>Seleções</title>
+	<jsp:include page="../fragments/headTag.jsp" />
+	<title>Seleções</title>
 </head>
 <body>
 
@@ -70,8 +70,8 @@
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
 
-								<td><sec:authorize
-										access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
+								<td>
+								
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary btn-sm"
@@ -79,7 +79,6 @@
 												<i class="fa fa-users fa-lg"></i>
 											</button>
 										</a>
-									</sec:authorize> <sec:authorize access="hasAnyRole('SERVIDOR')">
 
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
@@ -91,7 +90,7 @@
 												</button>
 											</a>
 										</c:if>
-									</sec:authorize> <sec:authorize access="isAnonymous()">
+									
 
 										<a id="informacoes"
 											href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
@@ -99,7 +98,7 @@
 												<span class="glyphicon glyphicon-zoom-in"></span>
 											</button>
 										</a>
-									</sec:authorize>
+									
 							</tr>
 						</c:forEach>
 					</tbody>

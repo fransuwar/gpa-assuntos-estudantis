@@ -25,23 +25,25 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<sec:authorize  ifAnyGranted="(DOCENTE, STA)">
+					<sec:authorize  access="hasAnyRole('ADMINISTRADOR_GPA')">
 
 						<li role="presentation"><a
-							href="<c:url value="/servidor/listar" />">Listar Servidor <span
+							href="<c:url value="/administrador/listar" />">Listar Servidor <span
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 						<li role="presentation"><a
+							href="<c:url value="/administrador/listar/alunos" />">Listar Alunos <span
+								class="glyphicon glyphicon-list"></span>
+						</a></li>
+					</sec:authorize>		
+					<sec:authorize access="hasAnyRole('DOCENTE', 'STA')">
+							<li role="presentation"><a
 							href="<c:url value="/selecao/listarPorServidor/${sessionScope.id}" />">Listar
 								Seleções <span class="glyphicon glyphicon-list"></span>
 						</a></li>
-						<li role="presentation"><a
-							href="<c:url value="/servidor/listar/alunos" />">Listar Alunos <span
-								class="glyphicon glyphicon-list"></span>
-						</a></li>
+					
 					</sec:authorize>
-
-					<sec:authorize ifAllGranted="DISCENTE">
+					<sec:authorize access="hasAnyRole('DISCENTE')">
 						<input type="hidden" name="id" value="${sessionScope.id}" />
 						<li role="presentation"><a
 							href="<c:url value="/aluno/selecao/listar" />">Listar Seleções <span
@@ -52,7 +54,7 @@
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>
-					<sec:authorize ifAllGranted="COORDENADOR_ASSUNTOS_ESTUDANTIS">
+					<sec:authorize access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 						<li role="presentation"><a
 							href="<c:url value="/coordenador/selecao/listar" />">Coordenação <span
 								class="glyphicon glyphicon-list"></span>
