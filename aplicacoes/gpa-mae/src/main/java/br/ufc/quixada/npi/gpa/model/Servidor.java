@@ -24,9 +24,9 @@ import br.ufc.quixada.npi.gpa.enums.Cargo;
 
 @NamedQueries({
 		@NamedQuery(name = "Servidor.findServidorBySiape", query = "SELECT s FROM Servidor s WHERE s.siape = :siape"),
-		@NamedQuery(name = "Servidor.findServidorComBancas", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.id = :servidorId"),
+		@NamedQuery(name = "Servidor.findServidorComBancasByIdServidor", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.id = :IdServidor"),
 		@NamedQuery(name = "Servidor.findPessoaServidorComBancas", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.pessoa.id = :pessoaId"),
-		@NamedQuery(name = "Servidor.findServidorByCPFComBancas", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.pessoa.cpf = :cpf"),
+		@NamedQuery(name = "Servidor.findServidorComBancasByCPF", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.pessoa.cpf = :cpf"),
 		@NamedQuery(name = "Servidor.findServidorByCpf", query = "SELECT s FROM Servidor s WHERE s.pessoa.cpf = :cpf")
 		})
 @Entity

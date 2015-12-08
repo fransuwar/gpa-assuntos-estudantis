@@ -90,8 +90,9 @@ public class CoordenadorController {
 		}
 		
 		if (selecao != null)  {
-			if (selecaoService.existsSelecaoEquals(selecao)) {
-				result.rejectValue("sequencial", "selecao.sequencial", MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR);
+			if (selecaoService.isSelecaoCadastrada(selecao)) {
+				result.rejectValue("sequencial", "selecao.sequencial", "Número do edital com esse tipo de bolsa já existente");
+
 			}
 		}
 		
@@ -136,7 +137,7 @@ public class CoordenadorController {
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());
+		Servidor coordenador = servidorService.getServidor(auth.getName());
 		selecao.addCoordenador(coordenador);
 		selecao.setResponsavel(coordenador);
 		this.selecaoService.save(selecao);
@@ -323,7 +324,7 @@ public class CoordenadorController {
 			Model model, Authentication auth, RedirectAttributes redirect) {
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());		
+		Servidor coordenador = servidorService.getServidor(auth.getName());		
 		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 		if(coordenador.getId() != servidor.getId()){
 			

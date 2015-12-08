@@ -54,7 +54,7 @@ public class ServidorController {
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
-		Servidor servidor = this.servidorService.getServidorByCPFComBancas(auth.getName());
+		Servidor servidor = this.servidorService.getServidorComBancas(auth.getName());
 
 		if (!servidor.getParticipaBancas().isEmpty()) {
 
@@ -89,11 +89,11 @@ public class ServidorController {
 	public String realizarEntrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idServidor") Integer idPessoa, 
 			 BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 			
-			Servidor servidor = this.servidorService.getPessoaServidorComBancas(idPessoa);
+			Servidor servidor = this.servidorService.getServidorComBancas(auth.getName());
 			entrevista.setServidor(servidor);
 			entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));			
 			
-			inscricaoService.saveEntrevista(entrevista);
+			inscricaoService.salvarEntrevista(entrevista);
 			
 			redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -145,7 +145,7 @@ public class ServidorController {
 	@RequestMapping(value = { "informacoes/visita-domiciliar/{idVisita}" }, method = RequestMethod.GET)
 	public String visulizarInformacoes(@PathVariable("idVisita") Integer idVisita, Model model, RedirectAttributes redirect) {
 		
-		VisitaDomiciliar visitaDomiciliar = inscricaoService.getVisitaDocimiciliarByIdVisitaDomiciliar(idVisita);
+		VisitaDomiciliar visitaDomiciliar = inscricaoService.getVisitaDocimiciliar(idVisita);
 		
 		if (visitaDomiciliar == null ) {
 			

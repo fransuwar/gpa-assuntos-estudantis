@@ -46,11 +46,11 @@
 					<sec:authorize access="hasAnyRole('DISCENTE')">
 						<input type="hidden" name="id" value="${sessionScope.id}" />
 						<li role="presentation"><a
-							href="<c:url value="/selecao/listar" />">Listar Seleções <span
+							href="<c:url value="/aluno/selecao/listar" />">Listar Seleções <span
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 						<li role="presentation"><a
-							href="<c:url value="/aluno/inscricao/listar/${sessionScope.id}" />">Minhas Inscrições <span
+							href="<c:url value="/aluno/inscricao/listar" />">Minhas Inscrições <span
 								class="glyphicon glyphicon-list"></span>
 						</a></li>
 					</sec:authorize>

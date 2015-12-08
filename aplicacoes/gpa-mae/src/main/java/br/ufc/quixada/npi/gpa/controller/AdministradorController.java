@@ -181,7 +181,7 @@ public class AdministradorController {
 		}
 
 		if (aluno != null) {
-			if (this.alunoService.existsAlunoEquals(aluno)) {
+			if (this.alunoService.isAlunoCadastrado(aluno)) {
 				result.rejectValue("matricula", "aluno.matricula", MENSAGEM_ERRO_MATRICULA_EXISTENTE);
 			}
 		}
@@ -278,7 +278,7 @@ public class AdministradorController {
 	@RequestMapping(value = "/listar", method = RequestMethod.POST)
 	public String listarServidor(@RequestParam("siape") String siape, Model model, RedirectAttributes redirect) {
 		List<Servidor> results = new ArrayList<Servidor>();
-		Servidor servidor = servidorService.getServidorBySiape(siape);
+		Servidor servidor = servidorService.getServidor(siape);
 		results.add(servidor);
 		model.addAttribute("servidores", results);
 
@@ -308,7 +308,7 @@ public class AdministradorController {
 	public String listarAluno(@RequestParam("matricula") String matricula, Model model, RedirectAttributes redirect) {
 
 		List<Aluno> alunos = new ArrayList<Aluno>();
-		Aluno aluno = alunoService.getAlunoByMatricula(matricula);
+		Aluno aluno = alunoService.getAluno(matricula);
 		alunos.add(aluno);
 		model.addAttribute("alunos", alunos);
 
