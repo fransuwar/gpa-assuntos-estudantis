@@ -262,15 +262,13 @@ public class AlunoController {
 
 	}
 
-	@RequestMapping(value = "/inscricao/listar/{idAluno}", method = RequestMethod.GET)
-	public String listarInscricoes(@PathVariable("idAluno") Integer idAluno, Model model) {
+	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
+	public String listarInscricoes(Model model, Authentication auth) {
 
-		Aluno aluno = this.alunoService.find(Aluno.class, idAluno);
-
-		List<Inscricao> inscricoes = this.inscricaoService.getInscricoes(idAluno);
+		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
 		
-		model.addAttribute("aluno",aluno);
-		model.addAttribute("inscricoes",inscricoes);
+		model.addAttribute("aluno", aluno);
+		model.addAttribute("inscricoes", aluno.getInscricoes());
 		
 		return PAGINA_INSCRICOES_ALUNO;
 		
