@@ -123,8 +123,8 @@
 											test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
 											<a id="inscrever"
 												href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
-												<button class=" btn btn-success">
-													inscrever-se <span class="glyphicon glyphicon-user"></span>
+												<button class=" btn btn-success btn-sm" title="inscrever-se">
+													 <span class="glyphicon glyphicon-user"></span>
 
 												</button>
 											</a>
@@ -143,8 +143,8 @@
 											test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
 											<a id="inscrever"
 												href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-												<button class=" btn btn-success">
-													inscrever-se <span class="glyphicon glyphicon-user"></span>
+												<button class=" btn btn-success btn-sm" title="inscrever-se">
+													<span class="glyphicon glyphicon-user"></span>
 												</button>
 											</a>
 										</c:when>

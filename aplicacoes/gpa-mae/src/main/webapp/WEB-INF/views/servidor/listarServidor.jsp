@@ -78,13 +78,13 @@
 											<td>${servidor.cargo.nome}</td>
 											<td><a id="editar"
 												href="<c:url value="/servidor/${servidor.id}/editar" ></c:url>">
-													<button class="btn btn-info">
+													<button class="btn btn-info btn-sm" title="Editar servidor">
 														<span class="glyphicon glyphicon-pencil"></span>
 													</button>
 											</a> <a id="excluir" data-toggle="modal"
 												data-target="#confirm-delete" href="#"
 												data-href="<c:url value="/servidor/${servidor.id}/excluir" ></c:url>">
-													<button class="btn btn-danger">
+													<button class="btn btn-danger btn-sm" title="Excluir Servidor" >
 														<span class="glyphicon glyphicon-trash"></span>
 													</button>
 											</a></td>
