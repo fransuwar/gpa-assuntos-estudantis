@@ -109,7 +109,7 @@ public class AdministradorController {
 		Servidor servidor = servidorService.find(Servidor.class, id);
 
 		if (servidor == null) {
-			redirectAttributes.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_INEXISTENTE);
+			redirectAttributes.addFlashAttribute("erro", MENSAGEM_SERVIDOR_NAO_ENCONTRADO);
 		}else{
 
 			this.servidorService.delete(servidor);
@@ -262,7 +262,7 @@ public class AdministradorController {
 			this.alunoService.delete(aluno);
 			redirect.addFlashAttribute("info", MENSAGEM_ALUNO_EXCLUIDO);
 		} else {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_ALUNO_INEXISTENTE);
+			redirect.addFlashAttribute("erro", MENSAGEM_ALUNO_NAO_ENCONTRADO);
 		}
 
 		return REDIRECT_PAGINA_LISTAR_ALUNOS;
@@ -313,7 +313,7 @@ public class AdministradorController {
 		model.addAttribute("alunos", alunos);
 
 		if (aluno == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ALUNO_ENCONTRADO);
+			redirect.addFlashAttribute("erro", MENSAGEM_ALUNO_NAO_ENCONTRADO);
 			redirect.addFlashAttribute("alunoEncontrado", false);
 
 			return REDIRECT_PAGINA_LISTAR_ALUNOS;
