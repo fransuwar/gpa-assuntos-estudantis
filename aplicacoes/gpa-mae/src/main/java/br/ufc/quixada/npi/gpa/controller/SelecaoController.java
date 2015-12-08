@@ -102,13 +102,7 @@ public class SelecaoController {
 		return PAGINA_LISTAR_SELECAO;
 	}
 
-	@RequestMapping(value = "inscritos/{idSelecao}", method = RequestMethod.GET)
-	public String listarInscritos(@PathVariable("idSelecao") Integer idSelecao, ModelMap model) {
-		
-		// TODO - Implementar método que pode ser visualizar os inscritos em uma determinada seleção.
-		return PAGINA_LISTAR_INSCRITOS_SELECAO;
-	}
-
+	
 		@RequestMapping(value = "/visualizarFormulario/{idaluno}")
 		public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
 			return null;
