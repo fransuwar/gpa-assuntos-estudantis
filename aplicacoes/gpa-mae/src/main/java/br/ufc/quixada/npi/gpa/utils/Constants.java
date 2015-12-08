@@ -28,11 +28,11 @@ public class Constants {
 	
 	public static final String PAGINA_RELATORIO_VISITA				= "servidor/relatorioVisita";
 	
-	public static final String PAGINA_CADASTRAR_SERVIDOR			= "servidor/cadastrarServidor";
+	public static final String PAGINA_CADASTRAR_SERVIDOR			= "administrador/cadastrarServidor";
 	
 	public static final String PAGINA_LISTAR_SERVIDOR				= "administrador/listarServidor";
 	
-	public static final String PAGINA_CADASTRAR_ALUNO				= "servidor/cadastrarAluno";
+	public static final String PAGINA_CADASTRAR_ALUNO				= "administrador/cadastrarAluno";
 	
 	public static final String PAGINA_REALIZAR_ENTREVISTA			= "servidor/realizarEntrevista";
 	
@@ -57,9 +57,9 @@ public class Constants {
 	
 	public static final String REDIRECT_PAGINA_INSCRITOS_SELECAO	= "redirect:/selecao/inscritos";
 	
-	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR		= "redirect:/servidor/listar";
+	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR		= "redirect:/administrador/listar";
 	
-	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS		= "redirect:/servidor/listar/alunos";
+	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS		= "redirect:/administrador/listar/alunos";
 	
 	/** Mensagens */
 	

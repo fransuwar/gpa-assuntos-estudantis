@@ -63,6 +63,7 @@
 						<thead>
 							<tr class="info">
 								<th>SIAPE</th>
+								<th>Nome</th>
 								<th>Cargo</th>
 								<th id="acoes">Ações</th>
 							</tr>
@@ -75,6 +76,7 @@
 									<c:forEach var="servidor" items="${servidores}">
 										<tr>
 											<td>${servidor.siape}</td>
+											<td>${servidor.pessoa.nome} </td>
 											<td>${servidor.cargo.nome}</td>
 											<td><a id="editar"
 												href="<c:url value="/administrador/${servidor.id}/editar" ></c:url>">
