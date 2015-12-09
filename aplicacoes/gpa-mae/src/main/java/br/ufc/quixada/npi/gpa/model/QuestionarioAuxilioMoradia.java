@@ -139,7 +139,7 @@ public class QuestionarioAuxilioMoradia {
 	private GrauParentescoImovelRural grauParentescoImovelRural;
 	
 	private Double areaPropriedadeRural;
-	
+
 	private String cidadeEstadoImovelRural;
 
 	@Enumerated(EnumType.STRING)
@@ -271,20 +271,20 @@ public class QuestionarioAuxilioMoradia {
 		this.grauParentescoImovelRural = grauParentescoImovelRural;
 	}
 
-	public double getAreaPropriedadeRural() {
-		return areaPropriedadeRural;
-	}
-
-	public void setAreaPropriedadeRural(double areaPropriedadeRural) {
-		this.areaPropriedadeRural = areaPropriedadeRural;
-	}
-
 	public String getCidadePropriedadeRural() {
 		return cidadeEstadoImovelRural;
 	}
 
 	public void setCidadePropriedadeRural(String cidadePropriedadeRural) {
 		this.cidadeEstadoImovelRural = cidadePropriedadeRural;
+	}
+
+	public Double getAreaPropriedadeRural() {
+		return areaPropriedadeRural;
+	}
+
+	public void setAreaPropriedadeRural(Double areaPropriedadeRural) {
+		this.areaPropriedadeRural = areaPropriedadeRural;
 	}
 
 	public GrauParentescoVeiculos getGrauParentescoVeiculos() {
