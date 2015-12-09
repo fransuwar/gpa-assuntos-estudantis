@@ -11,11 +11,11 @@ public interface SelecaoService extends GenericService<Selecao> {
 	
 	public List<Selecao> getSelecoesAtribuidos();
 
+	public abstract boolean isSelecaoCadastrada(Selecao selecao);
+
 	public abstract List<Selecao> getSelecoesByUsuario(Integer id);
 	
 	public abstract List<Selecao> getSelecoesAguardandoParecer();
-	
-	public abstract boolean existsSelecaoEquals(Selecao selecao);
 
 	public abstract Selecao getSelecaoComDocumentos(Integer id);
 
@@ -26,5 +26,6 @@ public interface SelecaoService extends GenericService<Selecao> {
 	public abstract Selecao getSelecaoComAlunos(Integer id);
 	
 	public abstract List<Selecao> getSelecoesComAlunos();
+
 
 }

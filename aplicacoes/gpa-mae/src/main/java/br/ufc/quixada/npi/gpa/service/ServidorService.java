@@ -11,6 +11,5 @@ public interface ServidorService extends GenericService<Servidor>{
 	public abstract Servidor getServidorByCpf(String cpf);
 	public abstract Servidor getServidorByCPFComComissao(String CPF);
 
-	
 
 }

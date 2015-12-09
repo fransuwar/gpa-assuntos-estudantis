@@ -1,5 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 import java.security.Principal;
 
 import javax.servlet.http.HttpSession;
@@ -25,11 +26,11 @@ public class LoginController {
 
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
-			model.addObject("error", "Usuário e/ou senha inválidos!");
+			model.addObject("error", MENSAGEM_ERRO_LOGIN );
 		}
 
 		if (logout != null) {
-			model.addObject("msg", "Logado com sucesso!");
+			model.addObject("msg", MENSAGEM_SUCESSO_LOGIN);
 		}
 		model.setViewName("login");
 
@@ -42,7 +43,7 @@ public class LoginController {
 	@RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
 	public String loginerror(ModelMap model) {
 
-		model.addAttribute("error", "Usuário e/ou senha inválidos!");
+		model.addAttribute("error", MENSAGEM_ERRO_LOGIN);
 		return "login";
 
 	}
@@ -61,10 +62,10 @@ public class LoginController {
 	public String acessoNegado(ModelMap model, Principal user) {
 		if (user != null) {
 			model.addAttribute("message", "Olá, " + user.getName() 
-			+ ", você não tem permissão para acessar essa página!");
+			+ MENSAGEM_PERMISSAO_NEGADA_USUARIO);
 		} else {
 			model.addAttribute("message", 
-			"Você não tem permissão para acessar essa página!");
+			MENSAGEM_PERMISSAO_NEGADA);
 		}
 		return "403";
 	}

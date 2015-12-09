@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
-import br.ufc.quixada.npi.gpa.service.PessoaService;
+
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 @Controller
 @RequestMapping("documento")
@@ -25,9 +26,6 @@ public class DocumentoController {
 	
 	@Inject
 	private DocumentoService serviceDocumento;
-	
-	@Inject
-	private PessoaService PessoaService;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public void getFile(@PathVariable("id") Long id, HttpServletResponse response) {
@@ -44,7 +42,7 @@ public class DocumentoController {
 				response.flushBuffer();
 			}
 		} catch (IOException ex) {
-			throw new RuntimeException("IOError writing file to output stream");
+			throw new RuntimeException(MENSAGEM_RUNTIME_EXCEPTION_DOCUMENTO);
 		}
 
 	}
@@ -55,20 +53,12 @@ public class DocumentoController {
 		Documento documento = serviceDocumento.find(Documento.class, id);
 		if(documento == null) {
 			map.addAttribute("result", "erro");
-			map.addAttribute("mensagem", "Documento não existe");
+			map.addAttribute("mensagem", MENSAGEM_DOCUMENTO_INEXISTENTE);
 			return map;
 		}
 		serviceDocumento.delete(documento);
-		map.addAttribute("result", "ok");
+		map.addAttribute("result", MENSAGEM_OK);
 		return map;
-	}
-
-	public PessoaService getPessoaService() {
-		return PessoaService;
-	}
-
-	public void setPessoaService(PessoaService pessoaService) {
-		PessoaService = pessoaService;
 	}
 
 }

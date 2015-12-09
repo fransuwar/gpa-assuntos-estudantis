@@ -39,7 +39,6 @@
 				<c:out value="${info}"></c:out>
 			</div>
 		</c:if>
-
 		<div class="col-md-13">
 
 			<div align="left" style="margin-bottom: 20px;">
@@ -49,7 +48,6 @@
 					</button>
 				</a>
 			</div>
-
 		</div>
 
 
@@ -81,7 +79,6 @@
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
-
 								<td><a id="visualizarInscritos"
 									href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 										<button class="btn btn-primary btn-sm"
@@ -92,7 +89,6 @@
 									href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
 										<button class="btn btn-info btn-sm" title="Editar Seleção">
 											<span class="glyphicon glyphicon-pencil"></span>
-
 										</button>
 								</a> <a id="excluir" data-toggle="modal"
 									data-target="#confirm-delete" href="#"
@@ -145,16 +141,6 @@
 												href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
 												<button class=" btn btn-success btn-sm" title="inscrever-se">
 													<span class="glyphicon glyphicon-user"></span>
-												</button>
-											</a>
-										</c:when>
-										<c:when
-											test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
-											<a id="editar"
-												href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id}" ></c:url>">
-												<button class=" btn btn-info btn-sm"
-													title="Editar Inscrição">
-													editar <span class="glyphicon glyphicon-pencil"></span>
 												</button>
 											</a>
 										</c:when>

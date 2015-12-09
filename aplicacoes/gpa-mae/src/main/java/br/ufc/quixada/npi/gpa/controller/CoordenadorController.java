@@ -79,19 +79,20 @@ public class CoordenadorController {
 
 		if (selecao != null && selecao.getAno() != null) {
 			if (selecao.getAno() < DateTime.now().getYear()) {
-				result.rejectValue("ano", "selecao.ano", "Digite um ano maior ou igual ao atual.");
+				result.rejectValue("ano", "selecao.ano", MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR);
 			}
 		}
 		
 		if (selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) {
 			if ((new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio()))) {
-				result.rejectValue("dataTermino", "selecao.dataTermino", "A data de término não pode ser anterior a data de início.");
+				result.rejectValue("dataTermino", "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
 			}
 		}
 		
 		if (selecao != null)  {
-			if (selecaoService.existsSelecaoEquals(selecao)) {
+			if (selecaoService.isSelecaoCadastrada(selecao)) {
 				result.rejectValue("sequencial", "selecao.sequencial", "Número do edital com esse tipo de selecao já existente");
+
 			}
 		}
 		
@@ -119,7 +120,7 @@ public class CoordenadorController {
 					
 					
 				} catch (IOException ioe) {
-					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
+					model.addAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 
 					return PAGINA_CADASTRAR_SELECAO;
 				}
@@ -132,15 +133,15 @@ public class CoordenadorController {
 		} else {
 			
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
-			model.addAttribute("anexoError", "Adicione anexo a seleção.");
+			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());
+		Servidor coordenador = servidorService.getServidorBySiape(auth.getName());
 		selecao.addCoordenador(coordenador);
 		selecao.setResponsavel(coordenador);
 		this.selecaoService.save(selecao);
-		redirect.addFlashAttribute("info", "Nova seleção cadastrada com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_CADASTRADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 		
 	}
@@ -157,7 +158,7 @@ public class CoordenadorController {
 			model.addAttribute("selecao", selecao);
 			
 		} else {
-			redirect.addFlashAttribute("erro", "Permissão negada.");
+			redirect.addFlashAttribute("erro", MENSAGEM_PERMISSAO_NEGADA);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
@@ -174,13 +175,13 @@ public class CoordenadorController {
 		
 		if (selecao != null && selecao.getAno() != null) {
 			if (selecao.getAno() < DateTime.now().getYear()) {
-				result.rejectValue("ano", "selecao.ano", "Digite um ano maior ou igual ao atual.");
+				result.rejectValue("ano", "selecao.ano", MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR);
 			}
 		}
 		
 		if (selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) {
 			if ((new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio()))) {
-				result.rejectValue("dataTermino", "selecao.dataTermino", "A data de término não pode ser anterior a data de início.");
+				result.rejectValue("dataTermino", "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
 			}
 		}
 		
@@ -198,7 +199,7 @@ public class CoordenadorController {
 			if (selecaoService.getSelecaoComDocumentos(selecao.getId()).getDocumentos().size() == doc.length
 				&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
 				model.addAttribute("action", "editar");
-				redirect.addFlashAttribute("erro", "Não foi possível excluir seu(s) anexo(s), pois não é possível salvar a seleção sem nenhum anexo.");
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_ANEXO_EXCLUIR);
 
 				return PAGINA_CADASTRAR_SELECAO;
 
@@ -225,7 +226,7 @@ public class CoordenadorController {
 						documentoService.save(documento);
 					}
 				} catch (IOException ioe) {
-					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
+					model.addAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 
 					return PAGINA_CADASTRAR_SELECAO;
 				}
@@ -233,14 +234,14 @@ public class CoordenadorController {
 		} else {
 			
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
-			model.addAttribute("anexoError", "Adicione anexo a seleção.");
+			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 		
 		
 		this.selecaoService.update(selecao);
-		redirect.addFlashAttribute("info", "Seleção atualizada com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_ATUALIZADA);
 		
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
@@ -254,17 +255,17 @@ public class CoordenadorController {
 			
 				if (selecao.getStatus().equals(Status.NOVA)) {
 					this.selecaoService.delete(selecao);
-					redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
+					redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_REMOVIDA);
 				} else {
 					if(selecao.getInscritos().size() == 0){
 						this.selecaoService.delete(selecao);
-						redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
+						redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_REMOVIDA);
 					}else{
-						redirect.addFlashAttribute("erro", "Permissão negada. Só é possível remover uma seleção enquanto seu status é nova.");
+						redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_REMOVER);
 					}
 				}
 			} else {
-				redirect.addFlashAttribute("erro", "Seleção inexistente.");
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
 			
 		}
 		
@@ -289,7 +290,7 @@ public class CoordenadorController {
 
 		if (idServidor == null) {
 			
-		redirect.addFlashAttribute("erro", "Informe pelo menos um membro.");
+		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_BANCA_ATRIBUIR);
 
 			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 
@@ -302,7 +303,7 @@ public class CoordenadorController {
 			Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 			if (comissao.contains(servidor)) {
 				
-				redirect.addFlashAttribute("erro", "Não é permitida repetição de membros na comissão.");
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_BANCA_REPETICAO);
 				
 				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 				
@@ -312,14 +313,11 @@ public class CoordenadorController {
 
 				selecaoService.update(selecao);
 
-				redirect.addFlashAttribute("info", "Comissão formada com sucesso.");
+				redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_COMISSAO_FORMADA);
 
-				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
-				
+				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;	
 			}
-			
 		}
-
 	}
 	
 	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
@@ -327,16 +325,16 @@ public class CoordenadorController {
 			Model model, Authentication auth, RedirectAttributes redirect) {
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());		
+		Servidor coordenador = servidorService.getServidorBySiape(auth.getName());		
 		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 		if(coordenador.getId() != servidor.getId()){
 			
 			selecao.getMembrosComissao().remove(servidor);
 			selecaoService.update(selecao);
-			redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
+			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO);
 		}else
 		
-		redirect.addFlashAttribute("erro", "Não é possivel excluir o Coordenador da Comissão");
+		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR);
 
 		return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 

@@ -40,16 +40,15 @@
 				<c:out value="${info}"></c:out>
 			</div>
 		</c:if>
-
 	</div>
 
 	<div class="col-md-14">
 		<div class="panel panel-info">
 
+
 			<div class="panel-heading">
 				<h3 class="panel-title">Seleções</h3>
 			</div>
-
 			<table class="table table-display table-striped" id="tabela-selecoes">
 				<thead>
 					<tr>
@@ -71,7 +70,6 @@
 							<td>${selecao.sequencial}</td>
 							<td>${selecao.quantidadeVagas}</td>
 							<td>${selecao.status.nome}</td>
-
 							<td><a id="visualizarInscritos"
 								href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 									<button class="btn btn-primary btn-sm"

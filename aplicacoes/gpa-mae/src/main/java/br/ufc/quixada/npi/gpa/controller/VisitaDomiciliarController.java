@@ -75,7 +75,7 @@ public class VisitaDomiciliarController {
 			return "redirect:/selecao/inscritos/"+idSelecao;
 			
 		} else {
-			relatorioVisitaDomiciliar.setAluno(alunoService.getAlunoByIdPessoa(idAluno));
+			relatorioVisitaDomiciliar.setAluno(alunoService.find(Aluno.class,idAluno));
 			relatorioVisitaDomiciliar.setSelecao(selecaoService.find(Selecao.class, idSelecao));
 			
 			this.inscricaoService.salvarVisitaDocimiciliar(relatorioVisitaDomiciliar);
@@ -88,7 +88,7 @@ public class VisitaDomiciliarController {
 	@RequestMapping(value="informacoesRelatorio/{id}", method= RequestMethod.GET)
 	public String visualizarInformacoes(@PathVariable("id") Integer idRelatorio, Model modelo, RedirectAttributes redirect){
 		
-		VisitaDomiciliar relatorio= inscricaoService.getVisitaDocimiciliarByIdVisitaDomiciliar(idRelatorio);
+		VisitaDomiciliar relatorio= inscricaoService.getVisitaDocimiciliar(idRelatorio);
 		
 		if(relatorio == null){
 			redirect.addFlashAttribute("erro", "Relatório não existe");

@@ -3,12 +3,10 @@ package br.ufc.quixada.npi.gpa.service.impl;
 import java.util.List;
 
 import javax.inject.Inject;
-import java.util.HashMap;
-
-import java.util.Map;
 import javax.inject.Named;
-import br.ufc.quixada.npi.enumeration.QueryType;
+
 import org.springframework.transaction.annotation.Transactional;
+
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -27,14 +25,12 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	private GenericRepository<VisitaDomiciliar> visitaService;
 
 	@Inject
-	private GenericRepository<Entrevista>  entrevistaService;
+	private GenericRepository<Entrevista>  		entrevistaService;
 	
 	@Override
-	public List<Inscricao> listarInscricoesByIdAluno(Integer id) {
-		
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("id", id);
-		return find(QueryType.JPQL,"from Inscricao where aluno.id = :id",params);
+	@Transactional(readOnly = true)
+	public List<Inscricao> getInscricoes(Integer idAluno) {
+		return find("Inscricao.findIncricoesByIdAluno", new SimpleMap<String, Object>("idAluno", idAluno));
 	}
 	
 	@Transactional(readOnly = true)
@@ -62,7 +58,7 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	}
 		
 	@Transactional(readOnly = true)
-	public void saveEntrevista(Entrevista entrevista) {
+	public void salvarEntrevista(Entrevista entrevista) {
 			entrevistaService.save(entrevista);		
 	}
 
@@ -75,7 +71,7 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 
 	@Override
 	@Transactional(readOnly = true)
-	public VisitaDomiciliar getVisitaDocimiciliarByIdVisitaDomiciliar(Integer idVisitaDomiciliar) {
+	public VisitaDomiciliar getVisitaDocimiciliar(Integer idVisitaDomiciliar) {
 		return visitaService.find(VisitaDomiciliar.class, idVisitaDomiciliar);
 	}
 }
