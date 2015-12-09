@@ -78,7 +78,7 @@
 			rowClass : 'horarioDisponivel',
 			addRowId : 'addHorario',
 			removeRowClass : 'removerHorario',
-			formId : 'questionarioForm',
+			formId : 'questionarioIniciacao',
 			rowContainerId : 'horarioDisponivelContainer',
 			indexedPropertyName : 'horariosDisponiveisSelecao',
 			indexedPropertyMemberNames : 'turno, dia',
