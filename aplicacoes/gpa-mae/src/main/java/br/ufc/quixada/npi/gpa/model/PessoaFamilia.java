@@ -26,13 +26,13 @@ public class PessoaFamilia {
 
 	private String nome;
 
-	private int idade;
+	private Double idade;
 
 	private String escolaridade;
 
 	private String profissao;
 
-	private double rendaMensal;
+	private Double rendaMensal;
 
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
@@ -83,11 +83,11 @@ public class PessoaFamilia {
 		this.nome = nome;
 	}
 
-	public int getIdade() {
+	public Double getIdade() {
 		return idade;
 	}
 
-	public void setIdade(int idade) {
+	public void setIdade(Double idade) {
 		this.idade = idade;
 	}
 
@@ -99,11 +99,11 @@ public class PessoaFamilia {
 		this.profissao = atividadeProfissao;
 	}
 
-	public double getRendaMensal() {
+	public Double getRendaMensal() {
 		return rendaMensal;
 	}
 
-	public void setRendaMensal(double rendaMensal) {
+	public void setRendaMensal(Double rendaMensal) {
 		this.rendaMensal = rendaMensal;
 	}
 

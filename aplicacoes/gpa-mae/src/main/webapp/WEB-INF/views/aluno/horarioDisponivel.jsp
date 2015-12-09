@@ -60,8 +60,7 @@
 	</tbody>
 </table>
 
-<a href="#" id="addHorario" class="btn btn-primary">Adicionar
-	Horário</a>
+<a href="#" id="addHorario" class="btn btn-primary">Adicionar Horário</a>
 
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 

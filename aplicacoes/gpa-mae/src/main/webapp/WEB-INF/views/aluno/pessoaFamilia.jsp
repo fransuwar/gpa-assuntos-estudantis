@@ -63,8 +63,6 @@
 			</tr>
 		</c:if>
 	</tbody>
-
-
 </table>
 
 <a href="#" id="addPessoa" class="btn btn-primary">Adicionar Pessoa</a>
