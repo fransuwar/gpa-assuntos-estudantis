@@ -26,7 +26,7 @@ public class PessoaFamilia {
 
 	private String nome;
 
-	private Double idade;
+	private Integer idade;
 
 	private String escolaridade;
 
@@ -83,11 +83,11 @@ public class PessoaFamilia {
 		this.nome = nome;
 	}
 
-	public Double getIdade() {
+	public Integer getIdade() {
 		return idade;
 	}
 
-	public void setIdade(Double idade) {
+	public void setIdade(Integer idade) {
 		this.idade = idade;
 	}
 
