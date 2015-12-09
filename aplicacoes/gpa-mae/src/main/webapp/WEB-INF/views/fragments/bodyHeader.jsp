@@ -38,8 +38,7 @@
 					</sec:authorize>		
 					<sec:authorize access="hasAnyRole('DOCENTE', 'STA')">
 							<li role="presentation"><a
-							href="<c:url value="/selecao/listarPorServidor/${sessionScope.id}" />">Listar
-								Seleções <span class="glyphicon glyphicon-list"></span>
+							href="<c:url value="/servidor/selecao/listar" />">Listar Seleções <span class="glyphicon glyphicon-list"></span>
 						</a></li>
 					
 					</sec:authorize>
