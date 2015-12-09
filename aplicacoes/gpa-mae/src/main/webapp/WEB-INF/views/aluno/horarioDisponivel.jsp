@@ -66,6 +66,7 @@
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 
 <script type="text/javascript">
+
 	function rowAdded(rowElement) {
 		$(rowElement).find("input").val('');
 	}
@@ -78,7 +79,7 @@
 			rowClass : 'horarioDisponivel',
 			addRowId : 'addHorario',
 			removeRowClass : 'removerHorario',
-			formId : 'questionarioForm',
+			formId : 'questionarioIniciacao',
 			rowContainerId : 'horarioDisponivelContainer',
 			indexedPropertyName : 'horariosDisponiveisBolsa',
 			indexedPropertyMemberNames : 'turno, dia',

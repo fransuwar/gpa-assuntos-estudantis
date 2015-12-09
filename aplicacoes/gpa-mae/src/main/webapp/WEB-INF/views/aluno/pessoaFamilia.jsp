@@ -72,6 +72,7 @@
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 
 <script type="text/javascript">
+
 	function rowAdded(rowElement) {
 		$(rowElement).find("input").val('');
 	}
@@ -84,7 +85,7 @@
 							rowClass : 'pessoaFamilia',
 							addRowId : 'addPessoa',
 							removeRowClass : 'removePessoa',
-							formId : 'questionarioForm',
+							formId : 'questionarioIniciacao',
 							rowContainerId : 'pessoaFamiliaContainer',
 							indexedPropertyName : 'pessoas',
 							indexedPropertyMemberNames : 'nome, parentesco, escolaridade, idade, profissao, rendaMensal',
