@@ -12,15 +12,19 @@ body {
 	margin-bottom: 5%;
 }
 */
+
+
+/*
 div.center.col-md-4 {
 	float: none;
 }
 
-/*
 div.container {
 	margin-bottom: 70px;
-}
+}*/
 
+
+/*
 .label-erro-select {
 	text-align: left;
 }
@@ -51,6 +55,7 @@ div.container {
 	padding: 2%;
 	text-align: left;
 }
+
 
 #label-select {
 	margin-top: 0.5%;
@@ -84,6 +89,9 @@ input[type=checkbox] {
 	width: 100%;
 }
 
+
+*/
+
 #div-form-buscar {
 	margin-bottom: 1%;
 	padding-left: 0%
@@ -95,6 +103,7 @@ input[type=checkbox] {
 	padding-right: 0%;
 }
 
+/*
 #form-label {
 	width: 12%;
 	text-align: right;
@@ -269,15 +278,17 @@ table#file-upload {
 */
 #logo-gpa {
 	max-width: 200px;
-	max-height: 150px;
+	max-height: 200px;
 	width: auto;
 	height: auto;
+	position:relative;
+	left:15px;
 }
 
 #navbar-brand {
 	padding: 0%;
 }
-
+/*
 dt.col-sm-3 {
 	text-align: right;
 }
@@ -295,4 +306,7 @@ div.panel-primary-min>div.panel-heading {
 
 div.panel-primary-min>div.panel-heading>.panel-title {
 	color: #FFF;
-}
+}*/
+
+
+

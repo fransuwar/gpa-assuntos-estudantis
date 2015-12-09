@@ -42,12 +42,13 @@
 		</c:if>
 
 		<div class="col-md-14">
-			<div class="panel panel-info">
+			<div class="panel panel-primary">
 
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
 				</div>
-
+			
+			<div class="panel-body">
 				<table class="table-display" id="tabela-selecoes">
 					<thead>
 						<tr>
@@ -74,7 +75,7 @@
 								
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm"
+											<button class="btn btn-primary btn-xs"
 												title="Visualizar Inscritos">
 												<i class="fa fa-users fa-lg"></i>
 											</button>
@@ -83,7 +84,7 @@
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-												<button class="btn btn-primary btn-sm">
+												<button class="btn btn-primary btn-xs">
 													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
 
 
@@ -94,7 +95,7 @@
 
 										<a id="informacoes"
 											href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
-											<button class=" btn btn-success btn-sm" title="Informações">
+											<button class="btn btn-primary btn-xs" title="Informações">
 												<span class="glyphicon glyphicon-zoom-in"></span>
 											</button>
 										</a>
@@ -103,6 +104,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				</div>
 			</div>
 		</div>
 	</div>
