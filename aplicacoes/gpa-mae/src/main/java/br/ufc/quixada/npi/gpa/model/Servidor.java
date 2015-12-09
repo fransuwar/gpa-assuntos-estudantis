@@ -21,9 +21,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import br.ufc.quixada.npi.gpa.enums.Cargo;
 
-
 @NamedQueries({
 		@NamedQuery(name = "Servidor.findServidorBySiape", query = "SELECT s FROM Servidor s WHERE s.siape = :siape"),
+		@NamedQuery(name = "Servidor.findServidorPertenceSelecao",query = "SELECT sr FROM Servidor sr LEFT JOIN sr.participaBancas s WHERE s.id = :idSelecao and :idServidor member of s.membrosBanca"),//:idSevidor member of s.membrosBanca
 		@NamedQuery(name = "Servidor.findServidorComBancasByIdServidor", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.id = :IdServidor"),
 		@NamedQuery(name = "Servidor.findPessoaServidorComBancas", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.pessoa.id = :pessoaId"),
 		@NamedQuery(name = "Servidor.findServidorComBancasByCPF", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.pessoa.cpf = :cpf"),

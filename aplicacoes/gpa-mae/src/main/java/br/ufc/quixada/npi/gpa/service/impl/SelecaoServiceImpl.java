@@ -32,8 +32,8 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 
 	@Override
 	@Transactional
-	public Selecao getSelecaoBolsaComDocumentos(Integer IdSelecao) {
-		return (Selecao) findFirst("Selecao.findSelecaoBolsaComDocumentosByIdSelecao", new SimpleMap<String, Object>("IdSelecao", IdSelecao));
+	public Selecao getSelecaoBolsaComDocumentos(Integer idSelecao) {
+		return (Selecao) findFirst("Selecao.findSelecaoBolsaComDocumentosByIdSelecao", new SimpleMap<String, Object>("idSelecao", idSelecao));
 	}
 
 }
