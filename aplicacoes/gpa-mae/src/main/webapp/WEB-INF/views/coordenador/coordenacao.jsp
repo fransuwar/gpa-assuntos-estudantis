@@ -95,36 +95,57 @@
 									data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
 										<button class="btn btn-danger btn-sm" title="Excluir Seleção">
 											<span class="glyphicon glyphicon-trash"></span>
+										</button>
+								</a> <a id="visualizarInscritos"
+									href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
+										<button class="btn btn-primary btn-sm"
+											title="Visualizar Inscritos">
+											<i class="fa fa-users fa-lg"></i>
+										</button>
+								</a> <a id="editar"
+									href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
+										<button class="btn btn-info">
+											Editar <span class="glyphicon glyphicon-pencil"></span>
+
+										</button>
+								</a> <a id="excluir" data-toggle="modal"
+									data-target="#confirm-delete" href="#"
+									data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
+										<button class="btn btn-danger">
+											Excluir <span class="glyphicon glyphicon-trash"></span>
 
 										</button>
 								</a> <a id="atribuirBanca"
 									href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
 										<c:choose>
-											<c:when test="${empty selecao.membrosComissao}">
-												<button class="btn btn-primary btn-sm"
-													title="Atribuir Membro à comissão">
-													<span class="glyphicon glyphicon-user"></span>
+											<c:when test="${empty selecao.membrosBanca}">
+												<button class="btn btn-primary">
+													Atribuir Membro à Banca <span
+														class="glyphicon glyphicon-user"></span>
 												</button>
 											</c:when>
 											<c:otherwise>
-												<button class="btn btn-primary btn-sm"
-													title="Editar Membros da Comissão">
-													<span class="glyphicon glyphicon-user"></span>
+												<button class="btn btn-primary">
+													Editar Membros da Banca <span
+														class="glyphicon glyphicon-user"></span>
 												</button>
 											</c:otherwise>
 										</c:choose>
 
 								</a> <c:choose>
-										<c:when
-											test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
-											<a id="inscrever"
-												href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
-												<button class=" btn btn-success btn-sm" title="inscrever-se">
-													 <span class="glyphicon glyphicon-user"></span>
-
-												</button>
-											</a>
+										<c:when test="${empty selecao.membrosComissao}">
+											<button class="btn btn-primary btn-sm"
+												title="Atribuir Membro à comissão">
+												<span class="glyphicon glyphicon-user"></span>
+											</button>
 										</c:when>
+										<c:otherwise>
+											<button class="btn btn-primary btn-sm"
+												title="Editar Membros da Comissão">
+												<span class="glyphicon glyphicon-user"></span>
+											</button>
+										</c:otherwise>
+									</c:choose> <c:choose>
 										<c:when
 											test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
 											<a id="editar"
@@ -149,8 +170,6 @@
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary btn-sm">
 												Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-
-
 											</button>
 										</a>
 									</c:if> <a id="informacoes"

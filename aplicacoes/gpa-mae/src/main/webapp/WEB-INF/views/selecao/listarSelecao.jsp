@@ -81,24 +81,7 @@
 								data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
 									<button class="btn btn-danger btn-sm" Title="Excluir Seleção">
 										<span class="glyphicon glyphicon-trash"></span>
-
 									</button>
-							</a> <a id="atribuirBanca"
-								href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
-									<c:choose>
-										<c:when test="${empty selecao.membrosComissao}">
-											<button class="btn btn-primary btn-sm"
-												Title="Atribuir Membro à Comissão ">
-												<span class="glyphicon glyphicon-user"></span>
-											</button>
-										</c:when>
-										<c:otherwise>
-											<button class="btn btn-primary btn-sm" title="Editar Membros da Comissão">
-												<span class="glyphicon glyphicon-user"></span>
-											</button>
-										</c:otherwise>
-									</c:choose>
-
 							</a> <sec:authorize access="hasAnyRole('DISCENTE')">
 									<c:choose>
 										<c:when
@@ -108,7 +91,6 @@
 												<button class=" btn btn-success btn-sm"
 													title="Realizar Inscrição">
 													<span class="glyphicon glyphicon-user"></span>
-
 												</button>
 											</a>
 										</c:when>
@@ -143,15 +125,8 @@
 											</a>
 										</c:when>
 									</c:choose>
-								</sec:authorize> <c:if test="${avaliar}">
-									<a id="avaliarSelecao"
-										href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-										<button class="btn btn-primary btn-sm">
-											Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-										</button>
-									</a>
-								</c:if> <a id="informacoes"
-								href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
+								</sec:authorize> 
+								<a id="informacoes"href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
 									<button class=" btn btn-success btn-sm" title="Informações">
 										<span class="glyphicon glyphicon-zoom-in"></span>
 									</button>
