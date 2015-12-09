@@ -45,9 +45,9 @@
 		</c:if>
 
 		<c:if test="${empty pessoasDaFamilia }">
-			<c:forEach begin="1" end="2" var="i">
+			<c:forEach begin="1" end="1" var="i">
 
-				<tr class="pessoaFamilia defaultRow">
+				<tr class="pessoaFamilia">
 					<td><input type="text" name="pessoas[${i }].nome" value="" /></td>
 
 					<td><form:select path="" name="pessoas[${i }].parentesco"
