@@ -32,9 +32,8 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 
 	@Override
 	@Transactional
-	public Selecao getSelecaoComDocumentos(Integer id) {
-		return (Selecao) findFirst("Selecao.findSelecaoComDocumentos",
-				new SimpleMap<String, Object>("selecaoId", id));
+	public Selecao getSelecaoComDocumentos(Integer idSelecao) {
+		return (Selecao) findFirst("Selecao.findSelecaoComDocumentos", new SimpleMap<String, Object>("idSelecao", idSelecao));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -42,28 +41,6 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 	@Transactional
 	public List<Selecao> getSelecoesComMembros() {
 		return ((List<Selecao>) find("Selecao.findSelecoesComMembros", new SimpleMap<String, Object>()));
-	}
-
-	@Override
-	@Transactional
-	public Selecao getSelecaoComMembros(Integer id) {
-		return (Selecao) findFirst("Selecao.findSelecaoIdComMembros",
-				new SimpleMap<String, Object>("selecaoId", id));
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Selecao getSelecaoComAlunos(Integer id) {
-		return (Selecao) findFirst("Selecao.findSelecaoIdComAlunos",
-				new SimpleMap<String, Object>("selecaoId", id));
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional(readOnly = true)
-	public List<Selecao> getSelecoesComAlunos() {
-		return ((List<Selecao>) find("Selecao.findSelecaoComAlunos", new SimpleMap<String, Object>()));
-
 	}
 
 }

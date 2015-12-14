@@ -35,20 +35,20 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	
 	@Transactional(readOnly = true)
 	public List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica) {
-		return find("HorarioDisponivel.findHorarioDisponivelByIdQuest", new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
+		return find("HorarioDisponivel.findHorarioDisponivelByIdIniciacaoAcademica", new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaByIdIniciacaoAcademica(Integer idIniciacaoAcademica) {
-		return find("PessoaFamilia.findPessoaFamiliaByIdQuestBIA", 
+		return find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica", 
 					new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaByIdAuxilioMoradia(Integer idAuxilioMoradia) {
-		return find("PessoaFamilia.findPessoaFamiliaByIdQuestAMOR", 
+		return find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia", 
 				new SimpleMap<String, Object>("idAuxilioMoradia", idAuxilioMoradia));
 	}
 
