@@ -7,15 +7,7 @@ import br.ufc.quixada.npi.service.GenericService;
 
 public interface SelecaoService extends GenericService<Selecao> {
 
-	public abstract List<Selecao> getSelecoesSubmetidos();
-	
-	public List<Selecao> getSelecoesAtribuidos();
-
 	public abstract boolean isSelecaoCadastrada(Selecao selecao);
-
-	public abstract List<Selecao> getSelecoesByUsuario(Integer id);
-	
-	public abstract List<Selecao> getSelecoesAguardandoParecer();
 
 	public abstract Selecao getSelecaoComDocumentos(Integer id);
 

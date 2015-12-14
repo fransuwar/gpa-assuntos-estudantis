@@ -1,8 +1,6 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Named;
 
@@ -16,33 +14,6 @@ import br.ufc.quixada.npi.util.SimpleMap;
 
 @Named
 public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements SelecaoService {
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Selecao> getSelecoesSubmetidos() {
-
-		return find(QueryType.JPQL, "from Selecao as p where p.status != 'NOVO' ", null);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Selecao> getSelecoesAtribuidos() {
-		return find(QueryType.JPQL, "from Selecao as p where p.status = 'AGUARDANDO_PARECER' ", null);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Selecao> getSelecoesByUsuario(Integer id) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("id", id);
-		return find(QueryType.JPQL, "from Selecao where usuario.id = :id", params);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Selecao> getSelecoesAguardandoParecer() {
-		return find(QueryType.JPQL, "from Selecao as p where p.status = 'AGUARDANDO_PARECER'", null);
-	}
 
 	@Override
 	@Transactional
