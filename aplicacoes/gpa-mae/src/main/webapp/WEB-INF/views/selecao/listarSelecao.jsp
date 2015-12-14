@@ -46,10 +46,11 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
 				</div>
-				<table class="table-display" id="tabela-selecoes">
+				<table class="table table-display table-striped"
+					id="tabela-selecoes">
 					<thead>
 						<tr>
-							<th>Tipo de Bolsa</th>
+							<th>Tipo de Seleção</th>
 							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
@@ -62,26 +63,19 @@
 							<tr class="linha">
 								<td><a id="detalhes"
 									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
-										${selecao.tipoBolsa.nome} </a></td>
+										${selecao.tipoSelecao.nome} </a></td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
 
 								<td><a id="visualizarInscritos"
-									href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
+									href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 										<button class="btn btn-primary btn-sm"
 											title="Visualizar Inscritos">
 											<i class="fa fa-users fa-lg"></i>
 										</button>
-								</a> <c:if test="${avaliar}">
-										<a id="avaliarSelecao"
-											href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm">
-												Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-											</button>
-										</a>
-									</c:if> <sec:authorize
+								</a><sec:authorize
 										access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
 										<a id="informacoes"
 											href="<c:url value="/servidor/detalhes/${selecao.id}"></c:url>">
@@ -90,6 +84,57 @@
 											</button>
 										</a>
 									</sec:authorize>
+								<a id="excluir" data-toggle="modal"
+									data-target="#confirm-delete" href="#"
+									data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
+										<button class="btn btn-danger btn-sm" Title="Excluir Seleção">
+											<span class="glyphicon glyphicon-trash"></span>
+										</button>
+								</a> <sec:authorize access="hasAnyRole('DISCENTE')">
+										<c:choose>
+											<c:when
+												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
+												<a id="inscrever"
+													href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
+													<button class=" btn btn-success btn-sm"
+														title="Realizar Inscrição">
+														<span class="glyphicon glyphicon-user"></span>
+													</button>
+												</a>
+											</c:when>
+											<c:when
+												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
+												<a id="editar"
+													href="<c:url value="/aluno/inscricao/editar/iniciacao-academica/${inscricao.id}" ></c:url>">
+													<button class=" btn btn-info btn-sm"
+														title="Editar Inscrição">
+														<span class="glyphicon glyphicon-pencil"></span>
+													</button>
+												</a>
+											</c:when>
+											<c:when
+												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
+												<a id="inscrever"
+													href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
+													<button class=" btn btn-success btn-sm"
+														Title="Realizar Inscrição">
+														<span class="glyphicon glyphicon-user"></span>
+													</button>
+												</a>
+											</c:when>
+											<c:when
+												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
+												<a id="editar"
+													href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id}" ></c:url>">
+													<button class=" btn btn-info btn-sm"
+														title="Editar Inscrição">
+														<span class="glyphicon glyphicon-pencil"></span>
+													</button>
+												</a>
+											</c:when>
+										</c:choose>
+									</sec:authorize> 
+									
 							</tr>
 						</c:forEach>
 					</tbody>

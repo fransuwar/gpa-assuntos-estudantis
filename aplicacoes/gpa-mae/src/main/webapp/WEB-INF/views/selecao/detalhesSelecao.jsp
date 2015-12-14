@@ -54,19 +54,52 @@
 					</dd>
 				</dl>
 				<dl class="col-sm-12">
-					<dt class="col-sm-3">Arquivos:</dt>
-					<c:forEach var="documento" items="${selecao.documentos}">
-						<dd class="col-sm-3">
-							<a
-								href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
-								${documento.nome} </a>
-						</dd>
-					</c:forEach>
-				</dl>
+					<div class="panel-body">
+						<dl class="col-sm-12">
+							<dt class="col-sm-3">Número do Edital:</dt>
+							<dd class="col-sm-3">${selecao.sequencial}</dd>
+							<dt class=" col-sm-3">Tipo de Seleção:</dt>
+							<dd class="col-sm-3">${selecao.tipoSelecao.nome}</dd>
+						</dl>
+						<dl class="col-sm-12">
+							<dt class="col-sm-3">Ano do Edital:</dt>
+							<dd class="col-sm-3">${selecao.ano}</dd>
+							<dt class="col-sm-3">Status:</dt>
+							<dd class="col-sm-3">${selecao.status.nome}</dd>
+
+						</dl>
+						<dl class="col-sm-12">
+							<dt class="col-sm-3">Quantidade de vagas:</dt>
+							<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
+							<dt class="col-sm-3">Responsável:</dt>
+							<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
+						</dl>
+						<dl class="col-sm-12">
+							<dt class="col-sm-3">Data de Início da Inscrição:</dt>
+							<dd class="col-sm-3">
+								<fmt:formatDate value="${selecao.dataInicio}"
+									pattern="dd/MM/yyyy" />
+							</dd>
+							<dt class="col-sm-3">Data de Término da Inscrição:</dt>
+							<dd class="col-sm-3">
+								<fmt:formatDate value="${selecao.dataTermino}"
+									pattern="dd/MM/yyyy" />
+							</dd>
+						</dl>
+						<dl class="col-sm-12">
+							<dt class="col-sm-3">Arquivos:</dt>
+							<c:forEach var="documento" items="${selecao.documentos}">
+								<dd class="col-sm-3">
+									<a
+										href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
+										${documento.nome} </a>
+								</dd>
+							</c:forEach>
+						</dl>
+					</div>
 			</div>
 		</div>
-	</div>
 
-	<jsp:include page="../fragments/footer.jsp" />
+		<jsp:include page="../fragments/footer.jsp" />
 </body>
 </html>

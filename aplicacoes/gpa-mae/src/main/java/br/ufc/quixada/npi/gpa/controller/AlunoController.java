@@ -30,7 +30,7 @@ import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
-import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
+import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 import br.ufc.quixada.npi.gpa.enums.Turno;
@@ -64,17 +64,19 @@ public class AlunoController {
 	private InscricaoService inscricaoService;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
+
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
+
+
+	List<Selecao> selecoes = selecaoService.find(Selecao.class);
+	
+	Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
+	
+	model.addAttribute("selecoes", selecoes);
+	model.addAttribute("aluno", aluno);
+	model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+	model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 		
-		List<Selecao> selecoes = selecaoService.find(Selecao.class);
-
-		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
-
-		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("aluno", aluno);
-		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
 		return PAGINA_SELECOES_ABERTAS;
 
 	}
@@ -213,7 +215,7 @@ public class AlunoController {
 			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 			model.addAttribute("moraCom", MoraCom.values());
-			model.addAttribute("selecaoBolsa", idSelecao);
+			model.addAttribute("idSelecao", idSelecao);
 
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 

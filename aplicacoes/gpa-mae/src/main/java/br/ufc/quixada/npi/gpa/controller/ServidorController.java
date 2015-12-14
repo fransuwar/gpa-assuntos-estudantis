@@ -1,8 +1,8 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.security.core.Authentication;
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
-import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
+import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -55,13 +55,13 @@ public class ServidorController {
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
-		Servidor servidor = this.servidorService.getServidorComBancas(auth.getName());
+		Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
 
-		if (!servidor.getParticipaBancas().isEmpty()) {
+		if (!servidor.getParticipaComissao().isEmpty()) {
 
-			model.addAttribute("selecoes", servidor.getParticipaBancas());
-			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+			model.addAttribute("selecoes", servidor.getParticipaComissao());
+			model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+			model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
 			return PAGINA_LISTAR_SELECAO;
 		}
@@ -89,7 +89,7 @@ public class ServidorController {
 	public String realizarEntrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idServidor") Integer idPessoa, 
 			 BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 			
-			Servidor servidor = this.servidorService.getServidorComBancas(auth.getName());
+			Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
 			entrevista.setServidor(servidor);
 			entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));			
 			
@@ -134,7 +134,7 @@ public class ServidorController {
 		}
 		
 		relatorioVisitaDomiciliar.setAluno(alunoService.find(Aluno.class, idAluno));
-		relatorioVisitaDomiciliar.setSelecaoBolsa(selecaoService.find(Selecao.class, idSelecao));
+		relatorioVisitaDomiciliar.setSelecao(selecaoService.find(Selecao.class, idSelecao));
 		
 		inscricaoService.salvarVisitaDocimiciliar(relatorioVisitaDomiciliar);;
 		redirect.addFlashAttribute("info", MENSAGEM_VISITA_CADASTRADA);
@@ -169,7 +169,7 @@ public class ServidorController {
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect){
 		
-		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
+		Selecao selecao = selecaoService.getSelecaoComDocumentos(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 

@@ -149,9 +149,9 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_ANEXO_EXCLUIR			= "Não foi possível excluir seu(s) anexo(s), pois não é possível salvar a seleção sem nenhum anexo.";
 	
-	public static final String MENSAGEM_ERRO_MEMBRO_BANCA_ATRIBUIR	= "Informe pelo menos um membro.";
+	public static final String MENSAGEM_ERRO_MEMBRO_COMISSAO_ATRIBUIR	= "Informe pelo menos um membro.";
 	
-	public static final String MENSAGEM_ERRO_MEMBRO_BANCA_REPETICAO	= "Não é permitida repetição de membros na comissão.";
+	public static final String MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO	= "Não é permitida repetição de membros na comissão.";
 	
 	public static final String MENSAGEM_ERRO_LOGIN					= "Usuário e/ou senha inválidos!";
 		
@@ -159,7 +159,7 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR = "A data de término não pode ser anterior a data de início.";
 	
-	public static final String MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR = "Número do edital com esse tipo de bolsa já existente";
+	public static final String MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR = "Número do edital com esse tipo de Seleção já existente";
 	
 	public static final String MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR = "Não é possivel excluir o Coordenador da Comissão";
 	

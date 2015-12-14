@@ -23,55 +23,58 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Status;
-import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
+import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 
 @NamedQueries({
-	@NamedQuery(name = "Selecao.findSelecaoBolsaComDocumentosByIdSelecao", query = "SELECT s FROM Selecao s LEFT JOIN FETCH s.documentos WHERE s.id = :idSelecao"),//:idSevidor member of s.membrosBanca
-	@NamedQuery(name = "Selecao.findSelecaoBolsaComComissao", query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca"),
-	@NamedQuery(name = "Selecao.findSelecaoBolsaComComissaoByIdSelecao", query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :idSelecao"), })
+	@NamedQuery(name = "Selecao.findSelecaoComDocumentos", query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoId "),
+	@NamedQuery(name = "Selecao.findSelecaoComMembros", query = "SELECT distinct s FROM Selecao s LEFT JOIN FETCH s.membrosComissao"),
+	@NamedQuery(name = "Selecao.findSelecaoIdComMembros", query = "SELECT s FROM Selecao s LEFT JOIN FETCH s.membrosComissao WHERE s.id = :selecaoId"),	
+ })
+	
+
 @Entity
 public class Selecao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Range(min = 1, message = "O valor do edital deve ser maior que 0")
 	private Integer sequencial;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Range(min = 1, max = 999, message = "O número de vagas deve ser maior ou igual a 1")
 	private Integer quantidadeVagas;
-	
+
 	@Future(message = "Data de início deve ser maior que a data atual")
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
-	
+
 	@Future(message = "Data de término deve ser maior que a data atual")
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
+
 	@Enumerated(EnumType.STRING)
-	private TipoBolsa tipoBolsa;
-	
-	@OneToMany(mappedBy = "selecaoBolsa", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
+	private TipoSelecao tipoSelecao;
+
+	@OneToMany(mappedBy = "selecao", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	private List<Documento> documentos;
-	
+
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<Servidor> membrosBanca;
-	
+	private List<Servidor> membrosComissao;
+
 	@ManyToOne
 	private Servidor responsavel;
-	
+
 	@OneToMany(mappedBy = "selecao")
 	private List<Inscricao> inscritos;
 
@@ -95,8 +98,8 @@ public class Selecao {
 		return id;
 	}
 
-	public List<Servidor> getMembrosBanca() {
-		return membrosBanca;
+	public List<Servidor> getMembrosComissao() {
+		return membrosComissao;
 	}
 
 	public Integer getQuantidadeVagas() {
@@ -125,8 +128,8 @@ public class Selecao {
 		return status;
 	}
 
-	public TipoBolsa getTipoBolsa() {
-		return tipoBolsa;
+	public TipoSelecao getTipoSelecao() {
+		return tipoSelecao;
 	}
 
 	public void setAno(Integer ano) {
@@ -149,8 +152,8 @@ public class Selecao {
 		this.id = id;
 	}
 
-	public void setMembrosBanca(List<Servidor> membrosBanca) {
-		this.membrosBanca = membrosBanca;
+	public void setMembrosComissao(List<Servidor> membrosComissao) {
+		this.membrosComissao = membrosComissao;
 	}
 
 	public void setQuantidadeVagas(Integer quantidadeVagas) {
@@ -169,8 +172,8 @@ public class Selecao {
 		this.status = status;
 	}
 
-	public void setTipoBolsa(TipoBolsa tipoBolsa) {
-		this.tipoBolsa = tipoBolsa;
+	public void setTipoSelecao(TipoSelecao tipoSelecao) {
+		this.tipoSelecao = tipoSelecao;
 	}
 
 	public List<Inscricao> getInscritos() {
@@ -181,10 +184,10 @@ public class Selecao {
 		this.inscritos = inscritos;
 	}
 	public void addCoordenador (Servidor coordenador){
-		if(this.membrosBanca == null){
-			membrosBanca = new ArrayList<Servidor>();
+		if(this.membrosComissao == null){
+			membrosComissao = new ArrayList<Servidor>();
 		}
-		this.membrosBanca.add(coordenador);
+		this.membrosComissao.add(coordenador);
 	}
 	@Override
 	public int hashCode() {
@@ -215,7 +218,7 @@ public class Selecao {
 	public String toString() {
 		return "Selecao [id=" + id + ", ano=" + ano + ", sequencial=" + sequencial + ", quantidadeVagas="
 				+ quantidadeVagas + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino + ", status=" + status
-				+ ", tipoBolsa=" + tipoBolsa + ", documentos=" + documentos + ", membrosBanca=" + membrosBanca
+				+ ", tipoSelecao=" + tipoSelecao + ", documentos=" + documentos + ", membrosComissao=" + membrosComissao
 				+ ", responsavel=" + responsavel + ", inscritos=" + inscritos + "]";
 	}
 
