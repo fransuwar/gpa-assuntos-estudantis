@@ -6,14 +6,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 
 
 <html>
 <head>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Lista de Seleções</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Lista de Seleções</title>
 </head>
 <body>
 
@@ -47,7 +48,8 @@
 					<h3 class="panel-title">Seleções</h3>
 				</div>
 
-				<table class="table table-display table-striped" id="tabela-selecoes">
+				<table class="table table-display table-striped"
+					id="tabela-selecoes">
 					<thead>
 						<tr>
 							<th>Tipo de Seleção</th>
@@ -68,22 +70,20 @@
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
-								<td>
-										<a id="visualizarInscritos"
+								<td><a id="visualizarInscritos"
+									href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
+										<button class="btn btn-primary btn-sm" tooltip="Usuário"
+											title="Visualizar Inscritos">
+											<i class="fa fa-users fa-lg"></i>
+										</button>
+								</a> <c:if test="${avaliar}">
+										<a id="avaliarSelecao"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
-												<i class="fa fa-users fa-lg"></i>
+											<button class="btn btn-primary btn-sm">
+												Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
 											</button>
 										</a>
-										<c:if test="${avaliar}">
-											<a id="avaliarSelecao"
-												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-												<button class="btn btn-primary btn-sm">
-													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-												</button>
-											</a>
-										</c:if>
-									<sec:authorize access="isAnonymous()">
+									</c:if> <sec:authorize access="isAnonymous()">
 										<a id="informacoes"
 											href="<c:url value="/selecao/informacoes/${selecao.id}"></c:url>">
 											<button class=" btn btn-success btn-sm" title="Informações">

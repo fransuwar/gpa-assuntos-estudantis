@@ -48,7 +48,7 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
 				</div>
-				<table class="table table-display table-striped"
+				<table class="table table-striped table-bordered"
 					id="tabela-selecoes">
 					<thead>
 						<tr>

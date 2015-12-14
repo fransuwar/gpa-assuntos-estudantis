@@ -6,14 +6,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 
 
 <html>
 <head>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Seleções</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Seleções</title>
 </head>
 <body>
 
@@ -41,15 +42,15 @@
 		</c:if>
 
 		<div class="col-md-14">
-			
-				<div align="left" style="margin-bottom: 20px;">
-					<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">
-						<button class="btn btn-primary">
-							Nova seleção <span class="glyphicon glyphicon-plus"></span>
-						</button>
-					</a>
-				</div>
-		
+
+			<div align="left" style="margin-bottom: 20px;">
+				<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">
+					<button class="btn btn-primary">
+						Nova seleção <span class="glyphicon glyphicon-plus"></span>
+					</button>
+				</a>
+			</div>
+
 		</div>
 
 		<div class="col-md-14">
@@ -63,8 +64,8 @@
 					<thead>
 						<tr>
 							<th>Tipo de Seleção</th>
-							<th>Ano</th>
 							<th>Edital</th>
+							<th>Período da Inscrição</th>
 							<th>Vagas</th>
 							<th>Status</th>
 							<th></th>
@@ -73,68 +74,58 @@
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
-								<td>
-								<a id="detalhes" href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
-										${selecao.tipoSelecao.nome}</a>
-								</td>
-								<td>${selecao.ano}</td>
-								<td>${selecao.sequencial}</td>
+								<td><a id="detalhes"
+									href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
+										${selecao.tipoSelecao.nome}</a></td>
+								<td>${selecao.ano}.${selecao.sequencial}</td>
+								<td><fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à <fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino}" /></td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
 
-								<td>							
-										<a id="visualizarInscritos"
-											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
-												<i class="fa fa-users fa-lg"></i>
-											</button>
-										</a>						
-										<a id="editar"
-											href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
-											<button class="btn btn-info">
-												Editar <span class="glyphicon glyphicon-pencil"></span>
-											</button>
-										</a>
-										<a id="excluir" data-toggle="modal"
-											data-target="#confirm-delete" href="#"
+								<td><a id="visualizarInscritos"
+									href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
+										<button class="btn btn-primary btn-sm"
+											title="Visualizar Inscritos">
+											<i class="fa fa-users fa-lg"></i>
+										</button>
+								</a> <a id="editar"
+									href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
+										<button class="btn btn-info btn-sm" title="Editar Seleção">
+											<span class="glyphicon glyphicon-pencil"></span>
+										</button>
+								</a> <a id="excluir" data-toggle="modal"
+									data-target="#confirm-delete" href="#"
+									data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
+										<button class="btn btn-danger btn-sm" title="Excluir Seleção">
+											<span class="glyphicon glyphicon-trash"></span>
 
-											data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
-											<button class="btn btn-danger">
-												Excluir <span class="glyphicon glyphicon-trash"></span>
-
-											</button>
-										</a>
-										<a id="atribuirComissao"
-											href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
-											<c:choose>
-												<c:when test="${empty selecao.membrosComissao}">
-													<button class="btn btn-primary">
-														Atribuir Membro à Comissão <span class="glyphicon glyphicon-user"></span>
-													</button>
-												</c:when>
-												<c:otherwise>
-													<button class="btn btn-primary">
-														Editar Membros da Comissão <span class="glyphicon glyphicon-user"></span>
-													</button>
-												</c:otherwise>
-											</c:choose>
-										</a>								
-										<c:if test="${avaliar}">
-											<a id="avaliarSelecao"
-												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-												<button class="btn btn-primary btn-sm">
-													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-
-
+										</button>
+								</a> <a id="atribuirComissao"
+									href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
+										<c:choose>
+											<c:when test="${empty selecao.membrosComissao}">
+												<button class="btn btn-primary btn-sm"
+													title="Atribuir Membro à Comissão">
+													<span class="glyphicon glyphicon-user"></span>
 												</button>
-											</a>
-										</c:if>
-										<a id="informacoes"
-											href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
-											<button class=" btn btn-success btn-sm" title="Informações">
-												<span class="glyphicon glyphicon-zoom-in"></span>
+											</c:when>
+											<c:otherwise>
+												<button class="btn btn-primary btn-sm"
+													title="Editar Membros da Comissão">
+													<span class="glyphicon glyphicon-user"></span>
+												</button>
+											</c:otherwise>
+										</c:choose>
+								</a> <c:if test="${avaliar}">
+										<a id="avaliarSelecao"
+											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
+											<button class="btn btn-primary btn-sm">
+												Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
+
+
 											</button>
-										</a>							
+										</a>
+									</c:if>
 							</tr>
 						</c:forEach>
 					</tbody>
