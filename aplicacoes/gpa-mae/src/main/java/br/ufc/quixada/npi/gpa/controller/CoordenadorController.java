@@ -1,6 +1,24 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANEXO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MEMBRO_BANCA_ATRIBUIR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MEMBRO_BANCA_REPETICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_REMOVER;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_COMISSAO_FORMADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_SELECAO_ATUALIZADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_SELECAO_CADASTRADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_SELECAO_REMOVIDA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_ATRIBUIR_COMISSAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_CADASTRAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -137,9 +155,12 @@ public class CoordenadorController {
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
+		
 		Servidor coordenador = servidorService.getServidorByCPF(auth.getName());
-		selecao.addCoordenador(coordenador);
-		selecao.setResponsavel(coordenador);
+		if(selecao.getResponsavel() == null){
+			selecao.addCoordenador(coordenador);
+			selecao.setResponsavel(coordenador);
+		}
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_CADASTRADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -161,24 +182,17 @@ public class CoordenadorController {
 			redirect.addFlashAttribute("erro", MENSAGEM_PERMISSAO_NEGADA);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
-		
+	
 		return PAGINA_CADASTRAR_SELECAO;
-
 	}
 	
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
-	public String editarSelecao(@RequestParam("files") List<MultipartFile> files,
-			@Valid @ModelAttribute("selecao") Selecao selecao, Model model,
-			BindingResult result, RedirectAttributes redirect, HttpServletRequest request) {
+	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result,
+			@RequestParam("files") List<MultipartFile> files, Model model, RedirectAttributes redirect,
+			HttpServletRequest request) {
 		
 		model.addAttribute("action", "editar");
-		
-		if (selecao != null && selecao.getAno() != null) {
-			if (selecao.getAno() < DateTime.now().getYear()) {
-				result.rejectValue("ano", "selecao.ano", MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR);
-			}
-		}
-		
+	
 		if (selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) {
 			if ((new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio()))) {
 				result.rejectValue("dataTermino", "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
@@ -194,7 +208,7 @@ public class CoordenadorController {
 		
 		String doc[] = request.getParameterValues("doc");
 
-		if (doc != null) {
+		/*if (doc != null) {
 
 			if (selecaoService.getSelecaoBolsaComDocumentos(selecao.getId()).getDocumentos().size() == doc.length
 				&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
@@ -210,7 +224,7 @@ public class CoordenadorController {
 				d.setId(Integer.parseInt(doc[k]));
 				documentoService.delete(d);
 			}
-		}
+		}*/
 		
 		List<Documento> documentos = new ArrayList<Documento>();
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
@@ -232,15 +246,19 @@ public class CoordenadorController {
 				}
 			}
 		} else {
+			Selecao selecaoAtual = selecaoService.find(Selecao.class, selecao.getId());
+			if (selecaoAtual.getDocumentos().isEmpty()) {
 			
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
-
-			return PAGINA_CADASTRAR_SELECAO;
+				model.addAttribute("tipoBolsa", TipoBolsa.values());
+				model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
+	
+				return PAGINA_CADASTRAR_SELECAO;
+			}
 		}
 		
-		
+
 		this.selecaoService.update(selecao);
+
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_ATUALIZADA);
 		
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -316,6 +334,32 @@ public class CoordenadorController {
 
 				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;	
 			}
+		}
+	}
+
+	@RequestMapping(value = "/selecao/excluir-documento/{idDocumento}", method = RequestMethod.GET)
+	public String excluirDocumento(@PathVariable("idDocumento") Integer idDocumento, @ModelAttribute("selecao") Selecao selecao, 
+			Model model, RedirectAttributes redirect) {
+
+		Documento documento = documentoService.find(Documento.class, idDocumento);
+		
+		if (documento != null) {
+			Integer idSelecao = documento.getSelecaoBolsa().getId();
+			
+			documentoService.delete(documento);
+			
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("selecao", selecao);
+			
+			return "redirect:/coordenador/selecao/editar/" + idSelecao;
+			
+		} else {
+
+			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("selecao", selecao);
+			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
+
+			return PAGINA_CADASTRAR_SELECAO;
 		}
 	}
 	

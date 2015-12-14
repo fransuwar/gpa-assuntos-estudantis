@@ -161,6 +161,8 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR = "Não é possivel excluir o Coordenador da Comissão";
 	
+	public static final String MENSAGEM_DOCUMENTO_REMOVIDO                = "Documento removido com Sucesso";
+	
 	/** Perfis */
 	
 	public static final String STA 									= "STA";

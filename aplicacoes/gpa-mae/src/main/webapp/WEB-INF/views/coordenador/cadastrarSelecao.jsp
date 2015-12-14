@@ -150,10 +150,10 @@
 								<tbody class="files">
 									<c:forEach items="${selecao.documentos}" var="documento">
 										<tr class="template-upload fade in" id="row-${documento.id}">
-											<td><a
+											<td><a 
 												href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
 												<strong class="error text-danger"></strong></td>
-											<td><a onclick="removerDocumento(${documento.id});"
+											<td><a id="excluir" data-toggle="modal"	data-target="#confirm-delete" data-href="<c:url value="/coordenador/selecao/excluir-documento/${documento.id }"></c:url>"
 												class="delete-document">
 													<button type="button" class="btn btn-danger">
 														Excluir <span class="glyphicon glyphicon-trash"></span>
@@ -185,7 +185,19 @@
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
-
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">Excluir</div>
+				<div class="modal-body">Tem certeza de que deseja excluir esse Documento?</div>
+				<div class="modal-footer">
+					<a href="#" class="btn btn-danger">Excluir</a>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>
