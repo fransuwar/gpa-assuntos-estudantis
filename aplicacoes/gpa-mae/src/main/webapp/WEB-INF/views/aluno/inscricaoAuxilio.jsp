@@ -47,7 +47,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>${selecao.tipoBolsa.nome }</td>
+							<td>${selecao.tipoSelecao.nome }</td>
 							<td>${selecao.ano }</td>
 							<td>${selecao.quantidadeVagas }</td>
 							<td> <fmt:formatDate value="${selecao.dataInicio }" pattern="dd/MM/yyyy"/> até <fmt:formatDate value="${selecao.dataTermino }" pattern="dd/MM/yyyy"/></td>
