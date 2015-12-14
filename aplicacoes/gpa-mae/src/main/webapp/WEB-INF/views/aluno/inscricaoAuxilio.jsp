@@ -74,7 +74,7 @@
 
 				</ul>
 
-				<form:form id="questionarioAuxilio" role="form"
+				<form:form id="questionario" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
 					servletRelativeAction="${url }" method="POST"

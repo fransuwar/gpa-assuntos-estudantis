@@ -66,7 +66,7 @@
 					</a></li>
 				</ul>
 
-				<form:form id="questionarioIniciacao" role="form"
+				<form:form id="questionario" role="form"
 				    onsubmit="return validaHorariosDisponiveisBolsa();"
 					commandName="questionarioIniciacaoAcademica"
 					modelAttribute="questionarioIniciacaoAcademica"
