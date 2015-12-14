@@ -21,14 +21,14 @@
 		</tr>
 	</thead>
 	<tbody id="pessoaFamiliaContainer">
-		<c:if test="${not empty pessoasDaFamilia }">
-			<c:forEach items="${pessoasDaFamilia }" var="pf">
+		<c:if test="${not empty pessoas }">
+			<c:forEach items="${pessoas }" var="pf">
 				<tr class="pessoaFamilia defaultRow">
 					<td><input type="text" name="pf.nome" value="${pf.nome }" /></td>
-					<td><form:select path="" name="pessoas[].grauParentesco"
+					<td><form:select path="" name="pessoas[].parentesco"
 							clas="form-control">
 							<form:option value="">Selecione um grau de parentesco</form:option>
-							<c:forEach items="${grauParentesco }" var="parentesco">
+							<c:forEach items="${parentesco }" var="parentesco">
 								<form:option value="${parentesco }"
 									selected="${parentesco == pf.parentesco ? 'selected' : '' }">${parentesco.nome}</form:option>
 							</c:forEach>
@@ -51,7 +51,7 @@
 				<td><form:select path="" name="pessoas[].parentesco"
 						class="form-control">
 						<form:option value="">Selecione um grau de parentesco</form:option>
-						<form:options items="${grauParentesco}" />
+						<form:options items="${parentesco}" />
 					</form:select></td>
 
 				<td><input type="text" name="pessoas[].escolaridade" value="" /></td>

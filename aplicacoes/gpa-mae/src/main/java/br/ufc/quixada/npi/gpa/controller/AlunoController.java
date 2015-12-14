@@ -104,7 +104,7 @@ public class AlunoController {
 		model.addAttribute("diasUteis", DiaUtil.toMap());
 		model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		model.addAttribute("totalEstado", Estado.toMap());
-		model.addAttribute("grauParentesco", GrauParentesco.toMap());
+		model.addAttribute("parentesco", GrauParentesco.toMap());
 		model.addAttribute("idSelecao", idSelecao);
 
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
@@ -125,7 +125,7 @@ public class AlunoController {
 			model.addAttribute("diasUteis", DiaUtil.toMap());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
-			model.addAttribute("grauParentesco", GrauParentesco.toMap());
+			model.addAttribute("parentesco", GrauParentesco.toMap());
 			model.addAttribute("idSelecao", idSelecao);
 
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
@@ -174,7 +174,7 @@ public class AlunoController {
 			model.addAttribute("diasUteis", DiaUtil.values());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
-			model.addAttribute("grauParentesco", GrauParentesco.toMap());
+			model.addAttribute("parentesco", GrauParentesco.toMap());
 
 			List<HorarioDisponivel> horariosDisponiveis = inscricaoService.getHorariosDisponiveisIniciacaoAcademica(iniciacaoAcademica.getId());
 			if (horariosDisponiveis != null) {
@@ -208,7 +208,7 @@ public class AlunoController {
 		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
 		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-		model.addAttribute("grauParentesco", GrauParentesco.values());
+		model.addAttribute("parentesco", GrauParentesco.values());
 		model.addAttribute("moraCom", MoraCom.values());
 		model.addAttribute("idSelecao", idSelecao);
 
@@ -232,6 +232,7 @@ public class AlunoController {
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 			model.addAttribute("moraCom", MoraCom.values());
 			model.addAttribute("selecaoBolsa", idSelecao);
+			model.addAttribute("parentesco", GrauParentesco.values());
 
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 

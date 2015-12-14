@@ -74,31 +74,26 @@
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
-								<td><a id="detalhes"
-
-									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
-										${selecao.tipoBolsa.nome} </a></td>
+								<td>
+								<a id="detalhes" href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
+										${selecao.tipoBolsa.nome}</a>
+								</td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
 
-								<td>
-								
+								<td>							
 										<a id="visualizarInscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
 												<i class="fa fa-users fa-lg"></i>
 											</button>
-										</a>
-
-							
+										</a>						
 										<a id="editar"
-
 											href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
 											<button class="btn btn-info">
 												Editar <span class="glyphicon glyphicon-pencil"></span>
-
 											</button>
 										</a>
 										<a id="excluir" data-toggle="modal"
@@ -110,9 +105,7 @@
 
 											</button>
 										</a>
-
 										<a id="atribuirBanca"
-
 											href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
 											<c:choose>
 												<c:when test="${empty selecao.membrosBanca}">
@@ -126,54 +119,7 @@
 													</button>
 												</c:otherwise>
 											</c:choose>
-
-										</a>
-									
-								
-										<c:choose>
-											<c:when
-												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoBolsa == inic_acad and selecao.status == 'INSC_ABERTA'}">
-												<a id="inscrever"
-
-													href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
-													<button class=" btn btn-success">
-														inscrever-se <span class="glyphicon glyphicon-user"></span>
-
-													</button>
-												</a>
-											</c:when>
-											<c:when
-												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoBolsa == inic_acad and selecao.status == 'INSC_ABERTA'}">
-												<a id="editar"
-													href="<c:url value="/aluno/inscricao/editar/iniciacao-academica/${inscricao.id}" ></c:url>">
-													<button class=" btn btn-info btn-sm" title="Editar Inscrição">
-														<span class="glyphicon glyphicon-pencil"></span>
-													</button>
-												</a>
-											</c:when>											
-											<c:when
-												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoBolsa == aux_mor and selecao.status == 'INSC_ABERTA'}">
-												<a id="inscrever"
-
-
-													href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-													<button class=" btn btn-success">
-														inscrever-se <span class="glyphicon glyphicon-user"></span>
-													</button>
-												</a>
-											</c:when>
-											<c:when
-												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoBolsa == aux_mor and selecao.status == 'INSC_ABERTA'}">
-												<a id="editar"
-													href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id}" ></c:url>">
-													<button class=" btn btn-info btn-sm" title="Editar Inscrição">
-														editar <span class="glyphicon glyphicon-pencil"></span>
-													</button>
-												</a>
-											</c:when>
-										</c:choose>
-									
-									
+										</a>								
 										<c:if test="${avaliar}">
 											<a id="avaliarSelecao"
 												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
@@ -184,15 +130,12 @@
 												</button>
 											</a>
 										</c:if>
-									
-
 										<a id="informacoes"
 											href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
 											<button class=" btn btn-success btn-sm" title="Informações">
 												<span class="glyphicon glyphicon-zoom-in"></span>
 											</button>
-										</a>
-									
+										</a>							
 							</tr>
 						</c:forEach>
 					</tbody>

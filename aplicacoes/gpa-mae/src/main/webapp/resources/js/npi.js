@@ -236,6 +236,18 @@ $(document).ready(function(){
 	        }
 	    
 		 });
+	
+	$('#mora-com-outros').hide();
+    $("#comQuemMora7").change(function () {
+        if ($("#comQuemMora7").prop('checked')) {
+        		$('#mora-com-outros').show();
+        }
+        else {
+            $('#mora-com-outros').hide();                                                                    
+        }
+    });
+	
+	
 });
 
 

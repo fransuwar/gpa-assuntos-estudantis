@@ -76,19 +76,19 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<div class="col-sm-9" id="col-sm-radio">
-											<form:checkboxes items="${moraCom}" path="comQuemMora" />
+											<form:checkboxes items="${moraCom}" itemLabel="nome" path="comQuemMora" />
 											<div class="error-validation">
 												<form:errors path="comQuemMora"></form:errors>
 											</div>
 										</div>
 									</div>
-									<div class="form-group" align="left" class="col-sm-16">
+									<div id="mora-com-outros" class="form-group" align="left" class="col-sm-16">
 										<label for=comQuemMoraOutros class="col-sm-7 control-label">
 											<span class="red">*</span>Com Que Mora essas pessoas ?
 										</label>
 										<div class="col-sm-4">
-											<form:input id="comQuemMoraOutros" path="comQuemMoraOutros"
-												cssClass="form-control"
+											<form:input id="comQuemMoraOutros" path="comQuemMora"
+												cssClass="form-control" 
 												placeholder="Com quem mora essas pessoas ?" />
 											<div class="error-validation">
 												<form:errors path="comQuemMoraOutros"></form:errors>
