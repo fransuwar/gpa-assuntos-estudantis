@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
+import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -46,10 +46,12 @@ public class SelecaoController {
 	@Inject
 	private SelecaoService selecaoService;
 
+	
+
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model,
-			RedirectAttributes redirect) {
-		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
+	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
+		Selecao selecao = selecaoService.getSelecaoComDocumentos(idSelecao);
+
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
@@ -84,9 +86,9 @@ public class SelecaoController {
 		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
 
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("tipoBolsa", TipoBolsa.values());
-		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+		model.addAttribute("tipoBolsa", TipoSelecao.values());
+		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
 		return PAGINA_LISTAR_SELECAO;
 	}
@@ -94,11 +96,11 @@ public class SelecaoController {
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
-		List<Selecao> selecoes = this.servidorService.find(Servidor.class, id).getParticipaBancas();
+		List<Selecao> selecoes = this.servidorService.find(Servidor.class, id).getParticipaComissao();
 
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
+		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
 		return PAGINA_LISTAR_SELECAO;
 	}

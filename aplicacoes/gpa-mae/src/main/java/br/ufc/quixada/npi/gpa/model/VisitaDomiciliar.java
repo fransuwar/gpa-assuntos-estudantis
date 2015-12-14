@@ -33,7 +33,7 @@ public class VisitaDomiciliar {
 	private Servidor servidor;
 	
 	@ManyToOne
-	private Selecao selecaoBolsa;
+	private Selecao selecao;
 	
 	@NotEmpty(message = "Campo obrigatório")
 	private String formaAcessoCasa;
@@ -615,13 +615,13 @@ public class VisitaDomiciliar {
 	public void setDataRelatorio(Date dataRelatorio) {
 		this.dataRelatorio = dataRelatorio;
 	}
-	
-	public Selecao getSelecaoBolsa() {
-		return selecaoBolsa;
+
+	public Selecao getSelecao() {
+		return selecao;
 	}
-	
-	public void setSelecaoBolsa(Selecao selecaoBolsa) {
-		this.selecaoBolsa = selecaoBolsa;
+
+	public void setSelecao(Selecao selecao) {
+		this.selecao = selecao;
 	}
 	
 	public Despesa getDespesa() {
@@ -675,7 +675,7 @@ public class VisitaDomiciliar {
 	@Override
 	public String toString() {
 		return "VisitaDomiciliar [id=" + id + ", aluno=" + aluno + ", servidor=" + servidor + ", selecaoBolsa="
-				+ selecaoBolsa + "]";
+				+ selecao + "]";
 	}
 	
 	@Override
