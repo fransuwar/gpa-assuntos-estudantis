@@ -81,16 +81,13 @@
 							</tr>
 						</thead>
 						<tbody>
-						
 							<c:forEach var="membro" items="${selecao.membrosBanca }">
 								<tr>
 									<td>${membro.pessoa.nome }</td>
 									<td>${membro.siape }</td>
 									<td>${membro.cargo.nome }</td>
-									
 								</tr>
 							</c:forEach>
-							
 						</tbody>
 					</table>
 				</div>
@@ -137,9 +134,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
-
 			</div>
-
 		</sec:authorize>
 	</div>
 
