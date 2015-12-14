@@ -50,8 +50,8 @@ $(document).ready(function(){
 			}
 	});
 	
-	$('#adicionarSelecaoForm').validate({
-		
+	$('#questionarioIniciacao').validate({
+			
 		  
 		 rules: {
 			 enderecoFamilia:{
@@ -117,7 +117,7 @@ $(document).ready(function(){
 	    
 		 });
 	
-	$('#questionarioIniciacao').validate({
+	$('#adicionarSelecaoForm').validate({
 		
 		  
 		 rules: {

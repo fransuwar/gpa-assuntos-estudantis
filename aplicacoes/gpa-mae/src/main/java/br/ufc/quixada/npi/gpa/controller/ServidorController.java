@@ -67,8 +67,7 @@ public class ServidorController {
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
-		
-		Servidor servidor = this.servidorService.getServidorByCPFComComissao(auth.getName());
+		Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
 
 		if (!servidor.getParticipaComissao().isEmpty()) {
 
@@ -103,8 +102,7 @@ public class ServidorController {
 	public String realizarEntrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idServidor") Integer idPessoa, 
 			 BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 			
-			Servidor servidor = this.servidorService.getPessoaServidorComComissao(idPessoa);
-
+			Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
 			entrevista.setServidor(servidor);
 			entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));			
 			

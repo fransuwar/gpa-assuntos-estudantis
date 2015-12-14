@@ -15,25 +15,11 @@ public class ServidorServiceImpl extends GenericServiceImpl<Servidor> implements
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Servidor getServidorBySiape(String siape) {
+	public Servidor getServidor(String siape) {
 		
 		return (Servidor) findFirst("Servidor.findServidorBySiape", new SimpleMap<String, Object>("siape", siape));
 	}
 
-	@Override
-	@Transactional
-	public Servidor getServidorComComissao(Integer id) {
-		
-		return (Servidor) findFirst("Servidor.findServidorComComissao", new SimpleMap<String, Object>("servidorId", id));
-		
-	}
-
-	@Override
-	@Transactional
-	public Servidor getPessoaServidorComComissao(Integer id) {
-		return (Servidor) findFirst("Servidor.findPessoaServidorComComissao", new SimpleMap<String, Object>("pessoaId", id));
-
-	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -42,7 +28,7 @@ public class ServidorServiceImpl extends GenericServiceImpl<Servidor> implements
 	}
 
 	@Override
-	public Servidor getServidorByCPFComComissao(String CPF) {
+	public Servidor getServidorComComissao(String CPF) {
 		return (Servidor) findFirst("Servidor.findServidorByCPFComComissao", new SimpleMap<String, Object>("cpf", CPF));
 
 	}

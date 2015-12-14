@@ -96,7 +96,7 @@ public class SelecaoController {
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
-		List<Selecao> selecoes = this.servidorService.getPessoaServidorComComissao(id).getParticipaComissao();
+		List<Selecao> selecoes = this.servidorService.find(Servidor.class, id).getParticipaComissao();
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);

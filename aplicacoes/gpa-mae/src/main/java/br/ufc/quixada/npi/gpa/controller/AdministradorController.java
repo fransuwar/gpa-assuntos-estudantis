@@ -278,7 +278,7 @@ public class AdministradorController {
 	@RequestMapping(value = "/listar", method = RequestMethod.POST)
 	public String listarServidor(@RequestParam("siape") String siape, Model model, RedirectAttributes redirect) {
 		List<Servidor> results = new ArrayList<Servidor>();
-		Servidor servidor = servidorService.getServidorBySiape(siape);
+		Servidor servidor = servidorService.getServidor(siape);
 		results.add(servidor);
 		model.addAttribute("servidores", results);
 

@@ -137,7 +137,7 @@ public class CoordenadorController {
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-		Servidor coordenador = servidorService.getServidorBySiape(auth.getName());
+		Servidor coordenador = servidorService.getServidor(auth.getName());
 		selecao.addCoordenador(coordenador);
 		selecao.setResponsavel(coordenador);
 		this.selecaoService.save(selecao);
@@ -151,7 +151,7 @@ public class CoordenadorController {
 		
 		Selecao selecao = this.selecaoService.getSelecaoComDocumentos(idSelecao);
 
-		if (selecao != null && selecao.getStatus() != null && selecao.getStatus().equals(Status.NOVA)) {
+		if (selecao != null && selecao.getStatus() != null) {
 		
 			model.addAttribute("action", "editar");
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
@@ -290,7 +290,7 @@ public class CoordenadorController {
 
 		if (idServidor == null) {
 			
-		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_BANCA_ATRIBUIR);
+		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_COMISSAO_ATRIBUIR);
 
 			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 
@@ -303,7 +303,7 @@ public class CoordenadorController {
 			Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 			if (comissao.contains(servidor)) {
 				
-				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_BANCA_REPETICAO);
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
 				
 				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 				
@@ -325,7 +325,7 @@ public class CoordenadorController {
 			Model model, Authentication auth, RedirectAttributes redirect) {
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		Servidor coordenador = servidorService.getServidorBySiape(auth.getName());		
+		Servidor coordenador = servidorService.getServidor(auth.getName());		
 		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 		if(coordenador.getId() != servidor.getId()){
 			
