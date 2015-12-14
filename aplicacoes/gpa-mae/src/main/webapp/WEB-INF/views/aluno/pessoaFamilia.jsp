@@ -7,74 +7,72 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <div class="bs-component">
-<table class="table table-striped table-hover ">
+	<table class="table table-striped table-hover ">
 
-	<thead>
-		<tr>
-			<th class="form-group"><span class="red">*</span>Nome</th>
-			<th class="form-group"><span class="red">*</span>Parentesco</th>
-			<th class="form-group"><span class="red">*</span>Escolaridade</th>
-			<th class="form-group"><span class="red">*</span>Idade</th>
-			<th class="form-group"><span class="red">*</span>Profissao</th>
-			<th class="form-group"><span class="red">*</span>Renda R$</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody id="pessoaFamiliaContainer">
-		<c:if test="${not empty pessoasDaFamilia }">
-			<c:forEach items="${pessoasDaFamilia }" var="pf">
-				<tr class="pessoaFamilia defaultRow">
-					<td><input class="form-control" type="text" name="pf.nome"
-						value="${pf.nome }" /></td>
-					<td><form:select path="" name="pessoas[].grauParentesco"
-							clas="form-control" cssStyle="font-size:13px;">
-							<form:option value="">Selecione um grau de parentesco</form:option>
-							<c:forEach items="${grauParentesco }" var="parentesco">
-								<form:option value="${parentesco }"
-									selected="${parentesco == pf.parentesco ? 'selected' : '' }">${parentesco.nome}</form:option>
-							</c:forEach>
-						</form:select></td>
-					<td><input class="form-control" type="text"
-						name="pf.escolaridade" value="${pf.escolaridade }" /></td>
-					<td><input class="form-control" type="number" name="pf.idade"
-						value="${pf.idade }" /></td>
-					<td><input class="form-control" type="text"
-						name="pf.profissao" value="${pf.profissao }" /></td>
-					<td><input class="form-control" type="number"
-						name="pf.rendaMensal" value="${pf.rendaMensal }" size="10" /></td>
-				</tr>
-			</c:forEach>
-		</c:if>
-
-		<c:if test="${empty pessoasDaFamilia }">
-	
-			<tr class="pessoaFamilia defaultRow">
-				<td><input class="form-control" type="text"
-					name="pessoas[].nome" value="" /></td>
-
-				<td><form:select path="" name="pessoas[].parentesco"
-						class="form-control" cssStyle="font-size:13px;">
-						<form:option value="">Selecione um grau parentesco</form:option>
-						<form:options items="${grauParentesco}" />
-					</form:select></td>
-
-				<td><input class="form-control" type="text"
-					name="pessoas[].escolaridade" value="" /></td>
-				<td><input class="form-control" type="number"
-					name="pessoas[].idade" value="" /></td>
-				<td><input class="form-control" type="text"
-					name="pessoas[].profissao" value="" /></td>
-				<td><input class="form-control" type="number"
-					name="pessoas[].rendaMensal" value="" /></td>
-
-				<td><a href="#" >Remover Pessoa</a></td>
+		<thead>
+			<tr>
+				<th class="form-group"><span class="red">*</span>Nome</th>
+				<th class="form-group"><span class="red">*</span>Parentesco</th>
+				<th class="form-group"><span class="red">*</span>Escolaridade</th>
+				<th class="form-group"><span class="red">*</span>Idade</th>
+				<th class="form-group"><span class="red">*</span>Profissao</th>
+				<th class="form-group"><span class="red">*</span>Renda R$</th>
+				<th></th>
 			</tr>
-		
-		</c:if>
-	</tbody>
+		</thead>
+		<tbody id="pessoaFamiliaContainer">
+			<c:if test="${not empty pessoasDaFamilia }">
+				<c:forEach items="${pessoasDaFamilia }" var="pf">
+					<tr class="pessoaFamilia defaultRow">
+						<td><input class="form-control" type="text" name="pf.nome"
+							value="${pf.nome }" /></td>
+						<td><form:select path="" name="pessoas[].grauParentesco"
+								class="form-control" cssStyle="font-size:13px;">
+								<form:option value="">Selecione um grau de parentesco</form:option>
+								<c:forEach items="${grauParentesco }" var="parentesco">
+									<form:option value="${parentesco }"
+										selected="${parentesco == pf.parentesco ? 'selected' : '' }">${parentesco.nome}</form:option>
+								</c:forEach>
+							</form:select></td>
+						<td><input class="form-control" type="text"
+							name="pf.escolaridade" value="${pf.escolaridade }" /></td>
+						<td><input class="form-control" type="number" name="pf.idade"
+							value="${pf.idade }" /></td>
+						<td><input class="form-control" type="text"
+							name="pf.profissao" value="${pf.profissao }" /></td>
+						<td><input class="form-control" type="number"
+							name="pf.rendaMensal" value="${pf.rendaMensal }" size="10" /></td>
+					</tr>
+				</c:forEach>
+			</c:if>
 
+			<c:if test="${empty pessoasDaFamilia }">
+				<c:forEach begin="1" end="1" var="i">
 
-</table>
+					<tr class="pessoaFamilia">
+						<td><input class="form-control" type="text" name="pessoas[${i }].nome" value="" /></td>
+
+						<td><form:select path="" name="pessoas[${i }].parentesco"
+								class="form-control">
+								<form:option value="">Selecione um grau de parentesco</form:option>
+								<form:options items="${grauParentesco}" />
+							</form:select></td>
+
+						<td><input class="form-control" type="text" name="pessoas[${i }].escolaridade"
+							value="" /></td>
+						<td><input class="form-control" type="number" name="pessoas[${i }].idade" value="" /></td>
+						<td><input type="text" name="pessoas[${i }].profissao"
+							value="" /></td>
+						<td><input class="form-control" type="number" name="pessoas[${i }].rendaMensal"
+							value="" /></td>
+
+						<td><a href="#" class="removePessoa">Remover Pessoa</a></td>
+					</tr>
+
+				</c:forEach>
+			</c:if>
+		</tbody>
+	</table>
 </div>
 <a href="#" id="addPessoa" class="btn btn-primary">Adicionar Pessoa</a>
 
@@ -92,7 +90,7 @@
 							rowClass : 'pessoaFamilia',
 							addRowId : 'addPessoa',
 							removeRowClass : 'removePessoa',
-							formId : 'questionarioForm',
+							formId : 'questionarioIniciacao',
 							rowContainerId : 'pessoaFamiliaContainer',
 							indexedPropertyName : 'pessoas',
 							indexedPropertyMemberNames : 'nome, parentesco, escolaridade, idade, profissao, rendaMensal',

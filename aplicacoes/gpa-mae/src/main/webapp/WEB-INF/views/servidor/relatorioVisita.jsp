@@ -26,7 +26,7 @@
 	</ol>
 
 	<div class="container">
-		<sec:authorize access="hasAnyRole('SERVIDOR')">
+		<sec:authorize access="hasAnyRole('STA','DOCENTE')">
 			<div class="novo-projeto" align="left">
 				<div class="form" align="center">
 					<h2>Relatório de Visita Domiciliar</h2>
@@ -55,8 +55,11 @@
 					<form:form id="relatorioForm" role="form"
 						modelAttribute="relatorioVisitaDomiciliar"
 						commandName="relatorioVisitaDomiciliar"
-						servletRelativeAction="/relatorioVisita/cadastrar/${aluno.id}/${idSelecao}"
+						servletRelativeAction="/servidor/visita"
 						method="POST" cssClass="form-horizontal">
+						
+						<input type="hidden" id="idAluno" name="idAluno" value="${idAluno }">
+						<input type="hidden" id="idSelecao" name="idSelecao" value="${idSelecao }"/>
 
 						<div class="tab-content">
 							<div class="tab-pane active" id="dados-gerais-tab">

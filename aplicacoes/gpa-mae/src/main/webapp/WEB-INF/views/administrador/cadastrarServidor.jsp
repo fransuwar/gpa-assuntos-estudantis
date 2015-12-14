@@ -31,7 +31,7 @@
 
 			<div class="panel-body">
 				<form:form id="adicionarServidorForm" role="form"
-					commandName="servidor" servletRelativeAction="/servidor/salvar"
+					commandName="servidor" servletRelativeAction="/administrador/salvar"
 					method="POST" cssClass="form-horizontal">
 
 					<input type="hidden" name="id" value="${servidor.id}" />
@@ -68,7 +68,7 @@
 								value="Cadastrar" id="form-btn" />
 						</div>
 						<div class="col-sm-2" id="div-form-btn">
-							<a href="<c:url value="/servidor/listar"></c:url>"
+							<a href="<c:url value="/admin/listar"></c:url>"
 								class="btn btn-default" id="form-btn">Cancelar</a>
 						</div>
 					</div>

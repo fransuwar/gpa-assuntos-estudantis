@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -39,14 +38,12 @@
 		</c:if>
 
 		<div class="col-md-14">
-
 			<div class="panel panel-primary">
-
 
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
 				</div>
-					<div class="panel-body">
+
 				<table class="table display" id="tabela-selecoes">
 					<thead>
 						<tr>
@@ -71,20 +68,19 @@
 								<td><c:choose>
 										<c:when
 											test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
-											<a id="inscrever" title="Inscrever-se"
+											<a id="inscrever"
 												href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
-												<button class="btn btn-primary btn-xs"
-													title="Realizar Inscrição">
-													<span class="glyphicon glyphicon-user"></span>
+												<button class=" btn btn-success">
+													inscrever-se <span class="glyphicon glyphicon-user"></span>
 
 												</button>
 											</a>
 										</c:when>
 										<c:when
 											test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
-											<a id="editar" title="Editar"
+											<a id="editar"
 												href="<c:url value="/aluno/editar/inscricao/iniciacao-academica" ></c:url>">
-												<button class="btn btn-primary btn-xs"
+												<button class=" btn btn-info btn-sm"
 													title="Editar Inscrição">
 													<span class="glyphicon glyphicon-pencil"></span>
 												</button>
@@ -92,31 +88,34 @@
 										</c:when>
 										<c:when
 											test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
-											<a id="inscrever" title="Inscrever-se"
+											<a id="inscrever"
 												href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-												<button class="btn btn-primary btn-xs">
-													<span class="glyphicon glyphicon-user"></span>
+												<button class=" btn btn-success">
+
+
+													inscrever-se <span class="glyphicon glyphicon-user"></span>
 												</button>
 											</a>
 										</c:when>
 										<c:when
 											test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
-											<a id="editar" title="Editar"
+											<a id="editar"
 												href="<c:url value="/aluno/editar/inscricao/auxilio-moradia" ></c:url>">
-												<button class="btn btn-primary btn-xs"
+												<button class=" btn btn-info btn-sm"
 													title="Editar Inscrição">
-													<span class="glyphicon glyphicon-pencil"></span>
+													editar <span class="glyphicon glyphicon-pencil"></span>
 												</button>
 											</a>
 										</c:when>
-									</c:choose></td>
+									</c:choose>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				</div>
 			</div>
 		</div>
-		<jsp:include page="../fragments/footer.jsp" />
+	</div>
+
+	<jsp:include page="../fragments/footer.jsp" />
 </body>
 </html>

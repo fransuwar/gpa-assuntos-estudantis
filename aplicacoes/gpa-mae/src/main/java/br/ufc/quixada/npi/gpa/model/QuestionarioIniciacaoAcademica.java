@@ -14,7 +14,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -41,11 +40,10 @@ public class QuestionarioIniciacaoAcademica {
 	@Enumerated(EnumType.STRING)
 	private NivelInstrucao nivelInstrucaoPai;
 	
-	@NotNull
-	@Size(min = 1, message = "Campo Obrigatório")
+	@NotEmpty(message = "Campo Obrigatório")
 	private String justificativaPedido;
 	
-	@NotNull(message = "Campo Obrigatório")
+	@NotEmpty(message = "Campo Obrigatório")
 	private String endereco;
 	
 	@NotNull(message = "Campo Obrigatório")
@@ -53,15 +51,13 @@ public class QuestionarioIniciacaoAcademica {
 	
 	private String complemento;
 	
-	@NotNull
-	@Size(min = 1, message = "Campo Obrigatório")
+	@NotNull(message = "Campo Obrigatório")
 	private String bairro;
 	
 	@NotEmpty(message = "Campo Obrigatório")
 	private String cep;
 	
-	@NotNull
-	@Size(min = 3, message = "Campo Obrigatório")
+	@NotEmpty(message = "Campo Obrigatório")
 	private String cidade;
 	
 	@NotEmpty(message = "Campo Obrigatório")
@@ -69,7 +65,7 @@ public class QuestionarioIniciacaoAcademica {
 	
 	private String referencia;
 	
-	@NotNull(message = "Campo Obrigatório")
+	@NotEmpty(message = "Campo Obrigatório")
 	private String enderecoFamilia;
 	
 	@NotNull(message = "Campo Obrigatório")
@@ -77,15 +73,13 @@ public class QuestionarioIniciacaoAcademica {
 	
 	private String complementoFamilia;
 	
-	@NotNull
-	@Size(min = 1, message = "Campo Obrigatório")
+	@NotEmpty(message = "Campo Obrigatório")
 	private String bairroFamilia;
 	
 	@NotEmpty(message = "Campo Obrigatório")
 	private String cepFamilia;
 	
-	@NotNull
-	@Size(min = 3, message = "Campo Obrigatório")
+	@NotEmpty( message = "Campo Obrigatório")
 	private String cidadeFamilia;
 	
 	@NotEmpty(message = "Campo Obrigatório")
@@ -137,7 +131,7 @@ public class QuestionarioIniciacaoAcademica {
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "questionarioiniciacaoacademica_id")
-	private List<HorarioDisponivel> horariosDisponiveisBolsa;
+	private List<HorarioDisponivel> horariosDisponiveisSelecao;
 	
 	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
@@ -494,12 +488,12 @@ public class QuestionarioIniciacaoAcademica {
 		this.qtdEmpregadosDomesticos = qtdEmpregadosDomesticos;
 	}
 	
-	public List<HorarioDisponivel> getHorariosDisponiveisBolsa() {
-		return horariosDisponiveisBolsa;
+	public List<HorarioDisponivel> getHorariosDisponiveisSelecao() {
+		return horariosDisponiveisSelecao;
 	}
 
-	public void setHorariosDisponiveisBolsa(List<HorarioDisponivel> horariosDisponiveisBolsa) {
-		this.horariosDisponiveisBolsa = horariosDisponiveisBolsa;
+	public void setHorariosDisponiveisSelecao(List<HorarioDisponivel> horariosDisponiveisSelecao) {
+		this.horariosDisponiveisSelecao = horariosDisponiveisSelecao;
 	}
 
 	public List<PessoaFamilia> getPessoas() {
@@ -510,6 +504,10 @@ public class QuestionarioIniciacaoAcademica {
 		this.pessoas = pessoas;
 	}
 	
+	@Override
+	public String toString() {
+		return "QuestionarioIniciacaoAcademica [id=" + id + "]";
+	}
 	
 	@Override
 	public int hashCode() {
@@ -535,11 +533,5 @@ public class QuestionarioIniciacaoAcademica {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "QuestionarioIniciacaoAcademica [id=" + id + "]";
-	}
-	
 
 }

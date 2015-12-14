@@ -23,15 +23,15 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Status;
-import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
+import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 
 @NamedQueries({
-		@NamedQuery(name = "Selecao.findSelecaoBolsaComDocumentos", 
-				query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoBolsaId "),
-		@NamedQuery(name = "Selecao.findSelecaoBolsaComMembros", 
-				query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca"),
-		@NamedQuery(name = "Selecao.findSelecaoBolsaIdComMembros", 
-				query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.membrosBanca WHERE sb.id = :selecaoBolsaId"), })
+		@NamedQuery(name = "Selecao.findSelecaoComDocumentos", 
+				query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoId "),
+		@NamedQuery(name = "Selecao.findSelecaoComMembros", 
+				query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosComissao"),
+		@NamedQuery(name = "Selecao.findSelecaoIdComMembros", 
+				query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.membrosComissao WHERE sb.id = :selecaoId"), })
 
 @Entity
 public class Selecao {
@@ -65,13 +65,13 @@ public class Selecao {
 	private Status status;
 	
 	@Enumerated(EnumType.STRING)
-	private TipoBolsa tipoBolsa;
+	private TipoSelecao tipoSelecao;
 	
-	@OneToMany(mappedBy = "selecaoBolsa", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
+	@OneToMany(mappedBy = "selecao", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	private List<Documento> documentos;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<Servidor> membrosBanca;
+	private List<Servidor> membrosComissao;
 	
 	@ManyToOne
 	private Servidor responsavel;
@@ -99,8 +99,8 @@ public class Selecao {
 		return id;
 	}
 
-	public List<Servidor> getMembrosBanca() {
-		return membrosBanca;
+	public List<Servidor> getMembrosComissao() {
+		return membrosComissao;
 	}
 
 	public Integer getQuantidadeVagas() {
@@ -129,8 +129,8 @@ public class Selecao {
 		return status;
 	}
 
-	public TipoBolsa getTipoBolsa() {
-		return tipoBolsa;
+	public TipoSelecao getTipoSelecao() {
+		return tipoSelecao;
 	}
 
 	public void setAno(Integer ano) {
@@ -153,8 +153,8 @@ public class Selecao {
 		this.id = id;
 	}
 
-	public void setMembrosBanca(List<Servidor> membrosBanca) {
-		this.membrosBanca = membrosBanca;
+	public void setMembrosComissao(List<Servidor> membrosComissao) {
+		this.membrosComissao = membrosComissao;
 	}
 
 	public void setQuantidadeVagas(Integer quantidadeVagas) {
@@ -173,8 +173,8 @@ public class Selecao {
 		this.status = status;
 	}
 
-	public void setTipoBolsa(TipoBolsa tipoBolsa) {
-		this.tipoBolsa = tipoBolsa;
+	public void setTipoSelecao(TipoSelecao tipoSelecao) {
+		this.tipoSelecao = tipoSelecao;
 	}
 
 	public List<Inscricao> getInscritos() {
@@ -185,10 +185,10 @@ public class Selecao {
 		this.inscritos = inscritos;
 	}
 	public void addCoordenador (Servidor coordenador){
-		if(this.membrosBanca == null){
-			membrosBanca = new ArrayList<Servidor>();
+		if(this.membrosComissao == null){
+			membrosComissao = new ArrayList<Servidor>();
 		}
-		this.membrosBanca.add(coordenador);
+		this.membrosComissao.add(coordenador);
 	}
 	@Override
 	public int hashCode() {
@@ -219,8 +219,13 @@ public class Selecao {
 	public String toString() {
 		return "Selecao [id=" + id + ", ano=" + ano + ", sequencial=" + sequencial + ", quantidadeVagas="
 				+ quantidadeVagas + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino + ", status=" + status
-				+ ", tipoBolsa=" + tipoBolsa + ", documentos=" + documentos + ", membrosBanca=" + membrosBanca
+				+ ", tipoSelecao=" + tipoSelecao + ", documentos=" + documentos + ", membrosComissao=" + membrosComissao
 				+ ", responsavel=" + responsavel + ", inscritos=" + inscritos + "]";
+	}
+
+	public List<Aluno> getAlunosSelecao() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

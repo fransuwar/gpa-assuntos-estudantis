@@ -7,24 +7,25 @@ import br.ufc.quixada.npi.service.GenericService;
 
 public interface SelecaoService extends GenericService<Selecao> {
 
-	public abstract List<Selecao> getSelecaoBolsasSubmetidos();
+	public abstract List<Selecao> getSelecoesSubmetidos();
 	
-	public List<Selecao> getSelecaoBolsasAtribuidos();
+	public List<Selecao> getSelecoesAtribuidos();
 
-	public abstract List<Selecao> getSelecaoBolsasByUsuario(Integer id);
+	public abstract boolean isSelecaoCadastrada(Selecao selecao);
+
+	public abstract List<Selecao> getSelecoesByUsuario(Integer id);
 	
-	public abstract List<Selecao> getSelecaoBolsasAguardandoParecer();
+	public abstract List<Selecao> getSelecoesAguardandoParecer();
+
+	public abstract Selecao getSelecaoComDocumentos(Integer id);
+
+	public abstract List<Selecao> getSelecoesComMembros();
+
+	public abstract Selecao getSelecaoComMembros(Integer id);
+
+	public abstract Selecao getSelecaoComAlunos(Integer id);
 	
-	public abstract boolean existsSelecaoEquals(Selecao selecaoBolsa);
+	public abstract List<Selecao> getSelecoesComAlunos();
 
-	public abstract Selecao getSelecaoBolsaComDocumentos(Integer id);
-
-	public abstract List<Selecao> getSelecaoBolsaComMembros();
-
-	public abstract Selecao getSelecaoBolsaComMembros(Integer id);
-
-	public abstract Selecao getSelecaoBolsaComAlunos(Integer id);
-	
-	public abstract List<Selecao> getSelecaoComAlunos();
 
 }

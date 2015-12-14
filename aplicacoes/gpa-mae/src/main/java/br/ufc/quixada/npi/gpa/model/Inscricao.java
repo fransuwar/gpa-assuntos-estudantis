@@ -20,10 +20,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 
 @NamedQueries({
+		@NamedQuery(name = "Inscricao.findIncricoesByIdAluno", query = "select i from Inscricao i where i.aluno.id = :idAluno") })
 
-	@NamedQuery(name = "Incricao.findIncricaoId", 
-			query = "SELECT ins FROM Inscricao ins WHERE ins.id = :idInscricao"),
-	})
 @Entity
 public class Inscricao {
 
@@ -45,16 +43,21 @@ public class Inscricao {
 	@Column(nullable = false)
 	private boolean deferimento;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
-	@OneToOne
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
+	
 	@OneToOne
 	private Selecao selecao;
+	
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
+	
 	@OneToOne
 	private Entrevista entrevista;
+
 	@ManyToOne
 	private Aluno aluno;
 

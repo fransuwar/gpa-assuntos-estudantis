@@ -24,11 +24,12 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Minhas Inscrições</h3>
 				</div>
+
 				<div class="panel-body">
 					<table class="table-display" id="tabela-selecoes">
 						<thead>
 							<tr>
-								<th>Tipo de Bolsa</th>
+								<th>Tipo de Seleção</th>
 								<th>Ano</th>
 								<th>Edital</th>
 								<th>Vagas</th>
@@ -42,22 +43,22 @@
 									<sec:authorize access="hasAnyRole('DISCENTE')">
 										<td><a id="detalhesSelecao"
 											href="<c:url value="/aluno/detalhes-inscricao/${inscricao.id}"></c:url>">
-												${inscricao.selecao.tipoBolsa.nome} </a></td>
+												${inscricao.selecao.tipoSelecao.nome} </a></td>
 									</sec:authorize>
 									<td>${inscricao.selecao.ano}</td>
 									<td>${inscricao.selecao.sequencial}</td>
 									<td>${inscricao.selecao.quantidadeVagas}</td>
 									<td>${inscricao.selecao.status.nome}</td>
 									<td><sec:authorize access="hasAnyRole('DISCENTE')">
-											<a id="editarInscricao"
+											<a id="editarInscricao" title="Editar"
 												href="<c:url value="/selecao/inscritos/${aluno.id}" ></c:url>">
-												<button class="btn btn-primary btn-sm" title="Editar Inscrição">
+												<button class="btn btn-primary btn-xs" title="Editar Inscrição">
 													<span class="glyphicon glyphicon-pencil"></span>
 												</button>
 											</a>
-											<a id="excluirInscricao"
+											<a id="excluirInscricao" title="Excluir"
 												href="<c:url value="/inscricao/excluir/${idAluno}/${inscricao.id}" ></c:url>">
-												<button class="btn btn-danger btn-sm"
+												<button class="btn btn-danger btn-xs"
 													title="Excluir Inscrição">
 													<i class="glyphicon glyphicon-trash"></i>
 												</button>

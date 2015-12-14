@@ -61,10 +61,11 @@
 				</c:if>
 				<c:if test="${not empty servidores}">
 					<!-- Table -->
+
 					<div class="panel-body">
 						<table class="display" id="tabela-servidores">
 							<thead>
-								<tr>
+								<tr class="info">
 									<th>SIAPE</th>
 									<th>Cargo</th>
 									<th id="acoes">Ações</th>
@@ -78,16 +79,18 @@
 										<c:forEach var="servidor" items="${servidores}">
 											<tr>
 												<td>${servidor.siape}</td>
-												<td>${servido.cargo }</td>
-												<td><a id="editar" title="Editar"
+												<td>${servidor.cargo.nome}</td>
+												<td><a id="editar"
 													href="<c:url value="/servidor/${servidor.id}/editar" ></c:url>">
-														<button class="btn btn-primary btn-xs">
+														<button class="btn btn-info btn-sm"
+															title="Editar servidor">
 															<span class="glyphicon glyphicon-pencil"></span>
 														</button>
-												</a> <a id="excluir" data-toggle="modal" title="Excluir"
+												</a> <a id="excluir" data-toggle="modal"
 													data-target="#confirm-delete" href="#"
 													data-href="<c:url value="/servidor/${servidor.id}/excluir" ></c:url>">
-														<button class="btn btn-danger btn-xs">
+														<button class="btn btn-danger btn-sm"
+															title="Excluir Servidor">
 															<span class="glyphicon glyphicon-trash"></span>
 														</button>
 												</a></td>
@@ -96,8 +99,8 @@
 									</c:otherwise>
 								</c:choose>
 							</tbody>
+							</div>
 						</table>
-					</div>
 				</c:if>
 
 			</div>

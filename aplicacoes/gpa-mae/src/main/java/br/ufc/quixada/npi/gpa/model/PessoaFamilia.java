@@ -15,8 +15,9 @@ import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestBIA", query = "select pf from PessoaFamilia pf where pf.iniciacaoAcademica.id = :idQuest"),
-		@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestAMOR", query = "select pf from PessoaFamilia pf where pf.auxilioMoradia.id = :idQuest") })
+	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestBIA",  query = "select pf from PessoaFamilia pf where pf.iniciacaoAcademica.id = :idIniciacaoAcademica"),
+	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestAMOR", query = "select pf from PessoaFamilia pf where pf.auxilioMoradia.id = :idAuxilioMoradia")
+})
 public class PessoaFamilia {
 
 	@Id
@@ -25,13 +26,13 @@ public class PessoaFamilia {
 
 	private String nome;
 
-	private int idade;
+	private Integer idade;
 
 	private String escolaridade;
 
 	private String profissao;
 
-	private double rendaMensal;
+	private Double rendaMensal;
 
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
@@ -82,11 +83,11 @@ public class PessoaFamilia {
 		this.nome = nome;
 	}
 
-	public int getIdade() {
+	public Integer getIdade() {
 		return idade;
 	}
 
-	public void setIdade(int idade) {
+	public void setIdade(Integer idade) {
 		this.idade = idade;
 	}
 
@@ -98,11 +99,11 @@ public class PessoaFamilia {
 		this.profissao = atividadeProfissao;
 	}
 
-	public double getRendaMensal() {
+	public Double getRendaMensal() {
 		return rendaMensal;
 	}
 
-	public void setRendaMensal(double rendaMensal) {
+	public void setRendaMensal(Double rendaMensal) {
 		this.rendaMensal = rendaMensal;
 	}
 

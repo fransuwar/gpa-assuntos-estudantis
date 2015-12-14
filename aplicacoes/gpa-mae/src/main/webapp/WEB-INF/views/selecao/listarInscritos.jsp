@@ -16,83 +16,58 @@
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
-	<ol class="breadcrumb">
-		<li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
-		<li>Listar Inscritos</li>
-	</ol>
+
 	<div class="container">
-		<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
-			<div class="panel-heading" align="center">
-				<h4>Alunos inscritos</h4>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Inscrições</h3>
 			</div>
-
-<%-- 			<form:form id="emitirParecerForm" role="form" commandName="pareceres" --%>
-<%-- 				servletRelativeAction="/selecao/parecer/${idSelecao}" method="POST" --%>
-<%-- 				cssClass="form-horizontal"> --%>
-
-				<table class="table" id="tabela-inscritos">
+			<div class="panel-body">
+				<table class="table table-striped" id="tabela-inscritos">
 					<thead>
 						<tr>
-							<th>Matricula</th>
-							<th>Nome</th>
-							<th>Curso</th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
+							<th>Edital</th>
+							<th>Tipo de Bolsa</th>
+							<th>Período de Inscrições</th>
+							<th>Vagas</th>
+							<th>Coordenador Responsável</th>
 						</tr>
 					</thead>
-<!-- 					<tbody> -->
-<%-- 						<c:forEach var="parecer" items="${pareceres.pareceres}" --%>
-<%-- 							varStatus="i"> --%>
-<!-- 							<tr class="linha"> -->
-<%-- 								<td>${parecer.alunoApto.matricula}</td> --%>
-<%-- 								<td>${parecer.alunoApto.nome}</td> --%>
-<%-- 								<td>${parecer.alunoApto.curso.nome}</td> --%>
-
-<!-- 								<td><a id="preencherRelatorio" class="btn btn-primary" -->
-<%-- 									href="<c:url value="relatorioVisita/${parecer.alunoApto.id}/${idSelecao}" ></c:url>"> --%>
-<!-- 										Preencher Formulário -->
-<!-- 								</a></td> -->
-<!-- 								<td>								 -->
-<!-- 								<a id="visualizarRelatorio" class="btn btn-primary" -->
-<%-- 									href="<c:url value="informacoesRelatorio/${parecer.alunoApto.id}"></c:url>"> --%>
-<!-- 									Ver Dados da Visita -->
-<!-- 								</a> -->
-<!-- 								</td> -->
-<!-- 								<td><button class="btn btn-primary">Ver -->
-<!-- 										Entrevista</button></td> -->
-										
-<!-- 								<td> -->
-<!-- 								<a id="visualizarDadosInscricao" class="btn btn-primary"  -->
-<%-- 								href="<c:url value="/selecao/formularioInscricaoPreenchido/${parecer.alunoApto.id}/${idSelecao}"></c:url>">Ver Formulário de Inscricao --%>
-<!-- 								</a> -->
-								
-<!-- 								</td> -->
-<%-- 								<td><form:input id="peso" maxlength="3" --%>
-<%-- 										path="pareceres[${i.index}].peso" data-mask="999" --%>
-<%-- 										placeholder="Parecer" cssClass="form-control" /></td> --%>
-<!-- 								<td> -->
-<!-- 									<div class="checkbox"> -->
-<%-- 										<label> <form:checkbox name="alunoApto" --%>
-<%-- 												path="pareceres[${i.index}].selecionado" --%>
-<%-- 												value="Selecionar Aluno" /> Selecionar Aluno --%>
-<!-- 										</label> -->
-<!-- 									</div> -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-<%-- 						</c:forEach> --%>
-<!-- 					</tbody> -->
+					<tbody>
+						<tr>
+							<td>${selecao.ano }.${selecao.sequencial }</td>
+							<td>${selecao.tipoBolsa.nome }</td>
+							<td><fmt:formatDate value="${selecao.dataInicio }"
+									pattern="dd/MM/yyyy" /> até <fmt:formatDate
+									value="${selecao.dataTermino }" pattern="dd/MM/yyyy" /></td>
+							<td>${selecao.quantidadeVagas }</td>
+							<td>${selecao.responsavel.pessoa.nome }</td>
+						</tr>
+					</tbody>
 				</table>
+			</div>
 
-<!-- 				<div class="col-md-2 col-md-offset-5"> -->
-<!-- 					<input name="submit" type="submit" class="btn btn-success" -->
-<!-- 						value="Emitir Parecer" id="form-btn" /> -->
-<!-- 				</div> -->
-<%-- 			</form:form> --%>
-		</sec:authorize>
+			<h3 class="panel-title">Alunos Inscritos</h3>
+			<table class="table" id="tabela-inscritos">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Data</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="inscritoSelecao" items="${selecao.inscritos }">
+						<tr>
+							<td>${inscritoSelecao.aluno.pessoa.nome }</td>
+							<td><fmt:formatDate value="${inscritoSelecao.data}"
+									pattern="dd/MM/yyyy" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+
+			</table>
+		</div>
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />

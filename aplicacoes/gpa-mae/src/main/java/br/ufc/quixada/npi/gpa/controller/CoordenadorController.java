@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Status;
-import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
+import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
@@ -46,16 +47,23 @@ public class CoordenadorController {
 	private ServidorService servidorService;
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
-	public String listarSelecoes(Model model){
-		//TODO - Método p/ implementar que retorna página com todas as seleções do sistema.
-		return "";
+	public String listarSelecoes(ModelMap model, HttpServletRequest request, Authentication auth){
+		
+		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
+
+		model.addAttribute("selecoes", selecoes);
+		model.addAttribute("tipoSelecao", TipoSelecao.values());
+		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
+		
+		return "coordenador/coordenacao";
 	}
 	
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.GET)
 	public String cadastroSelecao(Model model) {
 		
 		model.addAttribute("action", "cadastrar");
-		model.addAttribute("tipoBolsa", TipoBolsa.values());
+		model.addAttribute("tipoSelecao", TipoSelecao.values());
 		model.addAttribute("selecao", new Selecao());
 		
 		return PAGINA_CADASTRAR_SELECAO;
@@ -71,25 +79,26 @@ public class CoordenadorController {
 
 		if (selecao != null && selecao.getAno() != null) {
 			if (selecao.getAno() < DateTime.now().getYear()) {
-				result.rejectValue("ano", "selecao.ano", "Digite um ano maior ou igual ao atual.");
+				result.rejectValue("ano", "selecao.ano", MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR);
 			}
 		}
 		
 		if (selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) {
 			if ((new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio()))) {
-				result.rejectValue("dataTermino", "selecao.dataTermino", "A data de término não pode ser anterior a data de início.");
+				result.rejectValue("dataTermino", "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
 			}
 		}
 		
 		if (selecao != null)  {
-			if (selecaoService.existsSelecaoEquals(selecao)) {
-				result.rejectValue("sequencial", "selecao.sequencial", "Número do edital com esse tipo de bolsa já existente");
+			if (selecaoService.isSelecaoCadastrada(selecao)) {
+				result.rejectValue("sequencial", "selecao.sequencial", MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR);
+
 			}
 		}
 		
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("tipoSelecao", TipoSelecao.values());
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
@@ -105,13 +114,13 @@ public class CoordenadorController {
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
 						documento.setTipo(mfiles.getContentType());
-						documento.setSelecaoBolsa(selecao);
+						documento.setSelecao(selecao);
 						documentos.add(documento);
 					}
 					
 					
 				} catch (IOException ioe) {
-					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
+					model.addAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 
 					return PAGINA_CADASTRAR_SELECAO;
 				}
@@ -123,16 +132,16 @@ public class CoordenadorController {
 			
 		} else {
 			
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			model.addAttribute("anexoError", "Adicione anexo a seleção.");
+			model.addAttribute("tipoSelecao", TipoSelecao.values());
+			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());
+		Servidor coordenador = servidorService.getServidor(auth.getName());
 		selecao.addCoordenador(coordenador);
 		selecao.setResponsavel(coordenador);
 		this.selecaoService.save(selecao);
-		redirect.addFlashAttribute("info", "Nova seleção cadastrada com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_CADASTRADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 		
 	}
@@ -140,16 +149,16 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		
-		Selecao selecao = this.selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
-		
+		Selecao selecao = this.selecaoService.getSelecaoComDocumentos(idSelecao);
+
 		if (selecao != null && selecao.getStatus() != null) {
 		
 			model.addAttribute("action", "editar");
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("tipoSelecao", TipoSelecao.values());
 			model.addAttribute("selecao", selecao);
 			
 		} else {
-			redirect.addFlashAttribute("erro", "Permissão negada.");
+			redirect.addFlashAttribute("erro", MENSAGEM_PERMISSAO_NEGADA);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
@@ -166,19 +175,19 @@ public class CoordenadorController {
 		
 		if (selecao != null && selecao.getAno() != null) {
 			if (selecao.getAno() < DateTime.now().getYear()) {
-				result.rejectValue("ano", "selecao.ano", "Digite um ano maior ou igual ao atual.");
+				result.rejectValue("ano", "selecao.ano", MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR);
 			}
 		}
 		
 		if (selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) {
 			if ((new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio()))) {
-				result.rejectValue("dataTermino", "selecao.dataTermino", "A data de término não pode ser anterior a data de início.");
+				result.rejectValue("dataTermino", "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
 			}
 		}
 		
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
+			model.addAttribute("tipoSelecao", TipoSelecao.values());
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
@@ -187,10 +196,10 @@ public class CoordenadorController {
 
 		if (doc != null) {
 
-			if (selecaoService.getSelecaoBolsaComDocumentos(selecao.getId()).getDocumentos().size() == doc.length
+			if (selecaoService.getSelecaoComDocumentos(selecao.getId()).getDocumentos().size() == doc.length
 				&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
 				model.addAttribute("action", "editar");
-				redirect.addFlashAttribute("erro", "Não foi possível excluir seu(s) anexo(s), pois não é possível salvar a seleção sem nenhum anexo.");
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_ANEXO_EXCLUIR);
 
 				return PAGINA_CADASTRAR_SELECAO;
 
@@ -212,27 +221,27 @@ public class CoordenadorController {
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
 						documento.setTipo(mfiles.getContentType());
-						documento.setSelecaoBolsa(selecao);
+						documento.setSelecao(selecao);
 						documentos.add(documento);
 						documentoService.save(documento);
 					}
 				} catch (IOException ioe) {
-					model.addAttribute("erro", "Não foi possivel salvar os documentos.");
+					model.addAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 
 					return PAGINA_CADASTRAR_SELECAO;
 				}
 			}
 		} else {
 			
-			model.addAttribute("tipoBolsa", TipoBolsa.values());
-			model.addAttribute("anexoError", "Adicione anexo a seleção.");
+			model.addAttribute("tipoSelecao", TipoSelecao.values());
+			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 		
 		
 		this.selecaoService.update(selecao);
-		redirect.addFlashAttribute("info", "Seleção atualizada com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_ATUALIZADA);
 		
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
@@ -246,17 +255,17 @@ public class CoordenadorController {
 			
 				if (selecao.getStatus().equals(Status.NOVA)) {
 					this.selecaoService.delete(selecao);
-					redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
+					redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_REMOVIDA);
 				} else {
 					if(selecao.getInscritos().size() == 0){
 						this.selecaoService.delete(selecao);
-						redirect.addFlashAttribute("info", "Seleção removida com sucesso.");
+						redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_REMOVIDA);
 					}else{
-						redirect.addFlashAttribute("erro", "Permissão negada. Só é possível remover uma seleção enquanto seu status é nova.");
+						redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_REMOVER);
 					}
 				}
 			} else {
-				redirect.addFlashAttribute("erro", "Seleção inexistente.");
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
 			
 		}
 		
@@ -281,7 +290,7 @@ public class CoordenadorController {
 
 		if (idServidor == null) {
 			
-		redirect.addFlashAttribute("erro", "Informe pelo menos um membro.");
+		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_COMISSAO_ATRIBUIR);
 
 			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 
@@ -289,46 +298,43 @@ public class CoordenadorController {
 			
 			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 			
-			List<Servidor> comissao = selecao.getMembrosBanca();
+			List<Servidor> comissao = selecao.getMembrosComissao();
 	
 			Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 			if (comissao.contains(servidor)) {
 				
-				redirect.addFlashAttribute("erro", "Não é permitida repetição de membros na comissão.");
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
 				
 				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 				
 			} else {
 				
-				selecao.getMembrosBanca().add(servidor);
+				selecao.getMembrosComissao().add(servidor);
 
 				selecaoService.update(selecao);
 
-				redirect.addFlashAttribute("info", "Comissão formada com sucesso.");
+				redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_COMISSAO_FORMADA);
 
-				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
-				
+				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;	
 			}
-			
 		}
-
 	}
 	
 	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
-	public String excluirMembroBanca(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
+	public String excluirMembroComissao(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
 			Model model, Authentication auth, RedirectAttributes redirect) {
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());		
+		Servidor coordenador = servidorService.getServidor(auth.getName());		
 		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 		if(coordenador.getId() != servidor.getId()){
 			
-			selecao.getMembrosBanca().remove(servidor);
+			selecao.getMembrosComissao().remove(servidor);
 			selecaoService.update(selecao);
-			redirect.addFlashAttribute("info", "Membro excluído com sucesso.");
+			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO);
 		}else
 		
-		redirect.addFlashAttribute("erro", "Não é possivel excluir o Coordenador da Comissão");
+		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR);
 
 		return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 

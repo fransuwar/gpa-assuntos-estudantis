@@ -26,8 +26,8 @@
 					<dl class="col-sm-12">
 						<dt class="col-sm-3" >Número do Edital:</dt>
 						<dd class="col-sm-3" >${selecao.sequencial}</dd>
-						<dt class=" col-sm-3">Tipo de Bolsa:</dt>
-						<dd class="col-sm-3">${selecao.tipoBolsa.nome}</dd>
+						<dt class=" col-sm-3">Tipo de Seleção:</dt>
+						<dd class="col-sm-3">${selecao.tipoSelecao.nome}</dd>
 					</dl>
 					<dl class="col-sm-12">
 						<dt class="col-sm-3">Ano do Edital:</dt>
@@ -67,7 +67,7 @@
 				</dl>
 			</div>
 		</div>
-		<sec:authorize access="hasAnyRole('COORD_ASS_ESTUDANTIS', 'SERVIDOR')">
+		<sec:authorize access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
 		<div class="panel panel-primary-min" align="left">
 			<div class="panel-heading">
 				<h3 class="panel-title">Resultado da seleção</h3>
