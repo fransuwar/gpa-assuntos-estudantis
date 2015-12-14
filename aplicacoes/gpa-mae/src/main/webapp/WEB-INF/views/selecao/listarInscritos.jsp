@@ -23,28 +23,30 @@
 				<h3 class="panel-title">Inscrições</h3>
 			</div>
 			<div class="panel-body">
-				<table class="table" id="tabela-selecao-inscritos">
+				<table class="table table-striped" id="tabela-inscritos">
 					<thead>
-						<th>Edital</th>
-						<th>Tipo de Bolsa</th>
-						<th>Período de Inscrições</th>
-						<th>Vagas</th>
-						<th>Coordenador Responsável</th>
+						<tr>
+							<th>Edital</th>
+							<th>Tipo de Bolsa</th>
+							<th>Período de Inscrições</th>
+							<th>Vagas</th>
+							<th>Coordenador Responsável</th>
+						</tr>
 					</thead>
 					<tbody>
-					<tr>
-						<td>${selecao.ano }.${selecao.sequencial }</td>
-						<td>${selecao.tipoBolsa.nome }</td>
-						<td><fmt:formatDate value="${selecao.dataInicio }"
-								pattern="dd/MM/yyyy" /> até <fmt:formatDate
-								value="${selecao.dataTermino }" pattern="dd/MM/yyyy" /></td>
-						<td>${selecao.quantidadeVagas }</td>
-						<td>${selecao.responsavel.pessoa.nome }</td>
+						<tr>
+							<td>${selecao.ano }.${selecao.sequencial }</td>
+							<td>${selecao.tipoBolsa.nome }</td>
+							<td><fmt:formatDate value="${selecao.dataInicio }"
+									pattern="dd/MM/yyyy" /> até <fmt:formatDate
+									value="${selecao.dataTermino }" pattern="dd/MM/yyyy" /></td>
+							<td>${selecao.quantidadeVagas }</td>
+							<td>${selecao.responsavel.pessoa.nome }</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			
+
 			<h3 class="panel-title">Alunos Inscritos</h3>
 			<table class="table" id="tabela-inscritos">
 				<thead>
@@ -68,6 +70,6 @@
 		</div>
 	</div>
 
-		<jsp:include page="../fragments/footer.jsp" />
+	<jsp:include page="../fragments/footer.jsp" />
 </body>
 </html>

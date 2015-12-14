@@ -3,13 +3,13 @@ package br.ufc.quixada.npi.gpa.enums;
 import java.util.Map;
 import java.util.TreeMap;
 
-public enum TipoBolsa {
+public enum TipoSelecao {
 	INIC_ACAD("Iniciação Acadêmica"), AUX_MOR("Auxilio Moradia");
 
 	private String nome;
-	private static Map<TipoBolsa, String> map;
+	private static Map<TipoSelecao, String> map;
 
-	TipoBolsa(String nome) {
+	TipoSelecao(String nome) {
 		this.nome = nome;
 	}
 	
@@ -18,11 +18,11 @@ public enum TipoBolsa {
 	}
 
 
-	public static Map<TipoBolsa, String> toMap() {
+	public static Map<TipoSelecao, String> toMap() {
 		if (map == null) {
-			map = new TreeMap<TipoBolsa, String>();
-			for (TipoBolsa tb : TipoBolsa.values()) {
-				map.put(tb, tb.nome);
+			map = new TreeMap<TipoSelecao, String>();
+			for (TipoSelecao ts : TipoSelecao.values()) {
+				map.put(ts, ts.nome);
 			}
 		}
 		return map;
