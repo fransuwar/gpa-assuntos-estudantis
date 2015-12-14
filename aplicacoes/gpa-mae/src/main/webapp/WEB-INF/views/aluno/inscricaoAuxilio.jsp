@@ -35,6 +35,25 @@
 		<div class="novo-projeto" align="left">
 			<div class="form" align="center">
 				<h2>Programa de Auxílio Moradia</h2>
+				
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr class="active">
+							<th>Tipo da Bolsa</th>
+							<th>Ano</th>
+							<th>Vagas</th>
+							<th>Período de Inscrição</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>${selecao.tipoSelecao.nome }</td>
+							<td>${selecao.ano }</td>
+							<td>${selecao.quantidadeVagas }</td>
+							<td> <fmt:formatDate value="${selecao.dataInicio }" pattern="dd/MM/yyyy"/> até <fmt:formatDate value="${selecao.dataTermino }" pattern="dd/MM/yyyy"/></td>
+						</tr>
+					</tbody>
+				</table>
 
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#moradia-tab" data-toggle="tab">Moradia<i
@@ -55,13 +74,13 @@
 
 				</ul>
 
-				<form:form id="questionarioAuxilio" role="form"
+				<form:form id="questionario" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
 					servletRelativeAction="${url }" method="POST"
 					cssClass="form-horizontal">
 
-					<input id="idSelecao" name="idSelecao" type="hidden" value="${idSelecao}" />
+					<input id="idSelecao" name="idSelecao" type="hidden" value="${selecao.id}" />
 					
 					<div class="tab-content">
 

@@ -41,20 +41,20 @@
 				</tr>
 			</c:forEach>
 		</c:if>
-		
+
 		<c:forEach begin="1" end="3" var="i">
-		<tr class="horarioDisponivel defaultRow">
-			<td><form:select path="" name="horariosDisponiveisSelecao[].dia"
-					class="form-control">
-					<form:option value="">Selecione um dia</form:option>
-					<form:options items="${diasUteis}" />
-				</form:select></td>
-				
-			<td><form:select path="" name="horariosDisponiveisSelecao[].turno"
-					class="form-control">
-					<form:option value="">Selecione um turno</form:option>
-					<form:options items="${turno}"/>
-				</form:select></td>
+			<tr class="horarioDisponivel">
+				<td><form:select path=""
+						name="horariosDisponiveisSelecao[].dia" class="form-control">
+						<form:option value="">Selecione um dia</form:option>
+						<form:options items="${diasUteis}" />
+					</form:select></td>
+
+				<td><form:select path=""
+						name="horariosDisponiveisSelecao[].turno" class="form-control">
+						<form:option value="">Selecione um turno</form:option>
+						<form:options items="${turno}" />
+					</form:select></td>
 
 				<td><a href="#" class="removerHorario">Remover Horário</a></td>
 			</tr>
@@ -82,7 +82,7 @@
 			rowClass : 'horarioDisponivel',
 			addRowId : 'addHorario',
 			removeRowClass : 'removerHorario',
-			formId : 'questionarioIniciacao',
+			formId : 'questionario',
 			rowContainerId : 'horarioDisponivelContainer',
 			indexedPropertyName : 'horariosDisponiveisSelecao',
 			indexedPropertyMemberNames : 'turno, dia',

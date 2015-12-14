@@ -70,20 +70,8 @@
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
-								<td><a id="visualizarInscritos"
-									href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-										<button class="btn btn-primary btn-sm"
-											title="Visualizar Inscritos">
-											<i class="fa fa-users fa-lg"></i>
-										</button>
-								</a> <a id="excluir" data-toggle="modal"
-									data-target="#confirm-delete" href="#"
-									data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
-										<button class="btn btn-danger btn-sm" Title="Excluir Seleção">
-											<span class="glyphicon glyphicon-trash"></span>
-										</button>
-								</a> <sec:authorize access="hasAnyRole('DISCENTE')">
-										<c:choose>
+								<sec:authorize access="hasAnyRole('DISCENTE')">
+									<td><c:choose>
 											<c:when
 												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
 												<a id="inscrever"
@@ -124,8 +112,15 @@
 													</button>
 												</a>
 											</c:when>
-										</c:choose>
-									</sec:authorize>
+										</c:choose></td>
+								</sec:authorize>
+								<td>
+									<a id="informacoes" href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
+										<button class=" btn btn-success btn-sm" title="Informações">
+											<span class="glyphicon glyphicon-zoom-in"></span>
+										</button>
+									</a>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

@@ -15,8 +15,8 @@ import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestBIA",  query = "select pf from PessoaFamilia pf where pf.iniciacaoAcademica.id = :idIniciacaoAcademica"),
-	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdQuestAMOR", query = "select pf from PessoaFamilia pf where pf.auxilioMoradia.id = :idAuxilioMoradia")
+	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",  query = "select pf from PessoaFamilia pf where pf.iniciacaoAcademica.id = :idIniciacaoAcademica"),
+	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia", query = "select pf from PessoaFamilia pf where pf.auxilioMoradia.id = :idAuxilioMoradia")
 })
 public class PessoaFamilia {
 
