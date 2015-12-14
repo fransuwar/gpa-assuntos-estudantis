@@ -83,6 +83,8 @@ public class AlunoController {
 	public String realizarInscricaoIniciacaoAcademica(@PathVariable("idSelecao") Integer idSelecao, Model model) {
 
 		model.addAttribute("action", "inscricao");
+		
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 
 		model.addAttribute("questionarioIniciacaoAcademica", new QuestionarioIniciacaoAcademica());
 		model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
@@ -92,6 +94,7 @@ public class AlunoController {
 		model.addAttribute("totalEstado", Estado.toMap());
 		model.addAttribute("grauParentesco", GrauParentesco.toMap());
 		model.addAttribute("idSelecao", idSelecao);
+		model.addAttribute("selecao", selecao);
 
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
@@ -184,6 +187,9 @@ public class AlunoController {
 	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model) {
 
 		model.addAttribute("action", "inscricao");
+		
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 		model.addAttribute("estado", Estado.values());
 		model.addAttribute("situacaoImovel", SituacaoImovel.values());
@@ -195,6 +201,7 @@ public class AlunoController {
 		model.addAttribute("grauParentesco", GrauParentesco.values());
 		model.addAttribute("moraCom", MoraCom.values());
 		model.addAttribute("idSelecao", idSelecao);
+		model.addAttribute("selecao", selecao);
 
 		return PAGINA_INSCREVER_AUXILIO_MORADIA;
 	}
