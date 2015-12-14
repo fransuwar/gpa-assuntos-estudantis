@@ -43,8 +43,6 @@
 		</c:if>
 		
 		<c:forEach begin="1" end="3" var="i">
-
-<<<<<<< HEAD
 		<tr class="horarioDisponivel defaultRow">
 			<td><form:select path="" name="horariosDisponiveisSelecao[].dia"
 					class="form-control">
