@@ -91,7 +91,7 @@ public class CoordenadorController {
 		
 		if (selecao != null)  {
 			if (selecaoService.isSelecaoCadastrada(selecao)) {
-				result.rejectValue("sequencial", "selecao.sequencial", "Número do edital com esse tipo de selecao já existente");
+				result.rejectValue("sequencial", "selecao.sequencial", MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR);
 
 			}
 		}
