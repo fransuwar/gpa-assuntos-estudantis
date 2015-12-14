@@ -41,31 +41,37 @@
 				</tr>
 			</c:forEach>
 		</c:if>
+		
+		<c:forEach begin="1" end="3" var="i">
 
+<<<<<<< HEAD
 		<tr class="horarioDisponivel defaultRow">
 			<td><form:select path="" name="horariosDisponiveisSelecao[].dia"
 					class="form-control">
 					<form:option value="">Selecione um dia</form:option>
 					<form:options items="${diasUteis}" />
 				</form:select></td>
-
+				
 			<td><form:select path="" name="horariosDisponiveisSelecao[].turno"
 					class="form-control">
 					<form:option value="">Selecione um turno</form:option>
 					<form:options items="${turno}"/>
 				</form:select></td>
 
-			<td><a href="#" class="removerHorario">Remover Horário</a></td>
-		</tr>
+				<td><a href="#" class="removerHorario">Remover Horário</a></td>
+			</tr>
+
+		</c:forEach>
+
 	</tbody>
 </table>
 
-<a href="#" id="addHorario" class="btn btn-primary">Adicionar
-	Horário</a>
+<a href="#" id="addHorario" class="btn btn-primary">Adicionar Horário</a>
 
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 
 <script type="text/javascript">
+
 	function rowAdded(rowElement) {
 		$(rowElement).find("input").val('');
 	}

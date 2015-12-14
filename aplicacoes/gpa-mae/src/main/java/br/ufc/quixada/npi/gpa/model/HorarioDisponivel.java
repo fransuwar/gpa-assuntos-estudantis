@@ -11,7 +11,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 import br.ufc.quixada.npi.gpa.enums.DiaUtil;
-import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 
 @NamedQueries({
@@ -26,8 +25,6 @@ public class HorarioDisponivel {
 	private Turno turno;
 	@Enumerated(EnumType.STRING)
 	private DiaUtil dia;
-	@Enumerated(EnumType.STRING)
-	private Escolaridade escolaridade;
 	@ManyToOne
 	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
 
@@ -58,13 +55,6 @@ public class HorarioDisponivel {
 		this.dia = dia;
 	}
 
-	public Escolaridade getEscolaridade() {
-		return escolaridade;
-	}
-
-	public void setEscolaridade(Escolaridade escolaridade) {
-		this.escolaridade = escolaridade;
-	}
 	public QuestionarioIniciacaoAcademica getIniciacaoAcademica() {
 		return iniciacaoAcademica;
 	}

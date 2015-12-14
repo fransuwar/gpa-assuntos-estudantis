@@ -504,7 +504,7 @@
 								value="${botao }" id="form-btn" />
 						</div>
 						<div class="col-sm-2" id="div-form-btn">
-							<a href="<c:url value="/selecao/listar"></c:url>"
+							<a href="<c:url value="/aluno/selecao/listar"></c:url>"
 								class="btn btn-default" id="form-btn">Cancelar</a>
 						</div>
 					</div>
