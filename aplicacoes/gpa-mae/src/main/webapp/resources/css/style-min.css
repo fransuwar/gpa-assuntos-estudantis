@@ -1,0 +1,73 @@
+body {
+	font-family: sans-serif;
+	background-color: #FCFCFE;
+}
+a:link {
+	text-decoration: none;
+}
+#checkbox-div {
+	padding: 0px;
+	height: 20px;
+	width: 30px;
+}
+
+.checkbox {
+	margin: 0px;
+}
+
+#form-label-right-checkbox-tam-padrao {
+	text-align: right;
+	margin-top: 4%;
+}
+
+#div-form-buscar {
+	margin-bottom: 1%;
+	padding-left: 0%
+}
+
+#div-btn-inserir {
+	margin-bottom: 1%;
+	padding-left: 0%;
+	padding-right: 0%;
+}
+
+footer {
+	text-align: center;
+	margin-bottom: 40px;
+	clear: both;
+}
+
+footer>img {
+	max-width: 100px;
+	margin-bottom: 10px;
+}
+
+footer>p {
+	margin-bottom: 0;
+	color: #7C7C7C;
+}
+
+#text-ufc {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.center {
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#logo-gpa {
+	max-width: 200px;
+	max-height: 200px;
+	width: auto;
+	height: auto;
+	position: relative;
+	left: 15px;
+}
+
+#navbar-brand {
+	padding: 0%;
+}
+

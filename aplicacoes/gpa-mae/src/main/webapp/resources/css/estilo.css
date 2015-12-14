@@ -1,9 +1,15 @@
+/*
 body {
 	font-family: sans-serif;
 	background-color: #FCFCFE;
 }
 
-/*
+#checkbox-mine {
+	height: 20px;
+	width: 30px;
+}
+
+
 .navbar-default {
 	margin-bottom: 5%;
 }
@@ -11,20 +17,16 @@ body {
 .col-md-14 {
 	margin-bottom: 5%;
 }
-*/
 
-
-/*
 div.center.col-md-4 {
 	float: none;
 }
 
 div.container {
 	margin-bottom: 70px;
-}*/
+}
 
 
-/*
 .label-erro-select {
 	text-align: left;
 }
@@ -75,6 +77,7 @@ input[type=checkbox] {
 	margin-right: 0.3%;
 }
 
+
 #form-btn {
 	margin-top: 5%;
 	margin-bottom: 0%;
@@ -90,7 +93,6 @@ input[type=checkbox] {
 }
 
 
-*/
 
 #div-form-buscar {
 	margin-bottom: 1%;
@@ -103,7 +105,7 @@ input[type=checkbox] {
 	padding-right: 0%;
 }
 
-/*
+
 #form-label {
 	width: 12%;
 	text-align: right;
@@ -120,12 +122,17 @@ input[type=checkbox] {
 }
 
 #checkbox-div {
-	padding: 0%;
+	padding: 10%;
+	height: 20px;
+	width: 30px;
 }
 
 .checkbox {
 	margin-top: 0%;
+	height: 20px;
+	width: 30px;
 }
+
 
 #form-label-right-select-tam-padrao {
 	text-align: right;
@@ -169,7 +176,7 @@ div.row {
 
 .navbar-nav>li>a:HOVER, .navbar-brand:HOVER {
 	color: #0064A1 !important;
-}*/
+}
 footer {
 	text-align: center;
 	margin-bottom: 40px;
@@ -191,7 +198,7 @@ footer>p {
 	text-align: center;
 }
 
-/*
+
 .controls {
 	width: 50%;
 }
@@ -261,13 +268,13 @@ table#file-upload {
 	padding: 8px;
 	margin: 16px;
 }
-*/
+
 .center {
 	float: none;
 	margin-left: auto;
 	margin-right: auto;
 }
-/*
+
 .red {
 	color: red;
 }
@@ -275,20 +282,20 @@ table#file-upload {
 .panel-title {
 	text-align: center;
 }
-*/
+
 #logo-gpa {
 	max-width: 200px;
 	max-height: 200px;
 	width: auto;
 	height: auto;
-	position:relative;
-	left:15px;
+	position: relative;
+	left: 15px;
 }
 
 #navbar-brand {
 	padding: 0%;
-}
-/*
+}/
+
 dt.col-sm-3 {
 	text-align: right;
 }
@@ -307,6 +314,3 @@ div.panel-primary-min>div.panel-heading {
 div.panel-primary-min>div.panel-heading>.panel-title {
 	color: #FFF;
 }*/
-
-
-
