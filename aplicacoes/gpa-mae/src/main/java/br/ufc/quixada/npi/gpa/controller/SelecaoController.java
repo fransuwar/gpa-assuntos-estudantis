@@ -54,7 +54,7 @@ public class SelecaoController {
 	private SelecaoService selecaoService;
 	
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect, Authentication auth, HttpServletRequest request) {
+	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
 
@@ -62,12 +62,7 @@ public class SelecaoController {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
-		
-		if(request.isUserInRole("STA") || request.isUserInRole("DOCENTE") || request.isUserInRole("COORDENADOR_ASSUNTOS_ESTUDANTIS)")){
-		Servidor servidor = servidorService.getServidorByCPF(auth.getName());
-		selecao.setMembrosBanca(servidorService.getServidorPertenceBanca(servidor.getId(), idSelecao));
-		}
-		
+
 		model.addAttribute("selecao", selecao);
 
 		return PAGINA_INFORMACOES_SELECAO;

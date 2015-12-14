@@ -13,8 +13,8 @@
 
 <html>
 <head>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Seleções</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Seleções</title>
 </head>
 <body>
 
@@ -43,11 +43,9 @@
 
 		<div class="col-md-14">
 			<div class="panel panel-info">
-
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
 				</div>
-
 				<table class="table-display" id="tabela-selecoes">
 					<thead>
 						<tr>
@@ -70,35 +68,28 @@
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
 
-								<td>
-								
-										<a id="visualizarInscritos"
+								<td><a id="visualizarInscritos"
+									href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
+										<button class="btn btn-primary btn-sm"
+											title="Visualizar Inscritos">
+											<i class="fa fa-users fa-lg"></i>
+										</button>
+								</a> <c:if test="${avaliar}">
+										<a id="avaliarSelecao"
 											href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm"
-												title="Visualizar Inscritos">
-												<i class="fa fa-users fa-lg"></i>
+											<button class="btn btn-primary btn-sm">
+												Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
 											</button>
 										</a>
-
-										<c:if test="${avaliar}">
-											<a id="avaliarSelecao"
-												href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
-												<button class="btn btn-primary btn-sm">
-													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-
-
-												</button>
-											</a>
-										</c:if>
-									
-
+									</c:if> <sec:authorize
+										access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
 										<a id="informacoes"
-											href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
+											href="<c:url value="/servidor/detalhes/${selecao.id}"></c:url>">
 											<button class=" btn btn-success btn-sm" title="Informações">
 												<span class="glyphicon glyphicon-zoom-in"></span>
 											</button>
 										</a>
-									
+									</sec:authorize>
 							</tr>
 						</c:forEach>
 					</tbody>

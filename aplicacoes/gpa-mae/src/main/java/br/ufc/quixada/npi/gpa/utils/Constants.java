@@ -18,6 +18,8 @@ public class Constants {
 
 	public static final String PAGINA_INFORMACOES_SELECAO			= "selecao/detalhesSelecao";
 	
+	public static final String PAGINA_INFORMACOES_SELECAO_SERVIDOR	= "servidor/detalhesSelecaoServidor";
+	
 	public static final String PAGINA_LISTAR_INSCRITOS_SELECAO		= "selecao/listarInscritos";
 	
 	public static final String PAGINA_LISTAR_ALUNOS 				= "selecao/listarAlunos";

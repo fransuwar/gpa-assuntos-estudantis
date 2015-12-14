@@ -65,6 +65,77 @@
 				</dl>
 			</div>
 		</div>
+		<sec:authorize
+			access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
+			<div class="panel panel-primary-min" align="left">
+				<div class="panel-heading">
+					<h3 class="panel-title">Participantes da Comissão</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr class="info">
+								<td>Nome</td>
+								<td>SIAPE</td>
+								<td>Cargo</td>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="membro" items="${selecao.membrosBanca }">
+								<tr>
+									<td>${membro.pessoa.nome }</td>
+									<td>${membro.siape }</td>
+									<td>${membro.cargo.nome }</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="panel panel-primary-min" align="left">
+				<div class="panel-heading">
+					<h3 class="panel-title">Resultado da Seleção</h3>
+				</div>
+				<table class="table">
+					<thead>
+						<tr class="info">
+							<td>Nome</td>
+							<td>Matrícula</td>
+						</tr>
+					</thead>
+					<tr>
+						<td>Não existem classificados no momento</td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel panel-primary-min" align="left">
+				<div class="panel-heading">
+					<h3 class="panel-title">Participantes da Seleção</h3>
+				</div>
+				<table class="table">
+					<thead>
+						<tr class="info">
+							<td>Número</td>
+							<td>Aluno</td>
+							<td>Matricula</td>
+							<td>Data</td>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="inscrito" items="${selecao.inscritos }">
+							<tr>
+								<td>${inscrito.id }</td>
+								<td>${inscrito.aluno.pessoa.nome }</td>
+								<td>${inscrito.aluno.matricula }</td>
+								<td><fmt:formatDate value="${inscrito.data}"
+										pattern="dd/MM/yyyy" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</sec:authorize>
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />

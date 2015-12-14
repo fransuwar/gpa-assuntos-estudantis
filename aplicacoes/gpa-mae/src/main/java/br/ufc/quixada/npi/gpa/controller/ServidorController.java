@@ -1,21 +1,8 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVISTA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SERVIDOR_NAO_ASSOCIADO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_REALIZAR_ENTREVISTA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRITOS_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
-
-
-
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.security.core.Authentication;
@@ -77,7 +64,6 @@ public class ServidorController {
 			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
 
 			return PAGINA_LISTAR_SELECAO;
-
 		}
 
 		model.addAttribute("erro", MENSAGEM_SERVIDOR_NAO_ASSOCIADO);
@@ -175,12 +161,24 @@ public class ServidorController {
 	public String listarInscritos(@PathVariable("idSelecao") Integer idSelecao, ModelMap model) {
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		
-		
 		model.addAttribute("selecao", selecao);
 		
-		
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
+	}
+	
+	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
+	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect){
+		
+		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
+
+		if (selecao == null) {
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
+		
+		model.addAttribute("selecao", selecao);
+
+		return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 	}
 
 }
