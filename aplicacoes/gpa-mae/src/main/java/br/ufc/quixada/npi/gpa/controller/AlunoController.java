@@ -93,7 +93,6 @@ public class AlunoController {
 		model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		model.addAttribute("totalEstado", Estado.toMap());
 		model.addAttribute("grauParentesco", GrauParentesco.toMap());
-		model.addAttribute("idSelecao", idSelecao);
 		model.addAttribute("selecao", selecao);
 
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
@@ -116,6 +115,7 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.toMap());
 			model.addAttribute("idSelecao", idSelecao);
+			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
 
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
@@ -200,7 +200,6 @@ public class AlunoController {
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 		model.addAttribute("grauParentesco", GrauParentesco.values());
 		model.addAttribute("moraCom", MoraCom.values());
-		model.addAttribute("idSelecao", idSelecao);
 		model.addAttribute("selecao", selecao);
 
 		return PAGINA_INSCREVER_AUXILIO_MORADIA;
@@ -210,8 +209,9 @@ public class AlunoController {
 	public String realizarInscricaoAuxilioMoradia(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
 			BindingResult result, @RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model) {
-
+		
 		if (result.hasErrors()) {
+			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
 			model.addAttribute("estado", Estado.values());
 			model.addAttribute("situacaoImovel", SituacaoImovel.values());
 			model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
@@ -221,6 +221,7 @@ public class AlunoController {
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 			model.addAttribute("moraCom", MoraCom.values());
 			model.addAttribute("selecaoBolsa", idSelecao);
+			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
 
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 

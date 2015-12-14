@@ -73,7 +73,7 @@
 					servletRelativeAction="${url }"
 					method="POST" cssClass="form-horizontal">
 					
-					<input type="hidden" id="idSelecao" name="idSelecao" value="${idSelecao }"/>
+					<input type="hidden" id="idSelecao" name="idSelecao" value="${selecao.id }"/>
 					
 					<div class="tab-content">
 						<div class="tab-pane active" id="moradia-tab">
