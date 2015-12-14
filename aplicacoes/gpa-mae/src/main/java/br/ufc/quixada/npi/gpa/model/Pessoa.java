@@ -11,9 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -45,10 +42,6 @@ public class Pessoa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@ManyToMany
-	@JoinTable(name = "papel_pessoa", joinColumns = @JoinColumn(name = "pessoa_id"), inverseJoinColumns = @JoinColumn(name = "papel_id"))
-	private List<Papel> papeis;
 	
 	@Transient
 	private String email;
@@ -164,14 +157,6 @@ public class Pessoa {
 
 	public void setEstadoCivil(String estadoCivil) {
 		this.estadoCivil = estadoCivil;
-	}
-
-	public List<Papel> getPapeis() {
-		return papeis;
-	}
-
-	public void setPapeis(List<Papel> papeis) {
-		this.papeis = papeis;
 	}
 	
 	@OneToMany(mappedBy = "pessoa")

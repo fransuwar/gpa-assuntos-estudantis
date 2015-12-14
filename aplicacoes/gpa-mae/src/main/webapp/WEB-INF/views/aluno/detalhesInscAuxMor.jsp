@@ -21,7 +21,6 @@
 	<c:set var="botao" value="Atualizar Inscrição"></c:set>
 </c:if>
 
-
 <html>
 <head>
 <jsp:include page="../fragments/headTag.jsp" />

@@ -5,16 +5,12 @@ import br.ufc.quixada.npi.service.GenericService;
 
 public interface AlunoService extends GenericService<Aluno>{
 
-	public abstract Aluno getAlunoByMatricula(String matricula);
-	
-	public abstract Aluno getAlunoByIdPessoa(Integer id);
+	public abstract Aluno getAluno(String matricula);
 
-	public abstract Aluno getAlunoComInscricoes(Integer id);
-
-	public abstract Aluno getAlunoComInscricoesCpf(String cpf);
+	public abstract Aluno getAlunoComInscricoes(String cpf);
 	
 	public abstract Aluno getAlunoByCPF(String cpf);
 	
-	public abstract boolean existsAlunoEquals(Aluno aluno);
+	public abstract boolean isAlunoCadastrado(Aluno aluno);
 
 }

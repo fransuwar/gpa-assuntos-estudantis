@@ -61,10 +61,8 @@
 					servletRelativeAction="${url }" method="POST"
 					cssClass="form-horizontal">
 
-					<input id="idAluno" name="idAluno" type="hidden"
-						value="${sessionScope.id}" />
-					<input id="idSelecao" name="idSelecao" type="hidden"
-						value="${idSelecao}" />
+					<input id="idSelecao" name="idSelecao" type="hidden" value="${idSelecao}" />
+					
 					<div class="tab-content">
 
 						<div class="tab-pane active" id="moradia-tab">
@@ -677,7 +675,7 @@
 								value="${botao }" id="form-btn" />
 						</div>
 						<div class="col-sm-2" id="div-form-btn">
-							<a href="<c:url value="/selecao/listar" ></c:url>"
+							<a href="<c:url value="/aluno/selecao/listar" ></c:url>"
 								class="btn btn-default" id="form-btn">Cancelar</a>
 						</div>
 					</div>

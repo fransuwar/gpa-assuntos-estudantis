@@ -1,9 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.util.List;
 
@@ -29,6 +26,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -54,7 +52,7 @@ public class SelecaoController {
 		Selecao selecao = selecaoService.getSelecaoBolsaComDocumentos(idSelecao);
 
 		if (selecao == null) {
-			redirect.addFlashAttribute("erro", "seleção Inexistente");
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
@@ -74,7 +72,7 @@ public class SelecaoController {
 		headers.setContentType(new MediaType(tipo[0], tipo[1]));
 		headers.set("Content-Disposition", "attachment; filename=" + documento.getNome().replace(" ", "_"));
 		headers.setContentLength(arquivo.length);
-		redirectAttributes.addFlashAttribute("success", "Download do Documento realizado com sucesso");
+		redirectAttributes.addFlashAttribute("success", MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO);
 
 		return new HttpEntity<byte[]>(arquivo, headers);
 
@@ -96,7 +94,7 @@ public class SelecaoController {
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
-		List<Selecao> selecoes = this.servidorService.getPessoaServidorComBancas(id).getParticipaBancas();
+		List<Selecao> selecoes = this.servidorService.find(Servidor.class, id).getParticipaBancas();
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
@@ -105,13 +103,7 @@ public class SelecaoController {
 		return PAGINA_LISTAR_SELECAO;
 	}
 
-	@RequestMapping(value = "inscritos/{idSelecao}", method = RequestMethod.GET)
-	public String listarInscritos(@PathVariable("idSelecao") Integer idSelecao, ModelMap model) {
-		
-		// TODO - Implementar método que pode ser visualizar os inscritos em uma determinada seleção.
-		return PAGINA_LISTAR_INSCRITOS_SELECAO;
-	}
-
+	
 		@RequestMapping(value = "/visualizarFormulario/{idaluno}")
 		public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
 			return null;
@@ -129,7 +121,7 @@ public class SelecaoController {
 		
 		// TODO - Implementar o método que dará o parecer do aluno.
 
-		redirect.addFlashAttribute("info", "Parecer emitido com sucesso.");
+		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_PARECER_EMITIDO);
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
