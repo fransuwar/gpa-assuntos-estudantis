@@ -48,7 +48,7 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
 				</div>
-				<table class="table table-display table-striped"
+				<table class="table table-striped table-bordered"
 					id="tabela-selecoes">
 					<thead>
 						<tr>
@@ -125,12 +125,7 @@
 												</a>
 											</c:when>
 										</c:choose>
-									</sec:authorize> <a id="informacoes"
-									href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
-										<button class=" btn btn-success btn-sm" title="Informações">
-											<span class="glyphicon glyphicon-zoom-in"></span>
-										</button>
-								</a>
+									</sec:authorize>
 							</tr>
 						</c:forEach>
 					</tbody>
