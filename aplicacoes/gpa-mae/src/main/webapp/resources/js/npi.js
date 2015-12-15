@@ -53,7 +53,7 @@ $(document).ready(function(){
 	});
 	
 	$('#questionarioIniciacao').validate({
-			
+
 		  
 		 rules: {
 			 enderecoFamilia:{
@@ -119,12 +119,23 @@ $(document).ready(function(){
 	    
 		 });
 	
+
+	
+	jQuery.validator.addMethod("periodo", function(value, element) {
+		return !moment($('#dataTermino').val()).isBefore($('#dataInicio').val());
+	}, "A data de término deve ser posterior à data de início.");
+	
+
 	$('#adicionarSelecaoForm').validate({
 		
 		  
 		 rules: {
+			 tipoBolsa:{
+				 required:true
+			 },
 			 dataInicio:{
-				 required:true			 
+				 required:true,
+				 periodo : true
 			 },
 			 dataTermino:{
 				 required:true
@@ -135,19 +146,11 @@ $(document).ready(function(){
 	         quantidadeVagas: {
 	             required: true
 	         },
-	         tipoSelecao:{
-	        	 required:true
-	         },
+
 	         sequencial:{
 	        	 required:true
 	         },
 	         duracao:{
-	        	 required:true
-	         },
-	         comentarios:{
-	        	 required:true
-	         },
-	         files:{
 	        	 required:true
 	         },
 	         agree: "required"
@@ -159,9 +162,9 @@ $(document).ready(function(){
 	    
 		 });
 	
+	
+	
 	$('#questionarioAuxilio').validate({
-		
-		  
 		 rules: {
 			 comQuemMoraOutros:{
 				 required:true			 
