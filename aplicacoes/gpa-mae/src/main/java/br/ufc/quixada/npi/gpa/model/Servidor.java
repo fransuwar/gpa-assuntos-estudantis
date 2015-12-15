@@ -24,11 +24,8 @@ import br.ufc.quixada.npi.gpa.enums.Cargo;
 
 @NamedQueries({
 		@NamedQuery(name = "Servidor.findServidorBySiape", query = "SELECT s FROM Servidor s WHERE s.siape = :siape"),
-		@NamedQuery(name = "Servidor.findServidorComComissao", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaComissao WHERE s.id = :servidorId"),
-		@NamedQuery(name = "Servidor.findPessoaServidorComComissao", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaComissao WHERE s.pessoa.id = :pessoaId"),
-		@NamedQuery(name = "Servidor.findServidorByCPFComComissao", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaComissao WHERE s.pessoa.cpf = :cpf"),
-		@NamedQuery(name = "Servidor.findServidorByCpf", query = "SELECT s FROM Servidor s WHERE s.pessoa.cpf = :cpf")
-		})
+		@NamedQuery(name = "Servidor.findServidorComComissaoByCPF", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaComissao WHERE s.pessoa.cpf = :cpf"),
+		@NamedQuery(name = "Servidor.findServidorByCpf", query = "SELECT s FROM Servidor s WHERE s.pessoa.cpf = :cpf") })
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "siape" }))
 public class Servidor {

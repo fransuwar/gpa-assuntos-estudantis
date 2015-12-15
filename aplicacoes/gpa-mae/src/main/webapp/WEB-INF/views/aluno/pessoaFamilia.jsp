@@ -90,7 +90,7 @@
 							rowClass : 'pessoaFamilia',
 							addRowId : 'addPessoa',
 							removeRowClass : 'removePessoa',
-							formId : 'questionarioIniciacao',
+							formId : 'questionario',
 							rowContainerId : 'pessoaFamiliaContainer',
 							indexedPropertyName : 'pessoas',
 							indexedPropertyMemberNames : 'nome, parentesco, escolaridade, idade, profissao, rendaMensal',

@@ -59,10 +59,10 @@
 								<th>Vagas</th>
 								<th>Status</th>
 								<th></th>
-								<th></th>
 							</tr>
 						</thead>
 						<tbody>
+
 							<c:forEach var="selecao" items="${selecoes}">
 								<tr class="linha">
 									<td><a id="detalhes"
@@ -116,12 +116,7 @@
 													</a>
 												</c:when>
 											</c:choose>
-										</sec:authorize> <a id="informacoes" title="Informacoes"
-										href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
-											<button class=" btn btn-primary btn-sm" title="Informações">
-												<span class="glyphicon glyphicon-zoom-in"></span>
-											</button>
-									</a></td>
+										</sec:authorize></td>
 
 
 								</tr>

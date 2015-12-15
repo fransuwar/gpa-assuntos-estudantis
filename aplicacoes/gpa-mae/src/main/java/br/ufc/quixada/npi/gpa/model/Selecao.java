@@ -26,12 +26,8 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 
 @NamedQueries({
-		@NamedQuery(name = "Selecao.findSelecaoComDocumentos", 
-				query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :selecaoId "),
-		@NamedQuery(name = "Selecao.findSelecaoComMembros", 
-				query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosComissao"),
-		@NamedQuery(name = "Selecao.findSelecaoIdComMembros", 
-				query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.membrosComissao WHERE sb.id = :selecaoId"), })
+		@NamedQuery(name = "Selecao.findSelecaoComDocumentosByIdSelecao", query = "SELECT sb FROM Selecao sb LEFT JOIN FETCH sb.documentos WHERE sb.id = :idSelecao "),
+		@NamedQuery(name = "Selecao.findSelecaoComMembros",	query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosComissao")})
 
 @Entity
 public class Selecao {
