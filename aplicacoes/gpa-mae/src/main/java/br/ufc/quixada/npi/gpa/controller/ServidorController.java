@@ -3,7 +3,6 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SERVIDOR_NAO_ASSOCIADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
@@ -12,8 +11,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_REALIZAR_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRITOS_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
-
-
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -33,7 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
-import br.ufc.quixada.npi.gpa.enums.TipoBolsa;
+import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -68,19 +65,10 @@ public class ServidorController {
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
-		Servidor servidor = this.servidorService.getServidorComBancas(auth.getName());
-
-		if (!servidor.getParticipaBancas().isEmpty()) {
-
-			model.addAttribute("selecoes", servidor.getParticipaBancas());
-			model.addAttribute("inic_acad", TipoBolsa.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoBolsa.AUX_MOR);
-
-			return PAGINA_LISTAR_SELECAO;
-
-		}
-
-		model.addAttribute("erro", MENSAGEM_SERVIDOR_NAO_ASSOCIADO);
+		Servidor servidor = servidorService.getServidorByCpf(auth.getName());
+		model.addAttribute("selecoes", servidor.getParticipaComissao());
+		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
 		return PAGINA_LISTAR_SELECAO;
 	}
@@ -103,7 +91,7 @@ public class ServidorController {
 	public String realizarEntrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idServidor") Integer idPessoa, 
 			 BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 			
-			Servidor servidor = this.servidorService.getServidorComBancas(auth.getName());
+			Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
 			entrevista.setServidor(servidor);
 			entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));			
 			
@@ -148,7 +136,7 @@ public class ServidorController {
 		}
 		
 		relatorioVisitaDomiciliar.setAluno(alunoService.find(Aluno.class, idAluno));
-		relatorioVisitaDomiciliar.setSelecaoBolsa(selecaoService.find(Selecao.class, idSelecao));
+		relatorioVisitaDomiciliar.setSelecao(selecaoService.find(Selecao.class, idSelecao));
 		
 		inscricaoService.salvarVisitaDocimiciliar(relatorioVisitaDomiciliar);;
 		redirect.addFlashAttribute("info", MENSAGEM_VISITA_CADASTRADA);

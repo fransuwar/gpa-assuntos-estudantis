@@ -45,14 +45,14 @@
 			</div>
 			<div class="panel-body">
 
-				<form:form id="adicionarBancaForm" role="form" servletRelativeAction="/coordenador/comissao/atribuir" method="POST"
+				<form:form id="adicionarComissaoForm" role="form" servletRelativeAction="/coordenador/comissao/atribuir" method="POST"
 					class="form-horizontal">
 					<input type="hidden" name="idSelecao" value="${idSelecao}">
 					<div class="form-group">
 						<label class="col-sm-1 control-label">Membro:</label>
 						<div class="col-sm-4">
 							<select id="" class="form-control" name="idServidor">
-								<option value="">Selecione os membro da banca</option>
+								<option value="">Selecione os membros da Comissão</option>
 								<c:forEach items="${servidores}" var="servidor">
 									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
 								</c:forEach>
@@ -64,7 +64,7 @@
 					</div>
 					<div class="col-sm-5">
 						<table class="table table-striped table-hover ">
-							<c:forEach var="servidor" items="${comissao.membrosBanca}">
+							<c:forEach var="servidor" items="${comissao.membrosComissao}">
 								<tr class="linha">
 									<td class="linha">${servidor.pessoa.nome}</td>
 									<td><a id="excluir" data-toggle="modal"	data-target="#confirm-delete" data-href="<c:url value="/coordenador/comissao/excluir/${idSelecao}/${servidor.id}"></c:url>">
@@ -95,7 +95,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">Excluir</div>
-				<div class="modal-body">Tem certeza de que deseja excluir esse membro da banca?</div>
+				<div class="modal-body">Tem certeza de que deseja excluir esse membro da Comissão?</div>
 				<div class="modal-footer">
 					<a href="#" class="btn btn-danger">Excluir</a>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

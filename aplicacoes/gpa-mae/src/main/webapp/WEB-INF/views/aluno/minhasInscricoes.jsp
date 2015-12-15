@@ -27,7 +27,7 @@
 				<table class="table-display" id="tabela-selecoes">
 					<thead>
 						<tr>
-							<th>Tipo de Bolsa</th>
+							<th>Tipo de Seleção</th>
 							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
@@ -40,7 +40,7 @@
 							<tr class="linha">
 								<sec:authorize access="hasAnyRole('DISCENTE')"><td>
 								<a id="detalhesSelecao" href="<c:url value="/aluno/detalhes-inscricao/${inscricao.id}"></c:url>">
-									${inscricao.selecao.tipoBolsa.nome} </a></td></sec:authorize>
+									${inscricao.selecao.tipoSelecao.nome} </a></td></sec:authorize>
 								<td>${inscricao.selecao.ano}</td>
 								<td>${inscricao.selecao.sequencial}</td>
 								<td>${inscricao.selecao.quantidadeVagas}</td>

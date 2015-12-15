@@ -13,8 +13,8 @@
 
 <html>
 <head>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Seleções</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Seleções</title>
 </head>
 <body>
 
@@ -44,14 +44,15 @@
 		<div class="col-md-14">
 			<div class="panel panel-info">
 
+
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
 				</div>
-
-				<table class="table-display" id="tabela-selecoes">
+				<table class="table table-striped table-bordered"
+					id="tabela-selecoes">
 					<thead>
 						<tr>
-							<th>Tipo de Bolsa</th>
+							<th>Tipo de Seleção</th>
 							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
@@ -64,41 +65,62 @@
 							<tr class="linha">
 								<td><a id="detalhes"
 									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
-										${selecao.tipoBolsa.nome} </a></td>
+										${selecao.tipoSelecao.nome} </a></td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
-
+								<sec:authorize access="hasAnyRole('DISCENTE')">
+									<td><c:choose>
+											<c:when
+												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
+												<a id="inscrever"
+													href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
+													<button class=" btn btn-success btn-sm"
+														title="Realizar Inscrição">
+														<span class="glyphicon glyphicon-user"></span>
+													</button>
+												</a>
+											</c:when>
+											<c:when
+												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
+												<a id="editar"
+													href="<c:url value="/aluno/inscricao/editar/iniciacao-academica/${inscricao.id}" ></c:url>">
+													<button class=" btn btn-info btn-sm"
+														title="Editar Inscrição">
+														<span class="glyphicon glyphicon-pencil"></span>
+													</button>
+												</a>
+											</c:when>
+											<c:when
+												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
+												<a id="inscrever"
+													href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
+													<button class=" btn btn-success btn-sm"
+														Title="Realizar Inscrição">
+														<span class="glyphicon glyphicon-user"></span>
+													</button>
+												</a>
+											</c:when>
+											<c:when
+												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
+												<a id="editar"
+													href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id}" ></c:url>">
+													<button class=" btn btn-info btn-sm"
+														title="Editar Inscrição">
+														<span class="glyphicon glyphicon-pencil"></span>
+													</button>
+												</a>
+											</c:when>
+										</c:choose></td>
+								</sec:authorize>
 								<td>
-								
-										<a id="visualizarInscritos"
-											href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm"
-												title="Visualizar Inscritos">
-												<i class="fa fa-users fa-lg"></i>
-											</button>
-										</a>
-
-										<c:if test="${avaliar}">
-											<a id="avaliarSelecao"
-												href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
-												<button class="btn btn-primary btn-sm">
-													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-
-
-												</button>
-											</a>
-										</c:if>
-									
-
-										<a id="informacoes"
-											href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
-											<button class=" btn btn-success btn-sm" title="Informações">
-												<span class="glyphicon glyphicon-zoom-in"></span>
-											</button>
-										</a>
-									
+									<a id="informacoes" href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
+										<button class=" btn btn-success btn-sm" title="Informações">
+											<span class="glyphicon glyphicon-zoom-in"></span>
+										</button>
+									</a>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

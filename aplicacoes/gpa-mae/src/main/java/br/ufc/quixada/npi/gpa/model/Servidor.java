@@ -24,11 +24,8 @@ import br.ufc.quixada.npi.gpa.enums.Cargo;
 
 @NamedQueries({
 		@NamedQuery(name = "Servidor.findServidorBySiape", query = "SELECT s FROM Servidor s WHERE s.siape = :siape"),
-		@NamedQuery(name = "Servidor.findServidorComBancasByIdServidor", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.id = :IdServidor"),
-		@NamedQuery(name = "Servidor.findPessoaServidorComBancas", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.pessoa.id = :pessoaId"),
-		@NamedQuery(name = "Servidor.findServidorComBancasByCPF", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaBancas WHERE s.pessoa.cpf = :cpf"),
-		@NamedQuery(name = "Servidor.findServidorByCpf", query = "SELECT s FROM Servidor s WHERE s.pessoa.cpf = :cpf")
-		})
+		@NamedQuery(name = "Servidor.findServidorComComissaoByCpf", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaComissao WHERE s.pessoa.cpf = :cpf"),
+		@NamedQuery(name = "Servidor.findServidorByCpf", query = "SELECT s FROM Servidor s WHERE s.pessoa.cpf = :cpf") })
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "siape" }))
 public class Servidor {
@@ -56,8 +53,8 @@ public class Servidor {
 	@OneToMany(mappedBy = "servidor")
 	private List<VisitaDomiciliar> visitas; 
 
-	@ManyToMany(mappedBy = "membrosBanca")
-	private List<Selecao> participaBancas;
+	@ManyToMany(mappedBy = "membrosComissao")
+	private List<Selecao> participaComissao;
 
 	@ManyToOne
 	private Pessoa pessoa;
@@ -107,12 +104,12 @@ public class Servidor {
 		this.siape = siape;
 	}
 
-	public List<Selecao> getParticipaBancas() {
-		return participaBancas;
+	public List<Selecao> getParticipaComissao() {
+		return participaComissao;
 	}
 
-	public void setParticipaBancas(List<Selecao> participaBancas) {
-		this.participaBancas = participaBancas;
+	public void setParticipaComissao(List<Selecao> participaComissao) {
+		this.participaComissao = participaComissao;
 	}
 
 	public Cargo getCargo() {
