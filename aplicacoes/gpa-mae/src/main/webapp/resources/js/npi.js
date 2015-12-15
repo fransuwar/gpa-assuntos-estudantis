@@ -12,7 +12,9 @@ $(document).ready(function(){
 	$('#tabela-selecoes').DataTable({
 		"language": {
             "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
-        }
+        },
+            "paging": false
+	
 	});
 	$('#tabela-servidores').DataTable({
 		"language": {
@@ -51,7 +53,7 @@ $(document).ready(function(){
 	});
 	
 	$('#questionarioIniciacao').validate({
-		
+
 		  
 		 rules: {
 			 enderecoFamilia:{
@@ -117,13 +119,13 @@ $(document).ready(function(){
 	    
 		 });
 	
+
 	
 	jQuery.validator.addMethod("periodo", function(value, element) {
 		return !moment($('#dataTermino').val()).isBefore($('#dataInicio').val());
 	}, "A data de término deve ser posterior à data de início.");
 	
-	
-	
+
 	$('#adicionarSelecaoForm').validate({
 		
 		  
@@ -144,6 +146,7 @@ $(document).ready(function(){
 	         quantidadeVagas: {
 	             required: true
 	         },
+
 	         sequencial:{
 	        	 required:true
 	         },
@@ -483,7 +486,7 @@ function excluir(idTable, uri, row) {
 	});
 };
 
-function validaHorariosDisponiveisBolsa(){
+function validaHorariosDisponiveisSelecao(){
 		
 	var res = "";
 	var table = document.getElementById("tabelaHorariosDisponiveis");

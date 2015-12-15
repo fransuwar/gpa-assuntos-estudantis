@@ -62,17 +62,17 @@
 					
 					<div class="form-group">
 
-						<label for="tipoBolsa" class="col-sm-2 control-label"><span
-							class="red">*</span>Tipo de Bolsa:</label>
+						<label for="tipoSelecao" class="col-sm-2 control-label"><span
+							class="red">*</span>Tipo de Selecao:</label>
 						<div class="col-sm-5 control-label" id="div-select">
-							<form:select path="tipoBolsa" id="tipoBolsa"
+							<form:select path="tipoSelecao" id="tipoSelecao"
 								cssClass="form-control">
-								<form:option value="" label="Selecione o tipo de bolsa" />
-								<form:options items="${tipoBolsa}" itemLabel="nome" />
+								<form:option value="" label="Selecione o tipo de Selecao" />
+								<form:options items="${tipoSelecao}" itemLabel="nome" />
 							</form:select>
 							<div class="error-validation label-erro-select"
-								id="erro-tipoBolsa">
-								<form:errors path="tipoBolsa"></form:errors>
+								id="erro-tipoSelecao">
+								<form:errors path="tipoSelecao"></form:errors>
 							</div>
 						</div>
 

@@ -26,16 +26,39 @@
 <head>
 <jsp:include page="../fragments/headTag.jsp" />
 <title>Cadastro Auxilio Moradia</title>
-</head>
 <body>
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">
-		<div class="novo-projeto" align="left">
+		<div align="left">
 			<div class="form" align="center">
 				<h2>Programa de Auxílio Moradia</h2>
-
+				<div class="panel-body"
+					style="align: center; color: #1a242f; text-align: center;">
+					<table class="table table-striped table-hover"
+						id="table-visualiza-info-auxilio">
+						<thead>
+							<tr id="tr-table-visualiza-info-auxilio">
+								<th id="td-table-visualiza-info-auxilio">Tipo da Bolsa</th>
+								<th id="td-table-visualiza-info-auxilio">Ano</th>
+								<th id="td-table-visualiza-info-auxilio">Vagas</th>
+								<th id="td-table-visualiza-info-auxilio">Período de
+									Inscrição</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>${selecao.tipoSelecao.nome }</td>
+								<td>${selecao.ano }</td>
+								<td>${selecao.quantidadeVagas }</td>
+								<td><fmt:formatDate value="${selecao.dataInicio }"
+										pattern="dd/MM/yyyy" /> até <fmt:formatDate
+										value="${selecao.dataTermino }" pattern="dd/MM/yyyy" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#moradia-tab" data-toggle="tab">Moradia<i
 							class="fa"></i>
@@ -55,39 +78,45 @@
 
 				</ul>
 
-				<form:form id="questionarioAuxilio" role="form"
+				<form:form id="questionario" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
 					servletRelativeAction="${url }" method="POST"
 					cssClass="form-horizontal">
 
-					<input id="idSelecao" name="idSelecao" type="hidden" value="${idSelecao}" />
-					
+					<input id="idSelecao" name="idSelecao" type="hidden"
+						value="${selecao.id}" />
+
 					<div class="tab-content">
 
 						<div class="tab-pane active" id="moradia-tab">
 
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h3>Mora com</h3>
+									<h3 class="panel-title">Mora com</h3>
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<div class="col-sm-9" id="col-sm-radio">
-											<form:checkboxes items="${moraCom}" path="comQuemMora" />
+										<div class="col-sm-15" id="col-sm-radio">
+											<div style="margin: 20px 0 25px 0;">
+												<form:checkboxes items="${moraCom}" path="comQuemMora"
+													itemLabel="nome" cssClass="checkbox-inline"
+													cssStyle="height:20px; width:30px;" />
+
+											</div>
 											<div class="error-validation">
 												<form:errors path="comQuemMora"></form:errors>
 											</div>
 										</div>
 									</div>
-									<div class="form-group" align="left" class="col-sm-16">
-										<label for=comQuemMoraOutros class="col-sm-7 control-label">
-											<span class="red">*</span>Com Que Mora essas pessoas ?
+									<div class="form-group" align="left" class="col-sm-10">
+										<label for=comQuemMoraOutros class="col-sm-4 control-label">
+											<span class="red">*</span>Se escolheu outros:
 										</label>
-										<div class="col-sm-4">
+										<div class="col-sm-5">
 											<form:input id="comQuemMoraOutros" path="comQuemMoraOutros"
 												cssClass="form-control"
-												placeholder="Com quem mora essas pessoas ?" />
+												placeholder="Quem são essas outras pessoas" />
 											<div class="error-validation">
 												<form:errors path="comQuemMoraOutros"></form:errors>
 											</div>
@@ -95,7 +124,7 @@
 									</div>
 								</div>
 								<div class="panel-heading">
-									<h3>Nome dos pais</h3>
+									<h3 class="panel-title">Nome dos pais</h3>
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
@@ -121,7 +150,7 @@
 								</div>
 
 								<div class="panel-heading">
-									<h3>Endereço da residência atual</h3>
+									<h3 class="panel-title">Endereço da residência atual</h3>
 								</div>
 								<div class="panel-body">
 
@@ -192,7 +221,7 @@
 											class="red">*</span>Estado:</label>
 										<div class="col-sm-2">
 											<form:select path="estado" id="estado"
-												cssClass="form-control">
+												cssClass="form-control" cssStyle="font-size:13px">
 												<form:option value="">Selecione Estado</form:option>
 												<form:options items="${estado}" />
 											</form:select>
@@ -217,7 +246,7 @@
 								</div>
 
 								<div class="panel-heading">
-									<h3>Endereço da residência de origem</h3>
+									<h3 class="panel-title">Endereço da residência de origem</h3>
 								</div>
 								<div class="panel-body">
 
@@ -291,7 +320,7 @@
 											class="red">*</span>Estado:</label>
 										<div class="col-sm-2">
 											<form:select path="estadoOrigem" id="estadoOrigem"
-												cssClass="form-control">
+												cssClass="form-control" cssStyle="font-size:13px">
 												<form:option value="">Selecione Estado</form:option>
 												<form:options items="${estado}" />
 											</form:select>
@@ -323,11 +352,11 @@
 												<form:errors path="telefoneOrigem"></form:errors>
 											</div>
 										</div>
-										<label for="situacaoImovel" class="col-sm-2 control-label">Situação
-											do Imóvel:</label>
+										<label for="situacaoImovel" class="col-sm-1  control-label">Situação
+											Imóvel:</label>
 										<div class="col-sm-2">
 											<form:select path="situacaoImovel" id="situacaoImovel"
-												cssClass="form-control">
+												cssClass="form-control" cssStyle="font-size:14px">
 												<form:option value="">Situação Imóvel</form:option>
 												<form:options items="${situacaoImovel}" />
 											</form:select>
@@ -340,7 +369,7 @@
 								</div>
 
 								<div class="panel-heading">
-									<h3>Propriedade Rural</h3>
+									<h3 class="panel-title">Propriedade Rural</h3>
 								</div>
 								<div class="panel-body">
 
@@ -386,7 +415,7 @@
 								</div>
 
 								<div class="panel-heading">
-									<h3>Bens Móveis (Veículos)</h3>
+									<h3 class="panel-title">Bens Móveis (Veículos)</h3>
 								</div>
 								<div class="panel-body">
 
@@ -439,16 +468,16 @@
 
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h3>Ensino Fundamental</h3>
+									<h3 class="panel-title">Ensino Fundamental</h3>
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
 										<label for="ensinoFundamental" class="col-sm-2 control-label"
 											id="form-label-right-select-tam-padrao"><span
 											class="red">*</span>Tipo de escola</label>
-										<div class="col-sm-3 control-label">
+										<div class="col-sm-2">
 											<form:select path="ensinoFundamental" id="ensinoFundamental"
-												cssClass="form-control">
+												cssClass="form-control" cssStyle="font-size:13px;">
 												<form:option value="" label="Selecione o Tipo" />
 												<form:options items="${tipoEnsinoFundamental}" />
 											</form:select>
@@ -456,19 +485,17 @@
 												<form:errors path="ensinoFundamental"></form:errors>
 											</div>
 										</div>
-									</div>
 
-									<div class="form-group">
 										<label for="bolsaEnsinoFundamental"
 											class="col-sm-2 control-label">Possuia bolsa? </label>
 										<div class="col-sm-1">
 											<div class="checkbox" id="checkbox-div">
-												<form:checkbox id="bolsaEnsinoFundamental"
+												<form:checkbox id="checkbox-mine"
 													path="bolsaEnsinoFundamental" cssClass="form-control" />
 											</div>
 										</div>
 										<label for="percentualParticularFundamental"
-											class="col-sm-4 control-label">Percentual de bolsa:</label>
+											class="col-sm-2 control-label">Percentual de bolsa:</label>
 										<div class="col-sm-2">
 											<div class="input-group">
 												<form:input id="percentualParticularFundamental"
@@ -485,7 +512,7 @@
 								</div>
 
 								<div class="panel-heading">
-									<h3>Ensino Médio</h3>
+									<h3 class="panel-title">Ensino Médio</h3>
 								</div>
 								<div class="panel-body">
 
@@ -493,9 +520,9 @@
 										<label for="ensinoMedio" class="col-sm-2 control-label"
 											id="form-label-right-select-tam-padrao"><span
 											class="red">*</span>Tipo de escola</label>
-										<div class="col-sm-3 control-label">
+										<div class="col-sm-2">
 											<form:select path="ensinoMedio" id="ensinoMedio"
-												cssClass="form-control">
+												cssClass="form-control" cssStyle="font-size:13px;">
 												<form:option value="" label="Selecione o Tipo" />
 												<form:options items="${tipoEnsinoMedio}" />
 											</form:select>
@@ -503,9 +530,7 @@
 												<form:errors path="ensinoMedio"></form:errors>
 											</div>
 										</div>
-									</div>
 
-									<div class="form-group">
 
 										<label for="bolsaEnsinoMedio" class="col-sm-2 control-label">Possuia
 											bolsa? </label>
@@ -517,7 +542,7 @@
 										</div>
 
 										<label for="percentualParticularMedio"
-											class="col-sm-4 control-label">Percentual de bolsa:</label>
+											class="col-sm-2 control-label">Percentual de bolsa:</label>
 										<div class="col-sm-2">
 											<div class="input-group">
 												<form:input id="percentualParticularMedio"
@@ -564,8 +589,8 @@
 
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h3>Situação Socioeconômica (Grupo Familiar incluido o
-										aluno)</h3>
+									<h3 class="panel-title">Situação Socioeconômica (Grupo
+										Familiar incluido o aluno)</h3>
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
@@ -583,7 +608,7 @@
 
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h3>Outras Informações</h3>
+									<h3 class="panel-title">Outras Informações</h3>
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
@@ -646,7 +671,7 @@
 
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h3>Justificativa</h3>
+									<h3 class="panel-title">Justificativa</h3>
 								</div>
 								<div class="panel-body">
 									<div class="form-group">

@@ -17,12 +17,12 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 
 	@Override
 	@Transactional
-	public boolean isSelecaoCadastrada(Selecao selecaoBolsa) {
+	public boolean isSelecaoCadastrada(Selecao selecao) {
 		@SuppressWarnings("unchecked")
 		List<Selecao> selecoes = find(QueryType.JPQL,
-				"from Selecao as p where p.tipoBolsa = :tipo and p.ano = :ano and p.sequencial = :sequencial",
-				new SimpleMap<String, Object>("tipo", selecaoBolsa.getTipoBolsa(), "ano", selecaoBolsa.getAno(),
-						"sequencial", selecaoBolsa.getSequencial()));
+				"from Selecao as p where p.tipoSelecao = :tipo and p.ano = :ano and p.sequencial = :sequencial",
+				new SimpleMap<String, Object>("tipo", selecao.getTipoSelecao(), "ano", selecao.getAno(),
+						"sequencial", selecao.getSequencial()));
 		if (selecoes == null || selecoes.isEmpty()) {
 			return false;
 		}
@@ -30,10 +30,11 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public Selecao getSelecaoBolsaComDocumentos(Integer IdSelecao) {
-		return (Selecao) findFirst("Selecao.findSelecaoBolsaComDocumentosByIdSelecao", new SimpleMap<String, Object>("IdSelecao", IdSelecao));
+	public List<Selecao> getSelecoesComMembros() {
+		return ((List<Selecao>) find("Selecao.findSelecoesComMembros", new SimpleMap<String, Object>()));
 	}
 
 }
