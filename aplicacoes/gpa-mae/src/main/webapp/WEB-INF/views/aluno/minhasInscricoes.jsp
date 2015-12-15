@@ -11,8 +11,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Minhas Inscrições</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Minhas Inscrições</title>
 </head>
 <body>
 
@@ -20,50 +20,55 @@
 
 	<div class="container">
 		<div class="col-md-12">
-			<div class="panel panel-info">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">Minhas Inscrições</h3>
 				</div>
-				<table class="table-display" id="tabela-selecoes">
-					<thead>
-						<tr>
-							<th>Tipo de Seleção</th>
-							<th>Ano</th>
-							<th>Edital</th>
-							<th>Vagas</th>
-							<th>Status</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="inscricao" items="${inscricoes}">
-							<tr class="linha">
-								<sec:authorize access="hasAnyRole('DISCENTE')"><td>
-								<a id="detalhesSelecao" href="<c:url value="/aluno/detalhes-inscricao/${inscricao.id}"></c:url>">
-									${inscricao.selecao.tipoSelecao.nome} </a></td></sec:authorize>
-								<td>${inscricao.selecao.ano}</td>
-								<td>${inscricao.selecao.sequencial}</td>
-								<td>${inscricao.selecao.quantidadeVagas}</td>
-								<td>${inscricao.selecao.status.nome}</td>
-								<td><sec:authorize access="hasAnyRole('DISCENTE')">
-										<a id="editarInscricao"
-											href="<c:url value="/selecao/inscritos/${aluno.id}" ></c:url>">
-											<button class="btn btn-info btn-sm" title="Editar Inscrição">
-												<span class="glyphicon glyphicon-pencil"></span>
-											</button>
-										</a>
-										<a id="excluirInscricao"
-											href="<c:url value="/inscricao/excluir/${idAluno}/${inscricao.id}" ></c:url>">
-											<button class="btn btn-danger btn-sm"
-												title="Excluir Inscrição">
-												<i class="glyphicon glyphicon-trash"></i>
-											</button>
-										</a>
-									</sec:authorize></td>
+
+				<div class="panel-body">
+					<table class="table-display" id="tabela-selecoes">
+						<thead>
+							<tr>
+								<th>Tipo de Seleção</th>
+								<th>Ano</th>
+								<th>Edital</th>
+								<th>Vagas</th>
+								<th>Status</th>
+								<th></th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach var="inscricao" items="${inscricoes}">
+								<tr class="linha">
+									<sec:authorize access="hasAnyRole('DISCENTE')">
+										<td><a id="detalhesSelecao"
+											href="<c:url value="/aluno/detalhes-inscricao/${inscricao.id}"></c:url>">
+												${inscricao.selecao.tipoSelecao.nome} </a></td>
+									</sec:authorize>
+									<td>${inscricao.selecao.ano}</td>
+									<td>${inscricao.selecao.sequencial}</td>
+									<td>${inscricao.selecao.quantidadeVagas}</td>
+									<td>${inscricao.selecao.status.nome}</td>
+									<td><sec:authorize access="hasAnyRole('DISCENTE')">
+											<a id="editarInscricao" title="Editar"
+												href="<c:url value="/selecao/inscritos/${aluno.id}" ></c:url>">
+												<button class="btn btn-primary btn-xs" title="Editar Inscrição">
+													<span class="glyphicon glyphicon-pencil"></span>
+												</button>
+											</a>
+											<a id="excluirInscricao" title="Excluir"
+												href="<c:url value="/inscricao/excluir/${idAluno}/${inscricao.id}" ></c:url>">
+												<button class="btn btn-danger btn-xs"
+													title="Excluir Inscrição">
+													<i class="glyphicon glyphicon-trash"></i>
+												</button>
+											</a>
+										</sec:authorize></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 

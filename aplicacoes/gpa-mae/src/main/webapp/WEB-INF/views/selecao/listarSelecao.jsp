@@ -42,89 +42,86 @@
 		</c:if>
 
 		<div class="col-md-14">
-			<div class="panel panel-info">
 
+			<div class="panel panel-primary">
 
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
 				</div>
-				<table class="table table-striped table-bordered"
-					id="tabela-selecoes">
-					<thead>
-						<tr>
-							<th>Tipo de Seleção</th>
-							<th>Ano</th>
-							<th>Edital</th>
-							<th>Vagas</th>
-							<th>Status</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="selecao" items="${selecoes}">
-							<tr class="linha">
-								<td><a id="detalhes"
-									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
-										${selecao.tipoSelecao.nome} </a></td>
-								<td>${selecao.ano}</td>
-								<td>${selecao.sequencial}</td>
-								<td>${selecao.quantidadeVagas}</td>
-								<td>${selecao.status.nome}</td>
-								<sec:authorize access="hasAnyRole('DISCENTE')">
-									<td><c:choose>
-											<c:when
-												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
-												<a id="inscrever"
-													href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
-													<button class=" btn btn-success btn-sm"
-														title="Realizar Inscrição">
-														<span class="glyphicon glyphicon-user"></span>
-													</button>
-												</a>
-											</c:when>
-											<c:when
-												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
-												<a id="editar"
-													href="<c:url value="/aluno/inscricao/editar/iniciacao-academica/${inscricao.id}" ></c:url>">
-													<button class=" btn btn-info btn-sm"
-														title="Editar Inscrição">
-														<span class="glyphicon glyphicon-pencil"></span>
-													</button>
-												</a>
-											</c:when>
-											<c:when
-												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
-												<a id="inscrever"
-													href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-													<button class=" btn btn-success btn-sm"
-														Title="Realizar Inscrição">
-														<span class="glyphicon glyphicon-user"></span>
-													</button>
-												</a>
-											</c:when>
-											<c:when
-												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
-												<a id="editar"
-													href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id}" ></c:url>">
-													<button class=" btn btn-info btn-sm"
-														title="Editar Inscrição">
-														<span class="glyphicon glyphicon-pencil"></span>
-													</button>
-												</a>
-											</c:when>
-										</c:choose></td>
-								</sec:authorize>
-								<td>
-									<a id="informacoes" href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
-										<button class=" btn btn-success btn-sm" title="Informações">
-											<span class="glyphicon glyphicon-zoom-in"></span>
-										</button>
-									</a>
-								</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+				<div class="panel-body">
+					<table class="table-display" id="tabela-selecoes">
+
+						<thead>
+							<tr>
+								<th>Tipo de Seleção</th>
+								<th>Ano</th>
+								<th>Edital</th>
+								<th>Vagas</th>
+								<th>Status</th>
+								<th></th>
+						</thead>
+						<tbody>
+
+							<c:forEach var="selecao" items="${selecoes}">
+								<tr class="linha">
+									<td><a id="detalhes"
+										href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
+											${selecao.tipoSelecao.nome} </a></td>
+									<td>${selecao.ano}</td>
+									<td>${selecao.sequencial}</td>
+									<td>${selecao.quantidadeVagas}</td>
+									<td>${selecao.status.nome}</td>
+
+									<td><sec:authorize access="hasAnyRole('DISCENTE')">
+											<c:choose>
+												<c:when
+													test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
+													<a id="inscrever" title="Inscrever-se"
+														href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
+														<button class=" btn btn-primary btn-xs"
+															title="Realizar Inscrição">
+															<span class="glyphicon glyphicon-user"></span>
+														</button>
+													</a>
+												</c:when>
+												<c:when
+													test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
+													<a id="editar" title="Editar"
+														href="<c:url value="/aluno/inscricao/editar/iniciacao-academica/${inscricao.id}" ></c:url>">
+														<button class=" btn btn-primary btn-xs"
+															title="Editar Inscrição">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</button>
+													</a>
+												</c:when>
+												<c:when
+													test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
+													<a id="inscrever" title="Inscrever-se"
+														href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
+														<button class=" btn btn-primary btn-xs"
+															Title="Realizar Inscrição">
+															<span class="glyphicon glyphicon-user"></span>
+														</button>
+													</a>
+												</c:when>
+												<c:when
+													test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
+													<a id="editar" title="Editar"
+														href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id}" ></c:url>">
+														<button class=" btn btn-primary btn-xs"
+															title="Editar Inscrição">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</button>
+													</a>
+												</c:when>
+											</c:choose>
+										</sec:authorize></td>
+
+
+								</tr>
+							</c:forEach>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

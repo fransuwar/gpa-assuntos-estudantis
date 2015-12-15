@@ -42,7 +42,7 @@
 		</c:if>
 
 		<div class="col-md-14">
-			<div class="panel panel-info">
+			<div class="panel panel-primary">
 
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
@@ -77,16 +77,17 @@
 											<i class="fa fa-users fa-lg"></i>
 										</button>
 								</a> <c:if test="${avaliar}">
-										<a id="avaliarSelecao"
+										<a id="avaliarSelecao" title="Avaliar Inscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm">
-												Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
+											<button class="btn btn-primary btn-xs">
+												<span class="glyphicon glyphicon-user"></span>
 											</button>
 										</a>
 									</c:if> <sec:authorize access="isAnonymous()">
-										<a id="informacoes"
+
+										<a id="informacoes" title="Informações"
 											href="<c:url value="/selecao/informacoes/${selecao.id}"></c:url>">
-											<button class=" btn btn-success btn-sm" title="Informações">
+											<button class="btn btn-primary btn-xs" title="Informações">
 												<span class="glyphicon glyphicon-zoom-in"></span>
 											</button>
 										</a>
@@ -108,7 +109,7 @@
 				<div class="modal-body">Tem certeza de que deseja excluir essa
 					seleção?</div>
 				<div class="modal-footer">
-					<a href="#" class="btn btn-danger">Excluir</a>
+					<a href="#" class="btn btn-danger btn-xs">Excluir</a>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 				</div>
 			</div>
