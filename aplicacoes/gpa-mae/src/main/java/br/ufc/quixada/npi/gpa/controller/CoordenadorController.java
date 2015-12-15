@@ -56,7 +56,7 @@ public class CoordenadorController {
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 		
-		return "coordenador/coordenacao";
+		return PAGINA_COORDENACAO;
 	}
 	
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.GET)
@@ -148,22 +148,15 @@ public class CoordenadorController {
 	
 	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
-		
-		Selecao selecao = this.selecaoService.getSelecaoComDocumentos(idSelecao);
-
-		if (selecao != null && selecao.getStatus() != null) {
-		
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		if (selecao != null) {
 			model.addAttribute("action", "editar");
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
 			model.addAttribute("selecao", selecao);
-			
-		} else {
-			redirect.addFlashAttribute("erro", MENSAGEM_PERMISSAO_NEGADA);
-			return REDIRECT_PAGINA_LISTAR_SELECAO;
+			return PAGINA_CADASTRAR_SELECAO;
 		}
-		
-		return PAGINA_CADASTRAR_SELECAO;
-
+		redirect.addFlashAttribute("erro", MENSAGEM_PERMISSAO_NEGADA);
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
@@ -196,7 +189,7 @@ public class CoordenadorController {
 
 		if (doc != null) {
 
-			if (selecaoService.getSelecaoComDocumentos(selecao.getId()).getDocumentos().size() == doc.length
+			if (selecaoService.find(Selecao.class, selecao.getId()).getDocumentos().size() == doc.length
 				&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
 				model.addAttribute("action", "editar");
 				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_ANEXO_EXCLUIR);

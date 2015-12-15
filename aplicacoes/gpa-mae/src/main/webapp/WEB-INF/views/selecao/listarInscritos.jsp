@@ -27,7 +27,7 @@
 					<thead>
 						<tr>
 							<th>Edital</th>
-							<th>Tipo de Bolsa</th>
+							<th>Seleção</th>
 							<th>Período de Inscrições</th>
 							<th>Vagas</th>
 							<th>Coordenador Responsável</th>
@@ -36,7 +36,7 @@
 					<tbody>
 						<tr>
 							<td>${selecao.ano }.${selecao.sequencial }</td>
-							<td>${selecao.tipoBolsa.nome }</td>
+							<td>${selecao.tipoSelecao.nome }</td>
 							<td><fmt:formatDate value="${selecao.dataInicio }"
 									pattern="dd/MM/yyyy" /> até <fmt:formatDate
 									value="${selecao.dataTermino }" pattern="dd/MM/yyyy" /></td>
