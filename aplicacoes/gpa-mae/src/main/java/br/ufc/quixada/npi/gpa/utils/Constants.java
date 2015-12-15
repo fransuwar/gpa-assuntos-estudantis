@@ -51,6 +51,8 @@ public class Constants {
 
 	/** Redirecionamentos */
 
+	public static final String REDIRECT_PAGINA_EDITAR_SELECAO       = "redirect:/coordenador/selecao/editar/";
+	
 	public static final String REDIRECT_PAGINA_ATRIBUIR_COMISSAO 	= "redirect:/coordenador/comissao/atribuir/";
 	
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO 		= "redirect:/selecao/listar";

@@ -51,7 +51,7 @@ public class Selecao {
 	@Range(min = 1, max = 999, message = "O número de vagas deve ser maior ou igual a 1")
 	private Integer quantidadeVagas;
 	
-
+	
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
@@ -70,7 +70,7 @@ public class Selecao {
 	@OneToMany(mappedBy = "selecaoBolsa", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	private List<Documento> documentos;
 	
-	@ManyToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany
 	private List<Servidor> membrosBanca;
 	
 	@ManyToOne

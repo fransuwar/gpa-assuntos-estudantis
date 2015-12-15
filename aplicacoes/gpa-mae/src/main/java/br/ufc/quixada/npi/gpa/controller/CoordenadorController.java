@@ -1,24 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANEXO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MEMBRO_BANCA_ATRIBUIR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MEMBRO_BANCA_REPETICAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_REMOVER;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_COMISSAO_FORMADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_SELECAO_ATUALIZADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_SELECAO_CADASTRADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_SELECAO_REMOVIDA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_ATRIBUIR_COMISSAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_CADASTRAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -157,10 +139,12 @@ public class CoordenadorController {
 		}
 		
 		Servidor coordenador = servidorService.getServidorByCPF(auth.getName());
+		
 		if(selecao.getResponsavel() == null){
 			selecao.addCoordenador(coordenador);
 			selecao.setResponsavel(coordenador);
 		}
+		
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_CADASTRADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -207,24 +191,6 @@ public class CoordenadorController {
 		}
 		
 		String doc[] = request.getParameterValues("doc");
-
-		/*if (doc != null) {
-
-			if (selecaoService.getSelecaoBolsaComDocumentos(selecao.getId()).getDocumentos().size() == doc.length
-				&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
-				model.addAttribute("action", "editar");
-				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_ANEXO_EXCLUIR);
-
-				return PAGINA_CADASTRAR_SELECAO;
-
-			}
-
-			for (int k = 0; k < doc.length; k++) {
-				Documento d = new Documento();
-				d.setId(Integer.parseInt(doc[k]));
-				documentoService.delete(d);
-			}
-		}*/
 		
 		List<Documento> documentos = new ArrayList<Documento>();
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
@@ -351,7 +317,7 @@ public class CoordenadorController {
 			model.addAttribute("tipoBolsa", TipoBolsa.values());
 			model.addAttribute("selecao", selecao);
 			
-			return "redirect:/coordenador/selecao/editar/" + idSelecao;
+			return  REDIRECT_PAGINA_EDITAR_SELECAO + idSelecao;
 			
 		} else {
 
