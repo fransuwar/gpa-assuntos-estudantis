@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -47,10 +48,11 @@
 		</div>
 
 		<div class="col-md-12">
-			<div class="panel panel-info">
+			<div class="panel panel-primary">
 				<div class="panel-heading" align="center">
 					<h3 class="panel-title">Servidores Cadastrados</h3>
 				</div>
+
 				<c:if test="${empty servidores}">
 					<div class="panel-body">
 						<div class="alert alert-warning" role="alert">Não há
@@ -59,41 +61,49 @@
 				</c:if>
 				<c:if test="${not empty servidores}">
 					<!-- Table -->
-					<table class="table table-display table-striped" id="tabela-servidores">
-						<thead>
-							<tr class="info">
-								<th>SIAPE</th>
-								<th>Cargo</th>
-								<th id="acoes">Ações</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:choose>
-								<c:when test="${not empty servidorEncontrado}">
-								</c:when>
-								<c:otherwise>
-									<c:forEach var="servidor" items="${servidores}">
-										<tr>
-											<td>${servidor.siape}</td>
-											<td>${servidor.cargo.nome}</td>
-											<td><a id="editar"
-												href="<c:url value="/servidor/${servidor.id}/editar" ></c:url>">
-													<button class="btn btn-info btn-sm" title="Editar servidor">
-														<span class="glyphicon glyphicon-pencil"></span>
-													</button>
-											</a> <a id="excluir" data-toggle="modal"
-												data-target="#confirm-delete" href="#"
-												data-href="<c:url value="/servidor/${servidor.id}/excluir" ></c:url>">
-													<button class="btn btn-danger btn-sm" title="Excluir Servidor" >
-														<span class="glyphicon glyphicon-trash"></span>
-													</button>
-											</a></td>
-									</c:forEach>
-								</c:otherwise>
-							</c:choose>
-						</tbody>
-					</table>
+
+					<div class="panel-body">
+						<table class="display" id="tabela-servidores">
+							<thead>
+								<tr class="info">
+									<th>SIAPE</th>
+									<th>Cargo</th>
+									<th id="acoes">Ações</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:choose>
+									<c:when test="${not empty servidorEncontrado}">
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="servidor" items="${servidores}">
+											<tr>
+												<td>${servidor.siape}</td>
+												<td>${servidor.cargo.nome}</td>
+												<td><a id="editar"
+													href="<c:url value="/servidor/${servidor.id}/editar" ></c:url>">
+														<button class="btn btn-info btn-sm"
+															title="Editar servidor">
+															<span class="glyphicon glyphicon-pencil"></span>
+														</button>
+												</a> <a id="excluir" data-toggle="modal"
+													data-target="#confirm-delete" href="#"
+													data-href="<c:url value="/servidor/${servidor.id}/excluir" ></c:url>">
+														<button class="btn btn-danger btn-sm"
+															title="Excluir Servidor">
+															<span class="glyphicon glyphicon-trash"></span>
+														</button>
+												</a></td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</tbody>
+
+						</table>
+					</div>
 				</c:if>
+
 			</div>
 		</div>
 	</div>
