@@ -7,6 +7,8 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import br.ufc.quixada.npi.gpa.enums.MoraCom;
+import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -73,5 +75,10 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	@Transactional(readOnly = true)
 	public VisitaDomiciliar getVisitaDocimiciliar(Integer idVisitaDomiciliar) {
 		return visitaService.find(VisitaDomiciliar.class, idVisitaDomiciliar);
+	}
+
+	@Override
+	public ComQuemMora getComQuemMora(MoraCom comQuemMora) {
+		return (ComQuemMora) findFirst("ComQuemMora.findComQuemMoraByDescricao", new SimpleMap<String, Object>("descricao", comQuemMora));
 	}
 }

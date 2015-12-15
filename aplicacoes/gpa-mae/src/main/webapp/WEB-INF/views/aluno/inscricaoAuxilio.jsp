@@ -55,7 +55,7 @@
 
 				</ul>
 
-				<form:form id="questionarioAuxilio" role="form"
+				<form:form id="questionario" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
 					servletRelativeAction="${url }" method="POST"
@@ -74,10 +74,14 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<div class="col-sm-9" id="col-sm-radio">
-											<form:checkboxes items="${moraCom}" itemLabel="nome" path="comQuemMora" />
-											<div class="error-validation">
+											<%-- <form:checkboxes items="${moraCom}" itemLabel="nome" path="mora" /> --%>
+											<c:forEach items="${moraCom }" var="mora" varStatus="count">
+												<input id="comQuemMora${count.index + 1 }" type="checkbox" name="mora" value="${mora}"/>
+												<label for="comQuemMora${count.index + 1 }">${mora.nome }</label>
+											</c:forEach>
+											<%-- <div class="error-validation">
 												<form:errors path="comQuemMora"></form:errors>
-											</div>
+											</div> --%>
 										</div>
 									</div>
 									<div id="mora-com-outros" class="form-group" align="left" class="col-sm-16">
@@ -85,9 +89,8 @@
 											<span class="red">*</span>Com Que Mora essas pessoas ?
 										</label>
 										<div class="col-sm-4">
-											<form:input id="comQuemMoraOutros" path="comQuemMora"
-												cssClass="form-control" 
-												placeholder="Com quem mora essas pessoas ?" />
+											<form:input id="comQuemMoraOutros" path="comQuemMoraOutros" 
+												cssClass="form-control" placeholder="Com quem mora essas pessoas ?" />
 											<div class="error-validation">
 												<form:errors path="comQuemMoraOutros"></form:errors>
 											</div>

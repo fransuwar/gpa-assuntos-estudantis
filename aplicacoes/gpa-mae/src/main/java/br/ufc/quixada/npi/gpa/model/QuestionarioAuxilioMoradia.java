@@ -36,16 +36,16 @@ public class QuestionarioAuxilioMoradia {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@NotEmpty(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
+	@NotNull(message = "Campo obrigatório")
 	private TipoEnsinoFundamental ensinoFundamental;
 
 	private boolean bolsaEnsinoFundamental;
 
 	private int percentualParticularFundamental;
 
-	@NotEmpty(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
+	@NotNull(message = "Campo obrigatório")
 	private TipoEnsinoMedio ensinoMedio;
 
 	private boolean bolsaEnsinoMedio;

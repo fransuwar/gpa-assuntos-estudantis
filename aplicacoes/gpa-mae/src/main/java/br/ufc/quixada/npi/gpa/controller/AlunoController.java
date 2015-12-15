@@ -1,6 +1,8 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +37,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
-
+import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
@@ -201,9 +203,18 @@ public class AlunoController {
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
 	public String realizarInscricaoAuxilioMoradia(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
-			BindingResult result, @RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
-			Model model) {
+			BindingResult result, @RequestParam("mora") List<String> comQuemMora, @RequestParam("idSelecao") Integer idSelecao, Authentication auth, 
+			RedirectAttributes redirect, Model model) {
 
+		
+		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
+		for (String m : comQuemMora) {
+			ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));
+			comQuemMoraList.add(mora);
+		}
+		
+		auxilioMoradia.setComQuemMora(comQuemMoraList);
+		
 		if (result.hasErrors()) {
 			model.addAttribute("estado", Estado.values());
 			model.addAttribute("situacaoImovel", SituacaoImovel.values());
