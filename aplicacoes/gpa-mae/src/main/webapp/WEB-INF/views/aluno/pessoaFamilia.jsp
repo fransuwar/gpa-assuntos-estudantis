@@ -48,27 +48,25 @@
 
 			<c:if test="${empty pessoasDaFamilia }">
 				<c:forEach begin="1" end="1" var="i">
-
 					<tr class="pessoaFamilia">
 						<td><input class="form-control" type="text" name="pessoas[${i }].nome" value="" /></td>
-
-						<td><form:select path="" name="pessoas[${i }].parentesco"
-								class="form-control">
+						<td>
+							<form:select path="" name="pessoas[${i }].parentesco" class="form-control">
 								<form:option value="">Selecione um grau de parentesco</form:option>
-								<form:options items="${grauParentesco}" />
-							</form:select></td>
-
-						<td><input class="form-control" type="text" name="pessoas[${i }].escolaridade"
-							value="" /></td>
+								<form:options items="${grauParentesco}" itemLabel="nome"/>
+							</form:select>
+						</td>
+							
+						<td><input class="form-control" type="text" name="pessoas[${i }].escolaridade" value="" /></td>
+							
 						<td><input class="form-control" type="number" name="pessoas[${i }].idade" value="" /></td>
-						<td><input type="text" name="pessoas[${i }].profissao"
-							value="" /></td>
-						<td><input class="form-control" type="number" name="pessoas[${i }].rendaMensal"
-							value="" /></td>
-
+							
+						<td><input type="text" name="pessoas[${i }].profissao" value="" /></td>
+							
+						<td><input class="form-control" type="number" name="pessoas[${i }].rendaMensal" value="" /></td>
+							
 						<td><a href="#" class="removePessoa">Remover Pessoa</a></td>
 					</tr>
-
 				</c:forEach>
 			</c:if>
 		</tbody>

@@ -105,13 +105,6 @@ public class SelecaoController {
 		return PAGINA_LISTAR_SELECAO;
 	}
 
-	
-		@RequestMapping(value = "/visualizarFormulario/{idaluno}")
-		public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
-			return null;
-		}
-
-
 	@RequestMapping(value = "parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,
 			@PathVariable("idSelecao") Integer id, BindingResult result, HttpServletRequest request,
