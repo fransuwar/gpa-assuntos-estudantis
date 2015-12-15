@@ -29,8 +29,7 @@
 							clas="form-control">
 							<form:option value="">Selecione um grau de parentesco</form:option>
 							<c:forEach items="${grauParentesco }" var="parentesco">
-								<form:option value="${parentesco }"
-									selected="${parentesco == pf.parentesco ? 'selected' : '' }">${parentesco.nome}</form:option>
+								<form:option value="${parentesco }" selected="${parentesco == pf.parentesco ? 'selected' : '' }" >${parentesco.nome}</form:option>
 							</c:forEach>
 						</form:select></td>
 					<td><input type="text" name="pf.escolaridade"
@@ -53,7 +52,7 @@
 					<td><form:select path="" name="pessoas[${i }].parentesco"
 							class="form-control">
 							<form:option value="">Selecione um grau de parentesco</form:option>
-							<form:options items="${grauParentesco}" />
+							<form:options items="${grauParentesco}" itemLabel="nome"/>
 						</form:select></td>
 
 					<td><input type="text" name="pessoas[${i }].escolaridade" value="" /></td>

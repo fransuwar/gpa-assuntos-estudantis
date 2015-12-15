@@ -39,7 +39,7 @@
 						<c:forEach var="inscricao" items="${inscricoes}">
 							<tr class="linha">
 								<sec:authorize access="hasAnyRole('DISCENTE')"><td>
-								<a id="detalhesSelecao" href="<c:url value="/aluno/detalhes-inscricao/${inscricao.id}"></c:url>">
+								<a id="detalhesSelecao" href="<c:url value="/aluno/inscricao/detalhes/${inscricao.id}"></c:url>">
 									${inscricao.selecao.tipoSelecao.nome} </a></td></sec:authorize>
 								<td>${inscricao.selecao.ano}</td>
 								<td>${inscricao.selecao.sequencial}</td>
@@ -59,7 +59,8 @@
 												<i class="glyphicon glyphicon-trash"></i>
 											</button>
 										</a>
-									</sec:authorize></td>
+									</sec:authorize>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

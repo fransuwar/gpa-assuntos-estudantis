@@ -105,12 +105,13 @@ public class SelecaoController {
 		return PAGINA_LISTAR_SELECAO;
 	}
 
-	
-		@RequestMapping(value = "/visualizarFormulario/{idaluno}")
-		public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
-			return null;
-		}
-
+	@RequestMapping(value = "/visualizarFormulario/{idaluno}")
+	public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
+		
+		// TODO - Implementar método de visualização de um formulário de um aluno. 
+		
+		return "";
+	}
 
 	@RequestMapping(value = "parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,

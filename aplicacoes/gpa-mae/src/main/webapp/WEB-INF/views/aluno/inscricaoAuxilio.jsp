@@ -140,7 +140,7 @@
 								</div>
 
 								<div class="panel-heading">
-									<h3>Endereço da residência atual</h3>
+									<h3>Endereço da Residência Atual</h3>
 								</div>
 								<div class="panel-body">
 
@@ -185,7 +185,9 @@
 												<form:errors path="cidade"></form:errors>
 											</div>
 										</div>
-										<label for="complemento" class="col-sm-2 control-label">Complemento:</label>
+										<label for="complemento" class="col-sm-2 control-label">
+											<span class="red">*</span>Complemento:
+										</label>
 										<div class="col-sm-4">
 											<form:input id="complemento" path="complemento"
 												cssClass="form-control"
@@ -213,7 +215,7 @@
 											<form:select path="estado" id="estado"
 												cssClass="form-control">
 												<form:option value="">Selecione Estado</form:option>
-												<form:options items="${estado}" />
+												<form:options items="${estado}" itemLabel="nome"/>
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="estado"></form:errors>
@@ -230,13 +232,10 @@
 											</div>
 										</div>
 									</div>
-									<!--  -->
-
-									<!--  -->
 								</div>
 
 								<div class="panel-heading">
-									<h3>Endereço da residência de origem</h3>
+									<h3>Endereço da Residência de Origem</h3>
 								</div>
 								<div class="panel-body">
 
@@ -312,7 +311,7 @@
 											<form:select path="estadoOrigem" id="estadoOrigem"
 												cssClass="form-control">
 												<form:option value="">Selecione Estado</form:option>
-												<form:options items="${estado}" />
+												<form:options items="${estado}" itemLabel="nome"/>
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="estadoOrigem"></form:errors>
@@ -348,7 +347,7 @@
 											<form:select path="situacaoImovel" id="situacaoImovel"
 												cssClass="form-control">
 												<form:option value="">Situação Imóvel</form:option>
-												<form:options items="${situacaoImovel}" />
+												<form:options items="${situacaoImovel}" itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="situacaoImovel"></form:errors>
@@ -371,7 +370,7 @@
 											<form:select path="grauParentescoImovelRural"
 												id="grauParentescoImovelRural" cssClass="form-control">
 												<form:option value="" label="Selecione o Grau" />
-												<form:options items="${grauParentescoImovelRural}" />
+												<form:options items="${grauParentescoImovelRural}" itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="grauParentescoImovelRural"></form:errors>
@@ -417,7 +416,7 @@
 											<form:select path="grauParentescoVeiculos"
 												id="grauParentescoVeiculos" cssClass="form-control">
 												<form:option value="" label="Selecione o Grau" />
-												<form:options items="${grauParentescoVeiculos}" />
+												<form:options items="${grauParentescoVeiculos}" itemLabel="nome"/>
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="grauParentescoVeiculos"></form:errors>
@@ -440,7 +439,7 @@
 											<form:select path="finalidadeVeiculo" id="finalidadeVeiculo"
 												cssClass="form-control">
 												<form:option value="">Selecione a Finalidade</form:option>
-												<form:options items="${finalidadeVeiculo}" />
+												<form:options items="${finalidadeVeiculo}" itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="finalidadeVeiculo"></form:errors>
@@ -469,7 +468,7 @@
 											<form:select path="ensinoFundamental" id="ensinoFundamental"
 												cssClass="form-control">
 												<form:option value="" label="Selecione o Tipo" />
-												<form:options items="${tipoEnsinoFundamental}" />
+												<form:options items="${tipoEnsinoFundamental}" itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="ensinoFundamental"></form:errors>
@@ -516,7 +515,7 @@
 											<form:select path="ensinoMedio" id="ensinoMedio"
 												cssClass="form-control">
 												<form:option value="" label="Selecione o Tipo" />
-												<form:options items="${tipoEnsinoMedio}" />
+												<form:options items="${tipoEnsinoMedio}" itemLabel="nome"/>
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="ensinoMedio"></form:errors>
