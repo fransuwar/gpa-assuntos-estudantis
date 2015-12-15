@@ -74,7 +74,6 @@
 												href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
 												<button class=" btn btn-primary btn-xs">
 													<span class="glyphicon glyphicon-user"></span>
-
 												</button>
 											</a>
 										</c:when>
@@ -93,6 +92,7 @@
 											<a id="inscrever" title="Inscrever-se"
 												href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
 												<button class="btn btn-primary btn-xs">
+
 													<span class="glyphicon glyphicon-user"></span>
 												</button>
 											</a>

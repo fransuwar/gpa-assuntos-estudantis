@@ -9,8 +9,6 @@ public interface SelecaoService extends GenericService<Selecao> {
 
 	public abstract boolean isSelecaoCadastrada(Selecao selecao);
 
-	public abstract Selecao getSelecaoComDocumentos(Integer idSelecao);
-
 	public abstract List<Selecao> getSelecoesComMembros();
 
 }

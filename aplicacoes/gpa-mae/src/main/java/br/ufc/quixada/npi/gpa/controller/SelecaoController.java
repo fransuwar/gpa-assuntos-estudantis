@@ -50,7 +50,7 @@ public class SelecaoController {
 
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
-		Selecao selecao = selecaoService.getSelecaoComDocumentos(idSelecao);
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 
 
 		if (selecao == null) {

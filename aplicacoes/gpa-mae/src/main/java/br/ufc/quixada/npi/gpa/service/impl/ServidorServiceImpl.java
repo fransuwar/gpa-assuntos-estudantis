@@ -23,12 +23,12 @@ public class ServidorServiceImpl extends GenericServiceImpl<Servidor> implements
 	@Override
 	@Transactional(readOnly = true)
 	public Servidor getServidorByCpf(String cpf) {
-			return (Servidor) findFirst("Servidor.findServidorByCPF", new SimpleMap<String, Object>("cpf", cpf));
+			return (Servidor) findFirst("Servidor.findServidorByCpf", new SimpleMap<String, Object>("cpf", cpf));
 	}
 
 	@Override
 	public Servidor getServidorComComissao(String CPF) {
-		return (Servidor) findFirst("Servidor.findServidorComComissaoByCPF", new SimpleMap<String, Object>("cpf", CPF));
+		return (Servidor) findFirst("Servidor.findServidorComComissaoByCpf", new SimpleMap<String, Object>("cpf", CPF));
 
 	}
 }

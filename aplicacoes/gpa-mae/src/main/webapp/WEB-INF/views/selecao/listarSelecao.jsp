@@ -59,7 +59,6 @@
 								<th>Vagas</th>
 								<th>Status</th>
 								<th></th>
-							</tr>
 						</thead>
 						<tbody>
 
@@ -77,7 +76,7 @@
 											<c:choose>
 												<c:when
 													test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
-													<a id="inscrever" title="Inscrever"
+													<a id="inscrever" title="Inscrever-se"
 														href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
 														<button class=" btn btn-primary btn-xs"
 															title="Realizar Inscrição">
@@ -97,7 +96,7 @@
 												</c:when>
 												<c:when
 													test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
-													<a id="inscrever" title="Inscrever"
+													<a id="inscrever" title="Inscrever-se"
 														href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
 														<button class=" btn btn-primary btn-xs"
 															Title="Realizar Inscrição">

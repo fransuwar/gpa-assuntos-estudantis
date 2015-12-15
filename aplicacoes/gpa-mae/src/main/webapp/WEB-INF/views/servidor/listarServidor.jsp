@@ -99,8 +99,9 @@
 									</c:otherwise>
 								</c:choose>
 							</tbody>
-							</div>
+
 						</table>
+					</div>
 				</c:if>
 
 			</div>
