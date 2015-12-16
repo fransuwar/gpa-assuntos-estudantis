@@ -54,7 +54,7 @@ public class SelecaoController {
 
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
-		Selecao selecao = selecaoService.getSelecaoComDocumentos(idSelecao);
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -107,13 +107,6 @@ public class SelecaoController {
 
 		return PAGINA_LISTAR_SELECAO;
 	}
-
-	
-		@RequestMapping(value = "/visualizarFormulario/{idaluno}")
-		public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
-			return null;
-		}
-
 
 	@RequestMapping(value = "parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,

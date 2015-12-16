@@ -31,11 +31,9 @@ public class ServidorServiceImpl extends GenericServiceImpl<Servidor> implements
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Servidor getServidorComComissao(String cpf) {
-		return (Servidor) findFirst("Servidor.findServidorComBancasByCPF", new SimpleMap<String, Object>("cpf", cpf));
+	public Servidor getServidorComComissao(String CPF) {
+		return (Servidor) findFirst("Servidor.findServidorComComissaoByCpf", new SimpleMap<String, Object>("cpf", CPF));
 	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Servidor> getServidorPertenceBanca(Integer idServidor, Integer idSelecao) {

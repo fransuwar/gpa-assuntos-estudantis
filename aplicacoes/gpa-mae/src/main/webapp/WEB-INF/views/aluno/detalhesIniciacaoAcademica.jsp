@@ -1,21 +1,20 @@
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<!DOCTYPE html>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <html>
 <head>
 <jsp:include page="../fragments/bodyHeader.jsp" />
-<title>Detalhes da Inscrição</title>
+<title>Detalhes Inscrição Iniciação Acadêmica</title>
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
+	
 	<div class="container" align="left" style="padding-left: 85px;">
 		<div class="panel panel-primary-min">
 			<div class="panel-heading">
@@ -28,8 +27,8 @@
 							<fmt:formatDate value="${inscricao.data}"
 								pattern="dd/MM/yyyy" />
 						</dd>
-						<dt class=" col-sm-3">Tipo de Bolsa:</dt>
-						<dd class="col-sm-3">${inscricao.selecao.tipoBolsa.nome}</dd>
+						<dt class=" col-sm-3">Tipo da Seleção:</dt>
+						<dd class="col-sm-3">${inscricao.selecao.tipoSelecao.nome}</dd>
 					</dl>
 					<dl class="col-sm-12">
 						<dt class="col-sm-3">Resultado:</dt>
@@ -182,7 +181,7 @@
 							items="${inscricao.questionarioIniciacaoAcademica.pessoas }">
 							<tr>
 								<td>${pessoa.nome }</td>
-								<td>${pessoa.parentesco }</td>
+								<td>${pessoa.parentesco.nome }</td>
 								<td>${pessoa.escolaridade }</td>
 								<td>${pessoa.profissao}</td>
 								<td>${pessoa.rendaMensal }</td>
@@ -203,8 +202,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="horarios"
-							items="${inscricao.questionarioIniciacaoAcademica.horariosDisponiveisBolsa }">
+						<c:forEach var="horarios" items="${inscricao.questionarioIniciacaoAcademica.horariosDisponiveisSelecao }">
 							<tr>
 								<td>${horarios.dia.nome }</td>
 								<td>${horarios.turno.nome }</td>

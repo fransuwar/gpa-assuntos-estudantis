@@ -50,10 +50,10 @@
 				</div>
 			</sec:authorize>
 		</div>
-		
+
 		<div class="col-md-12">
 
-			<div class="panel panel-info">
+			<div class="panel panel-primary">
 				<div class="panel-heading" align="center">
 					<h3 class="panel-title">Todos os Alunos</h3>
 				</div>
@@ -64,7 +64,9 @@
 					</div>
 				</c:if>
 				<c:if test="${not empty alunos}">
-					<table class="table table display table-striped" id="tabela-alunos">
+
+					<div class="panel-body">
+						<table class="display" id="tabela-alunos">
 						<thead>
 							<tr class="info">
 								<th>Matricula</th>
@@ -76,29 +78,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="aluno" items="${alunos}">
+						<c:forEach var="aluno" items="${alunos}">
 								<tr class="linha">
 									<td>${aluno.matricula}</td>
 									<td>${aluno.ira}</td>
 									<td>${aluno.curso.nome}</td>
 									<sec:authorize access="hasRole('SERVIDOR')">
-										<td><a id="editar"
+										<td><a id="editar" title="Editar"
 											href="<c:url value="/servidor/editar/aluno/${aluno.id}" ></c:url>">
-												<button class="btn btn-info btn-sm" title="Editar Aluno">
+												<button class="btn btn-primary btn-xs" title="Editar Aluno">
 													<span class="glyphicon glyphicon-pencil"></span>
 												</button>
-										</a> <a id="excluir" data-toggle="modal"
+										</a> <a id="excluir" data-toggle="modal" title="Excluir"
 											data-target="#confirm-delete" href="#"
 											data-href="<c:url value="/servidor/excluir/aluno/${aluno.id}" ></c:url>">
-												<button class="btn btn-danger btn-sm" title="Excluir Aluno">
+												<button class="btn btn-danger btn-xs" title="Excluir Aluno">
 													<span class="glyphicon glyphicon-trash"></span>
 												</button>
 										</a></td>
 									</sec:authorize>
 								</tr>
 							</c:forEach>
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					</div>
 				</c:if>
 			</div>
 		</div>

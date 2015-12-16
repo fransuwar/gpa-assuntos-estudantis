@@ -6,14 +6,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 
 
 <html>
 <head>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Lista de Seleções</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Lista de Seleções</title>
 </head>
 <body>
 
@@ -41,13 +42,14 @@
 		</c:if>
 
 		<div class="col-md-14">
-			<div class="panel panel-info">
+			<div class="panel panel-primary">
 
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
 				</div>
 
-				<table class="table table-display table-striped" id="tabela-selecoes">
+				<table class="table table-display table-striped"
+					id="tabela-selecoes">
 					<thead>
 						<tr>
 							<th>Tipo de Seleção</th>
@@ -68,25 +70,24 @@
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
-								<td>
-										<a id="visualizarInscritos"
+								<td><a id="visualizarInscritos"
+									href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
+										<button class="btn btn-primary btn-sm" tooltip="Usuário"
+											title="Visualizar Inscritos">
+											<i class="fa fa-users fa-lg"></i>
+										</button>
+								</a> <c:if test="${avaliar}">
+										<a id="avaliarSelecao" title="Avaliar Inscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm" tooltip="Usuário" title="Visualizar Inscritos">
-												<i class="fa fa-users fa-lg"></i>
+											<button class="btn btn-primary btn-xs">
+												<span class="glyphicon glyphicon-user"></span>
 											</button>
 										</a>
-										<c:if test="${avaliar}">
-											<a id="avaliarSelecao"
-												href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-												<button class="btn btn-primary btn-sm">
-													Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-												</button>
-											</a>
-										</c:if>
-									<sec:authorize access="isAnonymous()">
-										<a id="informacoes"
+									</c:if> <sec:authorize access="isAnonymous()">
+
+										<a id="informacoes" title="Informações"
 											href="<c:url value="/selecao/informacoes/${selecao.id}"></c:url>">
-											<button class=" btn btn-success btn-sm" title="Informações">
+											<button class="btn btn-primary btn-xs" title="Informações">
 												<span class="glyphicon glyphicon-zoom-in"></span>
 											</button>
 										</a>
@@ -108,7 +109,7 @@
 				<div class="modal-body">Tem certeza de que deseja excluir essa
 					seleção?</div>
 				<div class="modal-footer">
-					<a href="#" class="btn btn-danger">Excluir</a>
+					<a href="#" class="btn btn-danger btn-xs">Excluir</a>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 				</div>
 			</div>

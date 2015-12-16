@@ -14,6 +14,8 @@ public class Constants {
 
 	public static final String PAGINA_CADASTRAR_SELECAO 			= "coordenador/cadastrarSelecao";
 	
+	public static final String PAGINA_COORDENACAO					= "coordenador/coordenacao";
+	
 	public static final String PAGINA_LISTAR_SELECAO				= "selecao/listarSelecao";
 
 	public static final String PAGINA_INFORMACOES_SELECAO			= "selecao/detalhesSelecao";
@@ -40,11 +42,11 @@ public class Constants {
 	
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
-	public static final String PAGINA_VISUALIZAR_INSC_AUX_MOR 		= "aluno/detalhesInscAuxMor";
+	public static final String PAGINA_DETALHES_AUXILIO_MORADIA		= "aluno/detalhesAuxilioMoradia";
+
+	public static final String PAGINA_DETALHES_INICIACAO_ACADEMICA	= "aluno/detalhesIniciacaoAcademica";
 
 	public static final String PAGINA_INSCREVER_AUXILIO_MORADIA 	= "aluno/inscricaoAuxilio";
-	
-	public static final String PAGINA_DETALHES_INSCRICAO			= "aluno/detalhesInscricao";
 	
 	public static final String PAGINA_INSCRICOES_ALUNO				= "aluno/minhasInscricoes";
 	
@@ -62,6 +64,8 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR		= "redirect:/administrador/listar";
 	
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS		= "redirect:/administrador/listar/alunos";
+	
+	public static final String REDIRECT_PAGINA_INSCRICOES_ALUNO		= "redirect:/aluno/inscricao/listar";
 	
 	/** Mensagens */
 	

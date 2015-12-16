@@ -1,6 +1,17 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVISTA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_REALIZAR_ENTREVISTA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRITOS_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -55,18 +66,10 @@ public class ServidorController {
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
-		Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
-
-		if (!servidor.getParticipaComissao().isEmpty()) {
-
-			model.addAttribute("selecoes", servidor.getParticipaComissao());
-			model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
-
-			return PAGINA_LISTAR_SELECAO;
-		}
-
-		model.addAttribute("erro", MENSAGEM_SERVIDOR_NAO_ASSOCIADO);
+		Servidor servidor = servidorService.getServidorByCpf(auth.getName());
+		model.addAttribute("selecoes", servidor.getParticipaComissao());
+		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
 		return PAGINA_LISTAR_SELECAO;
 	}
@@ -169,7 +172,7 @@ public class ServidorController {
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect){
 		
-		Selecao selecao = selecaoService.getSelecaoComDocumentos(idSelecao);
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
