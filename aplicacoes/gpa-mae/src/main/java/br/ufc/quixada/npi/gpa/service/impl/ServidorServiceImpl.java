@@ -1,9 +1,13 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import br.ufc.quixada.npi.enumeration.QueryType;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
@@ -29,6 +33,14 @@ public class ServidorServiceImpl extends GenericServiceImpl<Servidor> implements
 	@Override
 	public Servidor getServidorComComissao(String CPF) {
 		return (Servidor) findFirst("Servidor.findServidorComComissaoByCpf", new SimpleMap<String, Object>("cpf", CPF));
-
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Servidor> getServidorPertenceBanca(Integer idServidor, Integer idSelecao) {
+		Map<String, Object> params = new SimpleMap<String, Object>();
+		params.put("idServidor", idServidor);
+		params.put("idSelecao", idSelecao);
+		
+		return (List<Servidor>) find(QueryType.NAMED, "Servidor.findServidorPertenceSelecao", params);
 	}
 }

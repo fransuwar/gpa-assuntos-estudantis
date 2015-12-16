@@ -26,6 +26,7 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 
 @NamedQueries({
+
 		@NamedQuery(name = "Selecao.findSelecaoComMembros",	query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosComissao")})
 
 @Entity
@@ -34,45 +35,42 @@ public class Selecao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Range(min = 1, message = "O valor do edital deve ser maior que 0")
 	private Integer sequencial;
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@Range(min = 1, max = 999, message = "O número de vagas deve ser maior ou igual a 1")
 	private Integer quantidadeVagas;
-	
-	
+
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
-	
+
 	@Future(message = "Data de término deve ser maior que a data atual")
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
+
 	@Enumerated(EnumType.STRING)
 	private TipoSelecao tipoSelecao;
-	
+
 	@OneToMany(mappedBy = "selecao", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	private List<Documento> documentos;
-	
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Servidor> membrosComissao;
 
-	
 	@ManyToOne
 	private Servidor responsavel;
-	
+
 	@OneToMany(mappedBy = "selecao")
 	private List<Inscricao> inscritos;
 

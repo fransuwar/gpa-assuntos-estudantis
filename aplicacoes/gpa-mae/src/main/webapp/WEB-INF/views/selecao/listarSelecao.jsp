@@ -42,15 +42,12 @@
 		</c:if>
 
 		<div class="col-md-14">
-
 			<div class="panel panel-primary">
-
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
 				</div>
 				<div class="panel-body">
 					<table class="table-display" id="tabela-selecoes">
-
 						<thead>
 							<tr>
 								<th>Tipo de Seleção</th>
@@ -115,9 +112,15 @@
 													</a>
 												</c:when>
 											</c:choose>
+										</sec:authorize> <sec:authorize
+											access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
+											<a id="informacoes"
+												href="<c:url value="/servidor/detalhes/${selecao.id}"></c:url>">
+												<button class=" btn btn-success btn-sm" title="Informações">
+													<span class="glyphicon glyphicon-zoom-in"></span>
+												</button>
+											</a>
 										</sec:authorize></td>
-
-
 								</tr>
 							</c:forEach>
 					</table>
