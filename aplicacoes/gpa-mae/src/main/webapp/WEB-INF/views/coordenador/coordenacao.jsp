@@ -22,7 +22,7 @@
 
 	<div class="container">
 
-		<c:if test="${not empty erro}">
+<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert"
 				id="alert-erro">
 				<button type="button" class="close" data-dismiss="alert">
@@ -41,7 +41,7 @@
 			</div>
 		</c:if>
 
-		<div class="col-md-14">
+		<div class="col-md-13">
 
 			<div align="left" style="margin-bottom: 20px;">
 				<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">
@@ -109,7 +109,6 @@
 													<span class="glyphicon glyphicon-user"></span>
 												</button>
 											</c:when>
-
 											<c:otherwise>
 												<button class="btn btn-primary btn-sm"
 													title="Editar Membros da Comissão">
@@ -117,7 +116,16 @@
 												</button>
 											</c:otherwise>
 										</c:choose>
-								</a>
+								</a> <c:if test="${avaliar}">
+										<a id="avaliarSelecao"
+											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
+											<button class="btn btn-primary btn-sm">
+												Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
+
+
+											</button>
+										</a>
+									</c:if>
 							</tr>
 						</c:forEach>
 					</tbody>
