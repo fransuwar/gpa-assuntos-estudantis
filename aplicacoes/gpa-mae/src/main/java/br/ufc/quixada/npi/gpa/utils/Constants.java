@@ -55,6 +55,8 @@ public class Constants {
 
 	/** Redirecionamentos */
 
+	public static final String REDIRECT_PAGINA_EDITAR_SELECAO       = "redirect:/coordenador/selecao/editar/";
+	
 	public static final String REDIRECT_PAGINA_ATRIBUIR_COMISSAO 	= "redirect:/coordenador/comissao/atribuir/";
 	
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO 		= "redirect:/selecao/listar";
@@ -166,6 +168,8 @@ public class Constants {
 	public static final String MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR = "Número do edital com esse tipo de Seleção já existente";
 	
 	public static final String MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR = "Não é possivel excluir o Coordenador da Comissão";
+	
+	public static final String MENSAGEM_DOCUMENTO_REMOVIDO                = "Documento removido com Sucesso";
 	
 	/** Perfis */
 	

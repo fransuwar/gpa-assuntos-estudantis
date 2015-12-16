@@ -47,7 +47,6 @@ public class Selecao {
 	@Range(min = 1, max = 999, message = "O número de vagas deve ser maior ou igual a 1")
 	private Integer quantidadeVagas;
 
-	@Future(message = "Data de início deve ser maior que a data atual")
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
