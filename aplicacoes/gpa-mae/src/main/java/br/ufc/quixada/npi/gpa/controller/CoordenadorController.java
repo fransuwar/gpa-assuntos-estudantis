@@ -137,9 +137,15 @@ public class CoordenadorController {
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
+
+		
 		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());
-		selecao.addCoordenador(coordenador);
-		selecao.setResponsavel(coordenador);
+		
+		if(selecao.getResponsavel() == null){
+			selecao.addCoordenador(coordenador);
+			selecao.setResponsavel(coordenador);
+		}
+		
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_CADASTRADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -155,23 +161,19 @@ public class CoordenadorController {
 			model.addAttribute("selecao", selecao);
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-		redirect.addFlashAttribute("erro", MENSAGEM_PERMISSAO_NEGADA);
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+
+	
+		return PAGINA_CADASTRAR_SELECAO;
+
 	}
 	
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
-	public String editarSelecao(@RequestParam("files") List<MultipartFile> files,
-			@Valid @ModelAttribute("selecao") Selecao selecao, Model model,
-			BindingResult result, RedirectAttributes redirect, HttpServletRequest request) {
+	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result,
+			@RequestParam("files") List<MultipartFile> files, Model model, RedirectAttributes redirect,
+			HttpServletRequest request) {
 		
 		model.addAttribute("action", "editar");
-		
-		if (selecao != null && selecao.getAno() != null) {
-			if (selecao.getAno() < DateTime.now().getYear()) {
-				result.rejectValue("ano", "selecao.ano", MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR);
-			}
-		}
-		
+	
 		if (selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) {
 			if ((new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio()))) {
 				result.rejectValue("dataTermino", "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
@@ -185,25 +187,6 @@ public class CoordenadorController {
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 		
-		String doc[] = request.getParameterValues("doc");
-
-		if (doc != null) {
-
-			if (selecaoService.find(Selecao.class, selecao.getId()).getDocumentos().size() == doc.length
-				&& (files.isEmpty() || files.get(0).getSize() <= 0)) {
-				model.addAttribute("action", "editar");
-				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_ANEXO_EXCLUIR);
-
-				return PAGINA_CADASTRAR_SELECAO;
-
-			}
-
-			for (int k = 0; k < doc.length; k++) {
-				Documento d = new Documento();
-				d.setId(Integer.parseInt(doc[k]));
-				documentoService.delete(d);
-			}
-		}
 		
 		List<Documento> documentos = new ArrayList<Documento>();
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
@@ -225,21 +208,26 @@ public class CoordenadorController {
 				}
 			}
 		} else {
+			Selecao selecaoAtual = selecaoService.find(Selecao.class, selecao.getId());
+			if (selecaoAtual.getDocumentos().isEmpty()) {
 			
+
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
 			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
 
 			return PAGINA_CADASTRAR_SELECAO;
+			}
 		}
 		
-		
+
 		this.selecaoService.update(selecao);
+
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_ATUALIZADA);
 		
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
-	@RequestMapping(value = { "selecao/excluir/{idSelecao}" }, method = RequestMethod.GET)
+	@RequestMapping(value =  "selecao/excluir/{idSelecao}" , method = RequestMethod.GET)
 	public String excluirSelecao(@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect) {
 		
 		Selecao selecao = this.selecaoService.find(Selecao.class, idSelecao);
@@ -310,6 +298,32 @@ public class CoordenadorController {
 
 				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;	
 			}
+		}
+	}
+
+	@RequestMapping(value = "/selecao/excluir-documento/{idDocumento}", method = RequestMethod.GET)
+	public String excluirDocumento(@PathVariable("idDocumento") Integer idDocumento, @ModelAttribute("selecao") Selecao selecao, 
+			Model model, RedirectAttributes redirect) {
+
+		Documento documento = documentoService.find(Documento.class, idDocumento);
+		
+		if (documento != null) {
+			Integer idSelecao = documento.getSelecao().getId();
+			
+			documentoService.delete(documento);
+			
+			model.addAttribute("tipoBolsa", TipoSelecao.values());
+			model.addAttribute("selecao", selecao);
+			
+			return  REDIRECT_PAGINA_EDITAR_SELECAO + idSelecao;
+			
+		} else {
+
+			model.addAttribute("tipoBolsa", TipoSelecao.values());
+			model.addAttribute("selecao", selecao);
+			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
+
+			return PAGINA_CADASTRAR_SELECAO;
 		}
 	}
 	

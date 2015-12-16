@@ -36,5 +36,4 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 	public List<Selecao> getSelecoesComMembros() {
 		return ((List<Selecao>) find("Selecao.findSelecoesComMembros", new SimpleMap<String, Object>()));
 	}
-
 }

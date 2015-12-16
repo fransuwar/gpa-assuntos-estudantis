@@ -1,6 +1,12 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_PARECER_EMITIDO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
 import java.util.List;
 
@@ -46,18 +52,15 @@ public class SelecaoController {
 	@Inject
 	private SelecaoService selecaoService;
 
-	
-
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 
-
 		if (selecao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
-		
+
 		model.addAttribute("selecao", selecao);
 
 		return PAGINA_INFORMACOES_SELECAO;
@@ -104,13 +107,6 @@ public class SelecaoController {
 
 		return PAGINA_LISTAR_SELECAO;
 	}
-
-	
-		@RequestMapping(value = "/visualizarFormulario/{idaluno}")
-		public String visualizarFormularioAluno(@PathVariable("idaluno") Integer id, Model model) {
-			return null;
-		}
-
 
 	@RequestMapping(value = "parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,
