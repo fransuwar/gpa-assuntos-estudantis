@@ -98,7 +98,6 @@
 								<div class="panel-body">
 									<div class="form-group">
 										<div class="col-sm-9" id="col-sm-radio">
-											<%-- <form:checkboxes items="${moraCom}" itemLabel="nome" path="mora" /> --%>
 											<c:forEach items="${moraCom }" var="mora" varStatus="count">
 												<input id="comQuemMora${count.index + 1 }" type="checkbox" name="mora" value="${mora}"/>
 												<label for="comQuemMora${count.index + 1 }">${mora.nome }</label>
