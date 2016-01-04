@@ -171,6 +171,8 @@ public class Constants {
 	
 	public static final String MENSAGEM_DOCUMENTO_REMOVIDO                = "Documento removido com Sucesso";
 	
+	public static final String MENSAGEM_ERRO_TIPO_BOLSA					  = "Informe o tipo de Bolsa";
+	
 	/** Perfis */
 	
 	public static final String STA 									= "STA";
