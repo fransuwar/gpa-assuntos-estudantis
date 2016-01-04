@@ -48,6 +48,8 @@ public class Constants {
 
 	public static final String PAGINA_INSCREVER_AUXILIO_MORADIA 	= "aluno/inscricaoAuxilio";
 	
+	public static final String PAGINA_DETALHES_INSCRICAO			= "aluno/detalhesInscricao";
+	
 	public static final String PAGINA_INSCRICOES_ALUNO				= "aluno/minhasInscricoes";
 	
 	public static final String PAGINA_SELECOES_ABERTAS				= "aluno/listarSelecoes";

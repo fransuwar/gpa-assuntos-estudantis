@@ -1,17 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVISTA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_REALIZAR_ENTREVISTA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRITOS_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -183,5 +172,43 @@ public class ServidorController {
 
 		return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 	}
+	
 
+	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
+	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
+			RedirectAttributes redirect) {
+
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+
+		if (inscricao == null) {
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
+
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
+		modelo.addAttribute("inscricao", inscricao);
+
+		return PAGINA_DETALHES_INSCRICAO;
+	}
+
+	@RequestMapping(value = "detalhes/inscricao/{idInscricao}")
+	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
+			RedirectAttributes redirect) {
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		if (inscricao == null) {
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		
+		
+		}else if(inscricao.getSelecao().getTipoSelecao().equals("AUX_MOR")){
+				modelo.addAttribute("inscricao", inscricao);
+				modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
+				return PAGINA_DETALHES_AUXILIO_MORADIA;
+		}else {
+			modelo.addAttribute("inscricao", inscricao);
+			modelo.addAttribute("questInic", inscricao.getQuestionarioIniciacaoAcademica());
+			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
+		}
+		
+	}
+		
 }

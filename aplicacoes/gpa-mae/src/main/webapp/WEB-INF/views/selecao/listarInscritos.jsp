@@ -27,6 +27,7 @@
 					<thead>
 						<tr>
 							<th>Edital</th>
+							<th>Tipo de Seleção</th>
 							<th>Seleção</th>
 							<th>Período de Inscrições</th>
 							<th>Vagas</th>
@@ -57,9 +58,12 @@
 				<tbody>
 					<c:forEach var="inscritoSelecao" items="${selecao.inscritos }">
 						<tr>
-							<td>${inscritoSelecao.aluno.pessoa.nome }</td>
-							<td><fmt:formatDate value="${inscritoSelecao.data}"
-									pattern="dd/MM/yyyy" /></td>
+							<td>				
+							<a id="detalhes"
+									href="<c:url value="/servidor/detalhes/inciacao-academica/${selecao.id}">  
+									</c:url>"> ${inscritoSelecao.aluno.pessoa.nome }</a>
+							</td>
+							<td><fmt:formatDate value="${inscritoSelecao.data}" pattern="dd/MM/yyyy" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
