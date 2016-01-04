@@ -13,7 +13,13 @@ $(document).ready(function(){
 		"language": {
             "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
         },
-            "paging": false
+        "columnDefs": 
+        	[
+               { className: "dt-head-center", "targets": [ 0, 1, 2, 3 ]}
+             ],
+        "paging": false,
+        "searching": false,
+        "ordering": false
 	
 	});
 	$('#tabela-servidores').DataTable({
