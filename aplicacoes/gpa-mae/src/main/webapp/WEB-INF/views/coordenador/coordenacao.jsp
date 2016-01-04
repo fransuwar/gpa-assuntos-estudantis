@@ -69,7 +69,7 @@
 									</a>
 									<a id="visualizarInscritos" href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
 										<button class="btn btn-primary btn-xs" title="Visualizar Inscritos">
-											<i class="fa fa-list-alt"></i>
+											<i class="fa fa-list"></i>
 										</button>
 									</a>
 									<a id="atribuirComissao" href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
