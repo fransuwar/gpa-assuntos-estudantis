@@ -2,7 +2,6 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
-
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -56,19 +55,10 @@ public class ServidorController {
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
-		Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
-
-		if (!servidor.getParticipaComissao().isEmpty()) {
-
-			model.addAttribute("selecoes", servidor.getParticipaComissao());
-			model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
-			model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
-
-			return PAGINA_LISTAR_SELECAO;
-
-		}
-
-		model.addAttribute("erro", MENSAGEM_SERVIDOR_NAO_ASSOCIADO);
+		Servidor servidor = servidorService.getServidorByCpf(auth.getName());
+		model.addAttribute("selecoes", servidor.getParticipaComissao());
+		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
 		return PAGINA_LISTAR_SELECAO;
 	}
@@ -163,14 +153,12 @@ public class ServidorController {
 	public String listarInscritos(@PathVariable("idSelecao") Integer idSelecao, ModelMap model) {
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		
-		
 		model.addAttribute("selecao", selecao);
-		
 		
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
 	
+
 	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
 			RedirectAttributes redirect) {
@@ -199,11 +187,11 @@ public class ServidorController {
 		}else if(inscricao.getSelecao().getTipoSelecao().equals("AUX MOR")){
 				modelo.addAttribute("inscricao", inscricao);
 				modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
-				return PAGINA_VISUALIZAR_INSC_AUX_MOR;
+				return PAGINA_DETALHES_AUXILIO_MORADIA;
 		}else {
 			modelo.addAttribute("inscricao", inscricao);
 			modelo.addAttribute("questInic", inscricao.getQuestionarioIniciacaoAcademica());
-			return PAGINA_VISUALIZAR_INSC_INICIACAO_ACADEMICA;
+			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
 		
 	}

@@ -116,16 +116,7 @@
 												</button>
 											</c:otherwise>
 										</c:choose>
-								</a> <c:if test="${avaliar}">
-										<a id="avaliarSelecao"
-											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm">
-												Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-
-
-											</button>
-										</a>
-									</c:if>
+								</a>
 							</tr>
 						</c:forEach>
 					</tbody>

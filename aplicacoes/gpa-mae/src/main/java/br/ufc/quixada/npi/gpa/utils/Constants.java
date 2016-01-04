@@ -14,9 +14,13 @@ public class Constants {
 
 	public static final String PAGINA_CADASTRAR_SELECAO 			= "coordenador/cadastrarSelecao";
 	
+	public static final String PAGINA_COORDENACAO					= "coordenador/coordenacao";
+	
 	public static final String PAGINA_LISTAR_SELECAO				= "selecao/listarSelecao";
 
 	public static final String PAGINA_INFORMACOES_SELECAO			= "selecao/detalhesSelecao";
+	
+	public static final String PAGINA_INFORMACOES_SELECAO_SERVIDOR	= "servidor/detalhesSelecaoServidor";
 	
 	public static final String PAGINA_LISTAR_INSCRITOS_SELECAO		= "selecao/listarInscritos";
 	
@@ -38,11 +42,11 @@ public class Constants {
 	
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
-	public static final String PAGINA_VISUALIZAR_INSC_AUX_MOR 		= "aluno/detalhesInscAuxMor";
+	public static final String PAGINA_DETALHES_AUXILIO_MORADIA		= "aluno/detalhesAuxilioMoradia";
+
+	public static final String PAGINA_DETALHES_INICIACAO_ACADEMICA	= "aluno/detalhesIniciacaoAcademica";
 
 	public static final String PAGINA_INSCREVER_AUXILIO_MORADIA 	= "aluno/inscricaoAuxilio";
-	
-	public static final String PAGINA_VISUALIZAR_INSC_INICIACAO_ACADEMICA 	= "aluno/detalhesIniciacaoInscricao";
 	
 	public static final String PAGINA_DETALHES_INSCRICAO			= "aluno/detalhesInscricao";
 	
@@ -53,6 +57,8 @@ public class Constants {
 
 	/** Redirecionamentos */
 
+	public static final String REDIRECT_PAGINA_EDITAR_SELECAO       = "redirect:/coordenador/selecao/editar/";
+	
 	public static final String REDIRECT_PAGINA_ATRIBUIR_COMISSAO 	= "redirect:/coordenador/comissao/atribuir/";
 	
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO 		= "redirect:/selecao/listar";
@@ -62,6 +68,8 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR		= "redirect:/administrador/listar";
 	
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS		= "redirect:/administrador/listar/alunos";
+	
+	public static final String REDIRECT_PAGINA_INSCRICOES_ALUNO		= "redirect:/aluno/inscricao/listar";
 	
 	/** Mensagens */
 	
@@ -162,6 +170,8 @@ public class Constants {
 	public static final String MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR = "Número do edital com esse tipo de Seleção já existente";
 	
 	public static final String MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR = "Não é possivel excluir o Coordenador da Comissão";
+	
+	public static final String MENSAGEM_DOCUMENTO_REMOVIDO                = "Documento removido com Sucesso";
 	
 	/** Perfis */
 	

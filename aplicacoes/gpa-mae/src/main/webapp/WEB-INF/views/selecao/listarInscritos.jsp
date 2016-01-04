@@ -28,6 +28,7 @@
 						<tr>
 							<th>Edital</th>
 							<th>Tipo de Seleção</th>
+							<th>Seleção</th>
 							<th>Período de Inscrições</th>
 							<th>Vagas</th>
 							<th>Coordenador Responsável</th>
@@ -46,14 +47,12 @@
 					</tbody>
 				</table>
 			</div>
-
 			<h3 class="panel-title">Alunos Inscritos</h3>
 			<table class="table" id="tabela-inscritos">
 				<thead>
 					<tr>
 						<th>Nome</th>
 						<th>Data</th>
-
 					</tr>
 				</thead>
 				<tbody>

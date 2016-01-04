@@ -1,6 +1,19 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_REALIZADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_AUXILIO_MORADIA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MORADIA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCRICOES_ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+
 import java.util.Date;
 import java.util.List;
 
@@ -30,19 +43,16 @@ import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
-import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
+import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
-
-import br.ufc.quixada.npi.gpa.model.Inscricao;
-
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
-
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -157,6 +167,8 @@ public class AlunoController {
 
 		if (result.hasErrors()) {
 
+			model.addAttribute("action", "editar");
+			
 			model.addAttribute("questionarioIniciacaoAcademica", iniciacaoAcademica);
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			model.addAttribute("turno", Turno.values());
@@ -215,6 +227,8 @@ public class AlunoController {
 			RedirectAttributes redirect, Model model) {
 
 		if (result.hasErrors()) {
+			
+			model.addAttribute("action", "inscricao");
 
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
 			model.addAttribute("estado", Estado.values());
@@ -295,9 +309,12 @@ public class AlunoController {
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
 
 		if (inscricao == null) {
+			
 			redirectAttributes.addFlashAttribute("erro", MENSAGEM_ALUNO_NAO_ENCONTRADO);
+			
 		} else {
-			this.inscricaoService.delete(inscricao);
+			
+			inscricaoService.delete(inscricao);
 			redirectAttributes.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 		}
 
@@ -305,35 +322,26 @@ public class AlunoController {
 
 	}
 
-	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
-	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
-			RedirectAttributes redirect) {
+	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
+	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model model, RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
-
+		model.addAttribute("inscricao", inscricao);
+		
 		if (inscricao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
-
-			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}
-		modelo.addAttribute("inscricao", inscricao);
-		modelo.addAttribute("questInic", inscricao.getQuestionarioIniciacaoAcademica());
-
-		return PAGINA_DETALHES_INSCRICAO;
-	}
-
-	@RequestMapping(value = "detalhes-inscricaoAuxMor/{id}")
-	public String detalhesInscricaoAuxilioMoradia(@PathVariable("id") Integer id, Model modelo,
-			RedirectAttributes redirect) {
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, id);
-		if (inscricao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
-			return REDIRECT_PAGINA_LISTAR_SELECAO;
+			
+			redirect.addAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			return REDIRECT_PAGINA_INSCRICOES_ALUNO;
+			
+		} else if (inscricao.getQuestionarioAuxilioMoradia() != null) {
+			
+			return PAGINA_DETALHES_AUXILIO_MORADIA;
+			
+		} else {
+			
+			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
 
-		modelo.addAttribute("inscricao", inscricao);
-		modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
-		return PAGINA_VISUALIZAR_INSC_AUX_MOR;
 	}
 
 }

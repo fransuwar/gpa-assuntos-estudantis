@@ -11,8 +11,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Minhas Inscrições</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Minhas Inscrições</title>
 </head>
 <body>
 
@@ -20,7 +20,7 @@
 
 	<div class="container">
 		<div class="col-md-12">
-			<div class="panel panel-info">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">Minhas Inscrições</h3>
 				</div>
@@ -38,9 +38,11 @@
 					<tbody>
 						<c:forEach var="inscricao" items="${inscricoes}">
 							<tr class="linha">
-								<sec:authorize access="hasAnyRole('DISCENTE')"><td>
-								<a id="detalhesSelecao" href="<c:url value="/aluno/detalhes-inscricao/${inscricao.id}"></c:url>">
-									${inscricao.selecao.tipoSelecao.nome} </a></td></sec:authorize>
+								<sec:authorize access="hasAnyRole('DISCENTE')">
+									<td><a id="detalhesSelecao"
+										href="<c:url value="/aluno/inscricao/detalhes/${inscricao.id}"></c:url>">
+											${inscricao.selecao.tipoSelecao.nome} </a></td>
+								</sec:authorize>
 								<td>${inscricao.selecao.ano}</td>
 								<td>${inscricao.selecao.sequencial}</td>
 								<td>${inscricao.selecao.quantidadeVagas}</td>
@@ -62,11 +64,9 @@
 									</sec:authorize></td>
 							</tr>
 						</c:forEach>
-					</tbody>
 				</table>
 			</div>
 		</div>
-
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
