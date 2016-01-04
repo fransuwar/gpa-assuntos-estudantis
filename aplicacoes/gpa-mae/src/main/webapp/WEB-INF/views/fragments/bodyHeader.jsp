@@ -40,28 +40,30 @@
 						<a href="<c:url value="/coordenador/selecao/listar" />">Coordenação</a>
 					</li>
 				</sec:authorize>
+			</ul>
+			
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<p class="navbar-text"> ${sessionScope.usuario}</p>
+				</li>
+				<sec:authorize access="isAuthenticated()">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle glyphicon glyphicon-menu-down btn-lg" 
+						data-toggle="dropdown" role="button" 
+		              	aria-haspopup="true" aria-expanded="false"></a>
+						<ul class="dropdown-menu " role="menu">
+							<li>
+								<a href="<c:url value="/j_spring_security_logout" />" title="Sair">
+									<i class="glyphicon glyphicon-log-out"></i> Sair
+								</a>
+							</li>
+						</ul>
+					</li>
+				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<li><a href="<c:url value="/login" />">Login</a></li>
 				</sec:authorize>
 			</ul>
-			
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle glyphicon glyphicon-menu-down btn-lg" 
-					data-toggle="dropdown" role="button" 
-	              	aria-haspopup="true" aria-expanded="false"></a>
-					<ul class="dropdown-menu " role="menu">
-						<li>
-							<a href="<c:url value="/j_spring_security_logout" />" title="Sair">
-								<i class="glyphicon glyphicon-log-out"></i> Sair
-							</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<p class="navbar-right navbar-text">
-				${sessionScope.usuario}
-			</p>
 		</div>
 
 	</div>
