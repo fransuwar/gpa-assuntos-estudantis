@@ -22,7 +22,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 
 @NamedQueries({
@@ -55,9 +54,6 @@ public class Selecao {
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
-
-	@Enumerated(EnumType.STRING)
-	private Status status;
 
 	@Enumerated(EnumType.STRING)
 	private TipoSelecao tipoSelecao;
@@ -110,19 +106,6 @@ public class Selecao {
 		return sequencial;
 	}
 
-	public Status getStatus() {
-		if (status == null) {
-			if (dataTermino.getTime() <= System.currentTimeMillis()) {
-				return Status.PROC_SELETIVO;
-			} else if (dataInicio.getTime() <= System.currentTimeMillis()) {
-				return Status.INSC_ABERTA;
-			} else {
-				return Status.NOVA;
-			}
-
-		}
-		return status;
-	}
 
 	public TipoSelecao getTipoSelecao() {
 		return tipoSelecao;
@@ -164,9 +147,6 @@ public class Selecao {
 		this.sequencial = sequencial;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
-	}
 
 	public void setTipoSelecao(TipoSelecao tipoSelecao) {
 		this.tipoSelecao = tipoSelecao;
@@ -213,7 +193,7 @@ public class Selecao {
 	@Override
 	public String toString() {
 		return "Selecao [id=" + id + ", ano=" + ano + ", sequencial=" + sequencial + ", quantidadeVagas="
-				+ quantidadeVagas + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino + ", status=" + status
+				+ quantidadeVagas + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino				
 				+ ", tipoSelecao=" + tipoSelecao + ", documentos=" + documentos + ", membrosComissao=" + membrosComissao
 				+ ", responsavel=" + responsavel + ", inscritos=" + inscritos + "]";
 	}
