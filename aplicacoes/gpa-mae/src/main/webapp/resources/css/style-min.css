@@ -1,6 +1,6 @@
 body {
 	font-family: sans-serif;
-	background-color: #FCFCFE;
+	background-color: #E9E9E9;
 }
 
 #checkbox-div {
@@ -58,11 +58,6 @@ footer>p {
 
 #logo-gpa {
 	max-width: 200px;
-	max-height: 200px;
-	width: auto;
-	height: auto;
-	position: relative;
-	left: 15px;
 }
 
 #navbar-brand {
@@ -85,4 +80,8 @@ footer>p {
 #td-table-visualiza-info-auxilio {
 	color: white;
 	text-align:center;
+}
+
+.navbar-default .navbar-text {
+	color: #FFF;
 }

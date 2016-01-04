@@ -8,76 +8,60 @@
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid container">
 		<div class="navbar-header">
-			<sec:authorize access="isAuthenticated() || isAnonymous()">
-				<div class="navbar-header">
-					<a class="navbar-brand" id="navbar-brand"
-						href="<c:url value="/selecao/listar" />"> <img
-						src="<c:url value="/resources/images/logo-GPA.jpg" />"
-						alt="Brasão UFC Quixadá" id="logo-gpa">
-					</a>
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-				</div>
-			</sec:authorize>
+			<a href="<c:url value="/selecao/listar" />">
+				<img src="<c:url value="/resources/images/logo-GPA.jpg" />" alt="GPA - Assuntos Estudantis" id="logo-gpa">
+			</a>
 		</div>
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav navbar-right">
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
 				<sec:authorize access="hasAnyRole('ADMINISTRADOR_GPA')">
-
-					<li role="presentation"><a
-						href="<c:url value="/administrador/listar" />">Listar Servidor
-							<span class="glyphicon glyphicon-list"></span>
-					</a></li>
-					<li role="presentation"><a
-						href="<c:url value="/servidor/selecao/listar" />">Listar
-							Alunos<span class="glyphicon glyphicon-list"></span>
-					</a></li>
+					<li role="presentation">
+						<a href="<c:url value="/administrador/listar" />">Servidores</a>
+					</li>
+					<li role="presentation">
+						<a href="<c:url value="/servidor/selecao/listar" />">Alunos</a>
+					</li>
 				</sec:authorize>
 				<sec:authorize access="hasAnyRole('DOCENTE', 'STA')">
-					<li role="presentation"><a
-						href="<c:url value="/servidor/selecao/listar" />">Listar
-							Seleções <span class="glyphicon glyphicon-list"></span>
-					</a></li>
-
+					<li role="presentation">
+						<a href="<c:url value="/servidor/selecao/listar" />">Seleções</a>
+					</li>
 				</sec:authorize>
 				<sec:authorize access="hasAnyRole('DISCENTE')">
-					<input type="hidden" name="id" value="${sessionScope.id}" />
-					<li role="presentation"><a
-						href="<c:url value="/aluno/selecao/listar" />">Listar Seleções
-							<span class="glyphicon glyphicon-list"></span>
-					</a></li>
-					<li role="presentation"><a
-						href="<c:url value="/aluno/inscricao/listar" />">Minhas
-							Inscrições <span class="glyphicon glyphicon-list"></span>
-					</a></li>
+					<li role="presentation">
+						<a href="<c:url value="/aluno/selecao/listar" />">Seleções</a>
+					</li>
+					<li role="presentation">
+						<a href="<c:url value="/aluno/inscricao/listar" />">Minhas Inscrições</a>
+					</li>
 				</sec:authorize>
-				<sec:authorize
-					access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
-					<li role="presentation"><a
-						href="<c:url value="/coordenador/selecao/listar" />">Coordenação
-							<span class="glyphicon glyphicon-list"></span>
-					</a></li>
+				<sec:authorize access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+					<li role="presentation">
+						<a href="<c:url value="/coordenador/selecao/listar" />">Coordenação</a>
+					</li>
 				</sec:authorize>
-
-				<sec:authorize access="isAuthenticated()">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">${sessionScope.usuario}<span
-							class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/j_spring_security_logout" />">Sair</a></li>
-						</ul></li>
-				</sec:authorize>
-
 				<sec:authorize access="isAnonymous()">
-					<li><a href="<c:url value="/login" />">Login </a></li>
+					<li><a href="<c:url value="/login" />">Login</a></li>
 				</sec:authorize>
 			</ul>
+			
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle glyphicon glyphicon-menu-down btn-lg" 
+					data-toggle="dropdown" role="button" 
+	              	aria-haspopup="true" aria-expanded="false"></a>
+					<ul class="dropdown-menu " role="menu">
+						<li>
+							<a href="<c:url value="/j_spring_security_logout" />" title="Sair">
+								<i class="glyphicon glyphicon-log-out"></i> Sair
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<p class="navbar-right navbar-text">
+				${sessionScope.usuario}
+			</p>
 		</div>
 
 	</div>
