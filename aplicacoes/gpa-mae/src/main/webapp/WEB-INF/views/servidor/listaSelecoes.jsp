@@ -71,8 +71,8 @@
 								<td>${selecao.quantidadeVagas}</td>
 								<td>${selecao.status.nome}</td>
 								<td><a id="visualizarInscritos"
-									href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-										<button class="btn btn-primary btn-sm" tooltip="Usuário"
+									href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
+										<button class="btn btn-primary btn-sm"
 											title="Visualizar Inscritos">
 											<i class="fa fa-users fa-lg"></i>
 										</button>
