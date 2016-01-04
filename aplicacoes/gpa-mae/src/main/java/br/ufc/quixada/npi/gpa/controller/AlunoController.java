@@ -356,6 +356,7 @@ public class AlunoController {
 			
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
+
 	}
 
 }
