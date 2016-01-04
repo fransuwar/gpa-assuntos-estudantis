@@ -41,7 +41,7 @@
 			</div>
 		</c:if>
 
-		<div class="col-md-14">
+		<div class="col-md-13">
 
 			<div align="left" style="margin-bottom: 20px;">
 				<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">

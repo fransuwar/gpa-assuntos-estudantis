@@ -26,8 +26,8 @@ import br.ufc.quixada.npi.gpa.enums.Status;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 
 @NamedQueries({
+		@NamedQuery(name = "Selecao.findSelecoesComMembros",	query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosComissao")})
 
-		@NamedQuery(name = "Selecao.findSelecaoComMembros",	query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosComissao")})
 
 @Entity
 public class Selecao {
