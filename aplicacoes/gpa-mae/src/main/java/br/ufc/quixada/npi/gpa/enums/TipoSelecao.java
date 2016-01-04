@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public enum TipoSelecao {
-	INIC_ACAD("Iniciação Acadêmica"), AUX_MOR("Auxilio Moradia");
+	INIC_ACAD("Iniciação Acadêmica"), AUX_MOR("Auxílio Moradia");
 
 	private String nome;
 	private static Map<TipoSelecao, String> map;

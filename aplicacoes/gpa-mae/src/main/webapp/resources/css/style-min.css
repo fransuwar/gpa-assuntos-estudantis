@@ -85,3 +85,14 @@ footer>p {
 .navbar-default .navbar-text {
 	color: #FFF;
 }
+
+h3 {
+	padding: 5px 10px;
+}
+
+a, a:hover, a:visited, a:active, button, button:hover, button:visited,
+	button:active input.btn, input.btn:visited, input.btn:active, input.btn:focus {
+	outline: medium none !important;
+	outline-offset: 0px !important;
+	text-decoration: none !important;
+}
