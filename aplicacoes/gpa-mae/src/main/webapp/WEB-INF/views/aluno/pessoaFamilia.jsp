@@ -45,7 +45,6 @@
 					</tr>
 				</c:forEach>
 			</c:if>
-
 			<c:if test="${empty pessoasDaFamilia }">
 				<c:forEach begin="1" end="1" var="i">
 					<tr class="pessoaFamilia">

@@ -97,26 +97,20 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<div class="col-sm-15" id="col-sm-radio">
-											<div style="margin: 20px 0 25px 0;">
-												<form:checkboxes items="${moraCom}" path="comQuemMora"
-													itemLabel="nome" cssClass="checkbox-inline"
-													cssStyle="height:20px; width:30px;" />
-
-											</div>
-											<div class="error-validation">
-												<form:errors path="comQuemMora"></form:errors>
-											</div>
+										<div class="col-sm-9" id="col-sm-radio">
+											<c:forEach items="${moraCom }" var="mora" varStatus="count">
+												<input id="comQuemMora${count.index + 1 }" type="checkbox" name="mora" value="${mora}"/>
+												<label for="comQuemMora${count.index + 1 }">${mora.nome }</label>
+											</c:forEach>
 										</div>
 									</div>
-									<div class="form-group" align="left" class="col-sm-10">
-										<label for=comQuemMoraOutros class="col-sm-4 control-label">
-											<span class="red">*</span>Se escolheu outros:
+									<div id="mora-com-outros" class="form-group" align="left" class="col-sm-16">
+										<label for=comQuemMoraOutros class="col-sm-7 control-label">
+											<span class="red">*</span>Com Que Mora essas pessoas ?
 										</label>
-										<div class="col-sm-5">
-											<form:input id="comQuemMoraOutros" path="comQuemMoraOutros"
-												cssClass="form-control"
-												placeholder="Quem são essas outras pessoas" />
+										<div class="col-sm-4">
+											<form:input id="comQuemMoraOutros" path="comQuemMoraOutros" 
+												cssClass="form-control" placeholder="Com quem mora essas pessoas ?" />
 											<div class="error-validation">
 												<form:errors path="comQuemMoraOutros"></form:errors>
 											</div>
