@@ -89,15 +89,13 @@ public class CoordenadorController {
 			}
 		}
 		
-		if(selecao !=null && selecao.getTipoSelecao()==null){
-			result.rejectValue("tipoSelecao", "selecao.tipoSelecao", MENSAGEM_ERRO_TIPO_BOLSA);
-		}
-		
 		if (selecao != null)  {
 			if (selecaoService.isSelecaoCadastrada(selecao)) {
 				result.rejectValue("sequencial", "selecao.sequencial", MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR);
-
-			}
+			}			
+			if(selecao.getTipoSelecao()==null){
+				result.rejectValue("tipoSelecao", "selecao.tipoSelecao", MENSAGEM_ERRO_TIPO_BOLSA);
+			}			
 		}
 		
 		if (result.hasErrors()) {
