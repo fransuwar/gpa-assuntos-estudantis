@@ -28,8 +28,8 @@
 							<fmt:formatDate value="${inscricao.data}"
 								pattern="dd/MM/yyyy" />
 						</dd>
-						<dt class=" col-sm-3">Tipo de Bolsa:</dt>
-						<dd class="col-sm-3">${inscricao.selecao.tipoBolsa.nome}</dd>
+						<dt class=" col-sm-3">Tipo de Seleção:</dt>
+						<dd class="col-sm-3">${inscricao.selecao.tipoSelecao.nome}</dd>
 					</dl>
 					<dl class="col-sm-12">
 						<dt class="col-sm-3">Resultado:</dt>
@@ -204,7 +204,7 @@
 					</thead>
 					<tbody>
 						<c:forEach var="horarios"
-							items="${inscricao.questionarioIniciacaoAcademica.horariosDisponiveisBolsa }">
+							items="${inscricao.questionarioIniciacaoAcademica.horariosDisponiveisSelecao }">
 							<tr>
 								<td>${horarios.dia.nome }</td>
 								<td>${horarios.turno.nome }</td>

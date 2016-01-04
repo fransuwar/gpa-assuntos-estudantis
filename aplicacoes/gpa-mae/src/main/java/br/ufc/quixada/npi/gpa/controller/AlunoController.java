@@ -317,6 +317,7 @@ public class AlunoController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		modelo.addAttribute("inscricao", inscricao);
+		modelo.addAttribute("questInic", inscricao.getQuestionarioIniciacaoAcademica());
 
 		return PAGINA_DETALHES_INSCRICAO;
 	}
