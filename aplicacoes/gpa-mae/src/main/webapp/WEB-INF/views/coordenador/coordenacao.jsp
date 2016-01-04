@@ -16,33 +16,6 @@
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<div class="container">
-<c:if test="${not empty erro}">
-			<div class="alert alert-danger alert-dismissible" role="alert"
-				id="alert-erro">
-				<button type="button" class="close" data-dismiss="alert">
-					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-				</button>
-				<c:out value="${erro}"></c:out>
-			</div>
-		</c:if>
-		<c:if test="${not empty info}">
-			<div class="alert alert-success alert-dismissible" role="alert"
-				id="alert-info">
-				<button type="button" class="close" data-dismiss="alert">
-					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-				</button>
-				<c:out value="${info}"></c:out>
-			</div>
-		</c:if>
-
-		<div class="col-md-13">
-
-			<div align="left" style="margin-bottom: 20px;">
-				<a href="<c:url value="/coordenador/selecao/cadastrar" ></c:url>">
-					<button class="btn btn-primary">
-						Nova seleção <span class="glyphicon glyphicon-plus"></span>
-					</button>
-				</a>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Seleções</h3>
@@ -103,32 +76,6 @@
 										<button class="btn btn-primary btn-xs" title="Gerenciar Comissão">
 											<i class="fa fa-users"></i>
 										</button>
-								</a> <a id="atribuirComissao"
-									href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
-										<c:choose>
-											<c:when test="${empty selecao.membrosComissao}">
-												<button class="btn btn-primary btn-sm"
-													title="Atribuir Membro à Comissão">
-													<span class="glyphicon glyphicon-user"></span>
-												</button>
-											</c:when>
-											<c:otherwise>
-												<button class="btn btn-primary btn-sm"
-													title="Editar Membros da Comissão">
-													<span class="glyphicon glyphicon-user"></span>
-												</button>
-											</c:otherwise>
-										</c:choose>
-								</a> <c:if test="${avaliar}">
-										<a id="avaliarSelecao"
-											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-sm">
-												Avaliar Inscritos <span class="glyphicon glyphicon-user"></span>
-
-
-											</button>
-										</a>
-									</c:if>
 									</a>
 									<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#"
 										data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
@@ -137,6 +84,7 @@
 										</button>
 									</a>
 								</td>
+
 							</tr>
 						</c:forEach>
 					</tbody>
