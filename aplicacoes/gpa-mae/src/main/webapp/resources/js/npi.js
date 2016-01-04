@@ -136,7 +136,7 @@ $(document).ready(function(){
 		
 		  
 		 rules: {
-			 tipoBolsa:{
+			 tipoSelecao:{
 				 required:true
 			 },
 			 dataInicio:{
@@ -167,9 +167,7 @@ $(document).ready(function(){
 	        }
 	    
 		 });
-	
-	
-	
+
 	$('#questionarioAuxilio').validate({
 		 rules: {
 			 comQuemMoraOutros:{
@@ -245,7 +243,6 @@ $(document).ready(function(){
 	     submitHandler: function(form) {
 	            form.submit();
 	        }
-	    
 		 });
 	
 	$('#mora-com-outros').hide();
@@ -257,8 +254,6 @@ $(document).ready(function(){
             $('#mora-com-outros').hide();                                                                    
         }
     });
-	
-	
 });
 
 
