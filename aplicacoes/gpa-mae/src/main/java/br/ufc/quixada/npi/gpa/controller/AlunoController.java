@@ -219,7 +219,7 @@ public class AlunoController {
 		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
 		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-		model.addAttribute("parentesco", GrauParentesco.values());
+		model.addAttribute("grauParentesco", GrauParentesco.values());
 		model.addAttribute("moraCom", MoraCom.values());
 		model.addAttribute("selecao", selecao);
 
@@ -253,7 +253,7 @@ public class AlunoController {
 			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 			model.addAttribute("moraCom", MoraCom.values());
-			model.addAttribute("parentesco", GrauParentesco.values());
+			model.addAttribute("grauParentesco", GrauParentesco.values());
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
 
