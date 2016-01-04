@@ -158,6 +158,21 @@ public class ServidorController {
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
 	
+	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
+	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect){
+		
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+
+		if (selecao == null) {
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
+		
+		model.addAttribute("selecao", selecao);
+
+		return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
+	}
+	
 
 	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
@@ -184,7 +199,7 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		
 		
-		}else if(inscricao.getSelecao().getTipoSelecao().equals("AUX MOR")){
+		}else if(inscricao.getSelecao().getTipoSelecao().equals("AUX_MOR")){
 				modelo.addAttribute("inscricao", inscricao);
 				modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
 				return PAGINA_DETALHES_AUXILIO_MORADIA;
