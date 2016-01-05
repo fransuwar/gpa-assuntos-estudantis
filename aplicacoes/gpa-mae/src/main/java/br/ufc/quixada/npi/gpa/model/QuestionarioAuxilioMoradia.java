@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -21,7 +22,6 @@ import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
 import br.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
 import br.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
-import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
@@ -35,9 +35,8 @@ public class QuestionarioAuxilioMoradia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-
-	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
+	@NotNull(message = "Campo obrigatório")
 	private TipoEnsinoFundamental ensinoFundamental;
 
 	private boolean bolsaEnsinoFundamental;
@@ -69,9 +68,6 @@ public class QuestionarioAuxilioMoradia {
 
 	@NotEmpty(message = "Campo obrigatório")
 	private String justificativa;
-
-	@Enumerated(EnumType.STRING)
-	private MoraCom comQuemMora;
 
 	private String comQuemMoraOutros;
 
@@ -153,6 +149,9 @@ public class QuestionarioAuxilioMoradia {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
+	
+	@ManyToMany
+	private List<ComQuemMora> comQuemMora;
 	
 	public QuestionarioAuxilioMoradia() {	
 		
@@ -406,14 +405,6 @@ public class QuestionarioAuxilioMoradia {
 		this.descricaoBolsa = descricaoBolsa;
 	}
 
-	public MoraCom getComQuemMora() {
-		return comQuemMora;
-	}
-
-	public void setComQuemMora(MoraCom comQuemMora) {
-		this.comQuemMora = comQuemMora;
-	}
-
 	public String getComQuemMoraOutros() {
 		return comQuemMoraOutros;
 	}
@@ -545,6 +536,14 @@ public class QuestionarioAuxilioMoradia {
 	@Override
 	public String toString() {
 		return "QuestionarioAuxilioMoradia [id=" + id + ", justificativa=" + justificativa + "]";
+	}
+	
+	public List<ComQuemMora> getComQuemMora() {
+		return comQuemMora;
+	}
+
+	public void setComQuemMora(List<ComQuemMora> comQuemMora) {
+		this.comQuemMora = comQuemMora;
 	}
 
 	@Override

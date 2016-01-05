@@ -1,6 +1,9 @@
 package br.ufc.quixada.npi.gpa.service;
 
 import java.util.List;
+
+import br.ufc.quixada.npi.gpa.enums.MoraCom;
+import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -26,5 +29,7 @@ public interface InscricaoService extends GenericService<Inscricao>{
 	public abstract void atualizarVisitaDomiciliar(VisitaDomiciliar visitaDocimiciliar);
 
 	public abstract void salvarEntrevista(Entrevista entrevista);
+	
+	public abstract ComQuemMora getComQuemMora(MoraCom comQuemMora);
 }
 

@@ -1,5 +1,8 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+
+import java.util.ArrayList;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
@@ -48,6 +51,8 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
+import br.ufc.quixada.npi.gpa.model.ComQuemMora;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
@@ -102,8 +107,9 @@ public class AlunoController {
 		model.addAttribute("diasUteis", DiaUtil.toMap());
 		model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		model.addAttribute("totalEstado", Estado.toMap());
-		model.addAttribute("grauParentesco", GrauParentesco.toMap());
-		model.addAttribute("selecao", selecao);
+		model.addAttribute("parentesco", GrauParentesco.toMap());
+		model.addAttribute("idSelecao", idSelecao);
+
 
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
@@ -123,7 +129,7 @@ public class AlunoController {
 			model.addAttribute("diasUteis", DiaUtil.toMap());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
-			model.addAttribute("grauParentesco", GrauParentesco.toMap());
+			model.addAttribute("parentesco", GrauParentesco.toMap());
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
 
@@ -175,7 +181,7 @@ public class AlunoController {
 			model.addAttribute("diasUteis", DiaUtil.values());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
-			model.addAttribute("grauParentesco", GrauParentesco.toMap());
+			model.addAttribute("parentesco", GrauParentesco.toMap());
 
 			List<HorarioDisponivel> horariosDisponiveis = inscricaoService
 					.getHorariosDisponiveisIniciacaoAcademica(iniciacaoAcademica.getId());
@@ -221,11 +227,19 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
-	public String realizarInscricaoAuxilioMoradia(
-			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
-			BindingResult result, @RequestParam("idSelecao") Integer idSelecao, Authentication auth,
+	public String realizarInscricaoAuxilioMoradia(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
+			BindingResult result, @RequestParam("mora") List<String> comQuemMora, @RequestParam("idSelecao") Integer idSelecao, Authentication auth, 
 			RedirectAttributes redirect, Model model) {
 
+		
+		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
+		for (String m : comQuemMora) {
+			ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));
+			comQuemMoraList.add(mora);
+		}
+		
+		auxilioMoradia.setComQuemMora(comQuemMoraList);
+		
 		if (result.hasErrors()) {
 			
 			model.addAttribute("action", "inscricao");
@@ -239,6 +253,7 @@ public class AlunoController {
 			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
 			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 			model.addAttribute("moraCom", MoraCom.values());
+			model.addAttribute("grauParentesco", GrauParentesco.values());
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
 
