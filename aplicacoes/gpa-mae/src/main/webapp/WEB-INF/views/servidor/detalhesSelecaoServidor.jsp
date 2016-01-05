@@ -32,8 +32,6 @@
 				<dl class="col-sm-12">
 					<dt class="col-sm-3">Ano do Edital:</dt>
 					<dd class="col-sm-3">${selecao.ano}</dd>
-					<dt class="col-sm-3">Status:</dt>
-					<dd class="col-sm-3">${selecao.status.nome}</dd>
 
 				</dl>
 				<dl class="col-sm-12">

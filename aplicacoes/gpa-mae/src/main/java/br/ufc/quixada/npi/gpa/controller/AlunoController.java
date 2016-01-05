@@ -107,7 +107,7 @@ public class AlunoController {
 		model.addAttribute("diasUteis", DiaUtil.toMap());
 		model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		model.addAttribute("totalEstado", Estado.toMap());
-		model.addAttribute("parentesco", GrauParentesco.toMap());
+		model.addAttribute("grauParentesco", GrauParentesco.values());
 		model.addAttribute("idSelecao", idSelecao);
 
 
@@ -129,7 +129,7 @@ public class AlunoController {
 			model.addAttribute("diasUteis", DiaUtil.toMap());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
-			model.addAttribute("parentesco", GrauParentesco.toMap());
+			model.addAttribute("grauParentesco", GrauParentesco.values());
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
 
@@ -181,7 +181,7 @@ public class AlunoController {
 			model.addAttribute("diasUteis", DiaUtil.values());
 			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 			model.addAttribute("totalEstado", Estado.toMap());
-			model.addAttribute("parentesco", GrauParentesco.toMap());
+			model.addAttribute("grauParentesco", GrauParentesco.values());
 
 			List<HorarioDisponivel> horariosDisponiveis = inscricaoService
 					.getHorariosDisponiveisIniciacaoAcademica(iniciacaoAcademica.getId());

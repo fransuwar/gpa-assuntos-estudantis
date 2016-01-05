@@ -31,7 +31,7 @@
 		<div class="novo-projeto" align="left">
 			<div class="form" align="center">
 				<h2>Programa de Iniciação Acadêmica</h2>
-				
+
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr class="active">
@@ -46,7 +46,9 @@
 							<td>${selecao.tipoSelecao.nome }</td>
 							<td>${selecao.ano }</td>
 							<td>${selecao.quantidadeVagas }</td>
-							<td> <fmt:formatDate value="${selecao.dataInicio }" pattern="dd/MM/yyyy"/> até <fmt:formatDate value="${selecao.dataTermino }" pattern="dd/MM/yyyy"/></td>
+							<td><fmt:formatDate value="${selecao.dataInicio }"
+									pattern="dd/MM/yyyy" /> até <fmt:formatDate
+									value="${selecao.dataTermino }" pattern="dd/MM/yyyy" /></td>
 						</tr>
 					</tbody>
 				</table>
@@ -67,14 +69,15 @@
 				</ul>
 
 				<form:form id="questionario" role="form"
-				    onsubmit="return validaHorariosDisponiveisBolsa();"
+					onsubmit="return validaHorariosDisponiveisBolsa();"
 					commandName="questionarioIniciacaoAcademica"
 					modelAttribute="questionarioIniciacaoAcademica"
-					servletRelativeAction="${url }"
-					method="POST" cssClass="form-horizontal">
-					
-					<input type="hidden" id="idSelecao" name="idSelecao" value="${selecao.id }"/>
-					
+					servletRelativeAction="${url }" method="POST"
+					cssClass="form-horizontal">
+
+					<input type="hidden" id="idSelecao" name="idSelecao"
+						value="${selecao.id }" />
+
 					<div class="tab-content">
 						<div class="tab-pane active" id="moradia-tab">
 							<div class="panel panel-primary">
@@ -138,8 +141,9 @@
 										<label for="cepFamilia" class="col-sm-1 control-label"><span
 											class="red">*</span>CEP:</label>
 										<div class="col-sm-2">
-											<form:input id="cepFamilia" path="cepFamilia" data-mask="99999999"
-												cssClass="form-control" placeholder="Ex:63900000 " />
+											<form:input id="cepFamilia" path="cepFamilia"
+												data-mask="99999999" cssClass="form-control"
+												placeholder="Ex:63900000 " />
 											<div class="error-validation" id="erro-cepFamilia">
 												<form:errors path="cepFamilia"></form:errors>
 											</div>
@@ -296,7 +300,8 @@
 										<label for="cidade" class="col-sm-3 control-label">Qual
 											a situação da sua residencia:</label>
 										<div class="col-sm-3">
-											<form:select path="situacaoResidencia" id="situacaoResidencia" cssClass="form-control">
+											<form:select path="situacaoResidencia"
+												id="situacaoResidencia" cssClass="form-control">
 												<form:option value="" label="Situação da Residência" />
 												<form:options items="${situacaoResidencia}" />
 											</form:select>
@@ -318,7 +323,8 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="qtd_aparelho_som" class="col-sm-2 control-label">Aparelho de Som:</label>
+										<label for="qtd_aparelho_som" class="col-sm-2 control-label">Aparelho
+											de Som:</label>
 										<div class="col-sm-1">
 											<form:input id="qtdAparelhoSom" data-mask="999" min="0"
 												value="0" path="qtdAparelhoSom" cssClass="form-control" />
@@ -483,9 +489,11 @@
 									<h3>Informações do seu Grupo Familiar</h3>
 								</div>
 								<div class="panel-body">
-									<jsp:include page="pessoaFamilia.jsp" />
-									<div class="error-validation">
-										<form:errors path="pessoas"></form:errors>
+									<div class="form-group">
+										<jsp:include page="pessoaFamilia.jsp" />
+										<div class="error-validation">
+											<form:errors path="pessoas"></form:errors>
+										</div>
 									</div>
 								</div>
 							</div>
