@@ -17,43 +17,10 @@
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
 	<div class="container" align="left" style="padding-left: 85px;">
-		<div class="panel panel-primary-min">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Seleção</h3>
 			</div>
-
-			<div class="panel-body">
-				<dl class="col-sm-12">
-					<dt class="col-sm-3">Número do Edital:</dt>
-					<dd class="col-sm-3">${selecao.sequencial}</dd>
-					<dt class=" col-sm-3">Tipo de Bolsa:</dt>
-					<dd class="col-sm-3">${selecao.tipoSelecao.nome}</dd>
-				</dl>
-				<dl class="col-sm-12">
-					<dt class="col-sm-3">Ano do Edital:</dt>
-					<dd class="col-sm-3">${selecao.ano}</dd>
-					<dt class="col-sm-3">Status:</dt>
-					<dd class="col-sm-3">${selecao.status.nome}</dd>
-
-				</dl>
-				<dl class="col-sm-12">
-					<dt class="col-sm-3">Quantidade de vagas:</dt>
-					<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
-					<dt class="col-sm-3">Responsável:</dt>
-					<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
-				</dl>
-				<dl class="col-sm-12">
-					<dt class="col-sm-3">Data de Início da Inscrição:</dt>
-					<dd class="col-sm-3">
-						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" />
-					</dd>
-					<dt class="col-sm-3">Data de Término da Inscrição:</dt>
-					<dd class="col-sm-3">
-						<fmt:formatDate value="${selecao.dataTermino}"
-							pattern="dd/MM/yyyy" />
-					</dd>
-				</dl>
-				<dl class="col-sm-12">
 					<div class="panel-body">
 						<dl class="col-sm-12">
 							<dt class="col-sm-3">Número do Edital:</dt>
@@ -64,9 +31,6 @@
 						<dl class="col-sm-12">
 							<dt class="col-sm-3">Ano do Edital:</dt>
 							<dd class="col-sm-3">${selecao.ano}</dd>
-							<dt class="col-sm-3">Status:</dt>
-							<dd class="col-sm-3">${selecao.status.nome}</dd>
-
 						</dl>
 						<dl class="col-sm-12">
 							<dt class="col-sm-3">Quantidade de vagas:</dt>
