@@ -16,11 +16,12 @@
 	</thead>
 	<tbody id="horarioDisponivelContainer">
 		<c:if test="${not empty horariosDisponiveis }">
-			<c:forEach items="${horariosDisponiveis }" var="hd">
+			<c:forEach items="${horariosDisponiveis }" var="hd" varStatus="i">
+				<h1>${count }</h1>
 				<tr class="horarioDisponivel defaultRow">
 					
 					<td>
-					<form:select path="" name="horariosDisponiveisSelecao[].dia" class="form-control">
+					<form:select path="" name="horariosDisponiveisSelecao[${i.index - 1 }].dia" class="form-control">
 							<form:option value="">Selecione um dia</form:option>
 							<c:forEach items="${diasUteis}" var="diaUtil" >
 								<form:option value="${diaUtil }" selected="${diaUtil == hd.dia ? 'selected' : ''}" itemLabel="nome">${diaUtil.nome }</form:option>
@@ -29,7 +30,7 @@
 					</td>
 
 					<td>
-					<form:select path="" name="horariosDisponiveisSelecao[].turno" class="form-control">
+					<form:select path="" name="horariosDisponiveisSelecao[${i.index - 1 }].turno" class="form-control">
 							<form:option value="">Selecione um turno</form:option>
 							<c:forEach items="${turno}" var="tur">
 								<form:option value="${tur }" selected="${tur == hd.turno ? 'selected' : ''}" itemLabel="nome">${tur.nome }</form:option>
@@ -42,16 +43,16 @@
 			</c:forEach>
 		</c:if>
 
-		<c:forEach begin="1" end="3" var="i">
+		<c:forEach begin="1" end="3" varStatus="i">
 			<tr class="horarioDisponivel">
 				<td><form:select path=""
-						name="horariosDisponiveisSelecao[].dia" class="form-control">
+						name="horariosDisponiveisSelecao[${i.index -1 }].dia" class="form-control">
 						<form:option value="">Selecione um dia</form:option>
 						<form:options items="${diasUteis}" />
 					</form:select></td>
 
 				<td><form:select path=""
-						name="horariosDisponiveisSelecao[].turno" class="form-control">
+						name="horariosDisponiveisSelecao[${i.index -1 }].turno" class="form-control">
 						<form:option value="">Selecione um turno</form:option>
 						<form:options items="${turno}" />
 					</form:select></td>
