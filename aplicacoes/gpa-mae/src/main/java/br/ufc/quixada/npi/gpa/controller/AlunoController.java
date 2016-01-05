@@ -333,7 +333,7 @@ public class AlunoController {
 			redirectAttributes.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 		}
 
-		return "redirect:/aluno/inscricao/listar/{idAluno}";
+		return "redirect:/aluno/inscricao/listar";
 
 	}
 
