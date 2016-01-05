@@ -31,7 +31,6 @@
 							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
-							<th>Status</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -46,7 +45,6 @@
 								<td>${inscricao.selecao.ano}</td>
 								<td>${inscricao.selecao.sequencial}</td>
 								<td>${inscricao.selecao.quantidadeVagas}</td>
-								<td>${inscricao.selecao.status.nome}</td>
 								<td><sec:authorize access="hasAnyRole('DISCENTE')">
 										<a id="editarInscricao"
 											href="<c:url value="/selecao/inscritos/${aluno.id}" ></c:url>">
