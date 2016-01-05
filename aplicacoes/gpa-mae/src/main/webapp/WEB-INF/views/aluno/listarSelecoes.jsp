@@ -53,7 +53,6 @@
 							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
-							<th>Status</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -66,10 +65,9 @@
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
-								<td>${selecao.status.nome}</td>
 								<td><c:choose>
 										<c:when
-											test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
+											test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad}">
 											<a id="inscrever" title="Inscrever-se"
 												href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
 												<button class=" btn btn-primary btn-xs">
@@ -78,7 +76,7 @@
 											</a>
 										</c:when>
 										<c:when
-											test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
+											test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad }">
 											<a id="editar" title="Editar"
 												href="<c:url value="/aluno/editar/inscricao/iniciacao-academica" ></c:url>">
 												<button class=" btn btn-primary btn-xs"
@@ -88,7 +86,7 @@
 											</a>
 										</c:when>
 										<c:when
-											test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
+											test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor}">
 											<a id="inscrever" title="Inscrever-se"
 												href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
 												<button class="btn btn-primary btn-xs">
@@ -98,7 +96,7 @@
 											</a>
 										</c:when>
 										<c:when
-											test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
+											test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor }">
 											<a id="editar" title="Editar"
 												href="<c:url value="/aluno/editar/inscricao/auxilio-moradia" ></c:url>">
 												<button class=" btn btn-primary btn-xs"
