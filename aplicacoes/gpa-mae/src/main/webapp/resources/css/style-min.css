@@ -82,7 +82,7 @@ footer>p {
 
 #td-table-visualiza-info-auxilio {
 	color: white;
-	text-align:center;
+	text-align: center;
 }
 
 .navbar-default .navbar-text {
@@ -94,8 +94,13 @@ h3 {
 }
 
 a, a:hover, a:visited, a:active, button, button:hover, button:visited,
-	button:active input.btn, input.btn:visited, input.btn:active, input.btn:focus {
+	button:active input.btn, input.btn:visited, input.btn:active, input.btn:focus
+	{
 	outline: medium none !important;
 	outline-offset: 0px !important;
 	text-decoration: none !important;
+}
+
+table, th, td {
+	text-align: center;
 }

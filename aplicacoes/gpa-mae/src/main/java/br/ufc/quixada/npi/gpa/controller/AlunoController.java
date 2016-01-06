@@ -148,7 +148,8 @@ public class AlunoController {
 		inscricao.setQuestionarioIniciacaoAcademica(iniciacaoAcademica);
 
 		inscricaoService.save(inscricao);
-
+		
+		
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
@@ -160,7 +161,22 @@ public class AlunoController {
 
 		// TODO - Método p/ implementar que retorna página de formulário de
 		// inscrição em iniciação acadêmica.
+		
+		model.addAttribute("action", "editar");
 
+		Inscricao inscricao = inscricaoService.find(Inscricao.class , idInscricao);
+		
+		model.addAttribute("inscricao", inscricao);
+		model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
+		model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+		model.addAttribute("turno", Turno.toMap());
+		model.addAttribute("diasUteis", DiaUtil.toMap());
+		model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
+		model.addAttribute("totalEstado", Estado.toMap());
+		model.addAttribute("grauParentesco", GrauParentesco.values());
+		model.addAttribute("selecao", inscricao.getSelecao());
+		
+		
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
 
@@ -288,7 +304,26 @@ public class AlunoController {
 
 		// TODO - Método p/ implementar que retorna página de edição do
 		// formulário de inscrição em auxílio moradia.
+		
+		
+		model.addAttribute("action", "inscricao");
 
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+
+		model.addAttribute("inscricao", inscricao);
+		model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
+		model.addAttribute("estado", Estado.values());
+		model.addAttribute("situacaoImovel", SituacaoImovel.values());
+		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
+		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
+		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
+		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
+		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
+		model.addAttribute("grauParentesco", GrauParentesco.values());
+		model.addAttribute("moraCom", MoraCom.values());
+		model.addAttribute("selecao", inscricao.getSelecao());
+		
+		
 		return PAGINA_INSCREVER_AUXILIO_MORADIA;
 
 	}
@@ -307,9 +342,11 @@ public class AlunoController {
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
-
+		
+		System.out.println("FDKSLFKSFLDSKFS - " + auth.getName());
 		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
-
+		
+		
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("inscricoes", aluno.getInscricoes());
 

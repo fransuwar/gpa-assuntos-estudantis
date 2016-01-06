@@ -58,7 +58,7 @@ public class Inscricao {
 	@OneToOne
 	private Entrevista entrevista;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Aluno aluno;
 
 

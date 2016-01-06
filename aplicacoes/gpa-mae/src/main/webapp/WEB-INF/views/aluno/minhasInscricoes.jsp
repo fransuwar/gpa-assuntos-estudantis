@@ -48,7 +48,7 @@
 								<td><sec:authorize access="hasAnyRole('DISCENTE')">
 										<a id="editarInscricao"
 											href="<c:url value="/selecao/inscritos/${aluno.id}" ></c:url>">
-											<button class="btn btn-info btn-sm" title="Editar Inscrição">
+											<button class="btn btn-primary btn-sm" title="Editar Inscrição">
 												<span class="glyphicon glyphicon-pencil"></span>
 											</button>
 										</a>
