@@ -53,7 +53,7 @@
 											</button>
 										</a>
 										<a id="excluirInscricao"
-											href="<c:url value="/aluno/inscricao/excluir/${idAluno}/${inscricao.id}" ></c:url>">
+											href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
 											<button class="btn btn-danger btn-sm"
 												title="Excluir Inscrição">
 												<i class="glyphicon glyphicon-trash"></i>
