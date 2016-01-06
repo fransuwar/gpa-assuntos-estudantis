@@ -22,7 +22,7 @@
 	<div class="container">
 		<div class="novo-projeto" align="left">
 			<div class="panel-heading">
-				<h3 class="panel-title">Detalhes da Incrição</h3>
+				<h3 class="panel-title">Detalhes da Inscrição de Auxílio Moradia</h3>
 			</div>
 			<div class="panel-body">
 				<dl class="col-sm-12">

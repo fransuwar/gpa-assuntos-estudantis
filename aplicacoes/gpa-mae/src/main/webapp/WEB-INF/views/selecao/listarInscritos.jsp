@@ -60,7 +60,7 @@
 						<tr>
 							<td>				
 							<a id="detalhes"
-									href="<c:url value="/servidor/detalhes/inciacao-academica/${selecao.id}">  
+									href="<c:url value="/servidor/detalhes/inscricao/${inscritoSelecao.id}">  
 									</c:url>"> ${inscritoSelecao.aluno.pessoa.nome }</a>
 							</td>
 							<td><fmt:formatDate value="${inscritoSelecao.data}" pattern="dd/MM/yyyy" /></td>

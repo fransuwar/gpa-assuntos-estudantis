@@ -18,7 +18,7 @@
 	<div class="container" align="left" style="padding-left: 85px;">
 		<div class="panel panel-primary-min">
 			<div class="panel-heading">
-				<h3 class="panel-title">Detalhes da Incrição </h3>
+				<h3 class="panel-title">Detalhes da Inscrição de Iniciação Acadêmica </h3>
 			</div>
 			<div class="panel-body" >
 					<dl class="col-sm-12">
