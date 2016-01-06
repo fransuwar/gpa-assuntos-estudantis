@@ -1,9 +1,7 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
-
-import java.util.ArrayList;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
@@ -17,6 +15,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,7 +51,6 @@ import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
-import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
@@ -110,7 +108,6 @@ public class AlunoController {
 		model.addAttribute("grauParentesco", GrauParentesco.values());
 		model.addAttribute("selecao", selecao);
 
-
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
 
@@ -139,17 +136,21 @@ public class AlunoController {
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 		Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
 
-		Inscricao inscricao = new Inscricao();
+		if (!alunoService.isAlunoCadastradoEmSelecao(aluno, selecao)) {
+			Inscricao inscricao = new Inscricao();
 
-		inscricao.setData(new Date());
+			inscricao.setData(new Date());
 
-		inscricao.setAluno(aluno);
-		inscricao.setSelecao(selecao);
-		inscricao.setQuestionarioIniciacaoAcademica(iniciacaoAcademica);
+			inscricao.setAluno(aluno);
+			inscricao.setSelecao(selecao);
+			inscricao.setQuestionarioIniciacaoAcademica(iniciacaoAcademica);
 
-		inscricaoService.save(inscricao);
-		
-		
+			inscricaoService.save(inscricao);
+		} else {
+			redirect.addFlashAttribute("error", MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
+			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
+		}
+
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
@@ -161,11 +162,11 @@ public class AlunoController {
 
 		// TODO - Método p/ implementar que retorna página de formulário de
 		// inscrição em iniciação acadêmica.
-		
+
 		model.addAttribute("action", "editar");
 
-		Inscricao inscricao = inscricaoService.find(Inscricao.class , idInscricao);
-		
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+
 		model.addAttribute("inscricao", inscricao);
 		model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
 		model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
@@ -175,8 +176,7 @@ public class AlunoController {
 		model.addAttribute("totalEstado", Estado.toMap());
 		model.addAttribute("grauParentesco", GrauParentesco.values());
 		model.addAttribute("selecao", inscricao.getSelecao());
-		
-		
+
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
 
@@ -190,7 +190,7 @@ public class AlunoController {
 		if (result.hasErrors()) {
 
 			model.addAttribute("action", "editar");
-			
+
 			model.addAttribute("questionarioIniciacaoAcademica", iniciacaoAcademica);
 			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
 			model.addAttribute("turno", Turno.values());
@@ -243,21 +243,22 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
-	public String realizarInscricaoAuxilioMoradia(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
-			BindingResult result, @RequestParam("mora") List<String> comQuemMora, @RequestParam("idSelecao") Integer idSelecao, Authentication auth, 
-			RedirectAttributes redirect, Model model) {
+	public String realizarInscricaoAuxilioMoradia(
+			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
+			BindingResult result, @RequestParam("mora") List<String> comQuemMora,
+			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
+			Model model) {
 
-		
 		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
 		for (String m : comQuemMora) {
 			ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));
 			comQuemMoraList.add(mora);
 		}
-		
+
 		auxilioMoradia.setComQuemMora(comQuemMoraList);
-		
+
 		if (result.hasErrors()) {
-			
+
 			model.addAttribute("action", "inscricao");
 
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
@@ -280,15 +281,21 @@ public class AlunoController {
 			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 			Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
 
-			Inscricao inscricao = new Inscricao();
+			if (!alunoService.isAlunoCadastradoEmSelecao(aluno, selecao)) {
 
-			inscricao.setData(new Date());
+				Inscricao inscricao = new Inscricao();
 
-			inscricao.setAluno(aluno);
-			inscricao.setSelecao(selecao);
-			inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
+				inscricao.setData(new Date());
 
-			inscricaoService.save(inscricao);
+				inscricao.setAluno(aluno);
+				inscricao.setSelecao(selecao);
+				inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
+
+				inscricaoService.save(inscricao);
+			} else {
+				redirect.addFlashAttribute("error", MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
+				return PAGINA_INSCREVER_AUXILIO_MORADIA;
+			}
 
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 		}
@@ -304,8 +311,7 @@ public class AlunoController {
 
 		// TODO - Método p/ implementar que retorna página de edição do
 		// formulário de inscrição em auxílio moradia.
-		
-		
+
 		model.addAttribute("action", "inscricao");
 
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
@@ -322,8 +328,7 @@ public class AlunoController {
 		model.addAttribute("grauParentesco", GrauParentesco.values());
 		model.addAttribute("moraCom", MoraCom.values());
 		model.addAttribute("selecao", inscricao.getSelecao());
-		
-		
+
 		return PAGINA_INSCREVER_AUXILIO_MORADIA;
 
 	}
@@ -342,11 +347,10 @@ public class AlunoController {
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
-		
+
 		System.out.println("FDKSLFKSFLDSKFS - " + auth.getName());
 		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
-		
-		
+
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("inscricoes", aluno.getInscricoes());
 
@@ -361,11 +365,11 @@ public class AlunoController {
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
 
 		if (inscricao == null) {
-			
+
 			redirectAttributes.addFlashAttribute("erro", MENSAGEM_ALUNO_NAO_ENCONTRADO);
-			
+
 		} else {
-			
+
 			inscricaoService.delete(inscricao);
 			redirectAttributes.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 		}
@@ -375,22 +379,23 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
-	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model model, RedirectAttributes redirect) {
+	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model model,
+			RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		model.addAttribute("inscricao", inscricao);
-		
+
 		if (inscricao == null) {
-			
+
 			redirect.addAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_INSCRICOES_ALUNO;
-			
+
 		} else if (inscricao.getQuestionarioAuxilioMoradia() != null) {
-			
+
 			return PAGINA_DETALHES_AUXILIO_MORADIA;
-			
+
 		} else {
-			
+
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
 

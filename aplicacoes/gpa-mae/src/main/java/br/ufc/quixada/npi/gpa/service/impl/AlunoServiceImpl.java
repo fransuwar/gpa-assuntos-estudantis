@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.ufc.quixada.npi.enumeration.QueryType;
 import br.ufc.quixada.npi.gpa.model.Aluno;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
 import br.ufc.quixada.npi.util.SimpleMap;
@@ -45,6 +47,15 @@ public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements Aluno
 	@Transactional(readOnly = true)
 	public Aluno getAlunoByCPF(String cpf) {
 		return (Aluno) findFirst("Aluno.findAlunoByCPF", new SimpleMap<String, Object>("cpf", cpf));
+	}
+
+	@Override
+	public boolean isAlunoCadastradoEmSelecao(Aluno aluno, Selecao selecao) {
+		for (Inscricao inscricao : aluno.getInscricoes()) {
+			if(inscricao.getSelecao().equals(selecao))
+				return true;
+		}
+		return false;
 	}
 
 }
