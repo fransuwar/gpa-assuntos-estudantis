@@ -144,7 +144,7 @@
 								</div>
 
 								<div class="panel-heading">
-									<h3>Endereço da Residência Atual</h3>
+									<h3 class="panel-title">Endereço da Residência Atual</h3>
 								</div>
 								<div class="panel-body">
 
@@ -238,8 +238,9 @@
 									</div>
 								</div>
 
+]
 								<div class="panel-heading">
-									<h3>Endereço da Residência de Origem</h3>
+									<h3 class="panel-title">Endereço da Residência de Origem</h3>
 								</div>
 								<div class="panel-body">
 
