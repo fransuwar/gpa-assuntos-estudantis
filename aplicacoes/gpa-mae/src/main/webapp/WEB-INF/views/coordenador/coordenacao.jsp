@@ -62,17 +62,12 @@
 								<td class="dt-body-center">${selecao.quantidadeVagas}</td>
 								<td class="dt-body-center"><fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> a <fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino}" /></td>
 								<td class="dt-body-right">
-									<a id="editar" href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
+									<a href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
 										<button class="btn btn-primary btn-xs" title="Editar Seleção">
 											<i class="fa fa-pencil-square-o"></i>
 										</button>
 									</a>
-									<a id="visualizarInscritos" href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
-										<button class="btn btn-primary btn-xs" title="Visualizar Inscritos">
-											<i class="fa fa-list"></i>
-										</button>
-									</a>
-									<a id="atribuirComissao" href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
+									<a href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
 										<button class="btn btn-primary btn-xs" title="Gerenciar Comissão">
 											<i class="fa fa-users"></i>
 										</button>
