@@ -325,7 +325,7 @@ public class CoordenadorController {
 			Model model, Authentication auth, RedirectAttributes redirect) {
 
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		Servidor coordenador = servidorService.getServidor(auth.getName());		
+		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());		
 		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 		if(coordenador.getId() != servidor.getId()){
 
