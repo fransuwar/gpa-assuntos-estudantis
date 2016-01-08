@@ -19,6 +19,25 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">
+	
+		<c:if test="${not empty erro}">
+			<div class="alert alert-danger alert-dismissible" role="alert"
+				id="alert-erro">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<c:out value="${erro}"></c:out>
+			</div>
+		</c:if>
+		<c:if test="${not empty info}">
+			<div class="alert alert-success alert-dismissible" role="alert"
+				id="alert-info">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<c:out value="${info}"></c:out>
+			</div>
+		</c:if>
 		<div class="col-md-12">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -53,7 +72,7 @@
 											</button>
 										</a>
 										<a id="excluirInscricao"
-											href="<c:url value="/inscricao/excluir/${idAluno}/${inscricao.id}" ></c:url>">
+											href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
 											<button class="btn btn-danger btn-sm"
 												title="Excluir Inscrição">
 												<i class="glyphicon glyphicon-trash"></i>
