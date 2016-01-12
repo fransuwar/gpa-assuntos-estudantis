@@ -261,8 +261,8 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = "/selecao/adicionar-documento", method = RequestMethod.POST)
-	public String adicionarDocumento(@RequestParam("files") List<MultipartFile> files,
-			RedirectAttributes redirect,@RequestParam("idSelecao") Integer idSelecao, Model model) {
+	public String adicionarDocumento(List<MultipartFile> files,
+			RedirectAttributes redirect, @RequestParam("idSelecao") Integer idSelecao, Model model) {
 
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
 			for (MultipartFile mfiles : files) {
@@ -280,7 +280,7 @@ public class CoordenadorController {
 					
 					
 				} catch (IOException ioe) {
-					model.addAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 
 					return REDIRECT_PAGINA_EDITAR_SELECAO +idSelecao;
 				}
