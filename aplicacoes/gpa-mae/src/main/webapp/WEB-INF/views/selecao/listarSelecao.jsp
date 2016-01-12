@@ -39,7 +39,7 @@
 						<c:out value="${info}"></c:out>
 					</div>
 				</c:if>
-				<table class="display" id="tabela-selecoes">
+				<table class="table-display" id="tabela-selecoes">
 					<thead>
 						<tr>
 							<th>Seleção</th>
@@ -59,7 +59,7 @@
 								<td class="dt-body-center">${selecao.sequencial}/${selecao.ano}</td>
 								<td class="dt-body-center">${selecao.quantidadeVagas}</td>
 								<td class="dt-body-center">
-									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> a 
+									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à
 									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino }" />
 								</td>
 								<%-- <td>

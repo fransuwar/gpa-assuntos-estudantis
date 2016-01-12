@@ -18,6 +18,8 @@ public class LdapAuthentication implements AuthenticationProvider{
 
 	@Inject
 	private UsuarioService 	usuarioService;
+	@Inject
+	private PessoaService servicePessoa;
 	
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
@@ -26,7 +28,8 @@ public class LdapAuthentication implements AuthenticationProvider{
 		
 		Usuario usuario = usuarioService.getByCpf(username);
 		
-		if (usuario == null || !usuarioService.autentica(username, password) || usuario.getAuthorities().isEmpty()) {
+		
+		if (usuario == null || !usuarioService.autentica(username, password) || usuario.getAuthorities().isEmpty() || this.servicePessoa.getPessoaByCpf(username) == null) {
 			throw new BadCredentialsException(Constants.LOGIN_INVALIDO);
 		}
 		
