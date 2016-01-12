@@ -19,7 +19,7 @@
 	<div class="container" align="left" style="padding-left: 85px;">
 		<div class="panel panel-primary-min">
 			<div class="panel-heading">
-				<h3 class="panel-title">Detalhes da Incrição </h3>
+				<h3 class="panel-title">Detalhes da Inscrição</h3>
 			</div>
 			<div class="panel-body" >
 					<dl class="col-sm-12">
@@ -44,10 +44,10 @@
 			</div>
 			<div class="panel-body" >
 					<dl class="col-sm-12">
-						<dt class="col-sm-3">Rua/Av:</dt>
-						<dd class="col-sm-3">${inscricao.questionarioIniciacaoAcademica.enderecoFamilia}</dd>
-						<dt class="col-sm-3">Bairo de Origem:</dt>
-						<dd class="col-sm-3">${inscricao.questionarioIniciacaoAcademica.bairroFamilia}</dd>
+						<dt class="col-sm-2">Rua/Av:</dt>
+						<dd class="col-sm-2">${inscricao.questionarioIniciacaoAcademica.enderecoFamilia}</dd>
+						<dt class="col-sm-2">Bairo de Origem:</dt>
+						<dd class="col-sm-2">${inscricao.questionarioIniciacaoAcademica.bairroFamilia}</dd>
 					</dl>
 					<dl class="col-sm-12">
 						<dt class="col-sm-3">Número:</dt>

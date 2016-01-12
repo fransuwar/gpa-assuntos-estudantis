@@ -43,7 +43,8 @@ public class Inscricao {
 	@Column(nullable = false)
 	private boolean deferimento;
 	
-	@OneToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
 	
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
