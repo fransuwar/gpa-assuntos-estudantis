@@ -54,11 +54,19 @@
 				<h2>${titulo }</h2>
 			</div>
 			<div class="panel-body">
+				<c:forEach items="${selecao.membrosComissao }" var="membros">
+				${membros.pessoa.nome }
+				</c:forEach>
+				
 				<form:form id="adicionarSelecaoForm" role="form"
 					commandName="selecao" servletRelativeAction="${url }" method="POST"
 					cssClass="form-horizontal" enctype="multipart/form-data">
 					
 					<input type="hidden" name="id" value="${selecao.id}" />
+					<c:forEach items="selecao.membrosComissao" var="membro" varStatus="status">
+					  <input type="hidden" name="selecao.membrosComissao[${status.index}]." value="${membro}"/>
+					</c:forEach>
+					
 					
 					<div class="form-group">
 
