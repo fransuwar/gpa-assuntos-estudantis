@@ -264,17 +264,27 @@ public class AlunoController {
 			RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		
 		if(inscricao != null){
+			
 			if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) ){
+				
 				model.addAttribute("questionarioAuxilioMoradia",inscricao.getQuestionarioAuxilioMoradia());
 				model.addAttribute("selecao", inscricao.getSelecao());
+				
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
+			
 			}else {
+				
 				model.addAttribute("selecao", inscricao.getSelecao());
 				model.addAttribute("questionarioIniciacaoAcademica",inscricao.getQuestionarioIniciacaoAcademica());
+				
 				return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
+				
 			}
 		}
+		
+		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
