@@ -1,7 +1,6 @@
 package br.ufc.quixada.npi.gpa.service;
 
 import br.ufc.quixada.npi.gpa.model.Aluno;
-import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.service.GenericService;
 
 public interface AlunoService extends GenericService<Aluno>{
@@ -13,8 +12,6 @@ public interface AlunoService extends GenericService<Aluno>{
 	public abstract Aluno getAlunoByCPF(String cpf);
 	
 	public abstract boolean isAlunoCadastrado(Aluno aluno);
-	
-	public abstract boolean isAlunoCadastradoEmSelecao(Aluno aluno, Selecao selecao);
 
 
 }

@@ -136,7 +136,7 @@ public class AlunoController {
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 		Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
 
-		if (!alunoService.isAlunoCadastradoEmSelecao(aluno, selecao)) {
+		if (!isAlunoCadastradoEmSelecao(aluno, selecao)) {
 			Inscricao inscricao = new Inscricao();
 
 			inscricao.setData(new Date());
@@ -281,7 +281,7 @@ public class AlunoController {
 			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 			Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
 
-			if (!alunoService.isAlunoCadastradoEmSelecao(aluno, selecao)) {
+			if (!isAlunoCadastradoEmSelecao(aluno, selecao)) {
 
 				Inscricao inscricao = new Inscricao();
 
@@ -400,5 +400,13 @@ public class AlunoController {
 		}
 
 	}
-
+	
+	
+	public boolean isAlunoCadastradoEmSelecao(Aluno aluno, Selecao selecao) {
+		for (Inscricao inscricao : aluno.getInscricoes()) {
+			if(inscricao.getSelecao().equals(selecao))
+				return true;
+		}
+		return false;
+	}
 }
