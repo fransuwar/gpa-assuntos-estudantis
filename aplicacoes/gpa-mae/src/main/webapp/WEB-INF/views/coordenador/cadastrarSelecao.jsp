@@ -21,8 +21,8 @@
 
 <html>
 <head>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Cadastro de Seleções</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Cadastro de Seleções</title>
 </head>
 <body>
 
@@ -54,12 +54,13 @@
 				<h2>${titulo }</h2>
 			</div>
 			<div class="panel-body">
+
 				<form:form id="adicionarSelecaoForm" role="form"
 					commandName="selecao" servletRelativeAction="${url }" method="POST"
-					cssClass="form-horizontal" enctype="multipart/form-data">
-					
+					cssClass="form-horizontal">
+
 					<input type="hidden" name="id" value="${selecao.id}" />
-					
+
 					<div class="form-group">
 
 						<label for="tipoSelecao" class="col-sm-2 control-label"><span
@@ -134,10 +135,26 @@
 							</div>
 						</div>
 					</div>
+					<div class="form-group" align="right">
+						<div class="col-sm-5" id="div-form-btn">
+							<input name="submit" type="submit" class="btn btn-primary"
+								value="${botao }" id="form-btn" />
+						</div>
+
+						<div class="col-sm-1" id="div-form-btn">
+							<a href="<c:url value="/selecao/listar"></c:url>"
+								class="btn btn-default" id="form-btn">Cancelar</a>
+						</div>
+					</div>
+				</form:form>
+				<br>
+				<form id="adicionarArquivoForm" role="form"
+					action="<c:url value="/coordenador/selecao/adicionar-documento" />"
+					method="POST" class="form-horizontal" enctype="multipart/form-data">
+					<input type="hidden" name="idSelecao" value="${selecao.id}">
 
 					<div class="form-group">
-						<label for="arquivo" class="col-sm-2 control-label"><span
-							class="red">*</span>Arquivos:</label>
+						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
 						<div class="col-sm-5 files">
 							<input type="file" id="files" name="files" class="file"
 								multiple="multiple"></input>
@@ -150,36 +167,36 @@
 								<tbody class="files">
 									<c:forEach items="${selecao.documentos}" var="documento">
 										<tr class="template-upload fade in" id="row-${documento.id}">
-											<td><a 
+											<td><a
 												href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
 												<strong class="error text-danger"></strong></td>
-											<td><a id="excluir" data-toggle="modal"	data-target="#confirm-delete" data-href="<c:url value="/coordenador/selecao/excluir-documento/${documento.id }"></c:url>"
+											<td><a id="excluir" data-toggle="modal"
+												data-target="#confirm-delete"
+												data-href="<c:url value="/coordenador/selecao/excluir-documento/${documento.id }"></c:url>"
 												class="delete-document">
 													<button type="button" class="btn btn-danger">
-														Excluir <span class="glyphicon glyphicon-trash"></span>
+														<span class="glyphicon glyphicon-trash"></span>
 													</button>
 											</a></td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
-
+							<input type="submit" class="btn btn-primary"
+								value="Adicionar Arquivo" id="form-btn" />
 						</div>
 
 					</div>
+				</form>
 
-					<div class="form-group">
-						<div class="col-sm-2" id="div-form-btn">
-							<input name="submit" type="submit" class="btn btn-primary"
-								value="${botao }" id="form-btn" />
-						</div>
-						<div class="col-sm-2" id="div-form-btn">
-							<a href="<c:url value="/selecao/listar"></c:url>"
-								class="btn btn-default" id="form-btn">Cancelar</a>
-						</div>
-					</div>
 
-				</form:form>
+
+
+
+
+
+
+
 			</div>
 		</div>
 	</div>
@@ -190,7 +207,8 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">Excluir</div>
-				<div class="modal-body">Tem certeza de que deseja excluir esse Documento?</div>
+				<div class="modal-body">Tem certeza de que deseja excluir esse
+					Documento?</div>
 				<div class="modal-footer">
 					<a href="#" class="btn btn-danger">Excluir</a>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
