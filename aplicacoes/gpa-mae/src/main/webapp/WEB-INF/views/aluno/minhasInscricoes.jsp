@@ -24,6 +24,24 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Minhas Inscrições</h3>
 				</div>
+				<c:if test="${not empty erro}">
+					<div class="alert alert-danger alert-dismissible" role="alert"
+						id="alert-erro">
+						<button type="button" class="close" data-dismiss="alert">
+							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+						</button>
+						<c:out value="${erro}"></c:out>
+					</div>
+				</c:if>
+				<c:if test="${not empty info}">
+					<div class="alert alert-success alert-dismissible" role="alert"
+						id="alert-info">
+						<button type="button" class="close" data-dismiss="alert">
+							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+						</button>
+						<c:out value="${info}"></c:out>
+					</div>
+				</c:if>
 				<table class="table-display" id="tabela-selecoes">
 					<thead>
 						<tr>
