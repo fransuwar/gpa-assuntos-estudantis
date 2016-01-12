@@ -39,7 +39,7 @@
 						<c:out value="${info}"></c:out>
 					</div>
 				</c:if>
-				<table class="display" id="tabela-selecoes">
+				<table class="table-display" id="tabela-selecoes">
 					<thead>
 						<tr>
 							<th>Seleção</th>

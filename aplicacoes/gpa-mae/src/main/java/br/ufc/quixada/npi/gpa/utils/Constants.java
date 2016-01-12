@@ -53,7 +53,6 @@ public class Constants {
 	public static final String PAGINA_INSCRICOES_ALUNO = "aluno/minhasInscricoes";
 
 	public static final String PAGINA_SELECOES_ABERTAS = "aluno/listarSelecoes";
-	public static final String MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO = "Você já está inscrito nesta seleção";
 
 	/** Redirecionamentos */
 
@@ -115,7 +114,7 @@ public class Constants {
 
 	public static final String MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO = "Download do Documento realizado com sucesso";
 
-	public static final String MENSAGEM_SUCESSO_COMISSAO_FORMADA = "Informe pelo menos um membro.";
+	public static final String MENSAGEM_SUCESSO_COMISSAO_FORMADA = "Membro inserido com sucesso.";
 
 	public static final String MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO = "Membro excluído com sucesso.";
 
@@ -174,6 +173,10 @@ public class Constants {
 	public static final String MENSAGEM_DOCUMENTO_REMOVIDO = "Documento removido com Sucesso";
 
 	public static final String MENSAGEM_ERRO_TIPO_BOLSA = "Informe o tipo de Bolsa";
+
+	public static final String MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS = "Seleção possui inscritos e não pode ser excluída";
+
+	public static final String MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO = "Você já está inscrito nesta seleção";
 
 	/** Perfis */
 

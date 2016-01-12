@@ -42,25 +42,24 @@ public class Inscricao {
 
 	@Column(nullable = false)
 	private boolean deferimento;
-	
-	@OneToOne(cascade = CascadeType.PERSIST)
+
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
-	
-	@OneToOne(cascade = CascadeType.PERSIST)
+
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
-	
+
 	@OneToOne
 	private Selecao selecao;
-	
+
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
-	
+
 	@OneToOne
 	private Entrevista entrevista;
 
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	private Aluno aluno;
-
 
 	public Integer getId() {
 		return id;

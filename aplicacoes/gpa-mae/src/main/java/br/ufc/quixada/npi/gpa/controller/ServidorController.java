@@ -174,7 +174,7 @@ public class ServidorController {
 	}
 	
 
-	@RequestMapping(value = { "detalhes/inciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "detalhes/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
 			RedirectAttributes redirect) {
 
@@ -190,7 +190,7 @@ public class ServidorController {
 		return PAGINA_DETALHES_INSCRICAO;
 	}
 
-	@RequestMapping(value = "detalhes/inscricao/{idInscricao}")
+	@RequestMapping(value ={ "detalhes/inscricao/{idInscricao}"}, method = RequestMethod.GET)
 	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
 			RedirectAttributes redirect) {
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
@@ -198,8 +198,7 @@ public class ServidorController {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		
-		
-		}else if(inscricao.getSelecao().getTipoSelecao().equals("AUX_MOR")){
+		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
 				modelo.addAttribute("inscricao", inscricao);
 				modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
 				return PAGINA_DETALHES_AUXILIO_MORADIA;
