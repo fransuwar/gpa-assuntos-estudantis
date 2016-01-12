@@ -78,7 +78,7 @@
 										</button>
 									</a>
 									<c:if 
-									test="${selecao.inscritos.contains(null) }">
+									test="${selecao.inscritos.isEmpty() }">
 									<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#"
 										data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
 										<button class="btn btn-danger btn-xs" title="Excluir Seleção">

@@ -175,6 +175,8 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_TIPO_BOLSA					  = "Informe o tipo de Bolsa";
 	
+	public static final String MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS 	= "Seleção possui inscritos e não pode ser excluída";
+	
 	/** Perfis */
 	
 	public static final String STA 									= "STA";
