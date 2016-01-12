@@ -28,7 +28,6 @@
 						<tr>
 							<th>Edital</th>
 							<th>Tipo de Seleção</th>
-							<th>Seleção</th>
 							<th>Período de Inscrições</th>
 							<th>Vagas</th>
 							<th>Coordenador Responsável</th>

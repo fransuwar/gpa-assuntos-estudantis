@@ -72,12 +72,15 @@
 											<i class="fa fa-users"></i>
 										</button>
 									</a>
+									<c:if 
+									test="${selecao.inscritos.isEmpty() }">
 									<a id="excluir" data-toggle="modal" data-target="#confirm-delete" href="#"
 										data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
 										<button class="btn btn-danger btn-xs" title="Excluir Seleção">
 											<i class="fa fa-trash"></i>
 										</button>
 									</a>
+									</c:if>
 								</td>
 
 							</tr>
