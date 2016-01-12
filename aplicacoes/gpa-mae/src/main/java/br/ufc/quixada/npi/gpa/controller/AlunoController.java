@@ -154,16 +154,6 @@ public class AlunoController {
 
 	}
 
-	@RequestMapping(value = { "inscricao/editar/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
-	public String editarInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model model,
-			RedirectAttributes redirect) {
-
-		// TODO - Método p/ implementar que retorna página de formulário de
-		// inscrição em iniciação acadêmica.
-
-		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
-	}
-
 	@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
 	public String editarInscricaoIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
@@ -282,14 +272,23 @@ public class AlunoController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
-	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.GET)
 	public String editarInscricaoAuxilioMoradia(@PathVariable("idInscricao") Integer idInscricao, Model model,
 			RedirectAttributes redirect) {
 
-		// TODO - Método p/ implementar que retorna página de edição do
-		// formulário de inscrição em auxílio moradia.
-
-		return PAGINA_INSCREVER_AUXILIO_MORADIA;
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		if(inscricao != null){
+			if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) ){
+				model.addAttribute("questionarioAuxilioMoradia",inscricao.getQuestionarioAuxilioMoradia());
+				model.addAttribute("selecao", inscricao.getSelecao());
+				return PAGINA_INSCREVER_AUXILIO_MORADIA;
+			}else {
+				model.addAttribute("selecao", inscricao.getSelecao());
+				model.addAttribute("questionarioIniciacaoAcademica",inscricao.getQuestionarioIniciacaoAcademica());
+				return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
+			}
+		}
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
 
@@ -333,7 +332,7 @@ public class AlunoController {
 			redirectAttributes.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 		}
 
-		return "redirect:/aluno/inscricao/listar/{idAluno}";
+		return PAGINA_INSCRICOES_ALUNO;
 
 	}
 
