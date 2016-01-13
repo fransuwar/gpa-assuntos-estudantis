@@ -53,20 +53,6 @@
 					</tbody>
 				</table>
 
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#moradia-tab" data-toggle="tab">Moradia<i
-							class="fa"></i>
-					</a></li>
-					<li><a href="#situacao-socio-economica-tab" data-toggle="tab">Situação
-							Sócio Econômica<i class="fa"></i>
-					</a></li>
-					<li><a href="#informacao-grupo-familiar-tab" data-toggle="tab">Informações
-							do seu Grupo Familiar<i class="fa"></i>
-					</a></li>
-					<li><a href="#informacao-adicional-tab" data-toggle="tab">Informações
-							Adicionais<i class="fa"></i>
-					</a></li>
-				</ul>
 
 				<form:form id="questionarioIniciacao" role="form"
 					onsubmit="return validaHorariosDisponiveisBolsa();"
@@ -78,12 +64,12 @@
 					<input type="hidden" id="idSelecao" name="idSelecao"
 						value="${selecao.id }" />
 
-					<div class="tab-content">
-						<div class="tab-pane active" id="moradia-tab">
+					
+						
 							<div class="panel panel-primary">
-								<div class="panel-heading">
+								
 									<h3>Endereço de Residência de Origem</h3>
-								</div>
+								
 								<div class="panel-body">
 									<div class="form-group">
 										<label for="enderecoFamilia" class="col-sm-1 control-label"><span
@@ -279,8 +265,8 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="tab-pane" id="situacao-socio-economica-tab">
+						
+						
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<h3>Situação Sócio Econômica</h3>
@@ -482,8 +468,8 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="tab-pane" id="informacao-grupo-familiar-tab">
+						
+						
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<h3>Informações do seu Grupo Familiar</h3>
@@ -497,8 +483,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="tab-pane" id="informacao-adicional-tab">
+						
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<h3>Informações Adicionais</h3>
@@ -523,8 +508,8 @@
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
+						
+					
 					<div class="form-group">
 						<div class="col-sm-2" id="div-form-btn">
 							<input name="submit" type="submit" class="btn btn-primary"
