@@ -169,7 +169,7 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
 	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result,
-			 Model model, RedirectAttributes redirect, HttpServletRequest request) {
+			 Model model, RedirectAttributes redirect) {
 		
 
 		model.addAttribute("action", "editar");
