@@ -27,7 +27,7 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	private GenericRepository<VisitaDomiciliar> visitaService;
 
 	@Inject
-	private GenericRepository<Entrevista>  		entrevistaService;
+	private GenericRepository<Entrevista> entrevistaService;
 	
 	@Override
 	@Transactional(readOnly = true)

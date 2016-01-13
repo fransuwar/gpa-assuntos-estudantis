@@ -175,6 +175,10 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_TIPO_BOLSA					  = "Informe o tipo de Bolsa";
 	
+	public static final String MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA = "Acesso não autorizado! Você não pode realizar a entrevista pois não faz parte da comissão";
+	
+	public static final String MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_VISITA = "Acesso não autorizado! Você não pode realizar a visita pois não faz parte da comissão";
+	
 	/** Perfis */
 	
 	public static final String STA 									= "STA";

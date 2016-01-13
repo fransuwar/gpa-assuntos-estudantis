@@ -29,8 +29,36 @@ body {
 	padding-right: 0%;
 }
 
+/*html, body{
+	height: 100%;
+	}
+
+body > #tudo {
+	min-height: 100%;
+
+	}
+	
+#conteudo {
+	overflow:auto;
+    padding-bottom:160px;
+	}
+	
+#rodape {
+	position: relative;
+    margin-top: -160px;
+    height: 160px;
+    clear:both;
+	text-align: center;
+	
+	}*/
+
 html, body {
 	height:100%;
+}
+
+body {
+	height: auto; 
+	min-height: 100%;
 }
 
 footer {
@@ -38,8 +66,11 @@ footer {
 	clear: both;
 	bottom: 0;
 	position: relative;
+	margin-top: -40px;
 	width: 100%;
 	margin-bottom: 20px;
+	height: 40px;
+	
 }
 
 footer>img {

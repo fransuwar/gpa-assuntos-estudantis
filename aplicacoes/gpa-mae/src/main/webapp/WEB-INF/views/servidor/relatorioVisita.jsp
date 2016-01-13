@@ -78,15 +78,6 @@
 													<form:errors path="aluno"></form:errors>
 												</div>
 											</div>
-											<label for="endereco" class="col-sm-2 control-label"
-												id="form-label-1">Endereço:</label>
-											<div class="col-sm-4">
-												<form:input id="endereco" type="text" path="endereco"
-													cssClass="form-control" placeholder="Endereco" />
-												<div class="error-validation">
-													<form:errors path="endereco"></form:errors>
-												</div>
-											</div>
 											<label for="formaAcesso" class="col-sm-2 control-label"
 												id="form-label-2" style="padding-left: 2px;">Forma
 												de acesso a casa:</label>
