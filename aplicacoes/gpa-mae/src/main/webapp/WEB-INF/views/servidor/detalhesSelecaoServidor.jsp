@@ -95,43 +95,85 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Resultado da Seleção</h3>
 				</div>
-				<table class="table">
-					<thead>
-						<tr class="info">
-							<td>Nome</td>
-							<td>Matrícula</td>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr class="info">
+								<td>Nome</td>
+								<td>Matrícula</td>
+							</tr>
+						</thead>
+						<tr>
+							<td>Não existem classificados no momento</td>
 						</tr>
-					</thead>
-					<tr>
-						<td>Não existem classificados no momento</td>
-					</tr>
-				</table>
+					</table>
+				</div>
 			</div>
+
 			<div class="panel panel-primary-min" align="left">
 				<div class="panel-heading">
-					<h3 class="panel-title">Participantes da Seleção</h3>
+					<h3 class="panel-title">Incrições Existentes</h3>
 				</div>
-				<table class="table">
-					<thead>
-						<tr class="info">
-							<td>Número</td>
-							<td>Aluno</td>
-							<td>Matricula</td>
-							<td>Data</td>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="inscrito" items="${selecao.inscritos }">
-							<tr>
-								<td>${inscrito.id }</td>
-								<td>${inscrito.aluno.pessoa.nome }</td>
-								<td>${inscrito.aluno.matricula }</td>
-								<td><fmt:formatDate value="${inscrito.data}"
-										pattern="dd/MM/yyyy" /></td>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr class="info">
+								<td>Número</td>
+								<td>Aluno</td>
+								<td>Matricula</td>
+								<td>Data</td>
+								<td>Tipo de Bolsa</td>
+								<td>Ações</td>
+
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach var="inscricao" items="${inscricao }">
+								<tr>
+									<td>${inscricao.id }</td>
+									<td><a id="detalhes"
+										href="<c:url value="/servidor/detalhes/inscricao/${inscrito.id}">  
+									</c:url>">
+											${inscricao.aluno.pessoa.nome }</a></td>
+									<td>${inscricao.aluno.matricula }</td>
+									<td><fmt:formatDate value="${inscricao.data}"
+											pattern="dd/MM/yyyy" /></td>
+
+									<td>${inscricao.selecao.tipoSelecao.nome}</td>
+									<td>Entrevista: ${inscricao.entrevista.selecao.id}</td>
+
+
+
+									
+									<td><a id="avaliarDocumentos" title="Avaliar Documentação"
+										href="<c:url value="" ></c:url>">
+											<button class=" btn btn-primary btn-xs">
+												<span class="glyphicon glyphicon-duplicate"></span>
+											</button>
+									</a>
+									<c:if test="${!inscricao.entrevista.isEmpty()}">
+									<a id="realizarEntrevista" title="Realizar Entrevista"
+										href="<c:url value="/servidor/entrevista/${inscricao.id}" ></c:url>">
+											<button class=" btn btn-primary btn-xs">
+												<span class="glyphicon glyphicon-copy"></span>
+											</button>
+											
+									</a>
+									</c:if>
+									<c:if test="${inscricao.selecao.tipoSelecao =='AUX_MOR'}">
+											<a id="realizarVisita" title="Realizar Visita"
+												href="<c:url value="/servidor/visita/${inscricao.id }"></c:url>">
+												<button class=" btn btn-primary btn-xs">
+													<span class="fa fa-bus"></span>
+												</button>
+											</a>
+										</c:if></td>
+										
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</sec:authorize>
 	</div>

@@ -2,6 +2,8 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -60,7 +62,7 @@ public class ServidorController {
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
-		return PAGINA_LISTAR_SELECAO;
+		return PAGINA_LISTAR_SELECAO_SERVIDOR;
 	}
 
 	@RequestMapping(value= {"entrevista/{idInscricao}"}, method = RequestMethod.GET)
@@ -162,6 +164,8 @@ public class ServidorController {
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect){
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		
+		List<Inscricao> inscricao = inscricaoService.getInscricoesBySelecao(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -169,6 +173,7 @@ public class ServidorController {
 		}
 		
 		model.addAttribute("selecao", selecao);
+		model.addAttribute("inscricao", inscricao);
 
 		return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 	}
@@ -209,5 +214,5 @@ public class ServidorController {
 		}
 		
 	}
-		
+			
 }

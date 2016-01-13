@@ -20,7 +20,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 
 @NamedQueries({
-		@NamedQuery(name = "Inscricao.findIncricoesByIdAluno", query = "select i from Inscricao i where i.aluno.id = :idAluno") })
+		@NamedQuery(name = "Inscricao.findIncricoesByIdAluno", query = "select i from Inscricao i where i.aluno.id = :idAluno"),
+		@NamedQuery(name="Inscricao.finInscricaoByIdSelecao", query="select i from Inscricao i where i.selecao.id = :idSelecao")
+		
+})
 
 @Entity
 public class Inscricao {

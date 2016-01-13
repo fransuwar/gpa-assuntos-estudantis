@@ -16,7 +16,9 @@ public interface InscricaoService extends GenericService<Inscricao>{
 	
 	public abstract List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica);
 
-	public abstract List<Inscricao> getInscricoes(Integer idAluno); 
+	public abstract List<Inscricao> getInscricoes(Integer idAluno);
+	
+	public abstract List<Inscricao> getInscricoesBySelecao(Integer idSelecao);
 	
 	public abstract List<PessoaFamilia> getPessoaFamiliaByIdIniciacaoAcademica(Integer idIniciacaoAcademica);
 	
