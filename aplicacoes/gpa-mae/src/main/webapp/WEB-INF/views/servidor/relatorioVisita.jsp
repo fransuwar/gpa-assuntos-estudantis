@@ -52,14 +52,14 @@
 						</a></li>
 					</ul>
 
-					<form:form id="relatorioForm" role="form"
-						modelAttribute="relatorioVisitaDomiciliar"
-						commandName="relatorioVisitaDomiciliar"
-						servletRelativeAction="/servidor/visita"
-						method="POST" cssClass="form-horizontal">
-						
-						<input type="hidden" id="idAluno" name="idAluno" value="${idAluno }">
-						<input type="hidden" id="idSelecao" name="idSelecao" value="${idSelecao }"/>
+					<form:form id="relatorioForm" role="form" modelAttribute="relatorioVisitaDomiciliar"
+						commandName="relatorioVisitaDomiciliar"	servletRelativeAction="/servidor/visita" method="POST"
+						cssClass="form-horizontal">
+
+						<input type="hidden" id="idAluno" name="idAluno"
+							value="${idAluno }">
+						<input type="hidden" id="idSelecao" name="idSelecao"
+							value="${idSelecao }" />
 
 						<div class="tab-content">
 							<div class="tab-pane active" id="dados-gerais-tab">
@@ -72,19 +72,11 @@
 											<label for="nomeAluno" class="col-sm-2 control-label"
 												id="form-label-2">Candidato:</label>
 											<div class="col-sm-4">
-												<form:input id="nomeAluno" type="text" readonly="true" path="" value="${aluno.nome}"
-													cssClass="form-control" placeholder="Nome do candidato" />
+												<form:input id="nomeAluno" type="text" readonly="true"
+													path="" value="${aluno.nome}" cssClass="form-control"
+													placeholder="Nome do candidato" />
 												<div class="error-validation">
 													<form:errors path="aluno"></form:errors>
-												</div>
-											</div>
-											<label for="endereco" class="col-sm-2 control-label"
-												id="form-label-1">Endereço:</label>
-											<div class="col-sm-4">
-												<form:input id="endereco" type="text" path="endereco"
-													cssClass="form-control" placeholder="Endereco" />
-												<div class="error-validation">
-													<form:errors path="endereco"></form:errors>
 												</div>
 											</div>
 											<label for="formaAcesso" class="col-sm-2 control-label"
@@ -101,9 +93,10 @@
 											<label for="curso" class="col-sm-2 control-label"
 												id="form-label-1">Curso</label>
 											<div class="col-sm-4">
-									
-												<form:input id="curso" type="text" readonly="true" path="curso"
-													cssClass="form-control" placeholder="" value="${aluno.curso}" />
+
+												<form:input id="curso" type="text" readonly="true"
+													path="curso" cssClass="form-control" placeholder=""
+													value="${aluno.curso}" />
 												<div class="error-validation">
 													<form:errors path="curso"></form:errors>
 												</div>
@@ -112,7 +105,7 @@
 												id="form-label-2">Semestre:</label>
 											<div class="col-sm-4">
 												<form:input id="semestre" type="text" path="semestre"
-													cssClass="form-control" placeholder="Semestre"  value="0" />
+													cssClass="form-control" placeholder="Semestre" value="0" />
 												<div class="error-validation">
 													<form:errors path="semestre"></form:errors>
 												</div>
@@ -142,78 +135,27 @@
 							</div>
 						</div>
 
+
+						
+						
+						
+						
 						<div class="tab-pane" id="perfil-economico-tab">
 							<div class="panel panel-primary">
+
 								<div class="panel-heading">
 									<h3>I - Perfil Econômico:Despesas</h3>
 								</div>
 								<div class="panel-body">
-									<div class="form-group">
-										<label for="moradia" class="col-sm-2 control-label"
-											id="form-label-right">Moradia:</label>
-										<div class="col-sm-4">
-											<form:input id="moradia" min="0" value="0"
-												path="despesaMoradia" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="despesaMoradia"></form:errors>
-											</div>
-										</div>
-										<label for="energia" class="col-sm-2 control-label"
-											id="form-label-right">Energia:</label>
-										<div class="col-sm-4">
-											<form:input id="energia" min="0" value="0"
-												path="despesaEnergia" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="despesaEnergia"></form:errors>
-											</div>
-										</div>
-										<label for="telefone" class="col-sm-2 control-label"
-											id="form-label-right">Telefone:</label>
-										<div class="col-sm-4">
-											<form:input id="telefone" min="0" value="0"
-												path="despesaTelefone" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="despesaTelefone"></form:errors>
-											</div>
-										</div>
-										<label for="educacao" class="col-sm-2 control-label"
-											id="form-label-right">Educação:</label>
-										<div class="col-sm-4">
-											<form:input id="educacao" min="0" value="0"
-												path="despesaEducacao" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="despesaEducacao"></form:errors>
-											</div>
-										</div>
-										<label for="saude" class="col-sm-2 control-label"
-											id="form-label-right">Saúde:</label>
-										<div class="col-sm-4">
-											<form:input id="saude" min="0" value="0" path="despesaSaude"
-												cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="despesaSaude"></form:errors>
-											</div>
-										</div>
-										<label for="alimentacao" class="col-sm-2 control-label"
-											id="form-label-right">Alimentação:</label>
-										<div class="col-sm-4">
-											<form:input id="alimentacao" min="0" value="0"
-												path="despesaAlimentacao" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="despesaAlimentacao"></form:errors>
-											</div>
-										</div>
-										<label for="outros" class="col-sm-2 control-label"
-											id="form-label-right">Outros:</label>
-										<div class="col-sm-4">
-											<form:input id="outros" min="0" value="0"
-												path="despesaOutros" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="despesaOutros"></form:errors>
-											</div>
-										</div>
+									<div class="panel-body">
+										<jsp:include page="despesaVisita.jsp" />
 									</div>
 								</div>
+
+
+
+
+
 
 
 
@@ -221,82 +163,19 @@
 									<h3>II- Perfil Econômico: Receitas</h3>
 								</div>
 								<div class="panel-body">
-									<div class="form-group">
-										<label class="col-sm-4 control-label" for="qtdResidente">
-											Nº de Pessoas Residentes no domicilio:</label>
-										<div class="col-sm-2">
-											<form:input id="qtdResidente" data-mask="999" min="0"
-												value="0" path="qtdPessoasResidentes"
-												cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="qtdPessoasResidentes"></form:errors>
-											</div>
-										</div>
-
-										<label for="rendaTrabalhoFormal"
-											class="col-sm-4 control-label"> Trabalho Formal:</label>
-										<div class="col-sm-2">
-											<form:input id="rendaTrabalhoFormal" min="0" value="0"
-												path="rendaTrabalhoFormal" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="rendaTrabalhoFormal"></form:errors>
-											</div>
-										</div>
-
-										<label for="rendaTrabalhoInformal"
-											class="col-sm-4 control-label"> Trabalho Informal:</label>
-										<div class="col-sm-2">
-											<form:input id="rendaTrabalhoInformal" min="0" value="0"
-												path="rendaTrabalhoInformal" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="rendaTrabalhoInformal"></form:errors>
-											</div>
-										</div>
-
-
-										<label for="rendaAposentadoria" class="col-sm-4 control-label">
-											Aposentadoria:</label>
-										<div class="col-sm-2">
-											<form:input id="rendaAposentadoria" min="0" value="0"
-												path="rendaAposentadoria" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="rendaAposentadoria"></form:errors>
-											</div>
-										</div>
-
-										<label for="rendaBeneficioSocial"
-											class="col-sm-4 control-label"> Benefícios Sociais:</label>
-										<div class="col-sm-2">
-											<form:input id="rendaBeneficioSocial" min="0" value="0"
-												path="rendaBeneficioSocial" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="rendaBeneficioSocial"></form:errors>
-											</div>
-										</div>
-
-
-										<label for="rendaAuxilioParente"
-											class="col-sm-4 control-label">Auxílio de Parentes:</label>
-										<div class="col-sm-2">
-											<form:input id="rendaAuxilioParente" min="0" value="0"
-												path="rendaAuxilioParente" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="rendaAuxilioParente"></form:errors>
-											</div>
-										</div>
-
-										<label for="rendaOutros" class="col-sm-4 control-label">Outros:</label>
-										<div class="col-sm-2">
-											<form:input id="rendaOutros" min="0" value="0"
-												path="rendaOutros" cssClass="form-control" />
-											<div class="error-validation">
-												<form:errors path="rendaOutros"></form:errors>
-											</div>
-										</div>
+									<div class="panel-body">
+										<jsp:include page="receitasVisitas.jsp" />
 									</div>
 								</div>
 							</div>
 						</div>
+
+
+
+
+
+
+
 
 						<div class="tab-pane" id="moradia-tab">
 							<div class="panel panel-primary">
@@ -450,8 +329,8 @@
 													id="utensilioComputadorQtd" cssClass="form-control" />
 											</div>
 											<form:input id="utensilioComputadorObservacao"
-												path="utensilioComputadorObservacao" placeholder="Observação"
-												cssClass="form-control" value="" />
+												path="utensilioComputadorObservacao"
+												placeholder="Observação" cssClass="form-control" value="" />
 											<div class="error-validation">
 												<form:errors path="utensilioComputadorObservacao"
 													id="utensilioComputadorObservacao" cssClass="form-control" />
@@ -585,8 +464,9 @@
 										<label for="bemMovelMoto" class="col-sm-2 control-label"
 											id="form-label-right">Moto:</label>
 										<div class="col-sm-4">
-											<form:input id="bemMovelMotoQtd" data-mask="999" min="0" value="0" 
-												placeholder="Quantidade de Motos" path="bemMovelMotoQtd" cssClass="form-control" />
+											<form:input id="bemMovelMotoQtd" data-mask="999" min="0"
+												value="0" placeholder="Quantidade de Motos"
+												path="bemMovelMotoQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelMotoQtd" id="bemMovelMotoQtd" />
 											</div>
@@ -595,16 +475,16 @@
 												cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelMotoObservacao"
-													id="bemMovelMotoObservacao"  />
+													id="bemMovelMotoObservacao" />
 											</div>
 										</div>
 
 										<label for="bemMovelBicicleta" class="col-sm-2 control-label"
 											id="form-label-right">Bicicleta:</label>
 										<div class="col-sm-4">
-											<form:input id="bemMovelBicicletaQtd" data-mask="999" min="0" value="0" 
-												placeholder="Quantidade de Bicicletas" path="bemMovelBicicletaQtd"
-												cssClass="form-control" />
+											<form:input id="bemMovelBicicletaQtd" data-mask="999" min="0"
+												value="0" placeholder="Quantidade de Bicicletas"
+												path="bemMovelBicicletaQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelBicicletaQtd"
 													id="bemMovelBicicletaQtd" />
@@ -614,34 +494,36 @@
 												cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelBicicletaObservacao"
-													id="bemMovelBicicletaObservacao"  />
+													id="bemMovelBicicletaObservacao" />
 											</div>
 										</div>
 
 										<label for="bemMovelCarro" class="col-sm-2 control-label"
 											id="form-label-right">Carro:</label>
 										<div class="col-sm-4">
-											<form:input id="bemMovelCarroQtd" data-mask="999" min="0" value="0" 
-												placeholder="Quantidade de Carros" path="bemMovelCarroQtd" cssClass="form-control" />
+											<form:input id="bemMovelCarroQtd" data-mask="999" min="0"
+												value="0" placeholder="Quantidade de Carros"
+												path="bemMovelCarroQtd" cssClass="form-control" />
 											<div class="error-validation">
-												<form:errors path="bemMovelCarroQtd" id="bemMovelCarroQtd"  />
+												<form:errors path="bemMovelCarroQtd" id="bemMovelCarroQtd" />
 											</div>
 											<form:input id="bemMovelCarroObservacao"
 												path="bemMovelCarroObservacao" placeholder="Observação"
 												cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelCarroObservacao"
-													id="bemMovelCarroObservacao"  />
+													id="bemMovelCarroObservacao" />
 											</div>
 										</div>
 
 										<label for="bemMovelOutros" class="col-sm-2 control-label"
 											id="form-label-right">Outros:</label>
 										<div class="col-sm-4">
-											<form:input id="bemMovelOutrosQtd" data-mask="999" min="0" value="0" 
-												placeholder="Quantidade de Outros bens móveis" path="bemMovelOutrosQtd" cssClass="form-control" />
+											<form:input id="bemMovelOutrosQtd" data-mask="999" min="0"
+												value="0" placeholder="Quantidade de Outros bens móveis"
+												path="bemMovelOutrosQtd" cssClass="form-control" />
 											<div class="error-validation">
-												<form:errors path="bemMovelOutrosQtd" id="bemMovelOutrosQtd"  />
+												<form:errors path="bemMovelOutrosQtd" id="bemMovelOutrosQtd" />
 											</div>
 											<form:input id="bemMovelOutrosObservacao"
 												path="bemMovelOutrosObservacao" placeholder="Observação"
@@ -664,11 +546,12 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<h4><b>Informe quais itens são compatíveis com a renda</b></h4> 
-										<label
-											for="perfilCompativelUtensilioDomestico"
-											class="col-sm-4 control-label" >Utensílios
-											doméstico (Eletro Eletrônico):</label>
+										<h4>
+											<b>Informe quais itens são compatíveis com a renda</b>
+										</h4>
+										<label for="perfilCompativelUtensilioDomestico"
+											class="col-sm-4 control-label">Utensílios doméstico
+											(Eletro Eletrônico):</label>
 										<div class="col-sm-1" id="col-sm-radio">
 											<form:checkbox path="perfilCompativelUtensilioDomestico" />
 											<div class="error-validation">
@@ -676,7 +559,7 @@
 											</div>
 										</div>
 										<label for="perfilCompativelBensMoveis"
-											class="col-sm-4 control-label" >Bens Móveis:</label>
+											class="col-sm-4 control-label">Bens Móveis:</label>
 										<div class="col-sm-1" id="col-sm-radio">
 											<form:checkbox path="perfilCompativelBensMoveis" />
 											<div class="error-validation">
@@ -692,8 +575,8 @@
 											</div>
 										</div>
 										<label for="perfilCompativelAspectoFisicoResidencia"
-											class="col-sm-4 control-label" >Aspecto
-											Físico da Residência:</label>
+											class="col-sm-4 control-label">Aspecto Físico da
+											Residência:</label>
 										<div class="col-sm-1" id="col-sm-radio">
 											<form:checkbox path="perfilCompativelAspectoFisicoResidencia" />
 											<div class="error-validation">

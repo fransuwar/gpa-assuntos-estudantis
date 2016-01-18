@@ -24,6 +24,7 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Aluno;
+import br.ufc.quixada.npi.gpa.model.Despesa;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -99,11 +100,13 @@ public class ServidorController {
 		
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
+		Despesa despesaVisita = new Despesa();
 		
 		relatorioVisitaDomiciliar.setInscricao(inscricao);
 		
 		model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 		model.addAttribute("curso", Curso.values());
+		model.addAttribute("despesa", despesaVisita);
 		model.addAttribute("moradiaEstado", EstadoMoradia.values());
 		model.addAttribute("idAluno", inscricao.getAluno().getId());
 		model.addAttribute("idSelecao", inscricao.getSelecao().getId());
@@ -116,9 +119,12 @@ public class ServidorController {
 			@Valid @ModelAttribute("relatorioVisitaDomiciliar") VisitaDomiciliar relatorioVisitaDomiciliar, Model model,
 			BindingResult result, RedirectAttributes redirect) {
 		
+		Despesa despesaVisita = new Despesa();
+		
 		if (result.hasErrors()) {
 			
 			model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
+			model.addAttribute("despesa", despesaVisita);
 			model.addAttribute("curso", Curso.values());
 			model.addAttribute("moradiaEstado", EstadoMoradia.values());
 			model.addAttribute("idAluno", idAluno);
