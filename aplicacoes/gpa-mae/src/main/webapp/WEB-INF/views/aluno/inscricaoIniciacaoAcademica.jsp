@@ -270,7 +270,6 @@
 								</div>
 							</div>
 							
-							
 							<div class="panel panel-primary">
 								
 								<div id="div-line-title">
