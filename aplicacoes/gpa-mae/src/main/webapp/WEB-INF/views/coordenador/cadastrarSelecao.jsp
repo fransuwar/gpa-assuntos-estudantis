@@ -21,8 +21,8 @@
 
 <html>
 <head>
-	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Cadastro de Seleções</title>
+<jsp:include page="../fragments/headTag.jsp" />
+<title>Cadastro de Seleções</title>
 </head>
 <body>
 
@@ -51,15 +51,15 @@
 
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h2>${titulo }</h2>
+				<h3 class="panel-title">${titulo }</h3>
 			</div>
 			<div class="panel-body">
 				<form:form id="adicionarSelecaoForm" role="form"
 					commandName="selecao" servletRelativeAction="${url }" method="POST"
 					cssClass="form-horizontal" enctype="multipart/form-data">
-					
+
 					<input type="hidden" name="id" value="${selecao.id}" />
-					
+
 					<div class="form-group">
 
 						<label for="tipoSelecao" class="col-sm-2 control-label"><span
@@ -150,13 +150,15 @@
 								<tbody class="files">
 									<c:forEach items="${selecao.documentos}" var="documento">
 										<tr class="template-upload fade in" id="row-${documento.id}">
-											<td><a 
+											<td><a
 												href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
 												<strong class="error text-danger"></strong></td>
-											<td><a id="excluir" data-toggle="modal"	data-target="#confirm-delete" data-href="<c:url value="/coordenador/selecao/excluir-documento/${documento.id }"></c:url>"
+											<td><a id="excluir" data-toggle="modal"
+												data-target="#confirm-delete"
+												data-href="<c:url value="/coordenador/selecao/excluir-documento/${documento.id }"></c:url>"
 												class="delete-document">
-													<button type="button" class="btn btn-danger">
-														Excluir <span class="glyphicon glyphicon-trash"></span>
+													<button type="button" class="btn btn-danger btn-xs">
+														<span class="glyphicon glyphicon-trash"></span>
 													</button>
 											</a></td>
 										</tr>
@@ -190,7 +192,8 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">Excluir</div>
-				<div class="modal-body">Tem certeza de que deseja excluir esse Documento?</div>
+				<div class="modal-body">Tem certeza de que deseja excluir esse
+					Documento?</div>
 				<div class="modal-footer">
 					<a href="#" class="btn btn-danger">Excluir</a>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
