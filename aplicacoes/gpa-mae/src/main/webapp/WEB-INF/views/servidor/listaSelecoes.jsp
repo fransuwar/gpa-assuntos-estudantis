@@ -56,6 +56,7 @@
 							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
+							<th>Número de Inscritos</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -67,6 +68,7 @@
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
+								<td>${selecao.inscritos.size() }</td>
 								<td><a id="visualizarInscritos"
 									href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
 										<button class="btn btn-primary btn-sm"

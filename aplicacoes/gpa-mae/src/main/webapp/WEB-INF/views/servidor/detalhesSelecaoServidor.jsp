@@ -32,6 +32,8 @@
 				<dl class="col-sm-12">
 					<dt class="col-sm-3">Ano do Edital:</dt>
 					<dd class="col-sm-3">${selecao.ano}</dd>
+					<dt class="col-sm-3">Número de Inscritos:</dt>
+					<dd class="col-sm-3">${quantInscricoes } </dd>
 
 				</dl>
 				<dl class="col-sm-12">
@@ -128,7 +130,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="inscricao" items="${inscricao }">
+							<c:forEach var="inscricao" items="${inscricoes }">
 								<tr>
 									<td>${inscricao.id }</td>
 									<td><a id="detalhes"
