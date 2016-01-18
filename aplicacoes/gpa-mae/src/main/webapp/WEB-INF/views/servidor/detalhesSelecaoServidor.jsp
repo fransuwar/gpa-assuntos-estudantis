@@ -17,7 +17,7 @@
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
 	<div class="container" align="left" style="padding-left: 85px;">
-		<div class="panel panel-primary-min">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Seleção</h3>
 			</div>
@@ -65,14 +65,14 @@
 		</div>
 		<sec:authorize
 			access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
-			<div class="panel panel-primary-min" align="left">
+			<div class="panel panel-primary" align="left">
 				<div class="panel-heading">
 					<h3 class="panel-title">Participantes da Comissão</h3>
 				</div>
 				<div class="panel-body">
 					<table class="table">
 						<thead>
-							<tr class="info">
+							<tr class="active">
 								<td>Nome</td>
 								<td>SIAPE</td>
 								<td>Cargo</td>
@@ -91,47 +91,82 @@
 				</div>
 			</div>
 
-			<div class="panel panel-primary-min" align="left">
+			<div class="panel panel-primary" align="left">
 				<div class="panel-heading">
 					<h3 class="panel-title">Resultado da Seleção</h3>
 				</div>
-				<table class="table">
-					<thead>
-						<tr class="info">
-							<td>Nome</td>
-							<td>Matrícula</td>
-						</tr>
-					</thead>
-					<tr>
-						<td>Não existem classificados no momento</td>
-					</tr>
-				</table>
-			</div>
-			<div class="panel panel-primary-min" align="left">
-				<div class="panel-heading">
-					<h3 class="panel-title">Participantes da Seleção</h3>
-				</div>
-				<table class="table">
-					<thead>
-						<tr class="info">
-							<td>Número</td>
-							<td>Aluno</td>
-							<td>Matricula</td>
-							<td>Data</td>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="inscrito" items="${selecao.inscritos }">
-							<tr>
-								<td>${inscrito.id }</td>
-								<td>${inscrito.aluno.pessoa.nome }</td>
-								<td>${inscrito.aluno.matricula }</td>
-								<td><fmt:formatDate value="${inscrito.data}"
-										pattern="dd/MM/yyyy" /></td>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr class="active">
+								<td>Nome</td>
+								<td>Matrícula</td>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tr>
+							<td>Não existem classificados no momento</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class="panel panel-primary" align="left">
+				<div class="panel-heading">
+					<h3 class="panel-title">Incrições Existentes</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr class="active">
+								<td>Número</td>
+								<td>Aluno</td>
+								<td>Matricula</td>
+								<td>Data</td>
+								<td>Tipo de Bolsa</td>
+								<td>Ações</td>
+
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="inscricao" items="${inscricao }">
+								<tr>
+									<td>${inscricao.id }</td>
+									<td><a id="detalhes"
+										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.aluno.id}">  
+									</c:url>">
+											${inscricao.aluno.pessoa.nome }</a></td>
+									<td>${inscricao.aluno.matricula }</td>
+									<td><fmt:formatDate value="${inscricao.data}"
+											pattern="dd/MM/yyyy" /></td>
+
+									<td>${inscricao.selecao.tipoSelecao.nome}</td>
+
+									<td><a id="avaliarDocumentos" title="Avaliar Documentação"
+										href="<c:url value="" ></c:url>">
+											<button class=" btn btn-primary btn-xs">
+												<span class="glyphicon glyphicon-duplicate"></span>
+											</button>
+									</a> <c:if test="${empty inscricao.entrevista }">
+											<a id="realizarEntrevista" title="Realizar Entrevista"
+												href="<c:url value="/servidor/entrevista/${inscricao.id}" ></c:url>">
+												<button class=" btn btn-primary btn-xs">
+													<span class="glyphicon glyphicon-copy"></span>
+												</button>
+											</a>
+										</c:if> <c:if
+											test="${inscricao.selecao.tipoSelecao =='AUX_MOR' and empty inscricao.visitaDomiciliar}">
+											<a id="realizarVisita" title="Realizar Visita"
+												href="<c:url value="/servidor/visita/${inscricao.id }"></c:url>">
+												<button class=" btn btn-primary btn-xs">
+													<span class="fa fa-bus"></span>
+												</button>
+											</a>
+										</c:if></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</sec:authorize>
 	</div>

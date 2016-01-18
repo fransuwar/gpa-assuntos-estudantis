@@ -17,6 +17,8 @@ public class Constants {
 	public static final String PAGINA_COORDENACAO					= "coordenador/coordenacao";
 	
 	public static final String PAGINA_LISTAR_SELECAO				= "selecao/listarSelecao";
+	
+	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR		= "servidor/listaSelecoes";
 
 	public static final String PAGINA_INFORMACOES_SELECAO			= "selecao/detalhesSelecao";
 	
@@ -53,6 +55,8 @@ public class Constants {
 	public static final String PAGINA_INSCRICOES_ALUNO				= "aluno/minhasInscricoes";
 	
 	public static final String PAGINA_SELECOES_ABERTAS				= "aluno/listarSelecoes";
+	
+	//public static final String PAGINA_DETALHES_SELECAO_SERVIDOR 	= "servidor/detalhesSelecao";
 
 
 	/** Redirecionamentos */
@@ -70,6 +74,8 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS		= "redirect:/administrador/listar/alunos";
 	
 	public static final String REDIRECT_PAGINA_INSCRICOES_ALUNO		= "redirect:/aluno/inscricao/listar";
+	
+	
 	
 	/** Mensagens */
 	

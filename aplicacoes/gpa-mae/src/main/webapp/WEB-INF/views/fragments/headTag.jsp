@@ -14,6 +14,6 @@
 	rel="stylesheet" />
 <link href="<c:url value="/resources/css/bootstrap.min.css" />"
 	rel="stylesheet" />
-<link href="<c:url value="/resources/css/style-min.css" />"
+<link href="<c:url value="/resources/css/gpamae.css" />"
 	rel="stylesheet" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
