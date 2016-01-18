@@ -33,7 +33,7 @@
 <script src="<c:url value="/resources/js/list-dynamic.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.dataTables.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.validate.min.js" />"></script>
-<script src="<c:url value="/resources/js/moment.min.js"/>"></script>
+<script src="<c:url value="/resources/js/moment-with-locales"/>"></script>
 
 
 

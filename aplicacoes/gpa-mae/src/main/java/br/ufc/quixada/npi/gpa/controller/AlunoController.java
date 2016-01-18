@@ -3,19 +3,6 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.util.ArrayList;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_REALIZADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_AUXILIO_MORADIA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MORADIA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCRICOES_ALUNO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
 import java.util.Date;
 import java.util.List;
@@ -154,16 +141,6 @@ public class AlunoController {
 
 	}
 
-	@RequestMapping(value = { "inscricao/editar/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
-	public String editarInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model model,
-			RedirectAttributes redirect) {
-
-		// TODO - Método p/ implementar que retorna página de formulário de
-		// inscrição em iniciação acadêmica.
-
-		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
-	}
-
 	@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
 	public String editarInscricaoIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
@@ -282,14 +259,33 @@ public class AlunoController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
-	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.GET)
 	public String editarInscricaoAuxilioMoradia(@PathVariable("idInscricao") Integer idInscricao, Model model,
 			RedirectAttributes redirect) {
 
-		// TODO - Método p/ implementar que retorna página de edição do
-		// formulário de inscrição em auxílio moradia.
-
-		return PAGINA_INSCREVER_AUXILIO_MORADIA;
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		
+		if(inscricao != null){
+			
+			if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) ){
+				
+				model.addAttribute("questionarioAuxilioMoradia",inscricao.getQuestionarioAuxilioMoradia());
+				model.addAttribute("selecao", inscricao.getSelecao());
+				
+				return PAGINA_INSCREVER_AUXILIO_MORADIA;
+			
+			}else {
+				
+				model.addAttribute("selecao", inscricao.getSelecao());
+				model.addAttribute("questionarioIniciacaoAcademica",inscricao.getQuestionarioIniciacaoAcademica());
+				
+				return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
+				
+			}
+		}
+		
+		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
 
@@ -319,21 +315,24 @@ public class AlunoController {
 
 	@RequestMapping(value = "/inscricao/excluir/{idAluno}/{idInscricao}", method = RequestMethod.GET)
 	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno,
-			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirectAttributes) {
+			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect) {
 
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
 
 		if (inscricao == null) {
-			
-			redirectAttributes.addFlashAttribute("erro", MENSAGEM_ALUNO_NAO_ENCONTRADO);
-			
+		
+			redirect.addFlashAttribute("erro", MENSAGEM_ALUNO_NAO_ENCONTRADO);
+		
 		} else {
 			
 			inscricaoService.delete(inscricao);
-			redirectAttributes.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
+			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
+			
 		}
 
-		return "redirect:/aluno/inscricao/listar/{idAluno}";
+
+		return PAGINA_INSCRICOES_ALUNO;
+
 
 	}
 
