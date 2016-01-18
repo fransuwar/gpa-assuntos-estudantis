@@ -68,12 +68,6 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 		visitaService.save(visitaDocimiciliar);
 	}
 		
-	@Transactional(readOnly = true)
-	public void salvarEntrevista(Entrevista entrevista) {
-			entrevistaService.save(entrevista);		
-	}
-
-
 	@Override
 	public void atualizarVisitaDomiciliar(VisitaDomiciliar visitaDocimiciliar) {
 		visitaService.update(visitaDocimiciliar);

@@ -85,9 +85,10 @@ public class ServidorController {
 			
 			Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
 			entrevista.setServidor(servidor);
+			Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+			inscricao.setEntrevista(entrevista);
 			entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));			
-			
-			inscricaoService.salvarEntrevista(entrevista);
+			inscricaoService.update(inscricao);
 			
 			redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
