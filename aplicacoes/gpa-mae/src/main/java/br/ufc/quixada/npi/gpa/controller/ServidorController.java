@@ -62,7 +62,7 @@ public class ServidorController {
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
-		return PAGINA_LISTAR_SELECAO;
+		return PAGINA_LISTAR_SELECAO_SERVIDOR;
 	}
 
 	@RequestMapping(value= {"entrevista/{idInscricao}/{idServidor}"}, method = RequestMethod.GET)
@@ -104,9 +104,10 @@ public class ServidorController {
 			
 			Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
 			entrevista.setServidor(servidor);
+			Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+			inscricao.setEntrevista(entrevista);
 			entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));			
-			
-			inscricaoService.salvarEntrevista(entrevista);
+			inscricaoService.update(inscricao);
 			
 			redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -207,6 +208,8 @@ public class ServidorController {
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect){
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		
+		List<Inscricao> inscricao = inscricaoService.getInscricoesBySelecao(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -214,6 +217,7 @@ public class ServidorController {
 		}
 		
 		model.addAttribute("selecao", selecao);
+		model.addAttribute("inscricao", inscricao);
 
 		return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 	}
@@ -254,5 +258,5 @@ public class ServidorController {
 		}
 		
 	}
-		
+			
 }

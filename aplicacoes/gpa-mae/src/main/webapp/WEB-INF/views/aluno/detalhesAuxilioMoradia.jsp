@@ -277,14 +277,93 @@
 									</div>
 									<div class="panel-body">
 
-										<div class="form-group">
-											<dl class="col-sm-12">
-												<dt class="col-sm-3">Mãe:</dt>
-												<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.nomeMae}</dd>
-												<dt class=" col-sm-3">Pai:</dt>
-												<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.nomePai}</dd>
-											</dl>
-										</div>
+								<div class="form-group">
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Possuia bolsa:</dt>
+										<dd class="col-sm-3">
+											<c:choose>
+												<c:when test="${inscricao.questionarioAuxilioMoradia.bolsaEnsinoMedio == true}"> Sim</c:when>
+												<c:otherwise>Não</c:otherwise>
+											</c:choose>
+										</dd>
+										<dt class="col-sm-3">Percentual de bolsa:</dt>
+										<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.percentualParticularMedio}</dd>
+									</dl>
+								</div>
+
+								<div class="form-group">
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Fez cursinho pré-vestibular:</dt>
+										<dd class="col-sm-3">
+											<c:choose>
+												<c:when test="${inscricao.questionarioAuxilioMoradia.cursinho == true}"> Sim</c:when>
+												<c:otherwise>Não</c:otherwise>
+											</c:choose>
+										</dd>
+										<dt class="col-sm-3">Nome do Cursinho:</dt>
+										<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.nomeCursinho}</dd>
+									</dl>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+					<div class="tab-pane" id="situacao-socio-economica-tab">
+
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3>Situação Socioeconômica (Grupo familiar incluido o aluno)</h3>
+							</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Nome:</th>
+												<th>Parentesco:</th>
+												<th>Escolaridade:</th>
+												<th>Atividade:</th>
+												<th>Renda R$:</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="pessoa" items="${inscricao.questionarioAuxilioMoradia.pessoas }">
+												<tr>
+													<td>${pessoa.nome }</td>
+													<td>${pessoa.parentesco.nome }</td>
+													<td>${pessoa.escolaridade }</td>
+													<td>${pessoa.profissao}</td>
+													<td>${pessoa.rendaMensal }</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane" id="outras-informacoes-tab">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3>Outras Informações</h3>
+							</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<div class="form-group">
+										<dl class="col-sm-12">
+											<dt class="col-sm-3">Bolsista UFC:</dt>
+											<dd class="col-sm-3">
+												<c:choose>
+													<c:when test="${inscricao.questionarioAuxilioMoradia.bolsistaUfc == true}"> Sim</c:when>
+													<c:otherwise>Não</c:otherwise>
+												</c:choose>
+											</dd>
+											<dt class="col-sm-3">Descrição Bolsa:</dt>
+											<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.descricaoBolsa}</dd>
+										</dl>
 									</div>
 
 									<div class="panel-heading">
@@ -427,7 +506,8 @@
 								</div>
 							</div>
 
-							<div class="tab-pane" id="historico-escolar-tab">
+						</div>
+					</div>
 
 								<div class="panel panel-primary">
 									<div class="panel-heading">
@@ -615,7 +695,6 @@
 				</a>
 			</div>
 		</div>
-	</div>
 	<jsp:include page="../fragments/footer.jsp" />
 
 

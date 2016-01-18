@@ -48,22 +48,24 @@
 				<table class="table display" id="tabela-selecoes">
 					<thead>
 						<tr>
-							<th>Tipo de Seleção</th>
-							<th>Ano</th>
+							<th>Seleção</th>
 							<th>Edital</th>
 							<th>Vagas</th>
+							<th>Inscrições</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
-							<tr class="linha">
+							<tr>
 								<td><a id="detalhes"
 									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
 										${selecao.tipoSelecao.nome} </a></td>
-								<td>${selecao.ano}</td>
-								<td>${selecao.sequencial}</td>
-								<td>${selecao.quantidadeVagas}</td>
+								<td class="dt-body-center">${selecao.sequencial}/${selecao.ano}</td>
+								<td class="dt-body-center">${selecao.quantidadeVagas}</td>
+								<td class="dt-body-center"><fmt:formatDate
+										pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à <fmt:formatDate
+										pattern="dd/MM/yyyy" value="${selecao.dataTermino }" /></td>
 								<td><c:choose>
 										<c:when
 											test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad}">
