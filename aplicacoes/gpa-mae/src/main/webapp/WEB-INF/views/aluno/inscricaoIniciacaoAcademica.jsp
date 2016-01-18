@@ -64,11 +64,13 @@
 					<input type="hidden" id="idSelecao" name="idSelecao"
 						value="${selecao.id }" />
 
-					
+							
 						
 							<div class="panel panel-primary">
 								
-									<h3>Endereço de Residência de Origem</h3>
+								<div id="div-line-title">
+								<h2>Endereço de Residência de Origem</h2>
+								</div>
 								
 								<div class="panel-body">
 									<div class="form-group">
@@ -158,9 +160,11 @@
 									</div>
 									<div class="form-group"></div>
 								</div>
-								<div class="panel-heading">
-									<h3>Endereço Atual</h3>
-								</div>
+								
+									<div id="div-line-title">
+										<h2>Endereço Atual</h2>
+									</div>
+								
 								<div class="panel-body">
 									<div class="form-group">
 										<label for="endereco" class="col-sm-1 control-label"><span
@@ -265,12 +269,14 @@
 									</div>
 								</div>
 							</div>
-						
-						
+							
+							
 							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3>Situação Sócio Econômica</h3>
+								
+								<div id="div-line-title">
+									<h2>Situação Sócio Econômica</h2>
 								</div>
+									
 								<div class="panel-body">
 									<div class="form-group">
 										<label for="reside_atualmente" class="col-sm-3 control-label"><span
@@ -469,11 +475,13 @@
 								</div>
 							</div>
 						
-						
+							
 							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3>Informações do seu Grupo Familiar</h3>
+								
+								<div id="div-line-title">
+									<h2>Informações do seu Grupo Familiar</h2>
 								</div>
+								
 								<div class="panel-body">
 									<div class="form-group">
 										<jsp:include page="pessoaFamilia.jsp" />
@@ -485,8 +493,8 @@
 							</div>
 						
 							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3>Informações Adicionais</h3>
+								<div id="div-line-title">
+									<h2>Informações Adicionais</h2>
 								</div>
 								<div class="panel-body">
 									<h3>Horários Disponíves Para Bolsa</h3>
