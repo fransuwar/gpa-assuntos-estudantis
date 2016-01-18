@@ -69,9 +69,8 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
-	public String cadastroSelecao(@RequestParam("files") List<MultipartFile> files, Model model,
-			@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, Authentication auth, 
-			RedirectAttributes redirect) {
+	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
+			BindingResult result, Authentication auth, RedirectAttributes redirect) {
 
 		model.addAttribute("action", "cadastrar");
 
@@ -102,42 +101,6 @@ public class CoordenadorController {
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-
-		List<Documento> documentos = new ArrayList<Documento>();
-		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
-			for (MultipartFile mfiles : files) {
-				try {
-
-					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-
-						Documento documento = new Documento();
-						documento.setArquivo(mfiles.getBytes());
-						documento.setNome(mfiles.getOriginalFilename());
-						documento.setTipo(mfiles.getContentType());
-						documento.setSelecao(selecao);
-						documentos.add(documento);
-					}
-
-
-				} catch (IOException ioe) {
-					model.addAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
-
-					return PAGINA_CADASTRAR_SELECAO;
-				}
-			} 
-
-			if (!documentos.isEmpty()) {
-				selecao.setDocumentos(documentos);
-			}
-
-		} else {
-
-			model.addAttribute("tipoSelecao", TipoSelecao.values());
-			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
-
-			return PAGINA_CADASTRAR_SELECAO;
-		}
-
 
 		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());
 
