@@ -233,13 +233,13 @@ public class CoordenadorController {
 
 		Selecao selecao = this.selecaoService.find(Selecao.class, idSelecao);
 
-		if (selecao != null) {
+		if (selecao != null && selecao.getInscritos().isEmpty()) {
 
 			this.selecaoService.delete(selecao);
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_REMOVIDA);
 
 		} else {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS);
 
 		}
 
@@ -325,7 +325,7 @@ public class CoordenadorController {
 			Model model, Authentication auth, RedirectAttributes redirect) {
 
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		Servidor coordenador = servidorService.getServidor(auth.getName());		
+		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());		
 		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 		if(coordenador.getId() != servidor.getId()){
 

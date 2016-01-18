@@ -77,7 +77,7 @@
 
 				</ul>
 
-				<form:form id="questionario" role="form"
+				<form:form id="questionarioAuxilio" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
 					servletRelativeAction="${url }" method="POST"
@@ -110,9 +110,8 @@
 											<span class="red">*</span>Com Que Mora essas pessoas ?
 										</label>
 										<div class="col-sm-4">
-											<form:input id="comQuemMoraOutros" path="comQuemMoraOutros"
-												cssClass="form-control"
-												placeholder="Com quem mora essas pessoas ?" />
+											<form:input id="comQuemMoraOutros" path="comQuemMoraOutros" 
+												cssClass="form-control" placeholder="Com quem mora essas pessoas ?" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="comQuemMoraOutros"></form:errors>
 											</div>
@@ -128,7 +127,7 @@
 											id="form-label-right"><span class="red">*</span>Mãe:</label>
 										<div class="col-sm-4">
 											<form:input id="nomeMae" type="text" path="nomeMae"
-												cssClass="form-control" placeholder="Nome da Mãe" />
+												cssClass="form-control" placeholder="Nome da Mãe" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="nomeMae"></form:errors>
 											</div>
@@ -137,7 +136,7 @@
 											class="red">*</span>Pai:</label>
 										<div class="col-sm-4">
 											<form:input id="nomePai" path="nomePai"
-												cssClass="form-control" placeholder="Nome do Pai" />
+												cssClass="form-control" placeholder="Nome do Pai" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="nomePai"></form:errors>
 											</div>
@@ -156,7 +155,7 @@
 										</label>
 										<div class="col-sm-5">
 											<form:input id="endereco" path="endereco"
-												cssClass="form-control" placeholder="Rua da sede do curso" />
+												cssClass="form-control" placeholder="Rua da sede do curso" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="endereco"></form:errors>
 											</div>
@@ -165,7 +164,7 @@
 											class="red">*</span>Bairro:</label>
 										<div class="col-sm-4">
 											<form:input id="bairro" path="bairro" cssClass="form-control"
-												placeholder="Bairro" />
+												placeholder="Bairro" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="bairro"></form:errors>
 											</div>
@@ -177,7 +176,7 @@
 											class="red">*</span>Número </label>
 										<div class="col-sm-1">
 											<form:input id="numero" path="numero" cssClass="form-control"
-												data-mask="999999" placeholder="Num" />
+												data-mask="999999" placeholder="Num" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="numero"></form:errors>
 											</div>
@@ -186,7 +185,7 @@
 											class="red">*</span>Cidade:</label>
 										<div class="col-sm-3">
 											<form:input id="cidade" path="cidade" cssClass="form-control"
-												placeholder="Cidade" />
+												placeholder="Cidade" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="cidade"></form:errors>
 											</div>
@@ -197,7 +196,7 @@
 										<div class="col-sm-4">
 											<form:input id="complemento" path="complemento"
 												cssClass="form-control"
-												placeholder="Complemento da sede do curso" />
+												placeholder="Complemento da sede do curso" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="complemento"></form:errors>
 											</div>
@@ -210,7 +209,7 @@
 											class="red">*</span>CEP:</label>
 										<div class="col-sm-2">
 											<form:input id="cep" path="cep" data-mask="99999-999"
-												cssClass="form-control" placeholder="CEP" />
+												cssClass="form-control" placeholder="CEP" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="cep"></form:errors>
 											</div>
@@ -219,7 +218,7 @@
 											class="red">*</span>Estado:</label>
 										<div class="col-sm-2">
 											<form:select path="estado" id="estado"
-												cssClass="form-control" cssStyle="font-size:13px">
+												cssClass="form-control" cssStyle="font-size:13px" required ="required">
 												<form:option value="">Selecione Estado</form:option>
 												<form:options items="${estado}" itemLabel="nome" />
 											</form:select>
@@ -232,7 +231,7 @@
 											class="red">*</span>Ponto de Referencia:</label>
 										<div class="col-sm-4">
 											<form:input id="referencia" path="referencia"
-												cssClass="form-control" placeholder="Ponto de Referencia" />
+												cssClass="form-control" placeholder="Ponto de Referencia" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="referencia"></form:errors>
 											</div>
@@ -251,7 +250,7 @@
 										</label>
 										<div class="col-sm-5">
 											<form:input id="enderecoOrigem" path="enderecoOrigem"
-												cssClass="form-control" placeholder="Rua da sede do curso" />
+												cssClass="form-control" placeholder="Rua da sede do curso" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="enderecoOrigem"></form:errors>
 											</div>
@@ -260,7 +259,7 @@
 											class="red">*</span>Bairro:</label>
 										<div class="col-sm-4">
 											<form:input id="bairroOrigem" path="bairroOrigem"
-												cssClass="form-control" placeholder="Bairro" />
+												cssClass="form-control" placeholder="Bairro" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="bairroOrigem"></form:errors>
 											</div>
@@ -272,7 +271,7 @@
 											class="red">*</span>Número </label>
 										<div class="col-sm-1">
 											<form:input id="numeroOrigem" path="numeroOrigem"
-												cssClass="form-control" data-mask="999999" placeholder="Num" />
+												cssClass="form-control" data-mask="999999" placeholder="Num" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="numeroOrigem"></form:errors>
 											</div>
@@ -281,7 +280,7 @@
 											class="red">*</span>Cidade:</label>
 										<div class="col-sm-3">
 											<form:input id="cidadeOrigem" path="cidadeOrigem"
-												cssClass="form-control" placeholder="Cidade" />
+												cssClass="form-control" placeholder="Cidade" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="cidadeOrigem"></form:errors>
 											</div>
@@ -306,7 +305,7 @@
 										<div class="col-sm-2">
 											<form:input id="cepOrigem" path="cepOrigem"
 												data-mask="99999-999" cssClass="form-control"
-												placeholder="CEP" />
+												placeholder="CEP" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="cepOrigem"></form:errors>
 											</div>
@@ -315,7 +314,7 @@
 											class="red">*</span>Estado:</label>
 										<div class="col-sm-2">
 											<form:select path="estadoOrigem" id="estadoOrigem"
-												cssClass="form-control" cssStyle="font-size:13px">
+												cssClass="form-control" cssStyle="font-size:13px" required ="required">
 												<form:option value="">Selecione Estado</form:option>
 												<form:options items="${estado}" itemLabel="nome" />
 											</form:select>
@@ -329,7 +328,7 @@
 											de Referencia:</label>
 										<div class="col-sm-4">
 											<form:input id="referenciaOrigem" path="referenciaOrigem"
-												cssClass="form-control" placeholder="Ponto de Referencia" />
+												cssClass="form-control" placeholder="Ponto de Referencia" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="referenciaOrigem"></form:errors>
 											</div>
@@ -342,7 +341,7 @@
 										<div class="col-sm-2">
 											<form:input id="telefoneOrigem" path="telefoneOrigem"
 												data-mask="(99) 9 9999-9999" cssClass="form-control"
-												placeholder="(00) 0 0000-0000" />
+												placeholder="(00) 0 0000-0000" required ="required"/>
 											<div class="error-validation">
 												<form:errors path="telefoneOrigem"></form:errors>
 											</div>
@@ -474,7 +473,7 @@
 											class="red">*</span>Tipo de escola</label>
 										<div class="col-sm-2">
 											<form:select path="ensinoFundamental" id="ensinoFundamental"
-												cssClass="form-control" cssStyle="font-size:13px;">
+												cssClass="form-control" cssStyle="font-size:13px;" required ="required">
 												<form:option value="" label="Selecione o Tipo" />
 												<form:options items="${tipoEnsinoFundamental}"
 													itemLabel="nome" />
@@ -520,7 +519,7 @@
 											class="red">*</span>Tipo de escola</label>
 										<div class="col-sm-2">
 											<form:select path="ensinoMedio" id="ensinoMedio"
-												cssClass="form-control" cssStyle="font-size:13px;">
+												cssClass="form-control" cssStyle="font-size:13px;" required ="required">
 												<form:option value="" label="Selecione o Tipo" />
 												<form:options items="${tipoEnsinoMedio}" itemLabel="nome" />
 											</form:select>
@@ -679,7 +678,7 @@
 											<div class="col-sm-8">
 												<form:textarea id="justificativa" path="justificativa"
 													cssClass="form-control" placeholder="Justificativa"
-													rows="10" />
+													rows="10" required ="required"/>
 												<div class="error-validation">
 													<form:errors path="justificativa"></form:errors>
 												</div>

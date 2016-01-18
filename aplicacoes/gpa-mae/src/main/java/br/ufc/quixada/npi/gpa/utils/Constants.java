@@ -115,7 +115,7 @@ public class Constants {
 	
 	public static final String MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO	= "Download do Documento realizado com sucesso";
 	
-	public static final String MENSAGEM_SUCESSO_COMISSAO_FORMADA	= "Informe pelo menos um membro.";
+	public static final String MENSAGEM_SUCESSO_COMISSAO_FORMADA	= "Membro inserido com sucesso.";
 	
 	public static final String MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO		= "Membro excluído com sucesso.";
 	
@@ -178,6 +178,9 @@ public class Constants {
 	public static final String MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA = "Acesso não autorizado! Você não pode realizar a entrevista pois não faz parte da comissão";
 	
 	public static final String MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_VISITA = "Acesso não autorizado! Você não pode realizar a visita pois não faz parte da comissão";
+
+	public static final String MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS 	= "Seleção possui inscritos e não pode ser excluída";
+
 	
 	/** Perfis */
 	
