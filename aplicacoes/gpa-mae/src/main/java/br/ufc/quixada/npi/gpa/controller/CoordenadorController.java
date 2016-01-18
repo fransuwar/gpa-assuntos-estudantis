@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -170,8 +169,8 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
 	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result,
-			@RequestParam("files") List<MultipartFile> files, Model model, RedirectAttributes redirect,
-			HttpServletRequest request) {
+			 Model model, RedirectAttributes redirect) {
+		
 
 		model.addAttribute("action", "editar");
 
@@ -187,39 +186,6 @@ public class CoordenadorController {
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-
-
-		List<Documento> documentos = new ArrayList<Documento>();
-		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) {
-			for (MultipartFile mfiles : files) {
-				try {
-					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-						Documento documento = new Documento();
-						documento.setArquivo(mfiles.getBytes());
-						documento.setNome(mfiles.getOriginalFilename());
-						documento.setTipo(mfiles.getContentType());
-						documento.setSelecao(selecao);
-						documentos.add(documento);
-						documentoService.save(documento);
-					}
-				} catch (IOException ioe) {
-					model.addAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
-
-					return PAGINA_CADASTRAR_SELECAO;
-				}
-			}
-		} else {
-			Selecao selecaoAtual = selecaoService.find(Selecao.class, selecao.getId());
-			if (selecaoAtual.getDocumentos().isEmpty()) {
-
-
-				model.addAttribute("tipoSelecao", TipoSelecao.values());
-				model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
-
-				return PAGINA_CADASTRAR_SELECAO;
-			}
-		}
-
 
 		this.selecaoService.update(selecao);
 
@@ -294,6 +260,37 @@ public class CoordenadorController {
 		}
 	}
 
+	@RequestMapping(value = "/selecao/adicionar-documento", method = RequestMethod.POST)
+	public String adicionarDocumento(List<MultipartFile> files,
+			RedirectAttributes redirect, @RequestParam("idSelecao") Integer idSelecao, Model model) {
+
+		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
+			for (MultipartFile mfiles : files) {
+				try {
+					
+					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
+						
+						Documento documento = new Documento();
+						documento.setArquivo(mfiles.getBytes());
+						documento.setNome(mfiles.getOriginalFilename());
+						documento.setTipo(mfiles.getContentType());
+						documento.setSelecao(selecaoService.find(Selecao.class, idSelecao));
+						documentoService.save(documento);
+					}
+					
+					
+				} catch (IOException ioe) {
+					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+
+					return REDIRECT_PAGINA_EDITAR_SELECAO +idSelecao;
+				}
+			} 
+			
+		} 
+			
+		return REDIRECT_PAGINA_EDITAR_SELECAO + idSelecao;
+	}
+	
 	@RequestMapping(value = "/selecao/excluir-documento/{idDocumento}", method = RequestMethod.GET)
 	public String excluirDocumento(@PathVariable("idDocumento") Integer idDocumento, @ModelAttribute("selecao") Selecao selecao, 
 			Model model, RedirectAttributes redirect) {
