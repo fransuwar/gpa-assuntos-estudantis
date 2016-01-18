@@ -166,7 +166,7 @@ public class ServidorController {
 		
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 		
-		List<Inscricao> inscricao = inscricaoService.getInscricoesBySelecao(idSelecao);
+		List<Inscricao> inscricoes = inscricaoService.getInscricoesBySelecao(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -174,7 +174,8 @@ public class ServidorController {
 		}
 		
 		model.addAttribute("selecao", selecao);
-		model.addAttribute("inscricao", inscricao);
+		model.addAttribute("inscricoes", inscricoes);
+		model.addAttribute("quantInscricoes", inscricoes.size());
 
 		return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 	}
