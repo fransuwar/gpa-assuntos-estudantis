@@ -61,6 +61,12 @@
 
 					<input type="hidden" name="id" value="${selecao.id}" />
 
+					<c:forEach items="selecao.membrosComissao" var="membro" varStatus="status">
+					  <input type="hidden" name="selecao.membrosComissao[${status.index}]." value="${membro}"/>
+					</c:forEach>
+					
+					
+
 					<div class="form-group">
 
 						<label for="tipoSelecao" class="col-sm-2 control-label"><span

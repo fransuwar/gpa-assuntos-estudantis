@@ -1,6 +1,7 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -8,11 +9,13 @@ import javax.inject.Named;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufc.quixada.npi.gpa.enums.MoraCom;
+import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.repository.GenericRepository;
@@ -22,19 +25,18 @@ import br.ufc.quixada.npi.util.SimpleMap;
 @SuppressWarnings("unchecked")
 @Named
 public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implements InscricaoService {
-	
+
 	@Inject
 	private GenericRepository<VisitaDomiciliar> visitaService;
 
 	@Inject
-	private GenericRepository<Entrevista>  		entrevistaService;
-	
+	private GenericRepository<Entrevista> entrevistaService;
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inscricao> getInscricoes(Integer idAluno) {
 		return find("Inscricao.findIncricoesByIdAluno", new SimpleMap<String, Object>("idAluno", idAluno));
 	}
-	
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -42,24 +44,23 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 		return find("Inscricao.finInscricaoByIdSelecao", new SimpleMap<String, Object>("idSelecao", idSelecao));
 	}
 
-	
-	
 	@Transactional(readOnly = true)
 	public List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica) {
-		return find("HorarioDisponivel.findHorarioDisponivelByIdIniciacaoAcademica", new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
+		return find("HorarioDisponivel.findHorarioDisponivelByIdIniciacaoAcademica",
+				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaByIdIniciacaoAcademica(Integer idIniciacaoAcademica) {
-		return find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica", 
-					new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
+		return find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",
+				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaByIdAuxilioMoradia(Integer idAuxilioMoradia) {
-		return find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia", 
+		return find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia",
 				new SimpleMap<String, Object>("idAuxilioMoradia", idAuxilioMoradia));
 	}
 
@@ -67,11 +68,17 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	public void salvarVisitaDocimiciliar(VisitaDomiciliar visitaDocimiciliar) {
 		visitaService.save(visitaDocimiciliar);
 	}
-		
+
+
+	@Transactional(readOnly = true)
+	public void salvarEntrevista(Entrevista entrevista) {
+		entrevistaService.save(entrevista);
+	}
+
 	@Override
 	public void atualizarVisitaDomiciliar(VisitaDomiciliar visitaDocimiciliar) {
 		visitaService.update(visitaDocimiciliar);
-		
+
 	}
 
 	@Override
@@ -82,6 +89,17 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 
 	@Override
 	public ComQuemMora getComQuemMora(MoraCom comQuemMora) {
-		return (ComQuemMora) findFirst("ComQuemMora.findComQuemMoraByDescricao", new SimpleMap<String, Object>("descricao", comQuemMora));
+		return (ComQuemMora) findFirst("ComQuemMora.findComQuemMoraByDescricao",
+				new SimpleMap<String, Object>("descricao", comQuemMora));
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Inscricao getInscricao(Selecao selecao, Aluno aluno) {
+		Map<String, Object> params = new SimpleMap<String, Object>();
+		params.put("idSelecao", selecao.getId());
+		params.put("idAluno", aluno.getId());
+		return (Inscricao) findFirst("Inscricao.findInscricaoAluno", params);
+
 	}
 }
