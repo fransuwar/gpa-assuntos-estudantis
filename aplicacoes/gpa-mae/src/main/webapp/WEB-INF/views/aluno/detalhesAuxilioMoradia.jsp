@@ -16,6 +16,8 @@
 <title>Detalhes Inscrição Auxilio Moradia</title>
 </head>
 <body>
+	<jsp:include page="../fragments/bodyHeader.jsp" />
+	
 	<div class="container">
 		<div class="novo-projeto" align="left">
 			<div class="panel-heading">
