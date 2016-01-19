@@ -46,8 +46,8 @@
 							<th>Seleção</th>
 							<th>Edital</th>
 							<th>Vagas</th>
-							<th>Número de Incritos</th>
-							<th>Inscrições</th>
+							<th>Incritos</th>
+							<th>Período de Inscrições</th>
 							<th></th>
 						</tr>
 					</thead>
