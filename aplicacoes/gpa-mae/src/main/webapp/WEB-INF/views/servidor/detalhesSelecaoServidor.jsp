@@ -30,17 +30,11 @@
 					<dd class="col-sm-3">${selecao.tipoSelecao.nome}</dd>
 				</dl>
 				<dl class="col-sm-12">
-					<dt class="col-sm-3" id="text-align-rigth">Ano do Edital:</dt>
-					<dd class="col-sm-3">${selecao.ano}</dd>
+					<dt class="col-sm-3" id="text-align-rigth">Vagas:</dt>
+					<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
 					<dt class="col-sm-3" id="text-align-rigth">Número de Inscritos:</dt>
 					<dd class="col-sm-3">${selecao.inscritos.size()} </dd>
 
-				</dl>
-				<dl class="col-sm-12">
-					<dt class="col-sm-3" id="text-align-rigth">Vagas:</dt>
-					<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
-					<dt class="col-sm-3" id="text-align-rigth">Responsável:</dt>
-					<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
 				</dl>
 				<dl class="col-sm-12">
 					<dt class="col-sm-3" id="text-align-rigth">Inscrições:</dt>
@@ -48,7 +42,10 @@
 						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" /> até
 						<fmt:formatDate value="${selecao.dataTermino}" pattern="dd/MM/yyyy" />
 					</dd>
+					<dt class="col-sm-3" id="text-align-rigth">Responsável:</dt>
+					<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
 				</dl>
+				
 				<dl class="col-sm-12">
 					<dt class="col-sm-3" id="text-align-rigth">Arquivos:</dt>
 					<c:forEach var="documento" items="${selecao.documentos}">
@@ -90,7 +87,7 @@
 			</div>
 			<div class="panel panel-primary" align="left">
 				<div class="panel-heading">
-					<h3 class="panel-title">Incrições</h3>
+					<h3 class="panel-title">Inscrições</h3>
 				</div>
 				<div class="panel-body">
 					<table class="table">
