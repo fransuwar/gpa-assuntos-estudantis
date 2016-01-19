@@ -81,7 +81,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
-	public String realizarInscricaoIniciacaoAcademica(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth) {
+	public String realizarInscricaoIniciacaoAcademica(@PathVariable("idSelecao") Integer idSelecao, Model model) {
 
 		model.addAttribute("action", "inscricao");
 
@@ -338,7 +338,6 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
 
-		System.out.println("FDKSLFKSFLDSKFS - " + auth.getName());
 		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
 
 		model.addAttribute("aluno", aluno);
