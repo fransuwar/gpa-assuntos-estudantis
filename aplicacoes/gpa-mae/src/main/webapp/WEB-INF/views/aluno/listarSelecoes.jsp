@@ -49,16 +49,16 @@
 				<table class="table display" id="tabela-selecoes">
 					<thead>
 						<tr>
-							<th>Tipo de Seleção</th>
-							<th>Ano</th>
+							<th>Seleção</th>
 							<th>Edital</th>
 							<th>Vagas</th>
+							<th>Inscrições</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
-							<tr class="linha">
+							<tr>
 								<td><a id="detalhes"
 									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
 										${selecao.tipoSelecao.nome} </a></td>
@@ -92,7 +92,6 @@
 													<a id="inscrever" title="Inscrever-se"
 														href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
 														<button class="btn btn-primary btn-xs">
-
 															<span class="glyphicon glyphicon-user"></span>
 														</button>
 													</a>

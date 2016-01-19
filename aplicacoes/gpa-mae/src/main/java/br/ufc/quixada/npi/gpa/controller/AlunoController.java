@@ -81,7 +81,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
-	public String realizarInscricaoIniciacaoAcademica(@PathVariable("idSelecao") Integer idSelecao, Model model) {
+	public String realizarInscricaoIniciacaoAcademica(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth) {
 
 		model.addAttribute("action", "inscricao");
 
@@ -94,8 +94,8 @@ public class AlunoController {
 		model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
 		model.addAttribute("totalEstado", Estado.toMap());
 		model.addAttribute("grauParentesco", GrauParentesco.values());
-		model.addAttribute("selecao", selecao);
-
+		model.addAttribute("selecao", selecao);	
+		
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
 

@@ -18,6 +18,8 @@ public class Constants {
 
 	public static final String PAGINA_LISTAR_SELECAO = "selecao/listarSelecao";
 
+	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR = "servidor/listaSelecoes";
+
 	public static final String PAGINA_INFORMACOES_SELECAO = "selecao/detalhesSelecao";
 
 	public static final String PAGINA_INFORMACOES_SELECAO_SERVIDOR = "servidor/detalhesSelecaoServidor";
@@ -53,6 +55,9 @@ public class Constants {
 	public static final String PAGINA_INSCRICOES_ALUNO = "aluno/minhasInscricoes";
 
 	public static final String PAGINA_SELECOES_ABERTAS = "aluno/listarSelecoes";
+
+	// public static final String PAGINA_DETALHES_SELECAO_SERVIDOR =
+	// "servidor/detalhesSelecao";
 
 	/** Redirecionamentos */
 
@@ -175,9 +180,7 @@ public class Constants {
 	public static final String MENSAGEM_ERRO_TIPO_BOLSA = "Informe o tipo de Bolsa";
 
 	public static final String MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS = "Seleção possui inscritos e não pode ser excluída";
-
 	public static final String MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO = "Você já está inscrito nesta seleção";
-
 	/** Perfis */
 
 	public static final String STA = "STA";

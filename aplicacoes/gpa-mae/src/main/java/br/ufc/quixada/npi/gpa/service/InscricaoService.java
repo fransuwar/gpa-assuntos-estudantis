@@ -5,7 +5,6 @@ import java.util.List;
 import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
-import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
@@ -17,7 +16,9 @@ public interface InscricaoService extends GenericService<Inscricao>{
 	
 	public abstract List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica);
 
-	public abstract List<Inscricao> getInscricoes(Integer idAluno); 
+	public abstract List<Inscricao> getInscricoes(Integer idAluno);
+	
+	public abstract List<Inscricao> getInscricoesBySelecao(Integer idSelecao);
 	
 	public abstract List<PessoaFamilia> getPessoaFamiliaByIdIniciacaoAcademica(Integer idIniciacaoAcademica);
 	
@@ -29,8 +30,6 @@ public interface InscricaoService extends GenericService<Inscricao>{
 	
 	public abstract void atualizarVisitaDomiciliar(VisitaDomiciliar visitaDocimiciliar);
 
-	public abstract void salvarEntrevista(Entrevista entrevista);
-	
 	public abstract ComQuemMora getComQuemMora(MoraCom comQuemMora);
 
 	public abstract Inscricao findInscricaoDoAlunoNaSelecao(Selecao selecao, Aluno aluno);

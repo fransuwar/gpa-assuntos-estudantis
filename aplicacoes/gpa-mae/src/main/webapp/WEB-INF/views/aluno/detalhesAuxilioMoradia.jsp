@@ -343,11 +343,9 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 
 					<div class="tab-pane" id="outras-informacoes-tab">
-
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h3>Outras Informações</h3>
@@ -384,7 +382,6 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 
 					<div class="tab-pane" id="justificativa-tab">

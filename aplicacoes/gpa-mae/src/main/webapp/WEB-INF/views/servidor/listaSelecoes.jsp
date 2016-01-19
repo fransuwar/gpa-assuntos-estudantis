@@ -56,20 +56,19 @@
 							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
-							<th>Status</th>
-							<th></th>
+							<th>Número de Inscritos</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr class="linha">
 								<td><a id="detalhes"
-									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
+									href="<c:url value="/servidor/detalhes/${selecao.id}">  </c:url>">
 										${selecao.tipoSelecao.nome} </a></td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>${selecao.quantidadeVagas}</td>
-								<td>${selecao.status.nome}</td>
+								<td>${selecao.inscritos.size() }</td>
 								<td><a id="visualizarInscritos"
 									href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
 										<button class="btn btn-primary btn-sm"

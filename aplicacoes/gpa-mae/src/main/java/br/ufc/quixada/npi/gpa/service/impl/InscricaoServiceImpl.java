@@ -37,6 +37,12 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	public List<Inscricao> getInscricoes(Integer idAluno) {
 		return find("Inscricao.findIncricoesByIdAluno", new SimpleMap<String, Object>("idAluno", idAluno));
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Inscricao> getInscricoesBySelecao(Integer idSelecao) {
+		return find("Inscricao.finInscricaoByIdSelecao", new SimpleMap<String, Object>("idSelecao", idSelecao));
+	}
 
 	@Transactional(readOnly = true)
 	public List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica) {
@@ -62,6 +68,7 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	public void salvarVisitaDocimiciliar(VisitaDomiciliar visitaDocimiciliar) {
 		visitaService.save(visitaDocimiciliar);
 	}
+
 
 	@Transactional(readOnly = true)
 	public void salvarEntrevista(Entrevista entrevista) {
