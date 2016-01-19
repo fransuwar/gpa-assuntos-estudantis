@@ -50,7 +50,15 @@
 				</div>
 			</sec:authorize>
 		</div>
-
+					<div class="col-md-12">
+							<div class="col-md-2 " id="div-btn-inserir">
+								<a href="<c:url value="/administrador/cadastrar/aluno" ></c:url>">
+								<button class="btn btn-primary" id="listar-btn-inserir">
+								Novo Aluno <span class="glyphicon glyphicon-plus"></span>
+								</button>
+								</a>
+							</div>
+					 </div>
 		<div class="col-md-12">
 
 			<div class="panel panel-primary">
@@ -65,6 +73,9 @@
 				</c:if>
 				<c:if test="${not empty alunos}">
 
+					
+				   
+
 					<div class="panel-body">
 						<table class="display" id="tabela-alunos">
 						<thead>
@@ -72,7 +83,8 @@
 								<th>Matricula</th>
 								<th>Ira</th>
 								<th>Curso</th>
-								<sec:authorize access="hasRole('SERVIDOR')">
+								<td></td>
+								<sec:authorize access="hasRole('ADMINISTRADOR_GPA')">
 									<th id="acoes">Ações</th>
 								</sec:authorize>
 							</tr>
@@ -83,15 +95,15 @@
 									<td>${aluno.matricula}</td>
 									<td>${aluno.ira}</td>
 									<td>${aluno.curso.nome}</td>
-									<sec:authorize access="hasRole('SERVIDOR')">
+									<sec:authorize access="hasRole('ADMINISTRADOR_GPA')">
 										<td><a id="editar" title="Editar"
-											href="<c:url value="/servidor/editar/aluno/${aluno.id}" ></c:url>">
+											href="<c:url value="/administrador/editar/aluno/${aluno.id}" ></c:url>">
 												<button class="btn btn-primary btn-xs" title="Editar Aluno">
 													<span class="glyphicon glyphicon-pencil"></span>
 												</button>
 										</a> <a id="excluir" data-toggle="modal" title="Excluir"
 											data-target="#confirm-delete" href="#"
-											data-href="<c:url value="/servidor/excluir/aluno/${aluno.id}" ></c:url>">
+											data-href="<c:url value="/administrador/excluir/aluno/${aluno.id}" ></c:url>">
 												<button class="btn btn-danger btn-xs" title="Excluir Aluno">
 													<span class="glyphicon glyphicon-trash"></span>
 												</button>
