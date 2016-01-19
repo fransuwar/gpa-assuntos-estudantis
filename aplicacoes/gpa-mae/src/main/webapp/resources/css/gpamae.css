@@ -102,3 +102,7 @@ a, a:hover, a:visited, a:active, button, button:hover, button:visited,
 	outline-offset: 0px !important;
 	text-decoration: none !important;
 }
+
+#text-align-rigth{
+	text-align:right;
+}
