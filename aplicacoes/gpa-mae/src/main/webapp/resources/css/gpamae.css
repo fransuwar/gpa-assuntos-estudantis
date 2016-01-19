@@ -13,6 +13,10 @@ body {
 	margin: 0px;
 }
 
+#alert-erro{
+	text-align: center;	
+}
+
 #form-label-right-checkbox-tam-padrao {
 	text-align: right;
 	margin-top: 4%;
