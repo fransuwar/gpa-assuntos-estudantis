@@ -31,8 +31,7 @@
 				<dl class="col-sm-12">
 					<dt class="col-sm-3" id="text-align-rigth">Vagas:</dt>
 					<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
-					<dt class="col-sm-3" id="text-align-rigth">Número de
-						Inscritos:</dt>
+					<dt class="col-sm-3" id="text-align-rigth">Inscritos:</dt>
 					<dd class="col-sm-3">${selecao.inscritos.size()}</dd>
 				</dl>
 				<dl class="col-sm-12">
