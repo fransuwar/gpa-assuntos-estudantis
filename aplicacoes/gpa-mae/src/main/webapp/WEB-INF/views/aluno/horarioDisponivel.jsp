@@ -67,8 +67,6 @@
 
 <a href="#" id="addHorario" class="btn btn-primary">Adicionar Horário</a>
 
-<jsp:include page="../fragments/footer.jsp"></jsp:include>
-
 <script type="text/javascript">
 
 	function rowAdded(rowElement) {

@@ -46,7 +46,7 @@
 							<th>Seleção</th>
 							<th>Edital</th>
 							<th>Vagas</th>
-							<th>Incritos</th>
+							<th>Inscritos</th>
 							<th>Período de Inscrições</th>
 							<th></th>
 						</tr>
@@ -55,14 +55,14 @@
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr>
 								<td>
-									<a id="detalhes" href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
+									<a id="detalhes" href="<c:url value="/servidor/detalhes/${selecao.id}"></c:url>">
 										${selecao.tipoSelecao.nome}
 									</a>
 								</td>
 								<td class="dt-body-center">${selecao.sequencial}/${selecao.ano}</td>
 								<td class="dt-body-center">${selecao.quantidadeVagas}</td>
 								<td class="dt-body-center">${selecao.inscritos.size() }</td>
-								<td class="dt-body-center"><fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> a <fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino}" /></td>
+								<td class="dt-body-center"><fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à <fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino}" /></td>
 								<td class="dt-body-right">
 									<a href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
 										<button class="btn btn-primary btn-xs" title="Editar Seleção">

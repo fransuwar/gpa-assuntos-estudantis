@@ -175,12 +175,18 @@ public class Constants {
 
 	public static final String MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR = "Não é possivel excluir o Coordenador da Comissão";
 
-	public static final String MENSAGEM_DOCUMENTO_REMOVIDO = "Documento removido com Sucesso";
+	public static final String MENSAGEM_DOCUMENTO_REMOVIDO                = "Documento removido com Sucesso";
+	
+	public static final String MENSAGEM_ERRO_TIPO_BOLSA					  = "Informe o tipo de Bolsa";
+	
+	public static final String MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA = "Acesso não autorizado! Você não pode realizar a entrevista pois não faz parte da comissão";
+	
+	public static final String MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_VISITA = "Acesso não autorizado! Você não pode realizar a visita pois não faz parte da comissão";
 
-	public static final String MENSAGEM_ERRO_TIPO_BOLSA = "Informe o tipo de Bolsa";
+	public static final String MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS 	= "Seleção possui inscritos e não pode ser excluída";
 
-	public static final String MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS = "Seleção possui inscritos e não pode ser excluída";
 	public static final String MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO = "Você já está inscrito nesta seleção";
+
 	/** Perfis */
 
 	public static final String STA = "STA";
