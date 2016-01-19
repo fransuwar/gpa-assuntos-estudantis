@@ -33,7 +33,7 @@
 					<dt class="col-sm-3">Ano do Edital:</dt>
 					<dd class="col-sm-3">${selecao.ano}</dd>
 					<dt class="col-sm-3">Número de Inscritos:</dt>
-					<dd class="col-sm-3">${quantInscricoes } </dd>
+					<dd class="col-sm-3">${selecao.inscritos.size()} </dd>
 
 				</dl>
 				<dl class="col-sm-12">

@@ -171,8 +171,8 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
 	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result,
-			 Model model, RedirectAttributes redirect) {
-		
+			Model model, RedirectAttributes redirect) {
+
 
 		model.addAttribute("action", "editar");
 
@@ -229,36 +229,21 @@ public class CoordenadorController {
 	public String atribuirPareceristaNoProjeto(@RequestParam("idSelecao") Integer idSelecao,
 			@RequestParam("idServidor") Integer idServidor, Model model, RedirectAttributes redirect) {
 
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		List<Servidor> comissao = selecao.getMembrosComissao();
+		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
 
-		if (idServidor == null) {
-
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_COMISSAO_ATRIBUIR);
-
+		if (comissao.contains(servidor)) {
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
 			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 
 		} else {
 
-			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+			selecao.getMembrosComissao().add(servidor);
+			selecaoService.update(selecao);
+			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_COMISSAO_FORMADA);
 
-			List<Servidor> comissao = selecao.getMembrosComissao();
-
-			Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
-			if (comissao.contains(servidor)) {
-
-				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
-
-				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
-
-			} else {
-
-				selecao.getMembrosComissao().add(servidor);
-
-				selecaoService.update(selecao);
-
-				redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_COMISSAO_FORMADA);
-
-				return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;	
-			}
+			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;	
 		}
 	}
 
@@ -269,9 +254,9 @@ public class CoordenadorController {
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
 			for (MultipartFile mfiles : files) {
 				try {
-					
+
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-						
+
 						Documento documento = new Documento();
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
@@ -279,20 +264,20 @@ public class CoordenadorController {
 						documento.setSelecao(selecaoService.find(Selecao.class, idSelecao));
 						documentoService.save(documento);
 					}
-					
-					
+
+
 				} catch (IOException ioe) {
 					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 
 					return REDIRECT_PAGINA_EDITAR_SELECAO +idSelecao;
 				}
 			} 
-			
+
 		} 
-			
+
 		return REDIRECT_PAGINA_EDITAR_SELECAO + idSelecao;
 	}
-	
+
 	@RequestMapping(value = "/selecao/excluir-documento/{idDocumento}", method = RequestMethod.GET)
 	public String excluirDocumento(@PathVariable("idDocumento") Integer idDocumento, @ModelAttribute("selecao") Selecao selecao, 
 			Model model, RedirectAttributes redirect) {
