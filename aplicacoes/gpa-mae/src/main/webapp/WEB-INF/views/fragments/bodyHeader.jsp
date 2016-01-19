@@ -18,7 +18,7 @@
 					<sec:authorize access="hasAnyRole('ADMINISTRADOR_GPA')">
 						<li><a href="<c:url value="/administrador/listar" />">Servidores</a>
 						</li>
-						<li><a href="<c:url value="/servidor/selecao/listar" />">Alunos</a>
+						<li><a href="<c:url value="/administrador/listar/alunos" />">Alunos</a>
 						</li>
 					</sec:authorize>
 					<sec:authorize access="hasAnyRole('DOCENTE', 'STA')">
