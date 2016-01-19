@@ -65,8 +65,8 @@ public class ServidorController {
 		return PAGINA_LISTAR_SELECAO_SERVIDOR;
 	}
 
-	@RequestMapping(value= {"entrevista/{idInscricao}/{idServidor}"}, method = RequestMethod.GET)
-	public String realizarEntrevista(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idServidor") Integer idServidor, RedirectAttributes redirect, Model model ){
+	@RequestMapping(value= {"entrevista/{idInscricao}"}, method = RequestMethod.GET)
+	public String realizarEntrevista(@PathVariable("idInscricao") Integer idInscricao,Authentication auth, RedirectAttributes redirect, Model model ){
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);		
 		
 		if(inscricao == null){
@@ -76,7 +76,7 @@ public class ServidorController {
 			
 			Selecao selecao = inscricao.getSelecao();
 			
-			Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
+			Servidor servidor = servidorService.getServidorByCpf(auth.getName());
 	        
 	        List<Servidor> comissao = selecao.getMembrosComissao();
 	        
@@ -113,8 +113,8 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
-	@RequestMapping(value = { "visita/{idInscricao}/{idServidor}" }, method = RequestMethod.GET)
-	public String realizarVisita(@PathVariable("idInscricao")Integer idInscricao, @PathVariable("idServidor") Integer idServidor, RedirectAttributes redirect, Model model) {
+	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
+	public String realizarVisita(@PathVariable("idInscricao")Integer idInscricao, Authentication auth, @PathVariable("idServidor") Integer idServidor, RedirectAttributes redirect, Model model) {
 		
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);	
 
@@ -126,7 +126,7 @@ public class ServidorController {
 			
             Selecao selecao = inscricao.getSelecao();
 			
-			Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
+            Servidor servidor = servidorService.getServidorByCpf(auth.getName());
 	        
 	        List<Servidor> comissao = selecao.getMembrosComissao();
 	        
