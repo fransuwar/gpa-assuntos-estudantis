@@ -21,7 +21,6 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Seleção</h3>
 			</div>
-
 			<div class="panel-body">
 				<dl class="col-sm-12">
 					<dt class="col-sm-3" id="text-align-rigth">Edital:</dt>
@@ -32,20 +31,21 @@
 				<dl class="col-sm-12">
 					<dt class="col-sm-3" id="text-align-rigth">Vagas:</dt>
 					<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
-					<dt class="col-sm-3" id="text-align-rigth">Número de Inscritos:</dt>
-					<dd class="col-sm-3">${selecao.inscritos.size()} </dd>
-
+					<dt class="col-sm-3" id="text-align-rigth">Número de
+						Inscritos:</dt>
+					<dd class="col-sm-3">${selecao.inscritos.size()}</dd>
 				</dl>
 				<dl class="col-sm-12">
 					<dt class="col-sm-3" id="text-align-rigth">Inscrições:</dt>
 					<dd class="col-sm-3">
-						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" /> até
-						<fmt:formatDate value="${selecao.dataTermino}" pattern="dd/MM/yyyy" />
+						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" />
+						até
+						<fmt:formatDate value="${selecao.dataTermino}"
+							pattern="dd/MM/yyyy" />
 					</dd>
 					<dt class="col-sm-3" id="text-align-rigth">Responsável:</dt>
 					<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
 				</dl>
-				
 				<dl class="col-sm-12">
 					<dt class="col-sm-3" id="text-align-rigth">Arquivos:</dt>
 					<c:forEach var="documento" items="${selecao.documentos}">
@@ -97,7 +97,6 @@
 								<td>Matricula</td>
 								<td>Data</td>
 								<td></td>
-
 							</tr>
 						</thead>
 						<tbody>
@@ -110,8 +109,6 @@
 									<td>${inscricao.aluno.matricula }</td>
 									<td><fmt:formatDate value="${inscricao.data}"
 											pattern="dd/MM/yyyy" /></td>
-
-
 									<td><a id="avaliarDocumentos" title="Avaliar Documentação"
 										href="<c:url value="" ></c:url>">
 											<button class=" btn btn-primary btn-xs">
