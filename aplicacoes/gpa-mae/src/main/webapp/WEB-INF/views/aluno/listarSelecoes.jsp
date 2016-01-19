@@ -14,10 +14,9 @@
 <title>Seleções</title>
 </head>
 <body>
+
 	<jsp:include page="../fragments/bodyHeader.jsp" />
-
 	<div class="container">
-
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert"
 				id="alert-erro">
@@ -116,7 +115,6 @@
 			</div>
 		</div>
 	</div>
-
 	<jsp:include page="../fragments/footer.jsp" />
 </body>
 </html>
