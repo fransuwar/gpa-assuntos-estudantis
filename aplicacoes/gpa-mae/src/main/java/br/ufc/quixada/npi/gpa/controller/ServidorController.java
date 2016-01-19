@@ -176,7 +176,7 @@ public class ServidorController {
 		List<Inscricao> inscricoes = inscricaoService.getInscricoesBySelecao(idSelecao);
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("inscricoes", inscricoes);
-		model.addAttribute("quantInscricoes", inscricoes.size());
+		
 
 		return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 	}
