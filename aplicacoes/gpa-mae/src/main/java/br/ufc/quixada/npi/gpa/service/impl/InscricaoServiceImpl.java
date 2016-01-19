@@ -95,7 +95,7 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 
 	@Override
 	@Transactional(readOnly = true)
-	public Inscricao findInscricaoDoAlunoNaSelecao(Selecao selecao, Aluno aluno) {
+	public Inscricao getInscricao(Selecao selecao, Aluno aluno) {
 		Map<String, Object> params = new SimpleMap<String, Object>();
 		params.put("idSelecao", selecao.getId());
 		params.put("idAluno", aluno.getId());

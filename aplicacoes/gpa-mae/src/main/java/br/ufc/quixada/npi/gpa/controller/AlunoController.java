@@ -124,7 +124,7 @@ public class AlunoController {
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 		Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
 
-		if (inscricaoService.findInscricaoDoAlunoNaSelecao(selecao, aluno) == null) {
+		if (inscricaoService.getInscricao(selecao, aluno) == null) {
 			Inscricao inscricao = new Inscricao();
 
 			inscricao.setData(new Date());
@@ -269,7 +269,7 @@ public class AlunoController {
 			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 			Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
 
-			if (inscricaoService.findInscricaoDoAlunoNaSelecao(selecao, aluno) == null) {
+			if (inscricaoService.getInscricao(selecao, aluno) == null) {
 
 				Inscricao inscricao = new Inscricao();
 
