@@ -54,7 +54,6 @@
 						<label class="col-sm-1 control-label">Membro:</label>
 						<div class="col-sm-4">
 							<select id="" class="form-control" name="idServidor">
-								<option value="">Selecione os membros da Comissão</option>
 								<c:forEach items="${servidores}" var="servidor">
 									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
 								</c:forEach>
