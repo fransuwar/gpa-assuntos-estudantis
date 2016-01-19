@@ -17,10 +17,6 @@
 
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
-	<ol class="breadcrumb">
-		<li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
-		<li class="active">Atribuir Comissão</li>
-	</ol>
 	<div class="container">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert"

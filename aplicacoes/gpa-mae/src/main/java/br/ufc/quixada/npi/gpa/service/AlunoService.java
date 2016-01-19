@@ -13,4 +13,5 @@ public interface AlunoService extends GenericService<Aluno>{
 	
 	public abstract boolean isAlunoCadastrado(Aluno aluno);
 
+
 }
