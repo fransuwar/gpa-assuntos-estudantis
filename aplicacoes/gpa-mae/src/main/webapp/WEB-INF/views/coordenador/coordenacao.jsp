@@ -46,6 +46,7 @@
 							<th>Seleção</th>
 							<th>Edital</th>
 							<th>Vagas</th>
+							<th>Número de Incritos</th>
 							<th>Inscrições</th>
 							<th></th>
 						</tr>
@@ -60,6 +61,7 @@
 								</td>
 								<td class="dt-body-center">${selecao.sequencial}/${selecao.ano}</td>
 								<td class="dt-body-center">${selecao.quantidadeVagas}</td>
+								<td class="dt-body-center">${selecao.inscritos.size() }</td>
 								<td class="dt-body-center"><fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> a <fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino}" /></td>
 								<td class="dt-body-right">
 									<a href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
