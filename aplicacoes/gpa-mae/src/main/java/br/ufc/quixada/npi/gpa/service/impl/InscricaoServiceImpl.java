@@ -99,7 +99,7 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 		Map<String, Object> params = new SimpleMap<String, Object>();
 		params.put("idSelecao", selecao.getId());
 		params.put("idAluno", aluno.getId());
-		return (Inscricao) findFirst("Inscricao.findByIdAlunoEmSelecao", params);
+		return (Inscricao) findFirst("Inscricao.findInscricaoAluno", params);
 
 	}
 }
