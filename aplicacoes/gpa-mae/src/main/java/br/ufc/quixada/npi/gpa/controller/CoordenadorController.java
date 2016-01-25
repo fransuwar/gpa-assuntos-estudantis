@@ -3,7 +3,6 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -211,8 +210,8 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = "/selecao/adicionar-documento", method = RequestMethod.POST)
-	public String adicionarDocumento(List<MultipartFile> files,
-			RedirectAttributes redirect, @RequestParam("idSelecao") Integer idSelecao, Model model) {
+	public String adicionarDocumento(@RequestParam("files") List<MultipartFile> files,
+			@RequestParam("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
 			for (MultipartFile mfiles : files) {
