@@ -29,7 +29,6 @@
 <body>
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
-
 	<div class="container">
 		<div align="left">
 			<div class="form" align="center">
@@ -99,12 +98,14 @@
 									<div class="form-group">
 										<div class="col-sm-9" id="col-sm-radio">
 											<c:forEach items="${moraCom }" var="mora" varStatus="count">
-												<input id="comQuemMora${count.index + 1 }" type="checkbox" name="mora" value="${mora}"/>
+												<input id="comQuemMora${count.index + 1 }" type="checkbox"
+													name="mora" value="${mora}" />
 												<label for="comQuemMora${count.index + 1 }">${mora.nome }</label>
 											</c:forEach>
 										</div>
 									</div>
-									<div id="mora-com-outros" class="form-group" align="left" class="col-sm-16">
+									<div id="mora-com-outros" class="form-group" align="left"
+										class="col-sm-16">
 										<label for=comQuemMoraOutros class="col-sm-7 control-label">
 											<span class="red">*</span>Com Que Mora essas pessoas ?
 										</label>
@@ -144,7 +145,7 @@
 								</div>
 
 								<div class="panel-heading">
-									<h3>Endereço da Residência Atual</h3>
+									<h3 class="panel-title">Endereço da Residência Atual</h3>
 								</div>
 								<div class="panel-body">
 
@@ -219,7 +220,7 @@
 											<form:select path="estado" id="estado"
 												cssClass="form-control" cssStyle="font-size:13px" required ="required">
 												<form:option value="">Selecione Estado</form:option>
-												<form:options items="${estado}" itemLabel="nome"/>
+												<form:options items="${estado}" itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="estado"></form:errors>
@@ -238,8 +239,9 @@
 									</div>
 								</div>
 
+]
 								<div class="panel-heading">
-									<h3>Endereço da Residência de Origem</h3>
+									<h3 class="panel-title">Endereço da Residência de Origem</h3>
 								</div>
 								<div class="panel-body">
 
@@ -315,7 +317,7 @@
 											<form:select path="estadoOrigem" id="estadoOrigem"
 												cssClass="form-control" cssStyle="font-size:13px" required ="required">
 												<form:option value="">Selecione Estado</form:option>
-												<form:options items="${estado}" itemLabel="nome"/>
+												<form:options items="${estado}" itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="estadoOrigem"></form:errors>
@@ -374,7 +376,8 @@
 											<form:select path="grauParentescoImovelRural"
 												id="grauParentescoImovelRural" cssClass="form-control">
 												<form:option value="" label="Selecione o Grau" />
-												<form:options items="${grauParentescoImovelRural}" itemLabel="nome" />
+												<form:options items="${grauParentescoImovelRural}"
+													itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="grauParentescoImovelRural"></form:errors>
@@ -420,7 +423,8 @@
 											<form:select path="grauParentescoVeiculos"
 												id="grauParentescoVeiculos" cssClass="form-control">
 												<form:option value="" label="Selecione o Grau" />
-												<form:options items="${grauParentescoVeiculos}" itemLabel="nome"/>
+												<form:options items="${grauParentescoVeiculos}"
+													itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="grauParentescoVeiculos"></form:errors>
@@ -472,7 +476,8 @@
 											<form:select path="ensinoFundamental" id="ensinoFundamental"
 												cssClass="form-control" cssStyle="font-size:13px;" required ="required">
 												<form:option value="" label="Selecione o Tipo" />
-												<form:options items="${tipoEnsinoFundamental}" itemLabel="nome" />
+												<form:options items="${tipoEnsinoFundamental}"
+													itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="ensinoFundamental"></form:errors>
@@ -517,7 +522,7 @@
 											<form:select path="ensinoMedio" id="ensinoMedio"
 												cssClass="form-control" cssStyle="font-size:13px;" required ="required">
 												<form:option value="" label="Selecione o Tipo" />
-												<form:options items="${tipoEnsinoMedio}" itemLabel="nome"/>
+												<form:options items="${tipoEnsinoMedio}" itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="ensinoMedio"></form:errors>

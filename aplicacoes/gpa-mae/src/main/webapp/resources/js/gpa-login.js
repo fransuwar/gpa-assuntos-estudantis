@@ -6,14 +6,14 @@ $(document).ready(function() {
 			j_username : {
 				validators : {
 					notEmpty : {
-						message : 'Por favor insira o username',
+						message : 'Campo Obrigatório',
 					}
 				}
 			},
 			j_password : {
 				validators : {
 					notEmpty : {
-						message : 'Por favor insira a senha',
+						message : 'Campo Obrigatório',
 					}
 				}
 			}

@@ -13,6 +13,10 @@ body {
 	margin: 0px;
 }
 
+#alert-erro{
+	text-align: center;	
+}
+
 #form-label-right-checkbox-tam-padrao {
 	text-align: right;
 	margin-top: 4%;
@@ -29,6 +33,9 @@ body {
 	padding-right: 0%;
 }
 
+#div-line-title {
+	text-decoration: underline;
+}
 footer {
 	text-align: center;
 	clear: both;
@@ -98,4 +105,8 @@ a, a:hover, a:visited, a:active, button, button:hover, button:visited,
 	outline: medium none !important;
 	outline-offset: 0px !important;
 	text-decoration: none !important;
+}
+
+#text-align-rigth{
+	text-align:right;
 }

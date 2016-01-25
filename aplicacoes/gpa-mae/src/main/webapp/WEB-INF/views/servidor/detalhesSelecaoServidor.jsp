@@ -17,42 +17,36 @@
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
 	<div class="container" align="left" style="padding-left: 85px;">
-		<div class="panel panel-primary-min">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Seleção</h3>
 			</div>
-
 			<div class="panel-body">
 				<dl class="col-sm-12">
-					<dt class="col-sm-3">Número do Edital:</dt>
-					<dd class="col-sm-3">${selecao.sequencial}</dd>
-					<dt class=" col-sm-3">Tipo de Bolsa:</dt>
+					<dt class="col-sm-3" id="text-align-rigth">Edital:</dt>
+					<dd class="col-sm-3">${selecao.sequencial}/${selecao.ano}</dd>
+					<dt class=" col-sm-3" id="text-align-rigth">Seleção:</dt>
 					<dd class="col-sm-3">${selecao.tipoSelecao.nome}</dd>
 				</dl>
 				<dl class="col-sm-12">
-					<dt class="col-sm-3">Ano do Edital:</dt>
-					<dd class="col-sm-3">${selecao.ano}</dd>
-
-				</dl>
-				<dl class="col-sm-12">
-					<dt class="col-sm-3">Quantidade de vagas:</dt>
+					<dt class="col-sm-3" id="text-align-rigth">Vagas:</dt>
 					<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
-					<dt class="col-sm-3">Responsável:</dt>
-					<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
+					<dt class="col-sm-3" id="text-align-rigth">Inscritos:</dt>
+					<dd class="col-sm-3">${selecao.inscritos.size()}</dd>
 				</dl>
 				<dl class="col-sm-12">
-					<dt class="col-sm-3">Data de Início da Inscrição:</dt>
+					<dt class="col-sm-3" id="text-align-rigth">Inscrições:</dt>
 					<dd class="col-sm-3">
 						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" />
-					</dd>
-					<dt class="col-sm-3">Data de Término da Inscrição:</dt>
-					<dd class="col-sm-3">
+						até
 						<fmt:formatDate value="${selecao.dataTermino}"
 							pattern="dd/MM/yyyy" />
 					</dd>
+					<dt class="col-sm-3" id="text-align-rigth">Responsável:</dt>
+					<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
 				</dl>
 				<dl class="col-sm-12">
-					<dt class="col-sm-3">Arquivos:</dt>
+					<dt class="col-sm-3" id="text-align-rigth">Arquivos:</dt>
 					<c:forEach var="documento" items="${selecao.documentos}">
 						<dd class="col-sm-3">
 							<a
@@ -65,14 +59,14 @@
 		</div>
 		<sec:authorize
 			access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
-			<div class="panel panel-primary-min" align="left">
+			<div class="panel panel-primary" align="left">
 				<div class="panel-heading">
-					<h3 class="panel-title">Participantes da Comissão</h3>
+					<h3 class="panel-title">Comissão</h3>
 				</div>
 				<div class="panel-body">
 					<table class="table">
 						<thead>
-							<tr class="info">
+							<tr class="active">
 								<td>Nome</td>
 								<td>SIAPE</td>
 								<td>Cargo</td>
@@ -90,48 +84,56 @@
 					</table>
 				</div>
 			</div>
-
-			<div class="panel panel-primary-min" align="left">
+			<div class="panel panel-primary" align="left">
 				<div class="panel-heading">
-					<h3 class="panel-title">Resultado da Seleção</h3>
+					<h3 class="panel-title">Inscrições</h3>
 				</div>
-				<table class="table">
-					<thead>
-						<tr class="info">
-							<td>Nome</td>
-							<td>Matrícula</td>
-						</tr>
-					</thead>
-					<tr>
-						<td>Não existem classificados no momento</td>
-					</tr>
-				</table>
-			</div>
-			<div class="panel panel-primary-min" align="left">
-				<div class="panel-heading">
-					<h3 class="panel-title">Participantes da Seleção</h3>
-				</div>
-				<table class="table">
-					<thead>
-						<tr class="info">
-							<td>Número</td>
-							<td>Aluno</td>
-							<td>Matricula</td>
-							<td>Data</td>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="inscrito" items="${selecao.inscritos }">
-							<tr>
-								<td>${inscrito.id }</td>
-								<td>${inscrito.aluno.pessoa.nome }</td>
-								<td>${inscrito.aluno.matricula }</td>
-								<td><fmt:formatDate value="${inscrito.data}"
-										pattern="dd/MM/yyyy" /></td>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr class="active">
+								<td>Aluno</td>
+								<td>Matricula</td>
+								<td>Data</td>
+								<td></td>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach var="inscricao" items="${inscricoes }">
+								<tr>
+									<td><a id="detalhes"
+										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.aluno.id}">  
+									</c:url>">
+											${inscricao.aluno.pessoa.nome }</a></td>
+									<td>${inscricao.aluno.matricula }</td>
+									<td><fmt:formatDate value="${inscricao.data}"
+											pattern="dd/MM/yyyy" /></td>
+									<td><a id="avaliarDocumentos" title="Avaliar Documentação"
+										href="<c:url value="" ></c:url>">
+											<button class=" btn btn-primary btn-xs">
+												<span class="glyphicon glyphicon-duplicate"></span>
+											</button>
+									</a> <c:if test="${empty inscricao.entrevista }">
+											<a id="realizarEntrevista" title="Realizar Entrevista"
+												href="<c:url value="/servidor/entrevista/${inscricao.id}" ></c:url>">
+												<button class=" btn btn-primary btn-xs">
+													<span class="glyphicon glyphicon-copy"></span>
+												</button>
+											</a>
+										</c:if> <c:if
+											test="${inscricao.selecao.tipoSelecao =='AUX_MOR' and empty inscricao.visitaDomiciliar}">
+											<a id="realizarVisita" title="Realizar Visita"
+												href="<c:url value="/servidor/visita/${inscricao.id }"></c:url>">
+												<button class=" btn btn-primary btn-xs">
+													<span class="fa fa-bus"></span>
+												</button>
+											</a>
+										</c:if></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</sec:authorize>
 	</div>

@@ -20,7 +20,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 
 @NamedQueries({
-		@NamedQuery(name = "Inscricao.findIncricoesByIdAluno", query = "select i from Inscricao i where i.aluno.id = :idAluno") })
+		@NamedQuery(name = "Inscricao.findIncricoesByIdAluno", query = "select i from Inscricao i where i.aluno.id = :idAluno"),
+		@NamedQuery(name = "Inscricao.findInscricaoAluno", query = "SELECT i from Inscricao i where i.selecao.id =:idSelecao and i.aluno.id =:idAluno"),
+		@NamedQuery(name = "Inscricao.finInscricaoByIdSelecao", query = "select i from Inscricao i where i.selecao.id = :idSelecao")
+})
 
 @Entity
 public class Inscricao {
@@ -42,26 +45,23 @@ public class Inscricao {
 
 	@Column(nullable = false)
 	private boolean deferimento;
-	
-
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
-	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
-	
+
 	@OneToOne
 	private Selecao selecao;
-	
+
 	@OneToOne
 	private VisitaDomiciliar visitaDomiciliar;
-	
-	@OneToOne
+
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Entrevista entrevista;
 
 	@ManyToOne
 	private Aluno aluno;
-
 
 	public Integer getId() {
 		return id;

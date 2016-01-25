@@ -16,64 +16,60 @@
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<div class="container">
-			<div class="novo-projeto" align="left">
-				<div class="form" align="center">
+		<div class="novo-projeto" align="left">
+			<div class="form" align="center">
 
-					<form:form id="relatorioForm" role="form"
-						modelAttribute="entrevista" commandName="entrevista"
-						servletRelativeAction="/servidor/entrevista" method="POST"
-						cssClass="form-horizontal">
-						
-						<input type= "hidden" id="idServidor" name="idServidor" value="${sessionScope.id}"/>
-						<input type= "hidden" id="idInscricao" name="idInscricao" value="${idInscricao}"/>
-						
-						<div class="tab-content">
-							<div class="tab-pane active" id="dados-gerais-tab">
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										<h3>Entrevista</h3>
-									</div>
-									<div class="panel-body">
-										<div class="form-group">
-											<label for="observacao" class="col-sm-2 control-label">Observação</label>
-											<div class="col-sm-10">
-												<form:textarea class="form-control" rows="3" id="observacao"
-													type="text" path="observacao" placeholder="Observação"></form:textarea>
-												<span class="help-block"></span>
-												<div class="error-validation">
-													<form:errors path="observacao"></form:errors>
-												</div>
-											</div>
-										</div>
+				<form:form id="relatorioForm" role="form"
+					modelAttribute="entrevista" commandName="entrevista"
+					servletRelativeAction="/servidor/entrevista" method="POST"
+					cssClass="form-horizontal">
 
-										<div class="form-group">
-											<label for="deferimento" class="col-sm-2 control-label">Deferimento
-												Aprovado? </label>
+					<input type="hidden" id="idServidor" name="idServidor"
+						value="${sessionScope.id}" />
+					<input type="hidden" id="idInscricao" name="idInscricao"
+						value="${idInscricao}" />
 
-											<div class="col-sm-1" id="deferimento">
-												<form:checkbox id="deferimento" path="deferimento"
-													cssClass="form-control" />
-											</div>
-										</div>
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Entrevista</h3>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<label for="observacao" class="col-sm-2 control-label">Observação</label>
+								<div class="col-sm-10">
+									<form:textarea class="form-control" rows="3" id="observacao"
+										type="text" path="observacao" placeholder="Observação"></form:textarea>
+									<span class="help-block"></span>
+									<div class="error-validation">
+										<form:errors path="observacao"></form:errors>
 									</div>
 								</div>
 							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-sm-2" id="div-form-btn">
-								<input name="submit" type="submit" class="btn btn-primary"
-									value="Cadastrar" id="form-btn" />
-							</div>
-							<div class="col-sm-2" id="div-form-btn">
-								<a href="<c:url value="/selecao/listar" ></c:url>"
-									class="btn btn-default" id="form-btn">Cancelar</a>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Deferimento</label>
+								<div class="col-sm-2" id="deferimento">
+									<select id="" class="form-control" name="deferimento">
+										<option value="${true}">Deferido</option>
+										<option value="${false}">Indeferido</option>
+									</select>
+								</div>
 							</div>
 						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-2" id="div-form-btn">
+							<input name="submit" type="submit" class="btn btn-primary"
+								value="Cadastrar" id="form-btn" />
+						</div>
+						<div class="col-sm-2" id="div-form-btn">
+							<a href="<c:url value="/selecao/listar" ></c:url>"
+								class="btn btn-default" id="form-btn">Cancelar</a>
+						</div>
+					</div>
 
-					</form:form>
-				</div>
+				</form:form>
 			</div>
+		</div>
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />

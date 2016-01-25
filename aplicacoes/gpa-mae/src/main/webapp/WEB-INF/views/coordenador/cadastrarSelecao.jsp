@@ -51,7 +51,7 @@
 
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h2>${titulo }</h2>
+				<h3 class="panel-title">${titulo }</h3>
 			</div>
 			<div class="panel-body">
 
@@ -60,6 +60,12 @@
 					cssClass="form-horizontal">
 
 					<input type="hidden" name="id" value="${selecao.id}" />
+
+					<c:forEach items="selecao.membrosComissao" var="membro" varStatus="status">
+					  <input type="hidden" name="selecao.membrosComissao[${status.index}]." value="${membro}"/>
+					</c:forEach>
+					
+					
 
 					<div class="form-group">
 
@@ -174,7 +180,7 @@
 												data-target="#confirm-delete"
 												data-href="<c:url value="/coordenador/selecao/excluir-documento/${documento.id }"></c:url>"
 												class="delete-document">
-													<button type="button" class="btn btn-danger">
+													<button type="button" class="btn btn-danger btn-xs">
 														<span class="glyphicon glyphicon-trash"></span>
 													</button>
 											</a></td>

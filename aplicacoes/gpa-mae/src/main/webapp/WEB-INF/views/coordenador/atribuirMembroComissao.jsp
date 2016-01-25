@@ -6,7 +6,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <html>
 <head>
@@ -16,10 +17,6 @@
 
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
-	<ol class="breadcrumb">
-		<li><a href="/MAE/selecao/listar">Listar Seleções</a></li>
-      <li class="active">Atribuir Comissão</li>
-    </ol>
 	<div class="container">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert"
@@ -41,25 +38,26 @@
 		</c:if>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h2>Atribuir Comissão</h2>
+				<h3 class="panel-title">Gerenciar Comissão</h3>
 			</div>
 			<div class="panel-body">
 
-				<form:form id="adicionarComissaoForm" role="form" servletRelativeAction="/coordenador/comissao/atribuir" method="POST"
-					class="form-horizontal">
+				<form:form id="adicionarComissaoForm" role="form"
+					servletRelativeAction="/coordenador/comissao/atribuir"
+					method="POST" class="form-horizontal">
 					<input type="hidden" name="idSelecao" value="${idSelecao}">
 					<div class="form-group">
 						<label class="col-sm-1 control-label">Membro:</label>
 						<div class="col-sm-4">
 							<select id="" class="form-control" name="idServidor">
-								<option value="">Selecione os membros da Comissão</option>
 								<c:forEach items="${servidores}" var="servidor">
 									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
 								</c:forEach>
 							</select>
 						</div>
 						<div class="col-sm-2" id="div-form-btn" align="left">
-							<input type="submit" class="btn btn-primary" value="Adicionar Membros" id="form-btn" />
+							<input type="submit" class="btn btn-primary"
+								value="Adicionar Membro" id="form-btn" />
 						</div>
 					</div>
 					<div class="col-sm-5">
@@ -67,9 +65,11 @@
 							<c:forEach var="servidor" items="${comissao.membrosComissao}">
 								<tr class="linha">
 									<td class="linha">${servidor.pessoa.nome}</td>
-									<td><a id="excluir" data-toggle="modal"	data-target="#confirm-delete" data-href="<c:url value="/coordenador/comissao/excluir/${idSelecao}/${servidor.id}"></c:url>">
-											<button class="btn btn-danger">
-												Excluir <span class="glyphicon glyphicon-trash"></span>
+									<td><a id="excluir" data-toggle="modal"
+										data-target="#confirm-delete"
+										data-href="<c:url value="/coordenador/comissao/excluir/${idSelecao}/${servidor.id}"></c:url>">
+											<button class="btn btn-danger btn-xs">
+												<span class="glyphicon glyphicon-trash"></span>
 											</button>
 									</a></td>
 								</tr>
@@ -89,13 +89,14 @@
 		</div>
 	</div>
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
-	
+
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">Excluir</div>
-				<div class="modal-body">Tem certeza de que deseja excluir esse membro da Comissão?</div>
+				<div class="modal-body">Tem certeza de que deseja excluir esse
+					membro da Comissão?</div>
 				<div class="modal-footer">
 					<a href="#" class="btn btn-danger">Excluir</a>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
