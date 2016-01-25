@@ -52,12 +52,14 @@
 						</a></li>
 					</ul>
 
-					<form:form id="relatorioForm" role="form" modelAttribute="relatorioVisitaDomiciliar"
-						commandName="relatorioVisitaDomiciliar"	servletRelativeAction="/servidor/visita" method="POST"
+					<form:form id="relatorioForm" role="form"
+						modelAttribute="relatorioVisitaDomiciliar"
+						commandName="relatorioVisitaDomiciliar"
+						servletRelativeAction="/servidor/visita" method="POST"
 						cssClass="form-horizontal">
 
-						<input type="hidden" id="idAluno" name="idAluno"
-							value="${idAluno }">
+						<input type="hidden" id="idInscricao" name="idInscricao"
+							value="${inscricao.id }">
 						<input type="hidden" id="idSelecao" name="idSelecao"
 							value="${idSelecao }" />
 
@@ -65,20 +67,34 @@
 							<div class="tab-pane active" id="dados-gerais-tab">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
-										<h3>Candidato</h3>
+										<h3 class="panel-title">Candidato</h3>
 									</div>
 									<div class="panel-body">
+
+
 										<div class="form-group">
 											<label for="nomeAluno" class="col-sm-2 control-label"
 												id="form-label-2">Candidato:</label>
 											<div class="col-sm-4">
 												<form:input id="nomeAluno" type="text" readonly="true"
-													path="" value="${aluno.nome}" cssClass="form-control"
-													placeholder="Nome do candidato" />
+													path="" value="${inscricao.aluno.pessoa.nome}"
+													cssClass="form-control" placeholder="Nome do candidato" />
+											</div>
+											<label for="curso" class="col-sm-2 control-label"
+												id="form-label-2">Curso</label>
+											<div class="col-sm-4">
+												<form:input id="curso" type="text" readonly="true"
+													path="curso" cssClass="form-control" placeholder=""
+													value="${inscricao.aluno.curso}" />
 												<div class="error-validation">
-													<form:errors path="aluno"></form:errors>
+													<form:errors path="curso"></form:errors>
 												</div>
 											</div>
+										</div>
+
+
+
+										<div class="form-group">
 											<label for="formaAcesso" class="col-sm-2 control-label"
 												id="form-label-2" style="padding-left: 2px;">Forma
 												de acesso a casa:</label>
@@ -90,35 +106,32 @@
 													<form:errors path="formaAcessoCasa"></form:errors>
 												</div>
 											</div>
-											<label for="curso" class="col-sm-2 control-label"
-												id="form-label-1">Curso</label>
-											<div class="col-sm-4">
 
-												<form:input id="curso" type="text" readonly="true"
-													path="curso" cssClass="form-control" placeholder=""
-													value="${aluno.curso}" />
-												<div class="error-validation">
-													<form:errors path="curso"></form:errors>
-												</div>
-											</div>
 											<label for="semestre" class="col-sm-2 control-label"
 												id="form-label-2">Semestre:</label>
-											<div class="col-sm-4">
+											<div class="col-sm-3">
 												<form:input id="semestre" type="text" path="semestre"
 													cssClass="form-control" placeholder="Semestre" value="0" />
 												<div class="error-validation">
 													<form:errors path="semestre"></form:errors>
 												</div>
 											</div>
+
+										</div>
+
+
+
+										<div class="form-group">
 											<label for="dataVisita" class="col-sm-2 control-label"
-												id="form-label-1">Data da visita:</label>
-											<div class="col-sm-3">
+												id="form-label-2">Data da visita:</label>
+											<div class="col-sm-4">
 												<form:input id="dataVisita" type="text" path="dataVisita"
 													cssClass="form-control data" placeholder="Data da Visita" />
 												<div class="error-validation">
 													<form:errors path="dataVisita"></form:errors>
 												</div>
 											</div>
+
 											<label for="tecnico" class="col-sm-2 control-label"
 												id="form-label-2" style="padding-left: 4px;">Técnicos
 												Responsáveis:</label>
@@ -130,21 +143,24 @@
 												</div>
 											</div>
 										</div>
+
+
+
 									</div>
 								</div>
 							</div>
 						</div>
 
 
-						
-						
-						
-						
+
+
+
+
 						<div class="tab-pane" id="perfil-economico-tab">
 							<div class="panel panel-primary">
 
 								<div class="panel-heading">
-									<h3>I - Perfil Econômico:Despesas</h3>
+									<h3 class="panel-title">I - Perfil Econômico: Despesas</h3>
 								</div>
 								<div class="panel-body">
 									<div class="panel-body">
@@ -160,7 +176,7 @@
 
 
 								<div class="panel-heading">
-									<h3>II- Perfil Econômico: Receitas</h3>
+									<h3 class="panel-title">II - Perfil Econômico: Receitas</h3>
 								</div>
 								<div class="panel-body">
 									<div class="panel-body">
@@ -180,49 +196,59 @@
 						<div class="tab-pane" id="moradia-tab">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h3>III- Moradia</h3>
+									<h3 class="panel-title">III - Moradia</h3>
 								</div>
 								<div class="panel-body">
+
 									<div class="form-group">
 										<label for="moradiaVarandaQtd" class="col-sm-2 control-label"
 											id="form-label-right">Varanda:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="moradiaVarandaQtd" data-mask="999" min="0"
 												value="0" path="moradiaVarandaQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="moradiaVarandaQtd"></form:errors>
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:select path="moradiaVarandaEstado" id="moradiaEstado"
 												cssClass="form-control">
 												<form:option value="" label="Selecione o estado da Varanda" />
 												<form:options items="${estadoMoradia}" itemLabel="nome" />
 											</form:select>
+
 										</div>
 
 										<label for="moradiaSalaQtd" class="col-sm-2 control-label"
 											id="form-label-right">Sala:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="moradiaSalaQtd" data-mask="999" min="0"
 												value="0" path="moradiaSalaQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="moradiaSalaQtd"></form:errors>
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:select path="moradiaSalaEstado" id="moradiaSalaEstado"
 												cssClass="form-control">
 												<form:option value="" label="Selecione o estado da Sala" />
 												<form:options items="${estadoMoradia}" itemLabel="nome" />
 											</form:select>
 										</div>
+									</div>
 
 
+									<div class="form-group">
 										<label for="moradiaBanheiroQtd" class="col-sm-2 control-label"
 											id="form-label-right">Banheiro:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="moradiaBanheiroQtd" data-mask="999" min="0"
 												value="0" path="moradiaBanheiroQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="moradiaBanheiroQtd"></form:errors>
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:select path="moradiaBanheiroEstado"
 												id="moradiaBanheiroEstado" cssClass="form-control">
 												<form:option value="" label="Selecione o estado do Banheiro" />
@@ -232,27 +258,34 @@
 
 										<label for="moradiaQuartoQtd" class="col-sm-2 control-label"
 											id="form-label-right">Quarto:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="moradiaQuartoQtd" data-mask="999" min="0"
 												value="0" path="moradiaQuartoQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="moradiaQuartoQtd"></form:errors>
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:select path="moradiaQuartoEstado"
 												id="moradiaQuartoEstado" cssClass="form-control">
 												<form:option value="" label="Selecione o estado do Quarto" />
 												<form:options items="${estadoMoradia}" itemLabel="nome" />
 											</form:select>
 										</div>
+									</div>
 
+
+									<div class="form-group">
 										<label for="moradiaCozinhaQtd" class="col-sm-2 control-label"
 											id="form-label-right">Cozinha:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="moradiaCozinhaQtd" data-mask="999" min="0"
 												value="0" path="moradiaCozinhaQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="moradiaCozinhaQtd"></form:errors>
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:select path="moradiaCozinhaEstado"
 												id="moradiaCozinhaEstado" cssClass="form-control">
 												<form:option value="" label="Selecione o estado da Cozinha" />
@@ -262,37 +295,41 @@
 
 										<label for="moradiaQuintalQtd" class="col-sm-2 control-label"
 											id="form-label-right">Quintal:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="moradiaQuntalQtd" data-mask="999" min="0"
 												value="0" path="moradiaQuintalQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="moradiaQuintalQtd"></form:errors>
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:select path="moradiaQuintalEstado"
 												id="moradiaQuintalEstado" cssClass="form-control">
 												<form:option value="" label="Selecione o estado do Quintal" />
 												<form:options items="${estadoMoradia}" itemLabel="nome" />
 											</form:select>
 										</div>
-
 									</div>
+
 								</div>
 
 								<div class="panel-heading">
-									<h3>IV - Utensílios Domésticos</h3>
+									<h3 class="panel-title">IV - Utensílios Domésticos</h3>
 								</div>
 								<div class="panel-body">
-									<div class="form-group">
 
+									<div class="form-group">
 										<label for="utensilioTvQtd" class="col-sm-2 control-label"
 											id="form-label-right">TV:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="utensilioTvQtd" data-mask="999" min="0"
 												value="0" path="utensilioTvQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="utensilioTvQtd" id="utensilioTvQtd"
 													cssClass="form-control" />
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:input id="utensilioTvObservacao"
 												path="utensilioTvObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -301,15 +338,18 @@
 													id="utensilioTvObservacao" cssClass="form-control" />
 											</div>
 										</div>
+
 										<label for="utensilioSomQtd" class="col-sm-2 control-label"
 											id="form-label-right">Som:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="utensilioSomQtd" data-mask="999" min="0"
 												value="0" path="utensilioSomQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="utensilioSomQtd" id="utensilioSomQtd"
 													cssClass="form-control" />
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:input id="utensilioSomObservacao"
 												path="utensilioSomObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -318,9 +358,12 @@
 													id="utensilioSomObservacao" cssClass="form-control" />
 											</div>
 										</div>
+									</div>
+
+									<div class="form-group">
 										<label for="utensilioComputadorQtd"
 											class="col-sm-2 control-label" id="form-label-right">Computador:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="utensilioComputadorQtd" data-mask="999"
 												min="0" value="0" path="utensilioComputadorQtd"
 												cssClass="form-control" />
@@ -328,6 +371,8 @@
 												<form:errors path="utensilioComputadorQtd"
 													id="utensilioComputadorQtd" cssClass="form-control" />
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:input id="utensilioComputadorObservacao"
 												path="utensilioComputadorObservacao"
 												placeholder="Observação" cssClass="form-control" value="" />
@@ -336,15 +381,18 @@
 													id="utensilioComputadorObservacao" cssClass="form-control" />
 											</div>
 										</div>
+
 										<label for="utensilioFogaoQtd" class="col-sm-2 control-label"
 											id="form-label-right">Fogão:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="utensilioFogaoQtd" data-mask="999" min="0"
 												value="0" path="utensilioFogaoQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="utensilioFogaoQtd" id="utensilioFogaoQtd"
 													cssClass="form-control" />
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:input id="utensilioFogaoObservacao"
 												path="utensilioFogaoObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -353,9 +401,13 @@
 													id="utensilioFogaoObservacao" cssClass="form-control" />
 											</div>
 										</div>
+									</div>
+
+
+									<div class="form-group">
 										<label for="utensilioGeladeiraQtd"
 											class="col-sm-2 control-label" id="form-label-right">Geladeira:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="utensilioGeladeiraQtd" data-mask="999"
 												min="0" value="0" path="utensilioGeladeiraQtd"
 												cssClass="form-control" />
@@ -363,6 +415,8 @@
 												<form:errors path="utensilioGeladeiraQtd"
 													id="utensilioGeladeiraQtd" cssClass="form-control" />
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:input id="utensilioGeladeiraObservacao"
 												path="utensilioGeladeiraObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -371,15 +425,19 @@
 													id="utensilioGeladeiraObservacao" cssClass="form-control" />
 											</div>
 										</div>
+
+
 										<label for="utensilioFreezerQtd"
 											class="col-sm-2 control-label" id="form-label-right">Freezer:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="utensilioFreezerQtd" data-mask="999" min="0"
 												value="0" path="utensilioFreezerQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="utensilioFreezerQtd"
 													id="utensilioFreezerQtd" cssClass="form-control" />
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:input id="utensilioFreezerObservacao"
 												path="utensilioFreezerObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -388,9 +446,13 @@
 													id="utensilioFreezerObservacao" cssClass="form-control" />
 											</div>
 										</div>
+									</div>
+
+
+									<div class="form-group">
 										<label for="utensilioLavadoraQtd"
 											class="col-sm-2 control-label" id="form-label-right">Lavadora:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="utensilioLavadoraQtd" data-mask="999" min="0"
 												value="0" path="utensilioLavadoraQtd"
 												cssClass="form-control" />
@@ -398,6 +460,8 @@
 												<form:errors path="utensilioLavadoraQtd"
 													id="utensilioLavadoraQtd" cssClass="form-control" />
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:input id="utensilioLavadoraObservacao"
 												path="utensilioLavadoraObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -410,13 +474,16 @@
 
 										<label for="utensilioDvdQtd" class="col-sm-2 control-label"
 											id="form-label-right">DVD:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="utensilioDvdQtd" data-mask="999" min="0"
 												value="0" path="utensilioDvdQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="utensilioDvdQtd" id="utensilioDvdQtd"
 													cssClass="form-control" />
 											</div>
+										</div>
+										<div class="col-sm-3">
+
 											<form:input id="utensilioDvdObservacao"
 												path="utensilioDvdObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -425,16 +492,22 @@
 													id="utensilioDvdObservacao" cssClass="form-control" />
 											</div>
 										</div>
+									</div>
 
+
+									<div class="form-group">
 										<label for="utensilioOutrosQtd" class="col-sm-2 control-label"
 											id="form-label-right">Outros:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="utensilioOutrosQtd" data-mask="999" min="0"
 												value="0" path="utensilioOutrosQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="utensilioOutrosQtd"
 													id="utensilioOutrosQtd" cssClass="form-control" />
 											</div>
+										</div>
+										<div class="col-sm-3">
+
 											<form:input id="utensilioOutrosObservacao"
 												path="utensilioOutrosObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -443,9 +516,6 @@
 													id="utensilioOutrosObservacao" cssClass="form-control" />
 											</div>
 										</div>
-
-
-
 									</div>
 								</div>
 
@@ -457,19 +527,21 @@
 						<div class="tab-pane" id="bens-moveis-tab">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h3>V- Bens Móveis</h3>
+									<h3 class="panel-title">V - Bens Móveis</h3>
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
 										<label for="bemMovelMoto" class="col-sm-2 control-label"
 											id="form-label-right">Moto:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="bemMovelMotoQtd" data-mask="999" min="0"
 												value="0" placeholder="Quantidade de Motos"
 												path="bemMovelMotoQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelMotoQtd" id="bemMovelMotoQtd" />
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:input id="bemMovelMotoObservacao"
 												path="bemMovelMotoObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -481,7 +553,7 @@
 
 										<label for="bemMovelBicicleta" class="col-sm-2 control-label"
 											id="form-label-right">Bicicleta:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="bemMovelBicicletaQtd" data-mask="999" min="0"
 												value="0" placeholder="Quantidade de Bicicletas"
 												path="bemMovelBicicletaQtd" cssClass="form-control" />
@@ -489,6 +561,8 @@
 												<form:errors path="bemMovelBicicletaQtd"
 													id="bemMovelBicicletaQtd" />
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:input id="bemMovelBicicletaObservacao"
 												path="bemMovelBicicletaObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -497,16 +571,20 @@
 													id="bemMovelBicicletaObservacao" />
 											</div>
 										</div>
+									</div>
 
+									<div class="form-group">
 										<label for="bemMovelCarro" class="col-sm-2 control-label"
 											id="form-label-right">Carro:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="bemMovelCarroQtd" data-mask="999" min="0"
 												value="0" placeholder="Quantidade de Carros"
 												path="bemMovelCarroQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelCarroQtd" id="bemMovelCarroQtd" />
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:input id="bemMovelCarroObservacao"
 												path="bemMovelCarroObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -518,13 +596,15 @@
 
 										<label for="bemMovelOutros" class="col-sm-2 control-label"
 											id="form-label-right">Outros:</label>
-										<div class="col-sm-4">
+										<div class="col-sm-1">
 											<form:input id="bemMovelOutrosQtd" data-mask="999" min="0"
 												value="0" placeholder="Quantidade de Outros bens móveis"
 												path="bemMovelOutrosQtd" cssClass="form-control" />
 											<div class="error-validation">
 												<form:errors path="bemMovelOutrosQtd" id="bemMovelOutrosQtd" />
 											</div>
+										</div>
+										<div class="col-sm-3">
 											<form:input id="bemMovelOutrosObservacao"
 												path="bemMovelOutrosObservacao" placeholder="Observação"
 												cssClass="form-control" />
@@ -534,6 +614,7 @@
 											</div>
 										</div>
 									</div>
+
 								</div>
 							</div>
 						</div>
@@ -542,7 +623,7 @@
 						<div class="tab-pane" id="analise-descricao-tab">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h3>VI- Síntese Perfil Econômico</h3>
+									<h3 class="panel-title">VI - Síntese Perfil Econômico</h3>
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
@@ -602,7 +683,7 @@
 						<div class="tab-pane" id="">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h3>Análise e Descrição da Realidade/Perfil Psicossocial</h3>
+									<h3 class="panel-title">Análise e Descrição da Realidade/Perfil Psicossocial</h3>
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
@@ -622,7 +703,7 @@
 									</div>
 								</div>
 								<div class="panel-heading">
-									<h3>Parecer Final</h3>
+									<h3 class="panel-title">Parecer Final</h3>
 								</div>
 								<div class="panel-body">
 									<div class="form-group">

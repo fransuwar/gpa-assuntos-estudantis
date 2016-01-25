@@ -56,7 +56,7 @@ public class Inscricao {
 	@OneToOne
 	private Selecao selecao;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private VisitaDomiciliar visitaDomiciliar;
 	
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

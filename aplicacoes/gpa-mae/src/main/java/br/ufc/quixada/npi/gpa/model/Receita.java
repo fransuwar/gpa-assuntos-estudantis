@@ -25,6 +25,8 @@ public class Receita {
 	@NotNull(message = "Campo obrigatório")
 	private Double beneficioSocial;
 	@NotNull(message = "Campo obrigatório")
+	private Double auxilioParentes;
+	@NotNull(message = "Campo obrigatório")
 	private Double outro;
 
 	public Integer getId() {
@@ -75,12 +77,12 @@ public class Receita {
 		this.outro = outro;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
+	public Double getAuxilioParentes() {
+		return auxilioParentes;
+	}
+
+	public void setAuxilioParentes(Double auxilioParentes) {
+		this.auxilioParentes = auxilioParentes;
 	}
 
 	@Override

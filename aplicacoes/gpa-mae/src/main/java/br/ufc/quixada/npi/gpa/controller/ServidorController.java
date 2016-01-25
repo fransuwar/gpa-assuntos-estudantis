@@ -23,14 +23,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
-import br.ufc.quixada.npi.gpa.model.Aluno;
-import br.ufc.quixada.npi.gpa.model.Despesa;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
-import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -51,10 +48,6 @@ public class ServidorController {
 	@Inject
 	private SelecaoService selecaoService;
 
-	@Inject
-	private AlunoService alunoService;
-
-	
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
@@ -100,47 +93,42 @@ public class ServidorController {
 		
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
-		Despesa despesaVisita = new Despesa();
-		
-		relatorioVisitaDomiciliar.setInscricao(inscricao);
-		
+				
 		model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 		model.addAttribute("curso", Curso.values());
-		model.addAttribute("despesa", despesaVisita);
 		model.addAttribute("moradiaEstado", EstadoMoradia.values());
-		model.addAttribute("idAluno", inscricao.getAluno().getId());
-		model.addAttribute("idSelecao", inscricao.getSelecao().getId());
+		model.addAttribute("inscricao", inscricao);
 		
 		return PAGINA_RELATORIO_VISITA;
 	}
 
 	@RequestMapping(value = { "visita" }, method = RequestMethod.POST)
-	public String realizarVisita(@RequestParam("idAluno") Integer idAluno, @RequestParam("idSelecao") Integer idSelecao,
+	public String realizarVisita(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("idSelecao") Integer idSelecao,
 			@Valid @ModelAttribute("relatorioVisitaDomiciliar") VisitaDomiciliar relatorioVisitaDomiciliar, Model model,
 			BindingResult result, RedirectAttributes redirect) {
 		
-		Despesa despesaVisita = new Despesa();
 		
+				
 		if (result.hasErrors()) {
 			
 			model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
-			model.addAttribute("despesa", despesaVisita);
 			model.addAttribute("curso", Curso.values());
 			model.addAttribute("moradiaEstado", EstadoMoradia.values());
-			model.addAttribute("idAluno", idAluno);
+			model.addAttribute("idInscricao", idInscricao);
 			model.addAttribute("idSelecao", idSelecao);
 			
 			return PAGINA_RELATORIO_VISITA;
 			
 		}
 		
-		relatorioVisitaDomiciliar.setAluno(alunoService.find(Aluno.class, idAluno));
-		relatorioVisitaDomiciliar.setSelecao(selecaoService.find(Selecao.class, idSelecao));
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		inscricao.setVisitaDomiciliar(relatorioVisitaDomiciliar);
 		
-		inscricaoService.salvarVisitaDocimiciliar(relatorioVisitaDomiciliar);;
+		inscricaoService.update(inscricao);
 		redirect.addFlashAttribute("info", MENSAGEM_VISITA_CADASTRADA);
 		
-		return REDIRECT_PAGINA_INSCRITOS_SELECAO  + idSelecao;
+		return "redirect:detalhes/" + idSelecao;
+		//return REDIRECT_PAGINA_INSCRITOS_SELECAO  + idSelecao;
 	}
 	
 	@RequestMapping(value = { "informacoes/visita-domiciliar/{idVisita}" }, method = RequestMethod.GET)
