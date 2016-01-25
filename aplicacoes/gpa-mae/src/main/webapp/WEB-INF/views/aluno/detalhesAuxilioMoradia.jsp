@@ -82,7 +82,7 @@
 								</div>
 							</div>
 							<div class="panel-heading">
-								<h3>Nome dos pais</h3>
+								<h3>Nome dos Pais</h3>
 							</div>
 							<div class="panel-body">
 
