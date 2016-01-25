@@ -15,7 +15,7 @@ $(document).ready(function(){
         },
         "columnDefs": 
         	[
-               { className: "dt-head-center", "targets": [ 0, 1, 2, 3 ]}
+               { className: "dt-head-center", "targets": [ 0, 1, 2, 3, 4 ]}
              ],
         "paging": false,
         "searching": false,

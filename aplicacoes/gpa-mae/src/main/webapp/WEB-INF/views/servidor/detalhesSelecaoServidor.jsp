@@ -21,38 +21,32 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Seleção</h3>
 			</div>
-
 			<div class="panel-body">
 				<dl class="col-sm-12">
-					<dt class="col-sm-3">Número do Edital:</dt>
-					<dd class="col-sm-3">${selecao.sequencial}</dd>
-					<dt class=" col-sm-3">Tipo de Bolsa:</dt>
+					<dt class="col-sm-3" id="text-align-rigth">Edital:</dt>
+					<dd class="col-sm-3">${selecao.sequencial}/${selecao.ano}</dd>
+					<dt class=" col-sm-3" id="text-align-rigth">Seleção:</dt>
 					<dd class="col-sm-3">${selecao.tipoSelecao.nome}</dd>
 				</dl>
 				<dl class="col-sm-12">
-					<dt class="col-sm-3">Ano do Edital:</dt>
-					<dd class="col-sm-3">${selecao.ano}</dd>
-
-				</dl>
-				<dl class="col-sm-12">
-					<dt class="col-sm-3">Quantidade de vagas:</dt>
+					<dt class="col-sm-3" id="text-align-rigth">Vagas:</dt>
 					<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
-					<dt class="col-sm-3">Responsável:</dt>
-					<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
+					<dt class="col-sm-3" id="text-align-rigth">Inscritos:</dt>
+					<dd class="col-sm-3">${selecao.inscritos.size()}</dd>
 				</dl>
 				<dl class="col-sm-12">
-					<dt class="col-sm-3">Data de Início da Inscrição:</dt>
+					<dt class="col-sm-3" id="text-align-rigth">Inscrições:</dt>
 					<dd class="col-sm-3">
 						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" />
-					</dd>
-					<dt class="col-sm-3">Data de Término da Inscrição:</dt>
-					<dd class="col-sm-3">
+						até
 						<fmt:formatDate value="${selecao.dataTermino}"
 							pattern="dd/MM/yyyy" />
 					</dd>
+					<dt class="col-sm-3" id="text-align-rigth">Responsável:</dt>
+					<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
 				</dl>
 				<dl class="col-sm-12">
-					<dt class="col-sm-3">Arquivos:</dt>
+					<dt class="col-sm-3" id="text-align-rigth">Arquivos:</dt>
 					<c:forEach var="documento" items="${selecao.documentos}">
 						<dd class="col-sm-3">
 							<a
@@ -67,7 +61,7 @@
 			access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
 			<div class="panel panel-primary" align="left">
 				<div class="panel-heading">
-					<h3 class="panel-title">Participantes da Comissão</h3>
+					<h3 class="panel-title">Comissão</h3>
 				</div>
 				<div class="panel-body">
 					<table class="table">
@@ -90,47 +84,23 @@
 					</table>
 				</div>
 			</div>
-
 			<div class="panel panel-primary" align="left">
 				<div class="panel-heading">
-					<h3 class="panel-title">Resultado da Seleção</h3>
+					<h3 class="panel-title">Inscrições</h3>
 				</div>
 				<div class="panel-body">
 					<table class="table">
 						<thead>
 							<tr class="active">
-								<td>Nome</td>
-								<td>Matrícula</td>
-							</tr>
-						</thead>
-						<tr>
-							<td>Não existem classificados no momento</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-
-			<div class="panel panel-primary" align="left">
-				<div class="panel-heading">
-					<h3 class="panel-title">Incrições Existentes</h3>
-				</div>
-				<div class="panel-body">
-					<table class="table">
-						<thead>
-							<tr class="active">
-								<td>Número</td>
 								<td>Aluno</td>
 								<td>Matricula</td>
 								<td>Data</td>
-								<td>Tipo de Bolsa</td>
-								<td>Ações</td>
-
+								<td></td>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="inscricao" items="${inscricao }">
+							<c:forEach var="inscricao" items="${inscricoes }">
 								<tr>
-									<td>${inscricao.id }</td>
 									<td><a id="detalhes"
 										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.aluno.id}">  
 									</c:url>">
@@ -138,9 +108,6 @@
 									<td>${inscricao.aluno.matricula }</td>
 									<td><fmt:formatDate value="${inscricao.data}"
 											pattern="dd/MM/yyyy" /></td>
-
-									<td>${inscricao.selecao.tipoSelecao.nome}</td>
-
 									<td><a id="avaliarDocumentos" title="Avaliar Documentação"
 										href="<c:url value="" ></c:url>">
 											<button class=" btn btn-primary btn-xs">

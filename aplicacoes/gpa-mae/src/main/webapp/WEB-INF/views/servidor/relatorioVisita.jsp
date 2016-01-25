@@ -61,7 +61,7 @@
 						<input type="hidden" id="idInscricao" name="idInscricao"
 							value="${inscricao.id }">
 						<input type="hidden" id="idSelecao" name="idSelecao"
-							value="${idSelecao }" />
+							value="${selecao.id }" />
 
 						<div class="tab-content">
 							<div class="tab-pane active" id="dados-gerais-tab">

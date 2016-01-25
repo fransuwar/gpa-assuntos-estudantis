@@ -47,4 +47,6 @@ public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements Aluno
 		return (Aluno) findFirst("Aluno.findAlunoByCPF", new SimpleMap<String, Object>("cpf", cpf));
 	}
 
+	
+
 }

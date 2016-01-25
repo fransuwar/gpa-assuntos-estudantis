@@ -3,20 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<footer>
-	<img id="logo-npi"
-		alt="Núcleo de Práticas em Informática - Campus da UFC em Quixadá"
-		src="<c:url value="/resources/images/logo-npi.png" />">
-	<p>
-		Desenvolvido por <a href="http://www.npi.quixada.ufc.br"
-			target="_blank">Núcleo de Práticas em Informática</a>
-	</p>
-	<p>
-		<a href="http://www.quixada.ufc.br" target="_blank">Universidade
-			Federal do Ceará - Campus Quixadá</a>
-	</p>
 
-</footer>
+	<footer>
+		<img id="logo-npi"
+			alt="Núcleo de Práticas em Informática - Campus da UFC em Quixadá"
+			src="<c:url value="/resources/images/logo-npi.png" />">
+		<p>
+			Desenvolvido por <a href="http://www.npi.quixada.ufc.br"
+				target="_blank">Núcleo de Práticas em Informática</a>
+		</p>
+		<p>
+			<a href="http://www.quixada.ufc.br" target="_blank">Universidade
+				Federal do Ceará - Campus Quixadá</a>
+		</p>
+
+	</footer>
 
 
 <script src="<c:url value="/resources/js/jquery-1.11.3.min.js" />"></script>

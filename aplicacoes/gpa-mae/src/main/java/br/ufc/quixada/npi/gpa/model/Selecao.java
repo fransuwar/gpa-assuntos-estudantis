@@ -155,6 +155,7 @@ public class Selecao {
 	public List<Inscricao> getInscritos() {
 		return inscritos;
 	}
+	
 
 	public void setInscritos(List<Inscricao> inscritos) {
 		this.inscritos = inscritos;

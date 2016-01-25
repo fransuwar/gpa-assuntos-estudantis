@@ -47,15 +47,15 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Seleções</h3>
 				</div>
-
-				<table class="table table-display table-striped"
-					id="tabela-selecoes">
+			<div class="panel-body">
+				<table class="display" id="tabela-selecoes">
 					<thead>
 						<tr>
 							<th>Tipo de Seleção</th>
-							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
+							<th>Inscritos</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -64,23 +64,18 @@
 								<td><a id="detalhes"
 									href="<c:url value="/servidor/detalhes/${selecao.id}">  </c:url>">
 										${selecao.tipoSelecao.nome} </a></td>
-								<td>${selecao.ano}</td>
-								<td>${selecao.sequencial}</td>
-								<td>${selecao.quantidadeVagas}</td>
-								<td><a id="visualizarInscritos"
-									href="<c:url value="/servidor/inscritos/${selecao.id}" ></c:url>">
-										<button class="btn btn-primary btn-sm"
-											title="Visualizar Inscritos">
-											<i class="fa fa-users fa-lg"></i>
-										</button>
-								</a> <c:if test="${avaliar}">
+								<td class="dt-body-center">${selecao.sequencial}/${selecao.ano}</td>
+								<td class="dt-body-center">${selecao.quantidadeVagas}</td>
+								<td class="dt-body-center">${selecao.inscritos.size() }</td>
+								<td class="dt-body-center">
+										<c:if test="${avaliar}">
 										<a id="avaliarSelecao" title="Avaliar Inscritos"
 											href="<c:url value="/selecao/inscritos/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary btn-xs">
-												<span class="glyphicon glyphicon-user"></span>
+												<i class="glyphicon glyphicon-user"></i>
 											</button>
 										</a>
-									</c:if> <sec:authorize access="isAnonymous()">
+										</c:if> <sec:authorize access="isAnonymous()">
 
 										<a id="informacoes" title="Informações"
 											href="<c:url value="/selecao/informacoes/${selecao.id}"></c:url>">
@@ -89,10 +84,12 @@
 											</button>
 										</a>
 									</sec:authorize>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+			</div>
 			</div>
 		</div>
 	</div>
