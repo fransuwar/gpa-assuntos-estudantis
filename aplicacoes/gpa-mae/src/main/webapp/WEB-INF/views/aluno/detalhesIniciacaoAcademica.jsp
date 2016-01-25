@@ -39,6 +39,7 @@
 
 				</dl>
 			</div>
+			
 			<div class="panel-heading">
 				<h3 class="panel-title">Endereço de Residência de Origem</h3>
 			</div>
@@ -214,6 +215,7 @@
 					</tbody>
 				</table>
 			</div>
+			
 		</div>
 		<a id="detalhes" href="<c:url value="/servidor/detalhes/${inscricao.selecao.id}" ></c:url>">
 			<button class="btn btn-primary btn-sm">Voltar</button>

@@ -102,7 +102,7 @@
 							<c:forEach var="inscricao" items="${inscricoes }">
 								<tr>
 									<td><a id="detalhes"
-										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.aluno.id}">  
+										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.id}">  
 									</c:url>">
 											${inscricao.aluno.pessoa.nome }</a></td>
 									<td>${inscricao.aluno.matricula }</td>
