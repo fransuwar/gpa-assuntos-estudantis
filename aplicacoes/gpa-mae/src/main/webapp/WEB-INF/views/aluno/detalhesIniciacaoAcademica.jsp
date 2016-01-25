@@ -10,15 +10,15 @@
 
 <html>
 <head>
-<jsp:include page="../fragments/bodyHeader.jsp" />
+<jsp:include page="../fragments/headTag.jsp" />
 <title>Detalhes Inscrição Iniciação Acadêmica</title>
 </head>
 <body>
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
-	<div class="container" align="left" style="padding-left: 85px;">
-		<div class="panel panel-primary-min">
+	<div class="container" align="left"">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Inscrição de Iniciação Acadêmica </h3>
 			</div>
@@ -215,8 +215,8 @@
 				</table>
 			</div>
 		</div>
-		<a id="detalhes" href="<c:url value="/selecao/listar" ></c:url>">
-			<button class=" btn btn-info btn-sm">Voltar</button>
+		<a id="detalhes" href="<c:url value="/servidor/detalhes/${inscricao.selecao.id}" ></c:url>">
+			<button class="btn btn-primary btn-sm">Voltar</button>
 		</a>
 	</div>
 

@@ -12,6 +12,28 @@ public class Constants {
 
 	public static final String PAGINA_ATRIBUIR_COMISSAO = "coordenador/atribuirMembroComissao";
 
+	public static final String PAGINA_INFORMACOES_SELECAO			= "selecao/detalhesSelecao";
+	
+	public static final String PAGINA_INFORMACOES_SELECAO_SERVIDOR	= "servidor/detalhesSelecaoServidor";
+	
+	public static final String PAGINA_LISTAR_INSCRITOS_SELECAO		= "selecao/listarInscritos";
+	
+	public static final String PAGINA_LISTAR_ALUNOS 				= "administrador/listarAlunos";
+	
+	public static final String PAGINA_FORMULARIO_PREENCHIDO_SELECAO	= "selecao/formularioInscricaoPreenchido";
+	
+	public static final String PAGINA_INFORMACOES_RELATORIO			= "servidor/informacoesRelatorio";
+	
+	public static final String PAGINA_RELATORIO_VISITA				= "servidor/relatorioVisita";
+	
+	public static final String PAGINA_CADASTRAR_SERVIDOR			= "administrador/cadastrarServidor";
+	
+	public static final String PAGINA_LISTAR_SERVIDOR				= "administrador/listarServidor";
+	
+	public static final String PAGINA_CADASTRAR_ALUNO				= "administrador/cadastrarAluno";
+	
+	public static final String PAGINA_REALIZAR_ENTREVISTA			= "servidor/realizarEntrevista";
+	
 	public static final String PAGINA_CADASTRAR_SELECAO = "coordenador/cadastrarSelecao";
 
 	public static final String PAGINA_COORDENACAO = "coordenador/coordenacao";
@@ -19,28 +41,6 @@ public class Constants {
 	public static final String PAGINA_LISTAR_SELECAO = "selecao/listarSelecao";
 
 	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR = "servidor/listaSelecoes";
-
-	public static final String PAGINA_INFORMACOES_SELECAO = "selecao/detalhesSelecao";
-
-	public static final String PAGINA_INFORMACOES_SELECAO_SERVIDOR = "servidor/detalhesSelecaoServidor";
-
-	public static final String PAGINA_LISTAR_INSCRITOS_SELECAO = "selecao/listarInscritos";
-
-	public static final String PAGINA_LISTAR_ALUNOS = "selecao/listarAlunos";
-
-	public static final String PAGINA_FORMULARIO_PREENCHIDO_SELECAO = "selecao/formularioInscricaoPreenchido";
-
-	public static final String PAGINA_INFORMACOES_RELATORIO = "servidor/informacoesRelatorio";
-
-	public static final String PAGINA_RELATORIO_VISITA = "servidor/relatorioVisita";
-
-	public static final String PAGINA_CADASTRAR_SERVIDOR = "administrador/cadastrarServidor";
-
-	public static final String PAGINA_LISTAR_SERVIDOR = "administrador/listarServidor";
-
-	public static final String PAGINA_CADASTRAR_ALUNO = "administrador/cadastrarAluno";
-
-	public static final String PAGINA_REALIZAR_ENTREVISTA = "servidor/realizarEntrevista";
 
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
