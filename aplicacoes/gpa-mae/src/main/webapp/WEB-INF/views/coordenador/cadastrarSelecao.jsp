@@ -155,7 +155,7 @@
 				</form:form>
 				<br>
 				<form id="adicionarArquivoForm" role="form"
-					action="<c:url value="/coordenador/selecao/adicionar-documento" />"
+					action="<c:url value="/coordenador/selecao/adicionar-documento" var="caminho"/>"
 					method="POST" class="form-horizontal" enctype="multipart/form-data">
 					<input type="hidden" name="idSelecao" value="${selecao.id}">
 
