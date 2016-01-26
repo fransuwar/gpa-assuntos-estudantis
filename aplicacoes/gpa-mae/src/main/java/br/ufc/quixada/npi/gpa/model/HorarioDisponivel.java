@@ -14,7 +14,7 @@ import br.ufc.quixada.npi.gpa.enums.DiaUtil;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 
 @NamedQueries({
-		@NamedQuery(name = "HorarioDisponivel.findHorarioDisponivelByIdIniciacaoAcademica", query = "Select hd from HorarioDisponivel hd where hd.iniciacaoAcademica.id = :idIniciacaoAcademica ") })
+		@NamedQuery(name = "HorarioDisponivel.findHorarioDisponivelByIdIniciacaoAcademica", query = "Select hd from HorarioDisponivel hd where hd.questionarioIniciacaoAcademica.id = :idIniciacaoAcademica ") })
 
 @Entity
 public class HorarioDisponivel {
@@ -26,7 +26,15 @@ public class HorarioDisponivel {
 	@Enumerated(EnumType.STRING)
 	private DiaUtil dia;
 	@ManyToOne
-	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
+	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
+
+	public QuestionarioIniciacaoAcademica getQuestionarioIniciacaoAcademica() {
+		return questionarioIniciacaoAcademica;
+	}
+
+	public void setQuestionarioIniciacaoAcademica(QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica) {
+		this.questionarioIniciacaoAcademica = questionarioIniciacaoAcademica;
+	}
 
 	public HorarioDisponivel() {
 	}
@@ -55,15 +63,6 @@ public class HorarioDisponivel {
 		this.dia = dia;
 	}
 
-	public QuestionarioIniciacaoAcademica getIniciacaoAcademica() {
-		return iniciacaoAcademica;
-	}
-
-	public void setIniciacaoAcademica(QuestionarioIniciacaoAcademica iniciacaoAcademica) {
-		this.iniciacaoAcademica = iniciacaoAcademica;
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

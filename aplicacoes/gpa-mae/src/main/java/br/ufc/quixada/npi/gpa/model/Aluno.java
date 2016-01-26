@@ -45,8 +45,6 @@ public class Aluno {
 	@Enumerated(EnumType.STRING)
 	private Curso curso;
 
-	private String nome;
-
 	@NotEmpty(message = "Campo obrigatório")
 	private String anoIngresso;
 
@@ -76,24 +74,12 @@ public class Aluno {
 	private List<Inscricao> inscricoes;
 
 	
-	@OneToMany(mappedBy = "aluno")
-	private List<VisitaDomiciliar> relatorioVisitaDomiciliar;
-
-
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public String getMatricula() {

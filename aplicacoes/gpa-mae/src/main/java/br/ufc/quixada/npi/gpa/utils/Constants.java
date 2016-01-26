@@ -67,14 +67,14 @@ public class Constants {
 
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO = "redirect:/selecao/listar";
 
-	public static final String REDIRECT_PAGINA_INSCRITOS_SELECAO = "redirect:/selecao/inscritos";
+	public static final String REDIRECT_PAGINA_INSCRITOS_SELECAO = "redirect:/servidor/detalhes/";
 
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR = "redirect:/administrador/listar";
 
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS = "redirect:/administrador/listar/alunos";
 
 	public static final String REDIRECT_PAGINA_INSCRICOES_ALUNO = "redirect:/aluno/inscricao/listar";
-
+	
 	/** Mensagens */
 
 	public static final String MENSAGEM_OK = "OK";
