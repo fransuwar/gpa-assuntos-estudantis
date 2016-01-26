@@ -237,22 +237,6 @@ public class ServidorController {
 	}
 
 
-	@RequestMapping(value = { "detalhes/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
-	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
-			RedirectAttributes redirect) {
-
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
-
-		if (inscricao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
-
-			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}
-		modelo.addAttribute("inscricao", inscricao);
-
-		return PAGINA_DETALHES_INSCRICAO;
-	}
-
 	@RequestMapping(value ={ "detalhes/inscricao/{idInscricao}"}, method = RequestMethod.GET)
 	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
 			RedirectAttributes redirect) {
