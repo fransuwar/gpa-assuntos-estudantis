@@ -91,11 +91,7 @@ public class ServidorController {
 				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA);
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}
-
-
 		}
-
-
 	}
 
 	@RequestMapping(value= {"entrevista"}, method = RequestMethod.POST)
@@ -117,7 +113,6 @@ public class ServidorController {
 	public String realizarVisita(@PathVariable("idInscricao")Integer idInscricao, Authentication auth, @PathVariable("idServidor") Integer idServidor, RedirectAttributes redirect, Model model) {
 
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);	
-
 
 		if(inscricao == null){
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
@@ -147,11 +142,8 @@ public class ServidorController {
 			} else{
 				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_VISITA);
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
-
 			}
 		}
-
-
 	}
 
 	@RequestMapping(value = { "visita" }, method = RequestMethod.POST)
@@ -168,7 +160,6 @@ public class ServidorController {
 			model.addAttribute("idSelecao", idSelecao);
 
 			return PAGINA_RELATORIO_VISITA;
-
 		}
 
 		relatorioVisitaDomiciliar.setAluno(alunoService.find(Aluno.class, idAluno));
@@ -208,34 +199,28 @@ public class ServidorController {
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao,Authentication auth, Model model, RedirectAttributes redirect){
 
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-
-
-
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
-			
+
 			Servidor servidor = servidorService.getServidorByCpf(auth.getName());
-	
+
 			List<Servidor> comissao = selecao.getMembrosComissao();
-			
+
 			if(comissao.contains(servidor)){
 
-			List<Inscricao> inscricoes = inscricaoService.getInscricoesBySelecao(idSelecao);
-			model.addAttribute("selecao", selecao);
-			model.addAttribute("inscricoes", inscricoes);
-			
-			return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
+				List<Inscricao> inscricoes = inscricaoService.getInscricoesBySelecao(idSelecao);
+				model.addAttribute("selecao", selecao);
+				model.addAttribute("inscricoes", inscricoes);
+
+				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 			}else{
 				redirect.addFlashAttribute("erro",  MENSAGEM_PERMISSAO_NEGADA);
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
-				
 			}
-
 		}
 	}
-
 
 	@RequestMapping(value = { "detalhes/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
@@ -270,7 +255,53 @@ public class ServidorController {
 			modelo.addAttribute("questInic", inscricao.getQuestionarioIniciacaoAcademica());
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
-
 	}
+	@RequestMapping(value= {"avaliarDocumentacao/{idInscricao}"}, method = RequestMethod.GET)
+	public String avaliarDocumentacao(@PathVariable("idInscricao") Integer idInscricao,Authentication auth, RedirectAttributes redirect, Model model){
+
+		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);		
+
+		if(inscricao == null){
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			return REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
+		}else{
+
+			Selecao selecao = inscricao.getSelecao();
+			Servidor servidor = servidorService.getServidorByCpf(auth.getName());
+
+			List<Servidor> comissao = selecao.getMembrosComissao();
+
+			if(comissao.contains(servidor)){
+
+				model.addAttribute("avaliarDocumentacao", inscricao.isAvaliacaoDocumentos());
+				model.addAttribute("idInscricao", idInscricao);
+
+				return PAGINA_AVALIAR_DOCUMENTACAO;
+			}else{
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA);
+				return REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
+			}
+		}
+	}
+	
+	@RequestMapping(value= {"avaliarDocumentacao"}, method = RequestMethod.POST)
+	public String avaliarDocumentacao(@Valid @ModelAttribute("avaliarDocumentacao") Inscricao avaliarDocumentacao , @RequestParam("idInscricao") Integer idInscricao, 
+			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
+
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		
+		if(avaliarDocumentacao.isAvaliacaoDocumentos()== true){
+			inscricao.setAvaliacaoDocumentos(true);
+		}else{
+			inscricao.setAvaliacaoDocumentos(false);
+		}
+
+		model.addAttribute("avaliarDocumentacao", avaliarDocumentacao);	
+		inscricaoService.update(inscricao);
+
+		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO);
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
+	}
+
 
 }
