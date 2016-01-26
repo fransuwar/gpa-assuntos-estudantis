@@ -110,7 +110,7 @@
 										</c:forEach>
 									</c:if> <c:if test="${empty selecao.inscritos}">
 										<c:choose>
-											<c:when test="selecao.tipoSelecao == inic_acad">
+											<c:when test="${selecao.tipoSelecao == inic_acad }">
 												<a id="inscrever" title="Inscrever-se"
 													href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
 													<button class=" btn btn-primary btn-xs">
