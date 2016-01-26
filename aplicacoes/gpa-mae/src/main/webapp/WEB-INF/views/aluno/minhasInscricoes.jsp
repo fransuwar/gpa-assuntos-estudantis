@@ -19,7 +19,7 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">
-	
+
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert"
 				id="alert-erro">
@@ -83,13 +83,26 @@
 								<td>${inscricao.selecao.sequencial}</td>
 								<td>${inscricao.selecao.quantidadeVagas}</td>
 								<td><sec:authorize access="hasAnyRole('DISCENTE')">
-										
-										<a id="editarInscricao"
-											href="<c:url value="/aluno/inscricao/editar/${inscricao.id}" ></c:url>">
-											<button class="btn btn-info btn-sm" title="Editar Inscrição">
-												<span class="glyphicon glyphicon-pencil"></span>
-											</button>
-										</a>
+										<c:choose>
+											<c:when test="${inscricao.selecao.tipoSelecao == 'INIC_ACAD'}">
+												<a id="editarInscricao"
+													href="<c:url value="/aluno/inscricao/editar/iniciacao-academica/${inscricao.id }" ></c:url>">
+													<button class="btn btn-info btn-sm"
+														title="Editar Inscrição">
+														<span class="glyphicon glyphicon-pencil"></span>
+													</button>
+												</a>
+											</c:when>
+											<c:when test="${inscricao.selecao.tipoSelecao == 'AUX_MOR'}">
+												<a id="editarInscricao"
+													href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id }" ></c:url>">
+													<button class="btn btn-info btn-sm"
+														title="Editar Inscrição">
+														<span class="glyphicon glyphicon-pencil"></span>
+													</button>
+												</a>
+											</c:when>
+										</c:choose>
 										<a id="excluirInscricao"
 											href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
 											<button class="btn btn-danger btn-sm"
@@ -97,6 +110,8 @@
 												<i class="glyphicon glyphicon-trash"></i>
 											</button>
 										</a>
+
+
 									</sec:authorize></td>
 							</tr>
 						</c:forEach>
