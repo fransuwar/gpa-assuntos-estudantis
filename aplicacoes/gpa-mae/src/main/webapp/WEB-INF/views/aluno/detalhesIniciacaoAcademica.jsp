@@ -17,7 +17,7 @@
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
-	<div class="container" align="left"">
+	<div class="container" align="center">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Inscrição de Iniciação Acadêmica </h3>
@@ -39,6 +39,7 @@
 
 				</dl>
 			</div>
+			
 			<div class="panel-heading">
 				<h3 class="panel-title">Endereço de Residência de Origem</h3>
 			</div>
@@ -214,10 +215,8 @@
 					</tbody>
 				</table>
 			</div>
+			
 		</div>
-		<a id="detalhes" href="<c:url value="/servidor/detalhes/${inscricao.selecao.id}" ></c:url>">
-			<button class="btn btn-primary btn-sm">Voltar</button>
-		</a>
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
