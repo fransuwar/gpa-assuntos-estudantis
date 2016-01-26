@@ -234,7 +234,6 @@
 									<dd class="col-sm-3">INDEFERIDO</dd>
 								</c:otherwise>
 							</c:choose>
-							<dd class="col-sm-3">${inscricao.entrevista.observacao}</dd>
 						</dl>
 					</div>
 				</div>
