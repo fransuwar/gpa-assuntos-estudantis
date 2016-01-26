@@ -121,7 +121,7 @@
 												</button>
 											</a>
 										</c:if> <c:if
-											test="${inscricao.selecao.tipoSelecao =='AUX_MOR' and empty inscricao.visitaDomiciliar}">
+											test="${inscricao.selecao.tipoSelecao =='AUX_MOR' and empty inscricao.visitaDomiciliar and inscricao.entrevista.deferimento == true}">
 											<a id="realizarVisita" title="Realizar Visita"
 												href="<c:url value="/servidor/visita/${inscricao.id }"></c:url>">
 												<button class=" btn btn-primary btn-xs">

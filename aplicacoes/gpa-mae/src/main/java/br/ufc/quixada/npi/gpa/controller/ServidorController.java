@@ -119,18 +119,18 @@ public class ServidorController {
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);	
 
 
-		if(inscricao == null){
+		if(inscricao == null ){
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
-
+			
 			Selecao selecao = inscricao.getSelecao();
 
 			Servidor servidor = servidorService.getServidorByCpf(auth.getName());
 
 			List<Servidor> comissao = selecao.getMembrosComissao();
 
-			if(comissao.contains(servidor) && selecao.getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
+			if(comissao.contains(servidor) && selecao.getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().isDeferimento() == true ){
 
 				VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 
