@@ -6,13 +6,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="datatables"
+	uri="http://github.com/dandelion/datatables"%>
+<%@ taglib prefix="gpa" tagdir="/WEB-INF/tags"%>
 
 <c:if test="${action eq 'inscricao' }">
 	<c:url var="url" value="/aluno/inscricao/iniciacao-academica"></c:url>
 	<c:set var="titulo" value="Nova Inscrição"></c:set>
 	<c:set var="botao" value="Finalizar Inscrição"></c:set>
 </c:if>
-
 <c:if test="${action eq 'editar' }">
 	<c:url var="url" value="/aluno/inscricao/editar/iniciacao-academica"></c:url>
 	<c:set var="titulo" value="Editar Inscrição"></c:set>
@@ -504,11 +506,12 @@
 							<h2>Informações Adicionais</h2>
 						</div>
 						<div class="panel-body">
-							<h3>Horários Disponíves Para Bolsa</h3>
-							<div class="panel-body">
-								<jsp:include page="horarioDisponivel.jsp" />
-							</div>
+
 							<div class="form-group">
+								<h3>Horários Disponíves Para Bolsa</h3>
+								<div class="panel-body">
+									<jsp:include page="horarioDisponivel.jsp" />
+								</div>
 								<label for="justificativaPedido" class="col-sm-2 control-label"><span
 									class="red">*</span>Justificativa do pedido:</label>
 								<div class="col-sm-9">

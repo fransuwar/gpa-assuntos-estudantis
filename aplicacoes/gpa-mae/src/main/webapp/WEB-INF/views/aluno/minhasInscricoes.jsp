@@ -82,27 +82,14 @@
 								<td>${inscricao.selecao.ano}</td>
 								<td>${inscricao.selecao.sequencial}</td>
 								<td>${inscricao.selecao.quantidadeVagas}</td>
-								<td><sec:authorize access="hasAnyRole('DISCENTE')">
-										<c:choose>
-											<c:when test="${inscricao.selecao.tipoSelecao == 'INIC_ACAD'}">
+								<td><sec:authorize access="hasAnyRole('DISCENTE')">					
 												<a id="editarInscricao"
-													href="<c:url value="/aluno/inscricao/editar/iniciacao-academica/${inscricao.id }" ></c:url>">
+													href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
 													<button class="btn btn-info btn-sm"
 														title="Editar Inscrição">
 														<span class="glyphicon glyphicon-pencil"></span>
 													</button>
-												</a>
-											</c:when>
-											<c:when test="${inscricao.selecao.tipoSelecao == 'AUX_MOR'}">
-												<a id="editarInscricao"
-													href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id }" ></c:url>">
-													<button class="btn btn-info btn-sm"
-														title="Editar Inscrição">
-														<span class="glyphicon glyphicon-pencil"></span>
-													</button>
-												</a>
-											</c:when>
-										</c:choose>
+												</a>	
 										<a id="excluirInscricao"
 											href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
 											<button class="btn btn-danger btn-sm"

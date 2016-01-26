@@ -290,7 +290,7 @@ public class AlunoController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
-	@RequestMapping(value = { "inscricao/editar/inscricao/{idInscricao}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.GET)
 	public String editarInscricao(@PathVariable("idInscricao") Integer idInscricao, Model model,
 			RedirectAttributes redirect) {
 
@@ -300,16 +300,48 @@ public class AlunoController {
 
 			if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)) {
 
+				model.addAttribute("inscricao", inscricao);
 				model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
+				model.addAttribute("estado", Estado.values());
+				model.addAttribute("situacaoImovel", SituacaoImovel.values());
+				model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
+				model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
+				model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
+				model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
+				model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
+				model.addAttribute("moraCom", MoraCom.values());
+				model.addAttribute("grauParentesco", GrauParentesco.values());
 				model.addAttribute("selecao", inscricao.getSelecao());
 
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
 
 			} else {
 
+				model.addAttribute("inscricao", inscricao);
 				model.addAttribute("selecao", inscricao.getSelecao());
 				model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
+				model.addAttribute("nivelInstrucao", NivelInstrucao.values());
+				model.addAttribute("turno", Turno.values());
+				model.addAttribute("diasUteis", DiaUtil.values());
+				model.addAttribute("situacaoResidencia", SituacaoResidencia.values());
+				model.addAttribute("totalEstado", Estado.values());
+				model.addAttribute("grauParentesco", GrauParentesco.values());
+				
+				
+				List<HorarioDisponivel> horariosDisponiveis = inscricaoService
+						.getHorariosDisponiveisIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
+				if (horariosDisponiveis != null && !horariosDisponiveis.isEmpty()) {
+					model.addAttribute("horariosDisponiveis", horariosDisponiveis);
+				}
 
+				List<PessoaFamilia> pessoasDaFamilia = inscricaoService
+						.getPessoaFamiliaByIdIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
+
+				if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
+					model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
+				}
+
+				
 				return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 
 			}
@@ -320,29 +352,6 @@ public class AlunoController {
 
 	}
 
-	@RequestMapping(value = { "inscricao/editar/auxilio-moradia/{idInscricao}" }, method = RequestMethod.GET)
-	public String editarInscricaoAuxilioMoradia(@PathVariable("idInscricao") Integer idInscricao, Model model) {
-
-		model.addAttribute("action", "editar");
-
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
-		
-		model.addAttribute("inscricao", inscricao);
-		model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
-		model.addAttribute("estado", Estado.values());
-		model.addAttribute("situacaoImovel", SituacaoImovel.values());
-		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
-		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-		model.addAttribute("moraCom", MoraCom.values());
-		model.addAttribute("grauParentesco", GrauParentesco.values());
-		model.addAttribute("selecao", inscricao.getSelecao());
-
-		return PAGINA_INSCREVER_AUXILIO_MORADIA;
-
-	}
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {

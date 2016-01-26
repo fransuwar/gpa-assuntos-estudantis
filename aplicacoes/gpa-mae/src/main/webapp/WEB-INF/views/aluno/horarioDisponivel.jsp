@@ -17,55 +17,89 @@
 	<tbody id="horarioDisponivelContainer">
 		<c:if test="${not empty horariosDisponiveis }">
 			<c:forEach items="${horariosDisponiveis }" var="hd" varStatus="i">
-				<h1>${count }</h1>
 				<tr class="horarioDisponivel defaultRow">
-					
-					<td>
-					<form:select path="" name="horariosDisponiveisSelecao[${i.index - 1 }].dia" class="form-control">
+					<td><form:select path=""
+							name="horariosDisponiveisSelecao[${i.index - 1 }].dia"
+							class="form-control">
 							<form:option value="">Selecione um dia</form:option>
-							<c:forEach items="${diasUteis}" var="diaUtil" >
-								<form:option value="${diaUtil }" selected="${diaUtil == hd.dia ? 'selected' : ''}" itemLabel="nome">${diaUtil.nome }</form:option>
+							<c:forEach items="${diasUteis}" var="diaUtil">
+							${diaUtil.nome }
+								<form:option value="${diaUtil }"
+									selected="${diaUtil == hd.dia ? 'selected' : ''}"
+									itemLabel="nome">${diaUtil.nome }</form:option>
 							</c:forEach>
-						</form:select>
-					</td>
+						</form:select></td>
 
-					<td>
-					<form:select path="" name="horariosDisponiveisSelecao[${i.index - 1 }].turno" class="form-control">
+					<td><form:select path=""
+							name="horariosDisponiveisSelecao[${i.index - 1 }].turno"
+							class="form-control">
 							<form:option value="">Selecione um turno</form:option>
 							<c:forEach items="${turno}" var="tur">
-								<form:option value="${tur }" selected="${tur == hd.turno ? 'selected' : ''}" itemLabel="nome">${tur.nome }</form:option>
+								<form:option value="${tur }"
+									selected="${tur == hd.turno ? 'selected' : ''}"
+									itemLabel="nome">${tur.nome }</form:option>
 							</c:forEach>
-						</form:select>
-					</td>
+						</form:select></td>
 
 					<td><a href="#" class="removerHorario">Remover Horário</a></td>
 				</tr>
 			</c:forEach>
 		</c:if>
-
+	<c:if test="${action eq 'editar' }">	
 		<c:forEach begin="1" end="3" varStatus="i">
-			<tr class="horarioDisponivel">
-				<td><form:select path=""
-						name="horariosDisponiveisSelecao[${i.index -1 }].dia" class="form-control">
-						<form:option value="">Selecione um dia</form:option>
-						<form:options items="${diasUteis}" />
-					</form:select></td>
+			
+				<tr class="horarioDisponivel">
+					<td><form:select path=""
+							name="horariosDisponiveisSelecao[${i.index -1 }].dia"
+							class="form-control">
+							<form:option value="">Selecione um dia</form:option>
+							<form:options items="${diasUteis}" />
+						</form:select></td>
 
-				<td><form:select path=""
-						name="horariosDisponiveisSelecao[${i.index -1 }].turno" class="form-control">
-						<form:option value="">Selecione um turno</form:option>
-						<form:options items="${turno}" />
-					</form:select></td>
+					<td><form:select path=""
+							name="horariosDisponiveisSelecao[${i.index -1 }].turno"
+							class="form-control">
+							<form:option value="">Selecione um turno</form:option>
+							<form:options items="${turno}" />
+						</form:select></td>
 
-				<td><a href="#" class="removerHorario">Remover Horário</a></td>
-			</tr>
-
+					<td><a href="#" class="removerHorario">Remover Horário</a></td>
+				</tr>
+		
 		</c:forEach>
+	</c:if>
+	
+	<c:if test="${action eq 'inscricao' }">	
+		<c:forEach begin="1" end="${horariosDisponiveis.size() }" varStatus="i">
+			
+				<tr class="horarioDisponivel">
+					<td><form:select path=""
+							name="horariosDisponiveisSelecao[${i.index -1 }].dia"
+							class="form-control">
+							<form:option value="">Selecione um dia</form:option>
+							<form:options items="${diasUteis}" />
+						</form:select></td>
 
+					<td><form:select path=""
+							name="horariosDisponiveisSelecao[${i.index -1 }].turno"
+							class="form-control">
+							<form:option value="">Selecione um turno</form:option>
+							<form:options items="${turno}" />
+						</form:select></td>
+
+					<td><a href="#" class="removerHorario">Remover Horário</a></td>
+				</tr>
+		
+		</c:forEach>
+	</c:if>
+	
 	</tbody>
+	
+	
 </table>
 
-<a href="#" id="addHorario" class="btn btn-primary">Adicionar Horário</a>
+<a href="#" id="addHorario" class="btn btn-primary">Adicionar
+	Horário</a>
 
 <script type="text/javascript">
 
