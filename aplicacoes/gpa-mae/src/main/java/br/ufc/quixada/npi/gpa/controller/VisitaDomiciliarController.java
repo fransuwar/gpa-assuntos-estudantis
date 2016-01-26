@@ -17,10 +17,8 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
-import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
@@ -33,8 +31,6 @@ public class VisitaDomiciliarController {
 	private InscricaoService inscricaoService;
 	@Inject
 	private AlunoService alunoService;
-	@Inject
-	private SelecaoService selecaoService;
 
 	@RequestMapping(value="cadastrar/{idAluno}/{idSelecao}", method = RequestMethod.GET)
 	public String cadastrar(@PathVariable("idAluno") Integer id,
@@ -75,8 +71,6 @@ public class VisitaDomiciliarController {
 			return "redirect:/selecao/inscritos/"+idSelecao;
 			
 		} else {
-			relatorioVisitaDomiciliar.setAluno(alunoService.find(Aluno.class,idAluno));
-			relatorioVisitaDomiciliar.setSelecao(selecaoService.find(Selecao.class, idSelecao));
 			
 			this.inscricaoService.salvarVisitaDocimiciliar(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatorio cadastrado com sucesso.");
