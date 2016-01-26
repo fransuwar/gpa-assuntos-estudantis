@@ -3,8 +3,11 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 import java.security.Principal;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +15,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.ufc.quixada.npi.ldap.model.Usuario;
+import br.ufc.quixada.npi.ldap.service.UsuarioService;
+
 @Controller
 public class LoginController {
+	@Inject
+	private UsuarioService serviceUsuario;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String inicio(){
-		return "redirect:/servidor/selecao/listar";
+	public String inicio(Authentication authentication){
+		
+		Usuario usuario = serviceUsuario.getByCpf(authentication.getName());
+		
+		for (GrantedAuthority grantedAuthority : usuario.getAuthorities()) {
+			
+			if (grantedAuthority.getAuthority().equalsIgnoreCase(STA) || grantedAuthority.getAuthority().equalsIgnoreCase(DOCENTE)){
+
+				return "redirect:/servidor/selecao/listar";
+			}
+			else if (grantedAuthority.getAuthority().equalsIgnoreCase(DISCENTE)){
+				
+				return "redirect:/aluno/selecao/listar";
+				
+			}else if (grantedAuthority.getAuthority().equalsIgnoreCase(ADMINISTRADOR)){
+				
+				return "redirect:/servidor/selecao/listar";
+			}
+		}
+		return "redirect:/selecao/listar";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
