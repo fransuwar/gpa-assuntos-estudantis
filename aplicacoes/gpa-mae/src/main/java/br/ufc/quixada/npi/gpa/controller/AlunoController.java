@@ -187,19 +187,19 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.values());
 
-			List<HorarioDisponivel> horariosDisponiveis = inscricaoService
+			/*List<HorarioDisponivel> horariosDisponiveis = inscricaoService
 					.getHorariosDisponiveisIniciacaoAcademica(iniciacaoAcademica.getId());
 			if (horariosDisponiveis != null) {
 				model.addAttribute("horariosDisponiveis", horariosDisponiveis);
-			}
+			}*/
 
-			List<PessoaFamilia> pessoasDaFamilia = inscricaoService
+			/*List<PessoaFamilia> pessoasDaFamilia = inscricaoService
 					.getPessoaFamiliaByIdIniciacaoAcademica(iniciacaoAcademica.getId());
 
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 			}
-
+*/
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 
@@ -310,9 +310,31 @@ public class AlunoController {
 
 			} else {
 
+				model.addAttribute("inscricao", inscricao);
 				model.addAttribute("selecao", inscricao.getSelecao());
 				model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
+				model.addAttribute("nivelInstrucao", NivelInstrucao.values());
+				model.addAttribute("turno", Turno.values());
+				model.addAttribute("diasUteis", DiaUtil.values());
+				model.addAttribute("situacaoResidencia", SituacaoResidencia.values());
+				model.addAttribute("totalEstado", Estado.values());
+				model.addAttribute("grauParentesco", GrauParentesco.values());
+				
+				
+				List<HorarioDisponivel> horariosDisponiveis = inscricaoService
+						.getHorariosDisponiveisIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
+				if (horariosDisponiveis != null && !horariosDisponiveis.isEmpty()) {
+					model.addAttribute("horariosDisponiveis", horariosDisponiveis);
+				}
 
+				List<PessoaFamilia> pessoasDaFamilia = inscricaoService
+						.getPessoaFamiliaByIdIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
+
+				if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
+					model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
+				}
+
+				
 				return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 
 			}

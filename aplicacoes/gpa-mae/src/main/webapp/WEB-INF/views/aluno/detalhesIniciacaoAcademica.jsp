@@ -17,7 +17,7 @@
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
-	<div class="container" align="left"">
+	<div class="container" align="left">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Inscrição de Iniciação Acadêmica </h3>
