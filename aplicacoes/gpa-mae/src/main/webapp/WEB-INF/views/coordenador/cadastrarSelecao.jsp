@@ -61,11 +61,14 @@
 
 					<input type="hidden" name="id" value="${selecao.id}" />
 
-					<c:forEach items="selecao.membrosComissao" var="membro" varStatus="status">
-					  <input type="hidden" name="selecao.membrosComissao[${status.index}]." value="${membro}"/>
+					<c:forEach items="selecao.membrosComissao" var="membro"
+						varStatus="status">
+						<input type="hidden"
+							name="selecao.membrosComissao[${status.index}]."
+							value="${membro}" />
 					</c:forEach>
-					
-					
+
+
 
 					<div class="form-group">
 
@@ -154,6 +157,7 @@
 					</div>
 				</form:form>
 				<br>
+				<c:if test="${action eq 'editar' }">
 				<form id="adicionarArquivoForm" role="form"
 					action="<c:url value="/coordenador/selecao/adicionar-documento" />"
 					method="POST" class="form-horizontal" enctype="multipart/form-data">
@@ -194,6 +198,8 @@
 
 					</div>
 				</form>
+				</c:if>
+
 			</div>
 		</div>
 	</div>
