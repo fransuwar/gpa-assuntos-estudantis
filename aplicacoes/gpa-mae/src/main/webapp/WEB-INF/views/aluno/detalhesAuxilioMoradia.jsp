@@ -213,7 +213,8 @@
 
 
 			<div class="panel-heading">
-				<h3 class="panel-title">Situação Socioeconômica (Grupo familiar incluido o aluno)</h3>
+				<h3 class="panel-title">Situação Socioeconômica (Grupo familiar
+					incluido o aluno)</h3>
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
@@ -357,10 +358,6 @@
 				</div>
 			</div>
 
-
-
-
-
 			<div class="panel-heading">
 				<h3 class="panel-title">Justificativa</h3>
 			</div>
@@ -375,7 +372,31 @@
 				</div>
 			</div>
 
+			<div class="panel-heading">
+				<h3 class="panel-title">Entrevista</h3>
+			</div>
+			<div class="panel-body">
 
+				<div class="form-group">
+					<div class="form-group">
+						<dl class="col-sm-12">
+							<dt class="col-sm-3">Observação:</dt>
+							<dd class="col-sm-3">${inscricao.entrevista.observacao}</dd>
+							<dt class="col-sm-3">Deferimento:</dt>
+							<c:choose>
+								<c:when test="${inscricao.entrevista.deferimento == true}">
+									<dd class="col-sm-3">DEFERIDO</dd>
+								</c:when>
+								<c:otherwise>
+									<dd class="col-sm-3">INDEFERIDO</dd>
+								</c:otherwise>
+							</c:choose>
+							<dd class="col-sm-3">${inscricao.entrevista.observacao}</dd>
+						</dl>
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
 	<jsp:include page="../fragments/footer.jsp" />

@@ -67,6 +67,8 @@ public class ServidorController {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
+			
+			if(inscricao.isAvaliacaoDocumentos()){
 
 			Selecao selecao = inscricao.getSelecao();
 
@@ -80,6 +82,7 @@ public class ServidorController {
 				model.addAttribute("idInscricao", idInscricao);
 
 				return PAGINA_REALIZAR_ENTREVISTA;
+				
 
 			}else{
 				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA);
@@ -87,8 +90,12 @@ public class ServidorController {
 			}
 
 
+		}else{
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_ALUNO_INDEFERIDO);
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+			}
 		}
-
+		
 
 	}
 
@@ -227,6 +234,7 @@ public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao,Authen
 			model.addAttribute("inscricoes", inscricoes);
 
 			return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
+
 		}else{
 			redirect.addFlashAttribute("erro",  MENSAGEM_PERMISSAO_NEGADA);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -237,21 +245,7 @@ public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao,Authen
 }
 
 
-@RequestMapping(value = { "detalhes/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
-public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
-		RedirectAttributes redirect) {
 
-	Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
-
-	if (inscricao == null) {
-		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE);
-
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
-	}
-	modelo.addAttribute("inscricao", inscricao);
-
-	return PAGINA_DETALHES_INSCRICAO;
-}
 
 @RequestMapping(value ={ "detalhes/inscricao/{idInscricao}"}, method = RequestMethod.GET)
 public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
@@ -271,6 +265,11 @@ public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao
 		return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 	}
 
-}
+			
+		
+	}
+
+
 
 }
+
