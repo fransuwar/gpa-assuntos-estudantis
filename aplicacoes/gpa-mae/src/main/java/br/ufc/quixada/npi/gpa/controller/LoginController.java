@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String inicio(){
-		return "redirect:/selecao/listar";
+		return "redirect:/servidor/selecao/listar";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
