@@ -74,6 +74,7 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS = "redirect:/administrador/listar/alunos";
 
 	public static final String REDIRECT_PAGINA_INSCRICOES_ALUNO = "redirect:/aluno/inscricao/listar";
+
 	
 	/** Mensagens */
 
@@ -189,6 +190,10 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_ALUNO_INDEFERIDO = "Você não pode realizar a entrevista porque o aluno foi indeferido na análise da documentação!";
 
+	public static final String MENSAGEM_ERRO_REALIZACAO_DE_VISITA_DOMICILIAR = "Inscrição não foi deferida na entrevista";
+	
+	public static final String MENSAGEM_ERRO_VISITA_DOMICILIAR_JA_EXISTENTE = "Já foi realizado uma visita para essa inscrição";
+	
 	/** Perfis */
 
 	public static final String STA = "STA";
