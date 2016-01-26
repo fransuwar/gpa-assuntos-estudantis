@@ -67,6 +67,8 @@ public class ServidorController {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
+			
+			if(inscricao.isAvaliacaoDocumentos()){
 
 			Selecao selecao = inscricao.getSelecao();
 
@@ -80,6 +82,7 @@ public class ServidorController {
 				model.addAttribute("idInscricao", idInscricao);
 
 				return PAGINA_REALIZAR_ENTREVISTA;
+				
 
 			}else{
 				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA);
@@ -87,8 +90,12 @@ public class ServidorController {
 			}
 
 
+		}else{
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_ALUNO_INDEFERIDO);
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+			}
 		}
-
+		
 
 	}
 

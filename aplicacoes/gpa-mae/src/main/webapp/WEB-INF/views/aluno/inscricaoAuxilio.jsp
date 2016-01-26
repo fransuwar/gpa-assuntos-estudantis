@@ -52,7 +52,7 @@
 								<td>${selecao.ano }</td>
 								<td>${selecao.quantidadeVagas }</td>
 								<td><fmt:formatDate value="${selecao.dataInicio }"
-										pattern="dd/MM/yyyy" /> até <fmt:formatDate
+										pattern="dd/MM/yyyy" /> à <fmt:formatDate
 										value="${selecao.dataTermino }" pattern="dd/MM/yyyy" /></td>
 							</tr>
 						</tbody>

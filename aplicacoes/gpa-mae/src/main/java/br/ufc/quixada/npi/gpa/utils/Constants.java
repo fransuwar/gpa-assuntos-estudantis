@@ -186,6 +186,8 @@ public class Constants {
 	public static final String MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS 	= "Seleção possui inscritos e não pode ser excluída";
 
 	public static final String MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO = "Você já está inscrito nesta seleção";
+	
+	public static final String MENSAGEM_ERRO_ALUNO_INDEFERIDO = "Você não pode realizar a entrevista porque o aluno foi indeferido na análise da documentação!";
 
 	/** Perfis */
 
