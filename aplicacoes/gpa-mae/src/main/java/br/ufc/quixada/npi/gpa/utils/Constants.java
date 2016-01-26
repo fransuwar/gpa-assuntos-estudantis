@@ -74,7 +74,7 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS = "redirect:/administrador/listar/alunos";
 
 	public static final String REDIRECT_PAGINA_INSCRICOES_ALUNO = "redirect:/aluno/inscricao/listar";
-
+	
 	/** Mensagens */
 
 	public static final String MENSAGEM_OK = "OK";

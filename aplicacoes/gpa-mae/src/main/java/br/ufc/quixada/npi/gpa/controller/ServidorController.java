@@ -119,38 +119,36 @@ public class ServidorController {
 		model.addAttribute("moradiaEstado", EstadoMoradia.values());
 		model.addAttribute("inscricao", inscricao);
 		model.addAttribute("selecao", inscricao.getSelecao());
+		model.addAttribute("idInscricao", inscricao.getId());
 		
 		return PAGINA_RELATORIO_VISITA;
 
 	}
 
 	@RequestMapping(value = { "visita" }, method = RequestMethod.POST)
-	public String realizarVisita(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("idSelecao") Integer idSelecao,
-			@Valid @ModelAttribute("relatorioVisitaDomiciliar") VisitaDomiciliar relatorioVisitaDomiciliar, Model model,
-			BindingResult result, RedirectAttributes redirect) {
+	public String realizarVisita(@Valid @ModelAttribute("relatorioVisitaDomiciliar") VisitaDomiciliar relatorioVisitaDomiciliar, BindingResult result,
+			@RequestParam("idInscricao") Integer idInscricao,@RequestParam("idSelecao") Integer idSelecao,
+			Model model, RedirectAttributes redirect) {
 
 
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		inscricao.setVisitaDomiciliar(relatorioVisitaDomiciliar);
+		
 		if (result.hasErrors()) {
 
-			model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 			model.addAttribute("curso", Curso.values());
 			model.addAttribute("moradiaEstado", EstadoMoradia.values());
-			model.addAttribute("idInscricao", idInscricao);
-			model.addAttribute("idSelecao", idSelecao);
+			model.addAttribute("inscricao", inscricao);
+			model.addAttribute("selecao", inscricao.getSelecao());
 			
-			
-
 			return PAGINA_RELATORIO_VISITA;
 
 		}
-	
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
-		inscricao.setVisitaDomiciliar(relatorioVisitaDomiciliar);
 		
 		inscricaoService.update(inscricao);
 		redirect.addFlashAttribute("info", MENSAGEM_VISITA_CADASTRADA);
 		
-		return REDIRECT_PAGINA_INSCRITOS_SELECAO  + idSelecao;
+		return REDIRECT_PAGINA_INSCRITOS_SELECAO  + inscricao.getSelecao().getId();
 
 	}
 
