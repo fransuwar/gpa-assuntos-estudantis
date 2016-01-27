@@ -127,7 +127,7 @@
 									<td><fmt:formatDate value="${inscricao.data}"
 											pattern="dd/MM/yyyy" /></td>
 									<td><a id="avaliarDocumentos" title="Avaliar Documentação"
-										href="<c:url value="" ></c:url>">
+										href="<c:url value="/servidor/avaliarDocumentacao/${inscricao.id}" ></c:url>">
 											<button class=" btn btn-primary btn-xs">
 												<span class="glyphicon glyphicon-duplicate"></span>
 											</button>

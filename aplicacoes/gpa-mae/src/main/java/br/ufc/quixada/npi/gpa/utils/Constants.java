@@ -55,6 +55,8 @@ public class Constants {
 	public static final String PAGINA_INSCRICOES_ALUNO = "aluno/minhasInscricoes";
 
 	public static final String PAGINA_SELECOES_ABERTAS = "aluno/listarSelecoes";
+	
+	public static final String PAGINA_AVALIAR_DOCUMENTACAO = "servidor/avaliarDocumentacao";
 
 	// public static final String PAGINA_DETALHES_SELECAO_SERVIDOR =
 	// "servidor/detalhesSelecao";
@@ -74,6 +76,8 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS = "redirect:/administrador/listar/alunos";
 
 	public static final String REDIRECT_PAGINA_INSCRICOES_ALUNO = "redirect:/aluno/inscricao/listar";
+	
+	public static final String REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR = "redirect:/servidor/detalhesSelecaoServidor";
 
 	
 	/** Mensagens */
@@ -188,6 +192,8 @@ public class Constants {
 
 	public static final String MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO = "Você já está inscrito nesta seleção";
 	
+	public static final String MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO = "Documentação avaliada com sucesso.";
+
 	public static final String MENSAGEM_ERRO_ALUNO_INDEFERIDO = "Você não pode realizar a entrevista porque o aluno foi indeferido na análise da documentação!";
 
 	public static final String MENSAGEM_ERRO_REALIZACAO_DE_VISITA_DOMICILIAR = "Inscrição não foi deferida na entrevista";
