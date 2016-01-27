@@ -22,30 +22,34 @@ import br.ufc.quixada.npi.ldap.service.UsuarioService;
 public class LoginController {
 	@Inject
 	private UsuarioService serviceUsuario;
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String inicio(Authentication authentication){
-		
-		Usuario usuario = serviceUsuario.getByCpf(authentication.getName());
-		
-		for (GrantedAuthority grantedAuthority : usuario.getAuthorities()) {
-			
-			if (grantedAuthority.getAuthority().equalsIgnoreCase(STA) || grantedAuthority.getAuthority().equalsIgnoreCase(DOCENTE)){
 
-				return "redirect:/servidor/selecao/listar";
+		if (authentication != null){
+			Usuario usuario = serviceUsuario.getByCpf(authentication.getName());
+			
+			for (GrantedAuthority grantedAuthority : usuario.getAuthorities()) {
+
+				if (grantedAuthority.getAuthority().equalsIgnoreCase(STA) || grantedAuthority.getAuthority().equalsIgnoreCase(DOCENTE)){
+
+					return "redirect:/servidor/selecao/listar";
+				}
+				else if (grantedAuthority.getAuthority().equalsIgnoreCase(DISCENTE)){
+
+					return "redirect:/aluno/selecao/listar";
+
+				}else if (grantedAuthority.getAuthority().equalsIgnoreCase(ADMINISTRADOR)){
+
+					return "redirect:/servidor/selecao/listar";
+				}
 			}
-			else if (grantedAuthority.getAuthority().equalsIgnoreCase(DISCENTE)){
-				
-				return "redirect:/aluno/selecao/listar";
-				
-			}else if (grantedAuthority.getAuthority().equalsIgnoreCase(ADMINISTRADOR)){
-				
-				return "redirect:/servidor/selecao/listar";
-			}
+
 		}
+
 		return "redirect:/selecao/listar";
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(
 			@RequestParam(value = "error", required = false) String error,
@@ -64,8 +68,8 @@ public class LoginController {
 		return model;
 
 	}
-	
-	
+
+
 
 	@RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
 	public String loginerror(ModelMap model) {
@@ -82,9 +86,9 @@ public class LoginController {
 		return "login";
 
 	}
-	
-	
-	
+
+
+
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String acessoNegado(ModelMap model, Principal user) {
 		if (user != null) {
@@ -92,7 +96,7 @@ public class LoginController {
 			+ MENSAGEM_PERMISSAO_NEGADA_USUARIO);
 		} else {
 			model.addAttribute("message", 
-			MENSAGEM_PERMISSAO_NEGADA);
+					MENSAGEM_PERMISSAO_NEGADA);
 		}
 		return "403";
 	}
