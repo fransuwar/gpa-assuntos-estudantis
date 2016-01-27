@@ -19,7 +19,7 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">
-	
+
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert"
 				id="alert-erro">
@@ -82,14 +82,14 @@
 								<td>${inscricao.selecao.ano}</td>
 								<td>${inscricao.selecao.sequencial}</td>
 								<td>${inscricao.selecao.quantidadeVagas}</td>
-								<td><sec:authorize access="hasAnyRole('DISCENTE')">
-										
-										<a id="editarInscricao"
-											href="<c:url value="/aluno/inscricao/editar/${inscricao.id}" ></c:url>">
-											<button class="btn btn-info btn-sm" title="Editar Inscrição">
-												<span class="glyphicon glyphicon-pencil"></span>
-											</button>
-										</a>
+								<td><sec:authorize access="hasAnyRole('DISCENTE')">					
+												<a id="editarInscricao"
+													href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+													<button class="btn btn-info btn-sm"
+														title="Editar Inscrição">
+														<span class="glyphicon glyphicon-pencil"></span>
+													</button>
+												</a>	
 										<a id="excluirInscricao"
 											href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
 											<button class="btn btn-danger btn-sm"
@@ -97,6 +97,8 @@
 												<i class="glyphicon glyphicon-trash"></i>
 											</button>
 										</a>
+
+
 									</sec:authorize></td>
 							</tr>
 						</c:forEach>

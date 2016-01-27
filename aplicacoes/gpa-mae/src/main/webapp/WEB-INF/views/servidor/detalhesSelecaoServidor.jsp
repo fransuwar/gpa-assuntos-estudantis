@@ -17,6 +17,24 @@
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
 	<div class="container" align="left" style="padding-left: 85px;">
+		<c:if test="${not empty erro}">
+			<div class="alert alert-danger alert-dismissible" role="alert"
+				id="alert-erro">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+				</button>
+				<c:out value="${erro}"></c:out>
+			</div>
+		</c:if>
+		<c:if test="${not empty info}">
+			<div class="alert alert-success alert-dismissible" role="alert"
+				id="alert-info">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+				</button>
+				<c:out value="${info}"></c:out>
+			</div>
+		</c:if>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Seleção</h3>
@@ -121,7 +139,7 @@
 												</button>
 											</a>
 										</c:if> <c:if
-											test="${inscricao.selecao.tipoSelecao =='AUX_MOR' and empty inscricao.visitaDomiciliar}">
+											test="${inscricao.selecao.tipoSelecao =='AUX_MOR' and empty inscricao.visitaDomiciliar and inscricao.entrevista.deferimento == true}">
 											<a id="realizarVisita" title="Realizar Visita"
 												href="<c:url value="/servidor/visita/${inscricao.id }"></c:url>">
 												<button class=" btn btn-primary btn-xs">
