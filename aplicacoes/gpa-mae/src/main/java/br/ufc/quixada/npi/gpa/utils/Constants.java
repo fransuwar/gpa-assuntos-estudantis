@@ -69,7 +69,7 @@ public class Constants {
 
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO = "redirect:/selecao/listar";
 
-	public static final String REDIRECT_PAGINA_INSCRITOS_SELECAO = "redirect:/selecao/inscritos";
+	public static final String REDIRECT_PAGINA_INSCRITOS_SELECAO = "redirect:/servidor/detalhes/";
 
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR = "redirect:/administrador/listar";
 
@@ -79,6 +79,7 @@ public class Constants {
 	
 	public static final String REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR = "redirect:/servidor/detalhesSelecaoServidor";
 
+	
 	/** Mensagens */
 
 	public static final String MENSAGEM_OK = "OK";
@@ -193,6 +194,12 @@ public class Constants {
 	
 	public static final String MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO = "Documentação avaliada com sucesso.";
 
+	public static final String MENSAGEM_ERRO_ALUNO_INDEFERIDO = "Você não pode realizar a entrevista porque o aluno foi indeferido na análise da documentação!";
+
+	public static final String MENSAGEM_ERRO_REALIZACAO_DE_VISITA_DOMICILIAR = "Inscrição não foi deferida na entrevista";
+	
+	public static final String MENSAGEM_ERRO_VISITA_DOMICILIAR_JA_EXISTENTE = "Já foi realizado uma visita para essa inscrição";
+	
 	/** Perfis */
 
 	public static final String STA = "STA";

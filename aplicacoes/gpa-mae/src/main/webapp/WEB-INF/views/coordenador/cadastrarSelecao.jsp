@@ -34,7 +34,7 @@
 			<div class="alert alert-danger alert-dismissible" role="alert"
 				id="alert-erro">
 				<button type="button" class="close" data-dismiss="alert">
-					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 				</button>
 				<c:out value="${erro}"></c:out>
 			</div>
@@ -43,7 +43,7 @@
 			<div class="alert alert-success alert-dismissible" role="alert"
 				id="alert-info">
 				<button type="button" class="close" data-dismiss="alert">
-					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 				</button>
 				<c:out value="${info}"></c:out>
 			</div>

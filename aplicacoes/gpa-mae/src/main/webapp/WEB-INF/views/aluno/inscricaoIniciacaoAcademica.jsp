@@ -30,31 +30,34 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">
-		<div class="novo-projeto" align="left">
+		<div align="left">
 			<div class="form" align="center">
 				<h2>Programa de Iniciação Acadêmica</h2>
-
-				<table class="table table-striped table-hover">
-					<thead>
-						<tr class="active">
-							<th>Tipo da Bolsa</th>
-							<th>Ano</th>
-							<th>Vagas</th>
-							<th>Período de Inscrição</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>${selecao.tipoSelecao.nome }</td>
-							<td>${selecao.ano }</td>
-							<td>${selecao.quantidadeVagas }</td>
-							<td><fmt:formatDate value="${selecao.dataInicio }"
-									pattern="dd/MM/yyyy" /> até <fmt:formatDate
-									value="${selecao.dataTermino }" pattern="dd/MM/yyyy" /></td>
-						</tr>
-					</tbody>
-				</table>
-
+				<div class="panel-body"
+					style="align: center; color: #1a242f; text-align: center;">
+					<table class="table table-striped table-hover"
+						id="table-visualiza-info-auxilio">
+						<thead>
+							<tr id="tr-table-visualiza-info-auxilio">
+								<th id="td-table-visualiza-info-auxilio">Tipo da Bolsa</th>
+								<th id="td-table-visualiza-info-auxilio">Ano</th>
+								<th id="td-table-visualiza-info-auxilio">Vagas</th>
+								<th id="td-table-visualiza-info-auxilio">Período de
+									Inscrição</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>${selecao.tipoSelecao.nome }</td>
+								<td>${selecao.ano }</td>
+								<td>${selecao.quantidadeVagas }</td>
+								<td><fmt:formatDate value="${selecao.dataInicio }"
+										pattern="dd/MM/yyyy" /> à <fmt:formatDate
+										value="${selecao.dataTermino }" pattern="dd/MM/yyyy" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
 				<form:form id="questionarioIniciacao" role="form"
 					onsubmit="return validaHorariosDisponiveisBolsa();"
@@ -503,12 +506,12 @@
 							<h2>Informações Adicionais</h2>
 						</div>
 						<div class="panel-body">
+
 							<div class="form-group">
 								<h3>Horários Disponíves Para Bolsa</h3>
 								<div class="panel-body">
 									<jsp:include page="horarioDisponivel.jsp" />
 								</div>
-
 								<label for="justificativaPedido" class="col-sm-2 control-label"><span
 									class="red">*</span>Justificativa do pedido:</label>
 								<div class="col-sm-9">

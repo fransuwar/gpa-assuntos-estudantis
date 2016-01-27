@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,13 +28,7 @@ public class VisitaDomiciliar {
 	private Integer id;
 	
 	@ManyToOne
-	private Aluno aluno;
-	
-	@ManyToOne
 	private Servidor servidor;
-	
-	@ManyToOne
-	private Selecao selecao;
 	
 	@NotEmpty(message = "Campo obrigatório")
 	private String formaAcessoCasa;
@@ -181,14 +176,11 @@ public class VisitaDomiciliar {
 	
 	private String observacaoParecer;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Despesa despesa;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Receita receita;
-	
-	@OneToOne
-	private Inscricao inscricao;
 	
 	public VisitaDomiciliar() {
 		
@@ -200,14 +192,6 @@ public class VisitaDomiciliar {
 	
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	
-	public Aluno getAluno() {
-		return aluno;
-	}
-	
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
 	}
 	
 	public String getFormaAcessoCasa() {
@@ -616,14 +600,6 @@ public class VisitaDomiciliar {
 		this.dataRelatorio = dataRelatorio;
 	}
 
-	public Selecao getSelecao() {
-		return selecao;
-	}
-
-	public void setSelecao(Selecao selecao) {
-		this.selecao = selecao;
-	}
-	
 	public Despesa getDespesa() {
 		return despesa;
 	}
@@ -663,26 +639,11 @@ public class VisitaDomiciliar {
 	public void setDeferimento(boolean deferimento) {
 		this.deferimento = deferimento;
 	}
-
-	public Inscricao getInscricao() {
-		return inscricao;
-	}
-
-	public void setInscricao(Inscricao inscricao) {
-		this.inscricao = inscricao;
-	}
-
-	@Override
-	public String toString() {
-		return "VisitaDomiciliar [id=" + id + ", aluno=" + aluno + ", servidor=" + servidor + ", selecaoBolsa="
-				+ selecao + "]";
-	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((aluno == null) ? 0 : aluno.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
@@ -695,11 +656,6 @@ public class VisitaDomiciliar {
 		if (getClass() != obj.getClass())
 			return false;
 		VisitaDomiciliar other = (VisitaDomiciliar) obj;
-		if (aluno == null) {
-			if (other.aluno != null)
-				return false;
-		} else if (!aluno.equals(other.aluno))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
