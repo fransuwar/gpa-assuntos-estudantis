@@ -114,6 +114,34 @@ $(document).ready(function(){
             $('#mora-com-outros').hide();                                                                    
         }
     });
+    
+    //Mostrar o percentual de bolsa quando clicar na opção : "Particular com Bolsa"
+    
+    $('#percentualParticularMedio').hide();
+    
+    $('#ensinoMedio').change(function() {
+    	$( "#ensinoMedio option:selected" ).each(function(){
+    		if($(this).text() == "Particular com Bolsa"){
+    			$('#percentualParticularMedio').show();
+    		} else {
+    			$('#percentualParticularMedio').hide();
+    		}
+    		
+    	});
+    });
+    
+    $('#percentualParticularFundamental').hide();
+    
+    $('#ensinoFundamental').change(function() {
+    	$( "#ensinoFundamental option:selected" ).each(function(){
+    		if($(this).text() == "Particular com Bolsa"){
+    			$('#percentualParticularFundamental').show();
+    		} else {
+    			$('#percentualParticularFundamental').hide();
+    		}
+    		
+    	});
+    });
 });
 
 
