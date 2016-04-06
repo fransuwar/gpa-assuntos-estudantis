@@ -377,7 +377,6 @@ public class QuestionarioAuxilioMoradia {
 		this.justificativa = justificativa;
 	}
 
-
 	public String getDescricaoBolsa() {
 		return descricaoBolsa;
 	}
