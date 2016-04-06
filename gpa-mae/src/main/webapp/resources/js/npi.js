@@ -33,6 +33,12 @@ $(document).ready(function(){
         }
 	});
 	
+	$('#tabela-detalhes-selecao-servidores').DataTable({
+		"language": {
+            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+        }
+	});
+	
 	
 	$.extend(jQuery.validator.messages, {
 	    required: "Campo obrigatório",

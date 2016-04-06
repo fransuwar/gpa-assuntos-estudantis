@@ -39,15 +39,11 @@ public class QuestionarioAuxilioMoradia {
 	@NotNull(message = "Campo obrigatório")
 	private TipoEnsinoFundamental ensinoFundamental;
 
-	private boolean bolsaEnsinoFundamental;
-
 	private int percentualParticularFundamental;
 
 	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoMedio ensinoMedio;
-
-	private boolean bolsaEnsinoMedio;
 
 	private int percentualParticularMedio;
 
@@ -381,21 +377,6 @@ public class QuestionarioAuxilioMoradia {
 		this.justificativa = justificativa;
 	}
 
-	public boolean isBolsaEnsinoFundamental() {
-		return bolsaEnsinoFundamental;
-	}
-
-	public void setBolsaEnsinoFundamental(boolean bolsaEnsinoFundamental) {
-		this.bolsaEnsinoFundamental = bolsaEnsinoFundamental;
-	}
-
-	public boolean isBolsaEnsinoMedio() {
-		return bolsaEnsinoMedio;
-	}
-
-	public void setBolsaEnsinoMedio(boolean bolsaEnsinoMedio) {
-		this.bolsaEnsinoMedio = bolsaEnsinoMedio;
-	}
 
 	public String getDescricaoBolsa() {
 		return descricaoBolsa;
