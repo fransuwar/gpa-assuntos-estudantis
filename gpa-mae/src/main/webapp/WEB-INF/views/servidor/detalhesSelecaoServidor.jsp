@@ -107,7 +107,7 @@
 					<h3 class="panel-title">Inscrições</h3>
 				</div>
 				<div class="panel-body">
-					<table class="table">
+					<table class="table" id="tabela-detalhes-selecao-servidores">
 						<thead>
 							<tr class="active">
 								<td>Aluno</td>
