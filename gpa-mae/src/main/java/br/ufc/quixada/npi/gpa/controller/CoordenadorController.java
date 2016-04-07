@@ -53,7 +53,7 @@ public class CoordenadorController {
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
-		return PAGINA_COORDENACAO;
+		return PAGINA_LISTAR_SELECAO_SERVIDOR;
 	}
 
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.GET)
