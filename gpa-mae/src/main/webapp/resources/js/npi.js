@@ -6,12 +6,12 @@ $(document).ready(function(){
 	
 	$('#tabela-alunos').DataTable({
 		"language": {
-            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+            "url":"/MAE/resources/js/Portuguese-Brasil.json"
         }
 	});
 	$('#tabela-selecoes').DataTable({
 		"language": {
-            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+            "url":"/MAE/resources/js/Portuguese-Brasil.json"
         },
         "columnDefs": 
         	[
@@ -24,18 +24,18 @@ $(document).ready(function(){
 	});
 	$('#tabela-servidores').DataTable({
 		"language": {
-            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+            "url":"/MAE/resources/js/Portuguese-Brasil.json"
         }
 	});
 	$('#tabela-inscritos').DataTable({
 		"language": {
-            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+            "url":"/MAE/resources/js/Portuguese-Brasil.json"
         }
 	});
 	
 	$('#tabela-detalhes-selecao-servidores').DataTable({
 		"language": {
-            "url":"///cdn.datatables.net/plug-ins/1.10.10/i18n/Portuguese-Brasil.json"
+            "url":"/MAE/resources/js/Portuguese-Brasil.json"
         }
 	});
 	
