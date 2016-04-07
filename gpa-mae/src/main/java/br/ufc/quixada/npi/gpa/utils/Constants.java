@@ -36,7 +36,7 @@ public class Constants {
 	
 	public static final String PAGINA_CADASTRAR_SELECAO = "coordenador/cadastrarSelecao";
 
-	public static final String PAGINA_COORDENACAO = "coordenador/coordenacao";
+	public static final String PAGINA_COORDENACAO = "servidor/listaSelecoes";
 
 	public static final String PAGINA_LISTAR_SELECAO = "selecao/listarSelecao";
 

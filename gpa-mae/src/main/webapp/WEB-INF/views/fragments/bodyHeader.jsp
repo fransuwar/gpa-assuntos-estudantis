@@ -36,8 +36,6 @@
 						<li><a
 							href="<c:url value="/coordenador/selecao/cadastrar" />">Nova
 								Seleção</a></li>
-						<li><a href="<c:url value="/coordenador/selecao/listar" />">Coordenação</a>
-						</li>
 					</sec:authorize>
 				</ul>
 
