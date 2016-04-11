@@ -60,7 +60,6 @@ public class CoordenadorController {
 	public String cadastroSelecao(Model model) {
 
 		model.addAttribute("action", "cadastrar");
-		model.addAttribute("tipoSelecao", TipoSelecao.values());
 		model.addAttribute("selecao", new Selecao());
 
 		return PAGINA_CADASTRAR_SELECAO;
@@ -96,7 +95,6 @@ public class CoordenadorController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
-			model.addAttribute("tipoSelecao", TipoSelecao.values());
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}

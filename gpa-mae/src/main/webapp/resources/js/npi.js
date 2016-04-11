@@ -1,6 +1,7 @@
 var linha;
 
 $(document).ready(function(){
+
 	$("#nome_cursinho").hide()	
 	$("#cursinho").click(function() {
 		if($(this).is(':checked'))
@@ -8,7 +9,7 @@ $(document).ready(function(){
 		else       
 			$("#nome_cursinho").hide()
 	});
-	
+
 	$('#valorMensalFinanciamento').mask("###0000000.00", {reverse: true});
 	$('#areaPropriedadeRural').mask("#####0.00", {reverse: true});
 	
@@ -127,6 +128,7 @@ $(document).ready(function(){
         else {
             $('#mora-com-outros').hide();                                                                    
         }
+        
     });
     
     //Mostrar o percentual de bolsa quando clicar na opção : "Particular com Bolsa"
@@ -156,6 +158,7 @@ $(document).ready(function(){
     		
     	});
     });
+    
 });
 
 
@@ -471,6 +474,8 @@ function buscarSelecao(){
 		}
 	}
 }
+
+
 
 
 function selecionarInformacoes(){

@@ -9,6 +9,8 @@
 <%@ taglib prefix="datatables"
 	uri="http://github.com/dandelion/datatables"%>
 <%@ taglib prefix="gpa" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <html>
 <head>
@@ -21,8 +23,24 @@
 	<div class="container" align="center">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">Detalhes da Inscrição de Auxílio
-					Moradia</h3>
+				<h3 class="panel-title">
+					Detalhes da Inscrição de Auxílio Moradia
+					<sec:authorize access="hasAnyRole('DISCENTE')">
+						<c:if test="${!esconderBotoes}">
+								<a id="editarInscricao"
+									href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+									<button class="btn btn-info btn-sm" title="Editar Inscrição">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</button>
+								</a> <a id="excluirInscricao"
+									href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
+									<button class="btn btn-danger btn-sm" title="Excluir Inscrição">
+										<i class="glyphicon glyphicon-trash"></i>
+									</button>
+								</a>
+						</c:if>
+					</sec:authorize>
+				</h3>
 			</div>
 			<div class="panel-body">
 				<dl class="col-sm-12">
@@ -261,13 +279,7 @@
 				<div class="form-group">
 					<dl class="col-sm-12">
 						<dt class="col-sm-3">Possuia bolsa?</dt>
-						<dd class="col-sm-3">
-							<c:choose>
-								<c:when
-									test="${inscricao.questionarioAuxilioMoradia.bolsaEnsinoMedio == true}"> Sim</c:when>
-								<c:otherwise>Não</c:otherwise>
-							</c:choose>
-						</dd>
+						<dd class="col-sm-3"></dd>
 						<dt class="col-sm-3">Percentual Particular Fundamental</dt>
 						<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.percentualParticularFundamental}</dd>
 					</dl>
