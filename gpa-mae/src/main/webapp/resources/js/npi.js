@@ -322,6 +322,15 @@ $(document).ready(
 				language : "pt-BR",
 				todayHighlight : true
 			});
+			
+			$("#ano").datepicker({
+				format: " yyyy",
+				viewMode: "years", 
+				minViewMode: "years",
+				language : "pt-BR",
+				todayHighlight : true
+				
+			});
 		});
 
 function ConvertFormToJSON(form) {
