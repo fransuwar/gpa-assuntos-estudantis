@@ -68,6 +68,7 @@
 							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
+							<th>Inscrições</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -82,6 +83,10 @@
 								<td>${inscricao.selecao.ano}</td>
 								<td>${inscricao.selecao.sequencial}</td>
 								<td>${inscricao.selecao.quantidadeVagas}</td>
+								<td class="dt-body-center">
+									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à
+									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino }" />
+								</td>
 								<td><sec:authorize access="hasAnyRole('DISCENTE')">					
 												<a id="editarInscricao"
 													href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
