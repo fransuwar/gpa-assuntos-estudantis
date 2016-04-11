@@ -38,7 +38,6 @@ public class Selecao {
 	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
 
-	@NotNull(message = "Campo obrigatório")
 	@Range(min = 1, message = "O valor do edital deve ser maior que 0")
 	private Integer sequencial;
 

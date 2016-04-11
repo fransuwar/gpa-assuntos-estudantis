@@ -70,6 +70,9 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
 	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
 			BindingResult result, Authentication auth, RedirectAttributes redirect) {
+		
+		Integer numSelecoes = this.selecaoService.find(Selecao.class).size();
+		selecao.setSequencial(numSelecoes+1);
 
 		model.addAttribute("action", "cadastrar");
 

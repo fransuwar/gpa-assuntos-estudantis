@@ -97,16 +97,6 @@
 								</div>
 							</div>
 						</div>
-
-						<label for="sequencial" class="col-sm-2 control-label"><span
-							class="red">*</span>Sequencial:</label>
-						<div class="col-sm-2">
-							<form:input id="sequencial" path="sequencial"
-								cssClass="form-control" placeholder="000" data-mask="999" />
-							<div class="error-validation" id="erro-sequencial">
-								<form:errors path="sequencial"></form:errors>
-							</div>
-						</div>
 						<label for="ano" class="col-sm-1 control-label"><span
 							class="red">*</span>Ano:</label>
 						<div class="col-sm-2">
