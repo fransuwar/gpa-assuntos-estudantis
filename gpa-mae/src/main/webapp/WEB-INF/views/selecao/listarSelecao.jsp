@@ -43,7 +43,7 @@
 					<thead>
 						<tr>
 							<th>Seleção</th>
-							<th>Edital</th>
+							<th>Ano</th>
 							<th>Vagas</th>
 							<th>Inscrições</th>
 					</thead>

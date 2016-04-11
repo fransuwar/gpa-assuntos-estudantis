@@ -78,7 +78,8 @@
 							<form:select path="tipoSelecao" id="tipoSelecao"
 								cssClass="form-control">
 								<form:option value="" label="Selecione o tipo de Selecao" />
-								<form:options items="${tipoSelecao}" itemLabel="nome" />
+								<form:option value="AUX_MOR" label="Auxílio Moradia" />
+								
 							</form:select>
 							<div class="error-validation label-erro-select"
 								id="erro-tipoSelecao">
@@ -123,7 +124,7 @@
 
 					<div class="form-group">
 						<label for="dataInicio" class="col-sm-2 control-label"><span
-							class="red">*</span>Data de Início:</label>
+							class="red">*</span>Início das Inscrições:</label>
 						<div class="col-sm-2">
 							<form:input id="dataInicio" type="text" path="dataInicio"
 								cssClass="form-control data" placeholder="Data de Início" />
@@ -135,7 +136,7 @@
 						</div>
 
 						<label for="dataTermino" class="col-sm-2 control-label"><span
-							class="red">*</span>Data de Término:</label>
+							class="red">*</span>Fim das Inscrições:</label>
 						<div class="col-sm-2">
 							<form:input id="dataTermino" type="text" path="dataTermino"
 								cssClass="form-control data" placeholder="Data de Término" />
