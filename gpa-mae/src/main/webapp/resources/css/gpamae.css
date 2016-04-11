@@ -110,3 +110,7 @@ a, a:hover, a:visited, a:active, button, button:hover, button:visited,
 #text-align-rigth{
 	text-align:right;
 }
+
+.hidden{
+	display:none;
+}

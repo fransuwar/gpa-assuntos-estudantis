@@ -126,6 +126,8 @@ public class QuestionarioAuxilioMoradia {
 	@Enumerated(EnumType.STRING)
 	private SituacaoImovel situacaoImovel;
 
+	private double valorMensalFinanciamento;
+	
 	@Enumerated(EnumType.STRING)
 	private GrauParentescoImovelRural grauParentescoImovelRural;
 	
@@ -153,6 +155,15 @@ public class QuestionarioAuxilioMoradia {
 		
 	}
 	
+	public double getValorMensalFinanciamento() {
+		return valorMensalFinanciamento;
+	}
+
+	public void setValorMensalFinanciamento(double valorMensalFinanciamento) {
+		this.valorMensalFinanciamento = valorMensalFinanciamento;
+	}
+
+
 	public Integer getId() {
 		return id;
 	}

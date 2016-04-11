@@ -248,7 +248,7 @@
 									</div>
 								</div>
 
-								]
+								
 								<div class="panel-heading">
 									<h3 class="panel-title">Endereço da Residência de Origem</h3>
 								</div>
@@ -372,6 +372,16 @@
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="situacaoImovel"></form:errors>
+											</div>
+										</div>
+										<div id="div-valor-mensal" class="hidden">
+											<label for="valorMensalFinanciamento" class="col-sm-2  control-label">Valor mensal do financiamento:</label>
+											<div class="col-sm-4">
+												<form:input id="valorMensalFinanciamento" path="valorMensalFinanciamento" cssClass="form-control"
+													placeholder="Valor mensal do financiamento" required ="required"/>
+												<div class="error-validation">
+													<form:errors path="valorMensalFinanciamento"></form:errors>
+												</div>
 											</div>
 										</div>
 									</div>
