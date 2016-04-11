@@ -110,3 +110,13 @@ a, a:hover, a:visited, a:active, button, button:hover, button:visited,
 #text-align-rigth{
 	text-align:right;
 }
+
+label.title{
+	width:100%;
+	text-align:left;
+}
+
+div.text-align-left{
+	width:100%;
+	text-align: left;
+}

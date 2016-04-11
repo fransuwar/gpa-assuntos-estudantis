@@ -478,3 +478,19 @@ function buscarSelecao(){
 
 
 
+function selecionarInformacoes(){
+	var $button = $('#form-btn');
+	var $naoinfo = $('#nao-minhas-informacoes');
+	if($('#minhas-informacoes').is(':checked')){
+		$button.removeAttr('disabled');
+		$naoinfo.hide(0);
+	}else{
+		$button.attr('disabled', 'disabled');
+		$naoinfo.show(0);
+	}
+}
+
+
+function novaAba(url){
+	window.open(url, '_blank');
+}
