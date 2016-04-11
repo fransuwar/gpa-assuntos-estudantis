@@ -75,7 +75,7 @@ $(document).ready(function(){
 	
 	$('#questionarioIniciacao').validate();
 	
-
+	onSelectSituacaoImovelSelected();
 	
 	jQuery.validator.addMethod("periodo", function(value, element) {
 		return !moment($('#dataTermino').val()).isBefore($('#dataInicio').val());
@@ -159,6 +159,28 @@ $(document).ready(function(){
 });
 
 
+
+/*	
+ * 	Essa função é chamada quando o usuário seleciona 
+ * 	alguma opção no select de Situação do Imóvel. 
+*/
+function onSelectSituacaoImovelSelected(){
+	var $select = $("#situacaoImovel");
+	
+	var $divValorMensal = $("#div-valor-mensal");
+	var $inputValorMensal = $("#valorMensalFinanciamento");
+	
+	$select.on('change', function(){
+		var valorSelecionado = $select.find("option:selected").text();
+		
+		if(valorSelecionado == "Financiado"){
+			$divValorMensal.removeClass("hidden");
+		}else{
+			$divValorMensal.addClass("hidden");
+			$inputValorMensal.val("0");
+		}
+	});
+}
 
 
 function mascaraIra(obj) {
@@ -475,3 +497,19 @@ function buscarSelecao(){
 
 
 
+function selecionarInformacoes(){
+	var $button = $('#form-btn');
+	var $naoinfo = $('#nao-minhas-informacoes');
+	if($('#minhas-informacoes').is(':checked')){
+		$button.removeAttr('disabled');
+		$naoinfo.hide(0);
+	}else{
+		$button.attr('disabled', 'disabled');
+		$naoinfo.show(0);
+	}
+}
+
+
+function novaAba(url){
+	window.open(url, '_blank');
+}

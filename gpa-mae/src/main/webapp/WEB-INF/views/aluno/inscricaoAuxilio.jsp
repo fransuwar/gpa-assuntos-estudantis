@@ -58,6 +58,48 @@
 						</tbody>
 					</table>
 				</div>
+				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informações Pessoais</h3>
+					</div>
+					<div class="panel-body text-align-left">
+						<c:if test="${not empty usuarioAtivo.matricula}">
+						<label class='title'>Matrícula: </label> <span> ${usuarioAtivo.matricula } </span>
+						</c:if>
+						
+						<c:if test="${not empty usuarioAtivo.nome}"> 
+						<label class='title'>Nome: </label> <span> ${usuarioAtivo.nome } </span>
+						</c:if>
+						
+						<c:if test="${not empty usuarioAtivo.cpf}"> 
+						<label class='title'>CPF: </label> <span> ${usuarioAtivo.cpf } </span>
+						</c:if>
+						
+						<c:if test="${not empty usuarioAtivo.email}">
+						<label class='title'>Email:	</label> <span> ${usuarioAtivo.email } </span>
+						</c:if> 
+						
+						<c:if test="${not empty usuarioAtivo.telefone}">
+						<label class='title'>Telefone: </label>	<span> ${usuarioAtivo.telefone } </span>
+						</c:if>
+						
+						<c:if test="${not empty usuarioAtivo.nascimento}"> 
+						<label class='title'>Nascimento: </label> <span>	<fmt:formatDate pattern="dd/MM/yyyy" value="${usuarioAtivo.nascimento }" /></span>
+						</c:if>
+						<br/>
+						<br/>
+						
+						<label class='title'>*Estas são suas informações?</label>
+						<input type="checkbox" name="minhas-informacoes" id="minhas-informacoes" required="required" onclick="selecionarInformacoes()" />
+							Sim, as informações estão corretas<br/>
+						
+						<span id='nao-minhas-informacoes'>Não, desejo <a href="#" onclick="novaAba('http://identidadepessoa.intranet/')">alterar informações</a></span>
+						
+						
+					</div>
+				</div>
+				
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#moradia-tab" data-toggle="tab">Moradia<i
 							class="fa"></i>
@@ -248,7 +290,7 @@
 									</div>
 								</div>
 
-								]
+								
 								<div class="panel-heading">
 									<h3 class="panel-title">Endereço da Residência de Origem</h3>
 								</div>
@@ -372,6 +414,16 @@
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="situacaoImovel"></form:errors>
+											</div>
+										</div>
+										<div id="div-valor-mensal" class="hidden">
+											<label for="valorMensalFinanciamento" class="col-sm-2  control-label">Valor mensal do financiamento:</label>
+											<div class="col-sm-4">
+												<form:input id="valorMensalFinanciamento" path="valorMensalFinanciamento" cssClass="form-control"
+													placeholder="Valor mensal do financiamento" required ="required"/>
+												<div class="error-validation">
+													<form:errors path="valorMensalFinanciamento"></form:errors>
+												</div>
 											</div>
 										</div>
 									</div>
