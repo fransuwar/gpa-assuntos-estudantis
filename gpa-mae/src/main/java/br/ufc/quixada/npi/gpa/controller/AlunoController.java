@@ -2,6 +2,11 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import java.util.Date;
@@ -11,6 +16,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -295,10 +301,17 @@ public class AlunoController {
 			RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Selecao selecao = inscricao.getSelecao();
+		Date date = new Date();
 
 		if (inscricao != null) {
 
 			if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)) {
+				
+				if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
+					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EDITAR_INSCRICAO);
+					return REDIRECT_PAGINA_MINHAS_INSCRICOES;
+				}else{
 
 				model.addAttribute("inscricao", inscricao);
 				model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
@@ -314,6 +327,7 @@ public class AlunoController {
 				model.addAttribute("selecao", inscricao.getSelecao());
 
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
+				}
 
 			} else {
 
@@ -370,12 +384,21 @@ public class AlunoController {
 			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect) {
 
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
+		Selecao selecao = inscricao.getSelecao();
+		Date date = new Date();
 
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ALUNO_NAO_ENCONTRADO);
 		} else {
+			
+			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
+				return REDIRECT_PAGINA_MINHAS_INSCRICOES;
+				
+			} else{
 			inscricaoService.delete(inscricao);
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
+			}
 		}
 
 		return PAGINA_INSCRICOES_ALUNO;
@@ -387,6 +410,8 @@ public class AlunoController {
 			RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Selecao selecao = inscricao.getSelecao();
+		Date date = new Date();
 		model.addAttribute("inscricao", inscricao);
 
 		if (inscricao == null) {
@@ -395,6 +420,12 @@ public class AlunoController {
 			return REDIRECT_PAGINA_INSCRICOES_ALUNO;
 
 		} else if (inscricao.getQuestionarioAuxilioMoradia() != null) {
+			
+			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){
+				model.addAttribute("esconderBotoes",true);
+			} else{
+				model.addAttribute("esconderBotoes",false);			
+			}
 
 			return PAGINA_DETALHES_AUXILIO_MORADIA;
 

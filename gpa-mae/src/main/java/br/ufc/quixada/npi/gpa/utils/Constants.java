@@ -68,6 +68,8 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_ATRIBUIR_COMISSAO = "redirect:/coordenador/comissao/atribuir/";
 
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO = "redirect:/selecao/listar";
+	
+	public static final String REDIRECT_PAGINA_MINHAS_INSCRICOES = "redirect:/aluno/inscricao/listar";
 
 	public static final String REDIRECT_PAGINA_INSCRITOS_SELECAO = "redirect:/servidor/detalhes/";
 
@@ -199,6 +201,10 @@ public class Constants {
 	public static final String MENSAGEM_ERRO_REALIZACAO_DE_VISITA_DOMICILIAR = "Inscrição não foi deferida na entrevista";
 	
 	public static final String MENSAGEM_ERRO_VISITA_DOMICILIAR_JA_EXISTENTE = "Já foi realizado uma visita para essa inscrição";
+	
+	public static final String MENSAGEM_ERRO_EXCLUIR_INSCRICAO = "Você não pode excluir esta inscrição fora do período da seleção";
+	
+	public static final String MENSAGEM_ERRO_EDITAR_INSCRICAO = "Você não pode editar esta inscrição fora do período da seleção";
 	
 	/** Perfis */
 
