@@ -568,14 +568,15 @@
 										<div class="error-validation">
 											<form:errors path="cursinho"></form:errors>
 										</div>
-
-										<label for="nomeCursinho" class="col-sm-3 control-label">Nome
-											do Cursinho:</label>
-										<div class="col-sm-4">
-											<form:input id="nomeCursinho" path="nomeCursinho"
-												cssClass="form-control" placeholder="Nome do cursinho" />
-											<div class="error-validation">
-												<form:errors path="nomeCursinho"></form:errors>
+										<div id="nome_cursinho">
+											<label for="nomeCursinho" class="col-sm-3 control-label">Nome
+												do Cursinho:</label>
+											<div class="col-sm-4">
+												<form:input id="nomeCursinho" path="nomeCursinho"
+													cssClass="form-control" placeholder="Nome do cursinho" />
+												<div class="error-validation">
+													<form:errors path="nomeCursinho"></form:errors>
+												</div>
 											</div>
 										</div>
 									</div>
