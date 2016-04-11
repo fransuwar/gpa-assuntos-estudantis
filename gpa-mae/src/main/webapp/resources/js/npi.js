@@ -1,6 +1,15 @@
 var linha;
 
 $(document).ready(function(){
+
+	$("#nome_cursinho").hide()	
+	$("#cursinho").click(function() {
+		if($(this).is(':checked'))
+			$("#nome_cursinho").show()
+		else       
+			$("#nome_cursinho").hide()
+	});
+
 	$('#valorMensalFinanciamento').mask("###0000000.00", {reverse: true});
 	$('#areaPropriedadeRural').mask("#####0.00", {reverse: true});
 	
@@ -119,6 +128,7 @@ $(document).ready(function(){
         else {
             $('#mora-com-outros').hide();                                                                    
         }
+        
     });
     
     //Mostrar o percentual de bolsa quando clicar na opção : "Particular com Bolsa"
@@ -148,6 +158,7 @@ $(document).ready(function(){
     		
     	});
     });
+    
 });
 
 
@@ -344,6 +355,15 @@ $(document).ready(
 				language : "pt-BR",
 				todayHighlight : true
 			});
+			
+			$("#ano").datepicker({
+				format: " yyyy",
+				viewMode: "years", 
+				minViewMode: "years",
+				language : "pt-BR",
+				todayHighlight : true
+				
+			});
 		});
 
 function ConvertFormToJSON(form) {
@@ -478,3 +498,21 @@ function buscarSelecao(){
 }
 
 
+
+
+function selecionarInformacoes(){
+	var $button = $('#form-btn');
+	var $naoinfo = $('#nao-minhas-informacoes');
+	if($('#minhas-informacoes').is(':checked')){
+		$button.removeAttr('disabled');
+		$naoinfo.hide(0);
+	}else{
+		$button.attr('disabled', 'disabled');
+		$naoinfo.show(0);
+	}
+}
+
+
+function novaAba(url){
+	window.open(url, '_blank');
+}
