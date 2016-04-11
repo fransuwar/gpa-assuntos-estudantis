@@ -238,6 +238,8 @@ public class AlunoController {
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model) {
 
+		System.out.println("Valor financiamento: "+auxilioMoradia.getValorMensalFinanciamento());
+		
 		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
 		for (String m : comQuemMora) {
 			ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));

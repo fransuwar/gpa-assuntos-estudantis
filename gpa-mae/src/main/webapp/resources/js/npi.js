@@ -75,7 +75,7 @@ $(document).ready(function(){
 	
 	$('#questionarioIniciacao').validate();
 	
-
+	onSelectSituacaoImovelSelected();
 	
 	jQuery.validator.addMethod("periodo", function(value, element) {
 		return !moment($('#dataTermino').val()).isBefore($('#dataInicio').val());
@@ -162,6 +162,28 @@ $(document).ready(function(){
 });
 
 
+
+/*	
+ * 	Essa função é chamada quando o usuário seleciona 
+ * 	alguma opção no select de Situação do Imóvel. 
+*/
+function onSelectSituacaoImovelSelected(){
+	var $select = $("#situacaoImovel");
+	
+	var $divValorMensal = $("#div-valor-mensal");
+	var $inputValorMensal = $("#valorMensalFinanciamento");
+	
+	$select.on('change', function(){
+		var valorSelecionado = $select.find("option:selected").text();
+		
+		if(valorSelecionado == "Financiado"){
+			$divValorMensal.removeClass("hidden");
+		}else{
+			$divValorMensal.addClass("hidden");
+			$inputValorMensal.val("0");
+		}
+	});
+}
 
 
 function mascaraIra(obj) {
