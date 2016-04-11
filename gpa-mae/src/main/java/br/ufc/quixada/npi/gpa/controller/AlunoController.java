@@ -49,6 +49,7 @@ import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
+import br.ufc.quixada.npi.ldap.service.UsuarioService;
 
 @Controller
 @RequestMapping("aluno")
@@ -63,6 +64,9 @@ public class AlunoController {
 
 	@Inject
 	private InscricaoService inscricaoService;
+	
+	@Inject
+	private UsuarioService usuarioService;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
@@ -206,7 +210,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
-	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model) {
+	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth) {
 
 		model.addAttribute("action", "inscricao");
 
@@ -223,6 +227,7 @@ public class AlunoController {
 		model.addAttribute("grauParentesco", GrauParentesco.values());
 		model.addAttribute("moraCom", MoraCom.values());
 		model.addAttribute("selecao", selecao);
+		model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
 
 		return PAGINA_INSCREVER_AUXILIO_MORADIA;
 	}
