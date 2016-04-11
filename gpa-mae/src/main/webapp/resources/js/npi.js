@@ -1,6 +1,14 @@
 var linha;
 
 $(document).ready(function(){
+	$("#nome_cursinho").hide()	
+	$("#cursinho").click(function() {
+		if($(this).is(':checked'))
+			$("#nome_cursinho").show()
+		else       
+			$("#nome_cursinho").hide()
+	});
+	
 	$('#valorMensalFinanciamento').mask("###0000000.00", {reverse: true});
 	$('#areaPropriedadeRural').mask("#####0.00", {reverse: true});
 	
