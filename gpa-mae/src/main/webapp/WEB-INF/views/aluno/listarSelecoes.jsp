@@ -49,6 +49,7 @@
 					<thead>
 						<tr>
 							<th>Seleção</th>
+							<th>Ano</th>
 							<th>Edital</th>
 							<th>Vagas</th>
 							<th>Inscrições</th>
@@ -63,7 +64,20 @@
 										${selecao.tipoSelecao.nome} </a></td>
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
-								<td>${selecao.quantidadeVagas}</td>
+								<td>
+								<c:choose>
+									<c:when test="${not empty selecao.quantidadeVagas}">
+										${selecao.quantidadeVagas}
+									</c:when>
+									<c:otherwise>
+										-
+									</c:otherwise>
+								</c:choose>
+								</td>
+								<td class="dt-body-center">
+									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à
+									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino }" />
+								</td>
 								<td><c:if test="${not empty selecao.inscritos }">
 										<c:forEach items="${selecao.inscritos}" var="inscricao">
 											<c:choose>

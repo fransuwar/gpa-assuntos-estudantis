@@ -1,6 +1,15 @@
 var linha;
 
 $(document).ready(function(){
+
+	$("#nome_cursinho").hide()	
+	$("#cursinho").click(function() {
+		if($(this).is(':checked'))
+			$("#nome_cursinho").show()
+		else       
+			$("#nome_cursinho").hide()
+	});
+
 	$('#valorMensalFinanciamento').mask("###0000000.00", {reverse: true});
 	$('#areaPropriedadeRural').mask("#####0.00", {reverse: true});
 	
@@ -66,7 +75,7 @@ $(document).ready(function(){
 	
 	$('#questionarioIniciacao').validate();
 	
-
+	onSelectSituacaoImovelSelected();
 	
 	jQuery.validator.addMethod("periodo", function(value, element) {
 		return !moment($('#dataTermino').val()).isBefore($('#dataInicio').val());
@@ -119,6 +128,7 @@ $(document).ready(function(){
         else {
             $('#mora-com-outros').hide();                                                                    
         }
+        
     });
     
     //Mostrar o percentual de bolsa quando clicar na opção : "Particular com Bolsa"
@@ -148,9 +158,32 @@ $(document).ready(function(){
     		
     	});
     });
+    
 });
 
 
+
+/*	
+ * 	Essa função é chamada quando o usuário seleciona 
+ * 	alguma opção no select de Situação do Imóvel. 
+*/
+function onSelectSituacaoImovelSelected(){
+	var $select = $("#situacaoImovel");
+	
+	var $divValorMensal = $("#div-valor-mensal");
+	var $inputValorMensal = $("#valorMensalFinanciamento");
+	
+	$select.on('change', function(){
+		var valorSelecionado = $select.find("option:selected").text();
+		
+		if(valorSelecionado == "Financiado"){
+			$divValorMensal.removeClass("hidden");
+		}else{
+			$divValorMensal.addClass("hidden");
+			$inputValorMensal.val("0");
+		}
+	});
+}
 
 
 function mascaraIra(obj) {
@@ -321,6 +354,15 @@ $(document).ready(
 				autoclose : true,
 				language : "pt-BR",
 				todayHighlight : true
+			});
+			
+			$("#ano").datepicker({
+				format: " yyyy",
+				viewMode: "years", 
+				minViewMode: "years",
+				language : "pt-BR",
+				todayHighlight : true
+				
 			});
 		});
 
@@ -498,3 +540,20 @@ $(document).ready(function(){
 		
 	}
 });
+
+function selecionarInformacoes(){
+	var $button = $('#form-btn');
+	var $naoinfo = $('#nao-minhas-informacoes');
+	if($('#minhas-informacoes').is(':checked')){
+		$button.removeAttr('disabled');
+		$naoinfo.hide(0);
+	}else{
+		$button.attr('disabled', 'disabled');
+		$naoinfo.show(0);
+	}
+}
+
+
+function novaAba(url){
+	window.open(url, '_blank');
+}

@@ -43,7 +43,7 @@
 					<thead>
 						<tr>
 							<th>Seleção</th>
-							<th>Edital</th>
+							<th>Ano</th>
 							<th>Vagas</th>
 							<th>Inscrições</th>
 					</thead>
@@ -56,7 +56,16 @@
 									</a>
 								</td>
 								<td class="dt-body-center">${selecao.sequencial}/${selecao.ano}</td>
-								<td class="dt-body-center">${selecao.quantidadeVagas}</td>
+								<td class="dt-body-center">
+								<c:choose>
+									<c:when test="${not empty selecao.quantidadeVagas}">
+										${selecao.quantidadeVagas}
+									</c:when>
+									<c:otherwise>
+										-
+									</c:otherwise>
+								</c:choose>
+								</td>
 								<td class="dt-body-center">
 									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à
 									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino }" />
