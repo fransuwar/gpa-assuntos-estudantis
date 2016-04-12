@@ -113,41 +113,27 @@
 								<td>Aluno</td>
 								<td>Matricula</td>
 								<td>Data</td>
-								<td></td>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="inscricao" items="${inscricoes }">
 								<tr>
-									<td><a id="detalhes"
+									<td>
+										<a id="detalhes"
 										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.id}">  
-									</c:url>">
-											${inscricao.aluno.pessoa.nome }</a></td>
-									<td>${inscricao.aluno.matricula }</td>
-									<td><fmt:formatDate value="${inscricao.data}"
-											pattern="dd/MM/yyyy" /></td>
-									<td><a id="avaliarDocumentos" title="Avaliar Documentação"
-										href="<c:url value="/servidor/avaliarDocumentacao/${inscricao.id}" ></c:url>">
-											<button class=" btn btn-primary btn-xs">
-												<span class="glyphicon glyphicon-duplicate"></span>
-											</button>
-									</a> <c:if test="${empty inscricao.entrevista }">
-											<a id="realizarEntrevista" title="Realizar Entrevista"
-												href="<c:url value="/servidor/entrevista/${inscricao.id}" ></c:url>">
-												<button class=" btn btn-primary btn-xs">
-													<span class="glyphicon glyphicon-copy"></span>
-												</button>
-											</a>
-										</c:if> <c:if
-											test="${inscricao.selecao.tipoSelecao =='AUX_MOR' and empty inscricao.visitaDomiciliar and inscricao.entrevista.deferimento == true}">
-											<a id="realizarVisita" title="Realizar Visita"
-												href="<c:url value="/servidor/visita/${inscricao.id }"></c:url>">
-												<button class=" btn btn-primary btn-xs">
-													<span class="fa fa-bus"></span>
-												</button>
-											</a>
-										</c:if></td>
+										</c:url>">
+											${inscricao.aluno.pessoa.nome}
+										</a>
+									</td>
+									<td>
+										${inscricao.aluno.matricula}
+									</td>
+									<td>
+										<fmt:formatDate value="${inscricao.data}"
+										pattern="dd/MM/yyyy" />
+									</td>
 								</tr>
+								
 							</c:forEach>
 						</tbody>
 					</table>
