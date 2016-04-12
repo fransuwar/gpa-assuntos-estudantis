@@ -31,6 +31,7 @@
 <script src="<c:url value="/resources/js/bootbox.min.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrapValidator.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.mask.js" />"></script>
+<script src="<c:url value="/resources/js/jquery.maskMoney.js" />"></script>
 <script src="<c:url value="/resources/js/list-dynamic.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.dataTables.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.validate.min.js" />"></script>
