@@ -229,7 +229,7 @@ public class AlunoController {
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
 	public String realizarInscricaoAuxilioMoradia(
-			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
+			/*@Valid */@ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
 			BindingResult result, @RequestParam("mora") List<String> comQuemMora,
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model) {
@@ -265,7 +265,7 @@ public class AlunoController {
 
 			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 			Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
-
+			
 			if (inscricaoService.getInscricao(selecao, aluno) == null) {
 
 				Inscricao inscricao = new Inscricao();
@@ -283,6 +283,7 @@ public class AlunoController {
 			}
 
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
+			
 		}
 
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
