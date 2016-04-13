@@ -40,8 +40,8 @@
 							value="${pf.idade }" /></td>
 						<td><input class="form-control" type="text"
 							name="pf.profissao" value="${pf.profissao }" /></td>
-						<td><input class="form-control" type="number"
-							name="pf.rendaMensal" value="${pf.rendaMensal }" size="10" /></td>
+						<td><input class="form-control" type="number" id="rendaMensal"
+							name="pf.rendaMensal" value="${pf.rendaMensal }" /></td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -62,7 +62,7 @@
 							
 						<td><input type="text" name="pessoas[${i }].profissao" value="" required ="required"/></td>
 							
-						<td><input class="form-control" type="number" name="pessoas[${i }].rendaMensal" value="" required ="required"/></td>
+						<td><input class="form-control" id="rendaMensal" type="text" name="pessoas[${i }].rendaMensal" value="" required ="required"/></td>
 							
 						<td><a href="#" class="removePessoa">Remover Pessoa</a></td>
 					</tr>
@@ -74,6 +74,8 @@
 <a href="#" id="addPessoa" class="btn btn-primary">Adicionar Pessoa</a>
 
 
+<script src="jquery.min.js" type="text/javascript"></script>
+<script src="jquery.maskMoney.js" type="text/javascript"></script>
 <script type="text/javascript">
 	function rowAdded(rowElement) {
 		$(rowElement).find("input").val('');
