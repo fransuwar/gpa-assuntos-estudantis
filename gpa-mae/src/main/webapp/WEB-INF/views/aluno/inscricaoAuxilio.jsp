@@ -58,48 +58,204 @@
 						</tbody>
 					</table>
 				</div>
+
+				<div class='p-container-set'>
 				
+					<div class='p-container first'>
+						<div class='p-header'>
+							<div class='p-title'>PAIS</div>
+						</div>
+	
+						<div class='p-body'>
+							<div class='f-container half'>
+								<label class='f-title'> Mãe: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+	
+							<div class='f-container half'>
+								<label class='f-title'> Pai: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class='p-container'>
+						<div class='p-header'>
+							<div class='p-title'>RESIDÊNCIA ATUAL</div>
+						</div>
+	
+						<div class='p-body'>
+							<div class='f-container s4'>
+								<label class='f-title'> Rua: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+	
+							<div class='f-container s4'>
+								<label class='f-title'> Bairro: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+							
+							<div class='f-container s2'>
+								<label class='f-title'> Numero: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+							
+							<div class='f-container s5'>
+								<label class='f-title'> Cidade: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+							
+							<div class='f-container s3'>
+								<label class='f-title'> Complemento: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+							
+							<div class='f-container s2'>
+								<label class='f-title'> CEP: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+							
+							<div class='f-container s4'>
+								<label class='f-title'> Estado: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+							
+							<div class='f-container s5'>
+								<label class='f-title'> Ponto de referência: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class='p-container'>
+						<div class='p-header'>
+							<div class='p-title'>OUTRO</div>
+						</div>
+	
+						<div class='p-body'>
+							<div class='f-container'>
+								<label class='f-title'> Titulo: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+	
+							<div class='f-container'>
+								<label class='f-title'> Titulo: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class='p-container last'>
+						<div class='p-header'>
+							<div class='p-title'>EXEMPLO</div>
+						</div>
+	
+						<div class='p-body'>
+							<div class='f-container'>
+								<label class='f-title'> Titulo: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+	
+							<div class='f-container'>
+								<label class='f-title'> Titulo: </label>
+	
+								<div class='f-content'>
+									<input type="text" class='form-control' placeholder='Teste' />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br/>
+
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">Informações Pessoais</h3>
 					</div>
 					<div class="panel-body text-align-left">
 						<c:if test="${not empty usuarioAtivo.matricula}">
-						<label class='title'>Matrícula: </label> <span> ${usuarioAtivo.matricula } </span>
+							<label class='title'>Matrícula: </label>
+							<span> ${usuarioAtivo.matricula } </span>
 						</c:if>
-						
-						<c:if test="${not empty usuarioAtivo.nome}"> 
-						<label class='title'>Nome: </label> <span> ${usuarioAtivo.nome } </span>
+
+						<c:if test="${not empty usuarioAtivo.nome}">
+							<label class='title'>Nome: </label>
+							<span> ${usuarioAtivo.nome } </span>
 						</c:if>
-						
-						<c:if test="${not empty usuarioAtivo.cpf}"> 
-						<label class='title'>CPF: </label> <span> ${usuarioAtivo.cpf } </span>
+
+						<c:if test="${not empty usuarioAtivo.cpf}">
+							<label class='title'>CPF: </label>
+							<span> ${usuarioAtivo.cpf } </span>
 						</c:if>
-						
+
 						<c:if test="${not empty usuarioAtivo.email}">
-						<label class='title'>Email:	</label> <span> ${usuarioAtivo.email } </span>
-						</c:if> 
-						
+							<label class='title'>Email: </label>
+							<span> ${usuarioAtivo.email } </span>
+						</c:if>
+
 						<c:if test="${not empty usuarioAtivo.telefone}">
-						<label class='title'>Telefone: </label>	<span> ${usuarioAtivo.telefone } </span>
+							<label class='title'>Telefone: </label>
+							<span> ${usuarioAtivo.telefone } </span>
 						</c:if>
-						
-						<c:if test="${not empty usuarioAtivo.nascimento}"> 
-						<label class='title'>Nascimento: </label> <span>	<fmt:formatDate pattern="dd/MM/yyyy" value="${usuarioAtivo.nascimento }" /></span>
+
+						<c:if test="${not empty usuarioAtivo.nascimento}">
+							<label class='title'>Nascimento: </label>
+							<span> <fmt:formatDate pattern="dd/MM/yyyy"
+									value="${usuarioAtivo.nascimento }" /></span>
 						</c:if>
-						<br/>
-						<br/>
-						
-						<label class='title'>*Estas são suas informações?</label>
-						<input type="checkbox" name="minhas-informacoes" id="minhas-informacoes" required="required" onclick="selecionarInformacoes()" />
-							Sim, as informações estão corretas<br/>
-						
-						<span id='nao-minhas-informacoes'>Não, desejo <a href="#" onclick="novaAba('http://identidadepessoa.intranet/')">alterar informações</a></span>
-						
-						
+						<br /> <br /> <label class='title'>*Estas são suas
+							informações?</label> <input type="checkbox" name="minhas-informacoes"
+							id="minhas-informacoes" required="required"
+							onclick="selecionarInformacoes()" /> Sim, as informações estão
+						corretas<br /> <span id='nao-minhas-informacoes'>Não,
+							desejo <a href="#"
+							onclick="novaAba('http://identidadepessoa.intranet/')">alterar
+								informações</a>
+						</span>
+
+
 					</div>
 				</div>
-				
+
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#moradia-tab" data-toggle="tab">Moradia<i
 							class="fa"></i>
@@ -118,7 +274,7 @@
 					</a></li>
 
 				</ul>
-
+	
 				<form:form id="questionarioAuxilio" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
@@ -290,7 +446,7 @@
 									</div>
 								</div>
 
-								
+
 								<div class="panel-heading">
 									<h3 class="panel-title">Endereço da Residência de Origem</h3>
 								</div>
@@ -417,10 +573,14 @@
 											</div>
 										</div>
 										<div id="div-valor-mensal" class="hidden">
-											<label for="valorMensalFinanciamento" class="col-sm-2  control-label">Valor mensal do financiamento:</label>
+											<label for="valorMensalFinanciamento"
+												class="col-sm-2  control-label">Valor mensal do
+												financiamento:</label>
 											<div class="col-sm-4">
-												<form:input id="valorMensalFinanciamento" path="valorMensalFinanciamento" cssClass="form-control"
-													placeholder="Valor mensal do financiamento" required ="required"/>
+												<form:input id="valorMensalFinanciamento"
+													path="valorMensalFinanciamento" cssClass="form-control"
+													placeholder="Valor mensal do financiamento"
+													required="required" />
 												<div class="error-validation">
 													<form:errors path="valorMensalFinanciamento"></form:errors>
 												</div>
