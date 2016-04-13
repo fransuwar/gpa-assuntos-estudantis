@@ -70,8 +70,27 @@ public class CoordenadorController {
 	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
 			BindingResult result, Authentication auth, RedirectAttributes redirect) {
 		
-		Integer numSelecoes = this.selecaoService.find(Selecao.class).size();
-		selecao.setSequencial(numSelecoes+1);
+		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
+		int contadorAuxilio=0;
+		int contadorIniciacao=0;
+		
+		if(selecao.getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
+			
+		    for(Selecao s: selecoes){
+		        if(s.getAno().equals(selecao.getAno())){
+		    	    contadorAuxilio++;
+		    	    }
+		}	
+		    selecao.setSequencial(contadorAuxilio+1);
+		}else{
+			for(Selecao s: selecoes){
+		        if(s.getAno() == selecao.getAno()){
+		    	    contadorIniciacao++;
+		    	    }
+		}	
+		    selecao.setSequencial(contadorIniciacao+1);
+			
+		}
 
 		model.addAttribute("action", "cadastrar");
 
