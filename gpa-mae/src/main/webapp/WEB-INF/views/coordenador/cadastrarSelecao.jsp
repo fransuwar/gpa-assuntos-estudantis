@@ -88,8 +88,7 @@
 						</div>
 
 						<div class="form-group">
-							<label for="quantidadeVagas" class="col-sm-2 control-label"><span
-								class="red">*</span>Vagas:</label>
+							<label for="quantidadeVagas" class="col-sm-2 control-label"></span>Vagas:</label>
 							<div class="col-sm-2">
 								<form:input id="quantidadeVagas" path="quantidadeVagas"
 									cssClass="form-control" placeholder="0" min="1" data-mask="999" />
