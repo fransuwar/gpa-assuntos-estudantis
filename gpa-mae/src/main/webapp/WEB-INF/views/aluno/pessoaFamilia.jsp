@@ -11,12 +11,12 @@
 
 		<thead>
 			<tr>
-				<th class="form-group"><span class="red">*</span>Nome</th>
-				<th class="form-group"><span class="red">*</span>Parentesco</th>
-				<th class="form-group"><span class="red">*</span>Escolaridade</th>
-				<th class="form-group"><span class="red">*</span>Idade</th>
-				<th class="form-group"><span class="red">*</span>Profissao</th>
-				<th class="form-group"><span class="red">*</span>Renda R$</th>
+				<th class="form-group"><span class="red"></span>Nome</th>
+				<th class="form-group"><span class="red"></span>Parentesco</th>
+				<th class="form-group"><span class="red"></span>Escolaridade</th>
+				<th class="form-group"><span class="red"></span>Idade</th>
+				<th class="form-group"><span class="red"></span>Profissao</th>
+				<th class="form-group"><span class="red"></span>Renda R$</th>
 				<th></th>
 			</tr>
 		</thead>
