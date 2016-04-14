@@ -1,5 +1,4 @@
 var linha;
-var contAba = 0;
 
 $(document).ready(function(){
 
