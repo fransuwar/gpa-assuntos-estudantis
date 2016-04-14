@@ -42,6 +42,11 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 	public Integer getUltimoSequencialPorAno(Selecao selecao) {
 		List<Integer> listSequencial = find(QueryType.JPQL,"select max(s.sequencial)from Selecao as s where s.tipoSelecao = :tipoSelecao and s.ano = :ano",
 				new SimpleMap<String,Object>("tipoSelecao", selecao.getTipoSelecao(), "ano",selecao.getAno()));
+		
+		if (listSequencial == null || listSequencial.get(0) == null) {
+			return 1;
+		}else{
 		return listSequencial.get(0)+1;
+		}
 	}
 }
