@@ -3,6 +3,7 @@ package br.ufc.quixada.npi.gpa.service.impl;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.persistence.NamedQuery;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,5 +36,12 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 	@Transactional
 	public List<Selecao> getSelecoesComMembros() {
 		return ((List<Selecao>) find("Selecao.findSelecoesComMembros", new SimpleMap<String, Object>()));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Integer> getUltimoSequencialPorAno(Selecao selecao) {
+		return find(QueryType.JPQL,"select max(s.sequencial)from Selecao as s where s.tipoSelecao = :tipoSelecao and s.ano = :ano",
+				new SimpleMap<String,Object>("tipoSelecao", selecao.getTipoSelecao(), "ano",selecao.getAno()));
 	}
 }

@@ -10,5 +10,7 @@ public interface SelecaoService extends GenericService<Selecao> {
 	public abstract boolean isSelecaoCadastrada(Selecao selecao);
 
 	public abstract List<Selecao> getSelecoesComMembros();
+	
+	public abstract List<Integer> getUltimoSequencialPorAno(Selecao selecao);
 
 }

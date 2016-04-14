@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.hibernate.Query;
 import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -70,27 +71,9 @@ public class CoordenadorController {
 	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
 			BindingResult result, Authentication auth, RedirectAttributes redirect) {
 		
-		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
-		int contadorAuxilio=0;
-		int contadorIniciacao=0;
+		List<Integer> listSequencial = selecaoService.getUltimoSequencialPorAno(selecao);
 		
-		if(selecao.getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
-			
-		    for(Selecao s: selecoes){
-		        if(s.getAno().equals(selecao.getAno())){
-		    	    contadorAuxilio++;
-		    	    }
-		}	
-		    selecao.setSequencial(contadorAuxilio+1);
-		}else{
-			for(Selecao s: selecoes){
-		        if(s.getAno() == selecao.getAno()){
-		    	    contadorIniciacao++;
-		    	    }
-		}	
-		    selecao.setSequencial(contadorIniciacao+1);
-			
-		}
+		selecao.setSequencial(listSequencial.get(0)+1);
 
 		model.addAttribute("action", "cadastrar");
 
