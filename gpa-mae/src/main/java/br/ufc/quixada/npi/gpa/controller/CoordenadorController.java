@@ -71,9 +71,9 @@ public class CoordenadorController {
 	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
 			BindingResult result, Authentication auth, RedirectAttributes redirect) {
 		
-		List<Integer> listSequencial = selecaoService.getUltimoSequencialPorAno(selecao);
+		Integer proxSequencial = selecaoService.getUltimoSequencialPorAno(selecao);
 		
-		selecao.setSequencial(listSequencial.get(0)+1);
+		selecao.setSequencial(proxSequencial);
 
 		model.addAttribute("action", "cadastrar");
 

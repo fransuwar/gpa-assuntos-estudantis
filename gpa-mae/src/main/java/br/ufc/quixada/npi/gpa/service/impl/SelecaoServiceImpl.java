@@ -39,8 +39,9 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Integer> getUltimoSequencialPorAno(Selecao selecao) {
-		return find(QueryType.JPQL,"select max(s.sequencial)from Selecao as s where s.tipoSelecao = :tipoSelecao and s.ano = :ano",
+	public Integer getUltimoSequencialPorAno(Selecao selecao) {
+		List<Integer> listSequencial = find(QueryType.JPQL,"select max(s.sequencial)from Selecao as s where s.tipoSelecao = :tipoSelecao and s.ano = :ano",
 				new SimpleMap<String,Object>("tipoSelecao", selecao.getTipoSelecao(), "ano",selecao.getAno()));
+		return listSequencial.get(0)+1;
 	}
 }
