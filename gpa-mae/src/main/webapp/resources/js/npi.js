@@ -104,9 +104,6 @@ $(document).ready(function(){
 	             required: true
 	         },
 
-	         sequencial:{
-	        	 required:true
-	         },
 	         duracao:{
 	        	 required:true
 	         },
