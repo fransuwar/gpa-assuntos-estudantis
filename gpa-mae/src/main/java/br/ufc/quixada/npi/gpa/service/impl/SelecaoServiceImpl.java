@@ -3,7 +3,6 @@ package br.ufc.quixada.npi.gpa.service.impl;
 import java.util.List;
 
 import javax.inject.Named;
-import javax.persistence.NamedQuery;
 
 import org.springframework.transaction.annotation.Transactional;
 
