@@ -233,7 +233,7 @@ public class AlunoController {
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
 	public String realizarInscricaoAuxilioMoradia(
-			/*@Valid */@ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
+			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
 			BindingResult result, @RequestParam("mora") List<String> comQuemMora,
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model) {
@@ -375,6 +375,7 @@ public class AlunoController {
 
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("inscricoes", aluno.getInscricoes());
+		
 
 		return PAGINA_INSCRICOES_ALUNO;
 
@@ -428,7 +429,7 @@ public class AlunoController {
 				model.addAttribute("esconderBotoes",false);			
 			}
 
-			return PAGINA_DETALHES_AUXILIO_MORADIA;
+			return PAGINA_DETALHES_INSCRICAO;
 
 		} else {
 
