@@ -217,7 +217,6 @@ function onButtonFinalizarInscricaoClick(){
 	$button.on("click", function(event){
 		if(!isExtencaoFotoValida($input)){
 			spanError.text("Foto com extensão inválida!");
-			event.preventDefault();
 		}
 	});
 }
