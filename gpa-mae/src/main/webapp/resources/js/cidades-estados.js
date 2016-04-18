@@ -93,7 +93,7 @@ dgCidadesEstados.prototype = {
   start: function () { //preenche os estados
     var estado = this.estado;
     while (estado.childNodes.length) estado.removeChild(estado.firstChild);
-    for (var i=0;i<this.estados.length;i++) this.addOption(estado, this.estados[i][0], this.estados[i][1]);
+    for (var i=0;i<this.estados.length;i++) this.addOption(estado, this.estados[i][1], this.estados[i][1]);
   },
   run: function () { //preenche as cidades de acordo com o estado escolhido
 	var sel = this.estado.selectedIndex; // estado escolhido

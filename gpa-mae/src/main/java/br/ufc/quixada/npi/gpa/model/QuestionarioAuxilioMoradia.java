@@ -94,8 +94,7 @@ public class QuestionarioAuxilioMoradia {
 
 	private String cidadeOrigem;
 
-	@Enumerated(EnumType.STRING)
-	private Estado estadoOrigem;
+	private String estadoOrigem;
 
 	private String referenciaOrigem;
 
@@ -121,7 +120,6 @@ public class QuestionarioAuxilioMoradia {
 	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidadeVeiculo;
 
-	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
@@ -230,11 +228,11 @@ public class QuestionarioAuxilioMoradia {
 		this.telefoneOrigem = telefoneOrigem;
 	}
 
-	public Estado getEstadoOrigem() {
+	public String getEstadoOrigem() {
 		return estadoOrigem;
 	}
 
-	public void setEstadoOrigem(Estado estadoOrigem) {
+	public void setEstadoOrigem(String estadoOrigem) {
 		this.estadoOrigem = estadoOrigem;
 	}
 

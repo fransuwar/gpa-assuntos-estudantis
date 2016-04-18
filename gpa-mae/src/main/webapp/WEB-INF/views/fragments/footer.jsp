@@ -36,6 +36,7 @@
 <script src="<c:url value="/resources/js/jquery.dataTables.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.validate.min.js" />"></script>
 <script src="<c:url value="/resources/js/moment-with-locales"/>"></script>
+<script src="<c:url value="/resources/js/cidades-estados.js"/>"></script>
 
 
 
