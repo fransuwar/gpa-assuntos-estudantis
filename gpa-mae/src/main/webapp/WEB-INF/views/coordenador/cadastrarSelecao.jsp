@@ -88,24 +88,13 @@
 						</div>
 
 						<div class="form-group">
-							<label for="quantidadeVagas" class="col-sm-2 control-label"><span
-								class="red">*</span>Vagas:</label>
+							<label for="quantidadeVagas" class="col-sm-2 control-label"></span>Vagas:</label>
 							<div class="col-sm-2">
 								<form:input id="quantidadeVagas" path="quantidadeVagas"
 									cssClass="form-control" placeholder="0" min="1" data-mask="999" />
 								<div class="error-validation" id="erro-qtdVagas">
 									<form:errors path="quantidadeVagas"></form:errors>
 								</div>
-							</div>
-						</div>
-
-						<label for="sequencial" class="col-sm-2 control-label"><span
-							class="red">*</span>Sequencial:</label>
-						<div class="col-sm-2">
-							<form:input id="sequencial" path="sequencial"
-								cssClass="form-control" placeholder="000" data-mask="999" />
-							<div class="error-validation" id="erro-sequencial">
-								<form:errors path="sequencial"></form:errors>
 							</div>
 						</div>
 						<label for="ano" class="col-sm-1 control-label"><span

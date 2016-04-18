@@ -414,6 +414,7 @@ public class AlunoController {
 
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("inscricoes", aluno.getInscricoes());
+		
 
 		return PAGINA_INSCRICOES_ALUNO;
 
@@ -467,7 +468,7 @@ public class AlunoController {
 				model.addAttribute("esconderBotoes",false);			
 			}
 
-			return PAGINA_DETALHES_AUXILIO_MORADIA;
+			return PAGINA_DETALHES_INSCRICAO;
 
 		} else {
 
