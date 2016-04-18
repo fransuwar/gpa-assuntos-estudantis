@@ -266,7 +266,7 @@ public class AlunoController {
 
 		try {
 			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
-			System.out.println("FOTOcommons: "+multipartFile.getContentType());
+			
 			
 			String[] formatos = {"image/jpg", "image/jpeg", "image/png"};
 			
