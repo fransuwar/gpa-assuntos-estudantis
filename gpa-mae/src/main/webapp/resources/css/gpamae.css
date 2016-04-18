@@ -117,6 +117,11 @@ a, a:hover, a:visited, a:active, button, button:hover, button:visited,
 	display: none;
 }
 
+div.f-content select{
+	float:right !important;
+	margin:0;
+}
+
 label.title {
 	width: 100%;
 	text-align: left;
@@ -193,7 +198,12 @@ div.f-container {
 	margin:1%;
 }
 
+label.f-title{
+	margin-left:10px;
+}
+
 div.f-content{
+	margin-left:10px;
 }
 
 div.half{
@@ -228,14 +238,14 @@ div.s7{
 	width:67%;	
 }
 
-div.s7{
+div.s8{
 	width:77%;	
 }
 
-div.s7{
+div.s9{
 	width:77%;	
 }
 
-div.s100{
+div.s10{
 	width:77%;	
 }
