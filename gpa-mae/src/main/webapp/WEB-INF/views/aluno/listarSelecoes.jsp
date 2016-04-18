@@ -59,6 +59,7 @@
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr>
+
 								<td><a id="detalhes"
 									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
 										${selecao.tipoSelecao.nome} </a></td>

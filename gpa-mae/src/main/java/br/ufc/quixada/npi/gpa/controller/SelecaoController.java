@@ -61,7 +61,7 @@ public class SelecaoController {
 	private AlunoService alunoService;
 	@Inject
 	private InscricaoService inscricaoService;
-
+	
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect,Authentication auth) {
 		//Apenas detalhe da seleção, apenas para aluno
