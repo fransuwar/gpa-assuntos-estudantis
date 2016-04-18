@@ -1,6 +1,24 @@
 var linha;
+var accordionFechado;
 
 $(document).ready(function(){
+	
+	$('.fechado').slideUp();
+	
+	$('.panel-heading span.clicavel').on("click", function (e) {
+		if ($(this).hasClass('panel-collapsed')) {
+			//Expande o painel
+			$(this).parents('.panel').find('.panel-body').slideDown();
+			$(this).removeClass('panel-collapsed');
+			$(this).find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+		}else{
+			//Contrai o Painel
+			$(this).parents('.panel').find('.panel-body').slideUp();
+            $(this).addClass('panel-collapsed');
+            $(this).find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+		}
+		
+	});
 
 	$("#nome_cursinho").hide()	
 	$("#cursinho").click(function() {
