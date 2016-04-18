@@ -262,8 +262,6 @@
 										<div class="col-sm-2">
 											<form:select path="estado" id="estado-endereco"
 												cssClass="form-control" cssStyle="font-size:13px">
-											<%-- 	<form:option value="">Selecione Estado</form:option>
-												<form:options items="${estado}" itemLabel="nome" /> --%>
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="estado"></form:errors>
@@ -359,8 +357,6 @@
 										<div class="col-sm-2">
 											<form:select path="estadoOrigem" id="estado-origem"
 												cssClass="form-control" cssStyle="font-size:13px">
-												<%-- <form:option value="">Selecione Estado</form:option>
-												<form:options items="${estado}" itemLabel="nome" /> --%>
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="estadoOrigem"></form:errors>
