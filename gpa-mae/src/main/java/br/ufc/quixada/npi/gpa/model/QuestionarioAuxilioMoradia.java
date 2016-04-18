@@ -3,6 +3,7 @@ package br.ufc.quixada.npi.gpa.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -125,7 +127,11 @@ public class QuestionarioAuxilioMoradia {
 
 	@Enumerated(EnumType.STRING)
 	private SituacaoImovel situacaoImovel;
-
+	
+	@Lob
+	@Column(name="foto", columnDefinition="mediumblob")
+	private byte[] foto;
+	
 	private double valorMensalFinanciamento;
 	
 	@Enumerated(EnumType.STRING)
@@ -162,7 +168,15 @@ public class QuestionarioAuxilioMoradia {
 	public void setValorMensalFinanciamento(double valorMensalFinanciamento) {
 		this.valorMensalFinanciamento = valorMensalFinanciamento;
 	}
+	
+	
+	public byte[] getFoto() {
+		return foto;
+	}
 
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
 
 	public Integer getId() {
 		return id;

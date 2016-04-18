@@ -76,6 +76,7 @@ $(document).ready(function(){
 	$('#questionarioIniciacao').validate();
 	
 	onSelectSituacaoImovelSelected();
+	onButtonFinalizarInscricaoClick();
 	
 	jQuery.validator.addMethod("periodo", function(value, element) {
 		return !moment($('#dataTermino').val()).isBefore($('#dataInicio').val());
@@ -185,6 +186,43 @@ function onSelectSituacaoImovelSelected(){
 	});
 }
 
+/*
+ * Essa função é responsável por validar a extenção do arquivo
+ * que o usuário envia no upload.
+ * As extenções são: jpeg, jpg e png.
+ * 
+ * Se o valor do input for igual a "" então o usuário não fez upload
+ * de nenhuma imagem, logo é retornado true para não aparecer a mensagem
+ * de foto com formato inválido.
+ */
+function isExtencaoFotoValida($input){
+	var extencoes = ["jpeg", "jpg", "png"];
+	var fileName = $input.val();
+	
+	if(fileName == "")
+		return true;
+	
+	var extencaoFoto = fileName.split(".")[1] ? $input.val().split(".")[1] : "";
+	console.log(extencaoFoto);
+	var res = extencoes.some(function(extencao){
+		return extencao == extencaoFoto;
+	});
+	return res;
+	
+}
+
+function onButtonFinalizarInscricaoClick(){
+	var $button = $('#form-btn');
+	var $input = $("#input-foto3x4");
+	var spanError = $("#span-error-foto");
+	spanError.text("");
+	$button.on("click", function(event){
+		if(!isExtencaoFotoValida($input)){
+			spanError.text("Foto com extensão inválida!");
+			event.preventDefault();
+		}
+	});
+}
 
 function mascaraIra(obj) {
 	var str = obj.value;
