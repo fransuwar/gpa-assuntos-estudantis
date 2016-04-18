@@ -27,7 +27,6 @@ import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 @NamedQueries({
 		@NamedQuery(name = "Selecao.findSelecoesComMembros",	query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosComissao")})
 
-
 @Entity
 public class Selecao {
 
@@ -38,7 +37,6 @@ public class Selecao {
 	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
 
-	@NotNull(message = "Campo obrigatório")
 	@Range(min = 1, message = "O valor do edital deve ser maior que 0")
 	private Integer sequencial;
 

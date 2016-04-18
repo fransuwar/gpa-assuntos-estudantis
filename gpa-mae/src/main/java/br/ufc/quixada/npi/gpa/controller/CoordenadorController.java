@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.hibernate.Query;
 import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -69,6 +70,10 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
 	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
 			BindingResult result, Authentication auth, RedirectAttributes redirect) {
+		
+		Integer proxSequencial = selecaoService.getUltimoSequencialPorAno(selecao);
+		
+		selecao.setSequencial(proxSequencial);
 
 		model.addAttribute("action", "cadastrar");
 
