@@ -78,7 +78,7 @@
 									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à
 									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino }" />
 								</td>
-								<td><c:if test="${not empty selecao.inscritos }">
+								<%--<td><c:if test="${not empty selecao.inscritos }">
 										<c:forEach items="${selecao.inscritos}" var="inscricao">
 											<c:choose>
 												<c:when
@@ -143,7 +143,7 @@
 											</c:otherwise>
 										</c:choose>
 									</c:if></td>
-							</tr>
+							</tr> --%>
 						</c:forEach>
 					</tbody>
 				</table>
