@@ -51,7 +51,7 @@
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr>
 								<td>
-									<a id="detalhes" href="<c:url value="/selecao/detalhesPublico/${selecao.id}"></c:url>">
+									<a id="detalhes" href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
 										${selecao.tipoSelecao.nome}
 									</a>
 								</td>
@@ -70,52 +70,6 @@
 									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à
 									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino }" />
 								</td>
-								<%-- <td>
-									<sec:authorize access="hasAnyRole('DISCENTE')">
-										<c:choose>
-											<c:when
-												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
-												<a id="inscrever" title="Inscrever-se"
-													href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
-													<button class=" btn btn-primary btn-xs"
-														title="Realizar Inscrição">
-														<span class="glyphicon glyphicon-user"></span>
-													</button>
-												</a>
-											</c:when>
-											<c:when
-												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad and selecao.status == 'INSC_ABERTA'}">
-												<a id="editar" title="Editar"
-													href="<c:url value="/aluno/inscricao/editar/iniciacao-academica/${inscricao.id}" ></c:url>">
-													<button class=" btn btn-primary btn-xs"
-														title="Editar Inscrição">
-														<span class="glyphicon glyphicon-pencil"></span>
-													</button>
-												</a>
-											</c:when>
-											<c:when
-												test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
-												<a id="inscrever" title="Inscrever-se"
-													href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-													<button class=" btn btn-primary btn-xs"
-														Title="Realizar Inscrição">
-														<span class="glyphicon glyphicon-user"></span>
-													</button>
-												</a>
-											</c:when>
-											<c:when
-												test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor and selecao.status == 'INSC_ABERTA'}">
-												<a id="editar" title="Editar"
-													href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id}" ></c:url>">
-													<button class=" btn btn-primary btn-xs"
-														title="Editar Inscrição">
-														<span class="glyphicon glyphicon-pencil"></span>
-													</button>
-												</a>
-											</c:when>
-										</c:choose>
-									</sec:authorize>
-								</td> --%>
 							</tr>
 						</c:forEach>
 				</table>
