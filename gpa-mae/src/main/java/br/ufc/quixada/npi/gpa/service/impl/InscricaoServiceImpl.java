@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import br.ufc.quixada.npi.enumeration.QueryType;
 import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
@@ -16,6 +17,7 @@ import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.repository.GenericRepository;
@@ -43,6 +45,17 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	public List<Inscricao> getInscricoesBySelecao(Integer idSelecao) {
 		return find("Inscricao.finInscricaoByIdSelecao", new SimpleMap<String, Object>("idSelecao", idSelecao));
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Inscricao> getInscricoesBySelecaoByAluno(Integer idSelecao, Integer idAluno) {
+		Map<String, Object> params = new SimpleMap<String, Object>();
+		params.put("idSelecao", idSelecao);
+		params.put("idAluno", idAluno);
+
+		return (List<Inscricao>)find("Inscricao.finInscricaoByIdSelecaoByAluno", params);
+	}
+	
 
 	@Transactional(readOnly = true)
 	public List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica) {

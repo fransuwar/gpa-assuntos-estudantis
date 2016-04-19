@@ -20,6 +20,8 @@ public interface InscricaoService extends GenericService<Inscricao>{
 	
 	public abstract List<Inscricao> getInscricoesBySelecao(Integer idSelecao);
 	
+	public abstract List<Inscricao> getInscricoesBySelecaoByAluno(Integer idSelecao, Integer idAluno);
+	
 	public abstract List<PessoaFamilia> getPessoaFamiliaByIdIniciacaoAcademica(Integer idIniciacaoAcademica);
 	
 	public abstract List<PessoaFamilia> getPessoaFamiliaByIdAuxilioMoradia(Integer idAuxilioMoradia);

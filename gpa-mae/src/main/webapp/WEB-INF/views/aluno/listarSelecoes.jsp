@@ -62,6 +62,7 @@
 								<td><a id="detalhes"
 									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
 										${selecao.tipoSelecao.nome} </a></td>
+
 								<td>${selecao.ano}</td>
 								<td>${selecao.sequencial}</td>
 								<td>
@@ -78,72 +79,7 @@
 									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à
 									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino }" />
 								</td>
-								<td><c:if test="${not empty selecao.inscritos }">
-										<c:forEach items="${selecao.inscritos}" var="inscricao">
-											<c:choose>
-												<c:when
-													test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad}">
-													<a id="inscrever" title="Inscrever-se"
-														href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
-														<button class=" btn btn-primary btn-xs">
-															<span class="glyphicon glyphicon-user"></span>
-														</button>
-													</a>
-												</c:when>
-												<c:when
-													test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == inic_acad }">
-													<a id="editar" title="Editar"
-														href="<c:url value="/aluno/inscricao/editar/iniciacao-academica/${inscricao.id }" ></c:url>">
-														<button class=" btn btn-primary btn-xs"
-															title="Editar Inscrição">
-															<span class="glyphicon glyphicon-pencil"></span>
-														</button>
-													</a>
-												</c:when>
-												<c:when
-													test="${!aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor}">
-													<a id="inscrever" title="Inscrever-se"
-														href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-														<button class="btn btn-primary btn-xs">
-															<span class="glyphicon glyphicon-user"></span>
-														</button>
-													</a>
-												</c:when>
-												<c:when
-													test="${aluno.inscricoes.contains(inscricao) and selecao.tipoSelecao == aux_mor }">
-													<a id="editar" title="Editar"
-														href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id }" ></c:url>">
-														<button class=" btn btn-primary btn-xs"
-															title="Editar Inscrição">
-															<span class="glyphicon glyphicon-pencil"></span>
-														</button>
-													</a>
-												</c:when>
-
-											</c:choose>
-										</c:forEach>
-									</c:if> <c:if test="${empty selecao.inscritos}">
-										<c:choose>
-											<c:when test="${selecao.tipoSelecao == inic_acad }">
-												<a id="inscrever" title="Inscrever-se"
-													href="<c:url value="/aluno/inscricao/${selecao.id}/iniciacao-academica" ></c:url>">
-													<button class=" btn btn-primary btn-xs">
-														<span class="glyphicon glyphicon-user"></span>
-													</button>
-												</a>
-											</c:when>
-											<c:otherwise>
-												<a id="inscrever" title="Inscrever-se"
-													href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-													<button class="btn btn-primary btn-xs">
-
-														<span class="glyphicon glyphicon-user"></span>
-													</button>
-												</a>
-											</c:otherwise>
-										</c:choose>
-									</c:if></td>
-							</tr>
+								
 						</c:forEach>
 					</tbody>
 				</table>
