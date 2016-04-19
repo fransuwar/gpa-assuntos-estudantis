@@ -16,8 +16,8 @@
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
-	<div class="container">
-		<div class="panel panel-primary panel-centralized">
+	<div class="container" align="left" style="padding-left: 85px;">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Seleção</h3>
 			</div>
@@ -31,37 +31,35 @@
 						<dl class="col-sm-12">
 							<dt class="col-sm-3">Ano do Edital:</dt>
 							<dd class="col-sm-3">${selecao.ano}</dd>
-							<dt class="col-sm-3">Responsável:</dt>
-							<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>	
 						</dl>
 						<dl class="col-sm-12">
-							<dt class="col-sm-3">Início da Inscrição:</dt>
+							<dt class="col-sm-3">Quantidade de vagas:</dt>
+							<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
+							<dt class="col-sm-3">Responsável:</dt>
+							<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
+						</dl>
+						<dl class="col-sm-12">
+							<dt class="col-sm-3">Data de Início da Inscrição:</dt>
 							<dd class="col-sm-3">
 								<fmt:formatDate value="${selecao.dataInicio}"
 									pattern="dd/MM/yyyy" />
 							</dd>
-							<dt class="col-sm-3">Término da Inscrição:</dt>
+							<dt class="col-sm-3">Data de Término da Inscrição:</dt>
 							<dd class="col-sm-3">
 								<fmt:formatDate value="${selecao.dataTermino}"
 									pattern="dd/MM/yyyy" />
 							</dd>
 						</dl>
 						<dl class="col-sm-12">
-							<dt class="col-sm-3">Quantidade de vagas:</dt>
-							<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
 							<dt class="col-sm-3">Arquivos:</dt>
-							
-							<c:if test="${empty selecao.documentos}">
-								<span>Nenhum arquivo cadastrado</span>
-							</c:if>							
 							<c:forEach var="documento" items="${selecao.documentos}">
 								<dd class="col-sm-3">
-									<a href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
+									<a
+										href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
 										${documento.nome} </a>
 								</dd>
 							</c:forEach>
 						</dl>
-						
 					</div>
 			</div>
 		</div>

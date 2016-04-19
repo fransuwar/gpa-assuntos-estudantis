@@ -124,11 +124,3 @@ div.text-align-left{
 	width:100%;
 	text-align: left;
 }
-
-.panel-centralized{
-	margin: auto;
-}
-
-.panel-centralized dt{
-	text-align: left;
-}
