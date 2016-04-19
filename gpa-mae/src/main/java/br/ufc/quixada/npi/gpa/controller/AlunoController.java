@@ -24,6 +24,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -267,15 +268,16 @@ public class AlunoController {
 		try {
 			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
 			
-			String[] formatos = {"image/jpg", "image/jpeg", "image/png"};
+			List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
 			
 			//Conferindo se o formato do arquivo passado é um dos formatos do array acima.
-			if(!StringUtils.contains(multipartFile.getContentType(), formatos)){
+			if(!formatos.contains(multipartFile.getContentType())){
 				redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
 				//Adicionando o erro no result.
-				result.addError(new ObjectError("ErroUploadFoto", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
+				result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
+			}else{
+				auxilioMoradia.setFoto(foto.getBytes());
 			}
-			auxilioMoradia.setFoto(foto.getBytes());			
 		} catch (IOException e) {
 			result.addError(new ObjectError("error", MENSAGEM_ERRO_UPLOAD_FOTO));
 			redirect.addFlashAttribute("error", MENSAGEM_ERRO_UPLOAD_FOTO);
@@ -305,6 +307,7 @@ public class AlunoController {
 			model.addAttribute("grauParentesco", GrauParentesco.values());
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
+			
 			
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 
