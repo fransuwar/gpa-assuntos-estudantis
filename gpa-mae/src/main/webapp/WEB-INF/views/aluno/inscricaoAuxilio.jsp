@@ -59,76 +59,6 @@
 					</table>
 				</div>
 
-
-
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Informações Pessoais</h3>
-					</div>
-					<div class="panel-body text-align-left">
-						<c:if test="${not empty usuarioAtivo.matricula}">
-							<label class='title'>Matrícula: </label>
-							<span> ${usuarioAtivo.matricula } </span>
-						</c:if>
-
-						<c:if test="${not empty usuarioAtivo.nome}">
-							<label class='title'>Nome: </label>
-							<span> ${usuarioAtivo.nome } </span>
-						</c:if>
-
-						<c:if test="${not empty usuarioAtivo.cpf}">
-							<label class='title'>CPF: </label>
-							<span> ${usuarioAtivo.cpf } </span>
-						</c:if>
-
-						<c:if test="${not empty usuarioAtivo.email}">
-							<label class='title'>Email: </label>
-							<span> ${usuarioAtivo.email } </span>
-						</c:if>
-
-						<c:if test="${not empty usuarioAtivo.telefone}">
-							<label class='title'>Telefone: </label>
-							<span> ${usuarioAtivo.telefone } </span>
-						</c:if>
-
-						<c:if test="${not empty usuarioAtivo.nascimento}">
-							<label class='title'>Nascimento: </label>
-							<span> <fmt:formatDate pattern="dd/MM/yyyy"
-									value="${usuarioAtivo.nascimento }" /></span>
-						</c:if>
-						<br /> <br /> <label class='title'>*Estas são suas
-							informações?</label> <input type="checkbox" name="minhas-informacoes"
-							id="minhas-informacoes" required="required"
-							onclick="selecionarInformacoes()" /> Sim, as informações estão
-						corretas<br /> <span id='nao-minhas-informacoes'>Não,
-							desejo <a href="#"
-							onclick="novaAba('http://identidadepessoa.intranet/')">alterar
-								informações</a>
-						</span>
-
-
-					</div>
-				</div>
-
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#moradia-tab" data-toggle="tab">Moradia<i
-							class="fa"></i>
-					</a></li>
-					<li><a href="#historico-escolar-tab" data-toggle="tab">Histórico
-							Escolar<i class="fa"></i>
-					</a></li>
-					<li><a href="#situacao-socio-economica-tab" data-toggle="tab">Situação
-							Sócioeconômica<i class="fa"></i>
-					</a></li>
-					<li><a href="#outras-informacoes-tab" data-toggle="tab">Outras
-							Informações<i class="fa"></i>
-					</a></li>
-					<li><a href="#justificativa-tab" data-toggle="tab">Justificativa<i
-							class="fa"></i>
-					</a></li>
-
-				</ul>
-
 				<form:form id="questionarioAuxilio" role="form"
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
@@ -139,443 +69,771 @@
 						value="${selecao.id}" />
 
 
-					<div class='p-container-set'>
+					<h3>Informações Pessoais</h3>
+					<section>
+						<div class='p-container-set'>
+							<div class='p-container unique'>
+								<div class='p-header'>
+									<div class='p-title'>INFORMAÇÕES</div>
+								</div>
 
-						<div class='p-container first'>
-							<div class='p-header'>
-								<div class='p-title'>MORA COM</div>
-							</div>
-
-							<div class='p-body'>
-
-								<div class='f-container s8'>
-									<label class='f-title'>*Opções:</label>
-									<div class='f-content'>
-										<div class="form-group">
-											<div id="col-sm-radio">
-												<c:forEach items="${moraCom }" var="mora" varStatus="count">
-													<input id="comQuemMora${count.index + 1 }" type="checkbox"
-														name="mora" value="${mora}" />
-													<label for="comQuemMora${count.index + 1 }">${mora.nome }</label>
-												</c:forEach>
-											</div>
+								<div class='p-body'>
+									<div class='f-container s5'>
+										<label class='f-title'>Matrícula</label>
+										<div class='f-content'>
+											<c:if test="${not empty usuarioAtivo.matricula}">
+												<span> ${usuarioAtivo.matricula } </span>
+											</c:if>
 										</div>
-										<div id="mora-com-outros" class="form-group" align="left">
-											<div class='f-content'>
-												<label class='f-title'>Quem são essas pessoas?</label>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'>Nome:</label>
+										<div class='f-content'>
+											<c:if test="${not empty usuarioAtivo.nome}">
+												<span> ${usuarioAtivo.nome } </span>
+											</c:if>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'>CPF:</label>
+										<div class='f-content'>
+											<c:if test="${not empty usuarioAtivo.cpf}">
+												<span> ${usuarioAtivo.cpf } </span>
+											</c:if>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'>Email:</label>
+										<div class='f-content'>
+											<c:if test="${not empty usuarioAtivo.email}">
+												<span> ${usuarioAtivo.email } </span>
+											</c:if>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'>Telefone</label>
+										<div class='f-content'>
+											<c:if test="${not empty usuarioAtivo.telefone}">
+												<span> ${usuarioAtivo.telefone } </span>
+											</c:if>
+
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'>Nascimento</label>
+										<div class='f-content'>
+											<c:if test="${not empty usuarioAtivo.nascimento}">
+												<span> <fmt:formatDate pattern="dd/MM/yyyy"
+														value="${usuarioAtivo.nascimento }" /></span>
+											</c:if>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'>*Estas são suas informações?</label>
+
+										<div class='f-content'>
+											<input type="checkbox" name="minhas-informacoes"
+												id="minhas-informacoes" required="required"
+												onclick="selecionarInformacoes()" /> Sim, as informações
+											estão corretas<br /> <span id='nao-minhas-informacoes'>Não,
+												desejo <a href="#"
+												onclick="novaAba('http://identidadepessoa.intranet/')">alterar
+													informações</a>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<h3>Moradia</h3>
+					<section>
+						<div class='p-container-set'>
+							<div class='p-container first'>
+								<div class='p-header'>
+									<div class='p-title'>MORA COM</div>
+								</div>
+
+								<div class='p-body'>
+
+									<div class='f-container s8'>
+										<label class='f-title'>*Opções:</label>
+										<div class='f-content'>
+											<div class="form-group">
+												<div id="col-sm-radio">
+													<c:forEach items="${moraCom }" var="mora" varStatus="count">
+														<input id="comQuemMora${count.index + 1 }" type="checkbox"
+															name="mora" value="${mora}" />
+														<label for="comQuemMora${count.index + 1 }">${mora.nome }</label>
+													</c:forEach>
+												</div>
+											</div>
+											<div id="mora-com-outros" class="form-group" align="left">
 												<div class='f-content'>
-													<form:input id="comQuemMoraOutros" path="comQuemMoraOutros"
-														cssClass="form-control"
-														placeholder="Com quem mora essas pessoas ?"
-														required="required" />
-													<div class="error-validation">
-														<form:errors path="comQuemMoraOutros"></form:errors>
+													<label class='f-title'>Quem são essas pessoas?</label>
+													<div class='f-content'>
+														<form:input id="comQuemMoraOutros"
+															path="comQuemMoraOutros" cssClass="form-control"
+															placeholder="Com quem mora essas pessoas ?"
+															required="required" />
+														<div class="error-validation">
+															<form:errors path="comQuemMoraOutros"></form:errors>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 
-							</div>
-						</div>
-
-						<div class='p-container'>
-							<div class='p-header'>
-								<div class='p-title'>PAIS</div>
-							</div>
-
-							<div class='p-body'>
-								<div class='f-container half'>
-									<label class='f-title'> *Mãe: </label>
-
-									<div class='f-content'>
-										<form:input id="nomeMae" type="text" path="nomeMae"
-											cssClass="form-control" placeholder="Nome da Mãe"
-											required="required" />
-										<div class="error-validation">
-											<form:errors path="nomeMae"></form:errors>
-										</div>
-									</div>
-								</div>
-
-								<div class='f-container half'>
-									<label class='f-title'> *Pai: </label>
-
-									<div class='f-content'>
-										<form:input id="nomePai" path="nomePai"
-											cssClass="form-control" placeholder="Nome do Pai"
-											required="required" />
-										<div class="error-validation">
-											<form:errors path="nomePai"></form:errors>
-										</div>
-									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class='p-container'>
-							<div class='p-header'>
-								<div class='p-title'>RESIDÊNCIA ATUAL</div>
-							</div>
-
-							<div class='p-body'>
-								<div class='f-container s3'>
-									<label class='f-title'> *Rua/Av: </label>
-
-									<div class='f-content'>
-										<form:input id="endereco" path="endereco"
-											cssClass="form-control" placeholder="Rua da sede do curso"
-											required="required" />
-										<div class="error-validation">
-											<form:errors path="endereco"></form:errors>
-										</div>
-									</div>
-								</div>
-								
-								<div class='f-container s2'>
-									<label class='f-title'> *Numero: </label>
-
-									<div class='f-content'>
-										<form:input id="numero" path="numero" cssClass="form-control"
-											data-mask="999999" placeholder="Num" required="required" />
-										<div class="error-validation">
-											<form:errors path="numero"></form:errors>
-										</div>
-									</div>
+							<div class='p-container'>
+								<div class='p-header'>
+									<div class='p-title'>PAIS</div>
 								</div>
 
-								<div class='f-container s3'>
-									<label class='f-title'> *Bairro: </label>
+								<div class='p-body'>
+									<div class='f-container half'>
+										<label class='f-title'> *Mãe: </label>
 
-									<div class='f-content'>
-										<form:input id="bairro" path="bairro" cssClass="form-control"
-											placeholder="Bairro" required="required" />
-										<div class="error-validation">
-											<form:errors path="bairro"></form:errors>
+										<div class='f-content'>
+											<form:input id="nomeMae" type="text" path="nomeMae"
+												cssClass="form-control" placeholder="Nome da Mãe"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="nomeMae"></form:errors>
+											</div>
 										</div>
 									</div>
-								</div>
 
-								
+									<div class='f-container half'>
+										<label class='f-title'> *Pai: </label>
 
-								<div class='f-container s2'>
-									<label class='f-title'> *CEP: </label>
-
-									<div class='f-content'>
-										<form:input id="cep" path="cep" data-mask="99999-999"
-											cssClass="form-control" placeholder="CEP" required="required" />
-										<div class="error-validation">
-											<form:errors path="cep"></form:errors>
-										</div>
-									</div>
-								</div>
-
-								<div class='f-container s5'>
-									<label class='f-title'> *Cidade: </label>
-
-									<div class='f-content'>
-										<form:input id="cidade" path="cidade" cssClass="form-control"
-											placeholder="Cidade" required="required" />
-										<div class="error-validation">
-											<form:errors path="cidade"></form:errors>
-										</div>
-									</div>
-								</div>
-
-								<div class='f-container s5'>
-									<label class='f-title'> *Estado: </label>
-
-									<div class='f-content'>
-										<form:select path="estado" id="estado" cssClass="form-control"
-											cssStyle="font-size:13px" required="required">
-											<form:option value="">Selecione Estado</form:option>
-											<form:options items="${estado}" itemLabel="nome" />
-										</form:select>
-										<div class="error-validation">
-											<form:errors path="estado"></form:errors>
-										</div>
-									</div>
-								</div>
-
-								<div class='f-container s5'>
-									<label class='f-title'> *Complemento: </label>
-
-									<div class='f-content'>
-										<form:input id="complemento" path="complemento"
-											cssClass="form-control"
-											placeholder="Complemento da sede do curso"
-											required="required" />
-										<div class="error-validation">
-											<form:errors path="complemento"></form:errors>
-										</div>
-									</div>
-								</div>
-
-
-
-
-
-								<div class='f-container s5'>
-									<label class='f-title'> *Ponto de referência: </label>
-
-									<div class='f-content'>
-										<form:input id="referencia" path="referencia"
-											cssClass="form-control" placeholder="Ponto de Referencia"
-											required="required" />
-										<div class="error-validation">
-											<form:errors path="referencia"></form:errors>
+										<div class='f-content'>
+											<form:input id="nomePai" path="nomePai"
+												cssClass="form-control" placeholder="Nome do Pai"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="nomePai"></form:errors>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class='p-container'>
-							<div class='p-header'>
-								<div class='p-title'>RESIDÊNCIA DE ORIGEM</div>
+							<div class='p-container'>
+								<div class='p-header'>
+									<div class='p-title'>RESIDÊNCIA ATUAL</div>
+								</div>
+
+								<div class='p-body'>
+									<div class='f-container s3'>
+										<label class='f-title'> *Rua/Av: </label>
+
+										<div class='f-content'>
+											<form:input id="endereco" path="endereco"
+												cssClass="form-control" placeholder="Rua da sede do curso"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="endereco"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s2'>
+										<label class='f-title'> *Numero: </label>
+
+										<div class='f-content'>
+											<form:input id="numero" path="numero" cssClass="form-control"
+												data-mask="999999" placeholder="Num" required="required" />
+											<div class="error-validation">
+												<form:errors path="numero"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s3'>
+										<label class='f-title'> *Bairro: </label>
+
+										<div class='f-content'>
+											<form:input id="bairro" path="bairro" cssClass="form-control"
+												placeholder="Bairro" required="required" />
+											<div class="error-validation">
+												<form:errors path="bairro"></form:errors>
+											</div>
+										</div>
+									</div>
+
+
+
+									<div class='f-container s2'>
+										<label class='f-title'> *CEP: </label>
+
+										<div class='f-content'>
+											<form:input id="cep" path="cep" data-mask="99999-999"
+												cssClass="form-control" placeholder="CEP"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="cep"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'> *Cidade: </label>
+
+										<div class='f-content'>
+											<form:input id="cidade" path="cidade" cssClass="form-control"
+												placeholder="Cidade" required="required" />
+											<div class="error-validation">
+												<form:errors path="cidade"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'> *Estado: </label>
+
+										<div class='f-content'>
+											<form:select path="estado" id="estado"
+												cssClass="form-control" cssStyle="font-size:13px"
+												required="required">
+												<form:option value="">Selecione Estado</form:option>
+												<form:options items="${estado}" itemLabel="nome" />
+											</form:select>
+											<div class="error-validation">
+												<form:errors path="estado"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'> *Complemento: </label>
+
+										<div class='f-content'>
+											<form:input id="complemento" path="complemento"
+												cssClass="form-control"
+												placeholder="Complemento da sede do curso"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="complemento"></form:errors>
+											</div>
+										</div>
+									</div>
+
+
+
+
+
+									<div class='f-container s5'>
+										<label class='f-title'> *Ponto de referência: </label>
+
+										<div class='f-content'>
+											<form:input id="referencia" path="referencia"
+												cssClass="form-control" placeholder="Ponto de Referencia"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="referencia"></form:errors>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 
-							<div class='p-body'>
-								<div class='f-container s3'>
-									<label class='f-title'> *Rua/Av: </label>
-
-									<div class='f-content'>
-										<form:input id="enderecoOrigem" path="enderecoOrigem"
-											cssClass="form-control" placeholder="Rua da sede do curso"
-											required="required" />
-										<div class="error-validation">
-											<form:errors path="enderecoOrigem"></form:errors>
-										</div>
-									</div>
-								</div>
-								
-								<div class='f-container s2'>
-									<label class='f-title'> *Numero: </label>
-
-									<div class='f-content'>
-										<form:input id="numeroOrigem" path="numeroOrigem"
-											cssClass="form-control" data-mask="999999" placeholder="Num"
-											required="required" />
-										<div class="error-validation">
-											<form:errors path="numeroOrigem"></form:errors>
-										</div>
-									</div>
+							<div class='p-container'>
+								<div class='p-header'>
+									<div class='p-title'>RESIDÊNCIA DE ORIGEM</div>
 								</div>
 
-								<div class='f-container s3'>
-									<label class='f-title'> *Bairro: </label>
+								<div class='p-body'>
+									<div class='f-container s3'>
+										<label class='f-title'> *Rua/Av: </label>
 
-									<div class='f-content'>
-										<form:input id="bairroOrigem" path="bairroOrigem"
-											cssClass="form-control" placeholder="Bairro"
-											required="required" />
-										<div class="error-validation">
-											<form:errors path="bairroOrigem"></form:errors>
+										<div class='f-content'>
+											<form:input id="enderecoOrigem" path="enderecoOrigem"
+												cssClass="form-control" placeholder="Rua da sede do curso"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="enderecoOrigem"></form:errors>
+											</div>
 										</div>
 									</div>
-								</div>
 
-								<div class='f-container s2'>
-									<label class='f-title'> *CEP: </label>
+									<div class='f-container s2'>
+										<label class='f-title'> *Numero: </label>
 
-									<div class='f-content'>
-										<form:input id="cepOrigem" path="cepOrigem"
-											data-mask="99999-999" cssClass="form-control"
-											placeholder="CEP" required="required" />
-										<div class="error-validation">
-											<form:errors path="cepOrigem"></form:errors>
+										<div class='f-content'>
+											<form:input id="numeroOrigem" path="numeroOrigem"
+												cssClass="form-control" data-mask="999999" placeholder="Num"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="numeroOrigem"></form:errors>
+											</div>
 										</div>
 									</div>
-								</div>
 
-								<div class='f-container s5'>
-									<label class='f-title'> *Cidade: </label>
+									<div class='f-container s3'>
+										<label class='f-title'> *Bairro: </label>
 
-									<div class='f-content'>
-										<form:input id="cidadeOrigem" path="cidadeOrigem"
+										<div class='f-content'>
+											<form:input id="bairroOrigem" path="bairroOrigem"
+												cssClass="form-control" placeholder="Bairro"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="bairroOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s2'>
+										<label class='f-title'> *CEP: </label>
+
+										<div class='f-content'>
+											<form:input id="cepOrigem" path="cepOrigem"
+												data-mask="99999-999" cssClass="form-control"
+												placeholder="CEP" required="required" />
+											<div class="error-validation">
+												<form:errors path="cepOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'> *Cidade: </label>
+
+										<div class='f-content'>
+											<form:input id="cidadeOrigem" path="cidadeOrigem"
 												cssClass="form-control" placeholder="Cidade"
 												required="required" />
 											<div class="error-validation">
 												<form:errors path="cidadeOrigem"></form:errors>
 											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'> *Estado: </label>
+
+										<div class='f-content'>
+											<form:select path="estadoOrigem" id="estadoOrigem"
+												cssClass="form-control" cssStyle="font-size:13px"
+												required="required">
+												<form:option value="">Selecione Estado</form:option>
+												<form:options items="${estado}" itemLabel="nome" />
+											</form:select>
+											<div class="error-validation">
+												<form:errors path="estadoOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'> Complemento: </label>
+
+										<div class='f-content'>
+											<form:input id="complementoOrigem" path="complementoOrigem"
+												cssClass="form-control"
+												placeholder="Complemento da sede do curso" />
+											<div class="error-validation">
+												<form:errors path="complementoOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'> *Ponto de referência: </label>
+
+										<div class='f-content'>
+											<form:input id="referenciaOrigem" path="referenciaOrigem"
+												cssClass="form-control" placeholder="Ponto de Referencia"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="referenciaOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'>*Telefone:</label>
+
+										<div class='f-content'>
+											<form:input id="telefoneOrigem" path="telefoneOrigem"
+												data-mask="(99) 9 9999-9999" cssClass="form-control"
+												placeholder="(00) 0 0000-0000" required="required" />
+											<div class="error-validation">
+												<form:errors path="telefoneOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'>Situação do Imóvel:</label>
+
+										<div class='f-content'>
+											<form:select path="situacaoImovel" id="situacaoImovel"
+												cssClass="form-control" cssStyle="font-size:14px">
+												<form:option value="">Situação Imóvel</form:option>
+												<form:options items="${situacaoImovel}" itemLabel="nome" />
+											</form:select>
+											<div class="error-validation">
+												<form:errors path="situacaoImovel"></form:errors>
+											</div>
+										</div>
 									</div>
 								</div>
+							</div>
 
+							<div class='p-container'>
+								<div class='p-header'>
+									<div class='p-title'>PROPRIEDADES RURAIS</div>
+								</div>
+
+								<div class='p-body'>
+									<div class='f-container s4'>
+										<label class='f-title'> Parentesco do proprietário: </label>
+
+										<div class='f-content'>
+											<form:select path="grauParentescoImovelRural"
+												id="grauParentescoImovelRural" cssClass="form-control">
+												<form:option value="" label="Selecione o Grau" />
+												<form:options items="${grauParentescoImovelRural}"
+													itemLabel="nome" />
+											</form:select>
+											<div class="error-validation">
+												<form:errors path="grauParentescoImovelRural"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s3'>
+										<label class='f-title'> Área da propriedade: </label>
+
+										<div class='f-content'>
+											<form:input id="areaPropriedadeRural"
+												path="areaPropriedadeRural" cssClass="form-control"
+												placeholder="Área da Propriedade" />
+											<div class="error-validation">
+												<form:errors path="areaPropriedadeRural"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s3'>
+										<label class='f-title'>Cidade: </label>
+
+										<div class='f-content'>
+											<form:input id="cidadeEstadoImovelRural"
+												path="cidadeEstadoImovelRural" cssClass="form-control"
+												placeholder="Cidade e Estado do Imovel Rural" />
+											<div class="error-validation">
+												<form:errors path="cidadeEstadoImovelRural"></form:errors>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class='p-container last'>
+								<div class='p-header'>
+									<div class='p-title'>BENS MÓVEIS</div>
+								</div>
+
+								<div class='p-body'>
+									<div class='f-container s4'>
+										<label class='f-title'> Parentesco do proprietário: </label>
+
+										<div class='f-content'>
+											<form:select path="grauParentescoVeiculos"
+												id="grauParentescoVeiculos" cssClass="form-control">
+												<form:option value="" label="Selecione o Grau" />
+												<form:options items="${grauParentescoVeiculos}"
+													itemLabel="nome" />
+											</form:select>
+											<div class="error-validation">
+												<form:errors path="grauParentescoVeiculos"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s3'>
+										<label class='f-title'> Veículo: </label>
+
+										<div class='f-content'>
+											<form:input id="veiculo" path="veiculo"
+												cssClass="form-control" placeholder="Tipo do veículo" />
+											<div class="error-validation">
+												<form:errors path="veiculo"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s3'>
+										<label class='f-title'>Finalidade do veículo: </label>
+
+										<div class='f-content'>
+											<form:select path="finalidadeVeiculo" id="finalidadeVeiculo"
+												cssClass="form-control">
+												<form:option value="">Selecione a Finalidade</form:option>
+												<form:options items="${finalidadeVeiculo}" itemLabel="nome" />
+											</form:select>
+											<div class="error-validation">
+												<form:errors path="finalidadeVeiculo"></form:errors>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+
+					<h3>Historico Escolar</h3>
+
+					<!-- <div class='p-container first'>
+									<div class='p-header'>
+										<div class='p-title'></div>
+									</div>
+		
+									<div class='p-body'>
+										<div class='f-container s4'>
+											<label class='f-title'></label>
+		
+											<div class='f-content'>
+												
+											</div>
+										</div>
+									</div>							
+								</div> -->
+
+					<section>
+						<div class='p-container-set'>
+							<div class='p-container first'>
+								<div class='p-header'>
+									<div class='p-title'>ENSINO FUNDAMENTAL</div>
+								</div>
+
+								<div class='p-body'>
+									<div class='f-container s5'>
+										<label class='f-title'>Tipo de escola:</label>
+
+										<div class='f-content'>
+											<form:select path="ensinoFundamental" id="ensinoFundamental"
+												cssClass="form-control" cssStyle="font-size:13px;"
+												required="required">
+												<form:option value="" label="Selecione o Tipo" />
+												<form:options items="${tipoEnsinoFundamental}"
+													itemLabel="nome" />
+											</form:select>
+											<div class="error-validation">
+												<form:errors path="ensinoFundamental"></form:errors>
+											</div>
+										</div>
+									</div>
+									<div class='f-container s2'
+										id="percentualParticularFundamental">
+										<label class='f-title'>Percentual de Bolsa:</label>
+
+										<div class='f-content'>
+											<div class="input-group">
+												<form:input id="percentualParticularFundamental"
+													path="percentualParticularFundamental"
+													cssClass="form-control" data-mask="000" placeholder="0" />
+												<div class="input-group-addon">%</div>
+											</div>
+											<div class="error-validation">
+												<form:errors path="percentualParticularFundamental"></form:errors>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='p-container last'>
+								<div class='p-header'>
+									<div class='p-title'>ENSINO MÉDIO</div>
+								</div>
+
+								<div class='p-body'>
+
+									<div class='f-container s5'>
+										<label class='f-title'> Tipo de escola: </label>
+
+										<div class='f-content'>
+											<form:select path="ensinoMedio" id="ensinoMedio"
+												cssClass="form-control" cssStyle="font-size:13px;"
+												required="required">
+												<form:option value="" label="Selecione o Tipo" />
+												<form:options items="${tipoEnsinoMedio}" itemLabel="nome" />
+											</form:select>
+											<div class="error-validation">
+												<form:errors path="ensinoMedio"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s2' id="percentualParticularMedio">
+										<label class='f-title'> Percentual de Bolsa: </label>
+
+										<div class='f-content'>
+											<div class="input-group">
+												<form:input id="percentualParticularMedio"
+													path="percentualParticularMedio" cssClass="form-control"
+													data-mask="000" placeholder="0" />
+												<div class="input-group-addon">%</div>
+											</div>
+											<div class="error-validation">
+												<form:errors path="percentualParticularMedio"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<br />
+
+									<div class='f-container s10'>
+										<label class='f-title'><form:checkbox id="cursinho" path="cursinho"
+													/> Fez cursinho pré-vestibular?
+												
+											</label>
+
+										<div class='f-content'>
+											<div class="error-validation">
+												<form:errors path="cursinho"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5' id="nome_cursinho">
+										<label class='f-title'> Nome do cursinho: </label>
+
+										<div class='f-content'>
+											<form:input id="nomeCursinho" path="nomeCursinho"
+												cssClass="form-control" placeholder="Nome do cursinho" />
+											<div class="error-validation">
+												<form:errors path="nomeCursinho"></form:errors>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</section>
+
+					<h3>Situação Socioeconômica</h3>
+					<section>
+						<div class='p-container unique'>
+							<div class='p-header'>
+								<div class='p-title'>SITUAÇÃO SOCIOECONÔMICA</div>
+							</div>
+
+							<div class='p-body'>
+								<div class="form-group">
+									<jsp:include page="pessoaFamilia.jsp" />
+									<div class="error-validation">
+										<form:errors path="pessoas"></form:errors>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<h3>Outras informações</h3>
+					<section>
+
+						<div class='p-container unique'>
+							<div class='p-header'>
+								<div class='p-title'>OUTRAS INFORMAÇÕES</div>
+							</div>
+
+							<div class='p-body'>
 								<div class='f-container s5'>
-									<label class='f-title'> *Estado: </label>
+									<label class='f-title'> <form:checkbox id="bolsistaUfc" path="bolsistaUfc"
+												 /> Bolsista UFC: 
+											
+										</label>
 
 									<div class='f-content'>
-										<form:select path="estadoOrigem" id="estadoOrigem"
-											cssClass="form-control" cssStyle="font-size:13px"
-											required="required">
-											<form:option value="">Selecione Estado</form:option>
-											<form:options items="${estado}" itemLabel="nome" />
-										</form:select>
 										<div class="error-validation">
-											<form:errors path="estadoOrigem"></form:errors>
+											<form:errors path="bolsistaUfc"></form:errors>
 										</div>
 									</div>
 								</div>
 
 								<div class='f-container s5'>
-									<label class='f-title'> Complemento: </label>
+									<label class='f-title'> Descrição da Bolsa: </label>
 
 									<div class='f-content'>
-										<form:input id="complementoOrigem" path="complementoOrigem"
-											cssClass="form-control"
-											placeholder="Complemento da sede do curso" />
+										<form:input id="descricaoBolsa" path="descricaoBolsa"
+											cssClass="form-control" placeholder="Descrição Bolsa" />
 										<div class="error-validation">
-											<form:errors path="complementoOrigem"></form:errors>
+											<form:errors path="descricaoBolsa"></form:errors>
 										</div>
 									</div>
 								</div>
 
 								<div class='f-container s5'>
-									<label class='f-title'> *Ponto de referência: </label>
+									<label class='f-title'> <form:checkbox id="graduacao" path="graduacao"
+												/> Possui Graduação: 
+											
+										</label>
 
 									<div class='f-content'>
-										<form:input id="referenciaOrigem" path="referenciaOrigem"
-											cssClass="form-control" placeholder="Ponto de Referencia"
+										
+										<div class="error-validation">
+											<form:errors path="graduacao"></form:errors>
+										</div>
+									</div>
+								</div>
+
+								<div class='f-container s5'>
+									<label class='f-title'> Descrição da Graduação </label>
+
+									<div class='f-content'>
+										<form:input id="descricaoGraduacao" path="descricaoGraduacao"
+											cssClass="form-control" placeholder="Descricao da Graduacao" />
+										<div class="error-validation">
+											<form:errors path="descricaoGraduacao"></form:errors>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</section>
+
+					<h3>Justificativa</h3>
+					<section>
+
+						<div class='p-container unique'>
+							<div class='p-header'>
+								<div class='p-title'>JUSTIFICATIVA</div>
+							</div>
+
+							<div class='p-body'>
+								<div class='f-container s10'>
+									<label class='f-title'>Justificativa para Bolsa</label>
+
+									<div class='f-content'>
+										<form:textarea id="justificativa" path="justificativa"
+											cssClass="form-control s10" placeholder="Justificativa" rows="10"
 											required="required" />
 										<div class="error-validation">
-											<form:errors path="referenciaOrigem"></form:errors>
-										</div>
-									</div>
-								</div>
-
-								<div class='f-container s5'>
-									<label class='f-title'>*Telefone:</label>
-
-									<div class='f-content'>
-										<form:input id="telefoneOrigem" path="telefoneOrigem"
-											data-mask="(99) 9 9999-9999" cssClass="form-control"
-											placeholder="(00) 0 0000-0000" required="required" />
-										<div class="error-validation">
-											<form:errors path="telefoneOrigem"></form:errors>
-										</div>
-									</div>
-								</div>
-
-								<div class='f-container s5'>
-									<label class='f-title'>Situação do Imóvel:</label>
-
-									<div class='f-content'>
-										<form:select path="situacaoImovel" id="situacaoImovel"
-											cssClass="form-control" cssStyle="font-size:14px">
-											<form:option value="">Situação Imóvel</form:option>
-											<form:options items="${situacaoImovel}" itemLabel="nome" />
-										</form:select>
-										<div class="error-validation">
-											<form:errors path="situacaoImovel"></form:errors>
+											<form:errors path="justificativa"></form:errors>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 
-						<div class='p-container'>
-							<div class='p-header'>
-								<div class='p-title'>PROPRIEDADES RURAIS</div>
-							</div>
-
-							<div class='p-body'>
-								<div class='f-container s4'>
-									<label class='f-title'> Parentesco do proprietário: </label>
-
-									<div class='f-content'>
-										<form:select path="grauParentescoImovelRural"
-											id="grauParentescoImovelRural" cssClass="form-control">
-											<form:option value="" label="Selecione o Grau" />
-											<form:options items="${grauParentescoImovelRural}"
-												itemLabel="nome" />
-										</form:select>
-										<div class="error-validation">
-											<form:errors path="grauParentescoImovelRural"></form:errors>
-										</div>
-									</div>
-								</div>
-
-								<div class='f-container s3'>
-									<label class='f-title'> Área da propriedade: </label>
-
-									<div class='f-content'>
-										<form:input id="areaPropriedadeRural"
-											path="areaPropriedadeRural" cssClass="form-control"
-											placeholder="Área da Propriedade" />
-										<div class="error-validation">
-											<form:errors path="areaPropriedadeRural"></form:errors>
-										</div>
-									</div>
-								</div>
-
-								<div class='f-container s3'>
-									<label class='f-title'>Cidade: </label>
-
-									<div class='f-content'>
-										<form:input id="cidadeEstadoImovelRural"
-											path="cidadeEstadoImovelRural" cssClass="form-control"
-											placeholder="Cidade e Estado do Imovel Rural" />
-										<div class="error-validation">
-											<form:errors path="cidadeEstadoImovelRural"></form:errors>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class='p-container last'>
-							<div class='p-header'>
-								<div class='p-title'>BENS MÓVEIS</div>
-							</div>
-
-							<div class='p-body'>
-								<div class='f-container s4'>
-									<label class='f-title'> Parentesco do proprietário: </label>
-
-									<div class='f-content'>
-										<form:select path="grauParentescoVeiculos"
-											id="grauParentescoVeiculos" cssClass="form-control">
-											<form:option value="" label="Selecione o Grau" />
-											<form:options items="${grauParentescoVeiculos}"
-												itemLabel="nome" />
-										</form:select>
-										<div class="error-validation">
-											<form:errors path="grauParentescoVeiculos"></form:errors>
-										</div>
-									</div>
-								</div>
-
-								<div class='f-container s3'>
-									<label class='f-title'> Veículo: </label>
-
-									<div class='f-content'>
-										<form:input id="veiculo" path="veiculo"
-											cssClass="form-control" placeholder="Tipo do veículo" />
-										<div class="error-validation">
-											<form:errors path="veiculo"></form:errors>
-										</div>
-									</div>
-								</div>
-
-								<div class='f-container s3'>
-									<label class='f-title'>Finalidade do veículo: </label>
-
-									<div class='f-content'>
-										<form:select path="finalidadeVeiculo" id="finalidadeVeiculo"
-											cssClass="form-control">
-											<form:option value="">Selecione a Finalidade</form:option>
-											<form:options items="${finalidadeVeiculo}" itemLabel="nome" />
-										</form:select>
-										<div class="error-validation">
-											<form:errors path="finalidadeVeiculo"></form:errors>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<br />
+					</section>
 
 				</form:form>
 

@@ -6,7 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<div class="bs-component">
+<div class="bs-component">		
 	<table class="table table-striped table-hover ">
 
 		<thead>
@@ -60,7 +60,7 @@
 							
 						<td><input class="form-control" type="number" name="pessoas[${i }].idade" value="" required ="required"/></td>
 							
-						<td><input type="text" name="pessoas[${i }].profissao" value="" required ="required"/></td>
+						<td><input class='form-control' type="text" name="pessoas[${i }].profissao" value="" required ="required"/></td>
 							
 						<td><input class="form-control" type="number" name="pessoas[${i }].rendaMensal" value="" required ="required"/></td>
 							
