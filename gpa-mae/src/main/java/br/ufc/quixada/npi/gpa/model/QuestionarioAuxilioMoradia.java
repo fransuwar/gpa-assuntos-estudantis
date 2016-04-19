@@ -35,92 +35,69 @@ public class QuestionarioAuxilioMoradia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	
 	@Enumerated(EnumType.STRING)
-	@NotNull(message = "Campo obrigatório")
 	private TipoEnsinoFundamental ensinoFundamental;
 
 	private int percentualParticularFundamental;
 
-	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private TipoEnsinoMedio ensinoMedio;
 
 	private int percentualParticularMedio;
 
-	@NotNull(message = "Campo obrigatório")
 	private boolean cursinho;
 
 	private String nomeCursinho;
 
-	@NotNull(message = "Campo obrigatório")
 	private boolean bolsistaUfc;
 
 	private String descricaoBolsa;
 
-	@NotNull(message = "Campo obrigatório")
 	private boolean graduacao;
 
 	private String descricaoGraduacao;
 
-	@NotEmpty(message = "Campo obrigatório")
 	private String justificativa;
 
 	private String comQuemMoraOutros;
 
-	@NotEmpty(message = "Campo obrigatório")
 	private String nomePai;
 
-	@NotEmpty(message = "Campo obrigatório")
 	private String nomeMae;
 	
-	@NotEmpty(message = "Campo obrigatório")
 	private String endereco;
 	
-	@NotEmpty(message = "Campo obrigatório")
 	private String numero;
 	
-	@NotEmpty(message = "Campo obrigatório")
 	private String complemento;
 	
-	@NotEmpty(message = "Campo obrigatório")
 	private String bairro;
 	
-	@NotEmpty(message = "Campo obrigatório")
 	private String cep;
 	
-	@NotEmpty(message = "Campo obrigatório")
 	private String cidade;
 	
-	@NotEmpty(message = "Campo obrigatório")
 	private String estado;
 	
-	@NotEmpty(message = "Campo obrigatório")
 	private String referencia;
 	
-	@NotEmpty(message = "Campo obrigatório")
 	private String enderecoOrigem;
 
-	@NotNull(message = "Campo obrigatório")
 	private Long numeroOrigem;
 
 	private String complementoOrigem;
 
-	@NotEmpty(message = "Campo obrigatório")
 	private String bairroOrigem;
 
-	@NotEmpty(message = "Campo obrigatório")
 	private String cepOrigem;
 
-	@NotEmpty(message = "Campo obrigatório")
 	private String cidadeOrigem;
 
-	@Enumerated(EnumType.STRING)
-	private Estado estadoOrigem;
+	private String estadoOrigem;
 
-	@NotEmpty(message = "Campo obrigatório")
 	private String referenciaOrigem;
 
-	@NotEmpty(message = "Campo obrigatório")
 	private String telefoneOrigem;
 
 	@Enumerated(EnumType.STRING)
@@ -147,7 +124,6 @@ public class QuestionarioAuxilioMoradia {
 	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidadeVeiculo;
 
-	@NotEmpty(message = "Campo obrigatório")
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
@@ -256,11 +232,11 @@ public class QuestionarioAuxilioMoradia {
 		this.telefoneOrigem = telefoneOrigem;
 	}
 
-	public Estado getEstadoOrigem() {
+	public String getEstadoOrigem() {
 		return estadoOrigem;
 	}
 
-	public void setEstadoOrigem(Estado estadoOrigem) {
+	public void setEstadoOrigem(String estadoOrigem) {
 		this.estadoOrigem = estadoOrigem;
 	}
 
