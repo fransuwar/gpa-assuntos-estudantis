@@ -46,42 +46,39 @@
 					servletRelativeAction="/coordenador/comissao/atribuir"
 					method="POST" class="form-horizontal">
 					<input type="hidden" name="idSelecao" value="${idSelecao}">
-					<div class="form-group">
-						<label class="col-sm-1 control-label">Membro:</label>
-						<div class="col-sm-4">
-							<select id="" class="form-control" name="idServidor">
-								<c:forEach items="${servidores}" var="servidor">
-									<option value="${servidor.id}">${servidor.pessoa.nome}</option>
-								</c:forEach>
-							</select>
-						</div>
-						<div class="col-sm-2" id="div-form-btn" align="left">
-							<input type="submit" class="btn btn-primary"
-								value="Adicionar Membro" id="form-btn" />
-						</div>
-					</div>
-					<div class="col-sm-5">
-						<table class="table table-striped table-hover ">
-							<c:forEach var="servidor" items="${comissao.membrosComissao}">
+					<div class="col-sm-12">
+						<div class="col-sm-5">
+							<table class="table table-striped table-hover ">
 								<tr class="linha">
-									<td class="linha">${servidor.pessoa.nome}</td>
-									<td><a id="excluir" data-toggle="modal"
-										data-target="#confirm-delete"
-										data-href="<c:url value="/coordenador/comissao/excluir/${idSelecao}/${servidor.id}"></c:url>">
-											<button class="btn btn-danger btn-xs">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-									</a></td>
+									<td><select id="" class="form-control" name="idServidor">
+											<c:forEach items="${servidores}" var="servidor">
+												<option value="${servidor.id}">${servidor.pessoa.nome}</option>
+											</c:forEach>
+									</select></td>
+									<td><input type="submit" class="btn btn-primary"
+										value="Adicionar" id="form-btn" /></td>
 								</tr>
-							</c:forEach>
-						</table>
-
+							</table>
+						</div>
 					</div>
-					<div class="form-group col-sm-12">
-
-						<div class="col-sm-2" id="div-form-btn">
-							<a href="<c:url value="/selecao/listar"></c:url>"
-								class="btn btn-default" id="form-btn">Cancelar</a>
+					<div class="col-sm-12">
+						<div class="col-sm-5">
+							<table class="table table-striped table-hover ">
+								<c:forEach var="servidor" items="${selecao.membrosComissao}">
+									<tr class="linha">
+										<td class="linha">${servidor.pessoa.nome}</td>
+										<c:if test="${selecao.responsavel.siape != servidor.siape}">
+											<td><a id="excluir" data-toggle="modal"
+												data-target="#confirm-delete"
+												data-href="<c:url value="/coordenador/comissao/excluir/${idSelecao}/${servidor.id}"></c:url>">
+													<button class="btn btn-danger btn-xs">
+														<span class="glyphicon glyphicon-trash"></span>
+													</button>
+											</a></td>
+										</c:if>
+									</tr>
+								</c:forEach>
+							</table>
 						</div>
 					</div>
 				</form:form>
