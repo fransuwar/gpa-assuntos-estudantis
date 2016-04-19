@@ -123,7 +123,7 @@
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
 					servletRelativeAction="${url }" method="POST"
-					cssClass="form-horizontal">
+					cssClass="form-horizontal" enctype="multipart/form-data">
 
 					<input id="idSelecao" name="idSelecao" type="hidden"
 						value="${selecao.id}" />
@@ -720,6 +720,21 @@
 												</div>
 											</div>
 										</div>
+										
+										<!-- INICIO DIV FOTO -->
+										<div class="form-group">
+											<div class="col-sm-2">	
+												<label>Foto (3x4):</label>
+											</div>
+											<div class="col-sm-1">
+												<input id="input-foto3x4" type="file" name="fileFoto"/>
+												<div class="col-sm-8 error-validation">
+													<span id="span-error-foto"></span>
+												</div>
+											</div>
+										</div>
+										<!-- FIM DIV FOTO -->
+										
 									</div>
 								</div>
 							</div>

@@ -208,6 +208,10 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_EDITAR_INSCRICAO = "Você não pode editar esta inscrição fora do período da seleção";
 	
+	public static final String MENSAGEM_ERRO_UPLOAD_FOTO = "Não foi possível fazer o upload da sua foto";
+	
+	public static final String MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO = "Extensão da foto inválida. Extensões aceitas (jpeg, jpg, png)";
+	
 	/** Perfis */
 
 	public static final String STA = "STA";
@@ -219,5 +223,7 @@ public class Constants {
 	public static final String COORDENADOR_ASSUNTOS_ESTUDANTIS = "COORDENADOR_ASSUNTO_ESTUDANTIS";
 
 	public static final String ADMINISTRADOR = "ADMINISTRADOR_GPA";
+
+	
 
 }
