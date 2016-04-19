@@ -39,10 +39,14 @@
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="inscricao-tab">
-				<div class="panel panel-primary">
+				<div class="panel panel-default panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							Detalhes da Inscrição de Auxílio Moradia
+							Detalhes da Inscrição de Auxílio Moradia <span
+								class="direita clicavel"> <i
+								class="glyphicon glyphicon-chevron-up"></i>
+							</span>
+
 							<sec:authorize access="hasAnyRole('DISCENTE')">
 								<c:if test="${!esconderBotoes}">
 									<a id="editarInscricao"
@@ -79,29 +83,26 @@
 
 						</dl>
 					</div>
-
-
-
+				</div>
+				<div class="panel panel-default panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Mora com</h3>
+						<h3 class="panel-title">
+							Moradia <span class="direita clicavel panel-collapsed"> <i
+								class="glyphicon glyphicon-chevron-down"></i>
+							</span>
+						</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body fechado">
 						<div class="form-group">
+							<h5 class="titulo-dl divisor">Com quem Mora</h5>
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Mora com:</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.comQuemMora}</dd>
 								<dt class=" col-sm-3">Com quem mora os outros:</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.comQuemMoraOutros}</dd>
 							</dl>
-						</div>
-					</div>
 
-					<div class="panel-heading">
-						<h3 class="panel-title">Nome dos Pais</h3>
-					</div>
-					<div class="panel-body">
-
-						<div class="form-group">
+							<h5 class="titulo-dl divisor">Nome dos Pais</h5>
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Mãe:</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.nomeMae}</dd>
@@ -109,13 +110,8 @@
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.nomePai}</dd>
 							</dl>
 						</div>
-					</div>
 
-					<div class="panel-heading">
-						<h3 class="panel-title">Endereço da residência atual</h3>
-					</div>
-					<div class="panel-body">
-
+						<h5 class="titulo-dl divisor">Endereço da Residência Atual</h5>
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Rua/Av:</dt>
@@ -124,7 +120,6 @@
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.bairro}</dd>
 							</dl>
 						</div>
-
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Número:</dt>
@@ -138,27 +133,16 @@
 								<dt class="col-sm-3">Cep:</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.cep}</dd>
 							</dl>
-						</div>
-
-						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Referência:</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.referencia}</dd>
 								<dt class=" col-sm-3">Estado:</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.estado}</dd>
 							</dl>
-							<dl class="col-sm-12">
-
-							</dl>
 						</div>
 
-					</div>
-
-					<div class="panel-heading">
-						<h3 class="panel-title">Endereço da residência de origem</h3>
-					</div>
-					<div class="panel-body">
-
+						<h5 class="titulo-dl divisor">Endereço da Residência de
+							Origem</h5>
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Rua/Av:</dt>
@@ -167,7 +151,6 @@
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.bairroOrigem}</dd>
 							</dl>
 						</div>
-
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Numero:</dt>
@@ -182,7 +165,6 @@
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.cepOrigem}</dd>
 							</dl>
 						</div>
-
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Ponto de referência:</dt>
@@ -200,13 +182,7 @@
 							</dl>
 						</div>
 
-					</div>
-
-					<div class="panel-heading">
-						<h3 class="panel-title">Propriedade Rural</h3>
-					</div>
-					<div class="panel-body">
-
+						<h5 class="titulo-dl divisor">Propriedade Rural</h5>
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Grau de parentesco do proprietário:</dt>
@@ -215,7 +191,6 @@
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.areaPropriedadeRural}</dd>
 							</dl>
 						</div>
-
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class=" col-sm-3">Cidade/Estado Imóvel:</dt>
@@ -223,13 +198,7 @@
 							</dl>
 						</div>
 
-					</div>
-
-					<div class="panel-heading">
-						<h3 class="panel-title">Bens Móveis (Veículos)</h3>
-					</div>
-					<div class="panel-body">
-
+						<h5 class="titulo-dl divisor">Bens Móveis (Veículos)</h5>
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Grau de parentesco do proprietário:</dt>
@@ -238,7 +207,6 @@
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.veiculo}</dd>
 							</dl>
 						</div>
-
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class=" col-sm-3">Finalidade do veículo:</dt>
@@ -246,15 +214,18 @@
 							</dl>
 						</div>
 					</div>
-
-
-
-
+				</div>
+				<div class="panel panel-default panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Situação Socioeconômica (Grupo
-							familiar incluido o aluno)</h3>
+						<h3 class="panel-title">
+							Situação Socioeconômica (Grupo familiar incluido o aluno) <span
+								class="direita clicavel panel-collapsed"> <i
+								class="glyphicon glyphicon-chevron-down"></i>
+							</span>
+
+						</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body fechado">
 						<div class="form-group">
 							<table class="table table-striped table-hover">
 								<thead>
@@ -281,21 +252,23 @@
 							</table>
 						</div>
 					</div>
-
-
-
-
+				</div>
+				<div class="panel panel-default panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Ensino Fundamental</h3>
+						<h3 class="panel-title">
+							Histórico Escolar <span class="direita clicavel panel-collapsed"> <i
+								class="glyphicon glyphicon-chevron-down"></i>
+							</span>
+						</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body fechado">
 						<div class="form-group">
+							<h5 class="titulo-dl divisor">Ensino Fundamental</h5>
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Tipo de escola:</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.ensinoFundamental.nome}</dd>
 							</dl>
 						</div>
-
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Possuia bolsa?</dt>
@@ -305,36 +278,21 @@
 							</dl>
 						</div>
 
-					</div>
-
-
-					<div class="panel-heading">
-						<h3 class="panel-title">Ensino Médio</h3>
-					</div>
-					<div class="panel-body">
-
+						<h5 class="titulo-dl divisor">Ensino Médio</h5>
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Tipo de escola</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}</dd>
 							</dl>
 						</div>
-
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Possuia bolsa:</dt>
-								<dd class="col-sm-3">
-									<c:choose>
-										<c:when
-											test="${inscricao.questionarioAuxilioMoradia.bolsaEnsinoMedio == true}"> Sim</c:when>
-										<c:otherwise>Não</c:otherwise>
-									</c:choose>
-								</dd>
+								<dd class="col-sm-3"></dd>
 								<dt class="col-sm-3">Percentual de bolsa:</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.percentualParticularMedio}</dd>
 							</dl>
 						</div>
-
 						<div class="form-group">
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Fez cursinho pré-vestibular:</dt>
@@ -349,14 +307,17 @@
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.nomeCursinho}</dd>
 							</dl>
 						</div>
-
 					</div>
-
-
+				</div>
+				<div class="panel panel-default panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Outras Informações</h3>
+						<h3 class="panel-title">
+							Outras Informações <span class="direita clicavel panel-collapsed"> <i
+								class="glyphicon glyphicon-chevron-down"></i>
+							</span>
+						</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body fechado">
 						<div class="form-group">
 							<div class="form-group">
 								<dl class="col-sm-12">
@@ -372,7 +333,6 @@
 									<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.descricaoBolsa}</dd>
 								</dl>
 							</div>
-
 							<div class="form-group">
 								<dl class="col-sm-12">
 									<dt class="col-sm-3">Possui Graduação:</dt>
@@ -389,11 +349,16 @@
 							</div>
 						</div>
 					</div>
-
+				</div>
+				<div class="panel panel-default panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Justificativa</h3>
+						<h3 class="panel-title">
+							Justificativa <span class="direita clicavel panel-collapsed"> <i
+								class="glyphicon glyphicon-chevron-down"></i>
+							</span>
+						</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body fechado">
 						<div class="form-group">
 							<div class="form-group">
 								<dl class="col-sm-12">
@@ -403,42 +368,45 @@
 							</div>
 						</div>
 					</div>
-
+				</div>
+				<div class="panel panel-default panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Entrevista</h3>
+						<h3 class="panel-title">
+							Entrevista <span class="direita clicavel panel-collapsed"> <i
+								class="glyphicon glyphicon-chevron-down"></i>
+							</span>
+						</h3>
 					</div>
-					<div class="panel-body">
-
-						<div class="form-group">
+						<div class="panel-body fechado">
 							<div class="form-group">
-								<dl class="col-sm-12">
-									<dt class="col-sm-3">Observação:</dt>
-									<dd class="col-sm-3">${inscricao.entrevista.observacao}</dd>
-									<dt class="col-sm-3">Deferimento:</dt>
-									<c:choose>
-										<c:when test="${inscricao.entrevista.deferimento == true}">
-											<dd class="col-sm-3">DEFERIDO</dd>
-										</c:when>
-										<c:otherwise>
-											<dd class="col-sm-3">INDEFERIDO</dd>
-										</c:otherwise>
-									</c:choose>
-									<dd class="col-sm-3">${inscricao.entrevista.observacao}</dd>
-								</dl>
+								<div class="form-group">
+									<dl class="col-sm-12">
+										<dt class="col-sm-3">Observação:</dt>
+										<dd class="col-sm-3">${inscricao.entrevista.observacao}</dd>
+										<dt class="col-sm-3">Deferimento:</dt>
+										<c:choose>
+											<c:when test="${inscricao.entrevista.deferimento == true}">
+												<dd class="col-sm-3">DEFERIDO</dd>
+											</c:when>
+											<c:otherwise>
+												<dd class="col-sm-3">INDEFERIDO</dd>
+											</c:otherwise>
+										</c:choose>
+										<dd class="col-sm-3">${inscricao.entrevista.observacao}</dd>
+									</dl>
+								</div>
 							</div>
 						</div>
-
-					</div>
 				</div>
+				<div class="tab-pane" id="documentos-tab"></div>
+				<sec:authorize access="hasAnyRole('SERVIDOR')">
+					<div class="tab-pane" id="entrevista-tab"></div>
+					<div class="tab-pane" id="visita-tab"></div>
+				</sec:authorize>
 			</div>
-			<div class="tab-pane" id="documentos-tab"></div>
-			<sec:authorize access="hasAnyRole('SERVIDOR')">
-				<div class="tab-pane" id="entrevista-tab"></div>
-				<div class="tab-pane" id="visita-tab"></div>
-			</sec:authorize>
 		</div>
+		<jsp:include page="../fragments/footer.jsp" />
 	</div>
-	<jsp:include page="../fragments/footer.jsp" />
 </body>
 
 </html>

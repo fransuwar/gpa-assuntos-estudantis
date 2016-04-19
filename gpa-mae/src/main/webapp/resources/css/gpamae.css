@@ -124,3 +124,22 @@ div.text-align-left{
 	width:100%;
 	text-align: left;
 }
+
+.direita{
+    float: right;
+}
+
+.clicavel {
+    cursor: pointer;
+}
+
+.divisor{
+	border-bottom: 1px solid #999;
+	padding-bottom: 4px;
+	padding-top: 20px;
+}
+
+.titulo-dl{
+	color: #2C3E50;
+	font-weight:bold;
+}   
