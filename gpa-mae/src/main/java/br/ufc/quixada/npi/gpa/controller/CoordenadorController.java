@@ -185,7 +185,7 @@ public class CoordenadorController {
 
 		model.addAttribute("idSelecao", idSelecao);
 		model.addAttribute("servidores", servidorService.find(Servidor.class));
-		model.addAttribute("comissao", selecaoService.find(Selecao.class, idSelecao));
+		model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
 
 		return PAGINA_ATRIBUIR_COMISSAO;
 	}
