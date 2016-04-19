@@ -268,6 +268,7 @@ public class AlunoController {
 		try {
 			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
 			
+			
 			List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
 			
 			//Conferindo se o formato do arquivo passado é um dos formatos do array acima.

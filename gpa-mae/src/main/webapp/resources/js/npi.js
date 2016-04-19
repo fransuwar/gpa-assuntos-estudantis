@@ -217,7 +217,6 @@ function onButtonFinalizarInscricaoClick(){
 	$button.on("click", function(event){
 		if(!isExtencaoFotoValida($input)){
 			spanError.text("Foto com extensão inválida!");
-			event.preventDefault();
 		}
 	});
 }
@@ -604,3 +603,4 @@ $(document).ready(function(){
 		estado : document.getElementById('estado-origem')
 	});
 });
+}
