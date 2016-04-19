@@ -147,48 +147,6 @@
 					</div>
 				</form:form>
 				<br>
-				<c:if test="${action eq 'editar' }">
-				<form id="adicionarArquivoForm" role="form"
-					action="<c:url value="/coordenador/selecao/adicionar-documento" />"
-					method="POST" class="form-horizontal" enctype="multipart/form-data">
-					<input type="hidden" name="idSelecao" value="${selecao.id}">
-
-					<div class="form-group">
-						<label for="arquivo" class="col-sm-2 control-label">Arquivos:</label>
-						<div class="col-sm-5 files">
-							<input type="file" id="files" name="files" class="file"
-								multiple="multiple"></input>
-							<div class="error-validation" id="erro-Anexo">
-								<label class="col-sm-10 control-label" id="label-erro">
-									${anexoError} </label>
-							</div>
-							<table id="file-upload" role="presentation"
-								class="table table-striped">
-								<tbody class="files">
-									<c:forEach items="${selecao.documentos}" var="documento">
-										<tr class="template-upload fade in" id="row-${documento.id}">
-											<td><a
-												href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
-												<strong class="error text-danger"></strong></td>
-											<td><a id="excluir" data-toggle="modal"
-												data-target="#confirm-delete"
-												data-href="<c:url value="/coordenador/selecao/excluir-documento/${documento.id }"></c:url>"
-												class="delete-document">
-													<button type="button" class="btn btn-danger btn-xs">
-														<span class="glyphicon glyphicon-trash"></span>
-													</button>
-											</a></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							<input type="submit" class="btn btn-primary"
-								value="Adicionar Arquivo" id="form-btn" />
-						</div>
-
-					</div>
-				</form>
-				</c:if>
 
 			</div>
 		</div>

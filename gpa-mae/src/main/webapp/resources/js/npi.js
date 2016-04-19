@@ -533,8 +533,49 @@ function buscarSelecao(){
 	}
 }
 
+$(document).ready(function(){
+	$("#grauParentescoImovelRural").change(function(){
+		if($(this).val() == "OUTROS"){
+			$("#outroGrauParentescoImovelRural").val("");
+			$("#outroGrauParentescoImovelRural").css("display", "block");
+			$("#labelOutroGrauParentescoImovelRural").css("display", "block");
+		}else{
+			$("#outroGrauParentescoImovelRural").css("display", "none");
+			$("#labelOutroGrauParentescoImovelRural").css("display", "none");
+		}
+	});
+});
 
+$(document).ready(function(){
+	$("#grauParentescoVeiculos").change(function(){
+		if($(this).val() == "OUTROS"){
+			$("#outroGrauParentescoVeiculos").val("");
+			$("#outroGrauParentescoVeiculos").css("display", "block");
+			$("#labelOutroGrauParentescoVeiculos").css("display", "block");
+		}else{
+			$("#outroGrauParentescoVeiculos").css("display", "none");
+			$("#labelOutroGrauParentescoVeiculos").css("display", "none");
+		}
+	});
+});
 
+$(document).ready(function(){
+	if($("#grauParentescoVeiculos").val() == "OUTROS"){
+		
+		$("#outroGrauParentescoVeiculos").css("display", "block");
+		$("#labelOutroGrauParentescoVeiculos").css("display", "block");
+		
+		$("#outroGrauParentescoImovelRural").css("display", "block");
+		$("#labelOutroGrauParentescoImovelRural").css("display", "block");
+	}else{
+		$("#outroGrauParentescoVeiculos").css("display", "none");
+		$("#labelOutroGrauParentescoVeiculos").css("display", "none");
+		
+		$("#outroGrauParentescoImovelRural").css("display", "none");
+		$("#labelOutroGrauParentescoImovelRural").css("display", "none");
+		
+	}
+});
 
 function selecionarInformacoes(){
 	var $button = $('#form-btn');
@@ -552,3 +593,14 @@ function selecionarInformacoes(){
 function novaAba(url){
 	window.open(url, '_blank');
 }
+
+$(document).ready(function(){
+	new dgCidadesEstados({
+		cidade : document.getElementById('cidade-endereco'),
+		estado : document.getElementById('estado-endereco')
+	});
+	new dgCidadesEstados({
+		cidade : document.getElementById('cidade-origem'),
+		estado : document.getElementById('estado-origem')
+	});
+});
