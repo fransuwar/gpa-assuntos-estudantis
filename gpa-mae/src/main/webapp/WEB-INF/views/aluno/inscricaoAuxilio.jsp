@@ -745,17 +745,6 @@
 
 	<jsp:include page="../fragments/footer.jsp" />
 
-	<script type="text/javascript" charset="utf-8">
-		new dgCidadesEstados({
-			cidade : document.getElementById('cidade-endereco'),
-			estado : document.getElementById('estado-endereco')
-		});
-		new dgCidadesEstados({
-			cidade : document.getElementById('cidade-origem'),
-			estado : document.getElementById('estado-origem')
-		});
-	</script>
-
 </body>
 
 </html>

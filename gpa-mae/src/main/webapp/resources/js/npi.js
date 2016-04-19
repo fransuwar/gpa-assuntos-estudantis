@@ -514,3 +514,14 @@ function selecionarInformacoes(){
 function novaAba(url){
 	window.open(url, '_blank');
 }
+
+$(document).ready(function(){
+	new dgCidadesEstados({
+		cidade : document.getElementById('cidade-endereco'),
+		estado : document.getElementById('estado-endereco')
+	});
+	new dgCidadesEstados({
+		cidade : document.getElementById('cidade-origem'),
+		estado : document.getElementById('estado-origem')
+	});
+});
