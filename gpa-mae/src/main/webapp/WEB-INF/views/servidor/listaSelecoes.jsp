@@ -80,7 +80,15 @@
 											<button class="btn btn-primary btn-xs" title="Editar Seleção">
 												<i class="fa fa-pencil-square-o"></i>
 											</button>
-									</a> <a
+									</a> 
+									<a
+										href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}" ></c:url>">
+											<button class="btn btn-primary btn-xs"
+												title="Adicionar Arquivos">
+												<i class="fa fa-file-text"></i>
+											</button>
+									</a>
+									<a
 										href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
 											<button class="btn btn-primary btn-xs"
 												title="Gerenciar Comissão">
