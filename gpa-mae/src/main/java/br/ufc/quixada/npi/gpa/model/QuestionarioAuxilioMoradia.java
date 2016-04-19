@@ -131,6 +131,10 @@ public class QuestionarioAuxilioMoradia {
 	@Enumerated(EnumType.STRING)
 	private GrauParentescoImovelRural grauParentescoImovelRural;
 	
+	private String outroGrauParentescoImovelRural;
+	
+	private String outroGrauParentescoVeiculos;
+	
 	private Double areaPropriedadeRural;
 
 	private String cidadeEstadoImovelRural;
@@ -560,6 +564,22 @@ public class QuestionarioAuxilioMoradia {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getOutroGrauParentescoImovelRural() {
+		return outroGrauParentescoImovelRural;
+	}
+
+	public void setOutroGrauParentescoImovelRural(String outroGrauParentescoImovelRural) {
+		this.outroGrauParentescoImovelRural = outroGrauParentescoImovelRural;
+	}
+
+	public String getOutroGrauParentescoVeiculos() {
+		return outroGrauParentescoVeiculos;
+	}
+
+	public void setOutroGrauParentescoVeiculos(String outroGrauParentescoVeiculos) {
+		this.outroGrauParentescoVeiculos = outroGrauParentescoVeiculos;
 	}
 	
 }

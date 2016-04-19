@@ -461,6 +461,19 @@
 											</div>
 										</div>
 									</div>
+									
+									<div class="form-group">
+										<label for="outroGrauParentescoImovelRural" id="labelOutroGrauParentescoImovelRural"
+											class="col-sm-2 control-label" style="display:none;">Especifique o grau de parentesco:</label>
+										<div class="col-sm-3">
+											<form:input id="outroGrauParentescoImovelRural"
+												path="outroGrauParentescoImovelRural" cssClass="form-control"
+												placeholder="Outro grau de parentesco" style="display:none;"/>
+											<div class="error-validation">
+												<form:errors path="outroGrauParentescoImovelRural"></form:errors>
+											</div>
+										</div>
+									</div>
 
 									<div class="form-group">
 										<label for="cidadeEstadoImovelRural"
@@ -503,6 +516,19 @@
 												cssClass="form-control" placeholder="Tipo do veículo" />
 											<div class="error-validation">
 												<form:errors path="veiculo"></form:errors>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="outroGrauParentescoVeiculos" id="labelOutroGrauParentescoVeiculos"
+											class="col-sm-2 control-label" style="display:none;">Especifique o grau de parentesco:</label>
+										<div class="col-sm-3">
+											<form:input id="outroGrauParentescoVeiculos"
+												path="outroGrauParentescoVeiculos" cssClass="form-control"
+												placeholder="Outro grau de parentesco" style="display:none;"/>
+											<div class="error-validation">
+												<form:errors path="outroGrauParentescoVeiculos"></form:errors>
 											</div>
 										</div>
 									</div>
