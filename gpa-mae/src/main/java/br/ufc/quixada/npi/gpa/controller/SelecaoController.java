@@ -62,6 +62,19 @@ public class SelecaoController {
 	@Inject
 	private InscricaoService inscricaoService;
 	
+	@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
+	public String getInformacoesPublico(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+
+		if (selecao == null) {
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
+
+		model.addAttribute("selecao", selecao);
+		return PAGINA_INFORMACOES_SELECAO;
+	}
+	
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect,Authentication auth) {
 		//Detalhe da seleção, apenas para aluno

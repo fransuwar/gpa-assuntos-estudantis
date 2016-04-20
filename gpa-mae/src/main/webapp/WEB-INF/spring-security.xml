@@ -20,6 +20,7 @@
  		
  		<intercept-url pattern="/servidor/**" access="hasAnyRole('DOCENTE','STA')"/>
  		
+ 		<intercept-url pattern="/selecao/detalhesPublico/*" access="permitAll"/>
  		<intercept-url pattern="/selecao/detalhes/*" access="permitAll"/>
  		<intercept-url pattern="/selecao/listar" access="permitAll"/>
  		<intercept-url pattern="/selecao/documento/*" access="permitAll"/>

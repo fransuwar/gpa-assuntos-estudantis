@@ -641,6 +641,7 @@ $(document).ready(function(){
 	});
 });
 
+
 function rowAdded(rowElement) {
 	$(rowElement).find("input").val('');
 }
@@ -669,3 +670,4 @@ $(document).ready(
 function novaAba(url){
 	window.open(url, '_blank');
 }
+
