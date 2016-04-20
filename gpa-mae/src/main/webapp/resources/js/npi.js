@@ -1,4 +1,5 @@
 var linha;
+var accordionFechado;
 
 $(document).ready(function(){
 	var form = $("#questionarioAuxilio");
@@ -35,16 +36,34 @@ $(document).ready(function(){
 		}
 	});
 
-	$("#nome_cursinho").hide()	
+	$('.fechado').slideUp();
+
+	$('.panel-heading span.clicavel').on("click", function (e) {
+		if ($(this).hasClass('panel-collapsed')) {
+			//Expande o painel
+			$(this).parents('.panel').find('.panel-body').slideDown();
+			$(this).removeClass('panel-collapsed');
+			$(this).find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+		}else{
+			//Contrai o Painel
+			$(this).parents('.panel').find('.panel-body').slideUp();
+			$(this).addClass('panel-collapsed');
+			$(this).find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+		}
+
+	});
+
+	$("#nome_cursinho").hide();
 	$("#cursinho").click(function() {
 		if($(this).is(':checked'))
-			$("#nome_cursinho").show()
-			else       
-				$("#nome_cursinho").hide()
+			$("#nome_cursinho").show();
+		else       
+			$("#nome_cursinho").hide();
 	});
 
 	$('#valorMensalFinanciamento').mask("###0000000.00", {reverse: true});
 	$('#areaPropriedadeRural').mask("#####0.00", {reverse: true});
+	$('#rendaMensal').maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
 
 	$('#tabela-alunos').DataTable({
 		"language": {
@@ -221,6 +240,42 @@ function onSelectSituacaoImovelSelected(){
 	});
 }
 
+/*
+ * Essa função é responsável por validar a extenção do arquivo
+ * que o usuário envia no upload.
+ * As extenções são: jpeg, jpg e png.
+ * 
+ * Se o valor do input for igual a "" então o usuário não fez upload
+ * de nenhuma imagem, logo é retornado true para não aparecer a mensagem
+ * de foto com formato inválido.
+ */
+function isExtencaoFotoValida($input){
+	var extencoes = ["jpeg", "jpg", "png"];
+	var fileName = $input.val();
+
+	if(fileName == "")
+		return true;
+
+	var extencaoFoto = fileName.split(".")[1] ? $input.val().split(".")[1] : "";
+	console.log(extencaoFoto);
+	var res = extencoes.some(function(extencao){
+		return extencao == extencaoFoto;
+	});
+	return res;
+
+}
+
+function onButtonFinalizarInscricaoClick(){
+	var $button = $('#form-btn');
+	var $input = $("#input-foto3x4");
+	var spanError = $("#span-error-foto");
+	spanError.text("");
+	$button.on("click", function(event){
+		if(!isExtencaoFotoValida($input)){
+			spanError.text("Foto com extensão inválida!");
+		}
+	});
+}
 
 function mascaraIra(obj) {
 	var str = obj.value;
@@ -533,8 +588,49 @@ function buscarSelecao(){
 	}
 }
 
+$(document).ready(function(){
+	$("#grauParentescoImovelRural").change(function(){
+		if($(this).val() == "OUTROS"){
+			$("#outroGrauParentescoImovelRural").val("");
+			$("#outroGrauParentescoImovelRural").css("display", "block");
+			$("#labelOutroGrauParentescoImovelRural").css("display", "block");
+		}else{
+			$("#outroGrauParentescoImovelRural").css("display", "none");
+			$("#labelOutroGrauParentescoImovelRural").css("display", "none");
+		}
+	});
+});
 
+$(document).ready(function(){
+	$("#grauParentescoVeiculos").change(function(){
+		if($(this).val() == "OUTROS"){
+			$("#outroGrauParentescoVeiculos").val("");
+			$("#outroGrauParentescoVeiculos").css("display", "block");
+			$("#labelOutroGrauParentescoVeiculos").css("display", "block");
+		}else{
+			$("#outroGrauParentescoVeiculos").css("display", "none");
+			$("#labelOutroGrauParentescoVeiculos").css("display", "none");
+		}
+	});
+});
 
+$(document).ready(function(){
+	if($("#grauParentescoVeiculos").val() == "OUTROS"){
+
+		$("#outroGrauParentescoVeiculos").css("display", "block");
+		$("#labelOutroGrauParentescoVeiculos").css("display", "block");
+
+		$("#outroGrauParentescoImovelRural").css("display", "block");
+		$("#labelOutroGrauParentescoImovelRural").css("display", "block");
+	}else{
+		$("#outroGrauParentescoVeiculos").css("display", "none");
+		$("#labelOutroGrauParentescoVeiculos").css("display", "none");
+
+		$("#outroGrauParentescoImovelRural").css("display", "none");
+		$("#labelOutroGrauParentescoImovelRural").css("display", "none");
+
+	}
+});
 
 function selecionarInformacoes(){
 //	var $button = $('a[href=#next]').parent();
@@ -551,6 +647,41 @@ function selecionarInformacoes(){
 //	$naoinfo.show(0);
 //	}
 }
+
+$(document).ready(function(){
+	new dgCidadesEstados({
+		cidade : document.getElementById('cidade-endereco'),
+		estado : document.getElementById('estado-endereco')
+	});
+	new dgCidadesEstados({
+		cidade : document.getElementById('cidade-origem'),
+		estado : document.getElementById('estado-origem')
+	});
+});
+
+function rowAdded(rowElement) {
+	$(rowElement).find("input").val('');
+}
+
+function rowRemoved(rowElement) {
+
+}
+
+$(document).ready(
+		function() {
+			var config = {
+					rowClass : 'pessoaFamilia',
+					addRowId : 'addPessoa',
+					removeRowClass : 'removePessoa',
+					formId : 'questionario',
+					rowContainerId : 'pessoaFamiliaContainer',
+					indexedPropertyName : 'pessoas',
+					indexedPropertyMemberNames : 'nome, parentesco, escolaridade, idade, profissao, rendaMensal',
+					rowAddedListener : rowAdded,
+					rowRemovedListener : rowRemoved,
+			};
+			new DynamicListHelper(config);
+		});
 
 
 function novaAba(url){

@@ -73,8 +73,8 @@
 								<td>${inscricao.selecao.sequencial}</td>
 								<td>${inscricao.selecao.quantidadeVagas}</td>
 								<td class="dt-body-center">
-									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à
-									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino }" />
+									<fmt:formatDate pattern="dd/MM/yyyy" value="${inscricao.selecao.dataInicio}" /> à
+									<fmt:formatDate pattern="dd/MM/yyyy" value="${inscricao.selecao.dataTermino }" />
 								</td>
 							</tr>
 						</c:forEach>

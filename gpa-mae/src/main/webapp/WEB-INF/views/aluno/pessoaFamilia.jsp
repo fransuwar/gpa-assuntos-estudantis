@@ -11,12 +11,12 @@
 
 		<thead>
 			<tr>
-				<th class="form-group"><span class="red">*</span>Nome</th>
-				<th class="form-group"><span class="red">*</span>Parentesco</th>
-				<th class="form-group"><span class="red">*</span>Escolaridade</th>
-				<th class="form-group"><span class="red">*</span>Idade</th>
-				<th class="form-group"><span class="red">*</span>Profissao</th>
-				<th class="form-group"><span class="red">*</span>Renda R$</th>
+				<th class="form-group"><span class="red"></span>Nome</th>
+				<th class="form-group"><span class="red"></span>Parentesco</th>
+				<th class="form-group"><span class="red"></span>Escolaridade</th>
+				<th class="form-group"><span class="red"></span>Idade</th>
+				<th class="form-group"><span class="red"></span>Profissao</th>
+				<th class="form-group"><span class="red"></span>Renda R$</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -40,8 +40,8 @@
 							value="${pf.idade }" /></td>
 						<td><input class="form-control" type="text"
 							name="pf.profissao" value="${pf.profissao }" /></td>
-						<td><input class="form-control" type="number"
-							name="pf.rendaMensal" value="${pf.rendaMensal }" size="10" /></td>
+						<td><input class="form-control" type="number" id="rendaMensal"
+							name="pf.rendaMensal" value="${pf.rendaMensal }" /></td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -62,7 +62,7 @@
 							
 						<td><input class='form-control' type="text" name="pessoas[${i }].profissao" value="" required ="required"/></td>
 							
-						<td><input class="form-control" type="number" name="pessoas[${i }].rendaMensal" value="" required ="required"/></td>
+						<td><input class="form-control" id="rendaMensal" type="text" name="pessoas[${i }].rendaMensal" value="" required ="required"/></td>
 							
 						<td><a href="#" class="removePessoa">Remover Pessoa</a></td>
 					</tr>
@@ -72,29 +72,3 @@
 	</table>
 </div>
 <a href="#" id="addPessoa" class="btn btn-primary">Adicionar Pessoa</a>
-
-
-<script type="text/javascript">
-	function rowAdded(rowElement) {
-		$(rowElement).find("input").val('');
-	}
-	function rowRemoved(rowElement) {
-	}
-	$(document)
-			.ready(
-					function() {
-						var config = {
-							rowClass : 'pessoaFamilia',
-							addRowId : 'addPessoa',
-							removeRowClass : 'removePessoa',
-							formId : 'questionario',
-							rowContainerId : 'pessoaFamiliaContainer',
-							indexedPropertyName : 'pessoas',
-							indexedPropertyMemberNames : 'nome, parentesco, escolaridade, idade, profissao, rendaMensal',
-							rowAddedListener : rowAdded,
-							rowRemovedListener : rowRemoved,
-						};
-						new DynamicListHelper(config);
-					});
-</script>
-

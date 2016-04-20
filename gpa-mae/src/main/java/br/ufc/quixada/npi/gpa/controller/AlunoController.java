@@ -1,8 +1,30 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
-import java.util.ArrayList;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_REALIZADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_AUXILIO_MORADIA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MORADIA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCRICOES_ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
 
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -14,13 +36,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import br.ufc.quixada.npi.gpa.enums.DiaUtil;
 import br.ufc.quixada.npi.gpa.enums.Estado;
@@ -48,6 +74,7 @@ import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
+import br.ufc.quixada.npi.gpa.utils.StringUtils;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
 
 @Controller
@@ -63,7 +90,7 @@ public class AlunoController {
 
 	@Inject
 	private InscricaoService inscricaoService;
-	
+
 	@Inject
 	private UsuarioService usuarioService;
 
@@ -98,7 +125,7 @@ public class AlunoController {
 		model.addAttribute("totalEstado", Estado.toMap());
 		model.addAttribute("grauParentesco", GrauParentesco.values());
 		model.addAttribute("selecao", selecao);	
-		
+
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
 
@@ -234,16 +261,35 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
 	public String realizarInscricaoAuxilioMoradia(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
-			BindingResult result, @RequestParam("mora") List<String> comQuemMora,
+			BindingResult result, @RequestParam(value="mora", required=false) List<String> comQuemMora,
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
-			Model model) {
+			Model model, @RequestParam("fileFoto") MultipartFile foto) {
 
-		System.out.println("Valor financiamento: "+auxilioMoradia.getValorMensalFinanciamento());
-		
+		try {
+			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
+			
+			
+			List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
+			
+			//Conferindo se o formato do arquivo passado é um dos formatos do array acima.
+			if(!formatos.contains(multipartFile.getContentType())){
+				redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
+				//Adicionando o erro no result.
+				result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
+			}else{
+				auxilioMoradia.setFoto(foto.getBytes());
+			}
+		} catch (IOException e) {
+			result.addError(new ObjectError("error", MENSAGEM_ERRO_UPLOAD_FOTO));
+			redirect.addFlashAttribute("error", MENSAGEM_ERRO_UPLOAD_FOTO);
+		}
+
 		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
-		for (String m : comQuemMora) {
-			ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));
-			comQuemMoraList.add(mora);
+		if(comQuemMora != null){
+			for (String m : comQuemMora) {
+				ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));
+				comQuemMoraList.add(mora);
+			}
 		}
 
 		auxilioMoradia.setComQuemMora(comQuemMoraList);
@@ -264,14 +310,15 @@ public class AlunoController {
 			model.addAttribute("grauParentesco", GrauParentesco.values());
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
-
+			
+			
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 
 		} else {
 
 			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 			Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
-
+			
 			if (inscricaoService.getInscricao(selecao, aluno) == null) {
 
 				Inscricao inscricao = new Inscricao();
@@ -281,16 +328,16 @@ public class AlunoController {
 				inscricao.setAluno(aluno);
 				inscricao.setSelecao(selecao);
 				inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
-
+				
 				inscricaoService.save(inscricao);
 			} else {
 				redirect.addFlashAttribute("error", MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
 			}
-
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
+			
 		}
-
+		
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -307,26 +354,26 @@ public class AlunoController {
 		if (inscricao != null) {
 
 			if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)) {
-				
+
 				if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
 					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EDITAR_INSCRICAO);
 					return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 				}else{
 
-				model.addAttribute("inscricao", inscricao);
-				model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
-				model.addAttribute("estado", Estado.values());
-				model.addAttribute("situacaoImovel", SituacaoImovel.values());
-				model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-				model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-				model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-				model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
-				model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-				model.addAttribute("moraCom", MoraCom.values());
-				model.addAttribute("grauParentesco", GrauParentesco.values());
-				model.addAttribute("selecao", inscricao.getSelecao());
+					model.addAttribute("inscricao", inscricao);
+					model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
+					model.addAttribute("estado", Estado.values());
+					model.addAttribute("situacaoImovel", SituacaoImovel.values());
+					model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
+					model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
+					model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
+					model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
+					model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
+					model.addAttribute("moraCom", MoraCom.values());
+					model.addAttribute("grauParentesco", GrauParentesco.values());
+					model.addAttribute("selecao", inscricao.getSelecao());
 
-				return PAGINA_INSCREVER_AUXILIO_MORADIA;
+					return PAGINA_INSCREVER_AUXILIO_MORADIA;
 				}
 
 			} else {
@@ -340,8 +387,8 @@ public class AlunoController {
 				model.addAttribute("situacaoResidencia", SituacaoResidencia.values());
 				model.addAttribute("totalEstado", Estado.values());
 				model.addAttribute("grauParentesco", GrauParentesco.values());
-				
-				
+
+
 				List<HorarioDisponivel> horariosDisponiveis = inscricaoService
 						.getHorariosDisponiveisIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
 				if (horariosDisponiveis != null && !horariosDisponiveis.isEmpty()) {
@@ -355,7 +402,7 @@ public class AlunoController {
 					model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
 				}
 
-				
+
 				return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 
 			}
@@ -374,6 +421,7 @@ public class AlunoController {
 
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("inscricoes", aluno.getInscricoes());
+		
 
 		return PAGINA_INSCRICOES_ALUNO;
 
@@ -390,14 +438,14 @@ public class AlunoController {
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ALUNO_NAO_ENCONTRADO);
 		} else {
-			
+
 			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
 				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
 				return REDIRECT_PAGINA_MINHAS_INSCRICOES;
-				
+
 			} else{
-			inscricaoService.delete(inscricao);
-			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
+				inscricaoService.delete(inscricao);
+				redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 			}
 		}
 
@@ -420,14 +468,14 @@ public class AlunoController {
 			return REDIRECT_PAGINA_INSCRICOES_ALUNO;
 
 		} else if (inscricao.getQuestionarioAuxilioMoradia() != null) {
-			
+
 			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){
 				model.addAttribute("esconderBotoes",true);
 			} else{
 				model.addAttribute("esconderBotoes",false);			
 			}
 
-			return PAGINA_DETALHES_AUXILIO_MORADIA;
+			return PAGINA_DETALHES_INSCRICAO;
 
 		} else {
 

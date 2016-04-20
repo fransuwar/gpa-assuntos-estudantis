@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.hibernate.Query;
 import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -69,6 +70,10 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
 	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
 			BindingResult result, Authentication auth, RedirectAttributes redirect) {
+		
+		Integer proxSequencial = selecaoService.getUltimoSequencialPorAno(selecao);
+		
+		selecao.setSequencial(proxSequencial);
 
 		model.addAttribute("action", "cadastrar");
 
@@ -180,7 +185,7 @@ public class CoordenadorController {
 
 		model.addAttribute("idSelecao", idSelecao);
 		model.addAttribute("servidores", servidorService.find(Servidor.class));
-		model.addAttribute("comissao", selecaoService.find(Selecao.class, idSelecao));
+		model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
 
 		return PAGINA_ATRIBUIR_COMISSAO;
 	}
@@ -206,6 +211,19 @@ public class CoordenadorController {
 			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;	
 		}
 	}
+	
+	@RequestMapping(value = "/selecao/adicionar-documento/{idSelecao}", method = RequestMethod.GET)
+	public String adicionarDocumento(@PathVariable("idSelecao") Integer idSelecao,
+			Model model, RedirectAttributes redirectAttributes) {
+		
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		if (selecao != null) {
+			model.addAttribute("selecao", selecao);
+		}
+
+		return PAGINA_ADICIONAR_ARQUIVO;
+	}
+	
 
 	@RequestMapping(value = "/selecao/adicionar-documento", method = RequestMethod.POST)
 	public String adicionarDocumento(@RequestParam("files") List<MultipartFile> files,
@@ -229,13 +247,13 @@ public class CoordenadorController {
 				} catch (IOException ioe) {
 					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 
-					return REDIRECT_PAGINA_EDITAR_SELECAO +idSelecao;
+					return REDIRECT_PAGINA_ADICIONAR_ARQUIVO +idSelecao;
 				}
 			} 
 
 		} 
 
-		return REDIRECT_PAGINA_EDITAR_SELECAO + idSelecao;
+		return REDIRECT_PAGINA_ADICIONAR_ARQUIVO + idSelecao;
 	}
 
 	@RequestMapping(value = "/selecao/excluir-documento/{idDocumento}", method = RequestMethod.GET)
@@ -252,7 +270,7 @@ public class CoordenadorController {
 			model.addAttribute("tipoBolsa", TipoSelecao.values());
 			model.addAttribute("selecao", selecao);
 
-			return  REDIRECT_PAGINA_EDITAR_SELECAO + idSelecao;
+			return  REDIRECT_PAGINA_ADICIONAR_ARQUIVO + idSelecao;
 
 		} else {
 
@@ -260,7 +278,7 @@ public class CoordenadorController {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
 
-			return PAGINA_CADASTRAR_SELECAO;
+			return REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
 		}
 	}
 

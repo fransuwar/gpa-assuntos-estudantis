@@ -39,6 +39,8 @@ public class Constants {
 	public static final String PAGINA_LISTAR_SELECAO = "selecao/listarSelecao";
 
 	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR = "servidor/listaSelecoes";
+	
+	public static final String PAGINA_ADICIONAR_ARQUIVO = "coordenador/adicionarArquivoSelecao";
 
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
@@ -48,7 +50,7 @@ public class Constants {
 
 	public static final String PAGINA_INSCREVER_AUXILIO_MORADIA = "aluno/inscricaoAuxilio";
 
-	public static final String PAGINA_DETALHES_INSCRICAO = "aluno/detalhesInscricao";
+	public static final String PAGINA_DETALHES_INSCRICAO = "inscricao/detalhesInscricao";
 
 	public static final String PAGINA_INSCRICOES_ALUNO = "aluno/minhasInscricoes";
 
@@ -62,6 +64,8 @@ public class Constants {
 	/** Redirecionamentos */
 
 	public static final String REDIRECT_PAGINA_EDITAR_SELECAO = "redirect:/coordenador/selecao/editar/";
+	
+	public static final String REDIRECT_PAGINA_ADICIONAR_ARQUIVO = "redirect:/coordenador/selecao/adicionar-documento/";
 
 	public static final String REDIRECT_PAGINA_ATRIBUIR_COMISSAO = "redirect:/coordenador/comissao/atribuir/";
 
@@ -204,6 +208,10 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_EDITAR_INSCRICAO = "Você não pode editar esta inscrição fora do período da seleção";
 	
+	public static final String MENSAGEM_ERRO_UPLOAD_FOTO = "Não foi possível fazer o upload da sua foto";
+	
+	public static final String MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO = "Extensão da foto inválida. Extensões aceitas (jpeg, jpg, png)";
+	
 	/** Perfis */
 
 	public static final String STA = "STA";
@@ -215,5 +223,7 @@ public class Constants {
 	public static final String COORDENADOR_ASSUNTOS_ESTUDANTIS = "COORDENADOR_ASSUNTO_ESTUDANTIS";
 
 	public static final String ADMINISTRADOR = "ADMINISTRADOR_GPA";
+
+	
 
 }

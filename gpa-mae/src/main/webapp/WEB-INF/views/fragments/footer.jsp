@@ -26,13 +26,20 @@
 <script src="<c:url value="/resources/js/bootstrap-datepicker.js" />"></script>
 <script
 	src="<c:url value="/resources/js/bootstrap-datepicker.pt-BR.js" />"></script>
+<script src="<c:url value="/resources/js/cidades-estados.js"/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.file-input.js" />"></script>
 <script src="<c:url value="/resources/js/bootbox.min.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrapValidator.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.mask.js" />"></script>
+<script src="<c:url value="/resources/js/jquery.maskMoney.js" />"></script>
 <script src="<c:url value="/resources/js/list-dynamic.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.dataTables.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.validate.min.js" />"></script>
 <script src="<c:url value="/resources/js/moment-with-locales"/>"></script>
 <script src="<c:url value="/resources/js/jquery.steps.min.js"/>"></script>
 <script src="<c:url value="/resources/js/npi.js"/>"></script>
+
+
+
+
+
