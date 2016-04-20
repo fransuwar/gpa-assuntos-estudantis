@@ -22,7 +22,8 @@ import br.ufc.quixada.npi.gpa.enums.Resultado;
 @NamedQueries({
 		@NamedQuery(name = "Inscricao.findIncricoesByIdAluno", query = "select i from Inscricao i where i.aluno.id = :idAluno"),
 		@NamedQuery(name = "Inscricao.findInscricaoAluno", query = "SELECT i from Inscricao i where i.selecao.id =:idSelecao and i.aluno.id =:idAluno"),
-		@NamedQuery(name = "Inscricao.finInscricaoByIdSelecao", query = "select i from Inscricao i where i.selecao.id = :idSelecao")
+		@NamedQuery(name = "Inscricao.finInscricaoByIdSelecao", query = "select i from Inscricao i where i.selecao.id = :idSelecao"),
+		@NamedQuery(name = "Inscricao.finInscricaoByIdSelecaoByAluno", query = "select i from Inscricao i where i.selecao.id = :idSelecao and i.aluno.id =:idAluno")
 })
 
 @Entity

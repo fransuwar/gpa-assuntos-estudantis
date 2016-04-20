@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -29,11 +30,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
+import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
+import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
@@ -51,9 +56,15 @@ public class SelecaoController {
 
 	@Inject
 	private SelecaoService selecaoService;
-
+	
+	@Inject
+	private AlunoService alunoService;
+	@Inject
+	private InscricaoService inscricaoService;
+	
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
+	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect,Authentication auth) {
+		//Detalhe da seleção, apenas para aluno
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 
 		if (selecao == null) {
@@ -62,9 +73,17 @@ public class SelecaoController {
 		}
 
 		model.addAttribute("selecao", selecao);
-
+		
+		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
+		List<Inscricao> inscricoes = inscricaoService.getInscricoesBySelecaoByAluno(selecao.getId(),aluno.getId());
+		boolean controle = false;
+		if(!inscricoes.isEmpty())
+			controle=true;
+		model.addAttribute("controle", controle);
+	
 		return PAGINA_INFORMACOES_SELECAO;
 	}
+	
 
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Integer id, 
