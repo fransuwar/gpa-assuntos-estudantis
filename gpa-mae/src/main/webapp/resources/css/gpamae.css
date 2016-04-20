@@ -13,8 +13,8 @@ body {
 	margin: 0px;
 }
 
-#alert-erro{
-	text-align: center;	
+#alert-erro {
+	text-align: center;
 }
 
 #form-label-right-checkbox-tam-padrao {
@@ -36,6 +36,7 @@ body {
 #div-line-title {
 	text-decoration: underline;
 }
+
 footer {
 	text-align: center;
 	clear: both;
@@ -89,7 +90,7 @@ footer>p {
 
 #td-table-visualiza-info-auxilio {
 	color: white;
-	text-align:center;
+	text-align: center;
 }
 
 .navbar-default .navbar-text {
@@ -101,28 +102,181 @@ h3 {
 }
 
 a, a:hover, a:visited, a:active, button, button:hover, button:visited,
-	button:active input.btn, input.btn:visited, input.btn:active, input.btn:focus {
+	button:active input.btn, input.btn:visited, input.btn:active, input.btn:focus
+	{
 	outline: medium none !important;
 	outline-offset: 0px !important;
 	text-decoration: none !important;
 }
 
-#text-align-rigth{
-	text-align:right;
+#text-align-rigth {
+	text-align: right;
 }
 
-.hidden{
-	display:none;
+.hidden {
+	display: none;
 }
 
-label.title{
-	width:100%;
-	text-align:left;
+div.f-content select{
+	float:right !important;
+	margin:0;
 }
 
-div.text-align-left{
-	width:100%;
+label.title {
+	width: 100%;
 	text-align: left;
+}
+
+div.text-align-left {
+	width: 100%;
+	text-align: left;
+}
+
+div.p-container-set{
+	width:100%;
+	border-radius: 5px;
+}
+
+div.p-container {
+	width: 100%;
+	margin: 0px;
+	display: block;
+	position: relative;
+}
+
+div.first div.p-header{
+	border-radius: 10px 0px 0px 0px !important;
+}
+
+div.last div.p-header{
+	border-radius: 0px 0px 0px 10px !important;
+}
+
+div.first div.p-body{
+	border-radius: 0px 10px 0px 0px !important;
+}
+
+div.last div.p-body{
+	border-radius: 0px 0px 10px 0px !important;
+}
+
+div.unique div.p-body{
+	border-radius: 0px 10px 10px 0px;
+}
+
+div.unique div.p-header{
+	border-radius: 10px 0px 0px 10px;
+}
+
+div.p-header {
+	border-bottom: 1px solid #6f7f94;
+	position: absolute;
+	background-color: #2c3e50;
+	float: left;
+	width: 15%;
+	top: 0px;
+	bottom: 0px;
+	padding: 3px;
+	border-radius:0px;
+}
+
+div.p-title {
+	font-weight: bold;
+	color: white;
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+div.p-body {
+	text-align:left;
+	padding: 3px;
+	margin:0px;
+	margin-left: 15%;
+	background-color: white;
+	border: 1px solid #2c3e50;
+	border-radius: 0px 0px 0px 0px;
+	width: 85%;
+}
+
+div.f-container {
+	display: inline-block;
+	background-color: white;
+	margin:1%;
+}
+
+label.f-title{
+	margin-left:10px;
+}
+
+div.f-content{
+	margin-left:10px;
+}
+
+.content .body{
+	margin: 0 !important;
+	padding: 0px !important;
+	width: 100% !important;
+}
+
+.content{
+	clear: both;
+    content: "";
+    display: table;
+}
+
+textarea{
+	resize: none;
+}
+
+div.half{
+	width: 47%;
+}
+
+div.s1{
+	width:7%;	
+}
+
+div.s2{
+	width:17%;	
+}
+
+div.s3{
+	width:27%;	
+}
+
+div.s4{
+	width:37%;	
+}
+
+div.s5{
+	width:47%;	
+}
+
+div.s6{
+	width:57%;	
+}
+
+div.s7{
+	width:67%;	
+}
+
+div.s8{
+	width:77%;	
+}
+
+div.s9{
+	width:87%;	
+}
+
+div.s10{
+	width:97%;	
+}
+
+.text-danger{
+	float:right;
 }
 
 .direita{
