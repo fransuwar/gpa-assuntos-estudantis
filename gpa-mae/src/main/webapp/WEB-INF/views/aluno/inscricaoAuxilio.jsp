@@ -63,7 +63,7 @@
 					modelAttribute="questionarioAuxilioMoradia"
 					commandName="questionarioAuxilioMoradia"
 					servletRelativeAction="${url }" method="POST"
-					cssClass="form-horizontal">
+					cssClass="form-horizontal" enctype="multipart/form-data">
 
 					<input id="idSelecao" name="idSelecao" type="hidden"
 						value="${selecao.id}" />
@@ -181,8 +181,7 @@
 													<div class='f-content'>
 														<form:input id="comQuemMoraOutros"
 															path="comQuemMoraOutros" cssClass="form-control"
-															placeholder="Com quem mora essas pessoas ?"
-															 />
+															placeholder="Com quem mora essas pessoas ?" />
 														<div class="error-validation">
 															<form:errors path="comQuemMoraOutros"></form:errors>
 														</div>
@@ -206,8 +205,7 @@
 
 										<div class='f-content'>
 											<form:input id="nomeMae" type="text" path="nomeMae"
-												cssClass="form-control" placeholder="Nome da Mãe"
-												 />
+												cssClass="form-control" placeholder="Nome da Mãe" />
 											<div class="error-validation">
 												<form:errors path="nomeMae"></form:errors>
 											</div>
@@ -219,8 +217,7 @@
 
 										<div class='f-content'>
 											<form:input id="nomePai" path="nomePai"
-												cssClass="form-control" placeholder="Nome do Pai"
-												 />
+												cssClass="form-control" placeholder="Nome do Pai" />
 											<div class="error-validation">
 												<form:errors path="nomePai"></form:errors>
 											</div>
@@ -240,8 +237,7 @@
 
 										<div class='f-content'>
 											<form:input id="endereco" path="endereco"
-												cssClass="form-control" placeholder="Rua da sede do curso"
-												 />
+												cssClass="form-control" placeholder="Rua da sede do curso" />
 											<div class="error-validation">
 												<form:errors path="endereco"></form:errors>
 											</div>
@@ -253,7 +249,7 @@
 
 										<div class='f-content'>
 											<form:input id="numero" path="numero" cssClass="form-control"
-												data-mask="999999" placeholder="Num"  />
+												data-mask="999999" placeholder="Num" />
 											<div class="error-validation">
 												<form:errors path="numero"></form:errors>
 											</div>
@@ -265,7 +261,7 @@
 
 										<div class='f-content'>
 											<form:input id="bairro" path="bairro" cssClass="form-control"
-												placeholder="Bairro"  />
+												placeholder="Bairro" />
 											<div class="error-validation">
 												<form:errors path="bairro"></form:errors>
 											</div>
@@ -279,22 +275,9 @@
 
 										<div class='f-content'>
 											<form:input id="cep" path="cep" data-mask="99999-999"
-												cssClass="form-control" placeholder="CEP"
-												 />
+												cssClass="form-control" placeholder="CEP" />
 											<div class="error-validation">
 												<form:errors path="cep"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s5'>
-										<label class='f-title'> Cidade: </label>
-
-										<div class='f-content'>
-											<form:select id="cidade-endereco" path="cidade" cssClass="form-control"
-												placeholder="Cidade"/>
-											<div class="error-validation">
-												<form:errors path="cidade"></form:errors>
 											</div>
 										</div>
 									</div>
@@ -304,8 +287,7 @@
 
 										<div class='f-content'>
 											<form:select path="estado" id="estado-endereco"
-												cssClass="form-control" cssStyle="font-size:13px"
-												>
+												cssClass="form-control" cssStyle="font-size:13px">
 												<form:option value="">Selecione Estado</form:option>
 												<form:options items="${estado}" itemLabel="nome" />
 											</form:select>
@@ -316,13 +298,26 @@
 									</div>
 
 									<div class='f-container s5'>
+										<label class='f-title'> Cidade: </label>
+
+										<div class='f-content'>
+											<form:select id="cidade-endereco" path="cidade"
+												cssClass="form-control" placeholder="Cidade" />
+											<div class="error-validation">
+												<form:errors path="cidade"></form:errors>
+											</div>
+										</div>
+									</div>
+
+
+
+									<div class='f-container s5'>
 										<label class='f-title'> Complemento: </label>
 
 										<div class='f-content'>
 											<form:input id="complemento" path="complemento"
 												cssClass="form-control"
-												placeholder="Complemento da sede do curso"
-												 />
+												placeholder="Complemento da sede do curso" />
 											<div class="error-validation">
 												<form:errors path="complemento"></form:errors>
 											</div>
@@ -338,8 +333,7 @@
 
 										<div class='f-content'>
 											<form:input id="referencia" path="referencia"
-												cssClass="form-control" placeholder="Ponto de Referencia"
-												 />
+												cssClass="form-control" placeholder="Ponto de Referencia" />
 											<div class="error-validation">
 												<form:errors path="referencia"></form:errors>
 											</div>
@@ -359,8 +353,7 @@
 
 										<div class='f-content'>
 											<form:input id="enderecoOrigem" path="enderecoOrigem"
-												cssClass="form-control" placeholder="Rua da sede do curso"
-												 />
+												cssClass="form-control" placeholder="Rua da sede do curso" />
 											<div class="error-validation">
 												<form:errors path="enderecoOrigem"></form:errors>
 											</div>
@@ -372,8 +365,7 @@
 
 										<div class='f-content'>
 											<form:input id="numeroOrigem" path="numeroOrigem"
-												cssClass="form-control" data-mask="999999" placeholder="Num"
-												 />
+												cssClass="form-control" data-mask="999999" placeholder="Num" />
 											<div class="error-validation">
 												<form:errors path="numeroOrigem"></form:errors>
 											</div>
@@ -385,8 +377,7 @@
 
 										<div class='f-content'>
 											<form:input id="bairroOrigem" path="bairroOrigem"
-												cssClass="form-control" placeholder="Bairro"
-												 />
+												cssClass="form-control" placeholder="Bairro" />
 											<div class="error-validation">
 												<form:errors path="bairroOrigem"></form:errors>
 											</div>
@@ -399,21 +390,9 @@
 										<div class='f-content'>
 											<form:input id="cepOrigem" path="cepOrigem"
 												data-mask="99999-999" cssClass="form-control"
-												placeholder="CEP"  />
+												placeholder="CEP" />
 											<div class="error-validation">
 												<form:errors path="cepOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s5'>
-										<label class='f-title'> Cidade: </label>
-
-										<div class='f-content'>
-										<form:select id="cidade-origem" path="cidadeOrigem"
-												cssClass="form-control" placeholder="Cidade"/>
-											<div class="error-validation">
-												<form:errors path="cidadeOrigem"></form:errors>
 											</div>
 										</div>
 									</div>
@@ -423,8 +402,7 @@
 
 										<div class='f-content'>
 											<form:select path="estadoOrigem" id="estado-origem"
-												cssClass="form-control" cssStyle="font-size:13px"
-												>
+												cssClass="form-control" cssStyle="font-size:13px">
 												<form:option value="">Selecione Estado</form:option>
 												<form:options items="${estado}" itemLabel="nome" />
 											</form:select>
@@ -433,6 +411,20 @@
 											</div>
 										</div>
 									</div>
+
+
+									<div class='f-container s5'>
+										<label class='f-title'> Cidade: </label>
+
+										<div class='f-content'>
+											<form:select id="cidade-origem" path="cidadeOrigem"
+												cssClass="form-control" placeholder="Cidade" />
+											<div class="error-validation">
+												<form:errors path="cidadeOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
 
 									<div class='f-container s5'>
 										<label class='f-title'> Complemento: </label>
@@ -452,8 +444,7 @@
 
 										<div class='f-content'>
 											<form:input id="referenciaOrigem" path="referenciaOrigem"
-												cssClass="form-control" placeholder="Ponto de Referencia"
-												 />
+												cssClass="form-control" placeholder="Ponto de Referencia" />
 											<div class="error-validation">
 												<form:errors path="referenciaOrigem"></form:errors>
 											</div>
@@ -466,7 +457,7 @@
 										<div class='f-content'>
 											<form:input id="telefoneOrigem" path="telefoneOrigem"
 												data-mask="(99) 9 9999-9999" cssClass="form-control"
-												placeholder="(00) 0 0000-0000"  />
+												placeholder="(00) 0 0000-0000" />
 											<div class="error-validation">
 												<form:errors path="telefoneOrigem"></form:errors>
 											</div>
@@ -625,8 +616,7 @@
 
 										<div class='f-content'>
 											<form:select path="ensinoFundamental" id="ensinoFundamental"
-												cssClass="form-control" cssStyle="font-size:13px;"
-												>
+												cssClass="form-control" cssStyle="font-size:13px;">
 												<form:option value="" label="Selecione o Tipo" />
 												<form:options items="${tipoEnsinoFundamental}"
 													itemLabel="nome" />
@@ -666,8 +656,7 @@
 
 										<div class='f-content'>
 											<form:select path="ensinoMedio" id="ensinoMedio"
-												cssClass="form-control" cssStyle="font-size:13px;"
-												>
+												cssClass="form-control" cssStyle="font-size:13px;">
 												<form:option value="" label="Selecione o Tipo" />
 												<form:options items="${tipoEnsinoMedio}" itemLabel="nome" />
 											</form:select>
@@ -696,10 +685,9 @@
 									<br />
 
 									<div class='f-container s10'>
-										<label class='f-title'><form:checkbox id="cursinho" path="cursinho"
-													/> Fez cursinho pré-vestibular?
-												
-											</label>
+										<label class='f-title'><form:checkbox id="cursinho"
+												path="cursinho" /> Fez cursinho
+											pré-vestibular? </label>
 
 										<div class='f-content'>
 											<div class="error-validation">
@@ -754,10 +742,10 @@
 
 							<div class='p-body'>
 								<div class='f-container s5'>
-									<label class='f-title'> <form:checkbox id="bolsistaUfc" path="bolsistaUfc"
-												 /> Bolsista UFC: 
-											
-										</label>
+									<label class='f-title'> <form:checkbox id="bolsistaUfc"
+											path="bolsistaUfc" /> Bolsista UFC:
+
+									</label>
 
 									<div class='f-content'>
 										<div class="error-validation">
@@ -779,13 +767,13 @@
 								</div>
 
 								<div class='f-container s5'>
-									<label class='f-title'> <form:checkbox id="graduacao" path="graduacao"
-												/> Possui Graduação: 
-											
-										</label>
+									<label class='f-title'> <form:checkbox id="graduacao"
+											path="graduacao" /> Possui Graduação:
+
+									</label>
 
 									<div class='f-content'>
-										
+
 										<div class="error-validation">
 											<form:errors path="graduacao"></form:errors>
 										</div>
@@ -803,18 +791,18 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div class='f-container'>
 									<label class='f-title'>Foto (3x4):</label>
 									<div class='f-content'>
-										<input id="input-foto3x4" type="file" name="fileFoto"/>
-												<div class="col-sm-8 error-validation">
-													<span id="span-error-foto"></span>
-												</div>
+										<input id="input-foto3x4" type="file" name="fileFoto" />
+										<div class="col-sm-8 error-validation">
+											<span id="span-error-foto"></span>
+										</div>
 									</div>
 								</div>
-								
-										
+
+
 							</div>
 						</div>
 
@@ -834,8 +822,8 @@
 
 									<div class='f-content'>
 										<form:textarea id="justificativa" path="justificativa"
-											cssClass="form-control s10" placeholder="Justificativa" rows="10"
-											 />
+											cssClass="form-control s10" placeholder="Justificativa"
+											rows="10" />
 										<div class="error-validation">
 											<form:errors path="justificativa"></form:errors>
 										</div>
