@@ -621,4 +621,3 @@ $(document).ready(function(){
 		estado : document.getElementById('estado-origem')
 	});
 });
-}
