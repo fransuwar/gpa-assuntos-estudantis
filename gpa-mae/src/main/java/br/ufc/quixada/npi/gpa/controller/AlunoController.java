@@ -295,11 +295,7 @@ public class AlunoController {
 		auxilioMoradia.setComQuemMora(comQuemMoraList);
 
 		if (result.hasErrors()) {
-			
-			System.out.println(result.toString());
-
 			model.addAttribute("action", "inscricao");
-
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
 			model.addAttribute("estado", Estado.values());
 			model.addAttribute("situacaoImovel", SituacaoImovel.values());

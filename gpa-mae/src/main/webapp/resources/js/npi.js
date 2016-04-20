@@ -616,7 +616,6 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	if($("#grauParentescoVeiculos").val() == "OUTROS"){
-
 		$("#outroGrauParentescoVeiculos").css("display", "block");
 		$("#labelOutroGrauParentescoVeiculos").css("display", "block");
 
@@ -628,25 +627,8 @@ $(document).ready(function(){
 
 		$("#outroGrauParentescoImovelRural").css("display", "none");
 		$("#labelOutroGrauParentescoImovelRural").css("display", "none");
-
 	}
 });
-
-function selecionarInformacoes(){
-//	var $button = $('a[href=#next]').parent();
-//	var $naoinfo = $('#nao-minhas-informacoes');
-//	if($('#minhas-informacoes').is(':checked')){
-//	$button.removeAttr(*'')
-//	$button.attr('class', '');
-//	$button.attr('aria-disabled', 'false')
-//	$naoinfo.hide(0);
-//	}else{
-//	$button.attr('class', 'disabled');
-//	$button.attr('disabled', 'true');
-//	$button.attr('aria-disabled', 'true')
-//	$naoinfo.show(0);
-//	}
-}
 
 $(document).ready(function(){
 	new dgCidadesEstados({

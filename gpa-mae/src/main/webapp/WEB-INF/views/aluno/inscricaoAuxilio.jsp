@@ -586,23 +586,6 @@
 
 
 					<h3>Historico Escolar</h3>
-
-					<!-- <div class='p-container first'>
-									<div class='p-header'>
-										<div class='p-title'></div>
-									</div>
-		
-									<div class='p-body'>
-										<div class='f-container s4'>
-											<label class='f-title'></label>
-		
-											<div class='f-content'>
-												
-											</div>
-										</div>
-									</div>							
-								</div> -->
-
 					<section>
 						<div class='p-container-set'>
 							<div class='p-container first'>
@@ -686,8 +669,7 @@
 
 									<div class='f-container s10'>
 										<label class='f-title'><form:checkbox id="cursinho"
-												path="cursinho" /> Fez cursinho
-											pré-vestibular? </label>
+												path="cursinho" /> Fez cursinho pré-vestibular? </label>
 
 										<div class='f-content'>
 											<div class="error-validation">

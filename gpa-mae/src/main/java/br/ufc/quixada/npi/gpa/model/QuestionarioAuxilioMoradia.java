@@ -106,7 +106,6 @@ public class QuestionarioAuxilioMoradia {
 	private SituacaoImovel situacaoImovel;
 	
 	@Lob
-	//@Column(columnDefinition="mediumblob")
 	private byte[] foto;
 	
 	private double valorMensalFinanciamento;
