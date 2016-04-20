@@ -6,7 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<div class="bs-component">
+<div class="bs-component">		
 	<table class="table table-striped table-hover ">
 
 		<thead>
@@ -60,7 +60,7 @@
 							
 						<td><input class="form-control" type="number" name="pessoas[${i }].idade" value="" required ="required"/></td>
 							
-						<td><input type="text" name="pessoas[${i }].profissao" value="" required ="required"/></td>
+						<td><input class='form-control' type="text" name="pessoas[${i }].profissao" value="" required ="required"/></td>
 							
 						<td><input class="form-control" id="rendaMensal" type="text" name="pessoas[${i }].rendaMensal" value="" required ="required"/></td>
 							
@@ -72,31 +72,3 @@
 	</table>
 </div>
 <a href="#" id="addPessoa" class="btn btn-primary">Adicionar Pessoa</a>
-
-
-<script src="jquery.min.js" type="text/javascript"></script>
-<script src="jquery.maskMoney.js" type="text/javascript"></script>
-<script type="text/javascript">
-	function rowAdded(rowElement) {
-		$(rowElement).find("input").val('');
-	}
-	function rowRemoved(rowElement) {
-	}
-	$(document)
-			.ready(
-					function() {
-						var config = {
-							rowClass : 'pessoaFamilia',
-							addRowId : 'addPessoa',
-							removeRowClass : 'removePessoa',
-							formId : 'questionario',
-							rowContainerId : 'pessoaFamiliaContainer',
-							indexedPropertyName : 'pessoas',
-							indexedPropertyMemberNames : 'nome, parentesco, escolaridade, idade, profissao, rendaMensal',
-							rowAddedListener : rowAdded,
-							rowRemovedListener : rowRemoved,
-						};
-						new DynamicListHelper(config);
-					});
-</script>
-

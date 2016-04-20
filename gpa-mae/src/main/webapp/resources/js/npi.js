@@ -2,9 +2,42 @@ var linha;
 var accordionFechado;
 
 $(document).ready(function(){
-	
+	var form = $("#questionarioAuxilio");
+	form.steps({
+		headerTag: "h3",
+		bodyTag: "section",
+		transitionEffect: "fade",
+		labels:{
+			cancel: "Cancelar",
+			current: "Passo atual:",
+			pagination: "Paginação",
+			finish: "Finalizar",
+			next: "Próximo",
+			previous: "Anterior",
+			loading: "Carregando ..."
+		},
+		autoFocus: true,
+		onStepChanging: function (event, currentIndex, newIndex)
+		{
+			if(currentIndex < newIndex){
+				form.validate().settings.ignore = ":disabled,:hidden";
+				return form.valid();
+			}
+			return true;
+		},
+		onFinishing: function (event, currentIndex)
+		{
+			form.validate().settings.ignore = ":disabled,:hidden";
+			return form.valid();
+		},
+		onFinished: function (event, currentIndex)
+		{
+			form.submit();
+		}
+	});
+
 	$('.fechado').slideUp();
-	
+
 	$('.panel-heading span.clicavel').on("click", function (e) {
 		if ($(this).hasClass('panel-collapsed')) {
 			//Expande o painel
@@ -14,168 +47,173 @@ $(document).ready(function(){
 		}else{
 			//Contrai o Painel
 			$(this).parents('.panel').find('.panel-body').slideUp();
-            $(this).addClass('panel-collapsed');
-            $(this).find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+			$(this).addClass('panel-collapsed');
+			$(this).find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
 		}
-		
+
 	});
 
-	$("#nome_cursinho").hide()	
+	$("#nome_cursinho").hide();
 	$("#cursinho").click(function() {
 		if($(this).is(':checked'))
-			$("#nome_cursinho").show()
+			$("#nome_cursinho").show();
 		else       
-			$("#nome_cursinho").hide()
+			$("#nome_cursinho").hide();
 	});
 
 	$('#valorMensalFinanciamento').mask("###0000000.00", {reverse: true});
 	$('#areaPropriedadeRural').mask("#####0.00", {reverse: true});
 	$('#rendaMensal').maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
-	
+
 	$('#tabela-alunos').DataTable({
 		"language": {
-            "url":"/MAE/resources/js/Portuguese-Brasil.json"
-        }
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		}
 	});
 	$('#tabela-selecoes').DataTable({
 		"language": {
-            "url":"/MAE/resources/js/Portuguese-Brasil.json"
-        },
-        "columnDefs": 
-        	[
-               { className: "dt-head-center", "targets": [ 0, 1, 2, 3, 4 ]}
-             ],
-        "paging": false,
-        "searching": false,
-        "ordering": false
-	
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"columnDefs": 
+			[
+			 { className: "dt-head-center", "targets": [ 0, 1, 2, 3, 4 ]}
+			 ],
+			 "paging": false,
+			 "searching": false,
+			 "ordering": false
+
 	});
 	$('#tabela-servidores').DataTable({
 		"language": {
-            "url":"/MAE/resources/js/Portuguese-Brasil.json"
-        }
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		}
 	});
 	$('#tabela-inscritos').DataTable({
 		"language": {
-            "url":"/MAE/resources/js/Portuguese-Brasil.json"
-        }
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		}
 	});
-	
+
 	$('#tabela-detalhes-selecao-servidores').DataTable({
 		"language": {
-            "url":"/MAE/resources/js/Portuguese-Brasil.json"
-        }
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		}
 	});
-	
-	
+
+
 	$.extend(jQuery.validator.messages, {
-	    required: "Campo obrigatório",
+		required: "Campo obrigatório",
 	});
-	
-	
+
+
 	$.validator.setDefaults({
-		 highlight : function(element) {
-				$(element).closest('.form-item').addClass('has-error');
-			},
-			unhighlight : function(element) {
-				$(element).closest('.form-group').removeClass('has-error');
-			},
-			errorElement : 'span',
-			errorClass : 'text-danger',
-			errorPlacement : function(error,
-					element) {
-				error.insertAfter(element.parent()
-						.children().last());
-				var itemForm = element.parent();
-				var id = element.attr("name");
-				$(itemForm).find("span").attr("id",id);
-			}
+		highlight : function(element) {
+			$(element).closest('.form-item').addClass('has-error');
+		},
+		unhighlight : function(element) {
+			$(element).closest('.form-group').removeClass('has-error');
+		},
+		errorElement : 'span',
+		errorClass : 'text-danger',
+		errorPlacement : function(error,
+				element) {
+			error.insertAfter(element.parent()
+					.children().last());
+			var itemForm = element.parent();
+			var id = element.attr("name");
+			$(itemForm).find("span").attr("id",id);
+		}
 	});
-	
+
 	$('#questionarioIniciacao').validate();
-	
+
 	onSelectSituacaoImovelSelected();
-	onButtonFinalizarInscricaoClick();
-	
+
 	jQuery.validator.addMethod("periodo", function(value, element) {
 		return !moment($('#dataTermino').val()).isBefore($('#dataInicio').val());
 	}, "A data de término deve ser posterior à data de início.");
-	
+
 
 	$('#adicionarSelecaoForm').validate({
-		
-		  
-		 rules: {
-			 tipoSelecao:{
-				 required:true
-			 },
-			 dataInicio:{
-				 required:true,
-				 periodo : true
-			 },
-			 dataTermino:{
-				 required:true
-			 },
-	         ano: {
-	             required: true
-	         },
-	         quantidadeVagas: {
-	             required: true
-	         },
 
-	         duracao:{
-	        	 required:true
-	         },
-	         agree: "required"
-	     },
-	     
-	     submitHandler: function(form) {
-	            form.submit();
-	        }
-	    
-		 });
+
+		rules: {
+			tipoSelecao:{
+				required:true
+			},
+			dataInicio:{
+				required:true,
+				periodo : true
+			},
+			dataTermino:{
+				required:true
+			},
+			ano: {
+				required: true
+			},
+			quantidadeVagas: {
+				required: true
+			},
+
+			sequencial:{
+				required:true
+			},
+			duracao:{
+				required:true
+			},
+			agree: "required"
+		},
+
+		submitHandler: function(form) {
+			form.submit();
+		}
+
+	});
 
 	$('#questionarioAuxilio').validate();
-	
+
 	$('#mora-com-outros').hide();
-    $("#comQuemMora7").change(function () {
-        if ($("#comQuemMora7").prop('checked')) {
-        		$('#mora-com-outros').show();
-        }
-        else {
-            $('#mora-com-outros').hide();                                                                    
-        }
-        
-    });
-    
-    //Mostrar o percentual de bolsa quando clicar na opção : "Particular com Bolsa"
-    
-    $('#percentualParticularMedio').hide();
-    
-    $('#ensinoMedio').change(function() {
-    	$( "#ensinoMedio option:selected" ).each(function(){
-    		if($(this).text() == "Particular com Bolsa"){
-    			$('#percentualParticularMedio').show();
-    		} else {
-    			$('#percentualParticularMedio').hide();
-    		}
-    		
-    	});
-    });
-    
-    $('#percentualParticularFundamental').hide();
-    
-    $('#ensinoFundamental').change(function() {
-    	$( "#ensinoFundamental option:selected" ).each(function(){
-    		if($(this).text() == "Particular com Bolsa"){
-    			$('#percentualParticularFundamental').show();
-    		} else {
-    			$('#percentualParticularFundamental').hide();
-    		}
-    		
-    	});
-    });
-    
+	$("#comQuemMora7").change(function () {
+		if ($("#comQuemMora7").prop('checked')) {
+			$('#mora-com-outros').show();
+		}
+		else {
+			$('#mora-com-outros').hide();                                                                    
+		}
+
+	});
+
+	//Mostrar o percentual de bolsa quando clicar na opção : "Particular com Bolsa"
+
+	$('#percentualParticularMedio').hide();
+
+	$('#ensinoMedio').change(function() {
+		$( "#ensinoMedio option:selected" ).each(function(){
+			if($(this).text() == "Particular com Bolsa"){
+				$('#percentualParticularMedio').show();
+			} else {
+				$('#percentualParticularMedio').hide();
+			}
+
+		});
+	});
+
+	$('#percentualParticularFundamental').hide();
+
+	$('#ensinoFundamental').change(function() {
+		$( "#ensinoFundamental option:selected" ).each(function(){    		
+			if($(this).text() == "Particular com Bolsa"){
+
+				$('#percentualParticularFundamental').show();
+			} else {
+				$('#percentualParticularFundamental').hide();
+			}
+
+		});
+	});
+
+
+
 });
 
 
@@ -183,16 +221,16 @@ $(document).ready(function(){
 /*	
  * 	Essa função é chamada quando o usuário seleciona 
  * 	alguma opção no select de Situação do Imóvel. 
-*/
+ */
 function onSelectSituacaoImovelSelected(){
 	var $select = $("#situacaoImovel");
-	
+
 	var $divValorMensal = $("#div-valor-mensal");
 	var $inputValorMensal = $("#valorMensalFinanciamento");
-	
+
 	$select.on('change', function(){
 		var valorSelecionado = $select.find("option:selected").text();
-		
+
 		if(valorSelecionado == "Financiado"){
 			$divValorMensal.removeClass("hidden");
 		}else{
@@ -214,17 +252,17 @@ function onSelectSituacaoImovelSelected(){
 function isExtencaoFotoValida($input){
 	var extencoes = ["jpeg", "jpg", "png"];
 	var fileName = $input.val();
-	
+
 	if(fileName == "")
 		return true;
-	
+
 	var extencaoFoto = fileName.split(".")[1] ? $input.val().split(".")[1] : "";
 	console.log(extencaoFoto);
 	var res = extencoes.some(function(extencao){
 		return extencao == extencaoFoto;
 	});
 	return res;
-	
+
 }
 
 function onButtonFinalizarInscricaoClick(){
@@ -241,12 +279,12 @@ function onButtonFinalizarInscricaoClick(){
 
 function mascaraIra(obj) {
 	var str = obj.value;
-	
+
 	if(parseInt(str.substring(0, str.length-1)) == 10){
 		obj.value = 10;
 		return;
 	}
-	
+
 	var aux = "";
 	for (var k = 0, p = false; k < str.length; k++) {
 		if (str[k] == ',' || str[k] == '.') {
@@ -273,16 +311,16 @@ function mascaraAgencia(obj){
 	str = str.replace("-", "");
 	var aux = "";
 	for(var k=0;k<str.length;k++){
-	if(aux.length==5) break;
-	if(str[k]>='0' && str[k]<='9') aux += str[k];
-	else {
-	if(aux.length==4 && str[k]=='X' ) aux += 'X';
-	}
+		if(aux.length==5) break;
+		if(str[k]>='0' && str[k]<='9') aux += str[k];
+		else {
+			if(aux.length==4 && str[k]=='X' ) aux += 'X';
+		}
 	}
 	obj.value = str = aux;
 
 	if(str.length >= 5){
-	obj.value = str.substring(0,4)+"-"+str.substring(4,5);
+		obj.value = str.substring(0,4)+"-"+str.substring(4,5);
 	}
 }
 
@@ -336,27 +374,27 @@ function submeterForm() {
 		});
 
 		request
-				.done(function(data) {
-					$("#myModal").modal("hide");
-					$('#mensagens').removeClass('alert-danger');
-					$('#mensagens').addClass('alert-success');
-					$('#mensagens').show();
-					$('#mensagens').text("Adição feita com sucesso");
-					$('#mensagens').fadeOut(4000);
-					dt
-							.fnAddData({
-								"DatadeInicio" : data.DatadeInicio,
-								"DatadeTermino" : data.DatadeTermino,
-								"comentarios" : data.comentarios,
-								"editar" : "<button id=\"btnEditar\" class=\"btn btn-default btn-lg editarEdital\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"povoaForm(\'\/gpa-mae\/edital\/"
-										+ data.id
-										+ "\/\', \'#add-contato-form\', this);\"> <span class=\"glyphicon glyphicon-edit\"><\/span> <\/button>",
-								"excluir" : "<button id=\"btnExcluir\" class=\"btn btn-default btn-lg\" onclick=\"excluir(\'#edital\',\'\/gpa-mae\/edital\/"
-										+ data.id
-										+ "\/\', this);\"><span class=\"glyphicon glyphicon-trash\"><\/span><\/button>"
-							});
+		.done(function(data) {
+			$("#myModal").modal("hide");
+			$('#mensagens').removeClass('alert-danger');
+			$('#mensagens').addClass('alert-success');
+			$('#mensagens').show();
+			$('#mensagens').text("Adição feita com sucesso");
+			$('#mensagens').fadeOut(4000);
+			dt
+			.fnAddData({
+				"DatadeInicio" : data.DatadeInicio,
+				"DatadeTermino" : data.DatadeTermino,
+				"comentarios" : data.comentarios,
+				"editar" : "<button id=\"btnEditar\" class=\"btn btn-default btn-lg editarEdital\" data-toggle=\"modal\" data-target=\"#myModal\" onclick=\"povoaForm(\'\/gpa-mae\/edital\/"
+					+ data.id
+					+ "\/\', \'#add-contato-form\', this);\"> <span class=\"glyphicon glyphicon-edit\"><\/span> <\/button>",
+					"excluir" : "<button id=\"btnExcluir\" class=\"btn btn-default btn-lg\" onclick=\"excluir(\'#edital\',\'\/gpa-mae\/edital\/"
+						+ data.id
+						+ "\/\', this);\"><span class=\"glyphicon glyphicon-trash\"><\/span><\/button>"
+			});
 
-				});
+		});
 
 		request.fail(function(data) {
 		});
@@ -381,9 +419,9 @@ $(document).ready(
 		function() {
 
 			$('div.error-validation:has(span)').find('span').css('color',
-					'#a94442');
+			'#a94442');
 			$('div.error-validation:has(span)').find('span').parent().parent()
-					.addClass('has-error has-feedback');
+			.addClass('has-error has-feedback');
 
 			$('#confirm-delete').on(
 					'show.bs.modal',
@@ -408,14 +446,14 @@ $(document).ready(
 				language : "pt-BR",
 				todayHighlight : true
 			});
-			
+
 			$("#ano").datepicker({
 				format: " yyyy",
 				viewMode: "years", 
 				minViewMode: "years",
 				language : "pt-BR",
 				todayHighlight : true
-				
+
 			});
 		});
 
@@ -429,8 +467,8 @@ function ConvertFormToJSON(form) {
 	return json;
 }
 
-// É chamado quando clica no botão de editar contato, ele busca o contato
-// completo e povoa o formulário de edição
+//É chamado quando clica no botão de editar contato, ele busca o contato
+//completo e povoa o formulário de edição
 function povoaForm(uri, form, row) {
 
 	$("#myModalLabel").text("Atualizar contato");
@@ -489,7 +527,7 @@ function excluir(idTable, uri, row) {
 };
 
 function validaHorariosDisponiveisSelecao(){
-		
+
 	var res = "";
 	var table = document.getElementById("tabelaHorariosDisponiveis");
 
@@ -502,11 +540,11 @@ function validaHorariosDisponiveisSelecao(){
 		for(var k=0;k<valores.length;k+=2){
 			var dia = valores[k].value;
 			var turno = valores[k+1].value;
-		    if(dia == "" || turno == ""){
-		    	alert("Os campos de horários disponíveis são obrigatórios.");
-		    	return false;
-		    }
-		    horarios.add(dia+turno);
+			if(dia == "" || turno == ""){
+				alert("Os campos de horários disponíveis são obrigatórios.");
+				return false;
+			}
+			horarios.add(dia+turno);
 		}
 		console.log(horarios.size);
 		if(horarios.size < 3){
@@ -526,22 +564,22 @@ function removerDocumento(docId){
 
 
 function buscarSelecao(){
-	
+
 	var editalPesq = document.getElementById("editalBusca").value;
 	var anoPesq = document.getElementById("anoBusca").value;
 	var tipoBolsaPesq = document.getElementById("tipoBolsaBusca").value;
-	
-	
+
+
 	var table = document.getElementById("table");
 	valores = table.querySelectorAll('td');
-	
+
 	for(var k=0;k<valores.length;k+=6){
-		
+
 		var tipoBolsa = valores[k].innerHTML;
 		var ano = valores[k+1].innerHTML;
 		var edital = valores[k+2].innerHTML;
-		
-		
+
+
 		if(!tipoBolsa.contains(tipoBolsaPesq) || !edital.contains(editalPesq) || !ano.contains(anoPesq)){
 			valores[k].parentNode.style.display = "none";
 		} else {
@@ -578,38 +616,19 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	if($("#grauParentescoVeiculos").val() == "OUTROS"){
-		
 		$("#outroGrauParentescoVeiculos").css("display", "block");
 		$("#labelOutroGrauParentescoVeiculos").css("display", "block");
-		
+
 		$("#outroGrauParentescoImovelRural").css("display", "block");
 		$("#labelOutroGrauParentescoImovelRural").css("display", "block");
 	}else{
 		$("#outroGrauParentescoVeiculos").css("display", "none");
 		$("#labelOutroGrauParentescoVeiculos").css("display", "none");
-		
+
 		$("#outroGrauParentescoImovelRural").css("display", "none");
 		$("#labelOutroGrauParentescoImovelRural").css("display", "none");
-		
 	}
 });
-
-function selecionarInformacoes(){
-	var $button = $('#form-btn');
-	var $naoinfo = $('#nao-minhas-informacoes');
-	if($('#minhas-informacoes').is(':checked')){
-		$button.removeAttr('disabled');
-		$naoinfo.hide(0);
-	}else{
-		$button.attr('disabled', 'disabled');
-		$naoinfo.show(0);
-	}
-}
-
-
-function novaAba(url){
-	window.open(url, '_blank');
-}
 
 $(document).ready(function(){
 	new dgCidadesEstados({
@@ -621,4 +640,32 @@ $(document).ready(function(){
 		estado : document.getElementById('estado-origem')
 	});
 });
+
+function rowAdded(rowElement) {
+	$(rowElement).find("input").val('');
+}
+
+function rowRemoved(rowElement) {
+
+}
+
+$(document).ready(
+		function() {
+			var config = {
+					rowClass : 'pessoaFamilia',
+					addRowId : 'addPessoa',
+					removeRowClass : 'removePessoa',
+					formId : 'questionario',
+					rowContainerId : 'pessoaFamiliaContainer',
+					indexedPropertyName : 'pessoas',
+					indexedPropertyMemberNames : 'nome, parentesco, escolaridade, idade, profissao, rendaMensal',
+					rowAddedListener : rowAdded,
+					rowRemovedListener : rowRemoved,
+			};
+			new DynamicListHelper(config);
+		});
+
+
+function novaAba(url){
+	window.open(url, '_blank');
 }
