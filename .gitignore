@@ -15,5 +15,8 @@ target
 *.ear
 *.log
 *.tmp
+*.tern-project
+*.springBeans
+*.bak
 *~
 .DS_Store
