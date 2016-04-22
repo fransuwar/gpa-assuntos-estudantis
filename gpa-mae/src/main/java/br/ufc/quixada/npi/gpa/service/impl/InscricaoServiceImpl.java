@@ -115,4 +115,13 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 		return (Inscricao) findFirst("Inscricao.findInscricaoAluno", params);
 
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Inscricao> getDeferidosBySelecao(Selecao selecao) {
+		List<Inscricao> inscricoes = find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.deferimento = 'true'",
+				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
+
+		return inscricoes;
+	}
 }

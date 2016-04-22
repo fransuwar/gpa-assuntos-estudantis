@@ -6,6 +6,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_PARECER_EM
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RANKING_DEFERIDOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
 import java.util.List;
@@ -160,6 +161,23 @@ public class SelecaoController {
 	public String detalhesInscricao() {
 		// TODO - Método p/ implementar que retorna página de detalhes de uma seleção.
 		return "";
+	}
+	
+	@RequestMapping(value = {"ranking/{idSelecao}"}, method = RequestMethod.GET)
+	public String visualizarRanking(ModelMap model, @PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect){
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+
+		if (selecao == null) {
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
+		
+		List<Inscricao> deferidos = inscricaoService.getDeferidosBySelecao(selecao);
+
+		model.addAttribute("deferidos", deferidos);
+		
+		return PAGINA_RANKING_DEFERIDOS;
+		
 	}
 
 }
