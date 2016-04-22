@@ -646,27 +646,6 @@ function rowAdded(rowElement) {
 	$(rowElement).find("input").val('');
 }
 
-function rowRemoved(rowElement) {
-
-}
-
-$(document).ready(
-		function() {
-			var config = {
-					rowClass : 'pessoaFamilia',
-					addRowId : 'addPessoa',
-					removeRowClass : 'removePessoa',
-					formId : 'questionario',
-					rowContainerId : 'pessoaFamiliaContainer',
-					indexedPropertyName : 'pessoas',
-					indexedPropertyMemberNames : 'nome, parentesco, escolaridade, idade, profissao, rendaMensal',
-					rowAddedListener : rowAdded,
-					rowRemovedListener : rowRemoved,
-			};
-			new DynamicListHelper(config);
-		});
-
-
 function novaAba(url){
 	window.open(url, '_blank');
 }
