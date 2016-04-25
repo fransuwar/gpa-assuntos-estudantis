@@ -3,7 +3,6 @@ package br.ufc.quixada.npi.gpa.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,16 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.annotations.Type;
 
-import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
 import br.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
 import br.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
@@ -105,7 +101,7 @@ public class QuestionarioAuxilioMoradia {
 	@Enumerated(EnumType.STRING)
 	private SituacaoImovel situacaoImovel;
 	
-	@Lob
+	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] foto;
 	
 	private double valorMensalFinanciamento;
