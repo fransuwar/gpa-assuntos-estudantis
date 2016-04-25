@@ -45,44 +45,43 @@
 					<h3 class="panel-title">Seleções</h3>
 				</div>
 
-				<table class="table display" id="tabela-selecoes">
-					<thead>
-						<tr>
-							<th>Seleção</th>
-							<th>Ano</th>
-							<th>Edital</th>
-							<th>Vagas</th>
-							<th>Inscrições</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="selecao" items="${selecoes}">
-							<tr>
-								<td><a id="detalhes"
-									href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
-										${selecao.tipoSelecao.nome} </a></td>
+				<div class="panel-body">
 
-								<td>${selecao.ano}</td>
-								<td>${selecao.sequencial}</td>
-								<td>
-								<c:choose>
-									<c:when test="${not empty selecao.quantidadeVagas}">
+					<table class="display" id="tabela-selecoes">
+						<thead>
+							<tr>
+								<th class="dt-head-center">Seleção</th>
+								<th class="dt-head-center">Ano</th>
+								<th class="dt-head-center">Edital</th>
+								<th class="dt-head-center">Vagas</th>
+								<th class="dt-head-center">Inscrições</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="selecao" items="${selecoes}">
+								<tr>
+									<td class="dt-body-center"><a id="detalhes"
+										href="<c:url value="/selecao/detalhes/${selecao.id}">  </c:url>">
+											${selecao.tipoSelecao.nome} </a></td>
+
+									<td class="dt-body-center">${selecao.ano}</td>
+									<td class="dt-body-center">${selecao.sequencial}</td>
+									<td class="dt-body-center"><c:choose>
+											<c:when test="${not empty selecao.quantidadeVagas}">
 										${selecao.quantidadeVagas}
 									</c:when>
-									<c:otherwise>
+											<c:otherwise>
 										-
 									</c:otherwise>
-								</c:choose>
-								</td>
-								<td class="dt-body-center">
-									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à
-									<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino }" />
-								</td>
-								
-						</c:forEach>
-					</tbody>
-				</table>
+										</c:choose></td>
+									<td class="dt-body-center"><fmt:formatDate
+											pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à <fmt:formatDate
+											pattern="dd/MM/yyyy" value="${selecao.dataTermino }" /></td>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
