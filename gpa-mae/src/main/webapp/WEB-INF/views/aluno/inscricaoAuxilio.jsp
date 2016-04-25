@@ -140,7 +140,7 @@
 										<div class='f-content'>
 											<input type="checkbox" name="minhas-informacoes"
 												id="minhas-informacoes" required="required"
-												onclick="selecionarInformacoes()" /> Sim, as informações
+												/> Sim, as informações
 											estão corretas<br /> <span id='nao-minhas-informacoes'>Não,
 												desejo <a href="#"
 												onclick="novaAba('http://identidadepessoa.intranet/')">alterar

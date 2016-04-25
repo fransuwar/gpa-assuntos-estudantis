@@ -264,21 +264,24 @@ public class AlunoController {
 			BindingResult result, @RequestParam(value="mora", required=false) List<String> comQuemMora,
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model, @RequestParam("fileFoto") MultipartFile foto) {
-
+			
 		try {
 			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
 			
-			System.out.println(foto.getContentType());
-			
 			List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
-			
-			//Conferindo se o formato do arquivo passado é um dos formatos do array acima.
-			if(!formatos.contains(multipartFile.getContentType())){
+			/*
+			 * Conferindo se o aluno enviou uma foto e o formato do arquivo
+			 * passado é um dos formatos do array acima.
+			 * A inscrição pode ser efetuada mesmo se o aluno não enviar a foto.
+			 */
+			if( foto.getSize() == 0 ){
+				auxilioMoradia.setFoto(null);
+			}else if(foto.getSize() > 0 && formatos.contains(multipartFile.getContentType())){
+				auxilioMoradia.setFoto(foto.getBytes());
+			}else{
 				redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
 				//Adicionando o erro no result.
 				result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
-			}else{
-				auxilioMoradia.setFoto(foto.getBytes());
 			}
 		} catch (IOException e) {
 			result.addError(new ObjectError("error", MENSAGEM_ERRO_UPLOAD_FOTO));
