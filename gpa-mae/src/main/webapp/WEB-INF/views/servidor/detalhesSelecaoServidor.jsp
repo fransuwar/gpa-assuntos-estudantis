@@ -16,7 +16,7 @@
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
-	<div class="container" align="left" style="padding-left: 85px;">
+	<div class="container" align="left">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert"
 				id="alert-erro">
@@ -41,37 +41,26 @@
 			</div>
 			<div class="panel-body">
 				<dl class="col-sm-12">
-					<dt class="col-sm-3" id="text-align-rigth">Edital:</dt>
-					<dd class="col-sm-3">${selecao.sequencial}/${selecao.ano}</dd>
-					<dt class=" col-sm-3" id="text-align-rigth">Seleção:</dt>
-					<dd class="col-sm-3">${selecao.tipoSelecao.nome}</dd>
-				</dl>
-				<dl class="col-sm-12">
-					<dt class="col-sm-3" id="text-align-rigth">Vagas:</dt>
-					<dd class="col-sm-3">${selecao.quantidadeVagas}</dd>
-					<dt class="col-sm-3" id="text-align-rigth">Inscritos:</dt>
-					<dd class="col-sm-3">${selecao.inscritos.size()}</dd>
-				</dl>
-				<dl class="col-sm-12">
-					<dt class="col-sm-3" id="text-align-rigth">Inscrições:</dt>
-					<dd class="col-sm-3">
+					<dt class="col-sm-2">Edital:</dt>
+					<dd class="col-sm-2">${selecao.sequencial}/${selecao.ano}</dd>
+					<dt class=" col-sm-2">Seleção:</dt>
+					<dd class="col-sm-2">${selecao.tipoSelecao.nome}</dd>
+					<dt class="col-sm-2">Inscrições:</dt>
+					<dd class="col-sm-2">
 						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" />
 						até
 						<fmt:formatDate value="${selecao.dataTermino}"
 							pattern="dd/MM/yyyy" />
 					</dd>
-					<dt class="col-sm-3" id="text-align-rigth">Responsável:</dt>
-					<dd class="col-sm-3">${selecao.responsavel.pessoa.nome}</dd>
 				</dl>
 				<dl class="col-sm-12">
-					<dt class="col-sm-3" id="text-align-rigth">Arquivos:</dt>
-					<c:forEach var="documento" items="${selecao.documentos}">
-						<dd class="col-sm-3">
-							<a
-								href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
-								${documento.nome} </a>
-						</dd>
-					</c:forEach>
+				<dt class="col-sm-2">Vagas:</dt>
+					<dd class="col-sm-2">${selecao.quantidadeVagas}</dd>
+					<dt class="col-sm-2">Inscritos:</dt>
+					<dd class="col-sm-2">${selecao.inscritos.size()}</dd>
+					
+					<dt class="col-sm-2">Responsável:</dt>
+					<dd class="col-sm-2">${selecao.responsavel.pessoa.nome}</dd>
 				</dl>
 			</div>
 		</div>
