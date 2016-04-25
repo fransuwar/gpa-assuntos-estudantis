@@ -139,10 +139,9 @@
 
 										<div class='f-content'>
 											<input type="checkbox" name="minhas-informacoes"
-												id="minhas-informacoes" required="required"
-												/> Sim, as informações
-											estão corretas<br /> <span id='nao-minhas-informacoes'>Não,
-												desejo <a href="#"
+												id="minhas-informacoes" required="required" /> Sim, as
+											informações estão corretas<br /> <span
+												id='nao-minhas-informacoes'>Não, desejo <a href="#"
 												onclick="novaAba('http://identidadepessoa.intranet/')">alterar
 													informações</a>
 										</div>
@@ -476,6 +475,24 @@
 											<div class="error-validation">
 												<form:errors path="situacaoImovel"></form:errors>
 											</div>
+
+
+										</div>
+									</div>
+									
+									<div class='f-container s5 hidden' id='div-valor-mensal'>
+										<label class='f-title'>Valor mensal do financiamento:</label>
+
+										<div class='f-content'>
+
+											<form:input id="valorMensalFinanciamento"
+												path="valorMensalFinanciamento" cssClass="form-control"
+												placeholder="Valor mensal do financiamento"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="valorMensalFinanciamento"></form:errors>
+											</div>
+
 										</div>
 									</div>
 								</div>
