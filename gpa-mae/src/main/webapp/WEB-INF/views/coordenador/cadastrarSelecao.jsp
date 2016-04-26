@@ -68,38 +68,38 @@
 							value="${membro}" />
 					</c:forEach>
 
-
-
 					<div class="form-group">
+						<div class="col-sm-6">
+							<label for="tipoSelecao" class="control-label" id="text-align-left"><span class="red">*</span>Tipo
+								de Selecao:</label>
 
-						<label for="tipoSelecao" class="col-sm-2 control-label"><span
-							class="red">*</span>Tipo de Selecao:</label>
-						<div class="col-sm-5 control-label" id="div-select">
 							<form:select path="tipoSelecao" id="tipoSelecao"
 								cssClass="form-control">
 								<form:option value="" label="Selecione o tipo de Selecao" />
 								<form:option value="AUX_MOR" label="Auxílio Moradia" />
-								
+
 							</form:select>
 							<div class="error-validation label-erro-select"
 								id="erro-tipoSelecao">
 								<form:errors path="tipoSelecao"></form:errors>
 							</div>
 						</div>
+						
+						<div class="col-sm-3">
+							<label for="quantidadeVagas" class="control-label"
+								id="text-align-left">Vagas:</label>
 
-						<div class="form-group">
-							<label for="quantidadeVagas" class="col-sm-2 control-label"></span>Vagas:</label>
-							<div class="col-sm-2">
-								<form:input id="quantidadeVagas" path="quantidadeVagas"
-									cssClass="form-control" placeholder="0" min="1" data-mask="999" />
-								<div class="error-validation" id="erro-qtdVagas">
-									<form:errors path="quantidadeVagas"></form:errors>
-								</div>
+							<form:input id="quantidadeVagas" path="quantidadeVagas"
+								cssClass="form-control" placeholder="0" min="1" data-mask="999" />
+							<div class="error-validation" id="erro-qtdVagas">
+								<form:errors path="quantidadeVagas"></form:errors>
 							</div>
 						</div>
-						<label for="ano" class="col-sm-1 control-label"><span
-							class="red">*</span>Ano:</label>
-						<div class="col-sm-2">
+
+						<div class="col-sm-3">
+							<label for="ano" class="control-label" id="text-align-left"><span
+								class="red">*</span>Ano:</label>
+
 							<form:input id="ano" type="text" path="ano"
 								cssClass="form-control" placeholder="0"
 								onkeypress="mascara(this,soNumeros)" />
@@ -109,12 +109,15 @@
 								<form:errors path="ano"></form:errors>
 							</div>
 						</div>
+
 					</div>
 
 					<div class="form-group">
-						<label for="dataInicio" class="col-sm-2 control-label"><span
-							class="red">*</span>Início das Inscrições:</label>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
+							<label for="dataInicio" class="control-label"
+								id="text-align-left"><span class="red">*</span>Início
+								das Inscrições:</label>
+
 							<form:input id="dataInicio" type="text" path="dataInicio"
 								cssClass="form-control data" placeholder="Data de Início" />
 							<div class="error-validation" id="erro-dataInicio">
@@ -124,25 +127,30 @@
 							</div>
 						</div>
 
-						<label for="dataTermino" class="col-sm-2 control-label"><span
-							class="red">*</span>Fim das Inscrições:</label>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
+							<label for="dataTermino" class="control-label"
+								id="text-align-left"><span class="red">*</span>Fim das
+								Inscrições:</label>
+
 							<form:input id="dataTermino" type="text" path="dataTermino"
 								cssClass="form-control data" placeholder="Data de Término" />
 							<div class="error-validation" id="erro-dataTermino">
 								<form:errors path="dataTermino"></form:errors>
 							</div>
 						</div>
+
 					</div>
-					<div class="form-group" align="right">
-						<div class="col-sm-5" id="div-form-btn">
-							<input name="submit" type="submit" class="btn btn-primary"
-								value="${botao }" id="form-btn" />
-						</div>
+					<div class="form-group"></div>
+					<div class="form-group">
 
 						<div class="col-sm-1" id="div-form-btn">
 							<a href="<c:url value="/selecao/listar"></c:url>"
 								class="btn btn-default" id="form-btn">Cancelar</a>
+						</div>
+
+						<div class="col-sm-2" id="div-form-btn" style="margin-left: 20px">
+							<input name="submit" type="submit" class="btn btn-primary"
+								value="${botao }" id="form-btn" />
 						</div>
 					</div>
 				</form:form>
