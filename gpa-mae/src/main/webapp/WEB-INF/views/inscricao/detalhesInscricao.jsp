@@ -92,8 +92,12 @@
 							</span>
 						</h3>
 					</div>
+					
 					<div class="panel-body fechado">
 						<div class="form-group">
+						
+							<img src="<c:url value = "/servidor/detalhes/inscricao/fotoAluno/${inscricao.id}"></c:url>" class="img-rounded" style="min-height:100px;max-height:500px;"/>
+						
 							<h5 class="titulo-dl divisor">Com quem Mora</h5>
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Mora com:</dt>
@@ -170,7 +174,7 @@
 								<dt class="col-sm-3">Ponto de referência:</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.referenciaOrigem}</dd>
 								<dt class=" col-sm-3">Estado Origem:</dt>
-								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.estadoOrigem.nome}</dd>
+						
 							</dl>
 						</div>
 						<div class="form-group">
