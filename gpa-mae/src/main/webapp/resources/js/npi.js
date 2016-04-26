@@ -2,6 +2,84 @@ var linha;
 var accordionFechado;
 
 $(document).ready(function(){
+
+	function hasAttr($element, _attr){
+		var attr = $element.attr(_attr);
+		return (typeof attr !== typeof undefined && attr !== false);
+	}
+
+	$(".info-container").on("click", function(){
+		var ANIMATION_TIME = 300;
+		var fullViewAttr = "full-view";
+		$this = $(this);
+
+		if(!hasAttr($this, fullViewAttr)){
+			var $divContent = $('.full-content');
+
+			var $title = $this.find('info-title-container');
+			var $content = $this.find('.info-content');
+
+			var defPosTop = $this.position().top;
+			var defPosLef = $this.position().left;
+
+			var newPosTop = $divContent.position().top + $divContent.height();
+			var newPosLef = $divContent.position().left;
+
+			$newThis = $this.clone();
+//			$this.css('opacity', '0');
+
+			$divContent.append($newThis);
+
+			$newThis.css("position", "absolute");
+			$newThis.css({"top": defPosTop, "left": "50%", "width": $this.outerWidth()});
+
+//			$this.animate({"width": "0px"}, ANIMATION_TIME, function(){
+//			$this.remove();
+//			});
+			$newThis.animate({"top": newPosTop, "left": newPosLef, "width": $divContent.width()}, ANIMATION_TIME, function(){
+				$newThis.css("position", "static");
+			});
+		}
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	var form = $("#questionarioAuxilio");
 	form.steps({
 		headerTag: "h3",
@@ -649,4 +727,52 @@ function rowAdded(rowElement) {
 function novaAba(url){
 	window.open(url, '_blank');
 }
+
+function confirmarLink(mensagem){
+	return confirm(mensagem);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
