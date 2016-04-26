@@ -22,9 +22,11 @@
 
 	<div class="container" align="center">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#inscricao-tab" data-toggle="tab">Inscrição<i
-					class="fa"></i>
-			</a></li>
+			<li class="active">
+			<a href="#inscricao-tab" data-toggle="tab">Inscrição<i class="fa"></i> </a> 
+			
+			</li>
+			
 			<li><a href="#documentos-tab" data-toggle="tab">Documentos <i
 					class="fa"></i>
 			</a></li>
@@ -37,6 +39,8 @@
 				</a></li>
 			</sec:authorize>
 		</ul>
+		
+		
 		<div class="tab-content">
 			<div class="tab-pane active" id="inscricao-tab">
 				<div class="panel panel-default panel-primary">
@@ -73,7 +77,7 @@
 								<fmt:formatDate value="${inscricao.data}" pattern="dd/MM/yyyy" />
 							</dd>
 							<dt class=" col-sm-3">Tipo da Seleção:</dt>
-							<dd class="col-sm-3">${inscricao.selecao.tipoSelecao.nome}</dd>
+							<dd class="col-sm-3">${inscricao.selecao.tipoSelecao}</dd>
 						</dl>
 						<dl class="col-sm-12">
 							<dt class="col-sm-3">Resultado:</dt>
@@ -170,7 +174,7 @@
 								<dt class="col-sm-3">Ponto de referência:</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.referenciaOrigem}</dd>
 								<dt class=" col-sm-3">Estado Origem:</dt>
-								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.estadoOrigem.nome}</dd>
+							
 							</dl>
 						</div>
 						<div class="form-group">
@@ -404,7 +408,24 @@
 					<div class="tab-pane" id="visita-tab"></div>
 				</sec:authorize>
 			</div>
+			
+			<div class="tab-pane active" id="entrevista-tab">
+				<div class="panel panel-default panel-primary">
+						<form name="input" action="salvarEntrevista">
+							<input type="checkbox" name="visita"> Realizar Visita
+							<button class=" btn btn-primary btn-sm">Salvar</button>
+							
+						</form>
+												
+				</div>
+				
+			</div>
+			
+			
 		</div>
+	
+		
+		
 		<jsp:include page="../fragments/footer.jsp" />
 	</div>
 </body>

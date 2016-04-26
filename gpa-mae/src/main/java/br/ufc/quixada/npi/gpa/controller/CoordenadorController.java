@@ -27,14 +27,19 @@ import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
+import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
+import br.ufc.quixada.npi.gpa.service.TipoDocumentoService;
 
 @Controller
 @RequestMapping("coordenador")
 public class CoordenadorController {
-
+	
+	@Inject
+	private TipoDocumentoService tipoDocumentoService;
+	
 	@Inject
 	private SelecaoService selecaoService;
 
@@ -43,7 +48,44 @@ public class CoordenadorController {
 
 	@Inject
 	private ServidorService servidorService;
+	
+	@RequestMapping(value = "excluir-tipo-documento/{id}", method = RequestMethod.GET)
+	public String excluirTipoDocumento(@PathVariable("id") Integer id,
+			Model model, RedirectAttributes redirect) {
+		TipoDocumento tipoDocumento = tipoDocumentoService.find(TipoDocumento.class, id);
+		List documentos = tipoDocumentoService.find(TipoDocumento.class);
 
+		if (tipoDocumento != null) {
+
+			tipoDocumentoService.delete(tipoDocumento);
+			model.addAttribute("documentos",documentos);
+
+			return  REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
+
+		} else {
+
+			model.addAttribute("documentos",documentos);
+			model.addAttribute("Error", MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO);
+
+			return REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
+		}
+	}
+	@RequestMapping(value = { "adicionar-tipo-arquivo" }, method = RequestMethod.GET)
+	public String addTipoArquivo(ModelMap model, HttpServletRequest request, Authentication auth,TipoDocumento tipoDocumento){
+		if(tipoDocumento.getNomeDocumento()!="")
+			tipoDocumentoService.save(tipoDocumento);
+		return REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
+	}
+	
+	
+	@RequestMapping(value = { "gerenciarDocumentos" }, method = RequestMethod.GET)
+	public String gerenciarDocumentos(ModelMap model, HttpServletRequest request, Authentication auth){
+		List documentos = tipoDocumentoService.find(TipoDocumento.class);
+		model.addAttribute("documentos",documentos);
+		return PAGINA_GERENCIAR_DOCUMENTOS;
+	}
+	
+	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(ModelMap model, HttpServletRequest request, Authentication auth){
 

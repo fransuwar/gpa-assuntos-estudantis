@@ -63,6 +63,16 @@ public class Inscricao {
 
 	@ManyToOne
 	private Aluno aluno;
+	
+	private boolean realizarEntrevista = false;
+
+	public boolean isRealizarEntrevista() {
+		return realizarEntrevista;
+	}
+
+	public void setRealizarEntrevista(boolean realizarEntrevista) {
+		this.realizarEntrevista = realizarEntrevista;
+	}
 
 	public Integer getId() {
 		return id;

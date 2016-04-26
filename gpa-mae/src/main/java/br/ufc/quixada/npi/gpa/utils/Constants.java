@@ -9,7 +9,9 @@ public class Constants {
 	public static final String USUARIO_ID = "id";
 
 	/** Páginas */
-
+	
+	public static final String PAGINA_GERENCIAR_DOCUMENTOS = "coordenador/gerenciarDocumentos";
+	
 	public static final String PAGINA_ATRIBUIR_COMISSAO = "coordenador/atribuirMembroComissao";
 
 	public static final String PAGINA_INFORMACOES_SELECAO			= "selecao/detalhesSelecao";
@@ -62,7 +64,9 @@ public class Constants {
 	// "servidor/detalhesSelecao";
 
 	/** Redirecionamentos */
-
+	
+	public static final String REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS = "redirect:/coordenador/gerenciarDocumentos";
+	
 	public static final String REDIRECT_PAGINA_EDITAR_SELECAO = "redirect:/coordenador/selecao/editar/";
 	
 	public static final String REDIRECT_PAGINA_ADICIONAR_ARQUIVO = "redirect:/coordenador/selecao/adicionar-documento/";
@@ -211,6 +215,8 @@ public class Constants {
 	public static final String MENSAGEM_ERRO_UPLOAD_FOTO = "Não foi possível fazer o upload da sua foto";
 	
 	public static final String MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO = "Extensão da foto inválida. Extensões aceitas (jpeg, jpg, png)";
+	
+	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO= "Não é possível excluir essa arquivo";
 	
 	/** Perfis */
 
