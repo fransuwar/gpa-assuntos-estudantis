@@ -95,9 +95,12 @@
 					
 					<div class="panel-body fechado">
 						<div class="form-group">
-						
-							<img src="<c:url value = "/servidor/detalhes/inscricao/fotoAluno/${inscricao.id}"></c:url>" class="img-rounded" style="min-height:100px;max-height:500px;"/>
-						
+							<sec:authorize access="hasAnyRole('DISCENTE')">
+								<img src="<c:url value = "/aluno/detalhes/inscricao/fotoAluno/${inscricao.id}"></c:url>" class="img-rounded" style="min-height:100px;max-height:500px;"/>
+							</sec:authorize>
+							<sec:authorize access="hasAnyRole('DOCENTE','STA')">
+								<img src="<c:url value = "/servidor/detalhes/inscricao/fotoAluno/${inscricao.id}"></c:url>" class="img-rounded" style="min-height:100px;max-height:500px;"/>
+							</sec:authorize>
 							<h5 class="titulo-dl divisor">Com quem Mora</h5>
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Mora com:</dt>
