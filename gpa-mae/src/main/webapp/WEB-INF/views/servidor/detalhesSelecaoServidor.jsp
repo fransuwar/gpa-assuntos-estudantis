@@ -41,6 +41,17 @@
 			</div>
 			<div class="panel-body">
 				<dl class="col-sm-12">
+					<dt class="col-sm-3"></dt>
+					<dt class="col-sm-3"></dt>
+					<dt class="col-sm-3"></dt>
+					<dt class="col-sm-3">
+						<a class="btn btn-primary btn-xs"
+							href="<c:url value="/selecao/ranking/${selecao.id}"></c:url>">
+							Ranking 
+							<span class="glyphicon glyphicon-stats"></span></a>
+					</dt>
+				</dl>
+				<dl class="col-sm-12">
 					<dt class="col-sm-3" id="text-align-rigth">Edital:</dt>
 					<dd class="col-sm-3">${selecao.sequencial}/${selecao.ano}</dd>
 					<dt class=" col-sm-3" id="text-align-rigth">Seleção:</dt>
@@ -118,28 +129,19 @@
 						<tbody>
 							<c:forEach var="inscricao" items="${inscricoes }">
 								<tr>
-									<td>
-										<a id="detalhes"
+									<td><a id="detalhes"
 										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.id}">  
 										</c:url>">
-											${inscricao.aluno.pessoa.nome}
-										</a>
-									</td>
-									<td>
-										${inscricao.aluno.matricula}
-									</td>
-									<td>
-										<fmt:formatDate value="${inscricao.data}"
-										pattern="dd/MM/yyyy" />
-									</td>
+											${inscricao.aluno.pessoa.nome} </a></td>
+									<td>${inscricao.aluno.matricula}</td>
+									<td><fmt:formatDate value="${inscricao.data}"
+											pattern="dd/MM/yyyy" /></td>
 								</tr>
-								
+
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
-				
-				
 			</div>
 		</sec:authorize>
 	</div>

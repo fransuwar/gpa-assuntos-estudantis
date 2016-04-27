@@ -2,6 +2,7 @@ var linha;
 var accordionFechado;
 
 $(document).ready(function(){
+		
 	var form = $("#questionarioAuxilio");
 	form.steps({
 		headerTag: "h3",

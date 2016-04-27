@@ -6,6 +6,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_PARECER_EM
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RANKING_DEFERIDOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,6 +37,7 @@ import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
+import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
@@ -179,5 +182,21 @@ public class SelecaoController {
 		return PAGINA_RANKING_DEFERIDOS;
 		
 	}
-
+	
+	@RequestMapping(value = {"ranking/{idSelecao}"}, method = RequestMethod.POST)
+	public String escolherClassificados(ModelMap model, @RequestParam("checkDeferido") Integer idDeferido,
+		 RedirectAttributes redirect, Authentication auth){
+		
+		Servidor servidor = servidorService.getServidorByCpf(auth.getName());		
+		model.addAttribute("selecoes", servidor.getParticipaComissao());
+		     
+		Inscricao inscricao = inscricaoService.find(Inscricao.class,idDeferido);
+		inscricao.setClassificado(true);
+		inscricaoService.update(inscricao);
+		
+		
+		return PAGINA_LISTAR_SELECAO_SERVIDOR;
+		
+	}
+	
 }
