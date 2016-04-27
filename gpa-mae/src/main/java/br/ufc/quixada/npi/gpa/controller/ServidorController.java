@@ -247,29 +247,6 @@ public class ServidorController {
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
 	}
-	
-	@RequestMapping("detalhes/inscricao/fotoAluno/{idInscricao}")
-	public void pegarAlunoFoto(@PathVariable("idInscricao") Integer idInscricao, HttpServletResponse response){
-		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
-		
-		try {
-			response.setContentType("image/jpg");
-			java.io.OutputStream out = response.getOutputStream();
-			out.write(inscricao.getQuestionarioAuxilioMoradia().getFoto());
-			out.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		} finally {		
-			try {
-				response.setContentType("text/html");
-				response.sendRedirect("../../../../resources/img/alunoImage.png");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}	
-	}
 
 	@RequestMapping(value= {"avaliarDocumentacao/{idInscricao}"}, method = RequestMethod.GET)
 	public String avaliarDocumentacao(@PathVariable("idInscricao") Integer idInscricao,Authentication auth, RedirectAttributes redirect, Model model){
