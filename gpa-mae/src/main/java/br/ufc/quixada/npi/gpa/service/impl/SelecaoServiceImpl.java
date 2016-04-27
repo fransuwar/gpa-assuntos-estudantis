@@ -29,7 +29,8 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 		return true;
 
 	}
-
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
@@ -49,4 +50,6 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 		return listSequencial.get(0)+1;
 		}
 	}
+
+	
 }

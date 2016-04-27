@@ -453,7 +453,8 @@ $(document).ready(
 				viewMode: "years", 
 				minViewMode: "years",
 				language : "pt-BR",
-				todayHighlight : true
+				todayHighlight : true,
+				autoclose : true
 
 			});
 		});

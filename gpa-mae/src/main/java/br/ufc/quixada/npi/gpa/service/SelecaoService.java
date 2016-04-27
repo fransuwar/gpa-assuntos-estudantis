@@ -13,4 +13,5 @@ public interface SelecaoService extends GenericService<Selecao> {
 	
 	public abstract Integer getUltimoSequencialPorAno(Selecao selecao);
 
+	
 }
