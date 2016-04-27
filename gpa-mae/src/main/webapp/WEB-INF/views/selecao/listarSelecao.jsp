@@ -39,19 +39,19 @@
 						<c:out value="${info}"></c:out>
 					</div>
 				</c:if>
-				<table class="table-display" id="tabela-selecoes">
+				<table class="display" id="tabela-selecoes">
 					<thead>
 						<tr>
-							<th>Seleção</th>
-							<th>Ano</th>
-							<th>Vagas</th>
-							<th>Inscrições</th>
+							<th class="dt-head-center">Seleção</th>
+							<th class="dt-head-center">Ano</th>
+							<th class="dt-head-center">Vagas</th>
+							<th class="dt-head-center">Inscrições</th>
 					</thead>
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr>
-								<td>
-									<a id="detalhes" href="<c:url value="/selecao/detalhes/${selecao.id}"></c:url>">
+								<td class="dt-body-center">
+									<a id="detalhes" href="<c:url value="/selecao/detalhesPublico/${selecao.id}"></c:url>">
 										${selecao.tipoSelecao.nome}
 									</a>
 								</td>

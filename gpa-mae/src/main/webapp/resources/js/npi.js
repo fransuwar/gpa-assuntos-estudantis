@@ -452,7 +452,8 @@ $(document).ready(
 				viewMode: "years", 
 				minViewMode: "years",
 				language : "pt-BR",
-				todayHighlight : true
+				todayHighlight : true,
+				autoclose : true
 
 			});
 		});
@@ -641,6 +642,7 @@ $(document).ready(function(){
 	});
 });
 
+
 function rowAdded(rowElement) {
 	$(rowElement).find("input").val('');
 }
@@ -648,3 +650,4 @@ function rowAdded(rowElement) {
 function novaAba(url){
 	window.open(url, '_blank');
 }
+
