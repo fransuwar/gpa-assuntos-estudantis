@@ -18,7 +18,7 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 @Controller
 @RequestMapping("detalhesInscricao")
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO})
-public class detalhesInscricaoController {
+public class DetalhesInscricaoController {
 	
 	@Inject
 	private InscricaoService inscricaoService;
