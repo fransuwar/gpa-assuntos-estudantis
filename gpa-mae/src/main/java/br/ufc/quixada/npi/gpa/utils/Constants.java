@@ -230,6 +230,9 @@ public class Constants {
 
 	public static final String ADMINISTRADOR = "ADMINISTRADOR_GPA";
 
+	/** Codacy */
+	
+	public static final String 	DOCUMENTOS = "documentos";
 	
 
 }
