@@ -121,13 +121,22 @@ $(document).ready(function(){
 		viewMode: "years", 
 		minViewMode: "years",
 		language : "pt-BR",
-		todayHighlight : true
+		todayHighlight : true,
+		autoclose : true
 	
 	});
 	
 });
 
+function hasAttr($element, _attr){
+	var attr = $element.attr(_attr);
+	return (typeof attr !== typeof undefined && attr !== false);
+}
 
+
+function confirmarLink(mensagem){
+	return confirm(mensagem);
+}
 
 function mascaraIra(obj) {
 	var str = obj.value;

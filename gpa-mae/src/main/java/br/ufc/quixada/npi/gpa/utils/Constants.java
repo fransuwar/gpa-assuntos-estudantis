@@ -71,6 +71,8 @@ public class Constants {
 
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO = "redirect:/selecao/listar";
 	
+	public static final String REDIRECT_PAGINA_DETALHES_SELECAO = "redirect:/selecao/detalhes";
+	
 	public static final String REDIRECT_PAGINA_MINHAS_INSCRICOES = "redirect:/aluno/inscricao/listar";
 
 	public static final String REDIRECT_PAGINA_INSCRITOS_SELECAO = "redirect:/servidor/detalhes/";
@@ -224,6 +226,8 @@ public class Constants {
 
 	public static final String ADMINISTRADOR = "ADMINISTRADOR_GPA";
 
+	/** Resources */
 	
+	public static final String CAMINHO_IMAGEM_ALUNO_SEM_FOTO = "/MAE/resources/img/alunoImage.png";
 
 }

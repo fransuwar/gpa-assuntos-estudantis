@@ -528,9 +528,10 @@
 											<div class="error-validation">
 												<form:errors path="areaPropriedadeRural"></form:errors>
 											</div>
+											
 										</div>
 									</div>
-
+									
 									<div class='f-container s3'>
 										<label class='f-title'>Cidade: </label>
 
@@ -540,6 +541,19 @@
 												placeholder="Cidade e Estado do Imovel Rural" />
 											<div class="error-validation">
 												<form:errors path="cidadeEstadoImovelRural"></form:errors>
+											</div>
+										</div>
+									</div>
+									
+									<div class="f-container s3">
+										<label for="outroGrauParentescoImovelRural" id="labelOutroGrauParentescoImovelRural"
+											class="f-title" style="display:none;">Especifique o grau de parentesco:</label>
+										<div class="f-content">
+											<form:input id="outroGrauParentescoImovelRural"
+												path="outroGrauParentescoImovelRural" cssClass="form-control"
+												placeholder="Outro grau de parentesco" style="display:none;"/>
+											<div class="error-validation">
+												<form:errors path="outroGrauParentescoImovelRural"></form:errors>
 											</div>
 										</div>
 									</div>
@@ -579,6 +593,7 @@
 											</div>
 										</div>
 									</div>
+								
 
 									<div class='f-container s3'>
 										<label class='f-title'>Finalidade do veículo: </label>
@@ -591,6 +606,19 @@
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="finalidadeVeiculo"></form:errors>
+											</div>
+										</div>
+									</div>
+									
+									<div class="f-container s3">
+										<label for="outroGrauParentescoVeiculos" id="labelOutroGrauParentescoVeiculos"
+											class="f-title" style="display:none;">Especifique o grau de parentesco:</label>
+										<div class="f-content">
+											<form:input id="outroGrauParentescoVeiculos"
+												path="outroGrauParentescoVeiculos" cssClass="form-control"
+												placeholder="Outro grau de parentesco" style="display:none;"/>
+											<div class="error-validation">
+												<form:errors path="outroGrauParentescoVeiculos"></form:errors>
 											</div>
 										</div>
 									</div>
