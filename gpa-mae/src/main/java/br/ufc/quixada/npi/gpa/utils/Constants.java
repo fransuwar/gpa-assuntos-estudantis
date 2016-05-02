@@ -226,6 +226,8 @@ public class Constants {
 
 	public static final String ADMINISTRADOR = "ADMINISTRADOR_GPA";
 
+	/** Resources */
 	
+	public static final String CAMINHO_IMAGEM_ALUNO_SEM_FOTO = "/MAE/resources/img/alunoImage.png";
 
 }
