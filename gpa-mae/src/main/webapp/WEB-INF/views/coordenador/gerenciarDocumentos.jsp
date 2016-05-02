@@ -31,7 +31,7 @@
 					<label for="arquivo" class="control-label">Documento:</label>
 					<div class="form-group col-sm-12">
 						 
-						<input class="form-control col-sm-6" type="text" name="nomeDocumento" required ="required"> 
+						<input class="form-control col-sm-6" type="text" name="nome" required ="required"> 
 						<input type="submit" class="btn btn-primary col-sm-2" value="Adicionar Arquivo" id="form-btn" />
 						
 					</div>
@@ -42,7 +42,7 @@
 					<tbody class="files">
 						<c:forEach items="${documentos}" var="documento">
 							<tr class="template-upload fade in" id="row-${documento.id}">
-								<td>${documento.nomeDocumento}</td>
+								<td>${documento.nome}</td>
 								<td><a id="id" data-toggle="modal"
 									data-target="#confirm-delete"
 									data-href="<c:url value="/coordenador/excluir-tipo-documento/${documento.id }"></c:url>"

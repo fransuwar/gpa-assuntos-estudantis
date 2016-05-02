@@ -216,7 +216,7 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO = "Extensão da foto inválida. Extensões aceitas (jpeg, jpg, png)";
 	
-	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO= "Não é possível excluir essa arquivo";
+	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO= "Não é possível excluir esse arquivo";
 	
 	/** Perfis */
 
@@ -230,7 +230,6 @@ public class Constants {
 
 	public static final String ADMINISTRADOR = "ADMINISTRADOR_GPA";
 
-	/** Codacy */
 	
 	public static final String 	DOCUMENTOS = "documentos";
 	
