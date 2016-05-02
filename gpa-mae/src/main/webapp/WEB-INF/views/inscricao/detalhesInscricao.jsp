@@ -95,7 +95,7 @@
 					
 					<div class="panel-body fechado">
 						<div class="form-group">
-							<img src="<c:url value = "/detalhesInscricao/detalhes/inscricao/fotoAluno/${inscricao.id}"></c:url>" class="img-rounded" style="min-height:100px;max-height:500px;"/>
+							<img src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>"/>
 							<h5 class="titulo-dl divisor">Com quem Mora</h5>
 							<dl class="col-sm-12">
 								<dt class="col-sm-3">Mora com:</dt>

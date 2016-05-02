@@ -16,14 +16,14 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
 @Controller
-@RequestMapping("detalhesInscricao")
+@RequestMapping("inscricao")
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO})
-public class DetalhesInscricaoController {
+public class InscricaoController {
 	
 	@Inject
 	private InscricaoService inscricaoService;
 	
-	@RequestMapping("detalhes/inscricao/fotoAluno/{idInscricao}")
+	@RequestMapping("detalhes/fotoAluno/{idInscricao}")
 	public void pegarFotoAluno(@PathVariable("idInscricao") Integer idInscricao, HttpServletResponse response){
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
 		
@@ -39,7 +39,7 @@ public class DetalhesInscricaoController {
 		} finally {		
 			try {
 				response.setContentType("text/html");
-				response.sendRedirect("../../../../resources/img/alunoImage.png");
+				response.sendRedirect(Constants.CAMINHO_IMAGEM_ALUNO_SEM_FOTO);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
