@@ -109,7 +109,7 @@
 								<ul class='mora-com-lista'>
 									<c:forEach var="pessoa"
 										items="${inscricao.questionarioAuxilioMoradia.comQuemMora }">
-										<c:if test="${pessoa.descricao.nome ne 'Outros'}"><li>${pessoa.descricao.nome}</li></c:if>
+										<c:if test="${pessoa.descricao ne 'OUTRO'}"><li>${pessoa.descricao.nome}</li></c:if>
 									</c:forEach>
 								</ul>
 							</div>
