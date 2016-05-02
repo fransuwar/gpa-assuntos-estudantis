@@ -174,6 +174,8 @@
 								<dt class="col-sm-3">Ponto de referência:</dt>
 								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.referenciaOrigem}</dd>
 								<dt class=" col-sm-3">Estado Origem:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.estadoOrigem.nome}</dd>
+								
 							
 							</dl>
 						</div>
@@ -409,19 +411,7 @@
 				</sec:authorize>
 			</div>
 			
-			<div class="tab-pane active" id="entrevista-tab">
-				<div class="panel panel-default panel-primary">
-						<form name="input" action="salvarEntrevista">
-							<input type="checkbox" name="visita"> Realizar Visita
-							<button class=" btn btn-primary btn-sm">Salvar</button>
-							
-						</form>
-												
-				</div>
-				
-			</div>
-			
-			
+		
 		</div>
 	
 		

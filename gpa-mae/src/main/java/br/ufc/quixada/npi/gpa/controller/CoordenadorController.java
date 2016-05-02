@@ -81,7 +81,7 @@ public class CoordenadorController {
 	
 	
 	@RequestMapping(value = { "gerenciarDocumentos" }, method = RequestMethod.GET)
-	public String gerenciarDocumentos(ModelMap model, HttpServletRequest request, Authentication auth){
+	public String gerenciarDocumentos(ModelMap model){
 		List<TipoDocumento> documentos = tipoDocumentoService.find(TipoDocumento.class);
 		model.addAttribute(DOCUMENTOS,documentos);
 		return PAGINA_GERENCIAR_DOCUMENTOS;
