@@ -59,20 +59,21 @@ public class CoordenadorController {
 		if (tipoDocumento != null) {
 
 			tipoDocumentoService.delete(tipoDocumento);
-			model.addAttribute(DOCUMENTOS,tipoDocumentoService.find(TipoDocumento.class));
-
-			return  REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
-
+			
 		} else {
-			model.addAttribute(DOCUMENTOS,tipoDocumentoService.find(TipoDocumento.class));
 			model.addAttribute("Error", MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO);
 
-			return REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 		}
+		
+		model.addAttribute(DOCUMENTOS,tipoDocumentoService.find(TipoDocumento.class));
+		return  REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
+		
+		
 	}
+	
 	@RequestMapping(value = "adicionar-tipo-arquivo", method = RequestMethod.GET)
-	public String addTipoArquivo(ModelMap model,TipoDocumento tipoDocumento){
-		if(!tipoDocumento.getNome().equals(""))
+	public String addTipoArquivo(TipoDocumento tipoDocumento){
+		if(!tipoDocumento.getNome().isEmpty())
 			tipoDocumentoService.save(tipoDocumento);
 		return REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 	}
