@@ -40,28 +40,50 @@
 				<h3 class="panel-title">Detalhes da Seleção</h3>
 			</div>
 			<div class="panel-body">
-				<dl class="col-sm-12">
-					<dt class="col-sm-2">Edital:</dt>
-					<dd class="col-sm-2">${selecao.sequencial}/${selecao.ano}</dd>
-					<dt class=" col-sm-2">Seleção:</dt>
-					<dd class="col-sm-2">${selecao.tipoSelecao.nome}</dd>
-					<dt class="col-sm-2">Inscrições:</dt>
-					<dd class="col-sm-2">
+				<div class='f-container s3'>
+					<label class='f-title'>Edital:</label>
+					<div class='f-content'>
+						${selecao.sequencial}/${selecao.ano}
+					</div>
+				</div>
+				
+				<div class='f-container s3'>
+					<label class='f-title'>Seleção:</label>
+					<div class='f-content'>
+						${selecao.tipoSelecao.nome}
+					</div>
+				</div>
+				
+				<div class='f-container s4'>
+					<label class='f-title'>Inscrições:</label>
+					<div class='f-content'>
 						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" />
 						até
 						<fmt:formatDate value="${selecao.dataTermino}"
 							pattern="dd/MM/yyyy" />
-					</dd>
-				</dl>
-				<dl class="col-sm-12">
-				<dt class="col-sm-2">Vagas:</dt>
-					<dd class="col-sm-2">${selecao.quantidadeVagas}</dd>
-					<dt class="col-sm-2">Inscritos:</dt>
-					<dd class="col-sm-2">${selecao.inscritos.size()}</dd>
-					
-					<dt class="col-sm-2">Responsável:</dt>
-					<dd class="col-sm-2">${selecao.responsavel.pessoa.nome}</dd>
-				</dl>
+					</div>
+				</div>
+				
+				<div class='f-container s3'>
+					<label class='f-title'>Vagas:</label>
+					<div class='f-content'>
+						${selecao.quantidadeVagas}
+					</div>
+				</div>
+				
+				<div class='f-container s3'>
+					<label class='f-title'>Inscritos:</label>
+					<div class='f-content'>
+						${selecao.inscritos.size()}
+					</div>
+				</div>
+				
+				<div class='f-container s4'>
+					<label class='f-title'>Responsável:</label>
+					<div class='f-content'>
+						${selecao.responsavel.pessoa.nome}
+					</div>
+				</div>
 			</div>
 		</div>
 		<sec:authorize
@@ -102,27 +124,95 @@
 								<td>Aluno</td>
 								<td>Matricula</td>
 								<td>Data</td>
+								<td>Documentação</td>
+								<td>Entrevista</td>
+								<td>Visita</td>
+								<td>Resultado</td>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="inscricao" items="${inscricoes }">
 								<tr>
-									<td>
-										<a id="detalhes"
+									<td><a id="detalhes"
 										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.id}">  
 										</c:url>">
-											${inscricao.aluno.pessoa.nome}
-										</a>
-									</td>
-									<td>
-										${inscricao.aluno.matricula}
-									</td>
-									<td>
-										<fmt:formatDate value="${inscricao.data}"
-										pattern="dd/MM/yyyy" />
-									</td>
+											${inscricao.aluno.pessoa.nome} </a></td>
+									<td>${inscricao.aluno.matricula}</td>
+									<td><fmt:formatDate value="${inscricao.data}"
+											pattern="dd/MM/yyyy" /></td>
+
+									<td><c:choose>
+											<c:when
+												test="${inscricao.deferimentoDocumentacao eq 'NAO_AVALIADO'}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when
+												test="${inscricao.deferimentoDocumentacao eq 'DEFERIDO'}">
+												<div class='def-sit deferido' title="Deferido">D</div>
+											</c:when>
+
+											<c:when
+												test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+												<div class='def-sit indeferido' title="Indeferido">I</div>
+											</c:when>
+										</c:choose></td>
+
+									<td><c:choose>
+											<c:when
+												test="${inscricao.entrevista.deferimento eq 'NAO_AVALIADO'}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when
+												test="${empty inscricao.entrevista.deferimento}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when
+												test="${inscricao.entrevista.deferimento eq 'DEFERIDO'}">
+												<div class='def-sit deferido' title="Deferido">D</div>
+											</c:when>
+
+											<c:when
+												test="${inscricao.entrevista.deferimento eq 'INDEFERIDO'}">
+												<div class='def-sit indeferido' title="Indeferido">I</div>
+											</c:when>
+										</c:choose></td>
+
+									<td><c:choose>
+											<c:when
+												test="${inscricao.visitaDomiciliar.deferimento eq 'NAO_AVALIADO'}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when
+												test="${empty inscricao.visitaDomiciliar.deferimento}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when
+												test="${inscricao.visitaDomiciliar.deferimento eq 'DEFERIDO'}">
+												<div class='def-sit deferido' title="Deferido">D</div>
+											</c:when>
+
+											<c:when
+												test="${inscricao.visitaDomiciliar.deferimento eq 'INDEFERIDO'}">
+												<div class='def-sit indeferido' title="Indeferido">I</div>
+											</c:when>
+										</c:choose></td>
+										<td><c:choose>
+											<c:when
+												test="${inscricao.resultado eq 'NAO_AVALIADO'}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when
+												test="${inscricao.resultado eq 'DEFERIDO'}">
+												<div class='def-sit deferido' title="Deferido">D</div>
+											</c:when>
+
+											<c:when
+												test="${inscricao.resultado eq 'INDEFERIDO'}">
+												<div class='def-sit indeferido' title="Indeferido">I</div>
+											</c:when>
+										</c:choose></td>
 								</tr>
-								
+
 							</c:forEach>
 						</tbody>
 					</table>

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
+import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -124,7 +125,7 @@ public class ServidorController {
 
 			if(comissao.contains(servidor) ){
 				if(inscricao.getVisitaDomiciliar() == null  ){
-					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().isDeferimento() == true){
+					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().getDeferimento() == Resultado.DEFERIDO){
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 
 						model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);

@@ -36,16 +36,18 @@ public class Inscricao {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date data;
 
+	//referente apenas aos documentos
 	private boolean avaliacaoDocumentos;
 
+	//referente ao resultado final
 	@Enumerated(EnumType.STRING)
-
 	private Resultado resultado;
 
 	private String observacoes;
 
-	@Column(nullable = false)
-	private boolean deferimento;
+	@Enumerated(EnumType.STRING)
+	private Resultado deferimentoDocumentacao;
+	
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
 
@@ -136,12 +138,12 @@ public class Inscricao {
 		this.visitaDomiciliar = visitaDomiciliar;
 	}
 
-	public boolean isDeferimento() {
-		return deferimento;
+	public Resultado getDeferimentoDocumentacao() {
+		return deferimentoDocumentacao;
 	}
 
-	public void setDeferimento(boolean deferimento) {
-		this.deferimento = deferimento;
+	public void setDeferimentoDocumentacao(Resultado deferimento) {
+		this.deferimentoDocumentacao = deferimento;
 	}
 
 	public Entrevista getEntrevista() {
