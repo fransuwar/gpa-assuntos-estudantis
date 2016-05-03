@@ -18,82 +18,133 @@
 	<jsp:include page="../fragments/headTag.jsp" />
 	<div class="container" align="left">
 		<div class="panel panel-primary">
+
 			<div class="panel-heading">
-			
-				<h3 class="panel-title">Detalhes da Seleção</h3>
+
+				<h3 class="panel-title">DETALHES DA SELEÇÃO</h3>
+
+				<div class='opcoes-detalhes'>
+
+
+					<c:choose>
+						<c:when test="${controle}">
+							<a id="editar" title="Editar"
+								href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+								<button class=" btn btn-info btn-xs" title="Editar Inscrição">
+									Editar inscrição <span class="glyphicon glyphicon-pencil"></span>
+								</button>
+							</a>
+
+							<a id="editar" title="Editar"
+								href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id }" ></c:url>"
+								onclick='return confirmarLink("Prosseguir fará com que sua inscrição seja excluída. Deseja continuar?")'>
+								<button class=" btn btn-danger btn-xs"
+									title="Cancelar Inscrição">
+									Cancelar inscrição <span class="glyphicon glyphicon-remove"></span>
+								</button>
+							</a>
+						</c:when>
+
+						<c:otherwise>
+							<a id="inscrever" title="Inscrever-se"
+								href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
+								<button class=" btn btn-info btn-xs">
+									Inscrever-se <span class="glyphicon glyphicon-user"></span>
+								</button>
+							</a>
+						</c:otherwise>
+					</c:choose>
+
+
+				</div>
+
 			</div>
+
 			<div class="panel-body">
-				<dl class="col-sm-12">
-					<dt class="col-sm-2">Número do Edital:</dt>
-					<dd class="col-sm-2">${selecao.sequencial}</dd>
-					<dt class="col-sm-2">Tipo de Seleção:</dt>
-					<dd class="col-sm-2">${selecao.tipoSelecao.nome}</dd>
-					<dt class="col-sm-2">Ano do Edital:</dt>
-					<dd class="col-sm-2">${selecao.ano}</dd>
-				</dl>
-				<dl class="col-sm-12">
-					
-				</dl>
-				<dl class="col-sm-12">
-					<dt class="col-sm-2">Quantidade de vagas:</dt>
-					<dd class="col-sm-2">${selecao.quantidadeVagas}</dd>
-					<dt class="col-sm-2">Responsável:</dt>
-					<dd class="col-sm-2">${selecao.responsavel.pessoa.nome}</dd>
-					<dt class="col-sm-2">Período de inscrição:</dt>
-					<dd class="col-sm-2">
+
+				<div class='f-container s10'>
+
+					<label class='f-title'></label>
+					<div class='f-content right'></div>
+
+				</div>
+
+
+				<div class='f-container s5'>
+
+					<label class='f-title'>Número do Edital:</label>
+					<div class='f-content'>${selecao.sequencial}</div>
+
+				</div>
+
+				<div class='f-container s5'>
+
+					<label class='f-title'>Tipo de Seleção:</label>
+					<div class='f-content'>${selecao.tipoSelecao.nome}</div>
+
+				</div>
+
+				<div class='f-container s5'>
+
+					<label class='f-title'>Ano do Edital:</label>
+					<div class='f-content'>${selecao.ano}</div>
+
+				</div>
+
+				<div class='f-container s5'>
+
+					<label class='f-title'>Quantidade de vagas:</label>
+					<div class='f-content'>${selecao.quantidadeVagas}</div>
+
+				</div>
+
+				<div class='f-container s5'>
+
+					<label class='f-title'>Data de início da inscrição:</label>
+					<div class='f-content'>
 						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" />
-						até
+					</div>
+
+				</div>
+
+				<div class='f-container s5'>
+
+					<label class='f-title'>Data de término da inscrição:</label>
+					<div class='f-content'>
 						<fmt:formatDate value="${selecao.dataTermino}"
 							pattern="dd/MM/yyyy" />
-					</dd>
-				</dl>
-				<dl class="col-sm-12">
-					
-				</dl>
-				<dl class="col-sm-12">
-					<dt class="col-sm-3">Arquivos:</dt>
-					<c:forEach var="documento" items="${selecao.documentos}">
-						<dd class="col-sm-3">
-							<a
-								href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
-								${documento.nome} </a>
-						</dd>
-					</c:forEach>
-				</dl>
-				
-				<sec:authorize access="hasAnyRole('DISCENTE')">
-					<dl class="col-sm-12">
-						
-						<dt class="col-sm-3 pull-right" id="text-align-rigth">
-							<c:choose>
-								<c:when test="${controle}">
-									<a id="editar" title="Editar"
-										href="<c:url value="/aluno/inscricao/editar/auxilio-moradia/${inscricao.id }" ></c:url>">
-										<button class=" btn btn-primary btn-sm"
-															title="Editar Inscrição">
-															Editar inscrição
-															<span class="glyphicon glyphicon-pencil"></span>
-														</button>
-									</a>
-								</c:when>
+					</div>
 
-								<c:otherwise>
-									<a id="inscrever" title="Inscrever-se"
-										href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-										 <button class=" btn btn-primary btn-sm">
-										 					Inscrever-se
-															<span class="glyphicon glyphicon-user"></span>
-														</button>
-									</a>
-								</c:otherwise>
-							</c:choose>
-						</dt>
-					</dl>
-				</sec:authorize>
+				</div>
 
-				
+				<div class='f-container s5'>
+
+					<label class='f-title'>Responsável:</label>
+					<div class='f-content'>${selecao.responsavel.pessoa.nome}</div>
+
+				</div>
+
+
+
+				<div class='f-container s5'>
+
+					<label class='f-title'>Arquivos:</label>
+					<div class='f-content'>
+						&nbsp;
+						<c:forEach var="documento" items="${selecao.documentos}">
+							<dd class="col-sm-3">
+								<a
+									href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
+									${documento.nome} </a>
+							</dd>
+						</c:forEach>
+					</div>
+				</div>
+
 			</div>
+
 		</div>
+
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />

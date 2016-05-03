@@ -3,7 +3,6 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.validation.Valid;
 

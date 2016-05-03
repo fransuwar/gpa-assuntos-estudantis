@@ -2,6 +2,12 @@ var linha;
 var accordionFechado;
 
 $(document).ready(function(){
+
+	function hasAttr($element, _attr){
+		var attr = $element.attr(_attr);
+		return (typeof attr !== typeof undefined && attr !== false);
+	}
+
 	var form = $("#questionarioAuxilio");
 	form.steps({
 		headerTag: "h3",
@@ -651,3 +657,6 @@ function novaAba(url){
 	window.open(url, '_blank');
 }
 
+function confirmarLink(mensagem){
+	return confirm(mensagem);
+}
