@@ -46,7 +46,7 @@
 								class="direita clicavel"> <i
 								class="glyphicon glyphicon-chevron-up"></i>
 							</span>
-
+	
 							<sec:authorize access="hasAnyRole('DISCENTE')">
 								<c:if test="${!esconderBotoes}">
 									<a id="editarInscricao"
@@ -67,24 +67,27 @@
 						</h3>
 					</div>
 					<div class="panel-body">
-						<div class='f-container s5'>
+						
+						<img id="aluno-img" src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>"/>
+						
+						<div class='f-container s4'>
 							<label class='f-title'>Data da inscrição</label>
 							<div class='f-content'>
 								<fmt:formatDate value="${inscricao.data}" pattern="dd/MM/yyyy" />
 							</div>
 						</div>
 
-						<div class='f-container s5'>
+						<div class='f-container s4'>
 							<label class='f-title'>Tipo da seleção:</label>
 							<div class='f-content'>${inscricao.selecao.tipoSelecao.nome}</div>
 						</div>
 
-						<div class='f-container s5'>
+						<div class='f-container s4'>
 							<label class='f-title'>Resultado:</label>
 							<div class='f-content'>${inscricao.resultado.nome}</div>
 						</div>
 
-						<div class='f-container s5'>
+						<div class='f-container s4'>
 							<label class='f-title'>Observações:</label>
 							<div class='f-content'>${inscricao.observacoes}</div>
 						</div>
@@ -346,57 +349,45 @@
 								</c:choose>
 							</div>
 						</div>
-
 						<c:choose>
 							<c:when
 								test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoFundamental.nome}">
-
 								<div class='f-container s3'>
 									<label class='f-title'>Percentual da bolsa:</label>
 									<div class='f-content'>${inscricao.questionarioAuxilioMoradia.percentualParticularFundamental}</div>
 								</div>
-
 							</c:when>
 							<c:otherwise>
 								<div class='f-container s3'></div>
 							</c:otherwise>
 						</c:choose>
-
 						<h5 class="titulo-dl divisor">Ensino Médio</h5>
 						<div class='f-container s4'>
 							<label class='f-title'>Tipo de escola:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}</div>
 						</div>
-
 						<div class='f-container s3'>
 							<label class='f-title'>Possuia bolsa:</label>
 							<div class='f-content'>
-
 								<c:choose>
 									<c:when
 										test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}"> Sim</c:when>
 									<c:otherwise>Não</c:otherwise>
 								</c:choose>
-
 							</div>
 						</div>
-
 						<c:choose>
 							<c:when
 								test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}">
-
-
 								<div class='f-container s3'>
 									<label class='f-title'>Percentual da bolsa:</label>
 									<div class='f-content'>${inscricao.questionarioAuxilioMoradia.percentualParticularMedio}</div>
 								</div>
-
 							</c:when>
 							<c:otherwise>
 								<div class='f-container s3'></div>
 							</c:otherwise>
 						</c:choose>
-
 						<div class='f-container s5'>
 							<label class='f-title'>Fez cursinho pré-vestibular:</label>
 							<div class='f-content'>
@@ -407,11 +398,9 @@
 								</c:choose>
 							</div>
 						</div>
-
 						<c:choose>
 							<c:when
 								test="${inscricao.questionarioAuxilioMoradia.cursinho == true}">
-
 								<div class='f-container s5'>
 									<label class='f-title'>Nome do cursinho:</label>
 									<div class='f-content'>
@@ -443,25 +432,20 @@
 								</c:choose>
 							</div>
 						</div>
-
 						<c:choose>
 							<c:when
 								test="${inscricao.questionarioAuxilioMoradia.bolsistaUfc == true}">
-
 								<div class='f-container s5'>
 									<label class='f-title'>Descrição da bolsa:</label>
 									<div class='f-content'>
 										${inscricao.questionarioAuxilioMoradia.descricaoBolsa}</div>
 								</div>
-
 							</c:when>
 							<c:otherwise>
 								<div class='f-container s5'></div>
 							</c:otherwise>
 						</c:choose>
-
-
-
+						
 						<div class='f-container s5'>
 							<label class='f-title'>Possui graduação:</label>
 							<div class='f-content'>
@@ -472,12 +456,9 @@
 								</c:choose>
 							</div>
 						</div>
-
 						<c:choose>
 							<c:when
 								test="${inscricao.questionarioAuxilioMoradia.graduacao == true}">
-
-
 								<div class='f-container s5'>
 									<label class='f-title'>Descrição da graduação:</label>
 									<div class='f-content'>
@@ -487,10 +468,7 @@
 							<c:otherwise>
 								<div class='f-container s5'></div>
 							</c:otherwise>
-						</c:choose>
-
-
-
+						</c:choose>	
 					</div>
 				</div>
 				<div class="panel panel-default panel-primary">
@@ -531,12 +509,10 @@
 								</c:choose>
 							</div>
 						</div>
-
 						<div class='f-container s10'>
 							<label class='f-title'>Observação:</label>
 							<div class='f-content'>${inscricao.entrevista.observacao}</div>
 						</div>
-
 					</div>
 				</div>
 				<div class="tab-pane" id="documentos-tab"></div>
@@ -549,5 +525,4 @@
 		<jsp:include page="../fragments/footer.jsp" />
 	</div>
 </body>
-
 </html>
