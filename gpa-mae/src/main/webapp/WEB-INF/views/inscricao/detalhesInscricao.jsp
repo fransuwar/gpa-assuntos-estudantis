@@ -49,7 +49,7 @@
 								class="direita clicavel"> <i
 								class="glyphicon glyphicon-chevron-up"></i>
 							</span>
-	
+
 							<sec:authorize access="hasAnyRole('DISCENTE')">
 								<c:if test="${!esconderBotoes}">
 									<a id="editarInscricao"
@@ -70,12 +70,9 @@
 						</h3>
 					</div>
 					<div class="panel-body">
-						
-						<img id="aluno-img" src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>"/>
-						
-						<div class='f-container s4'>
-							<label class='f-title'>Data da inscrição</label>
-							<div class='f-content'>
+						<dl class="col-sm-12">
+							<dt class="col-sm-3">Data da Inscrição:</dt>
+							<dd class="col-sm-3">
 								<fmt:formatDate value="${inscricao.data}" pattern="dd/MM/yyyy" />
 							</dd>
 							<dt class=" col-sm-3">Tipo da Seleção:</dt>
@@ -86,23 +83,6 @@
 							<dd class="col-sm-3">${inscricao.resultado.nome}</dd>
 							<dt class="col-sm-3">Observações:</dt>
 							<dd class="col-sm-3">${inscricao.observacoes}</dd>
-							</div>
-						</div>
-
-						<div class='f-container s4'>
-							<label class='f-title'>Tipo da seleção:</label>
-							<div class='f-content'>${inscricao.selecao.tipoSelecao.nome}</div>
-						</div>
-
-						<div class='f-container s4'>
-							<label class='f-title'>Resultado:</label>
-							<div class='f-content'>${inscricao.resultado.nome}</div>
-						</div>
-
-						<div class='f-container s4'>
-							<label class='f-title'>Observações:</label>
-							<div class='f-content'>${inscricao.observacoes}</div>
-						</div>
 
 						</dl>
 					</div>
@@ -116,134 +96,77 @@
 						</h3>
 					</div>
 					<div class="panel-body fechado">
-
 						<div class="form-group">
 							<h5 class="titulo-dl divisor">Com quem Mora</h5>
-							<!--  TODO -->
-							<div class='f-container s5'>
-								<label class='f-title'>Mora com:</label>
-								<ul class='mora-com-lista'>
-									<c:forEach var="pessoa"
-										items="${inscricao.questionarioAuxilioMoradia.comQuemMora }">
-										<c:if test="${pessoa.descricao ne 'OUTRO'}"><li>${pessoa.descricao.nome}</li></c:if>
-									</c:forEach>
-								</ul>
-							</div>
-
-							<c:choose>
-								<c:when
-									test="${not empty inscricao.questionarioAuxilioMoradia.comQuemMoraOutros}">
-									<div class='f-container s5'>
-										<label class='f-title'>Com que mora os outros:</label>
-										<div class='f-content'>${inscricao.questionarioAuxilioMoradia.comQuemMoraOutros}</div>
-									</div>
-
-								</c:when>
-								<c:otherwise>
-									<div class='f-container s5'></div>
-								</c:otherwise>
-							</c:choose>
-
-
+							<dl class="col-sm-12">
+								<dt class="col-sm-3">Mora com:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.comQuemMora}</dd>
+								<dt class=" col-sm-3">Com quem mora os outros:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.comQuemMoraOutros}</dd>
+							</dl>
 
 							<h5 class="titulo-dl divisor">Nome dos Pais</h5>
-							<div class='f-container s5'>
-								<label class='f-title'>Mãe:</label>
-								<div class='f-content'>${inscricao.questionarioAuxilioMoradia.nomeMae}</div>
-							</div>
-							<div class='f-container s5'>
-								<label class='f-title'>Pai:</label>
-								<div class='f-content'>${inscricao.questionarioAuxilioMoradia.nomePai}</div>
-							</div>
+							<dl class="col-sm-12">
+								<dt class="col-sm-3">Mãe:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.nomeMae}</dd>
+								<dt class=" col-sm-3">Pai:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.nomePai}</dd>
+							</dl>
 						</div>
 
 						<h5 class="titulo-dl divisor">Endereço da Residência Atual</h5>
-
-						<div class='f-container s3'>
-							<label class='f-title'>Rua/Av:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.endereco}</div>
+						<div class="form-group">
+							<dl class="col-sm-12">
+								<dt class="col-sm-3">Rua/Av:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.endereco}</dd>
+								<dt class=" col-sm-3">Bairro:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.bairro}</dd>
+							</dl>
 						</div>
-
-						<div class='f-container s2'>
-							<label class='f-title'>Bairro:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.bairro}</div>
+						<div class="form-group">
+							<dl class="col-sm-12">
+								<dt class="col-sm-3">Número:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.numero}</dd>
+								<dt class=" col-sm-3">Cidade:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.cidade}</dd>
+							</dl>
+							<dl class="col-sm-12">
+								<dt class="col-sm-3">Complemento:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.complemento}</dd>
+								<dt class="col-sm-3">Cep:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.cep}</dd>
+							</dl>
+							<dl class="col-sm-12">
+								<dt class="col-sm-3">Referência:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.referencia}</dd>
+								<dt class=" col-sm-3">Estado:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.estado}</dd>
+							</dl>
 						</div>
-
-						<div class='f-container s3'>
-							<label class='f-title'>Número:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.numero}</div>
-						</div>
-
-						<div class='f-container s2'>
-							<label class='f-title'>CEP:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.cep}</div>
-						</div>
-
-						<div class='f-container s3'>
-							<label class='f-title'>Cidade:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.cidade}</div>
-						</div>
-
-						<div class='f-container s2'>
-							<label class='f-title'>Estado:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.estado}</div>
-						</div>
-
-						<div class='f-container s3'>
-							<label class='f-title'>Complemento:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.complemento}</div>
-						</div>
-
-
-						<div class='f-container s2'>
-							<label class='f-title'>Referência:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.referencia}</div>
-						</div>
-
-
 
 						<h5 class="titulo-dl divisor">Endereço da Residência de
 							Origem</h5>
-
-						<div class='f-container s3'>
-							<label class='f-title'>Rua/Av:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.enderecoOrigem}</div>
+						<div class="form-group">
+							<dl class="col-sm-12">
+								<dt class="col-sm-3">Rua/Av:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.enderecoOrigem}</dd>
+								<dt class=" col-sm-3">Bairro Origem:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.bairroOrigem}</dd>
+							</dl>
 						</div>
-
-						<div class='f-container s2'>
-							<label class='f-title'>Bairro:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.bairroOrigem}</div>
-						</div>
-
-						<div class='f-container s3'>
-							<label class='f-title'>Número:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.numeroOrigem}</div>
-						</div>
-
-
-						<div class='f-container s2'>
-							<label class='f-title'>CEP:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.cepOrigem}</div>
-						</div>
-
-						<div class='f-container s3'>
-							<label class='f-title'>Cidade:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.cidadeOrigem}</div>
-						</div>
-
-						<div class='f-container s2'>
-							<label class='f-title'>Estado:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.estadoOrigem}</div>
-						</div>
-
-						<div class='f-container s3'>
-							<label class='f-title'>Complemento:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.complementoOrigem}</div>
-						</div>
-
-						<div class='f-container s2'>
-							<label class='f-title'>Referência:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.referenciaOrigem}</div>
+						<div class="form-group">
+							<dl class="col-sm-12">
+								<dt class="col-sm-3">Numero:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.numeroOrigem}</dd>
+								<dt class=" col-sm-3">Cidade Origem:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.cidadeOrigem}</dd>
+							</dl>
+							<dl class="col-sm-12">
+								<dt class="col-sm-3">Complemento:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.complementoOrigem}</dd>
+								<dt class="col-sm-3">Cep:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.cepOrigem}</dd>
+							</dl>
 						</div>
 						<div class="form-group">
 							<dl class="col-sm-12">
@@ -254,37 +177,31 @@
 								
 							
 							</dl>
-
-						<div class='f-container s3'>
-							<label class='f-title'>Telefone origem:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.telefoneOrigem}</div>
 						</div>
-
-						<div class='f-container s2'>
-							<label class='f-title'>Situação do imóvel:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.situacaoImovel.nome}</div>
+						<div class="form-group">
+							<dl class="col-sm-12">
+								<dt class="col-sm-3">Situação Imovel:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.situacaoImovel.nome}</dd>
+								<dt class=" col-sm-3">Telefone Origem:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.telefoneOrigem}</dd>
+							</dl>
 						</div>
-
-						<div class='f-container s5'></div>
 
 						<h5 class="titulo-dl divisor">Propriedade Rural</h5>
-						<div class='f-container s5'>
-							<label class='f-title'>Grau de parentesco do
-								proprietário:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.grauParentescoImovelRural.nome}</div>
+						<div class="form-group">
+							<dl class="col-sm-12">
+								<dt class="col-sm-3">Grau de parentesco do proprietário:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.grauParentescoImovelRural.nome}</dd>
+								<dt class="col-sm-3">Área Propriedade:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.areaPropriedadeRural}</dd>
+							</dl>
 						</div>
-
-						<div class='f-container s5'>
-							<label class='f-title'>Área da propriedade:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.areaPropriedadeRural}</div>
+						<div class="form-group">
+							<dl class="col-sm-12">
+								<dt class=" col-sm-3">Cidade/Estado Imóvel:</dt>
+								<dd class="col-sm-3">${inscricao.questionarioAuxilioMoradia.cidadeEstadoImovelRural}</dd>
+							</dl>
 						</div>
-
-						<div class='f-container s5'>
-							<label class='f-title'>Cidade/Estado Imóvel:</label>
-							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.cidadeEstadoImovelRural}</div>
-						</div>
-
-						<div class='f-container s5'></div>
 
 						<h5 class="titulo-dl divisor">Bens Móveis (Veículos)</h5>
 						<div class="form-group">
