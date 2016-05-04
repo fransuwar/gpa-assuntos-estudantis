@@ -1,12 +1,45 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
+import java.util.List;
+
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.ufc.quixada.npi.gpa.model.Documento;
+import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.repository.GenericRepository;
 import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
 
 @Named
 public class DocumentoServiceImpl extends GenericServiceImpl<Documento> implements DocumentoService{
+	
+	@Inject
+	private GenericRepository<TipoDocumento> tipoDocumentacaoRepository;
+	
+	
+	@Override
+	public void salvarTipoDocumento(TipoDocumento tipoDocumento) {
+		tipoDocumentacaoRepository.save(tipoDocumento);
+		
+	}
+
+	@Override
+	public void deletarTipoDocumento(TipoDocumento tipoDocumento) {
+		tipoDocumentacaoRepository.delete(tipoDocumento);
+		
+	}
+
+	@Override
+	public TipoDocumento BuscarTipoDocumentoById(Integer idTipoDocumento) {
+		// TODO Auto-generated method stub
+		return tipoDocumentacaoRepository.find(TipoDocumento.class, idTipoDocumento);
+	}
+
+	@Override
+	public List<TipoDocumento> BuscarTipoDocumento() {
+		// TODO Auto-generated method stub
+		return tipoDocumentacaoRepository.find(TipoDocumento.class);
+	}
 
 }
