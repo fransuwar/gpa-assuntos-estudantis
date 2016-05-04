@@ -30,6 +30,7 @@ import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
+import br.ufc.quixada.npi.ldap.service.UsuarioService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
@@ -43,6 +44,9 @@ public class ServidorController {
 
 	@Inject
 	private ServidorService servidorService;
+	
+	@Inject
+	private UsuarioService usuarioService;
 
 	@Inject
 	private SelecaoService selecaoService;
@@ -228,7 +232,7 @@ public class ServidorController {
 	}
 
 	@RequestMapping(value ={ "detalhes/inscricao/{idInscricao}"}, method = RequestMethod.GET)
-	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
+	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model modelo,
 			RedirectAttributes redirect) {
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		if (inscricao == null) {
@@ -237,6 +241,7 @@ public class ServidorController {
 
 		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
 			modelo.addAttribute("inscricao", inscricao);
+			modelo.addAttribute("usuarioAtivo", usuarioService.getByCpf(inscricao.getAluno().getPessoa().getCpf()));
 			modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
 			return PAGINA_DETALHES_INSCRICAO;
 		}else {

@@ -454,13 +454,14 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
-	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model model,
+	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
 			RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 		model.addAttribute("inscricao", inscricao);
+		model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
 
 		if (inscricao == null) {
 

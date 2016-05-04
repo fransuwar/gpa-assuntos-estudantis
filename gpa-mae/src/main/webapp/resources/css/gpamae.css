@@ -34,7 +34,11 @@ body {
 }
 
 .right{
-	float:right;
+	float: right;
+}
+
+.left{
+	float: left;
 }
 
 #div-line-title {
@@ -373,8 +377,7 @@ div.s10{
 
 #aluno-img{
 	margin-top: 10px;
-	width: 220px;
-	height: 250px;
+	width: 20%;
 	float: right;
 	border: 1px #CCC solid;
 }
