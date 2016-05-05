@@ -139,4 +139,12 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 		return qtdClassificados;
 		}
 	}
+
+	@Override
+	public List<Inscricao> getClassificadosPorSelecao(Selecao selecao) {
+		List<Inscricao> inscricoes = find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'true'",
+				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
+
+		return inscricoes;
+	}
 }

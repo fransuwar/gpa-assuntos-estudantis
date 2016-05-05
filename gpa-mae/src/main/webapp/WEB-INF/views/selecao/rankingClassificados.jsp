@@ -16,7 +16,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../fragments/headTag.jsp" />
-<title>Ranking dos Deferidos</title>
+<title>Ranking dos Classificados</title>
 </head>
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
@@ -24,14 +24,14 @@
 	<div class="container" align="left" style="padding-left: 85px;">
 		<div class="panel panel-primary" align="left">
 			<div class="panel-heading">
-				<h3 class="panel-title">Alunos Deferidos</h3>
+				<h3 class="panel-title">Alunos Classificados</h3>
 			</div>
 			<div class="panel-body">
 
 				<form id="formClassificados" method="POST"
 					action="<c:url value="/selecao/ranking"/>">
 
-					<table class="table" id="tabela-ranking-deferidos">
+					<table class="table" id="tabela-ranking-classificados">
 						<thead>
 							<tr class="active">
 								<td>Aluno</td>
@@ -41,10 +41,10 @@
 						<tbody>
 							<sec:authorize
 								access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS','STA')">
-								<c:forEach var="deferido" items="${deferidos}">
+								<c:forEach var="classificado" items="${classificados}">
 									<tr>
 										<td class="col-sm-1"><a id="detalhes"
-											href="<c:url value="/servidor/detalhes/inscricao/${deferido.id}">  
+											href="<c:url value="/servidor/detalhes/inscricao/${classificado.id}">  
 										</c:url>"
 											class="thumbnail"> <img
 												src="<c:url value="/resources/images/gpa-icone.jpg"/>"
@@ -52,15 +52,15 @@
 												class="img-rounded">
 										</a></td>
 										<td class="col-sm-11"><a id="detalhes"
-											href="<c:url value="/servidor/detalhes/inscricao/${deferido.id}">  
-										</c:url>">${deferido.aluno.pessoa.nome}</a></td>
+											href="<c:url value="/servidor/detalhes/inscricao/${classificado.id}">  
+										</c:url>">${classificado.aluno.pessoa.nome}</a></td>
 									</tr>
 								</c:forEach>
 							</sec:authorize>
 						</tbody>
 
 					</table>
-					<input class="btn btn-primary" type="submit" value="Submeter" />
+					<button class="btn btn-primary">Voltar</button>
 				</form>
 			</div>
 		</div>

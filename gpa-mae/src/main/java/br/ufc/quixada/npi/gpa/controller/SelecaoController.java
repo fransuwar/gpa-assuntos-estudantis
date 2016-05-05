@@ -166,7 +166,7 @@ public class SelecaoController {
 		return "";
 	}
 	
-	@RequestMapping(value = {"ranking/{idSelecao}"}, method = RequestMethod.POST)
+	@RequestMapping(value = {"ranking/{idSelecao}"}, method = RequestMethod.GET)
 	public String visualizarRanking(ModelMap model, @PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect){
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 
@@ -175,9 +175,9 @@ public class SelecaoController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
-		List<Inscricao> deferidos = inscricaoService.getDeferidosBySelecao(selecao);
+		List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
 
-		model.addAttribute("deferidos", deferidos);
+		model.addAttribute("classificados", classificados);
 		
 		return PAGINA_RANKING_CLASSIFICADOS;
 		

@@ -42,13 +42,17 @@
 			<div class="panel-body">
 				<dl class="col-sm-12">
 					<dt class="col-sm-3"></dt>
-					<dt class="col-sm-3"></dt>
+					<dt class="col-sm-3">
+					    <a class="btn btn-primary btn-xs"
+							href="<c:url value="/selecao/ranking/${selecao.id}"></c:url>">
+							Ranking 
+							<span class="glyphicon glyphicon-stats"></span></a>
+					</dt>
 					<dt class="col-sm-3"></dt>
 					<dt class="col-sm-3">
 						<a class="btn btn-primary btn-xs"
 							href="<c:url value="/selecao/selecionarClassificados/${selecao.id}"></c:url>">
-							Ranking 
-							<span class="glyphicon glyphicon-stats"></span></a>
+							Selecionar Classificados</a>
 					</dt>
 				</dl>
 				<dl class="col-sm-12">
