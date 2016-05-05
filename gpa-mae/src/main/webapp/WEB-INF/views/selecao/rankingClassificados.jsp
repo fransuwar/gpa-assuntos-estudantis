@@ -29,7 +29,6 @@
 			<div class="panel-body">
 
 				<form id="formClassificados" method="POST"
-					enctype="multipart/form-data"
 					action="<c:url value="/selecao/ranking"/>">
 
 					<table class="table" id="tabela-ranking-deferidos">
@@ -42,7 +41,7 @@
 						<tbody>
 							<sec:authorize
 								access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS','STA')">
-								<c:forEach var="deferido" items="${deferidos}" varStatus="linha">
+								<c:forEach var="deferido" items="${deferidos}">
 									<tr>
 										<td class="col-sm-1"><a id="detalhes"
 											href="<c:url value="/servidor/detalhes/inscricao/${deferido.id}">  

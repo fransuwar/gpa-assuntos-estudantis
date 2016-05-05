@@ -1,14 +1,5 @@
 package br.ufc.quixada.npi.gpa.controller;
-
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_PARECER_EMITIDO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RANKING_DEFERIDOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.util.List;
 
@@ -24,11 +15,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -63,6 +57,7 @@ public class SelecaoController {
 	
 	@Inject
 	private AlunoService alunoService;
+	
 	@Inject
 	private InscricaoService inscricaoService;
 	
@@ -166,7 +161,7 @@ public class SelecaoController {
 		return "";
 	}
 	
-	@RequestMapping(value = {"ranking/{idSelecao}"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"ranking/{idSelecao}"}, method = RequestMethod.POST)
 	public String visualizarRanking(ModelMap model, @PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect){
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 
@@ -179,23 +174,96 @@ public class SelecaoController {
 
 		model.addAttribute("deferidos", deferidos);
 		
-		return PAGINA_RANKING_DEFERIDOS;
+		return PAGINA_RANKING_CLASSIFICADOS;
 		
 	}
 	
-	@RequestMapping(value = {"ranking/{idSelecao}"}, method = RequestMethod.POST)
-	public String escolherClassificados(ModelMap model, @RequestParam("checkDeferido") Integer idDeferido,
-		 RedirectAttributes redirect, Authentication auth){
+	@RequestMapping(value = {"selecionarClassificados/{idSelecao}"}, method = RequestMethod.GET)
+	public String visualizarPaginaSelecionarClassificados(ModelMap model, @PathVariable("idSelecao") Integer idSelecao,
+		 RedirectAttributes redirect){		
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+
+		if (selecao == null) {
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
 		
-		Servidor servidor = servidorService.getServidorByCpf(auth.getName());		
-		model.addAttribute("selecoes", servidor.getParticipaComissao());
+		Integer qtdClassificados = inscricaoService.getQtdClassificadosPorSelecao(selecao);
 		     
-		Inscricao inscricao = inscricaoService.find(Inscricao.class,idDeferido);
-		inscricao.setClassificado(true);
-		inscricaoService.update(inscricao);
+		List<Inscricao> deferidos = inscricaoService.getDeferidosBySelecao(selecao);
+		model.addAttribute("deferidos", deferidos);
+		model.addAttribute("selecao",selecao);
+		model.addAttribute("qtdClassificados",qtdClassificados);
 		
 		
-		return PAGINA_LISTAR_SELECAO_SERVIDOR;
+		return PAGINA_SELECIONAR_CLASSIFICADOS;
+		
+	}
+	
+	@RequestMapping(value = {"/selecionarClassificados/{idSelecao}"}, method = RequestMethod.POST)
+	public String selecionarClassificados(ModelMap model, @RequestParam("checkClassificados[]") List<Integer> idsClassificados,
+			@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect, Authentication auth){
+		
+		if(idsClassificados.size() == 0){
+			model.addAttribute("erro", MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO);
+			model.addAttribute("mostrarErro",true);
+		}
+		
+		 Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		 
+		 if (selecao == null) {
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+				return REDIRECT_PAGINA_LISTAR_SELECAO;
+			}
+		 
+		 Integer qtdClassificados = inscricaoService.getQtdClassificadosPorSelecao(selecao);
+		 List<Inscricao> deferidos = inscricaoService.getDeferidosBySelecao(selecao);	 
+	     model.addAttribute("deferidos", deferidos);
+	     model.addAttribute("selecao",selecao);
+		 
+		 if(qtdClassificados >= selecao.getQuantidadeVagas()){
+			 model.addAttribute("erro", MENSAGEM_ERRO_QTD_VAGAS);
+			 model.addAttribute("mostrarErro",true);
+		 } else{		      
+		     for(Integer id: idsClassificados){
+		         Inscricao inscricao = inscricaoService.find(Inscricao.class,id);
+		         inscricao.setClassificado(true);
+		         inscricaoService.update(inscricao);
+		         
+		         model.addAttribute("qtdClassificados",qtdClassificados+idsClassificados.size());
+		     }
+		 }
+		
+		return PAGINA_SELECIONAR_CLASSIFICADOS;
+		
+	}
+	
+	@RequestMapping(value = {"/removerClassificados/{idSelecao}"}, method = RequestMethod.POST)
+	public String removerClassificados(ModelMap model, @RequestParam("checkClassificaveis[]") List<Integer> idsClassificaveis,
+			@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect, Authentication auth){
+
+		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		
+		if (selecao == null) {
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
+		
+		Integer qtdClassificados = inscricaoService.getQtdClassificadosPorSelecao(selecao);
+		
+		List<Inscricao> deferidos = inscricaoService.getDeferidosBySelecao(selecao);
+		model.addAttribute("deferidos", deferidos);
+		model.addAttribute("selecao",selecao);
+        
+		for(Integer id: idsClassificaveis){
+			Inscricao inscricao = inscricaoService.find(Inscricao.class,id);
+			inscricao.setClassificado(false);
+			inscricaoService.update(inscricao);
+			
+			model.addAttribute("qtdClassificados",qtdClassificados-idsClassificaveis.size());
+		}
+		
+		return PAGINA_SELECIONAR_CLASSIFICADOS;
 		
 	}
 	

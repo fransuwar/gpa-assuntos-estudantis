@@ -37,6 +37,7 @@
 <script src="<c:url value="/resources/js/jquery.validate.min.js" />"></script>
 <script src="<c:url value="/resources/js/moment-with-locales"/>"></script>
 <script src="<c:url value="/resources/js/jquery.steps.min.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.bootstrap-duallistbox.js"/>"></script>
 <script src="<c:url value="/resources/js/npi.js"/>"></script>
 
 

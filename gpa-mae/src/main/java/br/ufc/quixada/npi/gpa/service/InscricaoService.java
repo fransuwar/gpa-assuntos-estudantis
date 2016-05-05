@@ -37,5 +37,7 @@ public interface InscricaoService extends GenericService<Inscricao>{
 	public abstract Inscricao getInscricao(Selecao selecao, Aluno aluno);
 	
 	public abstract List<Inscricao> getDeferidosBySelecao(Selecao selecao);
+	
+	public abstract Integer getQtdClassificadosPorSelecao(Selecao selecao);
 }
 

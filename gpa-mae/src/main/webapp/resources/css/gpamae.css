@@ -301,3 +301,42 @@ div.s10{
 #text-align-left{
 	text-align: left;
 }
+
+#div-botoes-classificados{
+	margin-top: 80px;
+	text-align: center;
+}
+
+#botao-adicionar-classificados{
+	margin-bottom: 5px;
+	margin-top: 3px;
+}
+
+#botao-remover-classificados{
+	margin-bottom: 5px;
+}
+
+.borda-laranja{
+	outline: 1px solid rgb(243, 156, 18);
+}
+
+.borda-verde{
+	outline: 1px solid rgb(24, 188, 156);
+}
+
+.dataTables_filter {
+   display: none;
+}
+
+#pesquisarClassificados{
+	margin-bottom: 8px;
+}
+
+#pesquisarClassificaveis{
+	margin-bottom: 8px;
+}
+
+#tabela-classificaveis tr{
+	 width:100%;
+	
+}

@@ -2,6 +2,72 @@ var linha;
 var accordionFechado;
 
 $(document).ready(function(){
+	
+	var tabelaClassificaveis = $('#tabela-classificaveis').dataTable({
+		"language": {
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"paging": false,
+		"order": [[ 2, "cresc" ]],
+		"ordering": false,
+		"bInfo" : false
+	});
+	
+	var tabelaClassificados = $('#tabela-classificados').dataTable({
+		"language": {
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"paging": false,
+		"order": [[ 2, "cresc" ]],
+		"ordering": false,
+		"bInfo" : false
+	});
+	
+	
+	$("#pesquisarClassificaveis").keyup(function() {
+		tabelaClassificaveis.fnFilter(this.value);
+    });    
+	
+	$("#pesquisarClassificados").keyup(function() {
+		tabelaClassificados.fnFilter(this.value);
+    });
+	
+	//Submeter o formulário de Selecionar Classificados
+	$("#erro-checkbox").hide();
+	
+	$("#botao-adicionar-classificados").on("click",function(e){
+		e.preventDefault();
+		//Validação para garantir que pelo menos um check esteja checado
+		var peloMenosUmChecado = false;
+		$("input[name='checkClassificados[]']").each(function() {
+		    if ($(this).is(":checked")) {
+		    	peloMenosUmChecado = true;
+		    }
+		});
+		if(peloMenosUmChecado){
+		    $("#formClassificaveis").submit();
+		    $("#erro-checkbox").hide();
+		}else{
+			$("#erro-checkbox").show();
+		}
+	});
+	
+	$("#botao-remover-classificados").on("click",function(e){
+		e.preventDefault();
+		var peloMenosUmChecado = false;
+		$("input[name='checkClassificaveis[]']").each(function() {
+		    if ($(this).is(":checked")) {
+		    	peloMenosUmChecado = true;
+		    }
+		});
+		if(peloMenosUmChecado){
+			$("#formClassificados").submit();
+			$("#erro-checkbox").hide();
+		}else{
+			$("#erro-checkbox").show();
+		}
+	});
+	
 		
 	var form = $("#questionarioAuxilio");
 	form.steps({
@@ -100,7 +166,6 @@ $(document).ready(function(){
 			"url":"/MAE/resources/js/Portuguese-Brasil.json"
 		}
 	});
-
 
 	$.extend(jQuery.validator.messages, {
 		required: "Campo obrigatório",

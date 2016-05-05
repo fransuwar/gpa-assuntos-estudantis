@@ -14,7 +14,7 @@ public class Constants {
 
 	public static final String PAGINA_INFORMACOES_SELECAO			= "selecao/detalhesSelecao";
 	
-	public static final String PAGINA_RANKING_DEFERIDOS			= "selecao/rankingDeferidos";
+	public static final String PAGINA_RANKING_CLASSIFICADOS			= "selecao/rankingClassificados";
 	
 	public static final String PAGINA_INFORMACOES_SELECAO_SERVIDOR	= "servidor/detalhesSelecaoServidor";
 	
@@ -41,6 +41,8 @@ public class Constants {
 	public static final String PAGINA_LISTAR_SELECAO = "selecao/listarSelecao";
 
 	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR = "servidor/listaSelecoes";
+	
+	public static final String PAGINA_SELECIONAR_CLASSIFICADOS = "selecao/selecionarClassificados";
 	
 	public static final String PAGINA_ADICIONAR_ARQUIVO = "coordenador/adicionarArquivoSelecao";
 
@@ -213,6 +215,10 @@ public class Constants {
 	public static final String MENSAGEM_ERRO_UPLOAD_FOTO = "Não foi possível fazer o upload da sua foto";
 	
 	public static final String MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO = "Extensão da foto inválida. Extensões aceitas (jpeg, jpg, png)";
+	
+	public static final String MENSAGEM_ERRO_QTD_VAGAS = "A quantidade de vagas já foram preenchidas";
+	
+	public static final String MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO = "Selecione pelo menos um aluno classificado";
 	
 	/** Perfis */
 

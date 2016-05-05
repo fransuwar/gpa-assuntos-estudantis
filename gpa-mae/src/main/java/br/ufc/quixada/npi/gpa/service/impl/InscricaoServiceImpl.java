@@ -124,4 +124,19 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 
 		return inscricoes;
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Integer getQtdClassificadosPorSelecao(Selecao selecao) {
+		List<Long> consulta = find(QueryType.JPQL, "select count(distinct i) from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'true'",
+				new SimpleMap<String,Object>("idSelecao",selecao.getId()));
+		
+		 Integer qtdClassificados = Integer.valueOf(consulta.get(0).intValue());
+		
+		if (qtdClassificados == null || qtdClassificados.equals(0) || qtdClassificados == null) {
+			return 0;
+		}else{
+		return qtdClassificados;
+		}
+	}
 }

@@ -9,6 +9,8 @@
 	rel="stylesheet" />
 <link href="<c:url value="/resources/css/datepicker3.css"/>"
 	rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap-duallistbox.css"/>"
+	rel="stylesheet">
 <link
 	href="<c:url value="/resources/css/font-awesome-4.4.0/css/font-awesome.min.css" />"
 	rel="stylesheet" />
