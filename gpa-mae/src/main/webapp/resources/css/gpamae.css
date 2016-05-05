@@ -383,15 +383,15 @@ div.s10{
 
 #botao-remover-classificados{
 	margin-bottom: 5px;
-}
-
-.borda-laranja{
+}.borda-laranja{
 	outline: 1px solid rgb(243, 156, 18);
 }
 
 .borda-verde{
 	outline: 1px solid rgb(24, 188, 156);
 }
+
+
 
 .dataTables_filter {
    display: none;

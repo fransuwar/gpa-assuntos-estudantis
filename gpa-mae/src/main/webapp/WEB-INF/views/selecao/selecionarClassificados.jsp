@@ -58,7 +58,7 @@
 								<input type="text" class="form-control" placeholder="Pesquisar"
 									id="pesquisarClassificaveis">
 								<table class="table table-hover borda-laranja"
-									id="tabela-classificaveis">
+									id="tabela-classificaveis" cellspacing="0" width="100%">
 									<thead>
 										<tr class="warning row">
 											<td class="col-sm-2">Aluno</td>
@@ -110,10 +110,6 @@
 								id="botao-remover-classificados">
 								<span class="glyphicon glyphicon-chevron-left"></span> Remover
 							</button>
-							<button class=" btn btn-primary btn-xs col-sm-12"
-								id="botao-finalizar-ranking">
-								Finalizar
-							</button>
 						</div>
 
 						<div class="col-sm-5">
@@ -125,7 +121,7 @@
 								<input type="text" class="form-control" placeholder="Pesquisar"
 									id="pesquisarClassificados">
 								<table class="table table-hover borda-verde"
-									id="tabela-classificados">
+									id="tabela-classificados" cellspacing="0" width="100%">
 									<thead>
 										<tr class="success row">
 											<td class="col-sm-2">Aluno</td>
