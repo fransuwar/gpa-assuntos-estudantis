@@ -54,13 +54,13 @@ public class SelecaoController {
 
 	@Inject
 	private SelecaoService selecaoService;
-	
+
 	@Inject
 	private AlunoService alunoService;
 	
 	@Inject
 	private InscricaoService inscricaoService;
-	
+
 	@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoesPublico(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
@@ -73,7 +73,7 @@ public class SelecaoController {
 		model.addAttribute("selecao", selecao);
 		return PAGINA_INFORMACOES_SELECAO;
 	}
-	
+
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect,Authentication auth) {
 		//Detalhe da seleção, apenas para aluno
@@ -85,17 +85,22 @@ public class SelecaoController {
 		}
 
 		model.addAttribute("selecao", selecao);
-		
+
 		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
 		List<Inscricao> inscricoes = inscricaoService.getInscricoesBySelecaoByAluno(selecao.getId(),aluno.getId());
 		boolean controle = false;
-		if(!inscricoes.isEmpty())
+		
+		model.addAttribute("aluno", aluno);
+		if(!inscricoes.isEmpty()){
 			controle=true;
+			model.addAttribute("inscricao", inscricoes.get(0));
+		}
+
 		model.addAttribute("controle", controle);
-	
+
 		return PAGINA_INFORMACOES_SELECAO;
 	}
-	
+
 
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Integer id, 
@@ -147,7 +152,7 @@ public class SelecaoController {
 		if (result.hasErrors()) {
 			return PAGINA_LISTAR_INSCRITOS_SELECAO;
 		}
-		
+
 		// TODO - Implementar o método que dará o parecer do aluno.
 
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_PARECER_EMITIDO);

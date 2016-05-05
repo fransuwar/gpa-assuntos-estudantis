@@ -484,5 +484,4 @@ public class AlunoController {
 
 	}
 
-
 }
