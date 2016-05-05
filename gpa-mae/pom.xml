@@ -268,14 +268,6 @@
 			<artifactId>joda-time</artifactId>
 			<version>2.7</version>
 		</dependency>
-		
-		<!-- Biblioteca para consumir o json no controller do spring -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.5.3</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
