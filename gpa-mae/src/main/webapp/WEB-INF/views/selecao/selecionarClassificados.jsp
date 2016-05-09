@@ -101,7 +101,7 @@
 						</div>
 
 						<div class="col-sm-2" id="div-botoes-classificados">
-						    <h4 class="col-sm-12">${selecao.quantidadeVagas} vagas</h4>
+						    <span class="label label-default col-sm-12">${selecao.quantidadeVagas} vagas</span>
 							<button class=" btn btn-primary btn-xs col-sm-12"
 								id="botao-adicionar-classificados">
 								Adicionar <span class="glyphicon glyphicon-chevron-right"></span>

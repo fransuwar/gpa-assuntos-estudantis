@@ -9,7 +9,10 @@ $(document).ready(function(){
 		"paging": false,
 		"order": [[ 2, "cresc" ]],
 		"ordering": false,
-		"bInfo" : false
+		"bInfo" : false,
+		"language": {
+	        "emptyTable": "Nenhum Aluno Classificável"
+	    }
 	});
 	
 	var tabelaClassificados = $('#tabela-classificados').dataTable({
@@ -19,7 +22,10 @@ $(document).ready(function(){
 		"paging": false,
 		"order": [[ 2, "cresc" ]],
 		"ordering": false,
-		"bInfo" : false
+		"bInfo" : false,
+		"language": {
+	        "emptyTable": "Adicione algum aluno para a tabela dos classificados"
+	    }
 	});
 	
 	
