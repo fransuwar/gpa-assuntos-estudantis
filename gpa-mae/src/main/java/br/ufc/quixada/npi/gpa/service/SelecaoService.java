@@ -7,7 +7,7 @@ import br.ufc.quixada.npi.service.GenericService;
 
 public interface SelecaoService extends GenericService<Selecao> {
 
-	public abstract boolean isSelecaoCadastrada(Selecao selecao);
+	public abstract boolean SelecaoEstaCadastrada(Selecao selecao);
 
 	public abstract List<Selecao> getSelecoesComMembros();
 	

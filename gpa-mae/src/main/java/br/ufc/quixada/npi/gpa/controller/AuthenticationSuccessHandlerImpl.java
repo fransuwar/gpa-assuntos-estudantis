@@ -71,7 +71,7 @@ public class AuthenticationSuccessHandlerImpl implements
 	
 	private void usuarioLogado(HttpServletRequest request, Authentication authentication) {
 		if (request.getSession().getAttribute(Constants.USUARIO_LOGADO) == null) {
-			Pessoa pessoa = servicePessoa.getPessoaByCpf(authentication.getName());
+			Pessoa pessoa = servicePessoa.getPessoaPorCpf(authentication.getName());
 			String nome = pessoa.getNome();
 			Integer id = pessoa.getId();
 			request.getSession().setAttribute(Constants.USUARIO_ID, id);

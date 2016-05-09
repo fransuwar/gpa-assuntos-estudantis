@@ -5,6 +5,6 @@ import br.ufc.quixada.npi.service.GenericService;
 
 public interface PessoaService extends GenericService<Pessoa> {
 	
-	public abstract Pessoa getPessoaByCpf(String cpf);
+	public abstract Pessoa getPessoaPorCpf(String cpf);
 
 }

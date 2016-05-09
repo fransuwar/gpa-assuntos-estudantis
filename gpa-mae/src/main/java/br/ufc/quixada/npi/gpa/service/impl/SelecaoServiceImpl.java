@@ -17,7 +17,7 @@ public class SelecaoServiceImpl extends GenericServiceImpl<Selecao> implements S
 
 	@Override
 	@Transactional
-	public boolean isSelecaoCadastrada(Selecao selecao) {
+	public boolean SelecaoEstaCadastrada(Selecao selecao) {
 		@SuppressWarnings("unchecked")
 		List<Selecao> selecoes = find(QueryType.JPQL,
 				"from Selecao as p where p.tipoSelecao = :tipo and p.ano = :ano and p.sequencial = :sequencial",

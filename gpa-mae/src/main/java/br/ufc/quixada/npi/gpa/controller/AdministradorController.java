@@ -91,7 +91,7 @@ public class AdministradorController {
 
 	}
 	@RequestMapping(value = "{id}/editar", method = RequestMethod.GET)
-	public String editar(@PathVariable("id") Integer id, Model model) {
+	public String editarServidor(@PathVariable("id") Integer id, Model model) {
 
 		Servidor servidor = servidorService.find(Servidor.class, id);
 
@@ -181,7 +181,7 @@ public class AdministradorController {
 		}
 
 		if (aluno != null) {
-			if (this.alunoService.isAlunoCadastrado(aluno)) {
+			if (this.alunoService.AlunoEstaCadastrado(aluno)) {
 				result.rejectValue("matricula", "aluno.matricula", MENSAGEM_ERRO_MATRICULA_EXISTENTE);
 			}
 		}

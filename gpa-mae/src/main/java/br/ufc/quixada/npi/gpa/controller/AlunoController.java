@@ -150,7 +150,7 @@ public class AlunoController {
 		}
 
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
+		Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
 
 		if (inscricaoService.getInscricao(selecao, aluno) == null) {
 			Inscricao inscricao = new Inscricao();
@@ -219,7 +219,7 @@ public class AlunoController {
 			}
 
 			List<PessoaFamilia> pessoasDaFamilia = inscricaoService
-					.getPessoaFamiliaByIdIniciacaoAcademica(iniciacaoAcademica.getId());
+					.getPessoaFamiliaPorIdIniciacaoAcademica(iniciacaoAcademica.getId());
 
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
@@ -317,7 +317,7 @@ public class AlunoController {
 		} else {
 
 			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-			Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
+			Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
 			
 			if (inscricaoService.getInscricao(selecao, aluno) == null) {
 
@@ -396,7 +396,7 @@ public class AlunoController {
 				}
 
 				List<PessoaFamilia> pessoasDaFamilia = inscricaoService
-						.getPessoaFamiliaByIdIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
+						.getPessoaFamiliaPorIdIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
 
 				if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 					model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);

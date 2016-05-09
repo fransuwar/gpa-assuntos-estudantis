@@ -42,13 +42,13 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Inscricao> getInscricoesBySelecao(Integer idSelecao) {
+	public List<Inscricao> getInscricoesPorSelecao(Integer idSelecao) {
 		return find("Inscricao.finInscricaoByIdSelecao", new SimpleMap<String, Object>("idSelecao", idSelecao));
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Inscricao> getInscricoesBySelecaoByAluno(Integer idSelecao, Integer idAluno) {
+	public List<Inscricao> getInscricoesPorSelecaoPorAluno(Integer idSelecao, Integer idAluno) {
 		Map<String, Object> params = new SimpleMap<String, Object>();
 		params.put("idSelecao", idSelecao);
 		params.put("idAluno", idAluno);
@@ -65,14 +65,14 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<PessoaFamilia> getPessoaFamiliaByIdIniciacaoAcademica(Integer idIniciacaoAcademica) {
+	public List<PessoaFamilia> getPessoaFamiliaPorIdIniciacaoAcademica(Integer idIniciacaoAcademica) {
 		return find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",
 				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<PessoaFamilia> getPessoaFamiliaByIdAuxilioMoradia(Integer idAuxilioMoradia) {
+	public List<PessoaFamilia> getPessoaFamiliaPorIdAuxilioMoradia(Integer idAuxilioMoradia) {
 		return find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia",
 				new SimpleMap<String, Object>("idAuxilioMoradia", idAuxilioMoradia));
 	}

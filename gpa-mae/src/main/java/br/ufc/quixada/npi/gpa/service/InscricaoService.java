@@ -18,13 +18,13 @@ public interface InscricaoService extends GenericService<Inscricao>{
 
 	public abstract List<Inscricao> getInscricoes(Integer idAluno);
 	
-	public abstract List<Inscricao> getInscricoesBySelecao(Integer idSelecao);
+	public abstract List<Inscricao> getInscricoesPorSelecao(Integer idSelecao);
 	
-	public abstract List<Inscricao> getInscricoesBySelecaoByAluno(Integer idSelecao, Integer idAluno);
+	public abstract List<Inscricao> getInscricoesPorSelecaoPorAluno(Integer idSelecao, Integer idAluno);
 	
-	public abstract List<PessoaFamilia> getPessoaFamiliaByIdIniciacaoAcademica(Integer idIniciacaoAcademica);
+	public abstract List<PessoaFamilia> getPessoaFamiliaPorIdIniciacaoAcademica(Integer idIniciacaoAcademica);
 	
-	public abstract List<PessoaFamilia> getPessoaFamiliaByIdAuxilioMoradia(Integer idAuxilioMoradia);
+	public abstract List<PessoaFamilia> getPessoaFamiliaPorIdAuxilioMoradia(Integer idAuxilioMoradia);
 	
 	public abstract VisitaDomiciliar getVisitaDocimiciliar(Integer idVisitaDomiciliar);
 	
