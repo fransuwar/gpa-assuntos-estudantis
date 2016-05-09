@@ -19,25 +19,25 @@ public class DocumentoServiceImpl extends GenericServiceImpl<Documento> implemen
 	
 	
 	@Override
-	public void salvarTipoDocumento(TipoDocumento tipoDocumento) {
+	public void save(TipoDocumento tipoDocumento) {
 		tipoDocumentacaoRepository.save(tipoDocumento);
 		
 	}
 
 	@Override
-	public void deletarTipoDocumento(TipoDocumento tipoDocumento) {
+	public void delete(TipoDocumento tipoDocumento) {
 		tipoDocumentacaoRepository.delete(tipoDocumento);
 		
 	}
 
 	@Override
-	public TipoDocumento BuscarTipoDocumentoById(Integer idTipoDocumento) {
+	public TipoDocumento findById(Integer idTipoDocumento) {
 		// TODO Auto-generated method stub
 		return tipoDocumentacaoRepository.find(TipoDocumento.class, idTipoDocumento);
 	}
 
 	@Override
-	public List<TipoDocumento> BuscarTipoDocumento() {
+	public List<TipoDocumento> find() {
 		// TODO Auto-generated method stub
 		return tipoDocumentacaoRepository.find(TipoDocumento.class);
 	}

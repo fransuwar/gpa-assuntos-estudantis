@@ -50,16 +50,16 @@ public class CoordenadorController {
 	public String excluirTipoDocumento(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirect) {
 		
-		TipoDocumento tipoDocumento = documentoService.BuscarTipoDocumentoById(id);
+		TipoDocumento tipoDocumento = documentoService.findById(id);
 
 		if (tipoDocumento != null) {
-			documentoService.deletarTipoDocumento(tipoDocumento);
+			documentoService.delete(tipoDocumento);
 			
 		} else {
 			model.addAttribute("Error", MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO);
 
 		}
-		model.addAttribute(DOCUMENTOS,documentoService.BuscarTipoDocumento());
+		model.addAttribute(DOCUMENTOS,documentoService.find());
 		return  REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 		
 		
@@ -68,14 +68,14 @@ public class CoordenadorController {
 	@RequestMapping(value = "adicionar-tipo-arquivo", method = RequestMethod.GET)
 	public String addTipoArquivo(TipoDocumento tipoDocumento){
 		if(!tipoDocumento.getNome().isEmpty())
-			documentoService.salvarTipoDocumento(tipoDocumento);
+			documentoService.save(tipoDocumento);
 		return REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 	}
 	
 	
 	@RequestMapping(value = { "gerenciarDocumentos" }, method = RequestMethod.GET)
 	public String gerenciarDocumentos(ModelMap model){
-		model.addAttribute(DOCUMENTOS,documentoService.BuscarTipoDocumento() );
+		model.addAttribute(DOCUMENTOS,documentoService.find() );
 		return PAGINA_GERENCIAR_DOCUMENTOS;
 	}
 	
