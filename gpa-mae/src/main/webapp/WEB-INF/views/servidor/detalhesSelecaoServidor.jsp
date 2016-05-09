@@ -35,6 +35,66 @@
 				<c:out value="${info}"></c:out>
 			</div>
 		</c:if>
+		
+		<div class="panel-card" align="center">
+			<div class="card">
+			<a href="<c:url value="/servidor/inscritos/${selecao.id}"></c:url>">
+				<div class="card-content">
+				    <div class="card-icon">
+						<i class="fa fa-folder-open"></i>
+					</div>
+					<div class="card-description">
+						INSCRIÇÕES
+					</div>
+				</div>
+			</a>
+			</div>
+			<div class="card">
+				<a href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
+					<div class="card-content">
+					    <div class="card-icon">
+							<i class="fa fa-users"></i>
+						</div>
+						<div class="card-description">
+							COMISSÃO
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="card">
+			  <a href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
+					<div class="card-content">
+					    <div class="card-icon">
+							<i class="fa fa-file"></i>
+						</div>
+						<div class="card-description">
+							ARQUIVOS
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="card">
+				<div class="card-content">
+				    <div class="card-icon">
+						<i class="fa fa-file-text"></i>
+					</div>
+					<div class="card-description">
+						RELATÓRIO VISITAS
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-content">
+				    <div class="card-icon">
+						<i class="fa fa-signal"></i>
+					</div>
+					<div class="card-description">
+						RANKING
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Seleção</h3>

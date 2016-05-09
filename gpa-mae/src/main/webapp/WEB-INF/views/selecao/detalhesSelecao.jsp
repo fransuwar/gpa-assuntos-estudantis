@@ -17,6 +17,7 @@
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
 	<div class="container" align="left">
+		
 		<div class="panel panel-primary">
 
 			<div class="panel-heading">
