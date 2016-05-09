@@ -461,7 +461,7 @@ public class AlunoController {
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 		model.addAttribute("inscricao", inscricao);
-		model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
+		model.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
 
 		if (inscricao == null) {
 
