@@ -30,7 +30,6 @@ import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
-import br.ufc.quixada.npi.ldap.service.UsuarioService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
@@ -44,9 +43,6 @@ public class ServidorController {
 
 	@Inject
 	private ServidorService servidorService;
-	
-	@Inject
-	private UsuarioService usuarioService;
 
 	@Inject
 	private SelecaoService selecaoService;
@@ -241,7 +237,7 @@ public class ServidorController {
 
 		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
 			modelo.addAttribute("inscricao", inscricao);
-			modelo.addAttribute("usuarioAtivo", usuarioService.getByCpf(inscricao.getAluno().getPessoa().getCpf()));
+			modelo.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
 			modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
 			return PAGINA_DETALHES_INSCRICAO;
 		}else {

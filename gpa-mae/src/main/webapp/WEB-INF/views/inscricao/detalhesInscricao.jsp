@@ -73,8 +73,8 @@
 						<div class='f-container s4 left'>
 							<label class='f-title'>Matrícula:</label>
 							<div class='f-content'>
-								<c:if test="${not empty usuarioAtivo.matricula}">
-									<span> ${usuarioAtivo.matricula } </span>
+								<c:if test="${not empty inscricao.aluno.matricula}">
+									<span> ${inscricao.aluno.matricula } </span>
 								</c:if>
 							</div>
 						</div>
@@ -119,9 +119,9 @@
 						<div class='f-container s3 left'>
 							<label class='f-title'>Nascimento:</label>
 							<div class='f-content'>
-								<c:if test="${not empty usuarioAtivo.nascimento}">
+								<c:if test="${not empty usuarioAtivo.dataNascimento}">
 									<span> <fmt:formatDate pattern="dd/MM/yyyy"
-											value="${usuarioAtivo.nascimento }" /></span>
+											value="${usuarioAtivo.dataNascimento }" /></span>
 								</c:if>
 							</div>
 						</div>
