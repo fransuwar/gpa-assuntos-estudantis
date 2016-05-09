@@ -521,7 +521,39 @@
 
 			</div>
 			<div class="tab-pane ${doc}" id="documentos-tab"></div>
-			<div class="tab-pane ${ent}" id="entrevista-tab"></div>
+			<sec:authorize
+				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+			<div class="tab-pane ${ent}" id="entrevista-tab">
+			<c:choose>
+						<c:when test="${!inscricao.avaliacaoDocumentos}">
+							<div class="alert alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								Este Aluno foi Indeferido na Etapa
+								de Documentação
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="panel panel-default panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Entrevista</h3>
+								</div>
+								<div class="panel-body">
+									<dl class='col-sm-12'>
+										<dt class="col-sm-2">Resultado:</dt>
+										<dd class="col-sm-2">DEFERIDO</dd>
+										<dt class="col-sm-2">Observação:</dt>
+										<dd class="col-sm-2">${inscricao.entrevista.observacao}</dd>
+										<dt class="col-sm-2">Responsável:</dt>
+										<dd class="col-sm-2">${inscricao.entrevista.servidor.pessoa.nome}</dd>
+									</dl>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
+			</div>
 			<div class="tab-pane ${vis}" id="visita-tab">
 
 				<div class="panel panel-default panel-primary">
@@ -530,6 +562,21 @@
 						<h3 class="panel-title">Visita</h3>
 					</div>
 					<div class="panel-body content-left">
+					<c:choose>
+				        <c:when test="${!inscricao.entrevista.deferimento}">
+				            <div class="alert alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								Este Aluno foi Indeferido na Etapa
+								de entrevista
+							</div>
+				        </c:when>
+				        <c:otherwise>
+				            <!-- aqui deve ser mostrado os dados da visita -->
+				        </c:otherwise>
+				    </c:choose>
 
 						<div class='f-container s10'>
 
@@ -566,6 +613,8 @@
 				</div>
 
 			</div>
+			</sec:authorize>
+			
 		</div>
 		<jsp:include page="../fragments/footer.jsp" />
 	</div>

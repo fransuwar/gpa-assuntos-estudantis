@@ -287,8 +287,6 @@
 										<div class='f-content'>
 											<form:select path="estado" id="estado-endereco"
 												cssClass="form-control" cssStyle="font-size:13px">
-												<form:option value="">Selecione Estado</form:option>
-												<form:options items="${estado}" itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="estado"></form:errors>
@@ -301,7 +299,8 @@
 
 										<div class='f-content'>
 											<form:select id="cidade-endereco" path="cidade"
-												cssClass="form-control" placeholder="Cidade" />
+												cssClass="form-control" placeholder="Cidade">
+											</form:select>
 											<div class="error-validation">
 												<form:errors path="cidade"></form:errors>
 											</div>
@@ -401,10 +400,7 @@
 
 										<div class='f-content'>
 											<form:select path="estadoOrigem" id="estado-origem"
-												cssClass="form-control" cssStyle="font-size:13px">
-												<form:option value="">Selecione Estado</form:option>
-												<form:options items="${estado}" itemLabel="nome" />
-											</form:select>
+												cssClass="form-control" cssStyle="font-size:13px">										</form:select>
 											<div class="error-validation">
 												<form:errors path="estadoOrigem"></form:errors>
 											</div>
@@ -416,8 +412,10 @@
 										<label class='f-title'> Cidade: </label>
 
 										<div class='f-content'>
+										
 											<form:select id="cidade-origem" path="cidadeOrigem"
-												cssClass="form-control" placeholder="Cidade" />
+												cssClass="form-control" placeholder="Cidade">
+											</form:select>
 											<div class="error-validation">
 												<form:errors path="cidadeOrigem"></form:errors>
 											</div>
