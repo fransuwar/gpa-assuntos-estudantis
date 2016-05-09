@@ -1,7 +1,118 @@
 var linha;
 var accordionFechado;
 
+function newElement(tagName){
+	return $("<"+tagName+"><"+tagName+"/>");
+}
+
+function mostrarImagem(){
+	
+}
+
+function confirmar(title, link){
+	var modal = newElement('div');
+	modal.attr('class', 'modal fade');
+	modal.attr('id', 'confirm-delete');
+	modal.attr('tabindex', '-1');
+	modal.attr('role', 'dialog');
+	modal.attr('aria-labelledby', 'myModalLabel');
+	modal.attr('aria-hidden', 'true');
+	
+	var modalDialog = newElement('div');
+	modalDialog.attr('class', 'modal-dialog');
+	
+	var modalContent = newElement('div');
+	modalContent.attr('class', 'modal-content');
+	
+	var modalHeader = newElement('div');
+	modalHeader.attr('class', 'modal-header');
+	modalHeader.html('Excluir');
+	
+	var modalBody = newElement('div');
+	modalBody.attr('class', 'modal-body');
+	modalBody.html(title);
+	
+	var modalFooter = newElement('div');
+	modalFooter.attr('class', 'modal-footer');
+	
+	var btnExcluir = $('<a/>');
+	btnExcluir.attr('href', link);
+	btnExcluir.attr('class', 'btn btn-danger');
+	btnExcluir.html('Excluir');
+	
+	var button = $('<button/>');
+	button.attr('type', 'button');
+	button.attr('class', 'btn btn-default');
+	button.attr('data-dismiss', 'modal');
+	button.html('Cancelar');
+	
+	modalFooter.append(btnExcluir);
+	modalFooter.append(button);
+	
+	modalContent.append(modalHeader);
+	modalContent.append(modalBody);
+	modalContent.append(modalFooter);
+	
+	modalDialog.append(modalContent);
+	
+	modal.append(modalDialog);
+	
+	$('#confirm-delete').remove();
+	$('body').append(modal);
+	
+	modal.modal();
+}
+
 $(document).ready(function(){
+	
+	$('.confirm-button').click(function(){
+		var $this = $(this);
+		confirmar($this.attr('aria-title'), $this.attr('aria-destination'));
+	});
+	
+	$('.img-fullscreen').find('img').click(function(){
+		$('.img-fullscreen-background').remove();
+		var $this = $(this).parent().parent();
+		var $background = $('<div></div>');
+		var $content = $('<div></div>');
+
+		var $image = $('<img/>');
+		var $prev = $('<div><</div>');
+		var $next = $('<div>></div>');
+		
+		$prev.attr('class', 'img-fullscreen-prev-button btn btn-primary');
+		$next.attr('class', 'img-fullscreen-next-button btn btn-primary');
+		
+		$prev.attr("aria-index", $this.index()-1);
+		$next.attr("aria-index", $this.index()+1);
+		
+		$image.attr('src', $this.find('img').attr('src'));
+		$content.append($image);
+		
+		if($this.index() != 0)
+			$content.append($prev);
+		
+		if($this.index() !== $this.siblings().length)
+			$content.append($next);
+		
+		$content.attr('class', 'img-fullscreen-content');
+		$background.attr('class', 'img-fullscreen-background');
+		
+		$background.append($content);
+		
+		$('body').append($background);
+		
+		var navigationFunction = function(){
+			var index = $(this).attr('aria-index');
+			$($('.img-fullscreen')[index]).find('img').click();
+		};
+		
+		$next.click(navigationFunction);
+		$prev.click(navigationFunction);
+		
+		$background.click(function(){$(this).remove();});
+		$image.click(function(){return false});
+	});
 
 	function hasAttr($element, _attr){
 		var attr = $element.attr(_attr);

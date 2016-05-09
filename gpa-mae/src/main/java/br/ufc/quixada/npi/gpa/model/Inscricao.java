@@ -1,6 +1,8 @@
 package br.ufc.quixada.npi.gpa.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -63,6 +66,20 @@ public class Inscricao {
 
 	@ManyToOne
 	private Aluno aluno;
+	
+	@OneToMany
+	private List<Imagem> imagens;
+	
+	public List<Imagem> getImagens() {
+		if(imagens == null){
+			imagens = new ArrayList<>();
+		}
+		return imagens;
+	}
+
+	public void setImagens(List<Imagem> imagens) {
+		this.imagens = imagens;
+	}
 
 	public Integer getId() {
 		return id;
