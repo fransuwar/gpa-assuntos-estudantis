@@ -28,7 +28,7 @@ public class DocumentoController {
 	private DocumentoService serviceDocumento;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public void getFile(@PathVariable("id") Long id, HttpServletResponse response) {
+	public void getFile(@PathVariable("id") Integer id, HttpServletResponse response) {
 		try {
 			Documento documento = serviceDocumento.find(Documento.class, id);
 			if(documento != null) {
@@ -48,7 +48,7 @@ public class DocumentoController {
 	}
 	
 	@RequestMapping(value = "/ajax/remover/{id}", method = RequestMethod.POST)
-	@ResponseBody public  ModelMap excluirDocumento(@PathVariable("id") Long id) {
+	@ResponseBody public  ModelMap excluirDocumento(@PathVariable("id") Integer id) {
 		ModelMap map = new ModelMap();
 		Documento documento = serviceDocumento.find(Documento.class, id);
 		if(documento == null) {

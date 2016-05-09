@@ -31,6 +31,7 @@ import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
+import br.ufc.quixada.npi.repository.GenericRepository;
 
 @Controller
 @RequestMapping ("administrador")

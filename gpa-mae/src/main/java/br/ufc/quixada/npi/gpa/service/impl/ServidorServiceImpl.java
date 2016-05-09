@@ -3,36 +3,40 @@ package br.ufc.quixada.npi.gpa.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufc.quixada.npi.enumeration.QueryType;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
-import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
+import br.ufc.quixada.npi.repository.GenericRepository;
 import br.ufc.quixada.npi.util.SimpleMap;
 
 @Named
-public class ServidorServiceImpl extends GenericServiceImpl<Servidor> implements ServidorService{
-
+public class ServidorServiceImpl implements ServidorService{
 	
+	@Inject
+	private GenericRepository<Servidor> servidorService;
+
 	@Override
 	@Transactional(readOnly = true)
 	public Servidor getServidor(String siape) {
 		
-		return (Servidor) findFirst("Servidor.findServidorBySiape", new SimpleMap<String, Object>("siape", siape));
+		return (Servidor) servidorService.findFirst("Servidor.findServidorBySiape", new SimpleMap<String, Object>("siape", siape));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Servidor getServidorByCpf(String cpf) {
-			return (Servidor) findFirst("Servidor.findServidorByCpf", new SimpleMap<String, Object>("cpf", cpf));
+			return (Servidor) servidorService.findFirst("Servidor.findServidorByCpf", new SimpleMap<String, Object>("cpf", cpf));
 	}
 
 	@Override
 	public Servidor getServidorComComissao(String CPF) {
-		return (Servidor) findFirst("Servidor.findServidorComComissaoByCpf", new SimpleMap<String, Object>("cpf", CPF));
+		return (Servidor) servidorService.findFirst("Servidor.findServidorComComissaoByCpf", new SimpleMap<String, Object>("cpf", CPF));
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -41,6 +45,45 @@ public class ServidorServiceImpl extends GenericServiceImpl<Servidor> implements
 		params.put("idServidor", idServidor);
 		params.put("idSelecao", idSelecao);
 		
-		return (List<Servidor>) find(QueryType.NAMED, "Servidor.findServidorPertenceSelecao", params);
+		return (List<Servidor>) servidorService.find(QueryType.NAMED, "Servidor.findServidorPertenceSelecao", params);
+	}
+
+	@Override
+	public void save(Servidor servidor) {
+		servidorService.save(servidor);
+		
+	}
+
+	@Override
+	public void update(Servidor servidor) {
+		servidorService.update(servidor);
+		
+	}
+
+	@Override
+	public void delete(Servidor servidor) {
+		servidorService.delete(servidor);
+		
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List find(QueryType type, String consulta, Map<String, Object> parametros) {
+		return servidorService.find(type,consulta,parametros);
+	}
+
+	@Override
+	public Object findFirst(String consulta, Map<String, Object> parametros) {
+		return servidorService.findFirst(consulta, parametros);
+	}
+
+	@Override
+	public Servidor find(Class<Servidor> classe, Integer id) {
+		return servidorService.find(classe, id);
+	}
+
+	@Override
+	public List<Servidor> find(Class<Servidor> classe) {
+		return servidorService.find(classe);
 	}
 }

@@ -1,9 +1,15 @@
 package br.ufc.quixada.npi.gpa.service;
 
-
 import br.ufc.quixada.npi.gpa.model.Documento;
-import br.ufc.quixada.npi.service.GenericService;
 
-public interface DocumentoService extends GenericService<Documento>{
+public interface DocumentoService{
+	
+	public abstract void save(Documento documento);
+	
+	public abstract void update(Documento documento);
+	
+	public abstract void delete(Documento documento);
+	
+	public abstract Documento find(Class<Documento> classe, Integer idDocumento);
 
 }
