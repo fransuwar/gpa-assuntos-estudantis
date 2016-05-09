@@ -39,14 +39,14 @@
 		<div class="tab-content">
 			<div class="tab-pane active" id="inscricao-tab">
 				<div class="panel panel-default panel-primary">
-					
+
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							Detalhes da Inscrição de Auxílio Moradia <span
 								class="direita clicavel"> <i
 								class="glyphicon glyphicon-chevron-up"></i>
 							</span>
-	
+
 							<sec:authorize access="hasAnyRole('DISCENTE')">
 								<c:if test="${!esconderBotoes}">
 									<a id="editarInscricao"
@@ -167,7 +167,9 @@
 								<ul class='mora-com-lista'>
 									<c:forEach var="pessoa"
 										items="${inscricao.questionarioAuxilioMoradia.comQuemMora }">
-										<c:if test="${pessoa.descricao ne 'OUTRO'}"><li>${pessoa.descricao.nome}</li></c:if>
+										<c:if test="${pessoa.descricao ne 'OUTRO'}">
+											<li>${pessoa.descricao.nome}</li>
+										</c:if>
 									</c:forEach>
 								</ul>
 							</div>
@@ -500,7 +502,7 @@
 								<div class='f-container s5'></div>
 							</c:otherwise>
 						</c:choose>
-						
+
 						<div class='f-container s5'>
 							<label class='f-title'>Possui graduação:</label>
 							<div class='f-content'>
@@ -523,7 +525,7 @@
 							<c:otherwise>
 								<div class='f-container s5'></div>
 							</c:otherwise>
-						</c:choose>	
+						</c:choose>
 					</div>
 				</div>
 				<div class="panel panel-default panel-primary">
@@ -570,12 +572,59 @@
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane" id="documentos-tab"></div>
-				<sec:authorize access="hasAnyRole('SERVIDOR')">
-					<div class="tab-pane" id="entrevista-tab"></div>
-					<div class="tab-pane" id="visita-tab"></div>
-				</sec:authorize>
 			</div>
+			<div class="tab-pane" id="documentos-tab"></div>
+			<sec:authorize
+				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+				<div class="tab-pane" id="entrevista-tab">
+					<c:choose>
+						<c:when test="${!inscricao.avaliacaoDocumentos}">
+							<div class="alert alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								Este Aluno foi Indeferido na Etapa
+								de Documentação
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="panel panel-default panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Entrevista</h3>
+								</div>
+								<div class="panel-body">
+									<dl class='col-sm-12'>
+										<dt class="col-sm-2">Resultado:</dt>
+										<dd class="col-sm-2">DEFERIDO</dd>
+										<dt class="col-sm-2">Observação:</dt>
+										<dd class="col-sm-2">${inscricao.entrevista.observacao}</dd>
+										<dt class="col-sm-2">Responsável:</dt>
+										<dd class="col-sm-2">${inscricao.entrevista.servidor.pessoa.nome}</dd>
+									</dl>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div class="tab-pane" id="visita-tab">
+				    <c:choose>
+				        <c:when test="${!inscricao.entrevista.deferimento}">
+				            <div class="alert alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								Este Aluno foi Indeferido na Etapa
+								de entrevista
+							</div>
+				        </c:when>
+				        <c:otherwise>
+				            <!-- aqui deve ser mostrado os dados da visita -->
+				        </c:otherwise>
+				    </c:choose>
+				</div>
+			</sec:authorize>
 		</div>
 		<jsp:include page="../fragments/footer.jsp" />
 	</div>
