@@ -11,7 +11,5 @@ public interface SelecaoService extends GenericService<Selecao> {
 
 	public abstract List<Selecao> getSelecoesComMembros();
 	
-	public abstract Integer getUltimoSequencialPorAno(Selecao selecao);
-
-	
+	public abstract Integer getUltimoSequencialPorAno(Selecao selecao);	
 }
