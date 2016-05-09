@@ -3,13 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="shortcut icon"
 	href="<c:url value="/resources/images/gpa-icone.jpg" />" />
-
-
 <link href="<c:url value="/resources/css/jquery.dataTables.min.css" />"
 	rel="stylesheet" />
 <link href="<c:url value="/resources/css/datepicker3.css"/>"
-	rel="stylesheet">
-<link href="<c:url value="/resources/css/bootstrap-duallistbox.css"/>"
 	rel="stylesheet">
 <link
 	href="<c:url value="/resources/css/font-awesome-4.4.0/css/font-awesome.min.css" />"

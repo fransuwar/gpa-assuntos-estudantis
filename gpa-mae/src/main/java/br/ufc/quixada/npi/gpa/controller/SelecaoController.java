@@ -209,7 +209,7 @@ public class SelecaoController {
 	public String selecionarClassificados(ModelMap model, @RequestParam("checkClassificados[]") List<Integer> idsClassificados,
 			@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect, Authentication auth){
 		
-		if(idsClassificados.size() == 0){
+		if(idsClassificados.isEmpty()){
 			model.addAttribute("erro", MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO);
 			model.addAttribute("mostrarErro",true);
 		}
