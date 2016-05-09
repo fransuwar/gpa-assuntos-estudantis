@@ -377,7 +377,8 @@ div.s10{
 
 #aluno-img{
 	margin-top: 10px;
-	width: 20%;
+	width: 12%;
+	min-width: 100px;
 	float: right;
 	border: 1px #CCC solid;
 }
