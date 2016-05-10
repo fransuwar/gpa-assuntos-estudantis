@@ -66,20 +66,6 @@ public class Inscricao {
 
 	@ManyToOne
 	private Aluno aluno;
-	
-	@OneToMany
-	private List<Imagem> imagens;
-	
-	public List<Imagem> getImagens() {
-		if(imagens == null){
-			imagens = new ArrayList<>();
-		}
-		return imagens;
-	}
-
-	public void setImagens(List<Imagem> imagens) {
-		this.imagens = imagens;
-	}
 
 	public Integer getId() {
 		return id;
@@ -146,6 +132,10 @@ public class Inscricao {
 	}
 
 	public VisitaDomiciliar getVisitaDomiciliar() {
+ 		if(visitaDomiciliar == null){
+			visitaDomiciliar = new VisitaDomiciliar();
+		}
+ 		
 		return visitaDomiciliar;
 	}
 

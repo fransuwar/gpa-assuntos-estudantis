@@ -594,7 +594,7 @@
 						</div>
 
 						<ul class='photos-list'>
-							<c:forEach var="imagem" items="${inscricao.imagens}">
+							<c:forEach var="imagem" items="${inscricao.visitaDomiciliar.imagens}">
 								<li class='img-fullscreen'>
 									<div class='input-photo'>
 										<img class='photo-img'

@@ -272,7 +272,7 @@ public class ServidorController {
 				
 				imagemService.save(imagem);
 				
-				inscricao.getImagens().add(imagem);
+				inscricao.getVisitaDomiciliar().getImagens().add(imagem);
 				inscricaoService.save(inscricao);
 			}
 		} catch (IOException e) {
@@ -290,7 +290,7 @@ public class ServidorController {
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		Imagem imagem = imagemService.find(Imagem.class, idImagem);
 		
-		inscricao.getImagens().remove(imagem);
+		inscricao.getVisitaDomiciliar().getImagens().remove(imagem);
 		
 		inscricaoService.save(inscricao);
 		

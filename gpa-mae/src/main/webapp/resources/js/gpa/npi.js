@@ -88,7 +88,7 @@ $(document).ready(function(){
 });
 
 function confirmar(title, link){
-	var modal = newElement('div');
+	var modal = $('<div></div>');
 	modal.attr('class', 'modal fade');
 	modal.attr('id', 'confirm-delete');
 	modal.attr('tabindex', '-1');
@@ -96,21 +96,21 @@ function confirmar(title, link){
 	modal.attr('aria-labelledby', 'myModalLabel');
 	modal.attr('aria-hidden', 'true');
 	
-	var modalDialog = newElement('div');
+	var modalDialog = $('<div></div>');
 	modalDialog.attr('class', 'modal-dialog');
 	
-	var modalContent = newElement('div');
+	var modalContent = $('<div></div>');
 	modalContent.attr('class', 'modal-content');
 	
-	var modalHeader = newElement('div');
+	var modalHeader = $('<div></div>');
 	modalHeader.attr('class', 'modal-header');
 	modalHeader.html('Excluir');
 	
-	var modalBody = newElement('div');
+	var modalBody = $('<div></div>');
 	modalBody.attr('class', 'modal-body');
 	modalBody.html(title);
 	
-	var modalFooter = newElement('div');
+	var modalFooter = $('<div></div>');
 	modalFooter.attr('class', 'modal-footer');
 	
 	var btnExcluir = $('<a/>');
@@ -142,11 +142,6 @@ function confirmar(title, link){
 }
 
 $(document).ready(function(){
-	
-	$('.confirm-button').click(function(){
-		var $this = $(this);
-		confirmar($this.attr('aria-title'), $this.attr('aria-destination'));
-	});
 	
 	$('.img-fullscreen').find('img').click(function(){
 		$('.img-fullscreen-background').remove();
