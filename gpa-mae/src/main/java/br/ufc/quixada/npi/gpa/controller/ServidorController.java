@@ -123,7 +123,7 @@ public class ServidorController {
 			List<Servidor> comissao = inscricao.getSelecao().getMembrosComissao();
 
 			if(comissao.contains(servidor) ){
-				if(inscricao.getVisitaDomiciliar() == null  ){
+				if(inscricao.getVisitaDomiciliar().equals(null)){
 					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().getDeferimento() == Resultado.DEFERIDO){
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 

@@ -586,7 +586,7 @@ public class VisitaDomiciliar {
 	}
 	
 	public boolean isParecerFinalDeferido() {
-		return deferimento != Resultado.NAO_AVALIADO;
+		return !deferimento.equals(Resultado.NAO_AVALIADO);
 	}
 	
 	public void setParecerFinalDeferido(Resultado parecerFinalDeferido) {
