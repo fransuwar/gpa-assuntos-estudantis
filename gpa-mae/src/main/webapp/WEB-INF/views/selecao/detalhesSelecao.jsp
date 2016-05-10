@@ -17,6 +17,7 @@
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
 	<div class="container" align="left">
+		
 		<div class="panel panel-primary">
 
 			<div class="panel-heading">
@@ -44,15 +45,18 @@
 								</button>
 							</a>
 						</c:when>
-
-						<c:otherwise>
-							<a id="inscrever" title="Inscrever-se"
-								href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-								<button class=" btn btn-info btn-xs">
-									Inscrever-se <span class="glyphicon glyphicon-user"></span>
-								</button>
-							</a>
-						</c:otherwise>
+						
+							<c:otherwise>
+								<sec:authorize access="hasRole('DISCENTE')">
+									<a id="inscrever" title="Inscrever-se"
+										href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
+										<button class=" btn btn-info btn-xs">
+											Inscrever-se <span class="glyphicon glyphicon-user"></span>
+										</button>
+									</a>
+								</sec:authorize>	
+							</c:otherwise>
+						
 					</c:choose>
 
 
