@@ -5,12 +5,16 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import br.ufc.quixada.npi.gpa.enums.Resultado;
 
 import com.itextpdf.text.Image;
 
@@ -22,8 +26,8 @@ public class Entrevista {
 	
 	private String observacao;
 	
-	@Column(nullable = false)
-	private boolean deferimento;
+	@Enumerated(EnumType.STRING)
+	private Resultado deferimento;
 	
 	@OneToOne
 	private Inscricao inscricao;
@@ -47,11 +51,11 @@ public class Entrevista {
 		this.observacao = observacao;
 	}
 
-	public boolean isDeferimento() {
+	public Resultado getDeferimento() {
 		return deferimento;
 	}
 
-	public void setDeferimento(boolean deferimento) {
+	public void setDeferimento(Resultado deferimento) {
 		this.deferimento = deferimento;
 	}
 
