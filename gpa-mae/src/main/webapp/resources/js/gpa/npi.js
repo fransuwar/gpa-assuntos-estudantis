@@ -45,6 +45,21 @@ $(document).ready(function(){
 
 	$("#questionarioIniciacao").validate();
 
+	$("table").DataTable({
+		"language": {
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"columnDefs": 
+			[
+			 { className: "dt-head-center", "targets": [ 0, 1, 2, 3, 4 ]}
+			 ],
+			 "paging": false,
+			 "searching": false,
+			 "ordering": false
+
+	});
+	
+	
 	jQuery.validator.addMethod("periodo", function(value, element) {
 		return !moment($("#dataTermino").val()).isBefore($("#dataInicio").val());
 	}, "A data de término deve ser posterior à data de início.");

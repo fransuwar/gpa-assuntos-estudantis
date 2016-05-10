@@ -1,9 +1,9 @@
 package br.ufc.quixada.npi.service;
-import java.util.List;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import br.ufc.quixada.npi.gpa.model.Aluno;
+import br.ufc.quixada.npi.enumeration.QueryType;
+import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
+import br.ufc.quixada.npi.util.SimpleMap;
 
 
 public class TestaServicos {
@@ -11,14 +11,13 @@ public class TestaServicos {
 	public static void main(String[] args) {
 		
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-		GenericService<Aluno> as = (GenericService<Aluno>)ctx.getBean("genericServiceImpl");
+		GenericService<QuestionarioAuxilioMoradia> service = (GenericService<QuestionarioAuxilioMoradia>)ctx.getBean("genericServiceImpl");
 		
-		List<Aluno> l = as.find(Aluno.class);
-
-	    for (Aluno c : l) {
-	    	System.out.println(c.getId() + " " + c.getMatricula());
-	    	
-	    }
+		QuestionarioAuxilioMoradia quest = (QuestionarioAuxilioMoradia) service.findFirst(QueryType.JPQL,"SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.id = :idQuest",
+				new SimpleMap<String, Object>("idQuest", 1));
+		
+		System.out.println(quest.toString());
+		
 	    
 	    //as.findById(1);
 		ctx.close();
