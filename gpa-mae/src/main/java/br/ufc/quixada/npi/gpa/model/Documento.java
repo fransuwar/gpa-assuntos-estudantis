@@ -26,9 +26,9 @@ public class Documento {
 	@Type(type="org.hibernate.type.BinaryType") 
 	private byte[] arquivo;
 
-	@ManyToOne
-	@JoinColumn(name = "selecao_id")
-	private Selecao selecao;
+//	@ManyToOne
+//	@JoinColumn(name = "selecao_id")
+//	private Selecao selecao;
 
 	public Documento(){
 		super();
@@ -40,7 +40,7 @@ public class Documento {
 		this.nome = nome;
 		this.tipo = tipo;
 		this.arquivo = arquivo;
-		this.selecao = selecao;
+//		this.selecao = selecao;
 	}
 	
 	public Integer getId() {
@@ -85,13 +85,13 @@ public class Documento {
 	}
 	
 	
-	public Selecao getSelecao() {
-		return selecao;
-	}
-
-	public void setSelecao(Selecao selecao) {
-		this.selecao = selecao;
-	}
+//	public Selecao getSelecao() {
+//		return selecao;
+//	}
+//
+//	public void setSelecao(Selecao selecao) {
+//		this.selecao = selecao;
+//	}
 
 	@Override
 	public int hashCode() {

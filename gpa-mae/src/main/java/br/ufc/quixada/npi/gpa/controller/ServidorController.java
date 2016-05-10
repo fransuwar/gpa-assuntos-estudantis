@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
+import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -104,6 +106,19 @@ public class ServidorController {
 		inscricaoService.update(inscricao);
 
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
+	}
+	
+	@RequestMapping(value= {"entrevista/enviarFormulario/{idInscricao}"}, method = RequestMethod.POST)
+	public String enviarFormularioDeVisita(@PathVariable("idInscricao") Integer idInscricao, Model model, MultipartFile formulario){
+
+		Documento documento = new Documento();
+		documento.setArquivo(formulario.getBytes());
+		documento.setNome(formulario.getOriginalFilename());
+		documento.setTipo(formulario.getContentType());
+		
+		documentoService.save(documento);
+		
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
