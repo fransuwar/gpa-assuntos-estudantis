@@ -36,15 +36,13 @@ public class Inscricao {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date data;
 
-	//referente apenas aos documentos
-	private boolean avaliacaoDocumentos;
-
 	//referente ao resultado final
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
 
 	private String observacoes;
 
+	//referente ao deferimento de documentação
 	@Enumerated(EnumType.STRING)
 	private Resultado deferimentoDocumentacao;
 	
@@ -80,14 +78,6 @@ public class Inscricao {
 
 	public void setData(Date data) {
 		this.data = data;
-	}
-
-	public boolean isAvaliacaoDocumentos() {
-		return avaliacaoDocumentos;
-	}
-
-	public void setAvaliacaoDocumentos(boolean avaliacaoDocumentos) {
-		this.avaliacaoDocumentos = avaliacaoDocumentos;
 	}
 
 	public Resultado getResultado() {
