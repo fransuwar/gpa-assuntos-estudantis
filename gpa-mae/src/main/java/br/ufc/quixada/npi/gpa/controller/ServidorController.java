@@ -239,7 +239,7 @@ public class ServidorController {
 	}
 
 	@RequestMapping(value ={ "detalhes/inscricao/{idInscricao}"}, method = RequestMethod.GET)
-	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model modelo,
+	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
 			RedirectAttributes redirect) {
 		
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
@@ -250,7 +250,6 @@ public class ServidorController {
 		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
 			modelo.addAttribute("inscricao", inscricao);
 			modelo.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
-			modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
 			modelo.addAttribute("det", "active");
 			return PAGINA_DETALHES_INSCRICAO;
 		}else {
