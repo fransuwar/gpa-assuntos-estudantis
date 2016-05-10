@@ -231,6 +231,7 @@ public class ServidorController {
 	@RequestMapping(value ={ "detalhes/inscricao/{idInscricao}"}, method = RequestMethod.GET)
 	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
 			RedirectAttributes redirect) {
+		
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
@@ -245,6 +246,8 @@ public class ServidorController {
 			modelo.addAttribute("questInic", inscricao.getQuestionarioIniciacaoAcademica());
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
+		
+		
 	}
 
 	@RequestMapping(value= {"avaliarDocumentacao/{idInscricao}"}, method = RequestMethod.GET)
