@@ -367,9 +367,43 @@ div.s10{
 	margin-top: -25px;
 }
 
+.def-sit{
+	text-align: center;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	display: inline-block;
+	border-radius: 50%;
+	color:white;
+	border: 1px solid #777777;
+	font-weight: bold;
+	position: relative;
+	
+}
+
+#tabela-detalhes-selecao-servidores td #tabela-detalhes-selecao-servidores th{
+	margin-left: 50%;
+	transform: translateX(-50%);
+	text-align: center;
+}
+
+
+.nao-avaliado{
+	background-color: #9e9e9e;
+}
+
+.deferido{
+	background-color: #4caf50;
+}
+
+.indeferido{
+	background-color: #f44336;
+}
+
 #text-align-left{
 	text-align: left;
 }
+
 
 #aluno-img{
 	margin-top: 10px;

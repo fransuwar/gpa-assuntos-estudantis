@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
+import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -66,7 +67,7 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
-			if(inscricao.isAvaliacaoDocumentos()){
+			if(!inscricao.getDeferimentoDocumentacao().equals(Resultado.NAO_AVALIADO)){
 
 				Selecao selecao = inscricao.getSelecao();
 
@@ -122,8 +123,8 @@ public class ServidorController {
 			List<Servidor> comissao = inscricao.getSelecao().getMembrosComissao();
 
 			if(comissao.contains(servidor) ){
-				if(inscricao.getVisitaDomiciliar() == null  ){
-					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().isDeferimento() == true){
+				if(inscricao.getVisitaDomiciliar().equals(null)){
+					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().getDeferimento().equals(Resultado.DEFERIDO)){
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 
 						model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
@@ -263,7 +264,7 @@ public class ServidorController {
 
 			if(comissao.contains(servidor)){
 
-				model.addAttribute("avaliarDocumentacao", inscricao.isAvaliacaoDocumentos());
+				model.addAttribute("avaliarDocumentacao", !inscricao.getDeferimentoDocumentacao().equals(Resultado.NAO_AVALIADO));
 				model.addAttribute("idInscricao", idInscricao);
 
 				return PAGINA_AVALIAR_DOCUMENTACAO;
@@ -279,12 +280,7 @@ public class ServidorController {
 			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
-
-		if(avaliarDocumentacao.isAvaliacaoDocumentos()== true){
-			inscricao.setAvaliacaoDocumentos(true);
-		}else{
-			inscricao.setAvaliacaoDocumentos(false);
-		}
+		inscricao.setDeferimentoDocumentacao(avaliarDocumentacao.getDeferimentoDocumentacao());
 
 		model.addAttribute("avaliarDocumentacao", avaliarDocumentacao);	
 		inscricaoService.update(inscricao);

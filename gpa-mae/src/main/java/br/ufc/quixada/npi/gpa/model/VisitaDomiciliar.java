@@ -19,6 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
+import br.ufc.quixada.npi.gpa.enums.Resultado;
 
 @Entity
 public class VisitaDomiciliar {
@@ -167,8 +168,8 @@ public class VisitaDomiciliar {
 	@NotEmpty(message = "Campo obrigatório")
 	private String analiseDescricaoRealidade;
 	
-	@Column(nullable = false)
-	private boolean deferimento;
+	@Enumerated(EnumType.STRING)
+	private Resultado deferimento;
 	
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -584,14 +585,6 @@ public class VisitaDomiciliar {
 		this.analiseDescricaoRealidade = analiseDescricaoRealidade;
 	}
 	
-	public boolean isParecerFinalDeferido() {
-		return deferimento;
-	}
-	
-	public void setParecerFinalDeferido(boolean parecerFinalDeferido) {
-		this.deferimento = parecerFinalDeferido;
-	}
-	
 	public Date getDataRelatorio() {
 		return dataRelatorio;
 	}
@@ -632,11 +625,11 @@ public class VisitaDomiciliar {
 		this.servidor = servidor;
 	}
 	
-	public boolean isDeferimento() {
+	public Resultado getDeferimento() {
 		return deferimento;
 	}
 
-	public void setDeferimento(boolean deferimento) {
+	public void setDeferimento(Resultado deferimento) {
 		this.deferimento = deferimento;
 	}
 	
