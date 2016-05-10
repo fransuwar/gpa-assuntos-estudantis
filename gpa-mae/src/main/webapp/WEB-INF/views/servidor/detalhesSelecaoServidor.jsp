@@ -36,8 +36,8 @@
 			</div>
 		</c:if>
 		
-		<div class="panel-card" align="center">
-			<div class="card">
+		<div class="panel-card">
+			<div class="card bg-blue card-margin-right">
 			<a href="<c:url value="/servidor/inscritos/${selecao.id}"></c:url>">
 				<div class="card-content">
 				    <div class="card-icon">
@@ -49,7 +49,7 @@
 				</div>
 			</a>
 			</div>
-			<div class="card">
+			<div class="card bg-red card-margin-right">
 				<a href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
 					<div class="card-content">
 					    <div class="card-icon">
@@ -61,7 +61,7 @@
 					</div>
 				</a>
 			</div>
-			<div class="card">
+			<div class="card bg-green card-margin-right">
 			  <a href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
 					<div class="card-content">
 					    <div class="card-icon">
@@ -73,7 +73,7 @@
 					</div>
 				</a>
 			</div>
-			<div class="card">
+			<div class="card bg-yellow card-margin-right">
 				<div class="card-content">
 				    <div class="card-icon">
 						<i class="fa fa-file-text"></i>
@@ -83,7 +83,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="card">
+			<div class="card bg-brown">
 				<div class="card-content">
 				    <div class="card-icon">
 						<i class="fa fa-signal"></i>
