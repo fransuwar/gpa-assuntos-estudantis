@@ -26,9 +26,9 @@ var FormularioAuxilio = function() {
     	self.initSelectEnsinoFundamental();
     	self.initSelectParentescoVeiculos();
     	self.initSelectParentescoImovelRural();
+    	self.initConfirmButtons();
        	
     }
-    
     self.initStep = function() {
         $formElement.steps({
             headerTag: "h3",
@@ -278,6 +278,13 @@ var FormularioAuxilio = function() {
     self.initSelectEstadoCidade = function(){
     	new StateCityLib().init("estado-endereco", "cidade-endereco");
     	new StateCityLib().init("estado-origem", "cidade-origem");
+    }
+    
+    self.initConfirmButtons = function(){
+    	$('.confirm-button').click(function(){
+    		var $this = $(this);
+    		confirmar($this.attr('aria-title'), $this.attr('aria-destination'));
+    	});
     }
 }
 

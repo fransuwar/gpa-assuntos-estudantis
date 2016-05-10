@@ -21,23 +21,23 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<div class="container" align="center">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#inscricao-tab" data-toggle="tab">Inscrição<i
+			<li class="${det}"><a href="#inscricao-tab" data-toggle="tab">Inscrição<i
 					class="fa"></i>
 			</a></li>
-			<li><a href="#documentos-tab" data-toggle="tab">Documentos <i
+			<li class="${doc}"><a href="#documentos-tab" data-toggle="tab">Documentos <i
 					class="fa"></i>
 			</a></li>
 			<sec:authorize access="hasAnyRole('DOCENTE','STA')">
-				<li><a href="#entrevista-tab" data-toggle="tab">Entrevista
+				<li class="${ent}"><a href="#entrevista-tab" data-toggle="tab">Entrevista
 						<i class="fa"></i>
 				</a></li>
-				<li><a href="#visita-tab" data-toggle="tab">Visita <i
+				<li class="${vis}"><a href="#visita-tab" data-toggle="tab">Visita <i
 						class="fa"></i>
 				</a></li>
 			</sec:authorize>
 		</ul>
 		<div class="tab-content">
-			<div class="tab-pane active" id="inscricao-tab">
+			<div class="tab-pane ${det}" id="inscricao-tab">
 				<div class="panel panel-default panel-primary">
 
 					<div class="panel-heading">
@@ -572,12 +572,13 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
-			<div class="tab-pane" id="documentos-tab"></div>
+			<div class="tab-pane ${doc}" id="documentos-tab"></div>
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
-				<div class="tab-pane" id="entrevista-tab">
-					<c:choose>
+			<div class="tab-pane ${ent}" id="entrevista-tab">
+			<c:choose>
 						<c:when test="${!inscricao.avaliacaoDocumentos}">
 							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
@@ -606,9 +607,16 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
-				</div>
-				<div class="tab-pane" id="visita-tab">
-				    <c:choose>
+			</div>
+			<div class="tab-pane ${vis}" id="visita-tab">
+
+				<div class="panel panel-default panel-primary">
+
+					<div class="panel-heading">
+						<h3 class="panel-title">Visita</h3>
+					</div>
+					<div class="panel-body content-left">
+					<c:choose>
 				        <c:when test="${!inscricao.entrevista.deferimento}">
 				            <div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
@@ -623,8 +631,44 @@
 				            <!-- aqui deve ser mostrado os dados da visita -->
 				        </c:otherwise>
 				    </c:choose>
+
+						<div class='f-container s10'>
+
+							<label class='f-title'> Adicionar Foto </label>
+
+							<div class='f-content'>
+								<form id="insercaoImagemEntrevista" role="form"
+									action="<c:url value="/servidor/detalhes/inscricao/inserirImagem"/>"
+									method="POST" enctype="multipart/form-data">
+									<input type="hidden" name="idInscricao" value="${inscricao.id}" />
+									<input type="file" name="foto" /> <br /> <input type="submit"
+										value="Adicionar" class='btn btn-primary' />
+								</form>
+							</div>
+						</div>
+
+						<ul class='photos-list'>
+							<c:forEach var="imagem" items="${inscricao.visitaDomiciliar.imagens}">
+								<li class='img-fullscreen'>
+									<div class='input-photo'>
+										<img class='photo-img'
+											src="data:image/jpeg;base64,${imagem.img}" />
+										<div class='remove-photo confirm-button'
+											aria-title="Continuar irá remover a foto da visita, deseja prosseguir?"
+											aria-destination="<c:url value="/servidor/detalhes/inscricao/removerImagem/${inscricao.id}/${imagem.id}"/>"
+										></div>
+									</div>
+								</li>
+							</c:forEach>
+						</ul>
+
+					</div>
+
 				</div>
+
+			</div>
 			</sec:authorize>
+			
 		</div>
 		<jsp:include page="../fragments/footer.jsp" />
 	</div>
