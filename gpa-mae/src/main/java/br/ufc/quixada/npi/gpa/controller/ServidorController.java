@@ -2,6 +2,8 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -11,12 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
@@ -24,10 +29,12 @@ import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
+import br.ufc.quixada.npi.gpa.model.Imagem;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
+import br.ufc.quixada.npi.gpa.service.ImagemService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -47,6 +54,9 @@ public class ServidorController {
 
 	@Inject
 	private SelecaoService selecaoService;
+	
+	@Inject
+	private ImagemService imagemService;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
@@ -240,6 +250,7 @@ public class ServidorController {
 		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
 			modelo.addAttribute("inscricao", inscricao);
 			modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
+			modelo.addAttribute("det", "active");
 			return PAGINA_DETALHES_INSCRICAO;
 		}else {
 			modelo.addAttribute("inscricao", inscricao);
@@ -248,6 +259,49 @@ public class ServidorController {
 		}
 		
 		
+	}
+	
+	@RequestMapping(value ={ "detalhes/inscricao/inserirImagem"}, method = RequestMethod.POST)
+	public String inserirImagemDaVisitaNaInscricao(@RequestParam("foto") MultipartFile foto, Integer idInscricao, Model modelo){
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		
+		try {
+			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
+			
+			List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
+			
+			if(foto.getSize() > 0 && formatos.contains(multipartFile.getContentType())){
+				Imagem imagem = new Imagem();
+				imagem.setImg(foto.getBytes());
+				
+				imagemService.save(imagem);
+				
+				inscricao.getVisitaDomiciliar().getImagens().add(imagem);
+				inscricaoService.save(inscricao);
+			}
+		} catch (IOException e) {
+			
+		}
+		
+		modelo.addAttribute("inscricao", inscricao);
+		modelo.addAttribute("vis", "active");
+		
+		return PAGINA_DETALHES_INSCRICAO;
+	}
+	
+	@RequestMapping(value ={ "detalhes/inscricao/removerImagem/{idInscricao}/{idImagem}"}, method = RequestMethod.GET)
+	public String removerImagemDaVisitaNaInscricao(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idImagem") Integer idImagem, Model modelo){
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Imagem imagem = imagemService.find(Imagem.class, idImagem);
+		
+		inscricao.getVisitaDomiciliar().getImagens().remove(imagem);
+		
+		inscricaoService.save(inscricao);
+		
+		modelo.addAttribute("vis", "active");
+		modelo.addAttribute("inscricao", inscricao);
+		
+		return PAGINA_DETALHES_INSCRICAO;
 	}
 
 	@RequestMapping(value= {"avaliarDocumentacao/{idInscricao}"}, method = RequestMethod.GET)
@@ -266,7 +320,6 @@ public class ServidorController {
 			List<Servidor> comissao = selecao.getMembrosComissao();
 
 			if(comissao.contains(servidor)){
-
 				model.addAttribute("avaliarDocumentacao", !inscricao.getDeferimentoDocumentacao().equals(Resultado.NAO_AVALIADO));
 				model.addAttribute("idInscricao", idInscricao);
 
