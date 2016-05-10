@@ -530,8 +530,7 @@
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								Este Aluno foi Indeferido na Etapa
-								de Documentação
+								Este Aluno foi Indeferido na Etapa de Documentação
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -554,21 +553,39 @@
 					</c:choose>
 				</div>
 				<div class="tab-pane" id="visita-tab">
-				    <c:choose>
-				        <c:when test="${!inscricao.entrevista.deferimento}">
-				            <div class="alert alert-danger alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								Este Aluno foi Indeferido na Etapa
-								de entrevista
-							</div>
-				        </c:when>
-				        <c:otherwise>
-				            <!-- aqui deve ser mostrado os dados da visita -->
-				        </c:otherwise>
-				    </c:choose>
+					<div class="panel panel-default panel-primary">
+
+						<div class="panel-heading">
+							<h3 class="panel-title"></h3>
+						</div>
+						<div class="panel-body text-align-left">
+						
+							<c:choose>
+								<c:when test="${!inscricao.entrevista.deferimento}">
+									<div class="alert alert-danger alert-dismissible" role="alert">
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										Este Aluno foi Indeferido na Etapa de entrevista
+									</div>
+								</c:when>
+								<c:otherwise>
+									<!-- aqui deve ser mostrado os dados da visita -->
+								</c:otherwise>
+							</c:choose>
+						
+							<form>
+							
+								<label class="f-title">Enviar formulário da visita:</label>
+								<input type="file" name="formularioVisita"/><br/>
+								<input type="submit" class="btn btn-primary"/>
+							
+							</form>
+						</div>
+
+					</div>
+
 				</div>
 			</sec:authorize>
 		</div>

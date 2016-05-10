@@ -1,6 +1,8 @@
 package br.ufc.quixada.npi.gpa.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -30,147 +33,128 @@ public class VisitaDomiciliar {
 	@ManyToOne
 	private Servidor servidor;
 	
-	@NotEmpty(message = "Campo obrigatório")
 	private String formaAcessoCasa;
 	
-	@NotNull(message = "Campo obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Curso curso;
 	
-	@NotNull(message = "Campo obrigatório")
 	private Integer semestre;
 	
-	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy") 
 	private Date dataVisita;
 	
-	@NotNull(message = "Campo obrigatório")
 	private Integer qtdPessoasResidentes;
 	
-	@NotNull(message = "Campo obrigatório")
 	private Integer moradiaVarandaQtd;
 	
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaVarandaEstado;
 	
-	@NotNull(message = "Campo obrigatório")
 	private Integer moradiaSalaQtd;
 	
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaSalaEstado;
 	
-	@NotNull(message = "Campo obrigatório")
 	private Integer moradiaBanheiroQtd;
 	
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaBanheiroEstado;
 	
-	@NotNull(message = "Campo obrigatório")
 	private Integer moradiaQuartoQtd;
 	
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaQuartoEstado;
 	
-	@NotNull(message = "Campo obrigatório")
 	private Integer moradiaCozinhaQtd;
 	
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaCozinhaEstado;
 	
-	@NotNull(message = "Campo obrigatório")
 	private Integer moradiaQuintalQtd;
 	
 	@Enumerated(EnumType.STRING)
 	private EstadoMoradia moradiaQuintalEstado;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioTvQtd;
 	
 	private String utensilioTvObservacao;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioSomQtd;
 	
 	private String utensilioSomObservacao;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioComputadorQtd;
 	
 	private String utensilioComputadorObservacao;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioFogaoQtd;
 	
 	private String utensilioFogaoObservacao;
-	
-	@NotNull(message = "Campo Obrigatório")
 	
 	private Integer utensilioGeladeiraQtd;
 	
 	private String utensilioGeladeiraObservacao;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioFreezerQtd;
 	
 	private String utensilioFreezerObservacao;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioLavadoraQtd;
 	
 	private String utensilioLavadoraObservacao;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioDvdQtd;
 	
 	private String utensilioDvdObservacao;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer utensilioOutrosQtd;
 	
 	private String utensilioOutrosObservacao;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer bemMovelMotoQtd;
 	
 	private String bemMovelMotoObservacao;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer bemMovelBicicletaQtd;
 	
 	private String bemMovelBicicletaObservacao;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer bemMovelCarroQtd;
 	
 	private String bemMovelCarroObservacao;
 	
-	@NotNull(message = "Campo Obrigatório")
 	private Integer bemMovelOutrosQtd;
 	
 	private String bemMovelOutrosObservacao;
 
-	@Column(nullable = false)
 	private boolean perfilCompativelUtensilioDomestico;
 	
-	@Column(nullable = false)
 	private boolean perfilCompativelBensMoveis;
 	
-	@Column(nullable = false)
 	private boolean perfilCompativelMaquinario;
 	
-	@Column(nullable = false)
 	private boolean perfilCompativelAspectoFisicoResidencia;
 	
-	@Column(nullable = false)
 	private boolean perfilCompativelOutros;
 	
-	@NotEmpty(message = "Campo obrigatório")
 	private String analiseDescricaoRealidade;
 	
-	@Column(nullable = false)
 	private boolean deferimento;
 	
-	@NotNull(message = "Campo obrigatório")
+	@OneToMany
+	private List<Imagem> imagens;
+	
+	public List<Imagem> getImagens() {
+		if(imagens == null){
+			imagens = new ArrayList<>();
+		}
+		return imagens;
+	}
+
+	public void setImagens(List<Imagem> imagens) {
+		this.imagens = imagens;
+	}
+	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataRelatorio;
 	
