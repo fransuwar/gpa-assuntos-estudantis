@@ -52,13 +52,12 @@ public class CoordenadorController {
 		
 		TipoDocumento tipoDocumento = documentoService.findById(id);
 
-		if (tipoDocumento != null) {
+		if (tipoDocumento != null)
 			documentoService.delete(tipoDocumento);
 			
-		} else {
+		else 
 			model.addAttribute("Error", MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO);
 
-		}
 		model.addAttribute(DOCUMENTOS,documentoService.find());
 		return  REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 		
@@ -73,7 +72,7 @@ public class CoordenadorController {
 	}
 	
 	
-	@RequestMapping(value = { "gerenciarDocumentos" }, method = RequestMethod.GET)
+	@RequestMapping(value = "gerenciarDocumentos", method = RequestMethod.GET)
 	public String gerenciarDocumentos(ModelMap model){
 		model.addAttribute(DOCUMENTOS,documentoService.find() );
 		return PAGINA_GERENCIAR_DOCUMENTOS;

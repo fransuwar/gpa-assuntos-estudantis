@@ -32,13 +32,11 @@ public class DocumentoServiceImpl extends GenericServiceImpl<Documento> implemen
 
 	@Override
 	public TipoDocumento findById(Integer idTipoDocumento) {
-		// TODO Auto-generated method stub
 		return tipoDocumentacaoRepository.find(TipoDocumento.class, idTipoDocumento);
 	}
 
 	@Override
 	public List<TipoDocumento> find() {
-		// TODO Auto-generated method stub
 		return tipoDocumentacaoRepository.find(TipoDocumento.class);
 	}
 
