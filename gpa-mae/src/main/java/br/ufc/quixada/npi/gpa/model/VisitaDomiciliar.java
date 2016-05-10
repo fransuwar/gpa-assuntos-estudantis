@@ -585,14 +585,6 @@ public class VisitaDomiciliar {
 		this.analiseDescricaoRealidade = analiseDescricaoRealidade;
 	}
 	
-	public boolean isParecerFinalDeferido() {
-		return !deferimento.equals(Resultado.NAO_AVALIADO);
-	}
-	
-	public void setParecerFinalDeferido(Resultado parecerFinalDeferido) {
-		this.deferimento = parecerFinalDeferido;
-	}
-	
 	public Date getDataRelatorio() {
 		return dataRelatorio;
 	}
