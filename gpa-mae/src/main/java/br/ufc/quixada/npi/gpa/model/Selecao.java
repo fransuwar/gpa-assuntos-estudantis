@@ -81,6 +81,9 @@ public class Selecao {
 	}
 
 	public List<Documento> getDocumentos() {
+		if(documentos == null){
+			documentos = new ArrayList<>();
+		}
 		return documentos;
 	}
 

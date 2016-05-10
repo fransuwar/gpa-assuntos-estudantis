@@ -238,8 +238,13 @@ public class CoordenadorController {
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
 						documento.setTipo(mfiles.getContentType());
-						documento.setSelecao(selecaoService.find(Selecao.class, idSelecao));
+						
 						documentoService.save(documento);
+						
+						Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+						selecao.getDocumentos().add(documento);
+						
+						selecaoService.save(selecao);
 					}
 
 
@@ -262,14 +267,12 @@ public class CoordenadorController {
 		Documento documento = documentoService.find(Documento.class, idDocumento);
 
 		if (documento != null) {
-			Integer idSelecao = documento.getSelecao().getId();
-
 			documentoService.delete(documento);
 
 			model.addAttribute("tipoBolsa", TipoSelecao.values());
 			model.addAttribute("selecao", selecao);
 
-			return  REDIRECT_PAGINA_ADICIONAR_ARQUIVO + idSelecao;
+			return  REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
 
 		} else {
 
