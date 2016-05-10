@@ -129,6 +129,10 @@ public class QuestionarioAuxilioMoradia {
 	@JoinColumn(name = "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "auxiliomoradia_id")
+	private List<PessoaFamilia> pessoasEntrevista;
+	
 	@ManyToMany
 	private List<ComQuemMora> comQuemMora;
 	

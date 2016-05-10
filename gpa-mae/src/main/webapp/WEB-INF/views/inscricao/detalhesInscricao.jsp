@@ -530,14 +530,13 @@
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								Este Aluno foi Indeferido na Etapa
-								de Documentação
+								Este Aluno foi Indeferido na Etapa de Documentação
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
-									<h3 class="panel-title">Entrevista</h3>
+									<h3 class="panel-title">Dados da Entrevista</h3>
 								</div>
 								<div class="panel-body">
 									<dl class='col-sm-12'>
@@ -550,25 +549,90 @@
 									</dl>
 								</div>
 							</div>
+							<div class="panel panel-default panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Membros da Família</h3>
+								</div>
+								<div class="panel-body">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Nome</th>
+												<th>Parentesco</th>
+												<th>Escolaridade</th>
+												<th>Idade</th>
+												<th>Profissao</th>
+												<th>Renda R$</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="pessoa"
+												items="${questAuxMor.pessoasEntrevista}">
+												<tr>
+													<td>${pessoa.nome}</td>
+													<td>${pessoa.parentesco}</td>
+													<td>${pessoa.escolaridade}</td>
+													<td>${pessoa.idade}</td>
+													<td>${pessoa.profissao}</td>
+													<td>${pessoa.rendaMensal}</td>
+												</tr>
+											</c:forEach>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="panel panel-default panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Editar Membros da Família</h3>
+								</div>
+								<div class="panel-body">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Nome</th>
+												<th>Parentesco</th>
+												<th>Escolaridade</th>
+												<th>Idade</th>
+												<th>Profissao</th>
+												<th>Renda R$</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="pessoa"
+												items="${inscricao.questionarioAuxilioMoradia.pessoas}">
+												<tr>
+													<td>${pessoa.nome}</td>
+													<td>${pessoa.parentesco}</td>
+													<td>${pessoa.escolaridade}</td>
+													<td>${pessoa.idade}</td>
+													<td>${pessoa.profissao}</td>
+													<td>${pessoa.rendaMensal}</td>
+												</tr>
+											</c:forEach>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
 						</c:otherwise>
 					</c:choose>
 				</div>
 				<div class="tab-pane" id="visita-tab">
-				    <c:choose>
-				        <c:when test="${!inscricao.entrevista.deferimento}">
-				            <div class="alert alert-danger alert-dismissible" role="alert">
+					<c:choose>
+						<c:when test="${!inscricao.entrevista.deferimento}">
+							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								Este Aluno foi Indeferido na Etapa
-								de entrevista
+								Este Aluno foi Indeferido na Etapa de entrevista
 							</div>
-				        </c:when>
-				        <c:otherwise>
-				            <!-- aqui deve ser mostrado os dados da visita -->
-				        </c:otherwise>
-				    </c:choose>
+						</c:when>
+						<c:otherwise>
+							<!-- aqui deve ser mostrado os dados da visita -->
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</sec:authorize>
 		</div>
