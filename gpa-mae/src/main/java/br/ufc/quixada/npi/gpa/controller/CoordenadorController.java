@@ -52,12 +52,12 @@ public class CoordenadorController {
 		
 		TipoDocumento tipoDocumento = documentoService.findById(id);
 
-		if (tipoDocumento != null)
+		if (tipoDocumento != null){
 			documentoService.delete(tipoDocumento);
-			
-		else 
+		}
+		else{ 
 			model.addAttribute("Error", MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO);
-
+		}
 		model.addAttribute(DOCUMENTOS,documentoService.find());
 		return  REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 		
@@ -66,8 +66,9 @@ public class CoordenadorController {
 	
 	@RequestMapping(value = "adicionar-tipo-arquivo", method = RequestMethod.GET)
 	public String addTipoArquivo(TipoDocumento tipoDocumento){
-		if(!tipoDocumento.getNome().isEmpty())
+		if(!tipoDocumento.getNome().isEmpty()){
 			documentoService.save(tipoDocumento);
+		}
 		return REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 	}
 	
