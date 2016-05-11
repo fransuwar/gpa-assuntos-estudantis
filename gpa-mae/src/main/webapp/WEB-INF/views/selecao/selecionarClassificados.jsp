@@ -31,7 +31,7 @@
 					<input type="hidden" value="${selecao.id}"
 						id="id-selecao-selecionar-classificados">
 					<div class="row">
-						<c:if test="${mostrarErro}">
+						<c:if test="${not empty erro}">
 							<div
 								class="alert alert-warning alert-dismissible error-validation"
 								role="alert">
@@ -54,7 +54,9 @@
 						<div class="col-sm-5">
 							<form id="formClassificaveis" method="POST"
 								action="<c:url value="/selecao/selecionarClassificados/${selecao.id}"/>">
-								<h4 class="text-warning">Classificáveis</h4>
+								<h4 class="text-warning">Classificáveis
+								    <span class="badge">${qtdClassificaveis}</span>
+								</h4>
 								<input type="text" class="form-control" placeholder="Pesquisar"
 									id="pesquisarClassificaveis">
 								<table class="table table-hover borda-laranja"
@@ -68,31 +70,29 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="deferido" items="${deferidos}">
-											<c:if test="${!deferido.classificado}">
-												<tr class="row">
-													<td class="col-sm-2"><a id="detalhes"
-														href="<c:url value="/servidor/detalhes/inscricao/${deferido.id}">  
+										<c:forEach var="classificavel" items="${classificaveis}">
+											<tr class="row">
+												<td class="col-sm-2"><a id="detalhes"
+													href="<c:url value="/servidor/detalhes/inscricao/${classificavel.id}">  
 										</c:url>"
-														class="thumbnail"> <img
-															src="<c:url value="/resources/images/gpa-icone.jpg"/>"
-															alt="Foto do Aluno" style="height: 60px; width: 100%"
-															class="img-rounded">
-													</a></td>
-													<td class="col-sm-4"><a id="detalhes"
-														href="<c:url value="/servidor/detalhes/inscricao/${deferido.id}">  
-										</c:url>">${deferido.aluno.pessoa.nome}</a></td>
-													<td class="col-sm-2">R$ 900</td>
-													<td class="col-sm-4">
-														<div class="checkbox">
-															<label> <input type="checkbox"
-																name="checkClassificados[]" value="${deferido.id}"
-																required>
-															</label>
-														</div>
-													</td>
-												</tr>
-											</c:if>
+													class="thumbnail"> <img
+														src="<c:url value="/resources/images/gpa-icone.jpg"/>"
+														alt="Foto do Aluno" style="height: 60px; width: 100%"
+														class="img-rounded">
+												</a></td>
+												<td class="col-sm-4"><a id="detalhes"
+													href="<c:url value="/servidor/detalhes/inscricao/${classificavel.id}">  
+										</c:url>">${classificavel.aluno.pessoa.nome}</a></td>
+												<td class="col-sm-2">R$ 900</td>
+												<td class="col-sm-4">
+													<div class="checkbox">
+														<label> <input type="checkbox"
+															name="checkClassificados[]" value="${classificavel.id}"
+															required>
+														</label>
+													</div>
+												</td>
+											</tr>
 
 										</c:forEach>
 									</tbody>
@@ -101,7 +101,8 @@
 						</div>
 
 						<div class="col-sm-2" id="div-botoes-classificados">
-						    <span class="label label-default col-sm-12">${selecao.quantidadeVagas} vagas</span>
+							<span class="label label-default col-sm-12">${selecao.quantidadeVagas}
+								vagas</span>
 							<button class=" btn btn-primary btn-xs col-sm-12"
 								id="botao-adicionar-classificados">
 								Adicionar <span class="glyphicon glyphicon-chevron-right"></span>
@@ -131,30 +132,28 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="deferido" items="${deferidos}">
-											<c:if test="${deferido.classificado}">
-												<tr class="row">
-													<td class="col-sm-2"><a id="detalhes"
-														href="<c:url value="/servidor/detalhes/inscricao/${deferido.id}">  
+										<c:forEach var="classificado" items="${classificados}">
+											<tr class="row">
+												<td class="col-sm-2"><a id="detalhes"
+													href="<c:url value="/servidor/detalhes/inscricao/${classificado.id}">  
 										</c:url>"
-														class="thumbnail"> <img
-															src="<c:url value="/resources/images/gpa-icone.jpg"/>"
-															alt="Foto do Aluno" style="height: 60px; width: 100%"
-															class="img-rounded">
-													</a></td>
-													<td class="col-sm-4"><a id="detalhes"
-														href="<c:url value="/servidor/detalhes/inscricao/${deferido.id}">  
-										</c:url>">${deferido.aluno.pessoa.nome}</a></td>
-													<td class="col-sm-2">R$ 900</td>
-													<td class="col-sm-4">
-														<div class="checkbox">
-															<label> <input type="checkbox"
-																value="${deferido.id}" name="checkClassificaveis[]">
-															</label>
-														</div>
-													</td>
-												</tr>
-											</c:if>
+													class="thumbnail"> <img
+														src="<c:url value="/resources/images/gpa-icone.jpg"/>"
+														alt="Foto do Aluno" style="height: 60px; width: 100%"
+														class="img-rounded">
+												</a></td>
+												<td class="col-sm-4"><a id="detalhes"
+													href="<c:url value="/servidor/detalhes/inscricao/${classificado.id}">  
+										</c:url>">${classificado.aluno.pessoa.nome}</a></td>
+												<td class="col-sm-2">R$ 900</td>
+												<td class="col-sm-4">
+													<div class="checkbox">
+														<label> <input type="checkbox"
+															value="${classificado.id}" name="checkClassificaveis[]">
+														</label>
+													</div>
+												</td>
+											</tr>
 										</c:forEach>
 									</tbody>
 								</table>

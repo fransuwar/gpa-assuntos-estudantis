@@ -38,8 +38,10 @@ public interface InscricaoService extends GenericService<Inscricao>{
 	
 	public abstract List<Inscricao> getDeferidosBySelecao(Selecao selecao);
 	
-	public abstract Integer getQtdClassificadosPorSelecao(Selecao selecao);
-	
 	public abstract List<Inscricao> getClassificadosPorSelecao(Selecao selecao);
+	
+	public abstract List<Inscricao> getClassificaveisPorSelecao(Selecao selecao);
+	
+	public abstract void update(Integer idInscricao,boolean classificado);
 }
 

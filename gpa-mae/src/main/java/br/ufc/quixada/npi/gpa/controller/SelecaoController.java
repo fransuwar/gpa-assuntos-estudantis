@@ -193,13 +193,14 @@ public class SelecaoController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
-		Integer qtdClassificados = inscricaoService.getQtdClassificadosPorSelecao(selecao);
+		List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
+		List<Inscricao> classificaveis = inscricaoService.getClassificaveisPorSelecao(selecao);
 		     
-		List<Inscricao> deferidos = inscricaoService.getDeferidosBySelecao(selecao);
-		model.addAttribute("deferidos", deferidos);
+		model.addAttribute("classificados", classificados);
+		model.addAttribute("classificaveis",classificaveis);
+		model.addAttribute("qtdClassificados",classificados.size());
+		model.addAttribute("qtdClassificaveis",classificaveis.size());
 		model.addAttribute("selecao",selecao);
-		model.addAttribute("qtdClassificados",qtdClassificados);
-		
 		
 		return PAGINA_SELECIONAR_CLASSIFICADOS;
 		
@@ -211,7 +212,6 @@ public class SelecaoController {
 		
 		if(idsClassificados.isEmpty()){
 			model.addAttribute("erro", MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO);
-			model.addAttribute("mostrarErro",true);
 		}
 		
 		 Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
@@ -221,25 +221,19 @@ public class SelecaoController {
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}
 		 
-		 Integer qtdClassificados = inscricaoService.getQtdClassificadosPorSelecao(selecao);
-		 List<Inscricao> deferidos = inscricaoService.getDeferidosBySelecao(selecao);	 
-	     model.addAttribute("deferidos", deferidos);
-	     model.addAttribute("selecao",selecao);
+		 List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
+		 Integer vagasRestantes = selecao.getQuantidadeVagas() - classificados.size();		     	
 		 
-		 if(qtdClassificados >= selecao.getQuantidadeVagas()){
-			 model.addAttribute("erro", MENSAGEM_ERRO_QTD_VAGAS);
-			 model.addAttribute("mostrarErro",true);
+		 if(idsClassificados.size() > vagasRestantes){
+			 redirect.addFlashAttribute("erro", MENSAGEM_ERRO_QTD_VAGAS); 
+			return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + idSelecao;
 		 } else{		      
 		     for(Integer id: idsClassificados){
-		         Inscricao inscricao = inscricaoService.find(Inscricao.class,id);
-		         inscricao.setClassificado(true);
-		         inscricaoService.update(inscricao);
-		         
-		         model.addAttribute("qtdClassificados",qtdClassificados+idsClassificados.size());
+		         inscricaoService.update(id,true);
 		     }
 		 }
 		
-		return PAGINA_SELECIONAR_CLASSIFICADOS;
+		return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + idSelecao;
 		
 	}
 	
@@ -252,23 +246,13 @@ public class SelecaoController {
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}
-		
-		Integer qtdClassificados = inscricaoService.getQtdClassificadosPorSelecao(selecao);
-		
-		List<Inscricao> deferidos = inscricaoService.getDeferidosBySelecao(selecao);
-		model.addAttribute("deferidos", deferidos);
-		model.addAttribute("selecao",selecao);
-        
+		}		     		 
+       
 		for(Integer id: idsClassificaveis){
-			Inscricao inscricao = inscricaoService.find(Inscricao.class,id);
-			inscricao.setClassificado(false);
-			inscricaoService.update(inscricao);
-			
-			model.addAttribute("qtdClassificados",qtdClassificados-idsClassificaveis.size());
+			inscricaoService.update(id,false);
 		}
 		
-		return PAGINA_SELECIONAR_CLASSIFICADOS;
+		return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + idSelecao;
 		
 	}
 	

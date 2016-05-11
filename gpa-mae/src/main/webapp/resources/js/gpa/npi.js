@@ -10,6 +10,7 @@ $(document).ready(function(){
 		"order": [[ 2, "cresc" ]],
 		"ordering": false,
 		"bInfo" : false,
+		"bFilter": false,
 		"language": {
 	        "emptyTable": "Nenhum Aluno Classificável"
 	    }
@@ -23,8 +24,9 @@ $(document).ready(function(){
 		"order": [[ 2, "cresc" ]],
 		"ordering": false,
 		"bInfo" : false,
+		"bFilter": false,
 		"language": {
-	        "emptyTable": "Adicione algum aluno para a tabela dos classificados"
+	        "emptyTable": "Adicione pelo menos um aluno para a tabela dos classificados"
 	    }
 	});
 	
@@ -156,10 +158,6 @@ $(document).ready(function(){
 		}
 
 	});
-
-});
-
-$(document).ready(function(){
 	
 	$("div.error-validation:has(span)").find("span").css("color","#a94442");
 	$("div.error-validation:has(span)").find("span").parent().parent().addClass("has-error has-feedback");
@@ -197,8 +195,10 @@ $(document).ready(function(){
 		autoclose : true
 	
 	});
-	
+
 });
+
+	
 
 function hasAttr($element, _attr){
 	var attr = $element.attr(_attr);

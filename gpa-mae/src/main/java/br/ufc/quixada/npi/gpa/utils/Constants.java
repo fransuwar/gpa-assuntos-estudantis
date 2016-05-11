@@ -66,6 +66,8 @@ public class Constants {
 	// "servidor/detalhesSelecao";
 
 	/** Redirecionamentos */
+	
+	public static final String REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS = "redirect:/selecao/selecionarClassificados/";
 
 	public static final String REDIRECT_PAGINA_EDITAR_SELECAO = "redirect:/coordenador/selecao/editar/";
 	
@@ -218,7 +220,7 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO = "Extensão da foto inválida. Extensões aceitas (jpeg, jpg, png)";
 	
-	public static final String MENSAGEM_ERRO_QTD_VAGAS = "A quantidade de vagas já foram preenchidas";
+	public static final String MENSAGEM_ERRO_QTD_VAGAS = "Não restam vagas suficientes para esta quantidade de alunos";
 	
 	public static final String MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO = "Selecione pelo menos um aluno classificado";
 	

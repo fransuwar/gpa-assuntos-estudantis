@@ -391,12 +391,6 @@ div.s10{
 	outline: 1px solid rgb(24, 188, 156);
 }
 
-
-
-.dataTables_filter {
-   display: none;
-}
-
 #pesquisarClassificados{
 	margin-bottom: 8px;
 }
