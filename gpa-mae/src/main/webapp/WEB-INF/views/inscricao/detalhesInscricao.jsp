@@ -567,7 +567,7 @@
 										</thead>
 										<tbody>
 											<c:forEach var="pessoa"
-												items="${questAuxMor.pessoasEntrevista}">
+												items="${questAuxMor.pessoas}">
 												<tr>
 													<td>${pessoa.nome}</td>
 													<td>${pessoa.parentesco}</td>
