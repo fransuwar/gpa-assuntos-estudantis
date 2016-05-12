@@ -409,6 +409,35 @@ div.s10 {
 	text-align: left;
 }
 
+#div-botoes-classificados{
+	margin-top: 80px;
+	text-align: center;
+}
+
+#botao-adicionar-classificados{
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#botao-remover-classificados{
+	margin-bottom: 5px;
+}
+
+.borda-laranja{
+	outline: 1px solid rgb(243, 156, 18);
+}
+
+.borda-verde{
+	outline: 1px solid rgb(24, 188, 156);
+}
+
+#pesquisarClassificados{
+	margin-bottom: 8px;
+}
+
+#pesquisarClassificaveis{
+	margin-bottom: 8px;
+}
 
 #aluno-img {
 	margin-top: 10px;
@@ -641,4 +670,8 @@ div.input-photo {
 
 .bg-red{
 	background-color: #dd4b39 !important;
+}
+
+.dataTables_filter {
+	display: none;
 }
