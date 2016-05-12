@@ -36,9 +36,7 @@ public interface InscricaoService{
 
 	public abstract Inscricao getInscricao(Selecao selecao, Aluno aluno);
 	
-	public abstract Inscricao find(Class<Inscricao> classe, Integer id);
-	
-	public abstract Object findFirst(String consulta, Map<String, Object> parametros);
+	public abstract Inscricao getInscricaoPorId(Integer id);
 	
 	public abstract void save(Inscricao inscricao);
 	

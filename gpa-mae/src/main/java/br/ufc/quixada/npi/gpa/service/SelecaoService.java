@@ -14,15 +14,9 @@ public interface SelecaoService {
 	
 	public abstract Integer getUltimoSequencialPorAno(Selecao selecao);
 	
-	@SuppressWarnings("rawtypes")
-	public abstract List find(QueryType type,String consulta,Map<String, Object> parametros);
+	public abstract List<Selecao> getSelecoes();
 	
-	@SuppressWarnings("rawtypes")
-	public abstract List find(String consulta, Map<String, Object> parametros);
-	
-	public abstract List<Selecao> find(Class<Selecao> classe);
-	
-	public abstract Selecao find(Class<Selecao> classe, Integer id);
+	public abstract Selecao getSelecaoPorId(Integer id);
 	
     public abstract void save(Selecao selecao);
 	

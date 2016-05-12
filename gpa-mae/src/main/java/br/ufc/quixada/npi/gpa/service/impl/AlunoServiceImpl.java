@@ -68,13 +68,15 @@ public class AlunoServiceImpl implements AlunoService {
 	}
 	
 	@Override
-	public Aluno find(Class<Aluno> classe, Integer idAluno) {
-		return alunoRepository.find(classe,idAluno);
+	public Aluno getAlunoPorId(Integer idAluno) {
+		return (Aluno) alunoRepository.findFirst(QueryType.JPQL,"select a from Aluno as a where a.id = :idAluno", 
+				new SimpleMap<String, Object>("idAluno", idAluno));
 		
 	}
 
 	@Override
-	public List<Aluno> find(Class<Aluno> classe) {
+	public List<Aluno> ListarAlunos() {
+		Class<Aluno> classe = null;
 		return alunoRepository.find(classe);
 	}
 

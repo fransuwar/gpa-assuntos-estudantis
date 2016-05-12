@@ -46,7 +46,7 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(ModelMap model, HttpServletRequest request, Authentication auth){
 
-		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
+		List<Selecao> selecoes = this.selecaoService.getSelecoes();
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("tipoSelecao", TipoSelecao.values());
@@ -119,7 +119,7 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		System.out.println("IDSELECAO   "+idSelecao);
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 		if (selecao != null) {
 			model.addAttribute("action", "editar");
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
@@ -163,7 +163,7 @@ public class CoordenadorController {
 	@RequestMapping(value =  "selecao/excluir/{idSelecao}" , method = RequestMethod.GET)
 	public String excluirSelecao(@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect) {
 
-		Selecao selecao = this.selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = this.selecaoService.getSelecaoPorId(idSelecao);
 
 		if (selecao != null && selecao.getInscritos().isEmpty()) {
 
@@ -183,8 +183,8 @@ public class CoordenadorController {
 			Model model, RedirectAttributes redirectAttributes) {
 
 		model.addAttribute("idSelecao", idSelecao);
-		model.addAttribute("servidores", servidorService.find(Servidor.class));
-		model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
+		model.addAttribute("servidores", servidorService.listarServidores());
+		model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
 
 		return PAGINA_ATRIBUIR_COMISSAO;
 	}
@@ -193,9 +193,9 @@ public class CoordenadorController {
 	public String atribuirPareceristaNoProjeto(@RequestParam("idSelecao") Integer idSelecao,
 			@RequestParam("idServidor") Integer idServidor, Model model, RedirectAttributes redirect) {
 
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 		List<Servidor> comissao = selecao.getMembrosComissao();
-		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
+		Servidor servidor = this.servidorService.getServidorPorId(idServidor);
 
 		if (comissao.contains(servidor)) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
@@ -215,7 +215,7 @@ public class CoordenadorController {
 	public String adicionarDocumento(@PathVariable("idSelecao") Integer idSelecao,
 			Model model, RedirectAttributes redirectAttributes) {
 		
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 		if (selecao != null) {
 			model.addAttribute("selecao", selecao);
 		}
@@ -238,7 +238,7 @@ public class CoordenadorController {
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
 						documento.setTipo(mfiles.getContentType());
-						documento.setSelecao(selecaoService.find(Selecao.class, idSelecao));
+						documento.setSelecao(selecaoService.getSelecaoPorId(idSelecao));
 						documentoService.save(documento);
 					}
 
@@ -259,7 +259,7 @@ public class CoordenadorController {
 	public String excluirDocumento(@PathVariable("idDocumento") Integer idDocumento, @ModelAttribute("selecao") Selecao selecao, 
 			Model model, RedirectAttributes redirect) {
 
-		Documento documento = documentoService.find(Documento.class, idDocumento);
+		Documento documento = documentoService.getDocumentoPorId(idDocumento);
 
 		if (documento != null) {
 			Integer idSelecao = documento.getSelecao().getId();
@@ -285,9 +285,9 @@ public class CoordenadorController {
 	public String excluirMembroComissao(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
 			Model model, Authentication auth, RedirectAttributes redirect) {
 
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());		
-		Servidor servidor = this.servidorService.find(Servidor.class, idServidor);
+		Servidor servidor = this.servidorService.getServidorPorId(idServidor);
 		if(coordenador.getId() != servidor.getId()){
 
 			selecao.getMembrosComissao().remove(servidor);

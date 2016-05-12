@@ -22,13 +22,8 @@ public interface ServidorService{
 	
 	public abstract void delete(Servidor servidor);
 	
-	@SuppressWarnings("rawtypes")
-	public abstract List find(QueryType type,String consulta,Map<String, Object> parametros);
+	public abstract Servidor getServidorPorId(Integer id);
 	
-	public abstract Servidor find(Class<Servidor> classe, Integer id);
-	
-	public abstract Object findFirst(String consulta, Map<String, Object> parametros);
-	
-	public abstract List<Servidor> find(Class<Servidor> classe);
+	public abstract List<Servidor> listarServidores();
 
 }

@@ -1,6 +1,26 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_ATUALIZADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_CADASTRADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_EXCLUIDO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_AGENCIA_DIGITOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_INGRESSO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_INGRESSO_DIGITOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_CONTA_DIGITOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MATRICULA_DIGITOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MATRICULA_EXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SIAPE_EXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SERVIDOR_ATUALIZADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SERVIDOR_CADASTRADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SERVIDOR_EXCLUIDO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SERVIDOR_NAO_ENCONTRADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_CADASTRAR_ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_CADASTRAR_SERVIDOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_ALUNOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SERVIDOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_ALUNOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SERVIDOR;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,7 +51,6 @@ import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
-import br.ufc.quixada.npi.repository.GenericRepository;
 
 @Controller
 @RequestMapping ("administrador")
@@ -94,7 +113,7 @@ public class AdministradorController {
 	@RequestMapping(value = "{id}/editar", method = RequestMethod.GET)
 	public String editar(@PathVariable("id") Integer id, Model model) {
 
-		Servidor servidor = servidorService.find(Servidor.class, id);
+		Servidor servidor = servidorService.getServidorPorId(id);
 
 		model.addAttribute("cargos", Cargo.toMap());
 		model.addAttribute("servidor", servidor);
@@ -107,7 +126,7 @@ public class AdministradorController {
 
 	@RequestMapping(value = "{id}/excluir")
 	public String excluirServidor(Servidor p, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
-		Servidor servidor = servidorService.find(Servidor.class, id);
+		Servidor servidor = servidorService.getServidorPorId(id);
 
 		if (servidor == null) {
 			redirectAttributes.addFlashAttribute("erro", MENSAGEM_SERVIDOR_NAO_ENCONTRADO);
@@ -130,7 +149,7 @@ public class AdministradorController {
 			return PAGINA_CADASTRAR_SERVIDOR;
 		}
 
-		Servidor servidor = servidorService.find(Servidor.class, id);
+		Servidor servidor = servidorService.getServidorPorId(id);
 
 		servidor.setSiape(servidorAtualizado.getSiape());
 		servidor.setCargo(servidorAtualizado.getCargo());
@@ -203,7 +222,7 @@ public class AdministradorController {
 	@RequestMapping(value = { "editar/aluno/{idAluno}" }, method = RequestMethod.GET)
 	public String editarAluno(@PathVariable("idAluno") Integer idAluno, Model model) {
 
-		Aluno aluno = this.alunoService.find(Aluno.class, idAluno);
+		Aluno aluno = this.alunoService.getAlunoPorId(idAluno);
 
 		model.addAttribute("action", "editar");
 		model.addAttribute("banco", Banco.values());
@@ -257,7 +276,7 @@ public class AdministradorController {
 	@RequestMapping(value = { "excluir/aluno/{idAluno}" }, method = RequestMethod.GET)
 	public String excluirAluno(@PathVariable("idAluno") Integer idAluno, RedirectAttributes redirect) {
 
-		Aluno aluno = this.alunoService.find(Aluno.class, idAluno);
+		Aluno aluno = this.alunoService.getAlunoPorId(idAluno);
 
 		if (aluno != null) {
 			this.alunoService.delete(aluno);
@@ -271,7 +290,7 @@ public class AdministradorController {
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listaServidor(Servidor servidor, BindingResult result, Model model) {
-		List<Servidor> results = servidorService.find(Servidor.class);	
+		List<Servidor> results = servidorService.listarServidores();
 		model.addAttribute("servidores", results);
 		return PAGINA_LISTAR_SERVIDOR;
 	}
@@ -299,7 +318,7 @@ public class AdministradorController {
 	@RequestMapping(value = { "listar/alunos" }, method = RequestMethod.GET)
 	public String listarAlunos(Model model){
 
-		List<Aluno> alunos = this.alunoService.find(Aluno.class);
+		List<Aluno> alunos = this.alunoService.ListarAlunos();
 		model.addAttribute("alunos", alunos);
 
 		return PAGINA_LISTAR_ALUNOS;

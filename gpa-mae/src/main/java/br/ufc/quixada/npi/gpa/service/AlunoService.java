@@ -20,9 +20,9 @@ public interface AlunoService{
 	
 	public abstract void delete(Aluno aluno);
 	
-	public abstract Aluno find(Class<Aluno> classe, Integer idAluno);
+	public abstract Aluno getAlunoPorId(Integer idAluno);
 	
-	public abstract List<Aluno> find(Class<Aluno> classe);
+	public abstract List<Aluno> ListarAlunos();
 	
 
 

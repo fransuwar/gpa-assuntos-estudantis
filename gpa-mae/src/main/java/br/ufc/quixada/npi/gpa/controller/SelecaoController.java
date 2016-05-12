@@ -64,7 +64,7 @@ public class SelecaoController {
 
 	@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoesPublico(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -78,7 +78,7 @@ public class SelecaoController {
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect,Authentication auth) {
 		//Detalhe da seleção, apenas para aluno
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -107,7 +107,7 @@ public class SelecaoController {
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Integer id, 
 			RedirectAttributes redirectAttributes){
 
-		Documento documento = documentoService.find(Documento.class, id);
+		Documento documento = documentoService.getDocumentoPorId(id);
 		byte[] arquivo = documento.getArquivo();
 		String[] tipo = documento.getTipo().split("/");
 		HttpHeaders headers = new HttpHeaders();
@@ -123,7 +123,7 @@ public class SelecaoController {
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listar(ModelMap model, HttpServletRequest request) {
 
-		List<Selecao> selecoes = this.selecaoService.find(Selecao.class);
+		List<Selecao> selecoes = this.selecaoService.getSelecoes();
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("tipoBolsa", TipoSelecao.values());
@@ -136,7 +136,7 @@ public class SelecaoController {
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
-		List<Selecao> selecoes = this.servidorService.find(Servidor.class, id).getParticipaComissao();
+		List<Selecao> selecoes = this.servidorService.getServidorPorId(id).getParticipaComissao();
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);

@@ -59,7 +59,7 @@ public class ServidorController {
 
 	@RequestMapping(value= {"entrevista/{idInscricao}"}, method = RequestMethod.GET)
 	public String realizarEntrevista(@PathVariable("idInscricao") Integer idInscricao,Authentication auth, RedirectAttributes redirect, Model model ){
-		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);		
+		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);		
 
 		if(inscricao == null){
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
@@ -98,9 +98,9 @@ public class ServidorController {
 
 		Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
 		entrevista.setServidor(servidor);
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		inscricao.setEntrevista(entrevista);
-		entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));			
+		entrevista.setInscricao(inscricao);			
 		inscricaoService.update(inscricao);
 
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
@@ -110,7 +110,7 @@ public class ServidorController {
 	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
 	public String realizarVisita(@PathVariable("idInscricao")Integer idInscricao, Model model, RedirectAttributes redirect, Authentication auth) {
 
-		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);	
+		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);	
 
 		if(inscricao == null ){
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
@@ -155,7 +155,7 @@ public class ServidorController {
 			@RequestParam("idInscricao") Integer idInscricao,@RequestParam("idSelecao") Integer idSelecao,
 			Model model, RedirectAttributes redirect) {
 
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		inscricao.setVisitaDomiciliar(relatorioVisitaDomiciliar);
 
 		if (result.hasErrors()) {
@@ -192,7 +192,7 @@ public class ServidorController {
 	@RequestMapping(value = "inscritos/{idSelecao}", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("idSelecao") Integer idSelecao, ModelMap model) {
 
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 		model.addAttribute("selecao", selecao);
 
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
@@ -201,7 +201,7 @@ public class ServidorController {
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao,Authentication auth, Model model, RedirectAttributes redirect){
 
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -230,7 +230,7 @@ public class ServidorController {
 	@RequestMapping(value ={ "detalhes/inscricao/{idInscricao}"}, method = RequestMethod.GET)
 	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
 			RedirectAttributes redirect) {
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -249,7 +249,7 @@ public class ServidorController {
 	@RequestMapping(value= {"avaliarDocumentacao/{idInscricao}"}, method = RequestMethod.GET)
 	public String avaliarDocumentacao(@PathVariable("idInscricao") Integer idInscricao,Authentication auth, RedirectAttributes redirect, Model model){
 
-		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);		
+		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);		
 
 		if(inscricao == null){
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
@@ -278,7 +278,7 @@ public class ServidorController {
 	public String avaliarDocumentacao(@Valid @ModelAttribute("avaliarDocumentacao") Inscricao avaliarDocumentacao , @RequestParam("idInscricao") Integer idInscricao, 
 			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 
 		if(avaliarDocumentacao.isAvaliacaoDocumentos()== true){
 			inscricao.setAvaliacaoDocumentos(true);

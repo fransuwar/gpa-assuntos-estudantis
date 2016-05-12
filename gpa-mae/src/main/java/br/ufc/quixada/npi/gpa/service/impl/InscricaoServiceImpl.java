@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import br.ufc.quixada.npi.enumeration.QueryType;
 import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
@@ -117,13 +118,9 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	@Override
-	public Inscricao find(Class<Inscricao> classe, Integer id) {
-		return inscricaoService.find(classe, id);
-	}
-
-	@Override
-	public Object findFirst(String consulta, Map<String, Object> parametros) {
-		return inscricaoService.findFirst(consulta, parametros);
+	public Inscricao getInscricaoPorId(Integer id) {
+		return (Inscricao) inscricaoService.findFirst(QueryType.JPQL,"select i from Inscricao as i where i.id = :idInscricao", 
+				new SimpleMap<String, Object>("idInscricao", id));
 	}
 
 	@Override

@@ -3,9 +3,11 @@ package br.ufc.quixada.npi.gpa.service.impl;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.ufc.quixada.npi.enumeration.QueryType;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.repository.GenericRepository;
+import br.ufc.quixada.npi.util.SimpleMap;
 
 @Named
 public class DocumentoServiceImpl implements DocumentoService{
@@ -32,8 +34,10 @@ public class DocumentoServiceImpl implements DocumentoService{
 	}
 
 	@Override
-	public Documento find(Class<Documento> classe, Integer idDocumento) {
-		return documentoRepository.find(classe,idDocumento);
+	public Documento getDocumentoPorId(Integer idDocumento) {
+		return (Documento) documentoRepository.findFirst(QueryType.JPQL,"select d from Documento as d where d.id = :idDocumento", 
+				new SimpleMap<String, Object>("idDocumento", idDocumento));
+		
 	}
 
 }

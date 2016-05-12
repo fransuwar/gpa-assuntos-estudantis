@@ -10,6 +10,6 @@ public interface DocumentoService{
 	
 	public abstract void delete(Documento documento);
 	
-	public abstract Documento find(Class<Documento> classe, Integer idDocumento);
+	public abstract Documento getDocumentoPorId(Integer idDocumento);
 
 }

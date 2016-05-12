@@ -1,7 +1,5 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
-import java.util.Map;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -39,9 +37,5 @@ public class PessoaServiceImpl implements PessoaService {
 		
 	}
 
-	@Override
-	public Object findFirst(String consulta, Map<String, Object> parametros) {
-		return pessoaService.findFirst(consulta, parametros);
-	}
 	
 }

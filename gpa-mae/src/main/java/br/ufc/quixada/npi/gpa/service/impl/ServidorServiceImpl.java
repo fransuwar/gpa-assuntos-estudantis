@@ -66,24 +66,16 @@ public class ServidorServiceImpl implements ServidorService{
 		
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public List find(QueryType type, String consulta, Map<String, Object> parametros) {
-		return servidorService.find(type,consulta,parametros);
+	public Servidor getServidorPorId(Integer id) {
+		return (Servidor) servidorService.findFirst(QueryType.JPQL,"select s from Servidor as s where s.id = :idServidor", 
+				new SimpleMap<String, Object>("idServidor", id));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object findFirst(String consulta, Map<String, Object> parametros) {
-		return servidorService.findFirst(consulta, parametros);
-	}
-
-	@Override
-	public Servidor find(Class<Servidor> classe, Integer id) {
-		return servidorService.find(classe, id);
-	}
-
-	@Override
-	public List<Servidor> find(Class<Servidor> classe) {
-		return servidorService.find(classe);
+	public List<Servidor> listarServidores() {
+		return servidorService.find(QueryType.JPQL,"select s from Servidor as s", 
+				new SimpleMap<String, Object>());
 	}
 }

@@ -56,29 +56,18 @@ public class SelecaoServiceImpl implements SelecaoService {
 		return listSequencial.get(0)+1;
 		}
 	}
-
-
-	@SuppressWarnings("rawtypes")
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List find(QueryType type,String consulta, Map<String, Object> parametros) {	
-		return selecaoService.find(type,consulta, parametros);
-	}
-
-
-	@SuppressWarnings("rawtypes")
-	@Override
-	public List find(String consulta, Map<String, Object> parametros) {
-		return selecaoService.find(consulta, parametros);
+	public List<Selecao> getSelecoes(){
+		return selecaoService.find(QueryType.JPQL,"select s from Selecao as s", 
+				new SimpleMap<String, Object>());
 	}
 	
 	@Override
-	public List<Selecao> find(Class<Selecao> classe){
-		return selecaoService.find(classe);
-	}
-	
-	@Override
-	public Selecao find(Class<Selecao> classe, Integer id) {
-		return selecaoService.find(classe,id);
+	public Selecao getSelecaoPorId(Integer id) {
+		return (Selecao) selecaoService.findFirst(QueryType.JPQL,"select s from Selecao as s where s.id = :idSelecao", 
+				new SimpleMap<String, Object>("idSelecao", id));	
 	}
 	
 
