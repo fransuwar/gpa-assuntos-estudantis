@@ -56,7 +56,7 @@ public class DocumentoController {
 			map.addAttribute("mensagem", MENSAGEM_DOCUMENTO_INEXISTENTE);
 			return map;
 		}
-		serviceDocumento.delete(documento);
+		serviceDocumento.deletarDocumento(documento);
 		map.addAttribute("result", MENSAGEM_OK);
 		return map;
 	}
