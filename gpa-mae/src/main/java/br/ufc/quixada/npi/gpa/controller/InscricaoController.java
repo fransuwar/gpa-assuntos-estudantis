@@ -23,6 +23,15 @@ public class InscricaoController {
 	@Inject
 	private InscricaoService inscricaoService;
 	
+	private void enviarImagemPadraoEmCasoDeErro(HttpServletResponse response){
+		try {
+			response.setContentType("text/html");
+			response.sendRedirect(Constants.CAMINHO_IMAGEM_ALUNO_SEM_FOTO);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@RequestMapping("detalhes/fotoAluno/{idInscricao}")
 	public void pegarFotoAluno(@PathVariable("idInscricao") Integer idInscricao, HttpServletResponse response){
 		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
@@ -33,16 +42,13 @@ public class InscricaoController {
 			out.write(inscricao.getQuestionarioAuxilioMoradia().getFoto());
 			out.flush();
 		} catch (IOException e) {
+			enviarImagemPadraoEmCasoDeErro(response);
 			e.printStackTrace();
 		} catch (NullPointerException e) {
+			enviarImagemPadraoEmCasoDeErro(response);
 			e.printStackTrace();
 		} finally {		
-			try {
-				response.setContentType("text/html");
-				response.sendRedirect(Constants.CAMINHO_IMAGEM_ALUNO_SEM_FOTO);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			
 		}	
 	}
 

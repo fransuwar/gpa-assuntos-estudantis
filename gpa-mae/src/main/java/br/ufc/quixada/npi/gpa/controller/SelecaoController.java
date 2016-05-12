@@ -1,5 +1,16 @@
 package br.ufc.quixada.npi.gpa.controller;
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_QTD_VAGAS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_PARECER_EMITIDO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RANKING_CLASSIFICADOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECIONAR_CLASSIFICADOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS;
 
 import java.util.List;
 
@@ -15,14 +26,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,7 +39,6 @@ import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
-import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
