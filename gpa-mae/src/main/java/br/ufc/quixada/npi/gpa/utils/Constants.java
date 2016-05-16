@@ -118,6 +118,8 @@ public class Constants {
 	public static final String MENSAGEM_SERVIDOR_EXCLUIDO = "Servidor excluído com sucesso.";
 
 	public static final String MENSAGEM_DE_SUCESSO_ENTREVISTA = "Entrevista realizada com sucesso.";
+	
+	public static final String MENSAGEM_DE_SUCESSO_ENTREVISTA_ATUALIZAR = "Entrevista atualizada com sucesso.";
 
 	public static final String MENSAGEM_SUCESSO_PARECER_EMITIDO = "Parecer emitido com sucesso.";
 
