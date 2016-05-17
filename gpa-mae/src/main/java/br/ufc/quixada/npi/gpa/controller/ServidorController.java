@@ -292,7 +292,7 @@ public class ServidorController {
 
 		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
 			modelo.addAttribute("inscricao", inscricao);
-			modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
+			modelo.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
 			modelo.addAttribute("det", "active");
 			if(inscricao.getEntrevista()!=null)
 				modelo.addAttribute("entrevista", inscricao.getEntrevista());

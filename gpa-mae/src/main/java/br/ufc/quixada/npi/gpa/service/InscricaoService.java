@@ -35,5 +35,13 @@ public interface InscricaoService extends GenericService<Inscricao>{
 	public abstract ComQuemMora getComQuemMora(MoraCom comQuemMora);
 
 	public abstract Inscricao getInscricao(Selecao selecao, Aluno aluno);
+	
+	public abstract List<Inscricao> getDeferidosBySelecao(Selecao selecao);
+	
+	public abstract List<Inscricao> getClassificadosPorSelecao(Selecao selecao);
+	
+	public abstract List<Inscricao> getClassificaveisPorSelecao(Selecao selecao);
+	
+	public abstract void update(Integer idInscricao,boolean classificado);
 }
 

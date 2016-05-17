@@ -67,6 +67,7 @@ public class Inscricao {
 	@ManyToOne
 	private Aluno aluno;
 	
+
 	private boolean realizarVisita = false;
 			
 	
@@ -77,6 +78,10 @@ public class Inscricao {
 	public void setRealizarVisita(boolean realizarVisita) {
 		this.realizarVisita = realizarVisita;
 	}
+	
+
+	@Column(nullable = false)
+	private boolean classificado;
 	
 
 	public Integer getId() {
@@ -194,6 +199,14 @@ public class Inscricao {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public boolean isClassificado() {
+		return classificado;
+	}
+
+	public void setClassificado(boolean classificado) {
+		this.classificado = classificado;
 	}
 
 	@Override
