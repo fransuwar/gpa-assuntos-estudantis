@@ -106,16 +106,9 @@ public class ServidorController {
 		}
 	}
 
-	@RequestMapping(value= "entrevista", method = RequestMethod.POST)
-	public String entrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idServidor") Integer idPessoa, 
-			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth, String realizarVisita ){
-		
-		System.out.println(idInscricao);
-		System.out.println(idPessoa);
-		System.out.println(entrevista.getObservacao());
-		System.out.println(entrevista.getDeferimento());
-		System.out.println(realizarVisita);
-		System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+	@RequestMapping(value="entrevista", method = RequestMethod.POST)
+	public String entrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao,
+			RedirectAttributes redirect, Authentication auth, String realizarVisita ){
 		
 		Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
 		entrevista.setServidor(servidor);
@@ -132,16 +125,10 @@ public class ServidorController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
-	@RequestMapping(value= "atualizarEntrevista", method = RequestMethod.POST)
+	@RequestMapping(value="atualizarEntrevista", method = RequestMethod.POST)
 	public String atualizarEntrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idEntrevista") Integer idEntrevista, 
-			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth, String realizarVisita ){
-		
-		System.out.println(idInscricao);
-		System.out.println(idEntrevista);
-		System.out.println(entrevista.getObservacao());
-		System.out.println(realizarVisita);
-		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-		
+			RedirectAttributes redirect, String realizarVisita ){
+	
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		Entrevista entrevista2 = entrevistaService.findById(idEntrevista);
 		entrevista2.setObservacao(entrevista.getObservacao());
