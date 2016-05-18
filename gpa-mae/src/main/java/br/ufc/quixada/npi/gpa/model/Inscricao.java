@@ -1,11 +1,8 @@
 package br.ufc.quixada.npi.gpa.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -66,9 +62,6 @@ public class Inscricao {
 
 	@ManyToOne
 	private Aluno aluno;
-	
-	@Column(nullable = false)
-	private boolean classificado;
 
 	public Integer getId() {
 		return id;
@@ -185,14 +178,6 @@ public class Inscricao {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	public boolean isClassificado() {
-		return classificado;
-	}
-
-	public void setClassificado(boolean classificado) {
-		this.classificado = classificado;
 	}
 
 	@Override
