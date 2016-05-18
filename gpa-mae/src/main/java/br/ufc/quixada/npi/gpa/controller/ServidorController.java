@@ -125,9 +125,7 @@ public class ServidorController {
 	@RequestMapping(value="atualizarEntrevista", method = RequestMethod.POST)
 	public String atualizarEntrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idEntrevista") Integer idEntrevista, 
 			RedirectAttributes redirect, boolean realizarVisita ){
-		
-		System.out.println(realizarVisita);
-		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+	
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		Entrevista entrevista2 = entrevistaService.findById(idEntrevista);
 		entrevista2.setObservacao(entrevista.getObservacao());
