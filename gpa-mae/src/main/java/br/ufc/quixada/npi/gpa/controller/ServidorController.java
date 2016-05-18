@@ -108,17 +108,14 @@ public class ServidorController {
 
 	@RequestMapping(value="entrevista", method = RequestMethod.POST)
 	public String entrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao,
-			RedirectAttributes redirect, Authentication auth, String realizarVisita ){
+			RedirectAttributes redirect, Authentication auth, boolean realizarVisita ){
 		
 		Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
 		entrevista.setServidor(servidor);
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		inscricao.setEntrevista(entrevista);
 		entrevista.setInscricao(inscricaoService.find(Inscricao.class, idInscricao));
-		if(realizarVisita!=null)
-			inscricao.setRealizarVisita(true);
-		else
-			inscricao.setRealizarVisita(false);
+		inscricao.setRealizarVisita(realizarVisita);
 		inscricaoService.update(inscricao);
 
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
@@ -127,18 +124,15 @@ public class ServidorController {
 	
 	@RequestMapping(value="atualizarEntrevista", method = RequestMethod.POST)
 	public String atualizarEntrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idEntrevista") Integer idEntrevista, 
-			RedirectAttributes redirect, String realizarVisita ){
-	
+			RedirectAttributes redirect, boolean realizarVisita ){
+		
+		System.out.println(realizarVisita);
+		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
 		Entrevista entrevista2 = entrevistaService.findById(idEntrevista);
 		entrevista2.setObservacao(entrevista.getObservacao());
 		entrevista2.setDeferimento(entrevista.getDeferimento());
-		
-		if(realizarVisita!=null)
-			inscricao.setRealizarVisita(true);
-		else
-			inscricao.setRealizarVisita(false);
-		
+		inscricao.setRealizarVisita(realizarVisita);
 		entrevistaService.update(entrevista2);
 		inscricaoService.update(inscricao);
 

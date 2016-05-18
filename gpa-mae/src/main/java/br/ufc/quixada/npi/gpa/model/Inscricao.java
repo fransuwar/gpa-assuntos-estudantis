@@ -68,7 +68,7 @@ public class Inscricao {
 	private Aluno aluno;
 	
 
-	private boolean realizarVisita = false;
+	private boolean realizarVisita;
 			
 	
 	public boolean isRealizarVisita() {
