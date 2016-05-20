@@ -320,6 +320,7 @@ public class AlunoController {
 
 			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 			Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
+			auxilioMoradia.setPessoasEntrevista(auxilioMoradia.getPessoas());
 			
 			if (inscricaoService.getInscricao(selecao, aluno) == null) {
 

@@ -129,6 +129,10 @@ public class QuestionarioAuxilioMoradia {
 	@JoinColumn(name = "auxiliomoradia_id")
 	private List<PessoaFamilia> pessoas;
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "auxiliomoradia_id")
+	private List<PessoaFamilia> pessoasEntrevista;
+	
 	@ManyToMany
 	private List<ComQuemMora> comQuemMora;
 	
@@ -566,5 +570,15 @@ public class QuestionarioAuxilioMoradia {
 	public void setOutroGrauParentescoVeiculos(String outroGrauParentescoVeiculos) {
 		this.outroGrauParentescoVeiculos = outroGrauParentescoVeiculos;
 	}
+
+	public List<PessoaFamilia> getPessoasEntrevista() {
+		return pessoasEntrevista;
+	}
+
+	public void setPessoasEntrevista(List<PessoaFamilia> pessoasEntrevista) {
+		this.pessoasEntrevista = pessoasEntrevista;
+	}
+	
+	
 	
 }
