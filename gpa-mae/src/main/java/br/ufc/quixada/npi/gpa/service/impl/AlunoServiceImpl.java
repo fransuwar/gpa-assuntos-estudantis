@@ -47,9 +47,10 @@ public class AlunoServiceImpl implements AlunoService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Aluno getAlunoByCPF(String cpf) {
+	public Aluno getAlunoPorCPF(String cpf) {
 		return (Aluno) alunoRepository.findFirst("Aluno.findAlunoByCPF", new SimpleMap<String, Object>("cpf", cpf));
 	}
+
 
 	@Override
 	public void save(Aluno aluno) {

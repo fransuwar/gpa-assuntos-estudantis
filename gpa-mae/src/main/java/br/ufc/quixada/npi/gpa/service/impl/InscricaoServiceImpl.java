@@ -33,7 +33,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 	private GenericRepository<Entrevista> entrevistaService;
 	
 	@Inject
-	private GenericRepository<PessoaFamilia> pessoaService;
+	private GenericRepository<PessoaFamilia> pessoaRepository;
 
 	@Inject
 	private GenericRepository<Inscricao> inscricaoService;
@@ -51,13 +51,14 @@ public class InscricaoServiceImpl implements InscricaoService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Inscricao> getInscricoesBySelecao(Integer idSelecao) {
-		return inscricaoService.find("Inscricao.finInscricaoByIdSelecao", new SimpleMap<String, Object>("idSelecao", idSelecao));
+	public List<Inscricao> getInscricoesPorSelecao(Integer idSelecao) {
+		return inscricaoRepository.find("Inscricao.finInscricaoByIdSelecao", new SimpleMap<String, Object>("idSelecao", idSelecao));
+
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Inscricao> getInscricoesBySelecaoByAluno(Integer idSelecao, Integer idAluno) {
+	public List<Inscricao> getInscricoesPorSelecaoPorAluno(Integer idSelecao, Integer idAluno) {
 		Map<String, Object> params = new SimpleMap<String, Object>();
 		params.put("idSelecao", idSelecao);
 		params.put("idAluno", idAluno);
@@ -74,15 +75,15 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<PessoaFamilia> getPessoaFamiliaByIdIniciacaoAcademica(Integer idIniciacaoAcademica) {
-		return inscricaoService.find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",
+	public List<PessoaFamilia> getPessoaFamiliaPorIdIniciacaoAcademica(Integer idIniciacaoAcademica) {
+		return pessoaRepository.find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",
 				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<PessoaFamilia> getPessoaFamiliaByIdAuxilioMoradia(Integer idAuxilioMoradia) {
-		return inscricaoService.find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia",
+	public List<PessoaFamilia> getPessoaFamiliaPorIdAuxilioMoradia(Integer idAuxilioMoradia) {
+		return pessoaRepository.find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia",
 				new SimpleMap<String, Object>("idAuxilioMoradia", idAuxilioMoradia));
 	}
 
@@ -152,9 +153,9 @@ public class InscricaoServiceImpl implements InscricaoService {
 	public void excluirPessoaFamiliaPorId(Integer idPessoa) {
 		Map<String, Object> params = new SimpleMap<String, Object>();
 		params.put("idPessoa", idPessoa);
-		PessoaFamilia pessoa = (PessoaFamilia) pessoaService.findFirst(QueryType.JPQL,"select p from PessoaFamilia as p where p.id = :idPessoa",
+		PessoaFamilia pessoa = (PessoaFamilia) pessoaRepository.findFirst(QueryType.JPQL,"select p from PessoaFamilia as p where p.id = :idPessoa",
 				new SimpleMap<String,Object>("idPessoa", idPessoa));
-		pessoaService.delete(pessoa);
+		pessoaRepository.delete(pessoa);
 	}
 
 	

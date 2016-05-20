@@ -126,7 +126,7 @@ public class CoordenadorController {
 		}
 
 		if (selecao != null)  {
-			if (selecaoService.isSelecaoCadastrada(selecao)) {
+			if (selecaoService.SelecaoEstaCadastrada(selecao)) {
 				result.rejectValue("sequencial", "selecao.sequencial", MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR);
 			}			
 			if(selecao.getTipoSelecao()==null){
@@ -140,7 +140,7 @@ public class CoordenadorController {
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 
-		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());
+		Servidor coordenador = servidorService.getServidorPorCpf(auth.getName());
 
 		if(selecao.getResponsavel() == null){
 			selecao.addCoordenador(coordenador);
@@ -320,11 +320,12 @@ public class CoordenadorController {
 
 	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
 	public String excluirMembroComissao(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
-			Model model, Authentication auth, RedirectAttributes redirect) {
+			Model model, Authentication auth, RedirectAttributes redirect) {	
 
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
-		Servidor coordenador = servidorService.getServidorByCpf(auth.getName());		
+		Servidor coordenador = servidorService.getServidorPorCpf(auth.getName());			
 		Servidor servidor = this.servidorService.getServidorPorId(idServidor);
+
 		if(coordenador.getId() != servidor.getId()){
 
 			selecao.getMembrosComissao().remove(servidor);

@@ -10,7 +10,7 @@ public interface ServidorService{
 	
 	public abstract Servidor getServidor(String siape);
 	
-	public abstract Servidor getServidorByCpf(String cpf);
+	public abstract Servidor getServidorPorCpf(String cpf);
 	
 	public abstract Servidor getServidorComComissao(String CPF);
 

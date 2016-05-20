@@ -86,7 +86,7 @@ public class ServidorController {
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
-		Servidor servidor = servidorService.getServidorByCpf(auth.getName());
+		Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
 		model.addAttribute("selecoes", servidor.getParticipaComissao());
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
@@ -107,7 +107,7 @@ public class ServidorController {
 
 				Selecao selecao = inscricao.getSelecao();
 
-				Servidor servidor = servidorService.getServidorByCpf(auth.getName());
+				Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
 
 				List<Servidor> comissao = selecao.getMembrosComissao();
 
@@ -154,7 +154,7 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
-			Servidor servidor = servidorService.getServidorByCpf(auth.getName());
+			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
 
 			List<Servidor> comissao = inscricao.getSelecao().getMembrosComissao();
 
@@ -245,13 +245,13 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
-			Servidor servidor = servidorService.getServidorByCpf(auth.getName());
+			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
 
 			List<Servidor> comissao = selecao.getMembrosComissao();
 
 			if(comissao.contains(servidor)){
 
-				List<Inscricao> inscricoes = inscricaoService.getInscricoesBySelecao(idSelecao);
+				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
 				model.addAttribute("selecao", selecao);
 				model.addAttribute("inscricoes", inscricoes);
 
@@ -383,7 +383,7 @@ public class ServidorController {
 		}else{
 
 			Selecao selecao = inscricao.getSelecao();
-			Servidor servidor = servidorService.getServidorByCpf(auth.getName());
+			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
 
 			List<Servidor> comissao = selecao.getMembrosComissao();
 

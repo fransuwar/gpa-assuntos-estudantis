@@ -111,7 +111,7 @@ public class AdministradorController {
 
 	}
 	@RequestMapping(value = "{id}/editar", method = RequestMethod.GET)
-	public String editar(@PathVariable("id") Integer id, Model model) {
+	public String editarServidor(@PathVariable("id") Integer id, Model model) {
 
 		Servidor servidor = servidorService.getServidorPorId(id);
 

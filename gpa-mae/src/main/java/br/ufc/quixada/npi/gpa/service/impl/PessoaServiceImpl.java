@@ -12,28 +12,29 @@ import br.ufc.quixada.npi.util.SimpleMap;
 public class PessoaServiceImpl implements PessoaService {
 	
 	@Inject
-	private GenericRepository<Pessoa> pessoaService;
+	private GenericRepository<Pessoa> pessoaRepository;
 	
 	@Override
-	public Pessoa getPessoaByCpf(String cpf) {
-		return (Pessoa) pessoaService.findFirst("Pessoa.findPessoaByCpf", new SimpleMap<String, Object>("cpf", cpf));
+	public Pessoa getPessoaPorCpf(String cpf) {
+		return (Pessoa) pessoaRepository.findFirst("Pessoa.findPessoaByCpf", new SimpleMap<String, Object>("cpf", cpf));
+
 		}
 
 	@Override
 	public void save(Pessoa pessoa) {
-		pessoaService.save(pessoa);
+		pessoaRepository.save(pessoa);
 		
 	}
 
 	@Override
 	public void update(Pessoa pessoa) {
-		pessoaService.update(pessoa);
+		pessoaRepository.update(pessoa);
 		
 	}
 
 	@Override
 	public void delete(Pessoa pessoa) {
-		pessoaService.delete(pessoa);
+		pessoaRepository.delete(pessoa);
 		
 	}
 
