@@ -15,18 +15,16 @@ import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
-import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.repository.GenericRepository;
-import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
 import br.ufc.quixada.npi.util.SimpleMap;
 
 @SuppressWarnings("unchecked")
 @Named
-public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implements InscricaoService {
+public class InscricaoServiceImpl implements InscricaoService {
 
 	@Inject
 	private GenericRepository<VisitaDomiciliar> visitaService;
@@ -38,19 +36,23 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	private GenericRepository<PessoaFamilia> pessoaService;
 
 	@Inject
+	private GenericRepository<Inscricao> inscricaoService;
+	
+    @Inject
 	private GenericRepository<Inscricao> inscricaoRepository;
+
 
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inscricao> getInscricoes(Integer idAluno) {
-		return find("Inscricao.findIncricoesByIdAluno", new SimpleMap<String, Object>("idAluno", idAluno));
+		return inscricaoService.find("Inscricao.findIncricoesByIdAluno", new SimpleMap<String, Object>("idAluno", idAluno));
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inscricao> getInscricoesBySelecao(Integer idSelecao) {
-		return find("Inscricao.finInscricaoByIdSelecao", new SimpleMap<String, Object>("idSelecao", idSelecao));
+		return inscricaoService.find("Inscricao.finInscricaoByIdSelecao", new SimpleMap<String, Object>("idSelecao", idSelecao));
 	}
 	
 	@Override
@@ -60,27 +62,27 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 		params.put("idSelecao", idSelecao);
 		params.put("idAluno", idAluno);
 
-		return (List<Inscricao>)find("Inscricao.finInscricaoByIdSelecaoByAluno", params);
+		return (List<Inscricao>)inscricaoService.find("Inscricao.finInscricaoByIdSelecaoByAluno", params);
 	}
 	
 
 	@Transactional(readOnly = true)
 	public List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica) {
-		return find("HorarioDisponivel.findHorarioDisponivelByIdIniciacaoAcademica",
+		return inscricaoService.find("HorarioDisponivel.findHorarioDisponivelByIdIniciacaoAcademica",
 				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaByIdIniciacaoAcademica(Integer idIniciacaoAcademica) {
-		return find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",
+		return inscricaoService.find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",
 				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaByIdAuxilioMoradia(Integer idAuxilioMoradia) {
-		return find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia",
+		return inscricaoService.find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia",
 				new SimpleMap<String, Object>("idAuxilioMoradia", idAuxilioMoradia));
 	}
 
@@ -109,7 +111,7 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 
 	@Override
 	public ComQuemMora getComQuemMora(MoraCom comQuemMora) {
-		return (ComQuemMora) findFirst("ComQuemMora.findComQuemMoraByDescricao",
+		return (ComQuemMora) inscricaoService.findFirst("ComQuemMora.findComQuemMoraByDescricao",
 				new SimpleMap<String, Object>("descricao", comQuemMora));
 	}
 
@@ -119,10 +121,32 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 		Map<String, Object> params = new SimpleMap<String, Object>();
 		params.put("idSelecao", selecao.getId());
 		params.put("idAluno", aluno.getId());
-		return (Inscricao) findFirst("Inscricao.findInscricaoAluno", params);
+		return (Inscricao) inscricaoService.findFirst("Inscricao.findInscricaoAluno", params);
 
 	}
 
+	@Override
+	public Inscricao getInscricaoPorId(Integer id) {
+		return (Inscricao) inscricaoService.findFirst(QueryType.JPQL,"select i from Inscricao as i where i.id = :idInscricao", 
+				new SimpleMap<String, Object>("idInscricao", id));
+	}
+
+	@Override
+	public void save(Inscricao inscricao) {
+		inscricaoService.save(inscricao);
+		
+	}
+
+	@Override
+	public void update(Inscricao inscricao) {
+		inscricaoService.update(inscricao);
+		
+	}
+
+	@Override
+	public void delete(Inscricao inscricao) {
+		inscricaoService.delete(inscricao);
+	}
 
 	@Override
 	public void excluirPessoaFamiliaPorId(Integer idPessoa) {
@@ -137,7 +161,7 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inscricao> getDeferidosBySelecao(Selecao selecao) {
-		List<Inscricao> inscricoes = find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.deferimento = 'true'",
+		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.deferimento = 'true'",
 				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
 
 		return inscricoes;
@@ -145,7 +169,7 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 
 	@Override
 	public List<Inscricao> getClassificadosPorSelecao(Selecao selecao) {
-		List<Inscricao> inscricoes = find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'true'",
+		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'true'",
 				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
 
 		return inscricoes;
@@ -153,7 +177,7 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	
 	@Override
 	public List<Inscricao> getClassificaveisPorSelecao(Selecao selecao) {
-		List<Inscricao> inscricoes = find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'false'",
+		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'false'",
 				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
 
 		return inscricoes;

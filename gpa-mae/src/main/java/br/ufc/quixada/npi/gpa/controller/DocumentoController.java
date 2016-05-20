@@ -28,9 +28,9 @@ public class DocumentoController {
 	private DocumentoService serviceDocumento;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public void getFile(@PathVariable("id") Long id, HttpServletResponse response) {
+	public void getFile(@PathVariable("id") Integer id, HttpServletResponse response) {
 		try {
-			Documento documento = serviceDocumento.find(Documento.class, id);
+			Documento documento = serviceDocumento.getDocumentoPorId(id);
 			if(documento != null) {
 
 				InputStream is = new ByteArrayInputStream(documento.getArquivo());
@@ -48,15 +48,15 @@ public class DocumentoController {
 	}
 	
 	@RequestMapping(value = "/ajax/remover/{id}", method = RequestMethod.POST)
-	@ResponseBody public  ModelMap excluirDocumento(@PathVariable("id") Long id) {
+	@ResponseBody public  ModelMap excluirDocumento(@PathVariable("id") Integer id) {
 		ModelMap map = new ModelMap();
-		Documento documento = serviceDocumento.find(Documento.class, id);
+		Documento documento = serviceDocumento.getDocumentoPorId(id);
 		if(documento == null) {
 			map.addAttribute("result", "erro");
 			map.addAttribute("mensagem", MENSAGEM_DOCUMENTO_INEXISTENTE);
 			return map;
 		}
-		serviceDocumento.delete(documento);
+		serviceDocumento.deletarDocumento(documento);
 		map.addAttribute("result", MENSAGEM_OK);
 		return map;
 	}
