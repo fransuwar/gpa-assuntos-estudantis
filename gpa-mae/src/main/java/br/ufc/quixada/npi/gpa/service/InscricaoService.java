@@ -43,6 +43,8 @@ public interface InscricaoService{
 	
 	public abstract void delete(Inscricao inscricao);
 	
+	public abstract void excluirPessoaFamiliaPorId(Integer idPessoa);
+
 	public abstract List<Inscricao> getDeferidosBySelecao(Selecao selecao);
 	
 	public abstract List<Inscricao> getClassificadosPorSelecao(Selecao selecao);

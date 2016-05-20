@@ -33,6 +33,9 @@ public class InscricaoServiceImpl implements InscricaoService {
 	private GenericRepository<Entrevista> entrevistaService;
 	
 	@Inject
+	private GenericRepository<PessoaFamilia> pessoaService;
+
+	@Inject
 	private GenericRepository<Inscricao> inscricaoService;
 	
     @Inject
@@ -143,6 +146,15 @@ public class InscricaoServiceImpl implements InscricaoService {
 	@Override
 	public void delete(Inscricao inscricao) {
 		inscricaoService.delete(inscricao);
+	}
+
+	@Override
+	public void excluirPessoaFamiliaPorId(Integer idPessoa) {
+		Map<String, Object> params = new SimpleMap<String, Object>();
+		params.put("idPessoa", idPessoa);
+		PessoaFamilia pessoa = (PessoaFamilia) pessoaService.findFirst(QueryType.JPQL,"select p from PessoaFamilia as p where p.id = :idPessoa",
+				new SimpleMap<String,Object>("idPessoa", idPessoa));
+		pessoaService.delete(pessoa);
 	}
 
 	
