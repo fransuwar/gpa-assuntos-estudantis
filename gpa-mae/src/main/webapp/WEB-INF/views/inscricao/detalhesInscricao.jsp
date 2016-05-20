@@ -19,25 +19,27 @@
 </head>
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
+	<input id="ativar-aba-entrevista" name="ativar-aba-entrevista"
+		type="hidden" value="${ativarAbaEntrevista }" />
 	<div class="container" align="center">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#inscricao-tab" data-toggle="tab">Inscrição<i
-					class="fa"></i>
+			<li id="aba-inscricao"><a href="#inscricao-tab"
+				data-toggle="tab">Inscrição<i class="fa"></i>
 			</a></li>
-			<li><a href="#documentos-tab" data-toggle="tab">Documentos <i
-					class="fa"></i>
+			<li id="aba-documentos"><a href="#documentos-tab"
+				data-toggle="tab">Documentos <i class="fa"></i>
 			</a></li>
 			<sec:authorize access="hasAnyRole('DOCENTE','STA')">
-				<li><a href="#entrevista-tab" data-toggle="tab">Entrevista
-						<i class="fa"></i>
+				<li id="aba-entrevista"><a href="#entrevista-tab"
+					data-toggle="tab">Entrevista <i class="fa"></i>
 				</a></li>
-				<li><a href="#visita-tab" data-toggle="tab">Visita <i
+				<li><a href="#aba-visita" data-toggle="tab">Visita <i
 						class="fa"></i>
 				</a></li>
 			</sec:authorize>
 		</ul>
 		<div class="tab-content">
-			<div class="tab-pane active" id="inscricao-tab">
+			<div class="tab-pane" id="inscricao-tab">
 				<div class="panel panel-default panel-primary">
 
 					<div class="panel-heading">
@@ -67,28 +69,82 @@
 						</h3>
 					</div>
 					<div class="panel-body">
+						<div class="aluno-img-container">
+							<img id="aluno-img" src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>"/>
+						</div>
+						<div class='f-container s4 left'>
+							<label class='f-title'>Matrícula:</label>
+							<div class='f-content'>
+								<c:if test="${not empty inscricao.aluno.matricula}">
+									<span> ${inscricao.aluno.matricula } </span>
+								</c:if>
+							</div>
+						</div>
 
-						<img id="aluno-img"
-							src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
+						<div class='f-container s3 left'>
+							<label class='f-title'>Nome:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.nome}">
+									<span> ${usuarioAtivo.nome } </span>
+								</c:if>
+							</div>
+						</div>
 
-						<div class='f-container s4'>
-							<label class='f-title'>Data da inscrição</label>
+						<div class='f-container s4 left'>
+							<label class='f-title'>CPF:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.cpf}">
+									<span> ${usuarioAtivo.cpf } </span>
+								</c:if>
+							</div>
+						</div>
+
+						<div class='f-container s3 left'>
+							<label class='f-title'>Email:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.email}">
+									<span> ${usuarioAtivo.email } </span>
+								</c:if>
+							</div>
+						</div>
+
+						<div class='f-container s4 left'>
+							<label class='f-title'>Telefone:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.telefone}">
+									<span> ${usuarioAtivo.telefone } </span>
+								</c:if>
+
+							</div>
+						</div>
+
+						<div class='f-container s3 left'>
+							<label class='f-title'>Nascimento:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.dataNascimento}">
+									<span> <fmt:formatDate pattern="dd/MM/yyyy"
+											value="${usuarioAtivo.dataNascimento }" /></span>
+								</c:if>
+							</div>
+						</div>
+						<div class='f-container s4 left'>
+							<label class='f-title'>Data da inscrição:</label>
 							<div class='f-content'>
 								<fmt:formatDate value="${inscricao.data}" pattern="dd/MM/yyyy" />
 							</div>
 						</div>
 
-						<div class='f-container s4'>
+						<div class='f-container s3 left'>
 							<label class='f-title'>Tipo da seleção:</label>
 							<div class='f-content'>${inscricao.selecao.tipoSelecao.nome}</div>
 						</div>
 
-						<div class='f-container s4'>
+						<div class='f-container s4 left'>
 							<label class='f-title'>Resultado:</label>
 							<div class='f-content'>${inscricao.resultado.nome}</div>
 						</div>
 
-						<div class='f-container s4'>
+						<div class='f-container s3 left'>
 							<label class='f-title'>Observações:</label>
 							<div class='f-content'>${inscricao.observacoes}</div>
 						</div>
@@ -524,20 +580,20 @@
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div class="tab-pane" id="entrevista-tab">
 					<c:choose>
-						<c:when test="${!inscricao.avaliacaoDocumentos}">
+						<c:when
+							test="${inscricao.deferimentoDocumentacao == 'INDEFERIDO'}">
 							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								Este Aluno foi Indeferido na Etapa
-								de Documentação
+								Este Aluno foi Indeferido na Etapa de Documentação
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
-									<h3 class="panel-title">Entrevista</h3>
+									<h3 class="panel-title">Dados da Entrevista</h3>
 								</div>
 								<div class="panel-body">
 									<dl class='col-sm-12'>
@@ -550,29 +606,149 @@
 									</dl>
 								</div>
 							</div>
+							<div class="panel panel-default panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Membros da Família</h3>
+								</div>
+								<div class="panel-body">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Nome</th>
+												<th>Parentesco</th>
+												<th>Escolaridade</th>
+												<th>Idade</th>
+												<th>Profissao</th>
+												<th>Renda R$</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="pessoa" items="${questAuxMor.pessoas}">
+												<tr>
+													<td>${pessoa.nome}</td>
+													<td>${pessoa.parentesco.nome}</td>
+													<td>${pessoa.escolaridade}</td>
+													<td>${pessoa.idade}</td>
+													<td>${pessoa.profissao}</td>
+													<td>${pessoa.rendaMensal}</td>
+												</tr>
+											</c:forEach>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="panel panel-default panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Editar Membros da Família</h3>
+								</div>
+								<div class="panel-body">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>Nome</th>
+												<th>Parentesco</th>
+												<th>Escolaridade</th>
+												<th>Idade</th>
+												<th>Profissao</th>
+												<th>Renda R$</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+
+											<c:forEach var="pessoa"
+												items="${inscricao.questionarioAuxilioMoradia.pessoasEntrevista}">
+												<tr>
+													<td>${pessoa.nome}</td>
+													<td>${pessoa.parentesco.nome}</td>
+													<td>${pessoa.escolaridade}</td>
+													<td>${pessoa.idade}</td>
+													<td>${pessoa.profissao}</td>
+													<td>${pessoa.rendaMensal}</td>
+													<td><a id="remover-pessoa-familia" data-toggle="modal"
+														data-target="#confirm-delete" href="#"
+														data-href="<c:url value="/servidor/inscricao/removerPessoaFamilia/${pessoa.id}/${inscricao.id } "></c:url>">
+															<button class="btn btn-danger btn-xs">
+																<span class="glyphicon glyphicon-trash"></span>
+															</button>
+													</a></td>
+												</tr>
+											</c:forEach>
+											<form:form id="formPessoaFamilia" method="POST" role="form"
+												cssClass="form-horizontal" modelAttribute="pessoaDaFamilia"
+												commandName="pessoaDaFamilia"
+												servletRelativeAction="/servidor/inscricao/adicionarPessoaFamilia/${inscricao.id }">
+												<tr>
+
+													<td><form:input cssClass="form-control" path="nome"
+															id="nome" /></td>
+													<td><form:select cssClass="form-control"
+															path="parentesco" id="parentesco">
+															<option>Parentesco</option>
+															<c:forEach items="${grauParentesco }" var="parentesco">
+																<option value="${parentesco }">
+																	${parentesco.nome }</option>
+															</c:forEach>
+														</form:select></td>
+													<td><form:input cssClass="form-control" type="text"
+															path="escolaridade" id="escolaridade" /></td>
+													<td><form:input cssClass="form-control" type="number"
+															path="idade" id="idade" /></td>
+													<td><form:input cssClass="form-control" type="text"
+															path="profissao" id="profissao" /></td>
+													<td><form:input cssClass="form-control" type="number"
+															id="rendaMensal" path="rendaMensal" /></td>
+													<td></td>
+												</tr>
+											</form:form>
+										</tbody>
+
+									</table>
+									<div class="form-group">
+										<input id="addPessoaFamilia" type="submit"
+											class="btn btn-primary" value="Adicionar Pessoa" />
+									</div>
+
+								</div>
+							</div>
 						</c:otherwise>
 					</c:choose>
 				</div>
 				<div class="tab-pane" id="visita-tab">
-				    <c:choose>
-				        <c:when test="${!inscricao.entrevista.deferimento}">
-				            <div class="alert alert-danger alert-dismissible" role="alert">
+					<c:choose>
+						<c:when test="${!inscricao.entrevista.deferimento}">
+							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								Este Aluno foi Indeferido na Etapa
-								de entrevista
+								Este Aluno foi Indeferido na Etapa de entrevista
 							</div>
-				        </c:when>
-				        <c:otherwise>
-				            <!-- aqui deve ser mostrado os dados da visita -->
-				        </c:otherwise>
-				    </c:choose>
+						</c:when>
+						<c:otherwise>
+							<!-- aqui deve ser mostrado os dados da visita -->
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</sec:authorize>
 		</div>
 		<jsp:include page="../fragments/footer.jsp" />
+
+		<div class="modal fade" id="confirm-delete" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">Excluir</div>
+					<div class="modal-body">Tem certeza de que deseja excluir
+						esta pessoa da família?</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-danger">Excluir</a>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

@@ -26,14 +26,16 @@ import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
+import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 
+
 @Controller
 @RequestMapping("coordenador")
 public class CoordenadorController {
-
+	
 	@Inject
 	private SelecaoService selecaoService;
 
@@ -42,7 +44,42 @@ public class CoordenadorController {
 
 	@Inject
 	private ServidorService servidorService;
+	
+	
+	@RequestMapping(value = "excluir-tipo-documento/{id}", method = RequestMethod.GET)
+	public String excluirTipoDocumento(@PathVariable("id") Integer id,
+			Model model, RedirectAttributes redirect) {
+		
+		TipoDocumento tipoDocumento = documentoService.findById(id);
 
+		if (tipoDocumento != null){
+			documentoService.delete(tipoDocumento);
+		}
+		else{ 
+			model.addAttribute("Error", MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO);
+		}
+		model.addAttribute(DOCUMENTOS,documentoService.find());
+		return  REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
+		
+		
+	}
+	
+	@RequestMapping(value = "adicionar-tipo-arquivo", method = RequestMethod.GET)
+	public String addTipoArquivo(TipoDocumento tipoDocumento){
+		if(!tipoDocumento.getNome().isEmpty()){
+			documentoService.save(tipoDocumento);
+		}
+		return REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
+	}
+	
+	
+	@RequestMapping(value = "gerenciarDocumentos", method = RequestMethod.GET)
+	public String gerenciarDocumentos(ModelMap model){
+		model.addAttribute(DOCUMENTOS,documentoService.find() );
+		return PAGINA_GERENCIAR_DOCUMENTOS;
+	}
+	
+	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(ModelMap model, HttpServletRequest request, Authentication auth){
 
@@ -118,7 +155,6 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
-		System.out.println("IDSELECAO   "+idSelecao);
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 		if (selecao != null) {
 			model.addAttribute("action", "editar");

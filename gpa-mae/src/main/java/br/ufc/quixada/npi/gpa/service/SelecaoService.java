@@ -10,6 +10,6 @@ public interface SelecaoService extends GenericService<Selecao> {
 	public abstract boolean SelecaoEstaCadastrada(Selecao selecao);
 
 	public abstract List<Selecao> getSelecoesComMembros();
-	
+
 	public abstract Integer getUltimoSequencialPorAno(Selecao selecao);	
 }

@@ -9,10 +9,14 @@ public class Constants {
 	public static final String USUARIO_ID = "id";
 
 	/** Páginas */
-
+	
+	public static final String PAGINA_GERENCIAR_DOCUMENTOS = "coordenador/gerenciarDocumentos";
+	
 	public static final String PAGINA_ATRIBUIR_COMISSAO = "coordenador/atribuirMembroComissao";
 
 	public static final String PAGINA_INFORMACOES_SELECAO			= "selecao/detalhesSelecao";
+	
+	public static final String PAGINA_RANKING_CLASSIFICADOS			= "selecao/rankingClassificados";
 	
 	public static final String PAGINA_INFORMACOES_SELECAO_SERVIDOR	= "servidor/detalhesSelecaoServidor";
 	
@@ -40,6 +44,8 @@ public class Constants {
 
 	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR = "servidor/listaSelecoes";
 	
+	public static final String PAGINA_SELECIONAR_CLASSIFICADOS = "selecao/selecionarClassificados";
+	
 	public static final String PAGINA_ADICIONAR_ARQUIVO = "coordenador/adicionarArquivoSelecao";
 
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
@@ -62,7 +68,11 @@ public class Constants {
 	// "servidor/detalhesSelecao";
 
 	/** Redirecionamentos */
+	
+	public static final String REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS = "redirect:/selecao/selecionarClassificados/";
 
+	public static final String REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS = "redirect:/coordenador/gerenciarDocumentos";
+	
 	public static final String REDIRECT_PAGINA_EDITAR_SELECAO = "redirect:/coordenador/selecao/editar/";
 	
 	public static final String REDIRECT_PAGINA_ADICIONAR_ARQUIVO = "redirect:/coordenador/selecao/adicionar-documento/";
@@ -85,6 +95,7 @@ public class Constants {
 	
 	public static final String REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR = "redirect:/servidor/detalhesSelecaoServidor";
 
+	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO = "redirect:/servidor/detalhes/inscricao/";
 	
 	/** Mensagens */
 
@@ -214,6 +225,12 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO = "Extensão da foto inválida. Extensões aceitas (jpeg, jpg, png)";
 	
+	public static final String MENSAGEM_ERRO_QTD_VAGAS = "Não restam vagas suficientes para esta quantidade de alunos";
+	
+	public static final String MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO = "Selecione pelo menos um aluno classificado";
+
+	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO= "Não é possível excluir esse arquivo";
+	
 	/** Perfis */
 
 	public static final String STA = "STA";
@@ -227,6 +244,8 @@ public class Constants {
 	public static final String ADMINISTRADOR = "ADMINISTRADOR_GPA";
 
 	/** Resources */
+	
+	public static final String 	DOCUMENTOS = "documentos";
 	
 	public static final String CAMINHO_IMAGEM_ALUNO_SEM_FOTO = "/MAE/resources/img/alunoImage.png";
 

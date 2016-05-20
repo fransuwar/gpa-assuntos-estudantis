@@ -3,7 +3,6 @@ package br.ufc.quixada.npi.gpa.model;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -36,16 +35,16 @@ public class Inscricao {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date data;
 
-	private boolean avaliacaoDocumentos;
-
+	//referente ao resultado final
 	@Enumerated(EnumType.STRING)
-
 	private Resultado resultado;
 
 	private String observacoes;
 
-	@Column(nullable = false)
-	private boolean deferimento;
+	//referente ao deferimento de documentação
+	@Enumerated(EnumType.STRING)
+	private Resultado deferimentoDocumentacao;
+	
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
 
@@ -78,14 +77,6 @@ public class Inscricao {
 
 	public void setData(Date data) {
 		this.data = data;
-	}
-
-	public boolean isAvaliacaoDocumentos() {
-		return avaliacaoDocumentos;
-	}
-
-	public void setAvaliacaoDocumentos(boolean avaliacaoDocumentos) {
-		this.avaliacaoDocumentos = avaliacaoDocumentos;
 	}
 
 	public Resultado getResultado() {
@@ -129,6 +120,10 @@ public class Inscricao {
 	}
 
 	public VisitaDomiciliar getVisitaDomiciliar() {
+ 		if(visitaDomiciliar == null){
+			visitaDomiciliar = new VisitaDomiciliar();
+		}
+ 		
 		return visitaDomiciliar;
 	}
 
@@ -136,12 +131,12 @@ public class Inscricao {
 		this.visitaDomiciliar = visitaDomiciliar;
 	}
 
-	public boolean isDeferimento() {
-		return deferimento;
+	public Resultado getDeferimentoDocumentacao() {
+		return deferimentoDocumentacao;
 	}
 
-	public void setDeferimento(boolean deferimento) {
-		this.deferimento = deferimento;
+	public void setDeferimentoDocumentacao(Resultado deferimento) {
+		this.deferimentoDocumentacao = deferimento;
 	}
 
 	public Entrevista getEntrevista() {
