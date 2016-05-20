@@ -30,7 +30,7 @@ public class AlunoServiceImpl extends GenericServiceImpl<Aluno> implements Aluno
 
 	@Override
 	@Transactional(readOnly = true)
-	public boolean AlunoEstaCadastrado(Aluno aluno) {
+	public boolean isAlunoCadastrado(Aluno aluno) {
 		@SuppressWarnings("unchecked")
 		List<Aluno> alunos = find(QueryType.JPQL, "from Aluno as a where a.matricula = :matricula",
 				new SimpleMap<String, Object>("matricula", aluno.getMatricula()));

@@ -11,7 +11,7 @@ public interface AlunoService extends GenericService<Aluno>{
 	
 	public abstract Aluno getAlunoPorCPF(String cpf);
 	
-	public abstract boolean AlunoEstaCadastrado(Aluno aluno);
+	public abstract boolean isAlunoCadastrado(Aluno aluno);
 
 
 }

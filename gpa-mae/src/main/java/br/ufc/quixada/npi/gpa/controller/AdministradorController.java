@@ -181,7 +181,7 @@ public class AdministradorController {
 		}
 
 		if (aluno != null) {
-			if (this.alunoService.AlunoEstaCadastrado(aluno)) {
+			if (this.alunoService.isAlunoCadastrado(aluno)) {
 				result.rejectValue("matricula", "aluno.matricula", MENSAGEM_ERRO_MATRICULA_EXISTENTE);
 			}
 		}
