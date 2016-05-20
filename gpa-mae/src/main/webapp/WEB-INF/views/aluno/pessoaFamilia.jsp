@@ -26,11 +26,11 @@
 					<tr class="pessoaFamilia defaultRow">
 						<td><input class="form-control" type="text" name="pf.nome"
 							value="${pf.nome }" /></td>
-						<td><form:select path="" name="pessoas[].grauParentesco"
+						<td><form:select path="grauParentesco" name="pessoas[].grauParentesco"
 								class="form-control" cssStyle="font-size:13px;">
-								<form:option value="">Selecione um grau de parentesco</form:option>
+								<form:option value="0">Selecione um grau de parentesco</form:option>
 								<c:forEach items="${grauParentesco }" var="parentesco">
-									<form:option value="${parentesco }"
+									<form:option value="${grauParentesco }" item="${grauParentesco }"
 										selected="${parentesco == pf.parentesco ? 'selected' : '' }">${parentesco.nome}</form:option>
 								</c:forEach>
 							</form:select></td>

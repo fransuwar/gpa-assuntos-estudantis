@@ -55,6 +55,7 @@ import br.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
 import br.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
 import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
+import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
@@ -63,6 +64,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
+import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
@@ -318,6 +320,7 @@ public class AlunoController {
 
 			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 			Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
+			auxilioMoradia.setPessoasEntrevista(auxilioMoradia.getPessoas());
 			
 			if (inscricaoService.getInscricao(selecao, aluno) == null) {
 
@@ -328,6 +331,8 @@ public class AlunoController {
 				inscricao.setAluno(aluno);
 				inscricao.setSelecao(selecao);
 				inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
+				inscricao.setDeferimentoDocumentacao(Resultado.NAO_AVALIADO);
+				inscricao.setResultado(Resultado.NAO_AVALIADO);
 				
 				inscricaoService.save(inscricao);
 			} else {

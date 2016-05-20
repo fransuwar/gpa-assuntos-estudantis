@@ -570,5 +570,15 @@ public class QuestionarioAuxilioMoradia {
 	public void setOutroGrauParentescoVeiculos(String outroGrauParentescoVeiculos) {
 		this.outroGrauParentescoVeiculos = outroGrauParentescoVeiculos;
 	}
+
+	public List<PessoaFamilia> getPessoasEntrevista() {
+		return pessoasEntrevista;
+	}
+
+	public void setPessoasEntrevista(List<PessoaFamilia> pessoasEntrevista) {
+		this.pessoasEntrevista = pessoasEntrevista;
+	}
+	
+	
 	
 }

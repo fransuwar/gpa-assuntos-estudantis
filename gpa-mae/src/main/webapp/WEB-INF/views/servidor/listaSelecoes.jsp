@@ -81,20 +81,7 @@
 												<i class="fa fa-pencil-square-o"></i>
 											</button>
 									</a> 
-									<a
-										href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-xs"
-												title="Adicionar Arquivos">
-												<i class="fa fa-file-text"></i>
-											</button>
-									</a>
-									<a
-										href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-xs"
-												title="Gerenciar Comissão">
-												<i class="fa fa-users"></i>
-											</button>
-									</a> <c:if test="${selecao.inscritos.isEmpty() }">
+									 <c:if test="${selecao.inscritos.isEmpty() }">
 											<a id="excluir" data-toggle="modal"
 												data-target="#confirm-delete" href="#"
 												data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">

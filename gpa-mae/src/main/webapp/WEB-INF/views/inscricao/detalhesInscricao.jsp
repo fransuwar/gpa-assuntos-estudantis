@@ -19,25 +19,27 @@
 </head>
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
+	<input id="ativar-aba-entrevista" name="ativar-aba-entrevista"
+		type="hidden" value="${ativarAbaEntrevista }" />
 	<div class="container" align="center">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#inscricao-tab" data-toggle="tab">Inscrição<i
-					class="fa"></i>
+			<li id="aba-inscricao"><a href="#inscricao-tab"
+				data-toggle="tab">Inscrição<i class="fa"></i>
 			</a></li>
-			<li><a href="#documentos-tab" data-toggle="tab">Documentos <i
-					class="fa"></i>
+			<li id="aba-documentos"><a href="#documentos-tab"
+				data-toggle="tab">Documentos <i class="fa"></i>
 			</a></li>
 			<sec:authorize access="hasAnyRole('DOCENTE','STA')">
-				<li><a href="#entrevista-tab" data-toggle="tab">Entrevista
-						<i class="fa"></i>
+				<li id="aba-entrevista"><a href="#entrevista-tab"
+					data-toggle="tab">Entrevista <i class="fa"></i>
 				</a></li>
-				<li><a href="#visita-tab" data-toggle="tab">Visita <i
+				<li><a href="#aba-visita" data-toggle="tab">Visita <i
 						class="fa"></i>
 				</a></li>
 			</sec:authorize>
 		</ul>
 		<div class="tab-content">
-			<div class="tab-pane active" id="inscricao-tab">
+			<div class="tab-pane" id="inscricao-tab">
 				<div class="panel panel-default panel-primary">
 
 					<div class="panel-heading">
@@ -524,7 +526,8 @@
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div class="tab-pane" id="entrevista-tab">
 					<c:choose>
-						<c:when test="${!inscricao.avaliacaoDocumentos}">
+						<c:when
+							test="${inscricao.deferimentoDocumentacao == 'INDEFERIDO'}">
 							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
@@ -566,11 +569,10 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="pessoa"
-												items="${questAuxMor.pessoas}">
+											<c:forEach var="pessoa" items="${questAuxMor.pessoas}">
 												<tr>
 													<td>${pessoa.nome}</td>
-													<td>${pessoa.parentesco}</td>
+													<td>${pessoa.parentesco.nome}</td>
 													<td>${pessoa.escolaridade}</td>
 													<td>${pessoa.idade}</td>
 													<td>${pessoa.profissao}</td>
@@ -587,7 +589,7 @@
 									<h3 class="panel-title">Editar Membros da Família</h3>
 								</div>
 								<div class="panel-body">
-									<table class="table table-striped table-hover">
+									<table class="table table-striped">
 										<thead>
 											<tr>
 												<th>Nome</th>
@@ -596,23 +598,64 @@
 												<th>Idade</th>
 												<th>Profissao</th>
 												<th>Renda R$</th>
+												<th></th>
 											</tr>
 										</thead>
 										<tbody>
+
 											<c:forEach var="pessoa"
-												items="${inscricao.questionarioAuxilioMoradia.pessoas}">
+												items="${inscricao.questionarioAuxilioMoradia.pessoasEntrevista}">
 												<tr>
 													<td>${pessoa.nome}</td>
-													<td>${pessoa.parentesco}</td>
+													<td>${pessoa.parentesco.nome}</td>
 													<td>${pessoa.escolaridade}</td>
 													<td>${pessoa.idade}</td>
 													<td>${pessoa.profissao}</td>
 													<td>${pessoa.rendaMensal}</td>
+													<td><a id="remover-pessoa-familia" data-toggle="modal"
+														data-target="#confirm-delete" href="#"
+														data-href="<c:url value="/servidor/inscricao/removerPessoaFamilia/${pessoa.id}/${inscricao.id } "></c:url>">
+															<button class="btn btn-danger btn-xs">
+																<span class="glyphicon glyphicon-trash"></span>
+															</button>
+													</a></td>
 												</tr>
 											</c:forEach>
+											<form:form id="formPessoaFamilia" method="POST" role="form"
+												cssClass="form-horizontal" modelAttribute="pessoaDaFamilia"
+												commandName="pessoaDaFamilia"
+												servletRelativeAction="/servidor/inscricao/adicionarPessoaFamilia/${inscricao.id }">
+												<tr>
 
+													<td><form:input cssClass="form-control" path="nome"
+															id="nome" /></td>
+													<td><form:select cssClass="form-control"
+															path="parentesco" id="parentesco">
+															<option>Parentesco</option>
+															<c:forEach items="${grauParentesco }" var="parentesco">
+																<option value="${parentesco }">
+																	${parentesco.nome }</option>
+															</c:forEach>
+														</form:select></td>
+													<td><form:input cssClass="form-control" type="text"
+															path="escolaridade" id="escolaridade" /></td>
+													<td><form:input cssClass="form-control" type="number"
+															path="idade" id="idade" /></td>
+													<td><form:input cssClass="form-control" type="text"
+															path="profissao" id="profissao" /></td>
+													<td><form:input cssClass="form-control" type="number"
+															id="rendaMensal" path="rendaMensal" /></td>
+													<td></td>
+												</tr>
+											</form:form>
 										</tbody>
+
 									</table>
+									<div class="form-group">
+										<input id="addPessoaFamilia" type="submit"
+											class="btn btn-primary" value="Adicionar Pessoa" />
+									</div>
+
 								</div>
 							</div>
 						</c:otherwise>
@@ -637,6 +680,21 @@
 			</sec:authorize>
 		</div>
 		<jsp:include page="../fragments/footer.jsp" />
+
+		<div class="modal fade" id="confirm-delete" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">Excluir</div>
+					<div class="modal-body">Tem certeza de que deseja excluir
+						esta pessoa da família?</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-danger">Excluir</a>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

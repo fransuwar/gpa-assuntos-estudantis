@@ -1,7 +1,7 @@
 package br.ufc.quixada.npi.gpa.enums;
 
 public enum Resultado {
-	DEFERIDO("deferido"),INDEFERIDO("indeferido");
+	DEFERIDO("deferido"),INDEFERIDO("indeferido"), NAO_AVALIADO("não avaliado");
 	
 	private String nome;
 	

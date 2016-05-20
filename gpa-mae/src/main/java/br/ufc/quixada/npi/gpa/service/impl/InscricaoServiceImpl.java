@@ -15,6 +15,7 @@ import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
+import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
@@ -33,6 +34,9 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 
 	@Inject
 	private GenericRepository<Entrevista> entrevistaService;
+	
+	@Inject
+	private GenericRepository<PessoaFamilia> pessoaService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -114,5 +118,14 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 		params.put("idAluno", aluno.getId());
 		return (Inscricao) findFirst("Inscricao.findInscricaoAluno", params);
 
+	}
+
+	@Override
+	public void excluirPessoaFamiliaPorId(Integer idPessoa) {
+		Map<String, Object> params = new SimpleMap<String, Object>();
+		params.put("idPessoa", idPessoa);
+		PessoaFamilia pessoa = (PessoaFamilia) pessoaService.findFirst(QueryType.JPQL,"select p from PessoaFamilia as p where p.id = :idPessoa",
+				new SimpleMap<String,Object>("idPessoa", idPessoa));
+		pessoaService.delete(pessoa);
 	}
 }
