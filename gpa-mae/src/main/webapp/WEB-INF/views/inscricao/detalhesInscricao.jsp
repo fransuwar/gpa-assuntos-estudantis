@@ -69,28 +69,82 @@
 						</h3>
 					</div>
 					<div class="panel-body">
+						<div class="aluno-img-container">
+							<img id="aluno-img" src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>"/>
+						</div>
+						<div class='f-container s4 left'>
+							<label class='f-title'>Matrícula:</label>
+							<div class='f-content'>
+								<c:if test="${not empty inscricao.aluno.matricula}">
+									<span> ${inscricao.aluno.matricula } </span>
+								</c:if>
+							</div>
+						</div>
 
-						<img id="aluno-img"
-							src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
+						<div class='f-container s3 left'>
+							<label class='f-title'>Nome:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.nome}">
+									<span> ${usuarioAtivo.nome } </span>
+								</c:if>
+							</div>
+						</div>
 
-						<div class='f-container s4'>
-							<label class='f-title'>Data da inscrição</label>
+						<div class='f-container s4 left'>
+							<label class='f-title'>CPF:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.cpf}">
+									<span> ${usuarioAtivo.cpf } </span>
+								</c:if>
+							</div>
+						</div>
+
+						<div class='f-container s3 left'>
+							<label class='f-title'>Email:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.email}">
+									<span> ${usuarioAtivo.email } </span>
+								</c:if>
+							</div>
+						</div>
+
+						<div class='f-container s4 left'>
+							<label class='f-title'>Telefone:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.telefone}">
+									<span> ${usuarioAtivo.telefone } </span>
+								</c:if>
+
+							</div>
+						</div>
+
+						<div class='f-container s3 left'>
+							<label class='f-title'>Nascimento:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.dataNascimento}">
+									<span> <fmt:formatDate pattern="dd/MM/yyyy"
+											value="${usuarioAtivo.dataNascimento }" /></span>
+								</c:if>
+							</div>
+						</div>
+						<div class='f-container s4 left'>
+							<label class='f-title'>Data da inscrição:</label>
 							<div class='f-content'>
 								<fmt:formatDate value="${inscricao.data}" pattern="dd/MM/yyyy" />
 							</div>
 						</div>
 
-						<div class='f-container s4'>
+						<div class='f-container s3 left'>
 							<label class='f-title'>Tipo da seleção:</label>
 							<div class='f-content'>${inscricao.selecao.tipoSelecao.nome}</div>
 						</div>
 
-						<div class='f-container s4'>
+						<div class='f-container s4 left'>
 							<label class='f-title'>Resultado:</label>
 							<div class='f-content'>${inscricao.resultado.nome}</div>
 						</div>
 
-						<div class='f-container s4'>
+						<div class='f-container s3 left'>
 							<label class='f-title'>Observações:</label>
 							<div class='f-content'>${inscricao.observacoes}</div>
 						</div>

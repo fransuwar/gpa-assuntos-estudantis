@@ -155,7 +155,6 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
-		System.out.println("IDSELECAO   "+idSelecao);
 		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
 		if (selecao != null) {
 			model.addAttribute("action", "editar");

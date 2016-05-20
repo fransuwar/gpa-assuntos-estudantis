@@ -18,7 +18,6 @@ import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
-import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.repository.GenericRepository;
@@ -37,6 +36,10 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 	
 	@Inject
 	private GenericRepository<PessoaFamilia> pessoaService;
+
+	@Inject
+	private GenericRepository<Inscricao> inscricaoRepository;
+
 
 	@Override
 	@Transactional(readOnly = true)
@@ -120,6 +123,7 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 
 	}
 
+
 	@Override
 	public void excluirPessoaFamiliaPorId(Integer idPessoa) {
 		Map<String, Object> params = new SimpleMap<String, Object>();
@@ -127,5 +131,41 @@ public class InscricaoServiceImpl extends GenericServiceImpl<Inscricao> implemen
 		PessoaFamilia pessoa = (PessoaFamilia) pessoaService.findFirst(QueryType.JPQL,"select p from PessoaFamilia as p where p.id = :idPessoa",
 				new SimpleMap<String,Object>("idPessoa", idPessoa));
 		pessoaService.delete(pessoa);
+	}
+
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Inscricao> getDeferidosBySelecao(Selecao selecao) {
+		List<Inscricao> inscricoes = find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.deferimento = 'true'",
+				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
+
+		return inscricoes;
+	}
+
+	@Override
+	public List<Inscricao> getClassificadosPorSelecao(Selecao selecao) {
+		List<Inscricao> inscricoes = find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'true'",
+				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
+
+		return inscricoes;
+	}
+	
+	@Override
+	public List<Inscricao> getClassificaveisPorSelecao(Selecao selecao) {
+		List<Inscricao> inscricoes = find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'false'",
+				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
+
+		return inscricoes;
+	}
+
+	@Override
+	@Transactional
+	public void update(Integer idInscricao,boolean classificado) {
+		Map<String, Object> params = new SimpleMap<String, Object>();
+		params.put("classificado", classificado);
+		params.put("idInscricao", idInscricao);
+		inscricaoRepository.executeUpdate("update Inscricao set classificado =:classificado where Inscricao.id =:idInscricao", params);
+		
 	}
 }
