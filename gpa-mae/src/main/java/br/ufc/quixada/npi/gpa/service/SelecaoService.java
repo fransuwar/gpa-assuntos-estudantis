@@ -1,9 +1,7 @@
 package br.ufc.quixada.npi.gpa.service;
 
 import java.util.List;
-import java.util.Map;
 
-import br.ufc.quixada.npi.enumeration.QueryType;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 
 public interface SelecaoService {
@@ -23,6 +21,5 @@ public interface SelecaoService {
 	public abstract void update(Selecao selecao);
 	
 	public abstract void delete(Selecao selecao);
-
 	
 }

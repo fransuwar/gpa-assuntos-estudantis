@@ -1,7 +1,6 @@
 package br.ufc.quixada.npi.gpa.service;
 
 import java.util.List;
-import java.util.Map;
 
 import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.model.Aluno;
@@ -44,5 +43,13 @@ public interface InscricaoService{
 	
 	public abstract void delete(Inscricao inscricao);
 	
+	public abstract List<Inscricao> getDeferidosBySelecao(Selecao selecao);
+	
+	public abstract List<Inscricao> getClassificadosPorSelecao(Selecao selecao);
+	
+	public abstract List<Inscricao> getClassificaveisPorSelecao(Selecao selecao);
+	
+	public abstract void update(Integer idInscricao,boolean classificado);
+
 }
 

@@ -2,6 +2,79 @@ var linha;
 
 $(document).ready(function(){
 	
+	var tabelaClassificaveis = $('#tabela-classificaveis').dataTable({
+		"language": {
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"paging": false,
+		"order": [[ 2, "cresc" ]],
+		"ordering": false,
+		"bInfo" : false,
+		"language": {
+	        "emptyTable": "Nenhum Aluno Classificável"
+	    }
+	});
+	
+	
+	var tabelaClassificados = $('#tabela-classificados').dataTable({
+		"language": {
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"paging": false,
+		"order": [[ 2, "cresc" ]],
+		"ordering": false,
+		"bInfo" : false,
+		"language": {
+	        "emptyTable": "Adicione pelo menos um aluno para a tabela dos classificados"
+	    }
+	});
+	
+	
+	$("#pesquisarClassificaveis").keyup(function() {
+		tabelaClassificaveis.fnFilter(this.value);
+    });   
+	
+	$("#pesquisarClassificados").keyup(function() {
+		tabelaClassificados.fnFilter(this.value);
+    });
+	
+	//Submeter o formulário de Selecionar Classificados
+	$("#erro-checkbox").hide();
+	
+	$("#botao-adicionar-classificados").on("click",function(e){
+		e.preventDefault();
+		//Validação para garantir que pelo menos um check esteja checado
+		var peloMenosUmChecado = false;
+		$("input[name='checkClassificados[]']").each(function() {
+		    if ($(this).is(":checked")) {
+		    	peloMenosUmChecado = true;
+		    }
+		});
+		if(peloMenosUmChecado){
+		    $("#formClassificaveis").submit();
+		    $("#erro-checkbox").hide();
+		}else{
+			$("#erro-checkbox").show();
+		}
+	});
+	
+	$("#botao-remover-classificados").on("click",function(e){
+		e.preventDefault();
+		var peloMenosUmChecado = false;
+		$("input[name='checkClassificaveis[]']").each(function() {
+		    if ($(this).is(":checked")) {
+		    	peloMenosUmChecado = true;
+		    }
+		});
+		if(peloMenosUmChecado){
+			$("#formClassificados").submit();
+			$("#erro-checkbox").hide();
+		}else{
+			$("#erro-checkbox").show();
+		}
+	});
+
+	
 	$(".fechado").slideUp();
 
 	$(".panel-heading span.clicavel").on("click", function (e) {
@@ -45,7 +118,9 @@ $(document).ready(function(){
 
 	$("#questionarioIniciacao").validate();
 
-	$("table").DataTable({
+	$("#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
+	  "#tabela-inscritos, #tabela-ranking-classificados, " +
+	  "#tabela-detalhes-selecao-servidores, #table-visualiza-info-auxilio").DataTable({
 		"language": {
 			"url":"/MAE/resources/js/Portuguese-Brasil.json"
 		},
@@ -97,64 +172,6 @@ $(document).ready(function(){
 		}
 
 	});
-
-});
-
-function confirmar(title, link){
-	var modal = $('<div></div>');
-	modal.attr('class', 'modal fade');
-	modal.attr('id', 'confirm-delete');
-	modal.attr('tabindex', '-1');
-	modal.attr('role', 'dialog');
-	modal.attr('aria-labelledby', 'myModalLabel');
-	modal.attr('aria-hidden', 'true');
-	
-	var modalDialog = $('<div></div>');
-	modalDialog.attr('class', 'modal-dialog');
-	
-	var modalContent = $('<div></div>');
-	modalContent.attr('class', 'modal-content');
-	
-	var modalHeader = $('<div></div>');
-	modalHeader.attr('class', 'modal-header');
-	modalHeader.html('Excluir');
-	
-	var modalBody = $('<div></div>');
-	modalBody.attr('class', 'modal-body');
-	modalBody.html(title);
-	
-	var modalFooter = $('<div></div>');
-	modalFooter.attr('class', 'modal-footer');
-	
-	var btnExcluir = $('<a/>');
-	btnExcluir.attr('href', link);
-	btnExcluir.attr('class', 'btn btn-danger');
-	btnExcluir.html('Excluir');
-	
-	var button = $('<button/>');
-	button.attr('type', 'button');
-	button.attr('class', 'btn btn-default');
-	button.attr('data-dismiss', 'modal');
-	button.html('Cancelar');
-	
-	modalFooter.append(btnExcluir);
-	modalFooter.append(button);
-	
-	modalContent.append(modalHeader);
-	modalContent.append(modalBody);
-	modalContent.append(modalFooter);
-	
-	modalDialog.append(modalContent);
-	
-	modal.append(modalDialog);
-	
-	$('#confirm-delete').remove();
-	$('body').append(modal);
-	
-	modal.modal();
-}
-
-$(document).ready(function(){
 	
 	$('.img-fullscreen').find('img').click(function(){
 		$('.img-fullscreen-background').remove();
@@ -236,8 +253,63 @@ $(document).ready(function(){
 		autoclose : true
 	
 	});
-	
+
 });
+
+function confirmar(title, link){
+	var modal = $('<div></div>');
+	modal.attr('class', 'modal fade');
+	modal.attr('id', 'confirm-delete');
+	modal.attr('tabindex', '-1');
+	modal.attr('role', 'dialog');
+	modal.attr('aria-labelledby', 'myModalLabel');
+	modal.attr('aria-hidden', 'true');
+	
+	var modalDialog = $('<div></div>');
+	modalDialog.attr('class', 'modal-dialog');
+	
+	var modalContent = $('<div></div>');
+	modalContent.attr('class', 'modal-content');
+	
+	var modalHeader = $('<div></div>');
+	modalHeader.attr('class', 'modal-header');
+	modalHeader.html('Excluir');
+	
+	var modalBody = $('<div></div>');
+	modalBody.attr('class', 'modal-body');
+	modalBody.html(title);
+	
+	var modalFooter = $('<div></div>');
+	modalFooter.attr('class', 'modal-footer');
+	
+	var btnExcluir = $('<a/>');
+	btnExcluir.attr('href', link);
+	btnExcluir.attr('class', 'btn btn-danger');
+	btnExcluir.html('Excluir');
+	
+	var button = $('<button/>');
+	button.attr('type', 'button');
+	button.attr('class', 'btn btn-default');
+	button.attr('data-dismiss', 'modal');
+	button.html('Cancelar');
+	
+	modalFooter.append(btnExcluir);
+	modalFooter.append(button);
+	
+	modalContent.append(modalHeader);
+	modalContent.append(modalBody);
+	modalContent.append(modalFooter);
+	
+	modalDialog.append(modalContent);
+	
+	modal.append(modalDialog);
+	
+	$('#confirm-delete').remove();
+	$('body').append(modal);
+	
+	modal.modal();
+}
+
 
 function hasAttr($element, _attr){
 	var attr = $element.attr(_attr);
