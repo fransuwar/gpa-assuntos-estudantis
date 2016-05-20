@@ -10,9 +10,8 @@ import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
-import br.ufc.quixada.npi.service.GenericService;
 
-public interface InscricaoService extends GenericService<Inscricao>{
+public interface InscricaoService{
 	
 	public abstract List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica);
 
@@ -35,6 +34,14 @@ public interface InscricaoService extends GenericService<Inscricao>{
 	public abstract ComQuemMora getComQuemMora(MoraCom comQuemMora);
 
 	public abstract Inscricao getInscricao(Selecao selecao, Aluno aluno);
+	
+	public abstract Inscricao getInscricaoPorId(Integer id);
+	
+	public abstract void save(Inscricao inscricao);
+	
+	public abstract void update(Inscricao inscricao);
+	
+	public abstract void delete(Inscricao inscricao);
 	
 	public abstract void excluirPessoaFamiliaPorId(Integer idPessoa);
 

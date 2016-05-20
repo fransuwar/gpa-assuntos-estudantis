@@ -94,7 +94,7 @@ public class AlunoController {
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 
-		List<Selecao> selecoes = selecaoService.find(Selecao.class);
+		List<Selecao> selecoes = selecaoService.getSelecoes();
 
 		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
 
@@ -112,7 +112,7 @@ public class AlunoController {
 
 		model.addAttribute("action", "inscricao");
 
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		model.addAttribute("questionarioIniciacaoAcademica", new QuestionarioIniciacaoAcademica());
 		model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
@@ -143,13 +143,14 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.values());
 			model.addAttribute("idSelecao", idSelecao);
-			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
+			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
 
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+
 		Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		if (inscricaoService.getInscricao(selecao, aluno) == null) {
 			Inscricao inscricao = new Inscricao();
@@ -177,7 +178,7 @@ public class AlunoController {
 
 		model.addAttribute("action", "editar");
 
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 
 		model.addAttribute("inscricao", inscricao);
 		model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
@@ -237,7 +238,7 @@ public class AlunoController {
 
 		model.addAttribute("action", "inscricao");
 
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 		model.addAttribute("estado", Estado.values());
@@ -308,17 +309,17 @@ public class AlunoController {
 			model.addAttribute("moraCom", MoraCom.values());
 			model.addAttribute("grauParentesco", GrauParentesco.values());
 			model.addAttribute("idSelecao", idSelecao);
-			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
+			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
 			
 			
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 
 		} else {
 
-			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-			Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
-			auxilioMoradia.setPessoasEntrevista(auxilioMoradia.getPessoas());
 
+			Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+			Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+			auxilioMoradia.setPessoasEntrevista(auxilioMoradia.getPessoas());
 			
 			if (inscricaoService.getInscricao(selecao, aluno) == null) {
 
@@ -350,7 +351,7 @@ public class AlunoController {
 	public String editarInscricao(@PathVariable("idInscricao") Integer idInscricao, Model model,
 			RedirectAttributes redirect) {
 
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 
@@ -434,7 +435,7 @@ public class AlunoController {
 	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno,
 			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect) {
 
-		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 
@@ -460,7 +461,7 @@ public class AlunoController {
 	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
 			RedirectAttributes redirect) {
 
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 		model.addAttribute("inscricao", inscricao);

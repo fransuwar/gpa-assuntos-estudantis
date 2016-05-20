@@ -1,9 +1,10 @@
 package br.ufc.quixada.npi.gpa.service;
 
-import br.ufc.quixada.npi.gpa.model.Aluno;
-import br.ufc.quixada.npi.service.GenericService;
+import java.util.List;
 
-public interface AlunoService extends GenericService<Aluno>{
+import br.ufc.quixada.npi.gpa.model.Aluno;
+
+public interface AlunoService{
 
 	public abstract Aluno getAluno(String matricula);
 
@@ -12,6 +13,18 @@ public interface AlunoService extends GenericService<Aluno>{
 	public abstract Aluno getAlunoPorCPF(String cpf);
 	
 	public abstract boolean isAlunoCadastrado(Aluno aluno);
+	
+	public abstract void save(Aluno aluno);
+	
+	public abstract void update(Aluno aluno);
+	
+	public abstract void delete(Aluno aluno);
+	
+	public abstract Aluno getAlunoPorId(Integer idAluno);
+	
+	public abstract List<Aluno> ListarAlunos();
+	
+
 
 
 }

@@ -35,7 +35,7 @@ public class VisitaDomiciliarController {
 	@RequestMapping(value="cadastrar/{idAluno}/{idSelecao}", method = RequestMethod.GET)
 	public String cadastrar(@PathVariable("idAluno") Integer id,
 							@PathVariable("idSelecao") Integer idSelecao, Model modelo){
-		Aluno aluno = alunoService.find(Aluno.class, id);
+		Aluno aluno = alunoService.getAlunoPorId(id);
 		modelo.addAttribute("relatorioVisitaDomiciliar", new VisitaDomiciliar());
 		modelo.addAttribute("curso", Curso.values());
 		modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
@@ -53,7 +53,7 @@ public class VisitaDomiciliarController {
 		
 		
 		if(result.hasErrors()){
-			Aluno aluno = alunoService.find(Aluno.class, idAluno);
+			Aluno aluno = alunoService.getAlunoPorId(idAluno);
 			modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 			modelo.addAttribute("curso", Curso.values());
 			modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
