@@ -21,23 +21,23 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<div class="container" align="center">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#inscricao-tab" data-toggle="tab">Inscrição<i
+			<li class="${det}"><a href="#inscricao-tab" data-toggle="tab">Inscrição<i
 					class="fa"></i>
 			</a></li>
-			<li><a href="#documentos-tab" data-toggle="tab">Documentos <i
-					class="fa"></i>
+			<li class="${doc}"><a href="#documentos-tab" data-toggle="tab">Documentos
+					<i class="fa"></i>
 			</a></li>
 			<sec:authorize access="hasAnyRole('DOCENTE','STA')">
-				<li><a href="#entrevista-tab" data-toggle="tab">Entrevista
+				<li class="${ent}"><a href="#entrevista-tab" data-toggle="tab">Entrevista
 						<i class="fa"></i>
 				</a></li>
-				<li><a href="#visita-tab" data-toggle="tab">Visita <i
-						class="fa"></i>
+				<li class="${vis}"><a href="#visita-tab" data-toggle="tab">Visita
+						<i class="fa"></i>
 				</a></li>
 			</sec:authorize>
 		</ul>
 		<div class="tab-content">
-			<div class="tab-pane active" id="inscricao-tab">
+			<div class="tab-pane ${det}" id="inscricao-tab">
 				<div class="panel panel-default panel-primary">
 
 					<div class="panel-heading">
@@ -502,14 +502,7 @@
 						<div class='f-container s10'>
 							<label class='f-title'>Deferimento:</label>
 							<div class='f-content'>
-								<c:choose>
-									<c:when test="${inscricao.entrevista.deferimento == true}">
-										<dd class="col-sm-3">DEFERIDO</dd>
-									</c:when>
-									<c:otherwise>
-										<dd class="col-sm-3">INDEFERIDO</dd>
-									</c:otherwise>
-								</c:choose>
+								<dd class="col-sm-3">${inscricao.entrevista.deferimento.nome}</dd>
 							</div>
 						</div>
 						<div class='f-container s10'>
@@ -518,13 +511,15 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
-			<div class="tab-pane" id="documentos-tab"></div>
+			<div class="tab-pane ${doc}" id="documentos-tab"></div>
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
-				<div class="tab-pane" id="entrevista-tab">
+				<div class="tab-pane ${ent}" id="entrevista-tab">
 					<c:choose>
-						<c:when test="${!inscricao.avaliacaoDocumentos}">
+						<c:when
+							test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
 							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
@@ -552,16 +547,17 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<div class="tab-pane" id="visita-tab">
+				<div class="tab-pane ${vis}" id="visita-tab">
 					<div class="panel panel-default panel-primary">
 
 						<div class="panel-heading">
 							<h3 class="panel-title"></h3>
 						</div>
 						<div class="panel-body text-align-left">
-						
+
 							<c:choose>
-								<c:when test="${!inscricao.entrevista.deferimento}">
+								<c:when
+									test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
 									<div class="alert alert-danger alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert"
 											aria-label="Close">
@@ -574,22 +570,81 @@
 									<!-- aqui deve ser mostrado os dados da visita -->
 								</c:otherwise>
 							</c:choose>
-						
-							<form>
+
+							<label class='f-title'> Formulário da visita: </label><br/>
+							<label class="f-title">
+							<c:choose>
+
+								<c:when
+									test="${not empty inscricao.visitaDomiciliar.formularioVisita}">
+									<a class="no-decoration"
+										href="<c:url value="/selecao/documento/${inscricao.visitaDomiciliar.formularioVisita.id}"></c:url>">${inscricao.visitaDomiciliar.formularioVisita.nome}</a>
+									<strong class="error text-danger"></strong>
+									<a id="excluir" data-toggle="modal"
+										aria-title="O formulário sejá removido. Deseja continuar?"
+										aria-destination="<c:url value="/servidor/visita/removerFormulario/${inscricao.id}/${inscricao.visitaDomiciliar.formularioVisita.id}"></c:url>"
+										class="confirm-button delete-document btn btn-danger btn-xs glyphicon glyphicon-trash">
+									</a>
+								</c:when>
+
+								<c:otherwise>
+
+									<form id="insercaoFormularioVisita" role="form" method="POST"
+										enctype="multipart/form-data"
+										action="<c:url value="/servidor/visita/enviarFormulario/${inscricao.id}"/>">
+										<input type="file" name="formulario" /><br /> <input
+											type="submit" class="btn btn-primary" />
+									</form>
+
+								</c:otherwise>
+
+							</c:choose>
 							
-								<label class="f-title">Enviar formulário da visita:</label>
-								<input type="file" name="formularioVisita"/><br/>
-								<input type="submit" class="btn btn-primary"/>
-							
+							</label>
+
+
+							<hr />
+
+							<label class='f-title'> Adicionar Foto: </label>
+
+							<form id="insercaoImagemEntrevista" role="form"
+								action="<c:url value="/servidor/detalhes/inscricao/inserirImagem"/>"
+								method="POST" enctype="multipart/form-data">
+								<input type="hidden" name="idInscricao" value="${inscricao.id}" />
+								<input type="file" name="foto" /> <br /> <input type="submit"
+									value="Adicionar" class='btn btn-primary' />
 							</form>
+							
+							<hr/>
+
+							<ul class='photos-list'>
+								<c:forEach var="imagem"
+									items="${inscricao.visitaDomiciliar.imagens}">
+									<li class='img-fullscreen'>
+										<div class='input-photo'>
+											<img class='photo-img'
+												src="data:image/jpeg;base64,${imagem.img}" />
+											<div class='remove-photo confirm-button'
+												aria-title="Continuar irá remover a foto da visita, deseja prosseguir?"
+												aria-destination="<c:url value="/servidor/detalhes/inscricao/removerImagem/${inscricao.id}/${imagem.id}"/>"></div>
+										</div>
+									</li>
+								</c:forEach>
+							</ul>
 						</div>
 
 					</div>
 
+
+
+
+
 				</div>
-			</sec:authorize>
 		</div>
-		<jsp:include page="../fragments/footer.jsp" />
+		</sec:authorize>
+
+	</div>
+	<jsp:include page="../fragments/footer.jsp" />
 	</div>
 </body>
 </html>

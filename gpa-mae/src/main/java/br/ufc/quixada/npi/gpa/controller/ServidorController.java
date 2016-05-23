@@ -2,6 +2,8 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,17 +21,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
+import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
+import br.ufc.quixada.npi.gpa.model.Imagem;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
+import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.gpa.service.ImagemService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -48,6 +56,11 @@ public class ServidorController {
 
 	@Inject
 	private SelecaoService selecaoService;
+	
+	@Inject
+	private ImagemService imagemService;
+	
+	@Inject DocumentoService documentoService;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
@@ -68,7 +81,7 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
-			if(inscricao.isAvaliacaoDocumentos()){
+			if(!inscricao.getDeferimentoDocumentacao().equals(Resultado.NAO_AVALIADO)){
 
 				Selecao selecao = inscricao.getSelecao();
 
@@ -109,17 +122,56 @@ public class ServidorController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
-	@RequestMapping(value= {"entrevista/enviarFormulario/{idInscricao}"}, method = RequestMethod.POST)
-	public String enviarFormularioDeVisita(@PathVariable("idInscricao") Integer idInscricao, Model model, MultipartFile formulario){
+	@RequestMapping(value= {"visita/removerFormulario/{idInscricao}/{idFormulario}"}, method = RequestMethod.GET)
+	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, Model modelo){
 
-		Documento documento = new Documento();
-		documento.setArquivo(formulario.getBytes());
-		documento.setNome(formulario.getOriginalFilename());
-		documento.setTipo(formulario.getContentType());
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		try {
+			
+			Documento documento = documentoService.find(Documento.class, idFormulario);
+			inscricao.getVisitaDomiciliar().setFormularioVisita(null);
+			
+			inscricaoService.save(inscricao);
+			
+			documentoService.delete(documento);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
-		documentoService.save(documento);
+		modelo.addAttribute("inscricao", inscricao);
+		modelo.addAttribute("vis", "active");
 		
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+		
+		return PAGINA_DETALHES_INSCRICAO;
+	}
+	
+	@RequestMapping(value= {"visita/enviarFormulario/{idInscricao}"}, method = RequestMethod.POST)
+	public String enviarFormularioDeVisita(@PathVariable("idInscricao") Integer idInscricao, MultipartFile formulario, Model model){
+
+		try {
+			
+			Documento documento = new Documento();
+			documento.setArquivo(formulario.getBytes());
+			documento.setNome(formulario.getOriginalFilename());
+			documento.setTipo(formulario.getContentType());
+			
+			Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+			
+			documentoService.save(documento);
+			
+			inscricao.getVisitaDomiciliar().setFormularioVisita(documento);
+			
+			inscricaoService.save(inscricao);
+			
+			model.addAttribute("inscricao", inscricao);
+			model.addAttribute("vis", "active");
+			
+		} catch (IOException e) {
+			// TODO: handle exception
+		}
+		
+		return PAGINA_DETALHES_INSCRICAO;
 	}
 
 	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
@@ -137,8 +189,8 @@ public class ServidorController {
 			List<Servidor> comissao = inscricao.getSelecao().getMembrosComissao();
 
 			if(comissao.contains(servidor) ){
-				if(inscricao.getVisitaDomiciliar() == null  ){
-					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().isDeferimento() == true){
+				if(inscricao.getVisitaDomiciliar().equals(null)){
+					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().getDeferimento().equals(Resultado.DEFERIDO)){
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 
 						model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
@@ -253,12 +305,58 @@ public class ServidorController {
 		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
 			modelo.addAttribute("inscricao", inscricao);
 			modelo.addAttribute("questAuxMor", inscricao.getQuestionarioAuxilioMoradia());
+			modelo.addAttribute("det", "active");
 			return PAGINA_DETALHES_INSCRICAO;
 		}else {
 			modelo.addAttribute("inscricao", inscricao);
 			modelo.addAttribute("questInic", inscricao.getQuestionarioIniciacaoAcademica());
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
+		
+		
+	}
+	
+	@RequestMapping(value ={ "detalhes/inscricao/inserirImagem"}, method = RequestMethod.POST)
+	public String inserirImagemDaVisitaNaInscricao(@RequestParam("foto") MultipartFile foto, Integer idInscricao, Model modelo){
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		
+		try {
+			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
+			
+			List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
+			
+			if(foto.getSize() > 0 && formatos.contains(multipartFile.getContentType())){
+				Imagem imagem = new Imagem();
+				imagem.setImg(foto.getBytes());
+				
+				imagemService.save(imagem);
+				
+				inscricao.getVisitaDomiciliar().getImagens().add(imagem);
+				inscricaoService.save(inscricao);
+			}
+		} catch (IOException e) {
+			
+		}
+		
+		modelo.addAttribute("inscricao", inscricao);
+		modelo.addAttribute("vis", "active");
+		
+		return PAGINA_DETALHES_INSCRICAO;
+	}
+	
+	@RequestMapping(value ={ "detalhes/inscricao/removerImagem/{idInscricao}/{idImagem}"}, method = RequestMethod.GET)
+	public String removerImagemDaVisitaNaInscricao(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idImagem") Integer idImagem, Model modelo){
+		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Imagem imagem = imagemService.find(Imagem.class, idImagem);
+		
+		inscricao.getVisitaDomiciliar().getImagens().remove(imagem);
+		
+		inscricaoService.save(inscricao);
+		
+		modelo.addAttribute("vis", "active");
+		modelo.addAttribute("inscricao", inscricao);
+		
+		return PAGINA_DETALHES_INSCRICAO;
 	}
 
 	@RequestMapping(value= {"avaliarDocumentacao/{idInscricao}"}, method = RequestMethod.GET)
@@ -277,8 +375,7 @@ public class ServidorController {
 			List<Servidor> comissao = selecao.getMembrosComissao();
 
 			if(comissao.contains(servidor)){
-
-				model.addAttribute("avaliarDocumentacao", inscricao.isAvaliacaoDocumentos());
+				model.addAttribute("avaliarDocumentacao", !inscricao.getDeferimentoDocumentacao().equals(Resultado.NAO_AVALIADO));
 				model.addAttribute("idInscricao", idInscricao);
 
 				return PAGINA_AVALIAR_DOCUMENTACAO;
@@ -294,12 +391,7 @@ public class ServidorController {
 			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 
 		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
-
-		if(avaliarDocumentacao.isAvaliacaoDocumentos()== true){
-			inscricao.setAvaliacaoDocumentos(true);
-		}else{
-			inscricao.setAvaliacaoDocumentos(false);
-		}
+		inscricao.setDeferimentoDocumentacao(avaliarDocumentacao.getDeferimentoDocumentacao());
 
 		model.addAttribute("avaliarDocumentacao", avaliarDocumentacao);	
 		inscricaoService.update(inscricao);
