@@ -59,6 +59,9 @@
 									Seleção
 							</a>
 						</li>
+						<li>
+							<a href="<c:url value="/coordenador/gerenciarDocumentos" />">Gerenciar Documentos</a>
+						</li>
 					</sec:authorize>
 				</ul>
 
