@@ -20,6 +20,7 @@
 	</footer>
 
 
+
 <script src="<c:url value="/resources/js/libs/jquery-1.11.3.min.js" />"></script>
 <script
 	src="<c:url value="/webjars/bootstrap/3.1.1/js/bootstrap.min.js" />"></script>
@@ -39,8 +40,5 @@
 <script src="<c:url value="/resources/js/libs/jquery.steps.min.js"/>"></script>
 <script src="<c:url value="/resources/js/gpa/npi.js"/>"></script>
 <script src="<c:url value="/resources/js/gpa/funcoes_aluno.js"/>"></script>
-
-
-
 
 

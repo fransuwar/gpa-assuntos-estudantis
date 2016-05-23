@@ -34,7 +34,7 @@ public class InscricaoController {
 	
 	@RequestMapping("detalhes/fotoAluno/{idInscricao}")
 	public void pegarFotoAluno(@PathVariable("idInscricao") Integer idInscricao, HttpServletResponse response){
-		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
 		
 		try {
 			response.setContentType("image/jpg");

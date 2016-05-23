@@ -3,8 +3,10 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_REALIZADA;
@@ -17,9 +19,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
-
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +45,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import br.ufc.quixada.npi.gpa.enums.DiaUtil;
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
@@ -64,7 +62,6 @@ import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
-import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
@@ -97,7 +94,7 @@ public class AlunoController {
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 
-		List<Selecao> selecoes = selecaoService.find(Selecao.class);
+		List<Selecao> selecoes = selecaoService.getSelecoes();
 
 		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
 
@@ -115,7 +112,7 @@ public class AlunoController {
 
 		model.addAttribute("action", "inscricao");
 
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		model.addAttribute("questionarioIniciacaoAcademica", new QuestionarioIniciacaoAcademica());
 		model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
@@ -146,13 +143,14 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.values());
 			model.addAttribute("idSelecao", idSelecao);
-			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
+			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
 
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-		Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
+
+		Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		if (inscricaoService.getInscricao(selecao, aluno) == null) {
 			Inscricao inscricao = new Inscricao();
@@ -180,7 +178,7 @@ public class AlunoController {
 
 		model.addAttribute("action", "editar");
 
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 
 		model.addAttribute("inscricao", inscricao);
 		model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
@@ -221,7 +219,7 @@ public class AlunoController {
 			}
 
 			List<PessoaFamilia> pessoasDaFamilia = inscricaoService
-					.getPessoaFamiliaByIdIniciacaoAcademica(iniciacaoAcademica.getId());
+					.getPessoaFamiliaPorIdIniciacaoAcademica(iniciacaoAcademica.getId());
 
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
@@ -240,7 +238,7 @@ public class AlunoController {
 
 		model.addAttribute("action", "inscricao");
 
-		Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 		model.addAttribute("estado", Estado.values());
@@ -311,15 +309,17 @@ public class AlunoController {
 			model.addAttribute("moraCom", MoraCom.values());
 			model.addAttribute("grauParentesco", GrauParentesco.values());
 			model.addAttribute("idSelecao", idSelecao);
-			model.addAttribute("selecao", selecaoService.find(Selecao.class, idSelecao));
+			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
 			
 			
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 
 		} else {
 
-			Selecao selecao = selecaoService.find(Selecao.class, idSelecao);
-			Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
+
+			Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+			Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+			auxilioMoradia.setPessoasEntrevista(auxilioMoradia.getPessoas());
 			
 			if (inscricaoService.getInscricao(selecao, aluno) == null) {
 
@@ -351,7 +351,7 @@ public class AlunoController {
 	public String editarInscricao(@PathVariable("idInscricao") Integer idInscricao, Model model,
 			RedirectAttributes redirect) {
 
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 
@@ -400,7 +400,7 @@ public class AlunoController {
 				}
 
 				List<PessoaFamilia> pessoasDaFamilia = inscricaoService
-						.getPessoaFamiliaByIdIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
+						.getPessoaFamiliaPorIdIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
 
 				if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 					model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
@@ -435,7 +435,7 @@ public class AlunoController {
 	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno,
 			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect) {
 
-		Inscricao inscricao = this.inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 
@@ -458,13 +458,14 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
-	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model model,
+	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
 			RedirectAttributes redirect) {
 
-		Inscricao inscricao = inscricaoService.find(Inscricao.class, idInscricao);
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 		model.addAttribute("inscricao", inscricao);
+		model.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
 
 		if (inscricao == null) {
 

@@ -35,66 +35,61 @@
 				<c:out value="${info}"></c:out>
 			</div>
 		</c:if>
-		
+
 		<div class="panel-card">
 			<div class="card bg-blue card-margin-right">
-			<a href="<c:url value="/servidor/inscritos/${selecao.id}"></c:url>">
-				<div class="card-content">
-				    <div class="card-icon">
-						<i class="fa fa-folder-open"></i>
+				<a href="<c:url value="/servidor/inscritos/${selecao.id}"></c:url>">
+					<div class="card-content">
+						<div class="card-icon">
+							<i class="fa fa-folder-open"></i>
+						</div>
+						<div class="card-description">INSCRIÇÕES</div>
 					</div>
-					<div class="card-description">
-						INSCRIÇÕES
-					</div>
-				</div>
-			</a>
+				</a>
 			</div>
 			<div class="card bg-red card-margin-right">
-				<a href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
+				<a
+					href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
 					<div class="card-content">
-					    <div class="card-icon">
+						<div class="card-icon">
 							<i class="fa fa-users"></i>
 						</div>
-						<div class="card-description">
-							COMISSÃO
-						</div>
+						<div class="card-description">COMISSÃO</div>
 					</div>
 				</a>
 			</div>
 			<div class="card bg-green card-margin-right">
-			  <a href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
+				<a
+					href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
 					<div class="card-content">
-					    <div class="card-icon">
+						<div class="card-icon">
 							<i class="fa fa-file"></i>
 						</div>
-						<div class="card-description">
-							ARQUIVOS
-						</div>
+						<div class="card-description">ARQUIVOS</div>
 					</div>
 				</a>
 			</div>
 			<div class="card bg-yellow card-margin-right">
 				<div class="card-content">
-				    <div class="card-icon">
+					<div class="card-icon">
 						<i class="fa fa-file-text"></i>
 					</div>
-					<div class="card-description">
-						RELATÓRIO VISITAS
-					</div>
+					<div class="card-description">RELATÓRIO VISITAS</div>
 				</div>
 			</div>
 			<div class="card bg-brown">
-				<div class="card-content">
-				    <div class="card-icon">
-						<i class="fa fa-signal"></i>
+				<a
+					href="<c:url value="/selecao/selecionarClassificados/${selecao.id}"></c:url>">
+					<div class="card-content">
+						<div class="card-icon">
+							<i class="fa fa-signal"></i>
+						</div>
+						<div class="card-description">RANKING</div>
 					</div>
-					<div class="card-description">
-						RANKING
-					</div>
-				</div>
+				</a>
 			</div>
 		</div>
-		
+
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Detalhes da Seleção</h3>
@@ -102,18 +97,14 @@
 			<div class="panel-body">
 				<div class='f-container s3'>
 					<label class='f-title'>Edital:</label>
-					<div class='f-content'>
-						${selecao.sequencial}/${selecao.ano}
-					</div>
+					<div class='f-content'>${selecao.sequencial}/${selecao.ano}</div>
 				</div>
-				
+
 				<div class='f-container s3'>
 					<label class='f-title'>Seleção:</label>
-					<div class='f-content'>
-						${selecao.tipoSelecao.nome}
-					</div>
+					<div class='f-content'>${selecao.tipoSelecao.nome}</div>
 				</div>
-				
+
 				<div class='f-container s4'>
 					<label class='f-title'>Inscrições:</label>
 					<div class='f-content'>
@@ -123,26 +114,20 @@
 							pattern="dd/MM/yyyy" />
 					</div>
 				</div>
-				
+
 				<div class='f-container s3'>
 					<label class='f-title'>Vagas:</label>
-					<div class='f-content'>
-						${selecao.quantidadeVagas}
-					</div>
+					<div class='f-content'>${selecao.quantidadeVagas}</div>
 				</div>
-				
+
 				<div class='f-container s3'>
 					<label class='f-title'>Inscritos:</label>
-					<div class='f-content'>
-						${selecao.inscritos.size()}
-					</div>
+					<div class='f-content'>${selecao.inscritos.size()}</div>
 				</div>
-				
+
 				<div class='f-container s4'>
 					<label class='f-title'>Responsável:</label>
-					<div class='f-content'>
-						${selecao.responsavel.pessoa.nome}
-					</div>
+					<div class='f-content'>${selecao.responsavel.pessoa.nome}</div>
 				</div>
 			</div>
 		</div>
@@ -200,7 +185,6 @@
 									<td>${inscricao.aluno.matricula}</td>
 									<td><fmt:formatDate value="${inscricao.data}"
 											pattern="dd/MM/yyyy" /></td>
-
 									<td><c:choose>
 											<c:when
 												test="${inscricao.deferimentoDocumentacao eq 'NAO_AVALIADO'}">
@@ -222,8 +206,7 @@
 												test="${inscricao.entrevista.deferimento eq 'NAO_AVALIADO'}">
 												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
 											</c:when>
-											<c:when
-												test="${empty inscricao.entrevista.deferimento}">
+											<c:when test="${empty inscricao.entrevista.deferimento}">
 												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
 											</c:when>
 											<c:when
@@ -256,18 +239,15 @@
 												<div class='def-sit indeferido' title="Indeferido">I</div>
 											</c:when>
 										</c:choose></td>
-										<td><c:choose>
-											<c:when
-												test="${inscricao.resultado eq 'NAO_AVALIADO'}">
+									<td><c:choose>
+											<c:when test="${inscricao.resultado eq 'NAO_AVALIADO'}">
 												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
 											</c:when>
-											<c:when
-												test="${inscricao.resultado eq 'DEFERIDO'}">
+											<c:when test="${inscricao.resultado eq 'DEFERIDO'}">
 												<div class='def-sit deferido' title="Deferido">D</div>
 											</c:when>
 
-											<c:when
-												test="${inscricao.resultado eq 'INDEFERIDO'}">
+											<c:when test="${inscricao.resultado eq 'INDEFERIDO'}">
 												<div class='def-sit indeferido' title="Indeferido">I</div>
 											</c:when>
 										</c:choose></td>

@@ -33,8 +33,12 @@ body {
 	padding-right: 0%;
 }
 
-.right {
+.right{
 	float: right;
+}
+
+.left{
+	float: left;
 }
 
 #div-line-title {
@@ -236,7 +240,7 @@ textarea {
 	resize: none;
 }
 
-div.half {
+div.half {documento
 	width: 47%;
 }
 
@@ -409,11 +413,40 @@ div.s10 {
 	text-align: left;
 }
 
+#div-botoes-classificados{
+	margin-top: 80px;
+	text-align: center;
+}
+
+#botao-adicionar-classificados{
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#botao-remover-classificados{
+	margin-bottom: 5px;
+}
+
+.borda-laranja{
+	outline: 1px solid rgb(243, 156, 18);
+}
+
+.borda-verde{
+	outline: 1px solid rgb(24, 188, 156);
+}
+
+#pesquisarClassificados{
+	margin-bottom: 8px;
+}
+
+#pesquisarClassificaveis{
+	margin-bottom: 8px;
+}
 
 #aluno-img {
 	margin-top: 10px;
-	width: 220px;
-	height: 250px;
+	width: 12%;
+	min-width: 100px;
 	float: right;
 	border: 1px #CCC solid;
 }
@@ -632,7 +665,7 @@ div.input-photo {
 .bg-blue{
 	background-color: #00c0f0 !important;
 }
-
+documento
 .bg-green{
 	background-color: #00a65a !important;
 }
@@ -648,4 +681,8 @@ div.input-photo {
 .no-decoration{
 	font-weight: normal;
 	text-decoration: none;	
+}
+
+.dataTables_filter {
+	display: none;
 }

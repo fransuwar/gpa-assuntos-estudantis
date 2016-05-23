@@ -71,10 +71,6 @@
 					</div>
 				</c:if>
 				<c:if test="${not empty alunos}">
-
-					
-				   
-
 					<div class="panel-body">
 						<table class="display" id="tabela-alunos">
 						<thead>
