@@ -464,3 +464,25 @@ div.s10{
 .bg-red{
 	background-color: #dd4b39 !important;
 }
+
+.panel{
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !important;
+	border-bottom: none !important;
+}
+
+.panel .panel-heading{
+	border-bottom: 1px solid #e2dfdf !important;
+	color: #555555 !important;
+	background-color: white !important; 
+}
+
+.navbar{
+	background-color: #BF8F30 !important;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !important;
+	border-bottom: none !important;
+	border-radius: 0px !important;
+}
+
+.navbar-default .navbar-nav > li a{
+	color: #463000 !important;
+}
