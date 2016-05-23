@@ -2,6 +2,18 @@ var linha;
 
 $(document).ready(function(){
 	
+	$("#addPessoaFamilia").click(function(){
+		$("#formPessoaFamilia").submit();
+	});
+		
+	if($("#ativar-aba-entrevista").val()){
+		$("#aba-entrevista").addClass("active");
+		$("#entrevista-tab").addClass("active");
+	}else{
+		$("#aba-inscricao").addClass("active");
+		$("#inscricao-tab").addClass("active");
+	}
+	
 	var tabelaClassificaveis = $('#tabela-classificaveis').dataTable({
 		"language": {
 			"url":"/MAE/resources/js/Portuguese-Brasil.json"
@@ -117,6 +129,19 @@ $(document).ready(function(){
 	});
 
 	$("#questionarioIniciacao").validate();
+
+
+	$("table").DataTable({
+		"language": {
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"columnDefs": 
+			 [],
+			 "paging": false,
+			 "searching": false,
+			 "ordering": false
+
+	});
 
 	$("#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
 	  "#tabela-inscritos, #tabela-ranking-classificados, " +
