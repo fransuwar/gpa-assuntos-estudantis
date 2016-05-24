@@ -13,6 +13,7 @@ import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 
 public interface InscricaoService{
 	
+	
 	public abstract List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica);
 
 	public abstract List<Inscricao> getInscricoes(Integer idAluno);
