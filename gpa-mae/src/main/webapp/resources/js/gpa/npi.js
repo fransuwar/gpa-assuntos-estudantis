@@ -9,11 +9,9 @@ $(document).ready(function(){
 	if($("#ativar-aba-entrevista").val()){
 		$("#aba-entrevista").addClass("active");
 		$("#entrevista-tab").addClass("active");
-		alert(true);
 	}else{
 		$("#aba-inscricao").addClass("active");
 		$("#inscricao-tab").addClass("active");
-		alert(false);
 	}
 	
 	var tabelaClassificaveis = $('#tabela-classificaveis').dataTable({
@@ -189,6 +187,9 @@ $(document).ready(function(){
 				required:true
 			},
 			duracao:{
+				required:true
+			},
+			tiposDeDocumento:{
 				required:true
 			},
 			agree: "required"

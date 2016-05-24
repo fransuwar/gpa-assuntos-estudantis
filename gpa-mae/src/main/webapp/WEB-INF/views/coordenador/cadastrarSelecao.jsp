@@ -70,8 +70,9 @@
 
 					<div class="form-group">
 						<div class="col-sm-6">
-							<label for="tipoSelecao" class="control-label" id="text-align-left"><span class="red">*</span>Tipo
-								de Selecao:</label>
+							<label for="tipoSelecao" class="control-label"
+								id="text-align-left"><span class="red">*</span>Tipo de
+								Selecao:</label>
 
 							<form:select path="tipoSelecao" id="tipoSelecao"
 								cssClass="form-control">
@@ -84,7 +85,7 @@
 								<form:errors path="tipoSelecao"></form:errors>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<label for="quantidadeVagas" class="control-label"
 								id="text-align-left">Vagas:</label>
@@ -139,6 +140,22 @@
 							</div>
 						</div>
 
+						<div class="col-sm-6">
+							<div class="row">
+								<div class="col-sm-12">
+									<label for="dataTermino" class="control-label"
+										id="text-align-left"><span class="red">*</span>Documentos
+										Necessários:</label>
+								</div>
+								<div class="col-sm-12">
+									<c:forEach var="documento" items="${tiposDeDocumento }">
+										<div class="checkbox"> <input type="checkbox" id="tiposDeDocumento"
+										 name="checkDocumentos[]" value="${documento.id }" required>${documento.nome }
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="form-group"></div>
 					<div class="form-group">
