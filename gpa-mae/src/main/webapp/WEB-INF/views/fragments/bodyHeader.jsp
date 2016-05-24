@@ -15,10 +15,22 @@
 		         <span class="icon-bar"></span>
 		         <span class="icon-bar"></span>
 		      </button>
-				<a href="<c:url value="/selecao/listar" />"> <img
+		      
+		      <c:set var="logoRedirect"><c:url value="/selecao/listar"/></c:set>
+		      
+		      <sec:authorize access="hasAnyRole('DOCENTE', 'STA')">
+		      	<c:set var="logoRedirect"><c:url value='/servidor/selecao/listar'/></c:set>
+		      </sec:authorize>
+		      
+		      <sec:authorize access="hasAnyRole('DISCENTE')">
+		      	<c:set var="logoRedirect"><c:url value='/aluno/selecao/listar' /></c:set>
+		      </sec:authorize>
+		      
+		      <a href="${logoRedirect}"> <img
 					src="<c:url value="/resources/images/logo-GPA.jpg" />"
 					alt="GPA - Assuntos Estudantis" id="logo-gpa">
 				</a>
+				
 			</div>
 			<div class="collapse navbar-collapse" id="mainMenu">
 				<ul class="nav navbar-nav">
