@@ -16,7 +16,7 @@ public interface DocumentoService{
 	
 	public abstract void deletarTipoDocumento(TipoDocumento tipoDocumento);
 	
-	public abstract Documento getDocumentoPorId(Integer idDocumento);
+	public abstract Documento getDocumentoPorId(Integer id);
 	
 	public TipoDocumento findById(Integer idTipoDocumento);
 	

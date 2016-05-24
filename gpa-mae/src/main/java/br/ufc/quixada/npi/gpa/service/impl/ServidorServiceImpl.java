@@ -19,24 +19,24 @@ import br.ufc.quixada.npi.util.SimpleMap;
 public class ServidorServiceImpl implements ServidorService{
 	
 	@Inject
-	private GenericRepository<Servidor> servidorService;
+	private GenericRepository<Servidor> servidorRepository;
 
 	@Override
 	@Transactional(readOnly = true)
 	public Servidor getServidor(String siape) {
 		
-		return (Servidor) servidorService.findFirst("Servidor.findServidorBySiape", new SimpleMap<String, Object>("siape", siape));
+		return (Servidor) servidorRepository.findFirst("Servidor.findServidorBySiape", new SimpleMap<String, Object>("siape", siape));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Servidor getServidorByCpf(String cpf) {
-			return (Servidor) servidorService.findFirst("Servidor.findServidorByCpf", new SimpleMap<String, Object>("cpf", cpf));
+	public Servidor getServidorPorCpf(String cpf) {
+			return (Servidor) servidorRepository.findFirst("Servidor.findServidorByCpf", new SimpleMap<String, Object>("cpf", cpf));
 	}
 
 	@Override
 	public Servidor getServidorComComissao(String CPF) {
-		return (Servidor) servidorService.findFirst("Servidor.findServidorComComissaoByCpf", new SimpleMap<String, Object>("cpf", CPF));
+		return (Servidor) servidorRepository.findFirst("Servidor.findServidorComComissaoByCpf", new SimpleMap<String, Object>("cpf", CPF));
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -45,37 +45,37 @@ public class ServidorServiceImpl implements ServidorService{
 		params.put("idServidor", idServidor);
 		params.put("idSelecao", idSelecao);
 		
-		return (List<Servidor>) servidorService.find(QueryType.NAMED, "Servidor.findServidorPertenceSelecao", params);
+		return (List<Servidor>) servidorRepository.find(QueryType.NAMED, "Servidor.findServidorPertenceSelecao", params);
 	}
 
 	@Override
 	public void save(Servidor servidor) {
-		servidorService.save(servidor);
+		servidorRepository.save(servidor);
 		
 	}
 
 	@Override
 	public void update(Servidor servidor) {
-		servidorService.update(servidor);
+		servidorRepository.update(servidor);
 		
 	}
 
 	@Override
 	public void delete(Servidor servidor) {
-		servidorService.delete(servidor);
+		servidorRepository.delete(servidor);
 		
 	}
 
 	@Override
 	public Servidor getServidorPorId(Integer id) {
-		return (Servidor) servidorService.findFirst(QueryType.JPQL,"select s from Servidor as s where s.id = :idServidor", 
+		return (Servidor) servidorRepository.findFirst(QueryType.JPQL,"select s from Servidor as s where s.id = :idServidor", 
 				new SimpleMap<String, Object>("idServidor", id));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Servidor> listarServidores() {
-		return servidorService.find(QueryType.JPQL,"select s from Servidor as s", 
+		return servidorRepository.find(QueryType.JPQL,"select s from Servidor as s", 
 				new SimpleMap<String, Object>());
 	}
 }

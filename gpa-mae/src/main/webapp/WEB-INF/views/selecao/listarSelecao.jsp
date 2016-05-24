@@ -27,7 +27,9 @@
 						<button type="button" class="close" data-dismiss="alert">
 							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 						</button>
-						<c:out value="${erro}"></c:out>
+						<div style="text-align:center">
+							<c:out value="${erro}"></c:out>
+						</div>
 					</div>
 				</c:if>
 				<c:if test="${not empty info}">
@@ -36,7 +38,10 @@
 						<button type="button" class="close" data-dismiss="alert">
 							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 						</button>
-						<c:out value="${info}"></c:out>
+							<div style="text-align:center">
+								<c:out value="${info}"></c:out>
+							</div>
+						
 					</div>
 				</c:if>
 				<table class="display" id="tabela-selecoes">

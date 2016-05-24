@@ -3,6 +3,7 @@ package br.ufc.quixada.npi.gpa.model;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -62,6 +63,24 @@ public class Inscricao {
 
 	@ManyToOne
 	private Aluno aluno;
+	
+
+	private boolean realizarVisita;
+			
+	
+	public boolean isRealizarVisita() {
+		return realizarVisita;
+	}
+
+	public void setRealizarVisita(boolean realizarVisita) {
+		this.realizarVisita = realizarVisita;
+	}
+	
+
+	@Column(nullable = false)
+	private boolean classificado;
+	
+
 
 	public Integer getId() {
 		return id;

@@ -28,7 +28,8 @@ public class DocumentoController {
 	private DocumentoService serviceDocumento;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public void getFile(@PathVariable("id") Integer id, HttpServletResponse response) {
+	public void getDocumento(@PathVariable("id") Integer id, HttpServletResponse response) {
+
 		try {
 			Documento documento = serviceDocumento.getDocumentoPorId(id);
 			if(documento != null) {

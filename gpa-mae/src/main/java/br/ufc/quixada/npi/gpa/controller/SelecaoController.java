@@ -93,7 +93,7 @@ public class SelecaoController {
 		model.addAttribute("selecao", selecao);
 
 		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
-		List<Inscricao> inscricoes = inscricaoService.getInscricoesBySelecaoByAluno(selecao.getId(),aluno.getId());
+		List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecaoPorAluno(selecao.getId(),aluno.getId());
 		boolean controle = false;
 		
 		model.addAttribute("aluno", aluno);
@@ -126,7 +126,7 @@ public class SelecaoController {
 	}
 
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
-	public String listar(ModelMap model, HttpServletRequest request) {
+	public String listarSelecoes(ModelMap model, HttpServletRequest request) {
 
 		List<Selecao> selecoes = this.selecaoService.getSelecoes();
 

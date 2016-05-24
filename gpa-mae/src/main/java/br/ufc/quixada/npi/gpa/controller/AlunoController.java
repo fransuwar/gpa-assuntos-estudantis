@@ -3,8 +3,10 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_REALIZADA;
@@ -17,9 +19,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
-
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +45,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import br.ufc.quixada.npi.gpa.enums.DiaUtil;
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
@@ -64,7 +62,6 @@ import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
-import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
@@ -151,8 +148,9 @@ public class AlunoController {
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 
+
+		Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
-		Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
 
 		if (inscricaoService.getInscricao(selecao, aluno) == null) {
 			Inscricao inscricao = new Inscricao();
@@ -221,7 +219,7 @@ public class AlunoController {
 			}
 
 			List<PessoaFamilia> pessoasDaFamilia = inscricaoService
-					.getPessoaFamiliaByIdIniciacaoAcademica(iniciacaoAcademica.getId());
+					.getPessoaFamiliaPorIdIniciacaoAcademica(iniciacaoAcademica.getId());
 
 			if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 				model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
@@ -318,8 +316,9 @@ public class AlunoController {
 
 		} else {
 
+
+			Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
 			Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
-			Aluno aluno = alunoService.getAlunoByCPF(auth.getName());
 			auxilioMoradia.setPessoasEntrevista(auxilioMoradia.getPessoas());
 			
 			if (inscricaoService.getInscricao(selecao, aluno) == null) {
@@ -401,7 +400,7 @@ public class AlunoController {
 				}
 
 				List<PessoaFamilia> pessoasDaFamilia = inscricaoService
-						.getPessoaFamiliaByIdIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
+						.getPessoaFamiliaPorIdIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
 
 				if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
 					model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);

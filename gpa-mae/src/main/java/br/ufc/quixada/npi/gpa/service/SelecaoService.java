@@ -6,7 +6,7 @@ import br.ufc.quixada.npi.gpa.model.Selecao;
 
 public interface SelecaoService {
 
-	public abstract boolean isSelecaoCadastrada(Selecao selecao);
+	public abstract boolean SelecaoEstaCadastrada(Selecao selecao);
 
 	public abstract List<Selecao> getSelecoesComMembros();
 	
