@@ -8,7 +8,7 @@
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid container">
 			<div class="navbar-header">
-				<a href="<c:url value="/selecao/listar" />"> <img
+				<a href="<c:url value="/selecao/listar" />"> <img id="img-logo"
 					src="<c:url value="/resources/images/logo-GPA.jpg" />"
 					alt="GPA - Assuntos Estudantis" id="logo-gpa">
 				</a>
