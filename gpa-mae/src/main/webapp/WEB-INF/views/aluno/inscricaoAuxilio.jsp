@@ -346,6 +346,10 @@
 								</div>
 
 								<div class='p-body'>
+									<label class='f-title'><input type="checkbox" id="mesmoEndereco"
+												/> Mesmo endereço da residência atual
+									</label></br>
+								
 									<div class='f-container s3'>
 										<label class='f-title'> Rua/Av: </label>
 
