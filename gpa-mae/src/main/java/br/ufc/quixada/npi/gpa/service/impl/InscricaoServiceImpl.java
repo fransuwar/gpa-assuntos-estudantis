@@ -42,7 +42,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 	private GenericRepository<Inscricao> inscricaoRepository;
 
 
-
+ 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inscricao> getInscricoes(Integer idAluno) {
@@ -193,4 +193,6 @@ public class InscricaoServiceImpl implements InscricaoService {
 		inscricaoRepository.executeUpdate("update Inscricao set classificado =:classificado where Inscricao.id =:idInscricao", params);
 		
 	}
+
+	
 }

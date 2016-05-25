@@ -62,7 +62,19 @@ public class Inscricao {
 
 	@ManyToOne
 	private Aluno aluno;
+	
 
+	private boolean realizarVisita;
+			
+	
+	public boolean isRealizarVisita() {
+		return realizarVisita;
+	}
+
+	public void setRealizarVisita(boolean realizarVisita) {
+		this.realizarVisita = realizarVisita;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

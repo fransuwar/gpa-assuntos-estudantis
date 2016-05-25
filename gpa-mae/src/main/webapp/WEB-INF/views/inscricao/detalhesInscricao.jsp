@@ -12,6 +12,19 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+<c:if test="${inscricao.entrevista==Null}">
+	<c:url var="url" value="/servidor/entrevista" />
+	<c:set var="titulo" value="Cadastrar Entrevista" />
+	<c:set var="botao" value="Cadastrar" />
+</c:if>
+
+<c:if test="${inscricao.entrevista!=Null}">
+	<c:url var="url" value="/servidor/atualizarEntrevista" />
+	<c:set var="titulo" value="Editar Entrevista" />
+	<c:set var="botao" value="Atualizar" />
+</c:if>
+
+
 <html>
 <head>
 <jsp:include page="../fragments/headTag.jsp" />
@@ -36,6 +49,7 @@
 				</a></li>
 			</sec:authorize>
 		</ul>
+		
 		<div class="tab-content">
 			<div class="tab-pane ${det}" id="inscricao-tab">
 				<div class="panel panel-default panel-primary">
@@ -557,6 +571,16 @@
 							<label class='f-title'>Deferimento:</label>
 							<div class='f-content'>
 								<dd class="col-sm-3">${inscricao.entrevista.deferimento.nome}</dd>
+								<c:choose>
+									
+									<c:when test="${inscricao.entrevista.deferimento eq 'DEFERIDO'}">
+									
+										<dd class="col-sm-3">DEFERIDO</dd>
+									</c:when>
+									<c:otherwise>
+										<dd class="col-sm-3">INDEFERIDO</dd>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 						<div class='f-container s10'>
@@ -569,10 +593,12 @@
 			<div class="tab-pane ${doc}" id="documentos-tab"></div>
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+
 				<div class="tab-pane ${ent}" id="entrevista-tab">
 					<c:choose>
 						<c:when
 							test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+
 							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
@@ -587,14 +613,57 @@
 									<h3 class="panel-title">Entrevista</h3>
 								</div>
 								<div class="panel-body">
-									<dl class='col-sm-12'>
-										<dt class="col-sm-2">Resultado:</dt>
-										<dd class="col-sm-2">DEFERIDO</dd>
-										<dt class="col-sm-2">Observação:</dt>
-										<dd class="col-sm-2">${inscricao.entrevista.observacao}</dd>
-										<dt class="col-sm-2">Responsável:</dt>
-										<dd class="col-sm-2">${inscricao.entrevista.servidor.pessoa.nome}</dd>
-									</dl>
+<form:form id="relatorioForm" role="form"
+								modelAttribute="entrevista" commandName="entrevista"
+								servletRelativeAction="${url}" method="POST"
+								cssClass="form-horizontal">
+								
+								<input type="hidden" id="idServidor" name="idServidor"
+									value="${sessionScope.id}" />
+								<input type="hidden" id="idInscricao" name="idInscricao"
+									value="${idInscricao}" />
+								<input type="hidden" id="idEntrevista" name="idEntrevista"
+									value="${entrevista.id}" />
+
+								<fieldset class="form-group">
+									<label for="observacao" class="col-sm-1 control-label">Observação</label>
+									<form:textarea class="col-sm-5 form-control" name="observacao" rows="3"
+										id="observacao" type="text" path="observacao"
+										placeholder="Observação"></form:textarea>
+
+									<span class="help-block"></span>
+									<div class="error-validation">
+										<form:errors path="observacao"></form:errors>
+									</div>
+								</fieldset>
+								
+								<fieldset class="form-group">
+									<label for="deferimento" class="col-sm-1 control-label">Deferimento</label> 
+									<select name="deferimento" id="deferimento"  class="form-control col-sm-2">
+										<option value="DEFERIDO">Deferido</option>
+										<option value="INDEFERIDO"
+											<c:if test="${entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
+									</select>
+								</fieldset>
+
+								<fieldset class="form-group">
+									<label for ="realizarVisita" class="control-label">Realizar Visita</label>										 
+									<input type="checkbox" id="realizarVisita" name="realizarVisita" value="true" <c:if test="${inscricao.realizarVisita}">checked </c:if> /> 
+								</fieldset>
+
+								<fieldset class="form-group">
+									<div class="col-sm-1" id="div-form-btn">
+										<input name="submit" type="submit" class="btn btn-primary"
+											value="${botao}" id="form-btn" />
+									</div>
+									<div class="col-sm-2" id="div-form-btn">
+										<a href="<c:url value="/selecao/listar" ></c:url>"
+											class="btn btn-default" id="form-btn">Cancelar</a>
+									</div>
+								</fieldset>								
+
+							</form:form>
+
 								</div>
 							</div>
 						</c:otherwise>
