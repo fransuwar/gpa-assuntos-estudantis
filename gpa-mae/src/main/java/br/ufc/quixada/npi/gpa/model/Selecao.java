@@ -55,7 +55,6 @@ public class Selecao {
 	@Enumerated(EnumType.STRING)
 	private TipoSelecao tipoSelecao;
 
-//	@OneToMany(mappedBy = "selecao", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	@OneToMany
 	private List<Documento> documentos;
 

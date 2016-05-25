@@ -26,10 +26,6 @@ public class Documento {
 	@Type(type="org.hibernate.type.BinaryType") 
 	private byte[] arquivo;
 
-//	@ManyToOne
-//	@JoinColumn(name = "selecao_id")
-//	private Selecao selecao;
-
 	public Documento(){
 		super();
 	}	
