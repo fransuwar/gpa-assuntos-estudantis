@@ -19,10 +19,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 
 @NamedQueries({
-		@NamedQuery(name = "Inscricao.findIncricoesByIdAluno", query = "select i from Inscricao i where i.aluno.id = :idAluno"),
-		@NamedQuery(name = "Inscricao.findInscricaoAluno", query = "SELECT i from Inscricao i where i.selecao.id =:idSelecao and i.aluno.id =:idAluno"),
-		@NamedQuery(name = "Inscricao.finInscricaoByIdSelecao", query = "select i from Inscricao i where i.selecao.id = :idSelecao"),
-		@NamedQuery(name = "Inscricao.finInscricaoByIdSelecaoByAluno", query = "select i from Inscricao i where i.selecao.id = :idSelecao and i.aluno.id =:idAluno")
+	@NamedQuery(name = "Inscricao.findIncricoesByIdAluno", query = "select i from Inscricao i where i.aluno.id = :idAluno"),
+	@NamedQuery(name = "Inscricao.findInscricaoAluno", query = "SELECT i from Inscricao i where i.selecao.id =:idSelecao and i.aluno.id =:idAluno"),
+	@NamedQuery(name = "Inscricao.finInscricaoByIdSelecao", query = "select i from Inscricao i where i.selecao.id = :idSelecao"),
+	@NamedQuery(name = "Inscricao.finInscricaoByIdSelecaoByAluno", query = "select i from Inscricao i where i.selecao.id = :idSelecao and i.aluno.id =:idAluno")
 })
 
 @Entity
@@ -53,7 +53,7 @@ public class Inscricao {
 
 	@OneToOne
 	private Selecao selecao;
-	
+
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private VisitaDomiciliar visitaDomiciliar;
 
@@ -132,7 +132,7 @@ public class Inscricao {
 	}
 
 	public VisitaDomiciliar getVisitaDomiciliar() {
- 		if(visitaDomiciliar == null){
+		if(visitaDomiciliar == null){
 			visitaDomiciliar = new VisitaDomiciliar();
 		}
  		

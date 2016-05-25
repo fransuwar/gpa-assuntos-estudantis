@@ -139,7 +139,18 @@ public class VisitaDomiciliar {
 	private boolean perfilCompativelOutros;
 	
 	private String analiseDescricaoRealidade;
+
+	@OneToOne
+	private Documento formularioVisita;
 	
+	public Documento getFormularioVisita() {
+		return formularioVisita;
+	}
+
+	public void setFormularioVisita(Documento formularioVisita) {
+		this.formularioVisita = formularioVisita;
+	}
+
 	@Enumerated(EnumType.STRING)
 	private Resultado deferimento;
 	
