@@ -55,7 +55,7 @@ public class Selecao {
 	@Enumerated(EnumType.STRING)
 	private TipoSelecao tipoSelecao;
 
-	@OneToMany(mappedBy = "selecao", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
+	@OneToMany
 	private List<Documento> documentos;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
@@ -80,6 +80,9 @@ public class Selecao {
 	}
 
 	public List<Documento> getDocumentos() {
+		if(documentos == null){
+			documentos = new ArrayList<>();
+		}
 		return documentos;
 	}
 

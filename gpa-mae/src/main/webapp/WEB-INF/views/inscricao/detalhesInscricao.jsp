@@ -12,6 +12,19 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+<c:if test="${inscricao.entrevista==Null}">
+	<c:url var="url" value="/servidor/entrevista" />
+	<c:set var="titulo" value="Cadastrar Entrevista" />
+	<c:set var="botao" value="Cadastrar" />
+</c:if>
+
+<c:if test="${inscricao.entrevista!=Null}">
+	<c:url var="url" value="/servidor/atualizarEntrevista" />
+	<c:set var="titulo" value="Editar Entrevista" />
+	<c:set var="botao" value="Atualizar" />
+</c:if>
+
+
 <html>
 <head>
 <jsp:include page="../fragments/headTag.jsp" />
@@ -21,23 +34,24 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<div class="container" align="center">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#inscricao-tab" data-toggle="tab">Inscrição<i
+			<li class="${det}"><a href="#inscricao-tab" data-toggle="tab">Inscrição<i
 					class="fa"></i>
 			</a></li>
-			<li><a href="#documentos-tab" data-toggle="tab">Documentos <i
-					class="fa"></i>
+			<li class="${doc}"><a href="#documentos-tab" data-toggle="tab">Documentos
+					<i class="fa"></i>
 			</a></li>
 			<sec:authorize access="hasAnyRole('DOCENTE','STA')">
-				<li><a href="#entrevista-tab" data-toggle="tab">Entrevista
+				<li class="${ent}"><a href="#entrevista-tab" data-toggle="tab">Entrevista
 						<i class="fa"></i>
 				</a></li>
-				<li><a href="#visita-tab" data-toggle="tab">Visita <i
-						class="fa"></i>
+				<li class="${vis}"><a href="#visita-tab" data-toggle="tab">Visita
+						<i class="fa"></i>
 				</a></li>
 			</sec:authorize>
 		</ul>
+		
 		<div class="tab-content">
-			<div class="tab-pane active" id="inscricao-tab">
+			<div class="tab-pane ${det}" id="inscricao-tab">
 				<div class="panel panel-default panel-primary">
 
 					<div class="panel-heading">
@@ -67,28 +81,82 @@
 						</h3>
 					</div>
 					<div class="panel-body">
+						<div class="aluno-img-container">
+							<img id="aluno-img" src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>"/>
+						</div>
+						<div class='f-container s4 left'>
+							<label class='f-title'>Matrícula:</label>
+							<div class='f-content'>
+								<c:if test="${not empty inscricao.aluno.matricula}">
+									<span> ${inscricao.aluno.matricula } </span>
+								</c:if>
+							</div>
+						</div>
 
-						<img id="aluno-img"
-							src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
+						<div class='f-container s3 left'>
+							<label class='f-title'>Nome:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.nome}">
+									<span> ${usuarioAtivo.nome } </span>
+								</c:if>
+							</div>
+						</div>
 
-						<div class='f-container s4'>
-							<label class='f-title'>Data da inscrição</label>
+						<div class='f-container s4 left'>
+							<label class='f-title'>CPF:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.cpf}">
+									<span> ${usuarioAtivo.cpf } </span>
+								</c:if>
+							</div>
+						</div>
+
+						<div class='f-container s3 left'>
+							<label class='f-title'>Email:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.email}">
+									<span> ${usuarioAtivo.email } </span>
+								</c:if>
+							</div>
+						</div>
+
+						<div class='f-container s4 left'>
+							<label class='f-title'>Telefone:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.telefone}">
+									<span> ${usuarioAtivo.telefone } </span>
+								</c:if>
+
+							</div>
+						</div>
+
+						<div class='f-container s3 left'>
+							<label class='f-title'>Nascimento:</label>
+							<div class='f-content'>
+								<c:if test="${not empty usuarioAtivo.dataNascimento}">
+									<span> <fmt:formatDate pattern="dd/MM/yyyy"
+											value="${usuarioAtivo.dataNascimento }" /></span>
+								</c:if>
+							</div>
+						</div>
+						<div class='f-container s4 left'>
+							<label class='f-title'>Data da inscrição:</label>
 							<div class='f-content'>
 								<fmt:formatDate value="${inscricao.data}" pattern="dd/MM/yyyy" />
 							</div>
 						</div>
 
-						<div class='f-container s4'>
+						<div class='f-container s3 left'>
 							<label class='f-title'>Tipo da seleção:</label>
 							<div class='f-content'>${inscricao.selecao.tipoSelecao.nome}</div>
 						</div>
 
-						<div class='f-container s4'>
+						<div class='f-container s4 left'>
 							<label class='f-title'>Resultado:</label>
 							<div class='f-content'>${inscricao.resultado.nome}</div>
 						</div>
 
-						<div class='f-container s4'>
+						<div class='f-container s3 left'>
 							<label class='f-title'>Observações:</label>
 							<div class='f-content'>${inscricao.observacoes}</div>
 						</div>
@@ -502,8 +570,11 @@
 						<div class='f-container s10'>
 							<label class='f-title'>Deferimento:</label>
 							<div class='f-content'>
+								<dd class="col-sm-3">${inscricao.entrevista.deferimento.nome}</dd>
 								<c:choose>
-									<c:when test="${inscricao.entrevista.deferimento == true}">
+									
+									<c:when test="${inscricao.entrevista.deferimento eq 'DEFERIDO'}">
+									
 										<dd class="col-sm-3">DEFERIDO</dd>
 									</c:when>
 									<c:otherwise>
@@ -519,19 +590,21 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane" id="documentos-tab"></div>
+			<div class="tab-pane ${doc}" id="documentos-tab"></div>
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
-				<div class="tab-pane" id="entrevista-tab">
+
+				<div class="tab-pane ${ent}" id="entrevista-tab">
 					<c:choose>
-						<c:when test="${!inscricao.avaliacaoDocumentos}">
+						<c:when
+							test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+
 							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								Este Aluno foi Indeferido na Etapa
-								de Documentação
+								Este Aluno foi Indeferido na Etapa de Documentação
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -540,39 +613,160 @@
 									<h3 class="panel-title">Entrevista</h3>
 								</div>
 								<div class="panel-body">
-									<dl class='col-sm-12'>
-										<dt class="col-sm-2">Resultado:</dt>
-										<dd class="col-sm-2">DEFERIDO</dd>
-										<dt class="col-sm-2">Observação:</dt>
-										<dd class="col-sm-2">${inscricao.entrevista.observacao}</dd>
-										<dt class="col-sm-2">Responsável:</dt>
-										<dd class="col-sm-2">${inscricao.entrevista.servidor.pessoa.nome}</dd>
-									</dl>
+<form:form id="relatorioForm" role="form"
+								modelAttribute="entrevista" commandName="entrevista"
+								servletRelativeAction="${url}" method="POST"
+								cssClass="form-horizontal">
+								
+								<input type="hidden" id="idServidor" name="idServidor"
+									value="${sessionScope.id}" />
+								<input type="hidden" id="idInscricao" name="idInscricao"
+									value="${idInscricao}" />
+								<input type="hidden" id="idEntrevista" name="idEntrevista"
+									value="${entrevista.id}" />
+
+								<fieldset class="form-group">
+									<label for="observacao" class="col-sm-1 control-label">Observação</label>
+									<form:textarea class="col-sm-5 form-control" name="observacao" rows="3"
+										id="observacao" type="text" path="observacao"
+										placeholder="Observação"></form:textarea>
+
+									<span class="help-block"></span>
+									<div class="error-validation">
+										<form:errors path="observacao"></form:errors>
+									</div>
+								</fieldset>
+								
+								<fieldset class="form-group">
+									<label for="deferimento" class="col-sm-1 control-label">Deferimento</label> 
+									<select name="deferimento" id="deferimento"  class="form-control col-sm-2">
+										<option value="DEFERIDO">Deferido</option>
+										<option value="INDEFERIDO"
+											<c:if test="${entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
+									</select>
+								</fieldset>
+
+								<fieldset class="form-group">
+									<label for ="realizarVisita" class="control-label">Realizar Visita</label>										 
+									<input type="checkbox" id="realizarVisita" name="realizarVisita" value="true" <c:if test="${inscricao.realizarVisita}">checked </c:if> /> 
+								</fieldset>
+
+								<fieldset class="form-group">
+									<div class="col-sm-1" id="div-form-btn">
+										<input name="submit" type="submit" class="btn btn-primary"
+											value="${botao}" id="form-btn" />
+									</div>
+									<div class="col-sm-2" id="div-form-btn">
+										<a href="<c:url value="/selecao/listar" ></c:url>"
+											class="btn btn-default" id="form-btn">Cancelar</a>
+									</div>
+								</fieldset>								
+
+							</form:form>
+
 								</div>
 							</div>
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<div class="tab-pane" id="visita-tab">
-				    <c:choose>
-				        <c:when test="${!inscricao.entrevista.deferimento}">
-				            <div class="alert alert-danger alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								Este Aluno foi Indeferido na Etapa
-								de entrevista
-							</div>
-				        </c:when>
-				        <c:otherwise>
-				            <!-- aqui deve ser mostrado os dados da visita -->
-				        </c:otherwise>
-				    </c:choose>
+				<div class="tab-pane ${vis}" id="visita-tab">
+					<div class="panel panel-default panel-primary">
+
+						<div class="panel-heading">
+							<h3 class="panel-title"></h3>
+						</div>
+						<div class="panel-body text-align-left">
+
+							<c:choose>
+								<c:when
+									test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+									<div class="alert alert-danger alert-dismissible" role="alert">
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										Este Aluno foi Indeferido na Etapa de entrevista
+									</div>
+								</c:when>
+								<c:otherwise>
+									<!-- aqui deve ser mostrado os dados da visita -->
+								</c:otherwise>
+							</c:choose>
+
+							<label class='f-title'> Formulário da visita: </label><br/>
+							<label class="f-title">
+							<c:choose>
+
+								<c:when
+									test="${not empty inscricao.visitaDomiciliar.formularioVisita}">
+									<a class="no-decoration"
+										href="<c:url value="/selecao/documento/${inscricao.visitaDomiciliar.formularioVisita.id}"></c:url>">${inscricao.visitaDomiciliar.formularioVisita.nome}</a>
+									<strong class="error text-danger"></strong>
+									<a id="excluir" data-toggle="modal"
+										aria-title="O formulário sejá removido. Deseja continuar?"
+										aria-destination="<c:url value="/servidor/visita/removerFormulario/${inscricao.id}/${inscricao.visitaDomiciliar.formularioVisita.id}"></c:url>"
+										class="confirm-button delete-document btn btn-danger btn-xs glyphicon glyphicon-trash">
+									</a>
+								</c:when>
+
+								<c:otherwise>
+
+									<form id="insercaoFormularioVisita" role="form" method="POST"
+										enctype="multipart/form-data"
+										action="<c:url value="/servidor/visita/enviarFormulario/${inscricao.id}"/>">
+										<input type="file" name="formulario" /><br /> <input
+											type="submit" class="btn btn-primary" />
+									</form>
+
+								</c:otherwise>
+
+							</c:choose>
+							
+							</label>
+
+
+							<hr />
+
+							<label class='f-title'> Adicionar Foto: </label>
+
+							<form id="insercaoImagemEntrevista" role="form"
+								action="<c:url value="/servidor/detalhes/inscricao/inserirImagem"/>"
+								method="POST" enctype="multipart/form-data">
+								<input type="hidden" name="idInscricao" value="${inscricao.id}" />
+								<input type="file" name="foto" /> <br /> <input type="submit"
+									value="Adicionar" class='btn btn-primary' />
+							</form>
+							
+							<hr/>
+
+							<ul class='photos-list'>
+								<c:forEach var="imagem"
+									items="${inscricao.visitaDomiciliar.imagens}">
+									<li class='img-fullscreen'>
+										<div class='input-photo'>
+											<img class='photo-img'
+												src="data:image/jpeg;base64,${imagem.img}" />
+											<div class='remove-photo confirm-button'
+												aria-title="Continuar irá remover a foto da visita, deseja prosseguir?"
+												aria-destination="<c:url value="/servidor/detalhes/inscricao/removerImagem/${inscricao.id}/${imagem.id}"/>"></div>
+										</div>
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
+
+					</div>
+
+
+
+
+
 				</div>
-			</sec:authorize>
 		</div>
-		<jsp:include page="../fragments/footer.jsp" />
+		</sec:authorize>
+
+	</div>
+	<jsp:include page="../fragments/footer.jsp" />
 	</div>
 </body>
 </html>

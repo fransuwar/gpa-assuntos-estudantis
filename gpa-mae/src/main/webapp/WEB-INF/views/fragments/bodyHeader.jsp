@@ -8,7 +8,26 @@
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid container">
 			<div class="navbar-header">
-				<a href="<c:url value="/selecao/listar" />"> <img id="img-logo"
+				<a href="<c:url value="/selecao/listar" />"> <img id="img-logo"></a>
+			<button type="button" class="navbar-toggle" data-toggle="collapse" 
+		         data-target="#mainMenu">
+		         <span class="sr-only">Toggle navigation</span>
+		         <span class="icon-bar"></span>
+		         <span class="icon-bar"></span>
+		         <span class="icon-bar"></span>
+		      </button>
+		      
+		      <c:set var="logoRedirect"><c:url value="/selecao/listar"/></c:set>
+		      
+		      <sec:authorize access="hasAnyRole('DOCENTE', 'STA')">
+		      	<c:set var="logoRedirect"><c:url value='/servidor/selecao/listar'/></c:set>
+		      </sec:authorize>
+		      
+		      <sec:authorize access="hasAnyRole('DISCENTE')">
+		      	<c:set var="logoRedirect"><c:url value='/aluno/selecao/listar' /></c:set>
+		      </sec:authorize>
+		      
+		      <a href="${logoRedirect}"> <img
 					src="<c:url value="/resources/images/logo-GPA.jpg" />"
 					alt="GPA - Assuntos Estudantis" id="logo-gpa">
 				</a>
