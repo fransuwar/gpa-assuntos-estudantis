@@ -24,6 +24,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_IN
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRITOS_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -191,7 +192,7 @@ public class ServidorController {
 			// TODO: handle exception
 		}
 		
-		modelo.addAttribute("aba", "visita-tab");
+		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
 		modelo.addAttribute("inscricao", inscricao);
 		
 		
@@ -217,7 +218,7 @@ public class ServidorController {
 			inscricaoService.save(inscricao);
 			
 			model.addAttribute("inscricao", inscricao);
-			model.addAttribute("aba", "visita-tab");
+			model.addAttribute(ABA_SELECIONADA, "visita-tab");
 			
 		} catch (IOException e) {
 			// TODO: handle exception
@@ -359,7 +360,7 @@ public class ServidorController {
 		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
 			modelo.addAttribute("inscricao", inscricao);
 			modelo.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
-			modelo.addAttribute("aba", "inscricao-tab");
+			modelo.addAttribute(ABA_SELECIONADA, "inscricao-tab");
 			if(inscricao.getEntrevista()!=null)
 				modelo.addAttribute("entrevista", inscricao.getEntrevista());
 			else
@@ -399,7 +400,7 @@ public class ServidorController {
 		}
 		
 		modelo.addAttribute("inscricao", inscricao);
-		modelo.addAttribute("aba", "visita-tab");
+		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
 		
 		return PAGINA_DETALHES_INSCRICAO;
 	}
@@ -413,7 +414,7 @@ public class ServidorController {
 		
 		inscricaoService.save(inscricao);
 		
-		modelo.addAttribute("aba", "visita-tab");
+		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
 		modelo.addAttribute("inscricao", inscricao);
 		
 		return PAGINA_DETALHES_INSCRICAO;
