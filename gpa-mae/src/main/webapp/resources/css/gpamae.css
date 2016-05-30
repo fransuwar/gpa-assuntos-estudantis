@@ -871,3 +871,15 @@ input:focus, select:focus{
 .dataTables_filter {
 	display: none;
 }
+
+.container-lg{
+	width: 80%;
+}
+
+.container-md{
+	width: 70%;
+}
+
+.container-st{
+	width: 60%;
+}
