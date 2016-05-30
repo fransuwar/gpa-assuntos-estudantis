@@ -184,6 +184,9 @@ $(document).ready(function(){
 			duracao:{
 				required:true
 			},
+			tiposDeDocumento:{
+				required:true
+			},
 			agree: "required"
 		},
 
