@@ -34,24 +34,24 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 	<div class="container" align="center">
 		<ul class="nav nav-tabs">
-			<li class="${det}"><a href="#inscricao-tab" data-toggle="tab">Inscrição<i
+			<li class=""><a href="#inscricao-tab" data-toggle="tab">Inscrição<i
 					class="fa"></i>
 			</a></li>
-			<li class="${doc}"><a href="#documentos-tab" data-toggle="tab">Documentos
+			<li class=""><a href="#documentos-tab" data-toggle="tab">Documentos
 					<i class="fa"></i>
 			</a></li>
 			<sec:authorize access="hasAnyRole('DOCENTE','STA')">
-				<li class="${ent}"><a href="#entrevista-tab" data-toggle="tab">Entrevista
+				<li class=""><a href="#entrevista-tab" data-toggle="tab">Entrevista
 						<i class="fa"></i>
 				</a></li>
-				<li class="${vis}"><a href="#visita-tab" data-toggle="tab">Visita
+				<li class=""><a href="#visita-tab" data-toggle="tab">Visita
 						<i class="fa"></i>
 				</a></li>
 			</sec:authorize>
 		</ul>
 		
 		<div class="tab-content">
-			<div class="tab-pane ${det}" id="inscricao-tab">
+			<div class="tab-pane" id="inscricao-tab">
 				<div class="panel panel-default panel-primary">
 
 					<div class="panel-heading">
@@ -590,11 +590,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane ${doc}" id="documentos-tab"></div>
+			<div class="tab-pane" id="documentos-tab"></div>
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 
-				<div class="tab-pane ${ent}" id="entrevista-tab">
+				<div class="tab-pane" id="entrevista-tab">
 					<c:choose>
 						<c:when
 							test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
@@ -621,9 +621,9 @@
 								<input type="hidden" id="idServidor" name="idServidor"
 									value="${sessionScope.id}" />
 								<input type="hidden" id="idInscricao" name="idInscricao"
-									value="${idInscricao}" />
+									value="${inscricao.id}" />
 								<input type="hidden" id="idEntrevista" name="idEntrevista"
-									value="${entrevista.id}" />
+									value="${inscricao.entrevista.id}" />
 
 								<fieldset class="form-group">
 									<label for="observacao" class="col-sm-1 control-label">Observação</label>
@@ -642,7 +642,7 @@
 									<select name="deferimento" id="deferimento"  class="form-control col-sm-2">
 										<option value="DEFERIDO">Deferido</option>
 										<option value="INDEFERIDO"
-											<c:if test="${entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
+											<c:if test="${inscricao.entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
 									</select>
 								</fieldset>
 
@@ -669,7 +669,7 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<div class="tab-pane ${vis}" id="visita-tab">
+				<div class="tab-pane" id="visita-tab">
 					<div class="panel panel-default panel-primary">
 
 						<div class="panel-heading">

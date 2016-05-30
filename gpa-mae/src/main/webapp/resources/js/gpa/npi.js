@@ -2,6 +2,8 @@ var linha;
 
 $(document).ready(function(){
 	
+	selecionarAba($('#aba').val());
+	
 	$('.panel-heading').click(function(){ $(this).find('.clicavel').click(); return false; });
 	
 	$("#addPessoaFamilia").click(function(){
@@ -620,5 +622,11 @@ function rowAdded(rowElement) {
 
 function novaAba(url){
 	window.open(url, "_blank");
+}
+
+function selecionarAba(idAba){
+	$('.active').removeClass('active');
+	$('#'+idAba).addClass('active');
+	$('a[href=#'+idAba+']').parent().addClass('active');
 }
 
