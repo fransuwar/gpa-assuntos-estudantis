@@ -37,6 +37,9 @@
 		</c:if>
 
 		<div class="panel-card">
+			<div class="panel-card-content">
+				<div class="card">
+				<a href="<c:url value="/servidor/inscritos/${selecao.id}"></c:url>">
 			<div class="card bg-blue card-margin-right">
 				<a href="<c:url value="/servidor/inscritos/${selecao.id}"></c:url>">
 					<div class="card-content">
@@ -52,21 +55,54 @@
 					href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
 					<div class="card-content">
 						<div class="card-icon">
-							<i class="fa fa-users"></i>
+							<i class="fa fa-folder-open"></i>
+						</div>
+						<div class="card-description">
+							INSCRIÇÕES
 						</div>
 						<div class="card-description">COMISSÃO</div>
 					</div>
 				</a>
+				</div>
+				<div class="card">
+					<a href="<c:url value="/coordenador/comissao/atribuir/${selecao.id}" ></c:url>">
+						<div class="card-content">
+						    <div class="card-icon">
+								<i class="fa fa-users"></i>
+							</div>
+							<div class="card-description">
+								COMISSÃO
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="card">
+				  <a href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
+						<div class="card-content">
+						    <div class="card-icon">
+								<i class="fa fa-file"></i>
+							</div>
+							<div class="card-description">
+								ARQUIVOS
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="card">
 			</div>
 			<div class="card bg-green card-margin-right">
 				<a
 					href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
 					<div class="card-content">
-						<div class="card-icon">
-							<i class="fa fa-file"></i>
+					    <div class="card-icon">
+							<i class="fa fa-file-text"></i>
+						</div>
+						<div class="card-description">
+							RELATÓRIO VISITAS
 						</div>
 						<div class="card-description">ARQUIVOS</div>
 					</div>
+
 				</a>
 			</div>
 			<div class="card bg-yellow card-margin-right">
@@ -75,6 +111,16 @@
 						<i class="fa fa-file-text"></i>
 					</div>
 					<div class="card-description">RELATÓRIO VISITAS</div>
+				</div>
+				<div class="card">
+					<div class="card-content">
+					    <div class="card-icon">
+							<i class="fa fa-signal"></i>
+						</div>
+						<div class="card-description">
+							RANKING
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="card bg-brown">
