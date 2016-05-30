@@ -16,7 +16,7 @@
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
-	<div class="container" align="left">
+	<div class="container container-md" align="left">
 		
 		<div class="panel panel-primary">
 
@@ -25,8 +25,6 @@
 				<h3 class="panel-title">DETALHES DA SELEÇÃO</h3>
 
 				<div class='opcoes-detalhes'>
-
-
 					<c:choose>
 						<c:when test="${controle}">
 							<a id="editar" title="Editar"
@@ -58,70 +56,44 @@
 							</c:otherwise>
 						
 					</c:choose>
-
-
 				</div>
 
 			</div>
 
 			<div class="panel-body">
 
-				<div class='f-container s10'>
-
-					<label class='f-title'></label>
-					<div class='f-content right'></div>
-
-				</div>
-
-
-				<div class='f-container s5'>
+				<div class='f-container s3'>
 
 					<label class='f-title'>Número do Edital:</label>
-					<div class='f-content'>${selecao.sequencial}</div>
+					<div class='f-content'>${selecao.sequencial}/${selecao.ano}</div>
 
 				</div>
 
-				<div class='f-container s5'>
+				<div class='f-container s3'>
 
 					<label class='f-title'>Tipo de Seleção:</label>
 					<div class='f-content'>${selecao.tipoSelecao.nome}</div>
 
 				</div>
 
-				<div class='f-container s5'>
-
-					<label class='f-title'>Ano do Edital:</label>
-					<div class='f-content'>${selecao.ano}</div>
-
-				</div>
-
-				<div class='f-container s5'>
+				<div class='f-container s3'>
 
 					<label class='f-title'>Quantidade de vagas:</label>
 					<div class='f-content'>${selecao.quantidadeVagas}</div>
 
 				</div>
 
-				<div class='f-container s5'>
+				<div class='f-container s3'>
 
-					<label class='f-title'>Data de início da inscrição:</label>
+					<label class='f-title'>Período de inscrição:</label>
 					<div class='f-content'>
-						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" />
-					</div>
-
-				</div>
-
-				<div class='f-container s5'>
-
-					<label class='f-title'>Data de término da inscrição:</label>
-					<div class='f-content'>
-						<fmt:formatDate value="${selecao.dataTermino}"
+						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" /> até <fmt:formatDate value="${selecao.dataTermino}"
 							pattern="dd/MM/yyyy" />
 					</div>
 
 				</div>
 
-				<div class='f-container s5'>
+				<div class='f-container s3'>
 
 					<label class='f-title'>Responsável:</label>
 					<div class='f-content'>${selecao.responsavel.pessoa.nome}</div>
@@ -130,7 +102,7 @@
 
 
 
-				<div class='f-container s5'>
+				<div class='f-container s3'>
 
 					<label class='f-title'>Arquivos:</label>
 					<div class='f-content'>
