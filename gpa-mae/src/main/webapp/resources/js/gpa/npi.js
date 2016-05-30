@@ -265,6 +265,7 @@ $(document).ready(function(){
 		format : "dd/mm/yyyy",
 		todayBtn : "linked",
 		autoclose : true,
+		startDate: "0",
 		language : "pt-BR",
 		todayHighlight : true
 	});
