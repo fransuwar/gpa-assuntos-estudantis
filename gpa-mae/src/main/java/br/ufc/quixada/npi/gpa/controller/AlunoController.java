@@ -479,6 +479,9 @@ public class AlunoController {
 			} else{
 				model.addAttribute("esconderBotoes",false);			
 			}
+			
+			model.addAttribute("aba", "inscricao-tab");
+			
 
 			return PAGINA_DETALHES_INSCRICAO;
 

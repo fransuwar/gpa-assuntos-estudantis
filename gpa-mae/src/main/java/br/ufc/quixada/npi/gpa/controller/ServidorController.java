@@ -191,8 +191,8 @@ public class ServidorController {
 			// TODO: handle exception
 		}
 		
+		modelo.addAttribute("aba", "visita-tab");
 		modelo.addAttribute("inscricao", inscricao);
-		modelo.addAttribute("vis", "active");
 		
 		
 		return PAGINA_DETALHES_INSCRICAO;
@@ -217,7 +217,7 @@ public class ServidorController {
 			inscricaoService.save(inscricao);
 			
 			model.addAttribute("inscricao", inscricao);
-			model.addAttribute("vis", "active");
+			model.addAttribute("aba", "visita-tab");
 			
 		} catch (IOException e) {
 			// TODO: handle exception
@@ -359,7 +359,7 @@ public class ServidorController {
 		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
 			modelo.addAttribute("inscricao", inscricao);
 			modelo.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
-			modelo.addAttribute("det", "active");
+			modelo.addAttribute("aba", "inscricao-tab");
 			if(inscricao.getEntrevista()!=null)
 				modelo.addAttribute("entrevista", inscricao.getEntrevista());
 			else
@@ -399,7 +399,7 @@ public class ServidorController {
 		}
 		
 		modelo.addAttribute("inscricao", inscricao);
-		modelo.addAttribute("vis", "active");
+		modelo.addAttribute("aba", "visita-tab");
 		
 		return PAGINA_DETALHES_INSCRICAO;
 	}
@@ -413,7 +413,7 @@ public class ServidorController {
 		
 		inscricaoService.save(inscricao);
 		
-		modelo.addAttribute("vis", "active");
+		modelo.addAttribute("aba", "visita-tab");
 		modelo.addAttribute("inscricao", inscricao);
 		
 		return PAGINA_DETALHES_INSCRICAO;
