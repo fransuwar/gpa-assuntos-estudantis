@@ -250,5 +250,9 @@ public class Constants {
 	public static final String 	DOCUMENTOS = "documentos";
 	
 	public static final String CAMINHO_IMAGEM_ALUNO_SEM_FOTO = "/MAE/resources/img/alunoImage.png";
+	
+	/** Comunicação com Javascript */
+	
+	public static final String ABA_SELECIONADA = "aba";
 
 }

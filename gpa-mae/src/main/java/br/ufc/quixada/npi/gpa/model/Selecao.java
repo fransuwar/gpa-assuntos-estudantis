@@ -66,6 +66,9 @@ public class Selecao {
 
 	@OneToMany(mappedBy = "selecao")
 	private List<Inscricao> inscritos;
+	
+	@OneToMany
+	private List<TipoDocumento> tiposDeDocumento;
 
 	public Integer getAno() {
 		return ano;
@@ -166,6 +169,16 @@ public class Selecao {
 		}
 		this.membrosComissao.add(coordenador);
 	}
+	
+	
+	public List<TipoDocumento> getTiposDeDocumento() {
+		return tiposDeDocumento;
+	}
+
+	public void setTiposDeDocumento(List<TipoDocumento> tiposDeDocumento) {
+		this.tiposDeDocumento = tiposDeDocumento;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

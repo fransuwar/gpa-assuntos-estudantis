@@ -609,6 +609,61 @@
 							</div>
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
+									<h3 class="panel-title">Entrevista</h3>
+								</div>
+								<div class="panel-body">
+									<form:form id="relatorioForm" role="form"
+										modelAttribute="entrevista" commandName="entrevista"
+										servletRelativeAction="${url}" method="POST"
+										cssClass="form-horizontal">
+
+										<input type="hidden" id="idServidor" name="idServidor"
+											value="${sessionScope.id}" />
+										<input type="hidden" id="idInscricao" name="idInscricao"
+											value="${inscricao.id}" />
+										<input type="hidden" id="idEntrevista" name="idEntrevista"
+											value="${inscricao.entrevista.id}" />
+										<fieldset class="form-group">
+											<label for="observacao" class="col-sm-1 control-label">Observação</label>
+											<form:textarea class="col-sm-5 form-control"
+												name="observacao" rows="3" id="observacao" type="text"
+												path="observacao" placeholder="Observação"></form:textarea>
+											<span class="help-block"></span>
+											<div class="error-validation">
+												<form:errors path="observacao"></form:errors>
+											</div>
+										</fieldset>
+
+										<fieldset class="form-group">
+											<label for="deferimento" class="col-sm-1 control-label">Deferimento</label>
+											<select name="deferimento" id="deferimento"
+												class="form-control col-sm-2">
+												<option value="DEFERIDO">Deferido</option>
+												<option value="INDEFERIDO"
+													<c:if test="${inscricao.entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
+											</select>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="realizarVisita" class="control-label">Realizar
+												Visita</label> <input type="checkbox" id="realizarVisita"
+												name="realizarVisita" value="true"
+												<c:if test="${inscricao.realizarVisita}">checked </c:if> />
+										</fieldset>
+										<fieldset class="form-group">
+											<div class="col-sm-1" id="div-form-btn">
+												<input name="submit" type="submit" class="btn btn-primary"
+													value="${botao}" id="form-btn" />
+											</div>
+											<div class="col-sm-2" id="div-form-btn">
+												<a href="<c:url value="/selecao/listar" ></c:url>"
+													class="btn btn-default" id="form-btn">Cancelar</a>
+											</div>
+										</fieldset>
+									</form:form>
+								</div>
+							</div>
+							<div class="panel panel-default panel-primary">
+								<div class="panel-heading">
 									<h3 class="panel-title">Membros da Família</h3>
 								</div>
 								<div class="panel-body">
@@ -634,7 +689,6 @@
 													<td>${pessoa.rendaMensal}</td>
 												</tr>
 											</c:forEach>
-
 										</tbody>
 									</table>
 								</div>
@@ -710,51 +764,116 @@
 										<input id="addPessoaFamilia" type="submit"
 											class="btn btn-primary" value="Adicionar Pessoa" />
 									</div>
-
 								</div>
 							</div>
 						</c:otherwise>
 					</c:choose>
 				</div>
 				<div class="tab-pane" id="visita-tab">
-					<c:choose>
-						<c:when test="${inscricao.entrevista.deferimento == 'INDEFERIDO'}">
-							<div class="alert alert-danger alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								Este Aluno foi Indeferido na Etapa de entrevista
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div>
-								<div class="form-group">
-									<div class="panel panel-default panel-primary">
-										<div class="panel-heading">
-											<h3 class="panel-title">Dados da Visita</h3>
-										</div>
-										<div class="panel-body">
-											<dl class='col-sm-12'>
-												<dt class="col-sm-2">Resultado:</dt>
-												<c:choose>
-													<c:when
-														test="${inscricao.visitaDomiciliar.deferimento == true}">
-														<dd class="col-sm-3">DEFERIDO</dd>
-													</c:when>
-													<c:otherwise>
-														<dd class="col-sm-3">INDEFERIDO</dd>
-													</c:otherwise>
-												</c:choose>
-												<dt class="col-sm-2">Observação:</dt>
-												<dd class="col-sm-2">${inscricao.visitaDomiciliar.observacaoParecer}</dd>
-											</dl>
-										</div>
+					<div class="panel panel-default panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Entrevista</h3>
+						</div>
+						<div class="panel-body">
+							<dl class='col-sm-12'>
+								<dt class="col-sm-2">Parecer:</dt>
+								<c:choose>
+									<c:when test="${inscricao.visitaDomiciliar.deferimento == true}">
+										<dd class="col-sm-2">DEFERIDO</dd>
+									</c:when>
+									<c:otherwise>
+										<dd class="col-sm-2">INDEFERIDO</dd>
+									</c:otherwise>
+								</c:choose>
+								<dt class="col-sm-2">Observação:</dt>
+								<dd class="col-sm-2">${inscricao.visitaDomiciliar.observacaoParecer}</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="panel panel-default panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title"></h3>
+						</div>
+						<div class="panel-body text-align-left">
+
+							<c:choose>
+								<c:when
+									test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+									<div class="alert alert-danger alert-dismissible" role="alert">
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										Este Aluno foi Indeferido na Etapa de entrevista
 									</div>
-								</div>
-							</div>
-						</c:otherwise>
-					</c:choose>
+								</c:when>
+								<c:otherwise>
+									<!-- aqui deve ser mostrado os dados da visita -->
+								</c:otherwise>
+							</c:choose>
+
+							<label class='f-title'> Formulário da visita: </label><br /> <label
+								class="f-title"> <c:choose>
+
+									<c:when
+										test="${not empty inscricao.visitaDomiciliar.formularioVisita}">
+										<a class="no-decoration"
+											href="<c:url value="/selecao/documento/${inscricao.visitaDomiciliar.formularioVisita.id}"></c:url>">${inscricao.visitaDomiciliar.formularioVisita.nome}</a>
+										<strong class="error text-danger"></strong>
+										<a id="excluir" data-toggle="modal"
+											aria-title="O formulário sejá removido. Deseja continuar?"
+											aria-destination="<c:url value="/servidor/visita/removerFormulario/${inscricao.id}/${inscricao.visitaDomiciliar.formularioVisita.id}"></c:url>"
+											class="confirm-button delete-document btn btn-danger btn-xs glyphicon glyphicon-trash">
+										</a>
+									</c:when>
+
+									<c:otherwise>
+
+										<form id="insercaoFormularioVisita" role="form" method="POST"
+											enctype="multipart/form-data"
+											action="<c:url value="/servidor/visita/enviarFormulario/${inscricao.id}"/>">
+											<input type="file" name="formulario" /><br /> <input
+												type="submit" class="btn btn-primary" />
+										</form>
+
+									</c:otherwise>
+
+								</c:choose>
+
+							</label>
+
+
+							<hr />
+
+							<label class='f-title'> Adicionar Foto: </label>
+
+							<form id="insercaoImagemEntrevista" role="form"
+								action="<c:url value="/servidor/detalhes/inscricao/inserirImagem"/>"
+								method="POST" enctype="multipart/form-data">
+								<input type="hidden" name="idInscricao" value="${inscricao.id}" />
+								<input type="file" name="foto" /> <br /> <input type="submit"
+									value="Adicionar" class='btn btn-primary' />
+							</form>
+
+							<hr />
+
+							<ul class='photos-list'>
+								<c:forEach var="imagem"
+									items="${inscricao.visitaDomiciliar.imagens}">
+									<li class='img-fullscreen'>
+										<div class='input-photo'>
+											<img class='photo-img'
+												src="data:image/jpeg;base64,${imagem.img}" />
+											<div class='remove-photo confirm-button'
+												aria-title="Continuar irá remover a foto da visita, deseja prosseguir?"
+												aria-destination="<c:url value="/servidor/detalhes/inscricao/removerImagem/${inscricao.id}/${imagem.id}"/>"></div>
+										</div>
+									</li>
+								</c:forEach>
+							</ul>
+
+						</div>
+					</div>
 				</div>
 			</sec:authorize>
 		</div>

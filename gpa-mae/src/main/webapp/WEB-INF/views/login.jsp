@@ -76,6 +76,6 @@
 	</div>
 
 	<jsp:include page="fragments/footer.jsp" />
-	<script src="<c:url value="/resources/js/gpa-login.js" />"></script>
+	<script src="<c:url value="/resources/js/gpa/gpa-login.js" />"></script>
 </body>
 </html>
