@@ -174,7 +174,7 @@ div.unique div.p-header {
 }
 
 div.p-header {
-	border-bottom: 1px solid #6f7f94;
+	border-bottom: 1px solid white;
 	position: absolute;
 	background-color: #00796B;
 	float: left;
@@ -301,9 +301,9 @@ div.s10 {
 .divisor {
 	margin: 0;
 	padding: 5px;
-	background-color: #485966;
+	background-color: #237c73;
 	border-radius: 5px 5px 0px 0px;
-	box-shadow: 1px 1px 1px #444444;
+	box-shadow: 1px 0px 1px #babdb6;
 	text-align: left;
 	width: 100%;
 }
@@ -458,7 +458,7 @@ div.s10 {
 	transform: translateX(-50%) translateY(-50%);
 	height: 50px;
 }
-
+Com quem Mora
 .photo-sign:after {
 	border-radius: 3px;
 	background: #e0e0e0;
@@ -844,13 +844,13 @@ a, .dropdown-menu > li > a{
 .btn-primary{
 	color: white !important;
 	background-color: #00796B !important;
-	border-bottom-color: #2c8f84!important;
+	border-bottom-color: #238b7f!important;
 }
 
 .btn-info{
 	color: #ffffff;
-	background-color: #0fa2db;
-	border-color: #127ba3;
+	background-color: #f57900;
+	border-color: #f57900;
 }
 
 .btn-info:hover{
@@ -858,7 +858,18 @@ a, .dropdown-menu > li > a{
 	border-color: #34a8d5;
 }
 
-input:focus, select:focus{
+.btn{
+  	border: 0 !important;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.btn:hover{
+	margin: 0 !important;
+	transform: scale(0.9);
+	 
+}
+
+input:focus, select:focus, textarea:focus{
 	border-color: #009688 !important;
 	box-shadow: 0 0 3px rgba(13, 81, 75, 0.3) !important; 
 }
@@ -871,3 +882,4 @@ input:focus, select:focus{
 .dataTables_filter {
 	display: none;
 }
+

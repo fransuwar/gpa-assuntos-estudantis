@@ -6,19 +6,6 @@ $(document).ready(function(){
 		$("#formPessoaFamilia").submit();
 	});
 	
-	var tabelaClassificaveis = $('#tabela-classificaveis').dataTable({
-		"language": {
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		},
-		"paging": false,
-		"order": [[ 2, "cresc" ]],
-		"ordering": false,
-		"bInfo" : false,
-		"language": {
-	        "emptyTable": "Nenhum Aluno Classificável"
-	    }
-	});
-	
 	
 	var tabelaClassificados = $('#tabela-classificados').dataTable({
 		"language": {
@@ -135,19 +122,6 @@ $(document).ready(function(){
 
 	});
 
-	$("#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
-	  "#tabela-inscritos, #tabela-ranking-classificados, " +
-	  "#tabela-detalhes-selecao-servidores, #table-visualiza-info-auxilio").DataTable({
-		"language": {
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		},
-		"columnDefs": 
-			 [],
-			 "paging": false,
-			 "searching": false,
-			 "ordering": false
-
-	});
 	
 	
 	jQuery.validator.addMethod("periodo", function(value, element) {
