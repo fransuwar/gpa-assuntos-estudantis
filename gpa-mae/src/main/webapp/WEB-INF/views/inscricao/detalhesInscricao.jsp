@@ -278,7 +278,6 @@
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.numeroOrigem}</div>
 						</div>
 
-
 						<div class='f-container s2'>
 							<label class='f-title'>CEP:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.cepOrigem}</div>
