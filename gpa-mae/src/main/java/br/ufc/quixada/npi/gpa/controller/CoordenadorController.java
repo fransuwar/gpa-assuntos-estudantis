@@ -192,7 +192,7 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
 	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result,
-			Model model, RedirectAttributes redirect) {
+			@RequestParam("idResponsavel") Integer idResponsavel, Model model, RedirectAttributes redirect) {
 
 
 		model.addAttribute("action", "editar");
@@ -209,6 +209,9 @@ public class CoordenadorController {
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
+		
+		Servidor responsavel = servidorService.getServidorPorId(idResponsavel);
+		selecao.setResponsavel(responsavel);
 
 		this.selecaoService.update(selecao);
 
