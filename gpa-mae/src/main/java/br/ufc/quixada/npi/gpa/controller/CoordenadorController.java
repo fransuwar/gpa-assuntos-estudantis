@@ -167,7 +167,7 @@ public class CoordenadorController {
 
 		this.selecaoService.save(selecao);
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_CADASTRADA);
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+		return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 
 	}
 
@@ -217,7 +217,7 @@ public class CoordenadorController {
 
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_ATUALIZADA);
 
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+		return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 	}
 
 	@RequestMapping(value =  "selecao/excluir/{idSelecao}" , method = RequestMethod.GET)
