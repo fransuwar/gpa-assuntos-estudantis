@@ -3,6 +3,7 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -95,9 +96,12 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.GET)
 	public String cadastroSelecao(Model model) {
+		
+		List<TipoDocumento> tiposDeDocumento = documentoService.find();
 
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("selecao", new Selecao());
+		model.addAttribute("tiposDeDocumento",tiposDeDocumento);
 
 		return PAGINA_CADASTRAR_SELECAO;
 
@@ -105,9 +109,10 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
 	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
-			BindingResult result, Authentication auth, RedirectAttributes redirect) {
+			@RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos,BindingResult result, Authentication auth, RedirectAttributes redirect) {
 		
 		Integer proxSequencial = selecaoService.getUltimoSequencialPorAno(selecao);
+		List<TipoDocumento> tiposDeDocumento = documentoService.find();
 		
 		selecao.setSequencial(proxSequencial);
 
@@ -136,7 +141,7 @@ public class CoordenadorController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
-
+			model.addAttribute("tiposDeDocumento",tiposDeDocumento);
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 
@@ -145,6 +150,19 @@ public class CoordenadorController {
 		if(selecao.getResponsavel() == null){
 			selecao.addCoordenador(coordenador);
 			selecao.setResponsavel(coordenador);
+		}
+		
+		if(idstiposDocumentos != null ){
+			
+			List<TipoDocumento> documentoSelecionados = new ArrayList<TipoDocumento>();
+			
+			for(Integer id: idstiposDocumentos){
+				TipoDocumento documento = documentoService.findById(id);
+				documentoSelecionados.add(documento);
+			}
+			
+			selecao.setTiposDeDocumento(documentoSelecionados);
+			
 		}
 
 		this.selecaoService.save(selecao);
@@ -156,12 +174,14 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		List<TipoDocumento> tiposDeDocumento = documentoService.find();
 
 		if (selecao != null) {
 			model.addAttribute("action", "editar");
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("membrosComissao", selecao.getMembrosComissao());
+			model.addAttribute("tiposDeDocumento",tiposDeDocumento);
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 

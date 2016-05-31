@@ -18,6 +18,7 @@ var FormularioAuxilio = function() {
     	self.initStep();
     	self.initMascaras();
     	self.initDivCursinho();
+    	self.initDivMesmoEndereco();
     	self.initDivMoraComOutros();
     	self.initSelectEnsinoMedio();
     	self.initSelectEstadoCidade();
@@ -201,7 +202,37 @@ var FormularioAuxilio = function() {
     	});
 
     }
-    
+    //Copia os valores da residencia ataul para a residencia de origem
+    self.initDivMesmoEndereco = function(){
+    	$("#mesmoEndereco").click(function() {
+    		if($(this).is(":checked")){
+    			console.log("Verdade");
+    			$("#enderecoOrigem").val($("#endereco").val());
+    			$("#numeroOrigem").val($("#numero").val());
+    			$("#bairroOrigem").val($("#bairro").val());
+    			$("#cepOrigem").val($("#cep").val());
+    			$("#complementoOrigem").val($("#complemento").val());
+    			$("#referenciaOrigem").val($("#referencia").val());
+    		    $("select[name=estadoOrigem]").val($("select[name=estado]").val());
+    			$("select[name=estadoOrigem]").change();
+    			$("#cidadeOrigem").disabled = false;
+    			$("select[name=cidadeOrigem]").val($("select[name=cidade]").val());				
+    		}
+    		else{     
+    			$("#enderecoOrigem").val("");
+    			$("#numeroOrigem").val("");
+    			$("#bairroOrigem").val("");
+    			$("#cepOrigem").val("");
+    			$("#complementoOrigem").val("");
+    			$("#referenciaOrigem").val("");
+    			$("select[name=estadoOrigem]").val(null);
+    			$("select[name=cidadeOrigem]").val(null);
+    			$("select[name=cidadeOrigem]").attr('disabled', 'disabled');
+    		}
+    	});
+
+    }
+
     /*
      * Todas as mascaras do formulário 
      * estão nesse método.

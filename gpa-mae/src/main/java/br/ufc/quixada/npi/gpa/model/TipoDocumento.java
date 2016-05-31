@@ -10,10 +10,9 @@ public class TipoDocumento {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	private String nome;
-	
 	
 	
 	public String getNome() {
@@ -28,6 +27,11 @@ public class TipoDocumento {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
 	
 
 }

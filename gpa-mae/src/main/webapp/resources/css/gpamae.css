@@ -883,3 +883,15 @@ input:focus, select:focus, textarea:focus{
 	display: none;
 }
 
+.container-lg{
+	width: 80%;
+}
+
+.container-md{
+	width: 70%;
+}
+
+.container-st{
+	width: 60%;
+}
+

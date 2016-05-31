@@ -2,6 +2,10 @@ var linha;
 
 $(document).ready(function(){
 	
+	selecionarAba($('#aba').val());
+	
+	$('.panel-heading').click(function(){ $(this).find('.clicavel').click(); return false; });
+	
 	$("#addPessoaFamilia").click(function(){
 		$("#formPessoaFamilia").submit();
 	});
@@ -81,6 +85,7 @@ $(document).ready(function(){
 			$(this).find("i").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
 		}
 
+		return false;
 	});
 
 	$.extend(jQuery.validator.messages, {
@@ -153,6 +158,9 @@ $(document).ready(function(){
 				required:true
 			},
 			duracao:{
+				required:true
+			},
+			tiposDeDocumento:{
 				required:true
 			},
 			agree: "required"
@@ -588,5 +596,11 @@ function rowAdded(rowElement) {
 
 function novaAba(url){
 	window.open(url, "_blank");
+}
+
+function selecionarAba(idAba){
+	$('.active').removeClass('active');
+	$('#'+idAba).addClass('active');
+	$('a[href=#'+idAba+']').parent().addClass('active');
 }
 

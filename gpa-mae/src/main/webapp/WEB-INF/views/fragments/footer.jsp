@@ -41,4 +41,4 @@
 <script src="<c:url value="/resources/js/gpa/npi.js"/>"></script>
 <script src="<c:url value="/resources/js/gpa/funcoes_aluno.js"/>"></script>
 
-
+<input type="hidden" id="aba" value="${aba}"/>
