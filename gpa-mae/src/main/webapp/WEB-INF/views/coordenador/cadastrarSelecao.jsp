@@ -167,7 +167,7 @@
 					<div class="form-group">
 
 						<div class="col-sm-1" id="div-form-btn">
-							<a href="<c:url value="/selecao/listar"></c:url>"
+							<a href="<c:url value="/servidor/selecao/listar"></c:url>"
 								class="btn btn-default" id="form-btn">Cancelar</a>
 						</div>
 
