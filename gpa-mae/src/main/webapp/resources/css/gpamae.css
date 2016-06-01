@@ -370,7 +370,8 @@ div.s10 {
 
 .opcoes-detalhes {
 	float: right;
-	margin-top: -25px;
+	margin-top: -35px;
+	margin-right: 10px;
 }
 
 .def-sit{
