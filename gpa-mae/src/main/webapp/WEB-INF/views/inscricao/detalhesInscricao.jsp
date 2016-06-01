@@ -547,34 +547,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-default panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							Entrevista <span class="direita clicavel panel-collapsed">
-								<i class="glyphicon glyphicon-chevron-down"></i>
-							</span>
-						</h3>
-					</div>
-					<div class="panel-body fechado">
-						<div class='f-container s10'>
-							<label class='f-title'>Deferimento:</label>
-							<div class='f-content'>
-								<c:choose>
-									<c:when test="${inscricao.entrevista.deferimento == true}">
-										<dd class="col-sm-3">DEFERIDO</dd>
-									</c:when>
-									<c:otherwise>
-										<dd class="col-sm-3">INDEFERIDO</dd>
-									</c:otherwise>
-								</c:choose>
-							</div>
-						</div>
-						<div class='f-container s10'>
-							<label class='f-title'>Observação:</label>
-							<div class='f-content'>${inscricao.entrevista.observacao}</div>
-						</div>
-					</div>
-				</div>
 			</div>
 			<div class="tab-pane" id="documentos-tab"></div>
 			<sec:authorize
@@ -778,7 +750,8 @@
 							<dl class='col-sm-12'>
 								<dt class="col-sm-2">Parecer:</dt>
 								<c:choose>
-									<c:when test="${inscricao.visitaDomiciliar.deferimento == true}">
+									<c:when
+										test="${inscricao.visitaDomiciliar.deferimento == true}">
 										<dd class="col-sm-2">DEFERIDO</dd>
 									</c:when>
 									<c:otherwise>
