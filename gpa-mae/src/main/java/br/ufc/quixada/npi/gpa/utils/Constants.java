@@ -81,6 +81,8 @@ public class Constants {
 
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO = "redirect:/selecao/listar";
 	
+	public static final String REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR = "redirect:/servidor/selecao/listar";
+	
 	public static final String REDIRECT_PAGINA_DETALHES_SELECAO = "redirect:/selecao/detalhes";
 	
 	public static final String REDIRECT_PAGINA_MINHAS_INSCRICOES = "redirect:/aluno/inscricao/listar";
