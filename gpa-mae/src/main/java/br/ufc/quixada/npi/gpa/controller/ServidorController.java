@@ -420,6 +420,25 @@ public class ServidorController {
 		return PAGINA_DETALHES_INSCRICAO;
 	}
 	
+	@RequestMapping(value={"detalhes/inscricao/adicionarObservacaoParecer"}, method = RequestMethod.POST)
+	public String adicionarObservacaoParecerVisita(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("parecer") String parecer, @RequestParam("observacao") String observacao, Model modelo){
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		
+		VisitaDomiciliar visitaDomiciliar = inscricao.getVisitaDomiciliar();
+		
+		if(visitaDomiciliar != null){
+			visitaDomiciliar.setParecer(parecer);
+			visitaDomiciliar.setObservacaoParecer(observacao);
+			inscricaoService.atualizarVisitaDomiciliar(visitaDomiciliar);
+		}
+		
+		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
+		modelo.addAttribute("inscricao", inscricao);
+		modelo.addAttribute("entrevista", inscricao.getEntrevista());
+		
+		return PAGINA_DETALHES_INSCRICAO;
+	}
+	
 	@RequestMapping(value={"inscricao/adicionarPessoaFamilia/{idInscricao}"}, method = RequestMethod.POST)
 	public String adicionarPessoaFamilaNaEntrevista(@Valid @ModelAttribute("pessoaFamilia") PessoaFamilia pessoa, Model model,
 			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect){

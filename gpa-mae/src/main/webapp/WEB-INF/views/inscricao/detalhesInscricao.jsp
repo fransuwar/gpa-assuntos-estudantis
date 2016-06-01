@@ -356,6 +356,7 @@
 					</div>
 				</div>
 				<div class="panel panel-default panel-primary">
+									
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							Situação Socioeconômica (Grupo familiar incluido o aluno) <span
@@ -385,6 +386,7 @@
 											<td>${pessoa.parentesco.nome }</td>
 											<td>${pessoa.escolaridade }</td>
 											<td>${pessoa.profissao}</td>
+									
 											<td>${pessoa.rendaMensal }</td>
 										</tr>
 									</c:forEach>
@@ -753,15 +755,41 @@
 									</li>
 								</c:forEach>
 							</ul>
-						
+							
+							<hr/>
+							<form class="form-horizontal" role="form" method="POST" action="<c:url value="/servidor/detalhes/inscricao/adicionarObservacaoParecer"/>">
+								<div class="form-group col-sm-4">
+									<input type="hidden" value="${inscricao.id}" name="idInscricao">
+									
+									<label class="f-title control-label">Parecer:</label>
+									<select name="parecer" required="required">
+										<option value="">Selecione uma opção</option>
+										<c:choose>
+											<c:when test="${inscricao.visitaDomiciliar.parecer eq 'DEFERIDO'}">
+												<option selected value="DEFERIDO">Deferido</option>
+												<option value="INDEFERIDO">Indeferido</option>
+											</c:when>
+											<c:when test="${inscricao.visitaDomiciliar.parecer eq 'INDEFERIDO'}">
+												<span>INDEFERIDO</span>
+												<option value="DEFERIDO">Deferido</option>
+												<option selected value="INDEFERIDO">Indeferido</option>
+											</c:when>
+											<c:otherwise>
+												<option value="DEFERIDO">Deferido</option>
+												<option value="INDEFERIDO">Indeferido</option>
+											</c:otherwise>
+										</c:choose>
+									</select>
+								
+								</div>
+								<div class="form-group col-sm-8">
+									<label for="textarea-observacao">Observações:</label>
+									<textarea name="observacao" class="form-control" rows="4" maxlength="255" id="textarea-observacao" required="required">${inscricao.visitaDomiciliar.observacaoParecer}</textarea>
+								</div>
+								<input class="btn btn-primary" type="submit">
+							</form>
 						</div>
-
 					</div>
-
-
-
-
-
 				</div>
 		</div>
 		</sec:authorize>
