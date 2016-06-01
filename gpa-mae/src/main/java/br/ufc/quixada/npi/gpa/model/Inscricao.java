@@ -40,6 +40,8 @@ public class Inscricao {
 	private Resultado resultado;
 
 	private String observacoes;
+	
+	private String observacaoDocumentos;
 
 	//referente ao deferimento de documentação
 	@Enumerated(EnumType.STRING)
@@ -165,6 +167,15 @@ public class Inscricao {
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+
+	
+	public String getObservacaoDocumentos() {
+		return observacaoDocumentos;
+	}
+
+	public void setObservacaoDocumentos(String observacaoDocumentos) {
+		this.observacaoDocumentos = observacaoDocumentos;
 	}
 
 	@Override

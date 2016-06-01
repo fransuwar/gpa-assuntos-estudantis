@@ -460,7 +460,7 @@ public class ServidorController {
 	}
 
 	@RequestMapping(value= {"avaliarDocumentacao/{idInscricao}"}, method = RequestMethod.GET)
-	public String avaliarDocumentacao(@PathVariable("idInscricao") Integer idInscricao,Authentication auth, RedirectAttributes redirect, Model model){
+	public String avaliarDocumentacao(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, RedirectAttributes redirect, Model model){
 
 		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);		
 
@@ -488,12 +488,13 @@ public class ServidorController {
 
 	@RequestMapping(value= {"avaliarDocumentacao"}, method = RequestMethod.POST)
 	public String avaliarDocumentacao(@Valid @ModelAttribute("avaliarDocumentacao") Inscricao avaliarDocumentacao , @RequestParam("idInscricao") Integer idInscricao, 
-			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
+			@ModelAttribute("observacaoDocumentos") Inscricao observacao, BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 
         Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		inscricao.setDeferimentoDocumentacao(avaliarDocumentacao.getDeferimentoDocumentacao());
 
-		model.addAttribute("avaliarDocumentacao", avaliarDocumentacao);	
+		model.addAttribute("avaliarDocumentacao", avaliarDocumentacao);
+		inscricao.setObservacaoDocumentos(observacao.getObservacaoDocumentos());
 		inscricaoService.update(inscricao);
 
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO);

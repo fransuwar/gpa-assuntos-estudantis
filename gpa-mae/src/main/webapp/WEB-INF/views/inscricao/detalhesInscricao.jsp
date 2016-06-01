@@ -576,7 +576,37 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane" id="documentos-tab"></div>
+			<sec:authorize
+				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+				<div class="tab-pane" id="documentos-tab">
+					<div class="panel panel-default panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Observações</h3>
+						</div>
+						<div class="panel-body">
+							<form:form id="obsDoc" role="form"
+								servletRelativeAction="/servidor/avaliarDocumentacao"
+								method="POST" modelAttribute="inscricao" commandName="inscricao">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Observações:</label>
+									<div class="col-sm-8">
+										<form:textarea class="form-control" rows="8"
+											name="observacaoDocumentos" path="observacaoDocumentos"
+											value="${inscricao.observacaoDocumentos}" />
+										<input type="hidden" value="${inscricao.id }" name="idInscricao" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-3 pull-right">
+										<input type="submit" class="button btn btn-primary"
+											name="submit" />
+									</div>
+								</div>
+							</form:form>
+						</div>
+					</div>
+				</div>
+			</sec:authorize>
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div class="tab-pane" id="entrevista-tab">
@@ -778,7 +808,8 @@
 							<dl class='col-sm-12'>
 								<dt class="col-sm-2">Parecer:</dt>
 								<c:choose>
-									<c:when test="${inscricao.visitaDomiciliar.deferimento == true}">
+									<c:when
+										test="${inscricao.visitaDomiciliar.deferimento == true}">
 										<dd class="col-sm-2">DEFERIDO</dd>
 									</c:when>
 									<c:otherwise>
