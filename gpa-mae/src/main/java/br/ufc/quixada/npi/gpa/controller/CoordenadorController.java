@@ -191,27 +191,33 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
-	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result,
-			@RequestParam("idResponsavel") Integer idResponsavel, Model model, RedirectAttributes redirect) {
+	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecaoAtualizada, BindingResult result,
+			@RequestParam("id") Integer idSelecao, Model model, RedirectAttributes redirect) {
 
 
 		model.addAttribute("action", "editar");
 
-		if (selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) {
-			if ((new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio()))) {
+		if (selecaoAtualizada != null && selecaoAtualizada.getDataInicio() != null && selecaoAtualizada.getDataTermino() != null) {
+			if ((new DateTime(selecaoAtualizada.getDataTermino())).isBefore(new DateTime(selecaoAtualizada.getDataInicio()))) {
 				result.rejectValue("dataTermino", "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
 			}
 		}
 
 		if (result.hasErrors()) {
-			model.addAttribute("selecao", selecao);
+			model.addAttribute("selecao", selecaoAtualizada);
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
+
 		
-		Servidor responsavel = servidorService.getServidorPorId(idResponsavel);
-		selecao.setResponsavel(responsavel);
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		selecao.setAno(selecaoAtualizada.getAno());
+		selecao.setQuantidadeVagas(selecaoAtualizada.getQuantidadeVagas());
+		selecao.setDataInicio(selecaoAtualizada.getDataInicio());
+		selecao.setDataTermino(selecaoAtualizada.getDataTermino());
+		selecao.setTipoSelecao(selecaoAtualizada.getTipoSelecao());
+		selecao.setTiposDeDocumento(selecaoAtualizada.getTiposDeDocumento());
 
 		this.selecaoService.update(selecao);
 

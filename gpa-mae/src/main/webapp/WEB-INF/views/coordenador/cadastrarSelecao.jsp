@@ -66,8 +66,6 @@
 					cssClass="form-horizontal">
 
 					<input type="hidden" name="id" value="${selecao.id}" />
-					<form:input type="hidden" path="sequencial" value="${selecao.sequencial }"/>
-					<input type="hidden" name="idResponsavel" value="${selecao.responsavel.id }"/>
 
 					<c:forEach items="selecao.membrosComissao" var="membro"
 						varStatus="status">
