@@ -6,6 +6,7 @@
 var FormularioAuxilio = function() {
     var self = this;
     var $formElement = $("#questionarioAuxilio");
+    var listaPessoasFamilia = [];
     
     /*
      * Método que inicia todos os 
@@ -28,8 +29,191 @@ var FormularioAuxilio = function() {
     	self.initSelectParentescoVeiculos();
     	self.initSelectParentescoImovelRural();
     	self.initConfirmButtons();
+    	
+    	self.addPessoaFamilia();
+    	self.abrirFormPessoaFamilia();
        	
     }
+    
+    self.criarDivPessoaFamilia = function (indice, pessoaFamilia) {
+		var novaDivPessoa = $("#pessoaFamilia").clone();
+		
+		if (indice === 0) {
+			var botaoRmv = novaDivPessoa.find(".rmvPessoa");
+			botaoRmv.prop("disabled", true);
+		}
+		
+		novaDivPessoa.attr("id", "pessoaFamilia_" + indice);
+		novaDivPessoa.removeClass("hidden");
+		
+		campoNome = novaDivPessoa.find("h4");
+		campoNome.text(pessoaFamilia.nome);
+
+		
+		outrosCampos = novaDivPessoa.find("tbody");
+		outrosCampos.append("<tr></tr>");
+		
+		var parentesco = $("<td>" + pessoaFamilia.parentesco + "</td>");
+		var escolaridade = $("<td>" + pessoaFamilia.escolaridade + "</td>");
+		var profissao = $("<td>" + pessoaFamilia.profissao + "</td>");
+		var idade = $("<td>" + pessoaFamilia.idade + "</td>");
+		var renda = $("<td>" + pessoaFamilia.renda + "</td>");
+		
+		outrosCampos.children().append(parentesco);
+		outrosCampos.children().append(escolaridade);
+		outrosCampos.children().append(profissao);
+		outrosCampos.children().append(idade);
+		outrosCampos.children().append(renda);
+		
+		var input = $("<input type=\"hidden\"/>");
+		
+		input.attr("value", pessoaFamilia.nome);
+		input.attr("name", "pessoas["+ indice +"].nome");
+		novaDivPessoa.append(input.clone());
+		
+		input.attr("value", pessoaFamilia.parentesco);
+		input.attr("name", "pessoas["+ indice +"].parentesco");
+		novaDivPessoa.append(input.clone());
+		
+		input.attr("value", pessoaFamilia.escolaridade);
+		input.attr("name", "pessoas["+ indice +"].escolaridade");
+		novaDivPessoa.append(input.clone());
+		
+		input.attr("value", pessoaFamilia.profissao);
+		input.attr("name", "pessoas["+ indice +"].profissao");
+		novaDivPessoa.append(input.clone());
+		
+		input.attr("value", pessoaFamilia.idade);
+		input.attr("name", "pessoas["+ indice +"].idade");
+		novaDivPessoa.append(input.clone());
+		
+		input.attr("value", pessoaFamilia.renda);
+		input.attr("name", "pessoas["+ indice +"].rendaMensal");
+		novaDivPessoa.append(input.clone());
+		
+		novaDivPessoa.children().eq(0).attr("data-target", "#pessoa_" + (indice + 1));
+		novaDivPessoa.children().eq(1).attr("id","pessoa_" + (indice + 1));
+		
+		return novaDivPessoa;
+    }
+    
+    self.limparListaPessoasFamilia = function () {
+    	$("#listaPessoas").children().each(function (indice, item) {
+    		if ($(item).attr("id") !== "pessoaFamilia") {
+    			$(item).remove();
+    		}
+    	});
+    }
+    
+    self.imprimirListaPessoasFamilia = function () {    	
+    	self.limparListaPessoasFamilia();
+
+    	listaPessoasFamilia.forEach(function (pessoaFamilia, indice) {
+    		var novaDivPessoa = self.criarDivPessoaFamilia(indice, pessoaFamilia);
+    		$("#listaPessoas").append(novaDivPessoa); 
+    	});
+    	
+		$(".rmvPessoa").click(self.removerPessoaFamilia);
+		$(".editarPessoa").click(self.editarPessoa);
+    }
+    
+    self.removerPessoaFamilia = function() {
+    	var pessoa = $(this).parent().parent().parent().parent();
+    	var idPessoa = pessoa.attr("id").split("_")[1];
+    	
+    	if (idPessoa !== "0") {
+	    	listaPessoasFamilia.splice(idPessoa, 1);    	
+	    	self.imprimirListaPessoasFamilia();
+    	}
+    };
+
+    self.editarPessoa = function () {
+    	var divPessoa = $(this).parent().parent().parent().parent();
+    	var idPessoa = divPessoa.attr("id").split("_")[1];
+    	var pessoa = listaPessoasFamilia[idPessoa];
+    	
+    	if (idPessoa === "0") {
+    		$("input[name=nomeEditar]").attr("readonly", true);
+    		$("select[name=parentescoEditar]").attr("disabled", true);
+    	} else {
+    		$("input[name=nomeEditar]").removeAttr("readonly");
+    		$("select[name=parentescoEditar]").attr("disabled", false);
+    	}
+    		
+    	$("input[name=nomeEditar]").val(pessoa.nome);
+    	$("select[name=parentescoEditar]").val(pessoa.parentesco);
+    	$("input[name=idadeEditar]").val(pessoa.idade);
+    	$("input[name=escolaridadeEditar]").val(pessoa.escolaridade);
+    	$("input[name=profissaoEditar]").val(pessoa.profissao);
+    	$("input[name=rendaEditar]").val(pessoa.renda);
+    	
+    	$("#confirmarEdicao").click({indice: idPessoa}, self.confirmarEdicao); 
+    };
+       
+    self.confirmarEdicao = function (evento) {
+    	var idPessoa = evento.data.indice;
+    	var pessoa = listaPessoasFamilia[idPessoa];
+    	
+    	pessoa.nome = $("input[name=nomeEditar]").val();
+    	pessoa.parentesco = $("select[name=parentescoEditar]").val();
+    	pessoa.escolaridade = $("input[name=escolaridadeEditar]").val();
+    	pessoa.profissao = $("input[name=profissaoEditar]").val();
+    	pessoa.idade = $("input[name=idadeEditar]").val();
+    	pessoa.renda = $("input[name=rendaEditar]").val();
+    	
+    	$("input[name=nomeEditar]").val("");
+    	$("select[name=parentescoEditar]").val("");
+    	$("input[name=idadeEditar]").val("");
+    	$("input[name=escolaridadeEditar]").val("");
+    	$("input[name=profissaoEditar]").val("");
+    	$("input[name=rendaEditar]").val("");
+    	
+    	self.imprimirListaPessoasFamilia();
+    	$( "#confirmarEdicao").unbind( "click" );
+    }
+    
+    self.abrirFormPessoaFamilia = function () {
+    	$("#abrirFormPessoaFamilia").click(function () {
+    		if (listaPessoasFamilia.length === 0) {
+    			$("input[name=nome]").attr("readonly", true);
+    			$("select[name=parentesco]").attr("disabled", true);
+    			$("option[value=EU]").attr("selected", true);
+    			
+    		} else {
+    			$("input[name=nome]").val("");
+    			$("input[name=nome]").removeAttr("readonly");
+    			$("select[name=parentesco]").removeAttr("disabled");
+    			$("option[value=EU]").remove();
+    		}
+    	});
+    }
+    
+    self.addPessoaFamilia = function () {
+    	$("#addPessoa").click(function() {
+    		var pessoaFamilia = {}
+
+    		pessoaFamilia.nome = $("input[name=nome]").val();
+    		pessoaFamilia.parentesco = $("select[name=parentesco]").val();
+    		pessoaFamilia.idade = $("input[name=idade]").val();
+    		pessoaFamilia.escolaridade = $("input[name=escolaridade]").val();
+    		pessoaFamilia.profissao = $("input[name=profissao]").val();
+    		pessoaFamilia.renda = $("input[name=rendaMensal]").val();
+    		
+    		$("input[name=nome]").val("");
+    		$("select[name=parentesco]").val("");
+    		$("input[name=idade]").val("");
+    		$("input[name=escolaridade]").val("");
+    		$("input[name=profissao]").val("");
+    		$("input[name=rendaMensal]").val("");
+    		
+    		
+    		listaPessoasFamilia.push(pessoaFamilia);	
+
+    		self.imprimirListaPessoasFamilia();
+    		
+    	});
+    }
+    
     self.initStep = function() {
         $formElement.steps({
             headerTag: "h3",

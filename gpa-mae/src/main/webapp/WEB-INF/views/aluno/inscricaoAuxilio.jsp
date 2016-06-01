@@ -751,7 +751,7 @@
 							</div>
 
 							<div class='p-body'>
-								<div class="form-group">
+								<div class="">
 									<jsp:include page="pessoaFamilia.jsp" />
 									<div class="error-validation">
 										<form:errors path="pessoas"></form:errors>
