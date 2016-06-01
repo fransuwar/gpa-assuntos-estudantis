@@ -18,6 +18,8 @@ var FormularioAuxilio = function() {
     	self.initStep();
     	self.initMascaras();
     	self.initDivCursinho();
+    	self.initDivDescricaoBolsa()
+    	self.initDivDescricaoGraduacao()
     	self.initDivMesmoEndereco();
     	self.initDivMoraComOutros();
     	self.initSelectEnsinoMedio();
@@ -202,6 +204,33 @@ var FormularioAuxilio = function() {
     	});
 
     }
+    //
+    self.initDivDescricaoBolsa = function(){
+    	var $divDescricaoBolsa = $("#descricao_bolsa");
+    	$divDescricaoBolsa.hide();
+    	
+    	$( "#bolsistaUfc" ).change(function() {
+    		  if($("#bolsistaUfc").val()==="true")
+    			  $divDescricaoBolsa.show();	  
+    		  else
+    			  $divDescricaoBolsa.hide(); 
+    	});
+
+    }
+    
+    self.initDivDescricaoGraduacao = function(){
+    	var $divDescricaoGraduacao = $("#descricao_graduacao");
+    	$divDescricaoGraduacao.hide();
+    	
+    	$( "#graduacao" ).change(function() {
+    		  if($("#graduacao").val()==="true")
+    			  $divDescricaoGraduacao.show();	  
+    		  else
+    			  $divDescricaoGraduacao.hide(); 
+    	});
+
+    }
+    
     //Copia os valores da residencia ataul para a residencia de origem
     self.initDivMesmoEndereco = function(){
     	$("#mesmoEndereco").click(function() {

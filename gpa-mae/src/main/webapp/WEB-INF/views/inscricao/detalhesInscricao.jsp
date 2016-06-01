@@ -267,7 +267,6 @@
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.numeroOrigem}</div>
 						</div>
 
-
 						<div class='f-container s2'>
 							<label class='f-title'>CEP:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.cepOrigem}</div>
@@ -544,34 +543,6 @@
 							<label class='f-title'>Justificativa:</label>
 							<div class='f-content'>
 								${inscricao.questionarioAuxilioMoradia.justificativa}</div>
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-default panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							Entrevista <span class="direita clicavel panel-collapsed">
-								<i class="glyphicon glyphicon-chevron-down"></i>
-							</span>
-						</h3>
-					</div>
-					<div class="panel-body fechado">
-						<div class='f-container s10'>
-							<label class='f-title'>Deferimento:</label>
-							<div class='f-content'>
-								<c:choose>
-									<c:when test="${inscricao.entrevista.deferimento == true}">
-										<dd class="col-sm-3">DEFERIDO</dd>
-									</c:when>
-									<c:otherwise>
-										<dd class="col-sm-3">INDEFERIDO</dd>
-									</c:otherwise>
-								</c:choose>
-							</div>
-						</div>
-						<div class='f-container s10'>
-							<label class='f-title'>Observação:</label>
-							<div class='f-content'>${inscricao.entrevista.observacao}</div>
 						</div>
 					</div>
 				</div>
