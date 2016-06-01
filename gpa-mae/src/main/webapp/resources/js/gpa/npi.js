@@ -22,8 +22,7 @@ $(document).ready(function(){
 			"emptyTable": "Nenhum Aluno Classificável"
 		}
 	});
-
-
+	
 	var tabelaClassificados = $('#tabela-classificados').dataTable({
 		"language": {
 			"url":"/MAE/resources/js/Portuguese-Brasil.json"
