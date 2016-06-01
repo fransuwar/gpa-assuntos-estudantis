@@ -9,6 +9,20 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+<c:choose>
+	<c:when test="${todosConsolidados}">	
+		<c:url var="url" value="/servidor/atualizarEntrevista" />
+		<c:set var="botao" value="Desconsolidar Todos" />
+	</c:when>
+	<c:otherwise>
+		<c:url var="url" value="/servidor/entrevista" />
+		<c:set var="botao" value="Consolidar Todos" />
+	</c:otherwise>
+
+</c:choose>
+
+
+
 <html>
 <head>
 <jsp:include page="../fragments/bodyHeader.jsp" />
@@ -209,12 +223,21 @@
 					<h3 class="panel-title">Inscrições</h3>
 				</div>
 				<div class="panel-body">
+						<a href="<c:url value="/servidor/consolidarTodos/${selecao.id}"></c:url>">
+							<button class="btn btn-primary" title="${botao}" > ${botao}</button>
+						</a>
+						
+						
+						
+					
+					
 					<table class="table" id="tabela-detalhes-selecao-servidores">
 						<thead>
 							<tr class="active">
 								<td>Aluno</td>
 								<td>Matricula</td>
 								<td>Data</td>
+								<td>Consolidação</td>
 								<td>Documentação</td>
 								<td>Entrevista</td>
 								<td>Visita</td>
@@ -222,7 +245,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="inscricao" items="${inscricoes }">
+							<c:forEach var="inscricao" items="${inscricoes}">
 								<tr>
 									<td><a id="detalhes"
 										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.id}">  
@@ -231,6 +254,18 @@
 									<td>${inscricao.aluno.matricula}</td>
 									<td><fmt:formatDate value="${inscricao.data}"
 											pattern="dd/MM/yyyy" /></td>
+									<td><c:choose>
+											<c:when
+												test="${inscricao.consolidacao}">
+												<div class='def-sit deferido' title="Consolidado">C</div>
+											</c:when>
+											<c:otherwise>
+												<div class='def-sit nao-avaliado' title="Não consolidado">N</div>
+											</c:otherwise>
+											
+										</c:choose>
+									
+									</td>
 									<td><c:choose>
 											<c:when
 												test="${inscricao.deferimentoDocumentacao eq 'NAO_AVALIADO'}">

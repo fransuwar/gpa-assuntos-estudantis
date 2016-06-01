@@ -53,6 +53,10 @@ public interface InscricaoService{
 	public abstract List<Inscricao> getClassificaveisPorSelecao(Selecao selecao);
 	
 	public abstract void update(Integer idInscricao,boolean classificado);
+	
+	public abstract void consolidacaoDeTodos(Integer idSelecao,boolean consolidacao);
+	
+	public abstract boolean isTodosConsolidados(Integer idSelecao);
 
 }
 

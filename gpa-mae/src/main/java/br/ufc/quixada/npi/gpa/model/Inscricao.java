@@ -65,8 +65,18 @@ public class Inscricao {
 	
 
 	private boolean realizarVisita;
+	
+	private boolean consolidacao;
 			
 	
+	public boolean isConsolidacao() {
+		return consolidacao;
+	}
+
+	public void setConsolidacao(boolean consolidacao) {
+		this.consolidacao = consolidacao;
+	}
+
 	public boolean isRealizarVisita() {
 		return realizarVisita;
 	}

@@ -92,7 +92,10 @@ public class ServidorController {
 	private ImagemService imagemService;
 	
 	@Inject DocumentoService documentoService;
-
+	
+	
+	
+	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
 		Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
@@ -174,6 +177,42 @@ public class ServidorController {
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
+	
+	
+	@RequestMapping(value = "consolidarTodos/{idSelecao}", method = RequestMethod.GET)
+	public String consolidarTodos(@PathVariable("idSelecao") Integer idSelecao, Authentication auth, Model model, RedirectAttributes redirect){
+		
+		inscricaoService.consolidacaoDeTodos(idSelecao, true);
+		
+		//Metodo datalhes seleção
+		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+
+		if (selecao == null) {
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+		}else{
+
+			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
+
+			List<Servidor> comissao = selecao.getMembrosComissao();
+
+			if(comissao.contains(servidor)){
+
+				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
+				model.addAttribute("selecao", selecao);
+				model.addAttribute("inscricoes", inscricoes);
+				model.addAttribute("todosConsolidados",inscricaoService.isTodosConsolidados(idSelecao));
+
+				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
+
+			}else{
+				redirect.addFlashAttribute("erro",  MENSAGEM_PERMISSAO_NEGADA);
+				return REDIRECT_PAGINA_LISTAR_SELECAO;
+			}
+		}
+	}
+	
+	
 	
 	@RequestMapping(value= {"visita/removerFormulario/{idInscricao}/{idFormulario}"}, method = RequestMethod.GET)
 	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, Model modelo){
@@ -337,7 +376,7 @@ public class ServidorController {
 				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
 				model.addAttribute("selecao", selecao);
 				model.addAttribute("inscricoes", inscricoes);
-
+				model.addAttribute("todosConsolidados",inscricaoService.isTodosConsolidados(idSelecao));
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 
 			}else{

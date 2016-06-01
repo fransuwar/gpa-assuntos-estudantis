@@ -41,7 +41,6 @@ public class InscricaoServiceImpl implements InscricaoService {
     @Inject
 	private GenericRepository<Inscricao> inscricaoRepository;
 
-
  
 	@Override
 	@Transactional(readOnly = true)
@@ -192,6 +191,25 @@ public class InscricaoServiceImpl implements InscricaoService {
 		params.put("idInscricao", idInscricao);
 		inscricaoRepository.executeUpdate("update Inscricao set classificado =:classificado where Inscricao.id =:idInscricao", params);
 		
+	}
+
+	@Override
+	@Transactional
+	public void consolidacaoDeTodos(Integer idSelecao, boolean consolidacao) {
+		Map<String, Object> params = new SimpleMap<String, Object>();
+		params.put("consolidacao", consolidacao);
+		params.put("idSelecao", idSelecao);
+		inscricaoRepository.executeUpdate("update Inscricao set consolidacao =:consolidacao where Inscricao.selecao_id =:idSelecao", params);
+		
+		
+	}
+
+	@Override
+	public boolean isTodosConsolidados(Integer idSelecao) {
+		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.consolidacao = 'false'",
+				new SimpleMap<String,Object>("idSelecao",idSelecao ));
+		
+			return inscricoes.isEmpty();
 	}
 
 	
