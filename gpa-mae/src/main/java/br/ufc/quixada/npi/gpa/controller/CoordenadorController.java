@@ -192,7 +192,7 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
 	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecaoAtualizada, BindingResult result,
-			@RequestParam("id") Integer idSelecao, Model model, RedirectAttributes redirect) {
+			Model model, RedirectAttributes redirect, @RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos) {
 
 
 		model.addAttribute("action", "editar");
@@ -211,13 +211,26 @@ public class CoordenadorController {
 		}
 
 		
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoService.getSelecaoPorId(selecaoAtualizada.getId());
+		
+        if(idstiposDocumentos != null ){
+			
+			List<TipoDocumento> documentoSelecionados = new ArrayList<TipoDocumento>();
+			
+			for(Integer id: idstiposDocumentos){
+				TipoDocumento documento = documentoService.findById(id);
+				documentoSelecionados.add(documento);
+			}
+			
+			selecao.setTiposDeDocumento(documentoSelecionados);
+			
+		}
+
 		selecao.setAno(selecaoAtualizada.getAno());
 		selecao.setQuantidadeVagas(selecaoAtualizada.getQuantidadeVagas());
 		selecao.setDataInicio(selecaoAtualizada.getDataInicio());
 		selecao.setDataTermino(selecaoAtualizada.getDataTermino());
 		selecao.setTipoSelecao(selecaoAtualizada.getTipoSelecao());
-		selecao.setTiposDeDocumento(selecaoAtualizada.getTiposDeDocumento());
 
 		this.selecaoService.update(selecao);
 
