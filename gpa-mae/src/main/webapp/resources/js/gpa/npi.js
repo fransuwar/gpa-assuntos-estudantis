@@ -1,6 +1,8 @@
 var linha;
 
 $(document).ready(function(){
+	
+	$('[data-toggle="tooltip"]').tooltip();
 
 	selecionarAba($('#aba').val());
 
