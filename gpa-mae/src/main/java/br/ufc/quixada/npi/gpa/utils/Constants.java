@@ -235,6 +235,8 @@ public class Constants {
 
 	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO= "Não é possível excluir esse arquivo";
 	
+	public static final String MENSAGEM_ERRO_DADOS_INSCRICAO= "Verifique os dados inseridos e tente novamente";
+	
 	/** Perfis */
 
 	public static final String STA = "STA";
