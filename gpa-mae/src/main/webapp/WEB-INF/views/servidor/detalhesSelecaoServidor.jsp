@@ -11,11 +11,11 @@
 
 <c:choose>
 	<c:when test="${todosConsolidados}">	
-		<c:url var="url" value="/servidor/atualizarEntrevista" />
+		<c:url var="consolidar" value="${false}" />
 		<c:set var="botao" value="Desconsolidar Todos" />
 	</c:when>
 	<c:otherwise>
-		<c:url var="url" value="/servidor/entrevista" />
+		<c:url var="consolidar" value="${true}" />
 		<c:set var="botao" value="Consolidar Todos" />
 	</c:otherwise>
 
@@ -223,15 +223,15 @@
 					<h3 class="panel-title">Inscrições</h3>
 				</div>
 				<div class="panel-body">
-						<a href="<c:url value="/servidor/consolidarTodos/${selecao.id}"></c:url>">
-							<button class="btn btn-primary" title="${botao}" > ${botao}</button>
-						</a>
-						
-						
-						
-					
-					
-					<table class="table" id="tabela-detalhes-selecao-servidores">
+							<div align="right">
+								<input id="idSelecao" type="hidden" value="${selecao.id}">
+								<a id="consolidacaoTodos" class="btn btn-primary"  href="<c:url value="/servidor/consolidarTodos/${selecao.id}/${consolidar}"></c:url>">
+									 ${botao}
+								</a>
+							</div>
+
+
+							<table class="table" id="tabela-detalhes-selecao-servidores">
 						<thead>
 							<tr class="active">
 								<td>Aluno</td>
@@ -254,17 +254,10 @@
 									<td>${inscricao.aluno.matricula}</td>
 									<td><fmt:formatDate value="${inscricao.data}"
 											pattern="dd/MM/yyyy" /></td>
-									<td><c:choose>
-											<c:when
-												test="${inscricao.consolidacao}">
-												<div class='def-sit deferido' title="Consolidado">C</div>
-											</c:when>
-											<c:otherwise>
-												<div class='def-sit nao-avaliado' title="Não consolidado">N</div>
-											</c:otherwise>
 											
-										</c:choose>
-									
+									<td>
+											<input id="${inscricao.id}" class="toggle-event" type="checkbox" data-toggle="toggle" data-style="ios" data-size="small"
+											<c:if test="${inscricao.consolidacao}">checked </c:if> >
 									</td>
 									<td><c:choose>
 											<c:when

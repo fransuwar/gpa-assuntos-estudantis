@@ -3,6 +3,7 @@
  * javascript das páginas acessadas por alunos.
  */ 
 
+
 var FormularioAuxilio = function() {
     var self = this;
     var $formElement = $("#questionarioAuxilio");
@@ -28,8 +29,11 @@ var FormularioAuxilio = function() {
     	self.initSelectParentescoVeiculos();
     	self.initSelectParentescoImovelRural();
     	self.initConfirmButtons();
+
        	
     }
+
+    
     self.initStep = function() {
         $formElement.steps({
             headerTag: "h3",

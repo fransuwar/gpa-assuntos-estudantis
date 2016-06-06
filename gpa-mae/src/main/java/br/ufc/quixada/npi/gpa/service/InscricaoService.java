@@ -56,7 +56,11 @@ public interface InscricaoService{
 	
 	public abstract void consolidacaoDeTodos(Integer idSelecao,boolean consolidacao);
 	
-	public abstract boolean isTodosConsolidados(Integer idSelecao);
+	public abstract void consolidar(Integer idInscricao,boolean consolidacao);
+	
+	public abstract boolean todosConsolidados(Integer idSelecao);
+	
+
 
 }
 

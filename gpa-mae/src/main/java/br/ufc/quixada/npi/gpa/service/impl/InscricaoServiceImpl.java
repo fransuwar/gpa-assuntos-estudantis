@@ -205,11 +205,21 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	@Override
-	public boolean isTodosConsolidados(Integer idSelecao) {
+	public boolean todosConsolidados(Integer idSelecao) {
 		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.consolidacao = 'false'",
 				new SimpleMap<String,Object>("idSelecao",idSelecao ));
 		
 			return inscricoes.isEmpty();
+	}
+
+	@Override
+	@Transactional
+	public void consolidar(Integer idInscricao, boolean consolidacao) {
+		Map<String, Object> params = new SimpleMap<String, Object>();
+		params.put("consolidacao", consolidacao);
+		params.put("idInscricao", idInscricao);
+		inscricaoRepository.executeUpdate("update Inscricao set consolidacao =:consolidacao where Inscricao.id =:idInscricao", params);
+			
 	}
 
 	

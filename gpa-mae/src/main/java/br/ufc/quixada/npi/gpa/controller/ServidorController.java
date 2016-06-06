@@ -179,10 +179,10 @@ public class ServidorController {
 	}
 	
 	
-	@RequestMapping(value = "consolidarTodos/{idSelecao}", method = RequestMethod.GET)
-	public String consolidarTodos(@PathVariable("idSelecao") Integer idSelecao, Authentication auth, Model model, RedirectAttributes redirect){
+	@RequestMapping(value = "consolidarTodos/{idSelecao}/{consolidar}", method = RequestMethod.GET)
+	public String consolidarTodos(@PathVariable("idSelecao") Integer idSelecao, @PathVariable("consolidar") boolean consolidar, Authentication auth, Model model, RedirectAttributes redirect){
 		
-		inscricaoService.consolidacaoDeTodos(idSelecao, true);
+		inscricaoService.consolidacaoDeTodos(idSelecao, consolidar);
 		
 		//Metodo datalhes seleção
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
@@ -201,7 +201,7 @@ public class ServidorController {
 				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
 				model.addAttribute("selecao", selecao);
 				model.addAttribute("inscricoes", inscricoes);
-				model.addAttribute("todosConsolidados",inscricaoService.isTodosConsolidados(idSelecao));
+				model.addAttribute("todosConsolidados",inscricaoService.todosConsolidados(idSelecao));
 
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 
@@ -212,6 +212,13 @@ public class ServidorController {
 		}
 	}
 	
+	@RequestMapping(value = "consolidar", method = RequestMethod.GET)
+	public String consolidar(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao){
+		inscricaoService.consolidar(idInscricao, consolidacao);
+		
+		return "";
+	}
+
 	
 	
 	@RequestMapping(value= {"visita/removerFormulario/{idInscricao}/{idFormulario}"}, method = RequestMethod.GET)
@@ -376,7 +383,7 @@ public class ServidorController {
 				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
 				model.addAttribute("selecao", selecao);
 				model.addAttribute("inscricoes", inscricoes);
-				model.addAttribute("todosConsolidados",inscricaoService.isTodosConsolidados(idSelecao));
+				model.addAttribute("todosConsolidados",inscricaoService.todosConsolidados(idSelecao));
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 
 			}else{

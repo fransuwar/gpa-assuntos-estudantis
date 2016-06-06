@@ -413,7 +413,7 @@ function submeterForm() {
 			dataType : "json",
 			url : "http://localhost:8080/MAE/edital",
 			data : JSON.stringify(data),
-
+			
 		});
 
 		request.done(function(data) {
