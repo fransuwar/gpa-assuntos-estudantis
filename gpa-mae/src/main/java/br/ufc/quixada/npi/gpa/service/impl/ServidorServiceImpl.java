@@ -9,7 +9,6 @@ import javax.inject.Named;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufc.quixada.npi.enumeration.QueryType;
-import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.repository.GenericRepository;

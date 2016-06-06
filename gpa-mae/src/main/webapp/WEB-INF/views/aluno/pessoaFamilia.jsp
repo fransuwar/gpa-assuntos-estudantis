@@ -41,7 +41,7 @@
 						<td><input class="form-control" type="text"
 							name="pf.profissao" value="${pf.profissao }" /></td>
 						<td><input class="form-control" type="number" id="rendaMensal"
-							name="pf.rendaMensal" value="${pf.rendaMensal }" /></td>
+							name="pf.rendaMensal" value="${pf.rendaMensal }" data-toggle="tooltip" data-placement="right" title="Este campo deve ser preenchido com a renda bruta deste membro da família" /></td>
 					</tr>
 				</c:forEach>
 			</c:if>

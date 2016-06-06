@@ -86,12 +86,15 @@
 				</div>
 
 				<div class="card">
-					<div class="card-content">
-						<div class="card-icon">
-							<i class="fa fa-signal"></i>
+					<a
+						href="<c:url value="/selecao/ranking/${selecao.id}"></c:url>">
+						<div class="card-content">
+							<div class="card-icon">
+								<i class="fa fa-signal"></i>
+							</div>
+							<div class="card-description">RANKING</div>
 						</div>
-						<div class="card-description">RANKING</div>
-					</div>
+					</a>
 				</div>
 
 
