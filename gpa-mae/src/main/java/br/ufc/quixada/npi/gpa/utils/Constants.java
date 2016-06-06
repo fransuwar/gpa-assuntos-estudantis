@@ -227,6 +227,8 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO = "Extensão da foto inválida. Extensões aceitas (jpeg, jpg, png)";
 	
+	public static final String MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO = "O documento deve ser enviado no formato PDF.";
+	
 	public static final String MENSAGEM_ERRO_QTD_VAGAS = "Não restam vagas suficientes para esta quantidade de alunos";
 	
 	public static final String MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO = "Selecione pelo menos um aluno classificado";

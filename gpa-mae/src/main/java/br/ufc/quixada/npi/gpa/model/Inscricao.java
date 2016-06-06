@@ -1,8 +1,11 @@
 package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,8 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.MapKeyClass;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -63,6 +70,22 @@ public class Inscricao {
 	@ManyToOne
 	private Aluno aluno;
 	
+//	@ManyToOne(targetEntity = DocumentosTipoInscricao.class)
+	@OneToMany
+//	@MapKeyClass(DocumentosTipoInscricao.class)
+//	@ElementCollection
+	Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
+	
+	public Map<Integer, DocumentosTipoInscricao> getDocumentosTipoInscricao() {
+		if(documentosTipoInscricao == null){
+			documentosTipoInscricao = new HashMap<>();
+		}
+		return documentosTipoInscricao;
+	}
+
+	public void setDocumentosTipoInscricao(Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao) {
+		this.documentosTipoInscricao = documentosTipoInscricao;
+	}
 
 	private boolean realizarVisita;
 			
