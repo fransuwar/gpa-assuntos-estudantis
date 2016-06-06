@@ -19,8 +19,8 @@ var FormularioAuxilio = function() {
 		self.initStep();
 		self.initMascaras();
 		self.initDivCursinho();
-		self.initDivDescricaoBolsa()
-		self.initDivDescricaoGraduacao()
+		self.initDivDescricaoBolsa();
+		self.initDivDescricaoGraduacao();
 		self.initDivMesmoEndereco();
 		self.initDivMoraComOutros();
 		self.initSelectEnsinoMedio();
