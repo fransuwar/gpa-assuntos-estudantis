@@ -6,8 +6,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-
-
 <!-- botão adicionar pessoa -->
 <div class="">
 	<div class="alert alert-info text-center">

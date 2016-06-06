@@ -191,24 +191,46 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
-	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result,
-			Model model, RedirectAttributes redirect) {
+	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecaoAtualizada, BindingResult result,
+			Model model, RedirectAttributes redirect, @RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos) {
 
 
 		model.addAttribute("action", "editar");
 
-		if (selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) {
-			if ((new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio()))) {
+		if (selecaoAtualizada != null && selecaoAtualizada.getDataInicio() != null && selecaoAtualizada.getDataTermino() != null) {
+			if ((new DateTime(selecaoAtualizada.getDataTermino())).isBefore(new DateTime(selecaoAtualizada.getDataInicio()))) {
 				result.rejectValue("dataTermino", "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
 			}
 		}
 
 		if (result.hasErrors()) {
-			model.addAttribute("selecao", selecao);
+			model.addAttribute("selecao", selecaoAtualizada);
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
 
 			return PAGINA_CADASTRAR_SELECAO;
 		}
+
+		
+		Selecao selecao = selecaoService.getSelecaoPorId(selecaoAtualizada.getId());
+		
+        if(idstiposDocumentos != null ){
+			
+			List<TipoDocumento> documentoSelecionados = new ArrayList<TipoDocumento>();
+			
+			for(Integer id: idstiposDocumentos){
+				TipoDocumento documento = documentoService.findById(id);
+				documentoSelecionados.add(documento);
+			}
+			
+			selecao.setTiposDeDocumento(documentoSelecionados);
+			
+		}
+
+		selecao.setAno(selecaoAtualizada.getAno());
+		selecao.setQuantidadeVagas(selecaoAtualizada.getQuantidadeVagas());
+		selecao.setDataInicio(selecaoAtualizada.getDataInicio());
+		selecao.setDataTermino(selecaoAtualizada.getDataTermino());
+		selecao.setTipoSelecao(selecaoAtualizada.getTipoSelecao());
 
 		this.selecaoService.update(selecao);
 

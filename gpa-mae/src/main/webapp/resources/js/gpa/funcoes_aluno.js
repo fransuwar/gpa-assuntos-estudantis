@@ -502,13 +502,17 @@ var FormularioAuxilio = function() {
      */
     self.initDivMoraComOutros = function(){
     	var $divMoraComOutros = $("#mora-com-outros"); 
+    	var $inputComQuemMoraOutros = $("#comQuemMoraOutros");
     	
     	$divMoraComOutros.hide();
 		$("#comQuemMora7").change(function () {
 			if ($(this).prop("checked")) {
 				$divMoraComOutros.show();
 			}else {
-				$divMoraComOutros.hide();                                                                    
+				$inputComQuemMoraOutros.val("")
+				$divMoraComOutros.hide();
+
+				
 			}
 		});
     }
