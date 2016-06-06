@@ -77,7 +77,7 @@
 					</div>
 				</div>
 				<div class='f-container s4'>
-					<label class='f-title'>Prentesco:</label>
+					<label class='f-title'>Parentesco:</label>
 					<div class='f-content'>
 						<form:select path="" name="parentesco"
 							class="form-control" required="required">
@@ -144,9 +144,9 @@
 							value="" required="required"/>
 					</div>
 				</div>
-				<div class='f-container s4'>
-					<label class='f-title'>Prentesco:</label>
-					<div class='f-content'>
+				<div class="f-container s2">
+					<label class="f-title">Parentesco:</label>
+					<div class="f-control">
 						<form:select path="" name="parentescoEditar"
 							class="form-control" required="required">
 							<form:option value="">Selecione um grau de parentesco</form:option>

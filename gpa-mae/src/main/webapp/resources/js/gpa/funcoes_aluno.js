@@ -48,11 +48,11 @@ var FormularioAuxilio = function() {
 		novaDivPessoa.attr("id", "pessoaFamilia_" + indice);
 		novaDivPessoa.removeClass("hidden");
 		
-		campoNome = novaDivPessoa.find("h4");
+		var campoNome = novaDivPessoa.find("h4");
 		campoNome.text(pessoaFamilia.nome);
 
 		
-		outrosCampos = novaDivPessoa.find("tbody");
+		var outrosCampos = novaDivPessoa.find("tbody");
 		outrosCampos.append("<tr></tr>");
 		
 		var parentesco = $("<td>" + pessoaFamilia.parentesco + "</td>");

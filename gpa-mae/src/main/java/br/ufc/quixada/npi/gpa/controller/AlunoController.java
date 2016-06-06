@@ -264,14 +264,6 @@ public class AlunoController {
 			BindingResult result, @RequestParam(value="mora", required=false) List<String> comQuemMora,
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model, @RequestParam("fileFoto") MultipartFile foto) {
-			
-		
-		if (auxilioMoradia.getPessoas() == null) {
-			System.out.println("NULL");
-		} else {
-			for (PessoaFamilia p : auxilioMoradia.getPessoas())
-				System.out.println(p.toString());
-		}
 		
 		try {
 			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
