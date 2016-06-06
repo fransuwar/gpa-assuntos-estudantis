@@ -435,6 +435,7 @@ public class ServidorController {
 		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
 		modelo.addAttribute("inscricao", inscricao);
 		modelo.addAttribute("entrevista", inscricao.getEntrevista());
+		modelo.addAttribute("pessoaDaFamilia",new PessoaFamilia());
 		
 		return PAGINA_DETALHES_INSCRICAO;
 	}

@@ -586,7 +586,7 @@
 								</div>
 								<div class="panel-body">
 									<form:form id="relatorioForm" role="form"
-										modelAttribute="entrevista" commandName="entrevista"
+										modelAttribute="inscricao.entrevista" commandName="entrevista"
 										servletRelativeAction="${url}" method="POST"
 										cssClass="form-horizontal">
 
@@ -708,9 +708,9 @@
 												commandName="pessoaDaFamilia"
 												servletRelativeAction="/servidor/inscricao/adicionarPessoaFamilia/${inscricao.id }">
 												<tr>
-
-													<td><form:input cssClass="form-control" path="nome"
-															id="nome" /></td>
+													<c:if test="${not empty pessoaDaFamilia.nome} ">
+														<td><form:input cssClass="form-control" path="nome"	id="nome"/></td>
+													</c:if>
 													<td><form:select cssClass="form-control"
 															path="parentesco" id="parentesco">
 															<option>Parentesco</option>
