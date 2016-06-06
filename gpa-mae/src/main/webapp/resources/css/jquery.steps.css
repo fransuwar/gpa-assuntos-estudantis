@@ -135,8 +135,8 @@
 .wizard > .steps .current a:hover,
 .wizard > .steps .current a:active
 {
-    background: #2184be;
-    color: #fff;
+    background: #00796b;
+    color: #fff !important;
     cursor: default;
 }
 
@@ -144,8 +144,8 @@
 .wizard > .steps .done a:hover,
 .wizard > .steps .done a:active
 {
-    background: #9dc8e2;
-    color: #fff;
+    background: #2eaa9e;
+    color: #fff !important;
 }
 
 .wizard > .steps .error a,
@@ -272,8 +272,8 @@
 .wizard > .actions a:hover,
 .wizard > .actions a:active
 {
-    background: #2184be;
-    color: #fff;
+    background: #00796B;
+    color: #fff !important;
     display: block;
     padding: 0.5em 1em;
     text-decoration: none;
@@ -288,7 +288,7 @@
 .wizard > .actions .disabled a:active
 {
     background: #eee;
-    color: #aaa;
+    color: #00796B !important;
 }
 
 .wizard > .loading

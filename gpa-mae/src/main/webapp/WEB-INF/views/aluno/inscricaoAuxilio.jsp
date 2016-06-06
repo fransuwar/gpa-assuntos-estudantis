@@ -771,33 +771,42 @@
 
 							<div class='p-body'>
 								<div class='f-container s5'>
-									<label class='f-title'> <form:checkbox id="bolsistaUfc"
-											path="bolsistaUfc" /> Bolsista UFC:
+									<label class='f-title'> Bolsista UFC:
+									<form:select path="bolsistaUfc" id="bolsistaUfc"  >
+									   <form:option value="${true}">Sim</form:option>
+										<form:option  selected="selected" value="${false}">Não</form:option>
+										
+									</form:select>  
 
 									</label>
-
 									<div class='f-content'>
 										<div class="error-validation">
 											<form:errors path="bolsistaUfc"></form:errors>
 										</div>
 									</div>
 								</div>
-
-								<div class='f-container s5'>
-									<label class='f-title'> Descrição da Bolsa: </label>
-
-									<div class='f-content'>
-										<form:input id="descricaoBolsa" path="descricaoBolsa"
-											cssClass="form-control" placeholder="Descrição Bolsa" />
-										<div class="error-validation">
-											<form:errors path="descricaoBolsa"></form:errors>
+								
+								<div class='f-container s5' >
+									<div id="descricao_bolsa">
+										<label class='f-title'> Descrição da Bolsa: </label>
+	
+										<div class='f-content'>
+											<form:input id="descricaoBolsa" path="descricaoBolsa"
+												cssClass="form-control" placeholder="Descrição Bolsa" />
+											<div class="error-validation">
+												<form:errors path="descricaoBolsa"></form:errors>
+											</div>
 										</div>
 									</div>
 								</div>
 
 								<div class='f-container s5'>
-									<label class='f-title'> <form:checkbox id="graduacao"
-											path="graduacao" /> Possui Graduação:
+									<label class='f-title'> Possui Graduação:
+									<form:select  path="graduacao" id="graduacao" >
+										<form:option value="${true}">Sim</form:option>
+										<form:option selected="true" value="${false}">Não</form:option>
+										
+									</form:select>  
 
 									</label>
 
@@ -809,14 +818,16 @@
 									</div>
 								</div>
 
-								<div class='f-container s5'>
-									<label class='f-title'> Descrição da Graduação: </label>
-
-									<div class='f-content'>
-										<form:input id="descricaoGraduacao" path="descricaoGraduacao"
-											cssClass="form-control" placeholder="Descricao da Graduacao" />
-										<div class="error-validation">
-											<form:errors path="descricaoGraduacao"></form:errors>
+								<div class='f-container s5' >
+									<div id="descricao_graduacao">
+										<label class='f-title'> Descrição da Graduação: </label>
+	
+										<div class='f-content'>
+											<form:input id="descricaoGraduacao" path="descricaoGraduacao"
+												cssClass="form-control" placeholder="Descricao da Graduacao" />
+											<div class="error-validation">
+												<form:errors path="descricaoGraduacao"></form:errors>
+											</div>
 										</div>
 									</div>
 								</div>
