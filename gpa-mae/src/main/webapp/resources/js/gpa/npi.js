@@ -1,7 +1,7 @@
 var linha;
 
 $(document).ready(function(){
-	
+
 	$('[data-toggle="tooltip"]').tooltip();
 
 	selecionarAba($('#aba').val());
@@ -24,7 +24,7 @@ $(document).ready(function(){
 			"emptyTable": "Nenhum Aluno Classificável"
 		}
 	});
-	
+
 	var tabelaClassificados = $('#tabela-classificados').dataTable({
 		"language": {
 			"url":"/MAE/resources/js/Portuguese-Brasil.json"
@@ -130,14 +130,14 @@ $(document).ready(function(){
 
 
 	$("table").DataTable({
-		"language": {
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		},
-		"columnDefs": 
-			[],
-			"paging": false,
-			"searching": false,
-			"ordering": false
+	"language": {
+	"url":"/MAE/resources/js/Portuguese-Brasil.json"
+	},
+	"columnDefs": 
+	[],
+	"paging": false,
+	"searching": false,
+	"ordering": false
 
 	});
 

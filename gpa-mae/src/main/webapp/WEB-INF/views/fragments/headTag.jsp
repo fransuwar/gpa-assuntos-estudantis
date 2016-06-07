@@ -5,6 +5,9 @@
 	href="<c:url value="/resources/images/gpa-icone.jpg" />" />
 <link href="<c:url value="/resources/css/jquery.dataTables.min.css" />"
 	rel="stylesheet" />
+	
+<link href="<c:url value="/resources/css/jquery.dataTables.tableTools.min.css" />"
+	rel="stylesheet" />
 <link href="<c:url value="/resources/css/datepicker3.css"/>"
 	rel="stylesheet">
 <link

@@ -375,7 +375,8 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = "/selecao/excluir-documento/{idDocumento}", method = RequestMethod.GET)
-	public String excluirDocumento(@PathVariable("idDocumento") Integer idDocumento, @ModelAttribute("selecao") Selecao selecao, 
+	public String excluirDocumento(@PathVariable("idDocumento"
+			+ "") Integer idDocumento, @ModelAttribute("selecao") Selecao selecao, 
 			Model model, RedirectAttributes redirect) {
 
 		Documento documento = documentoService.getDocumentoPorId(idDocumento);
@@ -425,11 +426,16 @@ public class CoordenadorController {
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 		List<Inscricao> inscricoes = selecao.getInscritos();
 		
+		//dividi o resultado já em 3 listas a serem exibidas na jsp
+		
 		List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
 		List<Inscricao> reservas = new ArrayList<>();
 		List<Inscricao> indeferidos = new ArrayList<>();
 		
+		
 		for(Inscricao inscricao : inscricoes){
+			
+			//se essa inscrição foi deferida nas 3 etapas ela é classificado ou reserva, então vou adicionando tudo na lista de reservas
 			if(inscricao.getDeferimentoDocumentacao().equals(Resultado.DEFERIDO) &&
 					inscricao.getEntrevista().getDeferimento().equals(Resultado.DEFERIDO) &&
 					inscricao.getVisitaDomiciliar().getDeferimento().equals(Resultado.DEFERIDO)){
@@ -437,17 +443,28 @@ public class CoordenadorController {
 				reservas.add(inscricao);
 			}
 			
+			//se nao for o caso, ele foi indeferido em alguma das etapas
 			else{
 				indeferidos.add(inscricao);
 			}
+			
+			classificados.add(inscricao);
+			classificados.add(inscricao);
+			
+			reservas.add(inscricao);
+			reservas.add(inscricao);
+			
+			indeferidos.add(inscricao);
+			indeferidos.add(inscricao);
 		}
 		
-		reservas.removeAll(classificados);
+		//nos reservas vão constar tanto os classificados como os reservas, então tiro de lá os que já estão classificados
+//		reservas.removeAll(classificados);
 		
+		//ordeno de acordo com o nome dos alunos inscritos
 		Collections.sort(classificados);
 		Collections.sort(reservas);
 		Collections.sort(indeferidos);
-		
 		
 		modelo.addAttribute("classificados", classificados);
 		modelo.addAttribute("reservas", reservas);
