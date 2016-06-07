@@ -20,6 +20,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -347,7 +348,7 @@ public class AlunoController {
 
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+		return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 	}
 
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.GET)

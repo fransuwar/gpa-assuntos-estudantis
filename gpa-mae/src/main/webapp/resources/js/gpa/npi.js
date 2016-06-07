@@ -2,14 +2,28 @@ var linha;
 
 $(document).ready(function(){
 	
+	$('[data-toggle="tooltip"]').tooltip();
+
 	selecionarAba($('#aba').val());
-	
+
 	$('.panel-heading').click(function(){ $(this).find('.clicavel').click(); return false; });
-	
+
 	$("#addPessoaFamilia").click(function(){
 		$("#formPessoaFamilia").submit();
 	});
-	
+
+	var tabelaClassificaveis = $('#tabela-classificaveis').dataTable({
+		"language": {
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"paging": false,
+		"order": [[ 2, "cresc" ]],
+		"ordering": false,
+		"bInfo" : false,
+		"language": {
+			"emptyTable": "Nenhum Aluno Classificável"
+		}
+	});
 	
 	var tabelaClassificados = $('#tabela-classificados').dataTable({
 		"language": {
@@ -20,46 +34,46 @@ $(document).ready(function(){
 		"ordering": false,
 		"bInfo" : false,
 		"language": {
-	        "emptyTable": "Adicione pelo menos um aluno para a tabela dos classificados"
-	    }
+			"emptyTable": "Adicione pelo menos um aluno para a tabela dos classificados"
+		}
 	});
-	
-	
+
+
 	$("#pesquisarClassificaveis").keyup(function() {
 		tabelaClassificaveis.fnFilter(this.value);
-    });   
-	
+	});   
+
 	$("#pesquisarClassificados").keyup(function() {
 		tabelaClassificados.fnFilter(this.value);
-    });
-	
+	});
+
 	//Submeter o formulário de Selecionar Classificados
 	$("#erro-checkbox").hide();
-	
+
 	$("#botao-adicionar-classificados").on("click",function(e){
 		e.preventDefault();
 		//Validação para garantir que pelo menos um check esteja checado
 		var peloMenosUmChecado = false;
 		$("input[name='checkClassificados[]']").each(function() {
-		    if ($(this).is(":checked")) {
-		    	peloMenosUmChecado = true;
-		    }
+			if ($(this).is(":checked")) {
+				peloMenosUmChecado = true;
+			}
 		});
 		if(peloMenosUmChecado){
-		    $("#formClassificaveis").submit();
-		    $("#erro-checkbox").hide();
+			$("#formClassificaveis").submit();
+			$("#erro-checkbox").hide();
 		}else{
 			$("#erro-checkbox").show();
 		}
 	});
-	
+
 	$("#botao-remover-classificados").on("click",function(e){
 		e.preventDefault();
 		var peloMenosUmChecado = false;
 		$("input[name='checkClassificaveis[]']").each(function() {
-		    if ($(this).is(":checked")) {
-		    	peloMenosUmChecado = true;
-		    }
+			if ($(this).is(":checked")) {
+				peloMenosUmChecado = true;
+			}
 		});
 		if(peloMenosUmChecado){
 			$("#formClassificados").submit();
@@ -69,7 +83,7 @@ $(document).ready(function(){
 		}
 	});
 
-	
+
 	$(".fechado").slideUp();
 
 	$(".panel-heading span.clicavel").on("click", function (e) {
@@ -120,22 +134,35 @@ $(document).ready(function(){
 			"url":"/MAE/resources/js/Portuguese-Brasil.json"
 		},
 		"columnDefs": 
-			 [],
-			 "paging": false,
-			 "searching": false,
-			 "ordering": false
+			[],
+			"paging": false,
+			"searching": false,
+			"ordering": false
 
 	});
 
-	
-	
+	$("#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
+			"#tabela-inscritos, #tabela-ranking-classificados, " +
+	"#tabela-detalhes-selecao-servidores, #table-visualiza-info-auxilio").DataTable({
+		"language": {
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"columnDefs": 
+			[],
+			"paging": false,
+			"searching": false,
+			"ordering": false
+
+	});
+
+
 	jQuery.validator.addMethod("periodo", function(value, element) {
 		return !moment($("#dataTermino").val()).isBefore($("#dataInicio").val());
 	}, "A data de término deve ser posterior à data de início.");
 
 
 	$("#adicionarSelecaoForm").validate({
-		
+
 		rules: {
 			tipoSelecao:{
 				required:true
@@ -171,7 +198,7 @@ $(document).ready(function(){
 		}
 
 	});
-	
+
 	$('.img-fullscreen').find('img').click(function(){
 		$('.img-fullscreen-background').remove();
 		var $this = $(this).parent().parent();
@@ -181,50 +208,50 @@ $(document).ready(function(){
 		var $image = $('<img/>');
 		var $prev = $('<div><</div>');
 		var $next = $('<div>></div>');
-		
+
 		$prev.attr('class', 'img-fullscreen-prev-button btn btn-primary');
 		$next.attr('class', 'img-fullscreen-next-button btn btn-primary');
-		
+
 		$prev.attr("aria-index", $this.index()-1);
 		$next.attr("aria-index", $this.index()+1);
-		
+
 		$image.attr('src', $this.find('img').attr('src'));
 		$content.append($image);
-		
+
 		if($this.index() != 0)
 			$content.append($prev);
-		
+
 		if($this.index() !== $this.siblings().length)
 			$content.append($next);
-		
+
 		$content.attr('class', 'img-fullscreen-content');
 		$background.attr('class', 'img-fullscreen-background');
-		
+
 		$background.append($content);
-		
+
 		$('body').append($background);
-		
+
 		var navigationFunction = function(){
 			var index = $(this).attr('aria-index');
 			$($('.img-fullscreen')[index]).find('img').click();
 		};
-		
+
 		$next.click(navigationFunction);
 		$prev.click(navigationFunction);
-		
+
 		$background.click(function(){$(this).remove();});
 		$image.click(function(){return false});
 	});
-	
+
 	$("div.error-validation:has(span)").find("span").css("color","#a94442");
 	$("div.error-validation:has(span)").find("span").parent().parent().addClass("has-error has-feedback");
-	
+
 	$("#confirm-delete").on("show.bs.modal",
-		function(e) {
-			$(this).find(".btn-danger").attr("href",
-					$(e.relatedTarget).data("href"));
+			function(e) {
+		$(this).find(".btn-danger").attr("href",
+				$(e.relatedTarget).data("href"));
 	});
-	
+
 	$("#btnAdicionar").click(function() {
 		$("#myModalLabel").text("Adicionar contato");
 		$("#btnSubmitForm").text("Adicionar");
@@ -234,23 +261,27 @@ $(document).ready(function(){
 		document.getElementById("add-contato-form").reset();
 		var id = $("#id");
 	});
-	
+
 	$("input.data").datepicker({
 		format : "dd/mm/yyyy",
 		todayBtn : "linked",
 		autoclose : true,
+		startDate: "0",
 		language : "pt-BR",
 		todayHighlight : true
 	});
-	
+
+	var today = new Date();
+
 	$("#ano").datepicker({
 		format: " yyyy",
 		viewMode: "years", 
 		minViewMode: "years",
+		startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
 		language : "pt-BR",
 		todayHighlight : true,
 		autoclose : true
-	
+
 	});
 
 });
@@ -263,49 +294,49 @@ function confirmar(title, link){
 	modal.attr('role', 'dialog');
 	modal.attr('aria-labelledby', 'myModalLabel');
 	modal.attr('aria-hidden', 'true');
-	
+
 	var modalDialog = $('<div></div>');
 	modalDialog.attr('class', 'modal-dialog');
-	
+
 	var modalContent = $('<div></div>');
 	modalContent.attr('class', 'modal-content');
-	
+
 	var modalHeader = $('<div></div>');
 	modalHeader.attr('class', 'modal-header');
 	modalHeader.html('Excluir');
-	
+
 	var modalBody = $('<div></div>');
 	modalBody.attr('class', 'modal-body');
 	modalBody.html(title);
-	
+
 	var modalFooter = $('<div></div>');
 	modalFooter.attr('class', 'modal-footer');
-	
+
 	var btnExcluir = $('<a/>');
 	btnExcluir.attr('href', link);
 	btnExcluir.attr('class', 'btn btn-danger');
 	btnExcluir.html('Excluir');
-	
+
 	var button = $('<button/>');
 	button.attr('type', 'button');
 	button.attr('class', 'btn btn-default');
 	button.attr('data-dismiss', 'modal');
 	button.html('Cancelar');
-	
+
 	modalFooter.append(btnExcluir);
 	modalFooter.append(button);
-	
+
 	modalContent.append(modalHeader);
 	modalContent.append(modalBody);
 	modalContent.append(modalFooter);
-	
+
 	modalDialog.append(modalContent);
-	
+
 	modal.append(modalDialog);
-	
+
 	$('#confirm-delete').remove();
 	$('body').append(modal);
-	
+
 	modal.modal();
 }
 
@@ -375,7 +406,7 @@ function submeterForm() {
 	var data = ConvertFormToJSON(form);
 
 	var $mensagens = $("#mensagens"); 
-	
+
 	// Tabela
 	var dt = $("#editals").dataTable();
 
