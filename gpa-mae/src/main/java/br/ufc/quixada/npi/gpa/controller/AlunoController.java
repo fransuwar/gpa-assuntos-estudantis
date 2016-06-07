@@ -1,6 +1,5 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
@@ -264,39 +263,19 @@ public class AlunoController {
 			BindingResult result, @RequestParam(value="mora", required=false) List<String> comQuemMora,
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model, @RequestParam("fileFoto") MultipartFile foto) {
+		
+		if(!this.verificarExtensaoFoto(foto)){
+			redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
+			//Adicionando o erro no result.
+			result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
+		}
 
-		try {
-			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
-
-			List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
-			/*
-			 * Conferindo se o aluno enviou uma foto e o formato do arquivo
-			 * passado é um dos formatos do array acima.
-			 * A inscrição pode ser efetuada mesmo se o aluno não enviar a foto.
-			 */
-			if( foto.getSize() == 0 ){
-				auxilioMoradia.setFoto(null);
-			}else if(foto.getSize() > 0 && formatos.contains(multipartFile.getContentType())){
-				auxilioMoradia.setFoto(foto.getBytes());
-			}else{
-				redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
-				//Adicionando o erro no result.
-				result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
-			}
-		} catch (IOException e) {
+		try{
+			auxilioMoradia.setFoto(this.verificarConteudoFoto(foto));
+		}catch(IOException exception){
 			result.addError(new ObjectError("error", MENSAGEM_ERRO_UPLOAD_FOTO));
 			redirect.addFlashAttribute("error", MENSAGEM_ERRO_UPLOAD_FOTO);
 		}
-
-		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
-		if(comQuemMora != null){
-			for (String m : comQuemMora) {
-				ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));
-				comQuemMoraList.add(mora);
-			}
-		}
-
-		auxilioMoradia.setComQuemMora(comQuemMoraList);
 
 		if (result.hasErrors()) {
 
@@ -336,6 +315,7 @@ public class AlunoController {
 				inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
 				inscricao.setDeferimentoDocumentacao(Resultado.NAO_AVALIADO);
 				inscricao.setResultado(Resultado.NAO_AVALIADO);
+				auxilioMoradia.setComQuemMora(this.adicionarPessoaFamilia(comQuemMora));
 
 				inscricaoService.save(inscricao);
 			} else {
@@ -427,35 +407,17 @@ public class AlunoController {
 			Authentication auth, RedirectAttributes redirect, @RequestParam("idSelecao") Integer idSelecao,
 			Model model, @RequestParam("fileFoto") MultipartFile foto,	@PathVariable("idInscricao") Integer idInscricao) {
 
-		try {
-			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
+		if(!this.verificarExtensaoFoto(foto)){
+			redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
+			//Adicionando o erro no result.
+			result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
+		}
 
-			List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
-			/*
-			 * Conferindo se o aluno enviou uma foto e o formato do arquivo
-			 * passado é um dos formatos do array acima.
-			 * A inscrição pode ser efetuada mesmo se o aluno não enviar a foto.
-			 */
-			if( foto.getSize() == 0 ){
-				auxilioMoradia.setFoto(null);
-			}else if(foto.getSize() > 0 && formatos.contains(multipartFile.getContentType())){
-				auxilioMoradia.setFoto(foto.getBytes());
-			}else{
-				redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
-				//Adicionando o erro no result.
-				result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
-			}
-		} catch (IOException e) {
+		try{
+			auxilioMoradia.setFoto(this.verificarConteudoFoto(foto));
+		}catch(IOException exception){
 			result.addError(new ObjectError("error", MENSAGEM_ERRO_UPLOAD_FOTO));
 			redirect.addFlashAttribute("error", MENSAGEM_ERRO_UPLOAD_FOTO);
-		}
-		
-		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
-		if(comQuemMora != null){
-			for (String m : comQuemMora) {
-				ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));
-				comQuemMoraList.add(mora);
-			}
 		}
 
 		if (result.hasErrors()) {
@@ -477,97 +439,139 @@ public class AlunoController {
 			redirect.addFlashAttribute("error", MENSAGEM_ERRO_DADOS_INSCRICAO);
 
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
-			
+
 		}else{
-			
+
 			Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
-			
-			auxilioMoradia.setComQuemMora(comQuemMoraList);
-			
+
+			auxilioMoradia.setComQuemMora(this.adicionarPessoaFamilia(comQuemMora));
+
 			inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
-			
+
 			this.inscricaoService.update(inscricao);
-			
+
 		}
 
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EDITADA);
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
-		}
+	}
 
 
-		@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
-		public String listarInscricoes(Model model, Authentication auth) {
+	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
+	public String listarInscricoes(Model model, Authentication auth) {
 
-			Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
+		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
 
-			model.addAttribute("aluno", aluno);
-			model.addAttribute("inscricoes", aluno.getInscricoes());
+		model.addAttribute("aluno", aluno);
+		model.addAttribute("inscricoes", aluno.getInscricoes());
 
 
-			return PAGINA_INSCRICOES_ALUNO;
+		return PAGINA_INSCRICOES_ALUNO;
 
-		}
+	}
 
-		@RequestMapping(value = "/inscricao/excluir/{idAluno}/{idInscricao}", method = RequestMethod.GET)
-		public String excluirInscricao(@PathVariable("idAluno") Integer idAluno,
-				@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect) {
+	@RequestMapping(value = "/inscricao/excluir/{idAluno}/{idInscricao}", method = RequestMethod.GET)
+	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno,
+			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect) {
 
-			Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
-			Selecao selecao = inscricao.getSelecao();
-			Date date = new Date();
+		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
+		Selecao selecao = inscricao.getSelecao();
+		Date date = new Date();
 
-			if (inscricao != null) {
-				
-				if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
-					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
-					return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
+		if (inscricao != null) {
 
-				} else{
-					inscricaoService.delete(inscricao);
-					redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
-				}
+			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
+				return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 
+			} else{
+				inscricaoService.delete(inscricao);
+				redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 			}
 
-			return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
-
 		}
 
-		@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
-		public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
-				RedirectAttributes redirect) {
+		return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 
-			Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-			Selecao selecao = inscricao.getSelecao();
-			Date date = new Date();
-			model.addAttribute("inscricao", inscricao);
-			model.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
+	}
 
-			if (inscricao == null) {
+	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
+	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
+			RedirectAttributes redirect) {
 
-				redirect.addAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
-				return REDIRECT_PAGINA_INSCRICOES_ALUNO;
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Selecao selecao = inscricao.getSelecao();
+		Date date = new Date();
+		model.addAttribute("inscricao", inscricao);
+		model.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
 
-			} else if (inscricao.getQuestionarioAuxilioMoradia() != null) {
+		if (inscricao == null) {
 
-				if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){
-					model.addAttribute("esconderBotoes",true);
-				} else{
-					model.addAttribute("esconderBotoes",false);			
-				}
+			redirect.addAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			return REDIRECT_PAGINA_INSCRICOES_ALUNO;
 
-				model.addAttribute("aba", "inscricao-tab");
+		} else if (inscricao.getQuestionarioAuxilioMoradia() != null) {
 
-
-				return PAGINA_DETALHES_INSCRICAO;
-
-			} else {
-
-				return PAGINA_DETALHES_INICIACAO_ACADEMICA;
+			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){
+				model.addAttribute("esconderBotoes",true);
+			} else{
+				model.addAttribute("esconderBotoes",false);			
 			}
 
+			model.addAttribute("aba", "inscricao-tab");
+
+
+			return PAGINA_DETALHES_INSCRICAO;
+
+		} else {
+
+			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
 
 	}
+	
+	public List<ComQuemMora> adicionarPessoaFamilia(List<String> pessoasFamilia){
+		
+		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
+		
+		if(pessoasFamilia != null){
+			
+			for (String m : pessoasFamilia) {
+				ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));
+				comQuemMoraList.add(mora);
+			}
+		}
+		
+		return comQuemMoraList;
+	}
+
+	public boolean verificarExtensaoFoto(MultipartFile foto){
+
+		CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
+
+		List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
+		
+		if(foto.getSize() == 0) return true;
+		else if(foto.getSize() > 0 && formatos.contains(multipartFile.getContentType())) return true;
+		else return false; 
+
+	}
+
+	public byte[] verificarConteudoFoto(MultipartFile foto) throws IOException{
+
+		/*
+		 * Conferindo se o aluno enviou uma foto
+		 * A inscrição pode ser efetuada mesmo se o aluno não enviar a foto.
+		 */
+
+		if( foto.getSize() == 0 ){
+			return null;
+		}else{
+			return foto.getBytes();
+		}
+
+	}
+
+}
