@@ -554,8 +554,7 @@ public class AlunoController {
 		List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
 		
 		if(foto.getSize() == 0) return true;
-		else if(foto.getSize() > 0 && formatos.contains(multipartFile.getContentType())) return true;
-		else return false; 
+		return (foto.getSize() > 0 && formatos.contains(multipartFile.getContentType()));
 
 	}
 
