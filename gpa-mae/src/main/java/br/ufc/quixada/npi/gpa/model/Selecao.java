@@ -67,7 +67,7 @@ public class Selecao {
 	@OneToMany(mappedBy = "selecao")
 	private List<Inscricao> inscritos;
 	
-	@OneToMany
+	@ManyToMany
 	private List<TipoDocumento> tiposDeDocumento;
 
 	public Integer getAno() {
