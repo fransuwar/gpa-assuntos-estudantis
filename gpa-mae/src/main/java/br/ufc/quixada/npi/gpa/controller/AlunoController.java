@@ -518,21 +518,20 @@ public class AlunoController {
 			Selecao selecao = inscricao.getSelecao();
 			Date date = new Date();
 
-			if (inscricao == null) {
-				redirect.addFlashAttribute("erro", MENSAGEM_ALUNO_NAO_ENCONTRADO);
-			} else {
-
+			if (inscricao != null) {
+				
 				if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
 					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
-					return REDIRECT_PAGINA_MINHAS_INSCRICOES;
+					return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 
 				} else{
 					inscricaoService.delete(inscricao);
 					redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 				}
+
 			}
 
-			return PAGINA_INSCRICOES_ALUNO;
+			return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 
 		}
 
