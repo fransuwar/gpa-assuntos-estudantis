@@ -770,10 +770,9 @@
 							<div class='p-body'>
 								<div class='f-container s5'>
 									<label class='f-title'> Bolsista UFC:
-									<form:select path="bolsistaUfc" id="bolsistaUfc"  >
-									   <form:option value="${true}">Sim</form:option>
-										<form:option  selected="selected" value="${false}">Não</form:option>
-										
+									<form:select path="bolsistaUfc" id="bolsistaUfc" class="form-control" >
+									   	<form:option value="${true}">Sim</form:option>
+										<form:option value="${false}">Não</form:option>
 									</form:select>  
 
 									</label>
@@ -800,10 +799,9 @@
 
 								<div class='f-container s5'>
 									<label class='f-title'> Possui Graduação:
-									<form:select  path="graduacao" id="graduacao" >
+									<form:select path="graduacao" id="graduacao" class="form-control">
 										<form:option value="${true}">Sim</form:option>
-										<form:option selected="true" value="${false}">Não</form:option>
-										
+										<form:option value="${false}">Não</form:option>
 									</form:select>  
 
 									</label>
