@@ -535,7 +535,7 @@ public class AlunoController {
 			}
 
 		} catch (IOException e) {
-			// TODO: handle exception
+			
 		}
 
 		model.addAttribute("inscricao", inscricao);

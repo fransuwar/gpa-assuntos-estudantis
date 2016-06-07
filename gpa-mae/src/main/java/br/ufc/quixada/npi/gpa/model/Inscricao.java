@@ -67,7 +67,7 @@ public class Inscricao {
 	private Aluno aluno;
 	
 	@OneToMany
-	Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
+	private Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
 	
 	public Map<Integer, DocumentosTipoInscricao> getDocumentosTipoInscricao() {
 		if(documentosTipoInscricao == null){
