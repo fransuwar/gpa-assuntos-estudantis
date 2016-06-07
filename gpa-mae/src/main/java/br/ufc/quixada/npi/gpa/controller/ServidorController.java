@@ -26,6 +26,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRITOS_S
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 
+import java.awt.PageAttributes.MediaType;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +44,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -92,8 +94,6 @@ public class ServidorController {
 	private ImagemService imagemService;
 	
 	@Inject DocumentoService documentoService;
-	
-	
 	
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
@@ -179,44 +179,17 @@ public class ServidorController {
 	}
 	
 	
-	@RequestMapping(value = "consolidarTodos/{idSelecao}/{consolidar}", method = RequestMethod.GET)
-	public String consolidarTodos(@PathVariable("idSelecao") Integer idSelecao, @PathVariable("consolidar") boolean consolidar, Authentication auth, Model model, RedirectAttributes redirect){
-		
-		inscricaoService.consolidacaoDeTodos(idSelecao, consolidar);
-		
-		//Metodo datalhes seleção
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
-
-		if (selecao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
-			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}else{
-
-			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
-
-			List<Servidor> comissao = selecao.getMembrosComissao();
-
-			if(comissao.contains(servidor)){
-
-				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
-				model.addAttribute("selecao", selecao);
-				model.addAttribute("inscricoes", inscricoes);
-				model.addAttribute("todosConsolidados",inscricaoService.todosConsolidados(idSelecao));
-
-				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-
-			}else{
-				redirect.addFlashAttribute("erro",  MENSAGEM_PERMISSAO_NEGADA);
-				return REDIRECT_PAGINA_LISTAR_SELECAO;
-			}
-		}
+	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces="application/json")
+	public @ResponseBody String consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao){
+		inscricaoService.consolidacaoDeTodos(idSelecao, consolidacao);
+		return "{}";
 	}
 	
-	@RequestMapping(value = "consolidar", method = RequestMethod.GET)
-	public String consolidar(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao){
+	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces="application/json")
+	public @ResponseBody String consolidar(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao){
 		inscricaoService.consolidar(idInscricao, consolidacao);
+		return "{}";
 		
-		return "";
 	}
 
 	
@@ -383,7 +356,6 @@ public class ServidorController {
 				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
 				model.addAttribute("selecao", selecao);
 				model.addAttribute("inscricoes", inscricoes);
-				model.addAttribute("todosConsolidados",inscricaoService.todosConsolidados(idSelecao));
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 
 			}else{

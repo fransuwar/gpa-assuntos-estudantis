@@ -186,9 +186,7 @@
 				<div class="panel-body">
 							<div align="right">
 								<input id="idSelecao" type="hidden" value="${selecao.id}">
-								<a id="consolidacaoTodos" class="btn btn-primary"  href="<c:url value="/servidor/consolidarTodos/${selecao.id}/${consolidar}"></c:url>">
-									 ${botao}
-								</a>
+								<button id="consolidacaoTodos" class="btn btn-primary" > </button>
 							</div>
 
 
