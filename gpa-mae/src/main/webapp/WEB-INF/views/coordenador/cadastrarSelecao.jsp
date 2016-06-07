@@ -172,7 +172,7 @@
 						</div>
 
 						<div class="col-sm-2" id="div-form-btn" style="margin-left: 20px">
-							<input name="submit" type="submit" class="btn btn-primary"
+							<input type="submit" class="btn btn-primary"
 								value="${botao }" id="form-btn" />
 						</div>
 					</div>

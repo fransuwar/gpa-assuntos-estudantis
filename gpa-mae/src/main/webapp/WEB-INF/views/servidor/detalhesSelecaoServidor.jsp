@@ -73,8 +73,7 @@
 				</div>
 
 				<div class="card">
-					<a
-						href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
+					<a href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
 						<div class="card-content">
 							<div class="card-icon">
 								<i class="fa fa-file-text"></i>
@@ -86,8 +85,7 @@
 				</div>
 
 				<div class="card">
-					<a
-						href="<c:url value="/selecao/ranking/${selecao.id}"></c:url>">
+					<a href="<c:url value="/selecao/selecionarClassificados/${selecao.id}"></c:url>">
 						<div class="card-content">
 							<div class="card-icon">
 								<i class="fa fa-signal"></i>

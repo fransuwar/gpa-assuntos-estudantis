@@ -250,8 +250,10 @@ public class AlunoController {
 
 		model.addAttribute("action", "inscricao");
 
+		Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
+		model.addAttribute("aluno", aluno);
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 		model.addAttribute("estado", Estado.values());
 		model.addAttribute("situacaoImovel", SituacaoImovel.values());
@@ -275,6 +277,7 @@ public class AlunoController {
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model, @RequestParam("fileFoto") MultipartFile foto) {
 
+		
 		try {
 			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
 

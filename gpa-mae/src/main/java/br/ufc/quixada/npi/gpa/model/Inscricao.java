@@ -41,6 +41,8 @@ public class Inscricao {
 	//referente ao resultado final
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
+	
+	private boolean classificado;
 
 	private String observacoes;
 
@@ -181,6 +183,14 @@ public class Inscricao {
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+
+	public boolean isClassificado() {
+		return classificado;
+	}
+
+	public void setClassificado(boolean classificado) {
+		this.classificado = classificado;
 	}
 
 	@Override
