@@ -137,15 +137,13 @@
 									</div>
 
 									<div class='f-container s5'>
-										<label class='f-title'>*Estas são suas informações?</label>
+										<label class='f-title'>*Estas informações estão corretas?</label>
 
 										<div class='f-content'>
-											<input type="checkbox" name="minhas-informacoes"
-												id="minhas-informacoes" required="required" /> Sim, as
-											informações estão corretas<br /> <span
-												id='nao-minhas-informacoes'>Não, desejo <a href="#"
-												onclick="novaAba('http://identidadepessoa.intranet/')">alterar
-													informações</a>
+											<input type="checkbox" name="minhas-informacoes" id="minhas-informacoes" required="required" />
+											<span>Sim, as informações estão corretas</span><br/>
+											<span id='nao-minhas-informacoes'>Não. Desejo
+												<a href="#" onclick="novaAba('http://identidadepessoa.intranet/')">alterar informações</a></span>
 										</div>
 									</div>
 
@@ -526,7 +524,7 @@
 									</div>
 
 									<div class='f-container s3'>
-										<label class='f-title'> Área da propriedade: </label>
+										<label class='f-title'> Área da propriedade (ha): </label>
 
 										<div class='f-content'>
 											<form:input id="areaPropriedadeRural"
@@ -759,7 +757,7 @@
 							</div>
 
 							<div class='p-body'>
-								<div class="form-group">
+								<div class="">
 									<jsp:include page="pessoaFamilia.jsp" />
 									<div class="error-validation">
 										<form:errors path="pessoas"></form:errors>

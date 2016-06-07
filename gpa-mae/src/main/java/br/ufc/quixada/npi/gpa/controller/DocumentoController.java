@@ -35,7 +35,7 @@ public class DocumentoController {
 			if(documento != null) {
 
 				InputStream is = new ByteArrayInputStream(documento.getArquivo());
-				response.setContentType(documento.getExtensao());
+				response.setContentType(documento.getTipo());
 				response.setHeader("Content-Disposition", "attachment; filename="
 						+ documento.getNomeOriginal().replace(" ", "_"));
 				IOUtils.copy(is, response.getOutputStream());

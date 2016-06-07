@@ -1,11 +1,9 @@
-
 package br.ufc.quixada.npi.gpa.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Type;
 
@@ -20,10 +18,7 @@ public class Documento {
 	
 	private String nome;
 	
-	private String extensao;
-	
-	@OneToOne
-	private TipoDocumento tipo;
+	private String tipo;
 	
 	@Type(type="org.hibernate.type.BinaryType") 
 	private byte[] arquivo;
@@ -32,13 +27,12 @@ public class Documento {
 		super();
 	}	
 	
-	public Documento(String nomeOriginal, String nome, String extensao, byte[] arquivo, Selecao selecao, TipoDocumento tipo){
+	public Documento(String nomeOriginal, String nome, String tipo, byte[] arquivo, Selecao selecao){
 		super();
 		this.nomeOriginal = nomeOriginal;
 		this.nome = nome;
-		this.extensao = extensao;
-		this.arquivo = arquivo;
 		this.tipo = tipo;
+		this.arquivo = arquivo;
 //		this.selecao = selecao;
 	}
 	
@@ -66,12 +60,13 @@ public class Documento {
 		this.nome = nome;
 	}
 
-	public String getExtensao() {
-		return extensao;
+	
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setExtensao(String extensao) {
-		this.extensao = extensao;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public byte[] getArquivo() {
@@ -90,14 +85,6 @@ public class Documento {
 //	public void setSelecao(Selecao selecao) {
 //		this.selecao = selecao;
 //	}
-
-	public TipoDocumento getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoDocumento tipo) {
-		this.tipo = tipo;
-	}
 
 	@Override
 	public int hashCode() {

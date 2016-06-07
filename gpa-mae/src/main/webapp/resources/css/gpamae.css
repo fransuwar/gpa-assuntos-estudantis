@@ -123,7 +123,7 @@ a, a:hover, a:visited, a:active, button, button:hover, button:visited,
 }
 
 div.f-content select {
-	float: right !important;
+	float:right !important;
 	margin: 0;
 }
 
@@ -894,8 +894,3 @@ input:focus, select:focus, textarea:focus{
 .container-st{
 	width: 60%;
 }
-
-.tipo-documento{
-	padding-top: 6px;
-}
-

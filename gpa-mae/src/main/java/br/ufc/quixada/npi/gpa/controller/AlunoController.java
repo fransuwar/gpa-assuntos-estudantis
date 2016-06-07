@@ -1,25 +1,21 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_REALIZADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_ADICIONAR_ARQUIVO_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MORADIA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
@@ -66,14 +62,12 @@ import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
-import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
-import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -98,9 +92,6 @@ public class AlunoController {
 	@Inject
 	private UsuarioService usuarioService;
 	
-	@Inject
-	private DocumentoService documentoService;
-
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 
@@ -248,8 +239,10 @@ public class AlunoController {
 
 		model.addAttribute("action", "inscricao");
 
+		Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
+		model.addAttribute("aluno", aluno);
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 		model.addAttribute("estado", Estado.values());
 		model.addAttribute("situacaoImovel", SituacaoImovel.values());
