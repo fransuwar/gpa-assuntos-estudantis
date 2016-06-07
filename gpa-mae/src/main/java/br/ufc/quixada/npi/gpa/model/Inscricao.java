@@ -26,7 +26,7 @@ import br.ufc.quixada.npi.gpa.enums.Resultado;
 })
 
 @Entity
-public class Inscricao {
+public class Inscricao implements Comparable<Inscricao>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,10 +63,18 @@ public class Inscricao {
 	@ManyToOne
 	private Aluno aluno;
 	
-
+	private boolean classificado;
+	
 	private boolean realizarVisita;
 			
-	
+	public boolean isClassificado() {
+		return classificado;
+	}
+
+	public void setClassificado(boolean classificado) {
+		this.classificado = classificado;
+	}
+
 	public boolean isRealizarVisita() {
 		return realizarVisita;
 	}
@@ -195,6 +203,11 @@ public class Inscricao {
 	@Override
 	public String toString() {
 		return "Inscricao [id=" + id + "]";
+	}
+
+	@Override
+	public int compareTo(Inscricao o) {
+		return getAluno().getPessoa().getNome().compareTo(o.getAluno().getPessoa().getNome());
 	}
 
 }

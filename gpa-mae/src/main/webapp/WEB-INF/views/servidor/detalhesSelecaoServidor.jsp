@@ -16,6 +16,7 @@
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
+	<a href="<c:url value="/coordenador/comissao/relatorioFinal/${selecao.id}"></c:url>"> <button class="btn btn-primary">Relatorio Final</button> </a>
 	<div class="container" align="left">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert"
