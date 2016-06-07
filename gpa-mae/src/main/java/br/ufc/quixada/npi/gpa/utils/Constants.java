@@ -258,5 +258,7 @@ public class Constants {
 	/** Comunicação com Javascript */
 	
 	public static final String ABA_SELECIONADA = "aba";
+	
+	public static final String DOCUMENTOS_TAB = "documentos-tab";
 
 }

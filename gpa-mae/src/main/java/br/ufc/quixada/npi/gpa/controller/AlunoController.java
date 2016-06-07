@@ -1,6 +1,8 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
@@ -19,7 +21,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -95,10 +96,10 @@ public class AlunoController {
 
 	@Inject
 	private UsuarioService usuarioService;
-	
+
 	@Inject
 	private DocumentoService documentoService;
-	
+
 	@Inject
 	private DocumentosTipoInscricaoService dtiService;
 
@@ -502,33 +503,33 @@ public class AlunoController {
 	public String enviarDocumento(MultipartFile formulario,	@PathVariable("idInscricao") Integer idInscricao, @RequestParam("idTipo") Integer idTipo, Model model, RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		
+
 		try {
 			List<String> formatos = Arrays.asList("application/pdf");
-			
+
 			if(formatos.contains(formulario.getContentType())){
 				Documento documento = new Documento();
 				documento.setArquivo(formulario.getBytes());
 				documento.setNome(formulario.getOriginalFilename());
 				documento.setTipo(formulario.getContentType());
-	
+
 				documentoService.salvarDocumento(documento);
-				
-	
-				
-	
+
+
+
+
 				DocumentosTipoInscricao dti = inscricao.getDocumentosTipoInscricao().get(idTipo);
 				if(dti == null){
 					dti = new DocumentosTipoInscricao();
 					inscricao.getDocumentosTipoInscricao().put(idTipo, dti);
 				}
-				
+
 				dti.getDocumentos().add(documento);
-				
+
 				dtiService.salvarDocumentosTipoInscricao(dti);
-	
+
 				inscricaoService.save(inscricao);
-	
+
 			}else{
 				model.addAttribute("error", MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO);
 			}
@@ -536,35 +537,30 @@ public class AlunoController {
 		} catch (IOException e) {
 			// TODO: handle exception
 		}
-		
+
 		model.addAttribute("inscricao", inscricao);
-		model.addAttribute(ABA_SELECIONADA, "documentos-tab");
+		model.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
 
 		return PAGINA_DETALHES_INSCRICAO;
 	}
-	
+
 	@RequestMapping(value= {"inscricao/removerDocumento/{idInscricao}/{idTipo}/{idDocumento}"}, method = RequestMethod.GET)
 	public String removerDocumento(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idTipo") Integer idTipo, @PathVariable("idDocumento") Integer idDocumento, Model modelo){
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		try {
-			
-			Documento documento = documentoService.getDocumentoPorId(idDocumento);
-			
-			inscricao.getDocumentosTipoInscricao().get(idTipo).getDocumentos().remove(documento);
-			
-			inscricaoService.save(inscricao);
-			
-			documentoService.deletarDocumento(documento);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		modelo.addAttribute(ABA_SELECIONADA, "documentos-tab");
+
+		Documento documento = documentoService.getDocumentoPorId(idDocumento);
+
+		inscricao.getDocumentosTipoInscricao().get(idTipo).getDocumentos().remove(documento);
+
+		inscricaoService.save(inscricao);
+
+		documentoService.deletarDocumento(documento);
+
+		modelo.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
 		modelo.addAttribute("inscricao", inscricao);
-		
-		
+
+
 		return PAGINA_DETALHES_INSCRICAO;
 	}
 }
