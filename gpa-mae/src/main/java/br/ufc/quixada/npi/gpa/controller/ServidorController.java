@@ -26,7 +26,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRITOS_S
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 
-import java.awt.PageAttributes.MediaType;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -95,6 +94,7 @@ public class ServidorController {
 	
 	@Inject DocumentoService documentoService;
 	
+	private String string_json_vazio = "{}";
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
@@ -182,13 +182,13 @@ public class ServidorController {
 	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces="application/json")
 	public @ResponseBody String consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao){
 		inscricaoService.consolidacaoDeTodos(idSelecao, consolidacao);
-		return "{}";
+		return string_json_vazio;
 	}
 	
 	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces="application/json")
 	public @ResponseBody String consolidar(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao){
 		inscricaoService.consolidar(idInscricao, consolidacao);
-		return "{}";
+		return string_json_vazio;
 		
 	}
 
