@@ -72,6 +72,11 @@
 						<div class="aluno-img-container">
 							<img id="aluno-img"
 								src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
+							<a href="<c:url value="/aluno/inscricao/adicionar-documento/${inscricao.id}" ></c:url>">
+										<button class="btn btn-default btn-sm"
+											title="Upload Documentos" value="Upload Documentos">
+										</button>
+									</a>
 						</div>
 						<div class='f-container s4 left'>
 							<label class='f-title'>Matrícula:</label>

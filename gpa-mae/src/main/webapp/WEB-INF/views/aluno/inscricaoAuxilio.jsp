@@ -35,6 +35,7 @@
 				<h2>Programa de Auxílio Moradia</h2>
 				<div class="panel-body"
 					style="align: center; color: #1a242f; text-align: center;">
+					<h1>${inscricao.id }</h1>
 					<table class="table table-striped table-hover"
 						id="table-visualiza-info-auxilio">
 						<thead>
@@ -67,6 +68,7 @@
 
 					<input id="idSelecao" name="idSelecao" type="hidden"
 						value="${selecao.id}" />
+					<input type="hidden" id="valor-consolidacao" name="valor-consolidacao"/>
 
 
 					<h3>Informações Pessoais</h3>
@@ -346,10 +348,10 @@
 								</div>
 
 								<div class='p-body'>
-									<label class='f-title'><input type="checkbox" id="mesmoEndereco"
-												/> Mesmo endereço da residência atual
-									</label></br>
-								
+									<label class='f-title'><input type="checkbox"
+										id="mesmoEndereco" /> Mesmo endereço da
+										residência atual </label></br>
+
 									<div class='f-container s3'>
 										<label class='f-title'> Rua/Av: </label>
 
@@ -404,7 +406,8 @@
 
 										<div class='f-content'>
 											<form:select path="estadoOrigem" id="estado-origem"
-												cssClass="form-control" cssStyle="font-size:13px">										</form:select>
+												cssClass="form-control" cssStyle="font-size:13px">
+											</form:select>
 											<div class="error-validation">
 												<form:errors path="estadoOrigem"></form:errors>
 											</div>
@@ -416,7 +419,7 @@
 										<label class='f-title'> Cidade: </label>
 
 										<div class='f-content'>
-										
+
 											<form:select id="cidade-origem" path="cidadeOrigem"
 												cssClass="form-control" placeholder="Cidade">
 											</form:select>
@@ -481,7 +484,7 @@
 
 										</div>
 									</div>
-									
+
 									<div class='f-container s5 hidden' id='div-valor-mensal'>
 										<label class='f-title'>Valor mensal do financiamento:</label>
 
@@ -532,10 +535,10 @@
 											<div class="error-validation">
 												<form:errors path="areaPropriedadeRural"></form:errors>
 											</div>
-											
+
 										</div>
 									</div>
-									
+
 									<div class='f-container s3'>
 										<label class='f-title'>Cidade: </label>
 
@@ -548,14 +551,17 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="f-container s3">
-										<label for="outroGrauParentescoImovelRural" id="labelOutroGrauParentescoImovelRural"
-											class="f-title" style="display:none;">Especifique o grau de parentesco:</label>
+										<label for="outroGrauParentescoImovelRural"
+											id="labelOutroGrauParentescoImovelRural" class="f-title"
+											style="display: none;">Especifique o grau de
+											parentesco:</label>
 										<div class="f-content">
 											<form:input id="outroGrauParentescoImovelRural"
-												path="outroGrauParentescoImovelRural" cssClass="form-control"
-												placeholder="Outro grau de parentesco" style="display:none;"/>
+												path="outroGrauParentescoImovelRural"
+												cssClass="form-control"
+												placeholder="Outro grau de parentesco" style="display:none;" />
 											<div class="error-validation">
 												<form:errors path="outroGrauParentescoImovelRural"></form:errors>
 											</div>
@@ -597,7 +603,7 @@
 											</div>
 										</div>
 									</div>
-								
+
 
 									<div class='f-container s3'>
 										<label class='f-title'>Finalidade do veículo: </label>
@@ -613,14 +619,16 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="f-container s3">
-										<label for="outroGrauParentescoVeiculos" id="labelOutroGrauParentescoVeiculos"
-											class="f-title" style="display:none;">Especifique o grau de parentesco:</label>
+										<label for="outroGrauParentescoVeiculos"
+											id="labelOutroGrauParentescoVeiculos" class="f-title"
+											style="display: none;">Especifique o grau de
+											parentesco:</label>
 										<div class="f-content">
 											<form:input id="outroGrauParentescoVeiculos"
 												path="outroGrauParentescoVeiculos" cssClass="form-control"
-												placeholder="Outro grau de parentesco" style="display:none;"/>
+												placeholder="Outro grau de parentesco" style="display:none;" />
 											<div class="error-validation">
 												<form:errors path="outroGrauParentescoVeiculos"></form:errors>
 											</div>
@@ -771,12 +779,12 @@
 
 							<div class='p-body'>
 								<div class='f-container s5'>
-									<label class='f-title'> Bolsista UFC:
-									<form:select path="bolsistaUfc" id="bolsistaUfc"  >
-									   <form:option value="${true}">Sim</form:option>
-										<form:option  selected="selected" value="${false}">Não</form:option>
-										
-									</form:select>  
+									<label class='f-title'> Bolsista UFC: <form:select
+											path="bolsistaUfc" id="bolsistaUfc">
+											<form:option value="${true}">Sim</form:option>
+											<form:option selected="selected" value="${false}">Não</form:option>
+
+										</form:select>
 
 									</label>
 									<div class='f-content'>
@@ -785,11 +793,11 @@
 										</div>
 									</div>
 								</div>
-								
-								<div class='f-container s5' >
+
+								<div class='f-container s5'>
 									<div id="descricao_bolsa">
 										<label class='f-title'> Descrição da Bolsa: </label>
-	
+
 										<div class='f-content'>
 											<form:input id="descricaoBolsa" path="descricaoBolsa"
 												cssClass="form-control" placeholder="Descrição Bolsa" />
@@ -801,12 +809,12 @@
 								</div>
 
 								<div class='f-container s5'>
-									<label class='f-title'> Possui Graduação:
-									<form:select  path="graduacao" id="graduacao" >
-										<form:option value="${true}">Sim</form:option>
-										<form:option selected="true" value="${false}">Não</form:option>
-										
-									</form:select>  
+									<label class='f-title'> Possui Graduação: <form:select
+											path="graduacao" id="graduacao">
+											<form:option value="${true}">Sim</form:option>
+											<form:option selected="true" value="${false}">Não</form:option>
+
+										</form:select>
 
 									</label>
 
@@ -818,10 +826,10 @@
 									</div>
 								</div>
 
-								<div class='f-container s5' >
+								<div class='f-container s5'>
 									<div id="descricao_graduacao">
 										<label class='f-title'> Descrição da Graduação: </label>
-	
+
 										<div class='f-content'>
 											<form:input id="descricaoGraduacao" path="descricaoGraduacao"
 												cssClass="form-control" placeholder="Descricao da Graduacao" />
@@ -878,6 +886,25 @@
 
 			</div>
 
+		</div>
+		<div class="modal" id="confirmar-consolidacao" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					    <h4 class="modal-title">Você deseja consolidar sua inscrição?</h4>
+					</div>
+					<div class="modal-body">
+					    <span class="danger">
+					        Caso escolha sim, você não poderá mais editá-la. Caso escolha não, é preciso que sua inscrição seja consolidada até o prazo final das inscrições, isso poderá ser feito na página das suas inscrições.
+					    </span>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="btn-nao-consolidar" class="btn btn-default" data-dismiss="modal">não</button>
+						<button type="button" id="btn-consolidar" class="btn btn-primary" data-dismiss="modal">sim</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 

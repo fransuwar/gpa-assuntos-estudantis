@@ -6,6 +6,7 @@
 var FormularioAuxilio = function() {
     var self = this;
     var $formElement = $("#questionarioAuxilio");
+    var $modalConsolidacao = $("#confirmar-consolidacao");
     
     /*
      * Método que inicia todos os 

@@ -294,9 +294,8 @@ public class CoordenadorController {
 						Documento documento = new Documento();
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
-						documento.setTipo(mfiles.getContentType());
+						documento.setExtensao(mfiles.getContentType());
 						
-						documentoService.salvarDocumento(documento);
 						documentoService.salvarDocumento(documento);
 						
 						Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);

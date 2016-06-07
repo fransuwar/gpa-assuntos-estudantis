@@ -5,8 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Type;
 
@@ -21,7 +20,10 @@ public class Documento {
 	
 	private String nome;
 	
-	private String tipo;
+	private String extensao;
+	
+	@OneToOne
+	private TipoDocumento tipo;
 	
 	@Type(type="org.hibernate.type.BinaryType") 
 	private byte[] arquivo;
@@ -30,12 +32,13 @@ public class Documento {
 		super();
 	}	
 	
-	public Documento(String nomeOriginal, String nome, String tipo, byte[] arquivo, Selecao selecao){
+	public Documento(String nomeOriginal, String nome, String extensao, byte[] arquivo, Selecao selecao, TipoDocumento tipo){
 		super();
 		this.nomeOriginal = nomeOriginal;
 		this.nome = nome;
-		this.tipo = tipo;
+		this.extensao = extensao;
 		this.arquivo = arquivo;
+		this.tipo = tipo;
 //		this.selecao = selecao;
 	}
 	
@@ -63,13 +66,12 @@ public class Documento {
 		this.nome = nome;
 	}
 
-	
-	public String getTipo() {
-		return tipo;
+	public String getExtensao() {
+		return extensao;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setExtensao(String extensao) {
+		this.extensao = extensao;
 	}
 
 	public byte[] getArquivo() {
@@ -88,6 +90,14 @@ public class Documento {
 //	public void setSelecao(Selecao selecao) {
 //		this.selecao = selecao;
 //	}
+
+	public TipoDocumento getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoDocumento tipo) {
+		this.tipo = tipo;
+	}
 
 	@Override
 	public int hashCode() {

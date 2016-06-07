@@ -114,7 +114,7 @@ public class SelecaoController {
 
 		Documento documento = documentoService.getDocumentoPorId(id);
 		byte[] arquivo = documento.getArquivo();
-		String[] tipo = documento.getTipo().split("/");
+		String[] tipo = documento.getExtensao().split("/");
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType(tipo[0], tipo[1]));
 		headers.set("Content-Disposition", "attachment; filename=" + documento.getNome().replace(" ", "_"));

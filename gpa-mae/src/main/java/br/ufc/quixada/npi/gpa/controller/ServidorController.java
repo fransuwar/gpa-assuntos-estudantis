@@ -207,7 +207,7 @@ public class ServidorController {
 			Documento documento = new Documento();
 			documento.setArquivo(formulario.getBytes());
 			documento.setNome(formulario.getOriginalFilename());
-			documento.setTipo(formulario.getContentType());
+			documento.setExtensao(formulario.getContentType());
 			
 			Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 			

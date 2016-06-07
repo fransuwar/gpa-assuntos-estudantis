@@ -895,3 +895,7 @@ input:focus, select:focus, textarea:focus{
 	width: 60%;
 }
 
+.tipo-documento{
+	padding-top: 6px;
+}
+

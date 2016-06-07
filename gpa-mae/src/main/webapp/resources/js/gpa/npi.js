@@ -2,6 +2,18 @@ var linha;
 
 $(document).ready(function(){
 	
+	$('#confirmar-consolidacao').modal('show');
+	
+	$('#btn-nao-consolidar').click(function(){
+		$("#valor-consolidacao").val(false);
+		
+	});
+	
+    $('#btn-consolidar').click(function(){
+    	$("#valor-consolidacao").val(true);
+		
+	});
+	
 	$('[data-toggle="tooltip"]').tooltip();
 
 	selecionarAba($('#aba').val());
