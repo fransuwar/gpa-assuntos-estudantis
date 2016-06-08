@@ -406,7 +406,7 @@ div.s10 {
 	background-color: #f44336;
 }
 
-#text-align-left {
+#text-align-left, .text-align-left {
 	text-align: left;
 }
 
@@ -509,33 +509,6 @@ div.input-photo {
 
 .photos-list li {
 	display: inline-block;
-}
-
-.remove-photo {
-	position: absolute;
-	top: -8px;
-	right: -8px;
-	width: 25px;
-	height: 25px;
-	border-radius: 50%;
-	background-color: #f44336;
-	transform: rotateZ(45deg);
-	transition: all 0.2s;
-}
-
-.remove-photo:before {
-	content: "+";
-	font-height: 25px;
-	line-height: 25px;
-	color: white;
-	margin-left: 6px;
-	font-weight: bold;#E9E9E9
-}
-
-.remove-photo:hover{
-	cursor: pointer;
-	transition: all 0.2s;
-	transform: scale(1.2) rotateZ(-45deg);
 }
 
 .img-fullscreen-background{
@@ -652,6 +625,7 @@ div.input-photo {
 }
 
 .remove-photo {
+	display: block;
 	position: absolute;
 	top: -8px;
 	right: -8px;
@@ -664,11 +638,14 @@ div.input-photo {
 }
 
 .remove-photo:before {
+	position: absolute;
 	content: "+";
 	font-height: 25px;
 	line-height: 25px;
 	color: white;
-	margin-left: 6px;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
 	font-weight: bold;
 }
 
@@ -893,4 +870,47 @@ input:focus, select:focus, textarea:focus{
 
 .container-st{
 	width: 60%;
+}
+.documentos-aluno{
+	margin-left: -40px;
+}
+
+.documentos-aluno li{
+	margin: 1%;
+	width: 17%;
+	height: 60px;
+	margin-bottom: 1%;
+	background-color: #009688;
+	border-radius: 5px;
+	border: 1px solid #dedede;
+	display: inline-block;
+	position: relative;
+	transition: all 0.2s;
+}
+
+.documentos-aluno li:hover{
+	cursor: pointer;
+	box-shadow: 1px 1px 1px #cdcdcd;
+	transition: all 0.2s;
+	transform: scale(1.2);
+}
+
+.documentos-aluno li a{
+	position: absolute;
+	color: #ffffff !important;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+	width: 100%;
+	word-wrap: break-word;
+	text-align: center;
+}
+
+.documentos-lista{
+	list-style: none;	
+	margin-left: -40px;
+}
+
+.documentos-lista li{
+	margin-bottom: 5px;	
 }

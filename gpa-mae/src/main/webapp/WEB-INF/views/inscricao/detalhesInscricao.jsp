@@ -547,7 +547,83 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane" id="documentos-tab"></div>
+			<div class="tab-pane" id="documentos-tab">
+			
+			<c:if test="${not empty error}">
+					<div class="alert alert-danger alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						${error }
+					</div>
+				</c:if>
+
+				<div class="panel panel-default panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Documentos</h3>
+
+					</div>
+
+					<div class="panel-body text-align-left">
+
+						<sec:authorize access="hasAnyRole('DISCENTE')">
+							<form id="insercaoFormularioVisita" role="form" method="POST"
+								enctype="multipart/form-data" style="width: 40%;"
+								action="<c:url value="/aluno/inscricao/adicionarDocumento/${inscricao.id}"/>">
+								Selecione o tipo de documento:<br /> <select class="form-control"
+									name="idTipo">
+									<c:forEach var="tipo"
+										items="${inscricao.selecao.tiposDeDocumento}">
+										<option value="${tipo.id}">${tipo.nome}</option>
+									</c:forEach>
+								</select> Selecione o documento:<br /> <input type="file"
+									name="formulario" /><br /> <input type="submit"
+									class="btn btn-primary" />
+							</form>
+							<hr />
+						</sec:authorize>
+
+						<c:forEach var="tipo"
+							items="${inscricao.selecao.tiposDeDocumento}">
+							<b>${tipo.nome}</b>
+							<ul class="documentos-lista">
+								<c:choose>
+									<c:when
+										test="${fn:length(inscricao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
+											Nenhum documento enviado nessa categoria	
+										</c:when>
+									<c:otherwise>
+										<c:forEach var="documento"
+											items="${inscricao.documentosTipoInscricao[tipo.id].documentos}">
+											<li class=""><a class="no-decoration"
+												href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
+
+											<sec:authorize access="hasAnyRole('DISCENTE')">
+												<a id="excluirDocumento"
+												href="#">
+													<button class="btn btn-danger btn-sm confirm-button"
+														aria-title="Continuar irá remover o documento, deseja prosseguir?"
+														aria-destination="<c:url value="/aluno/inscricao/removerDocumento/${inscricao.id}/${tipo.id}/${documento.id}"></c:url>"
+														title="Excluir Documento">
+														<i class="glyphicon glyphicon-trash"></i>
+													</button>
+												</a> <strong class="error text-danger"></strong></li>
+											</sec:authorize>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</ul>
+
+							<hr />
+						</c:forEach>
+					</div>
+
+				</div>
+
+			
+			
+			</div>
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div class="tab-pane" id="entrevista-tab">
