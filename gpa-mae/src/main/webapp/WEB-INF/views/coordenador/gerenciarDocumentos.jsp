@@ -32,7 +32,7 @@
 					<div class="form-group col-sm-12">
 						 
 						<input class="form-control col-sm-6" type="text" name="nome" required ="required"> 
-						<input type="submit" class="btn btn-primary col-sm-2" value="Adicionar Arquivo" id="form-btn" />
+						<input type="submit" class="btn btn-primary col-sm-2" value="Adicionar Documento" id="form-btn" />
 						
 					</div>
 				</form>

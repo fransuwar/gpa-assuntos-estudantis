@@ -1,7 +1,12 @@
 package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
+<<<<<<< HEAD
 import java.util.List;
+=======
+import java.util.HashMap;
+import java.util.Map;
+>>>>>>> refs/heads/master
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -40,6 +45,8 @@ public class Inscricao {
 	//referente ao resultado final
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
+	
+	private boolean classificado;
 
 	private String observacoes;
 
@@ -65,6 +72,19 @@ public class Inscricao {
 	@ManyToOne
 	private Aluno aluno;
 	
+	@OneToMany
+	private Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
+	
+	public Map<Integer, DocumentosTipoInscricao> getDocumentosTipoInscricao() {
+		if(documentosTipoInscricao == null){
+			documentosTipoInscricao = new HashMap<>();
+		}
+		return documentosTipoInscricao;
+	}
+
+	public void setDocumentosTipoInscricao(Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao) {
+		this.documentosTipoInscricao = documentosTipoInscricao;
+	}
 
 	private boolean realizarVisita;
 	
@@ -189,6 +209,14 @@ public class Inscricao {
 
 	public void setDocumentos(List<Documento> documentos) {
 		this.documentos = documentos;
+	}
+
+	public boolean isClassificado() {
+		return classificado;
+	}
+
+	public void setClassificado(boolean classificado) {
+		this.classificado = classificado;
 	}
 
 	@Override

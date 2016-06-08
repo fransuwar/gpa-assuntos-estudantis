@@ -777,12 +777,21 @@
 
 							<div class='p-body'>
 								<div class='f-container s5'>
+<<<<<<< HEAD
 									<label class='f-title'> Bolsista UFC: <form:select
 											path="bolsistaUfc" id="bolsistaUfc">
 											<form:option value="${true}">Sim</form:option>
 											<form:option selected="selected" value="${false}">Não</form:option>
 
 										</form:select>
+=======
+									<label class='f-title'> Bolsista UFC:
+									<form:select path="bolsistaUfc" id="bolsistaUfc" class="form-control" >
+									   	<option value="">Selecione...</option>
+									   	<option value="${true}">Sim</option>
+										<option value="${false}">Não</option>
+									</form:select>  
+>>>>>>> refs/heads/master
 
 									</label>
 									<div class='f-content'>
@@ -807,12 +816,21 @@
 								</div>
 
 								<div class='f-container s5'>
+<<<<<<< HEAD
 									<label class='f-title'> Possui Graduação: <form:select
 											path="graduacao" id="graduacao">
 											<form:option value="${true}">Sim</form:option>
 											<form:option selected="true" value="${false}">Não</form:option>
 
 										</form:select>
+=======
+									<label class='f-title'> Possui Graduação:
+									<form:select path="graduacao" id="graduacao" class="form-control">
+										<option value="">Selecione...</option>
+										<option value="${true}">Sim</option>
+										<option value="${false}">Não</option>
+									</form:select>  
+>>>>>>> refs/heads/master
 
 									</label>
 
