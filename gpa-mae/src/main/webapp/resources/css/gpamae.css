@@ -213,6 +213,10 @@ div.f-container {
 	text-align: left;
 }
 
+div.f-container > .f-title{
+	font-weight: bold;
+}	
+
 label.f-title {
 	margin-left: 10px;
 }
@@ -369,8 +373,9 @@ div.s10 {
 }
 
 .opcoes-detalhes {
-	float: right;
-	margin-top: -25px;
+	position: relative;
+	top: -50%;
+	transform: translateY(50%);
 }
 
 .def-sit{
@@ -458,7 +463,7 @@ div.s10 {
 	transform: translateX(-50%) translateY(-50%);
 	height: 50px;
 }
-Com quem Mora
+
 .photo-sign:after {
 	border-radius: 3px;
 	background: #e0e0e0;
@@ -602,7 +607,7 @@ div.input-photo {
 	background: #e0e0e0;
 	content: "";
 	height: 10px;
-	left: -20px;
+	left: -20px;ção 
 	position: absolute;
 	top: 20px;
 	width: 50px;
@@ -841,32 +846,57 @@ a, .dropdown-menu > li > a{
 	border-bottom: 1px solid #eeeeec;
 }
 
-.btn-primary{
+.btn{
+  	border: 0 !important;
+}
+
+.btn:hover{
+	margin: 0 !important;
+	transform: translate3d(0,-1px,0);
+	transition: all 0.2s;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,.4);
+}
+
+.btn.btn-primary{
 	color: white !important;
 	background-color: #00796B !important;
 	border-bottom-color: #238b7f!important;
 }
 
-.btn-info{
-	color: #ffffff;
-	background-color: #f57900;
-	border-color: #f57900;
+.btn-info, .btn-info:focus, .btn-info > a{
+	color: #ffffff !important;
+	background-color: #f57900 !important;
+	border-color: #f57900 !important;
 }
 
-.btn-info:hover{
-	background-color: #10bcff!important;
+.btn.btn-info:hover{
+	background-color: #f57900 !important;
 	border-color: #34a8d5;
 }
 
-.btn{
-  	border: 0 !important;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+.btn.btn-default{
+	background-color: #e8e8e8;
 }
 
-.btn:hover{
-	margin: 0 !important;
-	transform: scale(0.9);
-	 
+.btn.btn-danger{
+	color:white !important;
+}
+
+.btn.btn-small{
+	font-size: 14px;
+	width: 30px !important;
+	height: 27px !important;
+}
+
+.alert{
+	border: 0 !important;
+	border-radius: 0px !important;
+}
+
+.alert:hover{
+	transform: translate3d(0,-1px,0);
+	transition: all 0.2s;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,.4);
 }
 
 input:focus, select:focus, textarea:focus{
