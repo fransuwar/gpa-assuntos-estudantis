@@ -16,7 +16,6 @@
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
-	<a href="<c:url value="/coordenador/comissao/relatorioFinal/${selecao.id}"></c:url>"> <button class="btn btn-primary">Relatorio Final</button> </a>
 	<div class="container" align="left">
 		<c:if test="${not empty erro}">
 			<div class="alert alert-danger alert-dismissible" role="alert"
@@ -74,8 +73,7 @@
 				</div>
 
 				<div class="card">
-					<a
-						href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
+					<a href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
 						<div class="card-content">
 							<div class="card-icon">
 								<i class="fa fa-file-text"></i>
@@ -87,12 +85,14 @@
 				</div>
 
 				<div class="card">
-					<div class="card-content">
-						<div class="card-icon">
-							<i class="fa fa-signal"></i>
+					<a href="<c:url value="/selecao/selecionarClassificados/${selecao.id}"></c:url>">
+						<div class="card-content">
+							<div class="card-icon">
+								<i class="fa fa-signal"></i>
+							</div>
+							<div class="card-description">RANKING</div>
 						</div>
-						<div class="card-description">RANKING</div>
-					</div>
+					</a>
 				</div>
 
 

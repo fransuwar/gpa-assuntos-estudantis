@@ -128,16 +128,15 @@ $(document).ready(function(){
 
 	$("#questionarioIniciacao").validate();
 
-
 	$("table").DataTable({
-	"language": {
-	"url":"/MAE/resources/js/Portuguese-Brasil.json"
-	},
-	"columnDefs": 
-	[],
-	"paging": false,
-	"searching": false,
-	"ordering": false
+		"language": {
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"columnDefs": 
+			[],
+			"paging": false,
+			"searching": false,
+			"ordering": false
 
 	});
 
