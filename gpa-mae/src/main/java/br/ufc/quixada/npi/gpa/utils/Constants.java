@@ -103,6 +103,8 @@ public class Constants {
 
 	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO = "redirect:/servidor/detalhes/inscricao/";
 	
+	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO = "redirect:/aluno/inscricao/detalhes/";
+	
 	/** Mensagens */
 
 	public static final String MENSAGEM_OK = "OK";

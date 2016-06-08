@@ -65,6 +65,12 @@
 										</button>
 									</a>
 								</c:if>
+								<a id="consolidarInscricao"
+									href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
+									<button class="btn btn-success btn-sm" title="consolidar Inscrição">
+										<i class="glyphicon glyphicon-ok"></i>
+									</button>
+								</a>
 							</sec:authorize>
 						</h3>
 					</div>

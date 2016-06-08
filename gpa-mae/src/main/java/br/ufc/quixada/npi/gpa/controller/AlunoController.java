@@ -1,5 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
@@ -421,13 +422,20 @@ public class AlunoController {
 
 	}
 	
-	@RequestMapping(value = {"/inscricao/consolidar/{idInscricao}"}, method = RequestMethod.GET)
-	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao){
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);	
-		inscricao.setConsolidacao(true);
-		inscricaoService.update(inscricao);
+	@RequestMapping(value = {"/inscricao/consolidar/{idInscricao}"}, method = RequestMethod.POST)
+	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect){
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		
-		return null;
+		if (inscricao != null) {
+			inscricao.setConsolidacao(true);
+			inscricaoService.update(inscricao);
+			
+			return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + idInscricao;
+			
+		}
+		
+		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
 
@@ -471,7 +479,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
-	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
+	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
 			RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
