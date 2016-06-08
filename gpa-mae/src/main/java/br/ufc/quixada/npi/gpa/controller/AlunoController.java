@@ -242,15 +242,9 @@ public class AlunoController {
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
-		model.addAttribute("estado", Estado.values());
-		model.addAttribute("situacaoImovel", SituacaoImovel.values());
-		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
-		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-		model.addAttribute("grauParentesco", GrauParentesco.values());
-		model.addAttribute("moraCom", MoraCom.values());
+		
+		model = this.carregarFormularioAuxilioMoradia(model);
+		
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
 
@@ -281,15 +275,9 @@ public class AlunoController {
 
 			model.addAttribute("action", "inscricao");
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
-			model.addAttribute("estado", Estado.values());
-			model.addAttribute("situacaoImovel", SituacaoImovel.values());
-			model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-			model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-			model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
-			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-			model.addAttribute("moraCom", MoraCom.values());
-			model.addAttribute("grauParentesco", GrauParentesco.values());
+			
+			model = this.carregarFormularioAuxilioMoradia(model);
+			
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
 
@@ -350,15 +338,9 @@ public class AlunoController {
 
 					model.addAttribute("inscricao", inscricao);
 					model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
-					model.addAttribute("estado", Estado.values());
-					model.addAttribute("situacaoImovel", SituacaoImovel.values());
-					model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-					model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-					model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-					model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
-					model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-					model.addAttribute("moraCom", MoraCom.values());
-					model.addAttribute("grauParentesco", GrauParentesco.values());
+					
+					model = this.carregarFormularioAuxilioMoradia(model);
+					
 					model.addAttribute("selecao", inscricao.getSelecao());
 
 					return PAGINA_INSCREVER_AUXILIO_MORADIA;
@@ -424,15 +406,9 @@ public class AlunoController {
 
 			model.addAttribute("action", "inscricao");
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
-			model.addAttribute("estado", Estado.values());
-			model.addAttribute("situacaoImovel", SituacaoImovel.values());
-			model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-			model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-			model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
-			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-			model.addAttribute("moraCom", MoraCom.values());
-			model.addAttribute("grauParentesco", GrauParentesco.values());
+			
+			model = this.carregarFormularioAuxilioMoradia(model);
+			
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
 
@@ -571,6 +547,22 @@ public class AlunoController {
 			return foto.getBytes();
 		}
 
+	}
+	
+	public Model carregarFormularioAuxilioMoradia(Model model){
+		
+		model.addAttribute("estado", Estado.values());
+		model.addAttribute("situacaoImovel", SituacaoImovel.values());
+		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
+		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
+		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
+		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
+		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
+		model.addAttribute("moraCom", MoraCom.values());
+		model.addAttribute("grauParentesco", GrauParentesco.values());
+		
+		return model;
+		
 	}
 
 }
