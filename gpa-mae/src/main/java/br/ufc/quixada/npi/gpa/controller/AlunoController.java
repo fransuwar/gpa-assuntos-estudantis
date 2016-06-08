@@ -274,7 +274,7 @@ public class AlunoController {
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
 			BindingResult result, @RequestParam(value="mora", required=false) List<String> comQuemMora,
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
-			Model model, @RequestParam("fileFoto") MultipartFile foto,@RequestParam("valor-consolidacao") boolean consolidacao) {
+			Model model, @RequestParam("fileFoto") MultipartFile foto) {
 		
 		try {
 			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
@@ -345,7 +345,6 @@ public class AlunoController {
 				inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
 				inscricao.setDeferimentoDocumentacao(Resultado.NAO_AVALIADO);
 				inscricao.setResultado(Resultado.NAO_AVALIADO);
-				inscricao.setConsolidacao(consolidacao);
 
 				inscricaoService.save(inscricao);
 			} else {
@@ -431,20 +430,17 @@ public class AlunoController {
 
 	}
 	
-	@RequestMapping(value = {"/inscricao/consolidar/{idInscricao}"}, method = RequestMethod.POST)
-	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect){
+	@RequestMapping(value = {"/inscricao/consolidar/{idInscricao}"}, method = RequestMethod.GET)
+	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model){
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		List<Selecao> selecoes = selecaoService.getSelecoes();
 		
-		if (inscricao != null) {
-			inscricao.setConsolidacao(true);
-			inscricaoService.update(inscricao);
-			
-			return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + idInscricao;
-			
-		}
+		inscricao.setConsolidacao(true);
+		inscricaoService.update(inscricao);	
 		
-		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+		model.addAttribute("selecoes", selecoes);
+		
+		return PAGINA_SELECOES_ABERTAS;
 	}
 
 

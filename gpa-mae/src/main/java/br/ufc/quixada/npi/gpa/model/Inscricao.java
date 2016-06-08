@@ -1,12 +1,9 @@
 package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
-<<<<<<< HEAD
 import java.util.List;
-=======
 import java.util.HashMap;
 import java.util.Map;
->>>>>>> refs/heads/master
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
