@@ -69,6 +69,13 @@ public class Inscricao {
 	@ManyToOne
 	private Aluno aluno;
 	
+	private boolean realizarVisita;
+	
+	private boolean consolidacao;
+	
+	@OneToMany
+	private List<Documento> documentos;
+	
 	@OneToMany
 	private Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
 	
@@ -82,15 +89,7 @@ public class Inscricao {
 	public void setDocumentosTipoInscricao(Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao) {
 		this.documentosTipoInscricao = documentosTipoInscricao;
 	}
-
-	private boolean realizarVisita;
-	
-	private boolean consolidacao;
-	
-	@OneToMany
-	private List<Documento> documentos;
-			
-	
+				
 	public boolean isRealizarVisita() {
 		return realizarVisita;
 	}
