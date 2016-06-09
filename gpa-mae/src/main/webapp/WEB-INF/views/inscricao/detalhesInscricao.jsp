@@ -548,8 +548,8 @@
 				</div>
 			</div>
 			<div class="tab-pane" id="documentos-tab">
-			
-			<c:if test="${not empty error}">
+
+				<c:if test="${not empty error}">
 					<div class="alert alert-danger alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert"
 							aria-label="Close">
@@ -571,8 +571,8 @@
 							<form id="insercaoFormularioVisita" role="form" method="POST"
 								enctype="multipart/form-data" style="width: 40%;"
 								action="<c:url value="/aluno/inscricao/adicionarDocumento/${inscricao.id}"/>">
-								Selecione o tipo de documento:<br /> <select class="form-control"
-									name="idTipo">
+								Selecione o tipo de documento:<br /> <select
+									class="form-control" name="idTipo">
 									<c:forEach var="tipo"
 										items="${inscricao.selecao.tiposDeDocumento}">
 										<option value="${tipo.id}">${tipo.nome}</option>
@@ -582,48 +582,116 @@
 									class="btn btn-primary" />
 							</form>
 							<hr />
-						</sec:authorize>
 
-						<c:forEach var="tipo"
-							items="${inscricao.selecao.tiposDeDocumento}">
-							<b>${tipo.nome}</b>
-							<ul class="documentos-lista">
-								<c:choose>
-									<c:when
-										test="${fn:length(inscricao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
+							<c:forEach var="tipo"
+								items="${inscricao.selecao.tiposDeDocumento}">
+								<b>${tipo.nome}</b>
+								<ul class="documentos-lista">
+									<c:choose>
+										<c:when
+											test="${fn:length(inscricao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
 											Nenhum documento enviado nessa categoria	
 										</c:when>
-									<c:otherwise>
-										<c:forEach var="documento"
-											items="${inscricao.documentosTipoInscricao[tipo.id].documentos}">
-											<li class=""><a class="no-decoration"
-												href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
-
-											<sec:authorize access="hasAnyRole('DISCENTE')">
-												<a id="excluirDocumento"
-												href="#">
-													<button class="btn btn-danger btn-sm confirm-button"
-														aria-title="Continuar irá remover o documento, deseja prosseguir?"
-														aria-destination="<c:url value="/aluno/inscricao/removerDocumento/${inscricao.id}/${tipo.id}/${documento.id}"></c:url>"
-														title="Excluir Documento">
-														<i class="glyphicon glyphicon-trash"></i>
-													</button>
+										<c:otherwise>
+											<c:forEach var="documento"
+												items="${inscricao.documentosTipoInscricao[tipo.id].documentos}">
+												<li class=""><a class="no-decoration"
+													href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
+													<a id="excluirDocumento" href="#">
+														<button class="btn btn-danger btn-sm confirm-button"
+															aria-title="Continuar irá remover o documento, deseja prosseguir?"
+															aria-destination="<c:url value="/aluno/inscricao/removerDocumento/${inscricao.id}/${tipo.id}/${documento.id}"></c:url>"
+															title="Excluir Documento">
+															<i class="glyphicon glyphicon-trash"></i>
+														</button>
 												</a> <strong class="error text-danger"></strong></li>
-											</sec:authorize>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</ul>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</ul>
 
-							<hr />
-						</c:forEach>
+								<hr />
+							</c:forEach>
+						</sec:authorize>
+
+						<sec:authorize
+							access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+							<c:forEach var="tipo"
+								items="${inscricao.selecao.tiposDeDocumento}">
+								<b>${tipo.nome}</b>
+								<ul class="documentos-lista">
+									<c:choose>
+										<c:when
+											test="${fn:length(inscricao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
+											Nenhum documento enviado nessa categoria	
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="documento"
+												items="${inscricao.documentosTipoInscricao[tipo.id].documentos}">
+												<li class=""><a class="no-decoration"
+													href="<c:url value="/selecao/visualizarDocumento/${documento.id}"></c:url>">${documento.nome}</a>
+													<a id="baixarDocumento"
+													href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
+														<button class="btn btn-warning btn-sm"
+															title="Baixar Documento">
+															<i class="glyphicon glyphicon-download-alt"></i>
+														</button>
+												</a></li>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</ul>
+
+								<hr />
+							</c:forEach>
+						</sec:authorize>
 					</div>
 
 				</div>
 
-			
-			
+				<div class="panel panel-default panel-primary">
+					<div class="panel-body text-align-left">
+						<div class="panel-body">
+
+							<form:form id="relatorioForm" role="form"
+								modelAttribute="entrevista" commandName="entrevista"
+								servletRelativeAction="${url}" method="POST"
+								cssClass="form-horizontal">
+
+								<fieldset class="form-group row">
+									<div class="col-sm-5">
+										<label for="observacao" class="col-sm-1 control-label">
+											<b>Observação</b>
+										</label>
+										<form:textarea class="col-sm-5 form-control" name="observacao"
+											rows="3" id="observacao" type="text" path="observacao"
+											placeholder="Observação"></form:textarea>
+										<span class="help-block"></span>
+										<div class="error-validation">
+											<form:errors path="observacao"></form:errors>
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-group row">
+									<div class="col-sm-5">
+										<label for="deferimento" class="col-sm-1 control-label">
+											<b>Deferimento</b>
+										</label> <select name="deferimento" id="deferimento"
+											class="form-control col-sm-2">
+											<option value="DEFERIDO">Deferido</option>
+											<option value="INDEFERIDO">Indeferido</option>
+										</select>
+									</div>
+								</fieldset>
+
+								<input class="btn btn-primary" type="submit" value="Enviar" />
+							</form:form>
+						</div>
+					</div>
+				</div>
 			</div>
+
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div class="tab-pane" id="entrevista-tab">
