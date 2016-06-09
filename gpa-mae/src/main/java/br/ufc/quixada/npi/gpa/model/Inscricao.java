@@ -1,6 +1,7 @@
 package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,6 +69,13 @@ public class Inscricao {
 	@ManyToOne
 	private Aluno aluno;
 	
+	private boolean realizarVisita;
+	
+	private boolean consolidacao;
+	
+	@OneToMany
+	private List<Documento> documentos;
+	
 	@OneToMany
 	private Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
 	
@@ -81,10 +89,7 @@ public class Inscricao {
 	public void setDocumentosTipoInscricao(Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao) {
 		this.documentosTipoInscricao = documentosTipoInscricao;
 	}
-
-	private boolean realizarVisita;
-			
-	
+				
 	public boolean isRealizarVisita() {
 		return realizarVisita;
 	}
@@ -183,6 +188,23 @@ public class Inscricao {
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+	
+
+	public boolean isConsolidacao() {
+		return consolidacao;
+	}
+
+	public void setConsolidacao(boolean consolidacao) {
+		this.consolidacao = consolidacao;
+	}
+
+	public List<Documento> getDocumentos() {
+		return documentos;
+	}
+
+	public void setDocumentos(List<Documento> documentos) {
+		this.documentos = documentos;
 	}
 
 	public boolean isClassificado() {

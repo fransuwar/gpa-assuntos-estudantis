@@ -47,6 +47,8 @@ public class Constants {
 	public static final String PAGINA_SELECIONAR_CLASSIFICADOS = "selecao/selecionarClassificados";
 	
 	public static final String PAGINA_ADICIONAR_ARQUIVO = "coordenador/adicionarArquivoSelecao";
+	
+	public static final String PAGINA_ADICIONAR_ARQUIVO_INSCRICAO = "aluno/uploadDocumentos";
 
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
@@ -76,6 +78,8 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_EDITAR_SELECAO = "redirect:/coordenador/selecao/editar/";
 	
 	public static final String REDIRECT_PAGINA_ADICIONAR_ARQUIVO = "redirect:/coordenador/selecao/adicionar-documento/";
+	
+	public static final String REDIRECT_PAGINA_ADICIONAR_ARQUIVO_INSCRICAO = "redirect:/aluno/inscricao/adicionar-documento/";
 
 	public static final String REDIRECT_PAGINA_ATRIBUIR_COMISSAO = "redirect:/coordenador/comissao/atribuir/";
 
@@ -98,6 +102,8 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR = "redirect:/servidor/detalhesSelecaoServidor";
 
 	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO = "redirect:/servidor/detalhes/inscricao/";
+	
+	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO = "redirect:/aluno/inscricao/detalhes/";
 	
 	/** Mensagens */
 
