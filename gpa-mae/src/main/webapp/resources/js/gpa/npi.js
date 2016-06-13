@@ -1,6 +1,11 @@
 var linha;
 
+
 $(document).ready(function(){
+	
+	$("#confirm-delete").on("shown.bs.modal", function(e) {
+		$(this).find(".btn-danger").attr("href", $(e.relatedTarget).data("href"));
+	});
 	
 	$('[data-toggle="tooltip"]').tooltip();
 
@@ -246,11 +251,8 @@ $(document).ready(function(){
 	$("div.error-validation:has(span)").find("span").css("color","#a94442");
 	$("div.error-validation:has(span)").find("span").parent().parent().addClass("has-error has-feedback");
 
-	$("#confirm-delete").on("show.bs.modal",
-			function(e) {
-		$(this).find(".btn-danger").attr("href",
-				$(e.relatedTarget).data("href"));
-	});
+	
+	
 
 	$("#btnAdicionar").click(function() {
 		$("#myModalLabel").text("Adicionar contato");

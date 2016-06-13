@@ -269,7 +269,6 @@ div.s6 {
 	width: 57%;
 }
 
-text-align-left
 div.s7 {
 	width: 67%;
 }
@@ -284,6 +283,18 @@ div.s9 {
 
 div.s10 {
 	width: 97%;
+}
+
+div.s4-custom{
+	width: 40%;
+}
+
+.margin-top-s1{
+	margin-top: 7px;	
+}
+
+.margin-top-s2{
+	margin-top: 17px;	
 }
 
 .text-danger {
@@ -881,6 +892,28 @@ input:focus, select:focus, textarea:focus{
 	box-shadow: 0 0 3px rgba(13, 81, 75, 0.3) !important; 
 }
 
+.table-custom{
+	border: 1px solid white;
+	border-radius: 1%;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.table-custom td{
+	text-align: center;
+}
+.table-custom .th-custom{
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	color: white;
+	background-color: #00796B;
+}
+
+.th-center{
+	text-align: center;
+}
+
+.row-centered{
+	margin: 0 auto !important;
+}
+
 .no-decoration{
 	font-weight: normal;
 	text-decoration: none;	
@@ -944,3 +977,4 @@ input:focus, select:focus, textarea:focus{
 .documentos-lista li{
 	margin-bottom: 5px;	
 }
+

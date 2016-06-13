@@ -70,7 +70,14 @@
 					</div>
 					
 					<div class="col-sm-4">	
-						<table class="table table-hover">
+						<table class="table table-hover table-custom">
+							<thead class="th-custom">
+								<tr>
+									<th colspan="2" class="th-center">
+										Comissão
+									</th>
+								</tr>
+							</thead>
 							<c:forEach var="servidor" items="${selecao.membrosComissao}">
 								<tr>
 									<td>${servidor.pessoa.nome}</td>
@@ -110,7 +117,7 @@
 				<div class="modal-body">Tem certeza de que deseja excluir esse
 					membro da Comissão?</div>
 				<div class="modal-footer">
-					<a href="#" class="btn btn-danger">Excluir</a>
+					<a class="btn btn-danger">Excluir</a>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 				</div>
 			</div>
