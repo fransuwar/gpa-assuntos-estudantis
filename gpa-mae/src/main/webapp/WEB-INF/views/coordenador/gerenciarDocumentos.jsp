@@ -28,12 +28,12 @@
 					action="<c:url value="/coordenador/adicionar-tipo-arquivo" />"
 					method="GET" class="form-horizontal" enctype="multipart/form-data">
 
-					<label for="arquivo" class="control-label">Documento:</label>
 					<div class="form-group col-sm-12">
-						 
-						<input class="form-control col-sm-6" type="text" name="nome" required ="required"> 
-						<input type="submit" class="btn btn-primary col-sm-2" value="Adicionar Arquivo" id="form-btn" />
-						
+							<label for="arquivo" class="control-label">Tipo de Documento:</label>
+						<div class="">
+								<input class="form-control inline-block" type="text" name="nome" required="required"> 
+								<input type="submit" class="btn btn-primary" value="Adicionar" id="form-btn" />
+						</div>
 					</div>
 				</form>
 

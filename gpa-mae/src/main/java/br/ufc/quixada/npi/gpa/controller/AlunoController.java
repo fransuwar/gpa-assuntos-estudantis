@@ -1,6 +1,7 @@
 package br.ufc.quixada.npi.gpa.controller;
-
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ALUNO_NAO_ENCONTRADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
@@ -63,6 +64,8 @@ import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
+import br.ufc.quixada.npi.gpa.model.Documento;
+import br.ufc.quixada.npi.gpa.model.DocumentosTipoInscricao;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
@@ -70,6 +73,8 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
+import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.gpa.service.DocumentosTipoInscricaoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
@@ -91,8 +96,14 @@ public class AlunoController {
 
 	@Inject
 	private UsuarioService usuarioService;
-		
-	
+
+	@Inject
+	private DocumentoService documentoService;
+
+	@Inject
+	private DocumentosTipoInscricaoService dtiService;
+
+
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 
@@ -269,7 +280,7 @@ public class AlunoController {
 		
 		try {
 			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
-			
+
 			List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
 			/*
 			 * Conferindo se o aluno enviou uma foto e o formato do arquivo
@@ -314,8 +325,8 @@ public class AlunoController {
 			model.addAttribute("grauParentesco", GrauParentesco.values());
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
-			
-			
+
+
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 
 		} else {
@@ -324,7 +335,7 @@ public class AlunoController {
 			Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
 			Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 			auxilioMoradia.setPessoasEntrevista(auxilioMoradia.getPessoas());
-			
+
 			if (inscricaoService.getInscricao(selecao, aluno) == null) {
 
 				Inscricao inscricao = new Inscricao();
@@ -336,16 +347,16 @@ public class AlunoController {
 				inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
 				inscricao.setDeferimentoDocumentacao(Resultado.NAO_AVALIADO);
 				inscricao.setResultado(Resultado.NAO_AVALIADO);
-				
+
 				inscricaoService.save(inscricao);
 			} else {
 				redirect.addFlashAttribute("error", MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
 			}
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
-			
+
 		}
-		
+
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -420,6 +431,19 @@ public class AlunoController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
+	
+	@RequestMapping(value = {"/inscricao/consolidar/{idInscricao}"}, method = RequestMethod.GET)
+	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model){
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		List<Selecao> selecoes = selecaoService.getSelecoes();
+		
+		inscricao.setConsolidacao(true);
+		inscricaoService.update(inscricao);	
+		
+		model.addAttribute("selecoes", selecoes);
+		
+		return PAGINA_SELECOES_ABERTAS;
+	}
 
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
@@ -429,7 +453,7 @@ public class AlunoController {
 
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("inscricoes", aluno.getInscricoes());
-		
+
 
 		return PAGINA_INSCRICOES_ALUNO;
 
@@ -443,18 +467,13 @@ public class AlunoController {
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 
-		if (inscricao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ALUNO_NAO_ENCONTRADO);
-		} else {
+		if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
+			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 
-			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
-				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
-				return REDIRECT_PAGINA_MINHAS_INSCRICOES;
-
-			} else{
-				inscricaoService.delete(inscricao);
-				redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
-			}
+		} else{
+			inscricaoService.delete(inscricao);
+			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 		}
 
 		return PAGINA_INSCRICOES_ALUNO;
@@ -462,7 +481,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
-	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
+	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
 			RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
@@ -483,9 +502,9 @@ public class AlunoController {
 			} else{
 				model.addAttribute("esconderBotoes",false);			
 			}
-			
+
 			model.addAttribute("aba", "inscricao-tab");
-			
+
 
 			return PAGINA_DETALHES_INSCRICAO;
 
@@ -496,4 +515,68 @@ public class AlunoController {
 
 	}
 
+	@RequestMapping(value = "/inscricao/adicionarDocumento/{idInscricao}", method = RequestMethod.POST)
+	public String enviarDocumento(MultipartFile formulario,	@PathVariable("idInscricao") Integer idInscricao, @RequestParam("idTipo") Integer idTipo, Model model, RedirectAttributes redirect) {
+
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+
+		try {
+			List<String> formatos = Arrays.asList("application/pdf");
+
+			if(formatos.contains(formulario.getContentType())){
+				Documento documento = new Documento();
+				documento.setArquivo(formulario.getBytes());
+				documento.setNome(formulario.getOriginalFilename());
+				documento.setTipo(formulario.getContentType());
+
+				documentoService.salvarDocumento(documento);
+
+
+
+
+				DocumentosTipoInscricao dti = inscricao.getDocumentosTipoInscricao().get(idTipo);
+				if(dti == null){
+					dti = new DocumentosTipoInscricao();
+					inscricao.getDocumentosTipoInscricao().put(idTipo, dti);
+				}
+
+				dti.getDocumentos().add(documento);
+
+				dtiService.salvarDocumentosTipoInscricao(dti);
+
+				inscricaoService.save(inscricao);
+
+			}else{
+				model.addAttribute("error", MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO);
+			}
+
+		} catch (IOException e) {
+			
+		}
+
+		model.addAttribute("inscricao", inscricao);
+		model.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
+
+		return PAGINA_DETALHES_INSCRICAO;
+	}
+
+	@RequestMapping(value= {"inscricao/removerDocumento/{idInscricao}/{idTipo}/{idDocumento}"}, method = RequestMethod.GET)
+	public String removerDocumento(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idTipo") Integer idTipo, @PathVariable("idDocumento") Integer idDocumento, Model modelo){
+
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+
+		Documento documento = documentoService.getDocumentoPorId(idDocumento);
+
+		inscricao.getDocumentosTipoInscricao().get(idTipo).getDocumentos().remove(documento);
+
+		inscricaoService.save(inscricao);
+
+		documentoService.deletarDocumento(documento);
+
+		modelo.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
+		modelo.addAttribute("inscricao", inscricao);
+
+
+		return PAGINA_DETALHES_INSCRICAO;
+	}
 }
