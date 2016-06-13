@@ -914,3 +914,8 @@ input:focus, select:focus, textarea:focus{
 .documentos-lista li{
 	margin-bottom: 5px;	
 }
+
+.inline-block {
+	display: inline-block;
+	width: auto;
+}
