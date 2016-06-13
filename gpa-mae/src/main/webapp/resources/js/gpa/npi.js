@@ -7,6 +7,18 @@ $(document).ready(function(){
 		$(this).find(".btn-danger").attr("href", $(e.relatedTarget).data("href"));
 	});
 	
+	$('#confirmar-consolidacao').modal('show');
+	
+	$('#btn-nao-consolidar').click(function(){
+		$("#valor-consolidacao").val(false);
+		
+	});
+	
+    $('#btn-consolidar').click(function(){
+    	$("#valor-consolidacao").val(true);
+		
+	});
+	
 	$('[data-toggle="tooltip"]').tooltip();
 
 	selecionarAba($('#aba').val());

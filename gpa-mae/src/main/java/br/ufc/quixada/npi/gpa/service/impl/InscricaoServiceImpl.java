@@ -117,7 +117,6 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Inscricao getInscricao(Selecao selecao, Aluno aluno) {
 		Map<String, Object> params = new SimpleMap<String, Object>();
 		params.put("idSelecao", selecao.getId());
