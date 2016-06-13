@@ -311,10 +311,7 @@ public class ServidorController {
 	}
 	@RequestMapping(value = "inscritos/{idSelecao}", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("idSelecao") Integer idSelecao, ModelMap model) {
-
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
-		model.addAttribute("selecao", selecao);
-
+		model.addAttribute("inscricoes", inscricaoService.getInscricoesPorSelecao(idSelecao));
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
 
@@ -326,21 +323,13 @@ public class ServidorController {
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}else{
-
+		} else {
 			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
-
 			List<Servidor> comissao = selecao.getMembrosComissao();
-
-			if(comissao.contains(servidor)){
-
-				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
+			if(comissao.contains(servidor)) {
 				model.addAttribute("selecao", selecao);
-				model.addAttribute("inscricoes", inscricoes);
-
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-
-			}else{
+			} else {
 				redirect.addFlashAttribute("erro",  MENSAGEM_PERMISSAO_NEGADA);
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}

@@ -18,57 +18,106 @@
 	<jsp:include page="../fragments/headTag.jsp" />
 
 	<div class="container">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">Inscrições</h3>
-			</div>
-			<div class="panel-body">
-				<table class="table table-striped" id="tabela-inscritos">
-					<thead>
-						<tr>
-							<th>Edital</th>
-							<th>Tipo de Seleção</th>
-							<th>Período de Inscrições</th>
-							<th>Vagas</th>
-							<th>Coordenador Responsável</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>${selecao.ano }.${selecao.sequencial }</td>
-							<td>${selecao.tipoSelecao.nome }</td>
-							<td><fmt:formatDate value="${selecao.dataInicio }"
-									pattern="dd/MM/yyyy" /> até <fmt:formatDate
-									value="${selecao.dataTermino }" pattern="dd/MM/yyyy" /></td>
-							<td>${selecao.quantidadeVagas }</td>
-							<td>${selecao.responsavel.pessoa.nome }</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<h3 class="panel-title">Alunos Inscritos</h3>
-			<table class="table" id="tabela-inscritos">
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Data</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="inscritoSelecao" items="${selecao.inscritos }">
-						<tr>
-							<td>				
-							<a id="detalhes"
-									href="<c:url value="/servidor/detalhes/inscricao/${inscritoSelecao.id}">  
-									</c:url>"> ${inscritoSelecao.aluno.pessoa.nome }</a>
-							</td>
-							<td><fmt:formatDate value="${inscritoSelecao.data}" pattern="dd/MM/yyyy" /></td>
-						</tr>
-					</c:forEach>
-				</tbody>
+		<div class="panel panel-primary" align="left">
+				<div class="panel-heading">
+					<h3 class="panel-title">Inscrições</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table" id="tabela-detalhes-selecao-servidores">
+						<thead>
+							<tr class="active">
+								<td>Aluno</td>
+								<td>Matricula</td>
+								<td>Data</td>
+								<td>Documentação</td>
+								<td>Entrevista</td>
+								<td>Visita</td>
+								<td>Resultado</td>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="inscricao" items="${inscricoes }">
+								<tr>
+									<td><a id="detalhes"
+										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.id}">  
+										</c:url>">
+											${inscricao.aluno.pessoa.nome} </a></td>
+									<td>${inscricao.aluno.matricula}</td>
+									<td><fmt:formatDate value="${inscricao.data}"
+											pattern="dd/MM/yyyy" /></td>
+									<td><c:choose>
+											<c:when
+												test="${inscricao.deferimentoDocumentacao eq 'NAO_AVALIADO'}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when
+												test="${inscricao.deferimentoDocumentacao eq 'DEFERIDO'}">
+												<div class='def-sit deferido' title="Deferido">D</div>
+											</c:when>
 
-			</table>
-		</div>
+											<c:when
+												test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+												<div class='def-sit indeferido' title="Indeferido">I</div>
+											</c:when>
+										</c:choose></td>
+
+									<td><c:choose>
+											<c:when
+												test="${inscricao.entrevista.deferimento eq 'NAO_AVALIADO'}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when test="${empty inscricao.entrevista.deferimento}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when
+												test="${inscricao.entrevista.deferimento eq 'DEFERIDO'}">
+												<div class='def-sit deferido' title="Deferido">D</div>
+											</c:when>
+
+											<c:when
+												test="${inscricao.entrevista.deferimento eq 'INDEFERIDO'}">
+												<div class='def-sit indeferido' title="Indeferido">I</div>
+											</c:when>
+										</c:choose></td>
+
+									<td><c:choose>
+											<c:when
+												test="${inscricao.visitaDomiciliar.deferimento eq 'NAO_AVALIADO'}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when
+												test="${empty inscricao.visitaDomiciliar.deferimento}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when
+												test="${inscricao.visitaDomiciliar.deferimento eq 'DEFERIDO'}">
+												<div class='def-sit deferido' title="Deferido">D</div>
+											</c:when>
+
+											<c:when
+												test="${inscricao.visitaDomiciliar.deferimento eq 'INDEFERIDO'}">
+												<div class='def-sit indeferido' title="Indeferido">I</div>
+											</c:when>
+										</c:choose></td>
+									<td><c:choose>
+											<c:when test="${inscricao.resultado eq 'NAO_AVALIADO'}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when test="${inscricao.resultado eq 'DEFERIDO'}">
+												<div class='def-sit deferido' title="Deferido">D</div>
+											</c:when>
+
+											<c:when test="${inscricao.resultado eq 'INDEFERIDO'}">
+												<div class='def-sit indeferido' title="Indeferido">I</div>
+											</c:when>
+										</c:choose></td>
+								</tr>
+
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
