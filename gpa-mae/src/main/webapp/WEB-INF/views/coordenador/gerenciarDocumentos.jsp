@@ -24,19 +24,20 @@
 				<h3 class="panel-title">Gerenciar Documentos</h3>
 			</div>
 			<div class="panel-body">
-					<div class="s4-custom center-block">
-						<form id="adicionarArquivoForm" role="form" class="form-inline" 
-							action="<c:url value="/coordenador/adicionar-tipo-arquivo" />"
-							method="GET" enctype="multipart/form-data">
-							<div class="form-group">
-								<label for="arquivo">Documento:</label>
-								<input class="form-control" type="text" name="nome" required ="required">
-							</div> 
-							<input type="submit" class="btn btn-primary" value="Adicionar" id="form-btn" />
-								
+
+				<div class="s4-custom center-block">
+					<form id="adicionarArquivoForm" role="form" class="form-inline" 
+						action="<c:url value="/coordenador/adicionar-tipo-arquivo" />"
+						method="GET" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="arquivo">Tipo de Documento:</label>
+							<input class="form-control" type="text" name="nome" required ="required">
+						</div> 
+						<input type="submit" class="btn btn-primary" value="Adicionar" id="form-btn" />
 							
-						</form>
-					</div>
+						
+					</form>
+				</div>
 				
 				<div class="margin-top-s1 center-block s5">
 						<table id="tipo-arquivo-upload" role="presentation"

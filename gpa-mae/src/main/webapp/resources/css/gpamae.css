@@ -213,9 +213,6 @@ div.f-container {
 	text-align: left;
 }
 
-div.f-container > .f-title{
-	font-weight: bold;
-}	
 
 label.f-title {
 	margin-left: 10px;
@@ -286,7 +283,7 @@ div.s10 {
 }
 
 div.s4-custom{
-	width: 40%;
+	width: 45%;
 }
 
 .margin-top-s1{
@@ -976,5 +973,10 @@ input:focus, select:focus, textarea:focus{
 
 .documentos-lista li{
 	margin-bottom: 5px;	
+}
+
+.inline-block {
+	display: inline-block;
+	width: auto;
 }
 
