@@ -25,8 +25,10 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRITOS_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITAS;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -498,5 +500,17 @@ public class ServidorController {
 
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
+	}
+	
+	@RequestMapping(value= {"relatorioVisitas/{idSelecao}"}, method = RequestMethod.GET)
+	public String relatorioDeVisitas(@PathVariable("idSelecao") Integer idSelecao, Model model){
+		
+		Selecao selecao = this.selecaoService.getSelecaoPorId(idSelecao);
+		
+		model.addAttribute("inscritosComVisita", selecao.getAlunosSelecionadosVisita());
+		model.addAttribute("inscritosSemVisita", selecao.getAlunosNaoSelecionadosVisita());
+		model.addAttribute("cidadesVisitadas", selecao.getCidadesVisita());
+		
+		return PAGINA_RELATORIO_VISITAS;
 	}
 }

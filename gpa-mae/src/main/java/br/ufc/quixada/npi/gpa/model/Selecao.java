@@ -216,5 +216,49 @@ public class Selecao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+public List<Inscricao> getAlunosSelecionadosVisita(){
+		
+		List<Inscricao> listaInscritos = new ArrayList<Inscricao>();
+		
+		for(Inscricao inscricao:this.inscritos){
+			if(inscricao.isRealizarVisita()){
+				listaInscritos.add(inscricao);
+			}
+		}
+		
+		return listaInscritos;
+	}
+	
+	public List<Inscricao> getAlunosNaoSelecionadosVisita(){
+		
+		List<Inscricao> listaInscritos = new ArrayList<Inscricao>();
+		
+		for(Inscricao inscricao:this.inscritos){
+			if(!inscricao.isRealizarVisita()){
+				listaInscritos.add(inscricao);
+			}
+		}
+		
+		return listaInscritos;
+	}
+	
+	public List<String> getCidadesVisita(){
+		
+		List<String> cidades = new ArrayList<>();
+		
+		for(Inscricao inscricao:inscritos){
+			if(inscricao.isRealizarVisita()){
+				String cidade = inscricao.getQuestionarioAuxilioMoradia().getCidadeOrigem();
+				if(!cidades.contains(cidade)){
+					
+					cidades.add(cidade);
+				}
+			}
+		}
+		
+		return cidades;
+		
+	}
 
 }
