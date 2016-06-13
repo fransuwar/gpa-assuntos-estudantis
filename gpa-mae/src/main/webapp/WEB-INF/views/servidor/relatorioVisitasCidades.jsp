@@ -68,11 +68,11 @@
 					<div role="tabpanel" class="tab-pane" id="porAluno">
 
 						<div
-							class="panel panel-primary panel-card-visitas col-md-6 pull-left">
+							class="panel panel-primary panel-visitas col-md-6 pull-left">
 							<div class="panel-heading">
 								<h3 class="panel-title">Selecionados para visita</h3>
 							</div>
-							<div class="panel-body panel-body-card-visitas">
+							<div class="panel-body panel-body-visitas">
 
 								<div class="list-group">
 
@@ -87,18 +87,16 @@
 											</c:forEach>
 										</c:otherwise>
 									</c:choose>
-
 								</div>
-
 							</div>
 						</div>
 
 						<div
-							class="panel panel-primary panel-card-visitas col-md-5 pull-right">
+							class="panel panel-primary panel-visitas col-md-5 pull-right">
 							<div class="panel-heading">
 								<h3 class="panel-title">Não selecionados para visita</h3>
 							</div>
-							<div class="panel-body panel-body-card-visitas">
+							<div class="panel-body panel-body-visitas">
 								<div class="list-group">
 
 									<c:choose>
@@ -107,7 +105,7 @@
 										</c:when>
 										<c:otherwise>
 											<c:forEach var="inscricao" items="${inscritosSemVisita}">
-												<button type="button" class="list-group-item">
+												<button type="button" class="list-group-item item-aluno-visita">
 													${inscricao.aluno.pessoa.nome}</button>
 											</c:forEach>
 										</c:otherwise>
