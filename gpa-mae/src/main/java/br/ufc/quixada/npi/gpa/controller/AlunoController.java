@@ -96,12 +96,12 @@ public class AlunoController {
 	@Inject
 	private UsuarioService usuarioService;
 
-
 	@Inject
 	private DocumentoService documentoService;
 
 	@Inject
 	private DocumentosTipoInscricaoService dtiService;
+
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {

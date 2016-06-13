@@ -70,8 +70,20 @@ public class Inscricao {
 	private Aluno aluno;
 	
 	private boolean realizarVisita;
+
 	
 	private boolean consolidacao;
+			
+
+	public boolean isConsolidacao() {
+		return consolidacao;
+	}
+
+	public void setConsolidacao(boolean consolidacao) {
+		this.consolidacao = consolidacao;
+	}
+
+
 	
 	@OneToMany
 	private List<Documento> documentos;
@@ -90,6 +102,7 @@ public class Inscricao {
 		this.documentosTipoInscricao = documentosTipoInscricao;
 	}
 				
+
 	public boolean isRealizarVisita() {
 		return realizarVisita;
 	}
@@ -190,14 +203,6 @@ public class Inscricao {
 		this.aluno = aluno;
 	}
 	
-
-	public boolean isConsolidacao() {
-		return consolidacao;
-	}
-
-	public void setConsolidacao(boolean consolidacao) {
-		this.consolidacao = consolidacao;
-	}
 
 	public List<Documento> getDocumentos() {
 		return documentos;
