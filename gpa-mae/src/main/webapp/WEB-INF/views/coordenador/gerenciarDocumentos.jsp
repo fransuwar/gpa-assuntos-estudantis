@@ -38,7 +38,7 @@
 						</form>
 					</div>
 				
-				<div class="margin-top-s1 center-block s6">
+				<div class="margin-top-s1 center-block s5">
 						<table id="tipo-arquivo-upload" role="presentation"
 							class="table table-hover table-custom">
 							<thead class="th-custom">
@@ -53,7 +53,7 @@
 									<tr class="template-upload fade in" id="row-${documento.id}">
 										<td>${documento.nome}</td>
 										<td>
-											<a class="btn open-modal btn-danger btn-small btn-xs" id="id" data-toggle="modal"
+											<a class="btn btn-danger btn-small btn-xs" id="id" data-toggle="modal"
 												data-target="#confirm-delete"
 												data-href="<c:url value="/coordenador/excluir-tipo-documento/${documento.id }"></c:url>"
 												class="delete-document">
