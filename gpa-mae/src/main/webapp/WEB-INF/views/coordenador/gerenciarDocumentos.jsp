@@ -24,38 +24,48 @@
 				<h3 class="panel-title">Gerenciar Documentos</h3>
 			</div>
 			<div class="panel-body">
-				<form id="adicionarArquivoForm" role="form"
-					action="<c:url value="/coordenador/adicionar-tipo-arquivo" />"
-					method="GET" class="form-horizontal" enctype="multipart/form-data">
 
-					<div class="form-group col-sm-12">
-							<label for="arquivo" class="control-label">Tipo de Documento:</label>
-						<div class="">
-								<input class="form-control inline-block" type="text" name="nome" required="required"> 
-								<input type="submit" class="btn btn-primary" value="Adicionar" id="form-btn" />
-						</div>
+				<div class="s4-custom center-block">
+					<form id="adicionarArquivoForm" role="form" class="form-inline" 
+						action="<c:url value="/coordenador/adicionar-tipo-arquivo" />"
+						method="GET" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="arquivo">Tipo de Documento:</label>
+							<input class="form-control" type="text" name="nome" required ="required">
+						</div> 
+						<input type="submit" class="btn btn-primary" value="Adicionar" id="form-btn" />
+							
+						
+					</form>
+				</div>
+				
+				<div class="margin-top-s1 center-block s5">
+						<table id="tipo-arquivo-upload" role="presentation"
+							class="table table-hover table-custom">
+							<thead class="th-custom">
+								<tr>
+									<th colspan="2" class="th-center">
+										Documentos Cadastrados
+									</th>
+								</tr>
+							</thead>
+							<tbody class="files">
+								<c:forEach items="${documentos}" var="documento">
+									<tr class="template-upload fade in" id="row-${documento.id}">
+										<td>${documento.nome}</td>
+										<td>
+											<a class="btn btn-danger btn-small btn-xs" id="id" data-toggle="modal"
+												data-target="#confirm-delete"
+												data-href="<c:url value="/coordenador/excluir-tipo-documento/${documento.id }"></c:url>"
+												class="delete-document">
+													<span class="glyphicon glyphicon-trash"></span>
+											</a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
-				</form>
-
-				<table id="tipo-arquivo-upload" role="presentation"
-					class="table table-striped">
-					<tbody class="files">
-						<c:forEach items="${documentos}" var="documento">
-							<tr class="template-upload fade in" id="row-${documento.id}">
-								<td>${documento.nome}</td>
-								<td><a id="id" data-toggle="modal"
-									data-target="#confirm-delete"
-									data-href="<c:url value="/coordenador/excluir-tipo-documento/${documento.id }"></c:url>"
-									class="delete-document">
-										<button type="button" class="btn btn-danger btn-xs">
-											<span class="glyphicon glyphicon-trash"></span>
-										</button>
-								</a></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-
 			</div>
 		</div>
 	</div>
