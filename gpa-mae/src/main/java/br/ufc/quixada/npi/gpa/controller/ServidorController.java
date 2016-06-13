@@ -33,6 +33,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,7 +72,6 @@ import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
-
 @Controller
 @RequestMapping ("servidor")
 @SessionAttributes({ Constants.USUARIO_ID , Constants.USUARIO_LOGADO})
@@ -94,7 +94,6 @@ public class ServidorController {
 	
 	@Inject DocumentoService documentoService;
 	
-	private String string_json_vazio = "{}";
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
@@ -179,16 +178,18 @@ public class ServidorController {
 	}
 	
 	
-	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces="application/json")
-	public @ResponseBody String consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao){
+	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Model consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao,Model model){
 		inscricaoService.consolidacaoDeTodos(idSelecao, consolidacao);
-		return string_json_vazio;
+		model.addAttribute("resultado","sucesso");
+		return model;
 	}
 	
-	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces="application/json")
-	public @ResponseBody String consolidar(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao){
+	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Model consolidar(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao,Model model){
 		inscricaoService.consolidar(idInscricao, consolidacao);
-		return string_json_vazio;
+		model.addAttribute("resultado","sucesso");
+		return model;
 		
 	}
 
