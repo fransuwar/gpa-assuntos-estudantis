@@ -135,7 +135,7 @@
 									</div>
 
 									<div class='f-container s5'>
-										<label class='f-title'>*Estas são suas informações?</label>
+										<label class='f-title'>*Estas informações estão corretas?</label>
 
 										<div class='f-content'>
 											<input type="checkbox" name="minhas-informacoes"
@@ -523,7 +523,7 @@
 									</div>
 
 									<div class='f-container s3'>
-										<label class='f-title'> Área da propriedade: </label>
+										<label class='f-title'> Área da propriedade (ha): </label>
 
 										<div class='f-content'>
 											<form:input id="areaPropriedadeRural"
@@ -751,7 +751,7 @@
 							</div>
 
 							<div class='p-body'>
-								<div class="form-group">
+								<div class="">
 									<jsp:include page="pessoaFamilia.jsp" />
 									<div class="error-validation">
 										<form:errors path="pessoas"></form:errors>
@@ -772,10 +772,10 @@
 							<div class='p-body'>
 								<div class='f-container s5'>
 									<label class='f-title'> Bolsista UFC:
-									<form:select path="bolsistaUfc" id="bolsistaUfc"  >
-									   <form:option value="${true}">Sim</form:option>
-										<form:option  selected="selected" value="${false}">Não</form:option>
-										
+									<form:select path="bolsistaUfc" id="bolsistaUfc" class="form-control" >
+									   	<option value="">Selecione...</option>
+									   	<option value="${true}">Sim</option>
+										<option value="${false}">Não</option>
 									</form:select>  
 
 									</label>
@@ -802,10 +802,10 @@
 
 								<div class='f-container s5'>
 									<label class='f-title'> Possui Graduação:
-									<form:select  path="graduacao" id="graduacao" >
-										<form:option value="${true}">Sim</form:option>
-										<form:option selected="true" value="${false}">Não</form:option>
-										
+									<form:select path="graduacao" id="graduacao" class="form-control">
+										<option value="">Selecione...</option>
+										<option value="${true}">Sim</option>
+										<option value="${false}">Não</option>
 									</form:select>  
 
 									</label>

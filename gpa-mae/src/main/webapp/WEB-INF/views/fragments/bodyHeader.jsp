@@ -50,11 +50,9 @@
 						<li><a href="<c:url value="/aluno/inscricao/listar" />">Minhas
 								Inscrições</a></li>
 					</sec:authorize>
-					<sec:authorize
-						access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
-						<li><a
-							href="<c:url value="/coordenador/selecao/cadastrar" />">Nova
-								Seleção</a></li>
+					<sec:authorize access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+						<li><a href="<c:url value="/coordenador/selecao/cadastrar" />">Nova Seleção</a></li>
+						<li><a href="<c:url value="/coordenador/gerenciarDocumentos" />">Gerenciar Documentos</a></li>
 					</sec:authorize>
 				</ul>
 
