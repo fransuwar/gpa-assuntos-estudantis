@@ -458,9 +458,8 @@ public class AlunoController {
 
 	}
 
-	@RequestMapping(value = "/inscricao/excluir/{idAluno}/{idInscricao}", method = RequestMethod.GET)
-	public String excluirInscricao(@PathVariable("idAluno") Integer idAluno,
-			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect) {
+	@RequestMapping(value = "/inscricao/excluir/{idInscricao}", method = RequestMethod.GET)
+	public String excluirInscricao(@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect) {
 
 		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
 		Selecao selecao = inscricao.getSelecao();

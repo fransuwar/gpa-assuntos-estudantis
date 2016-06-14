@@ -48,51 +48,44 @@
 								class="direita clicavel"> <i
 								class="glyphicon glyphicon-chevron-up"></i>
 							</span>
-
-							<sec:authorize access="hasAnyRole('DISCENTE')">
-								<c:if test="${!esconderBotoes}">
-									<a id="editarInscricao"
-										href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
-										<button class="btn btn-info btn-sm" title="Editar Inscrição">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</a>
-									<a id="excluirInscricao"
-										href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
-										<button class="btn btn-danger btn-sm"
-											title="Excluir Inscrição">
-											<i class="glyphicon glyphicon-trash"></i>
-										</button>
-									</a>
-								</c:if>
-							</sec:authorize>
-							<sec:authorize access="hasAnyRole('DISCENTE')">
-								<c:if test="${inscricao.consolidacao eq false }">
-									<a id="consolidarInscricao" data-target="#modal-consolidacao"
-										data-toggle="modal"
-										data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
-										<button class="btn btn-success btn-sm" title="Consolidar Inscrição">
-											<i class="glyphicon glyphicon-ok"></i>
-										</button>
-									</a>
-								</c:if>
-							</sec:authorize>
 						</h3>
 					</div>
 					<div class="panel-body">
+						<sec:authorize access="hasAnyRole('DISCENTE')">
+							<c:if test="${!esconderBotoes}">
+								<a id="editarInscricao"
+									href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+									<button class="btn btn-info btn-sm" title="Editar Inscrição">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</button>
+								</a>
+								<a id="excluirInscricao"
+									href="<c:url value="/aluno/inscricao/excluir/${inscricao.id}" ></c:url>">
+									<button class="btn btn-danger btn-sm"
+										title="Excluir Inscrição">
+										<i class="glyphicon glyphicon-trash"></i>
+									</button>
+								</a>
+							</c:if>
+						</sec:authorize>
+						<c:choose>
+							<c:when test="${inscricao.consolidacao eq false}">
+								<a id="consolidarInscricao" data-target="#modal-consolidacao"
+									data-toggle="modal"
+									data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+									<button class="btn btn-success btn-sm" title="Consolidar Inscrição">
+										<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+									</button>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<span class="label label-success">Inscrição consolidada</span>
+							</c:otherwise>
+						</c:choose>
 						<div class="aluno-img-container">
 							<img id="aluno-img"
 								src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
 						</div>
-						<c:choose>
-							<c:when test="${inscricao.consolidacao eq true}">
-								<span class="label label-success">Inscrição consolidada</span>
-							</c:when>
-							<c:otherwise>
-								<span class="label label-danger">Inscrição não
-									consolidada</span>
-							</c:otherwise>
-						</c:choose>
 						<div class='f-container s4 left'>
 							<label class='f-title'>Matrícula:</label>
 							<div class='f-content'>
@@ -977,7 +970,7 @@
 					<div class="modal-body">Você deseja consolidar sua inscrição?
 						Caso escolha sim, você não poderá mais editá-la. Caso escolha não,
 						é preciso que sua inscrição seja consolidada até o prazo final das
-						inscrições, isso poderá ser feito na página das suas inscrições.</div>
+						inscrições. Isso poderá ser feito na página das suas inscrições.</div>
 					<div class="modal-footer">
 						<a
 							href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>"

@@ -53,7 +53,7 @@
 		<div class="panel-card">
 			<div class="panel-card-content">
 				<div class="card">
-					<a href="<c:url value="/servidor/inscritos/${selecao.id}"></c:url>">
+					<a href="<c:url value="/servidor/detalhes/${selecao.id}"></c:url>">
 						<div class="card-content">
 							<div class="card-icon">
 								<i class="fa fa-folder-open"></i>
