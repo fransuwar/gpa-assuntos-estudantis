@@ -185,11 +185,13 @@
 					<h3 class="panel-title">Inscrições</h3>
 				</div>
 				<div class="panel-body">
-							<div align="right">
-								<input id="idSelecao" type="hidden" value="${selecao.id}">
-								<button id="consolidacaoTodos" class="btn btn-primary" > </button>
-							</div>
-
+							<c:if test="${selecao.inscritos.size()>0 }">
+								<div align="right">
+									<input id="idSelecao" type="hidden" value="${selecao.id}">
+									<button id="consolidacaoTodos" class="btn btn-primary" >Consolidar Todos </button>
+									<button id="desconsolidacaoTodos" class="btn btn-primary" > Desconsolidar Todos </button>
+								</div>
+							</c:if>
 
 							<table class="table" id="tabela-detalhes-selecao-servidores">
 						<thead>
