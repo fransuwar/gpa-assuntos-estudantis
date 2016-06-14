@@ -40,6 +40,7 @@ import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.ParecerForm;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -66,10 +67,13 @@ public class SelecaoController {
 	
 	@Inject
 	private InscricaoService inscricaoService;
+	
+	@Inject
+	private SelecaoRepository selecaoRepository;
 
 	@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoesPublico(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.getOne(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 

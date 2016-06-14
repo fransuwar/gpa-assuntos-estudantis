@@ -12,7 +12,7 @@
 	<mvc:annotation-driven />
 	<context:component-scan base-package="br.ufc.quixada.npi.gpa.controller" />
 	
-	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	<!-- <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="order" value="1" />
 		<property name="mediaTypes">
 			<map>
@@ -22,7 +22,7 @@
 	
 		<property name="defaultViews">
 			<list>
-				<!-- JSON View -->
+				JSON View
 				<bean
 					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
 				</bean>
@@ -30,7 +30,7 @@
 		</property>
 		<property name="ignoreAcceptHeader" value="true" />
 	
-	</bean>
+	</bean> -->
 	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
