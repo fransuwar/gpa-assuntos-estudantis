@@ -50,24 +50,22 @@
 							</span>
 
 							<sec:authorize access="hasAnyRole('DISCENTE')">
-								<c:if test="${!esconderBotoes}">
-									<a id="editarInscricao"
-										href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
-										<button class="btn btn-info btn-sm" title="Editar Inscrição">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</a>
-									<a id="excluirInscricao"
-										href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
-										<button class="btn btn-danger btn-sm"
-											title="Excluir Inscrição">
-											<i class="glyphicon glyphicon-trash"></i>
-										</button>
-									</a>
-								</c:if>
-							</sec:authorize>
-							<sec:authorize access="hasAnyRole('DISCENTE')">
 								<c:if test="${inscricao.consolidacao eq false }">
+									<c:if test="${!esconderBotoes}">
+										<a id="editarInscricao"
+											href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+											<button class="btn btn-info btn-sm" title="Editar Inscrição">
+												<span class="glyphicon glyphicon-pencil"></span>
+											</button>
+										</a>
+										<a id="excluirInscricao"
+											href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
+											<button class="btn btn-danger btn-sm"
+												title="Excluir Inscrição">
+												<i class="glyphicon glyphicon-trash"></i>
+											</button>
+										</a>
+									</c:if>
 									<a id="consolidarInscricao" data-target="#modal-consolidacao"
 										data-toggle="modal"
 										data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
@@ -589,21 +587,22 @@
 					<div class="panel-body text-align-left">
 
 						<sec:authorize access="hasAnyRole('DISCENTE')">
-							<form id="insercaoFormularioVisita" role="form" method="POST"
-								enctype="multipart/form-data" style="width: 40%;"
-								action="<c:url value="/aluno/inscricao/adicionarDocumento/${inscricao.id}"/>">
-								Selecione o tipo de documento:<br /> <select
-									class="form-control" name="idTipo">
-									<c:forEach var="tipo"
-										items="${inscricao.selecao.tiposDeDocumento}">
-										<option value="${tipo.id}">${tipo.nome}</option>
-									</c:forEach>
-								</select> Selecione o documento:<br /> <input type="file"
-									name="formulario" /><br /> <input type="submit"
-									class="btn btn-primary" />
-							</form>
-							<hr />
-
+							<c:if test="${inscricao.consolidacao eq false }">
+								<form id="insercaoFormularioVisita" role="form" method="POST"
+									enctype="multipart/form-data" style="width: 40%;"
+									action="<c:url value="/aluno/inscricao/adicionarDocumento/${inscricao.id}"/>">
+									Selecione o tipo de documento:<br /> <select
+										class="form-control" name="idTipo">
+										<c:forEach var="tipo"
+											items="${inscricao.selecao.tiposDeDocumento}">
+											<option value="${tipo.id}">${tipo.nome}</option>
+										</c:forEach>
+									</select> Selecione o documento:<br /> <input type="file"
+										name="formulario" /><br /> <input type="submit"
+										class="btn btn-primary" />
+								</form>
+								<hr />
+							</c:if>
 							<c:forEach var="tipo"
 								items="${inscricao.selecao.tiposDeDocumento}">
 								<b>${tipo.nome}</b>
@@ -618,14 +617,17 @@
 												items="${inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos}">
 												<li class=""><a class="no-decoration"
 													href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
-													<a id="excluirDocumento" href="#">
-														<button class="btn btn-danger btn-sm confirm-button"
-															aria-title="Continuar irá remover o documento, deseja prosseguir?"
-															aria-destination="<c:url value="/aluno/inscricao/removerDocumento/${inscricao.id}/${tipo.id}/${documento.id}"></c:url>"
-															title="Excluir Documento">
-															<i class="glyphicon glyphicon-trash"></i>
-														</button>
-												</a> <strong class="error text-danger"></strong></li>
+													<c:if test="${inscricao.consolidacao eq false }">
+														<a id="excluirDocumento" href="#">
+															<button class="btn btn-danger btn-sm confirm-button"
+																aria-title="Continuar irá remover o documento, deseja prosseguir?"
+																aria-destination="<c:url value="/aluno/inscricao/removerDocumento/${inscricao.id}/${tipo.id}/${documento.id}"></c:url>"
+																title="Excluir Documento">
+																<i class="glyphicon glyphicon-trash"></i>
+															</button>
+														</a>
+														<strong class="error text-danger"></strong>
+													</c:if></li>
 											</c:forEach>
 										</c:otherwise>
 									</c:choose>
