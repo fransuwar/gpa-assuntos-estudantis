@@ -849,7 +849,7 @@
 								<dt class="col-sm-2">Parecer:</dt>
 								<c:choose>
 									<c:when
-										test="${inscricao.visitaDomiciliar.deferimento == true}">
+										test="${inscricao.visitaDomiciliar.deferimento == 'DEFERIDO'}">
 										<dd class="col-sm-2">DEFERIDO</dd>
 									</c:when>
 									<c:otherwise>
@@ -952,11 +952,11 @@
 									<select name="parecer" required="required">
 										<option value="">Selecione uma opção</option>
 										<c:choose>
-											<c:when test="${inscricao.visitaDomiciliar.parecer eq 'DEFERIDO'}">
+											<c:when test="${inscricao.visitaDomiciliar.deferimento eq 'DEFERIDO'}">
 												<option selected value="DEFERIDO">Deferido</option>
 												<option value="INDEFERIDO">Indeferido</option>
 											</c:when>
-											<c:when test="${inscricao.visitaDomiciliar.parecer eq 'INDEFERIDO'}">
+											<c:when test="${inscricao.visitaDomiciliar.deferimento eq 'INDEFERIDO'}">
 												<span>INDEFERIDO</span>
 												<option value="DEFERIDO">Deferido</option>
 												<option selected value="INDEFERIDO">Indeferido</option>
