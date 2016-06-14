@@ -15,6 +15,14 @@
 		<property name="persistenceUnitName" value="dev-test" />
 	</bean>
 	
+	<bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/mail/Session" />
+    </bean>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="session" ref="mailSession" />
+    </bean>
+	
 	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="emf" />
  	</bean>
@@ -28,6 +36,7 @@
  			</list>
  		</property>
  	</bean>
+ 	
 
 	<!-- enable the configuration of transactional behavior based on 
 		 annotations 

@@ -78,6 +78,10 @@ import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
+import br.ufc.quixada.npi.model.Email;
+import br.ufc.quixada.npi.service.EmailService;
+
+
 
 @Controller
 @RequestMapping("aluno")
@@ -101,6 +105,10 @@ public class AlunoController {
 
 	@Inject
 	private DocumentosTipoInscricaoService dtiService;
+	
+	@Inject
+	private EmailService emailService;
+
 
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
@@ -441,6 +449,24 @@ public class AlunoController {
 		
 		model.addAttribute("selecoes", selecoes);
 		
+//		Email email = new Email();
+//		String from = "romulocosta100@outlook.com";
+//		String to = "romulocosta100@gmail.com";
+//		String body = "Caros amigos, a complexidade dos estudos efetuados desafia a capacidade de equalização de alternativas às soluções ortodoxas.";
+//		
+//		
+//		email.setFrom(from);
+//		email.setSubject("Assunto");
+//		email.setText(body);
+//		email.setTo(to);
+//		try {
+//			emailService.sendEmail(email);
+//		} catch (MessagingException e) {
+//			System.out.println(">>> :"+e);
+//		}
+		
+	    System.out.println("Email!!");
+	    
 		return PAGINA_SELECOES_ABERTAS;
 	}
 
