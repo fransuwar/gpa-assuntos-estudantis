@@ -157,15 +157,6 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 	
 	@Override
-	@Transactional(readOnly = true)
-	public List<Inscricao> getDeferidosBySelecao(Selecao selecao) {
-		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.deferimento = 'true'",
-				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
-
-		return inscricoes;
-	}
-
-	@Override
 	public List<Inscricao> getClassificadosPorSelecao(Selecao selecao) {
 		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'true'",
 				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
@@ -189,6 +180,14 @@ public class InscricaoServiceImpl implements InscricaoService {
 		params.put("idInscricao", idInscricao);
 		inscricaoRepository.executeUpdate("update Inscricao set classificado =:classificado where Inscricao.id =:idInscricao", params);
 		
+	}
+
+	@Override
+	public List<Inscricao> getIndeferidosPorSelecao(Selecao selecao) {
+		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.resultado = 'INDEFERIDO'",
+				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
+
+		return inscricoes;
 	}
 
 	@Override

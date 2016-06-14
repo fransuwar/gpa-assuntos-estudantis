@@ -589,7 +589,7 @@ div.input-photo {
 	background: #e0e0e0;
 	content: "";
 	height: 10px;
-	left: -20px;ção 
+	left: -20px;
 	position: absolute;
 	top: 20px;
 	width: 50px;
@@ -930,65 +930,6 @@ input:focus, select:focus, textarea:focus{
 	width: 60%;
 }
 
-
- .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
- .toggle.ios .toggle-handle { border-radius: 20px; }
-
-
-.documentos-aluno{
-	margin-left: -40px;
-}
-
-.documentos-aluno li{
-	margin: 1%;
-	width: 17%;
-	height: 60px;
-	margin-bottom: 1%;
-	background-color: #009688;
-	border-radius: 5px;
-	border: 1px solid #dedede;
-	display: inline-block;
-	position: relative;
-	transition: all 0.2s;
-}
-
-.documentos-aluno li:hover{
-	cursor: pointer;
-	box-shadow: 1px 1px 1px #cdcdcd;
-	transition: all 0.2s;
-	transform: scale(1.2);
-}
-
-.documentos-aluno li a{
-	position: absolute;
-	color: #ffffff !important;
-	top: 50%;
-	left: 50%;
-	transform: translateY(-50%) translateX(-50%);
-	width: 100%;
-	word-wrap: break-word;
-	text-align: center;
-}
-
-.documentos-lista{
-	list-style: none;	
-	margin-left: -40px;
-}
-
-.documentos-lista li{
-	margin-bottom: 5px;	
-}
-
-.inline-block {
-	display: inline-block;
-	width: auto;
-}
-
-.form-btn {
-	margin-top: 40px;
-	text-align: right;
-}
-
-.form-btn input {
-	margin-right: 15px;
+.full-width{
+	width: 100% !important;
 }

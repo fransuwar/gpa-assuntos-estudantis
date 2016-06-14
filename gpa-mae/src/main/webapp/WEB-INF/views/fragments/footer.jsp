@@ -34,7 +34,13 @@
 <script src="<c:url value="/resources/js/libs/jquery.mask.js" />"></script>
 <script src="<c:url value="/resources/js/libs/jquery.maskMoney.js" />"></script>
 <script src="<c:url value="/resources/js/libs/list-dynamic.js" />"></script>
+
 <script src="<c:url value="/resources/js/libs/jquery.dataTables.min.js" />"></script>
+<script src="<c:url value="/resources/js/libs/jquery.dataTables.buttons.min.js" />"></script>
+<script src="<c:url value="/resources/js/libs/jquery.pdfmake.min.js" />"></script>
+<script src="<c:url value="/resources/js/libs/jquery.vfs_fonts.js" />"></script>
+<script src="<c:url value="/resources/js/libs/jquery.buttons.html5.min.js" />"></script>
+
 <script src="<c:url value="/resources/js/libs/jquery.validate.min.js" />"></script>
 <script src="<c:url value="/resources/js/libs/moment-with-locales.js"/>"></script>
 <script src="<c:url value="/resources/js/libs/jquery.steps.min.js"/>"></script>
