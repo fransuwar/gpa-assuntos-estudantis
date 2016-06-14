@@ -226,16 +226,16 @@
 									</td>
 									<td><c:choose>
 											<c:when
-												test="${inscricao.deferimentoDocumentacao eq 'NAO_AVALIADO'}">
+												test="${inscricao.documentacao.deferimento eq 'NAO_AVALIADO'}">
 												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
 											</c:when>
 											<c:when
-												test="${inscricao.deferimentoDocumentacao eq 'DEFERIDO'}">
+												test="${inscricao.documentacao.deferimento eq 'DEFERIDO'}">
 												<div class='def-sit deferido' title="Deferido">D</div>
 											</c:when>
 
 											<c:when
-												test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+												test="${inscricao.documentacao.deferimento eq 'INDEFERIDO'}">
 												<div class='def-sit indeferido' title="Indeferido">I</div>
 											</c:when>
 										</c:choose></td>

@@ -48,6 +48,33 @@
 								class="direita clicavel"> <i
 								class="glyphicon glyphicon-chevron-up"></i>
 							</span>
+							<sec:authorize access="hasAnyRole('DISCENTE')">
+								<c:if test="${inscricao.consolidacao eq false }">
+									<c:if test="${!esconderBotoes}">
+										<a id="editarInscricao"
+											href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+											<button class="btn btn-info btn-sm" title="Editar Inscrição">
+												<span class="glyphicon glyphicon-pencil"></span>
+											</button>
+										</a>
+										<a id="excluirInscricao"
+											href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
+											<button class="btn btn-danger btn-sm"
+												title="Excluir Inscrição">
+												<i class="glyphicon glyphicon-trash"></i>
+											</button>
+										</a>
+									</c:if>
+									<a id="consolidarInscricao" data-target="#modal-consolidacao"
+										data-toggle="modal"
+										data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+										<button class="btn btn-success btn-sm"
+											title="Consolidar Inscrição">
+											<i class="glyphicon glyphicon-ok"></i>
+										</button>
+									</a>
+								</c:if>
+							</sec:authorize>
 						</h3>
 					</div>
 					<div class="panel-body">
@@ -583,54 +610,53 @@
 					<div class="panel-body text-align-left">
 
 						<sec:authorize access="hasAnyRole('DISCENTE')">
-							<form id="insercaoFormularioVisita" role="form" method="POST"
-								enctype="multipart/form-data" style="width: 40%;"
-								action="<c:url value="/aluno/inscricao/adicionarDocumento/${inscricao.id}"/>">
-								Selecione o tipo de documento:<br /> <select
-									class="form-control" name="idTipo">
-									<c:forEach var="tipo"
-										items="${inscricao.selecao.tiposDeDocumento}">
-										<option value="${tipo.id}">${tipo.nome}</option>
-									</c:forEach>
-								</select> Selecione o documento:<br /> <input type="file"
-									name="formulario" /><br /> <input type="submit"
-									class="btn btn-primary" />
-							</form>
-							<hr />
-						</sec:authorize>
-
-						<c:forEach var="tipo"
-							items="${inscricao.selecao.tiposDeDocumento}">
-							<b>${tipo.nome}</b>
-							<ul class="documentos-lista">
-								<c:choose>
-									<c:when
-										test="${fn:length(inscricao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
+							<c:if test="${inscricao.consolidacao eq false }">
+								<form id="insercaoFormularioVisita" role="form" method="POST"
+									enctype="multipart/form-data" style="width: 40%;"
+									action="<c:url value="/aluno/inscricao/adicionarDocumento/${inscricao.id}"/>">
+									Selecione o tipo de documento:<br /> <select
+										class="form-control" name="idTipo">
+										<c:forEach var="tipo"
+											items="${inscricao.selecao.tiposDeDocumento}">
+											<option value="${tipo.id}">${tipo.nome}</option>
+										</c:forEach>
+									</select> Selecione o documento:<br /> <input type="file"
+										name="formulario" /><br /> <input type="submit"
+										class="btn btn-primary" />
+								</form>
+								<hr />
+							</c:if>
+							<c:forEach var="tipo"
+								items="${inscricao.selecao.tiposDeDocumento}">
+								<b>${tipo.nome}</b>
+								<ul class="documentos-lista">
+									<c:choose>
+										<c:when
+											test="${fn:length(inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
 											Nenhum documento enviado nessa categoria	
 										</c:when>
-									<c:otherwise>
-										<c:forEach var="documento"
-											items="${inscricao.documentosTipoInscricao[tipo.id].documentos}">
-											<sec:authorize access="hasAnyRole('DISCENTE')">
+										<c:otherwise>
+											<c:forEach var="documento"
+												items="${inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos}">
 												<li class=""><a class="no-decoration"
 													href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
-													<a id="excluirDocumento" href="#">
-														<button class="btn btn-danger btn-sm confirm-button"
-															aria-title="Continuar irá remover o documento, deseja prosseguir?"
-															aria-destination="<c:url value="/aluno/inscricao/removerDocumento/${inscricao.id}/${tipo.id}/${documento.id}"></c:url>"
-															title="Excluir Documento">
-															<i class="glyphicon glyphicon-trash"></i>
-														</button>
-												</a> <strong class="error text-danger"></strong></li>
-											</sec:authorize>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</ul>
-
-							<hr />
-						</c:forEach>
-						<sec:authorize access="hasAnyRole('DISCENTE')">
+													<c:if test="${inscricao.consolidacao eq false }">
+														<a id="excluirDocumento" href="#">
+															<button class="btn btn-danger btn-sm confirm-button"
+																aria-title="Continuar irá remover o documento, deseja prosseguir?"
+																aria-destination="<c:url value="/aluno/inscricao/removerDocumento/${inscricao.id}/${tipo.id}/${documento.id}"></c:url>"
+																title="Excluir Documento">
+																<i class="glyphicon glyphicon-trash"></i>
+															</button>
+														</a>
+														<strong class="error text-danger"></strong>
+													</c:if></li>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</ul>
+								<hr />
+							</c:forEach>
 							<c:if test="${inscricao.consolidacao eq false }">
 								<a id="consolidarInscricao" data-target="#modal-consolidacao"
 									data-toggle="modal"
@@ -640,19 +666,50 @@
 								</a>
 							</c:if>
 						</sec:authorize>
+
+						<sec:authorize
+							access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+							<c:forEach var="tipo"
+								items="${inscricao.selecao.tiposDeDocumento}">
+								<b>${tipo.nome}</b>
+								<ul class="documentos-lista">
+									<c:choose>
+										<c:when
+											test="${fn:length(inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
+											Nenhum documento enviado nessa categoria	
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="documento"
+												items="${inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos}">
+												<li class=""><a class="no-decoration"
+													href="<c:url value="/selecao/visualizarDocumento/${documento.id}"></c:url>">${documento.nome}</a>
+													<a id="baixarDocumento"
+													href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
+														<button class="btn btn-warning btn-sm"
+															title="Baixar Documento">
+															<i class="glyphicon glyphicon-download-alt"></i>
+														</button>
+												</a></li>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</ul>
+
+								<hr />
+							</c:forEach>
+
+						</sec:authorize>
 					</div>
 
 				</div>
-
-
-
 			</div>
+
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div class="tab-pane" id="entrevista-tab">
 					<c:choose>
 						<c:when
-							test="${inscricao.deferimentoDocumentacao == 'INDEFERIDO'}">
+							test="${inscricao.documentacao.deferimento == 'INDEFERIDO'}">
 							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
@@ -869,7 +926,7 @@
 
 							<c:choose>
 								<c:when
-									test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+									test="${inscricao.documentacao.deferimento eq 'INDEFERIDO'}">
 									<div class="alert alert-danger alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert"
 											aria-label="Close">
