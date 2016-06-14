@@ -589,12 +589,12 @@
 								<ul class="documentos-lista">
 									<c:choose>
 										<c:when
-											test="${fn:length(inscricao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
+											test="${fn:length(inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
 											Nenhum documento enviado nessa categoria	
 										</c:when>
 										<c:otherwise>
 											<c:forEach var="documento"
-												items="${inscricao.documentosTipoInscricao[tipo.id].documentos}">
+												items="${inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos}">
 												<li class=""><a class="no-decoration"
 													href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
 													<a id="excluirDocumento" href="#">
@@ -622,12 +622,12 @@
 								<ul class="documentos-lista">
 									<c:choose>
 										<c:when
-											test="${fn:length(inscricao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
+											test="${fn:length(inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
 											Nenhum documento enviado nessa categoria	
 										</c:when>
 										<c:otherwise>
 											<c:forEach var="documento"
-												items="${inscricao.documentosTipoInscricao[tipo.id].documentos}">
+												items="${inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos}">
 												<li class=""><a class="no-decoration"
 													href="<c:url value="/selecao/visualizarDocumento/${documento.id}"></c:url>">${documento.nome}</a>
 													<a id="baixarDocumento"
@@ -649,47 +649,7 @@
 
 				</div>
 
-				<div class="panel panel-default panel-primary">
-					<div class="panel-body text-align-left">
-						<div class="panel-body">
 
-							<form:form id="relatorioForm" role="form"
-								modelAttribute="entrevista" commandName="entrevista"
-								servletRelativeAction="${url}" method="POST"
-								cssClass="form-horizontal">
-
-								<fieldset class="form-group row">
-									<div class="col-sm-5">
-										<label for="observacao" class="col-sm-1 control-label">
-											<b>Observação</b>
-										</label>
-										<form:textarea class="col-sm-5 form-control" name="observacao"
-											rows="3" id="observacao" type="text" path="observacao"
-											placeholder="Observação"></form:textarea>
-										<span class="help-block"></span>
-										<div class="error-validation">
-											<form:errors path="observacao"></form:errors>
-										</div>
-									</div>
-								</fieldset>
-
-								<fieldset class="form-group row">
-									<div class="col-sm-5">
-										<label for="deferimento" class="col-sm-1 control-label">
-											<b>Deferimento</b>
-										</label> <select name="deferimento" id="deferimento"
-											class="form-control col-sm-2">
-											<option value="DEFERIDO">Deferido</option>
-											<option value="INDEFERIDO">Indeferido</option>
-										</select>
-									</div>
-								</fieldset>
-
-								<input class="btn btn-primary" type="submit" value="Enviar" />
-							</form:form>
-						</div>
-					</div>
-				</div>
 			</div>
 
 			<sec:authorize
@@ -697,7 +657,7 @@
 				<div class="tab-pane" id="entrevista-tab">
 					<c:choose>
 						<c:when
-							test="${inscricao.deferimentoDocumentacao == 'INDEFERIDO'}">
+							test="${inscricao.documentacao.deferimento == 'INDEFERIDO'}">
 							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
@@ -914,7 +874,7 @@
 
 							<c:choose>
 								<c:when
-									test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+									test="${inscricao.documentacao.deferimento eq 'INDEFERIDO'}">
 									<div class="alert alert-danger alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert"
 											aria-label="Close">

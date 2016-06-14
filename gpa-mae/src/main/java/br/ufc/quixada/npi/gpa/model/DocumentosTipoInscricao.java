@@ -19,6 +19,9 @@ public class DocumentosTipoInscricao {
 	
 	@OneToMany
 	private List<Documento> documentos;
+	
+	@OneToOne
+	private TipoDocumento tipo;
 
 	public List<Documento> getDocumentos() {
 		if(documentos == null){
@@ -38,7 +41,13 @@ public class DocumentosTipoInscricao {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
+
+	public TipoDocumento getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoDocumento tipo) {
+		this.tipo = tipo;
+	}
 	
 }

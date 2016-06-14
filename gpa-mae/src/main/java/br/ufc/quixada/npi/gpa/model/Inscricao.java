@@ -1,8 +1,6 @@
 package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -47,8 +44,6 @@ public class Inscricao {
 	private String observacoes;
 
 	//referente ao deferimento de documentação
-	@Enumerated(EnumType.STRING)
-	private Resultado deferimentoDocumentacao;
 	
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
@@ -68,19 +63,22 @@ public class Inscricao {
 	@ManyToOne
 	private Aluno aluno;
 	
-	@OneToMany
-	private Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	private AnaliseDocumentacao documentacao;
 	
-	public Map<Integer, DocumentosTipoInscricao> getDocumentosTipoInscricao() {
-		if(documentosTipoInscricao == null){
-			documentosTipoInscricao = new HashMap<>();
-		}
-		return documentosTipoInscricao;
-	}
-
-	public void setDocumentosTipoInscricao(Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao) {
-		this.documentosTipoInscricao = documentosTipoInscricao;
-	}
+//	@OneToMany
+//	private Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
+//	
+//	public Map<Integer, DocumentosTipoInscricao> getDocumentosTipoInscricao() {
+//		if(documentosTipoInscricao == null){
+//			documentosTipoInscricao = new HashMap<>();
+//		}
+//		return documentosTipoInscricao;
+//	}
+//
+//	public void setDocumentosTipoInscricao(Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao) {
+//		this.documentosTipoInscricao = documentosTipoInscricao;
+//	}
 
 	private boolean realizarVisita;
 			
@@ -161,14 +159,6 @@ public class Inscricao {
 		this.visitaDomiciliar = visitaDomiciliar;
 	}
 
-	public Resultado getDeferimentoDocumentacao() {
-		return deferimentoDocumentacao;
-	}
-
-	public void setDeferimentoDocumentacao(Resultado deferimento) {
-		this.deferimentoDocumentacao = deferimento;
-	}
-
 	public Entrevista getEntrevista() {
 		return entrevista;
 	}
@@ -191,6 +181,15 @@ public class Inscricao {
 
 	public void setClassificado(boolean classificado) {
 		this.classificado = classificado;
+	}
+	
+
+	public AnaliseDocumentacao getDocumentacao() {
+		return documentacao;
+	}
+
+	public void setDocumentacao(AnaliseDocumentacao documentacao) {
+		this.documentacao = documentacao;
 	}
 
 	@Override
