@@ -57,6 +57,7 @@ import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
+import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
@@ -79,6 +80,9 @@ public class CoordenadorController {
 	
 	@Inject
 	private InscricaoService inscricaoService;
+	
+	@Inject
+	private InscricaoRepository inscricaoRepository;
 	
 	
 	@RequestMapping(value = "excluir-tipo-documento/{id}", method = RequestMethod.GET)
@@ -275,17 +279,12 @@ public class CoordenadorController {
 
 	@RequestMapping(value =  "selecao/excluir/{idSelecao}" , method = RequestMethod.GET)
 	public String excluirSelecao(@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect) {
-
 		Selecao selecao = this.selecaoService.getSelecaoPorId(idSelecao);
-
-		if (selecao != null && selecao.getInscritos().isEmpty()) {
-
+		if (selecao != null && inscricaoRepository.countBySelecao_Id(idSelecao) == 0) {
 			this.selecaoService.delete(selecao);
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_REMOVIDA);
-
 		} else {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS);
-
 		}
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -352,7 +351,6 @@ public class CoordenadorController {
 						documento.setNome(mfiles.getOriginalFilename());
 						documento.setTipo(mfiles.getContentType());
 						
-						documentoService.salvarDocumento(documento);
 						documentoService.salvarDocumento(documento);
 						
 						Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);

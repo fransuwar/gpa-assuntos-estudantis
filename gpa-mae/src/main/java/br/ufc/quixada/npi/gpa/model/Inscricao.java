@@ -1,6 +1,9 @@
 package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,6 +42,8 @@ public class Inscricao implements Comparable<Inscricao>{
 	//referente ao resultado final
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
+	
+	private boolean classificado;
 
 	private String observacoes;
 
@@ -63,10 +69,23 @@ public class Inscricao implements Comparable<Inscricao>{
 	@ManyToOne
 	private Aluno aluno;
 	
-	private boolean classificado;
-	
 	private boolean realizarVisita;
+	
+	private boolean consolidacao;
 			
+
+	public boolean isConsolidacao() {
+		return consolidacao;
+	}
+
+	public void setConsolidacao(boolean consolidacao) {
+		this.consolidacao = consolidacao;
+	}
+
+
+	
+	@OneToMany
+	private List<Documento> documentos;
 	public boolean isClassificado() {
 		return classificado;
 	}
@@ -74,6 +93,21 @@ public class Inscricao implements Comparable<Inscricao>{
 	public void setClassificado(boolean classificado) {
 		this.classificado = classificado;
 	}
+
+	@OneToMany
+	private Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
+	
+	public Map<Integer, DocumentosTipoInscricao> getDocumentosTipoInscricao() {
+		if(documentosTipoInscricao == null){
+			documentosTipoInscricao = new HashMap<>();
+		}
+		return documentosTipoInscricao;
+	}
+
+	public void setDocumentosTipoInscricao(Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao) {
+		this.documentosTipoInscricao = documentosTipoInscricao;
+	}
+				
 
 	public boolean isRealizarVisita() {
 		return realizarVisita;
@@ -173,6 +207,15 @@ public class Inscricao implements Comparable<Inscricao>{
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+	
+
+	public List<Documento> getDocumentos() {
+		return documentos;
+	}
+
+	public void setDocumentos(List<Documento> documentos) {
+		this.documentos = documentos;
 	}
 
 	@Override

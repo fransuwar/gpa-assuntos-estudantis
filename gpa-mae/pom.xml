@@ -26,7 +26,7 @@
 		<bootbox.version>4.2.0</bootbox.version>
 
 		<!-- Spring -->
-		<spring.version>4.0.1.RELEASE</spring.version>
+		<spring.version>4.3.0.RELEASE</spring.version>
 
 		<!-- FileUpload -->
 		<commons-fileupload.version>1.2.1</commons-fileupload.version>
@@ -68,12 +68,24 @@
 	</repositories>
 
 	<dependencies>
-		<!-- NPI Core -->
+	
+	<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-core</artifactId>
+    <version>2.7.4</version>
+</dependency>
 
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.7.4</version>
+</dependency>
+		<!-- NPI Core -->
 		<dependency>
 			<groupId>br.ufc.quixada.npi</groupId>
 			<artifactId>npi-core-api</artifactId>
 			<version>${npi.core.version}</version>
+			
 		</dependency>
 
 		<dependency>
@@ -139,6 +151,16 @@
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>1.10.1.RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-beans</artifactId>
+		    <version>${spring.version}</version>
+		  </dependency>
 
 		<!-- FileUpload -->
 		<dependency>
@@ -268,7 +290,17 @@
 			<artifactId>joda-time</artifactId>
 			<version>2.7</version>
 		</dependency>
+
+	<!-- http://mvnrepository.com/artifact/javax.mail/mail -->
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+		<version>1.4</version>
+	</dependency>
+		
 	</dependencies>
+	
+	
 
 	<build>
 		<finalName>MAE</finalName>

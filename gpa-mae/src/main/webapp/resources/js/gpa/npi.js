@@ -1,7 +1,59 @@
 var linha;
 
+//Função genérica para iniciar os datatables
+function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
+	
+	emptyTableMsg = (emptyTableMsg == null || emptyTableMsg == "") ? "Nenhum registro encontrado" : emptyTableMsg;
+	
+	var dataTable = $(idTable).DataTable({
+		"paging": isPaging,
+		"order": order,
+		"ordering": isOrdering,
+		"bInfo" : false,
+		"searching": isSearching,
+		"language": {
+			"sEmptyTable": emptyTableMsg,
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		}
+	});
+	return dataTable;
+}
+
 $(document).ready(function(){
 
+	$.fn.dataTable.ext.errMode = 'none';
+	
+	initDataTable(
+			"#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
+			"#tabela-ranking-classificados, #tabela-inscritos" +
+			"#table-visualiza-info-auxilio, #tabela-detalhes-selecao-servidores", 
+	false, false, false, false, "");
+	
+	
+	var tabelaClassificaveis = initDataTable('#tabela-classificaveis', false, false, false,
+			[[ 2, "cresc" ]], "Nenhum Aluno Classificável");
+			
+	
+	var tabelaClassificados = initDataTable('#tabela-classificados', false, false, false,
+			[[ 2, "cresc" ]], "Adicione pelo menos um aluno para a tabela dos classificados");
+		
+
+	$("#confirm-delete").on("shown.bs.modal", function(e) {
+		$(this).find(".btn-danger").attr("href", $(e.relatedTarget).data("href"));
+	});
+	
+	$('#confirmar-consolidacao').modal('show');
+	
+	$('#btn-nao-consolidar').click(function(){
+		$("#valor-consolidacao").val(false);
+		
+	});
+	
+    $('#btn-consolidar').click(function(){
+    	$("#valor-consolidacao").val(true);
+		
+	});
+	
 	$('[data-toggle="tooltip"]').tooltip();
 
 	selecionarAba($('#aba').val());
@@ -12,31 +64,6 @@ $(document).ready(function(){
 		$("#formPessoaFamilia").submit();
 	});
 
-	var tabelaClassificaveis = $('#tabela-classificaveis').dataTable({
-		"language": {
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		},
-		"paging": false,
-		"order": [[ 2, "cresc" ]],
-		"ordering": false,
-		"bInfo" : false,
-		"language": {
-			"emptyTable": "Nenhum Aluno Classificável"
-		}
-	});
-
-	var tabelaClassificados = $('#tabela-classificados').dataTable({
-		"language": {
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		},
-		"paging": false,
-		"order": [[ 2, "cresc" ]],
-		"ordering": false,
-		"bInfo" : false,
-		"language": {
-			"emptyTable": "Adicione pelo menos um aluno para a tabela dos classificados"
-		}
-	});
 
 	function getConfigsParaPDF(containerId, tableId){
 		return {
@@ -228,10 +255,6 @@ $(document).ready(function(){
 			ano: {
 				required: true
 			},
-			quantidadeVagas: {
-				required: true
-			},
-
 			sequencial:{
 				required:true
 			},
@@ -297,11 +320,8 @@ $(document).ready(function(){
 	$("div.error-validation:has(span)").find("span").css("color","#a94442");
 	$("div.error-validation:has(span)").find("span").parent().parent().addClass("has-error has-feedback");
 
-	$("#confirm-delete").on("show.bs.modal",
-			function(e) {
-		$(this).find(".btn-danger").attr("href",
-				$(e.relatedTarget).data("href"));
-	});
+	
+	
 
 	$("#btnAdicionar").click(function() {
 		$("#myModalLabel").text("Adicionar contato");
@@ -469,7 +489,7 @@ function submeterForm() {
 			dataType : "json",
 			url : "http://localhost:8080/MAE/edital",
 			data : JSON.stringify(data),
-
+			
 		});
 
 		request.done(function(data) {
