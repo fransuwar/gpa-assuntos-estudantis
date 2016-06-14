@@ -170,8 +170,7 @@ public class CoordenadorController {
 		}
 
 		this.selecaoService.save(selecao);
-		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_CADASTRADA);
-		return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
+		return REDIRECT_PAGINA_DETALHES_SELECAO + selecao.getId();
 
 	}
 
