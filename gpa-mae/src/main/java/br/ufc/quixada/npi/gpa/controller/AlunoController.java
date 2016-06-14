@@ -259,7 +259,8 @@ public class AlunoController {
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 		
-		model = this.carregarFormularioAuxilioMoradia(model);
+		Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+		model.mergeAttributes(modelFormAuxilio.asMap());
 		
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
@@ -292,7 +293,8 @@ public class AlunoController {
 			model.addAttribute("action", "inscricao");
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
 			
-			model = this.carregarFormularioAuxilioMoradia(model);
+			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+			model.mergeAttributes(modelFormAuxilio.asMap());
 			
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
@@ -358,7 +360,8 @@ public class AlunoController {
 					model.addAttribute("inscricao", inscricao);
 					model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
 					
-					model = this.carregarFormularioAuxilioMoradia(model);
+					Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+					model.mergeAttributes(modelFormAuxilio.asMap());
 					
 					model.addAttribute("selecao", inscricao.getSelecao());
 
@@ -439,7 +442,8 @@ public class AlunoController {
 			model.addAttribute("action", "inscricao");
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
 			
-			model = this.carregarFormularioAuxilioMoradia(model);
+			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+			model.mergeAttributes(modelFormAuxilio.asMap());
 			
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
