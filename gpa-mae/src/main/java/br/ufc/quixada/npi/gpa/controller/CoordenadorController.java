@@ -422,7 +422,6 @@ public class CoordenadorController {
 	public String getInformacoesRelatorioFinal(@PathVariable("idSelecao") Integer idSelecao, Model modelo){
 		
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
-		List<Inscricao> inscricoes = selecao.getInscritos();
 		
 		//dividi o resultado já em 3 listas a serem exibidas na jsp
 		
