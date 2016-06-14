@@ -22,7 +22,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_REALIZAR_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRITOS_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 
@@ -276,16 +276,16 @@ public class ServidorController {
 						return PAGINA_RELATORIO_VISITA;
 					}else{
 						redirect.addFlashAttribute("erro", MENSAGEM_ERRO_REALIZACAO_DE_VISITA_DOMICILIAR);
-						return REDIRECT_PAGINA_INSCRITOS_SELECAO + inscricao.getSelecao().getId();
+						return REDIRECT_PAGINA_DETALHES_SELECAO + inscricao.getSelecao().getId();
 					}
 				}else{
 					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_VISITA_DOMICILIAR_JA_EXISTENTE);
-					return REDIRECT_PAGINA_INSCRITOS_SELECAO + inscricao.getSelecao().getId();
+					return REDIRECT_PAGINA_DETALHES_SELECAO + inscricao.getSelecao().getId();
 				}
 
 			} else{
 				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_VISITA);
-				return REDIRECT_PAGINA_INSCRITOS_SELECAO + inscricao.getSelecao().getId();			
+				return REDIRECT_PAGINA_DETALHES_SELECAO + inscricao.getSelecao().getId();			
 			}
 		}
 	}
@@ -311,7 +311,7 @@ public class ServidorController {
 		inscricaoService.update(inscricao);
 		redirect.addFlashAttribute("info", MENSAGEM_VISITA_CADASTRADA);
 
-		return REDIRECT_PAGINA_INSCRITOS_SELECAO  + inscricao.getSelecao().getId();
+		return REDIRECT_PAGINA_DETALHES_SELECAO  + inscricao.getSelecao().getId();
 	}
 
 	@RequestMapping(value = { "informacoes/visita-domiciliar/{idVisita}" }, method = RequestMethod.GET)
@@ -322,7 +322,7 @@ public class ServidorController {
 		if (visitaDomiciliar == null ) {
 
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_VISITA_INEXISTENTE);
-			return REDIRECT_PAGINA_INSCRITOS_SELECAO;
+			return REDIRECT_PAGINA_DETALHES_SELECAO;
 		}
 
 		model.addAttribute("relatorio", visitaDomiciliar);
