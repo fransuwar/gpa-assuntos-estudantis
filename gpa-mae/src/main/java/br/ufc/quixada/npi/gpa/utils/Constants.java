@@ -20,8 +20,6 @@ public class Constants {
 	
 	public static final String PAGINA_INFORMACOES_SELECAO_SERVIDOR	= "servidor/detalhesSelecaoServidor";
 	
-	public static final String PAGINA_LISTAR_INSCRITOS_SELECAO		= "selecao/listarInscritos";
-	
 	public static final String PAGINA_LISTAR_ALUNOS 				= "administrador/listarAlunos";
 	
 	public static final String PAGINA_FORMULARIO_PREENCHIDO_SELECAO	= "selecao/formularioInscricaoPreenchido";
@@ -65,6 +63,8 @@ public class Constants {
 	public static final String PAGINA_SELECOES_ABERTAS = "aluno/listarSelecoes";
 	
 	public static final String PAGINA_AVALIAR_DOCUMENTACAO = "servidor/avaliarDocumentacao";
+	
+	public static final String PAGINA_RELATORIO_FINAL = "selecao/resultadoFinal";
 
 	// public static final String PAGINA_DETALHES_SELECAO_SERVIDOR =
 	// "servidor/detalhesSelecao";
@@ -102,6 +102,8 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO = "redirect:/servidor/detalhes/inscricao/";
 	
 	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO = "redirect:/aluno/inscricao/detalhes/";
+	
+	public static final String REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO = "redirect:/aluno/selecao/listar";
 	
 	/** Mensagens */
 
@@ -240,6 +242,8 @@ public class Constants {
 	public static final String MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO = "Selecione pelo menos um aluno classificado";
 
 	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO= "Não é possível excluir esse arquivo";
+	
+	public static final String MENSAGEM_ERRO_DADOS_INSCRICAO= "Verifique os dados inseridos e tente novamente";
 	
 	/** Perfis */
 

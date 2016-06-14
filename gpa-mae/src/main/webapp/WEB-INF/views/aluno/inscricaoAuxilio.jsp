@@ -16,7 +16,7 @@
 	<c:set var="botao" value="Finalizar Inscrição"></c:set>
 </c:if>
 <c:if test="${action eq 'editar' }">
-	<c:url var="url" value="/aluno/inscricao/editar/auxilio-moradia"></c:url>
+	<c:url var="url" value="/aluno/inscricao/editar/${idInscricao}"></c:url>
 	<c:set var="titulo" value="Editar Inscrição"></c:set>
 	<c:set var="botao" value="Atualizar Inscrição"></c:set>
 </c:if>
@@ -138,10 +138,12 @@
 										<label class='f-title'>*Estas informações estão corretas?</label>
 
 										<div class='f-content'>
-											<input type="checkbox" name="minhas-informacoes" id="minhas-informacoes" required="required" />
-											<span>Sim, as informações estão corretas</span><br/>
-											<span id='nao-minhas-informacoes'>Não. Desejo
-												<a href="#" onclick="novaAba('http://identidadepessoa.intranet/')">alterar informações</a></span>
+											<input type="checkbox" name="minhas-informacoes"
+												id="minhas-informacoes" required="required" /> Sim, as
+											informações estão corretas<br /> <span
+												id='nao-minhas-informacoes'>Não, desejo </span><a href="#"
+												onclick="novaAba('http://identidadepessoa.intranet/')">alterar
+													informações</a>
 										</div>
 									</div>
 

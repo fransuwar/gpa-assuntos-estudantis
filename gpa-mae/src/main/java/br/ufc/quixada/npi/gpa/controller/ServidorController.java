@@ -17,7 +17,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_A
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_REALIZAR_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA;
@@ -37,7 +36,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -329,13 +327,13 @@ public class ServidorController {
 
 		return PAGINA_INFORMACOES_RELATORIO;
 	}
-	@RequestMapping(value = "inscritos/{idSelecao}", method = RequestMethod.GET)
+	/*@RequestMapping(value = "inscritos/{idSelecao}", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("idSelecao") Integer idSelecao, ModelMap model) {
 		model.addAttribute("inscricoes", inscricaoService.getInscricoesPorSelecao(idSelecao));
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
 
-	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
+	*/@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao,Authentication auth, Model model, RedirectAttributes redirect){
 
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
