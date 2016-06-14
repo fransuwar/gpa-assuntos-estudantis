@@ -1,4 +1,5 @@
 package br.ufc.quixada.npi.gpa.controller;
+
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
@@ -20,6 +21,8 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -255,15 +258,10 @@ public class AlunoController {
 
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
-		model.addAttribute("estado", Estado.values());
-		model.addAttribute("situacaoImovel", SituacaoImovel.values());
-		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
-		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-		model.addAttribute("grauParentesco", GrauParentesco.values());
-		model.addAttribute("moraCom", MoraCom.values());
+		
+		Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+		model.mergeAttributes(modelFormAuxilio.asMap());
+		
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
 
@@ -277,53 +275,32 @@ public class AlunoController {
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model, @RequestParam("fileFoto") MultipartFile foto) {
 		
-		try {
-			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
+		if(!this.verificarExtensaoFoto(foto)){
+			redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
+			//Adicionando o erro no result.
+			result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
+		}
 
-			List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
-			/*
-			 * Conferindo se o aluno enviou uma foto e o formato do arquivo
-			 * passado é um dos formatos do array acima.
-			 * A inscrição pode ser efetuada mesmo se o aluno não enviar a foto.
-			 */
-			if( foto.getSize() == 0 ){
-				auxilioMoradia.setFoto(null);
-			}else if(foto.getSize() > 0 && formatos.contains(multipartFile.getContentType())){
-				auxilioMoradia.setFoto(foto.getBytes());
-			}else{
-				redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
-				//Adicionando o erro no result.
-				result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
-			}
-		} catch (IOException e) {
+		try{
+			auxilioMoradia.setFoto(this.verificarConteudoFoto(foto));
+		}catch(IOException exception){
 			result.addError(new ObjectError("error", MENSAGEM_ERRO_UPLOAD_FOTO));
 			redirect.addFlashAttribute("error", MENSAGEM_ERRO_UPLOAD_FOTO);
 		}
 
-		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
-		if(comQuemMora != null){
-			for (String m : comQuemMora) {
-				ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));
-				comQuemMoraList.add(mora);
-			}
-		}
-
-		auxilioMoradia.setComQuemMora(comQuemMoraList);
-
 		if (result.hasErrors()) {
+
 			model.addAttribute("action", "inscricao");
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
-			model.addAttribute("estado", Estado.values());
-			model.addAttribute("situacaoImovel", SituacaoImovel.values());
-			model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-			model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-			model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-			model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
-			model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-			model.addAttribute("moraCom", MoraCom.values());
-			model.addAttribute("grauParentesco", GrauParentesco.values());
+			
+			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+			model.mergeAttributes(modelFormAuxilio.asMap());
+			
 			model.addAttribute("idSelecao", idSelecao);
 			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
+
+			redirect.addFlashAttribute("error", MENSAGEM_ERRO_DADOS_INSCRICAO);
+
 
 
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
@@ -346,6 +323,8 @@ public class AlunoController {
 				inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
 				inscricao.setDeferimentoDocumentacao(Resultado.NAO_AVALIADO);
 				inscricao.setResultado(Resultado.NAO_AVALIADO);
+				auxilioMoradia.setComQuemMora(this.adicionarPessoaFamilia(comQuemMora));
+
 
 				inscricaoService.save(inscricao);
 			} else {
@@ -358,7 +337,7 @@ public class AlunoController {
 
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+		return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 	}
 
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.GET)
@@ -380,15 +359,10 @@ public class AlunoController {
 
 					model.addAttribute("inscricao", inscricao);
 					model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
-					model.addAttribute("estado", Estado.values());
-					model.addAttribute("situacaoImovel", SituacaoImovel.values());
-					model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-					model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-					model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-					model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
-					model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-					model.addAttribute("moraCom", MoraCom.values());
-					model.addAttribute("grauParentesco", GrauParentesco.values());
+					
+					Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+					model.mergeAttributes(modelFormAuxilio.asMap());
+					
 					model.addAttribute("selecao", inscricao.getSelecao());
 
 					return PAGINA_INSCREVER_AUXILIO_MORADIA;
@@ -444,6 +418,58 @@ public class AlunoController {
 		return PAGINA_SELECOES_ABERTAS;
 	}
 
+	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.POST)
+	public String editarInscricaoPost(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
+			BindingResult result, @RequestParam(value="mora", required=false) List<String> comQuemMora, 
+			Authentication auth, RedirectAttributes redirect, @RequestParam("idSelecao") Integer idSelecao,
+			Model model, @RequestParam("fileFoto") MultipartFile foto,	@PathVariable("idInscricao") Integer idInscricao) {
+
+		if(!this.verificarExtensaoFoto(foto)){
+			redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
+			//Adicionando o erro no result.
+			result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
+		}
+
+		try{
+			auxilioMoradia.setFoto(this.verificarConteudoFoto(foto));
+		}catch(IOException exception){
+			result.addError(new ObjectError("error", MENSAGEM_ERRO_UPLOAD_FOTO));
+			redirect.addFlashAttribute("error", MENSAGEM_ERRO_UPLOAD_FOTO);
+		}
+
+		if (result.hasErrors()) {
+
+			model.addAttribute("action", "inscricao");
+			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
+			
+			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+			model.mergeAttributes(modelFormAuxilio.asMap());
+			
+			model.addAttribute("idSelecao", idSelecao);
+			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
+
+			redirect.addFlashAttribute("error", MENSAGEM_ERRO_DADOS_INSCRICAO);
+
+			return PAGINA_INSCREVER_AUXILIO_MORADIA;
+
+		}else{
+
+			Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
+
+			auxilioMoradia.setComQuemMora(this.adicionarPessoaFamilia(comQuemMora));
+
+			inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
+
+			this.inscricaoService.update(inscricao);
+
+		}
+
+		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EDITADA);
+
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
+
+	}
+
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
@@ -468,13 +494,14 @@ public class AlunoController {
 		if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
 			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
-
+			
 		} else{
 			inscricaoService.delete(inscricao);
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
+
 		}
 
-		return PAGINA_INSCRICOES_ALUNO;
+		return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 
 	}
 
@@ -511,6 +538,63 @@ public class AlunoController {
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
 
+	}
+	
+	public List<ComQuemMora> adicionarPessoaFamilia(List<String> pessoasFamilia){
+		
+		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
+		
+		if(pessoasFamilia != null){
+			
+			for (String m : pessoasFamilia) {
+				ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));
+				comQuemMoraList.add(mora);
+			}
+		}
+		
+		return comQuemMoraList;
+	}
+
+	public boolean verificarExtensaoFoto(MultipartFile foto){
+
+		CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
+
+		List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
+		
+		if(foto.getSize() == 0) return true;
+		return (foto.getSize() > 0 && formatos.contains(multipartFile.getContentType()));
+
+	}
+
+	public byte[] verificarConteudoFoto(MultipartFile foto) throws IOException{
+
+		/*
+		 * Conferindo se o aluno enviou uma foto
+		 * A inscrição pode ser efetuada mesmo se o aluno não enviar a foto.
+		 */
+
+		if( foto.getSize() == 0 ){
+			return null;
+		}else{
+			return foto.getBytes();
+		}
+
+	}
+	
+	public Model carregarFormularioAuxilioMoradia(Model model){
+		
+		model.addAttribute("estado", Estado.values());
+		model.addAttribute("situacaoImovel", SituacaoImovel.values());
+		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
+		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
+		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
+		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
+		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
+		model.addAttribute("moraCom", MoraCom.values());
+		model.addAttribute("grauParentesco", GrauParentesco.values());
+		
+		return model;
+		
 	}
 
 	@RequestMapping(value = "/inscricao/adicionarDocumento/{idInscricao}", method = RequestMethod.POST)
