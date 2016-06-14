@@ -12,7 +12,7 @@
 <html>
 <head>
 <jsp:include page="../fragments/bodyHeader.jsp" />
-<title>Detalhes da seleÃ§Ã£o</title>
+<title>Detalhes da seleção</title>
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
@@ -20,7 +20,7 @@
 		
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<div class="panel-title">DETALHES DA SELEÃÃO</div>
+				<div class="panel-title">DETALHES DA SELEÇÃO</div>
 			</div>
 
 			<div class="panel-body">
@@ -31,13 +31,13 @@
 					
 							<a  class="btn btn-info" id="editar" title="Editar" type="button"
 								href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
-									Editar inscriÃ§Ã£o <span class="glyphicon glyphicon-pencil"></span>
+									Editar inscrição <span class="glyphicon glyphicon-pencil"></span>
 							</a>
 						
 							<a class=" btn btn-danger" id="editar" title="Editar"
 								href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id }" ></c:url>"
-								onclick='return confirmarLink("Prosseguir farÃ¡ com que sua inscriÃ§Ã£o seja excluÃ­da. Deseja continuar?")'>
-								Cancelar InscriÃ§Ã£o
+								onclick='return confirmarLink("Prosseguir fará com que sua inscrição seja excluída. Deseja continuar?")'>
+								Cancelar Inscrição
 								 <span class="glyphicon glyphicon-remove"></span>
 							</a>
 							
@@ -57,14 +57,14 @@
 				
 				<div class='f-container s3'>
 
-					<label class='f-title'>NÃºmero do Edital:</label>
+					<label class='f-title'>Número do Edital:</label>
 					<div class='f-content'>${selecao.sequencial}/${selecao.ano}</div>
 
 				</div>
 
 				<div class='f-container s3'>
 
-					<label class='f-title'>Tipo de SeleÃ§Ã£o:</label>
+					<label class='f-title'>Tipo de Seleção:</label>
 					<div class='f-content'>${selecao.tipoSelecao.nome}</div>
 
 				</div>
@@ -78,9 +78,9 @@
 
 				<div class='f-container s3'>
 
-					<label class='f-title'>PerÃ­odo de inscriÃ§Ã£o:</label>
+					<label class='f-title'>Período de inscrição:</label>
 					<div class='f-content'>
-						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" /> atÃ© <fmt:formatDate value="${selecao.dataTermino}"
+						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" /> até <fmt:formatDate value="${selecao.dataTermino}"
 							pattern="dd/MM/yyyy" />
 					</div>
 
@@ -88,7 +88,7 @@
 
 				<div class='f-container s3'>
 
-					<label class='f-title'>ResponsÃ¡vel:</label>
+					<label class='f-title'>Responsável:</label>
 					<div class='f-content'>${selecao.responsavel.pessoa.nome}</div>
 
 				</div>
