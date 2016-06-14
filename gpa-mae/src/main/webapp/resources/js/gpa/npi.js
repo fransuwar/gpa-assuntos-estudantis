@@ -38,6 +38,58 @@ $(document).ready(function(){
 		}
 	});
 
+	function getConfigsParaPDF(containerId, tableId){
+		return {
+			language: {
+				url : "/MAE/resources/js/Portuguese-Brasil.json"
+			},
+			paging: false,
+			order: [[ 2, "cresc" ]],
+			ordering: false,
+			bInfo : false,
+			"columnDefs": [
+			               { className: "dt-body-left", "targets": [ 0 ] }
+			               ],
+			               dom: 'Bfrtip',
+			               buttons: [
+			                         {
+			                        	 extend: 'pdf',
+			                        	 text: 'Exportar como PDF',
+			                        	 customize: function(doc){
+			                        		 var colCount = new Array();
+			                        		 $('#'+tableId).find('tbody tr:first-child td').each(function(){
+			                        			 if($(this).attr('colspan')){
+			                        				 for(var i=1;i<=$(this).attr('colspan');$i++){
+			                        					 colCount.push('*');
+			                        				 }
+			                        			 }else{ colCount.push('*'); }
+			                        		 });
+			                        		 doc.content[1].table.widths = colCount;
+			                        	 }
+			                         }
+			                         ],
+			                         initComplete: function(settings, json) {
+
+			                        	 $('.buttons-pdf').parent().css('float', 'right');
+			                        	 $('.buttons-pdf').parent().css('margin-top', '-30px');
+			                        	 $('.buttons-pdf').parent().appendTo('#'+containerId);
+			                        	 $('.buttons-pdf').attr('class', 'btn btn-primary');
+
+			                         }
+		};
+	}
+
+	$('#resultadoFinalTableClassificados').DataTable( 
+			getConfigsParaPDF("buttons-container1", "resultadoFinalTableClassificados")
+	);
+
+	$('#resultadoFinalTableReservas').DataTable( 
+			getConfigsParaPDF("buttons-container2", "resultadoFinalTableReservas")
+	);
+	
+	$('#resultadoFinalTableIndeferidos').DataTable( 
+			getConfigsParaPDF("buttons-container3", "resultadoFinalTableIndeferidos")
+	);
 
 	$("#pesquisarClassificaveis").keyup(function() {
 		tabelaClassificaveis.fnFilter(this.value);

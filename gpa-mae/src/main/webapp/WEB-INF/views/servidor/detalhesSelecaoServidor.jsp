@@ -71,17 +71,22 @@
 						</div>
 					</a>
 				</div>
-
-				<div class="card">
-					<a href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
+				
+					<div class="card dropdown">
+					<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 						<div class="card-content">
 							<div class="card-icon">
 								<i class="fa fa-file-text"></i>
 							</div>
-							<div class="card-description">RELATÓRIO VISITAS</div>
+							<div class="card-description">RELATÓRIO</div>
 						</div>
 
 					</a>
+
+					<ul class="dropdown-menu">
+						<li><a href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">Visitas</a></li>
+						<li><a href="<c:url value="/coordenador/comissao/relatorioFinal/${selecao.id}"></c:url>">Final</a></li>
+					</ul>
 				</div>
 
 				<div class="card">

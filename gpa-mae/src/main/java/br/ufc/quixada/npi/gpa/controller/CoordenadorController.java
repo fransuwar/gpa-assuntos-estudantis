@@ -21,11 +21,11 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_ATRIBUIR_COMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_CADASTRAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_GERENCIAR_DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_FINAL;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_FINAL;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 
 import java.io.IOException;
@@ -51,7 +51,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -62,6 +61,7 @@ import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
+import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
 @Controller
@@ -429,37 +429,8 @@ public class CoordenadorController {
 		//dividi o resultado já em 3 listas a serem exibidas na jsp
 		
 		List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
-		List<Inscricao> reservas = new ArrayList<>();
-		List<Inscricao> indeferidos = new ArrayList<>();
-		
-		
-		for(Inscricao inscricao : inscricoes){
-			
-			//se essa inscrição foi deferida nas 3 etapas ela é classificado ou reserva, então vou adicionando tudo na lista de reservas
-			if(inscricao.getDeferimentoDocumentacao().equals(Resultado.DEFERIDO) &&
-					inscricao.getEntrevista().getDeferimento().equals(Resultado.DEFERIDO) &&
-					inscricao.getVisitaDomiciliar().getDeferimento().equals(Resultado.DEFERIDO)){
-				
-				reservas.add(inscricao);
-			}
-			
-			//se nao for o caso, ele foi indeferido em alguma das etapas
-			else{
-				indeferidos.add(inscricao);
-			}
-			
-			classificados.add(inscricao);
-			classificados.add(inscricao);
-			
-			reservas.add(inscricao);
-			reservas.add(inscricao);
-			
-			indeferidos.add(inscricao);
-			indeferidos.add(inscricao);
-		}
-		
-		//nos reservas vão constar tanto os classificados como os reservas, então tiro de lá os que já estão classificados
-//		reservas.removeAll(classificados);
+		List<Inscricao> reservas = inscricaoService.getClassificaveisPorSelecao(selecao);
+		List<Inscricao> indeferidos = inscricaoService.getIndeferidosPorSelecao(selecao);
 		
 		//ordeno de acordo com o nome dos alunos inscritos
 		Collections.sort(classificados);
@@ -469,6 +440,8 @@ public class CoordenadorController {
 		modelo.addAttribute("classificados", classificados);
 		modelo.addAttribute("reservas", reservas);
 		modelo.addAttribute("indeferidos", indeferidos);
+		
+		modelo.addAttribute(Constants.ABA_SELECIONADA, "classificados-tab");
 		
 		return PAGINA_RELATORIO_FINAL;
 	}

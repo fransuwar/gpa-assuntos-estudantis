@@ -46,13 +46,13 @@ public interface InscricaoService{
 	
 	public abstract void excluirPessoaFamiliaPorId(Integer idPessoa);
 
-	public abstract List<Inscricao> getDeferidosBySelecao(Selecao selecao);
-	
 	public abstract List<Inscricao> getClassificadosPorSelecao(Selecao selecao);
 	
 	public abstract List<Inscricao> getClassificaveisPorSelecao(Selecao selecao);
 	
 	public abstract void update(Integer idInscricao,boolean classificado);
+
+	public abstract List<Inscricao> getIndeferidosPorSelecao(Selecao selecao);
 
 }
 
