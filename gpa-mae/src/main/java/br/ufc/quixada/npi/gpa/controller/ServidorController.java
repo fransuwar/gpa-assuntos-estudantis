@@ -112,7 +112,7 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
-			if(!inscricao.getDeferimentoDocumentacao().equals(Resultado.NAO_AVALIADO)){
+			if(!inscricao.getDocumentacao().getDeferimento().equals(Resultado.NAO_AVALIADO)){
 
 				Selecao selecao = inscricao.getSelecao();
 
@@ -485,7 +485,7 @@ public class ServidorController {
 			List<Servidor> comissao = selecao.getMembrosComissao();
 
 			if(comissao.contains(servidor)){
-				model.addAttribute("avaliarDocumentacao", !inscricao.getDeferimentoDocumentacao().equals(Resultado.NAO_AVALIADO));
+				model.addAttribute("avaliarDocumentacao", !inscricao.getDocumentacao().getDeferimento().equals(Resultado.NAO_AVALIADO));
 				model.addAttribute("idInscricao", idInscricao);
 
 				return PAGINA_AVALIAR_DOCUMENTACAO;
@@ -501,7 +501,7 @@ public class ServidorController {
 			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 
         Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		inscricao.setDeferimentoDocumentacao(avaliarDocumentacao.getDeferimentoDocumentacao());
+		inscricao.getDocumentacao().setDeferimento(avaliarDocumentacao.getDocumentacao().getDeferimento());
 
 		model.addAttribute("avaliarDocumentacao", avaliarDocumentacao);	
 		inscricaoService.update(inscricao);

@@ -65,6 +65,7 @@ import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
+import br.ufc.quixada.npi.gpa.model.AnaliseDocumentacao;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.DocumentosTipoInscricao;
@@ -74,7 +75,9 @@ import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
+import br.ufc.quixada.npi.gpa.service.AnaliseDocumentacaoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.DocumentosTipoInscricaoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -104,7 +107,9 @@ public class AlunoController {
 
 	@Inject
 	private DocumentosTipoInscricaoService dtiService;
-
+	
+	@Inject
+	private AnaliseDocumentacaoService documentacaoService;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
@@ -321,7 +326,6 @@ public class AlunoController {
 				inscricao.setAluno(aluno);
 				inscricao.setSelecao(selecao);
 				inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
-				inscricao.setDeferimentoDocumentacao(Resultado.NAO_AVALIADO);
 				inscricao.setResultado(Resultado.NAO_AVALIADO);
 				auxilioMoradia.setComQuemMora(this.adicionarPessoaFamilia(comQuemMora));
 
@@ -612,19 +616,44 @@ public class AlunoController {
 				documento.setTipo(formulario.getContentType());
 
 				documentoService.salvarDocumento(documento);
-
-
-
-
-				DocumentosTipoInscricao dti = inscricao.getDocumentosTipoInscricao().get(idTipo);
-				if(dti == null){
-					dti = new DocumentosTipoInscricao();
-					inscricao.getDocumentosTipoInscricao().put(idTipo, dti);
+				
+				AnaliseDocumentacao documentacao = null;
+				DocumentosTipoInscricao dti;
+				
+				if(inscricao.getDocumentacao() == null){
+					documentacao = new AnaliseDocumentacao();
+					documentacao.setInscricao(inscricao);
+					
+					TipoDocumento tipo = documentoService.findById(idTipo);
+					
+					dti = new DocumentosTipoInscricao();					
+					dti.setTipo(tipo);
+					dti.getDocumentos().add(documento);
+					
+					documentacao.getDocumentosTipoInscricao().put(idTipo, dti);
+					
+					dtiService.salvarDocumentosTipoInscricao(dti);
+					documentacaoService.salvarAnaliseDocumentacao(documentacao);				
+					inscricao.setDocumentacao(documentacao);				
+				} else{
+					dti = inscricao.getDocumentacao().getDocumentosTipoInscricao().get(idTipo);
+					if(dti == null){
+						TipoDocumento tipo = documentoService.findById(idTipo);
+						
+						dti = new DocumentosTipoInscricao();											
+						dti.setTipo(tipo);
+						dti.getDocumentos().add(documento);
+						
+						dtiService.salvarDocumentosTipoInscricao(dti);
+						inscricao.getDocumentacao().getDocumentosTipoInscricao().put(idTipo, dti);
+					} else{
+						dti.getDocumentos().add(documento);
+						dtiService.salvarDocumentosTipoInscricao(dti);
+						inscricao.getDocumentacao().getDocumentosTipoInscricao().put(idTipo, dti);
+						
+					}
+					
 				}
-
-				dti.getDocumentos().add(documento);
-
-				dtiService.salvarDocumentosTipoInscricao(dti);
 
 				inscricaoService.save(inscricao);
 
@@ -648,8 +677,8 @@ public class AlunoController {
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 
 		Documento documento = documentoService.getDocumentoPorId(idDocumento);
-
-		inscricao.getDocumentosTipoInscricao().get(idTipo).getDocumentos().remove(documento);
+		
+		inscricao.getDocumentacao().getDocumentosTipoInscricao().get(idTipo).getDocumentos().remove(documento);
 
 		inscricaoService.save(inscricao);
 
@@ -657,7 +686,6 @@ public class AlunoController {
 
 		modelo.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
 		modelo.addAttribute("inscricao", inscricao);
-
 
 		return PAGINA_DETALHES_INSCRICAO;
 	}

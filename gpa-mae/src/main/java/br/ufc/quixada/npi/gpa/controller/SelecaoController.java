@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -121,6 +123,21 @@ public class SelecaoController {
 
 		return new HttpEntity<byte[]>(arquivo, headers);
 
+	}
+	
+	@RequestMapping(value = {"visualizarDocumento/{idDocumento}"}, method = RequestMethod.GET)
+	public ResponseEntity<byte[]> visualizarDocumento(@PathVariable("idDocumento") Integer idDocumento){
+		
+		Documento documento = documentoService.getDocumentoPorId(idDocumento);
+		byte[] arquivo = documento.getArquivo();
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType("application/pdf"));
+		headers.set("Content-Disposition", "inline; filename=" + documento.getNome().replace(" ", "_"));
+		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+		
+		return new ResponseEntity<byte[]>(arquivo, headers, HttpStatus.OK);
+		
 	}
 
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
