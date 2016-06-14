@@ -66,6 +66,18 @@
 									</a>
 								</c:if>
 							</sec:authorize>
+							<sec:authorize access="hasAnyRole('DISCENTE')">
+								<c:if test="${inscricao.consolidacao eq false }">
+									<a id="consolidarInscricao" data-target="#modal-consolidacao"
+										data-toggle="modal"
+										data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+										<button class="btn btn-success btn-sm"
+											title="Consolidar Inscrição">
+											<i class="glyphicon glyphicon-ok"></i>
+										</button>
+									</a>
+								</c:if>
+							</sec:authorize>
 						</h3>
 					</div>
 					<div class="panel-body">
@@ -73,6 +85,15 @@
 							<img id="aluno-img"
 								src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
 						</div>
+						<c:choose>
+							<c:when test="${inscricao.consolidacao eq true}">
+								<span class="label label-success">Inscrição consolidada</span>
+							</c:when>
+							<c:otherwise>
+								<span class="label label-danger">Inscrição não
+									consolidada</span>
+							</c:otherwise>
+						</c:choose>
 						<div class='f-container s4 left'>
 							<label class='f-title'>Matrícula:</label>
 							<div class='f-content'>
@@ -403,14 +424,14 @@
 							<div class='f-content'>
 								<c:choose>
 									<c:when
-										test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoFundamental.nome}"> Sim</c:when>
+										test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoFundamental}"> Sim</c:when>
 									<c:otherwise>Não</c:otherwise>
 								</c:choose>
 							</div>
 						</div>
 						<c:choose>
 							<c:when
-								test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoFundamental.nome}">
+								test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoFundamental}">
 								<div class='f-container s3'>
 									<label class='f-title'>Percentual da bolsa:</label>
 									<div class='f-content'>${inscricao.questionarioAuxilioMoradia.percentualParticularFundamental}</div>
@@ -430,14 +451,14 @@
 							<div class='f-content'>
 								<c:choose>
 									<c:when
-										test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}"> Sim</c:when>
+										test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoMedio}"> Sim</c:when>
 									<c:otherwise>Não</c:otherwise>
 								</c:choose>
 							</div>
 						</div>
 						<c:choose>
 							<c:when
-								test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}">
+								test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoMedio}">
 								<div class='f-container s3'>
 									<label class='f-title'>Percentual da bolsa:</label>
 									<div class='f-content'>${inscricao.questionarioAuxilioMoradia.percentualParticularMedio}</div>
@@ -609,9 +630,16 @@
 										</c:otherwise>
 									</c:choose>
 								</ul>
-
 								<hr />
 							</c:forEach>
+							<c:if test="${inscricao.consolidacao eq false }">
+								<a id="consolidarInscricao" data-target="#modal-consolidacao"
+									data-toggle="modal"
+									data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+									<button class="btn btn-primary" title="Consolidar Inscrição">
+										Consolidar Inscrição</button>
+								</a>
+							</c:if>
 						</sec:authorize>
 
 						<sec:authorize
@@ -644,12 +672,11 @@
 
 								<hr />
 							</c:forEach>
+
 						</sec:authorize>
 					</div>
 
 				</div>
-
-
 			</div>
 
 			<sec:authorize
@@ -963,6 +990,25 @@
 						esta pessoa da família?</div>
 					<div class="modal-footer">
 						<a href="#" class="btn btn-danger">Excluir</a>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modal-consolidacao" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">Consolidar Inscrição</div>
+					<div class="modal-body">Você deseja consolidar sua inscrição?
+						Caso escolha sim, você não poderá mais editá-la. Caso escolha não,
+						é preciso que sua inscrição seja consolidada até o prazo final das
+						inscrições, isso poderá ser feito na página das suas inscrições.</div>
+					<div class="modal-footer">
+						<a
+							href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>"
+							class="btn btn-primary">confirmar</a>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 					</div>
 				</div>

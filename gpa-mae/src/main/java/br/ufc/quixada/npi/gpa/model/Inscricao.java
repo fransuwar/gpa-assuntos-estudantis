@@ -65,24 +65,21 @@ public class Inscricao {
 	
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private AnaliseDocumentacao documentacao;
-	
-//	@OneToMany
-//	private Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
-//	
-//	public Map<Integer, DocumentosTipoInscricao> getDocumentosTipoInscricao() {
-//		if(documentosTipoInscricao == null){
-//			documentosTipoInscricao = new HashMap<>();
-//		}
-//		return documentosTipoInscricao;
-//	}
-//
-//	public void setDocumentosTipoInscricao(Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao) {
-//		this.documentosTipoInscricao = documentosTipoInscricao;
-//	}
 
 	private boolean realizarVisita;
-			
+
 	
+	private boolean consolidacao;
+			
+
+	public boolean isConsolidacao() {
+		return consolidacao;
+	}
+
+	public void setConsolidacao(boolean consolidacao) {
+		this.consolidacao = consolidacao;
+	}
+
 	public boolean isRealizarVisita() {
 		return realizarVisita;
 	}
@@ -174,6 +171,7 @@ public class Inscricao {
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
+	
 
 	public boolean isClassificado() {
 		return classificado;
