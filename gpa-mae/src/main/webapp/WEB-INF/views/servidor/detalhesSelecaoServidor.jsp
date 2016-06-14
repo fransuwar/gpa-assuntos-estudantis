@@ -229,6 +229,9 @@
 												test="${inscricao.documentacao.deferimento eq 'NAO_AVALIADO'}">
 												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
 											</c:when>
+											<c:when test="${empty inscricao.documentacao.deferimento}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
 											<c:when
 												test="${inscricao.documentacao.deferimento eq 'DEFERIDO'}">
 												<div class='def-sit deferido' title="Deferido">D</div>
