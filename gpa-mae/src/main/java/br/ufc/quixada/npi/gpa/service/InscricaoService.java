@@ -46,8 +46,6 @@ public interface InscricaoService{
 	
 	public abstract void excluirPessoaFamiliaPorId(Integer idPessoa);
 
-	public abstract List<Inscricao> getDeferidosBySelecao(Selecao selecao);
-	
 	public abstract List<Inscricao> getClassificadosPorSelecao(Selecao selecao);
 	
 	public abstract List<Inscricao> getClassificaveisPorSelecao(Selecao selecao);
@@ -58,6 +56,8 @@ public interface InscricaoService{
 	
 	public abstract void consolidar(Integer idInscricao,boolean consolidacao);	
 
+
+	public abstract List<Inscricao> getIndeferidosPorSelecao(Selecao selecao);
 
 }
 

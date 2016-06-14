@@ -63,6 +63,8 @@ public class Constants {
 	public static final String PAGINA_SELECOES_ABERTAS = "aluno/listarSelecoes";
 	
 	public static final String PAGINA_AVALIAR_DOCUMENTACAO = "servidor/avaliarDocumentacao";
+	
+	public static final String PAGINA_RELATORIO_FINAL = "selecao/resultadoFinal";
 
 	// public static final String PAGINA_DETALHES_SELECAO_SERVIDOR =
 	// "servidor/detalhesSelecao";
