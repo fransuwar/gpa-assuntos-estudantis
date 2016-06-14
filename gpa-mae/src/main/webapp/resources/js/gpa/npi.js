@@ -175,10 +175,6 @@ $(document).ready(function(){
 			ano: {
 				required: true
 			},
-			quantidadeVagas: {
-				required: true
-			},
-
 			sequencial:{
 				required:true
 			},

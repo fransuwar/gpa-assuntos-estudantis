@@ -76,13 +76,13 @@
 
 					<div class="form-group">
 						<div class="col-sm-6">
-							<label for="tipoSelecao" class="control-label"
-								id="text-align-left"><span class="red">*</span>Tipo de
-								Selecao:</label>
+							<label for="tipoSelecao" class="control-label" id="text-align-left">
+								<span class="red">*</span>Tipo de Seleção:
+							</label>
 
 							<form:select path="tipoSelecao" id="tipoSelecao"
 								cssClass="form-control">
-								<form:option value="" label="Selecione o tipo de Selecao" />
+								<form:option value="" label="Selecione..." />
 								<form:option value="AUX_MOR" label="Auxílio Moradia" />
 
 							</form:select>
@@ -108,7 +108,7 @@
 								class="red">*</span>Ano:</label>
 
 							<form:input id="ano" type="text" path="ano"
-								cssClass="form-control" placeholder="0"
+								cssClass="form-control" placeholder="ano"
 								onkeypress="mascara(this,soNumeros)" />
 							<div class="error-validation" id="erro-ano">
 								<label class="col-sm-10 control-label" id="label-erro">
@@ -126,7 +126,7 @@
 								das Inscrições:</label>
 
 							<form:input id="dataInicio" type="text" path="dataInicio"
-								cssClass="form-control data" placeholder="Data de Início" />
+								cssClass="form-control data" placeholder="dd/mm/aaaa" />
 							<div class="error-validation" id="erro-dataInicio">
 								<label class="col-sm-10 control-label" id="label-erro">
 									${dataInicioError} </label>
@@ -140,7 +140,7 @@
 								Inscrições:</label>
 
 							<form:input id="dataTermino" type="text" path="dataTermino"
-								cssClass="form-control data" placeholder="Data de Término" />
+								cssClass="form-control data" placeholder="dd/mm/aaaa" />
 							<div class="error-validation" id="erro-dataTermino">
 								<form:errors path="dataTermino"></form:errors>
 							</div>
@@ -163,22 +163,11 @@
 							</div>
 						</div>
 					</div>
-					<div class="form-group"></div>
-					<div class="form-group">
-
-						<div class="col-sm-1" id="div-form-btn">
-							<a href="<c:url value="/servidor/selecao/listar"></c:url>"
-								class="btn btn-default" id="form-btn">Cancelar</a>
-						</div>
-
-						<div class="col-sm-2" id="div-form-btn" style="margin-left: 20px">
-							<input type="submit" class="btn btn-primary"
-								value="${botao }" id="form-btn" />
-						</div>
+					<div class="form-btn">
+						<input type="submit" class="btn btn-primary" value="${botao }" id="form-btn" />
+						<a href="<c:url value="/servidor/selecao/listar"></c:url>" class="btn btn-default" id="form-btn">Cancelar</a>
 					</div>
 				</form:form>
-				<br>
-
 			</div>
 		</div>
 	</div>
