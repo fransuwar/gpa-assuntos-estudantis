@@ -33,6 +33,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +44,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -70,7 +72,6 @@ import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
-
 @Controller
 @RequestMapping ("servidor")
 @SessionAttributes({ Constants.USUARIO_ID , Constants.USUARIO_LOGADO})
@@ -92,7 +93,8 @@ public class ServidorController {
 	private ImagemService imagemService;
 	
 	@Inject DocumentoService documentoService;
-
+	
+	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
 		Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
@@ -174,6 +176,24 @@ public class ServidorController {
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
+	
+	
+	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Model consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao,Model model){
+		inscricaoService.consolidacaoDeTodos(idSelecao, consolidacao);
+		model.addAttribute("resultado","sucesso");
+		return model;
+	}
+	
+	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Model consolidar(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao,Model model){
+		inscricaoService.consolidar(idInscricao, consolidacao);
+		model.addAttribute("resultado","sucesso");
+		return model;
+		
+	}
+
+	
 	
 	@RequestMapping(value= {"visita/removerFormulario/{idInscricao}/{idFormulario}"}, method = RequestMethod.GET)
 	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, Model modelo){
@@ -311,10 +331,7 @@ public class ServidorController {
 	}
 	@RequestMapping(value = "inscritos/{idSelecao}", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("idSelecao") Integer idSelecao, ModelMap model) {
-
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
-		model.addAttribute("selecao", selecao);
-
+		model.addAttribute("inscricoes", inscricaoService.getInscricoesPorSelecao(idSelecao));
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
 
@@ -326,21 +343,16 @@ public class ServidorController {
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}else{
-
+		} else {
 			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
-
 			List<Servidor> comissao = selecao.getMembrosComissao();
-
-			if(comissao.contains(servidor)){
-
+			if(comissao.contains(servidor)) {
 				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
 				model.addAttribute("selecao", selecao);
 				model.addAttribute("inscricoes", inscricoes);
-
+				
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-
-			}else{
+			} else {
 				redirect.addFlashAttribute("erro",  MENSAGEM_PERMISSAO_NEGADA);
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}

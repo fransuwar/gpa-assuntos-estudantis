@@ -12,7 +12,6 @@ import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.repository.GenericRepository;
 import br.ufc.quixada.npi.util.SimpleMap;
-import br.ufc.quixada.npi.service.impl.GenericServiceImpl;
 
 @Named
 public class DocumentoServiceImpl implements DocumentoService{
