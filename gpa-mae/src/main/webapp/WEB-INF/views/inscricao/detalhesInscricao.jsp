@@ -806,7 +806,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="pessoa" items="${inscricao.questionarioAuxilioMoradia.pessoasEntrevista}">
+											<c:forEach var="pessoa" items="${inscricao.questionarioAuxilioMoradia.pessoas}">
 												<tr>
 													<td>${pessoa.nome}</td>
 													<td>${pessoa.parentesco.nome}</td>
@@ -862,9 +862,7 @@
 												commandName="pessoaDaFamilia"
 												servletRelativeAction="/servidor/inscricao/adicionarPessoaFamilia/${inscricao.id }">
 												<tr>
-													<c:if test="${not empty pessoaDaFamilia.nome} ">
-														<td><form:input cssClass="form-control" path="nome"	id="nome"/></td>
-													</c:if>
+													<td><form:input cssClass="form-control" path="nome"	id="nome"/></td>
 													<td><form:select cssClass="form-control"
 															path="parentesco" id="parentesco">
 															<option>Parentesco</option>

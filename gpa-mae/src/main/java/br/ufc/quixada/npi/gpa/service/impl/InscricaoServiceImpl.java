@@ -71,19 +71,19 @@ public class InscricaoServiceImpl implements InscricaoService {
 				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
 	}
 
-	@Override
+	/*@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaPorIdIniciacaoAcademica(Integer idIniciacaoAcademica) {
 		return pessoaRepository.find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",
 				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
-	}
-
+	}*/
+/*
 	@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaPorIdAuxilioMoradia(Integer idAuxilioMoradia) {
 		return pessoaRepository.find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia",
 				new SimpleMap<String, Object>("idAuxilioMoradia", idAuxilioMoradia));
-	}
+	}*/
 
 	@Override
 	public void salvarVisitaDocimiciliar(VisitaDomiciliar visitaDocimiciliar) {

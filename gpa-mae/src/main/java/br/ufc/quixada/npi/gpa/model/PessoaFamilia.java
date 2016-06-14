@@ -8,16 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
 @Entity
-@NamedQueries({
-	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",  query = "select pf from PessoaFamilia pf where pf.iniciacaoAcademica.id = :idIniciacaoAcademica"),
-	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia", query = "select pf from PessoaFamilia pf where pf.auxilioMoradia.id = :idAuxilioMoradia")
-})
 public class PessoaFamilia {
 
 	@Id
@@ -38,18 +32,7 @@ public class PessoaFamilia {
 	private GrauParentesco parentesco;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	private QuestionarioAuxilioMoradia auxilioMoradia;
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
-
-	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
-		return auxilioMoradia;
-	}
-
-	public void setAuxilioMoradia(QuestionarioAuxilioMoradia auxilioMoradia) {
-		this.auxilioMoradia = auxilioMoradia;
-	}
 
 	public QuestionarioIniciacaoAcademica getIniciacaoAcademica() {
 		return iniciacaoAcademica;
@@ -113,12 +96,5 @@ public class PessoaFamilia {
 
 	public void setParentesco(GrauParentesco grauParentesco) {
 		this.parentesco = grauParentesco;
-	}
-
-	@Override
-	public String toString() {
-		return "PessoaFamilia [auxilioMoradia=" + auxilioMoradia + ", iniciacaoAcademica=" + iniciacaoAcademica
-				+ ", id=" + id + ", nome=" + nome + ", idade=" + idade + ", Profissao=" + profissao + ", rendaMensal="
-				+ rendaMensal + ", Parentesco=" + parentesco + "]";
 	}
 }

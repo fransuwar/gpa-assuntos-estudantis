@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -126,11 +127,13 @@ public class QuestionarioAuxilioMoradia {
 	private FinalidadeVeiculo finalidadeVeiculo;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "auxiliomoradia_id")
+	@JoinTable( name = "inscricao_pessoa_familia", 
+			   joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> pessoas;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "auxiliomoradia_id")
+	@JoinTable( name = "inscricao_pessoa_familia_editado", 
+	   joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> pessoasEntrevista;
 	
 	@ManyToMany
