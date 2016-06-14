@@ -9,6 +9,20 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+<c:choose>
+	<c:when test="${todosConsolidados}">	
+		<c:url var="consolidar" value="${false}" />
+		<c:set var="botao" value="Desconsolidar Todos" />
+	</c:when>
+	<c:otherwise>
+		<c:url var="consolidar" value="${true}" />
+		<c:set var="botao" value="Consolidar Todos" />
+	</c:otherwise>
+
+</c:choose>
+
+
+
 <html>
 <head>
 <jsp:include page="../fragments/bodyHeader.jsp" />
@@ -171,12 +185,19 @@
 					<h3 class="panel-title">Inscrições</h3>
 				</div>
 				<div class="panel-body">
-					<table class="table" id="tabela-detalhes-selecao-servidores">
+							<div align="right">
+								<input id="idSelecao" type="hidden" value="${selecao.id}">
+								<button id="consolidacaoTodos" class="btn btn-primary" > </button>
+							</div>
+
+
+							<table class="table" id="tabela-detalhes-selecao-servidores">
 						<thead>
 							<tr class="active">
 								<td>Aluno</td>
 								<td>Matricula</td>
 								<td>Data</td>
+								<td>Consolidação</td>
 								<td>Documentação</td>
 								<td>Entrevista</td>
 								<td>Visita</td>
@@ -184,7 +205,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="inscricao" items="${inscricoes }">
+							<c:forEach var="inscricao" items="${inscricoes}">
 								<tr>
 									<td><a id="detalhes"
 										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.id}">  
@@ -193,6 +214,11 @@
 									<td>${inscricao.aluno.matricula}</td>
 									<td><fmt:formatDate value="${inscricao.data}"
 											pattern="dd/MM/yyyy" /></td>
+											
+									<td>
+											<input id="${inscricao.id}" class="toggle-event" type="checkbox" data-toggle="toggle" data-style="ios" data-size="small"
+											<c:if test="${inscricao.consolidacao}">checked </c:if> >
+									</td>
 									<td><c:choose>
 											<c:when
 												test="${inscricao.deferimentoDocumentacao eq 'NAO_AVALIADO'}">

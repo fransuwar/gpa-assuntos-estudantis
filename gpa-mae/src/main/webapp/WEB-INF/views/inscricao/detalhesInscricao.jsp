@@ -423,14 +423,14 @@
 							<div class='f-content'>
 								<c:choose>
 									<c:when
-										test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoFundamental.nome}"> Sim</c:when>
+										test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoFundamental}"> Sim</c:when>
 									<c:otherwise>Não</c:otherwise>
 								</c:choose>
 							</div>
 						</div>
 						<c:choose>
 							<c:when
-								test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoFundamental.nome}">
+								test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoFundamental}">
 								<div class='f-container s3'>
 									<label class='f-title'>Percentual da bolsa:</label>
 									<div class='f-content'>${inscricao.questionarioAuxilioMoradia.percentualParticularFundamental}</div>
@@ -450,14 +450,14 @@
 							<div class='f-content'>
 								<c:choose>
 									<c:when
-										test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}"> Sim</c:when>
+										test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoMedio}"> Sim</c:when>
 									<c:otherwise>Não</c:otherwise>
 								</c:choose>
 							</div>
 						</div>
 						<c:choose>
 							<c:when
-								test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}">
+								test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoMedio}">
 								<div class='f-container s3'>
 									<label class='f-title'>Percentual da bolsa:</label>
 									<div class='f-content'>${inscricao.questionarioAuxilioMoradia.percentualParticularMedio}</div>

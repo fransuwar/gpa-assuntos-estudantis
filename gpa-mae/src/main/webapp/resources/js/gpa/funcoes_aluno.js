@@ -3,7 +3,9 @@
  * javascript das páginas acessadas por alunos.
  */ 
 
+
 var FormularioAuxilio = function() {
+
 	var self = this;
 	var $formElement = $("#questionarioAuxilio");
 	var listaPessoasFamilia = [];
