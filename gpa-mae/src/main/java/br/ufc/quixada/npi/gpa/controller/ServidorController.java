@@ -451,7 +451,7 @@ public class ServidorController {
 		VisitaDomiciliar visitaDomiciliar = inscricao.getVisitaDomiciliar();
 		
 		if(visitaDomiciliar != null){
-			visitaDomiciliar.setParecer(parecer);
+			visitaDomiciliar.setDeferimento(Resultado.valueOf(parecer));
 			visitaDomiciliar.setObservacaoParecer(observacao);
 			inscricaoService.atualizarVisitaDomiciliar(visitaDomiciliar);
 		}

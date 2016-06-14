@@ -137,8 +137,6 @@ public class VisitaDomiciliar {
 	
 	private String analiseDescricaoRealidade;
 	
-	private String parecer;
-	
 	private String observacaoParecer;
 
 	@OneToOne
@@ -628,13 +626,6 @@ public class VisitaDomiciliar {
 		this.deferimento = deferimento;
 	}
 	
-	public String getParecer() {
-		return parecer;
-	}
-
-	public void setParecer(String parecer) {
-		this.parecer = parecer;
-	}
 
 	
 
