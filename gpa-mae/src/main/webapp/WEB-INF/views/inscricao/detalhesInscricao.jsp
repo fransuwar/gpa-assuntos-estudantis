@@ -806,7 +806,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="pessoa" items="${questAuxMor.pessoas}">
+											<c:forEach var="pessoa" items="${inscricao.questionarioAuxilioMoradia.pessoasEntrevista}">
 												<tr>
 													<td>${pessoa.nome}</td>
 													<td>${pessoa.parentesco.nome}</td>
