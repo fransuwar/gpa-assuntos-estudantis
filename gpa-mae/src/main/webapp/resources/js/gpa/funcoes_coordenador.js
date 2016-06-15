@@ -6,8 +6,8 @@ var FormularioDetalhesInscricao = function() {
 
 	self.init = function(){
 		self.mudarConsolidacao();
-		self.mudarBotaoConsolicaoTodos();
 		self.mudaConsolidacaoDeTodos();
+		self.mudaDesconsolidacaoDeTodos();
 	}
 
 	//Muda a consolidação de todas as inscrições
@@ -15,29 +15,50 @@ var FormularioDetalhesInscricao = function() {
 		$('#consolidacaoTodos').click(function(){
 
 			var idSelecao = $("#idSelecao").val();
-			var consolidacao = false;
-			if( $("#consolidacaoTodos").text()==="Consolidar Todos"){
-				consolidacao= true
-			}
+			
 			$.ajax({
 				type : "GET",
 				url : "http://localhost:8080/MAE/servidor/consolidarTodos",
-				data :{"idSelecao": idSelecao, "consolidacao": consolidacao},
+				data :{"idSelecao": idSelecao, "consolidacao": true},
 				dataType : 'json',
 
 				success : function(result) {
 					$('.toggle-event').each(function(){
-						$(this).prop('checked', consolidacao).change();
+						$(this).prop('checked', true).change();
 
 					});
 					var idSelecao = $("#idSelecao").val()
-					if(self.todosConsolidado()){
-						$("#consolidacaoTodos").text("Desconsolidar Todos"); 
-					}
-					else{
-						$("#consolidacaoTodos").text("Consolidar Todos");
+					
 
-					}
+				},
+				error : function(e,b) {
+					console.log("ERROR: ", e,b);
+
+				}			
+			});
+
+
+		});
+	}
+	
+	self.mudaDesconsolidacaoDeTodos = function() {
+		$('#desconsolidacaoTodos').click(function(){
+
+			var idSelecao = $("#idSelecao").val();
+			
+			$.ajax({
+				type : "GET",
+				url : "http://localhost:8080/MAE/servidor/consolidarTodos",
+				data :{"idSelecao": idSelecao, "consolidacao": false},
+				dataType : 'json',
+
+				success : function(result) {
+					$('.toggle-event').each(function(){
+						$(this).prop('checked', false).change();
+
+					});
+					var idSelecao = $("#idSelecao").val()
+					
 
 				},
 				error : function(e,b) {
@@ -69,7 +90,7 @@ var FormularioDetalhesInscricao = function() {
 
 				success : function(result) {
 					botao.prop('checked', consolidacao).change();
-					self.mudarBotaoConsolicaoTodos();
+					
 				},
 				error : function(e,b) {
 					console.log("ERROR: ", e,b);
@@ -81,31 +102,7 @@ var FormularioDetalhesInscricao = function() {
 			return false;
 		} )
 	}
-	//Muda o botão "consolidar todos" para "Desconsolidar Todos", se todos estão desconsolidados
-	self.mudarBotaoConsolicaoTodos = function() {
-		var idSelecao = $("#idSelecao").val()
-		if(self.todosConsolidado()){
-			$("#consolidacaoTodos").text("Desconsolidar Todos"); 
-		}
-		else{
-			$("#consolidacaoTodos").text("Consolidar Todos");
-
-		}
-	}
-
-	//Retorna "true" todas as inscrições de uma seleção estão consolidadas
-	self.todosConsolidado = function() {
-		var retorno = true; 
-		$('.toggle-event').each(
-				function(){
-					if(!$(this).prop('checked'))	
-						retorno = false;
-				}
-
-		);
-		return retorno; 
-
-	}
+	
 }
 
 var formDestalhesInsc = new FormularioDetalhesInscricao();
