@@ -24,16 +24,17 @@
 			</div>
 			<div class="panel-body">
 
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#porCidade"
-						aria-controls="porCidade" role="tab" data-toggle="tab">Por
-							Cidade</a></li>
-					<li role="presentation"><a href="#porAluno"
-						aria-controls="porAluno" role="tab" data-toggle="tab">Por
-							Alunos</a></li>
-				</ul>
-
+				<div class="menu-relatorio-visitas">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#porCidade"
+							aria-controls="porCidade" role="tab" data-toggle="tab">Por
+								Cidade</a></li>
+						<li role="presentation"><a href="#porAluno"
+							aria-controls="porAluno" role="tab" data-toggle="tab">Por
+								Alunos</a></li>
+					</ul>
+				</div>
 				<!-- Tab panes -->
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="porCidade">
@@ -43,8 +44,9 @@
 
 							<c:forEach var="cidade" items="${cidadesVisitadas}">
 								<div class="panel panel-primary">
-								
-									<div class="panel-heading panel-heading-cidade" role="tab" id="heading${cidade}">
+
+									<div class="panel-heading panel-cidade" role="tab"
+										id="heading${cidade}">
 										<h4 class="panel-title">
 											<a class="collapsed" role="button" data-toggle="collapse"
 												data-parent="#accordion" href="#${cidade}"
@@ -67,32 +69,30 @@
 
 					<div role="tabpanel" class="tab-pane" id="porAluno">
 
-						<div
-							class="panel panel-primary panel-visitas col-md-6 pull-left">
-							<div class="panel-heading">
+						<div class="panel panel-primary panel-visitas col-md-6 pull-left">
+							<div class="panel-heading" style="background-color: #009688;">
 								<h3 class="panel-title">Selecionados para visita</h3>
 							</div>
 							<div class="panel-body panel-body-visitas">
-
 								<div class="list-group">
-
 									<c:choose>
 										<c:when test="${empty inscritosComVisita}">
 											Não existem alunos que <strong>serão</strong> visitados nessa seleção!
 										</c:when>
 										<c:otherwise>
-											<c:forEach var="inscricao" items="${inscritosComVisita}">
-												<button type="button" class="list-group-item">
-													${inscricao.aluno.pessoa.nome}</button>
-											</c:forEach>
+											<div class="list-group">
+												<c:forEach var="inscricao" items="${inscritosComVisita}">
+													<a href="/MAE/servidor/detalhes/inscricao/${inscricao.id}" class="list-group-item">
+														${inscricao.aluno.pessoa.nome}</a>
+												</c:forEach>
+											</div>
 										</c:otherwise>
 									</c:choose>
 								</div>
 							</div>
 						</div>
 
-						<div
-							class="panel panel-primary panel-visitas col-md-5 pull-right">
+						<div class="panel panel-primary panel-visitas col-md-5 pull-right">
 							<div class="panel-heading">
 								<h3 class="panel-title">Não selecionados para visita</h3>
 							</div>
@@ -105,7 +105,8 @@
 										</c:when>
 										<c:otherwise>
 											<c:forEach var="inscricao" items="${inscritosSemVisita}">
-												<button type="button" class="list-group-item item-aluno-visita">
+												<button type="button"
+													class="list-group-item item-aluno-visita">
 													${inscricao.aluno.pessoa.nome}</button>
 											</c:forEach>
 										</c:otherwise>

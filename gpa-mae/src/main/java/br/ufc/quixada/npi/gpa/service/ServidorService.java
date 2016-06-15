@@ -1,9 +1,7 @@
 package br.ufc.quixada.npi.gpa.service;
 
 import java.util.List;
-import java.util.Map;
 
-import br.ufc.quixada.npi.enumeration.QueryType;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 
 public interface ServidorService{

@@ -205,7 +205,7 @@ div.p-body {
 	border-radius: 0px 0px 0px text-align-left0px;
 	width: 85%;
 }
-card
+
 div.f-container {
 	display: inline-block;
 	background-color: white;
@@ -213,8 +213,10 @@ div.f-container {
 	text-align: left;
 }
 
+
 label.f-title {
 	margin-left: 10px;
+	font-weight: bold;
 }
 
 div.f-content {
@@ -265,7 +267,6 @@ div.s6 {
 	width: 57%;
 }
 
-text-align-left
 div.s7 {
 	width: 67%;
 }
@@ -280,6 +281,18 @@ div.s9 {
 
 div.s10 {
 	width: 97%;
+}
+
+div.s4-custom{
+	width: 45%;
+}
+
+.margin-top-s1{
+	margin-top: 7px;	
+}
+
+.margin-top-s2{
+	margin-top: 17px;	
 }
 
 .text-danger {
@@ -369,8 +382,9 @@ div.s10 {
 }
 
 .opcoes-detalhes {
-	float: right;
-	margin-top: -25px;
+	position: relative;
+	top: -50%;
+	transform: translateY(50%);
 }
 
 .def-sit{
@@ -380,7 +394,7 @@ div.s10 {
 	line-height: 30px;
 	display: inline-block;
 	border-radius: 50%;
-	color:white;card
+	color:white;
 	border: 1px solid #777777;
 	font-weight: bold;
 	position: relative;
@@ -458,7 +472,7 @@ div.s10 {
 	transform: translateX(-50%) translateY(-50%);
 	height: 50px;
 }
-Com quem Mora
+
 .photo-sign:after {
 	border-radius: 3px;
 	background: #e0e0e0;
@@ -472,7 +486,7 @@ Com quem Mora
 
 div.input-photo {
 	margin: 10px;
-	position: relative;card
+	position: relative;
 	width: 160px;
 	height: 90px;
 	background-color: #f5f5f5;
@@ -520,7 +534,7 @@ div.input-photo {
 	background-color: rgba(220, 220, 220, 0.8);
 }
 
-.img-fullscreen-content{card
+.img-fullscreen-content{
 	width: 80%;
 	height: 80%;
 	position: absolute;
@@ -533,7 +547,7 @@ div.input-photo {
 	background-color: blue;
 }
 
-.img-fullscreen-content img{card
+.img-fullscreen-content img{
 	width: 100%;
 	height: 100%;
 }
@@ -616,7 +630,7 @@ div.input-photo {
 .photos-list {
 	margin: 0;
 	list-style: none;
-}card
+}
 
 .photos-list li {
 	margin-left: -40px;
@@ -751,7 +765,7 @@ div.input-photo {
 .card-content .card-icon{
 	color: #555753;
 	height: 100%;
-	margin: 0 auto;card
+	margin: 0 auto;
 	padding:0;
 	width: 100%;
 	display: block;
@@ -795,7 +809,7 @@ div.input-photo {
 }
 
 .navbar li a, .navbar li p{
-	color: white !important;card
+	color: white !important;
 }
 
 a, .dropdown-menu > li > a{
@@ -818,37 +832,81 @@ a, .dropdown-menu > li > a{
 	border-bottom: 1px solid #eeeeec;
 }
 
-.btn-primary{
+.btn{
+  	border: 0 !important;
+}
+
+.btn:hover{
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,.4);
+}
+
+.btn.btn-primary{
 	color: white !important;
 	background-color: #00796B !important;
 	border-bottom-color: #238b7f!important;
 }
 
-.btn-info{
-	color: #ffffff;
-	background-color: #f57900;
-	border-color: #f57900;
+.btn-info, .btn-info:focus, .btn-info > a{
+	color: #ffffff !important;
+	background-color: #f57900 !important;
+	border-color: #f57900 !important;
 }
 
-.btn-info:hover{card
-	background-color: #10bcff!important;
+.btn.btn-info:hover{
+	background-color: #f57900 !important;
 	border-color: #34a8d5;
 }
 
-.btn{
-  	border: 0 !important;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+.btn.btn-default{
+	background-color: #e8e8e8;
 }
 
-.btn:hover{
-	margin: 0 !important;
-	transform: scale(0.9);
-	 
+.btn.btn-danger{
+	color:white !important;
+}
+
+.btn.btn-small{
+	font-size: 14px;
+	width: 30px !important;
+	height: 27px !important;
+}
+
+.alert{
+	border: 0 !important;
+	border-radius: 0px !important;
+}
+
+.alert:hover{
+	transform: translate3d(0,-1px,0);
+	transition: all 0.2s;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,.4);
 }
 
 input:focus, select:focus, textarea:focus{
 	border-color: #009688 !important;
 	box-shadow: 0 0 3px rgba(13, 81, 75, 0.3) !important; 
+}
+
+.table-custom{
+	border: 1px solid white;
+	border-radius: 1%;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.table-custom td{
+	text-align: center;
+}
+.table-custom .th-custom{
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	color: white;
+	background-color: #00796B;
+}
+
+.th-center{
+	text-align: center;
+}
+
+.row-centered{
+	margin: 0 auto !important;
 }
 
 .no-decoration{
@@ -871,6 +929,12 @@ input:focus, select:focus, textarea:focus{
 .container-st{
 	width: 60%;
 }
+
+
+ .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+ .toggle.ios .toggle-handle { border-radius: 20px; }
+
+
 .documentos-aluno{
 	margin-left: -40px;
 }
@@ -916,7 +980,40 @@ input:focus, select:focus, textarea:focus{
 }
 
 .panel-visitas{
-	margin-top: 20px;
 	width: 48%;
 	padding: 0;
+}
+
+.inline-block {
+	display: inline-block;
+	width: auto;
+}
+
+.form-btn {
+	margin-top: 40px;
+	text-align: right;
+}
+
+.form-btn input {
+	margin-right: 15px;
+}
+
+.menu-relatorio-visitas{
+	margin-bottom: 20px;
+}
+
+.panel-visitas .panel-heading{
+	color: white !important;
+	background-color: #009688 !important;
+	border-bottom: 1px solid #eeeeec;
+}
+
+.panel-group .panel-cidade{
+	color: white !important;
+	background-color: #009688 !important;
+	border-bottom: 1px solid #eeeeec;
+}
+
+.panel-cidade a{
+	color: white !important;
 }

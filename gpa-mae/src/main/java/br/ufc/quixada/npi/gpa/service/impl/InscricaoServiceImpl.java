@@ -40,9 +40,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 	
     @Inject
 	private GenericRepository<Inscricao> inscricaoRepository;
-
-
- 
+    
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inscricao> getInscricoes(Integer idAluno) {
@@ -117,7 +115,6 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Inscricao getInscricao(Selecao selecao, Aluno aluno) {
 		Map<String, Object> params = new SimpleMap<String, Object>();
 		params.put("idSelecao", selecao.getId());
@@ -192,6 +189,27 @@ public class InscricaoServiceImpl implements InscricaoService {
 		params.put("idInscricao", idInscricao);
 		inscricaoRepository.executeUpdate("update Inscricao set classificado =:classificado where Inscricao.id =:idInscricao", params);
 		
+	}
+
+	@Override
+	@Transactional
+	public void consolidacaoDeTodos(Integer idSelecao, boolean consolidacao) {
+		Map<String, Object> params = new SimpleMap<String, Object>();
+		params.put("consolidacao", consolidacao);
+		params.put("idSelecao", idSelecao);
+		inscricaoRepository.executeUpdate("update Inscricao set consolidacao =:consolidacao where Inscricao.selecao_id =:idSelecao", params);
+		
+		
+	}
+
+	@Override
+	@Transactional
+	public void consolidar(Integer idInscricao, boolean consolidacao) {
+		Map<String, Object> params = new SimpleMap<String, Object>();
+		params.put("consolidacao", consolidacao);
+		params.put("idInscricao", idInscricao);
+		inscricaoRepository.executeUpdate("update Inscricao set consolidacao =:consolidacao where Inscricao.id =:idInscricao", params);
+			
 	}
 
 	

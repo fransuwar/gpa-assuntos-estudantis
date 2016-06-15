@@ -1,5 +1,4 @@
 package br.ufc.quixada.npi.gpa.controller;
-
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
@@ -102,6 +101,7 @@ public class AlunoController {
 
 	@Inject
 	private DocumentosTipoInscricaoService dtiService;
+
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
@@ -276,7 +276,6 @@ public class AlunoController {
 			BindingResult result, @RequestParam(value="mora", required=false) List<String> comQuemMora,
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model, @RequestParam("fileFoto") MultipartFile foto) {
-
 		
 		try {
 			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
@@ -431,6 +430,19 @@ public class AlunoController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
+	
+	@RequestMapping(value = {"/inscricao/consolidar/{idInscricao}"}, method = RequestMethod.GET)
+	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model){
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		List<Selecao> selecoes = selecaoService.getSelecoes();
+		
+		inscricao.setConsolidacao(true);
+		inscricaoService.update(inscricao);	
+		
+		model.addAttribute("selecoes", selecoes);
+		
+		return PAGINA_SELECOES_ABERTAS;
+	}
 
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
@@ -468,7 +480,7 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
-	public String detalhesInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
+	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
 			RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);

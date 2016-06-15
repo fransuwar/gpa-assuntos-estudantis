@@ -80,7 +80,7 @@
 								<sec:authorize access="hasRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 									<td class="dt-body-right"><a
 										href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
-											<button class="btn btn-primary btn-xs" title="Editar Seleção">
+											<button class="btn btn-info btn-small btn-xs" title="Editar Seleção">
 												<i class="fa fa-pencil-square-o"></i>
 											</button>
 									</a> 
@@ -88,7 +88,7 @@
 											<a id="excluir" data-toggle="modal"
 												data-target="#confirm-delete" href="#"
 												data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
-												<button class="btn btn-danger btn-xs"
+												<button class="btn btn-small btn-danger btn-xs"
 													title="Excluir Seleção">
 													<i class="fa fa-trash"></i>
 												</button>
