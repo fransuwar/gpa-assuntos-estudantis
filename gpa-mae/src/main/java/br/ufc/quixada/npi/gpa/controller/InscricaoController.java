@@ -43,12 +43,8 @@ public class InscricaoController {
 			out.flush();
 		} catch (IOException e) {
 			enviarImagemPadraoEmCasoDeErro(response);
-			e.printStackTrace();
 		} catch (NullPointerException e) {
 			enviarImagemPadraoEmCasoDeErro(response);
-			e.printStackTrace();
-		} finally {		
-			
-		}	
+		}
 	}
 }
