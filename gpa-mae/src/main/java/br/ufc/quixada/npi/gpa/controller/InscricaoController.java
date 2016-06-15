@@ -45,8 +45,6 @@ public class InscricaoController {
 			enviarImagemPadraoEmCasoDeErro(response);
 		} catch (NullPointerException e) {
 			enviarImagemPadraoEmCasoDeErro(response);
-		} finally {		
-			
-		}	
+		}
 	}
 }
