@@ -50,6 +50,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.DiaUtil;
+import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
@@ -382,6 +383,7 @@ public class AlunoController {
 				model.addAttribute("situacaoResidencia", SituacaoResidencia.values());
 				model.addAttribute("totalEstado", Estado.values());
 				model.addAttribute("grauParentesco", GrauParentesco.values());
+				model.addAttribute("escolaridade",Escolaridade.values());
 
 
 				List<HorarioDisponivel> horariosDisponiveis = inscricaoService
@@ -590,6 +592,7 @@ public class AlunoController {
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 		model.addAttribute("moraCom", MoraCom.values());
 		model.addAttribute("grauParentesco", GrauParentesco.values());
+		model.addAttribute("escolaridade",Escolaridade.values());
 		
 		return model;
 		

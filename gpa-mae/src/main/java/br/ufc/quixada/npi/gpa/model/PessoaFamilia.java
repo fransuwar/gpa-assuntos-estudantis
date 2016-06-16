@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
 @Entity
@@ -21,8 +22,9 @@ public class PessoaFamilia {
 	private String nome;
 
 	private Integer idade;
-
-	private String escolaridade;
+	
+	@Enumerated(EnumType.STRING)
+	private Escolaridade escolaridade;
 
 	private String profissao;
 
@@ -50,11 +52,11 @@ public class PessoaFamilia {
 		this.id = id;
 	}
 
-	public String getEscolaridade() {
+	public Escolaridade getEscolaridade() {
 		return escolaridade;
 	}
 
-	public void setEscolaridade(String escolaridade) {
+	public void setEscolaridade(Escolaridade escolaridade) {
 		this.escolaridade = escolaridade;
 	}
 

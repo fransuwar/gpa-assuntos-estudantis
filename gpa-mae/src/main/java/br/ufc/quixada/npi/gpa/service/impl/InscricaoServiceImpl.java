@@ -146,13 +146,14 @@ public class InscricaoServiceImpl implements InscricaoService {
 		inscricaoService.delete(inscricao);
 	}
 
+	
 	@Override
-	public void excluirPessoaFamiliaPorId(Integer idPessoa) {
+	public PessoaFamilia buscarPessoaFamiliaPorId(Integer idPessoa) {
 		Map<String, Object> params = new SimpleMap<String, Object>();
 		params.put("idPessoa", idPessoa);
-		PessoaFamilia pessoa = (PessoaFamilia) pessoaRepository.findFirst(QueryType.JPQL,"select p from PessoaFamilia as p where p.id = :idPessoa",
+		return (PessoaFamilia) pessoaRepository.findFirst(QueryType.JPQL,"select p from PessoaFamilia as p where p.id = :idPessoa",
 				new SimpleMap<String,Object>("idPessoa", idPessoa));
-		pessoaRepository.delete(pessoa);
+
 	}
 
 	
