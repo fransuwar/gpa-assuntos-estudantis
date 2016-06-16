@@ -43,8 +43,6 @@ public interface InscricaoService{
 	public abstract void update(Inscricao inscricao);
 	
 	public abstract void delete(Inscricao inscricao);
-	
-	public abstract void excluirPessoaFamiliaPorId(Integer idPessoa);
 
 	public abstract List<Inscricao> getClassificadosPorSelecao(Selecao selecao);
 	
@@ -58,6 +56,8 @@ public interface InscricaoService{
 
 
 	public abstract List<Inscricao> getIndeferidosPorSelecao(Selecao selecao);
+
+	public abstract PessoaFamilia buscarPessoaFamiliaPorId(Integer idPessoa);
 
 }
 
