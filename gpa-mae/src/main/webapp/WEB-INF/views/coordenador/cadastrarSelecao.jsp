@@ -36,14 +36,14 @@
 				<h3 class="panel-title">${titulo }</h3>
 			</div>
 			<div class="panel-body">
-			
+
 				<c:if test="${not empty erro}">
 					<div class="alert alert-danger alert-dismissible" role="alert"
 						id="alert-erro">
 						<button type="button" class="close" data-dismiss="alert">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 						</button>
-						<div style="text-align:center">
+						<div style="text-align: center">
 							<c:out value="${erro}"></c:out>
 						</div>
 					</div>
@@ -54,7 +54,7 @@
 						<button type="button" class="close" data-dismiss="alert">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 						</button>
-						<div style="text-align:center">
+						<div style="text-align: center">
 							<c:out value="${info}"></c:out>
 						</div>
 					</div>
@@ -76,8 +76,9 @@
 
 					<div class="form-group">
 						<div class="col-sm-6">
-							<label for="tipoSelecao" class="control-label" id="text-align-left">
-								<span class="red">*</span>Tipo de Seleção:
+							<label for="tipoSelecao" class="control-label"
+								id="text-align-left"> <span class="red">*</span>Tipo de
+								Seleção:
 							</label>
 
 							<form:select path="tipoSelecao" id="tipoSelecao"
@@ -155,8 +156,12 @@
 								</div>
 								<div class="col-sm-12">
 									<c:forEach var="documento" items="${tiposDeDocumento }">
-										<div class="checkbox"> <input type="checkbox" id="tiposDeDocumento"
-										 name="checkDocumentos[]" value="${documento.id }" required>${documento.nome }
+										<div class="checkbox">
+											<label> <input type="checkbox" id="tiposDeDocumento"
+												name="checkDocumentos[]" value="${documento.id }"
+												data-toggle="toggle" data-style="ios" data-size="mini"
+												required> ${documento.nome }
+											</label>
 										</div>
 									</c:forEach>
 								</div>
@@ -164,8 +169,10 @@
 						</div>
 					</div>
 					<div class="form-btn">
-						<input type="submit" class="btn btn-primary" value="${botao }" id="form-btn" />
-						<a href="<c:url value="/servidor/selecao/listar"></c:url>" class="btn btn-default" id="form-btn">Cancelar</a>
+						<input type="submit" class="btn btn-primary" value="${botao }"
+							id="form-btn" /> <a
+							href="<c:url value="/servidor/selecao/listar"></c:url>"
+							class="btn btn-default" id="form-btn">Cancelar</a>
 					</div>
 				</form:form>
 			</div>
