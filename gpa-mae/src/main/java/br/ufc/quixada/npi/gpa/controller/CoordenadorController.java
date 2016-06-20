@@ -219,6 +219,7 @@ public class CoordenadorController {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("membrosComissao", selecao.getMembrosComissao());
 			model.addAttribute("tiposDeDocumento",tiposDeDocumento);
+			model.addAttribute("tiposDeDocumentoSelecionados",selecao.getTiposDeDocumento());
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 
