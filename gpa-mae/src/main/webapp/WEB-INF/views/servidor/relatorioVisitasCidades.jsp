@@ -46,25 +46,39 @@
 								<div class="panel panel-primary">
 
 									<div class="panel-heading panel-cidade" role="tab"
-										id="heading${cidade}">
+										id="heading${cidade.key}">
 										<h4 class="panel-title">
 											<a class="collapsed" role="button" data-toggle="collapse"
 												data-parent="#accordion" href="#${cidade}"
-												aria-expanded="false" aria-controls="${cidade}">
-												${cidade} </a>
+												aria-expanded="true" aria-controls="${cidade.key}">
+												${cidade.key} <span class="badge">${cidade.value}</span>
+											</a></a>
 										</h4>
 									</div>
-									<div id="${cidade}" class="panel-collapse collapse"
-										role="tabpanel" aria-labelledby="heading${cidade}">
-										<div class="panel-body">ekrgjioer reogkerog ergkregopk</div>
-
+									<div id="${cidade.key}" class="panel-collapse collapse in"
+										role="tabpanel" aria-labelledby="heading${cidade.key}">
+										<div class="panel-body">
+											<div class="list-group">
+												<c:forEach var="inscricao" items="${inscritosComVisita}">
+													<c:choose>
+														<c:when
+															test="${inscricao.questionarioAuxilioMoradia.cidadeOrigem == cidade.key}">
+															<a
+																href="/MAE/servidor/detalhes/inscricao/${inscricao.id}"
+																class="list-group-item"> <img
+																class="foto-relatorio-visita"
+																src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
+																${inscricao.aluno.pessoa.nome}
+															</a>
+														</c:when>
+													</c:choose>
+												</c:forEach>
+											</div>
+										</div>
 									</div>
 								</div>
-
 							</c:forEach>
-
 						</div>
-
 					</div>
 
 					<div role="tabpanel" class="tab-pane" id="porAluno">
@@ -82,8 +96,12 @@
 										<c:otherwise>
 											<div class="list-group">
 												<c:forEach var="inscricao" items="${inscritosComVisita}">
-													<a href="/MAE/servidor/detalhes/inscricao/${inscricao.id}" class="list-group-item">
-														${inscricao.aluno.pessoa.nome}</a>
+													<a href="/MAE/servidor/detalhes/inscricao/${inscricao.id}"
+														class="list-group-item"> <img
+														class="foto-relatorio-visita"
+														src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
+														${inscricao.aluno.pessoa.nome}
+													</a>
 												</c:forEach>
 											</div>
 										</c:otherwise>
@@ -98,20 +116,23 @@
 							</div>
 							<div class="panel-body panel-body-visitas">
 								<div class="list-group">
-
 									<c:choose>
 										<c:when test="${empty inscritosSemVisita}">
 											Não existem alunos que <strong>não serão</strong> visitados nessa seleção!
 										</c:when>
 										<c:otherwise>
-											<c:forEach var="inscricao" items="${inscritosSemVisita}">
-												<button type="button"
-													class="list-group-item item-aluno-visita">
-													${inscricao.aluno.pessoa.nome}</button>
-											</c:forEach>
+											<div class="list-group">
+												<c:forEach var="inscricao" items="${inscritosSemVisita}">
+													<a href="/MAE/servidor/detalhes/inscricao/${inscricao.id}"
+														class="list-group-item"> <img
+														class="foto-relatorio-visita"
+														src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
+														${inscricao.aluno.pessoa.nome}
+													</a>
+												</c:forEach>
+											</div>
 										</c:otherwise>
 									</c:choose>
-
 								</div>
 							</div>
 						</div>

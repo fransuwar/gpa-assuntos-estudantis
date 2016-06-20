@@ -2,7 +2,10 @@ package br.ufc.quixada.npi.gpa.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -238,21 +241,24 @@ public List<Inscricao> getAlunosSelecionadosVisita(){
 		return listaInscritos;
 	}
 	
-	public List<String> getCidadesVisita(){
+	public Map<String, Integer> getCidadesVisita(){
 		
-		List<String> cidades = new ArrayList<>();
+		Map<String, Integer> mapaCidades = new HashMap<String, Integer>();
 		
 		for(Inscricao inscricao:inscritos){
 			if(inscricao.isRealizarVisita()){
 				String cidade = inscricao.getQuestionarioAuxilioMoradia().getCidadeOrigem();
-				if(!cidades.contains(cidade)){
-					cidades.add(cidade);
+				if(mapaCidades.containsKey(cidade)){
+					int numAlunos = mapaCidades.get(cidade);
+					mapaCidades.put(cidade, numAlunos+1);
+				}else{
+					mapaCidades.put(cidade, 1);
 				}
 			}
 		}
 		
-		return cidades;
-		
+		// TreeMap ordena as entradas no mapa pela chave
+		return new TreeMap<String, Integer>(mapaCidades);
 	}
 
 }
