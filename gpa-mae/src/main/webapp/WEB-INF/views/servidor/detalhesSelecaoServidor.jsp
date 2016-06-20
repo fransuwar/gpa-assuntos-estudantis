@@ -300,6 +300,14 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					
+					<div>
+						<div class='legenda'>
+							<div><div class='def-sit deferido' title="Deferido">D</div> Deferido</div>
+							<div><div class='def-sit indeferido' title="Indeferido">I</div> Indeferido</div>
+							<div><div class='def-sit nao-avaliado' title="Não avaliado">N</div> Não avaliado</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</sec:authorize>
