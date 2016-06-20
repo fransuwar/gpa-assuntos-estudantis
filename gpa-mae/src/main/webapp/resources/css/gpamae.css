@@ -932,3 +932,7 @@ input:focus, select:focus, textarea:focus{
 .full-width{
 	width: 100% !important;
 }
+
+.wizard > .actions > ul > li.disabled {
+  display: none;
+}
