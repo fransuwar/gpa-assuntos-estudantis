@@ -102,13 +102,15 @@
 					<label class='f-title'>Arquivos:</label>
 					<div class='f-content'>
 						&nbsp;
+						<ul class='lista-documentos-selecao'>
 						<c:forEach var="documento" items="${selecao.documentos}">
-							<dd class="col-sm-3">
+							<li>
 								<a
 									href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
 									${documento.nome} </a>
-							</dd>
+							</li>
 						</c:forEach>
+						</ul>
 					</div>
 				</div>
 

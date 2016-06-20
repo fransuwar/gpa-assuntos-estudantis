@@ -49,6 +49,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
+import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
@@ -387,7 +388,8 @@ public class ServidorController {
 				modelo.addAttribute("entrevista", inscricao.getEntrevista());
 			else
 				modelo.addAttribute("entrevista", new Entrevista());
-			modelo.addAttribute("grauParentesco", GrauParentesco.values());
+			    modelo.addAttribute("grauParentesco", GrauParentesco.values());
+			    modelo.addAttribute("escolaridade",Escolaridade.values());
 
 			return PAGINA_DETALHES_INSCRICAO;
 		}else {
@@ -460,7 +462,7 @@ public class ServidorController {
 	}
 	
 	@RequestMapping(value={"inscricao/adicionarPessoaFamilia/{idInscricao}"}, method = RequestMethod.POST)
-	public String adicionarPessoaFamilaNaEntrevista(@Valid @ModelAttribute("pessoaFamilia") PessoaFamilia pessoa, Model model,
+	public String adicionarPessoaFamilaNaEntrevista(@Valid @ModelAttribute("pessoaDaFamilia") PessoaFamilia pessoa, Model model,
 			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect){
 		
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
@@ -472,7 +474,7 @@ public class ServidorController {
 		QuestionarioAuxilioMoradia auxilio = inscricao.getQuestionarioAuxilioMoradia();
 		auxilio.getPessoasEntrevista().add(pessoa);
 		inscricaoService.save(inscricao);
-		redirect.addFlashAttribute("ativarAbaEntrevista",true);
+		redirect.addFlashAttribute(ABA_SELECIONADA,"entrevista-tab");
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 		}
 			
@@ -489,9 +491,11 @@ public class ServidorController {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 		}else{
-	    inscricaoService.excluirPessoaFamiliaPorId(idPessoa);
+		PessoaFamilia pessoa = inscricaoService.buscarPessoaFamiliaPorId(idPessoa);
+		inscricao.getQuestionarioAuxilioMoradia().getPessoasEntrevista().remove(pessoa);
+		inscricaoService.update(inscricao);
 	    model.addAttribute("inscricao",inscricao);
-	    redirect.addFlashAttribute("ativarAbaEntrevista",true);
+	    redirect.addFlashAttribute(ABA_SELECIONADA,"entrevista-tab");
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 		}
 			
