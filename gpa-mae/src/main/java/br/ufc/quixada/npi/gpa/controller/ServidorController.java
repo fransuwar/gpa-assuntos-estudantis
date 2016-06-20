@@ -1,4 +1,5 @@
 package br.ufc.quixada.npi.gpa.controller;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ALUNO_INDEFERIDO;
@@ -16,15 +17,13 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_A
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_INSCRITOS_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_REALIZAR_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRITOS_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -33,16 +32,17 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -70,7 +70,6 @@ import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
-
 @Controller
 @RequestMapping ("servidor")
 @SessionAttributes({ Constants.USUARIO_ID , Constants.USUARIO_LOGADO})
@@ -92,7 +91,8 @@ public class ServidorController {
 	private ImagemService imagemService;
 	
 	@Inject DocumentoService documentoService;
-
+	
+	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
 		Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
@@ -112,7 +112,7 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
-			if(!inscricao.getDeferimentoDocumentacao().equals(Resultado.NAO_AVALIADO)){
+			if(!inscricao.getDocumentacao().getDeferimento().equals(Resultado.NAO_AVALIADO)){
 
 				Selecao selecao = inscricao.getSelecao();
 
@@ -174,6 +174,24 @@ public class ServidorController {
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
+	
+	
+	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Model consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao,Model model){
+		inscricaoService.consolidacaoDeTodos(idSelecao, consolidacao);
+		model.addAttribute("resultado","sucesso");
+		return model;
+	}
+	
+	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Model consolidar(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao,Model model){
+		inscricaoService.consolidar(idInscricao, consolidacao);
+		model.addAttribute("resultado","sucesso");
+		return model;
+		
+	}
+
+	
 	
 	@RequestMapping(value= {"visita/removerFormulario/{idInscricao}/{idFormulario}"}, method = RequestMethod.GET)
 	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, Model modelo){
@@ -256,16 +274,16 @@ public class ServidorController {
 						return PAGINA_RELATORIO_VISITA;
 					}else{
 						redirect.addFlashAttribute("erro", MENSAGEM_ERRO_REALIZACAO_DE_VISITA_DOMICILIAR);
-						return REDIRECT_PAGINA_INSCRITOS_SELECAO + inscricao.getSelecao().getId();
+						return REDIRECT_PAGINA_DETALHES_SELECAO + inscricao.getSelecao().getId();
 					}
 				}else{
 					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_VISITA_DOMICILIAR_JA_EXISTENTE);
-					return REDIRECT_PAGINA_INSCRITOS_SELECAO + inscricao.getSelecao().getId();
+					return REDIRECT_PAGINA_DETALHES_SELECAO + inscricao.getSelecao().getId();
 				}
 
 			} else{
 				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_VISITA);
-				return REDIRECT_PAGINA_INSCRITOS_SELECAO + inscricao.getSelecao().getId();			
+				return REDIRECT_PAGINA_DETALHES_SELECAO + inscricao.getSelecao().getId();			
 			}
 		}
 	}
@@ -291,7 +309,7 @@ public class ServidorController {
 		inscricaoService.update(inscricao);
 		redirect.addFlashAttribute("info", MENSAGEM_VISITA_CADASTRADA);
 
-		return REDIRECT_PAGINA_INSCRITOS_SELECAO  + inscricao.getSelecao().getId();
+		return REDIRECT_PAGINA_DETALHES_SELECAO  + inscricao.getSelecao().getId();
 	}
 
 	@RequestMapping(value = { "informacoes/visita-domiciliar/{idVisita}" }, method = RequestMethod.GET)
@@ -302,23 +320,20 @@ public class ServidorController {
 		if (visitaDomiciliar == null ) {
 
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_VISITA_INEXISTENTE);
-			return REDIRECT_PAGINA_INSCRITOS_SELECAO;
+			return REDIRECT_PAGINA_DETALHES_SELECAO;
 		}
 
 		model.addAttribute("relatorio", visitaDomiciliar);
 
 		return PAGINA_INFORMACOES_RELATORIO;
 	}
-	@RequestMapping(value = "inscritos/{idSelecao}", method = RequestMethod.GET)
+	/*@RequestMapping(value = "inscritos/{idSelecao}", method = RequestMethod.GET)
 	public String listarInscritos(@PathVariable("idSelecao") Integer idSelecao, ModelMap model) {
-
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
-		model.addAttribute("selecao", selecao);
-
+		model.addAttribute("inscricoes", inscricaoService.getInscricoesPorSelecao(idSelecao));
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
 
-	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
+	*/@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao,Authentication auth, Model model, RedirectAttributes redirect){
 
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
@@ -326,21 +341,16 @@ public class ServidorController {
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}else{
-
+		} else {
 			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
-
 			List<Servidor> comissao = selecao.getMembrosComissao();
-
-			if(comissao.contains(servidor)){
-
+			if(comissao.contains(servidor)) {
 				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
 				model.addAttribute("selecao", selecao);
 				model.addAttribute("inscricoes", inscricoes);
-
+				
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-
-			}else{
+			} else {
 				redirect.addFlashAttribute("erro",  MENSAGEM_PERMISSAO_NEGADA);
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}
@@ -475,7 +485,7 @@ public class ServidorController {
 			List<Servidor> comissao = selecao.getMembrosComissao();
 
 			if(comissao.contains(servidor)){
-				model.addAttribute("avaliarDocumentacao", !inscricao.getDeferimentoDocumentacao().equals(Resultado.NAO_AVALIADO));
+				model.addAttribute("avaliarDocumentacao", !inscricao.getDocumentacao().getDeferimento().equals(Resultado.NAO_AVALIADO));
 				model.addAttribute("idInscricao", idInscricao);
 
 				return PAGINA_AVALIAR_DOCUMENTACAO;
@@ -491,7 +501,9 @@ public class ServidorController {
 			@ModelAttribute("observacaoDocumentos") Inscricao observacao, BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 
         Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		inscricao.setDeferimentoDocumentacao(avaliarDocumentacao.getDeferimentoDocumentacao());
+        
+        // o uso da linha apresenta um null pointer
+		//inscricao.getDocumentacao().setDeferimento(avaliarDocumentacao.getDocumentacao().getDeferimento());
 
 		model.addAttribute("avaliarDocumentacao", avaliarDocumentacao);
 		inscricao.setObservacaoDocumentos(observacao.getObservacaoDocumentos());

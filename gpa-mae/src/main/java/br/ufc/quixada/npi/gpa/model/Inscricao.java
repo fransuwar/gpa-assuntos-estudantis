@@ -26,7 +26,7 @@ import br.ufc.quixada.npi.gpa.enums.Resultado;
 })
 
 @Entity
-public class Inscricao {
+public class Inscricao implements Comparable<Inscricao>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,14 +38,14 @@ public class Inscricao {
 	//referente ao resultado final
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
+	
+	private boolean classificado;
 
 	private String observacoes;
 	
 	private String observacaoDocumentos;
 
 	//referente ao deferimento de documentação
-	@Enumerated(EnumType.STRING)
-	private Resultado deferimentoDocumentacao;
 	
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
@@ -65,10 +65,22 @@ public class Inscricao {
 	@ManyToOne
 	private Aluno aluno;
 	
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	private AnaliseDocumentacao documentacao;
 
 	private boolean realizarVisita;
-			
 	
+	private boolean consolidacao;
+			
+
+	public boolean isConsolidacao() {
+		return consolidacao;
+	}
+
+	public void setConsolidacao(boolean consolidacao) {
+		this.consolidacao = consolidacao;
+	}
+
 	public boolean isRealizarVisita() {
 		return realizarVisita;
 	}
@@ -145,14 +157,6 @@ public class Inscricao {
 		this.visitaDomiciliar = visitaDomiciliar;
 	}
 
-	public Resultado getDeferimentoDocumentacao() {
-		return deferimentoDocumentacao;
-	}
-
-	public void setDeferimentoDocumentacao(Resultado deferimento) {
-		this.deferimentoDocumentacao = deferimento;
-	}
-
 	public Entrevista getEntrevista() {
 		return entrevista;
 	}
@@ -167,6 +171,23 @@ public class Inscricao {
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+	
+	public boolean isClassificado() {
+		return classificado;
+	}
+
+	public void setClassificado(boolean classificado) {
+		this.classificado = classificado;
+	}
+	
+
+	public AnaliseDocumentacao getDocumentacao() {
+		return documentacao;
+	}
+
+	public void setDocumentacao(AnaliseDocumentacao documentacao) {
+		this.documentacao = documentacao;
 	}
 
 	
@@ -206,6 +227,11 @@ public class Inscricao {
 	@Override
 	public String toString() {
 		return "Inscricao [id=" + id + "]";
+	}
+
+	@Override
+	public int compareTo(Inscricao o) {
+		return getAluno().getPessoa().getNome().compareTo(o.getAluno().getPessoa().getNome());
 	}
 
 }

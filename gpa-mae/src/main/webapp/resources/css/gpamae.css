@@ -123,7 +123,7 @@ a, a:hover, a:visited, a:active, button, button:hover, button:visited,
 }
 
 div.f-content select {
-	float: right !important;
+	float:right !important;
 	margin: 0;
 }
 
@@ -213,8 +213,10 @@ div.f-container {
 	text-align: left;
 }
 
+
 label.f-title {
 	margin-left: 10px;
+	font-weight: bold;
 }
 
 div.f-content {
@@ -265,7 +267,6 @@ div.s6 {
 	width: 57%;
 }
 
-text-align-left
 div.s7 {
 	width: 67%;
 }
@@ -280,6 +281,18 @@ div.s9 {
 
 div.s10 {
 	width: 97%;
+}
+
+div.s4-custom{
+	width: 45%;
+}
+
+.margin-top-s1{
+	margin-top: 7px;	
+}
+
+.margin-top-s2{
+	margin-top: 17px;	
 }
 
 .text-danger {
@@ -369,8 +382,9 @@ div.s10 {
 }
 
 .opcoes-detalhes {
-	float: right;
-	margin-top: -25px;
+	position: relative;
+	top: -50%;
+	transform: translateY(50%);
 }
 
 .def-sit{
@@ -406,7 +420,7 @@ div.s10 {
 	background-color: #f44336;
 }
 
-#text-align-left {
+#text-align-left, .text-align-left {
 	text-align: left;
 }
 
@@ -458,7 +472,7 @@ div.s10 {
 	transform: translateX(-50%) translateY(-50%);
 	height: 50px;
 }
-Com quem Mora
+
 .photo-sign:after {
 	border-radius: 3px;
 	background: #e0e0e0;
@@ -509,33 +523,6 @@ div.input-photo {
 
 .photos-list li {
 	display: inline-block;
-}
-
-.remove-photo {
-	position: absolute;
-	top: -8px;
-	right: -8px;
-	width: 25px;
-	height: 25px;
-	border-radius: 50%;
-	background-color: #f44336;
-	transform: rotateZ(45deg);
-	transition: all 0.2s;
-}
-
-.remove-photo:before {
-	content: "+";
-	font-height: 25px;
-	line-height: 25px;
-	color: white;
-	margin-left: 6px;
-	font-weight: bold;#E9E9E9
-}
-
-.remove-photo:hover{
-	cursor: pointer;
-	transition: all 0.2s;
-	transform: scale(1.2) rotateZ(-45deg);
 }
 
 .img-fullscreen-background{
@@ -652,6 +639,7 @@ div.input-photo {
 }
 
 .remove-photo {
+	display: block;
 	position: absolute;
 	top: -8px;
 	right: -8px;
@@ -664,11 +652,14 @@ div.input-photo {
 }
 
 .remove-photo:before {
+	position: absolute;
 	content: "+";
 	font-height: 25px;
 	line-height: 25px;
 	color: white;
-	margin-left: 6px;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
 	font-weight: bold;
 }
 
@@ -841,37 +832,81 @@ a, .dropdown-menu > li > a{
 	border-bottom: 1px solid #eeeeec;
 }
 
-.btn-primary{
+.btn{
+  	border: 0 !important;
+}
+
+.btn:hover{
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,.4);
+}
+
+.btn.btn-primary{
 	color: white !important;
 	background-color: #00796B !important;
 	border-bottom-color: #238b7f!important;
 }
 
-.btn-info{
-	color: #ffffff;
-	background-color: #f57900;
-	border-color: #f57900;
+.btn-info, .btn-info:focus, .btn-info > a{
+	color: #ffffff !important;
+	background-color: #f57900 !important;
+	border-color: #f57900 !important;
 }
 
-.btn-info:hover{
-	background-color: #10bcff!important;
+.btn.btn-info:hover{
+	background-color: #f57900 !important;
 	border-color: #34a8d5;
 }
 
-.btn{
-  	border: 0 !important;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+.btn.btn-default{
+	background-color: #e8e8e8;
 }
 
-.btn:hover{
-	margin: 0 !important;
-	transform: scale(0.9);
-	 
+.btn.btn-danger{
+	color:white !important;
+}
+
+.btn.btn-small{
+	font-size: 14px;
+	width: 30px !important;
+	height: 27px !important;
+}
+
+.alert{
+	border: 0 !important;
+	border-radius: 0px !important;
+}
+
+.alert:hover{
+	transform: translate3d(0,-1px,0);
+	transition: all 0.2s;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,.4);
 }
 
 input:focus, select:focus, textarea:focus{
 	border-color: #009688 !important;
 	box-shadow: 0 0 3px rgba(13, 81, 75, 0.3) !important; 
+}
+
+.table-custom{
+	border: 1px solid white;
+	border-radius: 1%;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.table-custom td{
+	text-align: center;
+}
+.table-custom .th-custom{
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	color: white;
+	background-color: #00796B;
+}
+
+.th-center{
+	text-align: center;
+}
+
+.row-centered{
+	margin: 0 auto !important;
 }
 
 .no-decoration{
@@ -895,3 +930,6 @@ input:focus, select:focus, textarea:focus{
 	width: 60%;
 }
 
+.full-width{
+	width: 100% !important;
+}

@@ -48,20 +48,29 @@
 								class="direita clicavel"> <i
 								class="glyphicon glyphicon-chevron-up"></i>
 							</span>
-
 							<sec:authorize access="hasAnyRole('DISCENTE')">
-								<c:if test="${!esconderBotoes}">
-									<a id="editarInscricao"
-										href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
-										<button class="btn btn-info btn-sm" title="Editar Inscrição">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</a>
-									<a id="excluirInscricao"
-										href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
-										<button class="btn btn-danger btn-sm"
-											title="Excluir Inscrição">
-											<i class="glyphicon glyphicon-trash"></i>
+								<c:if test="${inscricao.consolidacao eq false }">
+									<c:if test="${!esconderBotoes}">
+										<a id="editarInscricao"
+											href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+											<button class="btn btn-info btn-sm" title="Editar Inscrição">
+												<span class="glyphicon glyphicon-pencil"></span>
+											</button>
+										</a>
+										<a id="excluirInscricao"
+											href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
+											<button class="btn btn-danger btn-sm"
+												title="Excluir Inscrição">
+												<i class="glyphicon glyphicon-trash"></i>
+											</button>
+										</a>
+									</c:if>
+									<a id="consolidarInscricao" data-target="#modal-consolidacao"
+										data-toggle="modal"
+										data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+										<button class="btn btn-success btn-sm"
+											title="Consolidar Inscrição">
+											<i class="glyphicon glyphicon-ok"></i>
 										</button>
 									</a>
 								</c:if>
@@ -69,6 +78,37 @@
 						</h3>
 					</div>
 					<div class="panel-body">
+						<sec:authorize access="hasAnyRole('DISCENTE')">
+							<c:if test="${!esconderBotoes}">
+								<a id="editarInscricao"
+									href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+									<button class="btn btn-info btn-sm" title="Editar Inscrição">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</button>
+								</a>
+								<a id="excluirInscricao"
+									href="<c:url value="/aluno/inscricao/excluir/${inscricao.id}" ></c:url>">
+									<button class="btn btn-danger btn-sm" title="Excluir Inscrição">
+										<i class="glyphicon glyphicon-trash"></i>
+									</button>
+								</a>
+							</c:if>
+						</sec:authorize>
+						<c:choose>
+							<c:when test="${inscricao.consolidacao eq false}">
+								<a id="consolidarInscricao" data-target="#modal-consolidacao"
+									data-toggle="modal"
+									data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+									<button class="btn btn-success btn-sm"
+										title="Consolidar Inscrição">
+										<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+									</button>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<span class="label label-success">Inscrição consolidada</span>
+							</c:otherwise>
+						</c:choose>
 						<div class="aluno-img-container">
 							<img id="aluno-img"
 								src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
@@ -403,14 +443,14 @@
 							<div class='f-content'>
 								<c:choose>
 									<c:when
-										test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoFundamental.nome}"> Sim</c:when>
+										test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoFundamental}"> Sim</c:when>
 									<c:otherwise>Não</c:otherwise>
 								</c:choose>
 							</div>
 						</div>
 						<c:choose>
 							<c:when
-								test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoFundamental.nome}">
+								test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoFundamental}">
 								<div class='f-container s3'>
 									<label class='f-title'>Percentual da bolsa:</label>
 									<div class='f-content'>${inscricao.questionarioAuxilioMoradia.percentualParticularFundamental}</div>
@@ -430,14 +470,14 @@
 							<div class='f-content'>
 								<c:choose>
 									<c:when
-										test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}"> Sim</c:when>
+										test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoMedio}"> Sim</c:when>
 									<c:otherwise>Não</c:otherwise>
 								</c:choose>
 							</div>
 						</div>
 						<c:choose>
 							<c:when
-								test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}">
+								test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoMedio}">
 								<div class='f-container s3'>
 									<label class='f-title'>Percentual da bolsa:</label>
 									<div class='f-content'>${inscricao.questionarioAuxilioMoradia.percentualParticularMedio}</div>
@@ -547,6 +587,154 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="tab-pane" id="documentos-tab">
+
+				<c:if test="${not empty error}">
+					<div class="alert alert-danger alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						${error }
+					</div>
+				</c:if>
+
+				<div class="panel panel-default panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Documentos</h3>
+
+					</div>
+
+					<div class="panel-body text-align-left">
+
+						<sec:authorize access="hasAnyRole('DISCENTE')">
+							<c:if test="${inscricao.consolidacao eq false }">
+								<form id="insercaoFormularioVisita" role="form" method="POST"
+									enctype="multipart/form-data" style="width: 40%;"
+									action="<c:url value="/aluno/inscricao/adicionarDocumento/${inscricao.id}"/>">
+									Selecione o tipo de documento:<br /> <select
+										class="form-control" name="idTipo">
+										<c:forEach var="tipo"
+											items="${inscricao.selecao.tiposDeDocumento}">
+											<option value="${tipo.id}">${tipo.nome}</option>
+										</c:forEach>
+									</select> Selecione o documento:<br /> <input type="file"
+										name="formulario" /><br /> <input type="submit"
+										class="btn btn-primary" />
+								</form>
+								<hr />
+							</c:if>
+							<c:forEach var="tipo"
+								items="${inscricao.selecao.tiposDeDocumento}">
+								<b>${tipo.nome}</b>
+								<ul class="documentos-lista">
+									<c:choose>
+										<c:when
+											test="${fn:length(inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
+											Nenhum documento enviado nessa categoria	
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="documento"
+												items="${inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos}">
+												<li class=""><a class="no-decoration"
+													href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
+													<c:if test="${inscricao.consolidacao eq false }">
+														<a id="excluirDocumento" href="#">
+															<button class="btn btn-danger btn-sm confirm-button"
+																aria-title="Continuar irá remover o documento, deseja prosseguir?"
+																aria-destination="<c:url value="/aluno/inscricao/removerDocumento/${inscricao.id}/${tipo.id}/${documento.id}"></c:url>"
+																title="Excluir Documento">
+																<i class="glyphicon glyphicon-trash"></i>
+															</button>
+														</a>
+														<strong class="error text-danger"></strong>
+													</c:if></li>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</ul>
+								<hr />
+							</c:forEach>
+							<c:if test="${inscricao.consolidacao eq false }">
+								<a id="consolidarInscricao" data-target="#modal-consolidacao"
+									data-toggle="modal"
+									data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+									<button class="btn btn-primary" title="Consolidar Inscrição">
+										Consolidar Inscrição</button>
+								</a>
+							</c:if>
+						</sec:authorize>
+
+						<sec:authorize
+							access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+							<c:forEach var="tipo"
+								items="${inscricao.selecao.tiposDeDocumento}">
+								<b>${tipo.nome}</b>
+								<ul class="documentos-lista">
+									<c:choose>
+										<c:when
+											test="${fn:length(inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
+											Nenhum documento enviado nessa categoria	
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="documento"
+												items="${inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos}">
+												<li class=""><a class="no-decoration"
+													href="<c:url value="/selecao/visualizarDocumento/${documento.id}"></c:url>">${documento.nome}</a>
+													<a id="baixarDocumento"
+													href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
+														<button class="btn btn-warning btn-sm"
+															title="Baixar Documento">
+															<i class="glyphicon glyphicon-download-alt"></i>
+														</button>
+												</a></li>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</ul>
+
+								<hr />
+							</c:forEach>
+
+
+							<sec:authorize
+								access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+								
+									<div class="panel panel-default panel-primary">
+										<div class="panel-body">
+											<form:form id="obsDoc" role="form"
+												servletRelativeAction="/servidor/avaliarDocumentacao"
+												method="POST" modelAttribute="inscricao"
+												commandName="inscricao">
+												<div class="form-group">
+													<label class="col-sm-2 control-label">Observações:</label>
+													<div class="col-sm-8">
+														<form:textarea class="form-control" rows="8"
+															name="observacaoDocumentos" path="observacaoDocumentos"
+															value="${inscricao.observacaoDocumentos}" />
+														<input type="hidden" value="${inscricao.id }"
+															name="idInscricao" />
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-sm-3 pull-right">
+														<input type="submit" class="button btn btn-primary"
+															name="submit" />
+													</div>
+												</div>
+											</form:form>
+										</div>
+									</div>
+								
+							</sec:authorize>
+
+						</sec:authorize>
+					</div>
+
+				</div>
+			</div>
+
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div class="tab-pane" id="documentos-tab">
@@ -564,7 +752,8 @@
 										<form:textarea class="form-control" rows="8"
 											name="observacaoDocumentos" path="observacaoDocumentos"
 											value="${inscricao.observacaoDocumentos}" />
-										<input type="hidden" value="${inscricao.id }" name="idInscricao" />
+										<input type="hidden" value="${inscricao.id }"
+											name="idInscricao" />
 									</div>
 								</div>
 								<div class="form-group">
@@ -583,7 +772,7 @@
 				<div class="tab-pane" id="entrevista-tab">
 					<c:choose>
 						<c:when
-							test="${inscricao.deferimentoDocumentacao == 'INDEFERIDO'}">
+							test="${inscricao.documentacao.deferimento == 'INDEFERIDO'}">
 							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
@@ -800,7 +989,7 @@
 
 							<c:choose>
 								<c:when
-									test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+									test="${inscricao.documentacao.deferimento eq 'INDEFERIDO'}">
 									<div class="alert alert-danger alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert"
 											aria-label="Close">
@@ -889,6 +1078,25 @@
 						esta pessoa da família?</div>
 					<div class="modal-footer">
 						<a href="#" class="btn btn-danger">Excluir</a>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modal-consolidacao" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">Consolidar Inscrição</div>
+					<div class="modal-body">Você deseja consolidar sua inscrição?
+						Caso escolha sim, você não poderá mais editá-la. Caso escolha não,
+						é preciso que sua inscrição seja consolidada até o prazo final das
+						inscrições. Isso poderá ser feito na página das suas inscrições.</div>
+					<div class="modal-footer">
+						<a
+							href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>"
+							class="btn btn-primary">confirmar</a>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 					</div>
 				</div>

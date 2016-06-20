@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:jee="http://www.springframework.org/schema/jee"
@@ -11,11 +12,15 @@
 		   http://www.springframework.org/schema/tx
 		   http://www.springframework.org/schema/tx/spring-tx.xsd 
 		   http://www.springframework.org/schema/jee
-		   http://www.springframework.org/schema/jee/spring-jee-3.2.xsd">
+		   http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+		   http://www.springframework.org/schema/data/jpa
+    		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 		   
+	<jpa:repositories base-package="br.ufc.quixada.npi.gpa.repository"/>
+	
 	<bean id="applicationContextProvider" class="br.ufc.quixada.npi.gpa.model.PessoaEntityListener" />
 
-	<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<!-- Specify the name of the EntityManagerFactory configuration. -->
 		<property name="persistenceUnitName" value="dev" />
 		<property name="dataSource" ref="gpamae"/>
@@ -30,7 +35,7 @@
 	</bean>	
 
 	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="emf" />
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
 	<!-- Mensagens de erros personalizadas -->

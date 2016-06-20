@@ -20,8 +20,6 @@ public class Constants {
 	
 	public static final String PAGINA_INFORMACOES_SELECAO_SERVIDOR	= "servidor/detalhesSelecaoServidor";
 	
-	public static final String PAGINA_LISTAR_INSCRITOS_SELECAO		= "selecao/listarInscritos";
-	
 	public static final String PAGINA_LISTAR_ALUNOS 				= "administrador/listarAlunos";
 	
 	public static final String PAGINA_FORMULARIO_PREENCHIDO_SELECAO	= "selecao/formularioInscricaoPreenchido";
@@ -47,6 +45,8 @@ public class Constants {
 	public static final String PAGINA_SELECIONAR_CLASSIFICADOS = "selecao/selecionarClassificados";
 	
 	public static final String PAGINA_ADICIONAR_ARQUIVO = "coordenador/adicionarArquivoSelecao";
+	
+	public static final String PAGINA_ADICIONAR_ARQUIVO_INSCRICAO = "aluno/uploadDocumentos";
 
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
@@ -63,6 +63,8 @@ public class Constants {
 	public static final String PAGINA_SELECOES_ABERTAS = "aluno/listarSelecoes";
 	
 	public static final String PAGINA_AVALIAR_DOCUMENTACAO = "servidor/avaliarDocumentacao";
+	
+	public static final String PAGINA_RELATORIO_FINAL = "selecao/resultadoFinal";
 
 	// public static final String PAGINA_DETALHES_SELECAO_SERVIDOR =
 	// "servidor/detalhesSelecao";
@@ -76,6 +78,8 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_EDITAR_SELECAO = "redirect:/coordenador/selecao/editar/";
 	
 	public static final String REDIRECT_PAGINA_ADICIONAR_ARQUIVO = "redirect:/coordenador/selecao/adicionar-documento/";
+	
+	public static final String REDIRECT_PAGINA_ADICIONAR_ARQUIVO_INSCRICAO = "redirect:/aluno/inscricao/adicionar-documento/";
 
 	public static final String REDIRECT_PAGINA_ATRIBUIR_COMISSAO = "redirect:/coordenador/comissao/atribuir/";
 
@@ -83,11 +87,9 @@ public class Constants {
 	
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR = "redirect:/servidor/selecao/listar";
 	
-	public static final String REDIRECT_PAGINA_DETALHES_SELECAO = "redirect:/selecao/detalhes";
-	
 	public static final String REDIRECT_PAGINA_MINHAS_INSCRICOES = "redirect:/aluno/inscricao/listar";
 
-	public static final String REDIRECT_PAGINA_INSCRITOS_SELECAO = "redirect:/servidor/detalhes/";
+	public static final String REDIRECT_PAGINA_DETALHES_SELECAO = "redirect:/servidor/detalhes/";
 
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR = "redirect:/administrador/listar";
 
@@ -98,6 +100,10 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR = "redirect:/servidor/detalhesSelecaoServidor";
 
 	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO = "redirect:/servidor/detalhes/inscricao/";
+	
+	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO = "redirect:/aluno/inscricao/detalhes/";
+	
+	public static final String REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO = "redirect:/aluno/selecao/listar";
 	
 	/** Mensagens */
 
@@ -229,11 +235,15 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO = "Extensão da foto inválida. Extensões aceitas (jpeg, jpg, png)";
 	
+	public static final String MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO = "O documento deve ser enviado no formato PDF.";
+	
 	public static final String MENSAGEM_ERRO_QTD_VAGAS = "Não restam vagas suficientes para esta quantidade de alunos";
 	
 	public static final String MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO = "Selecione pelo menos um aluno classificado";
 
 	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO= "Não é possível excluir esse arquivo";
+	
+	public static final String MENSAGEM_ERRO_DADOS_INSCRICAO= "Verifique os dados inseridos e tente novamente";
 	
 	/** Perfis */
 
@@ -256,5 +266,7 @@ public class Constants {
 	/** Comunicação com Javascript */
 	
 	public static final String ABA_SELECIONADA = "aba";
+	
+	public static final String DOCUMENTOS_TAB = "documentos-tab";
 
 }

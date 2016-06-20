@@ -9,6 +9,20 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+<c:choose>
+	<c:when test="${todosConsolidados}">	
+		<c:url var="consolidar" value="${false}" />
+		<c:set var="botao" value="Desconsolidar Todos" />
+	</c:when>
+	<c:otherwise>
+		<c:url var="consolidar" value="${true}" />
+		<c:set var="botao" value="Consolidar Todos" />
+	</c:otherwise>
+
+</c:choose>
+
+
+
 <html>
 <head>
 <jsp:include page="../fragments/bodyHeader.jsp" />
@@ -39,7 +53,7 @@
 		<div class="panel-card">
 			<div class="panel-card-content">
 				<div class="card">
-					<a href="<c:url value="/servidor/inscritos/${selecao.id}"></c:url>">
+					<a href="<c:url value="/servidor/detalhes/${selecao.id}"></c:url>">
 						<div class="card-content">
 							<div class="card-icon">
 								<i class="fa fa-folder-open"></i>
@@ -71,27 +85,33 @@
 						</div>
 					</a>
 				</div>
-
-				<div class="card">
-					<a
-						href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">
+				
+					<div class="card dropdown">
+					<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 						<div class="card-content">
 							<div class="card-icon">
 								<i class="fa fa-file-text"></i>
 							</div>
-							<div class="card-description">RELATÓRIO VISITAS</div>
+							<div class="card-description">RELATÓRIO</div>
 						</div>
 
 					</a>
+
+					<ul class="dropdown-menu">
+						<li><a href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">Visitas</a></li>
+						<li><a href="<c:url value="/coordenador/comissao/relatorioFinal/${selecao.id}"></c:url>">Final</a></li>
+					</ul>
 				</div>
 
 				<div class="card">
-					<div class="card-content">
-						<div class="card-icon">
-							<i class="fa fa-signal"></i>
+					<a href="<c:url value="/selecao/selecionarClassificados/${selecao.id}"></c:url>">
+						<div class="card-content">
+							<div class="card-icon">
+								<i class="fa fa-signal"></i>
+							</div>
+							<div class="card-description">RANKING</div>
 						</div>
-						<div class="card-description">RANKING</div>
-					</div>
+					</a>
 				</div>
 
 
@@ -170,12 +190,19 @@
 					<h3 class="panel-title">Inscrições</h3>
 				</div>
 				<div class="panel-body">
-					<table class="table" id="tabela-detalhes-selecao-servidores">
+							<div align="right">
+								<input id="idSelecao" type="hidden" value="${selecao.id}">
+								<button id="consolidacaoTodos" class="btn btn-primary" > </button>
+							</div>
+
+
+							<table class="table" id="tabela-detalhes-selecao-servidores">
 						<thead>
 							<tr class="active">
 								<td>Aluno</td>
 								<td>Matricula</td>
 								<td>Data</td>
+								<td>Consolidação</td>
 								<td>Documentação</td>
 								<td>Entrevista</td>
 								<td>Visita</td>
@@ -183,7 +210,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="inscricao" items="${inscricoes }">
+							<c:forEach var="inscricao" items="${inscricoes}">
 								<tr>
 									<td><a id="detalhes"
 										href="<c:url value="/servidor/detalhes/inscricao/${inscricao.id}">  
@@ -192,18 +219,26 @@
 									<td>${inscricao.aluno.matricula}</td>
 									<td><fmt:formatDate value="${inscricao.data}"
 											pattern="dd/MM/yyyy" /></td>
+											
+									<td>
+											<input id="${inscricao.id}" class="toggle-event" type="checkbox" data-toggle="toggle" data-style="ios" data-size="small"
+											<c:if test="${inscricao.consolidacao}">checked </c:if> >
+									</td>
 									<td><c:choose>
 											<c:when
-												test="${inscricao.deferimentoDocumentacao eq 'NAO_AVALIADO'}">
+												test="${inscricao.documentacao.deferimento eq 'NAO_AVALIADO'}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when test="${empty inscricao.documentacao.deferimento}">
 												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
 											</c:when>
 											<c:when
-												test="${inscricao.deferimentoDocumentacao eq 'DEFERIDO'}">
+												test="${inscricao.documentacao.deferimento eq 'DEFERIDO'}">
 												<div class='def-sit deferido' title="Deferido">D</div>
 											</c:when>
 
 											<c:when
-												test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+												test="${inscricao.documentacao.deferimento eq 'INDEFERIDO'}">
 												<div class='def-sit indeferido' title="Indeferido">I</div>
 											</c:when>
 										</c:choose></td>
