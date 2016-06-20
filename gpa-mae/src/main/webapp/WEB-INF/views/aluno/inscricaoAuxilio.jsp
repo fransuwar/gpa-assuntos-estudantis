@@ -227,16 +227,176 @@
 
 							<div class='p-container'>
 								<div class='p-header'>
+									<div class='p-title'>RESIDÊNCIA DE ORIGEM</div>
+								</div>
+
+								<div class='p-body'>
+															
+									<div class='f-container s3'>
+										<label class='f-title'> Rua/Av: </label>
+
+										<div class='f-content'>
+											<form:input id="enderecoOrigem" path="enderecoOrigem"
+												cssClass="form-control" placeholder="Rua/Av" />
+											<div class="error-validation">
+												<form:errors path="enderecoOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s2'>
+										<label class='f-title'> Numero: </label>
+
+										<div class='f-content'>
+											<form:input id="numeroOrigem" path="numeroOrigem"
+												cssClass="form-control" data-mask="999999" placeholder="Num" />
+											<div class="error-validation">
+												<form:errors path="numeroOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s3'>
+										<label class='f-title'> Bairro: </label>
+
+										<div class='f-content'>
+											<form:input id="bairroOrigem" path="bairroOrigem"
+												cssClass="form-control" placeholder="Bairro" />
+											<div class="error-validation">
+												<form:errors path="bairroOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s2'>
+										<label class='f-title'> CEP: </label>
+
+										<div class='f-content'>
+											<form:input id="cepOrigem" path="cepOrigem"
+												data-mask="99999-999" cssClass="form-control"
+												placeholder="CEP" />
+											<div class="error-validation">
+												<form:errors path="cepOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'> Estado: </label>
+
+										<div class='f-content'>
+											<form:select path="estadoOrigem" id="estado-origem"
+												cssClass="form-control" cssStyle="font-size:13px">										</form:select>
+											<div class="error-validation">
+												<form:errors path="estadoOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+
+									<div class='f-container s5'>
+										<label class='f-title'> Cidade: </label>
+
+										<div class='f-content'>
+										
+											<form:select id="cidade-origem" path="cidadeOrigem"
+												cssClass="form-control" placeholder="Cidade">
+											</form:select>
+											<div class="error-validation">
+												<form:errors path="cidadeOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+
+									<div class='f-container s5'>
+										<label class='f-title'> Complemento: </label>
+
+										<div class='f-content'>
+											<form:input id="complementoOrigem" path="complementoOrigem"
+												cssClass="form-control"
+												placeholder="Complemento" />
+											<div class="error-validation">
+												<form:errors path="complementoOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'> Ponto de referência: </label>
+
+										<div class='f-content'>
+											<form:input id="referenciaOrigem" path="referenciaOrigem"
+												cssClass="form-control" placeholder="Ponto de Referencia" />
+											<div class="error-validation">
+												<form:errors path="referenciaOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'>Telefone:</label>
+
+										<div class='f-content'>
+											<form:input id="telefoneOrigem" path="telefoneOrigem"
+												data-mask="(99) 9 9999-9999" cssClass="form-control"
+												placeholder="(00) 0 0000-0000" />
+											<div class="error-validation">
+												<form:errors path="telefoneOrigem"></form:errors>
+											</div>
+										</div>
+									</div>
+
+									<div class='f-container s5'>
+										<label class='f-title'>Situação do Imóvel:</label>
+
+										<div class='f-content'>
+											<form:select path="situacaoImovel" id="situacaoImovel"
+												cssClass="form-control" cssStyle="font-size:14px">
+												<form:option value="">Situação Imóvel</form:option>
+												<form:options items="${situacaoImovel}" itemLabel="nome" />
+											</form:select>
+											<div class="error-validation">
+												<form:errors path="situacaoImovel"></form:errors>
+											</div>
+
+
+										</div>
+									</div>
+									
+									<div class='f-container s5 hidden' id='div-valor-mensal'>
+										<label class='f-title'>Valor mensal do financiamento:</label>
+
+										<div class='f-content'>
+
+											<form:input id="valorMensalFinanciamento"
+												path="valorMensalFinanciamento" cssClass="form-control"
+												placeholder="Valor mensal do financiamento"
+												required="required" />
+											<div class="error-validation">
+												<form:errors path="valorMensalFinanciamento"></form:errors>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class='p-container'>
+								<div class='p-header'>
 									<div class='p-title'>RESIDÊNCIA ATUAL</div>
 								</div>
 
 								<div class='p-body'>
+									<label class='f-title'><input type="checkbox" id="mesmoEndereco"
+												/> Mesmo endereço da residência de origem
+									</label><br>
 									<div class='f-container s3'>
 										<label class='f-title'> Rua/Av: </label>
 
 										<div class='f-content'>
 											<form:input id="endereco" path="endereco"
-												cssClass="form-control" placeholder="Rua da sede do curso" />
+												cssClass="form-control" placeholder="Rua/Av" />
 											<div class="error-validation">
 												<form:errors path="endereco"></form:errors>
 											</div>
@@ -315,7 +475,7 @@
 										<div class='f-content'>
 											<form:input id="complemento" path="complemento"
 												cssClass="form-control"
-												placeholder="Complemento da sede do curso" />
+												placeholder="Complemento" />
 											<div class="error-validation">
 												<form:errors path="complemento"></form:errors>
 											</div>
@@ -340,165 +500,7 @@
 								</div>
 							</div>
 
-							<div class='p-container'>
-								<div class='p-header'>
-									<div class='p-title'>RESIDÊNCIA DE ORIGEM</div>
-								</div>
-
-								<div class='p-body'>
-									<label class='f-title'><input type="checkbox" id="mesmoEndereco"
-												/> Mesmo endereço da residência atual
-									</label></br>
-								
-									<div class='f-container s3'>
-										<label class='f-title'> Rua/Av: </label>
-
-										<div class='f-content'>
-											<form:input id="enderecoOrigem" path="enderecoOrigem"
-												cssClass="form-control" placeholder="Rua da sede do curso" />
-											<div class="error-validation">
-												<form:errors path="enderecoOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s2'>
-										<label class='f-title'> Numero: </label>
-
-										<div class='f-content'>
-											<form:input id="numeroOrigem" path="numeroOrigem"
-												cssClass="form-control" data-mask="999999" placeholder="Num" />
-											<div class="error-validation">
-												<form:errors path="numeroOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s3'>
-										<label class='f-title'> Bairro: </label>
-
-										<div class='f-content'>
-											<form:input id="bairroOrigem" path="bairroOrigem"
-												cssClass="form-control" placeholder="Bairro" />
-											<div class="error-validation">
-												<form:errors path="bairroOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s2'>
-										<label class='f-title'> CEP: </label>
-
-										<div class='f-content'>
-											<form:input id="cepOrigem" path="cepOrigem"
-												data-mask="99999-999" cssClass="form-control"
-												placeholder="CEP" />
-											<div class="error-validation">
-												<form:errors path="cepOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s5'>
-										<label class='f-title'> Estado: </label>
-
-										<div class='f-content'>
-											<form:select path="estadoOrigem" id="estado-origem"
-												cssClass="form-control" cssStyle="font-size:13px">										</form:select>
-											<div class="error-validation">
-												<form:errors path="estadoOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-
-									<div class='f-container s5'>
-										<label class='f-title'> Cidade: </label>
-
-										<div class='f-content'>
-										
-											<form:select id="cidade-origem" path="cidadeOrigem"
-												cssClass="form-control" placeholder="Cidade">
-											</form:select>
-											<div class="error-validation">
-												<form:errors path="cidadeOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-
-									<div class='f-container s5'>
-										<label class='f-title'> Complemento: </label>
-
-										<div class='f-content'>
-											<form:input id="complementoOrigem" path="complementoOrigem"
-												cssClass="form-control"
-												placeholder="Complemento da sede do curso" />
-											<div class="error-validation">
-												<form:errors path="complementoOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s5'>
-										<label class='f-title'> Ponto de referência: </label>
-
-										<div class='f-content'>
-											<form:input id="referenciaOrigem" path="referenciaOrigem"
-												cssClass="form-control" placeholder="Ponto de Referencia" />
-											<div class="error-validation">
-												<form:errors path="referenciaOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s5'>
-										<label class='f-title'>Telefone:</label>
-
-										<div class='f-content'>
-											<form:input id="telefoneOrigem" path="telefoneOrigem"
-												data-mask="(99) 9 9999-9999" cssClass="form-control"
-												placeholder="(00) 0 0000-0000" />
-											<div class="error-validation">
-												<form:errors path="telefoneOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s5'>
-										<label class='f-title'>Situação do Imóvel:</label>
-
-										<div class='f-content'>
-											<form:select path="situacaoImovel" id="situacaoImovel"
-												cssClass="form-control" cssStyle="font-size:14px">
-												<form:option value="">Situação Imóvel</form:option>
-												<form:options items="${situacaoImovel}" itemLabel="nome" />
-											</form:select>
-											<div class="error-validation">
-												<form:errors path="situacaoImovel"></form:errors>
-											</div>
-
-
-										</div>
-									</div>
-									
-									<div class='f-container s5 hidden' id='div-valor-mensal'>
-										<label class='f-title'>Valor mensal do financiamento:</label>
-
-										<div class='f-content'>
-
-											<form:input id="valorMensalFinanciamento"
-												path="valorMensalFinanciamento" cssClass="form-control"
-												placeholder="Valor mensal do financiamento"
-												required="required" />
-											<div class="error-validation">
-												<form:errors path="valorMensalFinanciamento"></form:errors>
-											</div>
-
-										</div>
-									</div>
-								</div>
-							</div>
+						
 
 							<div class='p-container'>
 								<div class='p-header'>
