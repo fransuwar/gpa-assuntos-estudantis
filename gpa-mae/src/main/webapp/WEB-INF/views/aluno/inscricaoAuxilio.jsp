@@ -230,8 +230,7 @@
 									<div class='p-title'>RESIDÊNCIA DE ORIGEM</div>
 								</div>
 
-								<div class='p-body'>
-															
+								<div class='p-body'>						
 									<div class='f-container s3'>
 										<label class='f-title'> Rua/Av: </label>
 
