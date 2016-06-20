@@ -1,5 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANEXO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR;
@@ -37,6 +38,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.joda.time.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -92,7 +94,11 @@ public class CoordenadorController {
 		TipoDocumento tipoDocumento = documentoService.findById(id);
 
 		if (tipoDocumento != null){
+			try{
 			documentoService.deletarTipoDocumento(tipoDocumento);
+			}catch(Exception e){
+				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO);
+			}
 		}
 		else{ 
 			model.addAttribute("Error", MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO);
