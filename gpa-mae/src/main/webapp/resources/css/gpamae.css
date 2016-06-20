@@ -933,6 +933,19 @@ input:focus, select:focus, textarea:focus{
 	width: 100% !important;
 }
 
+.legenda{
+	float:right;
+	display: inline-block;
+	background-color: #ededed;
+	padding: 5px;
+	border-radius: 0px 0px 3px 3px;
+}
+
+.legenda div{
+	margin: 2px;
+	display: inline-block;
+}
+
 .wizard > .actions > ul > li.disabled {
   display: none;
 }
