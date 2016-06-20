@@ -141,7 +141,7 @@
 											<input type="checkbox" name="minhas-informacoes"
 												id="minhas-informacoes" required="required" /> Sim, as
 											informações estão corretas<br /> <span
-												id='nao-minhas-informacoes'>Não, desejo <a href="#"
+												id='nao-minhas-informacoes'>Não, desejo </span><a href="#"
 												onclick="novaAba('http://identidadepessoa.intranet/')">alterar
 													informações</a>
 										</div>
@@ -346,9 +346,9 @@
 								</div>
 
 								<div class='p-body'>
-									<label class='f-title'><input type="checkbox" id="mesmoEndereco"
-												/> Mesmo endereço da residência atual
-									</label></br>
+									<label class='f-title'><input type="checkbox" id="mesmoEndereco"/> 
+										Mesmo endereço da residência atual
+									</label>
 								
 									<div class='f-container s3'>
 										<label class='f-title'> Rua/Av: </label>
@@ -506,130 +506,408 @@
 								</div>
 
 								<div class='p-body'>
-									<div class='f-container s4'>
-										<label class='f-title'> Parentesco do proprietário: </label>
+									<button id="abrirFormPropRural" type="button"
+										class="btn btn-primary" data-toggle="modal"
+										data-target="#formPropRural">Adicionar</button>
+									<div id="listaPropRurais">
 
-										<div class='f-content'>
-											<form:select path="grauParentescoImovelRural"
-												id="grauParentescoImovelRural" cssClass="form-control">
-												<form:option value="" label="Selecione o Grau" />
-												<form:options items="${grauParentescoImovelRural}"
-													itemLabel="nome" />
-											</form:select>
-											<div class="error-validation">
-												<form:errors path="grauParentescoImovelRural"></form:errors>
+										<div id="propRural" class="panel-body hidden">
+											<table class="table table-striped table-hover">
+												<thead>
+													<tr>
+														<th class="form-">Parentesco:</th>
+														<th class="form-group">Área da propriedade:</th>
+														<th class="form-group">Cidade:</th>
+													</tr>
+												</thead>
+												<tbody>
+
+												</tbody>
+											</table>
+
+											<div class="modal-footer">
+												<button type="button"
+													class="btn btn-primary editarPropRural" data-toggle="modal"
+													data-target="#editarPropRural">Editar</button>
+												<button name="botaoRmv" type="button"
+													class="btn btn-danger rmvPropRural">Remover</button>
+											</div>
+										</div>
+
+									</div>
+
+
+									<!-- Modal ADICIONAR propriedade rural -->
+									<div class="modal fade" id="formPropRural" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel">
+										<div class="modal-dialog modal-lg" role="document">
+											<div class="modal-content panel panel-primary">
+												<div class="modal-header panel-heading">
+													<h4 class="modal-title" id="myModalLabel">Nova
+														Propriedade Rural</h4>
+												</div>
+												<div class="modal-body">
+													<div class='f-container s4'>
+														<label class='f-title'> Parentesco do
+															proprietário: </label>
+
+														<div class='f-content'>
+															<form:select path="" id="grauParentescoImovelRural"
+																cssClass="form-control">
+																<form:option value="" label="Selecione o Grau" />
+																<form:options items="${grauParentescoImovelRural}"
+																	itemLabel="nome" />
+															</form:select>
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
+
+													<div class='f-container s3'>
+														<label class='f-title'> Área da propriedade: </label>
+
+														<div class='f-content'>
+															<form:input id="areaPropriedadeRural" path=""
+																cssClass="form-control"
+																placeholder="Área da Propriedade" />
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+
+														</div>
+													</div>
+
+													<div class='f-container s3'>
+														<label class='f-title'>Cidade: </label>
+
+														<div class='f-content'>
+															<form:input id="cidadeEstadoImovelRural" path=""
+																cssClass="form-control"
+																placeholder="Cidade e Estado do Imovel Rural" />
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
+
+													<div class="f-container s3">
+														<label for="outroGrauParentescoImovelRural"
+															id="labelOutroGrauParentescoImovelRural" class="f-title"
+															style="display: none;">Especifique o grau de
+															parentesco:</label>
+														<div class="f-content">
+															<form:input id="outroGrauParentescoImovelRural" path=""
+																cssClass="form-control"
+																placeholder="Outro grau de parentesco"
+																style="display:none;" />
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-primary"
+														data-dismiss="modal">Cancelar</button>
+													<button id="addPropRural" type="submit"
+														class="btn btn-success" data-dismiss="modal">Adicionar
+													</button>
+												</div>
 											</div>
 										</div>
 									</div>
 
-									<div class='f-container s3'>
-										<label class='f-title'> Área da propriedade: </label>
+									<!-- Modal EDITAR propriedade rural -->
+									<div class="modal fade" id="editarPropRural" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel">
+										<div class="modal-dialog modal-lg" role="document">
+											<div class="modal-content panel panel-primary">
+												<div class="modal-header panel-heading">
+													<h4 class="modal-title" id="myModalLabel">Editar
+														Propriedade Rural</h4>
+												</div>
+												<div class="modal-body">
+													<div class='f-container s4'>
+														<label class='f-title'> Parentesco do
+															proprietário: </label>
 
-										<div class='f-content'>
-											<form:input id="areaPropriedadeRural"
-												path="areaPropriedadeRural" cssClass="form-control"
-												placeholder="Área da Propriedade" />
-											<div class="error-validation">
-												<form:errors path="areaPropriedadeRural"></form:errors>
-											</div>
-											
-										</div>
-									</div>
-									
-									<div class='f-container s3'>
-										<label class='f-title'>Cidade: </label>
+														<div class='f-content'>
+															<form:select path="" id="grauParentescoImovelRuralEditar"
+																cssClass="form-control">
+																<form:option value="" label="Selecione o Grau" />
+																<form:options items="${grauParentescoImovelRural}"
+																	itemLabel="nome" />
+															</form:select>
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
 
-										<div class='f-content'>
-											<form:input id="cidadeEstadoImovelRural"
-												path="cidadeEstadoImovelRural" cssClass="form-control"
-												placeholder="Cidade e Estado do Imovel Rural" />
-											<div class="error-validation">
-												<form:errors path="cidadeEstadoImovelRural"></form:errors>
+													<div class='f-container s3'>
+														<label class='f-title'> Área da propriedade: </label>
+
+														<div class='f-content'>
+															<form:input id="areaPropriedadeRuralEditar" path=""
+																cssClass="form-control"
+																placeholder="Área da Propriedade" />
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+
+														</div>
+													</div>
+
+													<div class='f-container s3'>
+														<label class='f-title'>Cidade: </label>
+
+														<div class='f-content'>
+															<form:input id="cidadeEstadoImovelRuralEditar" path=""
+																cssClass="form-control"
+																placeholder="Cidade e Estado do Imovel Rural" />
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
+
+													<div class="f-container s3">
+														<label for="outroGrauParentescoImovelRuralEditar"
+															id="labelOutroGrauParentescoImovelRural" class="f-title"
+															style="display: none;">Especifique o grau de
+															parentesco:</label>
+														<div class="f-content">
+															<form:input id="outroGrauParentescoImovelRural" path=""
+																cssClass="form-control"
+																placeholder="Outro grau de parentesco"
+																style="display:none;" />
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-primary"
+														data-dismiss="modal">Cancelar</button>
+													<button id="confirmarEdicaoPropRural" type="submit"
+														class="btn btn-success" data-dismiss="modal">Confirmar
+													</button>
+												</div>
 											</div>
 										</div>
 									</div>
-									
-									<div class="f-container s3">
-										<label for="outroGrauParentescoImovelRural" id="labelOutroGrauParentescoImovelRural"
-											class="f-title" style="display:none;">Especifique o grau de parentesco:</label>
-										<div class="f-content">
-											<form:input id="outroGrauParentescoImovelRural"
-												path="outroGrauParentescoImovelRural" cssClass="form-control"
-												placeholder="Outro grau de parentesco" style="display:none;"/>
-											<div class="error-validation">
-												<form:errors path="outroGrauParentescoImovelRural"></form:errors>
-											</div>
-										</div>
-									</div>
+
+
 								</div>
 							</div>
-
-							<div class='p-container last'>
+							<div class='p-container'>
 								<div class='p-header'>
 									<div class='p-title'>BENS MÓVEIS</div>
 								</div>
 
 								<div class='p-body'>
-									<div class='f-container s4'>
-										<label class='f-title'> Parentesco do proprietário: </label>
+									<button id="abrirFormBemMovel" type="button"
+										class="btn btn-primary" data-toggle="modal"
+										data-target="#formBemMovel">Adicionar</button>
+									<div id="listaBensMoveis">
 
-										<div class='f-content'>
-											<form:select path="grauParentescoVeiculos"
-												id="grauParentescoVeiculos" cssClass="form-control">
-												<form:option value="" label="Selecione o Grau" />
-												<form:options items="${grauParentescoVeiculos}"
-													itemLabel="nome" />
-											</form:select>
-											<div class="error-validation">
-												<form:errors path="grauParentescoVeiculos"></form:errors>
+										<div id="bemMovel" class="panel-body hidden">
+											<table class="table table-striped table-hover">
+												<thead>
+													<tr>
+														<th class="form-">Parentesco:</th>
+														<th class="form-group">Finalidade:</th>
+														<th class="form-group">Veiculo:</th>
+													</tr>
+												</thead>
+												<tbody>
+
+												</tbody>
+											</table>
+
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary editarBemMovel"
+													data-toggle="modal" data-target="#editarBemMovel">
+													Editar</button>
+												<button name="botaoRmv" type="button"
+													class="btn btn-danger rmvBemMovel">Remover</button>
+											</div>
+										</div>
+
+									</div>
+
+
+									<!-- Modal ADICIONAR bem movel -->
+									<div class="modal fade" id="formBemMovel" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel">
+										<div class="modal-dialog modal-lg" role="document">
+											<div class="modal-content panel panel-primary">
+												<div class="modal-header panel-heading">
+													<h4 class="modal-title" id="myModalLabel">Novo Bem
+														Movel</h4>
+												</div>
+												<div class="modal-body">
+													<div class='f-container s4'>
+														<label class='f-title'> Parentesco do
+															proprietário: </label>
+
+														<div class='f-content'>
+															<form:select path="" id="grauParentescoVeiculos"
+																cssClass="form-control">
+																<form:option value="" label="Selecione o Grau" />
+																<form:options items="${grauParentescoVeiculos}"
+																	itemLabel="nome" />
+															</form:select>
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
+
+													<div class='f-container s3'>
+														<label class='f-title'> Finalidade: </label>
+
+														<div class='f-content'>
+															<form:select path="" id="finalidadeVeiculo"
+																cssClass="form-control">
+																<form:option value="">Selecione a Finalidade</form:option>
+																<form:options items="${finalidadeVeiculo}"
+																	itemLabel="nome" />
+															</form:select>
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+
+														</div>
+													</div>
+
+													<div class='f-container s3'>
+														<label class='f-title'>Veiculo: </label>
+
+														<div class='f-content'>
+															<form:input id="veiculo" path="" cssClass="form-control"
+																placeholder="Tipo de veículo" />
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
+
+													<div class="f-container s3">
+														<label for="outroGrauParentescoVeiculos"
+															id="labelOutroGrauParentescoVeiculos" class="f-title"
+															style="display: none;">Especifique o grau de
+															parentesco:</label>
+														<div class="f-content">
+															<form:input id="outroGrauParentescoVeiculos" path=""
+																cssClass="form-control"
+																placeholder="Outro grau de parentesco"
+																style="display:none;" />
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-primary"
+														data-dismiss="modal">Cancelar</button>
+													<button id="addBemMovel" type="submit"
+														class="btn btn-success" data-dismiss="modal">Adicionar
+													</button>
+												</div>
 											</div>
 										</div>
 									</div>
 
-									<div class='f-container s3'>
-										<label class='f-title'> Veículo: </label>
+									<!-- Modal EDITAR bem movel -->
+									<div class="modal fade" id="editarBemMovel" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel">
+										<div class="modal-dialog modal-lg" role="document">
+											<div class="modal-content panel panel-primary">
+												<div class="modal-header panel-heading">
+													<h4 class="modal-title" id="myModalLabel">Editar Bem
+														Movel</h4>
+												</div>
+												<div class="modal-body">
+													<div class='f-container s4'>
+														<label class='f-title'> Parentesco do
+															proprietário: </label>
 
-										<div class='f-content'>
-											<form:input id="veiculo" path="veiculo"
-												cssClass="form-control" placeholder="Tipo do veículo" />
-											<div class="error-validation">
-												<form:errors path="veiculo"></form:errors>
+														<div class='f-content'>
+															<form:select path="" id="grauParentescoVeiculosEditar"
+																cssClass="form-control">
+																<form:option value="" label="Selecione o Grau" />
+																<form:options items="${grauParentescoVeiculos}"
+																	itemLabel="nome" />
+															</form:select>
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
+
+													<div class='f-container s3'>
+														<label class='f-title'> Finalidade: </label>
+
+														<div class='f-content'>
+															<form:select path="" id="finalidadeVeiculoEditar"
+																cssClass="form-control">
+																<form:option value="">Selecione a Finalidade</form:option>
+																<form:options items="${finalidadeVeiculo}"
+																	itemLabel="nome" />
+															</form:select>
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+
+														</div>
+													</div>
+
+													<div class='f-container s3'>
+														<label class='f-title'>Veículo: </label>
+
+														<div class='f-content'>
+															<form:input id="veiculoEditar" path=""
+																cssClass="form-control" placeholder="Tipo de Veículo" />
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
+
+													<div class="f-container s3">
+														<label for="outroGrauParentescoVeiculosEditar"
+															id="labelOutroGrauParentescoVeiculos" class="f-title"
+															style="display: none;">Especifique o grau de
+															parentesco:</label>
+														<div class="f-content">
+															<form:input id="outroGrauParentescoVeiculosEditar" path=""
+																cssClass="form-control"
+																placeholder="Outro grau de parentesco"
+																style="display:none;" />
+															<div class="error-validation">
+																<form:errors path=""></form:errors>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-primary"
+														data-dismiss="modal">Cancelar</button>
+													<button id="confirmarEdicaoBemMovel" type="submit"
+														class="btn btn-success" data-dismiss="modal">Confirmar
+													</button>
+												</div>
 											</div>
 										</div>
 									</div>
-								
 
-									<div class='f-container s3'>
-										<label class='f-title'>Finalidade do veículo: </label>
 
-										<div class='f-content'>
-											<form:select path="finalidadeVeiculo" id="finalidadeVeiculo"
-												cssClass="form-control">
-												<form:option value="">Selecione a Finalidade</form:option>
-												<form:options items="${finalidadeVeiculo}" itemLabel="nome" />
-											</form:select>
-											<div class="error-validation">
-												<form:errors path="finalidadeVeiculo"></form:errors>
-											</div>
-										</div>
-									</div>
-									
-									<div class="f-container s3">
-										<label for="outroGrauParentescoVeiculos" id="labelOutroGrauParentescoVeiculos"
-											class="f-title" style="display:none;">Especifique o grau de parentesco:</label>
-										<div class="f-content">
-											<form:input id="outroGrauParentescoVeiculos"
-												path="outroGrauParentescoVeiculos" cssClass="form-control"
-												placeholder="Outro grau de parentesco" style="display:none;"/>
-											<div class="error-validation">
-												<form:errors path="outroGrauParentescoVeiculos"></form:errors>
-											</div>
-										</div>
-									</div>
 								</div>
-							</div>
-						</div>
-					</section>
+							</div></section>
 
 
 					<h3>Historico Escolar</h3>
@@ -882,7 +1160,7 @@
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
-
+	
 </body>
 
 </html>

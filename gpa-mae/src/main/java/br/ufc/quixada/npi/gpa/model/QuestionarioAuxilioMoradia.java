@@ -17,9 +17,6 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 
-import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
-import br.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
-import br.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
@@ -106,24 +103,13 @@ public class QuestionarioAuxilioMoradia {
 	
 	private double valorMensalFinanciamento;
 	
-	@Enumerated(EnumType.STRING)
-	private GrauParentescoImovelRural grauParentescoImovelRural;
-	
-	private String outroGrauParentescoImovelRural;
-	
-	private String outroGrauParentescoVeiculos;
-	
-	private Double areaPropriedadeRural;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "auxiliomoradia_id")
+	private List<PropriedadeRural> propRural;
 
-	private String cidadeEstadoImovelRural;
-
-	@Enumerated(EnumType.STRING)
-	private GrauParentescoVeiculos grauParentescoVeiculos;
-
-	private String veiculo;
-
-	@Enumerated(EnumType.STRING)
-	private FinalidadeVeiculo finalidadeVeiculo;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "auxiliomoradia_id")
+	private List<BemMovel> bemMovel;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "auxiliomoradia_id")
@@ -259,46 +245,6 @@ public class QuestionarioAuxilioMoradia {
 
 	public void setSituacaoImovel(SituacaoImovel situacaoImovel) {
 		this.situacaoImovel = situacaoImovel;
-	}
-
-	public GrauParentescoImovelRural getGrauParentescoImovelRural() {
-		return grauParentescoImovelRural;
-	}
-
-	public void setGrauParentescoImovelRural(GrauParentescoImovelRural grauParentescoImovelRural) {
-		this.grauParentescoImovelRural = grauParentescoImovelRural;
-	}
-
-	public String getCidadePropriedadeRural() {
-		return cidadeEstadoImovelRural;
-	}
-
-	public void setCidadePropriedadeRural(String cidadePropriedadeRural) {
-		this.cidadeEstadoImovelRural = cidadePropriedadeRural;
-	}
-
-	public Double getAreaPropriedadeRural() {
-		return areaPropriedadeRural;
-	}
-
-	public void setAreaPropriedadeRural(Double areaPropriedadeRural) {
-		this.areaPropriedadeRural = areaPropriedadeRural;
-	}
-
-	public GrauParentescoVeiculos getGrauParentescoVeiculos() {
-		return grauParentescoVeiculos;
-	}
-
-	public void setGrauParentescoVeiculos(GrauParentescoVeiculos grauParentescoVeiculos) {
-		this.grauParentescoVeiculos = grauParentescoVeiculos;
-	}
-
-	public FinalidadeVeiculo getFinalidadeVeiculo() {
-		return finalidadeVeiculo;
-	}
-
-	public void setFinalidadeVeiculo(FinalidadeVeiculo finalidadeVeiculo) {
-		this.finalidadeVeiculo = finalidadeVeiculo;
 	}
 
 	public TipoEnsinoFundamental getEnsinoFundamental() {
@@ -469,14 +415,6 @@ public class QuestionarioAuxilioMoradia {
 		this.enderecoOrigem = enderecoDeOrigem;
 	}
 
-	public String getVeiculo() {
-		return veiculo;
-	}
-
-	public void setVeiculo(String veiculo) {
-		this.veiculo = veiculo;
-	}
-
 	public boolean isBolsistaUfc() {
 		return bolsistaUfc;
 	}
@@ -509,13 +447,7 @@ public class QuestionarioAuxilioMoradia {
 		this.referenciaOrigem = referenciaOrigem;
 	}
 
-	public String getCidadeEstadoImovelRural() {
-		return cidadeEstadoImovelRural;
-	}
 
-	public void setCidadeEstadoImovelRural(String cidadeEstadoImovelRural) {
-		this.cidadeEstadoImovelRural = cidadeEstadoImovelRural;
-	}
 	
 	@Override
 	public String toString() {
@@ -553,22 +485,6 @@ public class QuestionarioAuxilioMoradia {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	public String getOutroGrauParentescoImovelRural() {
-		return outroGrauParentescoImovelRural;
-	}
-
-	public void setOutroGrauParentescoImovelRural(String outroGrauParentescoImovelRural) {
-		this.outroGrauParentescoImovelRural = outroGrauParentescoImovelRural;
-	}
-
-	public String getOutroGrauParentescoVeiculos() {
-		return outroGrauParentescoVeiculos;
-	}
-
-	public void setOutroGrauParentescoVeiculos(String outroGrauParentescoVeiculos) {
-		this.outroGrauParentescoVeiculos = outroGrauParentescoVeiculos;
 	}
 
 	public List<PessoaFamilia> getPessoasEntrevista() {
