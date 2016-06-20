@@ -8,7 +8,7 @@
 
 <!-- botão adicionar pessoa -->
 <div class="">
-	<div class="alert alert-info text-center">
+	<div class="alert alert-info alert-rounded text-center">
 		Adicione as suas informações socioeconômicas
 		e a das pessoas com quem você mora.
 	</div>

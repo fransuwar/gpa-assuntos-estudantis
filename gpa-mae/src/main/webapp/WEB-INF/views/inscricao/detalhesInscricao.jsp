@@ -741,8 +741,7 @@
 								<div class="panel-body">
 									<form:form id="relatorioForm" role="form"
 										modelAttribute="inscricao.entrevista" commandName="entrevista"
-										servletRelativeAction="${url}" method="POST"
-										cssClass="form-horizontal">
+										servletRelativeAction="${url}" method="POST">
 
 										<input type="hidden" id="idServidor" name="idServidor"
 											value="${sessionScope.id}" />
@@ -750,42 +749,44 @@
 											value="${inscricao.id}" />
 										<input type="hidden" id="idEntrevista" name="idEntrevista"
 											value="${inscricao.entrevista.id}" />
+											
+										<div class="row">
+											<fieldset class="form-group col-sm-8">
+												<label for="observacao" class="col-sm-1 control-label">Observação</label>
+												<form:textarea class="col-sm-5 form-control"
+													name="observacao" rows="3" id="observacao" type="text"
+													path="observacao" placeholder="Observação"></form:textarea>
+												<span class="help-block"></span>
+												<div class="error-validation">
+													<form:errors path="observacao"></form:errors>
+												</div>
+											</fieldset>
+	
+											<fieldset class="form-group col-sm-4">
+												<label for="deferimento" class="col-sm-1 control-label">Deferimento</label>
+												<select name="deferimento" id="deferimento"
+													class="form-control col-sm-2">
+													<option value="DEFERIDO">Deferido</option>
+													<option value="INDEFERIDO"
+														<c:if test="${inscricao.entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
+												</select>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="realizarVisita" class="control-label">Realizar
+													Visita</label> <input type="checkbox" id="realizarVisita"
+													name="realizarVisita" value="true"
+													<c:if test="${inscricao.realizarVisita}">checked </c:if> />
+											</fieldset>
+										</div>
+										
+										<div align="left">
 										<fieldset class="form-group">
-											<label for="observacao" class="col-sm-1 control-label">Observação</label>
-											<form:textarea class="col-sm-5 form-control"
-												name="observacao" rows="3" id="observacao" type="text"
-												path="observacao" placeholder="Observação"></form:textarea>
-											<span class="help-block"></span>
-											<div class="error-validation">
-												<form:errors path="observacao"></form:errors>
-											</div>
+											<button name="submit" type="submit" class="btn btn-primary btn-md"
+												value="${botao}" id="form-btn">Enviar</button>
+											<a href="<c:url value="/selecao/listar" ></c:url>"
+												class="btn btn-default btn-md" id="form-btn">Cancelar</a>
 										</fieldset>
-
-										<fieldset class="form-group">
-											<label for="deferimento" class="col-sm-1 control-label">Deferimento</label>
-											<select name="deferimento" id="deferimento"
-												class="form-control col-sm-2">
-												<option value="DEFERIDO">Deferido</option>
-												<option value="INDEFERIDO"
-													<c:if test="${inscricao.entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
-											</select>
-										</fieldset>
-										<fieldset class="form-group">
-											<label for="realizarVisita" class="control-label">Realizar
-												Visita</label> <input type="checkbox" id="realizarVisita"
-												name="realizarVisita" value="true"
-												<c:if test="${inscricao.realizarVisita}">checked </c:if> />
-										</fieldset>
-										<fieldset class="form-group">
-											<div class="col-sm-1" id="div-form-btn">
-												<input name="submit" type="submit" class="btn btn-primary"
-													value="${botao}" id="form-btn" />
-											</div>
-											<div class="col-sm-2" id="div-form-btn">
-												<a href="<c:url value="/selecao/listar" ></c:url>"
-													class="btn btn-default" id="form-btn">Cancelar</a>
-											</div>
-										</fieldset>
+										</div>
 									</form:form>
 								</div>
 							</div>

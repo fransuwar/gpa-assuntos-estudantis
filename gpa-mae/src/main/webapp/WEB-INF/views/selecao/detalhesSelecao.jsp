@@ -44,7 +44,7 @@
 							<sec:authorize access="hasRole('DISCENTE')">
 								<a id="inscrever" title="Inscrever-se"
 									href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" />">
-									<button class="btn btn-info btn-xs">
+									<button class="btn btn-info">
 										Inscrever-se <span class="glyphicon glyphicon-user"></span>
 									</button>
 								</a>
