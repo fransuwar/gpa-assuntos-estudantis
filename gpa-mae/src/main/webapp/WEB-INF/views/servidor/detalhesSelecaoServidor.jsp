@@ -53,7 +53,7 @@
 		<div class="panel-card">
 			<div class="panel-card-content">
 				<div class="card">
-					<a href="<c:url value="/servidor/inscritos/${selecao.id}"></c:url>">
+					<a href="<c:url value="/servidor/detalhes/${selecao.id}"></c:url>">
 						<div class="card-content">
 							<div class="card-icon">
 								<i class="fa fa-folder-open"></i>
@@ -86,16 +86,21 @@
 					</a>
 				</div>
 
-				<div class="card">
-					<a href="<c:url value="/servidor/relatorioVisitas/${selecao.id}"></c:url>">
+					<div class="card dropdown">
+					<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 						<div class="card-content">
 							<div class="card-icon">
 								<i class="fa fa-file-text"></i>
 							</div>
-							<div class="card-description">RELATÓRIO VISITAS</div>
+							<div class="card-description">RELATÓRIO</div>
 						</div>
 
 					</a>
+
+					<ul class="dropdown-menu">
+						<li><a href="<c:url value="/servidor/relatorioVisitas/${selecao.id}"></c:url>">Visitas</a></li>
+						<li><a href="<c:url value="/coordenador/comissao/relatorioFinal/${selecao.id}"></c:url>">Final</a></li>
+					</ul>
 				</div>
 
 				<div class="card">
@@ -185,23 +190,26 @@
 					<h3 class="panel-title">Inscrições</h3>
 				</div>
 				<div class="panel-body">
-							<div align="right">
-								<input id="idSelecao" type="hidden" value="${selecao.id}">
-								<button id="consolidacaoTodos" class="btn btn-primary" > </button>
-							</div>
-
+							<c:if test="${selecao.inscritos.size()>0 }">
+								<div align="right">
+									<input id="idSelecao" type="hidden" value="${selecao.id}">
+									<button id="consolidacaoTodos" class="btn btn-primary" >Consolidar Todos </button>
+									<button id="desconsolidacaoTodos" class="btn btn-primary" > Desconsolidar Todos </button>
+								</div>
+							</c:if>
 
 							<table class="table" id="tabela-detalhes-selecao-servidores">
 						<thead>
 							<tr class="active">
 								<td>Aluno</td>
 								<td>Matricula</td>
+								<td>Curso</td>
 								<td>Data</td>
-								<td>Consolidação</td>
 								<td>Documentação</td>
 								<td>Entrevista</td>
 								<td>Visita</td>
 								<td>Resultado</td>
+								<td>Consolidação</td>
 							</tr>
 						</thead>
 						<tbody>
@@ -212,25 +220,24 @@
 										</c:url>">
 											${inscricao.aluno.pessoa.nome} </a></td>
 									<td>${inscricao.aluno.matricula}</td>
+									<td>${inscricao.aluno.curso.nome}</td>
 									<td><fmt:formatDate value="${inscricao.data}"
-											pattern="dd/MM/yyyy" /></td>
-											
-									<td>
-											<input id="${inscricao.id}" class="toggle-event" type="checkbox" data-toggle="toggle" data-style="ios" data-size="small"
-											<c:if test="${inscricao.consolidacao}">checked </c:if> >
-									</td>
+											pattern="dd/MM/yyyy HH:mm" /></td>
 									<td><c:choose>
 											<c:when
-												test="${inscricao.deferimentoDocumentacao eq 'NAO_AVALIADO'}">
+												test="${inscricao.documentacao.deferimento eq 'NAO_AVALIADO'}">
+												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
+											</c:when>
+											<c:when test="${empty inscricao.documentacao.deferimento}">
 												<div class='def-sit nao-avaliado' title="Não avaliado">N</div>
 											</c:when>
 											<c:when
-												test="${inscricao.deferimentoDocumentacao eq 'DEFERIDO'}">
+												test="${inscricao.documentacao.deferimento eq 'DEFERIDO'}">
 												<div class='def-sit deferido' title="Deferido">D</div>
 											</c:when>
 
 											<c:when
-												test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+												test="${inscricao.documentacao.deferimento eq 'INDEFERIDO'}">
 												<div class='def-sit indeferido' title="Indeferido">I</div>
 											</c:when>
 										</c:choose></td>
@@ -285,11 +292,24 @@
 												<div class='def-sit indeferido' title="Indeferido">I</div>
 											</c:when>
 										</c:choose></td>
+										
+										<td>
+											<input id="${inscricao.id}" class="toggle-event" type="checkbox" data-toggle="toggle" data-style="ios" data-size="small"
+											<c:if test="${inscricao.consolidacao}">checked </c:if> >
+									</td>
 								</tr>
 
 							</c:forEach>
 						</tbody>
 					</table>
+					
+					<div>
+						<div class='legenda'>
+							<div><div class='def-sit deferido' title="Deferido">D</div> Deferido</div>
+							<div><div class='def-sit indeferido' title="Indeferido">I</div> Indeferido</div>
+							<div><div class='def-sit nao-avaliado' title="Não avaliado">N</div> Não avaliado</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</sec:authorize>

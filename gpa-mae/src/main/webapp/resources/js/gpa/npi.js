@@ -1,26 +1,31 @@
 var linha;
 
-//Função genérica para iniciar os datatables
-function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
-	
-	emptyTableMsg = (emptyTableMsg == null || emptyTableMsg == "") ? "Nenhum registro encontrado" : emptyTableMsg;
-	
-	var dataTable = $(idTable).DataTable({
-		"paging": isPaging,
-		"order": order,
-		"ordering": isOrdering,
-		"bInfo" : false,
-		"searching": isSearching,
-		"language": {
-			"sEmptyTable": emptyTableMsg,
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		}
-	});
-	return dataTable;
-}
-
 $(document).ready(function(){
 	
+//	$("#addPessoaFamilia").click(function(){
+//		$("#formPessoaFamilia").submit();
+//	});
+	
+	//Função genérica para iniciar os datatables
+	function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
+		
+		emptyTableMsg = (emptyTableMsg == null || emptyTableMsg == "") ? "Nenhum registro encontrado" : emptyTableMsg;
+		
+		var dataTable = $(idTable).DataTable({
+			"paging": isPaging,
+			"order": order,
+			"ordering": isOrdering,
+			"bInfo" : false,
+			"searching": isSearching,
+			"language": {
+				"sEmptyTable": emptyTableMsg,
+				"url":"/MAE/resources/js/Portuguese-Brasil.json"
+			}
+		});
+		return dataTable;
+	}
+
+	$.fn.dataTable.ext.errMode = 'none';
 	
 	initDataTable(
 			"#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
@@ -59,11 +64,59 @@ $(document).ready(function(){
 
 	$('.panel-heading').click(function(){ $(this).find('.clicavel').click(); return false; });
 
-	$("#addPessoaFamilia").click(function(){
-		$("#formPessoaFamilia").submit();
-	});
 
+	function getConfigsParaPDF(containerId, tableId){
+		return {
+			language: {
+				url : "/MAE/resources/js/Portuguese-Brasil.json"
+			},
+			paging: false,
+			order: [[ 2, "cresc" ]],
+			ordering: false,
+			bInfo : false,
+			"columnDefs": [
+			               { className: "dt-body-left", "targets": [ 0 ] }
+			               ],
+			               dom: 'Bfrtip',
+			               buttons: [
+			                         {
+			                        	 extend: 'pdf',
+			                        	 text: 'Exportar como PDF',
+			                        	 customize: function(doc){
+			                        		 var colCount = new Array();
+			                        		 $('#'+tableId).find('tbody tr:first-child td').each(function(){
+			                        			 if($(this).attr('colspan')){
+			                        				 for(var i=1;i<=$(this).attr('colspan');$i++){
+			                        					 colCount.push('*');
+			                        				 }
+			                        			 }else{ colCount.push('*'); }
+			                        		 });
+			                        		 doc.content[1].table.widths = colCount;
+			                        	 }
+			                         }
+			                         ],
+			                         initComplete: function(settings, json) {
+
+			                        	 $('.buttons-pdf').parent().css('float', 'right');
+			                        	 $('.buttons-pdf').parent().css('margin-top', '-30px');
+			                        	 $('.buttons-pdf').parent().appendTo('#'+containerId);
+			                        	 $('.buttons-pdf').attr('class', 'btn btn-primary');
+
+			                         }
+		};
+	}
+
+	$('#resultadoFinalTableClassificados').DataTable( 
+			getConfigsParaPDF("buttons-container1", "resultadoFinalTableClassificados")
+	);
+
+	$('#resultadoFinalTableReservas').DataTable( 
+			getConfigsParaPDF("buttons-container2", "resultadoFinalTableReservas")
+	);
 	
+	$('#resultadoFinalTableIndeferidos').DataTable( 
+			getConfigsParaPDF("buttons-container3", "resultadoFinalTableIndeferidos")
+	);
 
 	$("#pesquisarClassificaveis").keyup(function() {
 		tabelaClassificaveis.fnFilter(this.value);
@@ -153,6 +206,33 @@ $(document).ready(function(){
 	});
 
 	$("#questionarioIniciacao").validate();
+
+	$("table").DataTable({
+		"language": {
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"columnDefs": 
+			[],
+			"paging": false,
+			"searching": false,
+			"ordering": false
+
+	});
+
+	$("#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
+			"#tabela-inscritos, #tabela-ranking-classificados, " +
+	"#tabela-detalhes-selecao-servidores, #table-visualiza-info-auxilio").DataTable({
+		"language": {
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		"columnDefs": 
+			[],
+			"paging": false,
+			"searching": false,
+			"ordering": false
+
+	});
+
 
 	jQuery.validator.addMethod("periodo", function(value, element) {
 		return !moment($("#dataTermino").val()).isBefore($("#dataInicio").val());

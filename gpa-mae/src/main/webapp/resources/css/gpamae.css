@@ -133,7 +133,6 @@ label.title {
 }
 
 div.text-align-left {
-	width: 100%;
 	text-align: left;
 }
 
@@ -291,9 +290,7 @@ div.s4-custom{
 	margin-top: 7px;	
 }
 
-.margin-top-s2{PATREON DO BRAINCAST
-
-	
+.margin-top-s2{
 	margin-top: 17px;	
 }
 
@@ -368,9 +365,7 @@ div.s4-custom{
 
 .info-container .info-title-container {
 	width: 100%;
-	height: 100%;PATREON DO BRAINCAST
-
-	
+	height: 100%;
 }
 
 .info-container .info-title-container .info-title {
@@ -897,9 +892,7 @@ input:focus, select:focus, textarea:focus{
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .table-custom td{
-	text-align: center;PATREON DO BRAINCAST
-
-	
+	text-align: center;
 }
 .table-custom .th-custom{
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -936,26 +929,16 @@ input:focus, select:focus, textarea:focus{
 	width: 60%;
 }
 
-
- .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
- .toggle.ios .toggle-handle { border-radius: 20px; }
-
-
-.documentos-aluno{
-	margin-left: -40px;
+.full-width{
+	width: 100% !important;
 }
 
-.documentos-aluno li{
-	margin: 1%;
-	width: 17%;
-	height: 60px;
-	margin-bottom: 1%;
-	background-color: #009688;
-	border-radius: 5px;
-	border: 1px solid #dedede;
+.legenda{
+	float:right;
 	display: inline-block;
-	position: relative;
-	transition: all 0.2s;
+	background-color: #ededed;
+	padding: 5px;
+	border-radius: 0px 0px 3px 3px;
 }
 
 .documentos-aluno li:hover{
@@ -990,9 +973,9 @@ input:focus, select:focus, textarea:focus{
 	padding: 0;
 }
 
-.inline-block {
+.legenda div{
+	margin: 2px;
 	display: inline-block;
-	width: auto;
 }
 
 .form-btn {
@@ -1028,4 +1011,7 @@ input:focus, select:focus, textarea:focus{
 	height: 60px;
 	width: 60px;
 	margin-right: 20px;
+}
+.wizard > .actions > ul > li.disabled {
+  display: none;
 }

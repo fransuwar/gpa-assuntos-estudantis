@@ -22,9 +22,9 @@ public interface InscricaoService{
 	
 	public abstract List<Inscricao> getInscricoesPorSelecaoPorAluno(Integer idSelecao, Integer idAluno);
 	
-	public abstract List<PessoaFamilia> getPessoaFamiliaPorIdIniciacaoAcademica(Integer idIniciacaoAcademica);
+	/*public abstract List<PessoaFamilia> getPessoaFamiliaPorIdIniciacaoAcademica(Integer idIniciacaoAcademica);
 	
-	public abstract List<PessoaFamilia> getPessoaFamiliaPorIdAuxilioMoradia(Integer idAuxilioMoradia);
+	public abstract List<PessoaFamilia> getPessoaFamiliaPorIdAuxilioMoradia(Integer idAuxilioMoradia);*/
 	
 	public abstract VisitaDomiciliar getVisitaDocimiciliar(Integer idVisitaDomiciliar);
 	
@@ -43,11 +43,7 @@ public interface InscricaoService{
 	public abstract void update(Inscricao inscricao);
 	
 	public abstract void delete(Inscricao inscricao);
-	
-	public abstract void excluirPessoaFamiliaPorId(Integer idPessoa);
 
-	public abstract List<Inscricao> getDeferidosBySelecao(Selecao selecao);
-	
 	public abstract List<Inscricao> getClassificadosPorSelecao(Selecao selecao);
 	
 	public abstract List<Inscricao> getClassificaveisPorSelecao(Selecao selecao);
@@ -58,6 +54,10 @@ public interface InscricaoService{
 	
 	public abstract void consolidar(Integer idInscricao,boolean consolidacao);	
 
+
+	public abstract List<Inscricao> getIndeferidosPorSelecao(Selecao selecao);
+
+	public abstract PessoaFamilia buscarPessoaFamiliaPorId(Integer idPessoa);
 
 }
 

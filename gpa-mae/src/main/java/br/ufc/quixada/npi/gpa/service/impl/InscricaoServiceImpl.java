@@ -71,19 +71,19 @@ public class InscricaoServiceImpl implements InscricaoService {
 				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
 	}
 
-	@Override
+	/*@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaPorIdIniciacaoAcademica(Integer idIniciacaoAcademica) {
 		return pessoaRepository.find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",
 				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
-	}
-
+	}*/
+/*
 	@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaPorIdAuxilioMoradia(Integer idAuxilioMoradia) {
 		return pessoaRepository.find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia",
 				new SimpleMap<String, Object>("idAuxilioMoradia", idAuxilioMoradia));
-	}
+	}*/
 
 	@Override
 	public void salvarVisitaDocimiciliar(VisitaDomiciliar visitaDocimiciliar) {
@@ -146,25 +146,17 @@ public class InscricaoServiceImpl implements InscricaoService {
 		inscricaoService.delete(inscricao);
 	}
 
+	
 	@Override
-	public void excluirPessoaFamiliaPorId(Integer idPessoa) {
+	public PessoaFamilia buscarPessoaFamiliaPorId(Integer idPessoa) {
 		Map<String, Object> params = new SimpleMap<String, Object>();
 		params.put("idPessoa", idPessoa);
-		PessoaFamilia pessoa = (PessoaFamilia) pessoaRepository.findFirst(QueryType.JPQL,"select p from PessoaFamilia as p where p.id = :idPessoa",
+		return (PessoaFamilia) pessoaRepository.findFirst(QueryType.JPQL,"select p from PessoaFamilia as p where p.id = :idPessoa",
 				new SimpleMap<String,Object>("idPessoa", idPessoa));
-		pessoaRepository.delete(pessoa);
+
 	}
 
 	
-	@Override
-	@Transactional(readOnly = true)
-	public List<Inscricao> getDeferidosBySelecao(Selecao selecao) {
-		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.deferimento = 'true'",
-				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
-
-		return inscricoes;
-	}
-
 	@Override
 	public List<Inscricao> getClassificadosPorSelecao(Selecao selecao) {
 		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'true'",
@@ -189,6 +181,14 @@ public class InscricaoServiceImpl implements InscricaoService {
 		params.put("idInscricao", idInscricao);
 		inscricaoRepository.executeUpdate("update Inscricao set classificado =:classificado where Inscricao.id =:idInscricao", params);
 		
+	}
+
+	@Override
+	public List<Inscricao> getIndeferidosPorSelecao(Selecao selecao) {
+		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.resultado = 'INDEFERIDO'",
+				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
+
+		return inscricoes;
 	}
 
 	@Override
