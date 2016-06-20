@@ -945,3 +945,7 @@ input:focus, select:focus, textarea:focus{
 	margin: 2px;
 	display: inline-block;
 }
+
+.wizard > .actions > ul > li.disabled {
+  display: none;
+}
