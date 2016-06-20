@@ -203,12 +203,13 @@
 							<tr class="active">
 								<td>Aluno</td>
 								<td>Matricula</td>
+								<td>Curso</td>
 								<td>Data</td>
-								<td>Consolidação</td>
 								<td>Documentação</td>
 								<td>Entrevista</td>
 								<td>Visita</td>
 								<td>Resultado</td>
+								<td>Consolidação</td>
 							</tr>
 						</thead>
 						<tbody>
@@ -219,13 +220,9 @@
 										</c:url>">
 											${inscricao.aluno.pessoa.nome} </a></td>
 									<td>${inscricao.aluno.matricula}</td>
+									<td>${inscricao.aluno.curso.nome}</td>
 									<td><fmt:formatDate value="${inscricao.data}"
-											pattern="dd/MM/yyyy" /></td>
-											
-									<td>
-											<input id="${inscricao.id}" class="toggle-event" type="checkbox" data-toggle="toggle" data-style="ios" data-size="small"
-											<c:if test="${inscricao.consolidacao}">checked </c:if> >
-									</td>
+											pattern="dd/MM/yyyy HH:mm" /></td>
 									<td><c:choose>
 											<c:when
 												test="${inscricao.documentacao.deferimento eq 'NAO_AVALIADO'}">
@@ -295,6 +292,11 @@
 												<div class='def-sit indeferido' title="Indeferido">I</div>
 											</c:when>
 										</c:choose></td>
+										
+										<td>
+											<input id="${inscricao.id}" class="toggle-event" type="checkbox" data-toggle="toggle" data-style="ios" data-size="small"
+											<c:if test="${inscricao.consolidacao}">checked </c:if> >
+									</td>
 								</tr>
 
 							</c:forEach>
