@@ -657,20 +657,18 @@
 											</div>
 										</div>
 									</div>
-									<div class='f-container s2'
+									<div class='f-container s5'
 										id="percentualParticularFundamental">
 										<label class='f-title'>Percentual de Bolsa:</label>
 
-										<div class='f-content'>
+										<div class='f-content' >
 											<div class="input-group">
 												<form:input id="percentualParticularFundamental"
 													path="percentualParticularFundamental"
-													cssClass="form-control" data-mask="000" placeholder="0" />
-												<div class="input-group-addon">%</div>
+													cssClass="form-control" data-mask="000" placeholder="Digite um valor entre 0.1 e 100" min="0.1" max="100"/>
+												<div class="input-group-addon">%</div>	
 											</div>
-											<div class="error-validation">
-												<form:errors path="percentualParticularFundamental"></form:errors>
-											</div>
+											
 										</div>
 									</div>
 								</div>
