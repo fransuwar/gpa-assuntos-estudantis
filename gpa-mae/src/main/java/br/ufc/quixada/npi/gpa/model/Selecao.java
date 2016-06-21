@@ -243,7 +243,7 @@ public List<Inscricao> getAlunosSelecionadosVisita(){
 	
 	public Map<String, Integer> getCidadesVisita(){
 		
-		Map<String, Integer> mapaCidades = new HashMap<String, Integer>();
+		Map<String, Integer> mapaCidades = new TreeMap<String, Integer>();
 		
 		for(Inscricao inscricao:inscritos){
 			if(inscricao.isRealizarVisita()){
@@ -257,8 +257,7 @@ public List<Inscricao> getAlunosSelecionadosVisita(){
 			}
 		}
 		
-		// TreeMap ordena as entradas no mapa pela chave
-		return new TreeMap<String, Integer>(mapaCidades);
+		return mapaCidades;
 	}
 
 }

@@ -64,7 +64,7 @@
 														<c:when
 															test="${inscricao.questionarioAuxilioMoradia.cidadeOrigem == cidade.key}">
 															<a
-																href="/MAE/servidor/detalhes/inscricao/${inscricao.id}"
+																href="<c:url value = "/servidor/detalhes/inscricao/${inscricao.id}"></c:url>"
 																class="list-group-item"> <img
 																class="foto-relatorio-visita"
 																src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
@@ -96,7 +96,7 @@
 										<c:otherwise>
 											<div class="list-group">
 												<c:forEach var="inscricao" items="${inscritosComVisita}">
-													<a href="/MAE/servidor/detalhes/inscricao/${inscricao.id}"
+													<a href="<c:url value = "/servidor/detalhes/inscricao/${inscricao.id}"></c:url>"
 														class="list-group-item"> <img
 														class="foto-relatorio-visita"
 														src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
@@ -123,7 +123,8 @@
 										<c:otherwise>
 											<div class="list-group">
 												<c:forEach var="inscricao" items="${inscritosSemVisita}">
-													<a href="/MAE/servidor/detalhes/inscricao/${inscricao.id}"
+												<c:url value = "/servidor/detalhes/inscricao/${inscricao.id}"></c:url>
+													<a href="<c:url value = "/servidor/detalhes/inscricao/${inscricao.id}"></c:url>"
 														class="list-group-item"> <img
 														class="foto-relatorio-visita"
 														src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
