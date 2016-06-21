@@ -422,6 +422,179 @@ var FormularioAuxilio = function() {
 	};
 
 	
+	self.criarDivItem = function(indice, elemento, nomeElemento, form){
+		
+		var novoDivItem = $("#"+nomeElemento).clone();
+
+		novoDivItem.attr("id", nomeElemento + "_" + indice);
+		novoDivItem.removeClass("hidden");
+
+		var table = novoDivItem.find("tbody");
+		var tr = $("<tr></tr>");
+		if(nomeElemento == "bemMovel"){
+			for(var i in formBemMovel){
+				tr.append($("<td>" + elemento[i] + "</td>"));
+			}
+		}else{
+			for(var i in formPropRural){
+				tr.append($("<td>" + elemento[i] + "</td>"));
+			}
+		}
+		table.append(tr);
+		
+		var input = $("<input type=\"hidden\"/>");
+
+		for(var i in form){
+			input.attr("value", elemento[i]);
+			input.attr("name", nomeElemento + "["+ indice +"]." + elemento[i]);
+			novoDivItem.append(input.clone());
+		}
+		return novoDivItem;
+
+	}
+
+	self.limparListaPropRurais = function () {
+		$("#listaPropRurais").children().each(function (indice, item) {
+			if ($(item).attr("id") !== "propRural") {
+				$(item).remove();
+			}
+		});
+	};
+	
+	self.limparListaBemMovel = function () {
+		$("#listaBensMoveis").children().each(function (indice, item) {
+			if ($(item).attr("id") !== "bemMovel") {
+				$(item).remove();
+			}
+		});
+	};
+
+	self.imprimirListaPropRurais = function () {    	
+		self.limparListaPropRurais();
+
+		listaPropRurais.forEach(function (propRural, indice) {
+			var novaDivProp = self.criarDivItem(indice, propRural, "propRural", self.formPropRural);
+			$("#listaPropRurais").append(novaDivProp); 
+		});
+		
+		$(".rmvPropRural").click(self.removerPropRural);
+		$(".editarPropRural").click(self.editarPropRural);
+	};
+	
+	self.imprimirListaBensMoveis = function () {    	
+		self.limparListaBemMovel();
+
+		listaBensMoveis.forEach(function (bemMovel, indice) {
+			var novaDiv = self.criarDivItem(indice, bemMovel, "bemMovel", self.formBemMovel);
+			
+			$("#listaBensMoveis").append(novaDiv); 
+		});
+		
+		$(".rmvBemMovel").click(self.removerBemMovel);
+		$(".editarBemMovel").click(self.editarBemMovel);
+	};
+	
+	self.removerPropRural = function(){
+		var item = $(this).parent().parent();
+		var idItem = item.attr("id").split("_")[1];
+		listaPropRurais.splice(idItem, 1);
+		self.imprimirListaPropRurais();
+
+	}
+	
+	self.removerBemMovel = function(){
+		var item = $(this).parent().parent();
+		var idItem = item.attr("id").split("_")[1];
+		listaBensMoveis.splice(idItem, 1);
+		self.imprimirListaBensMoveis();
+	}
+	
+	self.editarPropRural = function () {
+		var divPropRural = $(this).parent().parent()
+		var idPropRural = divPropRural.attr("id").split("_")[1];
+		var propRural = listaPropRurais[idPropRural];
+		
+		$(formPropRuralEditar.parentesco).val(propRural.parentesco);
+		$(formPropRuralEditar.cidade).val(propRural.cidade);
+		$(formPropRuralEditar.area).val(propRural.area);
+		$("#confirmarEdicaoPropRural").click({indice: idPropRural}, self.confirmarEdicaoPropRural); 
+	};
+	
+	self.editarBemMovel = function () {
+		var divBemMovel = $(this).parent().parent()
+		var idBemMovel = divBemMovel.attr("id").split("_")[1];
+		var bemMovel = listaBensMoveis[idBemMovel];
+		
+		$(formBemMovelEditar.parentesco).val(bemMovel.parentesco);
+		$(formBemMovelEditar.veiculo).val(bemMovel.veiculo);
+		$(formBemMovelEditar.finalidade).val(bemMovel.finalidade);
+		
+		$("#confirmarEdicaoBemMovel").click({indice: idBemMovel}, self.confirmarEdicaoBemMovel); 
+	};
+	
+	self.confirmarEdicaoPropRural = function (evento) {
+		var idPropRural = evento.data.indice;
+		var propRural = listaPropRurais[idPropRural];
+		
+		console.log(propRural);
+		propRural.parentesco = $(formPropRuralEditar.parentesco).val();
+		propRural.cidade = $(formPropRuralEditar.cidade).val();
+		propRural.area = $(formPropRuralEditar.area).val();
+		
+		$(formPropRuralEditar.parentesco).val("");
+		$(formPropRuralEditar.cidade).val("");
+		$(formPropRuralEditar.area).val("");
+		
+		self.imprimirListaPropRurais();
+		$( "#confirmarEdicaoPropRural").unbind( "click" );
+	};
+	
+	self.confirmarEdicaoBemMovel = function (evento) {
+		var idBemMovel = evento.data.indice;
+		var bemMovel = listaBensMoveis[idBemMovel];
+		
+		
+		bemMovel.parentesco = $(formBemMovelEditar.parentesco).val();
+		bemMovel.veiculo = $(formBemMovelEditar.veiculo).val();
+		bemMovel.finalidade = $(formBemMovelEditar.finalidade).val();
+		
+
+		$(formBemMovelEditar.parentesco).val("");
+		$(formBemMovelEditar.veiculo).val("");
+		$(formBemMovelEditar.finalidade).val("");
+		
+		self.imprimirListaBensMoveis();
+		$( "#confirmarEdicaoBemMovel").unbind( "click" );
+	};
+		
+	self.criarElementoDoForm = function(form){
+		var elemento = {}
+		$.each(form, function (chave, valor) {
+			elemento[chave] = $(valor).val();
+			$(valor).val("");
+		});
+
+		return elemento;
+	}
+
+	self.addPropRural = function () {
+		$("#addPropRural").click(function() {
+			var propRural = self.criarElementoDoForm(formPropRural);
+			listaPropRurais.push(propRural);	
+			self.imprimirListaPropRurais();
+			
+		});
+	};
+	
+	self.addBemMovel = function () {
+		$("#addBemMovel").click(function() {
+			var bemMovel = self.criarElementoDoForm(formBemMovel);
+			listaBensMoveis.push(bemMovel);
+			self.imprimirListaBensMoveis();
+		});
+	};
+
+	
 	self.initStep = function() {
 		$formElement.steps({
 			headerTag: "h3",
@@ -617,32 +790,32 @@ var FormularioAuxilio = function() {
 		});
 	};
 	
-	//Copia os valores da residencia ataul para a residencia de origem
+	//Copia os valores da residencia atual para a residencia de origem
 	self.initDivMesmoEndereco = function(){
 		$("#mesmoEndereco").click(function() {
 			if($(this).is(":checked")){
 				console.log("Verdade");
-				$("#enderecoOrigem").val($("#endereco").val());
-				$("#numeroOrigem").val($("#numero").val());
-				$("#bairroOrigem").val($("#bairro").val());
-				$("#cepOrigem").val($("#cep").val());
-				$("#complementoOrigem").val($("#complemento").val());
-				$("#referenciaOrigem").val($("#referencia").val());
-				$("select[name=estadoOrigem]").val($("select[name=estado]").val());
-				$("select[name=estadoOrigem]").change();
-				$("#cidadeOrigem").disabled = false;
-				$("select[name=cidadeOrigem]").val($("select[name=cidade]").val());				
+				$("#endereco").val($("#enderecoOrigem").val());
+				$("#numero").val($("#numeroOrigem").val());
+				$("#bairro").val($("#bairroOrigem").val());
+				$("#cep").val($("#cepOrigem").val());
+				$("#complemento").val($("#complementoOrigem").val());
+				$("#referencia").val($("#referenciaOrigem").val());
+				$("select[name=estado]").val($("select[name=estadoOrigem]").val());
+				$("select[name=estado]").change();
+				$("#cidade").disabled = false;
+				$("select[name=cidade]").val($("select[name=cidadeOrigem]").val());				
 			}
 			else{     
-				$("#enderecoOrigem").val("");
-				$("#numeroOrigem").val("");
-				$("#bairroOrigem").val("");
-				$("#cepOrigem").val("");
-				$("#complementoOrigem").val("");
-				$("#referenciaOrigem").val("");
-				$("select[name=estadoOrigem]").val(null);
-				$("select[name=cidadeOrigem]").val(null);
-				$("select[name=cidadeOrigem]").attr('disabled', 'disabled');
+				$("#endereco").val("");
+				$("#numero").val("");
+				$("#bairro").val("");
+				$("#cep").val("");
+				$("#complemento").val("");
+				$("#referencia").val("");
+				$("select[name=estado]").val(null);
+				$("select[name=cidade]").val(null);
+				$("select[name=cidade]").attr('disabled', 'disabled');
 			}
 		});
 
