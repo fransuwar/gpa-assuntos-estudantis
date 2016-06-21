@@ -34,11 +34,19 @@
 <script src="<c:url value="/resources/js/libs/jquery.mask.js" />"></script>
 <script src="<c:url value="/resources/js/libs/jquery.maskMoney.js" />"></script>
 <script src="<c:url value="/resources/js/libs/list-dynamic.js" />"></script>
+
 <script src="<c:url value="/resources/js/libs/jquery.dataTables.min.js" />"></script>
+<script src="<c:url value="/resources/js/libs/jquery.dataTables.buttons.min.js" />"></script>
+<script src="<c:url value="/resources/js/libs/jquery.pdfmake.min.js" />"></script>
+<script src="<c:url value="/resources/js/libs/jquery.vfs_fonts.js" />"></script>
+<script src="<c:url value="/resources/js/libs/jquery.buttons.html5.min.js" />"></script>
+
 <script src="<c:url value="/resources/js/libs/jquery.validate.min.js" />"></script>
 <script src="<c:url value="/resources/js/libs/moment-with-locales.js"/>"></script>
 <script src="<c:url value="/resources/js/libs/jquery.steps.min.js"/>"></script>
 <script src="<c:url value="/resources/js/gpa/npi.js"/>"></script>
 <script src="<c:url value="/resources/js/gpa/funcoes_aluno.js"/>"></script>
+<script src="<c:url value="/resources/js/gpa/funcoes_coordenador.js"/>"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <input type="hidden" id="aba" value="${aba}"/>

@@ -48,20 +48,29 @@
 								class="direita clicavel"> <i
 								class="glyphicon glyphicon-chevron-up"></i>
 							</span>
-
 							<sec:authorize access="hasAnyRole('DISCENTE')">
-								<c:if test="${!esconderBotoes}">
-									<a id="editarInscricao"
-										href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
-										<button class="btn btn-info btn-sm" title="Editar Inscrição">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</a>
-									<a id="excluirInscricao"
-										href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
-										<button class="btn btn-danger btn-sm"
-											title="Excluir Inscrição">
-											<i class="glyphicon glyphicon-trash"></i>
+								<c:if test="${inscricao.consolidacao eq false }">
+									<c:if test="${!esconderBotoes}">
+										<a id="editarInscricao"
+											href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+											<button class="btn btn-info btn-sm" title="Editar Inscrição">
+												<span class="glyphicon glyphicon-pencil"></span>
+											</button>
+										</a>
+										<a id="excluirInscricao"
+											href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
+											<button class="btn btn-danger btn-sm"
+												title="Excluir Inscrição">
+												<i class="glyphicon glyphicon-trash"></i>
+											</button>
+										</a>
+									</c:if>
+									<a id="consolidarInscricao" data-target="#modal-consolidacao"
+										data-toggle="modal"
+										data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+										<button class="btn btn-success btn-sm"
+											title="Consolidar Inscrição">
+											<i class="glyphicon glyphicon-ok"></i>
 										</button>
 									</a>
 								</c:if>
@@ -69,6 +78,37 @@
 						</h3>
 					</div>
 					<div class="panel-body">
+						<sec:authorize access="hasAnyRole('DISCENTE')">
+							<c:if test="${!esconderBotoes}">
+								<a id="editarInscricao"
+									href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+									<button class="btn btn-info btn-sm" title="Editar Inscrição">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</button>
+								</a>
+								<a id="excluirInscricao"
+									href="<c:url value="/aluno/inscricao/excluir/${inscricao.id}" ></c:url>">
+									<button class="btn btn-danger btn-sm" title="Excluir Inscrição">
+										<i class="glyphicon glyphicon-trash"></i>
+									</button>
+								</a>
+							</c:if>
+						</sec:authorize>
+						<c:choose>
+							<c:when test="${inscricao.consolidacao eq false}">
+								<a id="consolidarInscricao" data-target="#modal-consolidacao"
+									data-toggle="modal"
+									data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+									<button class="btn btn-success btn-sm"
+										title="Consolidar Inscrição">
+										<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+									</button>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<span class="label label-success">Inscrição consolidada</span>
+							</c:otherwise>
+						</c:choose>
 						<div class="aluno-img-container">
 							<img id="aluno-img"
 								src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
@@ -344,6 +384,7 @@
 					</div>
 				</div>
 				<div class="panel panel-default panel-primary">
+
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							Situação Socioeconômica (Grupo familiar incluido o aluno) <span
@@ -371,8 +412,9 @@
 										<tr>
 											<td>${pessoa.nome }</td>
 											<td>${pessoa.parentesco.nome }</td>
-											<td>${pessoa.escolaridade }</td>
+											<td>${pessoa.escolaridade.nome }</td>
 											<td>${pessoa.profissao}</td>
+
 											<td>${pessoa.rendaMensal }</td>
 										</tr>
 									</c:forEach>
@@ -403,14 +445,14 @@
 							<div class='f-content'>
 								<c:choose>
 									<c:when
-										test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoFundamental.nome}"> Sim</c:when>
+										test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoFundamental}"> Sim</c:when>
 									<c:otherwise>Não</c:otherwise>
 								</c:choose>
 							</div>
 						</div>
 						<c:choose>
 							<c:when
-								test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoFundamental.nome}">
+								test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoFundamental}">
 								<div class='f-container s3'>
 									<label class='f-title'>Percentual da bolsa:</label>
 									<div class='f-content'>${inscricao.questionarioAuxilioMoradia.percentualParticularFundamental}</div>
@@ -430,14 +472,14 @@
 							<div class='f-content'>
 								<c:choose>
 									<c:when
-										test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}"> Sim</c:when>
+										test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoMedio}"> Sim</c:when>
 									<c:otherwise>Não</c:otherwise>
 								</c:choose>
 							</div>
 						</div>
 						<c:choose>
 							<c:when
-								test="${\"Particular com Bolsa\" eq inscricao.questionarioAuxilioMoradia.ensinoMedio.nome}">
+								test="${'PART_COM_BOLSA' eq inscricao.questionarioAuxilioMoradia.ensinoMedio}">
 								<div class='f-container s3'>
 									<label class='f-title'>Percentual da bolsa:</label>
 									<div class='f-content'>${inscricao.questionarioAuxilioMoradia.percentualParticularMedio}</div>
@@ -547,13 +589,127 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane" id="documentos-tab"></div>
+			<div class="tab-pane" id="documentos-tab">
+
+				<c:if test="${not empty error}">
+					<div class="alert alert-danger alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						${error }
+					</div>
+				</c:if>
+
+				<div class="panel panel-default panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Documentos</h3>
+
+					</div>
+
+					<div class="panel-body text-align-left">
+
+						<sec:authorize access="hasAnyRole('DISCENTE')">
+							<c:if test="${inscricao.consolidacao eq false }">
+								<form id="insercaoFormularioVisita" role="form" method="POST"
+									enctype="multipart/form-data" style="width: 40%;"
+									action="<c:url value="/aluno/inscricao/adicionarDocumento/${inscricao.id}"/>">
+									Selecione o tipo de documento:<br /> <select
+										class="form-control" name="idTipo">
+										<c:forEach var="tipo"
+											items="${inscricao.selecao.tiposDeDocumento}">
+											<option value="${tipo.id}">${tipo.nome}</option>
+										</c:forEach>
+									</select> Selecione o documento:<br /> <input type="file"
+										name="formulario" /><br /> <input type="submit"
+										class="btn btn-primary" />
+								</form>
+								<hr />
+							</c:if>
+							<c:forEach var="tipo"
+								items="${inscricao.selecao.tiposDeDocumento}">
+								<b>${tipo.nome}</b>
+								<ul class="documentos-lista">
+									<c:choose>
+										<c:when
+											test="${fn:length(inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
+											Nenhum documento enviado nessa categoria	
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="documento"
+												items="${inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos}">
+												<li class=""><a class="no-decoration"
+													href="<c:url value="/selecao/documento/${documento.id}"></c:url>">${documento.nome}</a>
+													<c:if test="${inscricao.consolidacao eq false }">
+														<a id="excluirDocumento" href="#">
+															<button class="btn btn-danger btn-sm confirm-button"
+																aria-title="Continuar irá remover o documento, deseja prosseguir?"
+																aria-destination="<c:url value="/aluno/inscricao/removerDocumento/${inscricao.id}/${tipo.id}/${documento.id}"></c:url>"
+																title="Excluir Documento">
+																<i class="glyphicon glyphicon-trash"></i>
+															</button>
+														</a>
+														<strong class="error text-danger"></strong>
+													</c:if></li>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</ul>
+								<hr />
+							</c:forEach>
+							<c:if test="${inscricao.consolidacao eq false }">
+								<a id="consolidarInscricao" data-target="#modal-consolidacao"
+									data-toggle="modal"
+									data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+									<button class="btn btn-primary" title="Consolidar Inscrição">
+										Consolidar Inscrição</button>
+								</a>
+							</c:if>
+						</sec:authorize>
+
+						<sec:authorize
+							access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+							<c:forEach var="tipo"
+								items="${inscricao.selecao.tiposDeDocumento}">
+								<b>${tipo.nome}</b>
+								<ul class="documentos-lista">
+									<c:choose>
+										<c:when
+											test="${fn:length(inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
+											Nenhum documento enviado nessa categoria	
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="documento"
+												items="${inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos}">
+												<li class=""><a class="no-decoration"
+													href="<c:url value="/selecao/visualizarDocumento/${documento.id}"></c:url>">${documento.nome}</a>
+													<a id="baixarDocumento"
+													href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
+														<button class="btn btn-warning btn-sm"
+															title="Baixar Documento">
+															<i class="glyphicon glyphicon-download-alt"></i>
+														</button>
+												</a></li>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</ul>
+
+								<hr />
+							</c:forEach>
+
+						</sec:authorize>
+					</div>
+
+				</div>
+			</div>
+
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div class="tab-pane" id="entrevista-tab">
 					<c:choose>
 						<c:when
-							test="${inscricao.deferimentoDocumentacao == 'INDEFERIDO'}">
+							test="${inscricao.documentacao.deferimento == 'INDEFERIDO'}">
 							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
@@ -584,7 +740,7 @@
 								</div>
 								<div class="panel-body">
 									<form:form id="relatorioForm" role="form"
-										modelAttribute="entrevista" commandName="entrevista"
+										modelAttribute="inscricao.entrevista" commandName="entrevista"
 										servletRelativeAction="${url}" method="POST"
 										cssClass="form-horizontal">
 
@@ -633,43 +789,100 @@
 									</form:form>
 								</div>
 							</div>
+
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
 									<h3 class="panel-title">Membros da Família</h3>
 								</div>
-								<div class="panel-body">
-									<table class="table table-striped table-hover">
-										<thead>
+								<table class="table table-striped table-hover">
+									<thead>
+										<tr>
+											<th>Nome</th>
+											<th>Parentesco</th>
+											<th>Escolaridade</th>
+											<th>Idade</th>
+											<th>Profissao</th>
+											<th>Renda R$</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="pessoa"
+											items="${inscricao.questionarioAuxilioMoradia.pessoas}">
 											<tr>
-												<th>Nome</th>
-												<th>Parentesco</th>
-												<th>Escolaridade</th>
-												<th>Idade</th>
-												<th>Profissao</th>
-												<th>Renda R$</th>
+												<td>${pessoa.nome}</td>
+												<td>${pessoa.parentesco.nome}</td>
+												<td>${pessoa.escolaridade.nome}</td>
+												<td>${pessoa.idade}</td>
+												<td>${pessoa.profissao}</td>
+												<td>${pessoa.rendaMensal}</td>
 											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="pessoa" items="${questAuxMor.pessoas}">
-												<tr>
-													<td>${pessoa.nome}</td>
-													<td>${pessoa.parentesco.nome}</td>
-													<td>${pessoa.escolaridade}</td>
-													<td>${pessoa.idade}</td>
-													<td>${pessoa.profissao}</td>
-													<td>${pessoa.rendaMensal}</td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
+										</c:forEach>
+									</tbody>
+								</table>
 							</div>
+
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
 									<h3 class="panel-title">Editar Membros da Família</h3>
 								</div>
 								<div class="panel-body">
-									<table class="table table-striped">
+									<div style="padding-bottom: 40px">
+										<form:form id="formPessoaFamilia" method="POST" role="form"
+											cssClass="form-horizontal" modelAttribute="pessoaDaFamilia"
+											commandName="pessoaDaFamilia"
+											servletRelativeAction="/servidor/inscricao/adicionarPessoaFamilia/${inscricao.id }">
+											<div class="form-group">
+												<div class="col-sm-4 text-align-left">
+													<label for="nomePessoa" class="control-label">
+														Nome: </label>
+													<form:input cssClass="form-control" path="nome" id="nome" required="required"/>
+												</div>
+												<div class="col-sm-4 text-align-left">
+													<label for="parentesco" class="control-label">
+														Parentesco: </label>
+													<form:select cssClass="form-control" path="parentesco"
+														id="parentesco" required="required">
+														<c:forEach items="${grauParentesco }" var="parentesco">
+															<option value="${parentesco }">${parentesco.nome }</option>
+														</c:forEach>
+													</form:select>
+												</div>
+												<div class="col-sm-2 text-align-left">
+													<label for="idade" class="control-label"> Idade: </label>
+													<form:input cssClass="form-control" type="number"
+														path="idade" id="idade" required="required"/>
+												</div>
+												<div class="col-sm-4 text-align-left">
+													<label for="escolaridade" class="control-label">
+														Escolaridade: </label>
+													<form:select cssClass="form-control" path="escolaridade"
+														id="escolaridade" required="required">
+														<c:forEach items="${escolaridade }" var="escolaridade">
+															<option value="${escolaridade }">${escolaridade.nome }</option>
+														</c:forEach>
+													</form:select>
+												</div>
+												<div class="col-sm-4 text-align-left">
+													<label for="profissao" class="control-label">
+														Profissão: </label>
+													<form:input cssClass="form-control" type="text"
+														path="profissao" id="profissao" required="required"/>
+												</div>
+												<div class="col-sm-2 text-align-left">
+													<label for="rendaMensal" class="control-label">
+														Renda R$: </label>
+													<form:input cssClass="form-control" type="number"
+														id="rendaMensal" path="rendaMensal" required="required"/>
+												</div>
+											</div>
+											<div class="form-btn">
+												<input type="submit" class="btn btn-primary"
+													value="Adicionar Pessoa" />
+											</div>
+										</form:form>
+									</div>
+
+									<table class="table" id="tabela-editar-pessoa-familia">
 										<thead>
 											<tr>
 												<th>Nome</th>
@@ -682,13 +895,12 @@
 											</tr>
 										</thead>
 										<tbody>
-
 											<c:forEach var="pessoa"
 												items="${inscricao.questionarioAuxilioMoradia.pessoasEntrevista}">
 												<tr>
 													<td>${pessoa.nome}</td>
 													<td>${pessoa.parentesco.nome}</td>
-													<td>${pessoa.escolaridade}</td>
+													<td>${pessoa.escolaridade.nome}</td>
 													<td>${pessoa.idade}</td>
 													<td>${pessoa.profissao}</td>
 													<td>${pessoa.rendaMensal}</td>
@@ -701,40 +913,8 @@
 													</a></td>
 												</tr>
 											</c:forEach>
-											<form:form id="formPessoaFamilia" method="POST" role="form"
-												cssClass="form-horizontal" modelAttribute="pessoaDaFamilia"
-												commandName="pessoaDaFamilia"
-												servletRelativeAction="/servidor/inscricao/adicionarPessoaFamilia/${inscricao.id }">
-												<tr>
-
-													<td><form:input cssClass="form-control" path="nome"
-															id="nome" /></td>
-													<td><form:select cssClass="form-control"
-															path="parentesco" id="parentesco">
-															<option>Parentesco</option>
-															<c:forEach items="${grauParentesco }" var="parentesco">
-																<option value="${parentesco }">
-																	${parentesco.nome }</option>
-															</c:forEach>
-														</form:select></td>
-													<td><form:input cssClass="form-control" type="text"
-															path="escolaridade" id="escolaridade" /></td>
-													<td><form:input cssClass="form-control" type="number"
-															path="idade" id="idade" /></td>
-													<td><form:input cssClass="form-control" type="text"
-															path="profissao" id="profissao" /></td>
-													<td><form:input cssClass="form-control" type="number"
-															id="rendaMensal" path="rendaMensal" /></td>
-													<td></td>
-												</tr>
-											</form:form>
 										</tbody>
-
 									</table>
-									<div class="form-group">
-										<input id="addPessoaFamilia" type="submit"
-											class="btn btn-primary" value="Adicionar Pessoa" />
-									</div>
 								</div>
 							</div>
 						</c:otherwise>
@@ -750,7 +930,7 @@
 								<dt class="col-sm-2">Parecer:</dt>
 								<c:choose>
 									<c:when
-										test="${inscricao.visitaDomiciliar.deferimento == true}">
+										test="${inscricao.visitaDomiciliar.deferimento == 'DEFERIDO'}">
 										<dd class="col-sm-2">DEFERIDO</dd>
 									</c:when>
 									<c:otherwise>
@@ -770,7 +950,7 @@
 
 							<c:choose>
 								<c:when
-									test="${inscricao.deferimentoDocumentacao eq 'INDEFERIDO'}">
+									test="${inscricao.documentacao.deferimento eq 'INDEFERIDO'}">
 									<div class="alert alert-danger alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert"
 											aria-label="Close">
@@ -843,13 +1023,49 @@
 									</li>
 								</c:forEach>
 							</ul>
+
+							<hr />
+							<form class="form-horizontal" role="form" method="POST"
+								action="<c:url value="/servidor/detalhes/inscricao/adicionarObservacaoParecer"/>">
+								<div class="form-group col-sm-4">
+									<input type="hidden" value="${inscricao.id}" name="idInscricao">
+
+									<label class="f-title control-label">Parecer:</label> <select
+										name="parecer" required="required">
+										<option value="">Selecione uma opção</option>
+										<c:choose>
+											<c:when
+												test="${inscricao.visitaDomiciliar.deferimento eq 'DEFERIDO'}">
+												<option selected value="DEFERIDO">Deferido</option>
+												<option value="INDEFERIDO">Indeferido</option>
+											</c:when>
+											<c:when
+												test="${inscricao.visitaDomiciliar.deferimento eq 'INDEFERIDO'}">
+												<span>INDEFERIDO</span>
+												<option value="DEFERIDO">Deferido</option>
+												<option selected value="INDEFERIDO">Indeferido</option>
+											</c:when>
+											<c:otherwise>
+												<option value="DEFERIDO">Deferido</option>
+												<option value="INDEFERIDO">Indeferido</option>
+											</c:otherwise>
+										</c:choose>
+									</select>
+
+								</div>
+								<div class="form-group col-sm-8">
+									<label for="textarea-observacao">Observações:</label>
+									<textarea name="observacao" class="form-control" rows="4"
+										maxlength="255" id="textarea-observacao" required="required">${inscricao.visitaDomiciliar.observacaoParecer}</textarea>
+								</div>
+								<input class="btn btn-primary" type="submit">
+							</form>
 						</div>
 					</div>
 				</div>
 			</sec:authorize>
 		</div>
 		<jsp:include page="../fragments/footer.jsp" />
-
 		<div class="modal fade" id="confirm-delete" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -859,6 +1075,25 @@
 						esta pessoa da família?</div>
 					<div class="modal-footer">
 						<a href="#" class="btn btn-danger">Excluir</a>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modal-consolidacao" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">Consolidar Inscrição</div>
+					<div class="modal-body">Você deseja consolidar sua inscrição?
+						Caso escolha sim, você não poderá mais editá-la. Caso escolha não,
+						é preciso que sua inscrição seja consolidada até o prazo final das
+						inscrições. Isso poderá ser feito na página das suas inscrições.</div>
+					<div class="modal-footer">
+						<a
+							href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>"
+							class="btn btn-primary">confirmar</a>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 					</div>
 				</div>

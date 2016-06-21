@@ -67,7 +67,7 @@ public class Selecao {
 	@OneToMany(mappedBy = "selecao")
 	private List<Inscricao> inscritos;
 	
-	@OneToMany
+	@ManyToMany
 	private List<TipoDocumento> tiposDeDocumento;
 
 	public Integer getAno() {
@@ -209,12 +209,7 @@ public class Selecao {
 		return "Selecao [id=" + id + ", ano=" + ano + ", sequencial=" + sequencial + ", quantidadeVagas="
 				+ quantidadeVagas + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino				
 				+ ", tipoSelecao=" + tipoSelecao + ", documentos=" + documentos + ", membrosComissao=" + membrosComissao
-				+ ", responsavel=" + responsavel + ", inscritos=" + inscritos + "]";
-	}
-
-	public List<Aluno> getAlunosSelecao() {
-		// TODO Auto-generated method stub
-		return null;
+				+ ", responsavel=" + responsavel + "]";
 	}
 
 }

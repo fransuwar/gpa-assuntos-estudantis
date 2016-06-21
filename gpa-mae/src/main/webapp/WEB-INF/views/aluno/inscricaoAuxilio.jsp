@@ -16,7 +16,7 @@
 	<c:set var="botao" value="Finalizar Inscrição"></c:set>
 </c:if>
 <c:if test="${action eq 'editar' }">
-	<c:url var="url" value="/aluno/inscricao/editar/auxilio-moradia"></c:url>
+	<c:url var="url" value="/aluno/inscricao/editar/${idInscricao}"></c:url>
 	<c:set var="titulo" value="Editar Inscrição"></c:set>
 	<c:set var="botao" value="Atualizar Inscrição"></c:set>
 </c:if>
@@ -135,7 +135,7 @@
 									</div>
 
 									<div class='f-container s5'>
-										<label class='f-title'>*Estas são suas informações?</label>
+										<label class='f-title'>*Estas informações estão corretas?</label>
 
 										<div class='f-content'>
 											<input type="checkbox" name="minhas-informacoes"
@@ -189,7 +189,6 @@
 											</div>
 										</div>
 									</div>
-
 								</div>
 							</div>
 
@@ -1029,7 +1028,7 @@
 							</div>
 
 							<div class='p-body'>
-								<div class="form-group">
+								<div class="">
 									<jsp:include page="pessoaFamilia.jsp" />
 									<div class="error-validation">
 										<form:errors path="pessoas"></form:errors>
@@ -1050,10 +1049,10 @@
 							<div class='p-body'>
 								<div class='f-container s5'>
 									<label class='f-title'> Bolsista UFC:
-									<form:select path="bolsistaUfc" id="bolsistaUfc"  >
-									   <form:option value="${true}">Sim</form:option>
-										<form:option  selected="selected" value="${false}">Não</form:option>
-										
+									<form:select path="bolsistaUfc" id="bolsistaUfc" class="form-control" >
+									   	<option value="">Selecione...</option>
+									   	<option value="${true}">Sim</option>
+										<option value="${false}">Não</option>
 									</form:select>  
 
 									</label>
@@ -1080,10 +1079,10 @@
 
 								<div class='f-container s5'>
 									<label class='f-title'> Possui Graduação:
-									<form:select  path="graduacao" id="graduacao" >
-										<form:option value="${true}">Sim</form:option>
-										<form:option selected="true" value="${false}">Não</form:option>
-										
+									<form:select path="graduacao" id="graduacao" class="form-control">
+										<option value="">Selecione...</option>
+										<option value="${true}">Sim</option>
+										<option value="${false}">Não</option>
 									</form:select>  
 
 									</label>

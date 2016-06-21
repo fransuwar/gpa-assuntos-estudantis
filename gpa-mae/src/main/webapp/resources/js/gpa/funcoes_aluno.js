@@ -3,6 +3,7 @@
  * javascript das páginas acessadas por alunos.
  */ 
 
+
 var FormularioAuxilio = function() {
 	var self = this;
 	var $formElement = $("#questionarioAuxilio");
@@ -367,7 +368,6 @@ var FormularioAuxilio = function() {
 		propRural.cidade = $(formPropRuralEditar.cidade).val();
 		propRural.area = $(formPropRuralEditar.area).val();
 		
-
 		$(formPropRuralEditar.parentesco).val("");
 		$(formPropRuralEditar.cidade).val("");
 		$(formPropRuralEditar.area).val("");

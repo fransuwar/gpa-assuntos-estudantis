@@ -6,10 +6,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -111,12 +113,14 @@ public class QuestionarioAuxilioMoradia {
 	@JoinColumn(name = "auxiliomoradia_id")
 	private List<BemMovel> bemMovel;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "auxiliomoradia_id")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinTable( name = "inscricao_pessoa_familia", 
+			   joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> pessoas;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "auxiliomoradia_id")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinTable( name = "inscricao_pessoa_familia_editado", 
+	   joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> pessoasEntrevista;
 	
 	@ManyToMany
