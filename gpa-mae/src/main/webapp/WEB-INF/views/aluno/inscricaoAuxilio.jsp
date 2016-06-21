@@ -695,14 +695,14 @@
 										</div>
 									</div>
 
-									<div class='f-container s2' id="percentualParticularMedio">
+									<div class='f-container s5' id="percentualParticularMedio">
 										<label class='f-title'> Percentual de Bolsa: </label>
 
 										<div class='f-content'>
 											<div class="input-group">
 												<form:input id="percentualParticularMedio"
 													path="percentualParticularMedio" cssClass="form-control"
-													data-mask="000" placeholder="0" />
+													data-mask="000" placeholder="Digite um valor entre 0.1 e 100" min="0.1" max="100" />
 												<div class="input-group-addon">%</div>
 											</div>
 											<div class="error-validation">
