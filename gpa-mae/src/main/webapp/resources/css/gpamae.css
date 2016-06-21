@@ -206,16 +206,16 @@ div.p-body {
 }
 
 div.f-container {
-	display: inline-block;
+	display: inline-table;
 	background-color: white;
 	margin: 1%;
 	text-align: left;
 }
 
-
+5
 label.f-title {
 	margin-left: 10px;
-	font-weight: bold;
+	font-weight: bold !important;
 }
 
 div.f-content {
@@ -948,4 +948,8 @@ input:focus, select:focus, textarea:focus{
 
 .wizard > .actions > ul > li.disabled {
   display: none;
+}
+
+.div-esquerda{
+	float:left;
 }
