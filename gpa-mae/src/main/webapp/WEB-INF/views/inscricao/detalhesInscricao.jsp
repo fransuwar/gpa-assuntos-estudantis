@@ -48,33 +48,6 @@
 								class="direita clicavel"> <i
 								class="glyphicon glyphicon-chevron-up"></i>
 							</span>
-							<sec:authorize access="hasAnyRole('DISCENTE')">
-								<c:if test="${inscricao.consolidacao eq false }">
-									<c:if test="${!esconderBotoes}">
-										<a id="editarInscricao"
-											href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
-											<button class="btn btn-info btn-sm" title="Editar Inscrição">
-												<span class="glyphicon glyphicon-pencil"></span>
-											</button>
-										</a>
-										<a id="excluirInscricao"
-											href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
-											<button class="btn btn-danger btn-sm"
-												title="Excluir Inscrição">
-												<i class="glyphicon glyphicon-trash"></i>
-											</button>
-										</a>
-									</c:if>
-									<a id="consolidarInscricao" data-target="#modal-consolidacao"
-										data-toggle="modal"
-										data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
-										<button class="btn btn-success btn-sm"
-											title="Consolidar Inscrição">
-											<i class="glyphicon glyphicon-ok"></i>
-										</button>
-									</a>
-								</c:if>
-							</sec:authorize>
 						</h3>
 					</div>
 					<div class="panel-body">
@@ -86,8 +59,9 @@
 										<span class="glyphicon glyphicon-pencil"></span>
 									</button>
 								</a>
-								<a id="excluirInscricao"
-									href="<c:url value="/aluno/inscricao/excluir/${inscricao.id}" ></c:url>">
+								<a id="excluirInscricao" data-target="#modal-excluir-inscricao"
+									data-toggle="modal"
+									data-href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
 									<button class="btn btn-danger btn-sm" title="Excluir Inscrição">
 										<i class="glyphicon glyphicon-trash"></i>
 									</button>
@@ -1133,6 +1107,23 @@
 						esta pessoa da família?</div>
 					<div class="modal-footer">
 						<a href="#" class="btn btn-danger">Excluir</a>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modal-excluir-inscricao" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">Excluir</div>
+					<div class="modal-body">Tem certeza de que deseja excluir
+						esta inscrição?</div>
+					<div class="modal-footer">
+						<a
+							href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>"
+							class="btn btn-danger">Excluir</a>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 					</div>
 				</div>
