@@ -123,7 +123,6 @@
 										<c:otherwise>
 											<div class="list-group">
 												<c:forEach var="inscricao" items="${inscritosSemVisita}">
-												<c:url value = "/servidor/detalhes/inscricao/${inscricao.id}"></c:url>
 													<a href="<c:url value = "/servidor/detalhes/inscricao/${inscricao.id}"></c:url>"
 														class="list-group-item"> <img
 														class="foto-relatorio-visita"
