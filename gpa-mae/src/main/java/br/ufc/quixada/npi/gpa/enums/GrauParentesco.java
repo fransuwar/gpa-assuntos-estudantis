@@ -2,8 +2,7 @@ package br.ufc.quixada.npi.gpa.enums;
 
 
 public enum GrauParentesco {
-	EU("Eu"), FILHO("Filho(a)"), NETO("Neto(a)"), SOBRINHO("Sobrinho(a)"), IRMAO("Irmão"), CONJ_COMP(
-			"Cônjuge ou Companheiro(a)"), OUTROS("Outros");
+	PAI("Pai"), MAE("Mãe"), IRMAO("Irmão(ã)"), FILHO("Filho(a)"), CONJ_COMP("Cônjuge ou Companheiro(a)"), OUTRO("Outro");
 
 	private String nome;
 

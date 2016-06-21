@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-import br.ufc.quixada.npi.gpa.enums.MoraCom;
+import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
 @NamedQueries({
 	@NamedQuery(name = "ComQuemMora.findComQuemMoraByDescricao", query = "SELECT cqm FROM ComQuemMora cqm WHERE cqm.descricao = :descricao")
@@ -23,7 +23,7 @@ public class ComQuemMora {
 	private Integer id;
 
 	@Enumerated(EnumType.STRING)
-	private MoraCom descricao;
+	private GrauParentesco descricao;
 
 	public Integer getId() {
 		return id;
@@ -33,11 +33,11 @@ public class ComQuemMora {
 		this.id = id;
 	}
 
-	public MoraCom getDescricao() {
+	public GrauParentesco getDescricao() {
 		return descricao;
 	}
 
-	public void setDescricao(MoraCom descricao) {
+	public void setDescricao(GrauParentesco descricao) {
 		this.descricao = descricao;
 	}
 
