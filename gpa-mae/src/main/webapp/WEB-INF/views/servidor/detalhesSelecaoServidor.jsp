@@ -85,7 +85,7 @@
 						</div>
 					</a>
 				</div>
-				
+
 					<div class="card dropdown">
 					<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 						<div class="card-content">
@@ -98,7 +98,7 @@
 					</a>
 
 					<ul class="dropdown-menu">
-						<li><a href="<c:url value="/coordenador/selecao/adicionar-documento/${selecao.id}"></c:url>">Visitas</a></li>
+						<li><a href="<c:url value="/servidor/relatorioVisitas/${selecao.id}"></c:url>">Visitas</a></li>
 						<li><a href="<c:url value="/coordenador/comissao/relatorioFinal/${selecao.id}"></c:url>">Final</a></li>
 					</ul>
 				</div>

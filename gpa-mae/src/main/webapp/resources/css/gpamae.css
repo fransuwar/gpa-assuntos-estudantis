@@ -941,11 +941,77 @@ input:focus, select:focus, textarea:focus{
 	border-radius: 0px 0px 3px 3px;
 }
 
+.documentos-aluno li:hover{
+	cursor: pointer;
+	box-shadow: 1px 1px 1px #cdcdcd;
+	transition: all 0.2s;
+	transform: scale(1.2);
+}
+
+.documentos-aluno li a{
+	position: absolute;
+	color: #ffffff !important;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+	width: 100%;
+	word-wrap: break-word;
+	text-align: center;
+}
+
+.documentos-lista{
+	list-style: none;	
+	margin-left: -40px;
+}
+
+.documentos-lista li{
+	margin-bottom: 5px;	
+}
+
+.panel-visitas{
+	width: 48%;
+	padding: 0;
+}
+
 .legenda div{
 	margin: 2px;
 	display: inline-block;
 }
 
+.form-btn {
+	margin-top: 40px;
+	text-align: right;
+}
+
+.form-btn input {
+	margin-right: 15px;
+}
+
+.menu-relatorio-visitas{
+	margin-bottom: 20px;
+}
+
+.panel-visitas .panel-heading{
+	color: white !important;
+	background-color: #009688 !important;
+	border-bottom: 1px solid #eeeeec;
+}
+
+.panel-group .panel-cidade{
+	color: white !important;
+	background-color: #009688 !important;
+	border-bottom: 1px solid #eeeeec;
+}
+
+.panel-cidade a{
+	color: white !important;
+}
+
+.foto-relatorio-visita{
+	height: 60px;
+	width: 60px;
+	margin-right: 20px;
+}
 .wizard > .actions > ul > li.disabled {
   display: none;
 }
