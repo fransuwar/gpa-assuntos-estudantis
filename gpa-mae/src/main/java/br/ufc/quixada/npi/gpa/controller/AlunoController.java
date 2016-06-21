@@ -21,8 +21,10 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -280,6 +282,8 @@ public class AlunoController {
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model, @RequestParam("fileFoto") MultipartFile foto) {
 		
+		Integer idInscricao;
+		
 		if(!this.verificarExtensaoFoto(foto)){
 			redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
 			//Adicionando o erro no result.
@@ -331,17 +335,20 @@ public class AlunoController {
 
 
 				inscricaoService.save(inscricao);
+				idInscricao = inscricaoService.getInscricao(selecao, aluno).getId();
 			} else {
 				redirect.addFlashAttribute("error", MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
 			}
+			model.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 
 		}
 
-		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
-
-		return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
+		redirect.addFlashAttribute("info", MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO);
+		
+		redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + idInscricao;
 	}
 
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.GET)
@@ -527,8 +534,16 @@ public class AlunoController {
 			} else{
 				model.addAttribute("esconderBotoes",false);			
 			}
+			
+			//Verificando se alguma aba específica foi setada no redirect
+			String nomeAba = (String) model.asMap().getOrDefault(ABA_SELECIONADA, null);
+			
+			if(nomeAba == null){
+				//Se nenhuma aba foi setada então a aba padrão é selecionada 
+				nomeAba = "inscricao-tab"; 
+			}
 
-			model.addAttribute("aba", "inscricao-tab");
+			model.addAttribute(ABA_SELECIONADA, nomeAba);
 
 
 			return PAGINA_DETALHES_INSCRICAO;

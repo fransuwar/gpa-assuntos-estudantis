@@ -245,6 +245,8 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_DADOS_INSCRICAO= "Verifique os dados inseridos e tente novamente";
 	
+	public static final String MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO = "Adicione os documentos referentes a sua inscrição. Você deverá fazer isso até o final do período de inscrição.";
+	
 	/** Perfis */
 
 	public static final String STA = "STA";
