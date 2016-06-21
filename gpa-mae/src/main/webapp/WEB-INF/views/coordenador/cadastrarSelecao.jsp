@@ -157,7 +157,7 @@
 									<c:forEach var="documento" items="${tiposDeDocumento }">
 									    <c:set var="contains" value="false" />
 										<c:forEach var="documentoSelecionado"
-											items="${tiposDeDocumentoSelecionados }">
+											items="${selecao.tiposDeDocumento }">
 											<c:if test="${documento.id eq documentoSelecionado.id }">
 												<c:set var="contains" value="true" />
 											</c:if>
