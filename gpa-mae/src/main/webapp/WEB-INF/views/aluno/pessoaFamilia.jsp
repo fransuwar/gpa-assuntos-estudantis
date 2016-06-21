@@ -7,10 +7,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!-- botão adicionar pessoa -->
-<div class="">
-	<div class="alert alert-info text-center">Adicione as suas
-		informações socioeconômicas e a das pessoas com quem você mora.</div>
+<div>
 
+	<div class="alert alert-info alert-rounded text-center">
+		Adicione as suas
+		informações socioeconômicas e a das pessoas com quem você mora.
+	</div>
+	
 	<button id="abrirFormPessoaFamilia" type="button"
 		class="btn btn-primary" data-toggle="modal"
 		data-target="#formPessoaFamilia">Adicionar Pessoa</button>
