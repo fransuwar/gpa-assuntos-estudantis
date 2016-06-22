@@ -585,18 +585,44 @@
 
 						<sec:authorize access="hasAnyRole('DISCENTE')">
 							<c:if test="${inscricao.consolidacao eq false }">
-								<form id="insercaoFormularioVisita" role="form" method="POST"
-									enctype="multipart/form-data" style="width: 40%;"
+								<form class="full-width" id="insercaoFormularioVisita"
+									role="form" method="POST" enctype="multipart/form-data"
+									style="width: 40%;"
 									action="<c:url value="/aluno/inscricao/adicionarDocumento/${inscricao.id}"/>">
-									Selecione o tipo de documento:<br /> <select
-										class="form-control" name="idTipo">
-										<c:forEach var="tipo"
-											items="${inscricao.selecao.tiposDeDocumento}">
-											<option value="${tipo.id}">${tipo.nome}</option>
-										</c:forEach>
-									</select> Selecione o documento:<br /> <input type="file"
-										name="formulario" /><br /> <input type="submit"
-										class="btn btn-primary" />
+
+
+									<div class='full-width'>
+										<div class="f-container s3">
+											<label class="f-title">Tipo de documento</label>
+
+											<div class="f-content">
+												<select class="form-control" name="idTipo">
+													<c:forEach var="tipo"
+														items="${inscricao.selecao.tiposDeDocumento}">
+														<option value="${tipo.id}">${tipo.nome}</option>
+													</c:forEach>
+												</select>
+											</div>
+										</div>
+
+										<div class="f-container s4">
+											<label class="f-title">Documento</label>
+
+											<div class="f-content">
+												<input type="file" name="formulario" />
+											</div>
+										</div>
+
+										<div class="f-container s3">
+											<label class="f-title"> </label>
+
+											<div class="f-content">
+												<input type="submit" class="btn btn-primary"
+													value="Enviar Documento" />
+											</div>
+										</div>
+									</div>
+
 								</form>
 								<hr />
 							</c:if>
@@ -715,8 +741,7 @@
 								<div class="panel-body">
 									<form:form id="relatorioForm" role="form"
 										modelAttribute="inscricao.entrevista" commandName="entrevista"
-										servletRelativeAction="${url}" method="POST"
-										cssClass="form-horizontal">
+										servletRelativeAction="${url}" method="POST">
 
 										<input type="hidden" id="idServidor" name="idServidor"
 											value="${sessionScope.id}" />
@@ -724,42 +749,44 @@
 											value="${inscricao.id}" />
 										<input type="hidden" id="idEntrevista" name="idEntrevista"
 											value="${inscricao.entrevista.id}" />
+											
+										<div class="row">
+											<fieldset class="form-group col-sm-8">
+												<label for="observacao" class="col-sm-1 control-label">Observação</label>
+												<form:textarea class="col-sm-5 form-control"
+													name="observacao" rows="3" id="observacao" type="text"
+													path="observacao" placeholder="Observação"></form:textarea>
+												<span class="help-block"></span>
+												<div class="error-validation">
+													<form:errors path="observacao"></form:errors>
+												</div>
+											</fieldset>
+	
+											<fieldset class="form-group col-sm-4">
+												<label for="deferimento" class="col-sm-1 control-label">Deferimento</label>
+												<select name="deferimento" id="deferimento"
+													class="form-control col-sm-2">
+													<option value="DEFERIDO">Deferido</option>
+													<option value="INDEFERIDO"
+														<c:if test="${inscricao.entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
+												</select>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="realizarVisita" class="control-label">Realizar
+													Visita</label> <input type="checkbox" id="realizarVisita"
+													name="realizarVisita" value="true"
+													<c:if test="${inscricao.realizarVisita}">checked </c:if> />
+											</fieldset>
+										</div>
+										
+										<div align="left">
 										<fieldset class="form-group">
-											<label for="observacao" class="col-sm-1 control-label">Observação</label>
-											<form:textarea class="col-sm-5 form-control"
-												name="observacao" rows="3" id="observacao" type="text"
-												path="observacao" placeholder="Observação"></form:textarea>
-											<span class="help-block"></span>
-											<div class="error-validation">
-												<form:errors path="observacao"></form:errors>
-											</div>
+											<button name="submit" type="submit" class="btn btn-primary btn-md"
+												value="${botao}" id="form-btn">Enviar</button>
+											<a href="<c:url value="/selecao/listar" ></c:url>"
+												class="btn btn-default btn-md" id="form-btn">Cancelar</a>
 										</fieldset>
-
-										<fieldset class="form-group">
-											<label for="deferimento" class="col-sm-1 control-label">Deferimento</label>
-											<select name="deferimento" id="deferimento"
-												class="form-control col-sm-2">
-												<option value="DEFERIDO">Deferido</option>
-												<option value="INDEFERIDO"
-													<c:if test="${inscricao.entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
-											</select>
-										</fieldset>
-										<fieldset class="form-group">
-											<label for="realizarVisita" class="control-label">Realizar
-												Visita</label> <input type="checkbox" id="realizarVisita"
-												name="realizarVisita" value="true"
-												<c:if test="${inscricao.realizarVisita}">checked </c:if> />
-										</fieldset>
-										<fieldset class="form-group">
-											<div class="col-sm-1" id="div-form-btn">
-												<input name="submit" type="submit" class="btn btn-primary"
-													value="${botao}" id="form-btn" />
-											</div>
-											<div class="col-sm-2" id="div-form-btn">
-												<a href="<c:url value="/selecao/listar" ></c:url>"
-													class="btn btn-default" id="form-btn">Cancelar</a>
-											</div>
-										</fieldset>
+										</div>
 									</form:form>
 								</div>
 							</div>
@@ -939,47 +966,77 @@
 								</c:otherwise>
 							</c:choose>
 
-							<label class='f-title'> Formulário da visita: </label><br /> <label
-								class="f-title"> <c:choose>
+							<c:choose>
 
-									<c:when
-										test="${not empty inscricao.visitaDomiciliar.formularioVisita}">
-										<a class="no-decoration"
-											href="<c:url value="/selecao/documento/${inscricao.visitaDomiciliar.formularioVisita.id}"></c:url>">${inscricao.visitaDomiciliar.formularioVisita.nome}</a>
-										<strong class="error text-danger"></strong>
-										<a id="excluir" data-toggle="modal"
-											aria-title="O formulário sejá removido. Deseja continuar?"
-											aria-destination="<c:url value="/servidor/visita/removerFormulario/${inscricao.id}/${inscricao.visitaDomiciliar.formularioVisita.id}"></c:url>"
-											class="confirm-button delete-document btn btn-danger btn-xs glyphicon glyphicon-trash">
-										</a>
-									</c:when>
+								<c:when
+									test="${not empty inscricao.visitaDomiciliar.formularioVisita}">
+									<a class="no-decoration"
+										href="<c:url value="/selecao/documento/${inscricao.visitaDomiciliar.formularioVisita.id}"></c:url>">${inscricao.visitaDomiciliar.formularioVisita.nome}</a>
+									<strong class="error text-danger"></strong>
+									<a id="excluir" data-toggle="modal"
+										aria-title="O formulário sejá removido. Deseja continuar?"
+										aria-destination="<c:url value="/servidor/visita/removerFormulario/${inscricao.id}/${inscricao.visitaDomiciliar.formularioVisita.id}"></c:url>"
+										class="confirm-button delete-document btn btn-danger btn-xs glyphicon glyphicon-trash">
+									</a>
+								</c:when>
 
-									<c:otherwise>
+								<c:otherwise>
 
-										<form id="insercaoFormularioVisita" role="form" method="POST"
-											enctype="multipart/form-data"
-											action="<c:url value="/servidor/visita/enviarFormulario/${inscricao.id}"/>">
-											<input type="file" name="formulario" /><br /> <input
-												type="submit" class="btn btn-primary" />
-										</form>
+									<form id="insercaoFormularioVisita" role="form" method="POST"
+										enctype="multipart/form-data"
+										action="<c:url value="/servidor/visita/enviarFormulario/${inscricao.id}"/>">
 
-									</c:otherwise>
+										<div class='f-container'>
+											<label class='f-title'> <b>Formulário de
+												visita</b> </label>
 
-								</c:choose>
+											<div class='f-content'>
+												<input type="file" name="formulario" />
+											</div>
+										</div>
+
+										<div class='f-container'>
+											<label class='f-title'> </label>
+
+											<div class='f-content'>
+												<input type="submit" class="btn btn-primary"
+													value="Enviar formulário" />
+											</div>
+										</div>
+
+									</form>
+
+								</c:otherwise>
+
+							</c:choose>
 
 							</label>
 
 
 							<hr />
 
-							<label class='f-title'> Adicionar Foto: </label>
-
 							<form id="insercaoImagemEntrevista" role="form"
 								action="<c:url value="/servidor/detalhes/inscricao/inserirImagem"/>"
 								method="POST" enctype="multipart/form-data">
+
 								<input type="hidden" name="idInscricao" value="${inscricao.id}" />
-								<input type="file" name="foto" /> <br /> <input type="submit"
-									value="Adicionar" class='btn btn-primary' />
+								<div class='f-container'>
+									<label class='f-title'> <b>Foto da visita</b> </label>
+
+									<div class='f-content'>
+										<input type="file" name="foto" />
+									</div>
+								</div>
+
+								<div class='f-container'>
+									<label class='f-title'> </label>
+
+									<div class='f-content'>
+										<input type="submit" value="Adicionar Foto"
+											class='btn btn-primary' />
+									</div>
+								</div>
+
 							</form>
 
 							<hr />

@@ -64,6 +64,8 @@ public class Constants {
 	
 	public static final String PAGINA_AVALIAR_DOCUMENTACAO = "servidor/avaliarDocumentacao";
 	
+	public static final String PAGINA_RELATORIO_VISITAS = "servidor/relatorioVisitasCidades";
+	
 	public static final String PAGINA_RELATORIO_FINAL = "selecao/resultadoFinal";
 
 	// public static final String PAGINA_DETALHES_SELECAO_SERVIDOR =
