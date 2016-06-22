@@ -37,6 +37,11 @@ var FormularioAuxilio = function() {
 		self.addPessoaFamilia();
 		self.abrirFormPessoaFamilia();
 		
+		self.maskFields();
+	};
+	
+	self.maskFields = function(){
+		$('.mask-field').each(function(){$(this).mask($(this).attr('mask-value'))});
 	};
 	
 	self.criarDivPessoaFamilia = function (indice, pessoaFamilia) {
@@ -413,32 +418,32 @@ var FormularioAuxilio = function() {
 		});
 	};
 	
-	//Copia os valores da residencia ataul para a residencia de origem
+	//Copia os valores da residencia atual para a residencia de origem
 	self.initDivMesmoEndereco = function(){
 		$("#mesmoEndereco").click(function() {
 			if($(this).is(":checked")){
 				console.log("Verdade");
-				$("#enderecoOrigem").val($("#endereco").val());
-				$("#numeroOrigem").val($("#numero").val());
-				$("#bairroOrigem").val($("#bairro").val());
-				$("#cepOrigem").val($("#cep").val());
-				$("#complementoOrigem").val($("#complemento").val());
-				$("#referenciaOrigem").val($("#referencia").val());
-				$("select[name=estadoOrigem]").val($("select[name=estado]").val());
-				$("select[name=estadoOrigem]").change();
-				$("#cidadeOrigem").disabled = false;
-				$("select[name=cidadeOrigem]").val($("select[name=cidade]").val());				
+				$("#endereco").val($("#enderecoOrigem").val());
+				$("#numero").val($("#numeroOrigem").val());
+				$("#bairro").val($("#bairroOrigem").val());
+				$("#cep").val($("#cepOrigem").val());
+				$("#complemento").val($("#complementoOrigem").val());
+				$("#referencia").val($("#referenciaOrigem").val());
+				$("select[name=estado]").val($("select[name=estadoOrigem]").val());
+				$("select[name=estado]").change();
+				$("#cidade").disabled = false;
+				$("select[name=cidade]").val($("select[name=cidadeOrigem]").val());				
 			}
 			else{     
-				$("#enderecoOrigem").val("");
-				$("#numeroOrigem").val("");
-				$("#bairroOrigem").val("");
-				$("#cepOrigem").val("");
-				$("#complementoOrigem").val("");
-				$("#referenciaOrigem").val("");
-				$("select[name=estadoOrigem]").val(null);
-				$("select[name=cidadeOrigem]").val(null);
-				$("select[name=cidadeOrigem]").attr('disabled', 'disabled');
+				$("#endereco").val("");
+				$("#numero").val("");
+				$("#bairro").val("");
+				$("#cep").val("");
+				$("#complemento").val("");
+				$("#referencia").val("");
+				$("select[name=estado]").val(null);
+				$("select[name=cidade]").val(null);
+				$("select[name=cidade]").attr('disabled', 'disabled');
 			}
 		});
 
@@ -449,6 +454,10 @@ var FormularioAuxilio = function() {
 	 * estão nesse método.
 	 */
 	self.initMascaras = function(){
+		
+		$('[data-mask]').each(function(){ $(this).mask( $(this).attr('data-mask')); });
+		
+		
 		$("#valorMensalFinanciamento").mask("###0000000.00", {reverse: true});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
 		$("#rendaMensal").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});

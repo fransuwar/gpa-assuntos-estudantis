@@ -1,25 +1,29 @@
 var linha;
 
-//Função genérica para iniciar os datatables
-function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
-	
-	emptyTableMsg = (emptyTableMsg == null || emptyTableMsg == "") ? "Nenhum registro encontrado" : emptyTableMsg;
-	
-	var dataTable = $(idTable).DataTable({
-		"paging": isPaging,
-		"order": order,
-		"ordering": isOrdering,
-		"bInfo" : false,
-		"searching": isSearching,
-		"language": {
-			"sEmptyTable": emptyTableMsg,
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		}
-	});
-	return dataTable;
-}
-
 $(document).ready(function(){
+	
+//	$("#addPessoaFamilia").click(function(){
+//		$("#formPessoaFamilia").submit();
+//	});
+	
+	//Função genérica para iniciar os datatables
+	function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
+		
+		emptyTableMsg = (emptyTableMsg == null || emptyTableMsg == "") ? "Nenhum registro encontrado" : emptyTableMsg;
+		
+		var dataTable = $(idTable).DataTable({
+			"paging": isPaging,
+			"order": order,
+			"ordering": isOrdering,
+			"bInfo" : false,
+			"searching": isSearching,
+			"language": {
+				"sEmptyTable": emptyTableMsg,
+				"url":"/MAE/resources/js/Portuguese-Brasil.json"
+			}
+		});
+		return dataTable;
+	}
 
 	$.fn.dataTable.ext.errMode = 'none';
 	
@@ -59,10 +63,6 @@ $(document).ready(function(){
 	selecionarAba($('#aba').val());
 
 	$('.panel-heading').click(function(){ $(this).find('.clicavel').click(); return false; });
-
-	$("#addPessoaFamilia").click(function(){
-		$("#formPessoaFamilia").submit();
-	});
 
 
 	function getConfigsParaPDF(containerId, tableId){
@@ -207,31 +207,6 @@ $(document).ready(function(){
 
 	$("#questionarioIniciacao").validate();
 
-	$("table").DataTable({
-		"language": {
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		},
-		"columnDefs": 
-			[],
-			"paging": false,
-			"searching": false,
-			"ordering": false
-
-	});
-
-	$("#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
-			"#tabela-inscritos, #tabela-ranking-classificados, " +
-	"#tabela-detalhes-selecao-servidores, #table-visualiza-info-auxilio").DataTable({
-		"language": {
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		},
-		"columnDefs": 
-			[],
-			"paging": false,
-			"searching": false,
-			"ordering": false
-
-	});
 
 
 	jQuery.validator.addMethod("periodo", function(value, element) {

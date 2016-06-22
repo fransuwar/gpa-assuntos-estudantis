@@ -133,7 +133,6 @@ label.title {
 }
 
 div.text-align-left {
-	width: 100%;
 	text-align: left;
 }
 
@@ -207,16 +206,16 @@ div.p-body {
 }
 
 div.f-container {
-	display: inline-block;
+	display: inline-table;
 	background-color: white;
 	margin: 1%;
 	text-align: left;
 }
 
-
+5
 label.f-title {
 	margin-left: 10px;
-	font-weight: bold;
+	font-weight: bold !important;
 }
 
 div.f-content {
@@ -438,12 +437,18 @@ div.s4-custom{
 	margin-bottom: 5px;
 }
 
-.borda-laranja{
-	outline: 1px solid rgb(243, 156, 18);
+.th-verde{
+	background-color: #43bb2f;
+	color: white;
 }
 
-.borda-verde{
-	outline: 1px solid rgb(24, 188, 156);
+.th-laranja{
+	background-color: #f57900;
+	color: white;
+}
+
+#tabela-classificaveis, #tabela-classificados{
+	min-width: 100%;
 }
 
 #pesquisarClassificados{
@@ -871,9 +876,21 @@ a, .dropdown-menu > li > a{
 	height: 27px !important;
 }
 
+.btn.btn-md{
+	width: 100px !important;
+}
+
 .alert{
 	border: 0 !important;
-	border-radius: 0px !important;
+	border-radius: 0px;
+}
+
+.alert.alert-info{
+	background-color: #00BCD4 !important;
+}
+
+.alert.alert-rounded{
+	border-radius: 3px !important;
 }
 
 .alert:hover{
@@ -889,9 +906,10 @@ input:focus, select:focus, textarea:focus{
 
 .table-custom{
 	border: 1px solid white;
-	border-radius: 1%;
+	border-radius: 3px !important;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
+
 .table-custom td{
 	text-align: center;
 }
@@ -901,12 +919,20 @@ input:focus, select:focus, textarea:focus{
 	background-color: #00796B;
 }
 
+.table-custom thead{
+	border-radius: 3px !important;
+}
+
 .th-center{
 	text-align: center;
 }
 
 .row-centered{
 	margin: 0 auto !important;
+}
+
+.dropdown-menu > li > a:hover{
+	background-color: rgba(0,0,0,.1) !important;
 }
 
 .no-decoration{
@@ -932,4 +958,101 @@ input:focus, select:focus, textarea:focus{
 
 .full-width{
 	width: 100% !important;
+}
+
+.legenda{
+	float:right;
+	display: inline-block;
+	background-color: #ededed;
+	padding: 5px;
+	border-radius: 0px 0px 3px 3px;
+}
+
+.documentos-aluno li:hover{
+	cursor: pointer;
+	box-shadow: 1px 1px 1px #cdcdcd;
+	transition: all 0.2s;
+	transform: scale(1.2);
+}
+
+.documentos-aluno li a{
+	position: absolute;
+	color: #ffffff !important;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+	width: 100%;
+	word-wrap: break-word;
+	text-align: center;
+}
+
+.documentos-lista{
+	list-style: none;	
+	margin-left: -40px;
+}
+
+.documentos-lista li{
+	margin-bottom: 5px;	
+}
+
+.panel-visitas{
+	width: 48%;
+	padding: 0;
+}
+
+.legenda div{
+	margin: 2px;
+	display: inline-block;
+}
+
+.form-btn {
+	margin-top: 40px;
+	text-align: right;
+}
+
+.form-btn input {
+	margin-right: 15px;
+}
+
+.menu-relatorio-visitas{
+	margin-bottom: 20px;
+}
+
+.panel-visitas .panel-heading{
+	color: white !important;
+	background-color: #009688 !important;
+	border-bottom: 1px solid #eeeeec;
+}
+
+.panel-group .panel-cidade{
+	color: white !important;
+	background-color: #009688 !important;
+	border-bottom: 1px solid #eeeeec;
+}
+
+.panel-cidade a{
+	color: white !important;
+}
+
+.foto-relatorio-visita{
+	height: 60px;
+	width: 60px;
+	margin-right: 20px;
+}
+.wizard > .actions > ul > li.disabled {
+  display: none;
+}
+
+.div-esquerda{
+	float:left;
+}
+
+.lista-documentos-selecao{
+	margin-top: -15px;
+}
+
+.lista-documentos-selecao li{
+	list-style: none;
+	display: block;
+	margin-left: -40px;
 }

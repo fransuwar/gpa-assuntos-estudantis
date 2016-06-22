@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
@@ -18,11 +19,10 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MO
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRICAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,6 +50,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.DiaUtil;
+import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
@@ -71,7 +72,6 @@ import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.DocumentosTipoInscricao;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
-import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -213,7 +213,7 @@ public class AlunoController {
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
 
-	@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
+	/*@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
 	public String editarInscricaoIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
 			BindingResult result, Model model, RedirectAttributes redirect) {
@@ -251,7 +251,7 @@ public class AlunoController {
 		// TODO - Realizar a atualização de uma iniciação acadêmica.
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EDITADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
-	}
+	}*/
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
 	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth) {
@@ -349,6 +349,11 @@ public class AlunoController {
 			RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		if(inscricao.isConsolidacao())
+			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
+		
+		
+		
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 
@@ -383,6 +388,7 @@ public class AlunoController {
 				model.addAttribute("situacaoResidencia", SituacaoResidencia.values());
 				model.addAttribute("totalEstado", Estado.values());
 				model.addAttribute("grauParentesco", GrauParentesco.values());
+				model.addAttribute("escolaridade",Escolaridade.values());
 
 
 				List<HorarioDisponivel> horariosDisponiveis = inscricaoService
@@ -391,12 +397,7 @@ public class AlunoController {
 					model.addAttribute("horariosDisponiveis", horariosDisponiveis);
 				}
 
-				List<PessoaFamilia> pessoasDaFamilia = inscricaoService
-						.getPessoaFamiliaPorIdIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
-
-				if (pessoasDaFamilia != null && !pessoasDaFamilia.isEmpty()) {
-					model.addAttribute("pessoasDaFamilia", pessoasDaFamilia);
-				}
+				model.addAttribute("pessoasDaFamilia", inscricao.getQuestionarioAuxilioMoradia().getPessoas());
 
 
 				return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
@@ -492,6 +493,10 @@ public class AlunoController {
 	public String excluirInscricao(@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect) {
 
 		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
+		if(inscricao.isConsolidacao())
+			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
+			
+		
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 
@@ -596,6 +601,7 @@ public class AlunoController {
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 		model.addAttribute("moraCom", MoraCom.values());
 		model.addAttribute("grauParentesco", GrauParentesco.values());
+		model.addAttribute("escolaridade",Escolaridade.values());
 		
 		return model;
 		
