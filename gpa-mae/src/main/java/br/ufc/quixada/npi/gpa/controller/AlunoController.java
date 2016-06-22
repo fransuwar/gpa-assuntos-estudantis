@@ -283,8 +283,6 @@ public class AlunoController {
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model, @RequestParam("fileFoto") MultipartFile foto) {
 		
-		Inscricao inscricao;
-		
 		if(!this.verificarExtensaoFoto(foto)){
 			redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
 			//Adicionando o erro no result.
@@ -324,7 +322,7 @@ public class AlunoController {
 
 			if (inscricaoService.getInscricao(selecao, aluno) == null) {
 
-				inscricao = new Inscricao();
+				Inscricao inscricao = new Inscricao();
 
 				inscricao.setData(new Date());
 
@@ -336,19 +334,19 @@ public class AlunoController {
 
 
 				inscricaoService.save(inscricao);
+				
+				redirect.addFlashAttribute("info", MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO);		
+				redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
+				return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + inscricao.getId();
+				
 			} else {
 				redirect.addFlashAttribute("error", MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
 			}
-			model.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
-			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 
 		}
 
-		redirect.addFlashAttribute("info", MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO);
-		
-		redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
-		return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + inscricao.getId();
+	
 	}
 
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.GET)
@@ -542,6 +540,14 @@ public class AlunoController {
 				model.addAttribute("esconderBotoes",true);
 			} else{
 				model.addAttribute("esconderBotoes",false);			
+			}
+			
+			
+			//Recebendo a mensagem recebida do redirect
+			String msgAddDocumentos = (String) model.asMap().getOrDefault("info", null);
+			
+			if(msgAddDocumentos != null){
+				model.addAttribute("info",msgAddDocumentos);
 			}
 			
 			//Verificando se alguma aba específica foi setada no redirect
