@@ -51,7 +51,7 @@
 					</div>
 				</c:if>
 				<div class="row">
-					<div class="col-sm-4 col-sm-offset-2">
+					<div class="col-sm-4 col-sm-offset-1">
 						<form:form id="adicionarComissaoForm" role="form"
 							servletRelativeAction="/coordenador/comissao/atribuir"
 							method="POST" class="form-horizontal">
@@ -73,18 +73,26 @@
 						</form:form>
 					</div>
 					
-					<div class="col-sm-4">	
+					<div class="col-sm-6">
 						<table class="table table-hover table-custom">
 							<thead class="th-custom">
 								<tr>
-									<th colspan="2" class="th-center">
+									<th colspan="4" class="th-center">
 										Comissão
 									</th>
+								</tr>
+								<tr>
+									<th class="th-center">Nome</th>
+									<th class="th-center">SIAPE</th>
+									<th class="th-center">Cargo</th>
+									<th class="th-center">-</th>
 								</tr>
 							</thead>
 							<c:forEach var="servidor" items="${selecao.membrosComissao}">
 								<tr>
 									<td>${servidor.pessoa.nome}</td>
+									<td>${servidor.siape }</td>
+									<td>${servidor.cargo.nome }</td>
 									<c:choose>
 										<c:when test="${selecao.responsavel.siape != servidor.siape}">
 											<td>

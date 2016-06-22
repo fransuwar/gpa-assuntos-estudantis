@@ -61,14 +61,14 @@
 								</h4>
 								<input type="text" class="form-control" placeholder="Pesquisar"
 									id="pesquisarClassificaveis">
-								<table class="table table-hover borda-laranja"
-									id="tabela-classificaveis" cellspacing="0" width="100%">
-									<thead>
-										<tr class="warning row">
+								<table class="table table-custom table-hover"
+									id="tabela-classificaveis">
+									<thead class="th-laranja">
+										<tr class="row">
 											<td class="col-sm-2">Aluno</td>
-											<td class="col-sm-4">Nome</td>
+											<td class="col-sm-6">Nome</td>
 											<td class="col-sm-2">Renda</td>
-											<td class="col-sm-4"></td>
+											<td class="col-sm-2"></td>
 										</tr>
 									</thead>
 									<tbody>
@@ -78,15 +78,15 @@
 													href="<c:url value="/servidor/detalhes/inscricao/${classificavel.id}">  
 										</c:url>"
 													class="thumbnail"> <img
-														src="<c:url value="/resources/images/gpa-icone.jpg"/>"
+														src="<c:url value="/inscricao/detalhes/fotoAluno/${classificavel.id}"/>"
 														alt="Foto do Aluno" style="height: 60px; width: 100%"
 														class="img-rounded">
 												</a></td>
-												<td class="col-sm-4"><a id="detalhes"
+												<td class="col-sm-6"><a id="detalhes"
 													href="<c:url value="/servidor/detalhes/inscricao/${classificavel.id}">  
 										</c:url>">${classificavel.aluno.pessoa.nome}</a></td>
-												<td class="col-sm-2">R$ 900</td>
-												<td class="col-sm-4">
+												<td class="col-sm-2">R$ ---</td>
+												<td class="col-sm-2">
 													<div class="checkbox">
 														<label> <input type="checkbox"
 															name="checkClassificados[]" value="${classificavel.id}"
@@ -105,11 +105,11 @@
 						<div class="col-sm-2" id="div-botoes-classificados">
 							<span class="label label-default col-sm-12">${selecao.quantidadeVagas}
 								vagas</span>
-							<button class=" btn btn-primary btn-xs col-sm-12"
+							<button class=" btn btn-primary  col-sm-12"
 								id="botao-adicionar-classificados">
 								Adicionar <span class="glyphicon glyphicon-chevron-right"></span>
 							</button>
-							<button class=" btn btn-primary btn-xs col-sm-12"
+							<button class=" btn btn-primary  col-sm-12"
 								id="botao-remover-classificados">
 								<span class="glyphicon glyphicon-chevron-left"></span> Remover
 							</button>
@@ -123,14 +123,14 @@
 								</h4>
 								<input type="text" class="form-control" placeholder="Pesquisar"
 									id="pesquisarClassificados">
-								<table class="table table-hover borda-verde"
-									id="tabela-classificados" cellspacing="0" width="100%">
-									<thead>
-										<tr class="success row">
+								<table class="table table-custom table-hover borda-verde"
+									id="tabela-classificados">
+									<thead class="th-verde">
+										<tr class="row">
 											<td class="col-sm-2">Aluno</td>
-											<td class="col-sm-4">Nome</td>
+											<td class="col-sm-6">Nome</td>
 											<td class="col-sm-2">Renda</td>
-											<td class="col-sm-4"></td>
+											<td class="col-sm-2"></td>
 										</tr>
 									</thead>
 									<tbody>
@@ -140,15 +140,15 @@
 													href="<c:url value="/servidor/detalhes/inscricao/${classificado.id}">  
 										</c:url>"
 													class="thumbnail"> <img
-														src="<c:url value="/resources/images/gpa-icone.jpg"/>"
+														src="<c:url value="/inscricao/detalhes/fotoAluno/${classificado.id}"/>"
 														alt="Foto do Aluno" style="height: 60px; width: 100%"
 														class="img-rounded">
 												</a></td>
-												<td class="col-sm-4"><a id="detalhes"
+												<td class="col-sm-6"><a id="detalhes"
 													href="<c:url value="/servidor/detalhes/inscricao/${classificado.id}">  
 										</c:url>">${classificado.aluno.pessoa.nome}</a></td>
-												<td class="col-sm-2">R$ 900</td>
-												<td class="col-sm-4">
+												<td class="col-sm-2">R$ ---</td>
+												<td class="col-sm-2">
 													<div class="checkbox">
 														<label> <input type="checkbox"
 															value="${classificado.id}" name="checkClassificaveis[]">

@@ -51,35 +51,9 @@
 		</c:if>
 		
 		<jsp:include page="../fragments/cards.jsp" />
-		
-		
+
 		<sec:authorize
 			access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
-			<div class="panel panel-primary" align="left">
-				<div class="panel-heading">
-					<h3 class="panel-title">Comissão</h3>
-				</div>
-				<div class="panel-body">
-					<table class="table">
-						<thead>
-							<tr class="active">
-								<td>Nome</td>
-								<td>SIAPE</td>
-								<td>Cargo</td>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="membro" items="${selecao.membrosComissao }">
-								<tr>
-									<td>${membro.pessoa.nome }</td>
-									<td>${membro.siape }</td>
-									<td>${membro.cargo.nome }</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-			</div>
 			<div class="panel panel-primary" align="left">
 				<div class="panel-heading">
 					<h3 class="panel-title">Inscrições</h3>
