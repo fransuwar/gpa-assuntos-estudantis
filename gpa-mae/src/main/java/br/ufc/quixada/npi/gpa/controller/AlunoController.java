@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
@@ -282,7 +283,7 @@ public class AlunoController {
 			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model, @RequestParam("fileFoto") MultipartFile foto) {
 		
-		Integer idInscricao;
+		Inscricao inscricao;
 		
 		if(!this.verificarExtensaoFoto(foto)){
 			redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
@@ -323,7 +324,7 @@ public class AlunoController {
 
 			if (inscricaoService.getInscricao(selecao, aluno) == null) {
 
-				Inscricao inscricao = new Inscricao();
+				inscricao = new Inscricao();
 
 				inscricao.setData(new Date());
 
@@ -335,7 +336,6 @@ public class AlunoController {
 
 
 				inscricaoService.save(inscricao);
-				idInscricao = inscricaoService.getInscricao(selecao, aluno).getId();
 			} else {
 				redirect.addFlashAttribute("error", MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
@@ -348,7 +348,7 @@ public class AlunoController {
 		redirect.addFlashAttribute("info", MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO);
 		
 		redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
-		return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + idInscricao;
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + inscricao.getId();
 	}
 
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.GET)
@@ -540,7 +540,7 @@ public class AlunoController {
 			
 			if(nomeAba == null){
 				//Se nenhuma aba foi setada então a aba padrão é selecionada 
-				nomeAba = "inscricao-tab"; 
+				nomeAba = INSCRICAO_TAB; 
 			}
 
 			model.addAttribute(ABA_SELECIONADA, nomeAba);
