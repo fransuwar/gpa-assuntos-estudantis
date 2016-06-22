@@ -188,7 +188,7 @@ public class AlunoController {
 
 	}
 
-	@RequestMapping(value = { "inscricao/editar/iniciacao-academica/{idInscricao}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "inscricao/editar/iniciaca-1o-academica/{idInscricao}" }, method = RequestMethod.GET)
 	public String editarInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model model,
 			RedirectAttributes redirect) {
 
@@ -290,8 +290,6 @@ public class AlunoController {
 		}
 
 		if (result.hasErrors()) {
-			
-			System.out.println(result.toString());
 
 			model.addAttribute("action", "inscricao");
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
