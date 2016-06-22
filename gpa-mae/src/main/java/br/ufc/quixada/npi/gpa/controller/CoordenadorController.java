@@ -1,5 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANEXO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR;
@@ -35,10 +36,13 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.joda.time.DateTime;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -95,8 +99,8 @@ public class CoordenadorController {
 		if (tipoDocumento != null){
 			try{
 			documentoService.deletarTipoDocumento(tipoDocumento);
-			}catch(Exception e){
-				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO);
+			}catch(JpaSystemException | PersistenceException | ConstraintViolationException e){
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO);
 			}
 		}
 		else{ 
@@ -288,7 +292,7 @@ public class CoordenadorController {
 			this.selecaoService.delete(selecao);
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_REMOVIDA);
 		} else {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS);
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS);
 		}
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -314,7 +318,7 @@ public class CoordenadorController {
 		Servidor servidor = this.servidorService.getServidorPorId(idServidor);
 
 		if (comissao.contains(servidor)) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
 			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 
 		} else {
@@ -365,7 +369,7 @@ public class CoordenadorController {
 
 
 				} catch (IOException ioe) {
-					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+					redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 
 					return REDIRECT_PAGINA_ADICIONAR_ARQUIVO +idSelecao;
 				}
@@ -416,7 +420,7 @@ public class CoordenadorController {
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO);
 		}else
 
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR);
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR);
 
 		return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 

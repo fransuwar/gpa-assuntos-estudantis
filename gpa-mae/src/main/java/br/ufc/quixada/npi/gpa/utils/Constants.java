@@ -270,5 +270,11 @@ public class Constants {
 	public static final String ABA_SELECIONADA = "aba";
 	
 	public static final String DOCUMENTOS_TAB = "documentos-tab";
+	
+	/** Mensagens do sistema*/
+	
+	public static final String ERRO = "erro";
+	
+	public static final String INFO = "info";
 
 }
