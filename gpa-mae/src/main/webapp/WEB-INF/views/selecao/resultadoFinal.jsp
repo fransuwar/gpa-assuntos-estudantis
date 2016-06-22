@@ -16,7 +16,11 @@
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
+
 	<div class='container'>
+	
+		<jsp:include page="../fragments/cards.jsp" />
+	
 
 		<div class="panel panel-primary" align="left">
 			<div class="panel-heading">
@@ -133,7 +137,7 @@
 			</div>
 
 		</div>
-
+		</div>
 		<jsp:include page="../fragments/footer.jsp" />
 </body>
 </html>

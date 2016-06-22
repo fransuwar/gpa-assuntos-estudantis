@@ -349,6 +349,7 @@ public class ServidorController {
 				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
 				model.addAttribute("selecao", selecao);
 				model.addAttribute("inscricoes", inscricoes);
+				model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_INSCRICAO);
 				
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 			} else {

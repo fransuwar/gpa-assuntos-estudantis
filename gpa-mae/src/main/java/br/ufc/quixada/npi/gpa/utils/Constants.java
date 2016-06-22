@@ -268,5 +268,16 @@ public class Constants {
 	public static final String ABA_SELECIONADA = "aba";
 	
 	public static final String DOCUMENTOS_TAB = "documentos-tab";
+	
+	/** Comunicação Javascript com os cards**/
+	
+	public static final String CARD_SELECIONADO = "card";
+	
+	public static final String CARD_INSCRICAO = "card-inscricao";
+	public static final String CARD_COMISSAO = "card-comissao";
+	public static final String CARD_ARQUIVOS = "card-arquivos";
+	public static final String CARD_RELATORIO = "card-relatorio";
+	public static final String CARD_RANK = "card-rank";
+	
 
 }

@@ -250,6 +250,10 @@ div.s2 {
 	width: 17%;
 }
 
+div.s2-half{
+	width: 20%;
+}
+
 div.s3 {
 	width: 27%;
 }
@@ -284,6 +288,10 @@ div.s10 {
 
 div.s4-custom{
 	width: 45%;
+}
+
+div.center-h{
+	text-align: center;
 }
 
 .margin-top-s1{
@@ -746,7 +754,12 @@ div.input-photo {
 	border-radius: 5px;
 	background-color: #d1d1d1;
 	transition: all 0.2s;
-	
+}
+
+.card-hover{
+	border-radius: 5px;
+	background-color: #d1d1d1;
+	transition: all 0.2s;
 }
 
 .card .card-content{
@@ -959,3 +972,4 @@ input:focus, select:focus, textarea:focus{
 	display: block;
 	margin-left: -40px;
 }
+
