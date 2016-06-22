@@ -724,8 +724,7 @@
 												</div>
 												<div class="form-group">
 													<div class="col-sm-3 pull-right">
-														<input type="submit" class="button btn btn-primary"
-															name="submit" />
+														<input type="submit" class="button btn btn-primary"/>
 													</div>
 												</div>
 											</form:form>
