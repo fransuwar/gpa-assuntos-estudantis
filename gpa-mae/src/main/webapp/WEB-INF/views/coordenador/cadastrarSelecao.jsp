@@ -42,7 +42,7 @@
 						<button type="button" class="close" data-dismiss="alert">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 						</button>
-						<div style="text-align: center">
+						<div>
 							<c:out value="${erro}"></c:out>
 						</div>
 					</div>
@@ -53,7 +53,7 @@
 						<button type="button" class="close" data-dismiss="alert">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 						</button>
-						<div style="text-align: center">
+						<div>
 							<c:out value="${info}"></c:out>
 						</div>
 					</div>
