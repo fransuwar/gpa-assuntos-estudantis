@@ -6,6 +6,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRIC
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_REALIZAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
@@ -254,23 +255,32 @@ public class AlunoController {
 	}*/
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
-	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth) {
-
-		model.addAttribute("action", "inscricao");
-
-		Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
-
-		model.addAttribute("aluno", aluno);
-		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
+	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth, RedirectAttributes redirect) {
 		
-		Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
-		model.mergeAttributes(modelFormAuxilio.asMap());
+		Selecao selecaoAux = selecaoService.getSelecaoPorId(idSelecao);
+		Date date = new Date();
 		
-		model.addAttribute("selecao", selecao);
-		model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
-
-		return PAGINA_INSCREVER_AUXILIO_MORADIA;
+		if(date.before(selecaoAux.getDataInicio()) || date.after(selecaoAux.getDataTermino())){		
+			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_REALIZAR_INSCRICAO);
+			return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
+		}else{
+		
+			model.addAttribute("action", "inscricao");
+			
+			Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+			Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+	
+			model.addAttribute("aluno", aluno);
+			model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
+			
+			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+			model.mergeAttributes(modelFormAuxilio.asMap());
+			
+			model.addAttribute("selecao", selecao);
+			model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
+	
+			return PAGINA_INSCREVER_AUXILIO_MORADIA;
+			}
 	}
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
@@ -520,7 +530,7 @@ public class AlunoController {
 			redirect.addAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_INSCRICOES_ALUNO;
 
-		} else if (inscricao.getQuestionarioAuxilioMoradia() != null) {
+		}else if (inscricao.getQuestionarioAuxilioMoradia() != null) {
 
 			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){
 				model.addAttribute("esconderBotoes",true);
@@ -533,7 +543,7 @@ public class AlunoController {
 
 			return PAGINA_DETALHES_INSCRICAO;
 
-		} else {
+		} else{
 
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
