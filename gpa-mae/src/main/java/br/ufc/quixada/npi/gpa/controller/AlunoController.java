@@ -349,6 +349,11 @@ public class AlunoController {
 			RedirectAttributes redirect) {
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		if(inscricao.isConsolidacao())
+			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
+		
+		
+		
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 
@@ -488,6 +493,10 @@ public class AlunoController {
 	public String excluirInscricao(@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect) {
 
 		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
+		if(inscricao.isConsolidacao())
+			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
+			
+		
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 
