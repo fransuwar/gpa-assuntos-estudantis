@@ -750,7 +750,7 @@
 									<label class="col-sm-2 control-label">Observações:</label>
 									<div class="col-sm-8">
 										<form:textarea class="form-control" rows="8"
-											name="observacaoDocumentos" path="observacaoDocumentos"
+											name="avaliarDocumentacao" path="observacaoDocumentos"
 											value="${inscricao.observacaoDocumentos}" />
 										<input type="hidden" value="${inscricao.id }"
 											name="idInscricao" />
@@ -758,8 +758,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-sm-3 pull-right">
-										<input type="submit" class="button btn btn-primary"
-											name="submit" />
+										<input type="submit" class="button btn btn-primary" />
 									</div>
 								</div>
 							</form:form>
