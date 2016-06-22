@@ -37,6 +37,11 @@ var FormularioAuxilio = function() {
 		self.addPessoaFamilia();
 		self.abrirFormPessoaFamilia();
 		
+		self.maskFields();
+	};
+	
+	self.maskFields = function(){
+		$('.mask-field').each(function(){$(this).mask($(this).attr('mask-value'))});
 	};
 	
 	self.criarDivPessoaFamilia = function (indice, pessoaFamilia) {
@@ -449,6 +454,10 @@ var FormularioAuxilio = function() {
 	 * estão nesse método.
 	 */
 	self.initMascaras = function(){
+		
+		$('[data-mask]').each(function(){ $(this).mask( $(this).attr('data-mask')); });
+		
+		
 		$("#valorMensalFinanciamento").mask("###0000000.00", {reverse: true});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
 		$("#rendaMensal").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
