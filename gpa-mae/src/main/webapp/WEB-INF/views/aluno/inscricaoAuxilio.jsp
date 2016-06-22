@@ -514,7 +514,7 @@
 											<form:select path="grauParentescoImovelRural"
 												id="grauParentescoImovelRural" cssClass="form-control">
 												<form:option value="" label="Selecione o Grau" />
-												<form:options items="${grauParentesco}"
+												<form:options items="${grauParentescoImovelRural}"
 													itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
@@ -578,7 +578,7 @@
 											<form:select path="grauParentescoVeiculos"
 												id="grauParentescoVeiculos" cssClass="form-control">
 												<form:option value="" label="Selecione o Grau" />
-												<form:options items="${grauParentesco}"
+												<form:options items="${grauParentescoVeiculos}"
 													itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
@@ -649,7 +649,7 @@
 											<form:select path="ensinoFundamental" id="ensinoFundamental"
 												cssClass="form-control" cssStyle="font-size:13px;">
 												<form:option value="" label="Selecione o Tipo" />
-												<form:options items="${tipoEnsino}"
+												<form:options items="${tipoEnsinoFundamental}"
 													itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
@@ -689,7 +689,7 @@
 											<form:select path="ensinoMedio" id="ensinoMedio"
 												cssClass="form-control" cssStyle="font-size:13px;">
 												<form:option value="" label="Selecione o Tipo" />
-												<form:options items="${tipoEnsino}" itemLabel="nome" />
+												<form:options items="${tipoEnsinoMedio}" itemLabel="nome" />
 											</form:select>
 											<div class="error-validation">
 												<form:errors path="ensinoMedio"></form:errors>

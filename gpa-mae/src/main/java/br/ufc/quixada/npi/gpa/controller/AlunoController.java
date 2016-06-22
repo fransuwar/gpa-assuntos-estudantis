@@ -290,6 +290,8 @@ public class AlunoController {
 		}
 
 		if (result.hasErrors()) {
+			
+			System.out.println(result.toString());
 
 			model.addAttribute("action", "inscricao");
 			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
@@ -378,7 +380,7 @@ public class AlunoController {
 				model.addAttribute("diasUteis", DiaUtil.values());
 				model.addAttribute("situacaoResidencia", SituacaoResidencia.values());
 				model.addAttribute("totalEstado", Estado.values());
-				model.addAttribute("grauParentesco", GrauParentesco.values());
+				model.addAttribute("grauParentesco", GrauParentesco.getTodos());
 				model.addAttribute("escolaridade",Escolaridade.values());
 
 
@@ -583,9 +585,9 @@ public class AlunoController {
 		model.addAttribute("situacaoImovel", SituacaoImovel.values());
 		model.addAttribute("tipoEnsino", TipoEnsino.values());
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-		model.addAttribute("moraCom", GrauParentesco.values());
-		model.addAttribute("grauParentesco", GrauParentesco.values());
-		model.addAttribute("escolaridade",Escolaridade.values());
+		model.addAttribute("moraCom", GrauParentesco.getTodosExcetoEu());
+		model.addAttribute("grauParentesco", GrauParentesco.getTodos());
+		model.addAttribute("escolaridade", Escolaridade.values());
 		
 		return model;
 		
