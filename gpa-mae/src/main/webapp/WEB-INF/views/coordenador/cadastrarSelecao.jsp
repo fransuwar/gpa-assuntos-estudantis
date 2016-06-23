@@ -109,7 +109,7 @@
 
 							<form:input id="ano" type="text" path="ano"
 								cssClass="form-control" placeholder="ano"
-								onkeypress="mascara(this,soNumeros)" />
+								onkeypress="mascara(this,soNumeros)" readonly="true"/>
 							<div class="error-validation" id="erro-ano">
 								<label class="col-sm-10 control-label" id="label-erro">
 									${dataError} </label>
@@ -126,7 +126,8 @@
 								das Inscrições:</label>
 
 							<form:input id="dataInicio" type="text" path="dataInicio"
-								cssClass="form-control data" placeholder="dd/mm/aaaa" />
+								cssClass="form-control data" placeholder="dd/mm/aaaa" readonly="true"
+								/>
 							<div class="error-validation" id="erro-dataInicio">
 								<label class="col-sm-10 control-label" id="label-erro">
 									${dataInicioError} </label>
@@ -140,7 +141,7 @@
 								Inscrições:</label>
 
 							<form:input id="dataTermino" type="text" path="dataTermino"
-								cssClass="form-control data" placeholder="dd/mm/aaaa" />
+								cssClass="form-control data" placeholder="dd/mm/aaaa" readonly="true"/>
 							<div class="error-validation" id="erro-dataTermino">
 								<form:errors path="dataTermino"></form:errors>
 							</div>
