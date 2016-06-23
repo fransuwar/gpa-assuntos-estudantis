@@ -1,6 +1,7 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
 
 import java.io.IOException;
 import java.util.List;
@@ -77,7 +78,7 @@ public class InscricaoController {
 	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Model consolidarViaAjax(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao,Model model){
 		inscricaoService.consolidar(idInscricao, consolidacao);
-		model.addAttribute("resultado","sucesso");
+		model.addAttribute(RESULTADO,"sucesso");
 		return model;
 		
 	}
@@ -85,7 +86,7 @@ public class InscricaoController {
 	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Model consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao,Model model){
 		inscricaoService.consolidacaoDeTodos(idSelecao, consolidacao);
-		model.addAttribute("resultado","sucesso");
+		model.addAttribute(RESULTADO,"sucesso");
 		return model;
 	}
 }

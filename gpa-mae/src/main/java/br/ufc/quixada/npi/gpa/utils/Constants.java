@@ -270,5 +270,7 @@ public class Constants {
 	public static final String ABA_SELECIONADA = "aba";
 	
 	public static final String DOCUMENTOS_TAB = "documentos-tab";
+	
+	public static final String RESULTADO = "resultado";
 
 }
