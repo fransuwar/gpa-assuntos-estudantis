@@ -79,7 +79,7 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
-import br.ufc.quixada.npi.gpa.service.AlunoService;
+import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.service.AnaliseDocumentacaoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.DocumentosTipoInscricaoService;
@@ -92,9 +92,6 @@ import br.ufc.quixada.npi.ldap.service.UsuarioService;
 @RequestMapping("aluno")
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
 public class AlunoController {
-
-	@Inject
-	private AlunoService alunoService;
 
 	@Inject
 	private SelecaoService selecaoService;
@@ -113,13 +110,16 @@ public class AlunoController {
 	
 	@Inject
 	private AnaliseDocumentacaoService documentacaoService;
+	
+	@Inject
+	private AlunoRepository alunoRepository;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 
 		List<Selecao> selecoes = selecaoService.getSelecoes();
 
-		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
+		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("aluno", aluno);
@@ -171,8 +171,7 @@ public class AlunoController {
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 
-
-		Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		if (inscricaoService.getInscricao(selecao, aluno) == null) {
@@ -261,7 +260,7 @@ public class AlunoController {
 
 		model.addAttribute("action", "inscricao");
 
-		Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		model.addAttribute("aluno", aluno);
@@ -315,8 +314,7 @@ public class AlunoController {
 
 		} else {
 
-
-			Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+			Aluno aluno = alunoRepository.findByCpf(auth.getName());
 			Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 			auxilioMoradia.setPessoasEntrevista(auxilioMoradia.getPessoas());
 
@@ -484,8 +482,8 @@ public class AlunoController {
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
-
-		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
+		
+		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
 
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("inscricoes", aluno.getInscricoes());
