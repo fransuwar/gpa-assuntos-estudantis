@@ -1,17 +1,24 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
+
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import br.ufc.quixada.npi.gpa.model.Inscricao;
+import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
+import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
@@ -22,6 +29,9 @@ public class InscricaoController {
 	
 	@Inject
 	private InscricaoService inscricaoService;
+	
+	@Inject
+	private SelecaoService selecaoService;
 	
 	private void enviarImagemPadraoEmCasoDeErro(HttpServletResponse response){
 		try {
@@ -46,5 +56,18 @@ public class InscricaoController {
 		} catch (NullPointerException e) {
 			enviarImagemPadraoEmCasoDeErro(response);
 		}
+	}
+	
+	@RequestMapping(value = {"/inscricao/consolidar/{idInscricao}"}, method = RequestMethod.GET)
+	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model){
+		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		List<Selecao> selecoes = selecaoService.getSelecoes();
+		
+		inscricao.setConsolidacao(true);
+		inscricaoService.update(inscricao);	
+		
+		model.addAttribute("selecoes", selecoes);
+		
+		return PAGINA_SELECOES_ABERTAS;
 	}
 }

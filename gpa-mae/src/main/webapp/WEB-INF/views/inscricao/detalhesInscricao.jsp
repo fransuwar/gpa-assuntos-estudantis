@@ -22,6 +22,17 @@
 	<input id="ativar-aba-entrevista" name="ativar-aba-entrevista"
 		type="hidden" value="${ativarAbaEntrevista }" />
 	<div class="container" align="center">
+		<c:if test="${not empty info}">
+			<div class="alert alert-success alert-dismissible" role="alert"
+				id="alert-info">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+				</button>
+				<div style="text-align: center">
+					<c:out value="${info}"></c:out>
+				</div>
+			</div>
+		</c:if>
 		<ul class="nav nav-tabs">
 			<li id="aba-inscricao"><a href="#inscricao-tab"
 				data-toggle="tab">Inscrição<i class="fa"></i>
@@ -749,7 +760,7 @@
 											value="${inscricao.id}" />
 										<input type="hidden" id="idEntrevista" name="idEntrevista"
 											value="${inscricao.entrevista.id}" />
-											
+
 										<div class="row">
 											<fieldset class="form-group col-sm-8">
 												<label for="observacao" class="col-sm-1 control-label">Observação</label>
@@ -761,7 +772,7 @@
 													<form:errors path="observacao"></form:errors>
 												</div>
 											</fieldset>
-	
+
 											<fieldset class="form-group col-sm-4">
 												<label for="deferimento" class="col-sm-1 control-label">Deferimento</label>
 												<select name="deferimento" id="deferimento"
@@ -778,14 +789,15 @@
 													<c:if test="${inscricao.realizarVisita}">checked </c:if> />
 											</fieldset>
 										</div>
-										
+
 										<div align="left">
-										<fieldset class="form-group">
-											<button name="submit" type="submit" class="btn btn-primary btn-md"
-												value="${botao}" id="form-btn">Enviar</button>
-											<a href="<c:url value="/selecao/listar" ></c:url>"
-												class="btn btn-default btn-md" id="form-btn">Cancelar</a>
-										</fieldset>
+											<fieldset class="form-group">
+												<button name="submit" type="submit"
+													class="btn btn-primary btn-md" value="${botao}"
+													id="form-btn">Enviar</button>
+												<a href="<c:url value="/selecao/listar" ></c:url>"
+													class="btn btn-default btn-md" id="form-btn">Cancelar</a>
+											</fieldset>
 										</div>
 									</form:form>
 								</div>
@@ -987,8 +999,8 @@
 										action="<c:url value="/servidor/visita/enviarFormulario/${inscricao.id}"/>">
 
 										<div class='f-container'>
-											<label class='f-title'> <b>Formulário de
-												visita</b> </label>
+											<label class='f-title'> <b>Formulário de visita</b>
+											</label>
 
 											<div class='f-content'>
 												<input type="file" name="formulario" />
@@ -1021,7 +1033,8 @@
 
 								<input type="hidden" name="idInscricao" value="${inscricao.id}" />
 								<div class='f-container'>
-									<label class='f-title'> <b>Foto da visita</b> </label>
+									<label class='f-title'> <b>Foto da visita</b>
+									</label>
 
 									<div class='f-content'>
 										<input type="file" name="foto" />
