@@ -416,18 +416,6 @@ public class AlunoController {
 
 	}
 	
-	@RequestMapping(value = {"/inscricao/consolidar/{idInscricao}"}, method = RequestMethod.GET)
-	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model){
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		List<Selecao> selecoes = selecaoService.getSelecoes();
-		
-		inscricao.setConsolidacao(true);
-		inscricaoService.update(inscricao);	
-		
-		model.addAttribute("selecoes", selecoes);
-		
-		return PAGINA_SELECOES_ABERTAS;
-	}
 
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.POST)
 	public String editarInscricaoPost(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,

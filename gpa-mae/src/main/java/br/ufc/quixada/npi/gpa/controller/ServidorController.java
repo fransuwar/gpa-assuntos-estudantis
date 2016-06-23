@@ -178,23 +178,6 @@ public class ServidorController {
 	}
 	
 	
-	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Model consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao,Model model){
-		inscricaoService.consolidacaoDeTodos(idSelecao, consolidacao);
-		model.addAttribute("resultado","sucesso");
-		return model;
-	}
-	
-	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Model consolidar(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao,Model model){
-		inscricaoService.consolidar(idInscricao, consolidacao);
-		model.addAttribute("resultado","sucesso");
-		return model;
-		
-	}
-
-	
-	
 	@RequestMapping(value= {"visita/removerFormulario/{idInscricao}/{idFormulario}"}, method = RequestMethod.GET)
 	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, Model modelo){
 

@@ -1,6 +1,9 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -8,11 +11,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -58,7 +64,7 @@ public class InscricaoController {
 		}
 	}
 	
-	@RequestMapping(value = {"/inscricao/consolidar/{idInscricao}"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"consolidar/{idInscricao}"}, method = RequestMethod.GET)
 	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model){
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		List<Selecao> selecoes = selecaoService.getSelecoes();
@@ -69,5 +75,20 @@ public class InscricaoController {
 		model.addAttribute("selecoes", selecoes);
 		
 		return PAGINA_SELECOES_ABERTAS;
+	}
+	
+	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Model consolidarViaAjax(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao,Model model){
+		inscricaoService.consolidar(idInscricao, consolidacao);
+		model.addAttribute(RESULTADO,SUCESSO);
+		return model;
+		
+	}
+	
+	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Model consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao,Model model){
+		inscricaoService.consolidacaoDeTodos(idSelecao, consolidacao);
+		model.addAttribute(RESULTADO,SUCESSO);
+		return model;
 	}
 }
