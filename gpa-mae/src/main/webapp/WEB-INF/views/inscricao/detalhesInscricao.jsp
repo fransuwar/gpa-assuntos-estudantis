@@ -22,6 +22,7 @@
 	<input id="ativar-aba-entrevista" name="ativar-aba-entrevista"
 		type="hidden" value="${ativarAbaEntrevista }" />
 	<div class="container" align="center">
+	<input type="hidden" value="${inscricao.id}" name="idInscricao">
 		<ul class="nav nav-tabs">
 			<li id="aba-inscricao"><a href="#inscricao-tab"
 				data-toggle="tab">Inscrição<i class="fa"></i>
@@ -70,9 +71,9 @@
 						</sec:authorize>
 						<c:choose>
 							<c:when test="${inscricao.consolidacao eq false}">
-								<a id="consolidarInscricao" data-target="#modal-consolidacao"
+								<a data-target="#modal-consolidacao"
 									data-toggle="modal"
-									data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+									data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
 									<button class="btn btn-success btn-sm"
 										title="Consolidar Inscrição">
 										<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
@@ -658,9 +659,9 @@
 								<hr />
 							</c:forEach>
 							<c:if test="${inscricao.consolidacao eq false }">
-								<a id="consolidarInscricao" data-target="#modal-consolidacao"
+								<a data-target="#modal-consolidacao"
 									data-toggle="modal"
-									data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+									data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
 									<button class="btn btn-primary" title="Consolidar Inscrição">
 										Consolidar Inscrição</button>
 								</a>
@@ -745,8 +746,6 @@
 
 										<input type="hidden" id="idServidor" name="idServidor"
 											value="${sessionScope.id}" />
-										<input type="hidden" id="idInscricao" name="idInscricao"
-											value="${inscricao.id}" />
 										<input type="hidden" id="idEntrevista" name="idEntrevista"
 											value="${inscricao.entrevista.id}" />
 											
@@ -1019,7 +1018,6 @@
 								action="<c:url value="/servidor/detalhes/inscricao/inserirImagem"/>"
 								method="POST" enctype="multipart/form-data">
 
-								<input type="hidden" name="idInscricao" value="${inscricao.id}" />
 								<div class='f-container'>
 									<label class='f-title'> <b>Foto da visita</b> </label>
 
@@ -1060,7 +1058,6 @@
 							<form class="form-horizontal" role="form" method="POST"
 								action="<c:url value="/servidor/detalhes/inscricao/adicionarObservacaoParecer"/>">
 								<div class="form-group col-sm-4">
-									<input type="hidden" value="${inscricao.id}" name="idInscricao">
 
 									<label class="f-title control-label">Parecer:</label> <select
 										name="parecer" required="required">
@@ -1141,7 +1138,7 @@
 						inscrições. Isso poderá ser feito na página das suas inscrições.</div>
 					<div class="modal-footer">
 						<a
-							href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>"
+							href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>"
 							class="btn btn-primary">confirmar</a>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 					</div>
