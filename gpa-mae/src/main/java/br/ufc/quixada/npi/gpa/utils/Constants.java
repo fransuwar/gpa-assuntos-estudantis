@@ -278,6 +278,8 @@ public class Constants {
 	public static final String INSCRICAO_TAB = "inscricao-tab";
 	
 	public static final String RESULTADO = "resultado";
+	
+	public static final String SUCESSO = "sucesso";
 
 	
 	/** Mensagens do sistema*/
