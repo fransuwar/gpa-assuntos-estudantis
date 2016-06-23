@@ -180,6 +180,7 @@ $(document).ready(function(){
 
 		return false;
 	});
+	
 
 	$.extend(jQuery.validator.messages, {
 		required: "Campo obrigatório",

@@ -3,6 +3,7 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
 
+
 import java.io.IOException;
 import java.util.List;
 
