@@ -346,7 +346,7 @@ public class AlunoController {
 
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.GET)
 	public String editarInscricao(@PathVariable("idInscricao") Integer idInscricao, Model model,
-			RedirectAttributes redirect) {
+			RedirectAttributes redirect, Authentication auth) {
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		if(inscricao.isConsolidacao())
@@ -368,6 +368,7 @@ public class AlunoController {
 
 					model.addAttribute("inscricao", inscricao);
 					model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
+					model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
 					
 					Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 					model.mergeAttributes(modelFormAuxilio.asMap());
