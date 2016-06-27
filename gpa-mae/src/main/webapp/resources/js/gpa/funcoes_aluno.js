@@ -545,8 +545,6 @@ var FormularioAuxilio = function() {
 			}else {
 				$inputComQuemMoraOutros.val("")
 				$divMoraComOutros.hide();
-
-				
 			}
 		});
 	};
