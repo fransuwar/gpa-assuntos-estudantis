@@ -57,9 +57,7 @@ public class InscricaoController {
 			java.io.OutputStream out = response.getOutputStream();
 			out.write(inscricao.getQuestionarioAuxilioMoradia().getFoto());
 			out.flush();
-		} catch (IOException e) {
-			enviarImagemPadraoEmCasoDeErro(response);
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			enviarImagemPadraoEmCasoDeErro(response);
 		}
 	}

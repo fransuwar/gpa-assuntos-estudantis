@@ -94,9 +94,8 @@ public class Receita {
 		if (getClass() != obj.getClass())
 			return false;
 		Receita other = (Receita) obj;
-		if (id != other.id)
-			return false;
-		return true;
+
+		return (id == other.id);
 	}
 
 	@Override
