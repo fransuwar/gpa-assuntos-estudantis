@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
@@ -21,8 +22,10 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -77,7 +80,7 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
-import br.ufc.quixada.npi.gpa.service.AlunoService;
+import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.service.AnaliseDocumentacaoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.DocumentosTipoInscricaoService;
@@ -90,9 +93,6 @@ import br.ufc.quixada.npi.ldap.service.UsuarioService;
 @RequestMapping("aluno")
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
 public class AlunoController {
-
-	@Inject
-	private AlunoService alunoService;
 
 	@Inject
 	private SelecaoService selecaoService;
@@ -111,13 +111,16 @@ public class AlunoController {
 	
 	@Inject
 	private AnaliseDocumentacaoService documentacaoService;
+	
+	@Inject
+	private AlunoRepository alunoRepository;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 
 		List<Selecao> selecoes = selecaoService.getSelecoes();
 
-		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
+		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("aluno", aluno);
@@ -169,8 +172,7 @@ public class AlunoController {
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 
-
-		Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		if (inscricaoService.getInscricao(selecao, aluno) == null) {
@@ -259,7 +261,7 @@ public class AlunoController {
 
 		model.addAttribute("action", "inscricao");
 
-		Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		model.addAttribute("aluno", aluno);
@@ -313,8 +315,7 @@ public class AlunoController {
 
 		} else {
 
-
-			Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+			Aluno aluno = alunoRepository.findByCpf(auth.getName());
 			Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 			
 			List<PessoaFamilia> pessoasEntrevista = new ArrayList<>();
@@ -338,22 +339,24 @@ public class AlunoController {
 
 
 				inscricaoService.save(inscricao);
+				
+				redirect.addFlashAttribute("info", MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO);		
+				redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
+				return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + inscricao.getId();
+				
 			} else {
 				redirect.addFlashAttribute("error", MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
 			}
-			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 
 		}
 
-		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
-
-		return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
+	
 	}
 
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.GET)
 	public String editarInscricao(@PathVariable("idInscricao") Integer idInscricao, Model model,
-			RedirectAttributes redirect) {
+			RedirectAttributes redirect, Authentication auth) {
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		if(inscricao.isConsolidacao())
@@ -375,6 +378,7 @@ public class AlunoController {
 
 					model.addAttribute("inscricao", inscricao);
 					model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
+					model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
 					
 					Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 					model.mergeAttributes(modelFormAuxilio.asMap());
@@ -417,18 +421,6 @@ public class AlunoController {
 
 	}
 	
-	@RequestMapping(value = {"/inscricao/consolidar/{idInscricao}"}, method = RequestMethod.GET)
-	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model){
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		List<Selecao> selecoes = selecaoService.getSelecoes();
-		
-		inscricao.setConsolidacao(true);
-		inscricaoService.update(inscricao);	
-		
-		model.addAttribute("selecoes", selecoes);
-		
-		return PAGINA_SELECOES_ABERTAS;
-	}
 
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.POST)
 	public String editarInscricaoPost(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
@@ -485,8 +477,8 @@ public class AlunoController {
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
-
-		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
+		
+		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
 
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("inscricoes", aluno.getInscricoes());
@@ -543,8 +535,24 @@ public class AlunoController {
 			} else{
 				model.addAttribute("esconderBotoes",false);			
 			}
+			
+			
+			//Recebendo a mensagem recebida do redirect
+			String msgAddDocumentos = (String) model.asMap().getOrDefault("info", null);
+			
+			if(msgAddDocumentos != null){
+				model.addAttribute("info",msgAddDocumentos);
+			}
+			
+			//Verificando se alguma aba específica foi setada no redirect
+			String nomeAba = (String) model.asMap().getOrDefault(ABA_SELECIONADA, null);
+			
+			if(nomeAba == null){
+				//Se nenhuma aba foi setada então a aba padrão é selecionada 
+				nomeAba = INSCRICAO_TAB; 
+			}
 
-			model.addAttribute("aba", "inscricao-tab");
+			model.addAttribute(ABA_SELECIONADA, nomeAba);
 
 
 			return PAGINA_DETALHES_INSCRICAO;

@@ -34,6 +34,7 @@ var FormularioAuxilio = function() {
 		self.initSelectParentescoImovelRural();
 		self.initConfirmButtons();
 		
+		self.selectParentesco();
 		self.addPessoaFamilia();
 		self.abrirFormPessoaFamilia();
 		
@@ -155,6 +156,7 @@ var FormularioAuxilio = function() {
 		$("input[name=escolaridadeEditar]").val(pessoa.escolaridade);
 		$("input[name=profissaoEditar]").val(pessoa.profissao);
 		$("input[name=rendaEditar]").val(pessoa.renda);
+		$("input[name=outroEditar]").val(pessoa.renda);
 		
 		$("#confirmarEdicao").click({indice: idPessoa}, self.confirmarEdicao); 
 	};
@@ -169,6 +171,7 @@ var FormularioAuxilio = function() {
 		pessoa.profissao = $("input[name=profissaoEditar]").val();
 		pessoa.idade = $("input[name=idadeEditar]").val();
 		pessoa.renda = $("input[name=rendaEditar]").val();
+		pessoa.outro = $("input[name=outroEditar]").val();
 		
 		$("input[name=nomeEditar]").val("");
 		$("select[name=parentescoEditar]").val("");
@@ -176,6 +179,7 @@ var FormularioAuxilio = function() {
 		$("input[name=escolaridadeEditar]").val("");
 		$("input[name=profissaoEditar]").val("");
 		$("input[name=rendaEditar]").val("");
+		$("input[name=outroEditar]").val("");
 		
 		self.imprimirListaPessoasFamilia();
 		$( "#confirmarEdicao").unbind( "click" );
@@ -197,9 +201,25 @@ var FormularioAuxilio = function() {
 		});
 	};
 	
+	self.selectParentesco = function(){
+		$("#select-parentesco").change(function() {
+			if($(this).val() === "OUTROS"){
+				$("#outro-pessoa-familia").removeClass("hidden");
+			}
+			alert($(this).val());	    
+		});
+		
+	};
+	
 	self.addPessoaFamilia = function () {
 		$("#addPessoa").click(function() {
 			var pessoaFamilia = {}
+			
+			//No caso de escolherem a opção outros no select e digitarem algo no campo outros 
+			//e depois mudarem de opção, o campo outros é limpo.
+			if($("#select-parentesco").val() != "OUTROS"){
+				$("input[name=outro]").val("");
+			}
 
 			pessoaFamilia.nome = $("input[name=nome]").val();
 			pessoaFamilia.parentesco = $("select[name=parentesco]").val();
@@ -207,18 +227,26 @@ var FormularioAuxilio = function() {
 			pessoaFamilia.escolaridade = $("input[name=escolaridade]").val();
 			pessoaFamilia.profissao = $("input[name=profissao]").val();
 			pessoaFamilia.renda = $("input[name=rendaMensal]").val();
-			
-			$("input[name=nome]").val("");
-			$("select[name=parentesco]").val("");
-			$("input[name=idade]").val("");
-			$("input[name=escolaridade]").val("");
-			$("input[name=profissao]").val("");
-			$("input[name=rendaMensal]").val("");
+			pessoaFamilia.outro = $("input[name=outro]").val();
 			
 			
-			listaPessoasFamilia.push(pessoaFamilia);	
+			if(pessoaFamilia.nome == "" || pessoaFamilia.parentesco == "" || pessoaFamilia.idade == "" || pessoaFamilia.escolaridade == "" || pessoaFamilia.profissao == "" || pessoaFamilia.renda == ""){
+				$("#alert-pessoa-familia").removeClass("hidden");
+			} else{
+				
+				$("input[name=nome]").val("");
+				$("select[name=parentesco]").val("");
+				$("input[name=idade]").val("");
+				$("input[name=escolaridade]").val("");
+				$("input[name=profissao]").val("");
+				$("input[name=rendaMensal]").val("");
+				$("input[name=outro]").val("");
+				
+				
+				listaPessoasFamilia.push(pessoaFamilia);	
 
-			self.imprimirListaPessoasFamilia();
+				self.imprimirListaPessoasFamilia();
+			}
 			
 		});
 	};
@@ -461,7 +489,7 @@ var FormularioAuxilio = function() {
 		$("#rendaMensal").mask("###0000000.00", {reverse: true});
 		$("#valorMensalFinanciamento").mask("###0000000.00", {reverse: true});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
-		//$("#rendaMensal").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
+		$("#renda-pessoa-familia").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 	};
 
 	/*

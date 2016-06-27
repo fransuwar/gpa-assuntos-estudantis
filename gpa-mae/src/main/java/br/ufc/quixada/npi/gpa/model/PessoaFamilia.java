@@ -32,6 +32,8 @@ public class PessoaFamilia {
 
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
+	
+	private String outro;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
@@ -113,4 +115,14 @@ public class PessoaFamilia {
 	public void setParentesco(GrauParentesco grauParentesco) {
 		this.parentesco = grauParentesco;
 	}
+
+	public String getOutro() {
+		return outro;
+	}
+
+	public void setOutro(String outro) {
+		this.outro = outro;
+	}
+	
+	
 }

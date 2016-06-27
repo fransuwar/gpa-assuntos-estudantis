@@ -17,7 +17,7 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
-import br.ufc.quixada.npi.gpa.service.AlunoService;
+import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
@@ -29,13 +29,15 @@ public class VisitaDomiciliarController {
 	
 	@Inject
 	private InscricaoService inscricaoService;
+	
 	@Inject
-	private AlunoService alunoService;
+	private AlunoRepository alunoRepository;
 
 	@RequestMapping(value="cadastrar/{idAluno}/{idSelecao}", method = RequestMethod.GET)
 	public String cadastrar(@PathVariable("idAluno") Integer id,
 							@PathVariable("idSelecao") Integer idSelecao, Model modelo){
-		Aluno aluno = alunoService.getAlunoPorId(id);
+		
+		Aluno aluno = alunoRepository.findById(id);
 		modelo.addAttribute("relatorioVisitaDomiciliar", new VisitaDomiciliar());
 		modelo.addAttribute("curso", Curso.values());
 		modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
@@ -53,7 +55,7 @@ public class VisitaDomiciliarController {
 		
 		
 		if(result.hasErrors()){
-			Aluno aluno = alunoService.getAlunoPorId(idAluno);
+			Aluno aluno = alunoRepository.findById(idAluno);
 			modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 			modelo.addAttribute("curso", Curso.values());
 			modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
