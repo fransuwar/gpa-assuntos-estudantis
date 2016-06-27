@@ -20,11 +20,9 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Type;
 
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
-import br.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
-import br.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
+import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
-import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
-import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
+import br.ufc.quixada.npi.gpa.enums.TipoEnsino;
 
 @Entity
 @NamedQueries({
@@ -37,12 +35,12 @@ public class QuestionarioAuxilioMoradia {
 	private Integer id;
 	
 	@Enumerated(EnumType.STRING)
-	private TipoEnsinoFundamental ensinoFundamental;
+	private TipoEnsino ensinoFundamental;
 
 	private int percentualParticularFundamental;
 
 	@Enumerated(EnumType.STRING)
-	private TipoEnsinoMedio ensinoMedio;
+	private TipoEnsino ensinoMedio;
 
 	private int percentualParticularMedio;
 
@@ -109,7 +107,7 @@ public class QuestionarioAuxilioMoradia {
 	private double valorMensalFinanciamento;
 	
 	@Enumerated(EnumType.STRING)
-	private GrauParentescoImovelRural grauParentescoImovelRural;
+	private GrauParentesco grauParentescoImovelRural;
 	
 	private String outroGrauParentescoImovelRural;
 	
@@ -120,7 +118,7 @@ public class QuestionarioAuxilioMoradia {
 	private String cidadeEstadoImovelRural;
 
 	@Enumerated(EnumType.STRING)
-	private GrauParentescoVeiculos grauParentescoVeiculos;
+	private GrauParentesco grauParentescoVeiculos;
 
 	private String veiculo;
 
@@ -265,11 +263,11 @@ public class QuestionarioAuxilioMoradia {
 		this.situacaoImovel = situacaoImovel;
 	}
 
-	public GrauParentescoImovelRural getGrauParentescoImovelRural() {
+	public GrauParentesco getGrauParentescoImovelRural() {
 		return grauParentescoImovelRural;
 	}
 
-	public void setGrauParentescoImovelRural(GrauParentescoImovelRural grauParentescoImovelRural) {
+	public void setGrauParentescoImovelRural(GrauParentesco grauParentescoImovelRural) {
 		this.grauParentescoImovelRural = grauParentescoImovelRural;
 	}
 
@@ -289,11 +287,11 @@ public class QuestionarioAuxilioMoradia {
 		this.areaPropriedadeRural = areaPropriedadeRural;
 	}
 
-	public GrauParentescoVeiculos getGrauParentescoVeiculos() {
+	public GrauParentesco getGrauParentescoVeiculos() {
 		return grauParentescoVeiculos;
 	}
 
-	public void setGrauParentescoVeiculos(GrauParentescoVeiculos grauParentescoVeiculos) {
+	public void setGrauParentescoVeiculos(GrauParentesco grauParentescoVeiculos) {
 		this.grauParentescoVeiculos = grauParentescoVeiculos;
 	}
 
@@ -305,11 +303,11 @@ public class QuestionarioAuxilioMoradia {
 		this.finalidadeVeiculo = finalidadeVeiculo;
 	}
 
-	public TipoEnsinoFundamental getEnsinoFundamental() {
+	public TipoEnsino getEnsinoFundamental() {
 		return ensinoFundamental;
 	}
 
-	public void setEnsinoFundamental(TipoEnsinoFundamental ensinoFundamental) {
+	public void setEnsinoFundamental(TipoEnsino ensinoFundamental) {
 		this.ensinoFundamental = ensinoFundamental;
 	}
 
@@ -321,11 +319,11 @@ public class QuestionarioAuxilioMoradia {
 		this.percentualParticularFundamental = percentualParticularFundamental;
 	}
 
-	public TipoEnsinoMedio getEnsinoMedio() {
+	public TipoEnsino getEnsinoMedio() {
 		return ensinoMedio;
 	}
 
-	public void setEnsinoMedio(TipoEnsinoMedio ensinoMedio) {
+	public void setEnsinoMedio(TipoEnsino ensinoMedio) {
 		this.ensinoMedio = ensinoMedio;
 	}
 

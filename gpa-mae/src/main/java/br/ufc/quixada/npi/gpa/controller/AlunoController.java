@@ -57,15 +57,11 @@ import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.Estado;
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
-import br.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
-import br.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
-import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.enums.NivelInstrucao;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
 import br.ufc.quixada.npi.gpa.enums.SituacaoResidencia;
-import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
-import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
+import br.ufc.quixada.npi.gpa.enums.TipoEnsino;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
@@ -398,7 +394,7 @@ public class AlunoController {
 				model.addAttribute("diasUteis", DiaUtil.values());
 				model.addAttribute("situacaoResidencia", SituacaoResidencia.values());
 				model.addAttribute("totalEstado", Estado.values());
-				model.addAttribute("grauParentesco", GrauParentesco.values());
+				model.addAttribute("grauParentesco", GrauParentesco.getTodos());
 				model.addAttribute("escolaridade",Escolaridade.values());
 
 
@@ -571,7 +567,7 @@ public class AlunoController {
 		if(pessoasFamilia != null){
 			
 			for (String m : pessoasFamilia) {
-				ComQuemMora mora = inscricaoService.getComQuemMora(MoraCom.valueOf(m));
+				ComQuemMora mora = inscricaoService.getComQuemMora(GrauParentesco.valueOf(m));
 				comQuemMoraList.add(mora);
 			}
 		}
@@ -609,14 +605,11 @@ public class AlunoController {
 		
 		model.addAttribute("estado", Estado.values());
 		model.addAttribute("situacaoImovel", SituacaoImovel.values());
-		model.addAttribute("tipoEnsinoFundamental", TipoEnsinoFundamental.values());
-		model.addAttribute("tipoEnsinoMedio", TipoEnsinoMedio.values());
-		model.addAttribute("grauParentescoImovelRural", GrauParentescoImovelRural.values());
-		model.addAttribute("grauParentescoVeiculos", GrauParentescoVeiculos.values());
+		model.addAttribute("tipoEnsino", TipoEnsino.values());
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
-		model.addAttribute("moraCom", MoraCom.values());
-		model.addAttribute("grauParentesco", GrauParentesco.values());
-		model.addAttribute("escolaridade",Escolaridade.values());
+		model.addAttribute("moraCom", GrauParentesco.getTodosExcetoEu());
+		model.addAttribute("grauParentesco", GrauParentesco.getTodos());
+		model.addAttribute("escolaridade", Escolaridade.values());
 		
 		return model;
 		

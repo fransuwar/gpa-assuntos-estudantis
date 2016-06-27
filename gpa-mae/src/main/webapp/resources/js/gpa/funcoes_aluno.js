@@ -359,7 +359,7 @@ var FormularioAuxilio = function() {
 		$select.change(function(){
 			var $selectOutroGrauParentesco = $("#outroGrauParentescoImovelRural");
 			var $labelOutroGrauParentesco = $("#labelOutroGrauParentescoImovelRural");
-			if($(this).val() == "OUTROS"){
+			if($(this).val() == "OUTRO"){
 				$selectOutroGrauParentesco.val("");
 				$selectOutroGrauParentesco.css("display", "block");
 				$labelOutroGrauParentesco.css("display", "block");
@@ -384,7 +384,7 @@ var FormularioAuxilio = function() {
 		var $labelGrauImovelRural = $("#labelOutroGrauParentescoImovelRural");
 		
 		$select.change(function(){
-			if($(this).val() == "OUTROS"){
+			if($(this).val() == "OUTRO"){
 				$outroGrauParentesco.val("");
 				$outroGrauParentesco.css("display", "block");
 				$labelOutroParentesco.css("display", "block");
@@ -394,7 +394,7 @@ var FormularioAuxilio = function() {
 			}
 		});
 		
-		if($select.val() == "OUTROS"){
+		if($select.val() == "OUTRO"){
 			$outroGrauParentesco.css("display", "block");
 			$labelOutroParentesco.css("display", "block");
 
