@@ -35,6 +35,20 @@ public class PessoaFamilia {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
+	
+	public PessoaFamilia clone(){
+		PessoaFamilia pessoa = new PessoaFamilia();
+		
+		pessoa.setNome(nome);
+		pessoa.setIdade(idade);
+		pessoa.setEscolaridade(escolaridade);
+		pessoa.setProfissao(profissao);
+		pessoa.setRendaMensal(rendaMensal);
+		pessoa.setParentesco(parentesco);
+		pessoa.setIniciacaoAcademica(iniciacaoAcademica);
+		
+		return pessoa;
+	}
 
 	public QuestionarioIniciacaoAcademica getIniciacaoAcademica() {
 		return iniciacaoAcademica;

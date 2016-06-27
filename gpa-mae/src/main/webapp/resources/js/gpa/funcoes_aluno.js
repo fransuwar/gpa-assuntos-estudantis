@@ -458,9 +458,10 @@ var FormularioAuxilio = function() {
 		$('[data-mask]').each(function(){ $(this).mask( $(this).attr('data-mask')); });
 		
 		
+		$("#rendaMensal").mask("###0000000.00", {reverse: true});
 		$("#valorMensalFinanciamento").mask("###0000000.00", {reverse: true});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
-		$("#rendaMensal").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
+		//$("#rendaMensal").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 	};
 
 	/*
