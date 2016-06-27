@@ -120,8 +120,8 @@ var CardPanel = function(){
 	self.selecionarCard = function(){
 		var cardSelected = $("#card-selected").text();
 		$(".card").removeClass("card-hover");
-		cards.forEach(function(card, index, array){
-			if(card == cardSelected){
+		cards.forEach(function(card, index){
+			if(card === cardSelected){
 				$("#"+card).addClass("card-hover");
 			}
 			return false;

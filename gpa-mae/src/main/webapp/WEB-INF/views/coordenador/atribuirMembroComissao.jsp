@@ -74,7 +74,7 @@
 					</div>
 					
 					<div class="col-sm-6">
-						<table class="table table-hover table-custom">
+						<table class="table table-custom table-hover">
 							<thead class="th-custom">
 								<tr>
 									<th colspan="4" class="th-center">
