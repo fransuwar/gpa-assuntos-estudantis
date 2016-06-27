@@ -71,6 +71,9 @@
 										<span class="glyphicon glyphicon-pencil"></span>
 									</button>
 								</a>
+								<a id="excluirInscricao"
+									href="<c:url value="/aluno/inscricao/excluir/${inscricao.id}" ></c:url>">
+									<button class="btn btn-danger btn-sm" title="Excluir Inscrição">
 								<a id="excluirInscricao" data-target="#modal-excluir-inscricao"
 									data-toggle="modal"
 									data-href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
@@ -575,6 +578,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="tab-pane" id="documentos-tab">
 
 				<c:if test="${not empty error}">
@@ -710,12 +714,74 @@
 								<hr />
 							</c:forEach>
 
+
+							<sec:authorize
+								access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+								
+									<div class="panel panel-default panel-primary">
+										<div class="panel-body">
+											<form:form id="obsDoc" role="form"
+												servletRelativeAction="/servidor/avaliarDocumentacao"
+												method="POST" modelAttribute="inscricao"
+												commandName="inscricao">
+												<div class="form-group">
+													<label class="col-sm-2 control-label">Observações:</label>
+													<div class="col-sm-8">
+														<form:textarea class="form-control" rows="8"
+															name="observacaoDocumentos" path="observacaoDocumentos"
+															value="${inscricao.observacaoDocumentos}" />
+														<input type="hidden" value="${inscricao.id }"
+															name="idInscricao" />
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-sm-3 pull-right">
+														<input type="submit" class="button btn btn-primary"/>
+													</div>
+												</div>
+											</form:form>
+										</div>
+									</div>
+								
+							</sec:authorize>
+
 						</sec:authorize>
 					</div>
 
 				</div>
 			</div>
 
+			<sec:authorize
+				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+				<div class="tab-pane" id="documentos-tab">
+					<div class="panel panel-default panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Observações</h3>
+						</div>
+						<div class="panel-body">
+							<form:form id="obsDoc" role="form"
+								servletRelativeAction="/servidor/avaliarDocumentacao"
+								method="POST" modelAttribute="inscricao" commandName="inscricao">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Observações:</label>
+									<div class="col-sm-8">
+										<form:textarea class="form-control" rows="8"
+											name="avaliarDocumentacao" path="observacaoDocumentos"
+											value="${inscricao.observacaoDocumentos}" />
+										<input type="hidden" value="${inscricao.id }"
+											name="idInscricao" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-3 pull-right">
+										<input type="submit" class="button btn btn-primary" />
+									</div>
+								</div>
+							</form:form>
+						</div>
+					</div>
+				</div>
+			</sec:authorize>
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div class="tab-pane" id="entrevista-tab">
