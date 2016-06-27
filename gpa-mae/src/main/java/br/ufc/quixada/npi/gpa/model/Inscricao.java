@@ -42,6 +42,8 @@ public class Inscricao implements Comparable<Inscricao>{
 	private boolean classificado;
 
 	private String observacoes;
+	
+	private String observacaoDocumentos;
 
 	//referente ao deferimento de documentação
 	
@@ -186,6 +188,15 @@ public class Inscricao implements Comparable<Inscricao>{
 
 	public void setDocumentacao(AnaliseDocumentacao documentacao) {
 		this.documentacao = documentacao;
+	}
+
+	
+	public String getObservacaoDocumentos() {
+		return observacaoDocumentos;
+	}
+
+	public void setObservacaoDocumentos(String observacaoDocumentos) {
+		this.observacaoDocumentos = observacaoDocumentos;
 	}
 
 	@Override

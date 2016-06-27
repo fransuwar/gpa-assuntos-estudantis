@@ -22,6 +22,7 @@
 	<input id="ativar-aba-entrevista" name="ativar-aba-entrevista"
 		type="hidden" value="${ativarAbaEntrevista }" />
 	<div class="container" align="center">
+	<input type="hidden" value="${inscricao.id}" name="idInscricao">
 		<c:if test="${not empty info}">
 			<div class="alert alert-success alert-dismissible" role="alert"
 				id="alert-info">
@@ -70,6 +71,9 @@
 										<span class="glyphicon glyphicon-pencil"></span>
 									</button>
 								</a>
+								<a id="excluirInscricao"
+									href="<c:url value="/aluno/inscricao/excluir/${inscricao.id}" ></c:url>">
+									<button class="btn btn-danger btn-sm" title="Excluir Inscrição">
 								<a id="excluirInscricao" data-target="#modal-excluir-inscricao"
 									data-toggle="modal"
 									data-href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
@@ -81,9 +85,9 @@
 						</sec:authorize>
 						<c:choose>
 							<c:when test="${inscricao.consolidacao eq false}">
-								<a id="consolidarInscricao" data-target="#modal-consolidacao"
+								<a data-target="#modal-consolidacao"
 									data-toggle="modal"
-									data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+									data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
 									<button class="btn btn-success btn-sm"
 										title="Consolidar Inscrição">
 										<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
@@ -574,6 +578,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="tab-pane" id="documentos-tab">
 
 				<c:if test="${not empty error}">
@@ -669,9 +674,9 @@
 								<hr />
 							</c:forEach>
 							<c:if test="${inscricao.consolidacao eq false }">
-								<a id="consolidarInscricao" data-target="#modal-consolidacao"
+								<a data-target="#modal-consolidacao"
 									data-toggle="modal"
-									data-href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>">
+									data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
 									<button class="btn btn-primary" title="Consolidar Inscrição">
 										Consolidar Inscrição</button>
 								</a>
@@ -709,12 +714,74 @@
 								<hr />
 							</c:forEach>
 
+
+							<sec:authorize
+								access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+								
+									<div class="panel panel-default panel-primary">
+										<div class="panel-body">
+											<form:form id="obsDoc" role="form"
+												servletRelativeAction="/servidor/avaliarDocumentacao"
+												method="POST" modelAttribute="inscricao"
+												commandName="inscricao">
+												<div class="form-group">
+													<label class="col-sm-2 control-label">Observações:</label>
+													<div class="col-sm-8">
+														<form:textarea class="form-control" rows="8"
+															name="observacaoDocumentos" path="observacaoDocumentos"
+															value="${inscricao.observacaoDocumentos}" />
+														<input type="hidden" value="${inscricao.id }"
+															name="idInscricao" />
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-sm-3 pull-right">
+														<input type="submit" class="button btn btn-primary"/>
+													</div>
+												</div>
+											</form:form>
+										</div>
+									</div>
+								
+							</sec:authorize>
+
 						</sec:authorize>
 					</div>
 
 				</div>
 			</div>
 
+			<sec:authorize
+				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+				<div class="tab-pane" id="documentos-tab">
+					<div class="panel panel-default panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Observações</h3>
+						</div>
+						<div class="panel-body">
+							<form:form id="obsDoc" role="form"
+								servletRelativeAction="/servidor/avaliarDocumentacao"
+								method="POST" modelAttribute="inscricao" commandName="inscricao">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Observações:</label>
+									<div class="col-sm-8">
+										<form:textarea class="form-control" rows="8"
+											name="avaliarDocumentacao" path="observacaoDocumentos"
+											value="${inscricao.observacaoDocumentos}" />
+										<input type="hidden" value="${inscricao.id }"
+											name="idInscricao" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-3 pull-right">
+										<input type="submit" class="button btn btn-primary" />
+									</div>
+								</div>
+							</form:form>
+						</div>
+					</div>
+				</div>
+			</sec:authorize>
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div class="tab-pane" id="entrevista-tab">
@@ -756,8 +823,6 @@
 
 										<input type="hidden" id="idServidor" name="idServidor"
 											value="${sessionScope.id}" />
-										<input type="hidden" id="idInscricao" name="idInscricao"
-											value="${inscricao.id}" />
 										<input type="hidden" id="idEntrevista" name="idEntrevista"
 											value="${inscricao.entrevista.id}" />
 
@@ -1031,7 +1096,6 @@
 								action="<c:url value="/servidor/detalhes/inscricao/inserirImagem"/>"
 								method="POST" enctype="multipart/form-data">
 
-								<input type="hidden" name="idInscricao" value="${inscricao.id}" />
 								<div class='f-container'>
 									<label class='f-title'> <b>Foto da visita</b>
 									</label>
@@ -1073,7 +1137,6 @@
 							<form class="form-horizontal" role="form" method="POST"
 								action="<c:url value="/servidor/detalhes/inscricao/adicionarObservacaoParecer"/>">
 								<div class="form-group col-sm-4">
-									<input type="hidden" value="${inscricao.id}" name="idInscricao">
 
 									<label class="f-title control-label">Parecer:</label> <select
 										name="parecer" required="required">
@@ -1154,7 +1217,7 @@
 						inscrições. Isso poderá ser feito na página das suas inscrições.</div>
 					<div class="modal-footer">
 						<a
-							href="<c:url value="/aluno/inscricao/consolidar/${inscricao.id}"></c:url>"
+							href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>"
 							class="btn btn-primary">confirmar</a>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 					</div>

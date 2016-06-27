@@ -223,6 +223,8 @@ public class SelecaoController {
 		model.addAttribute("qtdClassificaveis",classificaveis.size());
 		model.addAttribute("selecao",selecao);
 		
+		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RANK);
+		
 		return PAGINA_SELECIONAR_CLASSIFICADOS;
 		
 	}
