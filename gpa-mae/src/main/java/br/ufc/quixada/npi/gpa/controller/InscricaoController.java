@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import br.ufc.quixada.npi.gpa.excecoes.FalhaCarregarImagemException;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -53,11 +54,20 @@ public class InscricaoController {
 		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
 		
 		try {
+			
+			if(inscricao.getQuestionarioAuxilioMoradia() == null || inscricao.getQuestionarioAuxilioMoradia().getFoto() == null){
+				throw new FalhaCarregarImagemException();
+			}
+			
 			response.setContentType("image/jpg");
 			java.io.OutputStream out = response.getOutputStream();
 			out.write(inscricao.getQuestionarioAuxilioMoradia().getFoto());
 			out.flush();
-		} catch (Exception e) {
+		}
+		catch(IOException e){
+			enviarImagemPadraoEmCasoDeErro(response);
+		}
+		catch (FalhaCarregarImagemException e) {
 			enviarImagemPadraoEmCasoDeErro(response);
 		}
 	}
