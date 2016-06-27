@@ -1,5 +1,8 @@
 package br.ufc.quixada.npi.gpa.enums;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public enum GrauParentesco {
 	EU("Eu"), PAI("Pai"), MAE("Mãe"), IRMAO("Irmão(ã)"), FILHO("Filho(a)"), CONJ_COMP("Cônjuge ou Companheiro(a)"), OUTRO("Outro");
@@ -18,19 +21,11 @@ public enum GrauParentesco {
 		return GrauParentesco.values();
 	}
 
-	public static GrauParentesco[] getTodosExcetoEu(){
+	public static List<GrauParentesco> getTodosExcetoEu(){
 		
-		GrauParentesco[] todosParentescos = GrauParentesco.values();
-		GrauParentesco[] parentescosRetorno = new GrauParentesco[GrauParentesco.values().length-1];
+		List<GrauParentesco> listaParentescos = new LinkedList<GrauParentesco>(Arrays.asList(GrauParentesco.values()));
+		listaParentescos.remove(GrauParentesco.EU);
 		
-		int cont = 0;
-		
-		for(GrauParentesco grauParentesco:todosParentescos){
-			if(grauParentesco != GrauParentesco.EU){
-				parentescosRetorno[cont++] = grauParentesco;
-			}
-		}
-		
-		return parentescosRetorno;
+		return listaParentescos;
 	}
 }
