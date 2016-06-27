@@ -212,7 +212,6 @@ div.f-container {
 	text-align: left;
 }
 
-5
 label.f-title {
 	margin-left: 10px;
 	font-weight: bold !important;
@@ -250,6 +249,10 @@ div.s2 {
 	width: 17%;
 }
 
+div.s2-half{
+	width: 20%;
+}
+
 div.s3 {
 	width: 27%;
 }
@@ -284,6 +287,10 @@ div.s10 {
 
 div.s4-custom{
 	width: 45%;
+}
+
+div.center-h{
+	text-align: center;
 }
 
 .margin-top-s1{
@@ -752,7 +759,12 @@ div.input-photo {
 	border-radius: 5px;
 	background-color: #d1d1d1;
 	transition: all 0.2s;
-	
+}
+
+.card-hover{
+	border-radius: 5px;
+	background-color: #d1d1d1;
+	transition: all 0.2s;
 }
 
 .card .card-content{
@@ -780,6 +792,7 @@ div.input-photo {
 .card-content .card-description{
 	height: 100%;
 	display: inline-block;
+	margin-top: 7px;
 }
 
 .bg-brown{
@@ -905,23 +918,25 @@ input:focus, select:focus, textarea:focus{
 }
 
 .table-custom{
-	border: 1px solid white;
-	border-radius: 3px !important;
+	border-collapse: separate !important;
+	border-spacing: 0 !important;
+	border: 1px solid transparent;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	border-radius: 3px !important;
 }
 
 .table-custom td{
 	text-align: center;
 }
-.table-custom .th-custom{
+
+.table-custom .th-custom {
+	background-color: #00796B;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 	color: white;
-	background-color: #00796B;
+	border-top-left-radius:3px !important;
+	border-top-right-radius:3px !important;
 }
 
-.table-custom thead{
-	border-radius: 3px !important;
-}
 
 .th-center{
 	text-align: center;
@@ -1056,3 +1071,4 @@ input:focus, select:focus, textarea:focus{
 	display: block;
 	margin-left: -40px;
 }
+

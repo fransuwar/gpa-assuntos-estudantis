@@ -36,8 +36,8 @@ import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
-import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
@@ -59,13 +59,13 @@ public class SelecaoController {
 	private SelecaoService selecaoService;
 
 	@Inject
-	private AlunoService alunoService;
-	
-	@Inject
 	private InscricaoService inscricaoService;
 	
 	@Inject
 	private SelecaoRepository selecaoRepository;
+	
+	@Inject
+	private AlunoRepository alunoRepository;
 
 	@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoesPublico(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
@@ -92,7 +92,7 @@ public class SelecaoController {
 
 		model.addAttribute("selecao", selecao);
 
-		Aluno aluno = alunoService.getAlunoComInscricoes(auth.getName());
+		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
 		List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecaoPorAluno(selecao.getId(),aluno.getId());
 		boolean controle = false;
 		
@@ -222,6 +222,8 @@ public class SelecaoController {
 		model.addAttribute("qtdClassificados",classificados.size());
 		model.addAttribute("qtdClassificaveis",classificaveis.size());
 		model.addAttribute("selecao",selecao);
+		
+		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RANK);
 		
 		return PAGINA_SELECIONAR_CLASSIFICADOS;
 		

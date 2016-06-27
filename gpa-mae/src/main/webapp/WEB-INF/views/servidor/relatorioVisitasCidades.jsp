@@ -17,7 +17,8 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">
-
+		<jsp:include page="../fragments/cards.jsp" />
+				
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Relatório de Visitas</h3>

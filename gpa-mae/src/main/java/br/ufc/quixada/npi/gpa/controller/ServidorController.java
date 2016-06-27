@@ -12,7 +12,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_DOMICI
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_AVALIAR_DOCUMENTACAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
@@ -178,23 +177,6 @@ public class ServidorController {
 	}
 	
 	
-	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Model consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao,Model model){
-		inscricaoService.consolidacaoDeTodos(idSelecao, consolidacao);
-		model.addAttribute("resultado","sucesso");
-		return model;
-	}
-	
-	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Model consolidar(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao,Model model){
-		inscricaoService.consolidar(idInscricao, consolidacao);
-		model.addAttribute("resultado","sucesso");
-		return model;
-		
-	}
-
-	
-	
 	@RequestMapping(value= {"visita/removerFormulario/{idInscricao}/{idFormulario}"}, method = RequestMethod.GET)
 	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, Model modelo){
 
@@ -350,6 +332,7 @@ public class ServidorController {
 				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
 				model.addAttribute("selecao", selecao);
 				model.addAttribute("inscricoes", inscricoes);
+				model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_INSCRICAO);
 				
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 			} else {
@@ -503,41 +486,14 @@ public class ServidorController {
 		
 	}
 
-	@RequestMapping(value= {"avaliarDocumentacao/{idInscricao}"}, method = RequestMethod.GET)
-	public String avaliarDocumentacao(@PathVariable("idInscricao") Integer idInscricao,Authentication auth, RedirectAttributes redirect, Model model){
-
-		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);		
-
-		if(inscricao == null){
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
-			return REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-		}else{
-
-			Selecao selecao = inscricao.getSelecao();
-			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
-
-			List<Servidor> comissao = selecao.getMembrosComissao();
-
-			if(comissao.contains(servidor)){
-				model.addAttribute("avaliarDocumentacao", !inscricao.getDocumentacao().getDeferimento().equals(Resultado.NAO_AVALIADO));
-				model.addAttribute("idInscricao", idInscricao);
-
-				return PAGINA_AVALIAR_DOCUMENTACAO;
-			}else{
-				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA);
-				return REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-			}
-		}
-	}
-
 	@RequestMapping(value= {"avaliarDocumentacao"}, method = RequestMethod.POST)
 	public String avaliarDocumentacao(@Valid @ModelAttribute("avaliarDocumentacao") Inscricao avaliarDocumentacao , @RequestParam("idInscricao") Integer idInscricao, 
 			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 
         Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		inscricao.getDocumentacao().setDeferimento(avaliarDocumentacao.getDocumentacao().getDeferimento());
 
-		model.addAttribute("avaliarDocumentacao", avaliarDocumentacao);	
+		model.addAttribute("avaliarDocumentacao", avaliarDocumentacao);
+		inscricao.setObservacaoDocumentos(avaliarDocumentacao.getObservacaoDocumentos());
 		inscricaoService.update(inscricao);
 
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO);
@@ -552,6 +508,9 @@ public class ServidorController {
 		model.addAttribute("inscritosComVisita", selecao.getAlunosSelecionadosVisita());
 		model.addAttribute("inscritosSemVisita", selecao.getAlunosNaoSelecionadosVisita());
 		model.addAttribute("cidadesVisitadas", selecao.getCidadesVisita());
+		model.addAttribute("selecao", selecao);
+		
+		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
 		
 		return PAGINA_RELATORIO_VISITAS;
 	}

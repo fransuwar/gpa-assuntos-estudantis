@@ -19,8 +19,10 @@
 </head>
 <body id="pagina-selecionar-classificados">
 	<jsp:include page="../fragments/bodyHeader.jsp" />
-
+	
 	<div class="container" align="left">
+		<jsp:include page="../fragments/cards.jsp" />
+		
 		<div class="panel panel-primary" align="left">
 			<sec:authorize
 				access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS','STA')">

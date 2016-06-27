@@ -17,13 +17,17 @@
 
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
+	
 	<div class="container">
+	
+		<jsp:include page="../fragments/cards.jsp" />
+	
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Gerenciar Comissão</h3>
 			</div>
+			
 			<div class="panel-body">
-
 				<c:if test="${not empty erro}">
 					<div class="alert alert-danger alert-dismissible" role="alert"
 						id="alert-erro">
@@ -70,7 +74,7 @@
 					</div>
 					
 					<div class="col-sm-6">
-						<table class="table table-hover table-custom">
+						<table class="table table-custom table-hover">
 							<thead class="th-custom">
 								<tr>
 									<th colspan="4" class="th-center">
