@@ -306,7 +306,9 @@ public class CoordenadorController {
 		model.addAttribute("idSelecao", idSelecao);
 		model.addAttribute("servidores", servidorService.listarServidores());
 		model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
-
+		
+		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_COMISSAO);
+		
 		return PAGINA_ATRIBUIR_COMISSAO;
 	}
 
@@ -317,9 +319,11 @@ public class CoordenadorController {
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 		List<Servidor> comissao = selecao.getMembrosComissao();
 		Servidor servidor = this.servidorService.getServidorPorId(idServidor);
-
+		
+		
 		if (comissao.contains(servidor)) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
+			
 			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
 
 		} else {
@@ -327,6 +331,7 @@ public class CoordenadorController {
 			selecao.getMembrosComissao().add(servidor);
 			selecaoService.update(selecao);
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_COMISSAO_FORMADA);
+
 
 			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;	
 		}
@@ -340,7 +345,9 @@ public class CoordenadorController {
 		if (selecao != null) {
 			model.addAttribute("selecao", selecao);
 		}
-
+		
+		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_ARQUIVOS);
+		
 		return PAGINA_ADICIONAR_ARQUIVO;
 	}
 	
@@ -446,8 +453,10 @@ public class CoordenadorController {
 		modelo.addAttribute("classificados", classificados);
 		modelo.addAttribute("reservas", reservas);
 		modelo.addAttribute("indeferidos", indeferidos);
+		modelo.addAttribute("selecao", selecao);
 		
 		modelo.addAttribute(Constants.ABA_SELECIONADA, "classificados-tab");
+		modelo.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
 		
 		return PAGINA_RELATORIO_FINAL;
 	}

@@ -105,8 +105,37 @@ var FormularioDetalhesInscricao = function() {
 	
 }
 
+var CardPanel = function(){
+	var self = this;
+	var cards = ["card-inscricao","card-comissao","card-arquivos", "card-relatorio", "card-rank"];
+	
+	self.init = function(){
+		self.selecionarCard();
+	}
+	
+	/*
+	 * Essa função serve para manter o card selecionado 
+	 * depois que o usuário clicar nele.
+	 */
+	self.selecionarCard = function(){
+		var cardSelected = $("#card-selected").text();
+		$(".card").removeClass("card-hover");
+		cards.forEach(function(card, index){
+			if(card === cardSelected){
+				$("#"+card).addClass("card-hover");
+			}
+			return false;
+		});
+	}
+	
+}
+
+
+var cardPanel = new CardPanel();
+
 var formDestalhesInsc = new FormularioDetalhesInscricao();
 
 $(document).ready(function(){
-	formDestalhesInsc.init();	
+	cardPanel.init();
+	formDestalhesInsc.init();
 });

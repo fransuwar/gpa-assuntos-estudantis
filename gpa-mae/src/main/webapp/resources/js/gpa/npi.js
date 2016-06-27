@@ -1,29 +1,11 @@
 var linha;
 
-$(document).ready(function(){
+$(document).ready(function(){	
 	
 //	$("#addPessoaFamilia").click(function(){
 //		$("#formPessoaFamilia").submit();
 //	});
 	
-	//Função genérica para iniciar os datatables
-	function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
-		
-		emptyTableMsg = (emptyTableMsg == null || emptyTableMsg == "") ? "Nenhum registro encontrado" : emptyTableMsg;
-		
-		var dataTable = $(idTable).DataTable({
-			"paging": isPaging,
-			"order": order,
-			"ordering": isOrdering,
-			"bInfo" : false,
-			"searching": isSearching,
-			"language": {
-				"sEmptyTable": emptyTableMsg,
-				"url":"/MAE/resources/js/Portuguese-Brasil.json"
-			}
-		});
-		return dataTable;
-	}
 
 	$.fn.dataTable.ext.errMode = 'none';
 	
@@ -63,48 +45,6 @@ $(document).ready(function(){
 	selecionarAba($('#aba').val());
 
 	$('.panel-heading').click(function(){ $(this).find('.clicavel').click(); return false; });
-
-
-	function getConfigsParaPDF(containerId, tableId){
-		return {
-			language: {
-				url : "/MAE/resources/js/Portuguese-Brasil.json"
-			},
-			paging: false,
-			order: [[ 2, "cresc" ]],
-			ordering: false,
-			bInfo : false,
-			"columnDefs": [
-			               { className: "dt-body-left", "targets": [ 0 ] }
-			               ],
-			               dom: 'Bfrtip',
-			               buttons: [
-			                         {
-			                        	 extend: 'pdf',
-			                        	 text: 'Exportar como PDF',
-			                        	 customize: function(doc){
-			                        		 var colCount = new Array();
-			                        		 $('#'+tableId).find('tbody tr:first-child td').each(function(){
-			                        			 if($(this).attr('colspan')){
-			                        				 for(var i=1;i<=$(this).attr('colspan');$i++){
-			                        					 colCount.push('*');
-			                        				 }
-			                        			 }else{ colCount.push('*'); }
-			                        		 });
-			                        		 doc.content[1].table.widths = colCount;
-			                        	 }
-			                         }
-			                         ],
-			                         initComplete: function(settings, json) {
-
-			                        	 $('.buttons-pdf').parent().css('float', 'right');
-			                        	 $('.buttons-pdf').parent().css('margin-top', '-30px');
-			                        	 $('.buttons-pdf').parent().appendTo('#'+containerId);
-			                        	 $('.buttons-pdf').attr('class', 'btn btn-primary');
-
-			                         }
-		};
-	}
 
 	$('#resultadoFinalTableClassificados').DataTable( 
 			getConfigsParaPDF("buttons-container1", "resultadoFinalTableClassificados")
@@ -330,8 +270,70 @@ $(document).ready(function(){
 		autoclose : true
 
 	});
-
+	
+	
 });
+
+//Função genérica para iniciar os datatables
+function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
+	
+	emptyTableMsg = (emptyTableMsg == null || emptyTableMsg == "") ? "Nenhum registro encontrado" : emptyTableMsg;
+	
+	var dataTable = $(idTable).DataTable({
+		"paging": isPaging,
+		"order": order,
+		"ordering": isOrdering,
+		"bInfo" : false,
+		"searching": isSearching,
+		"language": {
+			"sEmptyTable": emptyTableMsg,
+			"url":"/MAE/resources/js/Portuguese-Brasil.json"
+		}
+	});
+	return dataTable;
+}
+
+function getConfigsParaPDF(containerId, tableId){
+	return {
+		language: {
+			url : "/MAE/resources/js/Portuguese-Brasil.json"
+		},
+		paging: false,
+		order: [[ 2, "cresc" ]],
+		ordering: false,
+		bInfo : false,
+		"columnDefs": [
+		               { className: "dt-body-left", "targets": [ 0 ] }
+		               ],
+		               dom: 'Bfrtip',
+		               buttons: [
+		                         {
+		                        	 extend: 'pdf',
+		                        	 text: 'Exportar como PDF',
+		                        	 customize: function(doc){
+		                        		 var colCount = new Array();
+		                        		 $('#'+tableId).find('tbody tr:first-child td').each(function(){
+		                        			 if($(this).attr('colspan')){
+		                        				 for(var i=1;i<=$(this).attr('colspan');$i++){
+		                        					 colCount.push('*');
+		                        				 }
+		                        			 }else{ colCount.push('*'); }
+		                        		 });
+		                        		 doc.content[1].table.widths = colCount;
+		                        	 }
+		                         }
+		                         ],
+		                         initComplete: function(settings, json) {
+
+		                        	 $('.buttons-pdf').parent().css('float', 'right');
+		                        	 $('.buttons-pdf').parent().css('margin-top', '-30px');
+		                        	 $('.buttons-pdf').parent().appendTo('#'+containerId);
+		                        	 $('.buttons-pdf').attr('class', 'btn btn-primary');
+
+		                         }
+	};
+}
+
 
 function confirmar(title, link){
 	var modal = $('<div></div>');
@@ -570,6 +572,7 @@ function povoaForm(uri, form, row) {
 	});
 
 };
+
 
 function populate(frm, data) {
 	$.each(data, function(key, value) {

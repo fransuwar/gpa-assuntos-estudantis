@@ -332,6 +332,7 @@ public class ServidorController {
 				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
 				model.addAttribute("selecao", selecao);
 				model.addAttribute("inscricoes", inscricoes);
+				model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_INSCRICAO);
 				
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 			} else {
@@ -507,6 +508,9 @@ public class ServidorController {
 		model.addAttribute("inscritosComVisita", selecao.getAlunosSelecionadosVisita());
 		model.addAttribute("inscritosSemVisita", selecao.getAlunosNaoSelecionadosVisita());
 		model.addAttribute("cidadesVisitadas", selecao.getCidadesVisita());
+		model.addAttribute("selecao", selecao);
+		
+		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
 		
 		return PAGINA_RELATORIO_VISITAS;
 	}
