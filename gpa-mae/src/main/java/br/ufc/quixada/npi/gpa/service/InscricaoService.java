@@ -2,7 +2,7 @@ package br.ufc.quixada.npi.gpa.service;
 
 import java.util.List;
 
-import br.ufc.quixada.npi.gpa.enums.MoraCom;
+import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
@@ -32,7 +32,7 @@ public interface InscricaoService{
 	
 	public abstract void atualizarVisitaDomiciliar(VisitaDomiciliar visitaDocimiciliar);
 
-	public abstract ComQuemMora getComQuemMora(MoraCom comQuemMora);
+	public abstract ComQuemMora getComQuemMora(GrauParentesco comQuemMora);
 
 	public abstract Inscricao getInscricao(Selecao selecao, Aluno aluno);
 	

@@ -64,6 +64,8 @@ public class Constants {
 	
 	public static final String PAGINA_AVALIAR_DOCUMENTACAO = "servidor/avaliarDocumentacao";
 	
+	public static final String PAGINA_RELATORIO_VISITAS = "servidor/relatorioVisitasCidades";
+	
 	public static final String PAGINA_RELATORIO_FINAL = "selecao/resultadoFinal";
 
 	// public static final String PAGINA_DETALHES_SELECAO_SERVIDOR =
@@ -241,9 +243,13 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO = "Selecione pelo menos um aluno classificado";
 
-	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO= "Não é possível excluir esse arquivo";
+	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO = "Não é possível excluir esse arquivo";
+	
+	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO = "Não é possível excluir este tipo de documento pois ele já está em uso";
 	
 	public static final String MENSAGEM_ERRO_DADOS_INSCRICAO= "Verifique os dados inseridos e tente novamente";
+	
+	public static final String MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO = "Adicione os documentos referentes a sua inscrição. Você deverá fazer isso até o final do período de inscrição.";
 	
 	/** Perfis */
 
@@ -268,5 +274,29 @@ public class Constants {
 	public static final String ABA_SELECIONADA = "aba";
 	
 	public static final String DOCUMENTOS_TAB = "documentos-tab";
+	
+	/** Comunicação Javascript com os cards**/
+	
+	public static final String CARD_SELECIONADO = "card";
+	
+	public static final String CARD_INSCRICAO = "card-inscricao";
+	public static final String CARD_COMISSAO = "card-comissao";
+	public static final String CARD_ARQUIVOS = "card-arquivos";
+	public static final String CARD_RELATORIO = "card-relatorio";
+	public static final String CARD_RANK = "card-rank";
+	
+	
+	public static final String INSCRICAO_TAB = "inscricao-tab";
+	
+	public static final String RESULTADO = "resultado";
+	
+	public static final String SUCESSO = "sucesso";
+
+	
+	/** Mensagens do sistema*/
+	
+	public static final String ERRO = "erro";
+	
+	public static final String INFO = "info";
 
 }
