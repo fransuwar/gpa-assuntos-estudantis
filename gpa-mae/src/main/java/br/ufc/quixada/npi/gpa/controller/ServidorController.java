@@ -20,11 +20,11 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO_
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_REALIZAR_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITAS;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -64,7 +64,7 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
-import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.EntrevistaService;
 import br.ufc.quixada.npi.gpa.service.ImagemService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -92,7 +92,8 @@ public class ServidorController {
 	@Inject
 	private ImagemService imagemService;
 	
-	@Inject DocumentoService documentoService;
+	@Inject
+	private DocumentoRepository documentoRepository;
 	
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
@@ -201,12 +202,12 @@ public class ServidorController {
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		try {
 			
-			Documento documento = documentoService.getDocumentoPorId(idFormulario);
+			Documento documento = documentoRepository.findById(idFormulario);
 			inscricao.getVisitaDomiciliar().setFormularioVisita(null);
 			
 			inscricaoService.save(inscricao);
 			
-			documentoService.deletarDocumento(documento);
+			documentoRepository.delete(documento);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -231,7 +232,7 @@ public class ServidorController {
 			
 			Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 			
-			documentoService.salvarDocumento(documento);
+			documentoRepository.save(documento);
 			
 			inscricao.getVisitaDomiciliar().setFormularioVisita(documento);
 			
