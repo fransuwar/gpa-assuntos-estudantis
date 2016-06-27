@@ -180,19 +180,16 @@ public class ServidorController {
 	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, Model modelo){
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		try {
 			
-			Documento documento = documentoRepository.findById(idFormulario);
+		Documento documento = documentoRepository.findById(idFormulario);
+		if(documento != null){
 			inscricao.getVisitaDomiciliar().setFormularioVisita(null);
 			
 			inscricaoService.save(inscricao);
 			
-			documentoRepository.delete(documento);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+			documentoRepository.delete(documento);	
 		}
-		
+
 		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
 		modelo.addAttribute("inscricao", inscricao);
 		
@@ -243,7 +240,7 @@ public class ServidorController {
 			List<Servidor> comissao = inscricao.getSelecao().getMembrosComissao();
 
 			if(comissao.contains(servidor) ){
-				if(inscricao.getVisitaDomiciliar().equals(null)){
+				if(inscricao.getVisitaDomiciliar() == null){
 					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().getDeferimento().equals(Resultado.DEFERIDO)){
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 

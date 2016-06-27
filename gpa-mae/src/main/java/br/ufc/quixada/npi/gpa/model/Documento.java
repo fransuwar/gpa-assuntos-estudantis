@@ -77,15 +77,6 @@ public class Documento {
 		this.arquivo = arquivo;
 	}
 	
-	
-//	public Selecao getSelecao() {
-//		return selecao;
-//	}
-//
-//	public void setSelecao(Selecao selecao) {
-//		this.selecao = selecao;
-//	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -103,9 +94,8 @@ public class Documento {
 		if (getClass() != obj.getClass())
 			return false;
 		Documento other = (Documento) obj;
-		if (id != other.id)
-			return false;
-		return true;
+
+		return (id == other.id);
 	}
 	
 
