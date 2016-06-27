@@ -106,8 +106,7 @@ public class AlunoController {
 	@Inject
 	private EmailService emailService;
 	
-
-
+	
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
