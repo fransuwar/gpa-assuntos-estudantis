@@ -359,7 +359,7 @@ var FormularioAuxilio = function() {
 		$select.change(function(){
 			var $selectOutroGrauParentesco = $("#outroGrauParentescoImovelRural");
 			var $labelOutroGrauParentesco = $("#labelOutroGrauParentescoImovelRural");
-			if($(this).val() == "OUTROS"){
+			if($(this).val() == "OUTRO"){
 				$selectOutroGrauParentesco.val("");
 				$selectOutroGrauParentesco.css("display", "block");
 				$labelOutroGrauParentesco.css("display", "block");
@@ -384,7 +384,7 @@ var FormularioAuxilio = function() {
 		var $labelGrauImovelRural = $("#labelOutroGrauParentescoImovelRural");
 		
 		$select.change(function(){
-			if($(this).val() == "OUTROS"){
+			if($(this).val() == "OUTRO"){
 				$outroGrauParentesco.val("");
 				$outroGrauParentesco.css("display", "block");
 				$labelOutroParentesco.css("display", "block");
@@ -394,7 +394,7 @@ var FormularioAuxilio = function() {
 			}
 		});
 		
-		if($select.val() == "OUTROS"){
+		if($select.val() == "OUTRO"){
 			$outroGrauParentesco.css("display", "block");
 			$labelOutroParentesco.css("display", "block");
 
@@ -486,9 +486,9 @@ var FormularioAuxilio = function() {
 		$('[data-mask]').each(function(){ $(this).mask( $(this).attr('data-mask')); });
 		
 		
+		$("#rendaMensal").mask("###0000000.00", {reverse: true});
 		$("#valorMensalFinanciamento").mask("###0000000.00", {reverse: true});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
-		$("#rendaMensal").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 		$("#renda-pessoa-familia").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 	};
 
