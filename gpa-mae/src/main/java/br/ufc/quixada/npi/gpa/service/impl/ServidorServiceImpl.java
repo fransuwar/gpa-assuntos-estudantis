@@ -1,5 +1,6 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ import br.ufc.quixada.npi.enumeration.QueryType;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.repository.GenericRepository;
-import br.ufc.quixada.npi.util.SimpleMap;
+
 
 @Named
 public class ServidorServiceImpl implements ServidorService{
@@ -23,24 +24,30 @@ public class ServidorServiceImpl implements ServidorService{
 	@Override
 	@Transactional(readOnly = true)
 	public Servidor getServidor(String siape) {
-		
-		return (Servidor) servidorRepository.findFirst("Servidor.findServidorBySiape", new SimpleMap<String, Object>("siape", siape));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("siape", siape);
+		return (Servidor) servidorRepository.findFirst("Servidor.findServidorBySiape", map);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Servidor getServidorPorCpf(String cpf) {
-			return (Servidor) servidorRepository.findFirst("Servidor.findServidorByCpf", new SimpleMap<String, Object>("cpf", cpf));
+		    Map<String, Object> map = new HashMap<String, Object>();
+		    map.put("cpf", cpf);
+			return (Servidor) servidorRepository.findFirst("Servidor.findServidorByCpf", map);
 	}
 
 	@Override
 	public Servidor getServidorComComissao(String CPF) {
-		return (Servidor) servidorRepository.findFirst("Servidor.findServidorComComissaoByCpf", new SimpleMap<String, Object>("cpf", CPF));
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 map.put("cpf", CPF);
+		return (Servidor) servidorRepository.findFirst("Servidor.findServidorComComissaoByCpf",map);
 	}
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Servidor> getServidorPertenceBanca(Integer idServidor, Integer idSelecao) {
-		Map<String, Object> params = new SimpleMap<String, Object>();
+		
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("idServidor", idServidor);
 		params.put("idSelecao", idSelecao);
 		
@@ -67,14 +74,18 @@ public class ServidorServiceImpl implements ServidorService{
 
 	@Override
 	public Servidor getServidorPorId(Integer id) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("idServidor", id);
 		return (Servidor) servidorRepository.findFirst(QueryType.JPQL,"select s from Servidor as s where s.id = :idServidor", 
-				new SimpleMap<String, Object>("idServidor", id));
+				params,-1);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
+	
 	public List<Servidor> listarServidores() {
+		Map<String, Object> params = new HashMap<String, Object>();
 		return servidorRepository.find(QueryType.JPQL,"select s from Servidor as s", 
-				new SimpleMap<String, Object>());
+				params);
 	}
 }

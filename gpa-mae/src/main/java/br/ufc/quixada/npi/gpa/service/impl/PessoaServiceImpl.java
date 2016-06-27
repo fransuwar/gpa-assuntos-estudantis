@@ -1,12 +1,15 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.ufc.quixada.npi.gpa.model.Pessoa;
 import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.repository.GenericRepository;
-import br.ufc.quixada.npi.util.SimpleMap;
+
 
 @Named
 public class PessoaServiceImpl implements PessoaService {
@@ -16,7 +19,9 @@ public class PessoaServiceImpl implements PessoaService {
 	
 	@Override
 	public Pessoa getPessoaPorCpf(String cpf) {
-		return (Pessoa) pessoaRepository.findFirst("Pessoa.findPessoaByCpf", new SimpleMap<String, Object>("cpf", cpf));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cpf", cpf);
+		return (Pessoa) pessoaRepository.findFirst("Pessoa.findPessoaByCpf",map);
 
 		}
 

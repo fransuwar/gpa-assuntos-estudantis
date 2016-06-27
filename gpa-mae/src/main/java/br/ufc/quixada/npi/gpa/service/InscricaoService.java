@@ -5,7 +5,6 @@ import java.util.List;
 import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
-import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -13,10 +12,6 @@ import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 
 public interface InscricaoService{
 	
-	
-	public abstract List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica);
-
-	public abstract List<Inscricao> getInscricoes(Integer idAluno);
 	
 	public abstract List<Inscricao> getInscricoesPorSelecao(Integer idSelecao);
 	

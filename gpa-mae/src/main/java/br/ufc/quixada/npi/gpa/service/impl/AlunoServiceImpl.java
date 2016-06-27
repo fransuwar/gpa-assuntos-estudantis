@@ -1,6 +1,8 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,7 +13,6 @@ import br.ufc.quixada.npi.enumeration.QueryType;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.service.AlunoService;
 import br.ufc.quixada.npi.repository.GenericRepository;
-import br.ufc.quixada.npi.util.SimpleMap;
 
 @Named
 public class AlunoServiceImpl implements AlunoService {
@@ -19,36 +20,20 @@ public class AlunoServiceImpl implements AlunoService {
 	@Inject
 	private GenericRepository<Aluno> alunoRepository;
 
-
-	@Override
-	@Transactional(readOnly = true)
-	public Aluno getAluno(String matricula) {
-		return (Aluno) alunoRepository.findFirst("Aluno.findAlunoByMatricula", new SimpleMap<String, Object>("matricula", matricula));
-	}
-
 	@Override
 	@Transactional(readOnly = true)
 	public Aluno getAlunoComInscricoes(String cpf) {
-		return (Aluno) alunoRepository.findFirst("Aluno.findAlunoComInscricoesByCPF", new SimpleMap<String, Object>("cpf", cpf));
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public boolean isAlunoCadastrado(Aluno aluno) {
-		@SuppressWarnings("unchecked")
-		List<Aluno> alunos = alunoRepository.find(QueryType.JPQL, "from Aluno as a where a.matricula = :matricula",
-				new SimpleMap<String, Object>("matricula", aluno.getMatricula()));
-		if (alunos == null || alunos.isEmpty()) {
-			return false;
-		}
-
-		return true;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cpf", cpf);
+		return (Aluno) alunoRepository.findFirst("Aluno.findAlunoComInscricoesByCPF", map);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Aluno getAlunoPorCPF(String cpf) {
-		return (Aluno) alunoRepository.findFirst("Aluno.findAlunoByCPF", new SimpleMap<String, Object>("cpf", cpf));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cpf", cpf);
+		return (Aluno) alunoRepository.findFirst("Aluno.findAlunoByCPF", map);
 	}
 
 
@@ -70,8 +55,9 @@ public class AlunoServiceImpl implements AlunoService {
 	
 	@Override
 	public Aluno getAlunoPorId(Integer idAluno) {
-		return (Aluno) alunoRepository.findFirst(QueryType.JPQL,"select a from Aluno as a where a.id = :idAluno", 
-				new SimpleMap<String, Object>("idAluno", idAluno));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("idAluno", idAluno);
+		return (Aluno) alunoRepository.findFirst(QueryType.JPQL, "select a from Aluno as a where a.id = :idAluno", map, -1);
 		
 	}
 

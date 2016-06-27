@@ -1,7 +1,9 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,7 +13,6 @@ import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.repository.GenericRepository;
-import br.ufc.quixada.npi.util.SimpleMap;
 
 @Named
 public class DocumentoServiceImpl implements DocumentoService{
@@ -42,8 +43,9 @@ public class DocumentoServiceImpl implements DocumentoService{
 
 	@Override
 	public Documento getDocumentoPorId(Integer idDocumento) {
-		return (Documento) documentoRepository.findFirst(QueryType.JPQL,"select d from Documento as d where d.id = :idDocumento", 
-				new SimpleMap<String, Object>("idDocumento", idDocumento));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("idDocumento", idDocumento);
+		return (Documento) documentoRepository.findFirst(QueryType.JPQL,"select d from Documento as d where d.id = :idDocumento", map, -1);
 	}
 	
 	@Override

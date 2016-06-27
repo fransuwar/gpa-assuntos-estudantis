@@ -1,5 +1,6 @@
 package br.ufc.quixada.npi.gpa.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,14 +14,12 @@ import br.ufc.quixada.npi.gpa.enums.MoraCom;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
-import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.repository.GenericRepository;
-import br.ufc.quixada.npi.util.SimpleMap;
 
 @SuppressWarnings("unchecked")
 @Named
@@ -41,48 +40,45 @@ public class InscricaoServiceImpl implements InscricaoService {
     @Inject
 	private GenericRepository<Inscricao> inscricaoRepository;
     
-	@Override
-	@Transactional(readOnly = true)
-	public List<Inscricao> getInscricoes(Integer idAluno) {
-		return inscricaoService.find("Inscricao.findIncricoesByIdAluno", new SimpleMap<String, Object>("idAluno", idAluno));
-	}
-	
+    @Inject
+    private GenericRepository<ComQuemMora> comQuemMoraRepository;
+    
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inscricao> getInscricoesPorSelecao(Integer idSelecao) {
-		return inscricaoRepository.find("Inscricao.finInscricaoByIdSelecao", new SimpleMap<String, Object>("idSelecao", idSelecao));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("idSelecao", idSelecao);
+		return inscricaoRepository.find("Inscricao.finInscricaoByIdSelecao", map);
 
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inscricao> getInscricoesPorSelecaoPorAluno(Integer idSelecao, Integer idAluno) {
-		Map<String, Object> params = new SimpleMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
+		
 		params.put("idSelecao", idSelecao);
 		params.put("idAluno", idAluno);
 
 		return (List<Inscricao>)inscricaoService.find("Inscricao.finInscricaoByIdSelecaoByAluno", params);
 	}
-	
-
-	@Transactional(readOnly = true)
-	public List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica) {
-		return inscricaoService.find("HorarioDisponivel.findHorarioDisponivelByIdIniciacaoAcademica",
-				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
-	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaPorIdIniciacaoAcademica(Integer idIniciacaoAcademica) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("idIniciacaoAcademica", idIniciacaoAcademica);
 		return pessoaRepository.find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",
-				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
+				params);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaPorIdAuxilioMoradia(Integer idAuxilioMoradia) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("idAuxilioMoradia", idAuxilioMoradia);
 		return pessoaRepository.find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia",
-				new SimpleMap<String, Object>("idAuxilioMoradia", idAuxilioMoradia));
+				params);
 	}
 
 	@Override
@@ -110,13 +106,14 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 	@Override
 	public ComQuemMora getComQuemMora(MoraCom comQuemMora) {
-		return (ComQuemMora) inscricaoService.findFirst("ComQuemMora.findComQuemMoraByDescricao",
-				new SimpleMap<String, Object>("descricao", comQuemMora));
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("descricao", comQuemMora);
+		return comQuemMoraRepository.findFirst("ComQuemMora.findComQuemMoraByDescricao", params);
 	}
 
 	@Override
 	public Inscricao getInscricao(Selecao selecao, Aluno aluno) {
-		Map<String, Object> params = new SimpleMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("idSelecao", selecao.getId());
 		params.put("idAluno", aluno.getId());
 		return (Inscricao) inscricaoService.findFirst("Inscricao.findInscricaoAluno", params);
@@ -125,8 +122,10 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 	@Override
 	public Inscricao getInscricaoPorId(Integer id) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("idInscricao", id);
 		return (Inscricao) inscricaoService.findFirst(QueryType.JPQL,"select i from Inscricao as i where i.id = :idInscricao", 
-				new SimpleMap<String, Object>("idInscricao", id));
+				params,-1);
 	}
 
 	@Override
@@ -148,10 +147,10 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 	@Override
 	public void excluirPessoaFamiliaPorId(Integer idPessoa) {
-		Map<String, Object> params = new SimpleMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("idPessoa", idPessoa);
 		PessoaFamilia pessoa = (PessoaFamilia) pessoaRepository.findFirst(QueryType.JPQL,"select p from PessoaFamilia as p where p.id = :idPessoa",
-				new SimpleMap<String,Object>("idPessoa", idPessoa));
+				params,-1);
 		pessoaRepository.delete(pessoa);
 	}
 
@@ -159,24 +158,30 @@ public class InscricaoServiceImpl implements InscricaoService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inscricao> getDeferidosBySelecao(Selecao selecao) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("idSelecao", selecao.getId());
 		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.deferimento = 'true'",
-				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
+				params );
 
 		return inscricoes;
 	}
 
 	@Override
 	public List<Inscricao> getClassificadosPorSelecao(Selecao selecao) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("idSelecao", selecao.getId());
 		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'true'",
-				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
+				params);
 
 		return inscricoes;
 	}
 	
 	@Override
 	public List<Inscricao> getClassificaveisPorSelecao(Selecao selecao) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("idSelecao", selecao.getId());
 		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'false'",
-				new SimpleMap<String,Object>("idSelecao", selecao.getId()));
+				params);
 
 		return inscricoes;
 	}
@@ -184,20 +189,20 @@ public class InscricaoServiceImpl implements InscricaoService {
 	@Override
 	@Transactional
 	public void update(Integer idInscricao,boolean classificado) {
-		Map<String, Object> params = new SimpleMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("classificado", classificado);
 		params.put("idInscricao", idInscricao);
-		inscricaoRepository.executeUpdate("update Inscricao set classificado =:classificado where Inscricao.id =:idInscricao", params);
+		inscricaoRepository.find(QueryType.JPQL, "update Inscricao set classificado =:classificado where id =:idInscricao", params);
 		
 	}
 
 	@Override
 	@Transactional
 	public void consolidacaoDeTodos(Integer idSelecao, boolean consolidacao) {
-		Map<String, Object> params = new SimpleMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("consolidacao", consolidacao);
 		params.put("idSelecao", idSelecao);
-		inscricaoRepository.executeUpdate("update Inscricao set consolidacao =:consolidacao where Inscricao.selecao_id =:idSelecao", params);
+		inscricaoRepository.find(QueryType.JPQL, "update Inscricao set consolidacao =:consolidacao where selecao.id =:idSelecao", params);
 		
 		
 	}
@@ -205,10 +210,10 @@ public class InscricaoServiceImpl implements InscricaoService {
 	@Override
 	@Transactional
 	public void consolidar(Integer idInscricao, boolean consolidacao) {
-		Map<String, Object> params = new SimpleMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("consolidacao", consolidacao);
 		params.put("idInscricao", idInscricao);
-		inscricaoRepository.executeUpdate("update Inscricao set consolidacao =:consolidacao where Inscricao.id =:idInscricao", params);
+		inscricaoRepository.find("QueryType.JPQL, update Inscricao set consolidacao =:consolidacao where id =:idInscricao", params);
 			
 	}
 

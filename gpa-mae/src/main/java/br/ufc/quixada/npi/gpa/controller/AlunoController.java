@@ -8,7 +8,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_REALIZADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
@@ -28,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -65,9 +65,7 @@ import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.DocumentosTipoInscricao;
-import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
-import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -80,7 +78,6 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
 import br.ufc.quixada.npi.model.Email;
 import br.ufc.quixada.npi.service.EmailService;
-
 
 
 @Controller
@@ -108,6 +105,7 @@ public class AlunoController {
 	
 	@Inject
 	private EmailService emailService;
+	
 
 
 
@@ -213,7 +211,7 @@ public class AlunoController {
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
 
-	@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
+	/*@RequestMapping(value = { "inscricao/editar/iniciacao-academica" }, method = RequestMethod.POST)
 	public String editarInscricaoIniciacaoAcademica(
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
 			BindingResult result, Model model, RedirectAttributes redirect) {
@@ -251,7 +249,7 @@ public class AlunoController {
 		// TODO - Realizar a atualização de uma iniciação acadêmica.
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EDITADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
-	}
+	}*/
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
 	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth) {
@@ -404,7 +402,7 @@ public class AlunoController {
 
 			} else {
 
-				model.addAttribute("inscricao", inscricao);
+				/*model.addAttribute("inscricao", inscricao);
 				model.addAttribute("selecao", inscricao.getSelecao());
 				model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
 				model.addAttribute("nivelInstrucao", NivelInstrucao.values());
@@ -429,7 +427,7 @@ public class AlunoController {
 				}
 
 
-				return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
+				return PAGINA_INSCREVER_INICIACAO_ACADEMICA;*/
 
 			}
 		}
@@ -448,25 +446,40 @@ public class AlunoController {
 		inscricaoService.update(inscricao);	
 		
 		model.addAttribute("selecoes", selecoes);
+				
 		
-//		Email email = new Email();
-//		String from = "romulocosta100@outlook.com";
-//		String to = "romulocosta100@gmail.com";
-//		String body = "Caros amigos, a complexidade dos estudos efetuados desafia a capacidade de equalização de alternativas às soluções ortodoxas.";
-//		
-//		
-//		email.setFrom(from);
-//		email.setSubject("Assunto");
-//		email.setText(body);
-//		email.setTo(to);
-//		try {
-//			emailService.sendEmail(email);
-//		} catch (MessagingException e) {
-//			System.out.println(">>> :"+e);
-//		}
 		
-	    System.out.println("Email!!");
-	    
+		Runnable enviarEmail = new Runnable() {
+			@Override
+			public void run() {
+				
+				Email email = new Email();
+				String from = "naoresponda@gpaassuntosestudantis.com";
+				String to = "romulocosta100@gmail.com";
+				String body = "Caros amigos, a complexidade dos estudos efetuados desafia a capacidade de equalização de alternativas às soluções ortodoxas.";
+				
+				
+				email.setFrom(from);
+				email.setSubject("Assunto");
+				email.setText(body);
+				email.setTo(to);
+				
+				try {
+					emailService.sendEmail(email);
+					
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+			    System.out.println("Email!!");
+				
+			}
+			};
+		
+			Thread threadEnviarEmail = new Thread(enviarEmail);
+			threadEnviarEmail.start();
+		
+			
+			    
 		return PAGINA_SELECOES_ABERTAS;
 	}
 

@@ -6,13 +6,9 @@ import br.ufc.quixada.npi.gpa.model.Aluno;
 
 public interface AlunoService{
 
-	public abstract Aluno getAluno(String matricula);
-
 	public abstract Aluno getAlunoComInscricoes(String cpf);
 	
 	public abstract Aluno getAlunoPorCPF(String cpf);
-	
-	public abstract boolean isAlunoCadastrado(Aluno aluno);
 	
 	public abstract void save(Aluno aluno);
 	
