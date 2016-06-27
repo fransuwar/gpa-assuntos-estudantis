@@ -72,6 +72,7 @@ import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.DocumentosTipoInscricao;
 import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
+import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -327,8 +328,12 @@ public class AlunoController {
 				inscricao.setSelecao(selecao);
 				inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
 				inscricao.setResultado(Resultado.NAO_AVALIADO);
-				auxilioMoradia.setComQuemMora(this.adicionarPessoaFamilia(comQuemMora));
-
+				auxilioMoradia.setComQuemMora(this.adicionarComQuemMora(comQuemMora));
+				
+//				System.out.println("==============  TESTE  =============");
+//				for(ComQuemMora quemMora:auxilioMoradia.getComQuemMora()){
+//					System.out.println(quemMora);
+//				}
 
 				inscricaoService.save(inscricao);
 			} else {
@@ -456,7 +461,7 @@ public class AlunoController {
 
 			Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
 
-			auxilioMoradia.setComQuemMora(this.adicionarPessoaFamilia(comQuemMora));
+			auxilioMoradia.setComQuemMora(this.adicionarComQuemMora(comQuemMora));
 
 			inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
 
@@ -540,7 +545,7 @@ public class AlunoController {
 
 	}
 	
-	public List<ComQuemMora> adicionarPessoaFamilia(List<String> pessoasFamilia){
+	public List<ComQuemMora> adicionarComQuemMora(List<String> pessoasFamilia){
 		
 		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
 		
