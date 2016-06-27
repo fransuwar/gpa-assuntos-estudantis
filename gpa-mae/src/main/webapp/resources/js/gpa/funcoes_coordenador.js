@@ -18,7 +18,7 @@ var FormularioDetalhesInscricao = function() {
 			
 			$.ajax({
 				type : "GET",
-				url : "http://localhost:8080/MAE/servidor/consolidarTodos",
+				url : "http://localhost:8080/MAE/inscricao/consolidarTodos",
 				data :{"idSelecao": idSelecao, "consolidacao": true},
 				dataType : 'json',
 
@@ -48,7 +48,7 @@ var FormularioDetalhesInscricao = function() {
 			
 			$.ajax({
 				type : "GET",
-				url : "http://localhost:8080/MAE/servidor/consolidarTodos",
+				url : "http://localhost:8080/MAE/inscricao/consolidarTodos",
 				data :{"idSelecao": idSelecao, "consolidacao": false},
 				dataType : 'json',
 
@@ -84,7 +84,7 @@ var FormularioDetalhesInscricao = function() {
 		
 			$.ajax({
 				type : "GET",
-				url : "http://localhost:8080/MAE/servidor/consolidar",
+				url : "http://localhost:8080/MAE/inscricao/consolidar",
 				data :{"idInscricao": id , "consolidacao": consolidacao},
 				dataType : 'json',
 

@@ -10,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -25,11 +23,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import br.ufc.quixada.npi.gpa.enums.Banco;
 import br.ufc.quixada.npi.gpa.enums.Curso;
 
-@NamedQueries({
-		@NamedQuery(name = "Aluno.findAlunoByMatricula", query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
-		@NamedQuery(name = "Aluno.findAlunoByIdPessoa", query = "SELECT a FROM Aluno a WHERE a.pessoa.id = :idPessoa"),
-		@NamedQuery(name = "Aluno.findAlunoByCPF", query = "SELECT a FROM Aluno a WHERE a.pessoa.cpf = :cpf"),
-		@NamedQuery(name = "Aluno.findAlunoComInscricoesByCPF", query = "SELECT a FROM Aluno a LEFT JOIN FETCH a.inscricoes WHERE a.pessoa.cpf = :cpf") })
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula" }) )
 public class Aluno {
