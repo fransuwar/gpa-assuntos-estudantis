@@ -272,5 +272,8 @@ public class Constants {
 	public static final String ABA_SELECIONADA = "aba";
 	
 	public static final String DOCUMENTOS_TAB = "documentos-tab";
+	
+	/** Attributes Names */
+	public static final String ERRO = "erro";
 
 }

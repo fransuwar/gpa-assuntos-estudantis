@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
@@ -261,7 +262,7 @@ public class AlunoController {
 		Date date = new Date();
 		
 		if(date.before(selecaoAux.getDataInicio()) || date.after(selecaoAux.getDataTermino())){		
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_REALIZAR_INSCRICAO);
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_REALIZAR_INSCRICAO);
 			return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 		}else{
 		
@@ -372,7 +373,7 @@ public class AlunoController {
 			if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)) {
 
 				if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
-					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EDITAR_INSCRICAO);
+					redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EDITAR_INSCRICAO);
 					return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 				}else{
 
@@ -415,7 +416,7 @@ public class AlunoController {
 			}
 		}
 
-		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+		redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
@@ -511,7 +512,7 @@ public class AlunoController {
 		Date date = new Date();
 
 		if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
 			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 			
 		} else{
@@ -536,7 +537,7 @@ public class AlunoController {
 
 		if (inscricao == null) {
 
-			redirect.addAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			redirect.addAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_INSCRICOES_ALUNO;
 
 		}else if (inscricao.getQuestionarioAuxilioMoradia() != null) {

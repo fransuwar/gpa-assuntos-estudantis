@@ -18,6 +18,7 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">
+	
 		<c:if test="${not empty info}">
 			<div class="alert alert-success alert-dismissible" role="alert"
 				id="alert-info">
