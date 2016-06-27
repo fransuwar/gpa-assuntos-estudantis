@@ -179,7 +179,7 @@
 													<label class='f-title'>Quem são essas pessoas?</label>
 													<div class='f-content'>
 														<form:input id="comQuemMoraOutros"
-															path="comQuemMoraOutros" cssClass="form-control" required="true"
+															path="comQuemMoraOutros" cssClass="form-control" required="required"
 															placeholder="Com quem mora essas pessoas ?" />
 														<div class="error-validation">
 															<form:errors path="comQuemMoraOutros"></form:errors>
