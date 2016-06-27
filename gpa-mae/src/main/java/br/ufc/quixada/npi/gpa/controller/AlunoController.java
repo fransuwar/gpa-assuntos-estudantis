@@ -82,8 +82,8 @@ import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.repository.AnaliseDocumentacaoRepository;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
+import br.ufc.quixada.npi.gpa.repository.DocumentosTipoInscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
-import br.ufc.quixada.npi.gpa.service.DocumentosTipoInscricaoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
@@ -102,9 +102,6 @@ public class AlunoController {
 
 	@Inject
 	private UsuarioService usuarioService;
-
-	@Inject
-	private DocumentosTipoInscricaoService dtiService;
 	
 	@Inject
 	private AlunoRepository alunoRepository;
@@ -117,6 +114,9 @@ public class AlunoController {
 	
 	@Inject
 	private TipoDocumentoRepository tipoDocumentoRepository;
+	
+	@Inject
+	private DocumentosTipoInscricaoRepository documentosTipoInscricaoRepository;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
@@ -650,7 +650,7 @@ public class AlunoController {
 					
 					documentacao.getDocumentosTipoInscricao().put(idTipo, dti);
 					
-					dtiService.salvarDocumentosTipoInscricao(dti);
+					documentosTipoInscricaoRepository.save(dti);
 					documentacaoRepository.save(documentacao);				
 					inscricao.setDocumentacao(documentacao);				
 				} else{
@@ -662,11 +662,11 @@ public class AlunoController {
 						dti.setTipo(tipo);
 						dti.getDocumentos().add(documento);
 						
-						dtiService.salvarDocumentosTipoInscricao(dti);
+						documentosTipoInscricaoRepository.save(dti);
 						inscricao.getDocumentacao().getDocumentosTipoInscricao().put(idTipo, dti);
 					} else{
 						dti.getDocumentos().add(documento);
-						dtiService.salvarDocumentosTipoInscricao(dti);
+						documentosTipoInscricaoRepository.save(dti);
 						inscricao.getDocumentacao().getDocumentosTipoInscricao().put(idTipo, dti);
 						
 					}

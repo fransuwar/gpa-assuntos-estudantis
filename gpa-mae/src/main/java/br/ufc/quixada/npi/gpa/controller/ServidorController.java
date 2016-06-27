@@ -32,7 +32,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +41,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -64,8 +62,8 @@ import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
-import br.ufc.quixada.npi.gpa.service.EntrevistaService;
-import br.ufc.quixada.npi.gpa.service.ImagemService;
+import br.ufc.quixada.npi.gpa.repository.EntrevistaRepository;
+import br.ufc.quixada.npi.gpa.repository.ImagemRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -77,9 +75,6 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 public class ServidorController {
 	
 	@Inject
-	private EntrevistaService entrevistaService;
-	
-	@Inject
 	private InscricaoService inscricaoService;
 
 	@Inject
@@ -89,10 +84,13 @@ public class ServidorController {
 	private SelecaoService selecaoService;
 	
 	@Inject
-	private ImagemService imagemService;
+	private ImagemRepository imagemRepository;
 	
 	@Inject
 	private DocumentoRepository documentoRepository;
+	
+	@Inject
+	private EntrevistaRepository entrevistaRepository;
 	
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
@@ -146,11 +144,11 @@ public class ServidorController {
 		
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		
-		Entrevista entrevista2 = entrevistaService.findById(idEntrevista);
+		Entrevista entrevista2 = entrevistaRepository.findById(idEntrevista);
 		entrevista2.setObservacao(entrevista.getObservacao());
 		entrevista2.setDeferimento(entrevista.getDeferimento());
 		inscricao.setRealizarVisita(realizarVisita);
-		entrevistaService.update(entrevista2);
+		entrevistaRepository.save(entrevista2);
 		inscricaoService.update(inscricao);
 
 		redirect.addFlashAttribute("info",MENSAGEM_DE_SUCESSO_ENTREVISTA);
@@ -399,7 +397,7 @@ public class ServidorController {
 				Imagem imagem = new Imagem();
 				imagem.setImg(foto.getBytes());
 				
-				imagemService.save(imagem);
+				imagemRepository.save(imagem);
 				
 				inscricao.getVisitaDomiciliar().getImagens().add(imagem);
 				inscricaoService.save(inscricao);
@@ -417,7 +415,7 @@ public class ServidorController {
 	@RequestMapping(value ={ "detalhes/inscricao/removerImagem/{idInscricao}/{idImagem}"}, method = RequestMethod.GET)
 	public String removerImagemDaVisitaNaInscricao(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idImagem") Integer idImagem, Model modelo){
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		Imagem imagem = imagemService.find(Imagem.class, idImagem);
+		Imagem imagem = imagemRepository.findById(idImagem);
 		
 		inscricao.getVisitaDomiciliar().getImagens().remove(imagem);
 		
