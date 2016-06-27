@@ -950,7 +950,7 @@
 												<div class="col-sm-2 text-align-left">
 													<label for="rendaMensal" class="control-label">
 														Renda R$: </label>
-													<form:input cssClass="form-control" type="number"
+													<form:input cssClass="form-control"
 														id="rendaMensal" path="rendaMensal" required="required" />
 												</div>
 											</div>
