@@ -1095,6 +1095,8 @@
 							<form id="insercaoImagemEntrevista" role="form"
 								action="<c:url value="/servidor/detalhes/inscricao/inserirImagem"/>"
 								method="POST" enctype="multipart/form-data">
+								
+								<input type="hidden" value="${inscricao.id}" name="idInscricao">
 
 								<div class='f-container'>
 									<label class='f-title'> <b>Foto da visita</b>
@@ -1137,6 +1139,8 @@
 							<form class="form-horizontal" role="form" method="POST"
 								action="<c:url value="/servidor/detalhes/inscricao/adicionarObservacaoParecer"/>">
 								<div class="form-group col-sm-4">
+								
+								<input type="hidden" value="${inscricao.id}" name="idInscricao">
 
 									<label class="f-title control-label">Parecer:</label> <select
 										name="parecer" required="required">
