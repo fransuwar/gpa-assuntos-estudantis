@@ -9,9 +9,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Despesa {
 
-	public Despesa() {
-
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

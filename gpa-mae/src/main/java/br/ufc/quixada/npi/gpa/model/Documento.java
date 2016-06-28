@@ -27,13 +27,12 @@ public class Documento {
 		super();
 	}	
 	
-	public Documento(String nomeOriginal, String nome, String tipo, byte[] arquivo, Selecao selecao){
+	public Documento(String nomeOriginal, String nome, String tipo, byte[] arquivo){
 		super();
 		this.nomeOriginal = nomeOriginal;
 		this.nome = nome;
 		this.tipo = tipo;
 		this.arquivo = arquivo;
-//		this.selecao = selecao;
 	}
 	
 	public Integer getId() {
