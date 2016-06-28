@@ -37,8 +37,8 @@ import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
+import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
-import br.ufc.quixada.npi.gpa.service.DocumentoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -53,9 +53,6 @@ public class SelecaoController {
 	private ServidorService servidorService;
 
 	@Inject
-	private DocumentoService documentoService;
-
-	@Inject
 	private SelecaoService selecaoService;
 
 	@Inject
@@ -66,6 +63,9 @@ public class SelecaoController {
 	
 	@Inject
 	private AlunoRepository alunoRepository;
+	
+	@Inject
+	private DocumentoRepository documentoRepository;
 
 	@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoesPublico(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
@@ -112,7 +112,7 @@ public class SelecaoController {
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable("idDocumento") Integer id, 
 			RedirectAttributes redirectAttributes){
 
-		Documento documento = documentoService.getDocumentoPorId(id);
+		Documento documento = documentoRepository.findById(id);
 		byte[] arquivo = documento.getArquivo();
 		String[] tipo = documento.getTipo().split("/");
 		HttpHeaders headers = new HttpHeaders();
@@ -128,7 +128,7 @@ public class SelecaoController {
 	@RequestMapping(value = {"visualizarDocumento/{idDocumento}"}, method = RequestMethod.GET)
 	public ResponseEntity<byte[]> visualizarDocumento(@PathVariable("idDocumento") Integer idDocumento){
 		
-		Documento documento = documentoService.getDocumentoPorId(idDocumento);
+		Documento documento = documentoRepository.findById(idDocumento);
 		byte[] arquivo = documento.getArquivo();
 		
 		HttpHeaders headers = new HttpHeaders();

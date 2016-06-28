@@ -3,13 +3,13 @@ package br.ufc.quixada.npi.gpa.enums;
 import java.util.Map;
 import java.util.TreeMap;
 
-public enum TipoEnsinoFundamental{
+public enum TipoEnsino{
 	PUBLICO("Público"), PARTICULAR("Particular"), PART_COM_BOLSA("Particular com Bolsa");
 	
 	private String nome;
-	private static Map<TipoEnsinoFundamental, String> map;
+	private static Map<TipoEnsino, String> map;
 
-	TipoEnsinoFundamental(String nome) {
+	TipoEnsino(String nome) {
 		this.nome = nome;
 	}
 	
@@ -17,10 +17,10 @@ public enum TipoEnsinoFundamental{
 		return nome;
 	}
 
-	public static Map<TipoEnsinoFundamental, String> toMap() {
+	public static Map<TipoEnsino, String> toMap() {
 		if (map == null) {
-			map = new TreeMap<TipoEnsinoFundamental, String>();
-			for (TipoEnsinoFundamental tef : TipoEnsinoFundamental.values()) {
+			map = new TreeMap<TipoEnsino, String>();
+			for (TipoEnsino tef : TipoEnsino.values()) {
 				map.put(tef, tef.nome);
 			}
 		}

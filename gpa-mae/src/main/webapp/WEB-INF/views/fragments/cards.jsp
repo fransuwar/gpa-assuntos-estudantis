@@ -11,7 +11,8 @@
 					<div class="card-icon">
 						<i class="fa fa-folder-open"></i>
 					</div>
-					<div class="card-deion">INSCRIÇÕES</div>
+
+					<div class="card-description">INSCRIÇÕES</div>
 				</div>
 			</a>
 		</div>
@@ -23,7 +24,7 @@
 					<div class="card-icon">
 						<i class="fa fa-users"></i>
 					</div>
-					<div class="card-deion">COMISSÃO</div>
+					<div class="card-description">COMISSÃO</div>
 				</div>
 			</a>
 		</div>
@@ -34,7 +35,7 @@
 					<div class="card-icon">
 						<i class="fa fa-file"></i>
 					</div>
-					<div class="card-deion">ARQUIVOS</div>
+					<div class="card-description">ARQUIVOS</div>
 				</div>
 			</a>
 		</div>
@@ -45,7 +46,7 @@
 					<div class="card-icon">
 						<i class="fa fa-file-text"></i>
 					</div>
-					<div class="card-deion">RELATÓRIO</div>
+					<div class="card-description">RELATÓRIO</div>
 				</div>
 			</a>
 
@@ -62,7 +63,7 @@
 					<div class="card-icon">
 						<i class="fa fa-signal"></i>
 					</div>
-					<div class="card-deion">RANKING</div>
+					<div class="card-description">RANKING</div>
 				</div>
 			</a>
 		</div>
@@ -110,3 +111,4 @@
 		</div>
 	</div>
 </div>
+

@@ -19,11 +19,11 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO_
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_REALIZAR_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITAS;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -32,7 +32,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +41,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -63,7 +61,7 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
-import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.EntrevistaService;
 import br.ufc.quixada.npi.gpa.service.ImagemService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -91,7 +89,8 @@ public class ServidorController {
 	@Inject
 	private ImagemService imagemService;
 	
-	@Inject DocumentoService documentoService;
+	@Inject
+	private DocumentoRepository documentoRepository;
 	
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
@@ -181,19 +180,16 @@ public class ServidorController {
 	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, Model modelo){
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		try {
 			
-			Documento documento = documentoService.getDocumentoPorId(idFormulario);
+		Documento documento = documentoRepository.findById(idFormulario);
+		if(documento != null){
 			inscricao.getVisitaDomiciliar().setFormularioVisita(null);
 			
 			inscricaoService.save(inscricao);
 			
-			documentoService.deletarDocumento(documento);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+			documentoRepository.delete(documento);	
 		}
-		
+
 		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
 		modelo.addAttribute("inscricao", inscricao);
 		
@@ -213,7 +209,7 @@ public class ServidorController {
 			
 			Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 			
-			documentoService.salvarDocumento(documento);
+			documentoRepository.save(documento);
 			
 			inscricao.getVisitaDomiciliar().setFormularioVisita(documento);
 			
@@ -244,7 +240,7 @@ public class ServidorController {
 			List<Servidor> comissao = inscricao.getSelecao().getMembrosComissao();
 
 			if(comissao.contains(servidor) ){
-				if(inscricao.getVisitaDomiciliar().equals(null)){
+				if(inscricao.getVisitaDomiciliar() == null){
 					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().getDeferimento().equals(Resultado.DEFERIDO)){
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 

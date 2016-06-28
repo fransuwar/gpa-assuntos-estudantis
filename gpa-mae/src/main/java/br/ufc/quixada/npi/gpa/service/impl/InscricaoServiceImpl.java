@@ -9,7 +9,7 @@ import javax.inject.Named;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufc.quixada.npi.enumeration.QueryType;
-import br.ufc.quixada.npi.gpa.enums.MoraCom;
+import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
@@ -109,7 +109,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	@Override
-	public ComQuemMora getComQuemMora(MoraCom comQuemMora) {
+	public ComQuemMora getComQuemMora(GrauParentesco comQuemMora) {
 		return (ComQuemMora) inscricaoService.findFirst("ComQuemMora.findComQuemMoraByDescricao",
 				new SimpleMap<String, Object>("descricao", comQuemMora));
 	}

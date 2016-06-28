@@ -1,7 +1,7 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANEXO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR;
@@ -62,8 +62,9 @@ import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
+import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
-import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
@@ -78,9 +79,6 @@ public class CoordenadorController {
 	private SelecaoService selecaoService;
 
 	@Inject
-	private DocumentoService documentoService;
-
-	@Inject
 	private ServidorService servidorService;
 	
 	@Inject
@@ -89,16 +87,21 @@ public class CoordenadorController {
 	@Inject
 	private InscricaoRepository inscricaoRepository;
 	
+	@Inject
+	private DocumentoRepository documentoRepository;
+	
+	@Inject
+	private TipoDocumentoRepository tipoDocumentoRepository;
 	
 	@RequestMapping(value = "excluir-tipo-documento/{id}", method = RequestMethod.GET)
 	public String excluirTipoDocumento(@PathVariable("id") Integer id,
 			Model model, RedirectAttributes redirect) {
 		
-		TipoDocumento tipoDocumento = documentoService.findById(id);
+		TipoDocumento tipoDocumento = tipoDocumentoRepository.findById(id);
 
 		if (tipoDocumento != null){
 			try{
-			documentoService.deletarTipoDocumento(tipoDocumento);
+				tipoDocumentoRepository.delete(tipoDocumento);
 			}catch(JpaSystemException | PersistenceException | ConstraintViolationException e){
 				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO);
 			}
@@ -106,7 +109,7 @@ public class CoordenadorController {
 		else{ 
 			model.addAttribute("Error", MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO);
 		}
-		model.addAttribute(DOCUMENTOS,documentoService.find());
+		model.addAttribute(DOCUMENTOS,tipoDocumentoRepository.findAll());
 		return  REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 		
 		
@@ -115,7 +118,7 @@ public class CoordenadorController {
 	@RequestMapping(value = "adicionar-tipo-arquivo", method = RequestMethod.GET)
 	public String addTipoArquivo(TipoDocumento tipoDocumento){
 		if(!tipoDocumento.getNome().isEmpty()){
-			documentoService.salvarTipoDocumento(tipoDocumento);
+			tipoDocumentoRepository.save(tipoDocumento);
 		}
 		return REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 	}
@@ -123,7 +126,7 @@ public class CoordenadorController {
 	
 	@RequestMapping(value = "gerenciarDocumentos", method = RequestMethod.GET)
 	public String gerenciarDocumentos(ModelMap model){
-		model.addAttribute(DOCUMENTOS,documentoService.find() );
+		model.addAttribute(DOCUMENTOS,tipoDocumentoRepository.findAll() );
 		return PAGINA_GERENCIAR_DOCUMENTOS;
 	}
 	
@@ -144,7 +147,7 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.GET)
 	public String cadastroSelecao(Model model) {
 		
-		List<TipoDocumento> tiposDeDocumento = documentoService.find();
+		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
 
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("selecao", new Selecao());
@@ -156,10 +159,10 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
 	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
-			@RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos,BindingResult result, Authentication auth, RedirectAttributes redirect) {
+			@RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos, BindingResult result, Authentication auth) {
 		
 		Integer proxSequencial = selecaoService.getUltimoSequencialPorAno(selecao);
-		List<TipoDocumento> tiposDeDocumento = documentoService.find();
+		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
 		
 		selecao.setSequencial(proxSequencial);
 
@@ -204,7 +207,7 @@ public class CoordenadorController {
 			List<TipoDocumento> documentoSelecionados = new ArrayList<TipoDocumento>();
 			
 			for(Integer id: idstiposDocumentos){
-				TipoDocumento documento = documentoService.findById(id);
+				TipoDocumento documento = tipoDocumentoRepository.findById(id);
 				documentoSelecionados.add(documento);
 			}
 			
@@ -220,7 +223,7 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
-		List<TipoDocumento> tiposDeDocumento = documentoService.find();
+		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
 
 		if (selecao != null) {
 			model.addAttribute("action", "editar");
@@ -265,7 +268,7 @@ public class CoordenadorController {
 			List<TipoDocumento> documentoSelecionados = new ArrayList<TipoDocumento>();
 			
 			for(Integer id: idstiposDocumentos){
-				TipoDocumento documento = documentoService.findById(id);
+				TipoDocumento documento = tipoDocumentoRepository.findById(id);
 				documentoSelecionados.add(documento);
 			}
 			
@@ -367,7 +370,7 @@ public class CoordenadorController {
 						documento.setNome(mfiles.getOriginalFilename());
 						documento.setTipo(mfiles.getContentType());
 						
-						documentoService.salvarDocumento(documento);
+						documentoRepository.save(documento);
 						
 						Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 						selecao.getDocumentos().add(documento);
@@ -393,10 +396,10 @@ public class CoordenadorController {
 			+ "") Integer idDocumento, @ModelAttribute("selecao") Selecao selecao, 
 			Model model, RedirectAttributes redirect) {
 
-		Documento documento = documentoService.getDocumentoPorId(idDocumento);
+		Documento documento = documentoRepository.findById(idDocumento);
 
 		if (documento != null) {
-			documentoService.deletarDocumento(documento);
+			documentoRepository.delete(documento);
 
 			model.addAttribute("tipoBolsa", TipoSelecao.values());
 			model.addAttribute("selecao", selecao);

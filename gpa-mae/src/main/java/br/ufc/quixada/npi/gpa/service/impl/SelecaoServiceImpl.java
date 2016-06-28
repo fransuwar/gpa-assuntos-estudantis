@@ -28,11 +28,8 @@ public class SelecaoServiceImpl implements SelecaoService {
 				"from Selecao as p where p.tipoSelecao = :tipo and p.ano = :ano and p.sequencial = :sequencial",
 				new SimpleMap<String, Object>("tipo", selecao.getTipoSelecao(), "ano", selecao.getAno(),
 						"sequencial", selecao.getSequencial()));
-		if (selecoes == null || selecoes.isEmpty()) {
-			return false;
-		}
-		return true;
 
+		return !(selecoes == null || selecoes.isEmpty());
 	}
 	
 	
