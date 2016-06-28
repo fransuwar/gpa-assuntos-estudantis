@@ -864,6 +864,10 @@ a, .dropdown-menu > li > a{
 	border-bottom-color: #238b7f!important;
 }
 
+.btn.btn-warning i{
+	color: white !important;
+}
+
 .btn-info, .btn-info:focus, .btn-info > a{
 	color: #ffffff !important;
 	background-color: #f57900 !important;
@@ -944,6 +948,13 @@ input:focus, select:focus, textarea:focus{
 
 .row-centered{
 	margin: 0 auto !important;
+}
+
+.table-document{
+	min-width: 30%;
+}
+.table-document .table-doc-icon{
+	width: 10px;
 }
 
 .dropdown-menu > li > a:hover{
@@ -1071,4 +1082,5 @@ input:focus, select:focus, textarea:focus{
 	display: block;
 	margin-left: -40px;
 }
+
 

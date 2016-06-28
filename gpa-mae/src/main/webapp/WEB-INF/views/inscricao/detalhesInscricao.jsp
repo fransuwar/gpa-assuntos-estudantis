@@ -385,7 +385,7 @@
 					</div>
 					<div class="panel-body fechado">
 						<div class="form-group">
-							<table class="table table-striped table-hover">
+							<table class="table table-custom table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Nome:</th>
@@ -645,7 +645,7 @@
 							<c:forEach var="tipo"
 								items="${inscricao.selecao.tiposDeDocumento}">
 								<b>${tipo.nome}</b>
-								<ul class="documentos-lista">
+								<table class="documentos-lista">
 									<c:choose>
 										<c:when
 											test="${fn:length(inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
@@ -670,7 +670,7 @@
 											</c:forEach>
 										</c:otherwise>
 									</c:choose>
-								</ul>
+								</table>
 								<hr />
 							</c:forEach>
 							<c:if test="${inscricao.consolidacao eq false }">
@@ -688,28 +688,33 @@
 							<c:forEach var="tipo"
 								items="${inscricao.selecao.tiposDeDocumento}">
 								<b>${tipo.nome}</b>
-								<ul class="documentos-lista">
+								
 									<c:choose>
 										<c:when
 											test="${fn:length(inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos) eq 0}">
 											Nenhum documento enviado nessa categoria	
 										</c:when>
 										<c:otherwise>
-											<c:forEach var="documento"
-												items="${inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos}">
-												<li class=""><a class="no-decoration"
-													href="<c:url value="/selecao/visualizarDocumento/${documento.id}"></c:url>">${documento.nome}</a>
-													<a id="baixarDocumento"
-													href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
-														<button class="btn btn-warning btn-sm"
-															title="Baixar Documento">
-															<i class="glyphicon glyphicon-download-alt"></i>
-														</button>
-												</a></li>
-											</c:forEach>
+											<table class="table table-document table-hover">
+												<tbody>
+													<c:forEach var="documento"
+														items="${inscricao.documentacao.documentosTipoInscricao[tipo.id].documentos}">
+														<tr>
+															<td class="table-doc-icon">
+																<a class="btn btn-warning btn-sm" title="Baixar Documento" id="baixarDocumento" href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
+																	<i class="glyphicon glyphicon-download-alt"></i>
+																</a>
+															</td>
+															<td align="left">
+																<a href="<c:url value="/selecao/visualizarDocumento/${documento.id}"></c:url>">${documento.nome}</a>
+															</td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
 										</c:otherwise>
 									</c:choose>
-								</ul>
+						
 
 								<hr />
 							</c:forEach>
@@ -734,10 +739,8 @@
 															name="idInscricao" />
 													</div>
 												</div>
-												<div class="form-group">
-													<div class="col-sm-3 pull-right">
-														<input type="submit" class="button btn btn-primary"/>
-													</div>
+												<div class="form-group col-sm-2 col-sm-offset-8 margin-top-s1" align="right">
+													<input type="submit" class="button btn btn-primary"/>
 												</div>
 											</form:form>
 										</div>
@@ -872,31 +875,33 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">Membros da Família</h3>
 								</div>
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th>Nome</th>
-											<th>Parentesco</th>
-											<th>Escolaridade</th>
-											<th>Idade</th>
-											<th>Profissao</th>
-											<th>Renda R$</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="pessoa"
-											items="${inscricao.questionarioAuxilioMoradia.pessoas}">
+								<div class="panel-body">
+									<table class="table table-custom table-striped table-hover">
+										<thead>
 											<tr>
-												<td>${pessoa.nome}</td>
-												<td>${pessoa.parentesco.nome}</td>
-												<td>${pessoa.escolaridade.nome}</td>
-												<td>${pessoa.idade}</td>
-												<td>${pessoa.profissao}</td>
-												<td>${pessoa.rendaMensal}</td>
+												<th>Nome</th>
+												<th>Parentesco</th>
+												<th>Escolaridade</th>
+												<th>Idade</th>
+												<th>Profissao</th>
+												<th>Renda R$</th>
 											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
+										</thead>
+										<tbody>
+											<c:forEach var="pessoa"
+												items="${inscricao.questionarioAuxilioMoradia.pessoas}">
+												<tr>
+													<td>${pessoa.nome}</td>
+													<td>${pessoa.parentesco.nome}</td>
+													<td>${pessoa.escolaridade.nome}</td>
+													<td>${pessoa.idade}</td>
+													<td>${pessoa.profissao}</td>
+													<td>${pessoa.rendaMensal}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
 							</div>
 
 							<div class="panel panel-default panel-primary">
@@ -909,6 +914,7 @@
 											cssClass="form-horizontal" modelAttribute="pessoaDaFamilia"
 											commandName="pessoaDaFamilia"
 											servletRelativeAction="/servidor/inscricao/adicionarPessoaFamilia/${inscricao.id }">
+										
 											<div class="form-group">
 												<div class="col-sm-4 text-align-left">
 													<label for="nomePessoa" class="control-label">
@@ -953,15 +959,15 @@
 													<form:input cssClass="form-control"
 														id="rendaMensal" path="rendaMensal" required="required" />
 												</div>
-											</div>
-											<div class="form-btn">
-												<input type="submit" class="btn btn-primary"
+												<div class="col-sm-2 col-offset-sm-6 text-align-left">
+													<input type="submit" class="btn btn-primary"
 													value="Adicionar Pessoa" />
+												</div>
 											</div>
 										</form:form>
 									</div>
 
-									<table class="table" id="tabela-editar-pessoa-familia">
+									<table class="table table-hover" id="tabela-editar-pessoa-familia">
 										<thead>
 											<tr>
 												<th>Nome</th>
