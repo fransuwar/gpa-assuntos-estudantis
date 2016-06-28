@@ -463,19 +463,6 @@ public class AlunoController {
 			Authentication auth, RedirectAttributes redirect, @RequestParam(ID_SELECAO) Integer idSelecao,
 			Model model, @RequestParam("fileFoto") MultipartFile foto,	@PathVariable("idInscricao") Integer idInscricao) {
 
-		if(!this.verificarExtensaoFoto(foto)){
-			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
-			//Adicionando o erro no result.
-			result.addError(new ObjectError(ERROR, MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
-		}
-
-		try{
-			auxilioMoradia.setFoto(this.verificarConteudoFoto(foto));
-		}catch(IOException exception){
-			result.addError(new ObjectError(ERROR, MENSAGEM_ERRO_UPLOAD_FOTO));
-			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_UPLOAD_FOTO);
-		}
-
 		if (result.hasErrors()) {
 
 			model.addAttribute("action", "inscricao");
@@ -494,6 +481,25 @@ public class AlunoController {
 		}else{
 
 			Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
+			
+
+			if(!this.verificarExtensaoFoto(foto)){
+				redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
+				//Adicionando o erro no result.
+				result.addError(new ObjectError(ERROR, MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
+			}
+			
+			try{
+				if(foto != null && foto.getSize() > 0){
+					auxilioMoradia.setFoto(this.verificarConteudoFoto(foto));
+				}else{
+					// Se não foi adicionado foto na edição, deixar a foto anterior
+					auxilioMoradia.setFoto(inscricao.getQuestionarioAuxilioMoradia().getFoto());
+				}
+			}catch(IOException exception){
+				result.addError(new ObjectError(ERROR, MENSAGEM_ERRO_UPLOAD_FOTO));
+				redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_UPLOAD_FOTO);
+			}
 
 			auxilioMoradia.setComQuemMora(this.adicionarComQuemMora(comQuemMora));
 
