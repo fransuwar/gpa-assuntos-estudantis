@@ -4,13 +4,13 @@ body {
 }
 
 #checkbox-div {
-	padding: 0px;
+	padding: 0;
 	height: 20px;
 	width: 30px;
 }
 
 .checkbox {
-	margin: 0px;
+	margin: 0;
 }
 
 #alert-erro {
@@ -24,13 +24,13 @@ body {
 
 #div-form-buscar {
 	margin-bottom: 1%;
-	padding-left: 0%
+	padding-left: 0;
 }
 
 #div-btn-inserir {
 	margin-bottom: 1%;
-	padding-left: 0%;
-	padding-right: 0%;
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .right{
@@ -80,7 +80,7 @@ footer>p {
 }
 
 #navbar-brand {
-	padding: 0%;
+	padding: 0;
 }
 
 #table-visualiza-info-auxilio {
@@ -110,7 +110,7 @@ a, a:hover, a:visited, a:active, button, button:hover, button:visited,
 	button:active input.btn, input.btn:visited, input.btn:active, input.btn:focus
 	{
 	outline: medium none !important;
-	outline-offset: 0px !important;
+	outline-offset: 0 !important;
 	text-decoration: none !important;
 }
 
@@ -143,33 +143,33 @@ div.text-align-left {
 
 .p-container {
 	width: 100%;
-	margin: 0px;
+	margin: 0;
 	display: block;
 	position: relative;
 }
 
 div.first div.p-header {
-	border-radius: 10px 0px 0px 0px !important;
+	border-radius: 10px 0 0 0 !important;
 }
 
 div.last div.p-header {
-	border-radius: 0px 0px 0px 10px !important;
+	border-radius: 0 0 0 10px !important;
 }
 
 div.first div.p-body {
-	border-radius: 0px 10px 0px 0px !important;
+	border-radius: 0 10px 0 0 !important;
 }
 
 div.last div.p-body {
-	border-radius: 0px 0px 10px 0px !important;
+	border-radius: 0 0 10px 0 !important;
 }
 
 div.unique div.p-body {
-	border-radius: 0px 10px 10px 0px;
+	border-radius: 0 10px 10px 0;
 }
 
 div.unique div.p-header {
-	border-radius: 10px 0px 0px 10px;
+	border-radius: 10px 0 0 10px;
 }
 
 div.p-header {
@@ -178,10 +178,10 @@ div.p-header {
 	background-color: #00796B;
 	float: left;
 	width: 15%;
-	top: 0px;
-	bottom: 0px;
+	top: 0;
+	bottom: 0;
 	padding: 3px;
-	border-radius: 0px;
+	border-radius: 0;
 }
 
 .p-title {
@@ -197,11 +197,11 @@ div.p-header {
 div.p-body {
 	text-align: left;
 	padding: 3px;
-	margin: 0px;
+	margin: 0;
 	margin-left: 15%;
 	background-color: white;
 	border: 1px solid #009688;
-	border-radius: 0px 0px 0px text-align-left0px;
+	border-radius: 0 0 0 text-align-left0;
 	width: 85%;
 }
 
@@ -223,7 +223,7 @@ div.f-content {
 
 .content .body {
 	margin: 0 !important;
-	padding: 0px !important;
+	padding: 0 !important;
 	width: 100% !important;
 }
 
@@ -321,8 +321,8 @@ div.center-h{
 	margin: 0;
 	padding: 5px;
 	background-color: #237c73;
-	border-radius: 5px 5px 0px 0px;
-	box-shadow: 1px 0px 1px #babdb6;
+	border-radius: 5px 5px 0 0;
+	box-shadow: 1px 0 1px #babdb6;
 	text-align: left;
 	width: 100%;
 }
@@ -899,7 +899,7 @@ a, .dropdown-menu > li > a{
 
 .alert{
 	border: 0 !important;
-	border-radius: 0px;
+	border-radius: 0;
 }
 
 .alert.alert-info{
@@ -991,7 +991,7 @@ input:focus, select:focus, textarea:focus{
 	display: inline-block;
 	background-color: #ededed;
 	padding: 5px;
-	border-radius: 0px 0px 3px 3px;
+	border-radius: 0 0 3px 3px;
 }
 
 .documentos-aluno li:hover{

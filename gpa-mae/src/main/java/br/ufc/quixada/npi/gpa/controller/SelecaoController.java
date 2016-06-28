@@ -9,6 +9,10 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RANKING_CLASSIFICADO
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECIONAR_CLASSIFICADOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_AUX_MORADIA;
+
+
 
 import java.util.List;
 
@@ -72,7 +76,7 @@ public class SelecaoController {
 		Selecao selecao = selecaoRepository.getOne(idSelecao);
 
 		if (selecao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 
@@ -86,7 +90,7 @@ public class SelecaoController {
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		if (selecao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 
@@ -148,7 +152,7 @@ public class SelecaoController {
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("tipoBolsa", TipoSelecao.values());
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
+		model.addAttribute(TIPO_AUX_MORADIA, TipoSelecao.AUX_MOR);
 
 		return PAGINA_LISTAR_SELECAO;
 	}
@@ -160,7 +164,7 @@ public class SelecaoController {
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
+		model.addAttribute(TIPO_AUX_MORADIA, TipoSelecao.AUX_MOR);
 
 		return PAGINA_LISTAR_SELECAO;
 	}
@@ -192,7 +196,7 @@ public class SelecaoController {
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		if (selecao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
@@ -210,7 +214,7 @@ public class SelecaoController {
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		if (selecao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
@@ -234,13 +238,13 @@ public class SelecaoController {
 			@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect, Authentication auth){
 		
 		if(idsClassificados.isEmpty()){
-			model.addAttribute("erro", MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO);
+			model.addAttribute(ERRO, MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO);
 		}
 		
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 		 
 		 if (selecao == null) {
-				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}
 		 
@@ -248,7 +252,7 @@ public class SelecaoController {
 		 Integer vagasRestantes = selecao.getQuantidadeVagas() - classificados.size();		     	
 		 
 		 if(idsClassificados.size() > vagasRestantes){
-			 redirect.addFlashAttribute("erro", MENSAGEM_ERRO_QTD_VAGAS); 
+			 redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_QTD_VAGAS); 
 			return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + idSelecao;
 		 } else{		      
 		     for(Integer id: idsClassificados){
@@ -267,7 +271,7 @@ public class SelecaoController {
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 		
 		if (selecao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}		     		 
        
