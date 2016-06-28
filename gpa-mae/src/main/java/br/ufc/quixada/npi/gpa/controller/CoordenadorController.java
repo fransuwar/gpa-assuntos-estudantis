@@ -32,6 +32,10 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELE
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TIPOS_DOCUMENTO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ACTION;
+import static br.ufc.quixada.npi.gpa.utils.Constants.CADASTRAR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.EDITAR;
+
+
 
 
 
@@ -155,7 +159,7 @@ public class CoordenadorController {
 		
 		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
 
-		model.addAttribute(ACTION, "cadastrar");
+		model.addAttribute(ACTION, CADASTRAR);
 		model.addAttribute(SELECAO, new Selecao());
 		model.addAttribute(TIPOS_DOCUMENTO,tiposDeDocumento);
 
@@ -164,7 +168,7 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
-	public String cadastroSelecao(Model model,	@Valid @ModelAttribute(SELECAO) Selecao selecao, 
+	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
 			@RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos, BindingResult result, Authentication auth) {
 		
 		Integer proxSequencial = selecaoService.getUltimoSequencialPorAno(selecao);
@@ -172,7 +176,7 @@ public class CoordenadorController {
 		
 		selecao.setSequencial(proxSequencial);
 
-		model.addAttribute(ACTION, "cadastrar");
+		model.addAttribute(ACTION, CADASTRAR);
 
 		if (selecao != null && selecao.getAno() != null) {
 			if (selecao.getAno() < DateTime.now().getYear()) {
@@ -232,7 +236,7 @@ public class CoordenadorController {
 		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
 
 		if (selecao != null) {
-			model.addAttribute(ACTION, "editar");
+			model.addAttribute(ACTION, EDITAR);
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
 			model.addAttribute(SELECAO, selecao);
 			model.addAttribute("membrosComissao", selecao.getMembrosComissao());
@@ -251,7 +255,7 @@ public class CoordenadorController {
 			Model model, RedirectAttributes redirect, @RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos) {
 
 
-		model.addAttribute(ACTION, "editar");
+		model.addAttribute(ACTION, EDITAR);
 
 		if (selecaoAtualizada != null && selecaoAtualizada.getDataInicio() != null && selecaoAtualizada.getDataTermino() != null) {
 			if ((new DateTime(selecaoAtualizada.getDataTermino())).isBefore(new DateTime(selecaoAtualizada.getDataInicio()))) {
