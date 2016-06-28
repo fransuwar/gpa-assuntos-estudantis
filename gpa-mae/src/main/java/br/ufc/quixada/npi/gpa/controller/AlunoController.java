@@ -80,6 +80,7 @@ import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.repository.AnaliseDocumentacaoRepository;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.DocumentosTipoInscricaoRepository;
+import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
@@ -114,6 +115,9 @@ public class AlunoController {
 	
 	@Inject
 	private DocumentosTipoInscricaoRepository documentosTipoInscricaoRepository;
+	
+	@Inject
+	private InscricaoRepository inscricaoRepository;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
@@ -175,7 +179,7 @@ public class AlunoController {
 		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
-		if (inscricaoService.getInscricao(selecao, aluno) == null) {
+		if (inscricaoRepository.findInscricaoBySelecaoAndByAluno(selecao.getId(), aluno.getId()) == null) {
 			Inscricao inscricao = new Inscricao();
 
 			inscricao.setData(new Date());
@@ -184,7 +188,7 @@ public class AlunoController {
 			inscricao.setSelecao(selecao);
 			inscricao.setQuestionarioIniciacaoAcademica(iniciacaoAcademica);
 
-			inscricaoService.save(inscricao);
+			inscricaoRepository.save(inscricao);
 		} else {
 			redirect.addFlashAttribute("error", MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
@@ -201,7 +205,7 @@ public class AlunoController {
 
 		model.addAttribute("action", "editar");
 
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 
 		model.addAttribute("inscricao", inscricao);
 		model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
@@ -325,7 +329,7 @@ public class AlunoController {
 			
 			auxilioMoradia.setPessoasEntrevista(pessoasEntrevista);
 
-			if (inscricaoService.getInscricao(selecao, aluno) == null) {
+			if (inscricaoRepository.findInscricaoBySelecaoAndByAluno(selecao.getId(), aluno.getId()) == null) {
 
 				Inscricao inscricao = new Inscricao();
 
@@ -338,7 +342,7 @@ public class AlunoController {
 				auxilioMoradia.setComQuemMora(this.adicionarPessoaFamilia(comQuemMora));
 
 
-				inscricaoService.save(inscricao);
+				inscricaoRepository.save(inscricao);
 				
 				redirect.addFlashAttribute("info", MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO);		
 				redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
@@ -358,7 +362,7 @@ public class AlunoController {
 	public String editarInscricao(@PathVariable("idInscricao") Integer idInscricao, Model model,
 			RedirectAttributes redirect, Authentication auth) {
 
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		if(inscricao.isConsolidacao())
 			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 		
@@ -458,13 +462,13 @@ public class AlunoController {
 
 		}else{
 
-			Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
+			Inscricao inscricao = this.inscricaoRepository.findById(idInscricao);
 
 			auxilioMoradia.setComQuemMora(this.adicionarPessoaFamilia(comQuemMora));
 
 			inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
 
-			this.inscricaoService.update(inscricao);
+			this.inscricaoRepository.save(inscricao);
 
 		}
 
@@ -491,7 +495,7 @@ public class AlunoController {
 	@RequestMapping(value = "/inscricao/excluir/{idInscricao}", method = RequestMethod.GET)
 	public String excluirInscricao(@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect) {
 
-		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = this.inscricaoRepository.findById(idInscricao);
 		if(inscricao.isConsolidacao())
 			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 			
@@ -504,7 +508,7 @@ public class AlunoController {
 			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 			
 		} else{
-			inscricaoService.delete(inscricao);
+			inscricaoRepository.delete(inscricao);
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 
 		}
@@ -517,7 +521,7 @@ public class AlunoController {
 	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
 			RedirectAttributes redirect) {
 
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 		model.addAttribute("inscricao", inscricao);
@@ -622,7 +626,7 @@ public class AlunoController {
 	@RequestMapping(value = "/inscricao/adicionarDocumento/{idInscricao}", method = RequestMethod.POST)
 	public String enviarDocumento(MultipartFile formulario,	@PathVariable("idInscricao") Integer idInscricao, @RequestParam("idTipo") Integer idTipo, Model model, RedirectAttributes redirect) {
 
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 
 		try {
 			List<String> formatos = Arrays.asList("application/pdf");
@@ -673,7 +677,7 @@ public class AlunoController {
 					
 				}
 
-				inscricaoService.save(inscricao);
+				inscricaoRepository.save(inscricao);
 
 			}else{
 				model.addAttribute("error", MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO);
@@ -692,13 +696,13 @@ public class AlunoController {
 	@RequestMapping(value= {"inscricao/removerDocumento/{idInscricao}/{idTipo}/{idDocumento}"}, method = RequestMethod.GET)
 	public String removerDocumento(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idTipo") Integer idTipo, @PathVariable("idDocumento") Integer idDocumento, Model modelo){
 
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 
 		Documento documento = documentoRepository.findById(idDocumento);
 		
 		inscricao.getDocumentacao().getDocumentosTipoInscricao().get(idTipo).getDocumentos().remove(documento);
 
-		inscricaoService.save(inscricao);
+		inscricaoRepository.save(inscricao);
 
 		documentoRepository.delete(documento);
 

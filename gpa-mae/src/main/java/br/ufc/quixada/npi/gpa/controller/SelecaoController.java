@@ -38,6 +38,7 @@ import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
+import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
@@ -54,7 +55,7 @@ public class SelecaoController {
 
 	@Inject
 	private SelecaoService selecaoService;
-
+	
 	@Inject
 	private InscricaoService inscricaoService;
 	
@@ -66,6 +67,9 @@ public class SelecaoController {
 	
 	@Inject
 	private DocumentoRepository documentoRepository;
+	
+	@Inject
+	private InscricaoRepository inscricaoRepository;
 
 	@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoesPublico(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
@@ -93,7 +97,7 @@ public class SelecaoController {
 		model.addAttribute("selecao", selecao);
 
 		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
-		List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecaoPorAluno(selecao.getId(),aluno.getId());
+		List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecaoAndByAluno(selecao.getId(),aluno.getId());
 		boolean controle = false;
 		
 		model.addAttribute("aluno", aluno);
@@ -196,7 +200,7 @@ public class SelecaoController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
-		List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
+		List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
 
 		model.addAttribute("classificados", classificados);
 		
@@ -214,8 +218,8 @@ public class SelecaoController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
-		List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
-		List<Inscricao> classificaveis = inscricaoService.getClassificaveisPorSelecao(selecao);
+		List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
+		List<Inscricao> classificaveis = inscricaoRepository.findClassificaveisBySelecao(selecao.getId());
 		     
 		model.addAttribute("classificados", classificados);
 		model.addAttribute("classificaveis",classificaveis);
@@ -244,7 +248,7 @@ public class SelecaoController {
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}
 		 
-		 List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
+		 List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
 		 Integer vagasRestantes = selecao.getQuantidadeVagas() - classificados.size();		     	
 		 
 		 if(idsClassificados.size() > vagasRestantes){
@@ -252,7 +256,8 @@ public class SelecaoController {
 			return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + idSelecao;
 		 } else{		      
 		     for(Integer id: idsClassificados){
-		         inscricaoService.update(id,true);
+		         //inscricaoRepository.atualizarClassificados(id,true);
+		    	 inscricaoService.update(id,true);
 		     }
 		 }
 		
@@ -272,6 +277,7 @@ public class SelecaoController {
 		}		     		 
        
 		for(Integer id: idsClassificaveis){
+			//inscricaoRepository.atualizarClassificados(id,false);
 			inscricaoService.update(id,false);
 		}
 		

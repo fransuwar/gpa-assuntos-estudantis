@@ -444,9 +444,9 @@ public class CoordenadorController {
 		
 		//dividi o resultado já em 3 listas a serem exibidas na jsp
 		
-		List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
-		List<Inscricao> reservas = inscricaoService.getClassificaveisPorSelecao(selecao);
-		List<Inscricao> indeferidos = inscricaoService.getIndeferidosPorSelecao(selecao);
+		List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
+		List<Inscricao> reservas = inscricaoRepository.findClassificaveisBySelecao(selecao.getId());
+		List<Inscricao> indeferidos = inscricaoRepository.findIndeferidosBySelecao(selecao.getId());
 		
 		//ordeno de acordo com o nome dos alunos inscritos
 		Collections.sort(classificados);

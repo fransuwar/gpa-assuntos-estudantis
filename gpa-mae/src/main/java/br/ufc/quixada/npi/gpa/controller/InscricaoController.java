@@ -4,7 +4,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import br.ufc.quixada.npi.gpa.excecoes.FalhaCarregarImagemException;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
@@ -35,10 +35,13 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 public class InscricaoController {
 	
 	@Inject
-	private InscricaoService inscricaoService;
+	private SelecaoService selecaoService;
 	
 	@Inject
-	private SelecaoService selecaoService;
+	private InscricaoRepository inscricaoRepository;
+	
+	@Inject
+	private InscricaoService inscricaoService;
 	
 	private void enviarImagemPadraoEmCasoDeErro(HttpServletResponse response){
 		try {
@@ -51,7 +54,7 @@ public class InscricaoController {
 	
 	@RequestMapping("detalhes/fotoAluno/{idInscricao}")
 	public void pegarFotoAluno(@PathVariable("idInscricao") Integer idInscricao, HttpServletResponse response){
-		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = this.inscricaoRepository.findById(idInscricao);
 		
 		try {
 			
@@ -74,11 +77,11 @@ public class InscricaoController {
 	
 	@RequestMapping(value = {"consolidar/{idInscricao}"}, method = RequestMethod.GET)
 	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model){
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		List<Selecao> selecoes = selecaoService.getSelecoes();
 		
 		inscricao.setConsolidacao(true);
-		inscricaoService.update(inscricao);	
+		inscricaoRepository.save(inscricao);
 		
 		model.addAttribute("selecoes", selecoes);
 		
