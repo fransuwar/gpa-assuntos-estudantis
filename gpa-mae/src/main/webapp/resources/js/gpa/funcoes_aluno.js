@@ -217,7 +217,7 @@ var FormularioAuxilio = function() {
 			
 			//No caso de escolherem a opção outros no select e digitarem algo no campo outros 
 			//e depois mudarem de opção, o campo outros é limpo.
-			if($("#select-parentesco").val() != "OUTROS"){
+			if($("#select-parentesco").val() !== "OUTROS"){
 				$("input[name=outro]").val("");
 			}
 
@@ -273,11 +273,11 @@ var FormularioAuxilio = function() {
 				}
 				return true;
 			},
-			onFinishing: function(event, currentIndex) {
+			onFinishing: function() {
 				$formElement.validate().settings.ignore = ":disabled,:hidden";
 				return $formElement.valid();
 			},
-			onFinished: function(event, currentIndex) {
+			onFinished: function() {
 				$formElement.submit();
 			}
 		});
@@ -299,7 +299,7 @@ var FormularioAuxilio = function() {
 		$select.on("change", function(){
 			var valorSelecionado = $select.find("option:selected").text();
 
-			if(valorSelecionado == "Financiado"){
+			if(valorSelecionado === "Financiado"){
 				$divValorMensal.removeClass("hidden");
 			}else{
 				$divValorMensal.addClass("hidden");
@@ -321,7 +321,7 @@ var FormularioAuxilio = function() {
 		var extencoes = ["jpeg", "jpg", "png"];
 		var fileName = $input.val();
 
-		if(fileName == "")
+		if(fileName === "")
 			return true;
 
 		var extencaoFoto = fileName.split(".")[1] ? $input.val().split(".")[1] : "";
@@ -342,7 +342,7 @@ var FormularioAuxilio = function() {
 		var $input = $("#input-foto3x4");
 		var $spanError = $("#span-error-foto");
 		$spanError.text("");
-		$button.on("click", function(event){
+		$button.on("click", function(){
 			if(!isExtencaoFotoValida($input)){
 				$spanError.text("Foto com extensão inválida!");
 			}
