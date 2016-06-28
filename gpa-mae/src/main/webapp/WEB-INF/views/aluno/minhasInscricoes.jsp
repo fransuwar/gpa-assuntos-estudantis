@@ -18,6 +18,7 @@
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">
+	
 		<c:if test="${not empty info}">
 			<div class="alert alert-success alert-dismissible" role="alert"
 				id="alert-info">
@@ -29,9 +30,6 @@
 		</c:if>
 		<div class="col-md-12">
 			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Minhas Inscrições</h3>
-				</div>
 				<c:if test="${not empty erro}">
 					<div class="alert alert-danger alert-dismissible" role="alert"
 						id="alert-erro">
@@ -39,8 +37,13 @@
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 						</button>
 						<c:out value="${erro}"></c:out>
-					</div>
+						</div>
 				</c:if>
+				
+				<div class="panel-heading">
+					<h3 class="panel-title">Minhas Inscrições</h3>
+				</div>
+				
 				<c:if test="${not empty info}">
 					<div class="alert alert-success alert-dismissible" role="alert"
 						id="alert-info">

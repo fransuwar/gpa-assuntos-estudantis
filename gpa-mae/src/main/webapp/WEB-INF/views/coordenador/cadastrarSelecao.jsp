@@ -166,14 +166,14 @@
 										<c:choose>
 											<c:when test="${contains eq true }">
 												<div class="checkbox">
-													<input type="checkbox" id="tiposDeDocumento"
+													<input type="checkbox" id="tiposDeDocumento" data-toggle="toggle"
 														name="checkDocumentos[]" value="${documento.id }" required
 														checked>${documento.nome }
 												</div>
 											</c:when>
 											<c:otherwise>
 												<div class="checkbox">
-													<input type="checkbox" id="tiposDeDocumento"
+													<input type="checkbox" id="tiposDeDocumento" data-toggle="toggle"
 														name="checkDocumentos[]" value="${documento.id }" required>${documento.nome }
 												</div>
 											</c:otherwise>
