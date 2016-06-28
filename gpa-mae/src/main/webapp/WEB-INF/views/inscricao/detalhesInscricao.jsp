@@ -197,11 +197,11 @@
 							<div class='f-container s5'>
 								<label class='f-title'>Mora com:</label>
 								<ul class='mora-com-lista'>
-									<c:forEach var="pessoa"
+									<c:forEach var="mora"
 										items="${inscricao.questionarioAuxilioMoradia.comQuemMora }">
-										<c:if test="${pessoa.descricao ne 'OUTRO'}">
-											<li>${pessoa.descricao.nome}</li>
-										</c:if>
+
+											<li>${mora.descricao.nome}</li>
+
 									</c:forEach>
 								</ul>
 							</div>

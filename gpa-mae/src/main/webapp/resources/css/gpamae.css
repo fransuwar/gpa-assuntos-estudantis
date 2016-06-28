@@ -127,7 +127,7 @@ div.f-content select {
 	margin: 0;
 }
 
-label.title {
+.title {
 	width: 100%;
 	text-align: left;
 }
@@ -136,12 +136,12 @@ div.text-align-left {
 	text-align: left;
 }
 
-div.p-container-set {
+.p-container-set {
 	width: 100%;
 	border-radius: 5px;
 }
 
-div.p-container {
+.p-container {
 	width: 100%;
 	margin: 0px;
 	display: block;
@@ -184,7 +184,7 @@ div.p-header {
 	border-radius: 0px;
 }
 
-div.p-title {
+.p-title {
 	font-weight: bold;
 	color: white;
 	display: inline-block;
@@ -205,14 +205,14 @@ div.p-body {
 	width: 85%;
 }
 
-div.f-container {
+.f-container {
 	display: inline-table;
 	background-color: white;
 	margin: 1%;
 	text-align: left;
 }
 
-label.f-title {
+.f-title {
 	margin-left: 10px;
 	font-weight: bold !important;
 }
@@ -237,55 +237,55 @@ textarea {
 	resize: none;
 }
 
-div.half {
+.half {
 	width: 47%;
 }
 
-div.s1 {
+.s1 {
 	width: 7%;
 }
 
-div.s2 {
+.s2 {
 	width: 17%;
 }
 
-div.s2-half{
+.s2-half{
 	width: 20%;
 }
 
-div.s3 {
+.s3 {
 	width: 27%;
 }
 
-div.s4 {
+.s4 {
 	width: 37%;
 }
 
-div.s5 {
+.s5 {
 	width: 47%;
 }
 
-div.s6 {
+.s6 {
 	width: 57%;
 }
 
-div.s7 {
+.s7 {
 	width: 67%;
 }
 
-div.s8 {
+.s8 {
 	width: 77%;
 }
 
-div.s9 {
+.s9 {
 	width: 87%;
 }
 
-div.s10 {
+.s10 {
 	width: 97%;
 }
 
-div.s4-custom{
+.s4-custom{
 	width: 45%;
 }
 

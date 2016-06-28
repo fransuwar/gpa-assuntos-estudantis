@@ -11,6 +11,7 @@
 					<div class="card-icon">
 						<i class="fa fa-folder-open"></i>
 					</div>
+
 					<div class="card-description">INSCRIÇÕES</div>
 				</div>
 			</a>
@@ -110,3 +111,4 @@
 		</div>
 	</div>
 </div>
+

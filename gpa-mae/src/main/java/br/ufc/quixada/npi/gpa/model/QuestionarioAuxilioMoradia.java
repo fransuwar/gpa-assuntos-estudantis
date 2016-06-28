@@ -6,7 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -134,8 +133,8 @@ public class QuestionarioAuxilioMoradia {
 	@JoinTable( name = "inscricao_pessoa_familia_editado", 
 	   joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> pessoasEntrevista;
-	
-	@ManyToMany
+
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<ComQuemMora> comQuemMora;
 	
 	public QuestionarioAuxilioMoradia() {	

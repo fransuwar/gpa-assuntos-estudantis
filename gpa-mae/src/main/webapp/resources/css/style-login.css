@@ -60,17 +60,17 @@ body {
 	text-align: center;
 }
 
-div#div-captcha-erro {
+#div-captcha-erro {
 	margin-top: 10px;
 	margin-left: 15px;
 }
 
-div.controls {
+.controls {
 	text-align: center;
 	margin-top: 10px;
 }
 
-span#captcha-erro {
+#captcha-erro {
 	text-align: center;
 	color: #E74C3C;
 }
