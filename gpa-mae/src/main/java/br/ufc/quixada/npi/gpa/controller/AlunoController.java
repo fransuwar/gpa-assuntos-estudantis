@@ -409,6 +409,7 @@ public class AlunoController {
 					model.mergeAttributes(modelFormAuxilio.asMap());
 
 					model.addAttribute("selecao", inscricao.getSelecao());
+					model.addAttribute("action", "editar");
 
 					return PAGINA_INSCREVER_AUXILIO_MORADIA;
 				}
