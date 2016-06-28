@@ -446,7 +446,7 @@ var FormularioAuxilio = function() {
 		});
 	};
 	
-	//Copia os valores da residencia atual para a residencia de origem
+	//Copia os valores da residencia de origem para a residencia atual
 	self.initDivMesmoEndereco = function(){
 		$("#mesmoEndereco").click(function() {
 			if($(this).is(":checked")){
