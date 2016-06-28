@@ -2,11 +2,17 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
+
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
+
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
+
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_REALIZAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
@@ -21,11 +27,10 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -77,8 +82,9 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioIniciacaoAcademica;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
-import br.ufc.quixada.npi.gpa.service.AnaliseDocumentacaoService;
-import br.ufc.quixada.npi.gpa.service.DocumentoService;
+import br.ufc.quixada.npi.gpa.repository.AnaliseDocumentacaoRepository;
+import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
+import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.DocumentosTipoInscricaoService;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
@@ -100,16 +106,19 @@ public class AlunoController {
 	private UsuarioService usuarioService;
 
 	@Inject
-	private DocumentoService documentoService;
-
-	@Inject
 	private DocumentosTipoInscricaoService dtiService;
-
-	@Inject
-	private AnaliseDocumentacaoService documentacaoService;
-
+	
 	@Inject
 	private AlunoRepository alunoRepository;
+	
+	@Inject
+	private AnaliseDocumentacaoRepository documentacaoRepository;
+
+	@Inject
+	private DocumentoRepository documentoRepository;
+
+	@Inject
+	private TipoDocumentoRepository tipoDocumentoRepository;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
@@ -253,7 +262,7 @@ public class AlunoController {
 	}*/
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
-	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth) {
+	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth, RedirectAttributes redirect){
 
 		model.addAttribute("action", "inscricao");
 
@@ -263,13 +272,28 @@ public class AlunoController {
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
 
-		Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
-		model.mergeAttributes(modelFormAuxilio.asMap());
+		Date date = new Date();
+		
+		if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_REALIZAR_INSCRICAO);
+			return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
+		}else{
 
-		model.addAttribute("selecao", selecao);
-		model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
-
-		return PAGINA_INSCREVER_AUXILIO_MORADIA;
+			model.addAttribute("action", "inscricao");
+			
+			//Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+	
+			model.addAttribute("aluno", aluno);
+			model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
+			
+			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+			model.mergeAttributes(modelFormAuxilio.asMap());
+			
+			model.addAttribute("selecao", selecao);
+			model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
+	
+			return PAGINA_INSCREVER_AUXILIO_MORADIA;
+			}
 	}
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
@@ -373,7 +397,7 @@ public class AlunoController {
 			if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)) {
 
 				if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
-					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EDITAR_INSCRICAO);
+					redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EDITAR_INSCRICAO);
 					return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 				}else{
 
@@ -417,7 +441,7 @@ public class AlunoController {
 			}
 		}
 
-		redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+		redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
@@ -501,7 +525,7 @@ public class AlunoController {
 		Date date = new Date();
 
 		if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_INSCRICAO);
 			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 
 		} else{
@@ -526,10 +550,10 @@ public class AlunoController {
 
 		if (inscricao == null) {
 
-			redirect.addAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			redirect.addAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_INSCRICOES_ALUNO;
 
-		} else if (inscricao.getQuestionarioAuxilioMoradia() != null) {
+		}else if (inscricao.getQuestionarioAuxilioMoradia() != null) {
 
 			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){
 				model.addAttribute("esconderBotoes",true);
@@ -558,7 +582,7 @@ public class AlunoController {
 
 			return PAGINA_DETALHES_INSCRICAO;
 
-		} else {
+		} else{
 
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
@@ -634,7 +658,7 @@ public class AlunoController {
 				documento.setNome(formulario.getOriginalFilename());
 				documento.setTipo(formulario.getContentType());
 
-				documentoService.salvarDocumento(documento);
+				documentoRepository.save(documento);
 
 				AnaliseDocumentacao documentacao = null;
 				DocumentosTipoInscricao dti;
@@ -643,7 +667,7 @@ public class AlunoController {
 					documentacao = new AnaliseDocumentacao();
 					documentacao.setInscricao(inscricao);
 
-					TipoDocumento tipo = documentoService.findById(idTipo);
+					TipoDocumento tipo = tipoDocumentoRepository.findById(idTipo);
 
 					dti = new DocumentosTipoInscricao();					
 					dti.setTipo(tipo);
@@ -652,12 +676,12 @@ public class AlunoController {
 					documentacao.getDocumentosTipoInscricao().put(idTipo, dti);
 
 					dtiService.salvarDocumentosTipoInscricao(dti);
-					documentacaoService.salvarAnaliseDocumentacao(documentacao);				
+					documentacaoRepository.save(documentacao);				
 					inscricao.setDocumentacao(documentacao);				
 				} else{
 					dti = inscricao.getDocumentacao().getDocumentosTipoInscricao().get(idTipo);
 					if(dti == null){
-						TipoDocumento tipo = documentoService.findById(idTipo);
+						TipoDocumento tipo = tipoDocumentoRepository.findById(idTipo);
 
 						dti = new DocumentosTipoInscricao();											
 						dti.setTipo(tipo);
@@ -695,13 +719,13 @@ public class AlunoController {
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 
-		Documento documento = documentoService.getDocumentoPorId(idDocumento);
+		Documento documento = documentoRepository.findById(idDocumento);
 
 		inscricao.getDocumentacao().getDocumentosTipoInscricao().get(idTipo).getDocumentos().remove(documento);
 
 		inscricaoService.save(inscricao);
 
-		documentoService.deletarDocumento(documento);
+		documentoRepository.delete(documento);
 
 		modelo.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
 		modelo.addAttribute("inscricao", inscricao);

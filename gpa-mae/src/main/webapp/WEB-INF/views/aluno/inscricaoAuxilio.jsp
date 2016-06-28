@@ -180,7 +180,7 @@
 													<label class='f-title'>Quem são essas pessoas?</label>
 													<div class='f-content'>
 														<form:input id="comQuemMoraOutros"
-															path="comQuemMoraOutros" cssClass="form-control"
+															path="comQuemMoraOutros" cssClass="form-control" required="required"
 															placeholder="Com quem mora essas pessoas ?" />
 														<div class="error-validation">
 															<form:errors path="comQuemMoraOutros"></form:errors>
@@ -558,7 +558,7 @@
 										<div class="f-content">
 											<form:input id="outroGrauParentescoImovelRural"
 												path="outroGrauParentescoImovelRural"
-												cssClass="form-control"
+												cssClass="form-control" required="required"
 												placeholder="Outro grau de parentesco" style="display:none;" />
 											<div class="error-validation">
 												<form:errors path="outroGrauParentescoImovelRural"></form:errors>
@@ -625,7 +625,7 @@
 											parentesco:</label>
 										<div class="f-content">
 											<form:input id="outroGrauParentescoVeiculos"
-												path="outroGrauParentescoVeiculos" cssClass="form-control"
+												path="outroGrauParentescoVeiculos" cssClass="form-control" required="required"
 												placeholder="Outro grau de parentesco" style="display:none;" />
 											<div class="error-validation">
 												<form:errors path="outroGrauParentescoVeiculos"></form:errors>
@@ -669,7 +669,7 @@
 										<div class='f-content'>
 											<div class="input-group">
 												<form:input id="percentualParticularFundamental"
-													path="percentualParticularFundamental"
+													path="percentualParticularFundamental" required="required"
 													cssClass="form-control" data-mask="000"
 													placeholder="Digite um valor entre 0.1 e 100" min="0.1"
 													max="100" />
@@ -708,7 +708,7 @@
 										<div class='f-content'>
 											<div class="input-group">
 												<form:input id="percentualParticularMedio"
-													path="percentualParticularMedio" cssClass="form-control"
+													path="percentualParticularMedio" cssClass="form-control" required="required"
 													data-mask="000"
 													placeholder="Digite um valor entre 0.1 e 100" min="0.1"
 													max="100" />
@@ -799,7 +799,7 @@
 										<label class='f-title'> Descrição da Bolsa: </label>
 
 										<div class='f-content'>
-											<form:input id="descricaoBolsa" path="descricaoBolsa"
+											<form:input id="descricaoBolsa" path="descricaoBolsa" required="required"
 												cssClass="form-control" placeholder="Descrição Bolsa" />
 											<div class="error-validation">
 												<form:errors path="descricaoBolsa"></form:errors>
@@ -831,7 +831,7 @@
 										<label class='f-title'> Descrição da Graduação: </label>
 
 										<div class='f-content'>
-											<form:input id="descricaoGraduacao" path="descricaoGraduacao"
+											<form:input id="descricaoGraduacao" path="descricaoGraduacao" required="required"
 												cssClass="form-control" placeholder="Descricao da Graduacao" />
 											<div class="error-validation">
 												<form:errors path="descricaoGraduacao"></form:errors>
