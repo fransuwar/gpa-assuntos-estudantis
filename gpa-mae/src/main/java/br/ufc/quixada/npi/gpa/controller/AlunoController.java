@@ -358,11 +358,6 @@ public class AlunoController {
 				inscricao.setResultado(Resultado.NAO_AVALIADO);
 				auxilioMoradia.setComQuemMora(this.adicionarComQuemMora(comQuemMora));
 
-				System.out.println("==============  TESTE  =============");
-				for(ComQuemMora quemMora:auxilioMoradia.getComQuemMora()){
-					System.out.println(quemMora);
-				}
-
 				inscricaoService.save(inscricao);
 
 				redirect.addFlashAttribute("info", MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO);		
