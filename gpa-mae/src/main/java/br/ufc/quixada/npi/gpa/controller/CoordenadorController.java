@@ -29,6 +29,12 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SE
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.TIPOS_DOCUMENTO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ACTION;
+
+
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -149,16 +155,16 @@ public class CoordenadorController {
 		
 		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
 
-		model.addAttribute("action", "cadastrar");
-		model.addAttribute("selecao", new Selecao());
-		model.addAttribute("tiposDeDocumento",tiposDeDocumento);
+		model.addAttribute(ACTION, "cadastrar");
+		model.addAttribute(SELECAO, new Selecao());
+		model.addAttribute(TIPOS_DOCUMENTO,tiposDeDocumento);
 
 		return PAGINA_CADASTRAR_SELECAO;
 
 	}
 
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
-	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
+	public String cadastroSelecao(Model model,	@Valid @ModelAttribute(SELECAO) Selecao selecao, 
 			@RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos,BindingResult result, Authentication auth, RedirectAttributes redirect) {
 		
 		Integer proxSequencial = selecaoService.getUltimoSequencialPorAno(selecao);
@@ -166,7 +172,7 @@ public class CoordenadorController {
 		
 		selecao.setSequencial(proxSequencial);
 
-		model.addAttribute("action", "cadastrar");
+		model.addAttribute(ACTION, "cadastrar");
 
 		if (selecao != null && selecao.getAno() != null) {
 			if (selecao.getAno() < DateTime.now().getYear()) {
@@ -190,8 +196,8 @@ public class CoordenadorController {
 		}
 
 		if (result.hasErrors()) {
-			model.addAttribute("selecao", selecao);
-			model.addAttribute("tiposDeDocumento",tiposDeDocumento);
+			model.addAttribute(SELECAO, selecao);
+			model.addAttribute(TIPOS_DOCUMENTO,tiposDeDocumento);
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 
@@ -226,11 +232,11 @@ public class CoordenadorController {
 		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
 
 		if (selecao != null) {
-			model.addAttribute("action", "editar");
+			model.addAttribute(ACTION, "editar");
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
-			model.addAttribute("selecao", selecao);
+			model.addAttribute(SELECAO, selecao);
 			model.addAttribute("membrosComissao", selecao.getMembrosComissao());
-			model.addAttribute("tiposDeDocumento",tiposDeDocumento);
+			model.addAttribute(TIPOS_DOCUMENTO,tiposDeDocumento);
 			
 			return PAGINA_CADASTRAR_SELECAO;
 		}
@@ -241,11 +247,11 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
-	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecaoAtualizada, BindingResult result,
+	public String editarSelecao(@Valid @ModelAttribute(SELECAO) Selecao selecaoAtualizada, BindingResult result,
 			Model model, RedirectAttributes redirect, @RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos) {
 
 
-		model.addAttribute("action", "editar");
+		model.addAttribute(ACTION, "editar");
 
 		if (selecaoAtualizada != null && selecaoAtualizada.getDataInicio() != null && selecaoAtualizada.getDataTermino() != null) {
 			if ((new DateTime(selecaoAtualizada.getDataTermino())).isBefore(new DateTime(selecaoAtualizada.getDataInicio()))) {
@@ -254,7 +260,7 @@ public class CoordenadorController {
 		}
 
 		if (result.hasErrors()) {
-			model.addAttribute("selecao", selecaoAtualizada);
+			model.addAttribute(SELECAO, selecaoAtualizada);
 			model.addAttribute("tipoSelecao", TipoSelecao.values());
 
 			return PAGINA_CADASTRAR_SELECAO;
@@ -308,7 +314,7 @@ public class CoordenadorController {
 
 		model.addAttribute("idSelecao", idSelecao);
 		model.addAttribute("servidores", servidorService.listarServidores());
-		model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
+		model.addAttribute(SELECAO, selecaoService.getSelecaoPorId(idSelecao));
 		
 		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_COMISSAO);
 		
@@ -346,7 +352,7 @@ public class CoordenadorController {
 		
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 		if (selecao != null) {
-			model.addAttribute("selecao", selecao);
+			model.addAttribute(SELECAO, selecao);
 		}
 		
 		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_ARQUIVOS);
@@ -393,7 +399,7 @@ public class CoordenadorController {
 
 	@RequestMapping(value = "/selecao/excluir-documento/{idDocumento}", method = RequestMethod.GET)
 	public String excluirDocumento(@PathVariable("idDocumento"
-			+ "") Integer idDocumento, @ModelAttribute("selecao") Selecao selecao, 
+			+ "") Integer idDocumento, @ModelAttribute(SELECAO) Selecao selecao, 
 			Model model, RedirectAttributes redirect) {
 
 		Documento documento = documentoRepository.findById(idDocumento);
@@ -402,14 +408,14 @@ public class CoordenadorController {
 			documentoRepository.delete(documento);
 
 			model.addAttribute("tipoBolsa", TipoSelecao.values());
-			model.addAttribute("selecao", selecao);
+			model.addAttribute(SELECAO, selecao);
 
 			return  REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
 
 		} else {
 
 			model.addAttribute("tipoBolsa", TipoSelecao.values());
-			model.addAttribute("selecao", selecao);
+			model.addAttribute(SELECAO, selecao);
 			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
 
 			return REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
@@ -456,7 +462,7 @@ public class CoordenadorController {
 		modelo.addAttribute("classificados", classificados);
 		modelo.addAttribute("reservas", reservas);
 		modelo.addAttribute("indeferidos", indeferidos);
-		modelo.addAttribute("selecao", selecao);
+		modelo.addAttribute(SELECAO, selecao);
 		
 		modelo.addAttribute(Constants.ABA_SELECIONADA, "classificados-tab");
 		modelo.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
