@@ -2,7 +2,6 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DOCUMENTO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_OK;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_RUNTIME_EXCEPTION_DOCUMENTO;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
