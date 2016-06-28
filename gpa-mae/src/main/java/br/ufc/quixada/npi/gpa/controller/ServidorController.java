@@ -36,7 +36,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +45,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -186,19 +184,16 @@ public class ServidorController {
 	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, Model modelo){
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		try {
 			
-			Documento documento = documentoRepository.findById(idFormulario);
+		Documento documento = documentoRepository.findById(idFormulario);
+		if(documento != null){
 			inscricao.getVisitaDomiciliar().setFormularioVisita(null);
 			
 			inscricaoService.save(inscricao);
 			
-			documentoRepository.delete(documento);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+			documentoRepository.delete(documento);	
 		}
-		
+
 		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
 		modelo.addAttribute(INSCRICAO, inscricao);
 		
@@ -249,7 +244,7 @@ public class ServidorController {
 			List<Servidor> comissao = inscricao.getSelecao().getMembrosComissao();
 
 			if(comissao.contains(servidor) ){
-				if(inscricao.getVisitaDomiciliar().equals(null)){
+				if(inscricao.getVisitaDomiciliar() == null){
 					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().getDeferimento().equals(Resultado.DEFERIDO)){
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 

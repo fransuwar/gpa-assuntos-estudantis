@@ -2,7 +2,6 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DOCUMENTO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_OK;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_RUNTIME_EXCEPTION_DOCUMENTO;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.ufc.quixada.npi.gpa.excecoes.DocumentoNaoEncontradoRuntimeException;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 
@@ -45,7 +45,7 @@ public class DocumentoController {
 				response.flushBuffer();
 			}
 		} catch (IOException ex) {
-			throw new RuntimeException(MENSAGEM_RUNTIME_EXCEPTION_DOCUMENTO);
+			throw new DocumentoNaoEncontradoRuntimeException();
 		}
 
 	}
