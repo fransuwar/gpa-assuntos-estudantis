@@ -484,9 +484,9 @@ public class AlunoController {
 			
 
 			if(!this.verificarExtensaoFoto(foto)){
-				redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
+				redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
 				//Adicionando o erro no result.
-				result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
+				result.addError(new ObjectError(ERROR, MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
 			}
 			
 			try{
@@ -497,8 +497,8 @@ public class AlunoController {
 					auxilioMoradia.setFoto(inscricao.getQuestionarioAuxilioMoradia().getFoto());
 				}
 			}catch(IOException exception){
-				result.addError(new ObjectError("error", MENSAGEM_ERRO_UPLOAD_FOTO));
-				redirect.addFlashAttribute("error", MENSAGEM_ERRO_UPLOAD_FOTO);
+				result.addError(new ObjectError(ERROR, MENSAGEM_ERRO_UPLOAD_FOTO));
+				redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_UPLOAD_FOTO);
 			}
 
 			auxilioMoradia.setComQuemMora(this.adicionarComQuemMora(comQuemMora));
