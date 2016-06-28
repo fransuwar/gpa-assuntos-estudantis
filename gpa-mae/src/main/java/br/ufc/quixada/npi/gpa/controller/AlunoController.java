@@ -440,24 +440,18 @@ public class AlunoController {
 	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model){
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		List<Selecao> selecoes = selecaoService.getSelecoes();
-		
 		inscricao.setConsolidacao(true);
 		inscricaoService.update(inscricao);	
-		
 		model.addAttribute("selecoes", selecoes);
-				
-		
-		
+					
 		Runnable enviarEmail = new Runnable() {
 			@Override
-			public void run() {
-				
+			public void run() {		
 				Email email = new Email();
 				String from = "naoresponda@gpaassuntosestudantis.com";
-				String to = "romulocosta100@gmail.com";
-				String body = "Caros amigos, a complexidade dos estudos efetuados desafia a capacidade de equalização de alternativas às soluções ortodoxas.";
-				
-				
+				String to = inscricao.getAluno().getPessoa().getEmail();
+				System.out.println(inscricao.getAluno().getPessoa().getEmail());
+				String body = "Caros amigos, a complexidade dos estudos efetuados desafia a capacidade de equalização de alternativas às soluções ortodoxas.";								
 				email.setFrom(from);
 				email.setSubject("Assunto");
 				email.setText(body);
@@ -469,8 +463,6 @@ public class AlunoController {
 				} catch (MessagingException e) {
 					e.printStackTrace();
 				}
-			    System.out.println("Email!!");
-				
 			}
 			};
 		
