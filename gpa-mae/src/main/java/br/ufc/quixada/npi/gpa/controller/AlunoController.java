@@ -31,6 +31,18 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_IN
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.NIVEL_INSTRUCAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.SITUACAO_RESIDENCIA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ID_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DIAS_UTEIS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.TOTAL_ESTADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.GRAU_PARENTESCO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERROR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.QUESTIONARIO_AUXILIO_MORADIA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -91,8 +103,9 @@ import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
 
+
 @Controller
-@RequestMapping("aluno")
+@RequestMapping(ALUNO)
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
 public class AlunoController {
 
@@ -128,7 +141,7 @@ public class AlunoController {
 		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
 
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("aluno", aluno);
+		model.addAttribute(ALUNO, aluno);
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
@@ -137,26 +150,26 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
-	public String realizarInscricaoIniciacaoAcademica(@PathVariable("idSelecao") Integer idSelecao, Model model) {
+	public String realizarInscricaoIniciacaoAcademica(@PathVariable(ID_SELECAO) Integer idSelecao, Model model) {
 
 		model.addAttribute("action", "inscricao");
 
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
 		model.addAttribute("questionarioIniciacaoAcademica", new QuestionarioIniciacaoAcademica());
-		model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+		model.addAttribute(NIVEL_INSTRUCAO, NivelInstrucao.toMap());
 		model.addAttribute("turno", Turno.toMap());
-		model.addAttribute("diasUteis", DiaUtil.toMap());
-		model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
-		model.addAttribute("totalEstado", Estado.toMap());
-		model.addAttribute("grauParentesco", GrauParentesco.values());
-		model.addAttribute("selecao", selecao);	
+		model.addAttribute(DIAS_UTEIS, DiaUtil.toMap());
+		model.addAttribute(SITUACAO_RESIDENCIA, SituacaoResidencia.toMap());
+		model.addAttribute(TOTAL_ESTADO, Estado.toMap());
+		model.addAttribute(GRAU_PARENTESCO, GrauParentesco.values());
+		model.addAttribute(SELECAO, selecao);	
 
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
 
 	@RequestMapping(value = { "inscricao/iniciacao-academica" }, method = RequestMethod.POST)
-	public String realizarInscricaoIniciacaoAcademica(@RequestParam("idSelecao") Integer idSelecao,
+	public String realizarInscricaoIniciacaoAcademica(@RequestParam(ID_SELECAO) Integer idSelecao,
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
 			BindingResult result, Model model, RedirectAttributes redirect, Authentication auth) {
 
@@ -165,14 +178,14 @@ public class AlunoController {
 		if (result.hasErrors()) {
 
 			model.addAttribute("questionarioIniciacaoAcademica", iniciacaoAcademica);
-			model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+			model.addAttribute(NIVEL_INSTRUCAO, NivelInstrucao.toMap());
 			model.addAttribute("turno", Turno.toMap());
-			model.addAttribute("diasUteis", DiaUtil.toMap());
-			model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
-			model.addAttribute("totalEstado", Estado.toMap());
-			model.addAttribute("grauParentesco", GrauParentesco.values());
-			model.addAttribute("idSelecao", idSelecao);
-			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
+			model.addAttribute(DIAS_UTEIS, DiaUtil.toMap());
+			model.addAttribute(SITUACAO_RESIDENCIA, SituacaoResidencia.toMap());
+			model.addAttribute(TOTAL_ESTADO, Estado.toMap());
+			model.addAttribute(GRAU_PARENTESCO, GrauParentesco.values());
+			model.addAttribute(ID_SELECAO, idSelecao);
+			model.addAttribute(SELECAO, selecaoService.getSelecaoPorId(idSelecao));
 
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
@@ -191,11 +204,11 @@ public class AlunoController {
 
 			inscricaoService.save(inscricao);
 		} else {
-			redirect.addFlashAttribute("error", MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
+			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 
-		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
+		redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_INSCRICAO_REALIZADA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
@@ -208,15 +221,15 @@ public class AlunoController {
 
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 
-		model.addAttribute("inscricao", inscricao);
+		model.addAttribute(INSCRICAO, inscricao);
 		model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
-		model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
+		model.addAttribute(NIVEL_INSTRUCAO, NivelInstrucao.toMap());
 		model.addAttribute("turno", Turno.toMap());
-		model.addAttribute("diasUteis", DiaUtil.toMap());
-		model.addAttribute("situacaoResidencia", SituacaoResidencia.toMap());
-		model.addAttribute("totalEstado", Estado.toMap());
-		model.addAttribute("grauParentesco", GrauParentesco.values());
-		model.addAttribute("selecao", inscricao.getSelecao());
+		model.addAttribute(DIAS_UTEIS, DiaUtil.toMap());
+		model.addAttribute(SITUACAO_RESIDENCIA, SituacaoResidencia.toMap());
+		model.addAttribute(TOTAL_ESTADO, Estado.toMap());
+		model.addAttribute(GRAU_PARENTESCO, GrauParentesco.values());
+		model.addAttribute(SELECAO, inscricao.getSelecao());
 
 		return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 	}
@@ -269,8 +282,8 @@ public class AlunoController {
 		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
 
-		model.addAttribute("aluno", aluno);
-		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
+		model.addAttribute(ALUNO, aluno);
+		model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, new QuestionarioAuxilioMoradia());
 
 		Date date = new Date();
 		
@@ -279,17 +292,18 @@ public class AlunoController {
 			return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 		}else{
 
+		
 			model.addAttribute("action", "inscricao");
 			
 			//Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
 	
-			model.addAttribute("aluno", aluno);
-			model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
+			model.addAttribute(ALUNO, aluno);
+			model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, new QuestionarioAuxilioMoradia());
 			
 			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 			model.mergeAttributes(modelFormAuxilio.asMap());
 			
-			model.addAttribute("selecao", selecao);
+			model.addAttribute(SELECAO, selecao);
 			model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
 	
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
@@ -300,34 +314,34 @@ public class AlunoController {
 	public String realizarInscricaoAuxilioMoradia(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
 			BindingResult result, @RequestParam(value="mora", required=false) List<String> comQuemMora,
-			@RequestParam("idSelecao") Integer idSelecao, Authentication auth, RedirectAttributes redirect,
+			@RequestParam(ID_SELECAO) Integer idSelecao, Authentication auth, RedirectAttributes redirect,
 			Model model, @RequestParam("fileFoto") MultipartFile foto) {
 
 		if(!this.verificarExtensaoFoto(foto)){
-			redirect.addFlashAttribute("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
+			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO);
 			//Adicionando o erro no result.
-			result.addError(new ObjectError("error", MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
+			result.addError(new ObjectError(ERROR, MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO));
 		}
 
 		try{
 			auxilioMoradia.setFoto(this.verificarConteudoFoto(foto));
 		}catch(IOException exception){
-			result.addError(new ObjectError("error", MENSAGEM_ERRO_UPLOAD_FOTO));
-			redirect.addFlashAttribute("error", MENSAGEM_ERRO_UPLOAD_FOTO);
+			result.addError(new ObjectError(ERROR, MENSAGEM_ERRO_UPLOAD_FOTO));
+			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_UPLOAD_FOTO);
 		}
 
 		if (result.hasErrors()) {
 
 			model.addAttribute("action", "inscricao");
-			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
+			model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, auxilioMoradia);
 
 			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 			model.mergeAttributes(modelFormAuxilio.asMap());
 
-			model.addAttribute("idSelecao", idSelecao);
-			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
+			model.addAttribute(ID_SELECAO, idSelecao);
+			model.addAttribute(SELECAO, selecaoService.getSelecaoPorId(idSelecao));
 
-			redirect.addFlashAttribute("error", MENSAGEM_ERRO_DADOS_INSCRICAO);
+			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_DADOS_INSCRICAO);
 
 
 
@@ -360,12 +374,12 @@ public class AlunoController {
 
 				inscricaoService.save(inscricao);
 
-				redirect.addFlashAttribute("info", MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO);		
+				redirect.addFlashAttribute(INFO, MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO);		
 				redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
 				return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + inscricao.getId();
 
 			} else {
-				redirect.addFlashAttribute("error", MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
+				redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
 			}
 
@@ -396,14 +410,14 @@ public class AlunoController {
 					return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 				}else{
 
-					model.addAttribute("inscricao", inscricao);
-					model.addAttribute("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
+					model.addAttribute(INSCRICAO, inscricao);
+					model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, inscricao.getQuestionarioAuxilioMoradia());
 					model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
 
 					Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 					model.mergeAttributes(modelFormAuxilio.asMap());
 
-					model.addAttribute("selecao", inscricao.getSelecao());
+					model.addAttribute(SELECAO, inscricao.getSelecao());
 					model.addAttribute("action", "editar");
 
 					return PAGINA_INSCREVER_AUXILIO_MORADIA;
@@ -411,15 +425,15 @@ public class AlunoController {
 
 			} else {
 
-				model.addAttribute("inscricao", inscricao);
-				model.addAttribute("selecao", inscricao.getSelecao());
+				model.addAttribute(INSCRICAO, inscricao);
+				model.addAttribute(SELECAO, inscricao.getSelecao());
 				model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
-				model.addAttribute("nivelInstrucao", NivelInstrucao.values());
+				model.addAttribute(NIVEL_INSTRUCAO, NivelInstrucao.values());
 				model.addAttribute("turno", Turno.values());
-				model.addAttribute("diasUteis", DiaUtil.values());
-				model.addAttribute("situacaoResidencia", SituacaoResidencia.values());
-				model.addAttribute("totalEstado", Estado.values());
-				model.addAttribute("grauParentesco", GrauParentesco.getTodos());
+				model.addAttribute(DIAS_UTEIS, DiaUtil.values());
+				model.addAttribute(SITUACAO_RESIDENCIA, SituacaoResidencia.values());
+				model.addAttribute(TOTAL_ESTADO, Estado.values());
+				model.addAttribute(GRAU_PARENTESCO, GrauParentesco.getTodos());
 				model.addAttribute("escolaridade",Escolaridade.values());
 
 
@@ -446,21 +460,21 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.POST)
 	public String editarInscricaoPost(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
 			BindingResult result, @RequestParam(value="mora", required=false) List<String> comQuemMora, 
-			Authentication auth, RedirectAttributes redirect, @RequestParam("idSelecao") Integer idSelecao,
+			Authentication auth, RedirectAttributes redirect, @RequestParam(ID_SELECAO) Integer idSelecao,
 			Model model, @RequestParam("fileFoto") MultipartFile foto,	@PathVariable("idInscricao") Integer idInscricao) {
 
 		if (result.hasErrors()) {
 
 			model.addAttribute("action", "inscricao");
-			model.addAttribute("questionarioAuxilioMoradia", auxilioMoradia);
+			model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, auxilioMoradia);
 
 			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 			model.mergeAttributes(modelFormAuxilio.asMap());
 
-			model.addAttribute("idSelecao", idSelecao);
-			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
+			model.addAttribute(ID_SELECAO, idSelecao);
+			model.addAttribute(SELECAO, selecaoService.getSelecaoPorId(idSelecao));
 
-			redirect.addFlashAttribute("error", MENSAGEM_ERRO_DADOS_INSCRICAO);
+			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_DADOS_INSCRICAO);
 
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 
@@ -495,7 +509,7 @@ public class AlunoController {
 
 		}
 
-		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EDITADA);
+		redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_INSCRICAO_EDITADA);
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
@@ -507,7 +521,7 @@ public class AlunoController {
 
 		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
 
-		model.addAttribute("aluno", aluno);
+		model.addAttribute(ALUNO, aluno);
 		model.addAttribute("inscricoes", aluno.getInscricoes());
 
 
@@ -532,7 +546,7 @@ public class AlunoController {
 
 		} else{
 			inscricaoService.delete(inscricao);
-			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
+			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 
 		}
 
@@ -547,7 +561,7 @@ public class AlunoController {
 		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
-		model.addAttribute("inscricao", inscricao);
+		model.addAttribute(INSCRICAO, inscricao);
 		model.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
 
 		if (inscricao == null) {
@@ -565,10 +579,10 @@ public class AlunoController {
 
 
 			//Recebendo a mensagem recebida do redirect
-			String msgAddDocumentos = (String) model.asMap().getOrDefault("info", null);
+			String msgAddDocumentos = (String) model.asMap().getOrDefault(INFO, null);
 
 			if(msgAddDocumentos != null){
-				model.addAttribute("info",msgAddDocumentos);
+				model.addAttribute(INFO,msgAddDocumentos);
 			}
 
 			//Verificando se alguma aba específica foi setada no redirect
@@ -639,7 +653,7 @@ public class AlunoController {
 		model.addAttribute("tipoEnsino", TipoEnsino.values());
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 		model.addAttribute("moraCom", GrauParentesco.getTodosExcetoEu());
-		model.addAttribute("grauParentesco", GrauParentesco.getTodos());
+		model.addAttribute(GRAU_PARENTESCO, GrauParentesco.getTodos());
 		model.addAttribute("escolaridade", Escolaridade.values());
 
 		return model;
@@ -703,14 +717,14 @@ public class AlunoController {
 				inscricaoService.save(inscricao);
 
 			}else{
-				model.addAttribute("error", MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO);
+				model.addAttribute(ERROR, MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO);
 			}
 
 		} catch (IOException e) {
 
 		}
 
-		model.addAttribute("inscricao", inscricao);
+		model.addAttribute(INSCRICAO, inscricao);
 		model.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
 
 		return PAGINA_DETALHES_INSCRICAO;
@@ -730,7 +744,7 @@ public class AlunoController {
 		documentoRepository.delete(documento);
 
 		modelo.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
-		modelo.addAttribute("inscricao", inscricao);
+		modelo.addAttribute(INSCRICAO, inscricao);
 
 		return PAGINA_DETALHES_INSCRICAO;
 	}

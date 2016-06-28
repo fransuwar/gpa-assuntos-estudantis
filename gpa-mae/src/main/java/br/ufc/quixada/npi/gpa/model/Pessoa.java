@@ -30,15 +30,6 @@ import br.ufc.quixada.npi.gpa.enums.Estado;
 			})
 public class Pessoa {
 
-	public Pessoa() {
-		super();
-	}
-	
-	public Pessoa(Integer id, String nome){
-		this.id = id;
-		this.nome = nome;
-	}
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -69,6 +60,22 @@ public class Pessoa {
 	private String telefone;
 	
 	private String estadoCivil;
+	
+	@OneToMany(mappedBy="pessoa")
+	private List<Servidor> servidores;
+	
+	@OneToMany(mappedBy="pessoa")
+	private List<Aluno> alunos;
+	
+	public Pessoa() {
+		super();
+	}
+	
+	public Pessoa(Integer id, String nome){
+		this.id = id;
+		this.nome = nome;
+	}
+
 
 	public Estado getUf() {
 		return uf;
@@ -167,10 +174,6 @@ public class Pessoa {
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
 	}
-
-	
-	@OneToMany(mappedBy="pessoa")
-	private List<Aluno> alunos;
 	
 	public List<Servidor> getServidores() {
 		return servidores;
@@ -179,9 +182,6 @@ public class Pessoa {
 	public void setServidores(List<Servidor> servidores) {
 		this.servidores = servidores;
 	}
-
-	@OneToMany(mappedBy="pessoa")
-	private List<Servidor> servidores;
 	
 	public Integer getId() {
 		return id;

@@ -24,6 +24,10 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_IN
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MORADIA_ESTADO;
+
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -122,7 +126,7 @@ public class ServidorController {
 
 				if(comissao.contains(servidor)){
 
-					model.addAttribute("entrevista", new Entrevista());
+					model.addAttribute(ENTREVISTA, new Entrevista());
 					model.addAttribute("idInscricao", idInscricao);
 
 					return PAGINA_REALIZAR_ENTREVISTA;
@@ -191,7 +195,7 @@ public class ServidorController {
 		}
 
 		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
-		modelo.addAttribute("inscricao", inscricao);
+		modelo.addAttribute(INSCRICAO, inscricao);
 		
 		
 		return PAGINA_DETALHES_INSCRICAO;
@@ -215,7 +219,7 @@ public class ServidorController {
 			
 			inscricaoService.save(inscricao);
 			
-			model.addAttribute("inscricao", inscricao);
+			model.addAttribute(INSCRICAO, inscricao);
 			model.addAttribute(ABA_SELECIONADA, "visita-tab");
 			
 		} catch (IOException e) {
@@ -246,8 +250,8 @@ public class ServidorController {
 
 						model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 						model.addAttribute("curso", Curso.values());
-						model.addAttribute("moradiaEstado", EstadoMoradia.values());
-						model.addAttribute("inscricao", inscricao);
+						model.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
+						model.addAttribute(INSCRICAO, inscricao);
 						model.addAttribute("selecao", inscricao.getSelecao());
 						model.addAttribute("idInscricao", inscricao.getId());
 
@@ -279,8 +283,8 @@ public class ServidorController {
 		if (result.hasErrors()) {
 
 			model.addAttribute("curso", Curso.values());
-			model.addAttribute("moradiaEstado", EstadoMoradia.values());
-			model.addAttribute("inscricao", inscricao);
+			model.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
+			model.addAttribute(INSCRICAO, inscricao);
 			model.addAttribute("selecao", inscricao.getSelecao());
 
 			return PAGINA_RELATORIO_VISITA;
@@ -351,7 +355,7 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
-			modelo.addAttribute("inscricao", inscricao);
+			modelo.addAttribute(INSCRICAO, inscricao);
 			modelo.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
 			
 			//Verificando se alguma aba específica foi setada no redirect
@@ -365,15 +369,15 @@ public class ServidorController {
 			modelo.addAttribute(ABA_SELECIONADA, nomeAba);
 			
 			if(inscricao.getEntrevista()!=null)
-				modelo.addAttribute("entrevista", inscricao.getEntrevista());
+				modelo.addAttribute(ENTREVISTA, inscricao.getEntrevista());
 			else
-				modelo.addAttribute("entrevista", new Entrevista());
+				modelo.addAttribute(ENTREVISTA, new Entrevista());
 			    modelo.addAttribute("grauParentesco", GrauParentesco.values());
 			    modelo.addAttribute("escolaridade",Escolaridade.values());
 
 			return PAGINA_DETALHES_INSCRICAO;
 		}else {
-			modelo.addAttribute("inscricao", inscricao);
+			modelo.addAttribute(INSCRICAO, inscricao);
 			modelo.addAttribute("questInic", inscricao.getQuestionarioIniciacaoAcademica());
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
@@ -403,7 +407,7 @@ public class ServidorController {
 			
 		}
 		
-		modelo.addAttribute("inscricao", inscricao);
+		modelo.addAttribute(INSCRICAO, inscricao);
 		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
 		
 		return PAGINA_DETALHES_INSCRICAO;
@@ -419,7 +423,7 @@ public class ServidorController {
 		inscricaoService.save(inscricao);
 		
 		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
-		modelo.addAttribute("inscricao", inscricao);
+		modelo.addAttribute(INSCRICAO, inscricao);
 		
 		return PAGINA_DETALHES_INSCRICAO;
 	}
@@ -474,7 +478,7 @@ public class ServidorController {
 		PessoaFamilia pessoa = inscricaoService.buscarPessoaFamiliaPorId(idPessoa);
 		inscricao.getQuestionarioAuxilioMoradia().getPessoasEntrevista().remove(pessoa);
 		inscricaoService.update(inscricao);
-	    model.addAttribute("inscricao",inscricao);
+	    model.addAttribute(INSCRICAO,inscricao);
 	    redirect.addFlashAttribute(ABA_SELECIONADA,"entrevista-tab");
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 		}
