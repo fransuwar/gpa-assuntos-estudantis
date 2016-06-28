@@ -135,7 +135,8 @@
 									</div>
 
 									<div class='f-container s5'>
-										<label class='f-title'>*Estas informações estão corretas?</label>
+										<label class='f-title'>*Estas informações estão
+											corretas?</label>
 
 										<div class='f-content'>
 											<input type="checkbox" name="minhas-informacoes"
@@ -143,7 +144,7 @@
 											informações estão corretas<br /> <span
 												id='nao-minhas-informacoes'>Não, desejo </span><a href="#"
 												onclick="novaAba('http://identidadepessoa.intranet/')">alterar
-													informações</a>
+												informações</a>
 										</div>
 									</div>
 
@@ -169,7 +170,7 @@
 												<div id="col-sm-radio">
 													<c:forEach items="${moraCom }" var="mora" varStatus="count">
 														<input id="comQuemMora${count.index + 1 }" type="checkbox"
-															name="mora" value="${mora}" />
+															name="mora" value="${mora}"></input>
 														<label for="comQuemMora${count.index + 1 }">${mora.nome }</label>
 													</c:forEach>
 												</div>
@@ -230,7 +231,7 @@
 									<div class='p-title'>RESIDÊNCIA DE ORIGEM</div>
 								</div>
 
-								<div class='p-body'>						
+								<div class='p-body'>
 									<div class='f-container s3'>
 										<label class='f-title'> Rua/Av: </label>
 
@@ -285,7 +286,8 @@
 
 										<div class='f-content'>
 											<form:select path="estadoOrigem" id="estado-origem"
-												cssClass="form-control" cssStyle="font-size:13px">										</form:select>
+												cssClass="form-control" cssStyle="font-size:13px">
+											</form:select>
 											<div class="error-validation">
 												<form:errors path="estadoOrigem"></form:errors>
 											</div>
@@ -297,7 +299,7 @@
 										<label class='f-title'> Cidade: </label>
 
 										<div class='f-content'>
-										
+
 											<form:select id="cidade-origem" path="cidadeOrigem"
 												cssClass="form-control" placeholder="Cidade">
 											</form:select>
@@ -313,8 +315,7 @@
 
 										<div class='f-content'>
 											<form:input id="complementoOrigem" path="complementoOrigem"
-												cssClass="form-control"
-												placeholder="Complemento" />
+												cssClass="form-control" placeholder="Complemento" />
 											<div class="error-validation">
 												<form:errors path="complementoOrigem"></form:errors>
 											</div>
@@ -362,7 +363,7 @@
 
 										</div>
 									</div>
-									
+
 									<div class='f-container s5 hidden' id='div-valor-mensal'>
 										<label class='f-title'>Valor mensal do financiamento:</label>
 
@@ -387,8 +388,8 @@
 								</div>
 
 								<div class='p-body'>
-									<label class='f-title'><input type="checkbox" id="mesmoEndereco"
-												/> Mesmo endereço da residência de origem
+									<label class='f-title'><input type="checkbox"
+										id="mesmoEndereco" /> Mesmo endereço da residência de origem
 									</label><br>
 									<div class='f-container s3'>
 										<label class='f-title'> Rua/Av: </label>
@@ -473,8 +474,7 @@
 
 										<div class='f-content'>
 											<form:input id="complemento" path="complemento"
-												cssClass="form-control"
-												placeholder="Complemento" />
+												cssClass="form-control" placeholder="Complemento" />
 											<div class="error-validation">
 												<form:errors path="complemento"></form:errors>
 											</div>
@@ -499,7 +499,7 @@
 								</div>
 							</div>
 
-						
+
 
 							<div class='p-container'>
 								<div class='p-header'>
@@ -533,10 +533,10 @@
 											<div class="error-validation">
 												<form:errors path="areaPropriedadeRural"></form:errors>
 											</div>
-											
+
 										</div>
 									</div>
-									
+
 									<div class='f-container s3'>
 										<label class='f-title'>Cidade: </label>
 
@@ -549,14 +549,17 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="f-container s3">
-										<label for="outroGrauParentescoImovelRural" id="labelOutroGrauParentescoImovelRural"
-											class="f-title" style="display:none;">Especifique o grau de parentesco:</label>
+										<label for="outroGrauParentescoImovelRural"
+											id="labelOutroGrauParentescoImovelRural" class="f-title"
+											style="display: none;">Especifique o grau de
+											parentesco:</label>
 										<div class="f-content">
 											<form:input id="outroGrauParentescoImovelRural"
-												path="outroGrauParentescoImovelRural" cssClass="form-control"
-												placeholder="Outro grau de parentesco" style="display:none;"/>
+												path="outroGrauParentescoImovelRural"
+												cssClass="form-control"
+												placeholder="Outro grau de parentesco" style="display:none;" />
 											<div class="error-validation">
 												<form:errors path="outroGrauParentescoImovelRural"></form:errors>
 											</div>
@@ -598,7 +601,7 @@
 											</div>
 										</div>
 									</div>
-								
+
 
 									<div class='f-container s3'>
 										<label class='f-title'>Finalidade do veículo: </label>
@@ -614,14 +617,16 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="f-container s3">
-										<label for="outroGrauParentescoVeiculos" id="labelOutroGrauParentescoVeiculos"
-											class="f-title" style="display:none;">Especifique o grau de parentesco:</label>
+										<label for="outroGrauParentescoVeiculos"
+											id="labelOutroGrauParentescoVeiculos" class="f-title"
+											style="display: none;">Especifique o grau de
+											parentesco:</label>
 										<div class="f-content">
 											<form:input id="outroGrauParentescoVeiculos"
 												path="outroGrauParentescoVeiculos" cssClass="form-control"
-												placeholder="Outro grau de parentesco" style="display:none;"/>
+												placeholder="Outro grau de parentesco" style="display:none;" />
 											<div class="error-validation">
 												<form:errors path="outroGrauParentescoVeiculos"></form:errors>
 											</div>
@@ -661,14 +666,16 @@
 										id="percentualParticularFundamental">
 										<label class='f-title'>Percentual de Bolsa:</label>
 
-										<div class='f-content' >
+										<div class='f-content'>
 											<div class="input-group">
 												<form:input id="percentualParticularFundamental"
 													path="percentualParticularFundamental"
-													cssClass="form-control" data-mask="000" placeholder="Digite um valor entre 0.1 e 100" min="0.1" max="100"/>
-												<div class="input-group-addon">%</div>	
+													cssClass="form-control" data-mask="000"
+													placeholder="Digite um valor entre 0.1 e 100" min="0.1"
+													max="100" />
+												<div class="input-group-addon">%</div>
 											</div>
-											
+
 										</div>
 									</div>
 								</div>
@@ -702,7 +709,9 @@
 											<div class="input-group">
 												<form:input id="percentualParticularMedio"
 													path="percentualParticularMedio" cssClass="form-control"
-													data-mask="000" placeholder="Digite um valor entre 0.1 e 100" min="0.1" max="100" />
+													data-mask="000"
+													placeholder="Digite um valor entre 0.1 e 100" min="0.1"
+													max="100" />
 												<div class="input-group-addon">%</div>
 											</div>
 											<div class="error-validation">
@@ -770,12 +779,12 @@
 
 							<div class='p-body'>
 								<div class='f-container s5'>
-									<label class='f-title'> Bolsista UFC:
-									<form:select path="bolsistaUfc" id="bolsistaUfc" class="form-control" >
-									   	<option value="">Selecione...</option>
-									   	<option value="${true}">Sim</option>
-										<option value="${false}">Não</option>
-									</form:select>  
+									<label class='f-title'> Bolsista UFC: <form:select
+											path="bolsistaUfc" id="bolsistaUfc" class="form-control">
+											<option value="">Selecione...</option>
+											<option value="${true}">Sim</option>
+											<option value="${false}">Não</option>
+										</form:select>
 
 									</label>
 									<div class='f-content'>
@@ -784,11 +793,11 @@
 										</div>
 									</div>
 								</div>
-								
-								<div class='f-container s5' >
+
+								<div class='f-container s5'>
 									<div id="descricao_bolsa">
 										<label class='f-title'> Descrição da Bolsa: </label>
-	
+
 										<div class='f-content'>
 											<form:input id="descricaoBolsa" path="descricaoBolsa"
 												cssClass="form-control" placeholder="Descrição Bolsa" />
@@ -800,12 +809,12 @@
 								</div>
 
 								<div class='f-container s5'>
-									<label class='f-title'> Possui Graduação:
-									<form:select path="graduacao" id="graduacao" class="form-control">
-										<option value="">Selecione...</option>
-										<option value="${true}">Sim</option>
-										<option value="${false}">Não</option>
-									</form:select>  
+									<label class='f-title'> Possui Graduação: <form:select
+											path="graduacao" id="graduacao" class="form-control">
+											<option value="">Selecione...</option>
+											<option value="${true}">Sim</option>
+											<option value="${false}">Não</option>
+										</form:select>
 
 									</label>
 
@@ -817,10 +826,10 @@
 									</div>
 								</div>
 
-								<div class='f-container s5' >
+								<div class='f-container s5'>
 									<div id="descricao_graduacao">
 										<label class='f-title'> Descrição da Graduação: </label>
-	
+
 										<div class='f-content'>
 											<form:input id="descricaoGraduacao" path="descricaoGraduacao"
 												cssClass="form-control" placeholder="Descricao da Graduacao" />
@@ -870,13 +879,9 @@
 								</div>
 							</div>
 						</div>
-
 					</section>
-
 				</form:form>
-
 			</div>
-
 		</div>
 	</div>
 

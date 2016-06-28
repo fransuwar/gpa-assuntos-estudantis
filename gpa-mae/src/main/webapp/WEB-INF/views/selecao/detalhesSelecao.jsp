@@ -36,7 +36,7 @@
 										Editar inscrição <span class="glyphicon glyphicon-pencil"></span>
 									</a>
 									<a class=" btn btn-danger" id="editar" title="Editar"
-										href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id }" ></c:url>"
+										href="<c:url value="/aluno/inscricao/excluir/${inscricao.id }" ></c:url>"
 										onclick='return confirmarLink("Prosseguir fará com que sua inscrição seja excluída. Deseja continuar?")'>
 										Cancelar Inscrição <span class="glyphicon glyphicon-remove"></span>
 									</a>
