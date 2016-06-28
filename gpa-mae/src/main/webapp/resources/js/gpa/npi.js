@@ -150,7 +150,7 @@ $(document).ready(function(){
 
 
 
-	jQuery.validator.addMethod("periodo", function(value, element) {
+	jQuery.validator.addMethod("periodo", function() {
 		return !moment($("#dataTermino").val()).isBefore($("#dataInicio").val());
 	}, "A data de término deve ser posterior à data de início.");
 
@@ -244,7 +244,7 @@ $(document).ready(function(){
 		$("#btnSubmitForm").text("Adicionar");
 	});
 
-	$("#myModal").on("hidden.bs.modal", function(e) {
+	$("#myModal").on("hidden.bs.modal", function() {
 		document.getElementById("add-contato-form").reset();
 		var id = $("#id");
 	});

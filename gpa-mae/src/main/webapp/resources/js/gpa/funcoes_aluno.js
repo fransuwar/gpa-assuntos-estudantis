@@ -505,7 +505,7 @@ var FormularioAuxilio = function() {
 		//Mostrar o percentual de bolsa quando clicar na opção : "Particular com Bolsa"
 		$select.change(function() {
 			var option = $(this).find("option:selected").text();
-			if(option == "Particular com Bolsa"){
+			if(option === "Particular com Bolsa"){
 				$divBolsaParticularMedio.show();
 			} else {
 				$divBolsaParticularMedio.hide();
