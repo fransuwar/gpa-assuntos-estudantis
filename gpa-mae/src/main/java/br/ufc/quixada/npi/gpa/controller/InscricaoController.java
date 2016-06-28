@@ -24,8 +24,8 @@ import br.ufc.quixada.npi.gpa.excecoes.FalhaCarregarImagemException;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
+import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
@@ -35,13 +35,13 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 public class InscricaoController {
 	
 	@Inject
-	private SelecaoService selecaoService;
-	
-	@Inject
 	private InscricaoRepository inscricaoRepository;
 	
 	@Inject
 	private InscricaoService inscricaoService;
+	
+	@Inject
+	private SelecaoRepository selecaoRepository;
 	
 	private void enviarImagemPadraoEmCasoDeErro(HttpServletResponse response){
 		try {
@@ -78,7 +78,7 @@ public class InscricaoController {
 	@RequestMapping(value = {"consolidar/{idInscricao}"}, method = RequestMethod.GET)
 	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model){
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
-		List<Selecao> selecoes = selecaoService.getSelecoes();
+		List<Selecao> selecoes = selecaoRepository.findAll();
 		
 		inscricao.setConsolidacao(true);
 		inscricaoRepository.save(inscricao);

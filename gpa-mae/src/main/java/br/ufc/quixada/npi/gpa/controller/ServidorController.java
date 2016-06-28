@@ -65,9 +65,9 @@ import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.EntrevistaRepository;
 import br.ufc.quixada.npi.gpa.repository.ImagemRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
+import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.repository.VisitaDomiciliarRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
@@ -81,9 +81,6 @@ public class ServidorController {
 
 	@Inject
 	private ServidorService servidorService;
-
-	@Inject
-	private SelecaoService selecaoService;
 	
 	@Inject
 	private ImagemRepository imagemRepository;
@@ -99,6 +96,9 @@ public class ServidorController {
 	
 	@Inject
 	private VisitaDomiciliarRepository visitaRepository;
+	
+	@Inject
+	private SelecaoRepository selecaoRepository;
 	
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
@@ -324,7 +324,7 @@ public class ServidorController {
 	*/@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao,Authentication auth, Model model, RedirectAttributes redirect){
 
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -507,7 +507,7 @@ public class ServidorController {
 	@RequestMapping(value= {"relatorioVisitas/{idSelecao}"}, method = RequestMethod.GET)
 	public String relatorioDeVisitas(@PathVariable("idSelecao") Integer idSelecao, Model model){
 		
-		Selecao selecao = this.selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = this.selecaoRepository.findById(idSelecao);
 		
 		model.addAttribute("inscritosComVisita", selecao.getAlunosSelecionadosVisita());
 		model.addAttribute("inscritosSemVisita", selecao.getAlunosNaoSelecionadosVisita());

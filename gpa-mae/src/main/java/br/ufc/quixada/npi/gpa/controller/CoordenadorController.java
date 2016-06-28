@@ -64,8 +64,8 @@ import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
+import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
-import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
@@ -82,9 +82,6 @@ public class CoordenadorController {
 	private ServidorService servidorService;
 	
 	@Inject
-	private InscricaoService inscricaoService;
-	
-	@Inject
 	private InscricaoRepository inscricaoRepository;
 	
 	@Inject
@@ -92,6 +89,9 @@ public class CoordenadorController {
 	
 	@Inject
 	private TipoDocumentoRepository tipoDocumentoRepository;
+	
+	@Inject
+	private SelecaoRepository selecaoRepository;
 	
 	@RequestMapping(value = "excluir-tipo-documento/{id}", method = RequestMethod.GET)
 	public String excluirTipoDocumento(@PathVariable("id") Integer id,
@@ -134,7 +134,7 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(ModelMap model, HttpServletRequest request, Authentication auth){
 
-		List<Selecao> selecoes = this.selecaoService.getSelecoes();
+		List<Selecao> selecoes = this.selecaoRepository.findAll();
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("tipoSelecao", TipoSelecao.values());
@@ -215,14 +215,14 @@ public class CoordenadorController {
 			
 		}
 
-		this.selecaoService.save(selecao);
+		this.selecaoRepository.save(selecao);
 		return REDIRECT_PAGINA_DETALHES_SELECAO + selecao.getId();
 
 	}
 
 	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
 
 		if (selecao != null) {
@@ -261,7 +261,7 @@ public class CoordenadorController {
 		}
 
 		
-		Selecao selecao = selecaoService.getSelecaoPorId(selecaoAtualizada.getId());
+		Selecao selecao = selecaoRepository.findById(selecaoAtualizada.getId());
 		
         if(idstiposDocumentos != null ){
 			
@@ -282,7 +282,7 @@ public class CoordenadorController {
 		selecao.setDataTermino(selecaoAtualizada.getDataTermino());
 		selecao.setTipoSelecao(selecaoAtualizada.getTipoSelecao());
 
-		this.selecaoService.update(selecao);
+		this.selecaoRepository.save(selecao);
 
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_ATUALIZADA);
 
@@ -291,9 +291,9 @@ public class CoordenadorController {
 
 	@RequestMapping(value =  "selecao/excluir/{idSelecao}" , method = RequestMethod.GET)
 	public String excluirSelecao(@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect) {
-		Selecao selecao = this.selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = this.selecaoRepository.findById(idSelecao);
 		if (selecao != null && inscricaoRepository.countBySelecao_Id(idSelecao) == 0) {
-			this.selecaoService.delete(selecao);
+			this.selecaoRepository.delete(selecao);
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_SELECAO_REMOVIDA);
 		} else {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS);
@@ -308,7 +308,7 @@ public class CoordenadorController {
 
 		model.addAttribute("idSelecao", idSelecao);
 		model.addAttribute("servidores", servidorService.listarServidores());
-		model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
+		model.addAttribute("selecao", selecaoRepository.findById(idSelecao));
 		
 		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_COMISSAO);
 		
@@ -319,7 +319,7 @@ public class CoordenadorController {
 	public String atribuirPareceristaNoProjeto(@RequestParam("idSelecao") Integer idSelecao,
 			@RequestParam("idServidor") Integer idServidor, Model model, RedirectAttributes redirect) {
 
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 		List<Servidor> comissao = selecao.getMembrosComissao();
 		Servidor servidor = this.servidorService.getServidorPorId(idServidor);
 		
@@ -332,7 +332,7 @@ public class CoordenadorController {
 		} else {
 
 			selecao.getMembrosComissao().add(servidor);
-			selecaoService.update(selecao);
+			selecaoRepository.save(selecao);
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_COMISSAO_FORMADA);
 
 
@@ -344,7 +344,7 @@ public class CoordenadorController {
 	public String adicionarDocumento(@PathVariable("idSelecao") Integer idSelecao,
 			Model model, RedirectAttributes redirectAttributes) {
 		
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 		if (selecao != null) {
 			model.addAttribute("selecao", selecao);
 		}
@@ -372,10 +372,10 @@ public class CoordenadorController {
 						
 						documentoRepository.save(documento);
 						
-						Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+						Selecao selecao = selecaoRepository.findById(idSelecao);
 						selecao.getDocumentos().add(documento);
 						
-						selecaoService.save(selecao);
+						selecaoRepository.save(selecao);
 					}
 
 
@@ -420,14 +420,14 @@ public class CoordenadorController {
 	public String excluirMembroComissao(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
 			Model model, Authentication auth, RedirectAttributes redirect) {	
 
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 		Servidor coordenador = servidorService.getServidorPorCpf(auth.getName());			
 		Servidor servidor = this.servidorService.getServidorPorId(idServidor);
 
 		if(coordenador.getId() != servidor.getId()){
 
 			selecao.getMembrosComissao().remove(servidor);
-			selecaoService.update(selecao);
+			selecaoRepository.save(selecao);
 			redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO);
 		}else
 
@@ -440,7 +440,7 @@ public class CoordenadorController {
 	@RequestMapping(value = "/comissao/relatorioFinal/{idSelecao}")
 	public String getInformacoesRelatorioFinal(@PathVariable("idSelecao") Integer idSelecao, Model modelo){
 		
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 		
 		//dividi o resultado já em 3 listas a serem exibidas na jsp
 		

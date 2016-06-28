@@ -2,20 +2,17 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
-
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
-
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
-
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EDITAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_INSCRICAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_REALIZAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_REALIZAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
@@ -86,9 +83,9 @@ import br.ufc.quixada.npi.gpa.repository.AnaliseDocumentacaoRepository;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.DocumentosTipoInscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
+import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
 
@@ -96,9 +93,6 @@ import br.ufc.quixada.npi.ldap.service.UsuarioService;
 @RequestMapping("aluno")
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
 public class AlunoController {
-
-	@Inject
-	private SelecaoService selecaoService;
 
 	@Inject
 	private InscricaoService inscricaoService;
@@ -123,11 +117,14 @@ public class AlunoController {
 	
 	@Inject
 	private InscricaoRepository inscricaoRepository;
+	
+	@Inject
+	private SelecaoRepository selecaoRepository;
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 
-		List<Selecao> selecoes = selecaoService.getSelecoes();
+		List<Selecao> selecoes = selecaoRepository.findAll();
 
 		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
 
@@ -145,7 +142,7 @@ public class AlunoController {
 
 		model.addAttribute("action", "inscricao");
 
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 
 		model.addAttribute("questionarioIniciacaoAcademica", new QuestionarioIniciacaoAcademica());
 		model.addAttribute("nivelInstrucao", NivelInstrucao.toMap());
@@ -176,13 +173,13 @@ public class AlunoController {
 			model.addAttribute("totalEstado", Estado.toMap());
 			model.addAttribute("grauParentesco", GrauParentesco.values());
 			model.addAttribute("idSelecao", idSelecao);
-			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
+			model.addAttribute("selecao", selecaoRepository.findById(idSelecao));
 
 			return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 		}
 
 		Aluno aluno = alunoRepository.findByCpf(auth.getName());
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 
 		if (inscricaoRepository.findInscricaoBySelecaoAndByAluno(selecao.getId(), aluno.getId()) == null) {
 			Inscricao inscricao = new Inscricao();
@@ -271,7 +268,7 @@ public class AlunoController {
 		model.addAttribute("action", "inscricao");
 
 		Aluno aluno = alunoRepository.findByCpf(auth.getName());
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
@@ -329,7 +326,7 @@ public class AlunoController {
 			model.mergeAttributes(modelFormAuxilio.asMap());
 
 			model.addAttribute("idSelecao", idSelecao);
-			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
+			model.addAttribute("selecao", selecaoRepository.findById(idSelecao));
 
 			redirect.addFlashAttribute("error", MENSAGEM_ERRO_DADOS_INSCRICAO);
 
@@ -340,7 +337,7 @@ public class AlunoController {
 		} else {
 
 			Aluno aluno = alunoRepository.findByCpf(auth.getName());
-			Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+			Selecao selecao = selecaoRepository.findById(idSelecao);
 
 			List<PessoaFamilia> pessoasEntrevista = new ArrayList<>();
 			if(auxilioMoradia.getPessoas() != null){
@@ -475,7 +472,7 @@ public class AlunoController {
 			model.mergeAttributes(modelFormAuxilio.asMap());
 
 			model.addAttribute("idSelecao", idSelecao);
-			model.addAttribute("selecao", selecaoService.getSelecaoPorId(idSelecao));
+			model.addAttribute("selecao", selecaoRepository.findById(idSelecao));
 
 			redirect.addFlashAttribute("error", MENSAGEM_ERRO_DADOS_INSCRICAO);
 
