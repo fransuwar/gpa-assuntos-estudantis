@@ -184,10 +184,8 @@
 						</div>
 					</div>
 					<div class="form-btn">
-						<input type="submit" class="btn btn-primary" value="${botao }"
-							id="form-btn" /> <a
-							href="<c:url value="/servidor/selecao/listar"></c:url>"
-							class="btn btn-default" id="form-btn">Cancelar</a>
+						<a href="<c:url value="/servidor/selecao/listar"></c:url>" class="btn btn-default" id="form-btn">Cancelar</a>
+						<input type="submit" class="btn btn-primary" value="${botao }" id="form-btn" />
 					</div>
 				</form:form>
 			</div>
