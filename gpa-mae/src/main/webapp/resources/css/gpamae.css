@@ -753,6 +753,7 @@ div.input-photo {
 	text-align:center;
 	font-weight:bold;
 	font-size: 10px;
+	
 }
 
 .card:hover{
@@ -769,12 +770,8 @@ div.input-photo {
 
 .card .card-content{
 	position: relative;
-	padding-top: 17px;
-	padding-bottom: 17px;
 	margin: 0 auto;
 	width: 100%;
-	top: 50%;
-	transform: translateY(-50%);
 	display: block;
 	color: #555753 !important;
 }
@@ -783,7 +780,7 @@ div.input-photo {
 	color: #555753;
 	height: 100%;
 	margin: 0 auto;
-	padding:0;
+	padding:5px;
 	width: 100%;
 	display: block;
 	font-size: 28px;
@@ -933,10 +930,7 @@ input:focus, select:focus, textarea:focus{
 	background-color: #00796B;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 	color: white;
-	border-top-left-radius:3px !important;
-	border-top-right-radius:3px !important;
 }
-
 
 .th-center{
 	text-align: center;
