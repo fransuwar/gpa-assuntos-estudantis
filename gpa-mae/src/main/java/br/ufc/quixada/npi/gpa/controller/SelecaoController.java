@@ -1,4 +1,5 @@
 package br.ufc.quixada.npi.gpa.controller;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_QTD_VAGAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO;
@@ -9,10 +10,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RANKING_CLASSIFICADO
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECIONAR_CLASSIFICADOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_AUX_MORADIA;
-
-
 
 import java.util.List;
 
@@ -44,17 +42,14 @@ import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
+import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Named
 @RequestMapping("selecao")
 @SessionAttributes({ Constants.USUARIO_ID })
 public class SelecaoController {
-
-	@Inject
-	private ServidorService servidorService;
 	
 	@Inject
 	private InscricaoService inscricaoService;
@@ -70,6 +65,9 @@ public class SelecaoController {
 	
 	@Inject
 	private SelecaoRepository selecaoRepository;
+	
+	@Inject
+	private ServidorRepository servidorRepository;
 
 	@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoesPublico(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
@@ -160,7 +158,7 @@ public class SelecaoController {
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
-		List<Selecao> selecoes = this.servidorService.getServidorPorId(id).getParticipaComissao();
+		List<Selecao> selecoes = this.servidorRepository.findById(id).getParticipaComissao();
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);

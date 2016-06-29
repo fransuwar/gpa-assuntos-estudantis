@@ -70,9 +70,9 @@ import br.ufc.quixada.npi.gpa.repository.EntrevistaRepository;
 import br.ufc.quixada.npi.gpa.repository.ImagemRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
+import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
 import br.ufc.quixada.npi.gpa.repository.VisitaDomiciliarRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
@@ -82,9 +82,6 @@ public class ServidorController {
 	
 	@Inject
 	private InscricaoService inscricaoService;
-
-	@Inject
-	private ServidorService servidorService;
 	
 	@Inject
 	private ImagemRepository imagemRepository;
@@ -104,10 +101,13 @@ public class ServidorController {
 	@Inject
 	private SelecaoRepository selecaoRepository;
 	
+	@Inject
+	private ServidorRepository servidorRepository;
+	
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
-		Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
+		Servidor servidor = servidorRepository.findByCpf(auth.getName());
 		model.addAttribute("selecoes", servidor.getParticipaComissao());
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
@@ -128,7 +128,7 @@ public class ServidorController {
 
 				Selecao selecao = inscricao.getSelecao();
 
-				Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
+				Servidor servidor = servidorRepository.findByCpf(auth.getName());
 
 				List<Servidor> comissao = selecao.getMembrosComissao();
 
@@ -172,7 +172,7 @@ public class ServidorController {
 	public String entrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao,
 			RedirectAttributes redirect, Authentication auth, boolean realizarVisita ){
 		
-		Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
+		Servidor servidor = this.servidorRepository.findServidorComComissaoByCpf(auth.getName());
 		entrevista.setServidor(servidor);
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		inscricao.setEntrevista(entrevista);
@@ -247,7 +247,7 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
-			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
+			Servidor servidor = servidorRepository.findByCpf(auth.getName());
 
 			List<Servidor> comissao = inscricao.getSelecao().getMembrosComissao();
 
@@ -334,7 +334,7 @@ public class ServidorController {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		} else {
-			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
+			Servidor servidor = servidorRepository.findByCpf(auth.getName());
 			List<Servidor> comissao = selecao.getMembrosComissao();
 			if(comissao.contains(servidor)) {
 				List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecao(idSelecao);

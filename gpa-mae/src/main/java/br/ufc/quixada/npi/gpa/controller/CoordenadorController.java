@@ -1,6 +1,9 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.ACTION;
+import static br.ufc.quixada.npi.gpa.utils.Constants.CADASTRAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.EDITAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANEXO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR;
@@ -31,14 +34,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELE
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TIPOS_DOCUMENTO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ACTION;
-import static br.ufc.quixada.npi.gpa.utils.Constants.CADASTRAR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.EDITAR;
-
-
-
-
-
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,9 +70,9 @@ import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
+import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
 import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
-import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
@@ -87,9 +82,6 @@ public class CoordenadorController {
 	
 	@Inject
 	private SelecaoService selecaoService;
-
-	@Inject
-	private ServidorService servidorService;
 	
 	@Inject
 	private InscricaoRepository inscricaoRepository;
@@ -102,6 +94,9 @@ public class CoordenadorController {
 	
 	@Inject
 	private SelecaoRepository selecaoRepository;
+	
+	@Inject
+	private ServidorRepository servidorRepository;
 	
 	@RequestMapping(value = "excluir-tipo-documento/{id}", method = RequestMethod.GET)
 	public String excluirTipoDocumento(@PathVariable("id") Integer id,
@@ -205,7 +200,7 @@ public class CoordenadorController {
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 
-		Servidor coordenador = servidorService.getServidorPorCpf(auth.getName());
+		Servidor coordenador = servidorRepository.findByCpf(auth.getName());
 
 		if(selecao.getResponsavel() == null){
 			selecao.addCoordenador(coordenador);
@@ -317,7 +312,7 @@ public class CoordenadorController {
 			Model model, RedirectAttributes redirectAttributes) {
 
 		model.addAttribute("idSelecao", idSelecao);
-		model.addAttribute("servidores", servidorService.listarServidores());
+		model.addAttribute("servidores", servidorRepository.findAll());
 		model.addAttribute(SELECAO, selecaoRepository.findById(idSelecao));	
 		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_COMISSAO);
 		
@@ -330,7 +325,7 @@ public class CoordenadorController {
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
 		List<Servidor> comissao = selecao.getMembrosComissao();
-		Servidor servidor = this.servidorService.getServidorPorId(idServidor);
+		Servidor servidor = this.servidorRepository.findById(idServidor);
 		
 		
 		if (comissao.contains(servidor)) {
@@ -430,8 +425,8 @@ public class CoordenadorController {
 			Model model, Authentication auth, RedirectAttributes redirect) {	
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
-		Servidor coordenador = servidorService.getServidorPorCpf(auth.getName());			
-		Servidor servidor = this.servidorService.getServidorPorId(idServidor);
+		Servidor coordenador = servidorRepository.findByCpf(auth.getName());			
+		Servidor servidor = this.servidorRepository.findById(idServidor);
 
 		if(coordenador.getId() != servidor.getId()){
 
