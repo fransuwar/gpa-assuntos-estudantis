@@ -1,6 +1,21 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.STA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DISCENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DOCENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ADMINISTRADOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_LOGIN;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_LOGIN;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA_USUARIO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.LOGIN;
+
+
+
+
 import java.security.Principal;
 
 import javax.inject.Inject;
@@ -33,21 +48,21 @@ public class LoginController {
 
 				if (grantedAuthority.getAuthority().equalsIgnoreCase(STA) || grantedAuthority.getAuthority().equalsIgnoreCase(DOCENTE)){
 
-					return "redirect:/servidor/selecao/listar";
+					return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 				}
 				else if (grantedAuthority.getAuthority().equalsIgnoreCase(DISCENTE)){
 
-					return "redirect:/aluno/selecao/listar";
+					return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 
 				}else if (grantedAuthority.getAuthority().equalsIgnoreCase(ADMINISTRADOR)){
 
-					return "redirect:/servidor/selecao/listar";
+					return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 				}
 			}
 
 		}
 
-		return "redirect:/selecao/listar";
+		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -63,7 +78,7 @@ public class LoginController {
 		if (logout != null) {
 			model.addObject("msg", MENSAGEM_SUCESSO_LOGIN);
 		}
-		model.setViewName("login");
+		model.setViewName(LOGIN);
 
 		return model;
 
@@ -75,7 +90,7 @@ public class LoginController {
 	public String loginError(ModelMap model) {
 
 		model.addAttribute("erro", MENSAGEM_ERRO_LOGIN);
-		return "login";
+		return LOGIN;
 
 	}
 
@@ -83,7 +98,7 @@ public class LoginController {
 	public String logout(ModelMap model, HttpSession session) {
 		session.invalidate();
 
-		return "login";
+		return LOGIN;
 
 	}
 
