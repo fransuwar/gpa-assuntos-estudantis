@@ -176,10 +176,6 @@ public class VisitaDomiciliar {
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Receita receita;
 	
-	public VisitaDomiciliar() {
-		
-	}
-	
 	public Integer getId() {
 		return id;
 	}

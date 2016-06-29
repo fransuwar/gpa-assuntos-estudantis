@@ -137,9 +137,6 @@ public class QuestionarioAuxilioMoradia {
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<ComQuemMora> comQuemMora;
 	
-	public QuestionarioAuxilioMoradia() {	
-		
-	}
 	
 	public double getValorMensalFinanciamento() {
 		return valorMensalFinanciamento;
