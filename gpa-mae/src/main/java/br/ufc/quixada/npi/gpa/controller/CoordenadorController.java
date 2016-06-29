@@ -5,6 +5,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.CADASTRAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.EDITAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANEXO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR;
@@ -12,6 +13,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DATATERMINO_S
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR;
@@ -107,6 +109,7 @@ public class CoordenadorController {
 		if (tipoDocumento != null){
 			try{
 				tipoDocumentoRepository.delete(tipoDocumento);
+				redirect.addFlashAttribute(INFO, MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
 			}catch(JpaSystemException | PersistenceException | ConstraintViolationException e){
 				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO);
 			}
@@ -395,15 +398,17 @@ public class CoordenadorController {
 		return REDIRECT_PAGINA_ADICIONAR_ARQUIVO + idSelecao;
 	}
 
-	@RequestMapping(value = "/selecao/excluir-documento/{idDocumento}", method = RequestMethod.GET)
+	@RequestMapping(value = "/selecao/excluir-documento/{idSelecao}/{idDocumento}", method = RequestMethod.GET)
 	public String excluirDocumento(@PathVariable("idDocumento"
-			+ "") Integer idDocumento, @ModelAttribute(SELECAO) Selecao selecao, 
-			Model model, RedirectAttributes redirect) {
+			+ "") Integer idDocumento, 
+			@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 
+		Selecao selecao = selecaoRepository.findById(idSelecao);	
 		Documento documento = documentoRepository.findById(idDocumento);
 
 		if (documento != null) {
-			documentoRepository.delete(documento);
+			selecao.getDocumentos().remove(documento);
+			selecaoRepository.save(selecao);
 
 			model.addAttribute("tipoBolsa", TipoSelecao.values());
 			model.addAttribute(SELECAO, selecao);

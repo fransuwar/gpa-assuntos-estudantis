@@ -151,7 +151,7 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<label for="dataTermino" class="control-label"
-										id="text-align-left"><span class="red">*</span>Documentos
+										id="text-align-left">Documentos
 										Necessários:</label>
 								</div>
 								<div class="col-sm-12">

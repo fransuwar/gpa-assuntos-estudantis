@@ -12,7 +12,7 @@
 <html>
 <head>
 <jsp:include page="../fragments/headTag.jsp" />
-<title>Atribuir Parecerista</title>
+<title>Gerenciar Comissão</title>
 </head>
 
 <body>
