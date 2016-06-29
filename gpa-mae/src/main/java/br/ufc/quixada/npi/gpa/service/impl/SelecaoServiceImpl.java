@@ -34,13 +34,6 @@ public class SelecaoServiceImpl implements SelecaoService {
 		return !(selecoes == null || selecoes.isEmpty());
 	}
 	
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public List<Selecao> getSelecoesComMembros() {
-		return ((List<Selecao>) selecaoService.find("Selecao.findSelecoesComMembros", new SimpleMap<String, Object>()));
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -53,40 +46,6 @@ public class SelecaoServiceImpl implements SelecaoService {
 		}else{
 		return listSequencial.get(0)+1;
 		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Selecao> getSelecoes(){
-		return selecaoService.find(QueryType.JPQL,"select s from Selecao as s", 
-				new SimpleMap<String, Object>());
-	}
-	
-	@Override
-	public Selecao getSelecaoPorId(Integer id) {
-		return (Selecao) selecaoService.findFirst(QueryType.JPQL,"select s from Selecao as s where s.id = :idSelecao", 
-				new SimpleMap<String, Object>("idSelecao", id));	
-	}
-	
-
-	@Override
-	public void save(Selecao selecao) {
-		selecaoService.save(selecao);
-		
-	}
-
-
-	@Override
-	public void update(Selecao selecao) {
-		selecaoService.update(selecao);
-		
-	}
-
-
-	@Override
-	public void delete(Selecao selecao) {
-		selecaoService.delete(selecao);
-		
 	}
 	
 }
