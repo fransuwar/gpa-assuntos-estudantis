@@ -9,20 +9,46 @@ $(document).ready(function(){
 
 	$.fn.dataTable.ext.errMode = 'none';
 	
-	initDataTable(
-			"#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
-			"#tabela-ranking-classificados, #tabela-inscritos" +
-			"#table-visualiza-info-auxilio, #tabela-detalhes-selecao-servidores", 
-	false, false, false, false, "");
-	
-	
-	var tabelaClassificaveis = initDataTable('#tabela-classificaveis', false, false, false,
-			[[ 2, "cresc" ]], "Nenhum Aluno Classificável");
-			
-	
-	var tabelaClassificados = initDataTable('#tabela-classificados', false, false, false,
-			[[ 2, "cresc" ]], "Adicione pelo menos um aluno para a tabela dos classificados");
-		
+	function getConfigsParaPDF(containerId, tableId){
+		return {
+			language: {
+				url : "/MAE/resources/js/Portuguese-Brasil.json"
+			},
+			paging: false,
+			order: [[ 2, "cresc" ]],
+			ordering: false,
+			bInfo : false,
+			"columnDefs": [
+			               { className: "dt-body-left", "targets": [ 0 ] }
+			               ],
+			               dom: 'Bfrtip',
+			               buttons: [
+			                         {
+			                        	 extend: 'pdf',
+			                        	 text: 'Exportar como PDF',
+			                        	 customize: function(doc){
+			                        		 var colCount = new Array();
+			                        		 $('#'+tableId).find('tbody tr:first-child td').each(function(){
+			                        			 if($(this).attr('colspan')){
+			                        				 for(var i=1;i<=$(this).attr('colspan');$i++){
+			                        					 colCount.push('*');
+			                        				 }
+			                        			 }else{ colCount.push('*'); }
+			                        		 });
+			                        		 doc.content[1].table.widths = colCount;
+			                        	 }
+			                         }
+			                         ],
+			                         initComplete: function(settings, json) {
+
+			                        	 $('.buttons-pdf').parent().css('float', 'right');
+			                        	 $('.buttons-pdf').parent().css('margin-top', '-30px');
+			                        	 $('.buttons-pdf').parent().appendTo('#'+containerId);
+			                        	 $('.buttons-pdf').attr('class', 'btn btn-primary');
+
+			                         }
+		};
+	}
 
 	$("#confirm-delete").on("shown.bs.modal", function(e) {
 		$(this).find(".btn-danger").attr("href", $(e.relatedTarget).data("href"));
@@ -105,7 +131,7 @@ $(document).ready(function(){
 
 	$(".fechado").slideUp();
 
-	$(".panel-heading span.clicavel").on("click", function (e) {
+	$(".panel-heading span.clicavel").on("click", function () {
 		if ($(this).hasClass("panel-collapsed")) {
 			//Expande o painel
 			$(this).parents(".panel").find(".panel-body").slideDown();
@@ -150,7 +176,7 @@ $(document).ready(function(){
 
 
 
-	jQuery.validator.addMethod("periodo", function(value, element) {
+	jQuery.validator.addMethod("periodo", function() {
 		return !moment($("#dataTermino").val()).isBefore($("#dataInicio").val());
 	}, "A data de término deve ser posterior à data de início.");
 
@@ -244,7 +270,7 @@ $(document).ready(function(){
 		$("#btnSubmitForm").text("Adicionar");
 	});
 
-	$("#myModal").on("hidden.bs.modal", function(e) {
+	$("#myModal").on("hidden.bs.modal", function() {
 		document.getElementById("add-contato-form").reset();
 		var id = $("#id");
 	});
@@ -277,7 +303,7 @@ $(document).ready(function(){
 //Função genérica para iniciar os datatables
 function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
 	
-	emptyTableMsg = (emptyTableMsg == null || emptyTableMsg == "") ? "Nenhum registro encontrado" : emptyTableMsg;
+	emptyTableMsg = (emptyTableMsg === null || emptyTableMsg === "") ? "Nenhum registro encontrado" : emptyTableMsg;
 	
 	var dataTable = $(idTable).DataTable({
 		"paging": isPaging,
@@ -293,46 +319,21 @@ function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyT
 	return dataTable;
 }
 
-function getConfigsParaPDF(containerId, tableId){
-	return {
-		language: {
-			url : "/MAE/resources/js/Portuguese-Brasil.json"
-		},
-		paging: false,
-		order: [[ 2, "cresc" ]],
-		ordering: false,
-		bInfo : false,
-		"columnDefs": [
-		               { className: "dt-body-left", "targets": [ 0 ] }
-		               ],
-		               dom: 'Bfrtip',
-		               buttons: [
-		                         {
-		                        	 extend: 'pdf',
-		                        	 text: 'Exportar como PDF',
-		                        	 customize: function(doc){
-		                        		 var colCount = new Array();
-		                        		 $('#'+tableId).find('tbody tr:first-child td').each(function(){
-		                        			 if($(this).attr('colspan')){
-		                        				 for(var i=1;i<=$(this).attr('colspan');$i++){
-		                        					 colCount.push('*');
-		                        				 }
-		                        			 }else{ colCount.push('*'); }
-		                        		 });
-		                        		 doc.content[1].table.widths = colCount;
-		                        	 }
-		                         }
-		                         ],
-		                         initComplete: function(settings, json) {
+initDataTable(
+		"#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
+		"#tabela-ranking-classificados, #tabela-inscritos" +
+		"#table-visualiza-info-auxilio, #tabela-detalhes-selecao-servidores", 
+false, false, false, false, "");
 
-		                        	 $('.buttons-pdf').parent().css('float', 'right');
-		                        	 $('.buttons-pdf').parent().css('margin-top', '-30px');
-		                        	 $('.buttons-pdf').parent().appendTo('#'+containerId);
-		                        	 $('.buttons-pdf').attr('class', 'btn btn-primary');
 
-		                         }
-	};
-}
+var tabelaClassificaveis = initDataTable('#tabela-classificaveis', false, false, false,
+		[[ 2, "cresc" ]], "Nenhum Aluno Classificável");
+		
+
+var tabelaClassificados = initDataTable('#tabela-classificados', false, false, false,
+		[[ 2, "cresc" ]], "Adicione pelo menos um aluno para a tabela dos classificados");
+
+
 
 
 function confirmar(title, link){
@@ -389,62 +390,8 @@ function confirmar(title, link){
 	modal.modal();
 }
 
-
-function hasAttr($element, _attr){
-	var attr = $element.attr(_attr);
-	return (typeof attr !== typeof undefined && attr !== false);
-}
-
-
 function confirmarLink(mensagem){
 	return confirm(mensagem);
-}
-
-function mascaraIra(obj) {
-	var str = obj.value;
-
-	if(parseInt(str.substring(0, str.length-1)) == 10){
-		obj.value = 10;
-		return;
-	}
-
-	var aux = "";
-	for (var k = 0, p = false; k < str.length; k++) {
-		if (str[k] == "," || str[k] == ".") {
-			if (!p) {
-				aux += ".";
-				p = true;
-			}
-		} else
-			aux += str[k];
-	}
-	obj.value = str = aux;
-	var tam = str.length - 1;
-	var ch = str[tam];
-	var sub = str.substring(0, tam);
-	if (ch == "." && (tam < 1))
-		obj.value = sub;
-
-}
-
-function mascaraAgencia(obj){
-	var str = obj.value;
-
-	str = str.replace("x", "X");
-	str = str.replace("-", "");
-	var aux = "";
-	for(var k=0;k<str.length;k++){
-		if(aux.length==5) break;
-		if(str[k]>="0" && str[k]<="9") aux += str[k];
-		else {
-			if(aux.length==4 && str[k]=="X" ) aux += "X";
-		}
-	}
-	obj.value = str = aux;
-
-	if(str.length >= 5){
-		obj.value = str.substring(0,4)+"-"+str.substring(4,5);
-	}
 }
 
 function submeterForm() {

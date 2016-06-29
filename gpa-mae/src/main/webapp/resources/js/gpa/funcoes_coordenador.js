@@ -22,13 +22,11 @@ var FormularioDetalhesInscricao = function() {
 				data :{"idSelecao": idSelecao, "consolidacao": true},
 				dataType : 'json',
 
-				success : function(result) {
+				success : function() {
 					$('.toggle-event').each(function(){
 						$(this).prop('checked', true).change();
 
 					});
-					var idSelecao = $("#idSelecao").val()
-					
 
 				},
 				error : function(e,b) {
@@ -57,7 +55,6 @@ var FormularioDetalhesInscricao = function() {
 						$(this).prop('checked', false).change();
 
 					});
-					var idSelecao = $("#idSelecao").val()
 					
 
 				},
@@ -74,7 +71,7 @@ var FormularioDetalhesInscricao = function() {
 
 	//Muda a consolidação de uma inscrição
 	self.mudarConsolidacao = function() {
-		$('.toggle-event').parent().click(function(event){
+		$('.toggle-event').parent().click(function(){
 
 			var botao = $(this).find('.toggle-event');
 			
@@ -120,7 +117,7 @@ var CardPanel = function(){
 	self.selecionarCard = function(){
 		var cardSelected = $("#card-selected").text();
 		$(".card").removeClass("card-hover");
-		cards.forEach(function(card, index){
+		cards.forEach(function(card){
 			if(card === cardSelected){
 				$("#"+card).addClass("card-hover");
 			}
