@@ -456,11 +456,7 @@ sificados{
 	min-width: 100%;
 }
 
-#pesquisarClassificados{
-	margin-bottom: 8px;
-}
-
-#pesquisarClassificaveis{
+#pesquisarClassificaveis, #pesquisarClassificados{
 	margin-bottom: 8px;
 }
 
@@ -810,9 +806,6 @@ div.input-photo {
 	background-color: #dd4b39 !important;
 }
 
-.dataTables_filter {
-	display: none;
-}
 
 .navbar{
 	border-radius: 0 !important;
