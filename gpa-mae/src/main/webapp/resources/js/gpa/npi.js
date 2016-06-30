@@ -1,10 +1,47 @@
 var linha;
 
-$(document).ready(function(){	
+$(document).ready(function(){
 	
-//	$("#addPessoaFamilia").click(function(){
-//		$("#formPessoaFamilia").submit();
-//	});
+	//Função genérica para iniciar os datatables
+	function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
+		
+		emptyTableMsg = (emptyTableMsg === null || emptyTableMsg === "") ? "Nenhum registro encontrado" : emptyTableMsg;
+		
+		var dataTable = $(idTable).DataTable({
+			"paging": isPaging,
+			"order": order,
+			"ordering": isOrdering,
+			"bInfo" : false,
+			"searching": isSearching,
+			"language": {
+				"sEmptyTable": emptyTableMsg,
+				"url":"/MAE/resources/js/Portuguese-Brasil.json"
+			}
+		});
+		return dataTable;
+	}
+
+	initDataTable(
+			"#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
+			"#tabela-ranking-classificados, #tabela-inscritos" +
+			"#table-visualiza-info-auxilio, #tabela-detalhes-selecao-servidores", 
+	false, false, false, false, "");
+
+
+	var tabelaClassificaveis = initDataTable('#tabela-classificaveis', false, false, true,
+			[[ 2, "cresc" ]], "Nenhum Aluno Classificável");
+			
+
+	var tabelaClassificados = initDataTable('#tabela-classificados', false, false, true,
+			[[ 2, "cresc" ]], "Adicione pelo menos um aluno para a tabela dos classificados");
+	
+	$("#pesquisarClassificaveis").keyup(function() {
+		tabelaClassificaveis.search(this.value).draw();
+	});   
+
+	$("#pesquisarClassificados").keyup(function() {
+		tabelaClassificados.search(this.value).draw();
+	});
 	
 
 	$.fn.dataTable.ext.errMode = 'none';
@@ -83,14 +120,6 @@ $(document).ready(function(){
 	$('#resultadoFinalTableIndeferidos').DataTable( 
 			getConfigsParaPDF("buttons-container3", "resultadoFinalTableIndeferidos")
 	);
-
-	$("#pesquisarClassificaveis").keyup(function() {
-		tabelaClassificaveis.fnFilter(this.value);
-	});   
-
-	$("#pesquisarClassificados").keyup(function() {
-		tabelaClassificados.fnFilter(this.value);
-	});
 
 	//Submeter o formulário de Selecionar Classificados
 	$("#erro-checkbox").hide();
@@ -299,41 +328,6 @@ $(document).ready(function(){
 	
 	
 });
-
-//Função genérica para iniciar os datatables
-function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
-	
-	emptyTableMsg = (emptyTableMsg === null || emptyTableMsg === "") ? "Nenhum registro encontrado" : emptyTableMsg;
-	
-	var dataTable = $(idTable).DataTable({
-		"paging": isPaging,
-		"order": order,
-		"ordering": isOrdering,
-		"bInfo" : false,
-		"searching": isSearching,
-		"language": {
-			"sEmptyTable": emptyTableMsg,
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		}
-	});
-	return dataTable;
-}
-
-initDataTable(
-		"#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
-		"#tabela-ranking-classificados, #tabela-inscritos" +
-		"#table-visualiza-info-auxilio, #tabela-detalhes-selecao-servidores", 
-false, false, false, false, "");
-
-
-var tabelaClassificaveis = initDataTable('#tabela-classificaveis', false, false, false,
-		[[ 2, "cresc" ]], "Nenhum Aluno Classificável");
-		
-
-var tabelaClassificados = initDataTable('#tabela-classificados', false, false, false,
-		[[ 2, "cresc" ]], "Adicione pelo menos um aluno para a tabela dos classificados");
-
-
 
 
 function confirmar(title, link){
