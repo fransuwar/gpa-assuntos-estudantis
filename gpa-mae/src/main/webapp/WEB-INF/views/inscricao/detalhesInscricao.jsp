@@ -82,13 +82,25 @@
 							</sec:authorize>
 							<c:choose>
 								<c:when test="${inscricao.consolidacao eq false}">
-									<a data-target="#modal-consolidacao" data-toggle="modal"
-										data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
-										<button class="btn btn-success btn-sm"
-											title="Consolidar Inscrição">
-											<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
-										</button>
-									</a>
+									<sec:authorize access="hasAnyRole('DISCENTE')">
+										<a data-target="#modal-consolidacao" data-toggle="modal"
+											data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
+											<button class="btn btn-success btn-sm"
+												title="Consolidar Inscrição">
+												<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+											</button>
+										</a>
+									</sec:authorize>
+									<sec:authorize
+										access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+										<a data-target="#modal-consolidacao-servidor" data-toggle="modal"
+											data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
+											<button class="btn btn-success btn-sm"
+												title="Consolidar Inscrição">
+												<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+											</button>
+										</a>
+									</sec:authorize>
 								</c:when>
 								<c:otherwise>
 									<span class="label label-success">Inscrição consolidada</span>
@@ -1230,6 +1242,23 @@
 						Caso escolha sim, você não poderá mais editá-la. Caso escolha não,
 						é preciso que sua inscrição seja consolidada até o prazo final das
 						inscrições. Isso poderá ser feito na página das suas inscrições.</div>
+					<div class="modal-footer">
+						<a
+							href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>"
+							class="btn btn-primary">confirmar</a>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modal-consolidacao-servidor" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">Consolidar Inscrição</div>
+					<div class="modal-body">Confirmar a consolidação da
+						inscrição?</div>
 					<div class="modal-footer">
 						<a
 							href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>"
