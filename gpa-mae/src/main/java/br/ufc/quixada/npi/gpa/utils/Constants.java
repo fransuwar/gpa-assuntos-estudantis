@@ -306,6 +306,10 @@ public class Constants {
 	
 	public static final String DOCUMENTOS_TAB = "documentos-tab";
 	
+	public static final String INSCRICAO_TAB = "inscricao-tab";
+	
+	public static final String VISITA_TAB = "visita-tab";
+	
 	/** Comunicação Javascript com os cards**/
 	
 	public static final String CARD_SELECIONADO = "card";
@@ -315,9 +319,6 @@ public class Constants {
 	public static final String CARD_ARQUIVOS = "card-arquivos";
 	public static final String CARD_RELATORIO = "card-relatorio";
 	public static final String CARD_RANK = "card-rank";
-	
-	
-	public static final String INSCRICAO_TAB = "inscricao-tab";
 	
 	public static final String RESULTADO = "resultado";
 	

@@ -1,5 +1,7 @@
 package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.VISITA_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ALUNO_INDEFERIDO;
@@ -189,7 +191,7 @@ public class ServidorController {
 	
 	
 	@RequestMapping(value= {"visita/removerFormulario/{idInscricao}/{idFormulario}"}, method = RequestMethod.GET)
-	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, Model modelo){
+	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, RedirectAttributes redirect){
 
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 			
@@ -202,15 +204,15 @@ public class ServidorController {
 			documentoRepository.delete(documento);	
 		}
 
-		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
-		modelo.addAttribute(INSCRICAO, inscricao);
+		redirect.addFlashAttribute(ABA_SELECIONADA, VISITA_TAB);
+		redirect.addFlashAttribute(INSCRICAO, inscricao);
 		
 		
-		return PAGINA_DETALHES_INSCRICAO;
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO + inscricao.getId();
 	}
 	
 	@RequestMapping(value= {"visita/enviarFormulario/{idInscricao}"}, method = RequestMethod.POST)
-	public String enviarFormularioDeVisita(@PathVariable("idInscricao") Integer idInscricao, MultipartFile formulario, Model model){
+	public String enviarFormularioDeVisita(@PathVariable("idInscricao") Integer idInscricao, MultipartFile formulario, RedirectAttributes redirect){
 
 		try {
 			
@@ -227,14 +229,14 @@ public class ServidorController {
 			
 			inscricaoRepository.save(inscricao);
 			
-			model.addAttribute(INSCRICAO, inscricao);
-			model.addAttribute(ABA_SELECIONADA, "visita-tab");
+			redirect.addFlashAttribute(INSCRICAO, inscricao);
+			redirect.addFlashAttribute(ABA_SELECIONADA, VISITA_TAB);
 			
 		} catch (IOException e) {
 			// TODO: handle exception
 		}
 		
-		return PAGINA_DETALHES_INSCRICAO;
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
 
 	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
@@ -371,7 +373,7 @@ public class ServidorController {
 			
 			if(nomeAba == null){
 				//Se nenhuma aba foi setada então a aba padrão é selecionada 
-				nomeAba = "inscricao-tab"; 
+				nomeAba = INSCRICAO_TAB; 
 			}
 
 			modelo.addAttribute(ABA_SELECIONADA, nomeAba);
@@ -394,7 +396,7 @@ public class ServidorController {
 	}
 	
 	@RequestMapping(value ={ "detalhes/inscricao/inserirImagem"}, method = RequestMethod.POST)
-	public String inserirImagemDaVisitaNaInscricao(@RequestParam("foto") MultipartFile foto, Integer idInscricao, Model modelo){
+	public String inserirImagemDaVisitaNaInscricao(@RequestParam("foto") MultipartFile foto, Integer idInscricao, RedirectAttributes redirect){
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		
 		try {
@@ -415,14 +417,14 @@ public class ServidorController {
 			
 		}
 		
-		modelo.addAttribute(INSCRICAO, inscricao);
-		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
+		redirect.addFlashAttribute(INSCRICAO, inscricao);
+		redirect.addFlashAttribute(ABA_SELECIONADA, VISITA_TAB);
 		
-		return PAGINA_DETALHES_INSCRICAO;
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
 	
 	@RequestMapping(value ={ "detalhes/inscricao/removerImagem/{idInscricao}/{idImagem}"}, method = RequestMethod.GET)
-	public String removerImagemDaVisitaNaInscricao(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idImagem") Integer idImagem, Model modelo){
+	public String removerImagemDaVisitaNaInscricao(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idImagem") Integer idImagem, RedirectAttributes redirect){
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		Imagem imagem = imagemRepository.findById(idImagem);
 		
@@ -430,10 +432,10 @@ public class ServidorController {
 		
 		inscricaoRepository.save(inscricao);
 		
-		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
-		modelo.addAttribute(INSCRICAO, inscricao);
+		redirect.addFlashAttribute(ABA_SELECIONADA, VISITA_TAB);
+		redirect.addFlashAttribute(INSCRICAO, inscricao);
 		
-		return PAGINA_DETALHES_INSCRICAO;
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
 	
 	@RequestMapping(value={"detalhes/inscricao/adicionarObservacaoParecer"}, method = RequestMethod.POST)
@@ -448,7 +450,7 @@ public class ServidorController {
 			visitaRepository.save(visitaDomiciliar);
 		}
 		
-		redirect.addFlashAttribute(ABA_SELECIONADA, "visita-tab");
+		redirect.addFlashAttribute(ABA_SELECIONADA, VISITA_TAB);
 		
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
