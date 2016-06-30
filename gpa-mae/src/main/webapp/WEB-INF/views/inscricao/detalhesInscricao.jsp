@@ -821,9 +821,11 @@
 								</div>
 								<div class="panel-body">
 									<form:form id="relatorioForm" role="form"
-										modelAttribute="inscricao.entrevista" commandName="entrevista"
-										servletRelativeAction="${url}" method="POST">
+										modelAttribute="entrevista" commandName="entrevista"
+										servletRelativeAction="/servidor/entrevista" method="POST">
 
+										<input type="hidden" value="${inscricao.id}"
+											name="idInscricao">
 										<input type="hidden" id="idServidor" name="idServidor"
 											value="${sessionScope.id}" />
 										<input type="hidden" id="idEntrevista" name="idEntrevista"
@@ -852,9 +854,17 @@
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="realizarVisita" class="control-label">Realizar
-													Visita</label> <input type="checkbox" id="realizarVisita"
-													name="realizarVisita" value="true"
-													<c:if test="${inscricao.realizarVisita}">checked </c:if> />
+													Visita</label>
+												<c:choose>
+													<c:when test="${inscricao.realizarVisita}">
+														<input type="checkbox" id="realizarVisita"
+															name="realizarVisita" value="true" checked />
+													</c:when>
+													<c:otherwise>
+													    <input type="checkbox" id="realizarVisita"
+															name="realizarVisita" value="true" />
+													</c:otherwise>
+												</c:choose>
 											</fieldset>
 										</div>
 

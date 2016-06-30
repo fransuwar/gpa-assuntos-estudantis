@@ -170,14 +170,12 @@ public class ServidorController {
 
 	@RequestMapping(value="entrevista", method = RequestMethod.POST)
 	public String entrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao,
-			RedirectAttributes redirect, Authentication auth, boolean realizarVisita ){
+			RedirectAttributes redirect, Authentication auth, @RequestParam(value="realizarVisita", required=false) boolean realizarVisita ){
 		
 		Servidor servidor = this.servidorRepository.findServidorComComissaoByCpf(auth.getName());
 		entrevista.setServidor(servidor);
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		inscricao.setEntrevista(entrevista);
-
-		entrevista.setInscricao(inscricaoRepository.findById(idInscricao));
 		
 		inscricao.setRealizarVisita(realizarVisita);
 
