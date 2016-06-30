@@ -1238,6 +1238,23 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="modal fade" id="modal-consolidacao-servidor" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">Consolidar Inscrição</div>
+					<div class="modal-body">Confirmar a consolidação da
+						inscrição?</div>
+					<div class="modal-footer">
+						<a
+							href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>"
+							class="btn btn-primary">confirmar</a>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
