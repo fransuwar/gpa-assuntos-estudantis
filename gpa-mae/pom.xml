@@ -68,29 +68,34 @@
 	</repositories>
 
 	<dependencies>
-	
-	<dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-core</artifactId>
-    <version>2.7.4</version>
-</dependency>
 
-<dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-databind</artifactId>
-    <version>2.7.4</version>
-</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.7.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.7.4</version>
+		</dependency>
+		
+		
 		<!-- NPI Core -->
 		<dependency>
 			<groupId>br.ufc.quixada.npi</groupId>
 			<artifactId>npi-core-api</artifactId>
 			<version>${npi.core.version}</version>
+
 			<exclusions>
 				<exclusion>
 					<artifactId>mail</artifactId>
 					<groupId>javax.mail</groupId>
 				</exclusion>
 			</exclusions>
+
+
 		</dependency>
 
 		<dependency>
@@ -157,15 +162,15 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.data</groupId>
-		    <artifactId>spring-data-jpa</artifactId>
-		    <version>1.10.1.RELEASE</version>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.10.1.RELEASE</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-beans</artifactId>
-		    <version>${spring.version}</version>
-		  </dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
 		<!-- FileUpload -->
 		<dependency>
@@ -296,12 +301,17 @@
 			<version>2.7</version>
 		</dependency>
 
+		<!-- spring data jpa -->
 
-	
-		
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.8.0.RELEASE</version>
+		</dependency>
+
 	</dependencies>
-	
-	
+
+
 
 	<build>
 		<finalName>MAE</finalName>

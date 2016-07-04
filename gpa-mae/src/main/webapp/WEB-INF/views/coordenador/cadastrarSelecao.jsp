@@ -36,14 +36,13 @@
 				<h3 class="panel-title">${titulo }</h3>
 			</div>
 			<div class="panel-body">
-			
 				<c:if test="${not empty erro}">
 					<div class="alert alert-danger alert-dismissible" role="alert"
 						id="alert-erro">
 						<button type="button" class="close" data-dismiss="alert">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 						</button>
-						<div style="text-align:center">
+						<div>
 							<c:out value="${erro}"></c:out>
 						</div>
 					</div>
@@ -54,7 +53,7 @@
 						<button type="button" class="close" data-dismiss="alert">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 						</button>
-						<div style="text-align:center">
+						<div>
 							<c:out value="${info}"></c:out>
 						</div>
 					</div>
@@ -76,8 +75,9 @@
 
 					<div class="form-group">
 						<div class="col-sm-6">
-							<label for="tipoSelecao" class="control-label" id="text-align-left">
-								<span class="red">*</span>Tipo de Seleção:
+							<label for="tipoSelecao" class="control-label"
+								id="text-align-left"> <span class="red">*</span>Tipo de
+								Seleção:
 							</label>
 
 							<form:select path="tipoSelecao" id="tipoSelecao"
@@ -109,7 +109,7 @@
 
 							<form:input id="ano" type="text" path="ano"
 								cssClass="form-control" placeholder="ano"
-								onkeypress="mascara(this,soNumeros)" />
+								onkeypress="mascara(this,soNumeros)" readonly="true"/>
 							<div class="error-validation" id="erro-ano">
 								<label class="col-sm-10 control-label" id="label-erro">
 									${dataError} </label>
@@ -126,7 +126,8 @@
 								das Inscrições:</label>
 
 							<form:input id="dataInicio" type="text" path="dataInicio"
-								cssClass="form-control data" placeholder="dd/mm/aaaa" />
+								cssClass="form-control data" placeholder="dd/mm/aaaa" readonly="true"
+								/>
 							<div class="error-validation" id="erro-dataInicio">
 								<label class="col-sm-10 control-label" id="label-erro">
 									${dataInicioError} </label>
@@ -140,7 +141,7 @@
 								Inscrições:</label>
 
 							<form:input id="dataTermino" type="text" path="dataTermino"
-								cssClass="form-control data" placeholder="dd/mm/aaaa" />
+								cssClass="form-control data" placeholder="dd/mm/aaaa" readonly="true"/>
 							<div class="error-validation" id="erro-dataTermino">
 								<form:errors path="dataTermino"></form:errors>
 							</div>
@@ -155,17 +156,38 @@
 								</div>
 								<div class="col-sm-12">
 									<c:forEach var="documento" items="${tiposDeDocumento }">
-										<div class="checkbox"> <input type="checkbox" id="tiposDeDocumento"
-										 name="checkDocumentos[]" value="${documento.id }" required>${documento.nome }
-										</div>
+									    <c:set var="contains" value="false" />
+										<c:forEach var="documentoSelecionado"
+											items="${selecao.tiposDeDocumento }">
+											<c:if test="${documento.id eq documentoSelecionado.id }">
+												<c:set var="contains" value="true" />
+											</c:if>
+										</c:forEach>
+										<c:choose>
+											<c:when test="${contains eq true }">
+												<div class="checkbox">
+													<input type="checkbox" id="tiposDeDocumento" data-toggle="toggle"
+														name="checkDocumentos[]" value="${documento.id }" required
+														checked>${documento.nome }
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="checkbox">
+													<input type="checkbox" id="tiposDeDocumento" data-toggle="toggle"
+														name="checkDocumentos[]" value="${documento.id }" required>${documento.nome }
+												</div>
+											</c:otherwise>
+										</c:choose>
 									</c:forEach>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="form-btn">
-						<input type="submit" class="btn btn-primary" value="${botao }" id="form-btn" />
-						<a href="<c:url value="/servidor/selecao/listar"></c:url>" class="btn btn-default" id="form-btn">Cancelar</a>
+						<input type="submit" class="btn btn-primary" value="${botao }"
+							id="form-btn" /> <a
+							href="<c:url value="/servidor/selecao/listar"></c:url>"
+							class="btn btn-default" id="form-btn">Cancelar</a>
 					</div>
 				</form:form>
 			</div>

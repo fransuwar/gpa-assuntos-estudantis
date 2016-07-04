@@ -3,6 +3,8 @@ package br.ufc.quixada.npi.gpa.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -210,6 +212,51 @@ public class Selecao {
 				+ quantidadeVagas + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino				
 				+ ", tipoSelecao=" + tipoSelecao + ", documentos=" + documentos + ", membrosComissao=" + membrosComissao
 				+ ", responsavel=" + responsavel + "]";
+	}
+	
+public List<Inscricao> getAlunosSelecionadosVisita(){
+		
+		List<Inscricao> listaInscritos = new ArrayList<Inscricao>();
+		
+		for(Inscricao inscricao:this.inscritos){
+			if(inscricao.isRealizarVisita()){
+				listaInscritos.add(inscricao);
+			}
+		}
+		
+		return listaInscritos;
+	}
+	
+	public List<Inscricao> getAlunosNaoSelecionadosVisita(){
+		
+		List<Inscricao> listaInscritos = new ArrayList<Inscricao>();
+		
+		for(Inscricao inscricao:this.inscritos){
+			if(!inscricao.isRealizarVisita()){
+				listaInscritos.add(inscricao);
+			}
+		}
+		
+		return listaInscritos;
+	}
+	
+	public Map<String, Integer> getCidadesVisita(){
+		
+		Map<String, Integer> mapaCidades = new TreeMap<String, Integer>();
+		
+		for(Inscricao inscricao:inscritos){
+			if(inscricao.isRealizarVisita()){
+				String cidade = inscricao.getQuestionarioAuxilioMoradia().getCidadeOrigem();
+				if(mapaCidades.containsKey(cidade)){
+					int numAlunos = mapaCidades.get(cidade);
+					mapaCidades.put(cidade, numAlunos+1);
+				}else{
+					mapaCidades.put(cidade, 1);
+				}
+			}
+		}
+		
+		return mapaCidades;
 	}
 
 }

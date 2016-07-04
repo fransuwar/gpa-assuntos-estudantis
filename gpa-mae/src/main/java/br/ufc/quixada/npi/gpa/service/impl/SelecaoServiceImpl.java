@@ -31,11 +31,13 @@ public class SelecaoServiceImpl implements SelecaoService {
 		map.put("ano", selecao.getAno());
 		map.put("sequencial", selecao.getSequencial());
 		List<Selecao> selecoes = selecaoService.find(QueryType.JPQL,
+
 				"from Selecao as p where p.tipoSelecao = :tipo and p.ano = :ano and p.sequencial = :sequencial",	map);
 		if (selecoes == null || selecoes.isEmpty()) {
 			return false;
 		}
 		return true;
+
 
 	}
 	

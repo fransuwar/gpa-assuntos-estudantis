@@ -1,5 +1,10 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.ADMINISTRADOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DISCENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DOCENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.STA;
+
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -18,7 +23,6 @@ import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.ldap.model.Usuario;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
-import static br.ufc.quixada.npi.gpa.utils.Constants.*;
 @Named
 public class AuthenticationSuccessHandlerImpl implements
 		AuthenticationSuccessHandler {

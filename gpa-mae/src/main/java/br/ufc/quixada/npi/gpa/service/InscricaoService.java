@@ -2,7 +2,7 @@ package br.ufc.quixada.npi.gpa.service;
 
 import java.util.List;
 
-import br.ufc.quixada.npi.gpa.enums.MoraCom;
+import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -17,9 +17,9 @@ public interface InscricaoService{
 	
 	public abstract List<Inscricao> getInscricoesPorSelecaoPorAluno(Integer idSelecao, Integer idAluno);
 	
-	public abstract List<PessoaFamilia> getPessoaFamiliaPorIdIniciacaoAcademica(Integer idIniciacaoAcademica);
+	/*public abstract List<PessoaFamilia> getPessoaFamiliaPorIdIniciacaoAcademica(Integer idIniciacaoAcademica);
 	
-	public abstract List<PessoaFamilia> getPessoaFamiliaPorIdAuxilioMoradia(Integer idAuxilioMoradia);
+	public abstract List<PessoaFamilia> getPessoaFamiliaPorIdAuxilioMoradia(Integer idAuxilioMoradia);*/
 	
 	public abstract VisitaDomiciliar getVisitaDocimiciliar(Integer idVisitaDomiciliar);
 	
@@ -27,7 +27,7 @@ public interface InscricaoService{
 	
 	public abstract void atualizarVisitaDomiciliar(VisitaDomiciliar visitaDocimiciliar);
 
-	public abstract ComQuemMora getComQuemMora(MoraCom comQuemMora);
+	public abstract ComQuemMora getComQuemMora(GrauParentesco comQuemMora);
 
 	public abstract Inscricao getInscricao(Selecao selecao, Aluno aluno);
 	
@@ -38,11 +38,7 @@ public interface InscricaoService{
 	public abstract void update(Inscricao inscricao);
 	
 	public abstract void delete(Inscricao inscricao);
-	
-	public abstract void excluirPessoaFamiliaPorId(Integer idPessoa);
 
-	public abstract List<Inscricao> getDeferidosBySelecao(Selecao selecao);
-	
 	public abstract List<Inscricao> getClassificadosPorSelecao(Selecao selecao);
 	
 	public abstract List<Inscricao> getClassificaveisPorSelecao(Selecao selecao);
@@ -53,6 +49,10 @@ public interface InscricaoService{
 	
 	public abstract void consolidar(Integer idInscricao,boolean consolidacao);	
 
+
+	public abstract List<Inscricao> getIndeferidosPorSelecao(Selecao selecao);
+
+	public abstract PessoaFamilia buscarPessoaFamiliaPorId(Integer idPessoa);
 
 }
 

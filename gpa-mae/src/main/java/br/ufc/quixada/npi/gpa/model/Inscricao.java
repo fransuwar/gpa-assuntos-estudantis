@@ -1,9 +1,6 @@
 package br.ufc.quixada.npi.gpa.model;
 
 import java.util.Date;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,7 +26,7 @@ import br.ufc.quixada.npi.gpa.enums.Resultado;
 })
 
 @Entity
-public class Inscricao {
+public class Inscricao implements Comparable<Inscricao>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,10 +42,10 @@ public class Inscricao {
 	private boolean classificado;
 
 	private String observacoes;
+	
+	private String observacaoDocumentos;
 
 	//referente ao deferimento de documentação
-	@Enumerated(EnumType.STRING)
-	private Resultado deferimentoDocumentacao;
 	
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
@@ -69,8 +65,10 @@ public class Inscricao {
 	@ManyToOne
 	private Aluno aluno;
 	
-	private boolean realizarVisita;
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	private AnaliseDocumentacao documentacao;
 
+	private boolean realizarVisita;
 	
 	private boolean consolidacao;
 			
@@ -82,26 +80,6 @@ public class Inscricao {
 	public void setConsolidacao(boolean consolidacao) {
 		this.consolidacao = consolidacao;
 	}
-
-
-	
-	@OneToMany
-	private List<Documento> documentos;
-	
-	@OneToMany
-	private Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
-	
-	public Map<Integer, DocumentosTipoInscricao> getDocumentosTipoInscricao() {
-		if(documentosTipoInscricao == null){
-			documentosTipoInscricao = new HashMap<>();
-		}
-		return documentosTipoInscricao;
-	}
-
-	public void setDocumentosTipoInscricao(Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao) {
-		this.documentosTipoInscricao = documentosTipoInscricao;
-	}
-				
 
 	public boolean isRealizarVisita() {
 		return realizarVisita;
@@ -179,14 +157,6 @@ public class Inscricao {
 		this.visitaDomiciliar = visitaDomiciliar;
 	}
 
-	public Resultado getDeferimentoDocumentacao() {
-		return deferimentoDocumentacao;
-	}
-
-	public void setDeferimentoDocumentacao(Resultado deferimento) {
-		this.deferimentoDocumentacao = deferimento;
-	}
-
 	public Entrevista getEntrevista() {
 		return entrevista;
 	}
@@ -203,21 +173,30 @@ public class Inscricao {
 		this.aluno = aluno;
 	}
 	
-
-	public List<Documento> getDocumentos() {
-		return documentos;
-	}
-
-	public void setDocumentos(List<Documento> documentos) {
-		this.documentos = documentos;
-	}
-
 	public boolean isClassificado() {
 		return classificado;
 	}
 
 	public void setClassificado(boolean classificado) {
 		this.classificado = classificado;
+	}
+	
+
+	public AnaliseDocumentacao getDocumentacao() {
+		return documentacao;
+	}
+
+	public void setDocumentacao(AnaliseDocumentacao documentacao) {
+		this.documentacao = documentacao;
+	}
+
+	
+	public String getObservacaoDocumentos() {
+		return observacaoDocumentos;
+	}
+
+	public void setObservacaoDocumentos(String observacaoDocumentos) {
+		this.observacaoDocumentos = observacaoDocumentos;
 	}
 
 	@Override
@@ -248,6 +227,11 @@ public class Inscricao {
 	@Override
 	public String toString() {
 		return "Inscricao [id=" + id + "]";
+	}
+
+	@Override
+	public int compareTo(Inscricao o) {
+		return getAluno().getPessoa().getNome().compareTo(o.getAluno().getPessoa().getNome());
 	}
 
 }

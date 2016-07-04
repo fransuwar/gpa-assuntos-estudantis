@@ -136,6 +136,8 @@ public class VisitaDomiciliar {
 	private boolean perfilCompativelOutros;
 	
 	private String analiseDescricaoRealidade;
+	
+	private String observacaoParecer;
 
 	@OneToOne
 	private Documento formularioVisita;
@@ -167,8 +169,6 @@ public class VisitaDomiciliar {
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataRelatorio;
-	
-	private String observacaoParecer;
 	
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Despesa despesa;
@@ -626,6 +626,10 @@ public class VisitaDomiciliar {
 		this.deferimento = deferimento;
 	}
 	
+
+	
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

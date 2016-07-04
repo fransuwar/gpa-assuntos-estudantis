@@ -12,59 +12,80 @@
 <html>
 <head>
 <jsp:include page="../fragments/bodyHeader.jsp" />
-<title>Detalhes da seleÃ§Ã£o</title>
+<title>Detalhes da seleção</title>
 </head>
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
-	<div class="container container-md" align="left">
-		
+	<div class="container" align="left">
+
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<div class="panel-title">DETALHES DA SELEÃÃO</div>
+				<div class="panel-title">DETALHES DA SELEÇÃO</div>
 			</div>
 
 			<div class="panel-body">
-				
 				<div class="f-conteiner" align="right">
 					<c:choose>
 						<c:when test="${controle}">
-					
-							<a  class="btn btn-info" id="editar" title="Editar" type="button"
-								href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
-									Editar inscriÃ§Ã£o <span class="glyphicon glyphicon-pencil"></span>
-							</a>
-						
-							<a class=" btn btn-danger" id="editar" title="Editar"
-								href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id }" ></c:url>"
-								onclick='return confirmarLink("Prosseguir farÃ¡ com que sua inscriÃ§Ã£o seja excluÃ­da. Deseja continuar?")'>
-								Cancelar InscriÃ§Ã£o
-								 <span class="glyphicon glyphicon-remove"></span>
-							</a>
-							
-						</c:when>
-						
-							<c:otherwise>
-								<sec:authorize access="hasRole('DISCENTE')">
-									<a class="btn btn-info" id="inscrever" title="Inscrever-se"
-										href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" ></c:url>">
-											Inscrever-se <span class="glyphicon glyphicon-user"></span>
+							<c:choose>
+
+								<c:when test="${!inscricao.consolidacao}">
+									<a class="btn btn-info" id="editar" title="Editar"
+										type="button"
+										href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+										Editar inscrição <span class="glyphicon glyphicon-pencil"></span>
 									</a>
-								</sec:authorize>	
-							</c:otherwise>
-						
+									<a class=" btn btn-danger" id="editar" title="Editar"
+										href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id }" ></c:url>"
+										onclick='return confirmarLink("Prosseguir fará com que sua inscrição seja excluída. Deseja continuar?")'>
+										Cancelar Inscrição <span class="glyphicon glyphicon-remove"></span>
+									</a>
+
+								</c:when>
+
+								<c:otherwise>
+
+									<div class="alert alert-success alert-dismissible" role="alert"
+										id="alert-info">
+
+										<div style="text-align: center">
+											<c:out value="Inscrição Consolidada"></c:out>
+										</div>
+
+									</div>
+
+								</c:otherwise>
+
+
+							</c:choose>
+
+
+						</c:when>
+						<c:otherwise>
+							<sec:authorize access="hasRole('DISCENTE')">
+								<a id="inscrever" title="Inscrever-se"
+									href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" />">
+									<button class="btn btn-info">
+										Inscrever-se <span class="glyphicon glyphicon-user"></span>
+									</button>
+								</a>
+
+							</sec:authorize>
+						</c:otherwise>
+
 					</c:choose>
 				</div>
-				
+
 				<div class='f-container s3'>
 
-					<label class='f-title'>NÃºmero do Edital:</label>
+					<label class='f-title'>Número do Edital:</label>
 					<div class='f-content'>${selecao.sequencial}/${selecao.ano}</div>
 
 				</div>
 
 				<div class='f-container s3'>
 
-					<label class='f-title'>Tipo de SeleÃ§Ã£o:</label>
+					<label class='f-title'>Tipo de Seleção:</label>
 					<div class='f-content'>${selecao.tipoSelecao.nome}</div>
 
 				</div>
@@ -78,9 +99,11 @@
 
 				<div class='f-container s3'>
 
-					<label class='f-title'>PerÃ­odo de inscriÃ§Ã£o:</label>
+					<label class='f-title'>Período de inscrição:</label>
 					<div class='f-content'>
-						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" /> atÃ© <fmt:formatDate value="${selecao.dataTermino}"
+						<fmt:formatDate value="${selecao.dataInicio}" pattern="dd/MM/yyyy" />
+						até
+						<fmt:formatDate value="${selecao.dataTermino}"
 							pattern="dd/MM/yyyy" />
 					</div>
 
@@ -88,7 +111,7 @@
 
 				<div class='f-container s3'>
 
-					<label class='f-title'>ResponsÃ¡vel:</label>
+					<label class='f-title'>Responsável:</label>
 					<div class='f-content'>${selecao.responsavel.pessoa.nome}</div>
 
 				</div>
@@ -100,13 +123,13 @@
 					<label class='f-title'>Arquivos:</label>
 					<div class='f-content'>
 						&nbsp;
-						<c:forEach var="documento" items="${selecao.documentos}">
-							<dd class="col-sm-3">
-								<a
+						<ul class='lista-documentos-selecao'>
+							<c:forEach var="documento" items="${selecao.documentos}">
+								<li><a
 									href="<c:url value="/selecao/documento/${documento.id}"></c:url>">
-									${documento.nome} </a>
-							</dd>
-						</c:forEach>
+										${documento.nome} </a></li>
+							</c:forEach>
+						</ul>
 					</div>
 				</div>
 

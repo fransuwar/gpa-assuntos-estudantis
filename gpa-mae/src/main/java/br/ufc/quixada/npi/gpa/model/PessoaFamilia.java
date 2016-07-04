@@ -8,16 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
+import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
 @Entity
-@NamedQueries({
-	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",  query = "select pf from PessoaFamilia pf where pf.iniciacaoAcademica.id = :idIniciacaoAcademica"),
-	@NamedQuery(name = "PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia", query = "select pf from PessoaFamilia pf where pf.auxilioMoradia.id = :idAuxilioMoradia")
-})
 public class PessoaFamilia {
 
 	@Id
@@ -27,8 +22,9 @@ public class PessoaFamilia {
 	private String nome;
 
 	private Integer idade;
-
-	private String escolaridade;
+	
+	@Enumerated(EnumType.STRING)
+	private Escolaridade escolaridade;
 
 	private String profissao;
 
@@ -36,19 +32,24 @@ public class PessoaFamilia {
 
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	private QuestionarioAuxilioMoradia auxilioMoradia;
+	
+	private String outro;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
-
-	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
-		return auxilioMoradia;
-	}
-
-	public void setAuxilioMoradia(QuestionarioAuxilioMoradia auxilioMoradia) {
-		this.auxilioMoradia = auxilioMoradia;
+	
+	public PessoaFamilia clone(){
+		PessoaFamilia pessoa = new PessoaFamilia();
+		
+		pessoa.setNome(nome);
+		pessoa.setIdade(idade);
+		pessoa.setEscolaridade(escolaridade);
+		pessoa.setProfissao(profissao);
+		pessoa.setRendaMensal(rendaMensal);
+		pessoa.setParentesco(parentesco);
+		pessoa.setIniciacaoAcademica(iniciacaoAcademica);
+		
+		return pessoa;
 	}
 
 	public QuestionarioIniciacaoAcademica getIniciacaoAcademica() {
@@ -67,11 +68,11 @@ public class PessoaFamilia {
 		this.id = id;
 	}
 
-	public String getEscolaridade() {
+	public Escolaridade getEscolaridade() {
 		return escolaridade;
 	}
 
-	public void setEscolaridade(String escolaridade) {
+	public void setEscolaridade(Escolaridade escolaridade) {
 		this.escolaridade = escolaridade;
 	}
 
@@ -115,10 +116,13 @@ public class PessoaFamilia {
 		this.parentesco = grauParentesco;
 	}
 
-	@Override
-	public String toString() {
-		return "PessoaFamilia [auxilioMoradia=" + auxilioMoradia + ", iniciacaoAcademica=" + iniciacaoAcademica
-				+ ", id=" + id + ", nome=" + nome + ", idade=" + idade + ", Profissao=" + profissao + ", rendaMensal="
-				+ rendaMensal + ", Parentesco=" + parentesco + "]";
+	public String getOutro() {
+		return outro;
 	}
+
+	public void setOutro(String outro) {
+		this.outro = outro;
+	}
+	
+	
 }

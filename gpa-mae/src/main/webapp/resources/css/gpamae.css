@@ -127,22 +127,21 @@ div.f-content select {
 	margin: 0;
 }
 
-label.title {
+.title {
 	width: 100%;
 	text-align: left;
 }
 
 div.text-align-left {
-	width: 100%;
 	text-align: left;
 }
 
-div.p-container-set {
+.p-container-set {
 	width: 100%;
 	border-radius: 5px;
 }
 
-div.p-container {
+.p-container {
 	width: 100%;
 	margin: 0px;
 	display: block;
@@ -185,7 +184,7 @@ div.p-header {
 	border-radius: 0px;
 }
 
-div.p-title {
+.p-title {
 	font-weight: bold;
 	color: white;
 	display: inline-block;
@@ -206,21 +205,20 @@ div.p-body {
 	width: 85%;
 }
 
-div.f-container {
-	display: inline-block;
+.f-container {
+	display: inline-table;
 	background-color: white;
 	margin: 1%;
 	text-align: left;
 }
 
-
-label.f-title {
+.f-title {
 	margin-left: 10px;
+	font-weight: bold !important;
 }
 
 div.f-content {
 	margin-left: 10px;
-	font-weight: bold;
 }
 
 .content .body {
@@ -239,52 +237,60 @@ textarea {
 	resize: none;
 }
 
-div.half {
+.half {
 	width: 47%;
 }
 
-div.s1 {
+.s1 {
 	width: 7%;
 }
 
-div.s2 {
+.s2 {
 	width: 17%;
 }
 
-div.s3 {
+.s2-half{
+	width: 20%;
+}
+
+.s3 {
 	width: 27%;
 }
 
-div.s4 {
+.s4 {
 	width: 37%;
 }
 
-div.s5 {
+.s5 {
 	width: 47%;
 }
 
-div.s6 {
+.s6 {
 	width: 57%;
 }
 
-div.s7 {
+.s7 {
 	width: 67%;
 }
 
-div.s8 {
+.s8 {
 	width: 77%;
 }
 
-div.s9 {
+.s9 {
 	width: 87%;
 }
 
-div.s10 {
+.s10 {
 	width: 97%;
 }
 
-div.s4-custom{
+.s4-custom{
 	width: 45%;
+}
+
+div.center-h{
+	text-align: center;
 }
 
 .margin-top-s1{
@@ -438,12 +444,18 @@ div.s4-custom{
 	margin-bottom: 5px;
 }
 
-.borda-laranja{
-	outline: 1px solid rgb(243, 156, 18);
+.th-verde{
+	background-color: #43bb2f;
+	color: white;
 }
 
-.borda-verde{
-	outline: 1px solid rgb(24, 188, 156);
+.th-laranja{
+	background-color: #f57900;
+	color: white;
+}
+
+#tabela-classificaveis, #tabela-classificados{
+	min-width: 100%;
 }
 
 #pesquisarClassificados{
@@ -589,7 +601,7 @@ div.input-photo {
 	background: #e0e0e0;
 	content: "";
 	height: 10px;
-	left: -20px;ção 
+	left: -20px;
 	position: absolute;
 	top: 20px;
 	width: 50px;
@@ -747,7 +759,12 @@ div.input-photo {
 	border-radius: 5px;
 	background-color: #d1d1d1;
 	transition: all 0.2s;
-	
+}
+
+.card-hover{
+	border-radius: 5px;
+	background-color: #d1d1d1;
+	transition: all 0.2s;
 }
 
 .card .card-content{
@@ -775,6 +792,7 @@ div.input-photo {
 .card-content .card-description{
 	height: 100%;
 	display: inline-block;
+	margin-top: 7px;
 }
 
 .bg-brown{
@@ -871,9 +889,21 @@ a, .dropdown-menu > li > a{
 	height: 27px !important;
 }
 
+.btn.btn-md{
+	width: 100px !important;
+}
+
 .alert{
 	border: 0 !important;
-	border-radius: 0px !important;
+	border-radius: 0px;
+}
+
+.alert.alert-info{
+	background-color: #00BCD4 !important;
+}
+
+.alert.alert-rounded{
+	border-radius: 3px !important;
 }
 
 .alert:hover{
@@ -888,18 +918,25 @@ input:focus, select:focus, textarea:focus{
 }
 
 .table-custom{
-	border: 1px solid white;
-	border-radius: 1%;
+	border-collapse: separate !important;
+	border-spacing: 0 !important;
+	border: 1px solid transparent;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	border-radius: 3px !important;
 }
+
 .table-custom td{
 	text-align: center;
 }
-.table-custom .th-custom{
+
+.table-custom .th-custom {
+	background-color: #00796B;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 	color: white;
-	background-color: #00796B;
+	border-top-left-radius:3px !important;
+	border-top-right-radius:3px !important;
 }
+
 
 .th-center{
 	text-align: center;
@@ -907,6 +944,10 @@ input:focus, select:focus, textarea:focus{
 
 .row-centered{
 	margin: 0 auto !important;
+}
+
+.dropdown-menu > li > a:hover{
+	background-color: rgba(0,0,0,.1) !important;
 }
 
 .no-decoration{
@@ -930,26 +971,16 @@ input:focus, select:focus, textarea:focus{
 	width: 60%;
 }
 
-
- .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
- .toggle.ios .toggle-handle { border-radius: 20px; }
-
-
-.documentos-aluno{
-	margin-left: -40px;
+.full-width{
+	width: 100% !important;
 }
 
-.documentos-aluno li{
-	margin: 1%;
-	width: 17%;
-	height: 60px;
-	margin-bottom: 1%;
-	background-color: #009688;
-	border-radius: 5px;
-	border: 1px solid #dedede;
+.legenda{
+	float:right;
 	display: inline-block;
-	position: relative;
-	transition: all 0.2s;
+	background-color: #ededed;
+	padding: 5px;
+	border-radius: 0px 0px 3px 3px;
 }
 
 .documentos-aluno li:hover{
@@ -979,9 +1010,14 @@ input:focus, select:focus, textarea:focus{
 	margin-bottom: 5px;	
 }
 
-.inline-block {
+.panel-visitas{
+	width: 48%;
+	padding: 0;
+}
+
+.legenda div{
+	margin: 2px;
 	display: inline-block;
-	width: auto;
 }
 
 .form-btn {
@@ -992,3 +1028,47 @@ input:focus, select:focus, textarea:focus{
 .form-btn input {
 	margin-right: 15px;
 }
+
+.menu-relatorio-visitas{
+	margin-bottom: 20px;
+}
+
+.panel-visitas .panel-heading{
+	color: white !important;
+	background-color: #009688 !important;
+	border-bottom: 1px solid #eeeeec;
+}
+
+.panel-group .panel-cidade{
+	color: white !important;
+	background-color: #009688 !important;
+	border-bottom: 1px solid #eeeeec;
+}
+
+.panel-cidade a{
+	color: white !important;
+}
+
+.foto-relatorio-visita{
+	height: 60px;
+	width: 60px;
+	margin-right: 20px;
+}
+.wizard > .actions > ul > li.disabled {
+  display: none;
+}
+
+.div-esquerda{
+	float:left;
+}
+
+.lista-documentos-selecao{
+	margin-top: -15px;
+}
+
+.lista-documentos-selecao li{
+	list-style: none;
+	display: block;
+	margin-left: -40px;
+}
+

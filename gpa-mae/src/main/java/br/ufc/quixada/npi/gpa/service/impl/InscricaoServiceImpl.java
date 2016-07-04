@@ -10,7 +10,7 @@ import javax.inject.Named;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufc.quixada.npi.enumeration.QueryType;
-import br.ufc.quixada.npi.gpa.enums.MoraCom;
+import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
@@ -63,23 +63,34 @@ public class InscricaoServiceImpl implements InscricaoService {
 		return (List<Inscricao>)inscricaoService.find("Inscricao.finInscricaoByIdSelecaoByAluno", params);
 	}
 
-	@Override
+	/*@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaPorIdIniciacaoAcademica(Integer idIniciacaoAcademica) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("idIniciacaoAcademica", idIniciacaoAcademica);
 		return pessoaRepository.find("PessoaFamilia.findPessoaFamiliaByIdIniciacaoAcademica",
+<<<<<<< HEAD
 				params);
 	}
 
+=======
+				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
+	}*/
+/*
+>>>>>>> refs/heads/master
 	@Override
 	@Transactional(readOnly = true)
 	public List<PessoaFamilia> getPessoaFamiliaPorIdAuxilioMoradia(Integer idAuxilioMoradia) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("idAuxilioMoradia", idAuxilioMoradia);
 		return pessoaRepository.find("PessoaFamilia.findPessoaFamiliaByIdAuxilioMoradia",
+<<<<<<< HEAD
 				params);
 	}
+=======
+				new SimpleMap<String, Object>("idAuxilioMoradia", idAuxilioMoradia));
+	}*/
+
 
 	@Override
 	public void salvarVisitaDocimiciliar(VisitaDomiciliar visitaDocimiciliar) {
@@ -105,10 +116,12 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	@Override
-	public ComQuemMora getComQuemMora(MoraCom comQuemMora) {
+
+	public ComQuemMora getComQuemMora(GrauParentesco  comQuemMora) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("descricao", comQuemMora);
 		return comQuemMoraRepository.findFirst("ComQuemMora.findComQuemMoraByDescricao", params);
+
 	}
 
 	@Override
@@ -145,17 +158,20 @@ public class InscricaoServiceImpl implements InscricaoService {
 		inscricaoService.delete(inscricao);
 	}
 
-	@Override
+
+
 	public void excluirPessoaFamiliaPorId(Integer idPessoa) {
 		Map<String, Object> params = new HashMap<String, Object>();
+
 		params.put("idPessoa", idPessoa);
+
 		PessoaFamilia pessoa = (PessoaFamilia) pessoaRepository.findFirst(QueryType.JPQL,"select p from PessoaFamilia as p where p.id = :idPessoa",
 				params,-1);
 		pessoaRepository.delete(pessoa);
+
 	}
 
-	
-	@Override
+
 	@Transactional(readOnly = true)
 	public List<Inscricao> getDeferidosBySelecao(Selecao selecao) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -165,6 +181,8 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 		return inscricoes;
 	}
+
+
 
 	@Override
 	public List<Inscricao> getClassificadosPorSelecao(Selecao selecao) {
@@ -197,6 +215,16 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	@Override
+	public List<Inscricao> getIndeferidosPorSelecao(Selecao selecao) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("idSelecao", selecao.getId());
+		List<Inscricao> inscricoes = inscricaoRepository.find(QueryType.JPQL, "select i from Inscricao as i where i.selecao.id =:idSelecao and i.resultado = 'INDEFERIDO'",
+				params);
+
+		return inscricoes;
+	}
+
+	@Override
 	@Transactional
 	public void consolidacaoDeTodos(Integer idSelecao, boolean consolidacao) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -215,6 +243,12 @@ public class InscricaoServiceImpl implements InscricaoService {
 		params.put("idInscricao", idInscricao);
 		inscricaoRepository.find("QueryType.JPQL, update Inscricao set consolidacao =:consolidacao where id =:idInscricao", params);
 			
+	}
+
+	@Override
+	public PessoaFamilia buscarPessoaFamiliaPorId(Integer idPessoa) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

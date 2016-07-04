@@ -20,8 +20,6 @@ public class Constants {
 	
 	public static final String PAGINA_INFORMACOES_SELECAO_SERVIDOR	= "servidor/detalhesSelecaoServidor";
 	
-	public static final String PAGINA_LISTAR_INSCRITOS_SELECAO		= "selecao/listarInscritos";
-	
 	public static final String PAGINA_LISTAR_ALUNOS 				= "administrador/listarAlunos";
 	
 	public static final String PAGINA_FORMULARIO_PREENCHIDO_SELECAO	= "selecao/formularioInscricaoPreenchido";
@@ -65,6 +63,10 @@ public class Constants {
 	public static final String PAGINA_SELECOES_ABERTAS = "aluno/listarSelecoes";
 	
 	public static final String PAGINA_AVALIAR_DOCUMENTACAO = "servidor/avaliarDocumentacao";
+	
+	public static final String PAGINA_RELATORIO_VISITAS = "servidor/relatorioVisitasCidades";
+	
+	public static final String PAGINA_RELATORIO_FINAL = "selecao/resultadoFinal";
 
 	// public static final String PAGINA_DETALHES_SELECAO_SERVIDOR =
 	// "servidor/detalhesSelecao";
@@ -87,11 +89,9 @@ public class Constants {
 	
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR = "redirect:/servidor/selecao/listar";
 	
-	public static final String REDIRECT_PAGINA_DETALHES_SELECAO = "redirect:/selecao/detalhes";
-	
 	public static final String REDIRECT_PAGINA_MINHAS_INSCRICOES = "redirect:/aluno/inscricao/listar";
 
-	public static final String REDIRECT_PAGINA_INSCRITOS_SELECAO = "redirect:/servidor/detalhes/";
+	public static final String REDIRECT_PAGINA_DETALHES_SELECAO = "redirect:/servidor/detalhes/";
 
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR = "redirect:/administrador/listar";
 
@@ -104,6 +104,8 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO = "redirect:/servidor/detalhes/inscricao/";
 	
 	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO = "redirect:/aluno/inscricao/detalhes/";
+	
+	public static final String REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO = "redirect:/aluno/selecao/listar";
 	
 	/** Mensagens */
 
@@ -231,6 +233,8 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_EDITAR_INSCRICAO = "Você não pode editar esta inscrição fora do período da seleção";
 	
+	public static final String MENSAGEM_ERRO_REALIZAR_INSCRICAO = "Você não pode realizar esta inscrição fora do período da seleção";
+	
 	public static final String MENSAGEM_ERRO_UPLOAD_FOTO = "Não foi possível fazer o upload da sua foto";
 	
 	public static final String MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO = "Extensão da foto inválida. Extensões aceitas (jpeg, jpg, png)";
@@ -241,7 +245,13 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO = "Selecione pelo menos um aluno classificado";
 
-	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO= "Não é possível excluir esse arquivo";
+	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO = "Não é possível excluir esse arquivo";
+	
+	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO = "Não é possível excluir este tipo de documento pois ele já está em uso";
+	
+	public static final String MENSAGEM_ERRO_DADOS_INSCRICAO= "Verifique os dados inseridos e tente novamente";
+	
+	public static final String MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO = "Adicione os documentos referentes a sua inscrição. Você deverá fazer isso até o final do período de inscrição.";
 	
 	/** Perfis */
 
@@ -266,5 +276,30 @@ public class Constants {
 	public static final String ABA_SELECIONADA = "aba";
 	
 	public static final String DOCUMENTOS_TAB = "documentos-tab";
+	
+	/** Comunicação Javascript com os cards**/
+	
+	public static final String CARD_SELECIONADO = "card";
+	
+	public static final String CARD_INSCRICAO = "card-inscricao";
+	public static final String CARD_COMISSAO = "card-comissao";
+	public static final String CARD_ARQUIVOS = "card-arquivos";
+	public static final String CARD_RELATORIO = "card-relatorio";
+	public static final String CARD_RANK = "card-rank";
+	
+	
+	public static final String INSCRICAO_TAB = "inscricao-tab";
+	
+	public static final String RESULTADO = "resultado";
+	
+	public static final String SUCESSO = "sucesso";
+
+	
+	/** Mensagens do sistema*/
+	
+	public static final String ERRO = "erro";
+	
+	public static final String INFO = "info";
+
 
 }
