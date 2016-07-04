@@ -2,6 +2,7 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.VISITA_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ALUNO_INDEFERIDO;
@@ -58,6 +59,7 @@ import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
+import br.ufc.quixada.npi.gpa.model.AnaliseDocumentacao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Imagem;
@@ -357,6 +359,7 @@ public class ServidorController {
 		
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		modelo.addAttribute("pessoaDaFamilia",new PessoaFamilia());
+		modelo.addAttribute("documentacao", new AnaliseDocumentacao());
 		
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
@@ -497,17 +500,20 @@ public class ServidorController {
 	}
 
 	@RequestMapping(value= {"avaliarDocumentacao"}, method = RequestMethod.POST)
-	public String avaliarDocumentacao(@Valid @ModelAttribute("avaliarDocumentacao") Inscricao avaliarDocumentacao , @RequestParam("idInscricao") Integer idInscricao, 
+	public String avaliarDocumentacao(@Valid @ModelAttribute("documentacao") AnaliseDocumentacao documentacao , @RequestParam("idInscricao") Integer idInscricao, 
 			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 
         Inscricao inscricao = inscricaoRepository.findById(idInscricao);
+        Servidor servidor = servidorRepository.findByCpf(auth.getName());
         
-		model.addAttribute("avaliarDocumentacao", avaliarDocumentacao);
-		inscricao.setObservacaoDocumentos(avaliarDocumentacao.getObservacaoDocumentos());
+		model.addAttribute("inscricao", inscricao);
+		documentacao.setServidor(servidor);
+		inscricao.setDocumentacao(documentacao);
 		inscricaoRepository.save(inscricao);
-
+		
+		redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO);
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
 	
 	@RequestMapping(value= {"relatorioVisitas/{idSelecao}"}, method = RequestMethod.GET)
