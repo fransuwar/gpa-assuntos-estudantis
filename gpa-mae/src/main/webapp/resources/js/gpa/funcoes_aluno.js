@@ -40,7 +40,17 @@ var FormularioAuxilio = function() {
 		
 		self.maskFields();
 		self.formularioEnter();
+		self.filtroFoto();
 	};
+	
+	self.filtroFoto = function(){
+		$( "#input-foto3x4" ).select(function() {
+			  console.log("Get");
+			  alert( "Handler for .select() called." );
+			});
+		
+	};
+	
 	
 	self.formularioEnter = function(){
 		$formElement.on("keyup keypress", function(e) {

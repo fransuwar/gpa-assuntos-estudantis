@@ -847,11 +847,11 @@
 						</div>
 					</div>
 				</div>
-
+				
 				<div class='f-container'>
 					<label class='f-title'>Foto (3x4):</label>
 					<div class='f-content'>
-						<input id="input-foto3x4" type="file" name="fileFoto" />
+						<input id="input-foto3x4" type="file" name="fileFoto"  accept=".jpg, .png" />
 						<div class="col-sm-8 error-validation">
 							<span id="span-error-foto"></span>
 						</div>
