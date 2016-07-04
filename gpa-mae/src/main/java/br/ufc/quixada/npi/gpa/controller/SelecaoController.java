@@ -1,4 +1,5 @@
 package br.ufc.quixada.npi.gpa.controller;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_QTD_VAGAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO;
@@ -9,10 +10,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RANKING_CLASSIFICADO
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECIONAR_CLASSIFICADOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_AUX_MORADIA;
-
-
 
 import java.util.List;
 
@@ -42,34 +40,34 @@ import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
+import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
+import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.SelecaoService;
-import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Named
 @RequestMapping("selecao")
 @SessionAttributes({ Constants.USUARIO_ID })
 public class SelecaoController {
-
-	@Inject
-	private ServidorService servidorService;
-
-	@Inject
-	private SelecaoService selecaoService;
-
-	@Inject
-	private InscricaoService inscricaoService;
 	
 	@Inject
-	private SelecaoRepository selecaoRepository;
+	private InscricaoService inscricaoService;
 	
 	@Inject
 	private AlunoRepository alunoRepository;
 	
 	@Inject
 	private DocumentoRepository documentoRepository;
+	
+	@Inject
+	private InscricaoRepository inscricaoRepository;
+	
+	@Inject
+	private SelecaoRepository selecaoRepository;
+	
+	@Inject
+	private ServidorRepository servidorRepository;
 
 	@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoesPublico(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
@@ -87,7 +85,7 @@ public class SelecaoController {
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect,Authentication auth) {
 		//Detalhe da seleção, apenas para aluno
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -97,7 +95,7 @@ public class SelecaoController {
 		model.addAttribute("selecao", selecao);
 
 		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
-		List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecaoPorAluno(selecao.getId(),aluno.getId());
+		List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecaoAndByAluno(selecao.getId(),aluno.getId());
 		boolean controle = false;
 		
 		model.addAttribute("aluno", aluno);
@@ -147,7 +145,7 @@ public class SelecaoController {
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(ModelMap model, HttpServletRequest request) {
 
-		List<Selecao> selecoes = this.selecaoService.getSelecoes();
+		List<Selecao> selecoes = this.selecaoRepository.findAll();
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("tipoBolsa", TipoSelecao.values());
@@ -160,7 +158,7 @@ public class SelecaoController {
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
-		List<Selecao> selecoes = this.servidorService.getServidorPorId(id).getParticipaComissao();
+		List<Selecao> selecoes = this.servidorRepository.findById(id).getParticipaComissao();
 
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
@@ -193,14 +191,14 @@ public class SelecaoController {
 	
 	@RequestMapping(value = {"ranking/{idSelecao}"}, method = RequestMethod.GET)
 	public String visualizarRanking(ModelMap model, @PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect){
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
-		List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
+		List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
 
 		model.addAttribute("classificados", classificados);
 		
@@ -211,15 +209,15 @@ public class SelecaoController {
 	@RequestMapping(value = {"selecionarClassificados/{idSelecao}"}, method = RequestMethod.GET)
 	public String visualizarPaginaSelecionarClassificados(ModelMap model, @PathVariable("idSelecao") Integer idSelecao,
 		 RedirectAttributes redirect){		
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 		
-		List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
-		List<Inscricao> classificaveis = inscricaoService.getClassificaveisPorSelecao(selecao);
+		List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
+		List<Inscricao> classificaveis = inscricaoRepository.findClassificaveisBySelecao(selecao.getId());
 		     
 		model.addAttribute("classificados", classificados);
 		model.addAttribute("classificaveis",classificaveis);
@@ -241,14 +239,14 @@ public class SelecaoController {
 			model.addAttribute(ERRO, MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO);
 		}
 		
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 		 
 		 if (selecao == null) {
 				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}
 		 
-		 List<Inscricao> classificados = inscricaoService.getClassificadosPorSelecao(selecao);
+		 List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
 		 Integer vagasRestantes = selecao.getQuantidadeVagas() - classificados.size();		     	
 		 
 		 if(idsClassificados.size() > vagasRestantes){
@@ -256,7 +254,8 @@ public class SelecaoController {
 			return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + idSelecao;
 		 } else{		      
 		     for(Integer id: idsClassificados){
-		         inscricaoService.update(id,true);
+		         //inscricaoRepository.atualizarClassificados(id,true);
+		    	 inscricaoService.update(id,true);
 		     }
 		 }
 		
@@ -268,7 +267,7 @@ public class SelecaoController {
 	public String removerClassificados(ModelMap model, @RequestParam("checkClassificaveis[]") List<Integer> idsClassificaveis,
 			@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect, Authentication auth){
 
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 		
 		if (selecao == null) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -276,6 +275,7 @@ public class SelecaoController {
 		}		     		 
        
 		for(Integer id: idsClassificaveis){
+			//inscricaoRepository.atualizarClassificados(id,false);
 			inscricaoService.update(id,false);
 		}
 		

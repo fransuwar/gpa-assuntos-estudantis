@@ -74,7 +74,7 @@
 												<strong class="error text-danger"></strong></td>
 											<td><a id="excluir" data-toggle="modal"
 												data-target="#confirm-delete"
-												data-href="<c:url value="/coordenador/selecao/excluir-documento/${documento.id }"></c:url>"
+												data-href="<c:url value="/coordenador/selecao/excluir-documento/${selecao.id}/${documento.id }"></c:url>"
 												class="delete-document">
 													<button type="button" class="btn btn-danger btn-xs">
 														<span class="glyphicon glyphicon-trash"></span>

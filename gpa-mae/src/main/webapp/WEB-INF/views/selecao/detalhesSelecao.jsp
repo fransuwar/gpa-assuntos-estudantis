@@ -27,39 +27,13 @@
 				<div class="f-conteiner" align="right">
 					<c:choose>
 						<c:when test="${controle}">
-							<c:choose>
+							<div class="alert alert-success alert-dismissible" role="alert"
+								id="alert-info">
+								<div style="text-align: center">
+									<c:out value="Você já está inscrito nesta seleção!"></c:out>
+								</div>
 
-								<c:when test="${!inscricao.consolidacao}">
-									<a class="btn btn-info" id="editar" title="Editar"
-										type="button"
-										href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
-										Editar inscrição <span class="glyphicon glyphicon-pencil"></span>
-									</a>
-									<a class=" btn btn-danger" id="editar" title="Editar"
-										href="<c:url value="/aluno/inscricao/excluir/${inscricao.id }" ></c:url>"
-										onclick='return confirmarLink("Prosseguir fará com que sua inscrição seja excluída. Deseja continuar?")'>
-										Cancelar Inscrição <span class="glyphicon glyphicon-remove"></span>
-									</a>
-
-								</c:when>
-
-								<c:otherwise>
-
-									<div class="alert alert-success alert-dismissible" role="alert"
-										id="alert-info">
-
-										<div style="text-align: center">
-											<c:out value="Inscrição Consolidada"></c:out>
-										</div>
-
-									</div>
-
-								</c:otherwise>
-
-
-							</c:choose>
-
-
+							</div>
 						</c:when>
 						<c:otherwise>
 							<sec:authorize access="hasRole('DISCENTE')">
