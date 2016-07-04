@@ -323,7 +323,19 @@ public class Constants {
 	public static final String RESULTADO = "resultado";
 	
 	public static final String SUCESSO = "sucesso";
-
+	
+	/** Email**/
+	public static final String FROM = "naoresponda@gpaassuntosestudantis.com";
+	
+	public static final String BODY = "Prezado(a),\n"+
+			"Sua inscrição para a seleção de auxílio moradia foi consolidada com sucesso!\n"+
+			"Atenciosamente,\n"+
+			"Coordenação de Assuntos Estudantis"+
+			"UFC – Campus Quixadá"+
+			"E-mail enviado automaticamente, por gentileza, não responder.";
+	
+	public static final String ASSUNTO = "Consolidação Confirmada";
+	
 	
 	/** Mensagens do sistema*/
 	

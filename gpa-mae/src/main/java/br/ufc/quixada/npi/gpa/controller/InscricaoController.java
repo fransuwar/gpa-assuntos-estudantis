@@ -3,6 +3,9 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.FROM;
+import static br.ufc.quixada.npi.gpa.utils.Constants.BODY;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ASSUNTO;
 
 import java.io.IOException;
 import java.util.List;
@@ -97,16 +100,11 @@ public class InscricaoController {
 			@Override
 			public void run() {		
 				Email email=new Email();
-				String from="naoresponda@gpaassuntosestudantis.com";
+				String from=FROM;
 				String to=inscricao.getAluno().getPessoa().getEmail();
-				String body = "Prezado(a),\n"+
-						"Sua inscrição para a seleção de auxílio moradia foi consolidada com sucesso!\n"+
-						"Atenciosamente,\n"+
-						"Coordenação de Assuntos Estudantis"+
-						"UFC – Campus Quixadá"+
-						"E-mail enviado automaticamente, por gentileza, não responder.";								
+				String body = BODY;							
 				email.setFrom(from);
-				email.setSubject("Assunto");
+				email.setSubject(ASSUNTO);
 				email.setText(body);
 				email.setTo(to);
 
