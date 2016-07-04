@@ -44,11 +44,24 @@ var FormularioAuxilio = function() {
 	};
 	
 	self.filtroFoto = function(){
-		$( "#input-foto3x4" ).select(function() {
-			  console.log("Get");
-			  alert( "Handler for .select() called." );
+		
+		$( "#input-foto3x4" ).change(function (e)  {
+			  console.log("foi");
+			  var filename = $('#input-foto3x4').val();
+			  var fileExtension = filename.substring(filename.lastIndexOf(".") + 1, filename.length);
+			  if(fileExtension==="jpg" || fileExtension==="png"){
+				  return true;
+				  
+			  }else{
+				  $('#input-foto3x4').val("");
+				  return false;
+			  }
+			  
+				  
+			  
 			});
 		
+	
 	};
 	
 	
