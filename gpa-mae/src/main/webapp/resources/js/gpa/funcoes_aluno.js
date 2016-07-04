@@ -205,8 +205,15 @@ var FormularioAuxilio = function() {
 		$("#select-parentesco").change(function() {
 			if($(this).val() === "OUTROS"){
 				$("#outro-pessoa-familia").removeClass("hidden");
+			}	    
+		});
+		
+		$("#parentesco").change(function() {
+			if($(this).val() === "OUTRO"){
+				$("#outro-pessoa-familia").removeClass("hidden");
+			}else{
+				$("#outro-pessoa-familia").addClass("hidden");
 			}
-			alert($(this).val());	    
 		});
 		
 	};
@@ -486,10 +493,12 @@ var FormularioAuxilio = function() {
 		$('[data-mask]').each(function(){ $(this).mask( $(this).attr('data-mask')); });
 		
 		
-		$("#rendaMensal").mask("###0000000.00", {reverse: true});
+//		$("#rendaMensal").mask("###0000000.00", {reverse: true});
 		$("#valorMensalFinanciamento").mask("###0000000.00", {reverse: true});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
 		$("#renda-pessoa-familia").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
+		$("#rendaMensal").maskMoney({prefix:'R$ ', decimal:",", thousands:"."});
+		
 	};
 
 	/*
