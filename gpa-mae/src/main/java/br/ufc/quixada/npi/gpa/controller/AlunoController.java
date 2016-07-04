@@ -48,7 +48,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
