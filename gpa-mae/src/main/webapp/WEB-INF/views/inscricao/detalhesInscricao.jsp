@@ -171,11 +171,6 @@
 							<div class='f-content'>${inscricao.resultado.nome}</div>
 						</div>
 
-						<div class='f-container s3 left'>
-							<label class='f-title'>Observações:</label>
-							<div class='f-content'>${inscricao.observacoes}</div>
-						</div>
-
 					</div>
 				</div>
 				<div class="panel panel-default panel-primary">
