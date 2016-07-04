@@ -96,12 +96,15 @@ public class InscricaoController {
 		Runnable enviarEmail = new Runnable() {
 			@Override
 			public void run() {		
-				Email email = new Email();
-				String from = "naoresponda@gpaassuntosestudantis.com";
-				String to = inscricao.getAluno().getPessoa().getEmail();
-				System.out.println( inscricao.getAluno().getPessoa().getEmail());
-
-				String body = "Caros amigos, a complexidade dos estudos efetuados desafia a capacidade de equalização de alternativas às soluções ortodoxas.";								
+				Email email=new Email();
+				String from="naoresponda@gpaassuntosestudantis.com";
+				String to=inscricao.getAluno().getPessoa().getEmail();
+				String body = "Prezado(a),\n"+
+						"Sua inscrição para a seleção de auxílio moradia foi consolidada com sucesso!\n"+
+						"Atenciosamente,\n"+
+						"Coordenação de Assuntos Estudantis"+
+						"UFC – Campus Quixadá"+
+						"E-mail enviado automaticamente, por gentileza, não responder.";								
 				email.setFrom(from);
 				email.setSubject("Assunto");
 				email.setText(body);
@@ -118,7 +121,7 @@ public class InscricaoController {
 		};
 
 		Thread threadEnviarEmail = new Thread(enviarEmail);
-		threadEnviarEmail.run();
+		threadEnviarEmail.start();
 
 		return PAGINA_SELECOES_ABERTAS;
 	}

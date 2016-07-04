@@ -101,8 +101,6 @@ import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
-import br.ufc.quixada.npi.model.Email;
-import br.ufc.quixada.npi.service.EmailService;
 
 
 
