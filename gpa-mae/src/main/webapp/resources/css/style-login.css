@@ -97,9 +97,9 @@ div#div-captcha-erro {
 
 a, a:hover, a:VISITED, a:ACTIVE, button, button:hover, button:VISITED, button:ACTIVE
 input.btn, input.btn:VISITED, input.btn:ACTIVE, input.btn:FOCUS {
-	outline: none !important;
-	outline-offset:0 !important;
-	text-decoration: none !important;
+	outline: none;
+	outline-offset:0;
+	text-decoration: none;
 }
 
 .has-success .form-control:focus {

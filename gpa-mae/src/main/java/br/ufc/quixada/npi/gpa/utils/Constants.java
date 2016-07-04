@@ -1,7 +1,34 @@
 package br.ufc.quixada.npi.gpa.utils;
 
 public class Constants {
+	
+	/** Controllers*/
+	
+	public static final String ALUNO = "aluno";
+	public static final String NIVEL_INSTRUCAO = "nivelInstrucao";
+	public static final String SITUACAO_RESIDENCIA = "situacaoResidencia";
+	public static final String SELECAO = "selecao";
+	public static final String ID_SELECAO = "idSelecao";
+	public static final String TIPOS_DOCUMENTO = "tiposDeDocumento";
+	public static final String ACTION = "action";
+	public static final String LOGIN = "login";
+	public static final String ENTREVISTA = "entrevista";
+	public static final String INSCRICAO = "inscricao";
+	public static final String MORADIA_ESTADO = "moradiaEstado";
+	public static final String DIAS_UTEIS = "diasUteis";
+	public static final String TOTAL_ESTADO = "totalEstado";
+	public static final String GRAU_PARENTESCO = "grauParentesco";
+	public static final String ERROR = "error";
+	public static final String QUESTIONARIO_AUXILIO_MORADIA = "questionarioAuxilioMoradia";
+	public static final String TIPO_AUX_MORADIA = "aux_mor";
+	public static final String CADASTRAR = "cadastrar";
+	public static final String EDITAR = "editar";
 
+	/** ServiceImpl*/
+	
+	public static final String ANO = "ano";
+	
+	
 	/** Usuário */
 
 	public static final String USUARIO_LOGADO = "usuario";
@@ -247,6 +274,8 @@ public class Constants {
 
 	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO = "Não é possível excluir esse arquivo";
 	
+	public static final String MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO = "Tipo de documento excuído com sucesso";
+	
 	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO = "Não é possível excluir este tipo de documento pois ele já está em uso";
 	
 	public static final String MENSAGEM_ERRO_DADOS_INSCRICAO= "Verifique os dados inseridos e tente novamente";
@@ -277,6 +306,10 @@ public class Constants {
 	
 	public static final String DOCUMENTOS_TAB = "documentos-tab";
 	
+	public static final String INSCRICAO_TAB = "inscricao-tab";
+	
+	public static final String VISITA_TAB = "visita-tab";
+	
 	/** Comunicação Javascript com os cards**/
 	
 	public static final String CARD_SELECIONADO = "card";
@@ -286,9 +319,6 @@ public class Constants {
 	public static final String CARD_ARQUIVOS = "card-arquivos";
 	public static final String CARD_RELATORIO = "card-relatorio";
 	public static final String CARD_RANK = "card-rank";
-	
-	
-	public static final String INSCRICAO_TAB = "inscricao-tab";
 	
 	public static final String RESULTADO = "resultado";
 	

@@ -8,9 +8,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Receita {
-	public Receita() {
-
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

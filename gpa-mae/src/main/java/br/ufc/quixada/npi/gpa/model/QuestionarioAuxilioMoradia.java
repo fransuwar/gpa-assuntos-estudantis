@@ -133,13 +133,10 @@ public class QuestionarioAuxilioMoradia {
 	@JoinTable( name = "inscricao_pessoa_familia_editado", 
 	   joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> pessoasEntrevista;
-	
-	@ManyToMany
+
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<ComQuemMora> comQuemMora;
 	
-	public QuestionarioAuxilioMoradia() {	
-		
-	}
 	
 	public double getValorMensalFinanciamento() {
 		return valorMensalFinanciamento;

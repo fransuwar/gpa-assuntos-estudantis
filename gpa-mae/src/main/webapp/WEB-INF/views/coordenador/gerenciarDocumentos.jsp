@@ -35,6 +35,18 @@
 						</div>
 					</div>
 				</c:if>
+				<c:if test="${not empty info}">
+					<div class="alert alert-success alert-dismissible" role="alert"
+						id="alert-info">
+						<button type="button" class="close" data-dismiss="alert">
+							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+						</button>
+						<div style="text-align: center">
+							<c:out value="${info}"></c:out>
+						</div>
+					</div>
+				</c:if>
+
 
 				<div class="s4-custom center-block">
 					<form id="adicionarArquivoForm" role="form" class="form-inline"

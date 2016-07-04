@@ -19,7 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
-import br.ufc.quixada.npi.gpa.enums.Resultado;
+import br.ufc.quixada.npi.gpa.enums.Resultado;;
 
 @Entity
 public class VisitaDomiciliar {
@@ -175,10 +175,6 @@ public class VisitaDomiciliar {
 	
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Receita receita;
-	
-	public VisitaDomiciliar() {
-		
-	}
 	
 	public Integer getId() {
 		return id;

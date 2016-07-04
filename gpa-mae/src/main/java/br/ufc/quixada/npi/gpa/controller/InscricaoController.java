@@ -4,7 +4,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -25,8 +24,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import br.ufc.quixada.npi.gpa.excecoes.FalhaCarregarImagemException;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
+import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.model.Email;
 import br.ufc.quixada.npi.service.EmailService;
@@ -38,13 +38,16 @@ import br.ufc.quixada.npi.service.EmailService;
 public class InscricaoController {
 	
 	@Inject
+	private InscricaoRepository inscricaoRepository;
+	
+	@Inject
 	private InscricaoService inscricaoService;
 	
 	@Inject
 	private EmailService emailService;
 	
 	@Inject
-	private SelecaoService selecaoService;
+	private SelecaoRepository selecaoRepository;
 	
 	private void enviarImagemPadraoEmCasoDeErro(HttpServletResponse response){
 		try {
@@ -57,7 +60,7 @@ public class InscricaoController {
 	
 	@RequestMapping("detalhes/fotoAluno/{idInscricao}")
 	public void pegarFotoAluno(@PathVariable("idInscricao") Integer idInscricao, HttpServletResponse response){
-		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = this.inscricaoRepository.findById(idInscricao);
 		
 		try {
 			
@@ -80,11 +83,13 @@ public class InscricaoController {
 	
 	@RequestMapping(value = {"consolidar/{idInscricao}"}, method = RequestMethod.GET)
 	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model){
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		List<Selecao> selecoes = selecaoService.getSelecoes();
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
+		List<Selecao> selecoes = selecaoRepository.findAll();
 		
 		inscricao.setConsolidacao(true);
-		inscricaoService.update(inscricao);	
+
+		inscricaoRepository.save(inscricao);
+		
 		model.addAttribute("selecoes", selecoes);
 		
 		

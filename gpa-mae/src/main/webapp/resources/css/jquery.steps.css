@@ -17,10 +17,6 @@
     border:1px solid #999999;
 }
 
-.steps ul{
-
-}
-
 .steps ul li{
 	position: relative !important;
 	height: 80px;
@@ -294,12 +290,6 @@
 .wizard > .loading
 {
 }
-
-.wizard > .loading .spinner
-{
-}
-
-
 
 /*
     Tabcontrol

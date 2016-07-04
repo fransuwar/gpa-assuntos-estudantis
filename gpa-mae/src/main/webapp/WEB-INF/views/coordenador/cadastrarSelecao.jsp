@@ -151,7 +151,7 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<label for="dataTermino" class="control-label"
-										id="text-align-left"><span class="red">*</span>Documentos
+										id="text-align-left">Documentos
 										Necessários:</label>
 								</div>
 								<div class="col-sm-12">
@@ -184,10 +184,8 @@
 						</div>
 					</div>
 					<div class="form-btn">
-						<input type="submit" class="btn btn-primary" value="${botao }"
-							id="form-btn" /> <a
-							href="<c:url value="/servidor/selecao/listar"></c:url>"
-							class="btn btn-default" id="form-btn">Cancelar</a>
+						<a href="<c:url value="/servidor/selecao/listar"></c:url>" class="btn btn-default" id="form-btn">Cancelar</a>
+						<input type="submit" class="btn btn-primary" value="${botao }" id="form-btn" />
 					</div>
 				</form:form>
 			</div>
