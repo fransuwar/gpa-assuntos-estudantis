@@ -363,6 +363,7 @@ public class ServidorController {
 		
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		modelo.addAttribute("pessoaDaFamilia",new PessoaFamilia());
+		modelo.addAttribute("documentacao", new AnaliseDocumentacao());
 		
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
@@ -518,15 +519,17 @@ public class ServidorController {
 
 	@RequestMapping(value= {"avaliarDocumentacao"}, method = RequestMethod.POST)
 	public String avaliarDocumentacao(@Valid @ModelAttribute("documentacao") AnaliseDocumentacao analiseDocumentacao , @RequestParam("idInscricao") Integer idInscricao, 
+
 			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 
         Inscricao inscricao = inscricaoRepository.findById(idInscricao);
         Servidor servidor = servidorRepository.findByCpf(auth.getName());
-        
+
         analiseDocumentacao.setServidor(servidor);
 		inscricao.setDocumentacao(analiseDocumentacao);
 		inscricaoRepository.save(inscricao);
-
+		
+		redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO);
 		redirect.addFlashAttribute(ABA_SELECIONADA,DOCUMENTOS_TAB);
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;

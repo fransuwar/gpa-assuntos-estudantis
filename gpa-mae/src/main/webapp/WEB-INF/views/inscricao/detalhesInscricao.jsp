@@ -73,21 +73,18 @@
 												<span class="glyphicon glyphicon-pencil"></span>
 											</button>
 										</a>
-										<a id="excluirInscricao"
-											data-target="#modal-excluir-inscricao"
-											class="btn btn-danger btn-sm" data-toggle="modal"
-											title="Excluir Inscrição"
-											data-href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
-											<i class="glyphicon glyphicon-trash"></i>
+									</sec:authorize>
+									<sec:authorize
+										access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+										<a data-target="#modal-consolidacao-servidor"
+											data-toggle="modal"
+											data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
+											<button class="btn btn-success btn-sm"
+												title="Consolidar Inscrição">
+												<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+											</button>
 										</a>
 									</sec:authorize>
-									<a data-target="#modal-consolidacao" data-toggle="modal"
-										data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
-										<button class="btn btn-success btn-sm"
-											title="Consolidar Inscrição">
-											<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
-										</button>
-									</a>
 								</c:when>
 								<c:otherwise>
 									<span class="label label-success">Inscrição consolidada</span>
@@ -169,11 +166,6 @@
 						<div class='f-container s4 left'>
 							<label class='f-title'>Resultado:</label>
 							<div class='f-content'>${inscricao.resultado.nome}</div>
-						</div>
-
-						<div class='f-container s3 left'>
-							<label class='f-title'>Observações:</label>
-							<div class='f-content'>${inscricao.observacoes}</div>
 						</div>
 
 					</div>
@@ -588,7 +580,7 @@
 				</c:if>
 				<div class="panel panel-default panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Dados da Visita</h3>
+						<h3 class="panel-title">Informações da Documentação</h3>
 					</div>
 					<div class="panel-body">
 						<dl class='col-sm-12'>
@@ -737,10 +729,6 @@
 								<hr />
 							</c:forEach>
 
-
-							<sec:authorize
-								access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
-
 								<div class="panel panel-default panel-primary">
 									<div class="panel-body">
 										<form:form id="obsDoc" role="form"
@@ -765,8 +753,6 @@
 										</form:form>
 									</div>
 								</div>
-
-							</sec:authorize>
 
 						</sec:authorize>
 					</div>
@@ -823,7 +809,7 @@
 						<c:otherwise>
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
-									<h3 class="panel-title">Dados da Entrevista</h3>
+									<h3 class="panel-title">Informações da Entrevista</h3>
 								</div>
 								<div class="panel-body">
 									<dl class='col-sm-12'>
@@ -1051,7 +1037,7 @@
 						<c:otherwise>
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
-									<h3 class="panel-title">Dados da Visita</h3>
+									<h3 class="panel-title">Informações da Visita</h3>
 								</div>
 								<div class="panel-body">
 									<dl class='col-sm-12'>
