@@ -760,12 +760,10 @@ div.input-photo {
 
 .card .card-content{
 	position: relative;
-	padding-top: 17px;
+	padding-top: 10px;
 	padding-bottom: 17px;
 	margin: 0 auto;
 	width: 100%;
-	top: 50%;
-	transform: translateY(-50%);
 	display: block;
 	color: #555753 !important;
 }
