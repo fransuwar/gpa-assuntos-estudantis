@@ -29,6 +29,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTACAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MORADIA_ESTADO;
 
 
@@ -285,9 +286,12 @@ public class ServidorController {
 	@RequestMapping(value = { "visita" }, method = RequestMethod.POST)
 	public String realizarVisita(@Valid @ModelAttribute("relatorioVisitaDomiciliar") VisitaDomiciliar relatorioVisitaDomiciliar, BindingResult result,
 			@RequestParam("idInscricao") Integer idInscricao,@RequestParam("idSelecao") Integer idSelecao,
-			Model model, RedirectAttributes redirect) {
+			Model model, RedirectAttributes redirect, Authentication auth) {
 
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
+		Servidor servidor = servidorRepository.findByCpf(auth.getName());
+		
+		relatorioVisitaDomiciliar.setServidor(servidor);
 		inscricao.setVisitaDomiciliar(relatorioVisitaDomiciliar);
 
 		if (result.hasErrors()) {
@@ -379,12 +383,21 @@ public class ServidorController {
 
 			modelo.addAttribute(ABA_SELECIONADA, nomeAba);
 			
-			if(inscricao.getEntrevista()!=null)
+			if(inscricao.getEntrevista()!=null){
 				modelo.addAttribute(ENTREVISTA, inscricao.getEntrevista());
-			else
+			}else{
 				modelo.addAttribute(ENTREVISTA, new Entrevista());
 			    modelo.addAttribute("grauParentesco", GrauParentesco.values());
 			    modelo.addAttribute("escolaridade",Escolaridade.values());
+			}
+			
+			if(inscricao.getDocumentacao() != null){
+				modelo.addAttribute(DOCUMENTACAO, inscricao.getDocumentacao());
+			}else{
+				modelo.addAttribute(DOCUMENTACAO, new AnaliseDocumentacao());
+			}
+			    
+			
 
 			return PAGINA_DETALHES_INSCRICAO;
 		}else {
@@ -440,14 +453,19 @@ public class ServidorController {
 	}
 	
 	@RequestMapping(value={"detalhes/inscricao/adicionarObservacaoParecer"}, method = RequestMethod.POST)
-	public String adicionarObservacaoParecerVisita(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("parecer") String parecer, @RequestParam("observacao") String observacao, RedirectAttributes redirect){
+	public String adicionarObservacaoParecerVisita(@RequestParam("idInscricao") Integer idInscricao, 
+			@RequestParam("parecer") String parecer, @RequestParam("observacao") String observacao, 
+			RedirectAttributes redirect, Authentication auth){
+		
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		
 		VisitaDomiciliar visitaDomiciliar = inscricao.getVisitaDomiciliar();
 		
 		if(visitaDomiciliar != null){
+			Servidor servidor = servidorRepository.findByCpf(auth.getName());
 			visitaDomiciliar.setDeferimento(Resultado.valueOf(parecer));
 			visitaDomiciliar.setObservacaoParecer(observacao);
+			visitaDomiciliar.setServidor(servidor);
 			visitaRepository.save(visitaDomiciliar);
 		}
 		
@@ -500,19 +518,20 @@ public class ServidorController {
 	}
 
 	@RequestMapping(value= {"avaliarDocumentacao"}, method = RequestMethod.POST)
-	public String avaliarDocumentacao(@Valid @ModelAttribute("documentacao") AnaliseDocumentacao documentacao , @RequestParam("idInscricao") Integer idInscricao, 
+	public String avaliarDocumentacao(@Valid @ModelAttribute("documentacao") AnaliseDocumentacao analiseDocumentacao , @RequestParam("idInscricao") Integer idInscricao, 
+
 			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 
         Inscricao inscricao = inscricaoRepository.findById(idInscricao);
         Servidor servidor = servidorRepository.findByCpf(auth.getName());
-        
-		model.addAttribute("inscricao", inscricao);
-		documentacao.setServidor(servidor);
-		inscricao.setDocumentacao(documentacao);
+
+        analiseDocumentacao.setServidor(servidor);
+		inscricao.setDocumentacao(analiseDocumentacao);
 		inscricaoRepository.save(inscricao);
 		
 		redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO);
+		redirect.addFlashAttribute(ABA_SELECIONADA,DOCUMENTOS_TAB);
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
 	
