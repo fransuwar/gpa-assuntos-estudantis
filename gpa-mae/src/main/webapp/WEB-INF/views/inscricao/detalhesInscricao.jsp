@@ -64,30 +64,13 @@
 					</div>
 					<div class="panel-body">
 						<div align="right">
-							<sec:authorize access="hasAnyRole('DISCENTE')">
-								<c:if test="${!esconderBotoes}">
-									<a id="editarInscricao"
-										href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
-										<button class="btn btn-info btn-sm" title="Editar Inscrição">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</a>
-									<a id="excluirInscricao" data-target="#modal-excluir-inscricao"
-										class="btn btn-danger btn-sm" data-toggle="modal"
-										title="Excluir Inscrição"
-										data-href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
-										<i class="glyphicon glyphicon-trash"></i>
-									</a>
-								</c:if>
-							</sec:authorize>
 							<c:choose>
 								<c:when test="${inscricao.consolidacao eq false}">
 									<sec:authorize access="hasAnyRole('DISCENTE')">
-										<a data-target="#modal-consolidacao" data-toggle="modal"
-											data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
-											<button class="btn btn-success btn-sm"
-												title="Consolidar Inscrição">
-												<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+										<a id="editarInscricao"
+											href="<c:url value="/aluno/inscricao/editar/${inscricao.id }" ></c:url>">
+											<button class="btn btn-info btn-sm" title="Editar Inscrição">
+												<span class="glyphicon glyphicon-pencil"></span>
 											</button>
 										</a>
 									</sec:authorize>
@@ -102,6 +85,13 @@
 											</button>
 										</a>
 									</sec:authorize>
+									<a data-target="#modal-consolidacao" data-toggle="modal"
+										data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
+										<button class="btn btn-success btn-sm"
+											title="Consolidar Inscrição">
+											<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+										</button>
+									</a>
 								</c:when>
 								<c:otherwise>
 									<span class="label label-success">Inscrição consolidada</span>
@@ -750,7 +740,7 @@
 												<div class="col-sm-8">
 													<form:textarea cssClass="form-control" rows="8"
 														name="observacao" path="observacao"
-														value="${inscricao.documentacao.observacao}" />
+														value="${inscricao.documentacao.observacao}"></form:textarea>
 												</div>
 											</div>
 											<div
