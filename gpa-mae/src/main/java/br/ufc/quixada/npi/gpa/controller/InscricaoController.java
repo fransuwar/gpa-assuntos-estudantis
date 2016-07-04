@@ -5,6 +5,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_IN
 import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
 
 import java.io.IOException;
 import java.util.List;
@@ -87,7 +88,7 @@ public class InscricaoController {
 		inscricaoRepository.save(inscricao);
 
 		model.addAttribute("selecoes", selecoes);
-		redirect.addFlashAttribute(ABA_SELECIONADA,"inscricao-tab");
+		redirect.addFlashAttribute(ABA_SELECIONADA,INSCRICAO_TAB);
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 
 	}
@@ -101,7 +102,7 @@ public class InscricaoController {
 		inscricaoRepository.save(inscricao);
 
 		model.addAttribute("selecoes", selecoes);
-		redirect.addFlashAttribute(ABA_SELECIONADA,"inscricao-tab");
+		redirect.addFlashAttribute(ABA_SELECIONADA,INSCRICAO_TAB);
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + idInscricao;
 
 	}
