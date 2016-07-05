@@ -18,9 +18,9 @@
 	<jsp:include page="../fragments/headTag.jsp" />
 
 	<div class='container'>
-	
+
 		<jsp:include page="../fragments/cards.jsp" />
-	
+
 
 		<div class="panel panel-primary" align="left">
 			<div class="panel-heading">
@@ -45,7 +45,8 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="classificados-tab">
 
-						<table class="display full-width" id="resultadoFinalTableClassificados">
+						<table class="display full-width"
+							id="resultadoFinalTableClassificados">
 							<thead>
 								<tr>
 									<td class='dt-head-center'><b>Aluno</b></td>
@@ -61,16 +62,12 @@
 										<td class='dt-body-center'>Classificado</td>
 									</tr>
 								</c:forEach>
-
-
 							</tbody>
 
 						</table>
 
 						<br /> <br />
 						<div id="buttons-container1"></div>
-
-
 					</div>
 
 
@@ -86,11 +83,17 @@
 							<tbody>
 
 								<c:forEach var="inscricao" items="${reservas}">
-									<tr>
-										<td class='dt-body-center'>${inscricao.aluno.pessoa.nome}</td>
-										<td class='dt-body-center'>${inscricao.aluno.matricula}</td>
-										<td class='dt-body-center'>Reserva</td>
-									</tr>
+									<c:if
+										test="${inscricao.documentacao.deferimento eq 'DEFERIDO' && inscricao.entrevista.deferimento eq 'DEFERIDO' && inscricao.visitaDomiciliar.deferimento eq 'DEFERIDO'}">
+										<tr>
+										    <h1>${inscricao.documentacao.deferimento }</h1>
+										    <h1>${inscricao.entrevista.deferimento }</h1>
+										    <h1>${inscricao.visitaDomiciliar.deferimento }</h1>
+											<td class='dt-body-center'>${inscricao.aluno.pessoa.nome}</td>
+											<td class='dt-body-center'>${inscricao.aluno.matricula}</td>
+											<td class='dt-body-center'>Reserva</td>
+										</tr>
+									</c:if>
 								</c:forEach>
 
 							</tbody>
@@ -106,7 +109,8 @@
 					<div class="tab-pane" id="indeferidos-tab">
 
 
-						<table class="display full-width" id="resultadoFinalTableIndeferidos">
+						<table class="display full-width"
+							id="resultadoFinalTableIndeferidos">
 							<thead>
 								<tr>
 									<td class='dt-head-center'><b>Aluno</b></td>
@@ -137,7 +141,7 @@
 			</div>
 
 		</div>
-		</div>
-		<jsp:include page="../fragments/footer.jsp" />
+	</div>
+	<jsp:include page="../fragments/footer.jsp" />
 </body>
 </html>
