@@ -716,6 +716,7 @@
 								<hr />
 							</c:forEach>
 
+							</sec:authorize>
 
 							<sec:authorize
 								access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
@@ -747,7 +748,6 @@
 
 							</sec:authorize>
 
-						</sec:authorize>
 					</div>
 
 				</div>
@@ -937,8 +937,11 @@
 												items="${inscricao.questionarioAuxilioMoradia.pessoasEntrevista}">
 												<tr>
 													<td>${pessoa.nome}</td>
-													<c:if test="${not empty pessoa.outro}"><td>${pessoa.outro}</td></c:if>
-													<c:if test="${empty pessoa.outro}"><td>${pessoa.parentesco.nome}</td></c:if>
+													<c:choose>
+														<c:when test="${empty pessoa.outro}"><td>${pessoa.parentesco.nome}</td></c:when>
+														<c:otherwise><td>${pessoa.outro}</td></c:otherwise>
+													</c:choose>
+													
 													<td>${pessoa.escolaridade.nome}</td>
 													<td>${pessoa.idade}</td>
 													<td>${pessoa.profissao}</td>

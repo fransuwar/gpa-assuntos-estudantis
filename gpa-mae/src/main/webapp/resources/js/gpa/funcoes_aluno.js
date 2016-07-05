@@ -39,6 +39,17 @@ var FormularioAuxilio = function() {
 		self.abrirFormPessoaFamilia();
 		
 		self.maskFields();
+		self.formularioEnter();
+	};
+	
+	self.formularioEnter = function(){
+		$formElement.on("keyup keypress", function(e) {
+			var keyCode = e.keyCode || e.which;
+			if (keyCode === 13) { 
+				e.preventDefault();
+				return false;
+			}
+		});
 	};
 	
 	self.maskFields = function(){
