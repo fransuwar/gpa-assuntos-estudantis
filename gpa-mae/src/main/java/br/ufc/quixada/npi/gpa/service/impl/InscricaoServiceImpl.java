@@ -46,12 +46,6 @@ public class InscricaoServiceImpl implements InscricaoService {
 		return null;
 	}
 
-	@Transactional(readOnly = true)
-	public void salvarEntrevista(Entrevista entrevista) {
-		entrevistaService.save(entrevista);
-	}
-
-	
 	@Override
 	public ComQuemMora getComQuemMora(GrauParentesco comQuemMora) {
 		/*
