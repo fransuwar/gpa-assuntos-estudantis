@@ -6,7 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -106,11 +105,9 @@ public class QuestionarioAuxilioMoradia {
 	private double valorMensalFinanciamento;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "auxiliomoradia_id")
 	private List<PropriedadeRural> propRural;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "auxiliomoradia_id")
 	private List<BemMovel> bemMovel;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -293,6 +290,22 @@ public class QuestionarioAuxilioMoradia {
 
 	public String getNomeCursinho() {
 		return nomeCursinho;
+	}
+
+	public List<PropriedadeRural> getPropRural() {
+		return propRural;
+	}
+
+	public void setPropRural(List<PropriedadeRural> propRural) {
+		this.propRural = propRural;
+	}
+
+	public List<BemMovel> getBemMovel() {
+		return bemMovel;
+	}
+
+	public void setBemMovel(List<BemMovel> bemMovel) {
+		this.bemMovel = bemMovel;
 	}
 
 	public void setNomeCursinho(String nomeCursinho) {

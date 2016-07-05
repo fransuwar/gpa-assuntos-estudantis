@@ -498,9 +498,6 @@
 								</div>
 							</div>
 
-<<<<<<< HEAD
-						
-=======
 							<div class='p-container'>
 								<div class='p-header'>
 									<div class='p-title'>RESIDÊNCIA DE ORIGEM</div>
@@ -660,7 +657,6 @@
 									</div>
 								</div>
 							</div>
->>>>>>> refs/heads/est_21_implementar_mais_de_uma_propriedade_rural_e_bem_movel_por_inscricao
 
 							<div class='p-container'>
 								<div class='p-header'>
@@ -720,9 +716,9 @@
 																<form:options items="${grauParentescoImovelRural}"
 																	itemLabel="nome" />
 															</form:select>
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="prParentescoValidate" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 
@@ -733,9 +729,9 @@
 															<form:input id="areaPropriedadeRural" path=""
 																cssClass="form-control"
 																placeholder="Área da Propriedade" />
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="prAreaValidate" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 
 														</div>
 													</div>
@@ -747,34 +743,34 @@
 															<form:input id="cidadeEstadoImovelRural" path=""
 																cssClass="form-control"
 																placeholder="Cidade e Estado do Imovel Rural" />
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="prCidadeValidate" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 
-													<div class="f-container s3">
+													<div id="outroGrauSelectImovelRural" class="hidden f-container s3">
 														<label for="outroGrauParentescoImovelRural"
-															id="labelOutroGrauParentescoImovelRural" class="f-title"
-															style="display: none;">Especifique o grau de
+															id="labelOutroGrauParentescoImovelRural" class="f-title">
+															Especifique o grau de
 															parentesco:</label>
 														<div class="f-content">
 															<form:input id="outroGrauParentescoImovelRural" path=""
 																cssClass="form-control"
-																placeholder="Outro grau de parentesco"
-																style="display:none;" />
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+																placeholder="Outro grau de parentesco"/>
+															<p id="prOutroValidate" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-primary"
-														data-dismiss="modal">Cancelar</button>
 													<button id="addPropRural" type="submit"
 														class="btn btn-success" data-dismiss="modal">Adicionar
 													</button>
+													<button type="button" class="btn btn-primary"
+														data-dismiss="modal">Cancelar</button>
+													
 												</div>
 											</div>
 										</div>
@@ -801,9 +797,9 @@
 																<form:options items="${grauParentescoImovelRural}"
 																	itemLabel="nome" />
 															</form:select>
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="prParentescoValidateEditar" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 
@@ -814,9 +810,9 @@
 															<form:input id="areaPropriedadeRuralEditar" path=""
 																cssClass="form-control"
 																placeholder="Área da Propriedade" />
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="prAreaValidateEditar" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 
 														</div>
 													</div>
@@ -828,34 +824,34 @@
 															<form:input id="cidadeEstadoImovelRuralEditar" path=""
 																cssClass="form-control"
 																placeholder="Cidade e Estado do Imovel Rural" />
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="prCidadeValidateEditar" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 
-													<div class="f-container s3">
+													<div id="outroGrauSelectImovelRuralEditar" class="f-container s3 hidden">
 														<label for="outroGrauParentescoImovelRuralEditar"
-															id="labelOutroGrauParentescoImovelRural" class="f-title"
-															style="display: none;">Especifique o grau de
+															id="labelOutroGrauParentescoImovelRural" class="f-title">
+															Especifique o grau de
 															parentesco:</label>
 														<div class="f-content">
-															<form:input id="outroGrauParentescoImovelRural" path=""
+															<form:input id="outroGrauParentescoImovelRuralEditar" path=""
 																cssClass="form-control"
-																placeholder="Outro grau de parentesco"
-																style="display:none;" />
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+																placeholder="Outro grau de parentesco"/>
+															<p id="prOutroValidateEditar" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-primary"
-														data-dismiss="modal">Cancelar</button>
 													<button id="confirmarEdicaoPropRural" type="submit"
 														class="btn btn-success" data-dismiss="modal">Confirmar
 													</button>
+													<button type="button" class="btn btn-primary"
+														data-dismiss="modal">Cancelar</button>
+													
 												</div>
 											</div>
 										</div>
@@ -890,7 +886,7 @@
 											</table>
 
 											<div class="modal-footer">
-												<button type="button" class="btn btn-primary editarBemMovel"
+												<button id="abrirFormPropRuralEditar" type="button" class="btn btn-primary editarBemMovel"
 													data-toggle="modal" data-target="#editarBemMovel">
 													Editar</button>
 												<button name="botaoRmv" type="button"
@@ -922,9 +918,9 @@
 																<form:options items="${grauParentescoVeiculos}"
 																	itemLabel="nome" />
 															</form:select>
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="bmParentescoValidate" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 
@@ -938,9 +934,9 @@
 																<form:options items="${finalidadeVeiculo}"
 																	itemLabel="nome" />
 															</form:select>
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="bmFinalidadeValidate" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 
 														</div>
 													</div>
@@ -951,34 +947,34 @@
 														<div class='f-content'>
 															<form:input id="veiculo" path="" cssClass="form-control"
 																placeholder="Tipo de veículo" />
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="bmVeiculoValidate" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 
-													<div class="f-container s3">
+													<div id="outroGrauSelectBemMovel" class="hidden f-container s3">
 														<label for="outroGrauParentescoVeiculos"
-															id="labelOutroGrauParentescoVeiculos" class="f-title"
-															style="display: none;">Especifique o grau de
+															id="labelOutroGrauParentescoVeiculos" class="f-title">
+															Especifique o grau de
 															parentesco:</label>
 														<div class="f-content">
 															<form:input id="outroGrauParentescoVeiculos" path=""
 																cssClass="form-control"
-																placeholder="Outro grau de parentesco"
-																style="display:none;" />
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+																placeholder="Outro grau de parentesco" />
+															<p id="bmOutroValidate" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-primary"
-														data-dismiss="modal">Cancelar</button>
 													<button id="addBemMovel" type="submit"
 														class="btn btn-success" data-dismiss="modal">Adicionar
 													</button>
+													<button type="button" class="btn btn-primary"
+														data-dismiss="modal">Cancelar</button>
+													
 												</div>
 											</div>
 										</div>
@@ -1005,9 +1001,9 @@
 																<form:options items="${grauParentescoVeiculos}"
 																	itemLabel="nome" />
 															</form:select>
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="bmParentescoValidateEditar" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 
@@ -1021,9 +1017,9 @@
 																<form:options items="${finalidadeVeiculo}"
 																	itemLabel="nome" />
 															</form:select>
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="bmFinalidadeValidateEditar" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 
 														</div>
 													</div>
@@ -1034,13 +1030,13 @@
 														<div class='f-content'>
 															<form:input id="veiculoEditar" path=""
 																cssClass="form-control" placeholder="Tipo de Veículo" />
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="bmVeiculoValidateEditar" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 
-													<div class="f-container s3">
+													<div id="outroGrauSelectBemMovelEditar" class="hidden f-container s3">
 														<label for="outroGrauParentescoVeiculosEditar"
 															id="labelOutroGrauParentescoVeiculos" class="f-title"
 															style="display: none;">Especifique o grau de
@@ -1050,18 +1046,19 @@
 																cssClass="form-control"
 																placeholder="Outro grau de parentesco"
 																style="display:none;" />
-															<div class="error-validation">
-																<form:errors path=""></form:errors>
-															</div>
+															<p id="bmOutroValidateEditar" class="hidden text-danger">
+																Campo Obrigatório
+															</p>
 														</div>
 													</div>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-primary"
-														data-dismiss="modal">Cancelar</button>
 													<button id="confirmarEdicaoBemMovel" type="submit"
 														class="btn btn-success" data-dismiss="modal">Confirmar
 													</button>
+													<button type="button" class="btn btn-primary"
+														data-dismiss="modal">Cancelar</button>
+													
 												</div>
 											</div>
 										</div>
@@ -1069,9 +1066,9 @@
 
 
 								</div>
-							</div></section>
-
-
+							</div>
+						</div>
+					</section>
 					<h3>Historico Escolar</h3>
 					<section>
 						<div class='p-container-set'>

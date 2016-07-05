@@ -33,22 +33,52 @@ var FormularioAuxilio = function() {
 		"parentesco" : "select[id=grauParentescoImovelRural]",
 		"area" : "input[id=areaPropriedadeRural]",
 		"cidade" : "input[id=cidadeEstadoImovelRural]",
+		"outros" : "input[id=outroGrauParentescoImovelRural]",
 	};
+	
 	var formPropRuralEditar = {
 		"parentesco" : "select[id=grauParentescoImovelRuralEditar]",
 		"area" : "input[id=areaPropriedadeRuralEditar]",
 		"cidade" : "input[id=cidadeEstadoImovelRuralEditar]",
+		"outros" : "input[id=outroGrauParentescoImovelRuralEditar]",
+	};
+	var formPropRuralValidate = {
+		"parentesco" : "prParentescoValidate",
+		"area" : "prAreaValidate",
+		"cidade" : "prCidadeValidate",
+		"outros" : "prOutroValidate",
+	};
+	var formPropRuralValidateEditar = {
+		"parentesco" : "prParentescoValidateEditar",
+		"area" : "prAreaValidateEditar",
+		"cidade" : "prCidadeValidateEditar",
+		"outros" : "prOutroValidateEditar",
 	};
 
 	var formBemMovel = {
 		"parentesco" : "select[id=grauParentescoVeiculos]",
 		"finalidade" : "select[id=finalidadeVeiculo]",
 		"veiculo" : "input[id=veiculo]",
+		"outros" : "input[id=outroGrauParentescoVeiculos]",
 	};
 	var formBemMovelEditar = {
 		"parentesco" : "select[id=grauParentescoVeiculosEditar]",
 		"finalidade" : "select[id=finalidadeVeiculoEditar]",
 		"veiculo" : "input[id=veiculoEditar]",
+		"outros" : "input[id=outroGrauParentescoVeiculosEditar]",
+	};
+	var formBemMovelValidate = {
+		"parentesco" : "bmParentescoValidate",
+		"finalidade" : "bmFinalidadeValidate",
+		"veiculo" : "bmVeiculoValidate",
+		"outro" : "bmOutroValidate",
+		
+	};
+	var formBemMovelValidateEditar = {
+		"parentesco" : "bmParentescoValidateEditar",
+		"finalidade" : "bmFinalidadeValidateEditar",
+		"veiculo" : "bmVeiculoValidateEditar",
+		"outro" : "bmOutroValidateEditar",
 	};
 	
 	/*
@@ -71,19 +101,21 @@ var FormularioAuxilio = function() {
 		self.initSelectSituacaoImovel();
 		self.initBotaoFinalizarInscricao();
 		self.initSelectEnsinoFundamental();
-		self.initSelectParentescoVeiculos();
 		self.initSelectParentescoImovelRural();
+		self.initSelectParentescoImovelRuralEditar();
+		self.initSelectParentescoBemMovel();
+		self.initSelectParentescoBemMovelEditar();
 		self.initConfirmButtons();
-		
 		self.addPessoaFamilia();
 		self.abrirFormPessoaFamilia();
 		
 		self.addPropRural();
+		self.abrirFormPropRural();
+		self.outroParentPropRural();
 		self.addBemMovel();
+		self.abrirFormBemMovel();
 		
 	};
-
-	
 	
 	self.criarDivPessoaFamilia = function (indice, pessoaFamilia) {
 		criarDivItem(indice, pessoaFamilia, "pessoaFamilia", 0)
@@ -100,7 +132,6 @@ var FormularioAuxilio = function() {
 		
 		var campoNome = novaDivPessoa.find("h4");
 		campoNome.text(pessoaFamilia.nome);
-
 		
 		var outrosCampos = novaDivPessoa.find("tbody");
 		outrosCampos.append("<tr></tr>");
@@ -191,7 +222,7 @@ var FormularioAuxilio = function() {
 			$("input[name=nomeEditar]").removeAttr("readonly");
 			$("select[name=parentescoEditar]").attr("disabled", false);
 		}
-			
+
 		$("input[name=nomeEditar]").val(pessoa.nome);
 		$("select[name=parentescoEditar]").val(pessoa.parentesco);
 		$("input[name=idadeEditar]").val(pessoa.idade);
@@ -258,24 +289,60 @@ var FormularioAuxilio = function() {
 
 		var table = novoDivItem.find("tbody");
 		var tr = $("<tr></tr>");
+		
+		
+		
 		if(nomeElemento == "bemMovel"){
-			for(var i in formBemMovel){
-				tr.append($("<td>" + elemento[i] + "</td>"));
+			if(elemento.parentesco == "OUTROS"){
+				tr.append($("<td>" + elemento.outros + "</td>"));
+			}else{
+				tr.append($("<td>" + elemento.parentesco + "</td>"));
 			}
+			tr.append($("<td>" + elemento.finalidade + "</td>"));
+			tr.append($("<td>" + elemento.veiculo + "</td>"));
+			console.log("auehrua");
+			console.log(elemento);
 		}else{
-			for(var i in formPropRural){
-				tr.append($("<td>" + elemento[i] + "</td>"));
+			if(elemento.parentesco == "OUTROS"){
+				tr.append($("<td>" + elemento.outros + "</td>"));
+			}else{
+				tr.append($("<td>" + elemento.parentesco + "</td>"));
 			}
+			tr.append($("<td>" + elemento.area + "</td>"));
+			tr.append($("<td>" + elemento.cidade + "</td>"));
 		}
 		table.append(tr);
 		
 		var input = $("<input type=\"hidden\"/>");
-
-		for(var i in form){
-			input.attr("value", elemento[i]);
-			input.attr("name", nomeElemento + "["+ indice +"]." + elemento[i]);
+		
+		if(nomeElemento == "bemMovel"){
+			input.attr("value", elemento.parentesco);
+			input.attr("name", "bemMovel[" + indice + "].parentesco");
+			novoDivItem.append(input.clone());
+			input.attr("value", elemento.finalidade);
+			input.attr("name", "bemMovel[" + indice + "].finalidade");
+			novoDivItem.append(input.clone());
+			input.attr("value", elemento.veiculo);
+			input.attr("name", "bemMovel[" + indice + "].veiculo");
+			novoDivItem.append(input.clone());
+			input.attr("value", elemento.outro);
+			input.attr("name", "bemMovel[" + indice + "].outro");
+			novoDivItem.append(input.clone());
+		}else{
+			input.attr("value", elemento.parentesco);
+			input.attr("name", "propRural[" + indice + "].parentesco");
+			novoDivItem.append(input.clone());
+			input.attr("value", elemento.cidade);
+			input.attr("name", "propRural[" + indice + "].cidade");
+			novoDivItem.append(input.clone());
+			input.attr("value", elemento.area);
+			input.attr("name", "propRural[" + indice + "].area");
+			novoDivItem.append(input.clone());
+			input.attr("value", elemento.outro);
+			input.attr("name", "propRural[" + indice + "].outro");
 			novoDivItem.append(input.clone());
 		}
+		
 		return novoDivItem;
 
 	}
@@ -321,6 +388,19 @@ var FormularioAuxilio = function() {
 		$(".editarBemMovel").click(self.editarBemMovel);
 	};
 	
+	self.outroParentPropRural = function(){
+		$(formPropRural.parentesco).on("change", function(){
+			if($(formPropRural.parentesco).value == "OUTROS"){
+				
+			}
+		});
+	}
+	
+	self.outroParentBemMovel = function(){
+		
+		
+	}
+	
 	self.removerPropRural = function(){
 		var item = $(this).parent().parent();
 		var idItem = item.attr("id").split("_")[1];
@@ -337,213 +417,83 @@ var FormularioAuxilio = function() {
 	}
 	
 	self.editarPropRural = function () {
+		
 		var divPropRural = $(this).parent().parent()
 		var idPropRural = divPropRural.attr("id").split("_")[1];
 		var propRural = listaPropRurais[idPropRural];
 		
+		console.log(propRural.outros);
+		
 		$(formPropRuralEditar.parentesco).val(propRural.parentesco);
 		$(formPropRuralEditar.cidade).val(propRural.cidade);
 		$(formPropRuralEditar.area).val(propRural.area);
-		$("#confirmarEdicaoPropRural").click({indice: idPropRural}, self.confirmarEdicaoPropRural); 
-	};
-	
-	self.editarBemMovel = function () {
-		var divBemMovel = $(this).parent().parent()
-		var idBemMovel = divBemMovel.attr("id").split("_")[1];
-		var bemMovel = listaBensMoveis[idBemMovel];
+		$(formPropRuralEditar.outros).val(propRural.outros);
 		
-		$(formBemMovelEditar.parentesco).val(bemMovel.parentesco);
-		$(formBemMovelEditar.veiculo).val(bemMovel.veiculo);
-		$(formBemMovelEditar.finalidade).val(bemMovel.finalidade);
+		$("#"+formPropRuralValidateEditar.parentesco).addClass("hidden");
+		$("#"+formPropRuralValidateEditar.area).addClass("hidden");
+		$("#"+formPropRuralValidateEditar.cidade).addClass("hidden");
+		$("#"+formPropRuralValidateEditar.outros).addClass("hidden");
 		
-		$("#confirmarEdicaoBemMovel").click({indice: idBemMovel}, self.confirmarEdicaoBemMovel); 
-	};
-	
-	self.confirmarEdicaoPropRural = function (evento) {
-		var idPropRural = evento.data.indice;
-		var propRural = listaPropRurais[idPropRural];
+		var $selectOutroGrauParentesco = $("#outroGrauSelectImovelRuralEditar");
 		
-		console.log(propRural);
-		propRural.parentesco = $(formPropRuralEditar.parentesco).val();
-		propRural.cidade = $(formPropRuralEditar.cidade).val();
-		propRural.area = $(formPropRuralEditar.area).val();
-		
-		$(formPropRuralEditar.parentesco).val("");
-		$(formPropRuralEditar.cidade).val("");
-		$(formPropRuralEditar.area).val("");
-		
-		self.imprimirListaPropRurais();
-		$( "#confirmarEdicaoPropRural").unbind( "click" );
-	};
-	
-	self.confirmarEdicaoBemMovel = function (evento) {
-		var idBemMovel = evento.data.indice;
-		var bemMovel = listaBensMoveis[idBemMovel];
-		
-		
-		bemMovel.parentesco = $(formBemMovelEditar.parentesco).val();
-		bemMovel.veiculo = $(formBemMovelEditar.veiculo).val();
-		bemMovel.finalidade = $(formBemMovelEditar.finalidade).val();
-		
-
-		$(formBemMovelEditar.parentesco).val("");
-		$(formBemMovelEditar.veiculo).val("");
-		$(formBemMovelEditar.finalidade).val("");
-		
-		self.imprimirListaBensMoveis();
-		$( "#confirmarEdicaoBemMovel").unbind( "click" );
-	};
-		
-	self.criarElementoDoForm = function(form){
-		var elemento = {}
-		$.each(form, function (chave, valor) {
-			elemento[chave] = $(valor).val();
-			$(valor).val("");
-		});
-
-		return elemento;
-	}
-
-	self.addPropRural = function () {
-		$("#addPropRural").click(function() {
-			var propRural = self.criarElementoDoForm(formPropRural);
-			listaPropRurais.push(propRural);	
-			self.imprimirListaPropRurais();
+		if($("#grauParentescoImovelRuralEditar").val() == "OUTROS"){
+			$selectOutroGrauParentesco.removeClass("hidden");
 			
-		});
-	};
-	
-	self.addBemMovel = function () {
-		$("#addBemMovel").click(function() {
-			var bemMovel = self.criarElementoDoForm(formBemMovel);
-			listaBensMoveis.push(bemMovel);
-			self.imprimirListaBensMoveis();
-		});
-	};
-
-	
-	self.criarDivItem = function(indice, elemento, nomeElemento, form){
-		
-		var novoDivItem = $("#"+nomeElemento).clone();
-
-		novoDivItem.attr("id", nomeElemento + "_" + indice);
-		novoDivItem.removeClass("hidden");
-
-		var table = novoDivItem.find("tbody");
-		var tr = $("<tr></tr>");
-		if(nomeElemento == "bemMovel"){
-			for(var i in formBemMovel){
-				tr.append($("<td>" + elemento[i] + "</td>"));
-			}
 		}else{
-			for(var i in formPropRural){
-				tr.append($("<td>" + elemento[i] + "</td>"));
-			}
+			$selectOutroGrauParentesco.addClass("hidden");
+			$("outroGrauParentescoImovelRuralEditar").val("");
 		}
-		table.append(tr);
 		
-		var input = $("<input type=\"hidden\"/>");
-
-		for(var i in form){
-			input.attr("value", elemento[i]);
-			input.attr("name", nomeElemento + "["+ indice +"]." + elemento[i]);
-			novoDivItem.append(input.clone());
-		}
-		return novoDivItem;
-
-	}
-
-	self.limparListaPropRurais = function () {
-		$("#listaPropRurais").children().each(function (indice, item) {
-			if ($(item).attr("id") !== "propRural") {
-				$(item).remove();
-			}
-		});
-	};
-	
-	self.limparListaBemMovel = function () {
-		$("#listaBensMoveis").children().each(function (indice, item) {
-			if ($(item).attr("id") !== "bemMovel") {
-				$(item).remove();
-			}
-		});
-	};
-
-	self.imprimirListaPropRurais = function () {    	
-		self.limparListaPropRurais();
-
-		listaPropRurais.forEach(function (propRural, indice) {
-			var novaDivProp = self.criarDivItem(indice, propRural, "propRural", self.formPropRural);
-			$("#listaPropRurais").append(novaDivProp); 
-		});
-		
-		$(".rmvPropRural").click(self.removerPropRural);
-		$(".editarPropRural").click(self.editarPropRural);
-	};
-	
-	self.imprimirListaBensMoveis = function () {    	
-		self.limparListaBemMovel();
-
-		listaBensMoveis.forEach(function (bemMovel, indice) {
-			var novaDiv = self.criarDivItem(indice, bemMovel, "bemMovel", self.formBemMovel);
-			
-			$("#listaBensMoveis").append(novaDiv); 
-		});
-		
-		$(".rmvBemMovel").click(self.removerBemMovel);
-		$(".editarBemMovel").click(self.editarBemMovel);
-	};
-	
-	self.removerPropRural = function(){
-		var item = $(this).parent().parent();
-		var idItem = item.attr("id").split("_")[1];
-		listaPropRurais.splice(idItem, 1);
-		self.imprimirListaPropRurais();
-
-	}
-	
-	self.removerBemMovel = function(){
-		var item = $(this).parent().parent();
-		var idItem = item.attr("id").split("_")[1];
-		listaBensMoveis.splice(idItem, 1);
-		self.imprimirListaBensMoveis();
-	}
-	
-	self.editarPropRural = function () {
-		var divPropRural = $(this).parent().parent()
-		var idPropRural = divPropRural.attr("id").split("_")[1];
-		var propRural = listaPropRurais[idPropRural];
-		
-		$(formPropRuralEditar.parentesco).val(propRural.parentesco);
-		$(formPropRuralEditar.cidade).val(propRural.cidade);
-		$(formPropRuralEditar.area).val(propRural.area);
-		$("#confirmarEdicaoPropRural").click({indice: idPropRural}, self.confirmarEdicaoPropRural); 
+		$("#confirmarEdicaoPropRural").click({indice: idPropRural}, self.confirmarEdicaoPropRural);
 	};
 	
 	self.editarBemMovel = function () {
 		var divBemMovel = $(this).parent().parent()
 		var idBemMovel = divBemMovel.attr("id").split("_")[1];
 		var bemMovel = listaBensMoveis[idBemMovel];
-		
+
 		$(formBemMovelEditar.parentesco).val(bemMovel.parentesco);
 		$(formBemMovelEditar.veiculo).val(bemMovel.veiculo);
 		$(formBemMovelEditar.finalidade).val(bemMovel.finalidade);
+		$(formBemMovelEditar.outros).val(bemMovel.outros);
+
 		
-		$("#confirmarEdicaoBemMovel").click({indice: idBemMovel}, self.confirmarEdicaoBemMovel); 
+		$("#"+formBemMovelValidateEditar.parentesco).addClass("hidden");
+		$("#"+formBemMovelValidateEditar.veiculo).addClass("hidden");
+		$("#"+formBemMovelValidateEditar.finalidade).addClass("hidden");
+		$("#"+formBemMovelValidateEditar.outros).addClass("hidden");
+
+		var $selectOutroGrauParentesco = $("#outroGrauSelectBemMovelEditar");
+		
+		if($("#grauParentescoVeiculosEditar").val() == "OUTROS"){
+			$selectOutroGrauParentesco.removeClass("hidden");
+			
+		}else{
+			$selectOutroGrauParentesco.addClass("hidden");
+			$("outroGrauParentescoVeiculosEditar").val("");
+		}
+		
+		$("#confirmarEdicaoBemMovel").click({indice: idBemMovel}, self.confirmarEdicaoBemMovel);
 	};
 	
 	self.confirmarEdicaoPropRural = function (evento) {
 		var idPropRural = evento.data.indice;
 		var propRural = listaPropRurais[idPropRural];
+		var flag = false;
+		$.each(formPropRuralEditar, function(chave, valor){
+			if($(valor).val()==""){
+				$("#"+formPropRuralValidateEditar[chave]).removeClass("hidden");
+				flag = true;
+			}else{
+				$("#"+formPropRuralValidateEditar[chave]).addClass("hidden");
+				propRural[chave] = $(valor).val();
+			}
+			
+		});
 		
-		console.log(propRural);
-		propRural.parentesco = $(formPropRuralEditar.parentesco).val();
-		propRural.cidade = $(formPropRuralEditar.cidade).val();
-		propRural.area = $(formPropRuralEditar.area).val();
-		
-		$(formPropRuralEditar.parentesco).val("");
-		$(formPropRuralEditar.cidade).val("");
-		$(formPropRuralEditar.area).val("");
+		if(flag){
+			return false;
+		}
 		
 		self.imprimirListaPropRurais();
 		$( "#confirmarEdicaoPropRural").unbind( "click" );
@@ -552,47 +502,174 @@ var FormularioAuxilio = function() {
 	self.confirmarEdicaoBemMovel = function (evento) {
 		var idBemMovel = evento.data.indice;
 		var bemMovel = listaBensMoveis[idBemMovel];
-		
-		
-		bemMovel.parentesco = $(formBemMovelEditar.parentesco).val();
-		bemMovel.veiculo = $(formBemMovelEditar.veiculo).val();
-		bemMovel.finalidade = $(formBemMovelEditar.finalidade).val();
-		
-
-		$(formBemMovelEditar.parentesco).val("");
-		$(formBemMovelEditar.veiculo).val("");
-		$(formBemMovelEditar.finalidade).val("");
-		
+		var flag = false;
+		$.each(formBemMovelEditar, function(chave, valor){
+			if($(valor).val()==""){
+				$("#"+formBemMovelValidateEditar[chave]).removeClass("hidden");
+				flag = true;
+			}else{
+				$("#"+formBemMovelValidateEditar[chave]).addClass("hidden");
+				bemMovel[chave] = $(valor).val();
+			}
+			
+		});
+	
+		if(flag){
+			return false;
+		}
 		self.imprimirListaBensMoveis();
 		$( "#confirmarEdicaoBemMovel").unbind( "click" );
 	};
-		
-	self.criarElementoDoForm = function(form){
+	
+	self.criarElementoDoFormPropRural = function(){
 		var elemento = {}
-		$.each(form, function (chave, valor) {
-			elemento[chave] = $(valor).val();
-			$(valor).val("");
-		});
+		flag = false
+		
+		if($(formPropRural.parentesco).val() == ""){
+			$("#"+formPropRuralValidate.parentesco).removeClass("hidden");
+			flag = true;
+		}else{
+			$("#"+formPropRuralValidate.parentesco).addClass("hidden");
+		}	
+		elemento.parentesco = $(formPropRural.parentesco).val();
+		
+		if($(formPropRural.cidade).val() == ""){
+			$("#"+formPropRuralValidate.cidade).removeClass("hidden");
+			flag = true;
+		}else{
+			$("#"+formPropRuralValidate.cidade).addClass("hidden");
+		}	
+		elemento.cidade = $(formPropRural.cidade).val();
+		
+		if($(formPropRural.area).val() == ""){
+			$("#"+formPropRuralValidate.area).removeClass("hidden");
+			flag = true;
+		}else{
+			$("#"+formPropRuralValidate.area).addClass("hidden");
+		}	
+		elemento.area = $(formPropRural.area).val();
+		
+		if($(formPropRural.parentesco).val() == "OUTROS"){
+			if($(formPropRural.outros).val() == ""){
+				$("#"+formPropRuralValidate.outros).removeClass("hidden");
+				flag = true;
+			}else{
+				$("#"+formPropRuralValidate.outros).addClass("hidden");
+			}
+		}	
+		elemento.outros = $(formPropRural.outros).val();
+		
+		if(flag){
+			return false;
+		}
 
 		return elemento;
 	}
+	
+	self.criarElementoDoFormBemMovel = function(){
+		var elemento = {}
+		flag = false
+		
+		if($(formBemMovel.parentesco).val() == ""){
+			$("#"+formBemMovelValidate.parentesco).removeClass("hidden");
+			flag = true;
+		}else{
+			$("#"+formBemMovelValidate.parentesco).addClass("hidden");
+		}	
+		elemento.parentesco = $(formBemMovel.parentesco).val();
+		
+		if($(formBemMovel.finalidade).val() == ""){
+			$("#"+formBemMovelValidate.finalidade).removeClass("hidden");
+			flag = true;
+		}else{
+			$("#"+formBemMovelValidate.finalidade).addClass("hidden");
+		}	
+		elemento.finalidade = $(formBemMovel.finalidade).val();
+		
+		if($(formBemMovel.veiculo).val() == ""){
+			$("#"+formBemMovelValidate.veiculo).removeClass("hidden");
+			flag = true;
+		}else{
+			$("#"+formBemMovelValidate.veiculo).addClass("hidden");
+		}	
+		elemento.veiculo = $(formBemMovel.veiculo).val();
+		
+		if($(formBemMovel.parentesco).val() == "OUTROS"){
+			if($(formBemMovel.outros).val() == ""){
+				$("#"+formBemMovelValidate.outros).removeClass("hidden");
+				flag = true;
+			}else{
+				$("#"+formBemMovelValidate.outros).addClass("hidden");
+			}
+		}	
+		elemento.outros = $(formBemMovel.outros).val();
+		
+		if(flag){
+			return false;
+		}
+
+		return elemento;
+	}
+	
+	
 
 	self.addPropRural = function () {
 		$("#addPropRural").click(function() {
-			var propRural = self.criarElementoDoForm(formPropRural);
-			listaPropRurais.push(propRural);	
-			self.imprimirListaPropRurais();
-			
+			var propRural = self.criarElementoDoFormPropRural();
+			if(propRural){
+				listaPropRurais.push(propRural);
+				self.imprimirListaPropRurais();
+			}else{
+				return false;
+			}
 		});
 	};
 	
+	self.abrirFormPropRural = function(){
+		$("#abrirFormPropRural").click(function(){
+			$.each(formPropRural, function (chave, valor) {
+				$("#"+formPropRuralValidate[chave]).addClass("hidden");
+				$(valor).val("");
+			});
+			var $selectOutroGrauParentesco = $("#outroGrauSelectImovelRural");
+			if($("#grauParentescoImovelRural").val() == "OUTROS"){
+				$("outroGrauParentescoImovelRural").val("");
+				$selectOutroGrauParentesco.removeClass("hidden");
+				
+			}else{
+				$selectOutroGrauParentesco.addClass("hidden");
+			}
+		});
+	}
+	
+	
 	self.addBemMovel = function () {
 		$("#addBemMovel").click(function() {
-			var bemMovel = self.criarElementoDoForm(formBemMovel);
-			listaBensMoveis.push(bemMovel);
-			self.imprimirListaBensMoveis();
+			var bemMovel = self.criarElementoDoFormBemMovel();
+			if(bemMovel){
+				listaBensMoveis.push(bemMovel);
+				self.imprimirListaBensMoveis();
+			}else{
+				return false;
+			}
 		});
 	};
+	
+	self.abrirFormBemMovel = function(){
+		$("#abrirFormBemMovel").click(function(){
+			$.each(formBemMovel, function (chave, valor) {
+				$("#"+formBemMovelValidate[chave]).addClass("hidden");
+				$(valor).val("");
+			});
+			var $selectOutroGrauParentesco = $("#outroGrauSelectBemMovel");
+			if($("#grauParentescoBemMovel").val() == "OUTROS"){
+				$("outroGrauParentescoBemMovel").val("");
+				$selectOutroGrauParentesco.removeClass("hidden");
+			}else{
+				$selectOutroGrauParentesco.addClass("hidden");
+			}
+		});
+	}
 
 	
 	self.initStep = function() {
@@ -700,58 +777,59 @@ var FormularioAuxilio = function() {
 	 */
 	self.initSelectParentescoImovelRural = function(){
 		var $select = $("#grauParentescoImovelRural");
-		$select.change(function(){
-			var $selectOutroGrauParentesco = $("#outroGrauParentescoImovelRural");
-			var $labelOutroGrauParentesco = $("#labelOutroGrauParentescoImovelRural");
+		var $selectOutroGrauParentesco = $("#outroGrauSelectImovelRural");
+		$select.change(function(){		
 			if($(this).val() == "OUTROS"){
-				$selectOutroGrauParentesco.val("");
-				$selectOutroGrauParentesco.css("display", "block");
-				$labelOutroGrauParentesco.css("display", "block");
+				$("outroGrauParentescoImovelRural").val("");
+				$selectOutroGrauParentesco.removeClass("hidden");
+				
 			}else{
-				$selectOutroGrauParentesco.css("display", "none");
-				$labelOutroGrauParentesco.css("display", "none");
-			}
-		});
-	};
-	
-	/*
-	 * Todas as funções envolvendo o select de
-	 * grau de parentesco de veículos estão nesse
-	 * método. 
-	 */
-	self.initSelectParentescoVeiculos = function(){
-		var $select = $("#grauParentescoVeiculos"); 
-		var $outroGrauParentesco = $("#outroGrauParentescoVeiculos");
-		var $labelOutroParentesco = $("#labelOutroGrauParentescoVeiculos");
-		
-		var $outroGrauImovelRural = $("#outroGrauParentescoImovelRural")
-		var $labelGrauImovelRural = $("#labelOutroGrauParentescoImovelRural");
-		
-		$select.change(function(){
-			if($(this).val() == "OUTROS"){
-				$outroGrauParentesco.val("");
-				$outroGrauParentesco.css("display", "block");
-				$labelOutroParentesco.css("display", "block");
-			}else{
-				$outroGrauParentesco.css("display", "none");
-				$labelOutroParentesco.css("display", "none");
+				$selectOutroGrauParentesco.addClass("hidden");
 			}
 		});
 		
-		if($select.val() == "OUTROS"){
-			$outroGrauParentesco.css("display", "block");
-			$labelOutroParentesco.css("display", "block");
-
-			$outroGrauImovelRural.css("display", "block");
-			$labelGrauImovelRural.css("display", "block");
-		}else{
-			$outroGrauParentesco.css("display", "none");
-			$labelOutroParentesco.css("display", "none");
-
-			$outroGrauImovelRural.css("display", "none");
-			$labelGrauImovelRural.css("display", "none");
-		}
 	};
+	self.initSelectParentescoImovelRuralEditar = function(){
+		var $select = $("#grauParentescoImovelRuralEditar");
+		var $selectOutroGrauParentesco = $("#outroGrauSelectImovelRuralEditar");
+		$select.change(function(){
+			if($(this).val() == "OUTROS"){
+				$("outroGrauParentescoImovelRuralEditar").val("");
+				$selectOutroGrauParentesco.removeClass("hidden");
+			}else{
+				$selectOutroGrauParentesco.addClass("hidden");
+			}
+		});
+		
+	};
+	self.initSelectParentescoBemMovel = function(){
+		var $select = $("#grauParentescoVeiculos");
+		var $selectOutroGrauParentesco = $("#outroGrauSelectBemMovel");
+		$select.change(function(){
+			if($(this).val() == "OUTROS"){
+				$("outroGrauParentescoBemMovel").val("");
+				$selectOutroGrauParentesco.removeClass("hidden");
+				
+			}else{
+				$selectOutroGrauParentesco.addClass("hidden");
+			}
+		});
+		
+	};
+	self.initSelectParentescoBemMovelEditar = function(){
+		var $select = $("#grauParentescoVeiculosEditar");
+		var $selectOutroGrauParentesco = $("#outroGrauSelectBemMovelEditar");
+		$select.change(function(){
+			if($(this).val() == "OUTROS"){
+				$("outroGrauParentescoBemMovelEditar").val("");
+				$selectOutroGrauParentesco.removeClass("hidden");
+			}else{
+				$selectOutroGrauParentesco.addClass("hidden");
+			}
+		});
+		
+	};
+
 	
 	self.initDivCursinho = function(){
 		var $divNomeCursinho = $("#nome_cursinho");

@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
 import br.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
@@ -26,12 +24,12 @@ public class BemMovel {
 
 	
 	@Enumerated(EnumType.STRING)
-	private GrauParentescoVeiculos grauParentescoVeiculos;
+	private GrauParentescoVeiculos parentesco;
 	
-	private String outroGrauParentescoVeiculos;
+	private String outro;
 	
 	@Enumerated(EnumType.STRING)
-	private FinalidadeVeiculo finalidadeVeiculo;
+	private FinalidadeVeiculo finalidade;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private QuestionarioAuxilioMoradia auxilioMoradia;
@@ -44,20 +42,20 @@ public class BemMovel {
 		this.auxilioMoradia = auxilioMoradia;
 	}
 	
-	public GrauParentescoVeiculos getGrauParentescoVeiculos() {
-		return grauParentescoVeiculos;
+	public GrauParentescoVeiculos getParentesco() {
+		return parentesco;
 	}
 
-	public void setGrauParentescoVeiculos(GrauParentescoVeiculos grauParentescoVeiculos) {
-		this.grauParentescoVeiculos = grauParentescoVeiculos;
+	public void setParentesco(GrauParentescoVeiculos parentesco) {
+		this.parentesco = parentesco;
 	}
 	
-	public FinalidadeVeiculo getFinalidadeVeiculo() {
-		return finalidadeVeiculo;
+	public FinalidadeVeiculo getFinalidade() {
+		return finalidade;
 	}
 
-	public void setFinalidadeVeiculo(FinalidadeVeiculo finalidadeVeiculo) {
-		this.finalidadeVeiculo = finalidadeVeiculo;
+	public void setFinalidade(FinalidadeVeiculo finalidade) {
+		this.finalidade = finalidade;
 	}
 	
 	public String getVeiculo() {
@@ -79,14 +77,14 @@ public class BemMovel {
 	@Override
 	public String toString() {
 		return "Propriedade Rural [auxilioMoradia=" + auxilioMoradia
-				+ ", id=" + id + ", Parentesco=" + grauParentescoVeiculos + "]";
+				+ ", id=" + id + ", Parentesco=" + parentesco + "]";
 	}
 
-	public String getOutroGrauParentescoVeiculos() {
-		return outroGrauParentescoVeiculos;
+	public String getOutro() {
+		return outro;
 	}
 
-	public void setOutroGrauParentescoVeiculos(String outroGrauParentescoVeiculos) {
-		this.outroGrauParentescoVeiculos = outroGrauParentescoVeiculos;
+	public void setOutro(String outro) {
+		this.outro = outro;
 	}	
 }

@@ -1,5 +1,6 @@
 package br.ufc.quixada.npi.gpa.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -8,10 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-
 import br.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
+/*
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.GsonBuilder;
+import com.google.gson.LongSerializationPolicy;*/
 
 @Entity
 
@@ -23,12 +26,20 @@ public class PropriedadeRural {
 	
 	private Double area;
 	
-	private String cidadeEstado;
+	private String cidade;
 
 	@Enumerated(EnumType.STRING)
-	private GrauParentescoImovelRural grauParentescoImovelRural;
+	private GrauParentescoImovelRural parentesco;
 	
-	private String outroGrauParentescoImovelRural;
+	public GrauParentescoImovelRural getParentesco() {
+		return parentesco;
+	}
+
+	public void setParentesco(GrauParentescoImovelRural parentesco) {
+		this.parentesco = parentesco;
+	}
+
+	private String outro;	
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private QuestionarioAuxilioMoradia auxilioMoradia;
@@ -49,41 +60,46 @@ public class PropriedadeRural {
 		this.id = id;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
-		return "Propriedade Rural [auxilioMoradia=" + auxilioMoradia
-				+ ", id=" + id + ", Parentesco=" + grauParentescoImovelRural + "]";
-	}
+		return new GsonBuilder().setLongSerializationPolicy( LongSerializationPolicy.STRING )
+				.setExclusionStrategies(new ExclusionStrategy() {
+			
+			@Override
+			public boolean shouldSkipField(FieldAttributes clazz) {
+				
+				return false;
+				
+			}
+			
+			@Override
+			public boolean shouldSkipClass(Class<?> clazz) {
+				return (clazz == QuestionarioAuxilioMoradia.class || clazz == QuestionarioAuxilioMoradia.class);
+			}
+		}).create().toJson(this);
+	}*/
 
 	public Double getArea() {
 		return area;
-	}
-	
-	public GrauParentescoImovelRural getGrauParentescoImovelRural() {
-		return grauParentescoImovelRural;
-	}
-
-	public void setGrauParentescoImovelRural(GrauParentescoImovelRural grauParentescoImovelRural) {
-		this.grauParentescoImovelRural = grauParentescoImovelRural;
 	}
 	
 	public void setArea(Double area) {
 		this.area = area;
 	}
 
-	public String getCidadePropriedadeRural() {
-		return cidadeEstado;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public void setCidadePropriedadeRural(String cidadePropriedadeRural) {
-		this.cidadeEstado = cidadePropriedadeRural;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
-	public String getOutroGrauParentescoImovelRural() {
-		return outroGrauParentescoImovelRural;
+	public String getOutro() {
+		return outro;
 	}
 
-	public void setOutroGrauParentescoImovelRural(String outroGrauParentescoImovelRural) {
-		this.outroGrauParentescoImovelRural = outroGrauParentescoImovelRural;
+	public void setOutro(String outro) {
+		this.outro = outro;
 	}
 }
