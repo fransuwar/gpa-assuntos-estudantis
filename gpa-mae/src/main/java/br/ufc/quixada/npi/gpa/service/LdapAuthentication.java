@@ -13,7 +13,6 @@ import br.ufc.quixada.npi.gpa.repository.PessoaRepository;
 import br.ufc.quixada.npi.ldap.model.Constants;
 import br.ufc.quixada.npi.ldap.model.Usuario;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
-
 @Named
 public class LdapAuthentication implements AuthenticationProvider{
 

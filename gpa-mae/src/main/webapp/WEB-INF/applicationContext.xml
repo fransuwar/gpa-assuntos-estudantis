@@ -19,7 +19,16 @@
 	<jpa:repositories base-package="br.ufc.quixada.npi.gpa.repository"/>
 	
 	<bean id="applicationContextProvider" class="br.ufc.quixada.npi.gpa.model.PessoaEntityListener" />
+	
+	<bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/mail/Session" />
+	</bean>
 
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="session" ref="mailSession" />
+	</bean>
+	
+	
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<!-- Specify the name of the EntityManagerFactory configuration. -->
 		<property name="persistenceUnitName" value="dev" />
@@ -34,7 +43,7 @@
     	<property name="jndiName" value="java:comp/env/gpamae"/>
 	</bean>	
 
-	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
@@ -69,12 +78,12 @@
 		<constructor-arg ref="ldapOu" />
 	</bean>
 	
-	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />	
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />	
 	
 	<context:annotation-config />
 	<context:component-scan base-package="br.ufc.quixada.npi.service.impl.GenericServiceImpl" />
 	<context:component-scan base-package="br.ufc.quixada.npi.repository" />
-	<context:component-scan base-package="br.ufc.quixada.npi.gpa.*" />
+	<context:component-scan base-package="br.ufc.quixada.npi.*" />
 	<context:component-scan base-package="br.ufc.quixada.npi.ldap.*" />
 	
 </beans>

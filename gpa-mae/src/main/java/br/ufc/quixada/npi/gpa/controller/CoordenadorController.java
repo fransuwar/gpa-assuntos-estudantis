@@ -77,7 +77,6 @@ import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
-
 @Controller
 @RequestMapping("coordenador")
 public class CoordenadorController {

@@ -7,17 +7,24 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
+
+import static br.ufc.quixada.npi.gpa.utils.Constants.FROM;
+import static br.ufc.quixada.npi.gpa.utils.Constants.BODY;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ASSUNTO;
+
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.USUARIO_ATIVO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ESCONDER_BOTOES;
 
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
@@ -44,6 +51,8 @@ import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
+import br.ufc.quixada.npi.model.Email;
+import br.ufc.quixada.npi.service.EmailService;
 
 
 @Controller
@@ -56,6 +65,11 @@ public class InscricaoController {
 
 	@Inject
 	private InscricaoService inscricaoService;
+
+	
+	@Inject
+	private EmailService emailService;
+
 
 	@Inject
 	private SelecaoRepository selecaoRepository;
@@ -124,6 +138,7 @@ public class InscricaoController {
 			    model.addAttribute("escolaridade",Escolaridade.values());
 		}
 		
+
 		 if (inscricao.getQuestionarioAuxilioMoradia() != null) {
 
 			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){
@@ -145,8 +160,7 @@ public class InscricaoController {
 
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
-		
-	
+
 	}
 	
 	
@@ -160,6 +174,35 @@ public class InscricaoController {
 
 		model.addAttribute("selecoes", selecoes);
 		redirect.addFlashAttribute(ABA_SELECIONADA,INSCRICAO_TAB);
+		
+		
+		Runnable enviarEmail = new Runnable() {
+			@Override
+			public void run() {		
+				Email email=new Email();
+				String from=FROM;
+				String to=inscricao.getAluno().getPessoa().getEmail();
+				String body = BODY;							
+				email.setFrom(from);
+				email.setSubject(ASSUNTO);
+				email.setText(body);
+				email.setTo(to);
+
+				try {
+
+					emailService.sendEmail(email);
+
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+
+		Thread threadEnviarEmail = new Thread(enviarEmail);
+		threadEnviarEmail.start();
+
+		
+		
 
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 

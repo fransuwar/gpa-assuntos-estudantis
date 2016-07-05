@@ -99,6 +99,7 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
 
 
+
 @Controller
 @RequestMapping(ALUNO)
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
@@ -109,6 +110,7 @@ public class AlunoController {
 
 	@Inject
 	private UsuarioService usuarioService;
+	
 	
 	@Inject
 	private AlunoRepository alunoRepository;
@@ -121,7 +123,7 @@ public class AlunoController {
 
 	@Inject
 	private TipoDocumentoRepository tipoDocumentoRepository;
-	
+
 	@Inject
 	private DocumentosTipoInscricaoRepository documentosTipoInscricaoRepository;
 	
@@ -130,6 +132,7 @@ public class AlunoController {
 	
 	@Inject
 	private SelecaoRepository selecaoRepository;
+
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
@@ -436,11 +439,11 @@ public class AlunoController {
 				model.addAttribute("escolaridade",Escolaridade.values());
 
 
-				List<HorarioDisponivel> horariosDisponiveis = inscricaoService
-						.getHorariosDisponiveisIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
-				if (horariosDisponiveis != null && !horariosDisponiveis.isEmpty()) {
-					model.addAttribute("horariosDisponiveis", horariosDisponiveis);
-				}
+//			//	List<HorarioDisponivel> horariosDisponiveis = inscricaoService
+//				//		.getHorariosDisponiveisIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
+//				if (horariosDisponiveis != null && !horariosDisponiveis.isEmpty()) {
+//					model.addAttribute("horariosDisponiveis", horariosDisponiveis);
+//				}
 
 				model.addAttribute("pessoasDaFamilia", inscricao.getQuestionarioAuxilioMoradia().getPessoas());
 
@@ -454,6 +457,7 @@ public class AlunoController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
+
 
 
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.POST)
@@ -509,6 +513,7 @@ public class AlunoController {
 		redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_INSCRICAO_EDITADA);
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
+
 
 	}
 
