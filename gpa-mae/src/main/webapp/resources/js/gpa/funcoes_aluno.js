@@ -508,7 +508,7 @@ var FormularioAuxilio = function() {
 		$("#valorMensalFinanciamento").mask("###0000000.00", {reverse: true});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
 		$("#renda-pessoa-familia").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
-		$("#rendaMensal").maskMoney({prefix:'R$ ', decimal:",", thousands:"."});
+		$("#rendaMensal").maskMoney({prefix:"R$ ", decimal:",", thousands:"."});
 		
 	};
 
