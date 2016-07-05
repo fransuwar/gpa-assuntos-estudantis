@@ -25,7 +25,9 @@
 				<button type="button" class="close" data-dismiss="alert">
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 				</button>
-				<c:out value="${info}"></c:out>
+				<div style="text-align: center">		
+					<c:out value="${info}"></c:out>
+				</div>
 			</div>
 		</c:if>
 		<div class="col-md-12">
@@ -36,7 +38,9 @@
 						<button type="button" class="close" data-dismiss="alert">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 						</button>
-						<c:out value="${erro}"></c:out>
+						<div style="text-align: center">
+							<c:out value="${erro}"></c:out>
+						</div>
 						</div>
 				</c:if>
 				
