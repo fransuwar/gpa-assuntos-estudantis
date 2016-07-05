@@ -40,7 +40,25 @@ var FormularioAuxilio = function() {
 		
 		self.maskFields();
 		self.formularioEnter();
+		self.filtroFoto();
 	};
+	
+	self.filtroFoto = function(){
+		$( "#input-foto3x4" ).change(function ()  {
+			var filename = $("#input-foto3x4").val();
+			var fileExtension = filename.substring(filename.lastIndexOf(".") + 1, filename.length);
+			if(fileExtension==="jpg" || fileExtension==="png"){
+				return true;
+
+			}else{
+				$("#input-foto3x4").val("");
+				return false;
+			}
+
+		});
+
+	};
+	
 	
 	self.formularioEnter = function(){
 		$formElement.on("keyup keypress", function(e) {
