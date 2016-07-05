@@ -37,24 +37,6 @@ public class InscricaoServiceImpl implements InscricaoService {
     @Inject
 	private GenericRepository<Inscricao> inscricaoRepository;
     
-	@Transactional(readOnly = true)
-	public List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica) {
-		/*
-		return inscricaoService.find("HorarioDisponivel.findHorarioDisponivelByIdIniciacaoAcademica",
-				new SimpleMap<String, Object>("idIniciacaoAcademica", idIniciacaoAcademica));
-		*/
-		return null;
-	}
-
-	@Override
-	public ComQuemMora getComQuemMora(GrauParentesco comQuemMora) {
-		/*
-		return (ComQuemMora) inscricaoService.findFirst("ComQuemMora.findComQuemMoraByDescricao",
-				new SimpleMap<String, Object>("descricao", comQuemMora));
-		*/
-		return null;
-	}
-	
 
 	
 	@Override

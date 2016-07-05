@@ -439,11 +439,11 @@ public class AlunoController {
 				model.addAttribute("escolaridade",Escolaridade.values());
 
 
-				List<HorarioDisponivel> horariosDisponiveis = inscricaoService
-						.getHorariosDisponiveisIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
-				if (horariosDisponiveis != null && !horariosDisponiveis.isEmpty()) {
-					model.addAttribute("horariosDisponiveis", horariosDisponiveis);
-				}
+//			//	List<HorarioDisponivel> horariosDisponiveis = inscricaoService
+//				//		.getHorariosDisponiveisIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
+//				if (horariosDisponiveis != null && !horariosDisponiveis.isEmpty()) {
+//					model.addAttribute("horariosDisponiveis", horariosDisponiveis);
+//				}
 
 				model.addAttribute("pessoasDaFamilia", inscricao.getQuestionarioAuxilioMoradia().getPessoas());
 

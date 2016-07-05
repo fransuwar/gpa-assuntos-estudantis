@@ -17,10 +17,6 @@ public interface InscricaoService{
 	
 	public abstract void consolidar(Integer idInscricao,boolean consolidacao);
 	
-	public abstract List<HorarioDisponivel> getHorariosDisponiveisIniciacaoAcademica(Integer idIniciacaoAcademica);
-
-	public abstract ComQuemMora getComQuemMora(GrauParentesco comQuemMora);	
-
 	public abstract PessoaFamilia buscarPessoaFamiliaPorId(Integer idPessoa);
 
 }
