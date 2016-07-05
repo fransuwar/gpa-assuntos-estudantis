@@ -329,10 +329,10 @@ public class Constants {
 	
 	public static final String BODY = "Prezado(a),\n"+
 			"Sua inscrição para a seleção de auxílio moradia foi consolidada com sucesso!\n"+
-			"Atenciosamente,\n"+
-			"Coordenação de Assuntos Estudantis"+
-			"UFC – Campus Quixadá"+
-			"E-mail enviado automaticamente, por gentileza, não responder.";
+			"Atenciosamente,\n\n"+
+			"Coordenação de Assuntos Estudantis\n"+
+			"UFC – Campus Quixadá\n"+
+			" E-mail enviado automaticamente, por gentileza, não responder.";
 	
 	public static final String ASSUNTO = "Consolidação Confirmada";
 	

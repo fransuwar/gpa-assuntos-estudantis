@@ -15,7 +15,7 @@
 		<property name="persistenceUnitName" value="dev-test" />
 	</bean>
 	
-	<bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean">
+	<!-- <bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="java:comp/env/mail/Session" />
     </bean>
 
@@ -32,7 +32,7 @@
                 <prop key="mail.debug">true</prop>
             </props>
         </property>
-    </bean>
+    </bean> -->
 
 	
 	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
