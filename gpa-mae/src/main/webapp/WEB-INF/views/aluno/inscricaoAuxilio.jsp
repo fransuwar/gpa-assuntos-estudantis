@@ -269,7 +269,7 @@
 
 						<div class='f-content'>
 							<form:input id="numeroOrigem" path="numeroOrigem"
-								cssClass="form-control" data-mask="999999" placeholder="Num" />
+								cssClass="form-control"  placeholder="Num" />
 							<div class="error-validation">
 								<form:errors path="numeroOrigem"></form:errors>
 							</div>
@@ -425,7 +425,7 @@
 
 						<div class='f-content'>
 							<form:input id="numero" path="numero" cssClass="form-control"
-								data-mask="999999" placeholder="Num" />
+								 placeholder="Num" />
 							<div class="error-validation">
 								<form:errors path="numero"></form:errors>
 							</div>
@@ -680,7 +680,7 @@
 							<div class="input-group">
 								<form:input id="percentualParticularFundamental"
 									path="percentualParticularFundamental" cssClass="form-control"
-									data-mask="000" placeholder="Digite um valor entre 0.1 e 100"
+									data-mask="000" placeholder="Digite um valor maior que 0 e menor ou igual 100"
 									min="0.1" max="100" />
 								<div class="input-group-addon">%</div>
 							</div>
@@ -746,7 +746,7 @@
 
 						<div class='f-content'>
 							<form:input id="nomeCursinho" path="nomeCursinho"
-								cssClass="form-control" placeholder="Nome do cursinho" />
+								cssClass="form-control" required="required" placeholder="Nome do cursinho" />
 							<div class="error-validation">
 								<form:errors path="nomeCursinho"></form:errors>
 							</div>
@@ -807,7 +807,7 @@
 						<label class='f-title'> Descrição da Bolsa: </label>
 
 						<div class='f-content'>
-							<form:input id="descricaoBolsa" path="descricaoBolsa"
+							<form:input id="descricaoBolsa" required="required" path="descricaoBolsa"
 								cssClass="form-control" placeholder="Descrição Bolsa" />
 							<div class="error-validation">
 								<form:errors path="descricaoBolsa"></form:errors>
@@ -839,7 +839,7 @@
 						<label class='f-title'> Descrição da Graduação: </label>
 
 						<div class='f-content'>
-							<form:input id="descricaoGraduacao" path="descricaoGraduacao"
+							<form:input id="descricaoGraduacao" required="required" path="descricaoGraduacao"
 								cssClass="form-control" placeholder="Descricao da Graduacao" />
 							<div class="error-validation">
 								<form:errors path="descricaoGraduacao"></form:errors>

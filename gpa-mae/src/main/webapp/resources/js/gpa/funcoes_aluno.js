@@ -41,6 +41,14 @@ var FormularioAuxilio = function() {
 		self.maskFields();
 		self.formularioEnter();
 		self.filtroFoto();
+		self.campoPercentualBolsa();
+	};
+	
+	self.campoPercentualBolsa = function(){
+		$.extend($.validator.messages, {
+		    min: "Digite um valor maior que 0",
+		    max: "Digite um valor menor ou igual a 100"
+		});
 	};
 	
 	self.filtroFoto = function(){
@@ -516,7 +524,7 @@ var FormularioAuxilio = function() {
 		
 		
 		$("#rendaMensal").mask("###0000000.00", {reverse: true});
-		$("#valorMensalFinanciamento").mask("###0000000.00", {reverse: true});
+		$("#valorMensalFinanciamento").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
 		$("#renda-pessoa-familia").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 	};
@@ -568,7 +576,7 @@ var FormularioAuxilio = function() {
 		var $inputComQuemMoraOutros = $("#comQuemMoraOutros");
 		
 		$divMoraComOutros.hide();
-		$("#comQuemMora7").change(function () {
+		$("#comQuemMora6").change(function () {
 			if ($(this).prop("checked")) {
 				$divMoraComOutros.show();
 			}else {
