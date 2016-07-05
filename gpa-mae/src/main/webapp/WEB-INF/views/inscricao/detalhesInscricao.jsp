@@ -80,14 +80,30 @@
 											data-href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
 											<i class="glyphicon glyphicon-trash"></i>
 										</a>
+
+										<a data-target="#modal-consolidacao" data-toggle="modal"
+											data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
+											<button class="btn btn-success btn-sm"
+												title="Consolidar Inscrição">
+												<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+											</button>
+										</a>
 									</sec:authorize>
-									<a data-target="#modal-consolidacao" data-toggle="modal"
-										data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
-										<button class="btn btn-success btn-sm"
-											title="Consolidar Inscrição">
-											<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
-										</button>
-									</a>
+
+									<sec:authorize
+										access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+										
+										<a data-target="#modal-consolidacao-servidor" data-toggle="modal"
+											data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
+											<button class="btn btn-success btn-sm"
+												title="Consolidar Inscrição">
+												<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+											</button>
+										</a>
+										
+									</sec:authorize>
+
+
 								</c:when>
 								<c:otherwise>
 									<span class="label label-success">Inscrição consolidada</span>
