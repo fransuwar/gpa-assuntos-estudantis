@@ -86,9 +86,6 @@
 									<c:if
 										test="${inscricao.documentacao.deferimento eq 'DEFERIDO' && inscricao.entrevista.deferimento eq 'DEFERIDO' && inscricao.visitaDomiciliar.deferimento eq 'DEFERIDO'}">
 										<tr>
-										    <h1>${inscricao.documentacao.deferimento }</h1>
-										    <h1>${inscricao.entrevista.deferimento }</h1>
-										    <h1>${inscricao.visitaDomiciliar.deferimento }</h1>
 											<td class='dt-body-center'>${inscricao.aluno.pessoa.nome}</td>
 											<td class='dt-body-center'>${inscricao.aluno.matricula}</td>
 											<td class='dt-body-center'>Reserva</td>
