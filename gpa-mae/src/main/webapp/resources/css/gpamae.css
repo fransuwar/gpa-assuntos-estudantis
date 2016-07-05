@@ -1070,3 +1070,7 @@ input:focus, select:focus, textarea:focus{
 }
 
 
+.imagem-inscricao-pequena{
+	width: 140px;
+	height: 200px;
+}
