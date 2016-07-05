@@ -39,6 +39,43 @@ var FormularioAuxilio = function() {
 		self.abrirFormPessoaFamilia();
 		
 		self.maskFields();
+		self.formularioEnter();
+		self.filtroFoto();
+		self.campoPercentualBolsa();
+	};
+	
+	self.campoPercentualBolsa = function(){
+		$.extend($.validator.messages, {
+			min: "Digite um valor maior que 0",
+			max: "Digite um valor menor ou igual a 100"
+		});
+	};
+	
+	self.filtroFoto = function(){
+		$( "#input-foto3x4" ).change(function ()  {
+			var filename = $("#input-foto3x4").val();
+			var fileExtension = filename.substring(filename.lastIndexOf(".") + 1, filename.length);
+			if(fileExtension==="jpg" || fileExtension==="png"){
+				return true;
+
+			}else{
+				$("#input-foto3x4").val("");
+				return false;
+			}
+
+		});
+
+	};
+	
+	
+	self.formularioEnter = function(){
+		$formElement.on("keyup keypress", function(e) {
+			var keyCode = e.keyCode || e.which;
+			if (keyCode === 13) { 
+				e.preventDefault();
+				return false;
+			}
+		});
 	};
 	
 	self.maskFields = function(){
@@ -205,8 +242,15 @@ var FormularioAuxilio = function() {
 		$("#select-parentesco").change(function() {
 			if($(this).val() === "OUTROS"){
 				$("#outro-pessoa-familia").removeClass("hidden");
+			}	    
+		});
+		
+		$("#parentesco").change(function() {
+			if($(this).val() === "OUTRO"){
+				$("#outro-pessoa-familia").removeClass("hidden");
+			}else{
+				$("#outro-pessoa-familia").addClass("hidden");
 			}
-			alert($(this).val());	    
 		});
 		
 	};
@@ -486,10 +530,13 @@ var FormularioAuxilio = function() {
 		$('[data-mask]').each(function(){ $(this).mask( $(this).attr('data-mask')); });
 		
 		
-		$("#rendaMensal").mask("###0000000.00", {reverse: true});
-		$("#valorMensalFinanciamento").mask("###0000000.00", {reverse: true});
+
+		//$("#rendaMensal").mask("###0000000.00", {reverse: true});
+		$("#valorMensalFinanciamento").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
 		$("#renda-pessoa-familia").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
+		$("#rendaMensal").maskMoney({prefix:"R$ ", decimal:",", thousands:"."});
+		
 	};
 
 	/*
@@ -539,7 +586,7 @@ var FormularioAuxilio = function() {
 		var $inputComQuemMoraOutros = $("#comQuemMoraOutros");
 		
 		$divMoraComOutros.hide();
-		$("#comQuemMora7").change(function () {
+		$("#comQuemMora6").change(function () {
 			if ($(this).prop("checked")) {
 				$divMoraComOutros.show();
 			}else {
@@ -558,6 +605,36 @@ var FormularioAuxilio = function() {
 	self.initSelectEstadoCidade = function(){
 		new StateCityLib().init("estado-endereco", "cidade-endereco");
 		new StateCityLib().init("estado-origem", "cidade-origem");
+		
+		var defEstadoOrigem = $("#def-estado-origem").val();
+		var defCidadeOrigem = $("#def-cidade-origem").val();
+		var defEstado = $("#def-estado").val();
+		var defCidade = $("#def-cidade").val();
+		
+		var $estadoOrigem = $("#estado-origem");
+		var $estadoEndereco = $("#estado-endereco");
+		var $cidadeOrigem = $("#cidade-origem");
+		var $cidadeEndereco = $("#cidade-endereco");
+		
+		if(defEstadoOrigem.length > 0){
+			$estadoOrigem.val(defEstadoOrigem);
+			$estadoOrigem.change();
+		}
+		
+		if(defEstado.length > 0){
+			$estadoEndereco.val(defEstado);
+			$estadoEndereco.change();
+		}
+		
+		if(defCidadeOrigem.length > 0){
+			$cidadeOrigem.val(defCidadeOrigem);
+			$cidadeOrigem.change();
+		}
+		
+		if(defCidade.length > 0){
+			$cidadeEndereco.val(defCidade);
+			$cidadeEndereco.change();
+		}
 	};
 	
 	self.initConfirmButtons = function(){

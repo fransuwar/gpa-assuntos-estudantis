@@ -43,7 +43,7 @@ public class Selecao {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
 
-	@Future(message = "Data de término deve ser maior que a data atual")
+	
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;

@@ -13,6 +13,7 @@ public class Constants {
 	public static final String ACTION = "action";
 	public static final String LOGIN = "login";
 	public static final String ENTREVISTA = "entrevista";
+	public static final String DOCUMENTACAO = "documentacao";
 	public static final String INSCRICAO = "inscricao";
 	public static final String MORADIA_ESTADO = "moradiaEstado";
 	public static final String DIAS_UTEIS = "diasUteis";

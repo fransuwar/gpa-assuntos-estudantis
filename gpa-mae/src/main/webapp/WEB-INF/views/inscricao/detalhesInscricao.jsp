@@ -716,6 +716,7 @@
 								<hr />
 							</c:forEach>
 
+							</sec:authorize>
 
 							<sec:authorize
 								access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
@@ -747,7 +748,6 @@
 
 							</sec:authorize>
 
-						</sec:authorize>
 					</div>
 
 				</div>
@@ -814,71 +814,6 @@
 									</dl>
 								</div>
 							</div>
-							<div class="panel panel-default panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">Entrevista</h3>
-								</div>
-								<div class="panel-body">
-									<form:form id="relatorioForm" role="form"
-										modelAttribute="entrevista" commandName="entrevista"
-										servletRelativeAction="/servidor/entrevista" method="POST">
-
-										<input type="hidden" value="${inscricao.id}"
-											name="idInscricao">
-										<input type="hidden" id="idServidor" name="idServidor"
-											value="${sessionScope.id}" />
-										<input type="hidden" id="idEntrevista" name="idEntrevista"
-											value="${inscricao.entrevista.id}" />
-
-										<div class="row">
-											<fieldset class="form-group col-sm-8">
-												<label for="observacao" class="col-sm-1 control-label">Observação</label>
-												<form:textarea class="col-sm-5 form-control"
-													name="observacao" rows="3" id="observacao" type="text"
-													path="observacao" placeholder="Observação"></form:textarea>
-												<span class="help-block"></span>
-												<div class="error-validation">
-													<form:errors path="observacao"></form:errors>
-												</div>
-											</fieldset>
-
-											<fieldset class="form-group col-sm-4">
-												<label for="deferimento" class="col-sm-1 control-label">Deferimento</label>
-												<select name="deferimento" id="deferimento"
-													class="form-control col-sm-2">
-													<option value="DEFERIDO">Deferido</option>
-													<option value="INDEFERIDO"
-														<c:if test="${inscricao.entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
-												</select>
-											</fieldset>
-											<fieldset class="form-group">
-												<label for="realizarVisita" class="control-label">Realizar
-													Visita</label>
-												<c:choose>
-													<c:when test="${inscricao.realizarVisita}">
-														<input type="checkbox" id="realizarVisita"
-															name="realizarVisita" value="true" checked />
-													</c:when>
-													<c:otherwise>
-														<input type="checkbox" id="realizarVisita"
-															name="realizarVisita" value="true" />
-													</c:otherwise>
-												</c:choose>
-											</fieldset>
-										</div>
-
-										<div align="left">
-											<fieldset class="form-group">
-												<button name="submit" type="submit"
-													class="btn btn-primary btn-md" value="${botao}"
-													id="form-btn">Enviar</button>
-												<a href="<c:url value="/selecao/listar" ></c:url>"
-													class="btn btn-default btn-md" id="form-btn">Cancelar</a>
-											</fieldset>
-										</div>
-									</form:form>
-								</div>
-							</div>
 
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
@@ -941,6 +876,14 @@
 														</c:forEach>
 													</form:select>
 												</div>
+												
+												<div id="outro-pessoa-familia" class="col-sm-4 text-align-left hidden">
+													<label for="parentesco" class="control-label">
+														Especifique quem é esta outra
+														pessoa: </label>
+													<form:input cssClass="form-control" type="text"
+															path="outro" id="outroPessoaFamilia" required="required" />
+												</div>
 												<div class="col-sm-2 text-align-left">
 													<label for="idade" class="control-label"> Idade: </label>
 													<form:input cssClass="form-control" type="number"
@@ -994,7 +937,11 @@
 												items="${inscricao.questionarioAuxilioMoradia.pessoasEntrevista}">
 												<tr>
 													<td>${pessoa.nome}</td>
-													<td>${pessoa.parentesco.nome}</td>
+													<c:choose>
+														<c:when test="${empty pessoa.outro}"><td>${pessoa.parentesco.nome}</td></c:when>
+														<c:otherwise><td>${pessoa.outro}</td></c:otherwise>
+													</c:choose>
+													
 													<td>${pessoa.escolaridade.nome}</td>
 													<td>${pessoa.idade}</td>
 													<td>${pessoa.profissao}</td>
@@ -1010,6 +957,71 @@
 											</c:forEach>
 										</tbody>
 									</table>
+								</div>
+							</div>
+							
+							<div class="panel panel-default panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Entrevista</h3>
+								</div>
+								<div class="panel-body">
+									<form:form id="relatorioForm" role="form"
+										modelAttribute="entrevista" commandName="entrevista"
+										servletRelativeAction="/servidor/entrevista" method="POST">
+
+										<input type="hidden" value="${inscricao.id}"
+											name="idInscricao">
+										<input type="hidden" id="idServidor" name="idServidor"
+											value="${sessionScope.id}" />
+										<input type="hidden" id="idEntrevista" name="idEntrevista"
+											value="${inscricao.entrevista.id}" />
+
+										<div class="row col-sm-6">
+											<fieldset class="form-group">
+												<label for="observacao" class="col-sm-1 control-label">Observação</label>
+												<form:textarea class="col-sm-5 form-control"
+													name="observacao" rows="3" id="observacao" type="text"
+													path="observacao" placeholder="Observação"></form:textarea>
+												<span class="help-block"></span>
+												<div class="error-validation">
+													<form:errors path="observacao"></form:errors>
+												</div>
+											</fieldset>
+										</div>
+										<div class="row col-sm-6">
+											<fieldset class="form-group col-sm-5">
+												<label for="deferimento" class="col-sm-1 control-label">Deferimento</label>
+												<select name="deferimento" id="deferimento"
+													class="form-control col-sm-3">
+													<option value="DEFERIDO">Deferido</option>
+													<option value="INDEFERIDO"
+														<c:if test="${inscricao.entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
+												</select>
+											</fieldset>
+											<fieldset class="form-group margin-top-s3">
+												<label for="realizarVisita" class="control-label">Realizar
+													Visita</label>
+												<c:choose>
+													<c:when test="${inscricao.realizarVisita}">
+														<input type="checkbox" id="realizarVisita"
+															name="realizarVisita" value="true" checked />
+													</c:when>
+													<c:otherwise>
+														<input type="checkbox" id="realizarVisita"
+															name="realizarVisita" value="true" />
+													</c:otherwise>
+												</c:choose>
+											</fieldset>
+											<fieldset class="form-group">
+												<button name="submit" type="submit"
+													class="btn btn-primary btn-md" value="${botao}"
+													id="form-btn">Enviar</button>
+												<a href="<c:url value="/selecao/listar" ></c:url>"
+													class="btn btn-default btn-md" id="form-btn">Cancelar</a>
+											</fieldset>
+										</div>
+										
+									</form:form>
 								</div>
 							</div>
 						</c:otherwise>
