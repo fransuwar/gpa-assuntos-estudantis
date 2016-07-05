@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
@@ -47,10 +48,12 @@ public class QuestionarioAuxilioMoradia {
 
 	private String nomeCursinho;
 
+	@NotNull
 	private boolean bolsistaUfc;
 
 	private String descricaoBolsa;
 
+	@NotNull
 	private boolean graduacao;
 
 	private String descricaoGraduacao;

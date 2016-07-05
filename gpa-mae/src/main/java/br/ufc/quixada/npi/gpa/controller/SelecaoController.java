@@ -217,8 +217,9 @@ public class SelecaoController {
 		}
 		
 		List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
+		
 		List<Inscricao> classificaveis = inscricaoRepository.findClassificaveisBySelecao(selecao.getId());
-		     
+		
 		model.addAttribute("classificados", classificados);
 		model.addAttribute("classificaveis",classificaveis);
 		model.addAttribute("qtdClassificados",classificados.size());

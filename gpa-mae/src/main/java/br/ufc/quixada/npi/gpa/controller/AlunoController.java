@@ -341,6 +341,7 @@ public class AlunoController {
 			model.mergeAttributes(modelFormAuxilio.asMap());
 			model.addAttribute(ID_SELECAO, idSelecao);
 			model.addAttribute(SELECAO, selecaoRepository.findById(idSelecao));
+			model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
 
 			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_DADOS_INSCRICAO);
 

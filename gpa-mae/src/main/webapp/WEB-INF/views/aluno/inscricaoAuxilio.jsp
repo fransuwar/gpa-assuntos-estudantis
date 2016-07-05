@@ -269,7 +269,7 @@
 
 						<div class='f-content'>
 							<form:input id="numeroOrigem" path="numeroOrigem"
-								cssClass="form-control" data-mask="999999" placeholder="Num" />
+								cssClass="form-control"  placeholder="Num" />
 							<div class="error-validation">
 								<form:errors path="numeroOrigem"></form:errors>
 							</div>
@@ -304,6 +304,8 @@
 						<label class='f-title'> Estado: </label>
 
 						<div class='f-content'>
+							<input type="hidden" id="def-estado-origem" value="${inscricao.questionarioAuxilioMoradia.estadoOrigem}"/>
+							
 							<form:select path="estadoOrigem" id="estado-origem"
 								cssClass="form-control" cssStyle="font-size:13px">
 							</form:select>
@@ -318,7 +320,8 @@
 						<label class='f-title'> Cidade: </label>
 
 						<div class='f-content'>
-
+							<input type="hidden" id="def-cidade-origem" value="${inscricao.questionarioAuxilioMoradia.cidadeOrigem}"/>
+							
 							<form:select id="cidade-origem" path="cidadeOrigem"
 								cssClass="form-control" placeholder="Cidade">
 							</form:select>
@@ -425,7 +428,7 @@
 
 						<div class='f-content'>
 							<form:input id="numero" path="numero" cssClass="form-control"
-								data-mask="999999" placeholder="Num" />
+								 placeholder="Num" />
 							<div class="error-validation">
 								<form:errors path="numero"></form:errors>
 							</div>
@@ -462,6 +465,7 @@
 						<label class='f-title'> Estado: </label>
 
 						<div class='f-content'>
+							<input type="hidden" id="def-estado" value="${inscricao.questionarioAuxilioMoradia.estado}"/>
 							<form:select path="estado" id="estado-endereco"
 								cssClass="form-control" cssStyle="font-size:13px">
 							</form:select>
@@ -475,6 +479,7 @@
 						<label class='f-title'> Cidade: </label>
 
 						<div class='f-content'>
+							<input type="hidden" id="def-cidade" value="${inscricao.questionarioAuxilioMoradia.cidade}"/>
 							<form:select id="cidade-endereco" path="cidade"
 								cssClass="form-control" placeholder="Cidade">
 							</form:select>
@@ -680,7 +685,7 @@
 							<div class="input-group">
 								<form:input id="percentualParticularFundamental"
 									path="percentualParticularFundamental" cssClass="form-control"
-									data-mask="000" placeholder="Digite um valor entre 0.1 e 100"
+									data-mask="000" placeholder="Digite um valor maior que 0 e menor ou igual 100"
 									min="0.1" max="100" />
 								<div class="input-group-addon">%</div>
 							</div>
@@ -746,7 +751,7 @@
 
 						<div class='f-content'>
 							<form:input id="nomeCursinho" path="nomeCursinho"
-								cssClass="form-control" placeholder="Nome do cursinho" />
+								cssClass="form-control" required="required" placeholder="Nome do cursinho" />
 							<div class="error-validation">
 								<form:errors path="nomeCursinho"></form:errors>
 							</div>
@@ -787,11 +792,19 @@
 
 			<div class='p-body'>
 				<div class='f-container s5'>
-					<label class='f-title'> Bolsista UFC: <form:select
+					<label class='f-title'> Bolsista UFC: <form:select required="required"
 							path="bolsistaUfc" id="bolsistaUfc" class="form-control">
 							<option value="">Selecione...</option>
-							<option value="${true}">Sim</option>
-							<option value="${false}">Não</option>
+							
+							<c:choose>
+								<c:when test="${inscricao.questionarioAuxilioMoradia.bolsistaUfc}"> <option selected value="${true}">Sim</option>  </c:when>
+								<c:otherwise><option value="${true}">Sim</option></c:otherwise>
+							</c:choose>
+							
+							<c:choose>
+								<c:when test="${not inscricao.questionarioAuxilioMoradia.bolsistaUfc}"> <option selected value="${false}">Não</option>  </c:when>
+								<c:otherwise><option value="${false}">Não</option></c:otherwise>
+							</c:choose>
 						</form:select>
 
 					</label>
@@ -807,7 +820,7 @@
 						<label class='f-title'> Descrição da Bolsa: </label>
 
 						<div class='f-content'>
-							<form:input id="descricaoBolsa" path="descricaoBolsa"
+							<form:input id="descricaoBolsa" required="required" path="descricaoBolsa"
 								cssClass="form-control" placeholder="Descrição Bolsa" />
 							<div class="error-validation">
 								<form:errors path="descricaoBolsa"></form:errors>
@@ -817,11 +830,19 @@
 				</div>
 
 				<div class='f-container s5'>
-					<label class='f-title'> Possui Graduação: <form:select
+					<label class='f-title'> Possui Graduação: <form:select required="required"
 							path="graduacao" id="graduacao" class="form-control">
 							<option value="">Selecione...</option>
-							<option value="${true}">Sim</option>
-							<option value="${false}">Não</option>
+							
+							<c:choose>
+								<c:when test="${inscricao.questionarioAuxilioMoradia.graduacao}"> <option selected value="${true}">Sim</option>  </c:when>
+								<c:otherwise><option value="${true}">Sim</option></c:otherwise>
+							</c:choose>
+							
+							<c:choose>
+								<c:when test="${not inscricao.questionarioAuxilioMoradia.graduacao}"> <option selected value="${false}">Não</option>  </c:when>
+								<c:otherwise><option value="${false}">Não</option></c:otherwise>
+							</c:choose>
 						</form:select>
 
 					</label>
@@ -839,7 +860,7 @@
 						<label class='f-title'> Descrição da Graduação: </label>
 
 						<div class='f-content'>
-							<form:input id="descricaoGraduacao" path="descricaoGraduacao"
+							<form:input id="descricaoGraduacao" required="required" path="descricaoGraduacao"
 								cssClass="form-control" placeholder="Descricao da Graduacao" />
 							<div class="error-validation">
 								<form:errors path="descricaoGraduacao"></form:errors>
@@ -847,11 +868,13 @@
 						</div>
 					</div>
 				</div>
-
+				
 				<div class='f-container'>
 					<label class='f-title'>Foto (3x4):</label>
 					<div class='f-content'>
-						<input id="input-foto3x4" type="file" name="fileFoto" />
+							<img class="imagem-inscricao-pequena"
+							src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
+						<input id="input-foto3x4" type="file" name="fileFoto"  accept=".jpg, .png" />
 						<div class="col-sm-8 error-validation">
 							<span id="span-error-foto"></span>
 						</div>
