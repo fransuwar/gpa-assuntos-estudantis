@@ -17,38 +17,34 @@
 <body>
 	<jsp:include page="../fragments/headTag.jsp" />
 	<div class="container" align="left">
+		<c:if test="${controle }">
+			<div class="alert alert-success alert-dismissible" role="alert"
+				id="alert-info">
+				<div style="text-align: center">
+					<c:out value="Você já está inscrito nesta seleção!"></c:out>
+				</div>
 
+			</div>
+		</c:if>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<div class="panel-title">DETALHES DA SELEÇÃO</div>
 			</div>
 
 			<div class="panel-body">
-				<div class="f-conteiner" align="right">
-					<c:choose>
-						<c:when test="${controle}">
-							<div class="alert alert-success alert-dismissible" role="alert"
-								id="alert-info">
-								<div style="text-align: center">
-									<c:out value="Você já está inscrito nesta seleção!"></c:out>
-								</div>
+				<c:if test="${!controle }">
+					<div class="f-conteiner" align="right">
+						<sec:authorize access="hasRole('DISCENTE')">
+							<a id="inscrever" title="Inscrever-se"
+								href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" />">
+								<button class="btn btn-info">
+									Inscrever-se <span class="glyphicon glyphicon-user"></span>
+								</button>
+							</a>
 
-							</div>
-						</c:when>
-						<c:otherwise>
-							<sec:authorize access="hasRole('DISCENTE')">
-								<a id="inscrever" title="Inscrever-se"
-									href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" />">
-									<button class="btn btn-info">
-										Inscrever-se <span class="glyphicon glyphicon-user"></span>
-									</button>
-								</a>
-
-							</sec:authorize>
-						</c:otherwise>
-
-					</c:choose>
-				</div>
+						</sec:authorize>
+					</div>
+				</c:if>
 
 				<div class='f-container s3'>
 

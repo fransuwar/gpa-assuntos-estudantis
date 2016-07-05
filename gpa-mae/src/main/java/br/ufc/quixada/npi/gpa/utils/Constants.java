@@ -170,8 +170,10 @@ public class Constants {
 	public static final String MENSAGEM_SUCESSO_INSCRICAO_REALIZADA = "Inscrição realizada com sucesso.";
 
 	public static final String MENSAGEM_SUCESSO_INSCRICAO_EDITADA = "Inscrição editada com sucesso.";
+	
+	public static final String MENSAGEM_SUCESSO_INSCRICAO_CONSOLIDADA = "Inscrição consolidada com sucesso.";
 
-	public static final String MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA = "Inscrição Excluída com Sucesso.";
+	public static final String MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA = "Inscrição excluída com sucesso.";
 
 	public static final String MENSAGEM_SUCESSO_SELECAO_CADASTRADA = "Nova seleção cadastrada com sucesso.";
 
@@ -179,7 +181,7 @@ public class Constants {
 
 	public static final String MENSAGEM_SUCESSO_SELECAO_REMOVIDA = "Seleção removida com sucesso.";
 
-	public static final String MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO = "Download do Documento realizado com sucesso";
+	public static final String MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO = "Download do documento realizado com sucesso";
 
 	public static final String MENSAGEM_SUCESSO_COMISSAO_FORMADA = "Membro inserido com sucesso.";
 
@@ -275,7 +277,7 @@ public class Constants {
 
 	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO = "Não é possível excluir esse arquivo";
 	
-	public static final String MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO = "Tipo de documento excuído com sucesso";
+	public static final String MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO = "Tipo de documento excluído com sucesso";
 	
 	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO = "Não é possível excluir este tipo de documento pois ele já está em uso";
 	

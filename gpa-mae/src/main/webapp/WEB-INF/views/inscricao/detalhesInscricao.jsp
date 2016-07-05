@@ -23,6 +23,7 @@
 		type="hidden" value="${ativarAbaEntrevista }" />
 	<div class="container" align="center">
 		<input type="hidden" value="${inscricao.id}" name="idInscricao">
+		
 		<c:if test="${not empty info}">
 			<div class="alert alert-success alert-dismissible" role="alert"
 				id="alert-info">
@@ -34,6 +35,7 @@
 				</div>
 			</div>
 		</c:if>
+		
 		<ul class="nav nav-tabs">
 			<li id="aba-inscricao"><a href="#inscricao-tab"
 				data-toggle="tab">Inscrição<i class="fa"></i>
