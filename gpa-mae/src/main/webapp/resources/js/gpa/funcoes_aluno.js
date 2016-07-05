@@ -242,8 +242,15 @@ var FormularioAuxilio = function() {
 		$("#select-parentesco").change(function() {
 			if($(this).val() === "OUTROS"){
 				$("#outro-pessoa-familia").removeClass("hidden");
+			}	    
+		});
+		
+		$("#parentesco").change(function() {
+			if($(this).val() === "OUTRO"){
+				$("#outro-pessoa-familia").removeClass("hidden");
+			}else{
+				$("#outro-pessoa-familia").addClass("hidden");
 			}
-			alert($(this).val());	    
 		});
 		
 	};
@@ -523,10 +530,13 @@ var FormularioAuxilio = function() {
 		$('[data-mask]').each(function(){ $(this).mask( $(this).attr('data-mask')); });
 		
 		
-		$("#rendaMensal").mask("###0000000.00", {reverse: true});
+
+		//$("#rendaMensal").mask("###0000000.00", {reverse: true});
 		$("#valorMensalFinanciamento").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
 		$("#renda-pessoa-familia").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
+		$("#rendaMensal").maskMoney({prefix:"R$ ", decimal:",", thousands:"."});
+		
 	};
 
 	/*
@@ -595,6 +605,36 @@ var FormularioAuxilio = function() {
 	self.initSelectEstadoCidade = function(){
 		new StateCityLib().init("estado-endereco", "cidade-endereco");
 		new StateCityLib().init("estado-origem", "cidade-origem");
+		
+		var defEstadoOrigem = $("#def-estado-origem").val();
+		var defCidadeOrigem = $("#def-cidade-origem").val();
+		var defEstado = $("#def-estado").val();
+		var defCidade = $("#def-cidade").val();
+		
+		var $estadoOrigem = $("#estado-origem");
+		var $estadoEndereco = $("#estado-endereco");
+		var $cidadeOrigem = $("#cidade-origem");
+		var $cidadeEndereco = $("#cidade-endereco");
+		
+		if(defEstadoOrigem.length > 0){
+			$estadoOrigem.val(defEstadoOrigem);
+			$estadoOrigem.change();
+		}
+		
+		if(defEstado.length > 0){
+			$estadoEndereco.val(defEstado);
+			$estadoEndereco.change();
+		}
+		
+		if(defCidadeOrigem.length > 0){
+			$cidadeOrigem.val(defCidadeOrigem);
+			$cidadeOrigem.change();
+		}
+		
+		if(defCidade.length > 0){
+			$cidadeEndereco.val(defCidade);
+			$cidadeEndereco.change();
+		}
 	};
 	
 	self.initConfirmButtons = function(){
