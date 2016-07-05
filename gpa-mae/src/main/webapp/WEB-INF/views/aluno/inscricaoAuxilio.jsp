@@ -304,6 +304,8 @@
 						<label class='f-title'> Estado: </label>
 
 						<div class='f-content'>
+							<input type="hidden" id="def-estado-origem" value="${inscricao.questionarioAuxilioMoradia.estadoOrigem}"/>
+							
 							<form:select path="estadoOrigem" id="estado-origem"
 								cssClass="form-control" cssStyle="font-size:13px">
 							</form:select>
@@ -318,7 +320,8 @@
 						<label class='f-title'> Cidade: </label>
 
 						<div class='f-content'>
-
+							<input type="hidden" id="def-cidade-origem" value="${inscricao.questionarioAuxilioMoradia.cidadeOrigem}"/>
+							
 							<form:select id="cidade-origem" path="cidadeOrigem"
 								cssClass="form-control" placeholder="Cidade">
 							</form:select>
@@ -462,6 +465,7 @@
 						<label class='f-title'> Estado: </label>
 
 						<div class='f-content'>
+							<input type="hidden" id="def-estado" value="${inscricao.questionarioAuxilioMoradia.estado}"/>
 							<form:select path="estado" id="estado-endereco"
 								cssClass="form-control" cssStyle="font-size:13px">
 							</form:select>
@@ -475,6 +479,7 @@
 						<label class='f-title'> Cidade: </label>
 
 						<div class='f-content'>
+							<input type="hidden" id="def-cidade" value="${inscricao.questionarioAuxilioMoradia.cidade}"/>
 							<form:select id="cidade-endereco" path="cidade"
 								cssClass="form-control" placeholder="Cidade">
 							</form:select>
@@ -790,8 +795,16 @@
 					<label class='f-title'> Bolsista UFC: <form:select required="required"
 							path="bolsistaUfc" id="bolsistaUfc" class="form-control">
 							<option value="">Selecione...</option>
-							<option value="${true}">Sim</option>
-							<option value="${false}">Não</option>
+							
+							<c:choose>
+								<c:when test="${inscricao.questionarioAuxilioMoradia.bolsistaUfc}"> <option selected value="${true}">Sim</option>  </c:when>
+								<c:otherwise><option value="${true}">Sim</option></c:otherwise>
+							</c:choose>
+							
+							<c:choose>
+								<c:when test="${not inscricao.questionarioAuxilioMoradia.bolsistaUfc}"> <option selected value="${false}">Não</option>  </c:when>
+								<c:otherwise><option value="${false}">Não</option></c:otherwise>
+							</c:choose>
 						</form:select>
 
 					</label>
@@ -820,8 +833,16 @@
 					<label class='f-title'> Possui Graduação: <form:select required="required"
 							path="graduacao" id="graduacao" class="form-control">
 							<option value="">Selecione...</option>
-							<option value="${true}">Sim</option>
-							<option value="${false}">Não</option>
+							
+							<c:choose>
+								<c:when test="${inscricao.questionarioAuxilioMoradia.graduacao}"> <option selected value="${true}">Sim</option>  </c:when>
+								<c:otherwise><option value="${true}">Sim</option></c:otherwise>
+							</c:choose>
+							
+							<c:choose>
+								<c:when test="${not inscricao.questionarioAuxilioMoradia.graduacao}"> <option selected value="${false}">Não</option>  </c:when>
+								<c:otherwise><option value="${false}">Não</option></c:otherwise>
+							</c:choose>
 						</form:select>
 
 					</label>
@@ -851,6 +872,8 @@
 				<div class='f-container'>
 					<label class='f-title'>Foto (3x4):</label>
 					<div class='f-content'>
+							<img class="imagem-inscricao-pequena"
+							src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
 						<input id="input-foto3x4" type="file" name="fileFoto"  accept=".jpg, .png" />
 						<div class="col-sm-8 error-validation">
 							<span id="span-error-foto"></span>
