@@ -85,13 +85,6 @@
 											</button>
 										</a>
 									</sec:authorize>
-									<a data-target="#modal-consolidacao" data-toggle="modal"
-										data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
-										<button class="btn btn-success btn-sm"
-											title="Consolidar Inscrição">
-											<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
-										</button>
-									</a>
 								</c:when>
 								<c:otherwise>
 									<span class="label label-success">Inscrição consolidada</span>
@@ -576,7 +569,6 @@
 			</div>
 
 			<div class="tab-pane" id="documentos-tab">
-
 				<c:if test="${not empty error}">
 					<div class="alert alert-danger alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert"
@@ -586,6 +578,29 @@
 						${error }
 					</div>
 				</c:if>
+				<div class="panel panel-default panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informações da Documentação</h3>
+					</div>
+					<div class="panel-body">
+						<dl class='col-sm-12'>
+							<dt class="col-sm-2">Parecer:</dt>
+							<c:choose>
+								<c:when
+									test="${inscricao.documentacao.deferimento == 'DEFERIDO'}">
+									<dd class="col-sm-2">DEFERIDO</dd>
+								</c:when>
+								<c:otherwise>
+									<dd class="col-sm-2">INDEFERIDO</dd>
+								</c:otherwise>
+							</c:choose>
+							<dt class="col-sm-2">Observação:</dt>
+							<dd class="col-sm-2">${inscricao.documentacao.observacao}</dd>
+							<dt class="col-sm-2">Responsável:</dt>
+							<dd class="col-sm-2">${inscricao.documentacao.servidor.pessoa.nome}</dd>
+						</dl>
+					</div>
+				</div>
 
 				<div class="panel panel-default panel-primary">
 					<div class="panel-heading">
@@ -594,7 +609,6 @@
 					</div>
 
 					<div class="panel-body text-align-left">
-
 						<sec:authorize access="hasAnyRole('DISCENTE')">
 							<c:if test="${inscricao.consolidacao eq false }">
 								<form class="full-width" id="insercaoFormularioVisita"
@@ -720,27 +734,15 @@
 										<form:form id="obsDoc" role="form"
 											servletRelativeAction="/servidor/avaliarDocumentacao"
 											method="POST" modelAttribute="documentacao"
-											commandName="documentacao" >
-											<input type="hidden" value="${inscricao.id }"
-												name="idInscricao" />
-
-											<div class="form-group row">
-												<label class="col-sm-2 control-label">Deferimento:</label>
-												<div class="col-sm-4">
-													<form:select name="deferimento" path="deferimento"
-														cssClass="form-control">
-														<option value="DEFERIDO">Deferido</option>
-														<option value="INDEFERIDO"
-															<c:if test="${inscricao.documentacao.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
-													</form:select>
-												</div>
-											</div>
-											<div class="form-group row">
+											commandName="documentacao">
+											<div class="form-group">
 												<label class="col-sm-2 control-label">Observações:</label>
 												<div class="col-sm-8">
-													<form:textarea cssClass="form-control" rows="8"
+													<form:textarea class="form-control" rows="8"
 														name="observacao" path="observacao"
-														value="${inscricao.documentacao.observacao}"></form:textarea>
+														value="${inscricao.documentacao.observacao}" />
+													<input type="hidden" value="${inscricao.id }"
+														name="idInscricao" />
 												</div>
 											</div>
 											<div
@@ -757,6 +759,39 @@
 
 				</div>
 			</div>
+
+			<sec:authorize
+				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+				<div class="tab-pane" id="documentos-tab">
+					<div class="panel panel-default panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Observações</h3>
+						</div>
+						<div class="panel-body">
+							<form:form id="obsDoc" role="form"
+								servletRelativeAction="/servidor/avaliarDocumentacao"
+								method="POST" modelAttribute="documentacao"
+								commandName="documentacao">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Observações:</label>
+									<div class="col-sm-8">
+										<form:textarea class="form-control" rows="8" name="observacao"
+											path="observacao"
+											value="${inscricao.documentacao.observacao}" />
+										<input type="hidden" value="${inscricao.id }"
+											name="idInscricao" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-3 pull-right">
+										<input type="submit" class="button btn btn-primary" />
+									</div>
+								</div>
+							</form:form>
+						</div>
+					</div>
+				</div>
+			</sec:authorize>
 			<sec:authorize
 				access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 				<div class="tab-pane" id="entrevista-tab">
@@ -774,7 +809,7 @@
 						<c:otherwise>
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
-									<h3 class="panel-title">Dados da Entrevista</h3>
+									<h3 class="panel-title">Informações da Entrevista</h3>
 								</div>
 								<div class="panel-body">
 									<dl class='col-sm-12'>
@@ -847,7 +882,7 @@
 													class="btn btn-default btn-md" id="form-btn">Cancelar</a>
 											</fieldset>
 										</div>
-										
+
 									</form:form>
 								</div>
 							</div>
@@ -1002,7 +1037,7 @@
 						<c:otherwise>
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
-									<h3 class="panel-title">Entrevista</h3>
+									<h3 class="panel-title">Informações da Visita</h3>
 								</div>
 								<div class="panel-body">
 									<dl class='col-sm-12'>
@@ -1018,6 +1053,8 @@
 										</c:choose>
 										<dt class="col-sm-2">Observação:</dt>
 										<dd class="col-sm-2">${inscricao.visitaDomiciliar.observacaoParecer}</dd>
+										<dt class="col-sm-2">Responsável:</dt>
+										<dd class="col-sm-2">${inscricao.visitaDomiciliar.servidor.pessoa.nome}</dd>
 									</dl>
 								</div>
 							</div>
