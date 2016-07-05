@@ -44,7 +44,7 @@ var FormularioAuxilio = function() {
 	};
 	
 	self.filtroFoto = function(){
-		$( "#input-foto3x4" ).change(function (e)  {
+		$( "#input-foto3x4" ).change(function ()  {
 			var filename = $("#input-foto3x4").val();
 			var fileExtension = filename.substring(filename.lastIndexOf(".") + 1, filename.length);
 			if(fileExtension==="jpg" || fileExtension==="png"){
