@@ -1246,8 +1246,8 @@
 						inscrições. Isso poderá ser feito na página das suas inscrições.</div>
 					<div class="modal-footer">
 						<a
-							href="<c:url value="/inscricao/aluno/consolidar/${inscricao.id}"></c:url>"
-							class="btn btn-primary">confirmar aluno</a>
+							href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>"
+							class="btn btn-primary">confirmar</a>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 					</div>
 				</div>

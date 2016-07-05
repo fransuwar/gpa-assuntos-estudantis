@@ -1,19 +1,25 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,8 +30,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.ufc.quixada.npi.gpa.enums.Escolaridade;
+import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
+import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.excecoes.FalhaCarregarImagemException;
+import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
+import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
@@ -79,8 +90,67 @@ public class InscricaoController {
 		}
 	}
 
+	@RequestMapping(value = { "detalhes/inscricao/{idInscricao}" }, method = RequestMethod.GET)
+	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
+			RedirectAttributes redirect) {
+		
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
+		Selecao selecao = inscricao.getSelecao();
+		Date date = new Date();
+		model.addAttribute(INSCRICAO, inscricao);
+		model.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
+		model.addAttribute("pessoaDaFamilia",new PessoaFamilia());
+
+		if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
+			model.addAttribute(INSCRICAO, inscricao);
+			model.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
+			
+			//Verificando se alguma aba específica foi setada no redirect
+			String nomeAba = (String) model.asMap().getOrDefault(ABA_SELECIONADA, null);
+			
+			if(nomeAba == null){
+				//Se nenhuma aba foi setada então a aba padrão é selecionada 
+				nomeAba = INSCRICAO_TAB; 
+			}
+
+			model.addAttribute(ABA_SELECIONADA, nomeAba);
+			
+			if(inscricao.getEntrevista()!=null)
+				model.addAttribute(ENTREVISTA, inscricao.getEntrevista());
+			else
+				model.addAttribute(ENTREVISTA, new Entrevista());
+			    model.addAttribute("grauParentesco", GrauParentesco.values());
+			    model.addAttribute("escolaridade",Escolaridade.values());
+		}
+		
+		 if (inscricao.getQuestionarioAuxilioMoradia() != null) {
+
+			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){
+				model.addAttribute("esconderBotoes",true);
+			} else{
+				model.addAttribute("esconderBotoes",false);			
+			}
+
+			//Recebendo a mensagem recebida do redirect
+			String msgAddDocumentos = (String) model.asMap().getOrDefault(INFO, null);
+
+			if(msgAddDocumentos != null){
+				model.addAttribute(INFO,msgAddDocumentos);
+			}
+
+			return PAGINA_DETALHES_INSCRICAO;
+
+		} else{
+
+			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
+		}
+		
+	
+	}
+	
+	
 	@RequestMapping(value = {"consolidar/{idInscricao}"}, method = RequestMethod.GET)
-	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model, RedirectAttributes redirect){
+	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model, RedirectAttributes redirect, Authentication auth){
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		List<Selecao> selecoes = selecaoRepository.findAll();
 
@@ -89,23 +159,11 @@ public class InscricaoController {
 
 		model.addAttribute("selecoes", selecoes);
 		redirect.addFlashAttribute(ABA_SELECIONADA,INSCRICAO_TAB);
+
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 
 	}
-	
-	@RequestMapping(value = {"aluno/consolidar/{idInscricao}"}, method = RequestMethod.GET)
-	public String consolidarInscricaoAluno(@PathVariable("idInscricao") Integer idInscricao,Model model, RedirectAttributes redirect){
-		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
-		List<Selecao> selecoes = selecaoRepository.findAll();
 
-		inscricao.setConsolidacao(true);
-		inscricaoRepository.save(inscricao);
-
-		model.addAttribute("selecoes", selecoes);
-		redirect.addFlashAttribute(ABA_SELECIONADA,INSCRICAO_TAB);
-		return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + idInscricao;
-
-	}
 
 	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Model consolidarViaAjax(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao,Model model){
