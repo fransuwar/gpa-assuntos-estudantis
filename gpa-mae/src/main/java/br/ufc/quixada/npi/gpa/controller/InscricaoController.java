@@ -10,6 +10,8 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.USUARIO_ATIVO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ESCONDER_BOTOES;
 
 import java.io.IOException;
 import java.util.Date;
@@ -91,19 +93,18 @@ public class InscricaoController {
 	}
 
 	@RequestMapping(value = { "detalhes/inscricao/{idInscricao}" }, method = RequestMethod.GET)
-	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
-			RedirectAttributes redirect) {
+	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model model) {
 		
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		Selecao selecao = inscricao.getSelecao();
 		Date date = new Date();
 		model.addAttribute(INSCRICAO, inscricao);
-		model.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
+		model.addAttribute(USUARIO_ATIVO, inscricao.getAluno().getPessoa());
 		model.addAttribute("pessoaDaFamilia",new PessoaFamilia());
 
 		if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
 			model.addAttribute(INSCRICAO, inscricao);
-			model.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
+			model.addAttribute(USUARIO_ATIVO, inscricao.getAluno().getPessoa());
 			
 			//Verificando se alguma aba específica foi setada no redirect
 			String nomeAba = (String) model.asMap().getOrDefault(ABA_SELECIONADA, null);
@@ -126,9 +127,9 @@ public class InscricaoController {
 		 if (inscricao.getQuestionarioAuxilioMoradia() != null) {
 
 			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){
-				model.addAttribute("esconderBotoes",true);
+				model.addAttribute(ESCONDER_BOTOES,true);
 			} else{
-				model.addAttribute("esconderBotoes",false);			
+				model.addAttribute(ESCONDER_BOTOES,false);			
 			}
 
 			//Recebendo a mensagem recebida do redirect

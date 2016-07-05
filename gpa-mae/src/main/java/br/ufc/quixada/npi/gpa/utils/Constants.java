@@ -23,6 +23,8 @@ public class Constants {
 	public static final String TIPO_AUX_MORADIA = "aux_mor";
 	public static final String CADASTRAR = "cadastrar";
 	public static final String EDITAR = "editar";
+	public static final String USUARIO_ATIVO = "usuarioAtivo";
+	public static final String ESCONDER_BOTOES = "esconderBotoes";
 
 	/** ServiceImpl*/
 	
