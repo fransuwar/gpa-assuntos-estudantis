@@ -46,8 +46,8 @@ var FormularioAuxilio = function() {
 	
 	self.campoPercentualBolsa = function(){
 		$.extend($.validator.messages, {
-		    min: "Digite um valor maior que 0",
-		    max: "Digite um valor menor ou igual a 100"
+			min: "Digite um valor maior que 0",
+			max: "Digite um valor menor ou igual a 100"
 		});
 	};
 	
