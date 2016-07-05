@@ -765,6 +765,7 @@ div.input-photo {
 
 .card .card-content{
 	position: relative;
+	padding-top: 10px;
 	margin: 0 auto;
 	width: 100%;
 	display: block;
