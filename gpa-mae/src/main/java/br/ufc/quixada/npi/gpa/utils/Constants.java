@@ -24,6 +24,8 @@ public class Constants {
 	public static final String TIPO_AUX_MORADIA = "aux_mor";
 	public static final String CADASTRAR = "cadastrar";
 	public static final String EDITAR = "editar";
+	public static final String USUARIO_ATIVO = "usuarioAtivo";
+	public static final String ESCONDER_BOTOES = "esconderBotoes";
 
 	/** ServiceImpl*/
 	
@@ -129,9 +131,7 @@ public class Constants {
 	
 	public static final String REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR = "redirect:/servidor/detalhesSelecaoServidor";
 
-	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO = "redirect:/servidor/detalhes/inscricao/";
-	
-	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO = "redirect:/aluno/inscricao/detalhes/";
+	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO = "redirect:/inscricao/detalhes/inscricao/";
 	
 	public static final String REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO = "redirect:/aluno/selecao/listar";
 	

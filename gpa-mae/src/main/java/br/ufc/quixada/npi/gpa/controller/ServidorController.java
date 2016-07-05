@@ -1,7 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.VISITA_TAB;
-import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVISTA;
@@ -15,8 +14,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_DOMICI
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
@@ -55,9 +52,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
-import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
-import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.AnaliseDocumentacao;
@@ -354,59 +349,6 @@ public class ServidorController {
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}
 		}
-	}
-
-	@RequestMapping(value ={ "detalhes/inscricao/{idInscricao}"}, method = RequestMethod.GET)
-	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
-			RedirectAttributes redirect, @RequestParam(value="ativar-aba-entrevista",required=false) boolean ativarAbaEntrevista) {
-			
-		
-		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
-		modelo.addAttribute("pessoaDaFamilia",new PessoaFamilia());
-		modelo.addAttribute("documentacao", new AnaliseDocumentacao());
-		
-		if (inscricao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
-			return REDIRECT_PAGINA_LISTAR_SELECAO;
-
-		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
-			modelo.addAttribute(INSCRICAO, inscricao);
-			modelo.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
-			
-			//Verificando se alguma aba específica foi setada no redirect
-			String nomeAba = (String) modelo.asMap().getOrDefault(ABA_SELECIONADA, null);
-			
-			if(nomeAba == null){
-				//Se nenhuma aba foi setada então a aba padrão é selecionada 
-				nomeAba = INSCRICAO_TAB; 
-			}
-
-			modelo.addAttribute(ABA_SELECIONADA, nomeAba);
-			
-			if(inscricao.getEntrevista()!=null){
-				modelo.addAttribute(ENTREVISTA, inscricao.getEntrevista());
-			}else{
-				modelo.addAttribute(ENTREVISTA, new Entrevista());
-			    modelo.addAttribute("grauParentesco", GrauParentesco.values());
-			    modelo.addAttribute("escolaridade",Escolaridade.values());
-			}
-			
-			if(inscricao.getDocumentacao() != null){
-				modelo.addAttribute(DOCUMENTACAO, inscricao.getDocumentacao());
-			}else{
-				modelo.addAttribute(DOCUMENTACAO, new AnaliseDocumentacao());
-			}
-			    
-			
-
-			return PAGINA_DETALHES_INSCRICAO;
-		}else {
-			modelo.addAttribute(INSCRICAO, inscricao);
-			modelo.addAttribute("questInic", inscricao.getQuestionarioIniciacaoAcademica());
-			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
-		}
-		
-		
 	}
 	
 	@RequestMapping(value ={ "detalhes/inscricao/inserirImagem"}, method = RequestMethod.POST)
