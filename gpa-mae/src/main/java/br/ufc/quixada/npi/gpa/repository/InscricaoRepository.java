@@ -27,7 +27,7 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
 	@Query("select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'true'")
 	public abstract List<Inscricao> findClassificadosBySelecao(@Param("idSelecao") Integer idSelecao);
 	
-	@Query("select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'false'")
+	@Query("select i from Inscricao as i where i.selecao.id =:idSelecao and i.classificado = 'false' and i.resultado != 'INDEFERIDO'")
 	public abstract List<Inscricao> findClassificaveisBySelecao(@Param("idSelecao") Integer idSelecao);
 	
 	@Query("select i from Inscricao as i where i.selecao.id =:idSelecao and i.resultado = 'INDEFERIDO'")
