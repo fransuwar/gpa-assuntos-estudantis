@@ -1,23 +1,20 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ASSUNTO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.BODY;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ESCONDER_BOTOES;
+import static br.ufc.quixada.npi.gpa.utils.Constants.FROM;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
-
-import static br.ufc.quixada.npi.gpa.utils.Constants.FROM;
-import static br.ufc.quixada.npi.gpa.utils.Constants.BODY;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ASSUNTO;
-
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.USUARIO_ATIVO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ESCONDER_BOTOES;
-
 
 import java.io.IOException;
 import java.util.Date;
@@ -26,6 +23,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -211,7 +209,7 @@ public class InscricaoController {
 
 	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Model consolidarViaAjax(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao,Model model){
-		inscricaoService.consolidar(idInscricao, consolidacao);
+		inscricaoRepository.consolidar(idInscricao, consolidacao);
 		model.addAttribute(RESULTADO,SUCESSO);
 		return model;
 
@@ -219,7 +217,7 @@ public class InscricaoController {
 
 	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Model consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao,Model model){
-		inscricaoService.consolidacaoDeTodos(idSelecao, consolidacao);
+		inscricaoRepository.consolidarTodos(idSelecao, consolidacao);
 		model.addAttribute(RESULTADO,SUCESSO);
 		return model;
 	}
