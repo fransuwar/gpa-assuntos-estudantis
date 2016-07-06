@@ -6,6 +6,4 @@ public interface SelecaoService {
 
 	public abstract boolean SelecaoEstaCadastrada(Selecao selecao);
 	
-	public abstract Integer getUltimoSequencialPorAno(Selecao selecao);
-	
 }

@@ -39,28 +39,5 @@ public class SelecaoServiceImpl implements SelecaoService {
 
 		return !(selecoes == null || selecoes.isEmpty());
 	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Integer getUltimoSequencialPorAno(Selecao selecao) {
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("tipoSelecao", selecao.getTipoSelecao());
-		map.put("ano",selecao.getAno());
-		List<Selecao> listSequencial = selecaoService.find(QueryType.JPQL,
-				"select s from Selecao as s where s.tipoSelecao = :tipoSelecao and s.ano = :ano and s.sequencial = max(sequencial)",
-			map);
-
-	
-		
-		if (listSequencial == null || listSequencial.get(0) == null) {
-			return 1;
-		} else {
-			return listSequencial.get(0).getSequencial() + 1;
-		}
-
-	}
-	
-
 	
 }
