@@ -1,7 +1,8 @@
 package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.VISITA_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ALUNO_INDEFERIDO;
@@ -14,6 +15,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_DOMICI
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MORADIA_ESTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
@@ -24,11 +26,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_IN
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTACAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MORADIA_ESTADO;
-
+import static br.ufc.quixada.npi.gpa.utils.Constants.VISITA_TAB;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -460,13 +458,15 @@ public class ServidorController {
 	}
 
 	@RequestMapping(value= {"avaliarDocumentacao"}, method = RequestMethod.POST)
-	public String avaliarDocumentacao(@Valid @ModelAttribute("documentacao") AnaliseDocumentacao analiseDocumentacao , @RequestParam("idInscricao") Integer idInscricao, 
-
-			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
+	public String avaliarDocumentacao(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("resultado") Resultado resultado, 
+			@RequestParam("observacao") String observacao, RedirectAttributes redirect, Authentication auth){
 
         Inscricao inscricao = inscricaoRepository.findById(idInscricao);
         Servidor servidor = servidorRepository.findByCpf(auth.getName());
-
+        
+        AnaliseDocumentacao analiseDocumentacao = inscricao.getDocumentacao();
+        analiseDocumentacao.setDeferimento(resultado);
+        analiseDocumentacao.setObservacao(observacao);
         analiseDocumentacao.setServidor(servidor);
 		inscricao.setDocumentacao(analiseDocumentacao);
 		inscricaoRepository.save(inscricao);

@@ -26,7 +26,7 @@ var FormularioAuxilio = function() {
 		self.initDivMesmoEndereco();
 		self.initDivMoraComOutros();
 		self.initSelectEnsinoMedio();
-		self.initSelectEstadoCidade();
+		//self.initSelectEstadoCidade();
 		self.initSelectSituacaoImovel();
 		self.initBotaoFinalizarInscricao();
 		self.initSelectEnsinoFundamental();
@@ -602,7 +602,7 @@ var FormularioAuxilio = function() {
 	 * Estado e cidade de origem,
 	 * Estado e cidade atual.
 	 */
-	self.initSelectEstadoCidade = function(){
+	/*self.initSelectEstadoCidade = function(){
 		new StateCityLib().init("estado-endereco", "cidade-endereco");
 		new StateCityLib().init("estado-origem", "cidade-origem");
 		
@@ -635,7 +635,7 @@ var FormularioAuxilio = function() {
 			$cidadeEndereco.val(defCidade);
 			$cidadeEndereco.change();
 		}
-	};
+	};*/
 	
 	self.initConfirmButtons = function(){
 		$('.confirm-button').click(function(){

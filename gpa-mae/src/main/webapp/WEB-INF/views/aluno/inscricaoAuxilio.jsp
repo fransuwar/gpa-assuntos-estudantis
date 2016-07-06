@@ -918,5 +918,40 @@
 <jsp:include page="../fragments/footer.jsp" />
 
 </body>
+<!-- 
+<script type="text/javascript">
+new StateCityLib().init("estado-endereco", "cidade-endereco");
+new StateCityLib().init("estado-origem", "cidade-origem");
+
+var defEstadoOrigem = $("#def-estado-origem").val();
+var defCidadeOrigem = $("#def-cidade-origem").val();
+var defEstado = $("#def-estado").val();
+var defCidade = $("#def-cidade").val();
+
+var $estadoOrigem = $("#estado-origem");
+var $estadoEndereco = $("#estado-endereco");
+var $cidadeOrigem = $("#cidade-origem");
+var $cidadeEndereco = $("#cidade-endereco");
+
+if(defEstadoOrigem.length > 0){
+	$estadoOrigem.val(defEstadoOrigem);
+	$estadoOrigem.change();
+}
+
+if(defEstado.length > 0){
+	$estadoEndereco.val(defEstado);
+	$estadoEndereco.change();
+}
+
+if(defCidadeOrigem.length > 0){
+	$cidadeOrigem.val(defCidadeOrigem);
+	$cidadeOrigem.change();
+}
+
+if(defCidade.length > 0){
+	$cidadeEndereco.val(defCidade);
+	$cidadeEndereco.change();
+}
+</script> -->
 
 </html>

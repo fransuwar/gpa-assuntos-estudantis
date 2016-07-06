@@ -43,4 +43,9 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
 	@Modifying
 	@Query("update Inscricao set consolidacao = :consolidacao where selecao.id = :idSelecao")
 	public abstract int consolidarTodos(@Param("idSelecao")Integer idSelecao, @Param("consolidacao") boolean consolidacao);
+	
+	@Transactional
+	@Modifying
+	@Query("update Inscricao set classificado = :classificado where id = :idInscricao")
+	public abstract int atualizarClassificacao(@Param("idInscricao")Integer idInscricao, @Param("classificado") boolean classificado);
 }

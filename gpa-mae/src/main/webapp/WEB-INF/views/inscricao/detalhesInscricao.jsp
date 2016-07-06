@@ -741,26 +741,34 @@
 
 								<div class="panel panel-default panel-primary">
 									<div class="panel-body">
-										<form:form id="obsDoc" role="form"
-											servletRelativeAction="/servidor/avaliarDocumentacao"
-											method="POST" modelAttribute="inscricao"
-											commandName="inscricao">
+										<form id="obsDoc" role="form"
+											action="/MAE/servidor/avaliarDocumentacao"
+											method="POST">
+											
+											<div class="form-group">
+												<label class="col-sm-2 control-label">Resultado:</label>
+												<div class="col-sm-10">
+													<select name="resultado" class="form-control">
+														<option value="NAO_AVALIADO">Não avaliado</option>
+														<option value="DEFERIDO">Deferido</option>
+														<option value="INDEFERIDO">Indeferido</option>
+													</select>
+												</div>
+											</div>
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Observações:</label>
-												<div class="col-sm-8">
-													<form:textarea class="form-control" rows="8"
-														name="observacaoDocumentos" path="observacaoDocumentos"
-														value="${inscricao.observacaoDocumentos}" />
+												<div class="col-sm-10">
+													<textarea class="form-control select" rows="8"
+														name="observacao" 
+														value="${inscricao.observacaoDocumentos}"></textarea>
 													<input type="hidden" value="${inscricao.id }"
 														name="idInscricao" />
 												</div>
 											</div>
-											<div
-												class="form-group col-sm-2 col-sm-offset-8 margin-top-s1"
-												align="right">
+											<div class="form-group col-sm-offset-8 margin-top-s1">
 												<input type="submit" class="button btn btn-primary" />
 											</div>
-										</form:form>
+										</form>
 									</div>
 								</div>
 
