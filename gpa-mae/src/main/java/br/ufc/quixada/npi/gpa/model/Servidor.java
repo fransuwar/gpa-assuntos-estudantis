@@ -23,15 +23,6 @@ import br.ufc.quixada.npi.gpa.enums.Cargo;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "siape" }))
 public class Servidor {
 
-
-	public Servidor() {
-		super();
-	}
-
-	public Servidor(Integer id){
-		this.id = id;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -55,6 +46,14 @@ public class Servidor {
 	@OneToMany
 	private List<Entrevista> entrevistas;
 
+
+	public Servidor() {
+		super();
+	}
+
+	public Servidor(Integer id){
+		this.id = id;
+	}
 
 	public List<Entrevista> getEntrevistas() {
 		return entrevistas;
@@ -143,6 +142,6 @@ public class Servidor {
 		return true;
 	}
 
-	
+
 
 }

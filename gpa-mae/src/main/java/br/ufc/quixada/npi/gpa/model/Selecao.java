@@ -1,5 +1,9 @@
 package br.ufc.quixada.npi.gpa.model;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.MIN_EDITAL;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MIN_VAGAS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MAX_VAGAS;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +20,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
@@ -34,10 +37,10 @@ public class Selecao {
 	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
 
-	@Range(min = 1, message = "O valor do edital deve ser maior que 0")
+	@Range(min = MIN_EDITAL, message = "O valor do edital deve ser maior que 0")
 	private Integer sequencial;
 
-	@Range(min = 1, max = 999, message = "O número de vagas deve ser maior ou igual a 1")
+	@Range(min = MIN_VAGAS, max = MAX_VAGAS, message = "O número de vagas deve ser maior ou igual a 1")
 	private Integer quantidadeVagas;
 
 	@NotNull(message = "Campo obrigatório")

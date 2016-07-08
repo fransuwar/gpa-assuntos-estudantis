@@ -1,8 +1,17 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ACTION;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DIAS_UTEIS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.EDITAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERROR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.GRAU_PARENTESCO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ID_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
@@ -16,27 +25,24 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_REALIZADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.NIVEL_INSTRUCAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MORADIA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.QUESTIONARIO_AUXILIO_MORADIA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.QUESTIONARIO_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ALUNO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.NIVEL_INSTRUCAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.SITUACAO_RESIDENCIA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ID_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.DIAS_UTEIS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.SITUACAO_RESIDENCIA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TOTAL_ESTADO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.GRAU_PARENTESCO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ERROR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.QUESTIONARIO_AUXILIO_MORADIA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.TURNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.USUARIO_ATIVO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ESCOLARIDADE;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -150,13 +156,13 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
 	public String realizarInscricaoIniciacaoAcademica(@PathVariable(ID_SELECAO) Integer idSelecao, Model model) {
 
-		model.addAttribute("action", "inscricao");
+		model.addAttribute(ACTION, "inscricao");
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
 
-		model.addAttribute("questionarioIniciacaoAcademica", new QuestionarioIniciacaoAcademica());
+		model.addAttribute(QUESTIONARIO_INICIACAO_ACADEMICA, new QuestionarioIniciacaoAcademica());
 		model.addAttribute(NIVEL_INSTRUCAO, NivelInstrucao.toMap());
-		model.addAttribute("turno", Turno.toMap());
+		model.addAttribute(TURNO, Turno.toMap());
 		model.addAttribute(DIAS_UTEIS, DiaUtil.toMap());
 		model.addAttribute(SITUACAO_RESIDENCIA, SituacaoResidencia.toMap());
 		model.addAttribute(TOTAL_ESTADO, Estado.toMap());
@@ -171,13 +177,13 @@ public class AlunoController {
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
 			BindingResult result, Model model, RedirectAttributes redirect, Authentication auth) {
 
-		model.addAttribute("action", "inscricao");
+		model.addAttribute(ACTION, "inscricao");
 
 		if (result.hasErrors()) {
 
-			model.addAttribute("questionarioIniciacaoAcademica", iniciacaoAcademica);
+			model.addAttribute(QUESTIONARIO_INICIACAO_ACADEMICA, iniciacaoAcademica);
 			model.addAttribute(NIVEL_INSTRUCAO, NivelInstrucao.toMap());
-			model.addAttribute("turno", Turno.toMap());
+			model.addAttribute(TURNO, Turno.toMap());
 			model.addAttribute(DIAS_UTEIS, DiaUtil.toMap());
 			model.addAttribute(SITUACAO_RESIDENCIA, SituacaoResidencia.toMap());
 			model.addAttribute(TOTAL_ESTADO, Estado.toMap());
@@ -216,14 +222,14 @@ public class AlunoController {
 	public String editarInscricaoIniciacaoAcademica(@PathVariable("idInscricao") Integer idInscricao, Model model,
 			RedirectAttributes redirect) {
 
-		model.addAttribute("action", "editar");
+		model.addAttribute(ACTION, EDITAR);
 
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 
 		model.addAttribute(INSCRICAO, inscricao);
-		model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
+		model.addAttribute(QUESTIONARIO_INICIACAO_ACADEMICA, inscricao.getQuestionarioIniciacaoAcademica());
 		model.addAttribute(NIVEL_INSTRUCAO, NivelInstrucao.toMap());
-		model.addAttribute("turno", Turno.toMap());
+		model.addAttribute(TURNO, Turno.toMap());
 		model.addAttribute(DIAS_UTEIS, DiaUtil.toMap());
 		model.addAttribute(SITUACAO_RESIDENCIA, SituacaoResidencia.toMap());
 		model.addAttribute(TOTAL_ESTADO, Estado.toMap());
@@ -276,7 +282,7 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
 	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth, RedirectAttributes redirect){
 
-		model.addAttribute("action", "inscricao");
+		model.addAttribute(ACTION, "inscricao");
 
 		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		Selecao selecao = selecaoRepository.findById(idSelecao);
@@ -292,7 +298,7 @@ public class AlunoController {
 		}else{
 
 		
-			model.addAttribute("action", "inscricao");
+			model.addAttribute(ACTION, "inscricao");
 			
 			//Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
 	
@@ -303,7 +309,7 @@ public class AlunoController {
 			model.mergeAttributes(modelFormAuxilio.asMap());
 			
 			model.addAttribute(SELECAO, selecao);
-			model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
+			model.addAttribute(USUARIO_ATIVO, usuarioService.getByCpf(auth.getName()));
 	
 			return PAGINA_INSCREVER_AUXILIO_MORADIA;
 			}
@@ -331,14 +337,14 @@ public class AlunoController {
 
 		if (result.hasErrors()) {
 
-			model.addAttribute("action", "inscricao");
+			model.addAttribute(ACTION, "inscricao");
 			model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, auxilioMoradia);
 
 			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 			model.mergeAttributes(modelFormAuxilio.asMap());
 			model.addAttribute(ID_SELECAO, idSelecao);
 			model.addAttribute(SELECAO, selecaoRepository.findById(idSelecao));
-			model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
+			model.addAttribute(USUARIO_ATIVO, usuarioService.getByCpf(auth.getName()));
 
 			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_DADOS_INSCRICAO);
 
@@ -411,13 +417,13 @@ public class AlunoController {
 
 					model.addAttribute(INSCRICAO, inscricao);
 					model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, inscricao.getQuestionarioAuxilioMoradia());
-					model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
+					model.addAttribute(USUARIO_ATIVO, usuarioService.getByCpf(auth.getName()));
 
 					Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 					model.mergeAttributes(modelFormAuxilio.asMap());
 
 					model.addAttribute(SELECAO, inscricao.getSelecao());
-					model.addAttribute("action", "editar");
+					model.addAttribute(ACTION, EDITAR);
 
 					return PAGINA_INSCREVER_AUXILIO_MORADIA;
 				}
@@ -426,14 +432,14 @@ public class AlunoController {
 
 				model.addAttribute(INSCRICAO, inscricao);
 				model.addAttribute(SELECAO, inscricao.getSelecao());
-				model.addAttribute("questionarioIniciacaoAcademica", inscricao.getQuestionarioIniciacaoAcademica());
+				model.addAttribute(QUESTIONARIO_INICIACAO_ACADEMICA, inscricao.getQuestionarioIniciacaoAcademica());
 				model.addAttribute(NIVEL_INSTRUCAO, NivelInstrucao.values());
-				model.addAttribute("turno", Turno.values());
+				model.addAttribute(TURNO, Turno.values());
 				model.addAttribute(DIAS_UTEIS, DiaUtil.values());
 				model.addAttribute(SITUACAO_RESIDENCIA, SituacaoResidencia.values());
 				model.addAttribute(TOTAL_ESTADO, Estado.values());
 				model.addAttribute(GRAU_PARENTESCO, GrauParentesco.getTodos());
-				model.addAttribute("escolaridade",Escolaridade.values());
+				model.addAttribute(ESCOLARIDADE,Escolaridade.values());
 
 
 				List<HorarioDisponivel> horariosDisponiveis = inscricaoService
@@ -464,7 +470,7 @@ public class AlunoController {
 
 		if (result.hasErrors()) {
 
-			model.addAttribute("action", "inscricao");
+			model.addAttribute(ACTION, "inscricao");
 			model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, auxilioMoradia);
 
 			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
@@ -601,7 +607,7 @@ public class AlunoController {
 		model.addAttribute("finalidadeVeiculo", FinalidadeVeiculo.values());
 		model.addAttribute("moraCom", GrauParentesco.getTodosExcetoEu());
 		model.addAttribute(GRAU_PARENTESCO, GrauParentesco.getTodos());
-		model.addAttribute("escolaridade", Escolaridade.values());
+		model.addAttribute(ESCOLARIDADE, Escolaridade.values());
 
 		return model;
 

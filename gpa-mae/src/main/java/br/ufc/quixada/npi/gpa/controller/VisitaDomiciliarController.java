@@ -1,5 +1,16 @@
 package br.ufc.quixada.npi.gpa.controller;
 
+
+import static br.ufc.quixada.npi.gpa.utils.Constants.RELATORIO_VISITA_DOMICILIAR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MORADIA_ESTADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.CURSO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ID_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECAO_INSCRITOS;
+
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -22,6 +33,7 @@ import br.ufc.quixada.npi.gpa.repository.VisitaDomiciliarRepository;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
+
 @Controller
 @RequestMapping("relatorioVisita")
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO})
@@ -38,12 +50,12 @@ public class VisitaDomiciliarController {
 							@PathVariable("idSelecao") Integer idSelecao, Model modelo){
 		
 		Aluno aluno = alunoRepository.findById(id);
-		modelo.addAttribute("relatorioVisitaDomiciliar", new VisitaDomiciliar());
-		modelo.addAttribute("curso", Curso.values());
-		modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
-		modelo.addAttribute("aluno", aluno);
-		modelo.addAttribute("idSelecao", idSelecao);
-		return "/selecao/relatorioVisita";
+		modelo.addAttribute(RELATORIO_VISITA_DOMICILIAR, new VisitaDomiciliar());
+		modelo.addAttribute(CURSO, Curso.values());
+		modelo.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
+		modelo.addAttribute(ALUNO, aluno);
+		modelo.addAttribute(ID_SELECAO, idSelecao);
+		return PAGINA_RELATORIO_VISITA_SELECAO;
 	}
 	
 	@RequestMapping(value="/cadastrar/{idAluno}/{idSelecao}", method= RequestMethod.POST)
@@ -56,28 +68,28 @@ public class VisitaDomiciliarController {
 		
 		if(result.hasErrors()){
 			Aluno aluno = alunoRepository.findById(idAluno);
-			modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
-			modelo.addAttribute("curso", Curso.values());
-			modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
-			modelo.addAttribute("aluno", aluno);
-			modelo.addAttribute("idSelecao", idSelecao);
+			modelo.addAttribute(RELATORIO_VISITA_DOMICILIAR, relatorioVisitaDomiciliar);
+			modelo.addAttribute(CURSO, Curso.values());
+			modelo.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
+			modelo.addAttribute(ALUNO, aluno);
+			modelo.addAttribute(ID_SELECAO, idSelecao);
 			if(relatorioVisitaDomiciliar.getId() != null) 
 				modelo.addAttribute("action", "editar");
-			return "/selecao/relatorioVisita";
+			return PAGINA_RELATORIO_VISITA_SELECAO;
 		}
 		
 		if(relatorioVisitaDomiciliar.getId() != null){
 			
 			this.visitaRepository.save(relatorioVisitaDomiciliar);
-			redirect.addFlashAttribute("info", "Relatório Atualizado com sucesso.");
-			return "redirect:/selecao/inscritos/"+idSelecao;
+			redirect.addFlashAttribute(INFO, "Relatório Atualizado com sucesso.");
+			return REDIRECT_PAGINA_SELECAO_INSCRITOS+idSelecao;
 			
 		} else {
 			
 			this.visitaRepository.save(relatorioVisitaDomiciliar);
-			redirect.addFlashAttribute("info", "Relatorio cadastrado com sucesso.");
+			redirect.addFlashAttribute(INFO, "Relatorio cadastrado com sucesso.");
 			
-			return "redirect:/selecao/inscritos/"+idSelecao;
+			return REDIRECT_PAGINA_SELECAO_INSCRITOS+idSelecao;
 		}
 	}
 	
@@ -88,7 +100,7 @@ public class VisitaDomiciliarController {
 		
 		if(relatorio == null){
 			redirect.addFlashAttribute("erro", "Relatório não existe");
-			return "redirect:/selecao/inscritos/{id}";
+			return REDIRECT_PAGINA_SELECAO_INSCRITOS+"{id}";
 		}
 		
 		modelo.addAttribute("relatorio",relatorio);
