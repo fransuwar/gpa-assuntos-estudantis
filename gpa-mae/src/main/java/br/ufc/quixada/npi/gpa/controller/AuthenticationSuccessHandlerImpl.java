@@ -32,6 +32,7 @@ public class AuthenticationSuccessHandlerImpl implements
 	@Inject
 	private UsuarioService serviceUsuario;
 	
+	
 	@Inject
 	private PessoaRepository pessoaRepository;
 

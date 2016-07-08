@@ -263,7 +263,7 @@
 
 										<div class='f-content'>
 											<form:input id="numeroOrigem" path="numeroOrigem"
-												cssClass="form-control" data-mask="999999" placeholder="Num" />
+												cssClass="form-control" placeholder="Num" />
 											<div class="error-validation">
 												<form:errors path="numeroOrigem"></form:errors>
 											</div>
@@ -299,6 +299,9 @@
 										<label class='f-title'> Estado: </label>
 
 										<div class='f-content'>
+											<input type="hidden" id="def-estado-origem"
+												value="${inscricao.questionarioAuxilioMoradia.estadoOrigem}" />
+
 											<form:select path="estadoOrigem" id="estado-origem"
 												cssClass="form-control" cssStyle="font-size:13px">
 											</form:select>
@@ -313,6 +316,8 @@
 										<label class='f-title'> Cidade: </label>
 
 										<div class='f-content'>
+											<input type="hidden" id="def-cidade-origem"
+												value="${inscricao.questionarioAuxilioMoradia.cidadeOrigem}" />
 
 											<form:select id="cidade-origem" path="cidadeOrigem"
 												cssClass="form-control" placeholder="Cidade">
@@ -422,7 +427,7 @@
 
 										<div class='f-content'>
 											<form:input id="numero" path="numero" cssClass="form-control"
-												data-mask="999999" placeholder="Num" />
+												placeholder="Num" />
 											<div class="error-validation">
 												<form:errors path="numero"></form:errors>
 											</div>
@@ -459,6 +464,8 @@
 										<label class='f-title'> Estado: </label>
 
 										<div class='f-content'>
+											<input type="hidden" id="def-estado"
+												value="${inscricao.questionarioAuxilioMoradia.estado}" />
 											<form:select path="estado" id="estado-endereco"
 												cssClass="form-control" cssStyle="font-size:13px">
 											</form:select>
@@ -472,6 +479,8 @@
 										<label class='f-title'> Cidade: </label>
 
 										<div class='f-content'>
+											<input type="hidden" id="def-cidade"
+												value="${inscricao.questionarioAuxilioMoradia.cidade}" />
 											<form:select id="cidade-endereco" path="cidade"
 												cssClass="form-control" placeholder="Cidade">
 											</form:select>
@@ -512,8 +521,6 @@
 									</div>
 								</div>
 							</div>
-
-
 
 							<div class='p-container'>
 								<div class='p-header'>
@@ -570,8 +577,7 @@
 															<form:select path="" id="grauParentescoImovelRural"
 																cssClass="form-control">
 																<form:option value="" label="Selecione o Grau" />
-																<form:options items="${grauParentesco}"
-																	itemLabel="nome" />
+																<form:options items="${grauParentesco}" itemLabel="nome" />
 															</form:select>
 															<p id="prParentescoValidate" class="hidden text-danger">
 																Campo Obrigatório</p>
@@ -647,8 +653,7 @@
 															<form:select path="" id="grauParentescoImovelRuralEditar"
 																cssClass="form-control">
 																<form:option value="" label="Selecione o Grau" />
-																<form:options items="${grauParentesco}"
-																	itemLabel="nome" />
+																<form:options items="${grauParentesco}" itemLabel="nome" />
 															</form:select>
 															<p id="prParentescoValidateEditar"
 																class="hidden text-danger">Campo Obrigatório</p>
@@ -715,7 +720,6 @@
 									</c:if>
 								</script>
 							</div>
-
 							<div class='p-container'>
 								<div class='p-header'>
 									<div class='p-title'>BENS MÓVEIS</div>
@@ -742,9 +746,9 @@
 											</table>
 
 											<div class="modal-footer">
-												<button id="abrirFormPropRuralEditar" type="button" class="btn btn-primary editarBemMovel"
-													data-toggle="modal" data-target="#editarBemMovel">
-													Editar</button>
+												<button id="abrirFormPropRuralEditar" type="button"
+													class="btn btn-primary editarBemMovel" data-toggle="modal"
+													data-target="#editarBemMovel">Editar</button>
 												<button name="botaoRmv" type="button"
 													class="btn btn-danger rmvBemMovel">Remover</button>
 											</div>
@@ -771,12 +775,10 @@
 															<form:select path="" id="grauParentescoVeiculos"
 																cssClass="form-control">
 																<form:option value="" label="Selecione o Grau" />
-																<form:options items="${grauParentesco}"
-																	itemLabel="nome" />
+																<form:options items="${grauParentesco}" itemLabel="nome" />
 															</form:select>
 															<p id="bmParentescoValidate" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 														</div>
 													</div>
 
@@ -791,8 +793,7 @@
 																	itemLabel="nome" />
 															</form:select>
 															<p id="bmFinalidadeValidate" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 
 														</div>
 													</div>
@@ -804,23 +805,21 @@
 															<form:input id="veiculo" path="" cssClass="form-control"
 																placeholder="Tipo de veículo" />
 															<p id="bmVeiculoValidate" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 														</div>
 													</div>
 
-													<div id="outroGrauSelectBemMovel" class="hidden f-container s3">
+													<div id="outroGrauSelectBemMovel"
+														class="hidden f-container s3">
 														<label for="outroGrauParentescoVeiculos"
 															id="labelOutroGrauParentescoVeiculos" class="f-title">
-															Especifique o grau de
-															parentesco:</label>
+															Especifique o grau de parentesco:</label>
 														<div class="f-content">
 															<form:input id="outroGrauParentescoVeiculos" path=""
 																cssClass="form-control"
 																placeholder="Outro grau de parentesco" />
 															<p id="bmOutroValidate" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 														</div>
 													</div>
 												</div>
@@ -830,7 +829,7 @@
 													</button>
 													<button type="button" class="btn btn-primary"
 														data-dismiss="modal">Cancelar</button>
-													
+
 												</div>
 											</div>
 										</div>
@@ -854,12 +853,10 @@
 															<form:select path="" id="grauParentescoVeiculosEditar"
 																cssClass="form-control">
 																<form:option value="" label="Selecione o Grau" />
-																<form:options items="${grauParentesco}"
-																	itemLabel="nome" />
+																<form:options items="${grauParentesco}" itemLabel="nome" />
 															</form:select>
-															<p id="bmParentescoValidateEditar" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+															<p id="bmParentescoValidateEditar"
+																class="hidden text-danger">Campo Obrigatório</p>
 														</div>
 													</div>
 
@@ -873,9 +870,8 @@
 																<form:options items="${finalidadeVeiculo}"
 																	itemLabel="nome" />
 															</form:select>
-															<p id="bmFinalidadeValidateEditar" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+															<p id="bmFinalidadeValidateEditar"
+																class="hidden text-danger">Campo Obrigatório</p>
 
 														</div>
 													</div>
@@ -886,25 +882,24 @@
 														<div class='f-content'>
 															<form:input id="veiculoEditar" path=""
 																cssClass="form-control" placeholder="Tipo de Veículo" />
-															<p id="bmVeiculoValidateEditar" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+															<p id="bmVeiculoValidateEditar"
+																class="hidden text-danger">Campo Obrigatório</p>
 														</div>
 													</div>
 
-													<div id="outroGrauSelectBemMovelEditar" class="hidden f-container s3">
+													<div id="outroGrauSelectBemMovelEditar"
+														class="hidden f-container s3">
 														<label for="outroGrauParentescoVeiculosEditar"
 															id="labelOutroGrauParentescoVeiculos" class="f-title"
 															style="display: none;">Especifique o grau de
 															parentesco:</label>
 														<div class="f-content">
-															<form:input id="outroGrauParentescoVeiculosEditar" path=""
-																cssClass="form-control"
+															<form:input id="outroGrauParentescoVeiculosEditar"
+																path="" cssClass="form-control"
 																placeholder="Outro grau de parentesco"
 																style="display:none;" />
 															<p id="bmOutroValidateEditar" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 														</div>
 													</div>
 												</div>
@@ -914,7 +909,7 @@
 													</button>
 													<button type="button" class="btn btn-primary"
 														data-dismiss="modal">Cancelar</button>
-													
+
 												</div>
 											</div>
 										</div>
@@ -929,6 +924,9 @@
 									</c:if>
 								</script>
 							</div>
+
+
+
 						</div>
 					</section>
 
@@ -966,8 +964,8 @@
 												<form:input id="percentualParticularFundamental"
 													path="percentualParticularFundamental"
 													cssClass="form-control" data-mask="000"
-													placeholder="Digite um valor entre 0.1 e 100" min="0.1"
-													max="100" />
+													placeholder="Digite um valor maior que 0 e menor ou igual 100"
+													min="0.1" max="100" />
 												<div class="input-group-addon">%</div>
 											</div>
 
@@ -1033,7 +1031,8 @@
 
 										<div class='f-content'>
 											<form:input id="nomeCursinho" path="nomeCursinho"
-												cssClass="form-control" placeholder="Nome do cursinho" />
+												cssClass="form-control" required="required"
+												placeholder="Nome do cursinho" />
 											<div class="error-validation">
 												<form:errors path="nomeCursinho"></form:errors>
 											</div>
@@ -1078,8 +1077,26 @@
 											required="required" path="bolsistaUfc" id="bolsistaUfc"
 											class="form-control">
 											<option value="">Selecione...</option>
-											<option value="${true}">Sim</option>
-											<option value="${false}">Não</option>
+
+											<c:choose>
+												<c:when
+													test="${inscricao.questionarioAuxilioMoradia.bolsistaUfc}">
+													<option selected value="${true}">Sim</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${true}">Sim</option>
+												</c:otherwise>
+											</c:choose>
+
+											<c:choose>
+												<c:when
+													test="${not inscricao.questionarioAuxilioMoradia.bolsistaUfc}">
+													<option selected value="${false}">Não</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${false}">Não</option>
+												</c:otherwise>
+											</c:choose>
 										</form:select>
 
 									</label>
@@ -1095,8 +1112,9 @@
 										<label class='f-title'> Descrição da Bolsa: </label>
 
 										<div class='f-content'>
-											<form:input id="descricaoBolsa" path="descricaoBolsa"
-												cssClass="form-control" placeholder="Descrição Bolsa" />
+											<form:input id="descricaoBolsa" required="required"
+												path="descricaoBolsa" cssClass="form-control"
+												placeholder="Descrição Bolsa" />
 											<div class="error-validation">
 												<form:errors path="descricaoBolsa"></form:errors>
 											</div>
@@ -1109,8 +1127,26 @@
 											required="required" path="graduacao" id="graduacao"
 											class="form-control">
 											<option value="">Selecione...</option>
-											<option value="${true}">Sim</option>
-											<option value="${false}">Não</option>
+
+											<c:choose>
+												<c:when
+													test="${inscricao.questionarioAuxilioMoradia.graduacao}">
+													<option selected value="${true}">Sim</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${true}">Sim</option>
+												</c:otherwise>
+											</c:choose>
+
+											<c:choose>
+												<c:when
+													test="${not inscricao.questionarioAuxilioMoradia.graduacao}">
+													<option selected value="${false}">Não</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${false}">Não</option>
+												</c:otherwise>
+											</c:choose>
 										</form:select>
 
 									</label>
@@ -1128,8 +1164,9 @@
 										<label class='f-title'> Descrição da Graduação: </label>
 
 										<div class='f-content'>
-											<form:input id="descricaoGraduacao" path="descricaoGraduacao"
-												cssClass="form-control" placeholder="Descricao da Graduacao" />
+											<form:input id="descricaoGraduacao" required="required"
+												path="descricaoGraduacao" cssClass="form-control"
+												placeholder="Descricao da Graduacao" />
 											<div class="error-validation">
 												<form:errors path="descricaoGraduacao"></form:errors>
 											</div>
@@ -1140,6 +1177,8 @@
 								<div class='f-container'>
 									<label class='f-title'>Foto (3x4):</label>
 									<div class='f-content'>
+										<img class="imagem-inscricao-pequena"
+											src="<c:url value = "/inscricao/detalhes/fotoAluno/${inscricao.id}"></c:url>" />
 										<input id="input-foto3x4" type="file" name="fileFoto"
 											accept=".jpg, .png" />
 										<div class="col-sm-8 error-validation">
@@ -1186,5 +1225,40 @@
 	<jsp:include page="../fragments/footer.jsp" />
 
 </body>
+<!-- 
+<script type="text/javascript">
+new StateCityLib().init("estado-endereco", "cidade-endereco");
+new StateCityLib().init("estado-origem", "cidade-origem");
+
+var defEstadoOrigem = $("#def-estado-origem").val();
+var defCidadeOrigem = $("#def-cidade-origem").val();
+var defEstado = $("#def-estado").val();
+var defCidade = $("#def-cidade").val();
+
+var $estadoOrigem = $("#estado-origem");
+var $estadoEndereco = $("#estado-endereco");
+var $cidadeOrigem = $("#cidade-origem");
+var $cidadeEndereco = $("#cidade-endereco");
+
+if(defEstadoOrigem.length > 0){
+	$estadoOrigem.val(defEstadoOrigem);
+	$estadoOrigem.change();
+}
+
+if(defEstado.length > 0){
+	$estadoEndereco.val(defEstado);
+	$estadoEndereco.change();
+}
+
+if(defCidadeOrigem.length > 0){
+	$cidadeOrigem.val(defCidadeOrigem);
+	$cidadeOrigem.change();
+}
+
+if(defCidade.length > 0){
+	$cidadeEndereco.val(defCidade);
+	$cidadeEndereco.change();
+}
+</script> -->
 
 </html>

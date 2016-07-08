@@ -15,6 +15,26 @@
 		<property name="persistenceUnitName" value="dev-test" />
 	</bean>
 	
+	<!-- <bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/mail/Session" />
+    </bean>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="romerao.quixada.ufc.br"/>
+        <property name="port" value="587"/>
+        <property name="username" value="naoresponda@gpaassuntosestudantis.com"/>
+        <property name="password" value=""/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">false</prop>
+                <prop key="mail.smtp.starttls.enable">false	</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean> -->
+
+	
 	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="emf" />
  	</bean>
@@ -28,6 +48,7 @@
  			</list>
  		</property>
  	</bean>
+ 	
 
 	<!-- enable the configuration of transactional behavior based on 
 		 annotations 

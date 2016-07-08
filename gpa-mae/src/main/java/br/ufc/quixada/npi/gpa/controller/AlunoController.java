@@ -1,16 +1,8 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ALUNO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.DIAS_UTEIS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ERROR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.GRAU_PARENTESCO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ID_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DADOS_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DOCUMENTO_FORMATO_INVALIDO;
@@ -24,22 +16,27 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_REALIZADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.NIVEL_INSTRUCAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_AUXILIO_MORADIA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCREVER_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INSCRICOES_ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECOES_ABERTAS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.QUESTIONARIO_AUXILIO_MORADIA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INSCRICOES_ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
-import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ALUNO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.NIVEL_INSTRUCAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SITUACAO_RESIDENCIA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ID_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DIAS_UTEIS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TOTAL_ESTADO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.GRAU_PARENTESCO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERROR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.QUESTIONARIO_AUXILIO_MORADIA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -102,6 +99,7 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
 
 
+
 @Controller
 @RequestMapping(ALUNO)
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
@@ -112,6 +110,7 @@ public class AlunoController {
 
 	@Inject
 	private UsuarioService usuarioService;
+	
 	
 	@Inject
 	private AlunoRepository alunoRepository;
@@ -124,7 +123,7 @@ public class AlunoController {
 
 	@Inject
 	private TipoDocumentoRepository tipoDocumentoRepository;
-	
+
 	@Inject
 	private DocumentosTipoInscricaoRepository documentosTipoInscricaoRepository;
 	
@@ -134,13 +133,14 @@ public class AlunoController {
 	@Inject
 	private SelecaoRepository selecaoRepository;
 
+
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 
 		List<Selecao> selecoes = selecaoRepository.findAll();
 
 		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
-
+		
 		model.addAttribute("selecoes", selecoes);
 		model.addAttribute(ALUNO, aluno);
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
@@ -341,6 +341,7 @@ public class AlunoController {
 			model.mergeAttributes(modelFormAuxilio.asMap());
 			model.addAttribute(ID_SELECAO, idSelecao);
 			model.addAttribute(SELECAO, selecaoRepository.findById(idSelecao));
+			model.addAttribute("usuarioAtivo", usuarioService.getByCpf(auth.getName()));
 
 			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_DADOS_INSCRICAO);
 
@@ -377,7 +378,7 @@ public class AlunoController {
 
 				redirect.addFlashAttribute(INFO, MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO);		
 				redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
-				return REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO + inscricao.getId();
+				return REDIRECT_PAGINA_DETALHES_INSCRICAO + inscricao.getId();
 
 			} else {
 				redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_INSCRICAO_EXISTENTE_NA_SELECAO);
@@ -438,11 +439,11 @@ public class AlunoController {
 				model.addAttribute("escolaridade",Escolaridade.values());
 
 
-				List<HorarioDisponivel> horariosDisponiveis = inscricaoService
-						.getHorariosDisponiveisIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
-				if (horariosDisponiveis != null && !horariosDisponiveis.isEmpty()) {
-					model.addAttribute("horariosDisponiveis", horariosDisponiveis);
-				}
+//			//	List<HorarioDisponivel> horariosDisponiveis = inscricaoService
+//				//		.getHorariosDisponiveisIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
+//				if (horariosDisponiveis != null && !horariosDisponiveis.isEmpty()) {
+//					model.addAttribute("horariosDisponiveis", horariosDisponiveis);
+//				}
 
 				model.addAttribute("pessoasDaFamilia", inscricao.getQuestionarioAuxilioMoradia().getPessoas());
 
@@ -456,6 +457,7 @@ public class AlunoController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 	}
+
 
 
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.POST)
@@ -512,6 +514,7 @@ public class AlunoController {
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 
+
 	}
 
 
@@ -551,57 +554,6 @@ public class AlunoController {
 		}
 
 		return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
-
-	}
-
-	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
-	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Authentication auth, Model model,
-			RedirectAttributes redirect) {
-
-		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
-		Selecao selecao = inscricao.getSelecao();
-		Date date = new Date();
-		model.addAttribute(INSCRICAO, inscricao);
-		model.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
-
-		if (inscricao == null) {
-
-			redirect.addAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
-			return REDIRECT_PAGINA_INSCRICOES_ALUNO;
-
-		}else if (inscricao.getQuestionarioAuxilioMoradia() != null) {
-
-			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){
-				model.addAttribute("esconderBotoes",true);
-			} else{
-				model.addAttribute("esconderBotoes",false);			
-			}
-
-
-			//Recebendo a mensagem recebida do redirect
-			String msgAddDocumentos = (String) model.asMap().getOrDefault(INFO, null);
-
-			if(msgAddDocumentos != null){
-				model.addAttribute(INFO,msgAddDocumentos);
-			}
-
-			//Verificando se alguma aba específica foi setada no redirect
-			String nomeAba = (String) model.asMap().getOrDefault(ABA_SELECIONADA, null);
-
-			if(nomeAba == null){
-				//Se nenhuma aba foi setada então a aba padrão é selecionada 
-				nomeAba = INSCRICAO_TAB; 
-			}
-
-			model.addAttribute(ABA_SELECIONADA, nomeAba);
-
-
-			return PAGINA_DETALHES_INSCRICAO;
-
-		} else{
-
-			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
-		}
 
 	}
 

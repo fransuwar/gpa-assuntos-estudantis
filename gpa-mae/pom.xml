@@ -55,7 +55,7 @@
 		<datatables.version>1.9.4</datatables.version>
 
 		<!-- NPI -->
-		<npi.core.version>0.1.1</npi.core.version>
+		<npi.core.version>0.0.9</npi.core.version>
 		<npi.ldap.version>0.1.2</npi.ldap.version>
 
 	</properties>
@@ -80,11 +80,21 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.7.4</version>
 		</dependency>
+		
+		
 		<!-- NPI Core -->
 		<dependency>
 			<groupId>br.ufc.quixada.npi</groupId>
 			<artifactId>npi-core-api</artifactId>
 			<version>${npi.core.version}</version>
+
+			<exclusions>
+				<exclusion>
+					<artifactId>mail</artifactId>
+					<groupId>javax.mail</groupId>
+				</exclusion>
+			</exclusions>
+
 
 		</dependency>
 
@@ -291,13 +301,6 @@
 			<version>2.7</version>
 		</dependency>
 
-		<!-- http://mvnrepository.com/artifact/javax.mail/mail -->
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4</version>
-		</dependency>
-
 		<!-- spring data jpa -->
 
 		<dependency>
@@ -305,14 +308,6 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>1.8.0.RELEASE</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.7</version>
-		</dependency>
-
 
 	</dependencies>
 

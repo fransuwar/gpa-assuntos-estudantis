@@ -19,7 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
-import br.ufc.quixada.npi.gpa.enums.Resultado;
+import br.ufc.quixada.npi.gpa.enums.Resultado;;
 
 @Entity
 public class VisitaDomiciliar {

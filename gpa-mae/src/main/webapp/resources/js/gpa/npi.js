@@ -1,7 +1,6 @@
 var linha;
 
 $(document).ready(function(){
-	
 	//Função genérica para iniciar os datatables
 	function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
 		
@@ -324,6 +323,10 @@ $(document).ready(function(){
 		todayHighlight : true,
 		autoclose : true
 
+	});
+	
+	$('#formPessoaFamilia').submit(function(){
+		$('#rendaMensal').val($('#rendaMensal').maskMoney('unmasked')[0]);
 	});
 	
 	

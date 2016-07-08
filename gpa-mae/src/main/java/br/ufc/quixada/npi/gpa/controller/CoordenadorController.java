@@ -77,7 +77,6 @@ import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
-
 @Controller
 @RequestMapping("coordenador")
 public class CoordenadorController {
@@ -169,11 +168,6 @@ public class CoordenadorController {
 	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
 			@RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos, BindingResult result, Authentication auth) {
 		
-		Integer proxSequencial = selecaoService.getUltimoSequencialPorAno(selecao);
-		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
-		
-		selecao.setSequencial(proxSequencial);
-
 		model.addAttribute(ACTION, CADASTRAR);
 
 		if (selecao != null && selecao.getAno() != null) {
@@ -197,6 +191,7 @@ public class CoordenadorController {
 			}			
 		}
 
+		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
 		if (result.hasErrors()) {
 			model.addAttribute(SELECAO, selecao);
 			model.addAttribute(TIPOS_DOCUMENTO,tiposDeDocumento);
@@ -222,6 +217,8 @@ public class CoordenadorController {
 			selecao.setTiposDeDocumento(documentoSelecionados);
 			
 		}
+		
+		selecao.setSequencial(selecaoRepository.getNextSequencial(selecao.getAno()));
 
 		this.selecaoRepository.save(selecao);
 		return REDIRECT_PAGINA_DETALHES_SELECAO + selecao.getId();
