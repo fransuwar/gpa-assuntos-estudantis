@@ -80,7 +80,7 @@ import br.ufc.quixada.npi.gpa.model.AnaliseDocumentacao;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.DocumentosTipoInscricao;
-import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
+
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
@@ -94,7 +94,7 @@ import br.ufc.quixada.npi.gpa.repository.DocumentosTipoInscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
-import br.ufc.quixada.npi.gpa.service.InscricaoService;
+
 import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
 
@@ -105,8 +105,6 @@ import br.ufc.quixada.npi.ldap.service.UsuarioService;
 @SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO })
 public class AlunoController {
 
-	@Inject
-	private InscricaoService inscricaoService;
 
 	@Inject
 	private UsuarioService usuarioService;
