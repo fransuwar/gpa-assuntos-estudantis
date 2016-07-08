@@ -11,6 +11,12 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECIONAR_CLASSIFIC
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_AUX_MORADIA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.CLASSIFICADOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.CONTENT_DISPOSITION;
+import static br.ufc.quixada.npi.gpa.utils.Constants.SELECOES;
+import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_INIC_ACAD;
+
 
 import java.util.List;
 
@@ -74,7 +80,7 @@ public class SelecaoController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 
-		model.addAttribute("selecao", selecao);
+		model.addAttribute(SELECAO, selecao);
 		return PAGINA_INFORMACOES_SELECAO;
 	}
 
@@ -88,7 +94,7 @@ public class SelecaoController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 
-		model.addAttribute("selecao", selecao);
+		model.addAttribute(SELECAO, selecao);
 
 		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
 		List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecaoAndByAluno(selecao.getId(),aluno.getId());
@@ -115,7 +121,7 @@ public class SelecaoController {
 		String[] tipo = documento.getTipo().split("/");
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType(tipo[0], tipo[1]));
-		headers.set("Content-Disposition", "attachment; filename=" + documento.getNome().replace(" ", "_"));
+		headers.set(CONTENT_DISPOSITION, "attachment; filename=" + documento.getNome().replace(" ", "_"));
 		headers.setContentLength(arquivo.length);
 		redirectAttributes.addFlashAttribute("success", MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO);
 
@@ -131,7 +137,7 @@ public class SelecaoController {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.parseMediaType("application/pdf"));
-		headers.set("Content-Disposition", "inline; filename=" + documento.getNome().replace(" ", "_"));
+		headers.set(CONTENT_DISPOSITION, "inline; filename=" + documento.getNome().replace(" ", "_"));
 		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 		
 		return new ResponseEntity<byte[]>(arquivo, headers, HttpStatus.OK);
@@ -143,9 +149,9 @@ public class SelecaoController {
 
 		List<Selecao> selecoes = this.selecaoRepository.findAll();
 
-		model.addAttribute("selecoes", selecoes);
+		model.addAttribute(SELECOES, selecoes);
 		model.addAttribute("tipoBolsa", TipoSelecao.values());
-		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+		model.addAttribute(TIPO_INIC_ACAD, TipoSelecao.INIC_ACAD);
 		model.addAttribute(TIPO_AUX_MORADIA, TipoSelecao.AUX_MOR);
 
 		return PAGINA_LISTAR_SELECAO;
@@ -156,8 +162,8 @@ public class SelecaoController {
 
 		List<Selecao> selecoes = this.servidorRepository.findById(id).getParticipaComissao();
 
-		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
+		model.addAttribute(SELECOES, selecoes);
+		model.addAttribute(TIPO_INIC_ACAD, TipoSelecao.INIC_ACAD);
 		model.addAttribute(TIPO_AUX_MORADIA, TipoSelecao.AUX_MOR);
 
 		return PAGINA_LISTAR_SELECAO;
@@ -196,7 +202,7 @@ public class SelecaoController {
 		
 		List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
 
-		model.addAttribute("classificados", classificados);
+		model.addAttribute(CLASSIFICADOS, classificados);
 		
 		return PAGINA_RANKING_CLASSIFICADOS;
 		
@@ -216,11 +222,11 @@ public class SelecaoController {
 		
 		List<Inscricao> classificaveis = inscricaoRepository.findClassificaveisBySelecao(selecao.getId());
 		
-		model.addAttribute("classificados", classificados);
+		model.addAttribute(CLASSIFICADOS, classificados);
 		model.addAttribute("classificaveis",classificaveis);
 		model.addAttribute("qtdClassificados",classificados.size());
 		model.addAttribute("qtdClassificaveis",classificaveis.size());
-		model.addAttribute("selecao",selecao);
+		model.addAttribute(SELECAO,selecao);
 		
 		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RANK);
 		

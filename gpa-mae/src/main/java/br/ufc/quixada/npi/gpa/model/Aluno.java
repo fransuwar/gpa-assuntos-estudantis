@@ -23,6 +23,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import br.ufc.quixada.npi.gpa.enums.Banco;
 import br.ufc.quixada.npi.gpa.enums.Curso;
 
+import static br.ufc.quixada.npi.gpa.utils.Constants.MIN_IRA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MAX_IRA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MAX_DIGITOS_AGENCIA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MAX_DIGITOS_CONTA;
+
+
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula" }) )
 public class Aluno {
@@ -42,8 +48,8 @@ public class Aluno {
 	private String anoIngresso;
 
 	@NotNull(message = "Campo obrigatório")
-	@Min(value = 1, message = "IRA deve ser maior que 0")
-	@Max(value = 10, message = "IRA deve ter valor máximo 10")
+	@Min(value = MIN_IRA, message = "IRA deve ser maior que 0")
+	@Max(value = MAX_IRA, message = "IRA deve ter valor máximo 10")
 	private Double ira;
 
 	@NotNull(message = "Campo obrigatório")
@@ -51,11 +57,11 @@ public class Aluno {
 	private Banco banco;
 
 	@NotEmpty(message = "Campo obrigatório")
-	@Size(max = 10, message = "Agencia de possuir no máximo 10 dígitos")
+	@Size(max = MAX_DIGITOS_AGENCIA, message = "Agencia de possuir no máximo 10 dígitos")
 	private String agencia;
 
 	@NotEmpty(message = "Campo obrigatório")
-	@Size(max = 20, message = "Conta deve possuir no máximo 20 dígitos")
+	@Size(max = MAX_DIGITOS_CONTA, message = "Conta deve possuir no máximo 20 dígitos")
 	private String conta;
 
 	private byte[] foto;

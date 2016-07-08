@@ -1,20 +1,18 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.STA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ADMINISTRADOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DISCENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ADMINISTRADOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.LOGIN;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_LOGIN;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_LOGIN;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA_USUARIO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_LOGIN;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MESSAGE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.LOGIN;
-
-
-
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.STA;
 
 import java.security.Principal;
 
@@ -107,10 +105,10 @@ public class LoginController {
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String acessoNegado(ModelMap model, Principal user) {
 		if (user != null) {
-			model.addAttribute("message", "Olá, " + user.getName() 
+			model.addAttribute(MESSAGE, "Olá, " + user.getName() 
 			+ MENSAGEM_PERMISSAO_NEGADA_USUARIO);
 		} else {
-			model.addAttribute("message", 
+			model.addAttribute(MESSAGE, 
 					MENSAGEM_PERMISSAO_NEGADA);
 		}
 		return "403";
