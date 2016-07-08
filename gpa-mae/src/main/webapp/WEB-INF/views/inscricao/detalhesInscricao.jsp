@@ -23,6 +23,7 @@
 		type="hidden" value="${ativarAbaEntrevista }" />
 	<div class="container" align="center">
 		<input type="hidden" value="${inscricao.id}" name="idInscricao">
+		
 		<c:if test="${not empty info}">
 			<div class="alert alert-success alert-dismissible" role="alert"
 				id="alert-info">
@@ -34,6 +35,7 @@
 				</div>
 			</div>
 		</c:if>
+		
 		<ul class="nav nav-tabs">
 			<li id="aba-inscricao"><a href="#inscricao-tab"
 				data-toggle="tab">Inscrição<i class="fa"></i>
@@ -346,7 +348,7 @@
 
 						<div class='f-container s5'></div>
 
-						<h5 class="titulo-dl divisor">Propriedade Rural</h5>
+						<%-- <h5 class="titulo-dl divisor">Propriedade Rural</h5>
 						<div class='f-container s5'>
 							<label class='f-title'>Grau de parentesco do
 								proprietário:</label>
@@ -379,7 +381,7 @@
 						<div class='f-container s5'>
 							<label class='f-title'>Finalidade do Veículo:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.finalidadeVeiculo}</div>
-						</div>
+						</div> --%>
 
 						<div class='f-container s5'></div>
 
@@ -739,26 +741,34 @@
 
 								<div class="panel panel-default panel-primary">
 									<div class="panel-body">
-										<form:form id="obsDoc" role="form"
-											servletRelativeAction="/servidor/avaliarDocumentacao"
-											method="POST" modelAttribute="inscricao"
-											commandName="inscricao">
+										<form id="obsDoc" role="form"
+											action="/MAE/servidor/avaliarDocumentacao"
+											method="POST">
+											
+											<div class="form-group">
+												<label class="col-sm-2 control-label">Resultado:</label>
+												<div class="col-sm-10">
+													<select name="resultado" class="form-control">
+														<option value="NAO_AVALIADO">Não avaliado</option>
+														<option value="DEFERIDO">Deferido</option>
+														<option value="INDEFERIDO">Indeferido</option>
+													</select>
+												</div>
+											</div>
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Observações:</label>
-												<div class="col-sm-8">
-													<form:textarea class="form-control" rows="8"
-														name="observacaoDocumentos" path="observacaoDocumentos"
-														value="${inscricao.observacaoDocumentos}" />
+												<div class="col-sm-10">
+													<textarea class="form-control select" rows="8"
+														name="observacao" 
+														value="${inscricao.observacaoDocumentos}"></textarea>
 													<input type="hidden" value="${inscricao.id }"
 														name="idInscricao" />
 												</div>
 											</div>
-											<div
-												class="form-group col-sm-2 col-sm-offset-8 margin-top-s1"
-												align="right">
+											<div class="form-group col-sm-offset-8 margin-top-s1">
 												<input type="submit" class="button btn btn-primary" />
 											</div>
-										</form:form>
+										</form>
 									</div>
 								</div>
 

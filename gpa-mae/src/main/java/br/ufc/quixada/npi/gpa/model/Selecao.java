@@ -26,7 +26,6 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
-
 @Entity
 public class Selecao {
 

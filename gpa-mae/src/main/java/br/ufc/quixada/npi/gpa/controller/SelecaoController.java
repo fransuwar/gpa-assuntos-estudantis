@@ -49,16 +49,12 @@ import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
-import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Named
 @RequestMapping("selecao")
 @SessionAttributes({ Constants.USUARIO_ID })
 public class SelecaoController {
-	
-	@Inject
-	private InscricaoService inscricaoService;
 	
 	@Inject
 	private AlunoRepository alunoRepository;
@@ -261,8 +257,7 @@ public class SelecaoController {
 			return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + idSelecao;
 		 } else{		      
 		     for(Integer id: idsClassificados){
-		         //inscricaoRepository.atualizarClassificados(id,true);
-		    	 inscricaoService.update(id,true);
+		         inscricaoRepository.atualizarClassificacao(id, true);
 		     }
 		 }
 		
@@ -282,8 +277,7 @@ public class SelecaoController {
 		}		     		 
        
 		for(Integer id: idsClassificaveis){
-			//inscricaoRepository.atualizarClassificados(id,false);
-			inscricaoService.update(id,false);
+			inscricaoRepository.atualizarClassificacao(id,false);
 		}
 		
 		return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + idSelecao;
