@@ -51,7 +51,7 @@
 					method="POST" cssClass="form-horizontal">
 					<input type="hidden" name="id"
 						value="${questionarioAuxilioMoradia.id}" />
-					<d\iv class="tab-content">
+					<div class="tab-content">
 
 						<div class="tab-pane active" id="moradia-tab">
 

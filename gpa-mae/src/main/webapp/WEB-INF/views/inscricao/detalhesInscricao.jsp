@@ -348,7 +348,7 @@
 
 						<div class='f-container s5'></div>
 
-						<h5 class="titulo-dl divisor">Propriedade Rural</h5>
+						<%-- <h5 class="titulo-dl divisor">Propriedade Rural</h5>
 						<div class='f-container s5'>
 							<label class='f-title'>Grau de parentesco do
 								proprietário:</label>
@@ -381,7 +381,7 @@
 						<div class='f-container s5'>
 							<label class='f-title'>Finalidade do Veículo:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.finalidadeVeiculo}</div>
-						</div>
+						</div> --%>
 
 						<div class='f-container s5'></div>
 
