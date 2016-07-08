@@ -2,14 +2,10 @@ var linha;
 
 $(document).ready(function(){
 	
-//	$("#addPessoaFamilia").click(function(){
-//		$("#formPessoaFamilia").submit();
-//	});
-	
 	//Função genérica para iniciar os datatables
 	function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
 		
-		emptyTableMsg = (emptyTableMsg == null || emptyTableMsg == "") ? "Nenhum registro encontrado" : emptyTableMsg;
+		emptyTableMsg = (emptyTableMsg === null || emptyTableMsg === "") ? "Nenhum registro encontrado" : emptyTableMsg;
 		
 		var dataTable = $(idTable).DataTable({
 			"paging": isPaging,
@@ -25,46 +21,31 @@ $(document).ready(function(){
 		return dataTable;
 	}
 
-	$.fn.dataTable.ext.errMode = 'none';
-	
 	initDataTable(
 			"#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
 			"#tabela-ranking-classificados, #tabela-inscritos" +
 			"#table-visualiza-info-auxilio, #tabela-detalhes-selecao-servidores", 
 	false, false, false, false, "");
-	
-	
-	var tabelaClassificaveis = initDataTable('#tabela-classificaveis', false, false, false,
+
+
+	var tabelaClassificaveis = initDataTable("#tabela-classificaveis", false, false, true,
 			[[ 2, "cresc" ]], "Nenhum Aluno Classificável");
 			
-	
-	var tabelaClassificados = initDataTable('#tabela-classificados', false, false, false,
+
+	var tabelaClassificados = initDataTable("#tabela-classificados", false, false, true,
 			[[ 2, "cresc" ]], "Adicione pelo menos um aluno para a tabela dos classificados");
-		
+	
+	$("#pesquisarClassificaveis").keyup(function() {
+		tabelaClassificaveis.search(this.value).draw();
+	});   
 
-	$("#confirm-delete").on("shown.bs.modal", function(e) {
-		$(this).find(".btn-danger").attr("href", $(e.relatedTarget).data("href"));
+	$("#pesquisarClassificados").keyup(function() {
+		tabelaClassificados.search(this.value).draw();
 	});
 	
-	$('#confirmar-consolidacao').modal('show');
+
+	$.fn.dataTable.ext.errMode = "none";
 	
-	$('#btn-nao-consolidar').click(function(){
-		$("#valor-consolidacao").val(false);
-		
-	});
-	
-    $('#btn-consolidar').click(function(){
-    	$("#valor-consolidacao").val(true);
-		
-	});
-	
-	$('[data-toggle="tooltip"]').tooltip();
-
-	selecionarAba($('#aba').val());
-
-	$('.panel-heading').click(function(){ $(this).find('.clicavel').click(); return false; });
-
-
 	function getConfigsParaPDF(containerId, tableId){
 		return {
 			language: {
@@ -77,19 +58,19 @@ $(document).ready(function(){
 			"columnDefs": [
 			               { className: "dt-body-left", "targets": [ 0 ] }
 			               ],
-			               dom: 'Bfrtip',
+			               dom: "Bfrtip",
 			               buttons: [
 			                         {
-			                        	 extend: 'pdf',
-			                        	 text: 'Exportar como PDF',
+			                        	 extend: "pdf",
+			                        	 text: "Exportar como PDF",
 			                        	 customize: function(doc){
 			                        		 var colCount = new Array();
-			                        		 $('#'+tableId).find('tbody tr:first-child td').each(function(){
-			                        			 if($(this).attr('colspan')){
-			                        				 for(var i=1;i<=$(this).attr('colspan');$i++){
-			                        					 colCount.push('*');
+			                        		 $("#"+tableId).find("tbody tr:first-child td").each(function(){
+			                        			 if($(this).attr("colspan")){
+			                        				 for(var i=1;i<=$(this).attr("colspan");$i++){
+			                        					 colCount.push("*");
 			                        				 }
-			                        			 }else{ colCount.push('*'); }
+			                        			 }else{ colCount.push("*"); }
 			                        		 });
 			                        		 doc.content[1].table.widths = colCount;
 			                        	 }
@@ -97,34 +78,48 @@ $(document).ready(function(){
 			                         ],
 			                         initComplete: function(settings, json) {
 
-			                        	 $('.buttons-pdf').parent().css('float', 'right');
-			                        	 $('.buttons-pdf').parent().css('margin-top', '-30px');
-			                        	 $('.buttons-pdf').parent().appendTo('#'+containerId);
-			                        	 $('.buttons-pdf').attr('class', 'btn btn-primary');
+			                        	 $(".buttons-pdf").parent().css("float", "right");
+			                        	 $(".buttons-pdf").parent().css("margin-top", "-30px");
+			                        	 $(".buttons-pdf").parent().appendTo("#"+containerId);
+			                        	 $(".buttons-pdf").attr("class", "btn btn-primary");
 
 			                         }
 		};
 	}
 
-	$('#resultadoFinalTableClassificados').DataTable( 
+	$("#confirm-delete").on("shown.bs.modal", function(e) {
+		$(this).find(".btn-danger").attr("href", $(e.relatedTarget).data("href"));
+	});
+	
+	$("#confirmar-consolidacao").modal("show");
+	
+	$("#btn-nao-consolidar").click(function(){
+		$("#valor-consolidacao").val(false);
+		
+	});
+	
+    $("#btn-consolidar").click(function(){
+    	$("#valor-consolidacao").val(true);
+		
+	});
+	
+	$("[data-toggle='tooltip']").tooltip();
+
+	selecionarAba($("#aba").val());
+
+	$(".panel-heading").click(function(){ $(this).find(".clicavel").click(); return false; });
+
+	$("#resultadoFinalTableClassificados").DataTable( 
 			getConfigsParaPDF("buttons-container1", "resultadoFinalTableClassificados")
 	);
 
-	$('#resultadoFinalTableReservas').DataTable( 
+	$("#resultadoFinalTableReservas").DataTable( 
 			getConfigsParaPDF("buttons-container2", "resultadoFinalTableReservas")
 	);
 	
-	$('#resultadoFinalTableIndeferidos').DataTable( 
+	$("#resultadoFinalTableIndeferidos").DataTable( 
 			getConfigsParaPDF("buttons-container3", "resultadoFinalTableIndeferidos")
 	);
-
-	$("#pesquisarClassificaveis").keyup(function() {
-		tabelaClassificaveis.fnFilter(this.value);
-	});   
-
-	$("#pesquisarClassificados").keyup(function() {
-		tabelaClassificados.fnFilter(this.value);
-	});
 
 	//Submeter o formulário de Selecionar Classificados
 	$("#erro-checkbox").hide();
@@ -165,7 +160,7 @@ $(document).ready(function(){
 
 	$(".fechado").slideUp();
 
-	$(".panel-heading span.clicavel").on("click", function (e) {
+	$(".panel-heading span.clicavel").on("click", function () {
 		if ($(this).hasClass("panel-collapsed")) {
 			//Expande o painel
 			$(this).parents(".panel").find(".panel-body").slideDown();
@@ -180,6 +175,7 @@ $(document).ready(function(){
 
 		return false;
 	});
+	
 
 	$.extend(jQuery.validator.messages, {
 		required: "Campo obrigatório",
@@ -207,34 +203,9 @@ $(document).ready(function(){
 
 	$("#questionarioIniciacao").validate();
 
-	$("table").DataTable({
-		"language": {
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		},
-		"columnDefs": 
-			[],
-			"paging": false,
-			"searching": false,
-			"ordering": false
-
-	});
-
-	$("#tabela-alunos, #tabela-servidores, #tabela-selecoes, " +
-			"#tabela-inscritos, #tabela-ranking-classificados, " +
-	"#tabela-detalhes-selecao-servidores, #table-visualiza-info-auxilio").DataTable({
-		"language": {
-			"url":"/MAE/resources/js/Portuguese-Brasil.json"
-		},
-		"columnDefs": 
-			[],
-			"paging": false,
-			"searching": false,
-			"ordering": false
-
-	});
 
 
-	jQuery.validator.addMethod("periodo", function(value, element) {
+	jQuery.validator.addMethod("periodo", function() {
 		return !moment($("#dataTermino").val()).isBefore($("#dataInicio").val());
 	}, "A data de término deve ser posterior à data de início.");
 
@@ -273,23 +244,23 @@ $(document).ready(function(){
 
 	});
 
-	$('.img-fullscreen').find('img').click(function(){
-		$('.img-fullscreen-background').remove();
+	$(".img-fullscreen").find("img").click(function(){
+		$(".img-fullscreen-background").remove();
 		var $this = $(this).parent().parent();
-		var $background = $('<div></div>');
-		var $content = $('<div></div>');
+		var $background = $("<div></div>");
+		var $content = $("<div></div>");
 
-		var $image = $('<img/>');
-		var $prev = $('<div><</div>');
-		var $next = $('<div>></div>');
+		var $image = $("<img/>");
+		var $prev = $("<div><</div>");
+		var $next = $("<div>></div>");
 
-		$prev.attr('class', 'img-fullscreen-prev-button btn btn-primary');
-		$next.attr('class', 'img-fullscreen-next-button btn btn-primary');
+		$prev.attr("class", "img-fullscreen-prev-button btn btn-primary");
+		$next.attr("class", "img-fullscreen-next-button btn btn-primary");
 
 		$prev.attr("aria-index", $this.index()-1);
 		$next.attr("aria-index", $this.index()+1);
 
-		$image.attr('src', $this.find('img').attr('src'));
+		$image.attr("src", $this.find("img").attr("src"));
 		$content.append($image);
 
 		if($this.index() != 0)
@@ -298,16 +269,16 @@ $(document).ready(function(){
 		if($this.index() !== $this.siblings().length)
 			$content.append($next);
 
-		$content.attr('class', 'img-fullscreen-content');
-		$background.attr('class', 'img-fullscreen-background');
+		$content.attr("class", "img-fullscreen-content");
+		$background.attr("class", "img-fullscreen-background");
 
 		$background.append($content);
 
-		$('body').append($background);
+		$("body").append($background);
 
 		var navigationFunction = function(){
-			var index = $(this).attr('aria-index');
-			$($('.img-fullscreen')[index]).find('img').click();
+			var index = $(this).attr("aria-index");
+			$($(".img-fullscreen")[index]).find("img").click();
 		};
 
 		$next.click(navigationFunction);
@@ -328,7 +299,7 @@ $(document).ready(function(){
 		$("#btnSubmitForm").text("Adicionar");
 	});
 
-	$("#myModal").on("hidden.bs.modal", function(e) {
+	$("#myModal").on("hidden.bs.modal", function() {
 		document.getElementById("add-contato-form").reset();
 		var id = $("#id");
 	});
@@ -354,45 +325,47 @@ $(document).ready(function(){
 		autoclose : true
 
 	});
-
+	
+	
 });
 
+
 function confirmar(title, link){
-	var modal = $('<div></div>');
-	modal.attr('class', 'modal fade');
-	modal.attr('id', 'confirm-delete');
-	modal.attr('tabindex', '-1');
-	modal.attr('role', 'dialog');
-	modal.attr('aria-labelledby', 'myModalLabel');
-	modal.attr('aria-hidden', 'true');
+	var modal = $("<div></div>");
+	modal.attr("class", "modal fade");
+	modal.attr("id", "confirm-delete");
+	modal.attr("tabindex", "-1");
+	modal.attr("role", "dialog");
+	modal.attr("aria-labelledby", "myModalLabel");
+	modal.attr("aria-hidden", "true");
 
-	var modalDialog = $('<div></div>');
-	modalDialog.attr('class', 'modal-dialog');
+	var modalDialog = $("<div></div>");
+	modalDialog.attr("class", "modal-dialog");
 
-	var modalContent = $('<div></div>');
-	modalContent.attr('class', 'modal-content');
+	var modalContent = $("<div></div>");
+	modalContent.attr("class", "modal-content");
 
-	var modalHeader = $('<div></div>');
-	modalHeader.attr('class', 'modal-header');
-	modalHeader.html('Excluir');
+	var modalHeader = $("<div></div>");
+	modalHeader.attr("class", "modal-header");
+	modalHeader.html("Excluir");
 
-	var modalBody = $('<div></div>');
-	modalBody.attr('class', 'modal-body');
+	var modalBody = $("<div></div>");
+	modalBody.attr("class", "modal-body");
 	modalBody.html(title);
 
-	var modalFooter = $('<div></div>');
-	modalFooter.attr('class', 'modal-footer');
+	var modalFooter = $("<div></div>");
+	modalFooter.attr("class", "modal-footer");
 
-	var btnExcluir = $('<a/>');
-	btnExcluir.attr('href', link);
-	btnExcluir.attr('class', 'btn btn-danger');
-	btnExcluir.html('Excluir');
+	var btnExcluir = $("<a/>");
+	btnExcluir.attr("href", link);
+	btnExcluir.attr("class", "btn btn-danger");
+	btnExcluir.html("Excluir");
 
-	var button = $('<button/>');
-	button.attr('type', 'button');
-	button.attr('class', 'btn btn-default');
-	button.attr('data-dismiss', 'modal');
-	button.html('Cancelar');
+	var button = $("<button/>");
+	button.attr("type", "button");
+	button.attr("class", "btn btn-default");
+	button.attr("data-dismiss", "modal");
+	button.html("Cancelar");
 
 	modalFooter.append(btnExcluir);
 	modalFooter.append(button);
@@ -405,68 +378,14 @@ function confirmar(title, link){
 
 	modal.append(modalDialog);
 
-	$('#confirm-delete').remove();
-	$('body').append(modal);
+	$("#confirm-delete").remove();
+	$("body").append(modal);
 
 	modal.modal();
 }
 
-
-function hasAttr($element, _attr){
-	var attr = $element.attr(_attr);
-	return (typeof attr !== typeof undefined && attr !== false);
-}
-
-
 function confirmarLink(mensagem){
 	return confirm(mensagem);
-}
-
-function mascaraIra(obj) {
-	var str = obj.value;
-
-	if(parseInt(str.substring(0, str.length-1)) == 10){
-		obj.value = 10;
-		return;
-	}
-
-	var aux = "";
-	for (var k = 0, p = false; k < str.length; k++) {
-		if (str[k] == "," || str[k] == ".") {
-			if (!p) {
-				aux += ".";
-				p = true;
-			}
-		} else
-			aux += str[k];
-	}
-	obj.value = str = aux;
-	var tam = str.length - 1;
-	var ch = str[tam];
-	var sub = str.substring(0, tam);
-	if (ch == "." && (tam < 1))
-		obj.value = sub;
-
-}
-
-function mascaraAgencia(obj){
-	var str = obj.value;
-
-	str = str.replace("x", "X");
-	str = str.replace("-", "");
-	var aux = "";
-	for(var k=0;k<str.length;k++){
-		if(aux.length==5) break;
-		if(str[k]>="0" && str[k]<="9") aux += str[k];
-		else {
-			if(aux.length==4 && str[k]=="X" ) aux += "X";
-		}
-	}
-	obj.value = str = aux;
-
-	if(str.length >= 5){
-		obj.value = str.substring(0,4)+"-"+str.substring(4,5);
-	}
 }
 
 function submeterForm() {
@@ -595,6 +514,7 @@ function povoaForm(uri, form, row) {
 
 };
 
+
 function populate(frm, data) {
 	$.each(data, function(key, value) {
 		$("[name=" + key + "]", frm).val(value);
@@ -701,8 +621,8 @@ function novaAba(url){
 }
 
 function selecionarAba(idAba){
-	$('.active').removeClass('active');
-	$('#'+idAba).addClass('active');
-	$('a[href=#'+idAba+']').parent().addClass('active');
+	$(".active").removeClass("active");
+	$("#"+idAba).addClass("active");
+	$("a[href=#"+idAba+"]").parent().addClass("active");
 }
 

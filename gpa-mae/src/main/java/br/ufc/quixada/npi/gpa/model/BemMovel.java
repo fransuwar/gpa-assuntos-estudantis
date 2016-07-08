@@ -10,7 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
-import br.ufc.quixada.npi.gpa.enums.GrauParentescoVeiculos;
+import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
+
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.GsonBuilder;
+import com.google.gson.LongSerializationPolicy;
 
 @Entity
 
@@ -24,7 +29,7 @@ public class BemMovel {
 
 	
 	@Enumerated(EnumType.STRING)
-	private GrauParentescoVeiculos parentesco;
+	private GrauParentesco parentesco;
 	
 	private String outro;
 	
@@ -42,11 +47,11 @@ public class BemMovel {
 		this.auxilioMoradia = auxilioMoradia;
 	}
 	
-	public GrauParentescoVeiculos getParentesco() {
+	public GrauParentesco getParentesco() {
 		return parentesco;
 	}
 
-	public void setParentesco(GrauParentescoVeiculos parentesco) {
+	public void setParentesco(GrauParentesco parentesco) {
 		this.parentesco = parentesco;
 	}
 	
@@ -76,8 +81,19 @@ public class BemMovel {
 
 	@Override
 	public String toString() {
-		return "Propriedade Rural [auxilioMoradia=" + auxilioMoradia
-				+ ", id=" + id + ", Parentesco=" + parentesco + "]";
+		return new GsonBuilder().setLongSerializationPolicy( LongSerializationPolicy.STRING )
+				.setExclusionStrategies(new ExclusionStrategy() {
+			
+			@Override
+			public boolean shouldSkipField(FieldAttributes clazz) {
+				return false;
+			}
+			
+			@Override
+			public boolean shouldSkipClass(Class<?> clazz) {
+				return (clazz == QuestionarioAuxilioMoradia.class || clazz == QuestionarioAuxilioMoradia.class);
+			}
+		}).create().toJson(this);
 	}
 
 	public String getOutro() {

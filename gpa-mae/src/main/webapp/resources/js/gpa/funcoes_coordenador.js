@@ -18,17 +18,15 @@ var FormularioDetalhesInscricao = function() {
 			
 			$.ajax({
 				type : "GET",
-				url : "http://localhost:8080/MAE/servidor/consolidarTodos",
+				url : "http://localhost:8080/MAE/inscricao/consolidarTodos",
 				data :{"idSelecao": idSelecao, "consolidacao": true},
 				dataType : 'json',
 
-				success : function(result) {
+				success : function() {
 					$('.toggle-event').each(function(){
 						$(this).prop('checked', true).change();
 
 					});
-					var idSelecao = $("#idSelecao").val()
-					
 
 				},
 				error : function(e,b) {
@@ -48,7 +46,7 @@ var FormularioDetalhesInscricao = function() {
 			
 			$.ajax({
 				type : "GET",
-				url : "http://localhost:8080/MAE/servidor/consolidarTodos",
+				url : "http://localhost:8080/MAE/inscricao/consolidarTodos",
 				data :{"idSelecao": idSelecao, "consolidacao": false},
 				dataType : 'json',
 
@@ -57,7 +55,6 @@ var FormularioDetalhesInscricao = function() {
 						$(this).prop('checked', false).change();
 
 					});
-					var idSelecao = $("#idSelecao").val()
 					
 
 				},
@@ -74,7 +71,7 @@ var FormularioDetalhesInscricao = function() {
 
 	//Muda a consolidação de uma inscrição
 	self.mudarConsolidacao = function() {
-		$('.toggle-event').parent().click(function(event){
+		$('.toggle-event').parent().click(function(){
 
 			var botao = $(this).find('.toggle-event');
 			
@@ -84,7 +81,7 @@ var FormularioDetalhesInscricao = function() {
 		
 			$.ajax({
 				type : "GET",
-				url : "http://localhost:8080/MAE/servidor/consolidar",
+				url : "http://localhost:8080/MAE/inscricao/consolidar",
 				data :{"idInscricao": id , "consolidacao": consolidacao},
 				dataType : 'json',
 
@@ -105,8 +102,37 @@ var FormularioDetalhesInscricao = function() {
 	
 }
 
+var CardPanel = function(){
+	var self = this;
+	var cards = ["card-inscricao","card-comissao","card-arquivos", "card-relatorio", "card-rank"];
+	
+	self.init = function(){
+		self.selecionarCard();
+	}
+	
+	/*
+	 * Essa função serve para manter o card selecionado 
+	 * depois que o usuário clicar nele.
+	 */
+	self.selecionarCard = function(){
+		var cardSelected = $("#card-selected").text();
+		$(".card").removeClass("card-hover");
+		cards.forEach(function(card){
+			if(card === cardSelected){
+				$("#"+card).addClass("card-hover");
+			}
+			return false;
+		});
+	}
+	
+}
+
+
+var cardPanel = new CardPanel();
+
 var formDestalhesInsc = new FormularioDetalhesInscricao();
 
 $(document).ready(function(){
-	formDestalhesInsc.init();	
+	cardPanel.init();
+	formDestalhesInsc.init();
 });

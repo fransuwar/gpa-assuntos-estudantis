@@ -27,13 +27,12 @@ public class Documento {
 		super();
 	}	
 	
-	public Documento(String nomeOriginal, String nome, String tipo, byte[] arquivo, Selecao selecao){
+	public Documento(String nomeOriginal, String nome, String tipo, byte[] arquivo){
 		super();
 		this.nomeOriginal = nomeOriginal;
 		this.nome = nome;
 		this.tipo = tipo;
 		this.arquivo = arquivo;
-//		this.selecao = selecao;
 	}
 	
 	public Integer getId() {
@@ -77,15 +76,6 @@ public class Documento {
 		this.arquivo = arquivo;
 	}
 	
-	
-//	public Selecao getSelecao() {
-//		return selecao;
-//	}
-//
-//	public void setSelecao(Selecao selecao) {
-//		this.selecao = selecao;
-//	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -103,9 +93,8 @@ public class Documento {
 		if (getClass() != obj.getClass())
 			return false;
 		Documento other = (Documento) obj;
-		if (id != other.id)
-			return false;
-		return true;
+
+		return (id == other.id);
 	}
 	
 

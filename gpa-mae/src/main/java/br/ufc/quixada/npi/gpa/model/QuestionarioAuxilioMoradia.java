@@ -15,12 +15,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
-import br.ufc.quixada.npi.gpa.enums.TipoEnsinoFundamental;
-import br.ufc.quixada.npi.gpa.enums.TipoEnsinoMedio;
+import br.ufc.quixada.npi.gpa.enums.TipoEnsino;
 
 @Entity
 @NamedQueries({
@@ -33,12 +33,12 @@ public class QuestionarioAuxilioMoradia {
 	private Integer id;
 	
 	@Enumerated(EnumType.STRING)
-	private TipoEnsinoFundamental ensinoFundamental;
+	private TipoEnsino ensinoFundamental;
 
 	private int percentualParticularFundamental;
 
 	@Enumerated(EnumType.STRING)
-	private TipoEnsinoMedio ensinoMedio;
+	private TipoEnsino ensinoMedio;
 
 	private int percentualParticularMedio;
 
@@ -46,10 +46,12 @@ public class QuestionarioAuxilioMoradia {
 
 	private String nomeCursinho;
 
+	@NotNull
 	private boolean bolsistaUfc;
 
 	private String descricaoBolsa;
 
+	@NotNull
 	private boolean graduacao;
 
 	private String descricaoGraduacao;
@@ -104,8 +106,10 @@ public class QuestionarioAuxilioMoradia {
 	
 	private double valorMensalFinanciamento;
 	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<PropriedadeRural> propRural;
+
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<BemMovel> bemMovel;
@@ -119,13 +123,10 @@ public class QuestionarioAuxilioMoradia {
 	@JoinTable( name = "inscricao_pessoa_familia_editado", 
 	   joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> pessoasEntrevista;
-	
-	@ManyToMany
+
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<ComQuemMora> comQuemMora;
 	
-	public QuestionarioAuxilioMoradia() {	
-		
-	}
 	
 	public double getValorMensalFinanciamento() {
 		return valorMensalFinanciamento;
@@ -247,12 +248,10 @@ public class QuestionarioAuxilioMoradia {
 	public void setSituacaoImovel(SituacaoImovel situacaoImovel) {
 		this.situacaoImovel = situacaoImovel;
 	}
-
-	public TipoEnsinoFundamental getEnsinoFundamental() {
+	public TipoEnsino getEnsinoFundamental() {
 		return ensinoFundamental;
 	}
-
-	public void setEnsinoFundamental(TipoEnsinoFundamental ensinoFundamental) {
+	public void setEnsinoFundamental(TipoEnsino ensinoFundamental) {
 		this.ensinoFundamental = ensinoFundamental;
 	}
 
@@ -264,11 +263,11 @@ public class QuestionarioAuxilioMoradia {
 		this.percentualParticularFundamental = percentualParticularFundamental;
 	}
 
-	public TipoEnsinoMedio getEnsinoMedio() {
+	public TipoEnsino getEnsinoMedio() {
 		return ensinoMedio;
 	}
 
-	public void setEnsinoMedio(TipoEnsinoMedio ensinoMedio) {
+	public void setEnsinoMedio(TipoEnsino ensinoMedio) {
 		this.ensinoMedio = ensinoMedio;
 	}
 

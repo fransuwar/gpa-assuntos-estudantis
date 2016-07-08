@@ -17,8 +17,8 @@ import br.ufc.quixada.npi.gpa.enums.Curso;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
-import br.ufc.quixada.npi.gpa.service.AlunoService;
-import br.ufc.quixada.npi.gpa.service.InscricaoService;
+import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
+import br.ufc.quixada.npi.gpa.repository.VisitaDomiciliarRepository;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 
@@ -28,14 +28,16 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 public class VisitaDomiciliarController {
 	
 	@Inject
-	private InscricaoService inscricaoService;
+	private AlunoRepository alunoRepository;
+	
 	@Inject
-	private AlunoService alunoService;
+	private VisitaDomiciliarRepository visitaRepository;
 
 	@RequestMapping(value="cadastrar/{idAluno}/{idSelecao}", method = RequestMethod.GET)
 	public String cadastrar(@PathVariable("idAluno") Integer id,
 							@PathVariable("idSelecao") Integer idSelecao, Model modelo){
-		Aluno aluno = alunoService.getAlunoPorId(id);
+		
+		Aluno aluno = alunoRepository.findById(id);
 		modelo.addAttribute("relatorioVisitaDomiciliar", new VisitaDomiciliar());
 		modelo.addAttribute("curso", Curso.values());
 		modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
@@ -53,7 +55,7 @@ public class VisitaDomiciliarController {
 		
 		
 		if(result.hasErrors()){
-			Aluno aluno = alunoService.getAlunoPorId(idAluno);
+			Aluno aluno = alunoRepository.findById(idAluno);
 			modelo.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 			modelo.addAttribute("curso", Curso.values());
 			modelo.addAttribute("moradiaEstado", EstadoMoradia.values());
@@ -66,13 +68,13 @@ public class VisitaDomiciliarController {
 		
 		if(relatorioVisitaDomiciliar.getId() != null){
 			
-			this.inscricaoService.atualizarVisitaDomiciliar(relatorioVisitaDomiciliar);
+			this.visitaRepository.save(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatório Atualizado com sucesso.");
 			return "redirect:/selecao/inscritos/"+idSelecao;
 			
 		} else {
 			
-			this.inscricaoService.salvarVisitaDocimiciliar(relatorioVisitaDomiciliar);
+			this.visitaRepository.save(relatorioVisitaDomiciliar);
 			redirect.addFlashAttribute("info", "Relatorio cadastrado com sucesso.");
 			
 			return "redirect:/selecao/inscritos/"+idSelecao;
@@ -82,7 +84,7 @@ public class VisitaDomiciliarController {
 	@RequestMapping(value="informacoesRelatorio/{id}", method= RequestMethod.GET)
 	public String visualizarInformacoes(@PathVariable("id") Integer idRelatorio, Model modelo, RedirectAttributes redirect){
 		
-		VisitaDomiciliar relatorio= inscricaoService.getVisitaDocimiciliar(idRelatorio);
+		VisitaDomiciliar relatorio= visitaRepository.findById(idRelatorio);
 		
 		if(relatorio == null){
 			redirect.addFlashAttribute("erro", "Relatório não existe");

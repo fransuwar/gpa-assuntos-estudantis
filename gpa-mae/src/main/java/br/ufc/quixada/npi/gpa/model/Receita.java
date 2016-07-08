@@ -8,9 +8,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Receita {
-	public Receita() {
-
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -94,9 +91,8 @@ public class Receita {
 		if (getClass() != obj.getClass())
 			return false;
 		Receita other = (Receita) obj;
-		if (id != other.id)
-			return false;
-		return true;
+
+		return (id == other.id);
 	}
 
 	@Override

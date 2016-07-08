@@ -26,6 +26,7 @@
 <head>
 <jsp:include page="../fragments/headTag.jsp" />
 <title>Cadastro Auxilio Moradia</title>
+</head>
 <body>
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
@@ -135,7 +136,8 @@
 									</div>
 
 									<div class='f-container s5'>
-										<label class='f-title'>*Estas informações estão corretas?</label>
+										<label class='f-title'>*Estas informações estão
+											corretas?</label>
 
 										<div class='f-content'>
 											<input type="checkbox" name="minhas-informacoes"
@@ -143,7 +145,7 @@
 											informações estão corretas<br /> <span
 												id='nao-minhas-informacoes'>Não, desejo </span><a href="#"
 												onclick="novaAba('http://identidadepessoa.intranet/')">alterar
-													informações</a>
+												informações</a>
 										</div>
 									</div>
 
@@ -168,8 +170,21 @@
 											<div class="form-group">
 												<div id="col-sm-radio">
 													<c:forEach items="${moraCom }" var="mora" varStatus="count">
-														<input id="comQuemMora${count.index + 1 }" type="checkbox"
-															name="mora" value="${mora}" />
+														<c:set var="moraJaCadastrado" value="nao"></c:set>
+														<c:forEach
+															items="${questionarioAuxilioMoradia.comQuemMora}"
+															var="moraCadastrado">
+															<c:if test="${mora eq moraCadastrado.descricao}">
+																<c:set var="moraJaCadastrado" value="sim"></c:set>
+																<input id="comQuemMora${count.index + 1 }"
+																	type="checkbox" name="mora" value="${mora}"
+																	checked="checked"></input>
+															</c:if>
+														</c:forEach>
+														<c:if test="${moraJaCadastrado eq 'nao'}">
+															<input id="comQuemMora${count.index + 1 }"
+																type="checkbox" name="mora" value="${mora}"></input>
+														</c:if>
 														<label for="comQuemMora${count.index + 1 }">${mora.nome }</label>
 													</c:forEach>
 												</div>
@@ -189,6 +204,7 @@
 											</div>
 										</div>
 									</div>
+
 								</div>
 							</div>
 
@@ -229,7 +245,7 @@
 									<div class='p-title'>RESIDÊNCIA DE ORIGEM</div>
 								</div>
 
-								<div class='p-body'>						
+								<div class='p-body'>
 									<div class='f-container s3'>
 										<label class='f-title'> Rua/Av: </label>
 
@@ -284,7 +300,8 @@
 
 										<div class='f-content'>
 											<form:select path="estadoOrigem" id="estado-origem"
-												cssClass="form-control" cssStyle="font-size:13px">										</form:select>
+												cssClass="form-control" cssStyle="font-size:13px">
+											</form:select>
 											<div class="error-validation">
 												<form:errors path="estadoOrigem"></form:errors>
 											</div>
@@ -296,7 +313,7 @@
 										<label class='f-title'> Cidade: </label>
 
 										<div class='f-content'>
-										
+
 											<form:select id="cidade-origem" path="cidadeOrigem"
 												cssClass="form-control" placeholder="Cidade">
 											</form:select>
@@ -312,8 +329,7 @@
 
 										<div class='f-content'>
 											<form:input id="complementoOrigem" path="complementoOrigem"
-												cssClass="form-control"
-												placeholder="Complemento" />
+												cssClass="form-control" placeholder="Complemento" />
 											<div class="error-validation">
 												<form:errors path="complementoOrigem"></form:errors>
 											</div>
@@ -361,7 +377,7 @@
 
 										</div>
 									</div>
-									
+
 									<div class='f-container s5 hidden' id='div-valor-mensal'>
 										<label class='f-title'>Valor mensal do financiamento:</label>
 
@@ -386,8 +402,8 @@
 								</div>
 
 								<div class='p-body'>
-									<label class='f-title'><input type="checkbox" id="mesmoEndereco"
-												/> Mesmo endereço da residência de origem
+									<label class='f-title'><input type="checkbox"
+										id="mesmoEndereco" /> Mesmo endereço da residência de origem
 									</label><br>
 									<div class='f-container s3'>
 										<label class='f-title'> Rua/Av: </label>
@@ -472,8 +488,7 @@
 
 										<div class='f-content'>
 											<form:input id="complemento" path="complemento"
-												cssClass="form-control"
-												placeholder="Complemento" />
+												cssClass="form-control" placeholder="Complemento" />
 											<div class="error-validation">
 												<form:errors path="complemento"></form:errors>
 											</div>
@@ -498,165 +513,7 @@
 								</div>
 							</div>
 
-							<div class='p-container'>
-								<div class='p-header'>
-									<div class='p-title'>RESIDÊNCIA DE ORIGEM</div>
-								</div>
 
-								<div class='p-body'>
-									<label class='f-title'><input type="checkbox" id="mesmoEndereco"/> 
-										Mesmo endereço da residência atual
-									</label>
-								
-									<div class='f-container s3'>
-										<label class='f-title'> Rua/Av: </label>
-
-										<div class='f-content'>
-											<form:input id="enderecoOrigem" path="enderecoOrigem"
-												cssClass="form-control" placeholder="Rua da sede do curso" />
-											<div class="error-validation">
-												<form:errors path="enderecoOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s2'>
-										<label class='f-title'> Numero: </label>
-
-										<div class='f-content'>
-											<form:input id="numeroOrigem" path="numeroOrigem"
-												cssClass="form-control" data-mask="999999" placeholder="Num" />
-											<div class="error-validation">
-												<form:errors path="numeroOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s3'>
-										<label class='f-title'> Bairro: </label>
-
-										<div class='f-content'>
-											<form:input id="bairroOrigem" path="bairroOrigem"
-												cssClass="form-control" placeholder="Bairro" />
-											<div class="error-validation">
-												<form:errors path="bairroOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s2'>
-										<label class='f-title'> CEP: </label>
-
-										<div class='f-content'>
-											<form:input id="cepOrigem" path="cepOrigem"
-												data-mask="99999-999" cssClass="form-control"
-												placeholder="CEP" />
-											<div class="error-validation">
-												<form:errors path="cepOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s5'>
-										<label class='f-title'> Estado: </label>
-
-										<div class='f-content'>
-											<form:select path="estadoOrigem" id="estado-origem"
-												cssClass="form-control" cssStyle="font-size:13px">										</form:select>
-											<div class="error-validation">
-												<form:errors path="estadoOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-
-									<div class='f-container s5'>
-										<label class='f-title'> Cidade: </label>
-
-										<div class='f-content'>
-										
-											<form:select id="cidade-origem" path="cidadeOrigem"
-												cssClass="form-control" placeholder="Cidade">
-											</form:select>
-											<div class="error-validation">
-												<form:errors path="cidadeOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-
-									<div class='f-container s5'>
-										<label class='f-title'> Complemento: </label>
-
-										<div class='f-content'>
-											<form:input id="complementoOrigem" path="complementoOrigem"
-												cssClass="form-control"
-												placeholder="Complemento da sede do curso" />
-											<div class="error-validation">
-												<form:errors path="complementoOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s5'>
-										<label class='f-title'> Ponto de referência: </label>
-
-										<div class='f-content'>
-											<form:input id="referenciaOrigem" path="referenciaOrigem"
-												cssClass="form-control" placeholder="Ponto de Referencia" />
-											<div class="error-validation">
-												<form:errors path="referenciaOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s5'>
-										<label class='f-title'>Telefone:</label>
-
-										<div class='f-content'>
-											<form:input id="telefoneOrigem" path="telefoneOrigem"
-												data-mask="(99) 9 9999-9999" cssClass="form-control"
-												placeholder="(00) 0 0000-0000" />
-											<div class="error-validation">
-												<form:errors path="telefoneOrigem"></form:errors>
-											</div>
-										</div>
-									</div>
-
-									<div class='f-container s5'>
-										<label class='f-title'>Situação do Imóvel:</label>
-
-										<div class='f-content'>
-											<form:select path="situacaoImovel" id="situacaoImovel"
-												cssClass="form-control" cssStyle="font-size:14px">
-												<form:option value="">Situação Imóvel</form:option>
-												<form:options items="${situacaoImovel}" itemLabel="nome" />
-											</form:select>
-											<div class="error-validation">
-												<form:errors path="situacaoImovel"></form:errors>
-											</div>
-
-
-										</div>
-									</div>
-									
-									<div class='f-container s5 hidden' id='div-valor-mensal'>
-										<label class='f-title'>Valor mensal do financiamento:</label>
-
-										<div class='f-content'>
-
-											<form:input id="valorMensalFinanciamento"
-												path="valorMensalFinanciamento" cssClass="form-control"
-												placeholder="Valor mensal do financiamento"
-												required="required" />
-											<div class="error-validation">
-												<form:errors path="valorMensalFinanciamento"></form:errors>
-											</div>
-
-										</div>
-									</div>
-								</div>
-							</div>
 
 							<div class='p-container'>
 								<div class='p-header'>
@@ -713,12 +570,11 @@
 															<form:select path="" id="grauParentescoImovelRural"
 																cssClass="form-control">
 																<form:option value="" label="Selecione o Grau" />
-																<form:options items="${grauParentescoImovelRural}"
+																<form:options items="${grauParentesco}"
 																	itemLabel="nome" />
 															</form:select>
 															<p id="prParentescoValidate" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 														</div>
 													</div>
 
@@ -730,8 +586,7 @@
 																cssClass="form-control"
 																placeholder="Área da Propriedade" />
 															<p id="prAreaValidate" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 
 														</div>
 													</div>
@@ -744,23 +599,21 @@
 																cssClass="form-control"
 																placeholder="Cidade e Estado do Imovel Rural" />
 															<p id="prCidadeValidate" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 														</div>
 													</div>
 
-													<div id="outroGrauSelectImovelRural" class="hidden f-container s3">
+													<div id="outroGrauSelectImovelRural"
+														class="hidden f-container s3">
 														<label for="outroGrauParentescoImovelRural"
 															id="labelOutroGrauParentescoImovelRural" class="f-title">
-															Especifique o grau de
-															parentesco:</label>
+															Especifique o grau de parentesco:</label>
 														<div class="f-content">
 															<form:input id="outroGrauParentescoImovelRural" path=""
 																cssClass="form-control"
-																placeholder="Outro grau de parentesco"/>
+																placeholder="Outro grau de parentesco" />
 															<p id="prOutroValidate" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 														</div>
 													</div>
 												</div>
@@ -770,7 +623,7 @@
 													</button>
 													<button type="button" class="btn btn-primary"
 														data-dismiss="modal">Cancelar</button>
-													
+
 												</div>
 											</div>
 										</div>
@@ -794,12 +647,11 @@
 															<form:select path="" id="grauParentescoImovelRuralEditar"
 																cssClass="form-control">
 																<form:option value="" label="Selecione o Grau" />
-																<form:options items="${grauParentescoImovelRural}"
+																<form:options items="${grauParentesco}"
 																	itemLabel="nome" />
 															</form:select>
-															<p id="prParentescoValidateEditar" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+															<p id="prParentescoValidateEditar"
+																class="hidden text-danger">Campo Obrigatório</p>
 														</div>
 													</div>
 
@@ -811,8 +663,7 @@
 																cssClass="form-control"
 																placeholder="Área da Propriedade" />
 															<p id="prAreaValidateEditar" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 
 														</div>
 													</div>
@@ -825,23 +676,21 @@
 																cssClass="form-control"
 																placeholder="Cidade e Estado do Imovel Rural" />
 															<p id="prCidadeValidateEditar" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 														</div>
 													</div>
 
-													<div id="outroGrauSelectImovelRuralEditar" class="f-container s3 hidden">
+													<div id="outroGrauSelectImovelRuralEditar"
+														class="f-container s3 hidden">
 														<label for="outroGrauParentescoImovelRuralEditar"
 															id="labelOutroGrauParentescoImovelRural" class="f-title">
-															Especifique o grau de
-															parentesco:</label>
+															Especifique o grau de parentesco:</label>
 														<div class="f-content">
-															<form:input id="outroGrauParentescoImovelRuralEditar" path=""
-																cssClass="form-control"
-																placeholder="Outro grau de parentesco"/>
+															<form:input id="outroGrauParentescoImovelRuralEditar"
+																path="" cssClass="form-control"
+																placeholder="Outro grau de parentesco" />
 															<p id="prOutroValidateEditar" class="hidden text-danger">
-																Campo Obrigatório
-															</p>
+																Campo Obrigatório</p>
 														</div>
 													</div>
 												</div>
@@ -851,7 +700,7 @@
 													</button>
 													<button type="button" class="btn btn-primary"
 														data-dismiss="modal">Cancelar</button>
-													
+
 												</div>
 											</div>
 										</div>
@@ -859,7 +708,14 @@
 
 
 								</div>
+								<script type="text/javascript">
+									var listaGlobalPropRurais = [];
+									<c:if test="${not empty questionarioAuxilioMoradia.propRural}">
+									listaGlobalPropRurais = ${questionarioAuxilioMoradia.propRural};
+									</c:if>
+								</script>
 							</div>
+
 							<div class='p-container'>
 								<div class='p-header'>
 									<div class='p-title'>BENS MÓVEIS</div>
@@ -915,7 +771,7 @@
 															<form:select path="" id="grauParentescoVeiculos"
 																cssClass="form-control">
 																<form:option value="" label="Selecione o Grau" />
-																<form:options items="${grauParentescoVeiculos}"
+																<form:options items="${grauParentesco}"
 																	itemLabel="nome" />
 															</form:select>
 															<p id="bmParentescoValidate" class="hidden text-danger">
@@ -998,7 +854,7 @@
 															<form:select path="" id="grauParentescoVeiculosEditar"
 																cssClass="form-control">
 																<form:option value="" label="Selecione o Grau" />
-																<form:options items="${grauParentescoVeiculos}"
+																<form:options items="${grauParentesco}"
 																	itemLabel="nome" />
 															</form:select>
 															<p id="bmParentescoValidateEditar" class="hidden text-danger">
@@ -1066,9 +922,17 @@
 
 
 								</div>
+								<script type="text/javascript">
+									var listaGlobalBensMoveis = [];
+									<c:if test="${not empty questionarioAuxilioMoradia.bemMovel}">
+									listaGlobalBensMoveis = ${questionarioAuxilioMoradia.bemMovel};
+									</c:if>
+								</script>
 							</div>
 						</div>
 					</section>
+
+
 					<h3>Historico Escolar</h3>
 					<section>
 						<div class='p-container-set'>
@@ -1093,7 +957,7 @@
 											</div>
 										</div>
 									</div>
-									<div class='f-container s2'
+									<div class='f-container s5'
 										id="percentualParticularFundamental">
 										<label class='f-title'>Percentual de Bolsa:</label>
 
@@ -1101,12 +965,12 @@
 											<div class="input-group">
 												<form:input id="percentualParticularFundamental"
 													path="percentualParticularFundamental"
-													cssClass="form-control" data-mask="000" placeholder="0" />
+													cssClass="form-control" data-mask="000"
+													placeholder="Digite um valor entre 0.1 e 100" min="0.1"
+													max="100" />
 												<div class="input-group-addon">%</div>
 											</div>
-											<div class="error-validation">
-												<form:errors path="percentualParticularFundamental"></form:errors>
-											</div>
+
 										</div>
 									</div>
 								</div>
@@ -1133,14 +997,16 @@
 										</div>
 									</div>
 
-									<div class='f-container s2' id="percentualParticularMedio">
+									<div class='f-container s5' id="percentualParticularMedio">
 										<label class='f-title'> Percentual de Bolsa: </label>
 
 										<div class='f-content'>
 											<div class="input-group">
 												<form:input id="percentualParticularMedio"
 													path="percentualParticularMedio" cssClass="form-control"
-													data-mask="000" placeholder="0" />
+													data-mask="000"
+													placeholder="Digite um valor entre 0.1 e 100" min="0.1"
+													max="100" />
 												<div class="input-group-addon">%</div>
 											</div>
 											<div class="error-validation">
@@ -1208,12 +1074,13 @@
 
 							<div class='p-body'>
 								<div class='f-container s5'>
-									<label class='f-title'> Bolsista UFC:
-									<form:select path="bolsistaUfc" id="bolsistaUfc" class="form-control" >
-									   	<option value="">Selecione...</option>
-									   	<option value="${true}">Sim</option>
-										<option value="${false}">Não</option>
-									</form:select>  
+									<label class='f-title'> Bolsista UFC: <form:select
+											required="required" path="bolsistaUfc" id="bolsistaUfc"
+											class="form-control">
+											<option value="">Selecione...</option>
+											<option value="${true}">Sim</option>
+											<option value="${false}">Não</option>
+										</form:select>
 
 									</label>
 									<div class='f-content'>
@@ -1222,11 +1089,11 @@
 										</div>
 									</div>
 								</div>
-								
-								<div class='f-container s5' >
+
+								<div class='f-container s5'>
 									<div id="descricao_bolsa">
 										<label class='f-title'> Descrição da Bolsa: </label>
-	
+
 										<div class='f-content'>
 											<form:input id="descricaoBolsa" path="descricaoBolsa"
 												cssClass="form-control" placeholder="Descrição Bolsa" />
@@ -1238,12 +1105,13 @@
 								</div>
 
 								<div class='f-container s5'>
-									<label class='f-title'> Possui Graduação:
-									<form:select path="graduacao" id="graduacao" class="form-control">
-										<option value="">Selecione...</option>
-										<option value="${true}">Sim</option>
-										<option value="${false}">Não</option>
-									</form:select>  
+									<label class='f-title'> Possui Graduação: <form:select
+											required="required" path="graduacao" id="graduacao"
+											class="form-control">
+											<option value="">Selecione...</option>
+											<option value="${true}">Sim</option>
+											<option value="${false}">Não</option>
+										</form:select>
 
 									</label>
 
@@ -1255,10 +1123,10 @@
 									</div>
 								</div>
 
-								<div class='f-container s5' >
+								<div class='f-container s5'>
 									<div id="descricao_graduacao">
 										<label class='f-title'> Descrição da Graduação: </label>
-	
+
 										<div class='f-content'>
 											<form:input id="descricaoGraduacao" path="descricaoGraduacao"
 												cssClass="form-control" placeholder="Descricao da Graduacao" />
@@ -1272,7 +1140,8 @@
 								<div class='f-container'>
 									<label class='f-title'>Foto (3x4):</label>
 									<div class='f-content'>
-										<input id="input-foto3x4" type="file" name="fileFoto" />
+										<input id="input-foto3x4" type="file" name="fileFoto"
+											accept=".jpg, .png" />
 										<div class="col-sm-8 error-validation">
 											<span id="span-error-foto"></span>
 										</div>
@@ -1308,18 +1177,14 @@
 								</div>
 							</div>
 						</div>
-
 					</section>
-
 				</form:form>
-
 			</div>
-
 		</div>
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
-	
+
 </body>
 
 </html>

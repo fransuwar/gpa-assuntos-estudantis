@@ -1,6 +1,5 @@
 package br.ufc.quixada.npi.gpa.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,12 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import br.ufc.quixada.npi.gpa.enums.GrauParentescoImovelRural;
-/*
+import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
+
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.GsonBuilder;
-import com.google.gson.LongSerializationPolicy;*/
+import com.google.gson.LongSerializationPolicy;
 
 @Entity
 
@@ -29,13 +28,13 @@ public class PropriedadeRural {
 	private String cidade;
 
 	@Enumerated(EnumType.STRING)
-	private GrauParentescoImovelRural parentesco;
+	private GrauParentesco parentesco;
 	
-	public GrauParentescoImovelRural getParentesco() {
+	public GrauParentesco getParentesco() {
 		return parentesco;
 	}
 
-	public void setParentesco(GrauParentescoImovelRural parentesco) {
+	public void setParentesco(GrauParentesco parentesco) {
 		this.parentesco = parentesco;
 	}
 
@@ -60,7 +59,6 @@ public class PropriedadeRural {
 		this.id = id;
 	}
 
-	/*@Override
 	public String toString() {
 		return new GsonBuilder().setLongSerializationPolicy( LongSerializationPolicy.STRING )
 				.setExclusionStrategies(new ExclusionStrategy() {
@@ -69,7 +67,6 @@ public class PropriedadeRural {
 			public boolean shouldSkipField(FieldAttributes clazz) {
 				
 				return false;
-				
 			}
 			
 			@Override
@@ -77,7 +74,7 @@ public class PropriedadeRural {
 				return (clazz == QuestionarioAuxilioMoradia.class || clazz == QuestionarioAuxilioMoradia.class);
 			}
 		}).create().toJson(this);
-	}*/
+	}
 
 	public Double getArea() {
 		return area;

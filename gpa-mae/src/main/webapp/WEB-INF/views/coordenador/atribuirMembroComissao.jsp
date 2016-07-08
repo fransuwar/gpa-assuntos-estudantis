@@ -12,18 +12,22 @@
 <html>
 <head>
 <jsp:include page="../fragments/headTag.jsp" />
-<title>Atribuir Parecerista</title>
+<title>Gerenciar Comissão</title>
 </head>
 
 <body>
 	<jsp:include page="../fragments/bodyHeader.jsp" />
+	
 	<div class="container">
+	
+		<jsp:include page="../fragments/cards.jsp" />
+	
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Gerenciar Comissão</h3>
 			</div>
+			
 			<div class="panel-body">
-
 				<c:if test="${not empty erro}">
 					<div class="alert alert-danger alert-dismissible" role="alert"
 						id="alert-erro">
@@ -47,7 +51,7 @@
 					</div>
 				</c:if>
 				<div class="row">
-					<div class="col-sm-4 col-sm-offset-2">
+					<div class="col-sm-4 col-sm-offset-1">
 						<form:form id="adicionarComissaoForm" role="form"
 							servletRelativeAction="/coordenador/comissao/atribuir"
 							method="POST" class="form-horizontal">
@@ -69,18 +73,26 @@
 						</form:form>
 					</div>
 					
-					<div class="col-sm-4">	
-						<table class="table table-hover table-custom">
+					<div class="col-sm-6">
+						<table class="table table-custom table-hover">
 							<thead class="th-custom">
 								<tr>
-									<th colspan="2" class="th-center">
+									<th colspan="4" class="th-center">
 										Comissão
 									</th>
+								</tr>
+								<tr>
+									<th class="th-center">Nome</th>
+									<th class="th-center">SIAPE</th>
+									<th class="th-center">Cargo</th>
+									<th class="th-center">-</th>
 								</tr>
 							</thead>
 							<c:forEach var="servidor" items="${selecao.membrosComissao}">
 								<tr>
 									<td>${servidor.pessoa.nome}</td>
+									<td>${servidor.siape }</td>
+									<td>${servidor.cargo.nome }</td>
 									<c:choose>
 										<c:when test="${selecao.responsavel.siape != servidor.siape}">
 											<td>

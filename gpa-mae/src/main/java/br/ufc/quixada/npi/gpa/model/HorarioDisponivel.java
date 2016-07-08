@@ -36,8 +36,6 @@ public class HorarioDisponivel {
 		this.questionarioIniciacaoAcademica = questionarioIniciacaoAcademica;
 	}
 
-	public HorarioDisponivel() {
-	}
 
 	public Integer getId() {
 		return id;

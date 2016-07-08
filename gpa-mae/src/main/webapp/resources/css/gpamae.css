@@ -4,13 +4,13 @@ body {
 }
 
 #checkbox-div {
-	padding: 0px;
+	padding: 0;
 	height: 20px;
 	width: 30px;
 }
 
 .checkbox {
-	margin: 0px;
+	margin: 0;
 }
 
 #alert-erro {
@@ -24,13 +24,13 @@ body {
 
 #div-form-buscar {
 	margin-bottom: 1%;
-	padding-left: 0%
+	padding-left: 0;
 }
 
 #div-btn-inserir {
 	margin-bottom: 1%;
-	padding-left: 0%;
-	padding-right: 0%;
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .right{
@@ -80,7 +80,7 @@ footer>p {
 }
 
 #navbar-brand {
-	padding: 0%;
+	padding: 0;
 }
 
 #table-visualiza-info-auxilio {
@@ -109,9 +109,9 @@ h3 {
 a, a:hover, a:visited, a:active, button, button:hover, button:visited,
 	button:active input.btn, input.btn:visited, input.btn:active, input.btn:focus
 	{
-	outline: medium none !important;
-	outline-offset: 0px !important;
-	text-decoration: none !important;
+	outline: medium none;
+	outline-offset: 0;
+	text-decoration: none;
 }
 
 #text-align-rigth {
@@ -127,7 +127,7 @@ div.f-content select {
 	margin: 0;
 }
 
-label.title {
+.title {
 	width: 100%;
 	text-align: left;
 }
@@ -136,40 +136,40 @@ div.text-align-left {
 	text-align: left;
 }
 
-div.p-container-set {
+.p-container-set {
 	width: 100%;
 	border-radius: 5px;
 }
 
-div.p-container {
+.p-container {
 	width: 100%;
-	margin: 0px;
+	margin: 0;
 	display: block;
 	position: relative;
 }
 
 div.first div.p-header {
-	border-radius: 10px 0px 0px 0px !important;
+	border-radius: 10px 0 0 0;
 }
 
 div.last div.p-header {
-	border-radius: 0px 0px 0px 10px !important;
+	border-radius: 0 0 0 10px;
 }
 
 div.first div.p-body {
-	border-radius: 0px 10px 0px 0px !important;
+	border-radius: 0 10px 0 0;
 }
 
 div.last div.p-body {
-	border-radius: 0px 0px 10px 0px !important;
+	border-radius: 0 0 10px 0;
 }
 
 div.unique div.p-body {
-	border-radius: 0px 10px 10px 0px;
+	border-radius: 0 10px 10px 0;
 }
 
 div.unique div.p-header {
-	border-radius: 10px 0px 0px 10px;
+	border-radius: 10px 0 0 10px;
 }
 
 div.p-header {
@@ -178,13 +178,13 @@ div.p-header {
 	background-color: #00796B;
 	float: left;
 	width: 15%;
-	top: 0px;
-	bottom: 0px;
+	top: 0;
+	bottom: 0;
 	padding: 3px;
-	border-radius: 0px;
+	border-radius: 0;
 }
 
-div.p-title {
+.p-title {
 	font-weight: bold;
 	color: white;
 	display: inline-block;
@@ -197,35 +197,34 @@ div.p-title {
 div.p-body {
 	text-align: left;
 	padding: 3px;
-	margin: 0px;
+	margin: 0;
 	margin-left: 15%;
 	background-color: white;
 	border: 1px solid #009688;
-	border-radius: 0px 0px 0px text-align-left0px;
+	border-radius: 0 0 0 text-align-left0;
 	width: 85%;
 }
 
-div.f-container {
-	display: inline-block;
+.f-container {
+	display: inline-table;
 	background-color: white;
 	margin: 1%;
 	text-align: left;
 }
 
-
-label.f-title {
+.f-title {
 	margin-left: 10px;
-	font-weight: bold;
+	font-weight: bold !important;
 }
 
 div.f-content {
 	margin-left: 10px;
 }
 
-.content .body {
-	margin: 0 !important;
-	padding: 0px !important;
-	width: 100% !important;
+.wizard .content .body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }
 
 .content {
@@ -238,52 +237,60 @@ textarea {
 	resize: none;
 }
 
-div.half {
+.half {
 	width: 47%;
 }
 
-div.s1 {
+.s1 {
 	width: 7%;
 }
 
-div.s2 {
+.s2 {
 	width: 17%;
 }
 
-div.s3 {
+.s2-half{
+	width: 20%;
+}
+
+.s3 {
 	width: 27%;
 }
 
-div.s4 {
+.s4 {
 	width: 37%;
 }
 
-div.s5 {
+.s5 {
 	width: 47%;
 }
 
-div.s6 {
+.s6 {
 	width: 57%;
 }
 
-div.s7 {
+.s7 {
 	width: 67%;
 }
 
-div.s8 {
+.s8 {
 	width: 77%;
 }
 
-div.s9 {
+.s9 {
 	width: 87%;
 }
 
-div.s10 {
+.s10 {
 	width: 97%;
 }
 
-div.s4-custom{
+.s4-custom{
 	width: 45%;
+}
+
+div.center-h{
+	text-align: center;
 }
 
 .margin-top-s1{
@@ -292,6 +299,10 @@ div.s4-custom{
 
 .margin-top-s2{
 	margin-top: 17px;	
+}
+
+.margin-top-s3{
+	margin-top: 27px;	
 }
 
 .text-danger {
@@ -312,12 +323,11 @@ div.s4-custom{
 
 .divisor {
 	margin: 0;
-	padding: 5px;
 	background-color: #237c73;
-	border-radius: 5px 5px 0px 0px;
-	box-shadow: 1px 0px 1px #babdb6;
+	border-radius: 5px 5px 0 0;
+	box-shadow: 1px 0 1px #babdb6;
 	text-align: left;
-	width: 100%;
+	width: calc(100% - 10px);
 }
 
 .titulo-dl {
@@ -394,10 +404,8 @@ div.s4-custom{
 	display: inline-block;
 	border-radius: 50%;
 	color:white;
-	border: 1px solid #777777;
 	font-weight: bold;
 	position: relative;
-	
 }
 
 #tabela-detalhes-selecao-servidores td #tabela-detalhes-selecao-servidores th{
@@ -433,23 +441,26 @@ div.s4-custom{
 	margin-top: 5px;
 }
 
-#botao-remover-classificados{
+#botao-remover-clas !important;
+sificados{
 	margin-bottom: 5px;
 }
 
-.borda-laranja{
-	outline: 1px solid rgb(243, 156, 18);
+.th-verde{
+	background-color: #43bb2f;
+	color: white;
 }
 
-.borda-verde{
-	outline: 1px solid rgb(24, 188, 156);
+.th-laranja{
+	background-color: #f57900;
+	color: white;
 }
 
-#pesquisarClassificados{
-	margin-bottom: 8px;
+#tabela-classificaveis, #tabela-classificados{
+	min-width: 100%;
 }
 
-#pesquisarClassificaveis{
+#pesquisarClassificaveis, #pesquisarClassificados{
 	margin-bottom: 8px;
 }
 
@@ -463,7 +474,7 @@ div.s4-custom{
 
 .photo-sign {
 	border-radius: 3px;
-	background: #e0e0e0; height : 50px;
+	background: #e0e0e0;
 	position: relative;
 	width: 10px;
 	left: 50%;
@@ -490,7 +501,7 @@ div.input-photo {
 	height: 90px;
 	background-color: #f5f5f5;
 	border: 2px solid #e0e0e0;
-	border-radius: 5px;#E9E9E9
+	border-radius: 5px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	margin-top: 5px;
@@ -501,7 +512,6 @@ div.input-photo {
 	position: relative;
 	display: block; width : 160px;
 	height: 90px;
-	border: 1px solid #8a8a8a;
 	border-radius: 5px;
 	translate: all 0.4s;
 	width: 160px;
@@ -542,7 +552,6 @@ div.input-photo {
 	transform: translateX(-50%) translateY(-50%);
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #444;
-	border: 1px solid black;
 	background-color: blue;
 }
 
@@ -604,7 +613,6 @@ div.input-photo {
 	border-radius: 5px;
 	margin-top: 5px;
 	margin-bottom: 5px;
-	margin-top: 5px;
 	translate: all 0.4s;
 }
 
@@ -653,7 +661,7 @@ div.input-photo {
 .remove-photo:before {
 	position: absolute;
 	content: "+";
-	font-height: 25px;
+	font-size: 25px;
 	line-height: 25px;
 	color: white;
 	top: 50%;
@@ -740,23 +748,26 @@ div.input-photo {
 	text-align:center;
 	font-weight:bold;
 	font-size: 10px;
+	
 }
 
 .card:hover{
 	border-radius: 5px;
 	background-color: #d1d1d1;
 	transition: all 0.2s;
-	
+}
+
+.card-hover{
+	border-radius: 5px;
+	background-color: #d1d1d1;
+	transition: all 0.2s;
 }
 
 .card .card-content{
 	position: relative;
-	padding-top: 17px;
-	padding-bottom: 17px;
+	padding-top: 10px;
 	margin: 0 auto;
 	width: 100%;
-	top: 50%;
-	transform: translateY(-50%);
 	display: block;
 	color: #555753 !important;
 }
@@ -765,7 +776,7 @@ div.input-photo {
 	color: #555753;
 	height: 100%;
 	margin: 0 auto;
-	padding:0;
+	padding:5px;
 	width: 100%;
 	display: block;
 	font-size: 28px;
@@ -774,6 +785,7 @@ div.input-photo {
 .card-content .card-description{
 	height: 100%;
 	display: inline-block;
+	margin-top: 7px;
 }
 
 .bg-brown{
@@ -796,9 +808,6 @@ div.input-photo {
 	background-color: #dd4b39 !important;
 }
 
-.dataTables_filter {
-	display: none;
-}
 
 .navbar{
 	border-radius: 0 !important;
@@ -845,6 +854,10 @@ a, .dropdown-menu > li > a{
 	border-bottom-color: #238b7f!important;
 }
 
+.btn.btn-warning i{
+	color: white !important;
+}
+
 .btn-info, .btn-info:focus, .btn-info > a{
 	color: #ffffff !important;
 	background-color: #f57900 !important;
@@ -870,9 +883,21 @@ a, .dropdown-menu > li > a{
 	height: 27px !important;
 }
 
+.btn.btn-md{
+	width: 100px !important;
+}
+
 .alert{
 	border: 0 !important;
-	border-radius: 0px !important;
+	border-radius: 0;
+}
+
+.alert.alert-info{
+	background-color: #00BCD4 !important;
+}
+
+.alert.alert-rounded{
+	border-radius: 3px !important;
 }
 
 .alert:hover{
@@ -887,17 +912,21 @@ input:focus, select:focus, textarea:focus{
 }
 
 .table-custom{
-	border: 1px solid white;
-	border-radius: 1%;
+	border-collapse: separate !important;
+	border-spacing: 0 !important;
+	border: 1px solid transparent;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	border-radius: 3px !important;
 }
+
 .table-custom td{
 	text-align: center;
 }
-.table-custom .th-custom{
+
+.table-custom .th-custom {
+	background-color: #00796B;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 	color: white;
-	background-color: #00796B;
 }
 
 .th-center{
@@ -906,6 +935,17 @@ input:focus, select:focus, textarea:focus{
 
 .row-centered{
 	margin: 0 auto !important;
+}
+
+.table-document{
+	min-width: 30%;
+}
+.table-document .table-doc-icon{
+	width: 10px;
+}
+
+.dropdown-menu > li > a:hover{
+	background-color: rgba(0,0,0,.1) !important;
 }
 
 .no-decoration{
@@ -938,7 +978,39 @@ input:focus, select:focus, textarea:focus{
 	display: inline-block;
 	background-color: #ededed;
 	padding: 5px;
-	border-radius: 0px 0px 3px 3px;
+	border-radius: 0 0 3px 3px;
+}
+
+.documentos-aluno li:hover{
+	cursor: pointer;
+	box-shadow: 1px 1px 1px #cdcdcd;
+	transition: all 0.2s;
+	transform: scale(1.2);
+}
+
+.documentos-aluno li a{
+	position: absolute;
+	color: #ffffff !important;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+	width: 100%;
+	word-wrap: break-word;
+	text-align: center;
+}
+
+.documentos-lista{
+	list-style: none;	
+	margin-left: -40px;
+}
+
+.documentos-lista li{
+	margin-bottom: 5px;	
+}
+
+.panel-visitas{
+	width: 48%;
+	padding: 0;
 }
 
 .legenda div{
@@ -946,8 +1018,46 @@ input:focus, select:focus, textarea:focus{
 	display: inline-block;
 }
 
+.form-btn {
+	margin-top: 40px;
+	text-align: right;
+}
+
+.form-btn input {
+	margin-right: 15px;
+}
+
+.menu-relatorio-visitas{
+	margin-bottom: 20px;
+}
+
+.panel-visitas .panel-heading{
+	color: white !important;
+	background-color: #009688 !important;
+	border-bottom: 1px solid #eeeeec;
+}
+
+.panel-group .panel-cidade{
+	color: white !important;
+	background-color: #009688 !important;
+	border-bottom: 1px solid #eeeeec;
+}
+
+.panel-cidade a{
+	color: white !important;
+}
+
+.foto-relatorio-visita{
+	height: 60px;
+	width: 60px;
+	margin-right: 20px;
+}
 .wizard > .actions > ul > li.disabled {
   display: none;
+}
+
+.div-esquerda{
+	float:left;
 }
 
 .lista-documentos-selecao{
@@ -959,3 +1069,5 @@ input:focus, select:focus, textarea:focus{
 	display: block;
 	margin-left: -40px;
 }
+
+

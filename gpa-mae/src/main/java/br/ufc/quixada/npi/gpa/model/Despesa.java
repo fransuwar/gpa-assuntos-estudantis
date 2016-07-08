@@ -9,9 +9,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Despesa {
 
-	public Despesa() {
-
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -104,9 +101,7 @@ public class Despesa {
 		if (getClass() != obj.getClass())
 			return false;
 		Despesa other = (Despesa) obj;
-		if (id != other.id)
-			return false;
-		return true;
+		return (id == other.id);
 	}
 
 	@Override

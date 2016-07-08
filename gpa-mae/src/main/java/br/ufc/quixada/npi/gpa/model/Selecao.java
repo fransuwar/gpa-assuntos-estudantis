@@ -3,6 +3,8 @@ package br.ufc.quixada.npi.gpa.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,8 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -23,9 +23,6 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
-
-@NamedQueries({
-		@NamedQuery(name = "Selecao.findSelecoesComMembros",	query = "SELECT distinct sb FROM Selecao sb LEFT JOIN FETCH sb.membrosComissao")})
 
 @Entity
 public class Selecao {
@@ -47,7 +44,7 @@ public class Selecao {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
 
-	@Future(message = "Data de término deve ser maior que a data atual")
+	
 	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
@@ -210,6 +207,51 @@ public class Selecao {
 				+ quantidadeVagas + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino				
 				+ ", tipoSelecao=" + tipoSelecao + ", documentos=" + documentos + ", membrosComissao=" + membrosComissao
 				+ ", responsavel=" + responsavel + "]";
+	}
+	
+public List<Inscricao> getAlunosSelecionadosVisita(){
+		
+		List<Inscricao> listaInscritos = new ArrayList<Inscricao>();
+		
+		for(Inscricao inscricao:this.inscritos){
+			if(inscricao.isRealizarVisita()){
+				listaInscritos.add(inscricao);
+			}
+		}
+		
+		return listaInscritos;
+	}
+	
+	public List<Inscricao> getAlunosNaoSelecionadosVisita(){
+		
+		List<Inscricao> listaInscritos = new ArrayList<Inscricao>();
+		
+		for(Inscricao inscricao:this.inscritos){
+			if(!inscricao.isRealizarVisita()){
+				listaInscritos.add(inscricao);
+			}
+		}
+		
+		return listaInscritos;
+	}
+	
+	public Map<String, Integer> getCidadesVisita(){
+		
+		Map<String, Integer> mapaCidades = new TreeMap<String, Integer>();
+		
+		for(Inscricao inscricao:inscritos){
+			if(inscricao.isRealizarVisita()){
+				String cidade = inscricao.getQuestionarioAuxilioMoradia().getCidadeOrigem();
+				if(mapaCidades.containsKey(cidade)){
+					int numAlunos = mapaCidades.get(cidade);
+					mapaCidades.put(cidade, numAlunos+1);
+				}else{
+					mapaCidades.put(cidade, 1);
+				}
+			}
+		}
+		
+		return mapaCidades;
 	}
 
 }

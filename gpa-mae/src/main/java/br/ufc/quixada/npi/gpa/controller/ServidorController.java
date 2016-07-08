@@ -1,5 +1,8 @@
 package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.VISITA_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ALUNO_INDEFERIDO;
@@ -12,7 +15,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_DOMICI
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_AVALIAR_DOCUMENTACAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
@@ -20,10 +22,16 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO_
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_REALIZAR_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTACAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MORADIA_ESTADO;
+
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -32,7 +40,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +49,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -54,6 +60,7 @@ import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
+import br.ufc.quixada.npi.gpa.model.AnaliseDocumentacao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Imagem;
@@ -63,12 +70,14 @@ import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
-import br.ufc.quixada.npi.gpa.service.DocumentoService;
-import br.ufc.quixada.npi.gpa.service.EntrevistaService;
-import br.ufc.quixada.npi.gpa.service.ImagemService;
+import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
+import br.ufc.quixada.npi.gpa.repository.EntrevistaRepository;
+import br.ufc.quixada.npi.gpa.repository.ImagemRepository;
+import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
+import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
+import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
+import br.ufc.quixada.npi.gpa.repository.VisitaDomiciliarRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
-import br.ufc.quixada.npi.gpa.service.SelecaoService;
-import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
@@ -77,26 +86,33 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 public class ServidorController {
 	
 	@Inject
-	private EntrevistaService entrevistaService;
-	
-	@Inject
 	private InscricaoService inscricaoService;
-
-	@Inject
-	private ServidorService servidorService;
-
-	@Inject
-	private SelecaoService selecaoService;
 	
 	@Inject
-	private ImagemService imagemService;
+	private ImagemRepository imagemRepository;
 	
-	@Inject DocumentoService documentoService;
+	@Inject
+	private DocumentoRepository documentoRepository;
+	
+	@Inject
+	private EntrevistaRepository entrevistaRepository;
+	
+	@Inject
+	private InscricaoRepository inscricaoRepository;
+	
+	@Inject
+	private VisitaDomiciliarRepository visitaRepository;
+	
+	@Inject
+	private SelecaoRepository selecaoRepository;
+	
+	@Inject
+	private ServidorRepository servidorRepository;
 	
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
-		Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
+		Servidor servidor = servidorRepository.findByCpf(auth.getName());
 		model.addAttribute("selecoes", servidor.getParticipaComissao());
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
@@ -106,7 +122,7 @@ public class ServidorController {
 
 	@RequestMapping(value= {"entrevista/{idInscricao}"}, method = RequestMethod.GET)
 	public String realizarEntrevista(@PathVariable("idInscricao") Integer idInscricao,Authentication auth, RedirectAttributes redirect, Model model ){
-		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);		
+		Inscricao inscricao = this.inscricaoRepository.findById(idInscricao);		
 
 		if(inscricao == null){
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
@@ -117,13 +133,13 @@ public class ServidorController {
 
 				Selecao selecao = inscricao.getSelecao();
 
-				Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
+				Servidor servidor = servidorRepository.findByCpf(auth.getName());
 
 				List<Servidor> comissao = selecao.getMembrosComissao();
 
 				if(comissao.contains(servidor)){
 
-					model.addAttribute("entrevista", new Entrevista());
+					model.addAttribute(ENTREVISTA, new Entrevista());
 					model.addAttribute("idInscricao", idInscricao);
 
 					return PAGINA_REALIZAR_ENTREVISTA;
@@ -143,14 +159,14 @@ public class ServidorController {
 	public String atualizarEntrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao, @RequestParam("idEntrevista") Integer idEntrevista, 
 			RedirectAttributes redirect, boolean realizarVisita ){
 		
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		
-		Entrevista entrevista2 = entrevistaService.findById(idEntrevista);
+		Entrevista entrevista2 = entrevistaRepository.findById(idEntrevista);
 		entrevista2.setObservacao(entrevista.getObservacao());
 		entrevista2.setDeferimento(entrevista.getDeferimento());
 		inscricao.setRealizarVisita(realizarVisita);
-		entrevistaService.update(entrevista2);
-		inscricaoService.update(inscricao);
+		entrevistaRepository.save(entrevista2);
+		inscricaoRepository.save(inscricao);
 
 		redirect.addFlashAttribute("info",MENSAGEM_DE_SUCESSO_ENTREVISTA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -159,67 +175,45 @@ public class ServidorController {
 
 	@RequestMapping(value="entrevista", method = RequestMethod.POST)
 	public String entrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao,
-			RedirectAttributes redirect, Authentication auth, boolean realizarVisita ){
+			RedirectAttributes redirect, Authentication auth, @RequestParam(value="realizarVisita", required=false) boolean realizarVisita ){
 		
-		Servidor servidor = this.servidorService.getServidorComComissao(auth.getName());
+		Servidor servidor = this.servidorRepository.findServidorComComissaoByCpf(auth.getName());
 		entrevista.setServidor(servidor);
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		inscricao.setEntrevista(entrevista);
-
-		entrevista.setInscricao(inscricaoService.getInscricaoPorId(idInscricao));
 		
 		inscricao.setRealizarVisita(realizarVisita);
 
-		inscricaoService.update(inscricao);
+		inscricaoRepository.save(inscricao);
 
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
 	
-	@RequestMapping(value = "consolidarTodos", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Model consolidarTodos(@RequestParam("idSelecao") Integer idSelecao,@RequestParam("consolidacao") boolean consolidacao,Model model){
-		inscricaoService.consolidacaoDeTodos(idSelecao, consolidacao);
-		model.addAttribute("resultado","sucesso");
-		return model;
-	}
-	
-	@RequestMapping(value = "consolidar", method = RequestMethod.GET,  produces=  MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Model consolidar(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("consolidacao") boolean consolidacao,Model model){
-		inscricaoService.consolidar(idInscricao, consolidacao);
-		model.addAttribute("resultado","sucesso");
-		return model;
-		
-	}
-
-	
-	
 	@RequestMapping(value= {"visita/removerFormulario/{idInscricao}/{idFormulario}"}, method = RequestMethod.GET)
-	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, Model modelo){
+	public String removerFormularioVisita(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idFormulario") Integer idFormulario, RedirectAttributes redirect){
 
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		try {
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 			
-			Documento documento = documentoService.getDocumentoPorId(idFormulario);
+		Documento documento = documentoRepository.findById(idFormulario);
+		if(documento != null){
 			inscricao.getVisitaDomiciliar().setFormularioVisita(null);
 			
-			inscricaoService.save(inscricao);
+			inscricaoRepository.save(inscricao);
 			
-			documentoService.deletarDocumento(documento);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+			documentoRepository.delete(documento);	
 		}
+
+		redirect.addFlashAttribute(ABA_SELECIONADA, VISITA_TAB);
+		redirect.addFlashAttribute(INSCRICAO, inscricao);
 		
-		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
-		modelo.addAttribute("inscricao", inscricao);
 		
-		
-		return PAGINA_DETALHES_INSCRICAO;
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO + inscricao.getId();
 	}
 	
 	@RequestMapping(value= {"visita/enviarFormulario/{idInscricao}"}, method = RequestMethod.POST)
-	public String enviarFormularioDeVisita(@PathVariable("idInscricao") Integer idInscricao, MultipartFile formulario, Model model){
+	public String enviarFormularioDeVisita(@PathVariable("idInscricao") Integer idInscricao, MultipartFile formulario, RedirectAttributes redirect){
 
 		try {
 			
@@ -228,47 +222,47 @@ public class ServidorController {
 			documento.setNome(formulario.getOriginalFilename());
 			documento.setTipo(formulario.getContentType());
 			
-			Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+			Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 			
-			documentoService.salvarDocumento(documento);
+			documentoRepository.save(documento);
 			
 			inscricao.getVisitaDomiciliar().setFormularioVisita(documento);
 			
-			inscricaoService.save(inscricao);
+			inscricaoRepository.save(inscricao);
 			
-			model.addAttribute("inscricao", inscricao);
-			model.addAttribute(ABA_SELECIONADA, "visita-tab");
+			redirect.addFlashAttribute(INSCRICAO, inscricao);
+			redirect.addFlashAttribute(ABA_SELECIONADA, VISITA_TAB);
 			
 		} catch (IOException e) {
 			// TODO: handle exception
 		}
 		
-		return PAGINA_DETALHES_INSCRICAO;
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
 
 	@RequestMapping(value = { "visita/{idInscricao}" }, method = RequestMethod.GET)
 	public String realizarVisita(@PathVariable("idInscricao")Integer idInscricao, Model model, RedirectAttributes redirect, Authentication auth) {
 
-		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);	
+		Inscricao inscricao = this.inscricaoRepository.findById(idInscricao);
 
 		if(inscricao == null ){
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
-			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
+			Servidor servidor = servidorRepository.findByCpf(auth.getName());
 
 			List<Servidor> comissao = inscricao.getSelecao().getMembrosComissao();
 
 			if(comissao.contains(servidor) ){
-				if(inscricao.getVisitaDomiciliar().equals(null)){
+				if(inscricao.getVisitaDomiciliar() == null){
 					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().getDeferimento().equals(Resultado.DEFERIDO)){
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 
 						model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 						model.addAttribute("curso", Curso.values());
-						model.addAttribute("moradiaEstado", EstadoMoradia.values());
-						model.addAttribute("inscricao", inscricao);
+						model.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
+						model.addAttribute(INSCRICAO, inscricao);
 						model.addAttribute("selecao", inscricao.getSelecao());
 						model.addAttribute("idInscricao", inscricao.getId());
 
@@ -292,22 +286,25 @@ public class ServidorController {
 	@RequestMapping(value = { "visita" }, method = RequestMethod.POST)
 	public String realizarVisita(@Valid @ModelAttribute("relatorioVisitaDomiciliar") VisitaDomiciliar relatorioVisitaDomiciliar, BindingResult result,
 			@RequestParam("idInscricao") Integer idInscricao,@RequestParam("idSelecao") Integer idSelecao,
-			Model model, RedirectAttributes redirect) {
+			Model model, RedirectAttributes redirect, Authentication auth) {
 
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
+		Servidor servidor = servidorRepository.findByCpf(auth.getName());
+		
+		relatorioVisitaDomiciliar.setServidor(servidor);
 		inscricao.setVisitaDomiciliar(relatorioVisitaDomiciliar);
 
 		if (result.hasErrors()) {
 
 			model.addAttribute("curso", Curso.values());
-			model.addAttribute("moradiaEstado", EstadoMoradia.values());
-			model.addAttribute("inscricao", inscricao);
+			model.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
+			model.addAttribute(INSCRICAO, inscricao);
 			model.addAttribute("selecao", inscricao.getSelecao());
 
 			return PAGINA_RELATORIO_VISITA;
 		}
 
-		inscricaoService.update(inscricao);
+		inscricaoRepository.save(inscricao);
 		redirect.addFlashAttribute("info", MENSAGEM_VISITA_CADASTRADA);
 
 		return REDIRECT_PAGINA_DETALHES_SELECAO  + inscricao.getSelecao().getId();
@@ -316,7 +313,7 @@ public class ServidorController {
 	@RequestMapping(value = { "informacoes/visita-domiciliar/{idVisita}" }, method = RequestMethod.GET)
 	public String visulizarInformacoes(@PathVariable("idVisita") Integer idVisita, Model model, RedirectAttributes redirect) {
 
-		VisitaDomiciliar visitaDomiciliar = inscricaoService.getVisitaDocimiciliar(idVisita);
+		VisitaDomiciliar visitaDomiciliar = visitaRepository.findById(idVisita);
 
 		if (visitaDomiciliar == null ) {
 
@@ -337,18 +334,19 @@ public class ServidorController {
 	*/@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao,Authentication auth, Model model, RedirectAttributes redirect){
 
-		Selecao selecao = selecaoService.getSelecaoPorId(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		} else {
-			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
+			Servidor servidor = servidorRepository.findByCpf(auth.getName());
 			List<Servidor> comissao = selecao.getMembrosComissao();
 			if(comissao.contains(servidor)) {
-				List<Inscricao> inscricoes = inscricaoService.getInscricoesPorSelecao(idSelecao);
+				List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecao(idSelecao);
 				model.addAttribute("selecao", selecao);
 				model.addAttribute("inscricoes", inscricoes);
+				model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_INSCRICAO);
 				
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 			} else {
@@ -363,15 +361,16 @@ public class ServidorController {
 			RedirectAttributes redirect, @RequestParam(value="ativar-aba-entrevista",required=false) boolean ativarAbaEntrevista) {
 			
 		
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		modelo.addAttribute("pessoaDaFamilia",new PessoaFamilia());
+		modelo.addAttribute("documentacao", new AnaliseDocumentacao());
 		
 		if (inscricao == null) {
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 
 		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
-			modelo.addAttribute("inscricao", inscricao);
+			modelo.addAttribute(INSCRICAO, inscricao);
 			modelo.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
 			
 			//Verificando se alguma aba específica foi setada no redirect
@@ -379,21 +378,30 @@ public class ServidorController {
 			
 			if(nomeAba == null){
 				//Se nenhuma aba foi setada então a aba padrão é selecionada 
-				nomeAba = "inscricao-tab"; 
+				nomeAba = INSCRICAO_TAB; 
 			}
 
 			modelo.addAttribute(ABA_SELECIONADA, nomeAba);
 			
-			if(inscricao.getEntrevista()!=null)
-				modelo.addAttribute("entrevista", inscricao.getEntrevista());
-			else
-				modelo.addAttribute("entrevista", new Entrevista());
+			if(inscricao.getEntrevista()!=null){
+				modelo.addAttribute(ENTREVISTA, inscricao.getEntrevista());
+			}else{
+				modelo.addAttribute(ENTREVISTA, new Entrevista());
 			    modelo.addAttribute("grauParentesco", GrauParentesco.values());
 			    modelo.addAttribute("escolaridade",Escolaridade.values());
+			}
+			
+			if(inscricao.getDocumentacao() != null){
+				modelo.addAttribute(DOCUMENTACAO, inscricao.getDocumentacao());
+			}else{
+				modelo.addAttribute(DOCUMENTACAO, new AnaliseDocumentacao());
+			}
+			    
+			
 
 			return PAGINA_DETALHES_INSCRICAO;
 		}else {
-			modelo.addAttribute("inscricao", inscricao);
+			modelo.addAttribute(INSCRICAO, inscricao);
 			modelo.addAttribute("questInic", inscricao.getQuestionarioIniciacaoAcademica());
 			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
 		}
@@ -402,8 +410,8 @@ public class ServidorController {
 	}
 	
 	@RequestMapping(value ={ "detalhes/inscricao/inserirImagem"}, method = RequestMethod.POST)
-	public String inserirImagemDaVisitaNaInscricao(@RequestParam("foto") MultipartFile foto, Integer idInscricao, Model modelo){
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+	public String inserirImagemDaVisitaNaInscricao(@RequestParam("foto") MultipartFile foto, Integer idInscricao, RedirectAttributes redirect){
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		
 		try {
 			CommonsMultipartFile multipartFile = (CommonsMultipartFile) foto;
@@ -414,49 +422,54 @@ public class ServidorController {
 				Imagem imagem = new Imagem();
 				imagem.setImg(foto.getBytes());
 				
-				imagemService.save(imagem);
+				imagemRepository.save(imagem);
 				
 				inscricao.getVisitaDomiciliar().getImagens().add(imagem);
-				inscricaoService.save(inscricao);
+				inscricaoRepository.save(inscricao);
 			}
 		} catch (IOException e) {
 			
 		}
 		
-		modelo.addAttribute("inscricao", inscricao);
-		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
+		redirect.addFlashAttribute(INSCRICAO, inscricao);
+		redirect.addFlashAttribute(ABA_SELECIONADA, VISITA_TAB);
 		
-		return PAGINA_DETALHES_INSCRICAO;
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
 	
 	@RequestMapping(value ={ "detalhes/inscricao/removerImagem/{idInscricao}/{idImagem}"}, method = RequestMethod.GET)
-	public String removerImagemDaVisitaNaInscricao(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idImagem") Integer idImagem, Model modelo){
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		Imagem imagem = imagemService.find(Imagem.class, idImagem);
+	public String removerImagemDaVisitaNaInscricao(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idImagem") Integer idImagem, RedirectAttributes redirect){
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
+		Imagem imagem = imagemRepository.findById(idImagem);
 		
 		inscricao.getVisitaDomiciliar().getImagens().remove(imagem);
 		
-		inscricaoService.save(inscricao);
+		inscricaoRepository.save(inscricao);
 		
-		modelo.addAttribute(ABA_SELECIONADA, "visita-tab");
-		modelo.addAttribute("inscricao", inscricao);
+		redirect.addFlashAttribute(ABA_SELECIONADA, VISITA_TAB);
+		redirect.addFlashAttribute(INSCRICAO, inscricao);
 		
-		return PAGINA_DETALHES_INSCRICAO;
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
 	
 	@RequestMapping(value={"detalhes/inscricao/adicionarObservacaoParecer"}, method = RequestMethod.POST)
-	public String adicionarObservacaoParecerVisita(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("parecer") String parecer, @RequestParam("observacao") String observacao, RedirectAttributes redirect){
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+	public String adicionarObservacaoParecerVisita(@RequestParam("idInscricao") Integer idInscricao, 
+			@RequestParam("parecer") String parecer, @RequestParam("observacao") String observacao, 
+			RedirectAttributes redirect, Authentication auth){
+		
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		
 		VisitaDomiciliar visitaDomiciliar = inscricao.getVisitaDomiciliar();
 		
 		if(visitaDomiciliar != null){
+			Servidor servidor = servidorRepository.findByCpf(auth.getName());
 			visitaDomiciliar.setDeferimento(Resultado.valueOf(parecer));
 			visitaDomiciliar.setObservacaoParecer(observacao);
-			inscricaoService.atualizarVisitaDomiciliar(visitaDomiciliar);
+			visitaDomiciliar.setServidor(servidor);
+			visitaRepository.save(visitaDomiciliar);
 		}
 		
-		redirect.addFlashAttribute(ABA_SELECIONADA, "visita-tab");
+		redirect.addFlashAttribute(ABA_SELECIONADA, VISITA_TAB);
 		
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
@@ -465,7 +478,7 @@ public class ServidorController {
 	public String adicionarPessoaFamilaNaEntrevista(@Valid @ModelAttribute("pessoaDaFamilia") PessoaFamilia pessoa, Model model,
 			@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect){
 		
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		
 		if(inscricao == null){
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
@@ -473,7 +486,7 @@ public class ServidorController {
 		}else{
 		QuestionarioAuxilioMoradia auxilio = inscricao.getQuestionarioAuxilioMoradia();
 		auxilio.getPessoasEntrevista().add(pessoa);
-		inscricaoService.save(inscricao);
+		inscricaoRepository.save(inscricao);
 		redirect.addFlashAttribute(ABA_SELECIONADA,"entrevista-tab");
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 		}
@@ -485,7 +498,7 @@ public class ServidorController {
 	public String removerPessoaFamilaNaEntrevista( Model model,
 			@PathVariable("idPessoa") Integer idPessoa,@PathVariable("idInscricao") Integer idInscricao, RedirectAttributes redirect){
 		
-		Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
+		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		
 		if(inscricao == null){
 			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
@@ -493,8 +506,10 @@ public class ServidorController {
 		}else{
 		PessoaFamilia pessoa = inscricaoService.buscarPessoaFamiliaPorId(idPessoa);
 		inscricao.getQuestionarioAuxilioMoradia().getPessoasEntrevista().remove(pessoa);
-		inscricaoService.update(inscricao);
-	    model.addAttribute("inscricao",inscricao);
+
+		inscricaoRepository.save(inscricao);
+        model.addAttribute(INSCRICAO,inscricao);
+
 	    redirect.addFlashAttribute(ABA_SELECIONADA,"entrevista-tab");
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 		}
@@ -502,44 +517,36 @@ public class ServidorController {
 		
 	}
 
-	@RequestMapping(value= {"avaliarDocumentacao/{idInscricao}"}, method = RequestMethod.GET)
-	public String avaliarDocumentacao(@PathVariable("idInscricao") Integer idInscricao,Authentication auth, RedirectAttributes redirect, Model model){
-
-		Inscricao inscricao = this.inscricaoService.getInscricaoPorId(idInscricao);		
-
-		if(inscricao == null){
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
-			return REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-		}else{
-
-			Selecao selecao = inscricao.getSelecao();
-			Servidor servidor = servidorService.getServidorPorCpf(auth.getName());
-
-			List<Servidor> comissao = selecao.getMembrosComissao();
-
-			if(comissao.contains(servidor)){
-				model.addAttribute("avaliarDocumentacao", !inscricao.getDocumentacao().getDeferimento().equals(Resultado.NAO_AVALIADO));
-				model.addAttribute("idInscricao", idInscricao);
-
-				return PAGINA_AVALIAR_DOCUMENTACAO;
-			}else{
-				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA);
-				return REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-			}
-		}
-	}
-
 	@RequestMapping(value= {"avaliarDocumentacao"}, method = RequestMethod.POST)
-	public String avaliarDocumentacao(@Valid @ModelAttribute("avaliarDocumentacao") Inscricao avaliarDocumentacao , @RequestParam("idInscricao") Integer idInscricao, 
+	public String avaliarDocumentacao(@Valid @ModelAttribute("documentacao") AnaliseDocumentacao analiseDocumentacao , @RequestParam("idInscricao") Integer idInscricao, 
+
 			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
 
-        Inscricao inscricao = inscricaoService.getInscricaoPorId(idInscricao);
-		inscricao.getDocumentacao().setDeferimento(avaliarDocumentacao.getDocumentacao().getDeferimento());
+        Inscricao inscricao = inscricaoRepository.findById(idInscricao);
+        Servidor servidor = servidorRepository.findByCpf(auth.getName());
 
-		model.addAttribute("avaliarDocumentacao", avaliarDocumentacao);	
-		inscricaoService.update(inscricao);
-
+        analiseDocumentacao.setServidor(servidor);
+		inscricao.setDocumentacao(analiseDocumentacao);
+		inscricaoRepository.save(inscricao);
+		
+		redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
 		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO);
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+		redirect.addFlashAttribute(ABA_SELECIONADA,DOCUMENTOS_TAB);
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
+	}
+	
+	@RequestMapping(value= {"relatorioVisitas/{idSelecao}"}, method = RequestMethod.GET)
+	public String relatorioDeVisitas(@PathVariable("idSelecao") Integer idSelecao, Model model){
+		
+		Selecao selecao = this.selecaoRepository.findById(idSelecao);
+		
+		model.addAttribute("inscritosComVisita", selecao.getAlunosSelecionadosVisita());
+		model.addAttribute("inscritosSemVisita", selecao.getAlunosNaoSelecionadosVisita());
+		model.addAttribute("cidadesVisitadas", selecao.getCidadesVisita());
+		model.addAttribute("selecao", selecao);
+		
+		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
+		
+		return PAGINA_RELATORIO_VISITAS;
 	}
 }

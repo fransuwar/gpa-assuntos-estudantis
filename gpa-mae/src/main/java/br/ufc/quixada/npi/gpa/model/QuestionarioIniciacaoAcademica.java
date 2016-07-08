@@ -137,10 +137,6 @@ public class QuestionarioIniciacaoAcademica {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "iniciacaoacademica_id")
 	private List<PessoaFamilia> pessoas;
-	
-	public QuestionarioIniciacaoAcademica() {
-
-	}
 
 	public Integer getId() {
 		return id;

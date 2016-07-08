@@ -10,20 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.quixada.npi.gpa.enums.Resultado;
-
-@NamedQueries({
-	@NamedQuery(name = "Inscricao.findIncricoesByIdAluno", query = "select i from Inscricao i where i.aluno.id = :idAluno"),
-	@NamedQuery(name = "Inscricao.findInscricaoAluno", query = "SELECT i from Inscricao i where i.selecao.id =:idSelecao and i.aluno.id =:idAluno"),
-	@NamedQuery(name = "Inscricao.finInscricaoByIdSelecao", query = "select i from Inscricao i where i.selecao.id = :idSelecao"),
-	@NamedQuery(name = "Inscricao.finInscricaoByIdSelecaoByAluno", query = "select i from Inscricao i where i.selecao.id = :idSelecao and i.aluno.id =:idAluno")
-})
 
 @Entity
 public class Inscricao implements Comparable<Inscricao>{
@@ -42,6 +33,8 @@ public class Inscricao implements Comparable<Inscricao>{
 	private boolean classificado;
 
 	private String observacoes;
+	
+	private String observacaoDocumentos;
 
 	//referente ao deferimento de documentação
 	
@@ -186,6 +179,15 @@ public class Inscricao implements Comparable<Inscricao>{
 
 	public void setDocumentacao(AnaliseDocumentacao documentacao) {
 		this.documentacao = documentacao;
+	}
+
+	
+	public String getObservacaoDocumentos() {
+		return observacaoDocumentos;
+	}
+
+	public void setObservacaoDocumentos(String observacaoDocumentos) {
+		this.observacaoDocumentos = observacaoDocumentos;
 	}
 
 	@Override

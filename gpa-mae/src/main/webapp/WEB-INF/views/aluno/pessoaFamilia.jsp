@@ -7,9 +7,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!-- botão adicionar pessoa -->
-<div class="">
-	<div class="alert alert-info text-center">Adicione as suas
-		informações socioeconômicas e a das pessoas com quem você mora.</div>
+<div>
+
+	<div class="alert alert-info alert-rounded text-center">Adicione
+		as suas informações socioeconômicas e a das pessoas com quem você
+		mora.</div>
 
 	<button id="abrirFormPessoaFamilia" type="button"
 		class="btn btn-primary" data-toggle="modal"
@@ -20,8 +22,11 @@
 
 	<!-- Accordion Item -->
 	<div id="pessoaFamilia" class="panel panel-default hidden">
-		<div class="panel-heading clickable pointer" data-toggle="collapse"
+		<div class="panel-heading clicavel" data-toggle="collapse"
 			data-parent="#listaPessoas" data-target="#pessoa_0">
+			<span class="direita"> <i
+				class="glyphicon glyphicon-chevron-down"></i>
+			</span>
 			<h4 class="panel-title"></h4>
 		</div>
 		<div id="pessoa_0" class="panel-collapse collapse out">
@@ -63,6 +68,15 @@
 				<h4 class="modal-title" id="myModalLabel">Nova Pessoa</h4>
 			</div>
 			<div class="modal-body">
+				<div id="alert-pessoa-familia"
+					class="alert alert-danger alert-dismissible hidden" role="alert">
+					<button type="button" class="close" data-dismiss="alert">
+						<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+					</button>
+					<div>
+						<c:out value="Todos os dados da pessoa devem ser preenchidos"></c:out>
+					</div>
+				</div>
 				<div class='f-container s4'>
 					<label class='f-title'>Nome:</label>
 					<div class='f-content'>
@@ -71,20 +85,24 @@
 					</div>
 				</div>
 				<div class='f-container s4'>
-					<label class='f-title'>Parentesco:</label>
-					<div class='f-content'>
-						<form:select path="" name="parentesco" class="form-control"
-							required="required">
-							<form:option value="">Selecione um grau de parentesco</form:option>
-							<form:options name="opcoes" items="${grauParentesco}"
-								itemLabel="nome" />
-						</form:select>
-					</div>
-				</div>
-				<div class='f-container s2'>
 					<label class='f-title'>Idade:</label>
 					<div class='f-content'>
 						<input class="form-control" type="number" name="idade" value=""
+							min="1" required="required" />
+					</div>
+				</div>
+				<div class='f-container s4'>
+					<label class='f-title'>Profissao:</label>
+					<div class='f-content'>
+						<input class="form-control" type="text" name="profissao" value=""
+							required="required" />
+					</div>
+				</div>
+				<div class='f-container s4'>
+					<label class='f-title'>Renda R$:</label>
+					<div class='f-content'>
+						<input class="form-control rendaMensal" type="text"
+							id="renda-pessoa-familia" name="rendaMensal" value=""
 							required="required" />
 					</div>
 				</div>
@@ -99,19 +117,23 @@
 						</form:select>
 					</div>
 				</div>
-
 				<div class='f-container s4'>
-					<label class='f-title'>Profissao:</label>
+					<label class='f-title'>Parentesco:</label>
 					<div class='f-content'>
-						<input class="form-control" type="text" name="profissao" value=""
-							required="required" />
+						<form:select path="" name="parentesco" class="form-control"
+							id="select-parentesco" required="required">
+							<form:option value="">Selecione um grau de parentesco</form:option>
+							<form:options name="opcoes" items="${grauParentesco}"
+								itemLabel="nome" />
+						</form:select>
 					</div>
 				</div>
-				<div class='f-container s2'>
-					<label class='f-title'>Renda R$:</label>
+				<div id="outro-pessoa-familia" class='f-container s4 hidden'>
+					<label class='f-title'>Especifique quem é esta outra
+						pessoa:</label>
 					<div class='f-content'>
-						<input class="form-control rendaMensal" type="text"
-							name="rendaMensal" value="" required="required" />
+						<input class="form-control" type="text" name="outro" value=""
+							required="required" />
 					</div>
 				</div>
 			</div>
@@ -141,6 +163,34 @@
 							required="required" />
 					</div>
 				</div>
+				<div class='f-container s4'>
+					<label class='f-title'>Idade:</label>
+					<div class='f-content'>
+						<input class="form-control" type="number" name="idadeEditar"
+							value="" required="required" />
+					</div>
+				</div>
+				<div class='f-container s4'>
+					<label class='f-title'>Profissao:</label>
+					<div class='f-content'>
+						<input class="form-control" type="text" name="profissaoEditar"
+							value="" required="required" />
+					</div>
+				</div>
+				<div class='f-container s4'>
+					<label class='f-title'>Renda R$:</label>
+					<div class='f-content'>
+						<input class="form-control rendaMensal" type="text"
+							name="rendaEditar" value="" required="required" />
+					</div>
+				</div>
+				<div class='f-container s4'>
+					<label class='f-title'>Escolaridade:</label>
+					<div class='f-content'>
+						<input class="form-control" type="text" name="escolaridadeEditar"
+							value="" required="required" />
+					</div>
+				</div>
 				<div class="f-container s4">
 					<label class="f-title">Parentesco:</label>
 					<div class="f-content">
@@ -151,33 +201,12 @@
 						</form:select>
 					</div>
 				</div>
-				<div class='f-container s2'>
-					<label class='f-title'>Idade:</label>
+				<div id="outro-pessoa-familia" class='f-container s4 hidden'>
+					<label class='f-title'>Especifique quem é esta outra
+						pessoa:</label>
 					<div class='f-content'>
-						<input class="form-control" type="number" name="idadeEditar"
-							value="" required="required" />
-					</div>
-				</div>
-				<div class='f-container s4'>
-					<label class='f-title'>Escolaridade:</label>
-					<div class='f-content'>
-						<input class="form-control" type="text" name="escolaridadeEditar"
-							value="" required="required" />
-					</div>
-				</div>
-
-				<div class='f-container s4'>
-					<label class='f-title'>Profissao:</label>
-					<div class='f-content'>
-						<input class="form-control" type="text" name="profissaoEditar"
-							value="" required="required" />
-					</div>
-				</div>
-				<div class='f-container s2'>
-					<label class='f-title'>Renda R$:</label>
-					<div class='f-content'>
-						<input class="form-control rendaMensal" type="text"
-							name="rendaEditar" value="" required="required" />
+						<input class="form-control" type="text" name="outroEditar" value=""
+							required="required" />
 					</div>
 				</div>
 			</div>

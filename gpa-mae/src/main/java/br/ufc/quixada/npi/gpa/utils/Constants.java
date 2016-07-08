@@ -1,7 +1,35 @@
 package br.ufc.quixada.npi.gpa.utils;
 
 public class Constants {
+	
+	/** Controllers*/
+	
+	public static final String ALUNO = "aluno";
+	public static final String NIVEL_INSTRUCAO = "nivelInstrucao";
+	public static final String SITUACAO_RESIDENCIA = "situacaoResidencia";
+	public static final String SELECAO = "selecao";
+	public static final String ID_SELECAO = "idSelecao";
+	public static final String TIPOS_DOCUMENTO = "tiposDeDocumento";
+	public static final String ACTION = "action";
+	public static final String LOGIN = "login";
+	public static final String ENTREVISTA = "entrevista";
+	public static final String DOCUMENTACAO = "documentacao";
+	public static final String INSCRICAO = "inscricao";
+	public static final String MORADIA_ESTADO = "moradiaEstado";
+	public static final String DIAS_UTEIS = "diasUteis";
+	public static final String TOTAL_ESTADO = "totalEstado";
+	public static final String GRAU_PARENTESCO = "grauParentesco";
+	public static final String ERROR = "error";
+	public static final String QUESTIONARIO_AUXILIO_MORADIA = "questionarioAuxilioMoradia";
+	public static final String TIPO_AUX_MORADIA = "aux_mor";
+	public static final String CADASTRAR = "cadastrar";
+	public static final String EDITAR = "editar";
 
+	/** ServiceImpl*/
+	
+	public static final String ANO = "ano";
+	
+	
 	/** Usuário */
 
 	public static final String USUARIO_LOGADO = "usuario";
@@ -63,6 +91,8 @@ public class Constants {
 	public static final String PAGINA_SELECOES_ABERTAS = "aluno/listarSelecoes";
 	
 	public static final String PAGINA_AVALIAR_DOCUMENTACAO = "servidor/avaliarDocumentacao";
+	
+	public static final String PAGINA_RELATORIO_VISITAS = "servidor/relatorioVisitasCidades";
 	
 	public static final String PAGINA_RELATORIO_FINAL = "selecao/resultadoFinal";
 
@@ -231,6 +261,8 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_EDITAR_INSCRICAO = "Você não pode editar esta inscrição fora do período da seleção";
 	
+	public static final String MENSAGEM_ERRO_REALIZAR_INSCRICAO = "Você não pode realizar esta inscrição fora do período da seleção";
+	
 	public static final String MENSAGEM_ERRO_UPLOAD_FOTO = "Não foi possível fazer o upload da sua foto";
 	
 	public static final String MENSAGEM_ERRO_FOTO_FORMATO_INVALIDO = "Extensão da foto inválida. Extensões aceitas (jpeg, jpg, png)";
@@ -241,9 +273,15 @@ public class Constants {
 	
 	public static final String MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO = "Selecione pelo menos um aluno classificado";
 
-	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO= "Não é possível excluir esse arquivo";
+	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO = "Não é possível excluir esse arquivo";
+	
+	public static final String MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO = "Tipo de documento excuído com sucesso";
+	
+	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO = "Não é possível excluir este tipo de documento pois ele já está em uso";
 	
 	public static final String MENSAGEM_ERRO_DADOS_INSCRICAO= "Verifique os dados inseridos e tente novamente";
+	
+	public static final String MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO = "Adicione os documentos referentes a sua inscrição. Você deverá fazer isso até o final do período de inscrição.";
 	
 	/** Perfis */
 
@@ -268,5 +306,31 @@ public class Constants {
 	public static final String ABA_SELECIONADA = "aba";
 	
 	public static final String DOCUMENTOS_TAB = "documentos-tab";
+	
+	public static final String INSCRICAO_TAB = "inscricao-tab";
+	
+	public static final String VISITA_TAB = "visita-tab";
+	
+	/** Comunicação Javascript com os cards**/
+	
+	public static final String CARD_SELECIONADO = "card";
+	
+	public static final String CARD_INSCRICAO = "card-inscricao";
+	public static final String CARD_COMISSAO = "card-comissao";
+	public static final String CARD_ARQUIVOS = "card-arquivos";
+	public static final String CARD_RELATORIO = "card-relatorio";
+	public static final String CARD_RANK = "card-rank";
+	
+	public static final String RESULTADO = "resultado";
+	
+	public static final String SUCESSO = "sucesso";
+
+	
+	/** Mensagens do sistema*/
+	
+	public static final String ERRO = "erro";
+	
+	public static final String INFO = "info";
+
 
 }

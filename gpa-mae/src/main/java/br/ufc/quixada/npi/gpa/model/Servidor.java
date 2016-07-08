@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -20,12 +18,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.ufc.quixada.npi.gpa.enums.Cargo;
-
-@NamedQueries({
-		@NamedQuery(name = "Servidor.findServidorBySiape", query = "SELECT s FROM Servidor s WHERE s.siape = :siape"),
-		@NamedQuery(name = "Servidor.findServidorPertenceSelecao",query = "SELECT sr FROM Servidor sr LEFT JOIN sr.participaComissao s WHERE s.id = :idSelecao and :idServidor member of s.membrosComissao"),
-		@NamedQuery(name = "Servidor.findServidorComComissaoByCpf", query = "SELECT s FROM Servidor s LEFT JOIN FETCH s.participaComissao WHERE s.pessoa.cpf = :cpf"),
-		@NamedQuery(name = "Servidor.findServidorByCpf", query = "SELECT s FROM Servidor s WHERE s.pessoa.cpf = :cpf") })
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "siape" }))
