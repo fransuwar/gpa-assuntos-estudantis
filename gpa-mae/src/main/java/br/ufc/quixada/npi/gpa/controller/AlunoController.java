@@ -8,6 +8,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.EDITAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERROR;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ESCOLARIDADE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.GRAU_PARENTESCO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ID_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
@@ -42,7 +43,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.SITUACAO_RESIDENCIA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TOTAL_ESTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TURNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.USUARIO_ATIVO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ESCOLARIDADE;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -86,7 +86,6 @@ import br.ufc.quixada.npi.gpa.model.AnaliseDocumentacao;
 import br.ufc.quixada.npi.gpa.model.ComQuemMora;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.DocumentosTipoInscricao;
-import br.ufc.quixada.npi.gpa.model.HorarioDisponivel;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
@@ -159,7 +158,7 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/{idSelecao}/iniciacao-academica" }, method = RequestMethod.GET)
 	public String realizarInscricaoIniciacaoAcademica(@PathVariable(ID_SELECAO) Integer idSelecao, Model model) {
 
-		model.addAttribute(ACTION, "inscricao");
+		model.addAttribute(ACTION, INSCRICAO);
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
 
@@ -180,7 +179,7 @@ public class AlunoController {
 			@Valid @ModelAttribute("questionarioIniciacaoAcademica") QuestionarioIniciacaoAcademica iniciacaoAcademica,
 			BindingResult result, Model model, RedirectAttributes redirect, Authentication auth) {
 
-		model.addAttribute(ACTION, "inscricao");
+		model.addAttribute(ACTION, INSCRICAO);
 
 		if (result.hasErrors()) {
 
@@ -285,7 +284,7 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
 	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth, RedirectAttributes redirect){
 
-		model.addAttribute(ACTION, "inscricao");
+		model.addAttribute(ACTION, INSCRICAO);
 
 		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		Selecao selecao = selecaoRepository.findById(idSelecao);
@@ -301,7 +300,7 @@ public class AlunoController {
 		}else{
 
 		
-			model.addAttribute(ACTION, "inscricao");
+			model.addAttribute(ACTION, INSCRICAO);
 			
 			//Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
 	
@@ -340,7 +339,7 @@ public class AlunoController {
 
 		if (result.hasErrors()) {
 
-			model.addAttribute(ACTION, "inscricao");
+			model.addAttribute(ACTION, INSCRICAO);
 			model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, auxilioMoradia);
 
 			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
@@ -474,7 +473,7 @@ public class AlunoController {
 
 		if (result.hasErrors()) {
 
-			model.addAttribute(ACTION, "inscricao");
+			model.addAttribute(ACTION, INSCRICAO);
 			model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, auxilioMoradia);
 
 			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);

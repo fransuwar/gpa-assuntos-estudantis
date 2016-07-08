@@ -171,11 +171,8 @@ public class CoordenadorController {
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
 	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
 			@RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos, BindingResult result, Authentication auth) {
-
-		Integer proxSequencial = selecaoService.getUltimoSequencialPorAno(selecao);
+		
 		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
-
-		selecao.setSequencial(proxSequencial);
 
 		model.addAttribute(ACTION, CADASTRAR);
 

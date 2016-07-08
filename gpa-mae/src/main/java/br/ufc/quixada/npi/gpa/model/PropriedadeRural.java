@@ -30,6 +30,11 @@ public class PropriedadeRural {
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
 	
+	private String outro;	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private QuestionarioAuxilioMoradia auxilioMoradia;
+	
 	public GrauParentesco getParentesco() {
 		return parentesco;
 	}
@@ -37,11 +42,6 @@ public class PropriedadeRural {
 	public void setParentesco(GrauParentesco parentesco) {
 		this.parentesco = parentesco;
 	}
-
-	private String outro;	
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	private QuestionarioAuxilioMoradia auxilioMoradia;
 
 	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
 		return auxilioMoradia;
