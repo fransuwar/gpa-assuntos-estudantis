@@ -11,15 +11,6 @@ var FormularioAuxilio = function() {
 	var listaPropRurais = [];
 	var listaBensMoveis = [];
 	
-	var formPessoaFamilia = {
-		"nome" : "input[name=nome]",
-		"parentesco" : "select[name=parentesco]",
-		"idade" : "input[name=idade]",
-		"escolaridade": "input[name=escolaridade]",
-		"profissao": "input[name=profissao]",
-		"renda": "input[name=rendaMensal]",
-	};
-	
 	var formPessoaFamiliaEditar = {
 		"nome" : "input[name=nomeEditar]",
 		"parentesco" : "select[name=parentescoEditar]",
@@ -112,7 +103,6 @@ var FormularioAuxilio = function() {
 		
 		self.addPropRural();
 		self.abrirFormPropRural();
-		self.outroParentPropRural();
 		self.initPropRurais();
 		self.addBemMovel();
 		self.abrirFormBemMovel();
@@ -232,7 +222,7 @@ var FormularioAuxilio = function() {
 		});
 	};
 	
-	self.imprimirListaPessoasFamilia = function () {    	
+	self.imprimirListaPessoasFamilia = function () {        
 		self.limparListaPessoasFamilia();
 
 		listaPessoasFamilia.forEach(function (pessoaFamilia, indice) {
@@ -249,7 +239,7 @@ var FormularioAuxilio = function() {
 		var idPessoa = pessoa.attr("id").split("_")[1];
 		
 		if (idPessoa !== "0") {
-			listaPessoasFamilia.splice(idPessoa, 1);    	
+			listaPessoasFamilia.splice(idPessoa, 1);        
 			self.imprimirListaPessoasFamilia();
 		}
 	};
@@ -322,7 +312,7 @@ var FormularioAuxilio = function() {
 		$("#select-parentesco").change(function() {
 			if($(this).val() === "OUTROS"){
 				$("#outro-pessoa-familia").removeClass("hidden");
-			}	    
+			}       
 		});
 		
 		$("#parentesco").change(function() {
@@ -367,7 +357,7 @@ var FormularioAuxilio = function() {
 				$("input[name=outro]").val("");
 				
 				
-				listaPessoasFamilia.push(pessoaFamilia);	
+				listaPessoasFamilia.push(pessoaFamilia);    
 
 				self.imprimirListaPessoasFamilia();
 			}
@@ -390,7 +380,7 @@ var FormularioAuxilio = function() {
 		
 		}
 	};
-	self.criarDivItem = function(indice, elemento, nomeElemento, form){
+	self.criarDivItem = function(indice, elemento, nomeElemento){
 		
 		var novoDivItem = $("#"+nomeElemento).clone();
 
@@ -399,9 +389,7 @@ var FormularioAuxilio = function() {
 
 		var table = novoDivItem.find("tbody");
 		var tr = $("<tr></tr>");
-		
-		
-		
+
 		if(nomeElemento === "bemMovel"){
 			if(elemento.parentesco === "OUTRO"){
 				tr.append($("<td>" + elemento.outro + "</td>"));
@@ -471,7 +459,7 @@ var FormularioAuxilio = function() {
 		});
 	};
 
-	self.imprimirListaPropRurais = function () {    	
+	self.imprimirListaPropRurais = function () {        
 		self.limparListaPropRurais();
 
 		listaPropRurais.forEach(function (propRural, indice) {
@@ -483,7 +471,7 @@ var FormularioAuxilio = function() {
 		$(".editarPropRural").click(self.editarPropRural);
 	};
 	
-	self.imprimirListaBensMoveis = function () {    	
+	self.imprimirListaBensMoveis = function () {        
 		self.limparListaBemMovel();
 
 		listaBensMoveis.forEach(function (bemMovel, indice) {
@@ -495,20 +483,7 @@ var FormularioAuxilio = function() {
 		$(".rmvBemMovel").click(self.removerBemMovel);
 		$(".editarBemMovel").click(self.editarBemMovel);
 	};
-	
-	self.outroParentPropRural = function(){
-		$(formPropRural.parentesco).on("change", function(){
-			if($(formPropRural.parentesco).value === "OUTRO"){
-				
-			}
-		});
-	}
-	
-	self.outroParentBemMovel = function(){
-		
-		
-	}
-	
+
 	self.removerPropRural = function(){
 		var item = $(this).parent().parent();
 		var idItem = item.attr("id").split("_")[1];
@@ -631,32 +606,32 @@ var FormularioAuxilio = function() {
 		var elemento = {}
 		flag = false
 		
-		if($(formPropRural.parentesco).val() == ""){
+		if($(formPropRural.parentesco).val() === ""){
 			$("#"+formPropRuralValidate.parentesco).removeClass("hidden");
 			flag = true;
 		}else{
 			$("#"+formPropRuralValidate.parentesco).addClass("hidden");
-		}	
+		}   
 		elemento.parentesco = $(formPropRural.parentesco).val();
 		
-		if($(formPropRural.cidade).val() == ""){
+		if($(formPropRural.cidade).val() === ""){
 			$("#"+formPropRuralValidate.cidade).removeClass("hidden");
 			flag = true;
 		}else{
 			$("#"+formPropRuralValidate.cidade).addClass("hidden");
-		}	
+		}   
 		elemento.cidade = $(formPropRural.cidade).val();
 		
-		if($(formPropRural.area).val() == ""){
+		if($(formPropRural.area).val() === ""){
 			$("#"+formPropRuralValidate.area).removeClass("hidden");
 			flag = true;
 		}else{
 			$("#"+formPropRuralValidate.area).addClass("hidden");
-		}	
+		}   
 		elemento.area = $(formPropRural.area).val();
 		
-		if($(formPropRural.parentesco).val() == "OUTRO"){
-			if($(formPropRural.outro).val() == ""){
+		if($(formPropRural.parentesco).val() === "OUTRO"){
+			if($(formPropRural.outro).val() === ""){
 				$("#"+formPropRuralValidate.outro).removeClass("hidden");
 				flag = true;
 			}else{
@@ -676,38 +651,38 @@ var FormularioAuxilio = function() {
 		var elemento = {}
 		flag = false
 		
-		if($(formBemMovel.parentesco).val() == ""){
+		if($(formBemMovel.parentesco).val() === ""){
 			$("#"+formBemMovelValidate.parentesco).removeClass("hidden");
 			flag = true;
 		}else{
 			$("#"+formBemMovelValidate.parentesco).addClass("hidden");
-		}	
+		}   
 		elemento.parentesco = $(formBemMovel.parentesco).val();
 		
-		if($(formBemMovel.finalidade).val() == ""){
+		if($(formBemMovel.finalidade).val() === ""){
 			$("#"+formBemMovelValidate.finalidade).removeClass("hidden");
 			flag = true;
 		}else{
 			$("#"+formBemMovelValidate.finalidade).addClass("hidden");
-		}	
+		}   
 		elemento.finalidade = $(formBemMovel.finalidade).val();
 		
-		if($(formBemMovel.veiculo).val() == ""){
+		if($(formBemMovel.veiculo).val() === ""){
 			$("#"+formBemMovelValidate.veiculo).removeClass("hidden");
 			flag = true;
 		}else{
 			$("#"+formBemMovelValidate.veiculo).addClass("hidden");
-		}	
+		}   
 		elemento.veiculo = $(formBemMovel.veiculo).val();
 		
-		if($(formBemMovel.parentesco).val() == "OUTRO"){
-			if($(formBemMovel.outro).val() == ""){
+		if($(formBemMovel.parentesco).val() === "OUTRO"){
+			if($(formBemMovel.outro).val() === ""){
 				$("#"+formBemMovelValidate.outro).removeClass("hidden");
 				flag = true;
 			}else{
 				$("#"+formBemMovelValidate.outro).addClass("hidden");
 			}
-		}	
+		}   
 		elemento.outro = $(formBemMovel.outro).val();
 		
 		if(flag){
@@ -738,7 +713,7 @@ var FormularioAuxilio = function() {
 				$(valor).val("");
 			});
 			var $selectOutroGrauParentesco = $("#outroGrauSelectImovelRural");
-			if($("#grauParentescoImovelRural").val() == "OUTRO"){
+			if($("#grauParentescoImovelRural").val() === "OUTRO"){
 				$("outroGrauParentescoImovelRural").val("");
 				$selectOutroGrauParentesco.removeClass("hidden");
 				
@@ -768,7 +743,7 @@ var FormularioAuxilio = function() {
 				$(valor).val("");
 			});
 			var $selectOutroGrauParentesco = $("#outroGrauSelectBemMovel");
-			if($("#grauParentescoBemMovel").val() == "OUTRO"){
+			if($("#grauParentescoBemMovel").val() === "OUTRO"){
 				$("outroGrauParentescoBemMovel").val("");
 				$selectOutroGrauParentesco.removeClass("hidden");
 			}else{
@@ -819,9 +794,9 @@ var FormularioAuxilio = function() {
 
 		var $divValorMensal = $("#div-valor-mensal");
 		var $inputValorMensal = $("#valorMensalFinanciamento");
-		/*	
-		 * 	Essa função é chamada quando o usuário seleciona 
-		 * 	alguma opção no select de Situação do Imóvel. 
+		/*  
+		 *  Essa função é chamada quando o usuário seleciona 
+		 *  alguma opção no select de Situação do Imóvel. 
 		 */
 		$select.on("change", function(){
 			var valorSelecionado = $select.find("option:selected").text();
@@ -883,17 +858,13 @@ var FormularioAuxilio = function() {
 	 */
 	self.initSelectParentescoImovelRural = function(){
 		var $select = $("#grauParentescoImovelRural");
-
 		var $selectOutroGrauParentesco = $("#outroGrauSelectImovelRural");
 		$select.change(function(){		
 			if($(this).val() === "OUTRO"){
 				$("outroGrauParentescoImovelRural").val("");
 				$selectOutroGrauParentesco.removeClass("hidden");
-				
-
 			}else{
 				$selectOutroGrauParentesco.addClass("hidden");
-
 			}
 		});
 	};
@@ -901,7 +872,7 @@ var FormularioAuxilio = function() {
 		var $select = $("#grauParentescoImovelRuralEditar");
 		var $selectOutroGrauParentesco = $("#outroGrauSelectImovelRuralEditar");
 		$select.change(function(){
-			if($(this).val() == "OUTRO"){
+			if($(this).val() === "OUTRO"){
 				$("outroGrauParentescoImovelRuralEditar").val("");
 				$selectOutroGrauParentesco.removeClass("hidden");
 			}else{
@@ -914,7 +885,7 @@ var FormularioAuxilio = function() {
 		var $select = $("#grauParentescoVeiculos");
 		var $selectOutroGrauParentesco = $("#outroGrauSelectBemMovel");
 		$select.change(function(){
-			if($(this).val() == "OUTRO"){
+			if($(this).val() === "OUTRO"){
 				$("outroGrauParentescoBemMovel").val("");
 				$selectOutroGrauParentesco.removeClass("hidden");
 				
@@ -928,7 +899,7 @@ var FormularioAuxilio = function() {
 		var $select = $("#grauParentescoVeiculosEditar");
 		var $selectOutroGrauParentesco = $("#outroGrauSelectBemMovelEditar");
 		$select.change(function(){
-			if($(this).val() == "OUTRO"){
+			if($(this).val() === "OUTRO"){
 				$("outroGrauParentescoBemMovelEditar").val("");
 				$selectOutroGrauParentesco.removeClass("hidden");
 			}else{
@@ -995,7 +966,7 @@ var FormularioAuxilio = function() {
 				$("select[name=estado]").val($("select[name=estadoOrigem]").val());
 				$("select[name=estado]").change();
 				$("#cidade").disabled = false;
-				$("select[name=cidade]").val($("select[name=cidadeOrigem]").val());				
+				$("select[name=cidade]").val($("select[name=cidadeOrigem]").val());             
 			}
 			else{     
 				$("#endereco").val("");
@@ -1047,7 +1018,7 @@ var FormularioAuxilio = function() {
 				$divBolsaParticularMedio.show();
 			} else {
 				$divBolsaParticularMedio.hide();
-			}	
+			}   
 		});
 	};
 	
@@ -1139,5 +1110,5 @@ var FormularioAuxilio = function() {
 var formAuxilio = new FormularioAuxilio();
 
 $(document).ready(function(){
-	formAuxilio.init();	
+	formAuxilio.init(); 
 });

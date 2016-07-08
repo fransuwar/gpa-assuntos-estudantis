@@ -61,9 +61,6 @@ public class InscricaoController {
 	@Inject
 	private InscricaoRepository inscricaoRepository;
 
-	@Inject
-	private InscricaoService inscricaoService;
-
 	
 	@Inject
 	private EmailService emailService;
