@@ -149,7 +149,7 @@ var FormularioAuxilio = function() {
 	};
 	
 	self.maskFields = function(){
-		$('.mask-field').each(function(){$(this).mask($(this).attr('mask-value'))});
+		$(".mask-field").each(function(){$(this).mask($(this).attr('mask-value'))});
 	};
 	
 	self.criarDivPessoaFamilia = function (indice, pessoaFamilia) {
@@ -327,7 +327,7 @@ var FormularioAuxilio = function() {
 	
 	self.addPessoaFamilia = function () {
 		$("#addPessoa").click(function() {
-			var pessoaFamilia = {}
+			var pessoaFamilia = {};
 			
 			//No caso de escolherem a opção outros no select e digitarem algo no campo outros 
 			//e depois mudarem de opção, o campo outros é limpo.
@@ -389,10 +389,8 @@ var FormularioAuxilio = function() {
 
 		var table = novoDivItem.find("tbody");
 		var tr = $("<tr></tr>");
-		
-		
-		
-		if(nomeElemento == "bemMovel"){
+
+		if(nomeElemento === "bemMovel"){
 			if(elemento.parentesco === "OUTRO"){
 				tr.append($("<td>" + elemento.outro + "</td>"));
 			}else{
@@ -413,7 +411,7 @@ var FormularioAuxilio = function() {
 		
 		var input = $("<input type=\"hidden\"/>");
 		
-		if(nomeElemento == "bemMovel"){
+		if(nomeElemento === "bemMovel"){
 			input.attr("value", elemento.parentesco);
 			input.attr("name", "bemMovel[" + indice + "].parentesco");
 			novoDivItem.append(input.clone());
@@ -443,7 +441,7 @@ var FormularioAuxilio = function() {
 		
 		return novoDivItem;
 
-	}
+	};
 
 	self.limparListaPropRurais = function () {
 		$("#listaPropRurais").children().each(function (indice, item) {
@@ -503,7 +501,7 @@ var FormularioAuxilio = function() {
 	
 	self.editarPropRural = function () {
 		
-		var divPropRural = $(this).parent().parent()
+		var divPropRural = $(this).parent().parent();
 		var idPropRural = divPropRural.attr("id").split("_")[1];
 		var propRural = listaPropRurais[idPropRural];
 		
@@ -519,7 +517,7 @@ var FormularioAuxilio = function() {
 		
 		var $selectOutroGrauParentesco = $("#outroGrauSelectImovelRuralEditar");
 		
-		if($("#grauParentescoImovelRuralEditar").val() == "OUTRO"){
+		if($("#grauParentescoImovelRuralEditar").val() === "OUTRO"){
 			$selectOutroGrauParentesco.removeClass("hidden");
 			
 		}else{
@@ -531,7 +529,7 @@ var FormularioAuxilio = function() {
 	};
 	
 	self.editarBemMovel = function () {
-		var divBemMovel = $(this).parent().parent()
+		var divBemMovel = $(this).parent().parent();
 		var idBemMovel = divBemMovel.attr("id").split("_")[1];
 		var bemMovel = listaBensMoveis[idBemMovel];
 
@@ -825,9 +823,9 @@ var FormularioAuxilio = function() {
 		var extencoes = ["jpeg", "jpg", "png"];
 		var fileName = $input.val();
 
-		if(fileName === "")
+		if(fileName === ""){
 			return true;
-
+		}
 		var extencaoFoto = fileName.split(".")[1] ? $input.val().split(".")[1] : "";
 		var res = extencoes.some(function(extencao){
 			return extencao === extencaoFoto;
@@ -860,17 +858,13 @@ var FormularioAuxilio = function() {
 	 */
 	self.initSelectParentescoImovelRural = function(){
 		var $select = $("#grauParentescoImovelRural");
-
 		var $selectOutroGrauParentesco = $("#outroGrauSelectImovelRural");
-		$select.change(function(){      
-			if($(this).val() == "OUTRO"){
+		$select.change(function(){		
+			if($(this).val() === "OUTRO"){
 				$("outroGrauParentescoImovelRural").val("");
 				$selectOutroGrauParentesco.removeClass("hidden");
-				
-
 			}else{
 				$selectOutroGrauParentesco.addClass("hidden");
-
 			}
 		});
 	};
@@ -922,10 +916,12 @@ var FormularioAuxilio = function() {
 		$divNomeCursinho.hide();
 		
 		$("#cursinho").click(function() {
-			if($(this).is(":checked"))
+			if($(this).is(":checked")){
 				$divNomeCursinho.show();
-			else       
+			}
+			else{       
 				$divNomeCursinho.hide();
+			}
 		});
 	};
 	
@@ -934,10 +930,12 @@ var FormularioAuxilio = function() {
 		$divDescricaoBolsa.hide();
 		
 		$( "#bolsistaUfc" ).change(function() {
-			  if($("#bolsistaUfc").val()==="true")
-				  $divDescricaoBolsa.show();      
-			  else
-				  $divDescricaoBolsa.hide(); 
+			  if($("#bolsistaUfc").val()==="true"){
+				  $divDescricaoBolsa.show();
+			  }
+			  else{
+				  $divDescricaoBolsa.hide();
+			  }
 		});
 	};
 	
@@ -946,10 +944,12 @@ var FormularioAuxilio = function() {
 		$divDescricaoGraduacao.hide();
 		
 		$( "#graduacao" ).change(function() {
-			  if($("#graduacao").val()==="true")
-				  $divDescricaoGraduacao.show();      
-			  else
-				  $divDescricaoGraduacao.hide(); 
+			  if($("#graduacao").val()==="true"){
+				  $divDescricaoGraduacao.show();
+			  }
+			  else{
+				  $divDescricaoGraduacao.hide();
+			  }
 		});
 	};
 	
@@ -957,7 +957,6 @@ var FormularioAuxilio = function() {
 	self.initDivMesmoEndereco = function(){
 		$("#mesmoEndereco").click(function() {
 			if($(this).is(":checked")){
-				console.log("Verdade");
 				$("#endereco").val($("#enderecoOrigem").val());
 				$("#numero").val($("#numeroOrigem").val());
 				$("#bairro").val($("#bairroOrigem").val());
@@ -978,7 +977,7 @@ var FormularioAuxilio = function() {
 				$("#referencia").val("");
 				$("select[name=estado]").val(null);
 				$("select[name=cidade]").val(null);
-				$("select[name=cidade]").attr('disabled', 'disabled');
+				$("select[name=cidade]").attr("disabled", "disabled");
 			}
 		});
 
@@ -990,7 +989,7 @@ var FormularioAuxilio = function() {
 	 */
 	self.initMascaras = function(){
 		
-		$('[data-mask]').each(function(){ $(this).mask( $(this).attr('data-mask')); });
+		$("[data-mask]").each(function(){ $(this).mask( $(this).attr('data-mask')); });
 		
 		
 
@@ -1031,7 +1030,7 @@ var FormularioAuxilio = function() {
 		
 		$select.change(function() {
 			var option = $(this).find("option:selected").text();
-			if(option == "Particular com Bolsa"){
+			if(option === "Particular com Bolsa"){
 				$divBolsaParticularFundamental.show();
 			} else {
 				$divBolsaParticularFundamental.hide();
@@ -1053,7 +1052,7 @@ var FormularioAuxilio = function() {
 			if ($(this).prop("checked")) {
 				$divMoraComOutros.show();
 			}else {
-				$inputComQuemMoraOutros.val("")
+				$inputComQuemMoraOutros.val("");
 				$divMoraComOutros.hide();
 			}
 		});
@@ -1101,9 +1100,9 @@ var FormularioAuxilio = function() {
 	};*/
 	
 	self.initConfirmButtons = function(){
-		$('.confirm-button').click(function(){
+		$(".confirm-button").click(function(){
 			var $this = $(this);
-			confirmar($this.attr('aria-title'), $this.attr('aria-destination'));
+			confirmar($this.attr("aria-title"), $this.attr("aria-destination"));
 		});
 	};
 };

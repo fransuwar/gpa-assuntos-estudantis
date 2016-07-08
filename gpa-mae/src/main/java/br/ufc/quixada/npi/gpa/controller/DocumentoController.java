@@ -2,6 +2,8 @@ package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DOCUMENTO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_OK;
+import static br.ufc.quixada.npi.gpa.utils.Constants.RESULT;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -55,12 +57,12 @@ public class DocumentoController {
 		ModelMap map = new ModelMap();
 		Documento documento = documentoRepository.findById(id);
 		if(documento == null) {
-			map.addAttribute("result", "erro");
+			map.addAttribute(RESULT, "erro");
 			map.addAttribute("mensagem", MENSAGEM_DOCUMENTO_INEXISTENTE);
 			return map;
 		}
 		documentoRepository.delete(documento);
-		map.addAttribute("result", MENSAGEM_OK);
+		map.addAttribute(RESULT, MENSAGEM_OK);
 		return map;
 	}
 
