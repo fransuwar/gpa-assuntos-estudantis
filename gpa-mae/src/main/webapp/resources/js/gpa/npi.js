@@ -229,6 +229,8 @@ $(document).ready(function(){
 	jQuery.validator.addMethod("periodo", function() {
 		return !moment($("#dataTermino").val()).isBefore($("#dataInicio").val());
 	}, "A data de término deve ser posterior à data de início.");
+	
+	$("#dataInicio").blur();
 
 
 	$("#adicionarSelecaoForm").validate({

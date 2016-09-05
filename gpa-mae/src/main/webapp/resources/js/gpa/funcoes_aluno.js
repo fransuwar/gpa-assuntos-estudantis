@@ -309,18 +309,10 @@ var FormularioAuxilio = function() {
 	};
 	
 	self.selectParentesco = function(){
-		$("#select-parentesco").change(function() {
-			if($(this).val() === "OUTROS"){
-				$("#outro-pessoa-familia").removeClass("hidden");
-			}       
-		});
-		
-		$("#parentesco").change(function() {
+		$("#comQuemMora6").change(function() {
 			if($(this).val() === "OUTRO"){
-				$("#outro-pessoa-familia").removeClass("hidden");
-			}else{
-				$("#outro-pessoa-familia").addClass("hidden");
-			}
+				$("#mora-com-outros").removeClass("hidden");
+			}   
 		});
 		
 	};
@@ -997,8 +989,9 @@ var FormularioAuxilio = function() {
 		$("#valorMensalFinanciamento").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
 		$("#renda-pessoa-familia").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
+		$("#valorMensalFinanciamento").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 		$("#rendaMensal").maskMoney({prefix:"R$ ", decimal:",", thousands:"."});
-		
+
 	};
 
 	/*
