@@ -195,7 +195,7 @@
 									</c:forEach>
 								</div>
 							</div>
-							<div id="mora-com-outros" class="form-group" align="left">
+							<div id="mora-com-outros" class="form-group hidden" align="left">
 								<div class='f-content'>
 									<label class='f-title'>Quem são essas pessoas?</label>
 									<div class='f-content'>
@@ -269,7 +269,7 @@
 
 						<div class='f-content'>
 							<form:input id="numeroOrigem" path="numeroOrigem"
-								cssClass="form-control" data-mask="999999" placeholder="Num" />
+								cssClass="form-control" placeholder="Num" />
 							<div class="error-validation">
 								<form:errors path="numeroOrigem"></form:errors>
 							</div>
@@ -425,7 +425,7 @@
 
 						<div class='f-content'>
 							<form:input id="numero" path="numero" cssClass="form-control"
-								data-mask="999999" placeholder="Num" />
+							 placeholder="Num" />
 							<div class="error-validation">
 								<form:errors path="numero"></form:errors>
 							</div>

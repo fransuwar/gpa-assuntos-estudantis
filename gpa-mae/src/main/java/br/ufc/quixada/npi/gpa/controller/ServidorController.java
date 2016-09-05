@@ -538,7 +538,7 @@ public class ServidorController {
 	@RequestMapping(value= {"relatorioVisitas/{idSelecao}"}, method = RequestMethod.GET)
 	public String relatorioDeVisitas(@PathVariable("idSelecao") Integer idSelecao, Model model){
 		
-		Selecao selecao = this.selecaoRepository.findById(idSelecao);
+		Selecao selecao = selecaoRepository.findById(idSelecao);
 		
 		model.addAttribute("inscritosComVisita", selecao.getAlunosSelecionadosVisita());
 		model.addAttribute("inscritosSemVisita", selecao.getAlunosNaoSelecionadosVisita());

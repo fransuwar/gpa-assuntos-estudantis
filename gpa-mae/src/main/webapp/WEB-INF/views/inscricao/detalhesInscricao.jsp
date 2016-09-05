@@ -73,18 +73,23 @@
 												<span class="glyphicon glyphicon-pencil"></span>
 											</button>
 										</a>
-									</sec:authorize>
-									<sec:authorize
-										access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
-										<a data-target="#modal-consolidacao-servidor"
-											data-toggle="modal"
-											data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
-											<button class="btn btn-success btn-sm"
-												title="Consolidar Inscrição">
-												<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
-											</button>
+										<a id="excluirInscricao"
+											data-target="#modal-excluir-inscricao"
+											class="btn btn-danger btn-sm" data-toggle="modal"
+											title="Excluir Inscrição"
+											data-href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
+											<i class="glyphicon glyphicon-trash"></i>
 										</a>
 									</sec:authorize>
+									<a data-target="#modal-consolidacao-servidor"
+										data-toggle="modal"
+										data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
+										<button class="btn btn-success btn-sm"
+											title="Consolidar Inscrição">
+											<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+										</button>
+									</a>
+
 								</c:when>
 								<c:otherwise>
 									<span class="label label-success">Inscrição consolidada</span>
@@ -729,30 +734,29 @@
 								<hr />
 							</c:forEach>
 
-								<div class="panel panel-default panel-primary">
-									<div class="panel-body">
-										<form:form id="obsDoc" role="form"
-											servletRelativeAction="/servidor/avaliarDocumentacao"
-											method="POST" modelAttribute="documentacao"
-											commandName="documentacao">
-											<div class="form-group">
-												<label class="col-sm-2 control-label">Observações:</label>
-												<div class="col-sm-8">
-													<form:textarea class="form-control" rows="8"
-														name="observacao" path="observacao"
-														value="${inscricao.documentacao.observacao}" />
-													<input type="hidden" value="${inscricao.id }"
-														name="idInscricao" />
-												</div>
+							<div class="panel panel-default panel-primary">
+								<div class="panel-body">
+									<form:form id="obsDoc" role="form"
+										servletRelativeAction="/servidor/avaliarDocumentacao"
+										method="POST" modelAttribute="documentacao"
+										commandName="documentacao">
+										<div class="form-group">
+											<label class="col-sm-2 control-label">Observações:</label>
+											<div class="col-sm-8">
+												<form:textarea class="form-control" rows="8"
+													name="observacao" path="observacao"
+													value="${inscricao.documentacao.observacao}" />
+												<input type="hidden" value="${inscricao.id }"
+													name="idInscricao" />
 											</div>
-											<div
-												class="form-group col-sm-2 col-sm-offset-8 margin-top-s1"
-												align="right">
-												<input type="submit" class="button btn btn-primary" />
-											</div>
-										</form:form>
-									</div>
+										</div>
+										<div class="form-group col-sm-2 col-sm-offset-8 margin-top-s1"
+											align="right">
+											<input type="submit" class="button btn btn-primary" />
+										</div>
+									</form:form>
 								</div>
+							</div>
 
 						</sec:authorize>
 					</div>

@@ -231,11 +231,10 @@ var FormularioAuxilio = function() {
 	};
 	
 	self.selectParentesco = function(){
-		$("#select-parentesco").change(function() {
-			if($(this).val() === "OUTROS"){
-				$("#outro-pessoa-familia").removeClass("hidden");
-			}
-			alert($(this).val());	    
+		$("#comQuemMora6").change(function() {
+			if($(this).val() === "OUTRO"){
+				$("#mora-com-outros").removeClass("hidden");
+			}   
 		});
 		
 	};
@@ -519,6 +518,7 @@ var FormularioAuxilio = function() {
 		$("#valorMensalFinanciamento").mask("###0000000.00", {reverse: true});
 		$("#areaPropriedadeRural").mask("#####0.00", {reverse: true});
 		$("#renda-pessoa-familia").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
+		$("#valorMensalFinanciamento").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 	};
 
 	/*
@@ -568,7 +568,7 @@ var FormularioAuxilio = function() {
 		var $inputComQuemMoraOutros = $("#comQuemMoraOutros");
 		
 		$divMoraComOutros.hide();
-		$("#comQuemMora7").change(function () {
+		$("#comQuemMora6").change(function () {
 			if ($(this).prop("checked")) {
 				$divMoraComOutros.show();
 			}else {
