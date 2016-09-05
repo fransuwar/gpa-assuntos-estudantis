@@ -2,12 +2,28 @@ package br.ufc.quixada.npi.gpa.utils;
 
 public class Constants {
 	
+	
+	/** Models*/
+	
+	public static final long MAX_IRA = 10;
+	public static final long MIN_IRA = 1;
+	public static final int MAX_DIGITOS_AGENCIA = 10;
+	public static final int MAX_DIGITOS_CONTA = 20;
+	
+	public static final int MIN_EDITAL = 1;
+	public static final int MIN_VAGAS = 1;
+	public static final int MAX_VAGAS = 999;
+	
+	
+	
 	/** Controllers*/
 	
 	public static final String ALUNO = "aluno";
 	public static final String NIVEL_INSTRUCAO = "nivelInstrucao";
 	public static final String SITUACAO_RESIDENCIA = "situacaoResidencia";
 	public static final String SELECAO = "selecao";
+	public static final String SELECOES = "selecoes";
+	public static final String ID_INSCRICAO = "idInscricao";
 	public static final String ID_SELECAO = "idSelecao";
 	public static final String TIPOS_DOCUMENTO = "tiposDeDocumento";
 	public static final String ACTION = "action";
@@ -21,9 +37,24 @@ public class Constants {
 	public static final String GRAU_PARENTESCO = "grauParentesco";
 	public static final String ERROR = "error";
 	public static final String QUESTIONARIO_AUXILIO_MORADIA = "questionarioAuxilioMoradia";
+	public static final String QUESTIONARIO_INICIACAO_ACADEMICA = "questionarioIniciacaoAcademica";
 	public static final String TIPO_AUX_MORADIA = "aux_mor";
+	public static final String TIPO_INIC_ACAD = "inic_acad";
 	public static final String CADASTRAR = "cadastrar";
 	public static final String EDITAR = "editar";
+	public static final String USUARIO_ATIVO = "usuarioAtivo";
+	public static final String ESCONDER_BOTOES = "esconderBotoes";
+	public static final String CLASSIFICADOS = "classificados";
+	public static final String DATA_TERMINO = "dataTermino";
+	public static final String TIPO_BOLSA = "tipoBolsa";
+	public static final String MESSAGE = "message";
+	public static final String CONTENT_DISPOSITION = "Content-Disposition";
+	public static final String CURSO = "curso";
+	public static final String RELATORIO_VISITA_DOMICILIAR = "relatorioVisitaDomiciliar";
+	public static final String TURNO = "turno";
+	public static final String ESCOLARIDADE = "escolaridade";
+	public static final String TIPO_SELECAO = "tipoSelecao";
+	public static final String RESULT = "result";
 
 	/** ServiceImpl*/
 	
@@ -64,37 +95,39 @@ public class Constants {
 	
 	public static final String PAGINA_REALIZAR_ENTREVISTA			= "servidor/realizarEntrevista";
 	
-	public static final String PAGINA_CADASTRAR_SELECAO = "coordenador/cadastrarSelecao";
+	public static final String PAGINA_CADASTRAR_SELECAO             = "coordenador/cadastrarSelecao";
 
-	public static final String PAGINA_LISTAR_SELECAO = "selecao/listarSelecao";
+	public static final String PAGINA_LISTAR_SELECAO 				= "selecao/listarSelecao";
 
-	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR = "servidor/listaSelecoes";
+	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR 		= "servidor/listaSelecoes";
 	
-	public static final String PAGINA_SELECIONAR_CLASSIFICADOS = "selecao/selecionarClassificados";
+	public static final String PAGINA_SELECIONAR_CLASSIFICADOS 		= "selecao/selecionarClassificados";
 	
-	public static final String PAGINA_ADICIONAR_ARQUIVO = "coordenador/adicionarArquivoSelecao";
+	public static final String PAGINA_ADICIONAR_ARQUIVO 			= "coordenador/adicionarArquivoSelecao";
 	
-	public static final String PAGINA_ADICIONAR_ARQUIVO_INSCRICAO = "aluno/uploadDocumentos";
+	public static final String PAGINA_ADICIONAR_ARQUIVO_INSCRICAO 	= "aluno/uploadDocumentos";
 
 	public static final String PAGINA_INSCREVER_INICIACAO_ACADEMICA = "aluno/inscricaoIniciacaoAcademica";
 
-	public static final String PAGINA_DETALHES_AUXILIO_MORADIA = "aluno/detalhesAuxilioMoradia";
+	public static final String PAGINA_DETALHES_AUXILIO_MORADIA 		= "aluno/detalhesAuxilioMoradia";
 
-	public static final String PAGINA_DETALHES_INICIACAO_ACADEMICA = "aluno/detalhesIniciacaoAcademica";
+	public static final String PAGINA_DETALHES_INICIACAO_ACADEMICA 	= "aluno/detalhesIniciacaoAcademica";
 
-	public static final String PAGINA_INSCREVER_AUXILIO_MORADIA = "aluno/inscricaoAuxilio";
+	public static final String PAGINA_INSCREVER_AUXILIO_MORADIA 	= "aluno/inscricaoAuxilio";
 
-	public static final String PAGINA_DETALHES_INSCRICAO = "inscricao/detalhesInscricao";
+	public static final String PAGINA_DETALHES_INSCRICAO 			= "inscricao/detalhesInscricao";
 
-	public static final String PAGINA_INSCRICOES_ALUNO = "aluno/minhasInscricoes";
+	public static final String PAGINA_INSCRICOES_ALUNO 				= "aluno/minhasInscricoes";
 
-	public static final String PAGINA_SELECOES_ABERTAS = "aluno/listarSelecoes";
+	public static final String PAGINA_SELECOES_ABERTAS 				= "aluno/listarSelecoes";
 	
-	public static final String PAGINA_AVALIAR_DOCUMENTACAO = "servidor/avaliarDocumentacao";
+	public static final String PAGINA_AVALIAR_DOCUMENTACAO 			= "servidor/avaliarDocumentacao";
 	
-	public static final String PAGINA_RELATORIO_VISITAS = "servidor/relatorioVisitasCidades";
+	public static final String PAGINA_RELATORIO_VISITAS 			= "servidor/relatorioVisitasCidades";
 	
-	public static final String PAGINA_RELATORIO_FINAL = "selecao/resultadoFinal";
+	public static final String PAGINA_RELATORIO_FINAL 				= "selecao/resultadoFinal";
+	
+	public static final String PAGINA_RELATORIO_VISITA_SELECAO 		= "/selecao/relatorioVisita";
 
 	// public static final String PAGINA_DETALHES_SELECAO_SERVIDOR =
 	// "servidor/detalhesSelecao";
@@ -124,16 +157,14 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR = "redirect:/administrador/listar";
 
 	public static final String REDIRECT_PAGINA_LISTAR_ALUNOS = "redirect:/administrador/listar/alunos";
-
-	public static final String REDIRECT_PAGINA_INSCRICOES_ALUNO = "redirect:/aluno/inscricao/listar";
 	
 	public static final String REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR = "redirect:/servidor/detalhesSelecaoServidor";
 
-	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO = "redirect:/servidor/detalhes/inscricao/";
-	
-	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO_ALUNO = "redirect:/aluno/inscricao/detalhes/";
+	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO = "redirect:/inscricao/detalhes/inscricao/";
 	
 	public static final String REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO = "redirect:/aluno/selecao/listar";
+	
+	public static final String REDIRECT_PAGINA_SELECAO_INSCRITOS = "redirect:/selecao/inscritos/";
 	
 	/** Mensagens */
 
@@ -170,8 +201,10 @@ public class Constants {
 	public static final String MENSAGEM_SUCESSO_INSCRICAO_REALIZADA = "Inscrição realizada com sucesso.";
 
 	public static final String MENSAGEM_SUCESSO_INSCRICAO_EDITADA = "Inscrição editada com sucesso.";
+	
+	public static final String MENSAGEM_SUCESSO_INSCRICAO_CONSOLIDADA = "Inscrição consolidada com sucesso.";
 
-	public static final String MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA = "Inscrição Excluída com Sucesso.";
+	public static final String MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA = "Inscrição excluída com sucesso.";
 
 	public static final String MENSAGEM_SUCESSO_SELECAO_CADASTRADA = "Nova seleção cadastrada com sucesso.";
 
@@ -179,7 +212,7 @@ public class Constants {
 
 	public static final String MENSAGEM_SUCESSO_SELECAO_REMOVIDA = "Seleção removida com sucesso.";
 
-	public static final String MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO = "Download do Documento realizado com sucesso";
+	public static final String MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO = "Download do documento realizado com sucesso";
 
 	public static final String MENSAGEM_SUCESSO_COMISSAO_FORMADA = "Membro inserido com sucesso.";
 
@@ -275,7 +308,7 @@ public class Constants {
 
 	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO = "Não é possível excluir esse arquivo";
 	
-	public static final String MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO = "Tipo de documento excuído com sucesso";
+	public static final String MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO = "Tipo de documento excluído com sucesso";
 	
 	public static final String MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO = "Não é possível excluir este tipo de documento pois ele já está em uso";
 	
@@ -311,6 +344,8 @@ public class Constants {
 	
 	public static final String VISITA_TAB = "visita-tab";
 	
+	public static final String ENTREVISTA_TAB = "entrevista-tab";
+	
 	/** Comunicação Javascript com os cards**/
 	
 	public static final String CARD_SELECIONADO = "card";
@@ -324,7 +359,19 @@ public class Constants {
 	public static final String RESULTADO = "resultado";
 	
 	public static final String SUCESSO = "sucesso";
-
+	
+	/** Email**/
+	public static final String FROM = "naoresponda@gpaassuntosestudantis.com";
+	
+	public static final String BODY = "Prezado(a),\n"+
+			"Sua inscrição para a seleção de auxílio moradia foi consolidada com sucesso!\n"+
+			"Atenciosamente,\n\n"+
+			"Coordenação de Assuntos Estudantis\n"+
+			"UFC – Campus Quixadá\n"+
+			" E-mail enviado automaticamente, por gentileza, não responder.";
+	
+	public static final String ASSUNTO = "Consolidação Confirmada";
+	
 	
 	/** Mensagens do sistema*/
 	

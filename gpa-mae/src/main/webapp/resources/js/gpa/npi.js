@@ -1,7 +1,28 @@
 var linha;
+function rowAdded(rowElement) {
+	$(rowElement).find("input").val("");
+}
 
+function novaAba(url){
+	window.open(url, "_blank");
+}
+
+function ConvertFormToJSON(form) {
+	var array = jQuery(form).serializeArray();
+	var json = {};
+	jQuery.each(array, function() {
+		json[this.name] = this.value || "";
+	});
+
+	return json;
+}
+
+function selecionarAba(idAba){
+	$(".active").removeClass("active");
+	$("#"+idAba).addClass("active");
+	$("a[href=#"+idAba+"]").parent().addClass("active");
+}
 $(document).ready(function(){
-	
 	//Função genérica para iniciar os datatables
 	function initDataTable(idTable, isPaging, isOrdering, isSearching, order, emptyTableMsg){
 		
@@ -76,7 +97,7 @@ $(document).ready(function(){
 			                        	 }
 			                         }
 			                         ],
-			                         initComplete: function(settings, json) {
+			                         initComplete: function(settings) {
 
 			                        	 $(".buttons-pdf").parent().css("float", "right");
 			                        	 $(".buttons-pdf").parent().css("margin-top", "-30px");
@@ -265,7 +286,7 @@ $(document).ready(function(){
 		$image.attr("src", $this.find("img").attr("src"));
 		$content.append($image);
 
-		if($this.index() != 0)
+		if($this.index() !== 0)
 			$content.append($prev);
 
 		if($this.index() !== $this.siblings().length)
@@ -303,7 +324,6 @@ $(document).ready(function(){
 
 	$("#myModal").on("hidden.bs.modal", function() {
 		document.getElementById("add-contato-form").reset();
-		var id = $("#id");
 	});
 
 	$("input.data").datepicker({
@@ -326,6 +346,10 @@ $(document).ready(function(){
 		todayHighlight : true,
 		autoclose : true
 
+	});
+	
+	$('#formPessoaFamilia').submit(function(){
+		$('#rendaMensal').val($('#rendaMensal').maskMoney('unmasked')[0]);
 	});
 	
 	
@@ -483,15 +507,7 @@ function soNumeros(v) {
 	return v.replace(/\D/g, "")
 }
 
-function ConvertFormToJSON(form) {
-	var array = jQuery(form).serializeArray();
-	var json = {};
-	jQuery.each(array, function() {
-		json[this.name] = this.value || "";
-	});
 
-	return json;
-}
 
 //É chamado quando clica no botão de editar contato, ele busca o contato
 //completo e povoa o formulário de edição
@@ -567,7 +583,7 @@ function validaHorariosDisponiveisSelecao(){
 		for(var k=0;k<valores.length;k+=2){
 			var dia = valores[k].value;
 			var turno = valores[k+1].value;
-			if(dia == "" || turno == ""){
+			if(dia === "" || turno === ""){
 				alert("Os campos de horários disponíveis são obrigatórios.");
 				return false;
 			}
@@ -614,17 +630,5 @@ function buscarSelecao(){
 	}
 }
 
-function rowAdded(rowElement) {
-	$(rowElement).find("input").val("");
-}
 
-function novaAba(url){
-	window.open(url, "_blank");
-}
-
-function selecionarAba(idAba){
-	$(".active").removeClass("active");
-	$("#"+idAba).addClass("active");
-	$("a[href=#"+idAba+"]").parent().addClass("active");
-}
 

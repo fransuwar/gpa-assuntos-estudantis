@@ -1,8 +1,13 @@
 package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.VISITA_TAB;
-import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.CURSO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ID_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ALUNO_INDEFERIDO;
@@ -15,8 +20,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_DOMICI
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MORADIA_ESTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
@@ -27,11 +31,8 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_IN
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTACAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MORADIA_ESTADO;
-
+import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.VISITA_TAB;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -55,9 +56,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Curso;
-import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
-import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.AnaliseDocumentacao;
@@ -125,7 +124,7 @@ public class ServidorController {
 		Inscricao inscricao = this.inscricaoRepository.findById(idInscricao);		
 
 		if(inscricao == null){
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
@@ -140,16 +139,16 @@ public class ServidorController {
 				if(comissao.contains(servidor)){
 
 					model.addAttribute(ENTREVISTA, new Entrevista());
-					model.addAttribute("idInscricao", idInscricao);
+					model.addAttribute(ID_INSCRICAO, idInscricao);
 
 					return PAGINA_REALIZAR_ENTREVISTA;
 
 				}else{
-					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA);
+					redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA);
 					return REDIRECT_PAGINA_LISTAR_SELECAO;
 				}
 			}else{
-				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_ALUNO_INDEFERIDO);
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_ALUNO_INDEFERIDO);
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}
 		}
@@ -168,7 +167,7 @@ public class ServidorController {
 		entrevistaRepository.save(entrevista2);
 		inscricaoRepository.save(inscricao);
 
-		redirect.addFlashAttribute("info",MENSAGEM_DE_SUCESSO_ENTREVISTA);
+		redirect.addFlashAttribute(INFO,MENSAGEM_DE_SUCESSO_ENTREVISTA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
@@ -186,7 +185,7 @@ public class ServidorController {
 
 		inscricaoRepository.save(inscricao);
 
-		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_ENTREVISTA);
+		redirect.addFlashAttribute(INFO, MENSAGEM_DE_SUCESSO_ENTREVISTA);
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}
 	
@@ -246,7 +245,7 @@ public class ServidorController {
 		Inscricao inscricao = this.inscricaoRepository.findById(idInscricao);
 
 		if(inscricao == null ){
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
@@ -260,24 +259,24 @@ public class ServidorController {
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 
 						model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
-						model.addAttribute("curso", Curso.values());
+						model.addAttribute(CURSO, Curso.values());
 						model.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
 						model.addAttribute(INSCRICAO, inscricao);
-						model.addAttribute("selecao", inscricao.getSelecao());
-						model.addAttribute("idInscricao", inscricao.getId());
+						model.addAttribute(SELECAO, inscricao.getSelecao());
+						model.addAttribute(ID_INSCRICAO, inscricao.getId());
 
 						return PAGINA_RELATORIO_VISITA;
 					}else{
-						redirect.addFlashAttribute("erro", MENSAGEM_ERRO_REALIZACAO_DE_VISITA_DOMICILIAR);
+						redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_REALIZACAO_DE_VISITA_DOMICILIAR);
 						return REDIRECT_PAGINA_DETALHES_SELECAO + inscricao.getSelecao().getId();
 					}
 				}else{
-					redirect.addFlashAttribute("erro", MENSAGEM_ERRO_VISITA_DOMICILIAR_JA_EXISTENTE);
+					redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_VISITA_DOMICILIAR_JA_EXISTENTE);
 					return REDIRECT_PAGINA_DETALHES_SELECAO + inscricao.getSelecao().getId();
 				}
 
 			} else{
-				redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_VISITA);
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_VISITA);
 				return REDIRECT_PAGINA_DETALHES_SELECAO + inscricao.getSelecao().getId();			
 			}
 		}
@@ -296,16 +295,16 @@ public class ServidorController {
 
 		if (result.hasErrors()) {
 
-			model.addAttribute("curso", Curso.values());
+			model.addAttribute(CURSO, Curso.values());
 			model.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
 			model.addAttribute(INSCRICAO, inscricao);
-			model.addAttribute("selecao", inscricao.getSelecao());
+			model.addAttribute(SELECAO, inscricao.getSelecao());
 
 			return PAGINA_RELATORIO_VISITA;
 		}
 
 		inscricaoRepository.save(inscricao);
-		redirect.addFlashAttribute("info", MENSAGEM_VISITA_CADASTRADA);
+		redirect.addFlashAttribute(INFO, MENSAGEM_VISITA_CADASTRADA);
 
 		return REDIRECT_PAGINA_DETALHES_SELECAO  + inscricao.getSelecao().getId();
 	}
@@ -317,7 +316,7 @@ public class ServidorController {
 
 		if (visitaDomiciliar == null ) {
 
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_VISITA_INEXISTENTE);
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_VISITA_INEXISTENTE);
 			return REDIRECT_PAGINA_DETALHES_SELECAO;
 		}
 
@@ -337,76 +336,23 @@ public class ServidorController {
 		Selecao selecao = selecaoRepository.findById(idSelecao);
 
 		if (selecao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		} else {
 			Servidor servidor = servidorRepository.findByCpf(auth.getName());
 			List<Servidor> comissao = selecao.getMembrosComissao();
 			if(comissao.contains(servidor)) {
 				List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecao(idSelecao);
-				model.addAttribute("selecao", selecao);
+				model.addAttribute(SELECAO, selecao);
 				model.addAttribute("inscricoes", inscricoes);
 				model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_INSCRICAO);
 				
 				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 			} else {
-				redirect.addFlashAttribute("erro",  MENSAGEM_PERMISSAO_NEGADA);
+				redirect.addFlashAttribute(ERRO,  MENSAGEM_PERMISSAO_NEGADA);
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}
 		}
-	}
-
-	@RequestMapping(value ={ "detalhes/inscricao/{idInscricao}"}, method = RequestMethod.GET)
-	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model modelo,
-			RedirectAttributes redirect, @RequestParam(value="ativar-aba-entrevista",required=false) boolean ativarAbaEntrevista) {
-			
-		
-		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
-		modelo.addAttribute("pessoaDaFamilia",new PessoaFamilia());
-		modelo.addAttribute("documentacao", new AnaliseDocumentacao());
-		
-		if (inscricao == null) {
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
-			return REDIRECT_PAGINA_LISTAR_SELECAO;
-
-		}else if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
-			modelo.addAttribute(INSCRICAO, inscricao);
-			modelo.addAttribute("usuarioAtivo", inscricao.getAluno().getPessoa());
-			
-			//Verificando se alguma aba específica foi setada no redirect
-			String nomeAba = (String) modelo.asMap().getOrDefault(ABA_SELECIONADA, null);
-			
-			if(nomeAba == null){
-				//Se nenhuma aba foi setada então a aba padrão é selecionada 
-				nomeAba = INSCRICAO_TAB; 
-			}
-
-			modelo.addAttribute(ABA_SELECIONADA, nomeAba);
-			
-			if(inscricao.getEntrevista()!=null){
-				modelo.addAttribute(ENTREVISTA, inscricao.getEntrevista());
-			}else{
-				modelo.addAttribute(ENTREVISTA, new Entrevista());
-			    modelo.addAttribute("grauParentesco", GrauParentesco.values());
-			    modelo.addAttribute("escolaridade",Escolaridade.values());
-			}
-			
-			if(inscricao.getDocumentacao() != null){
-				modelo.addAttribute(DOCUMENTACAO, inscricao.getDocumentacao());
-			}else{
-				modelo.addAttribute(DOCUMENTACAO, new AnaliseDocumentacao());
-			}
-			    
-			
-
-			return PAGINA_DETALHES_INSCRICAO;
-		}else {
-			modelo.addAttribute(INSCRICAO, inscricao);
-			modelo.addAttribute("questInic", inscricao.getQuestionarioIniciacaoAcademica());
-			return PAGINA_DETALHES_INICIACAO_ACADEMICA;
-		}
-		
-		
 	}
 	
 	@RequestMapping(value ={ "detalhes/inscricao/inserirImagem"}, method = RequestMethod.POST)
@@ -481,13 +427,13 @@ public class ServidorController {
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		
 		if(inscricao == null){
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 		}else{
 		QuestionarioAuxilioMoradia auxilio = inscricao.getQuestionarioAuxilioMoradia();
 		auxilio.getPessoasEntrevista().add(pessoa);
 		inscricaoRepository.save(inscricao);
-		redirect.addFlashAttribute(ABA_SELECIONADA,"entrevista-tab");
+		redirect.addFlashAttribute(ABA_SELECIONADA,ENTREVISTA_TAB);
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 		}
 			
@@ -501,7 +447,7 @@ public class ServidorController {
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		
 		if(inscricao == null){
-			redirect.addFlashAttribute("erro", MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 			return REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 		}else{
 		PessoaFamilia pessoa = inscricaoService.buscarPessoaFamiliaPorId(idPessoa);
@@ -510,7 +456,7 @@ public class ServidorController {
 		inscricaoRepository.save(inscricao);
         model.addAttribute(INSCRICAO,inscricao);
 
-	    redirect.addFlashAttribute(ABA_SELECIONADA,"entrevista-tab");
+	    redirect.addFlashAttribute(ABA_SELECIONADA,ENTREVISTA_TAB);
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 		}
 			
@@ -518,19 +464,21 @@ public class ServidorController {
 	}
 
 	@RequestMapping(value= {"avaliarDocumentacao"}, method = RequestMethod.POST)
-	public String avaliarDocumentacao(@Valid @ModelAttribute("documentacao") AnaliseDocumentacao analiseDocumentacao , @RequestParam("idInscricao") Integer idInscricao, 
-
-			BindingResult result, RedirectAttributes redirect, Model model , Authentication auth){
+	public String avaliarDocumentacao(@RequestParam("idInscricao") Integer idInscricao, @RequestParam("resultado") Resultado resultado, 
+			@RequestParam("observacao") String observacao, RedirectAttributes redirect, Authentication auth){
 
         Inscricao inscricao = inscricaoRepository.findById(idInscricao);
         Servidor servidor = servidorRepository.findByCpf(auth.getName());
-
+        
+        AnaliseDocumentacao analiseDocumentacao = inscricao.getDocumentacao();
+        analiseDocumentacao.setDeferimento(resultado);
+        analiseDocumentacao.setObservacao(observacao);
         analiseDocumentacao.setServidor(servidor);
 		inscricao.setDocumentacao(analiseDocumentacao);
 		inscricaoRepository.save(inscricao);
 		
 		redirect.addFlashAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
-		redirect.addFlashAttribute("info", MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO);
+		redirect.addFlashAttribute(INFO, MENSAGEM_DE_SUCESSO_AVALIAR_DOCUMENTACAO);
 		redirect.addFlashAttribute(ABA_SELECIONADA,DOCUMENTOS_TAB);
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
@@ -543,7 +491,7 @@ public class ServidorController {
 		model.addAttribute("inscritosComVisita", selecao.getAlunosSelecionadosVisita());
 		model.addAttribute("inscritosSemVisita", selecao.getAlunosNaoSelecionadosVisita());
 		model.addAttribute("cidadesVisitadas", selecao.getCidadesVisita());
-		model.addAttribute("selecao", selecao);
+		model.addAttribute(SELECAO, selecao);
 		
 		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
 		

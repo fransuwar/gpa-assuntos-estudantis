@@ -23,6 +23,7 @@
 		type="hidden" value="${ativarAbaEntrevista }" />
 	<div class="container" align="center">
 		<input type="hidden" value="${inscricao.id}" name="idInscricao">
+		
 		<c:if test="${not empty info}">
 			<div class="alert alert-success alert-dismissible" role="alert"
 				id="alert-info">
@@ -34,6 +35,7 @@
 				</div>
 			</div>
 		</c:if>
+		
 		<ul class="nav nav-tabs">
 			<li id="aba-inscricao"><a href="#inscricao-tab"
 				data-toggle="tab">Inscrição<i class="fa"></i>
@@ -80,15 +82,29 @@
 											data-href="<c:url value="/aluno/inscricao/excluir/${aluno.id}/${inscricao.id}" ></c:url>">
 											<i class="glyphicon glyphicon-trash"></i>
 										</a>
+
+										<a data-target="#modal-consolidacao" data-toggle="modal"
+											data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
+											<button class="btn btn-success btn-sm"
+												title="Consolidar Inscrição">
+												<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+											</button>
+										</a>
 									</sec:authorize>
-									<a data-target="#modal-consolidacao-servidor"
-										data-toggle="modal"
-										data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
-										<button class="btn btn-success btn-sm"
-											title="Consolidar Inscrição">
-											<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
-										</button>
-									</a>
+
+									<sec:authorize
+										access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+										
+										<a data-target="#modal-consolidacao-servidor" data-toggle="modal"
+											data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
+											<button class="btn btn-success btn-sm"
+												title="Consolidar Inscrição">
+												<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
+											</button>
+										</a>
+										
+									</sec:authorize>
+
 
 								</c:when>
 								<c:otherwise>
@@ -171,6 +187,11 @@
 						<div class='f-container s4 left'>
 							<label class='f-title'>Resultado:</label>
 							<div class='f-content'>${inscricao.resultado.nome}</div>
+						</div>
+
+						<div class='f-container s3 left'>
+							<label class='f-title'>Observações:</label>
+							<div class='f-content'>${inscricao.observacoes}</div>
 						</div>
 
 					</div>
@@ -327,32 +348,27 @@
 
 						<div class='f-container s5'></div>
 
-						<h5 class="titulo-dl divisor">Propriedade Rural</h5>
+						<%-- <h5 class="titulo-dl divisor">Propriedade Rural</h5>
 						<div class='f-container s5'>
 							<label class='f-title'>Grau de parentesco do
 								proprietário:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.grauParentescoImovelRural.nome}</div>
 						</div>
-
 						<div class='f-container s5'>
 							<label class='f-title'>Área da propriedade:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.areaPropriedadeRural}</div>
 						</div>
-
 						<div class='f-container s5'>
 							<label class='f-title'>Cidade/Estado Imóvel:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.cidadeEstadoImovelRural}</div>
 						</div>
-
 						<div class='f-container s5'></div>
-
 						<h5 class="titulo-dl divisor">Bens Móveis (Veículos)</h5>
 						<div class='f-container s5'>
 							<label class='f-title'>Grau de parentesco do
 								proprietário:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.grauParentescoVeiculos.nome}</div>
 						</div>
-
 						<div class='f-container s5'>
 							<label class='f-title'>Veículo:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.veiculo}</div>
@@ -360,7 +376,7 @@
 						<div class='f-container s5'>
 							<label class='f-title'>Finalidade do Veículo:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.finalidadeVeiculo}</div>
-						</div>
+						</div> --%>
 
 						<div class='f-container s5'></div>
 
@@ -574,6 +590,7 @@
 			</div>
 
 			<div class="tab-pane" id="documentos-tab">
+
 				<c:if test="${not empty error}">
 					<div class="alert alert-danger alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert"
@@ -583,29 +600,6 @@
 						${error }
 					</div>
 				</c:if>
-				<div class="panel panel-default panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Informações da Documentação</h3>
-					</div>
-					<div class="panel-body">
-						<dl class='col-sm-12'>
-							<dt class="col-sm-2">Parecer:</dt>
-							<c:choose>
-								<c:when
-									test="${inscricao.documentacao.deferimento == 'DEFERIDO'}">
-									<dd class="col-sm-2">DEFERIDO</dd>
-								</c:when>
-								<c:otherwise>
-									<dd class="col-sm-2">INDEFERIDO</dd>
-								</c:otherwise>
-							</c:choose>
-							<dt class="col-sm-2">Observação:</dt>
-							<dd class="col-sm-2">${inscricao.documentacao.observacao}</dd>
-							<dt class="col-sm-2">Responsável:</dt>
-							<dd class="col-sm-2">${inscricao.documentacao.servidor.pessoa.nome}</dd>
-						</dl>
-					</div>
-				</div>
 
 				<div class="panel panel-default panel-primary">
 					<div class="panel-heading">
@@ -614,6 +608,7 @@
 					</div>
 
 					<div class="panel-body text-align-left">
+
 						<sec:authorize access="hasAnyRole('DISCENTE')">
 							<c:if test="${inscricao.consolidacao eq false }">
 								<form class="full-width" id="insercaoFormularioVisita"
@@ -734,31 +729,46 @@
 								<hr />
 							</c:forEach>
 
-							<div class="panel panel-default panel-primary">
-								<div class="panel-body">
-									<form:form id="obsDoc" role="form"
-										servletRelativeAction="/servidor/avaliarDocumentacao"
-										method="POST" modelAttribute="documentacao"
-										commandName="documentacao">
-										<div class="form-group">
-											<label class="col-sm-2 control-label">Observações:</label>
-											<div class="col-sm-8">
-												<form:textarea class="form-control" rows="8"
-													name="observacao" path="observacao"
-													value="${inscricao.documentacao.observacao}" />
-												<input type="hidden" value="${inscricao.id }"
-													name="idInscricao" />
-											</div>
-										</div>
-										<div class="form-group col-sm-2 col-sm-offset-8 margin-top-s1"
-											align="right">
-											<input type="submit" class="button btn btn-primary" />
-										</div>
-									</form:form>
-								</div>
-							</div>
+							</sec:authorize>
 
-						</sec:authorize>
+							<sec:authorize
+								access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+
+								<div class="panel panel-default panel-primary">
+									<div class="panel-body">
+										<form id="obsDoc" role="form"
+											action="/MAE/servidor/avaliarDocumentacao"
+											method="POST">
+											
+											<div class="form-group">
+												<label class="col-sm-2 control-label">Resultado:</label>
+												<div class="col-sm-10">
+													<select name="resultado" class="form-control">
+														<option value="NAO_AVALIADO">Não avaliado</option>
+														<option value="DEFERIDO">Deferido</option>
+														<option value="INDEFERIDO">Indeferido</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">Observações:</label>
+												<div class="col-sm-10">
+													<textarea class="form-control select" rows="8"
+														name="observacao" 
+														value="${inscricao.observacaoDocumentos}"></textarea>
+													<input type="hidden" value="${inscricao.id }"
+														name="idInscricao" />
+												</div>
+											</div>
+											<div class="form-group col-sm-offset-8 margin-top-s1">
+												<input type="submit" class="button btn btn-primary" />
+											</div>
+										</form>
+									</div>
+								</div>
+
+							</sec:authorize>
+
 					</div>
 
 				</div>
@@ -774,14 +784,13 @@
 						<div class="panel-body">
 							<form:form id="obsDoc" role="form"
 								servletRelativeAction="/servidor/avaliarDocumentacao"
-								method="POST" modelAttribute="documentacao"
-								commandName="documentacao">
+								method="POST" modelAttribute="inscricao" commandName="inscricao">
 								<div class="form-group">
 									<label class="col-sm-2 control-label">Observações:</label>
 									<div class="col-sm-8">
-										<form:textarea class="form-control" rows="8" name="observacao"
-											path="observacao"
-											value="${inscricao.documentacao.observacao}" />
+										<form:textarea class="form-control" rows="8"
+											name="avaliarDocumentacao" path="observacaoDocumentos"
+											value="${inscricao.observacaoDocumentos}" />
 										<input type="hidden" value="${inscricao.id }"
 											name="idInscricao" />
 									</div>
@@ -813,7 +822,7 @@
 						<c:otherwise>
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
-									<h3 class="panel-title">Informações da Entrevista</h3>
+									<h3 class="panel-title">Dados da Entrevista</h3>
 								</div>
 								<div class="panel-body">
 									<dl class='col-sm-12'>
@@ -824,70 +833,6 @@
 										<dt class="col-sm-2">Responsável:</dt>
 										<dd class="col-sm-2">${inscricao.entrevista.servidor.pessoa.nome}</dd>
 									</dl>
-								</div>
-							</div>
-							<div class="panel panel-default panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">Entrevista</h3>
-								</div>
-								<div class="panel-body">
-									<form:form id="relatorioForm" role="form"
-										modelAttribute="entrevista" commandName="entrevista"
-										servletRelativeAction="/servidor/entrevista" method="POST">
-
-										<input type="hidden" value="${inscricao.id}"
-											name="idInscricao">
-										<input type="hidden" id="idServidor" name="idServidor"
-											value="${sessionScope.id}" />
-										<input type="hidden" id="idEntrevista" name="idEntrevista"
-											value="${inscricao.entrevista.id}" />
-
-										<div class="row col-sm-6">
-											<fieldset class="form-group">
-												<label for="observacao" class="col-sm-1 control-label">Observação</label>
-												<form:textarea class="col-sm-5 form-control"
-													name="observacao" rows="3" id="observacao" type="text"
-													path="observacao" placeholder="Observação"></form:textarea>
-												<span class="help-block"></span>
-												<div class="error-validation">
-													<form:errors path="observacao"></form:errors>
-												</div>
-											</fieldset>
-										</div>
-										<div class="row col-sm-6">
-											<fieldset class="form-group col-sm-5">
-												<label for="deferimento" class="col-sm-1 control-label">Deferimento</label>
-												<select name="deferimento" id="deferimento"
-													class="form-control col-sm-3">
-													<option value="DEFERIDO">Deferido</option>
-													<option value="INDEFERIDO"
-														<c:if test="${inscricao.entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
-												</select>
-											</fieldset>
-											<fieldset class="form-group margin-top-s3">
-												<label for="realizarVisita" class="control-label">Realizar
-													Visita</label>
-												<c:choose>
-													<c:when test="${inscricao.realizarVisita}">
-														<input type="checkbox" id="realizarVisita"
-															name="realizarVisita" value="true" checked />
-													</c:when>
-													<c:otherwise>
-														<input type="checkbox" id="realizarVisita"
-															name="realizarVisita" value="true" />
-													</c:otherwise>
-												</c:choose>
-											</fieldset>
-											<fieldset class="form-group">
-												<button name="submit" type="submit"
-													class="btn btn-primary btn-md" value="${botao}"
-													id="form-btn">Enviar</button>
-												<a href="<c:url value="/selecao/listar" ></c:url>"
-													class="btn btn-default btn-md" id="form-btn">Cancelar</a>
-											</fieldset>
-										</div>
-
-									</form:form>
 								</div>
 							</div>
 
@@ -952,6 +897,14 @@
 														</c:forEach>
 													</form:select>
 												</div>
+												
+												<div id="outro-pessoa-familia" class="col-sm-4 text-align-left hidden">
+													<label for="parentesco" class="control-label">
+														Especifique quem é esta outra
+														pessoa: </label>
+													<form:input cssClass="form-control" type="text"
+															path="outro" id="outroPessoaFamilia" required="required" />
+												</div>
 												<div class="col-sm-2 text-align-left">
 													<label for="idade" class="control-label"> Idade: </label>
 													<form:input cssClass="form-control" type="number"
@@ -1005,7 +958,11 @@
 												items="${inscricao.questionarioAuxilioMoradia.pessoasEntrevista}">
 												<tr>
 													<td>${pessoa.nome}</td>
-													<td>${pessoa.parentesco.nome}</td>
+													<c:choose>
+														<c:when test="${empty pessoa.outro}"><td>${pessoa.parentesco.nome}</td></c:when>
+														<c:otherwise><td>${pessoa.outro}</td></c:otherwise>
+													</c:choose>
+													
 													<td>${pessoa.escolaridade.nome}</td>
 													<td>${pessoa.idade}</td>
 													<td>${pessoa.profissao}</td>
@@ -1021,6 +978,71 @@
 											</c:forEach>
 										</tbody>
 									</table>
+								</div>
+							</div>
+							
+							<div class="panel panel-default panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Entrevista</h3>
+								</div>
+								<div class="panel-body">
+									<form:form id="relatorioForm" role="form"
+										modelAttribute="entrevista" commandName="entrevista"
+										servletRelativeAction="/servidor/entrevista" method="POST">
+
+										<input type="hidden" value="${inscricao.id}"
+											name="idInscricao">
+										<input type="hidden" id="idServidor" name="idServidor"
+											value="${sessionScope.id}" />
+										<input type="hidden" id="idEntrevista" name="idEntrevista"
+											value="${inscricao.entrevista.id}" />
+
+										<div class="row col-sm-6">
+											<fieldset class="form-group">
+												<label for="observacao" class="col-sm-1 control-label">Observação</label>
+												<form:textarea class="col-sm-5 form-control"
+													name="observacao" rows="3" id="observacao" type="text"
+													path="observacao" placeholder="Observação"></form:textarea>
+												<span class="help-block"></span>
+												<div class="error-validation">
+													<form:errors path="observacao"></form:errors>
+												</div>
+											</fieldset>
+										</div>
+										<div class="row col-sm-6">
+											<fieldset class="form-group col-sm-5">
+												<label for="deferimento" class="col-sm-1 control-label">Deferimento</label>
+												<select name="deferimento" id="deferimento"
+													class="form-control col-sm-3">
+													<option value="DEFERIDO">Deferido</option>
+													<option value="INDEFERIDO"
+														<c:if test="${inscricao.entrevista.deferimento=='INDEFERIDO'}"> selected  </c:if>>Indeferido</option>
+												</select>
+											</fieldset>
+											<fieldset class="form-group margin-top-s3">
+												<label for="realizarVisita" class="control-label">Realizar
+													Visita</label>
+												<c:choose>
+													<c:when test="${inscricao.realizarVisita}">
+														<input type="checkbox" id="realizarVisita"
+															name="realizarVisita" value="true" checked />
+													</c:when>
+													<c:otherwise>
+														<input type="checkbox" id="realizarVisita"
+															name="realizarVisita" value="true" />
+													</c:otherwise>
+												</c:choose>
+											</fieldset>
+											<fieldset class="form-group">
+												<button name="submit" type="submit"
+													class="btn btn-primary btn-md" value="${botao}"
+													id="form-btn">Enviar</button>
+												<a href="<c:url value="/selecao/listar" ></c:url>"
+													class="btn btn-default btn-md" id="form-btn">Cancelar</a>
+											</fieldset>
+										</div>
+										
+									</form:form>
 								</div>
 							</div>
 						</c:otherwise>
@@ -1041,7 +1063,7 @@
 						<c:otherwise>
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
-									<h3 class="panel-title">Informações da Visita</h3>
+									<h3 class="panel-title">Entrevista</h3>
 								</div>
 								<div class="panel-body">
 									<dl class='col-sm-12'>
@@ -1057,8 +1079,6 @@
 										</c:choose>
 										<dt class="col-sm-2">Observação:</dt>
 										<dd class="col-sm-2">${inscricao.visitaDomiciliar.observacaoParecer}</dd>
-										<dt class="col-sm-2">Responsável:</dt>
-										<dd class="col-sm-2">${inscricao.visitaDomiciliar.servidor.pessoa.nome}</dd>
 									</dl>
 								</div>
 							</div>
