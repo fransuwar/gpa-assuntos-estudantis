@@ -352,26 +352,21 @@
 								proprietário:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.grauParentescoImovelRural.nome}</div>
 						</div>
-
 						<div class='f-container s5'>
 							<label class='f-title'>Área da propriedade:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.areaPropriedadeRural}</div>
 						</div>
-
 						<div class='f-container s5'>
 							<label class='f-title'>Cidade/Estado Imóvel:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.cidadeEstadoImovelRural}</div>
 						</div>
-
 						<div class='f-container s5'></div>
-
 						<h5 class="titulo-dl divisor">Bens Móveis (Veículos)</h5>
 						<div class='f-container s5'>
 							<label class='f-title'>Grau de parentesco do
 								proprietário:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.grauParentescoVeiculos.nome}</div>
 						</div>
-
 						<div class='f-container s5'>
 							<label class='f-title'>Veículo:</label>
 							<div class='f-content'>${inscricao.questionarioAuxilioMoradia.veiculo}</div>
