@@ -15,6 +15,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_IN
 import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.USUARIO_ATIVO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_CONSOLIDADA;
 
 import java.io.IOException;
 import java.util.Date;
@@ -23,7 +24,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
-
 
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -47,7 +47,6 @@ import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
-import br.ufc.quixada.npi.gpa.service.InscricaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.model.Email;
 import br.ufc.quixada.npi.service.EmailService;
@@ -125,6 +124,12 @@ public class InscricaoController {
 
 			model.addAttribute(ABA_SELECIONADA, nomeAba);
 			
+			String msgSucesso = (String) model.asMap().getOrDefault(INFO, null);
+			
+			if(msgSucesso != null){
+				model.addAttribute(INFO, msgSucesso);
+			}
+			
 			if(inscricao.getEntrevista()!=null)
 				model.addAttribute(ENTREVISTA, inscricao.getEntrevista());
 			else
@@ -166,6 +171,7 @@ public class InscricaoController {
 
 		inscricao.setConsolidacao(true);
 		inscricaoRepository.save(inscricao);
+		redirect.addFlashAttribute(INFO,MENSAGEM_SUCESSO_INSCRICAO_CONSOLIDADA);
 
 		model.addAttribute("selecoes", selecoes);
 		redirect.addFlashAttribute(ABA_SELECIONADA,INSCRICAO_TAB);

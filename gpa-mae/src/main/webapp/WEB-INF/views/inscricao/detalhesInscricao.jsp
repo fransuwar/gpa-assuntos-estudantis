@@ -23,7 +23,7 @@
 		type="hidden" value="${ativarAbaEntrevista }" />
 	<div class="container" align="center">
 		<input type="hidden" value="${inscricao.id}" name="idInscricao">
-		
+
 		<c:if test="${not empty info}">
 			<div class="alert alert-success alert-dismissible" role="alert"
 				id="alert-info">
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 		</c:if>
-		
+
 		<ul class="nav nav-tabs">
 			<li id="aba-inscricao"><a href="#inscricao-tab"
 				data-toggle="tab">Inscrição<i class="fa"></i>
@@ -94,15 +94,16 @@
 
 									<sec:authorize
 										access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
-										
-										<a data-target="#modal-consolidacao-servidor" data-toggle="modal"
+
+										<a data-target="#modal-consolidacao-servidor"
+											data-toggle="modal"
 											data-href="<c:url value="/inscricao/consolidar/${inscricao.id}"></c:url>">
 											<button class="btn btn-success btn-sm"
 												title="Consolidar Inscrição">
 												<i class="glyphicon glyphicon-ok"></i> Consolidar inscrição
 											</button>
 										</a>
-										
+
 									</sec:authorize>
 
 
@@ -189,10 +190,7 @@
 							<div class='f-content'>${inscricao.resultado.nome}</div>
 						</div>
 
-						<div class='f-container s3 left'>
-							<label class='f-title'>Observações:</label>
-							<div class='f-content'>${inscricao.observacoes}</div>
-						</div>
+						<div class='f-container s3 left'></div>
 
 					</div>
 				</div>
@@ -734,45 +732,59 @@
 								<hr />
 							</c:forEach>
 
-							</sec:authorize>
+						</sec:authorize>
 
-							<sec:authorize
-								access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+						<sec:authorize
+							access="hasAnyRole('SERVIDOR','STA','COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 
-								<div class="panel panel-default panel-primary">
-									<div class="panel-body">
-										<form id="obsDoc" role="form"
-											action="/MAE/servidor/avaliarDocumentacao"
-											method="POST">
-											
-											<div class="form-group">
-												<label class="col-sm-2 control-label">Resultado:</label>
-												<div class="col-sm-10">
-													<select name="resultado" class="form-control">
-														<option value="NAO_AVALIADO">Não avaliado</option>
-														<option value="DEFERIDO">Deferido</option>
-														<option value="INDEFERIDO">Indeferido</option>
-													</select>
-												</div>
+							<div class="panel panel-default panel-primary">
+								<div class="panel-body">
+									<form id="obsDoc" role="form"
+										action="/MAE/servidor/avaliarDocumentacao" method="POST">
+
+										<div class="form-group">
+											<label class="col-sm-2 control-label">Resultado:</label>
+											<div class="col-sm-10">
+												<select name="resultado" class="form-control" required="required">
+													<c:choose>
+														<c:when
+															test="${inscricao.documentacao.deferimento eq 'DEFERIDO'}">
+															<option value="NAO_AVALIADO">Não avaliado</option>
+															<option selected value="DEFERIDO">Deferido</option>
+															<option value="INDEFERIDO">Indeferido</option>
+														</c:when>
+														<c:when
+															test="${inscricao.documentacao.deferimento eq 'INDEFERIDO'}">
+															<option value="NAO_AVALIADO">Não avaliado</option>
+															<option value="DEFERIDO">Deferido</option>
+															<option selected value="INDEFERIDO">Indeferido</option>
+														</c:when>
+														<c:otherwise>
+														    <option selected value="NAO_AVALIADO">Não avaliado</option>
+														    <option value="DEFERIDO">Deferido</option>
+															<option value="INDEFERIDO">Indeferido</option>
+														</c:otherwise>
+													</c:choose>
+												</select> 
 											</div>
-											<div class="form-group">
-												<label class="col-sm-2 control-label">Observações:</label>
-												<div class="col-sm-10">
-													<textarea class="form-control select" rows="8"
-														name="observacao" 
-														value="${inscricao.observacaoDocumentos}"></textarea>
-													<input type="hidden" value="${inscricao.id }"
-														name="idInscricao" />
-												</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label">Observações:</label>
+											<div class="col-sm-10">
+												<textarea class="form-control select" rows="8"
+													name="observacao">${inscricao.documentacao.observacao}</textarea>
+												<input type="hidden" value="${inscricao.id }"
+													name="idInscricao" />
 											</div>
-											<div class="form-group col-sm-offset-8 margin-top-s1">
-												<input type="submit" class="button btn btn-primary" />
-											</div>
-										</form>
-									</div>
+										</div>
+										<div class="form-group col-sm-offset-8 margin-top-s1">
+											<input type="submit" class="button btn btn-primary" />
+										</div>
+									</form>
 								</div>
+							</div>
 
-							</sec:authorize>
+						</sec:authorize>
 
 					</div>
 
@@ -902,13 +914,13 @@
 														</c:forEach>
 													</form:select>
 												</div>
-												
-												<div id="outro-pessoa-familia" class="col-sm-4 text-align-left hidden">
+
+												<div id="outro-pessoa-familia"
+													class="col-sm-4 text-align-left hidden">
 													<label for="parentesco" class="control-label">
-														Especifique quem é esta outra
-														pessoa: </label>
+														Especifique quem é esta outra pessoa: </label>
 													<form:input cssClass="form-control" type="text"
-															path="outro" id="outroPessoaFamilia" required="required" />
+														path="outro" id="outroPessoaFamilia" required="required" />
 												</div>
 												<div class="col-sm-2 text-align-left">
 													<label for="idade" class="control-label"> Idade: </label>
@@ -964,10 +976,14 @@
 												<tr>
 													<td>${pessoa.nome}</td>
 													<c:choose>
-														<c:when test="${empty pessoa.outro}"><td>${pessoa.parentesco.nome}</td></c:when>
-														<c:otherwise><td>${pessoa.outro}</td></c:otherwise>
+														<c:when test="${empty pessoa.outro}">
+															<td>${pessoa.parentesco.nome}</td>
+														</c:when>
+														<c:otherwise>
+															<td>${pessoa.outro}</td>
+														</c:otherwise>
 													</c:choose>
-													
+
 													<td>${pessoa.escolaridade.nome}</td>
 													<td>${pessoa.idade}</td>
 													<td>${pessoa.profissao}</td>
@@ -985,7 +1001,7 @@
 									</table>
 								</div>
 							</div>
-							
+
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
 									<h3 class="panel-title">Entrevista</h3>
@@ -1046,7 +1062,7 @@
 													class="btn btn-default btn-md" id="form-btn">Cancelar</a>
 											</fieldset>
 										</div>
-										
+
 									</form:form>
 								</div>
 							</div>
