@@ -8,6 +8,23 @@ var FormularioDetalhesInscricao = function() {
 		self.mudarConsolidacao();
 		self.mudaConsolidacaoDeTodos();
 		self.mudaDesconsolidacaoDeTodos();
+		self.mostrarOutroPessoaFamilia();
+	}
+	
+	self.mostrarOutroPessoaFamilia = function(){
+		$("#select-parentesco-inscricao").change(function() {
+			var option = $(this).find("option:selected").text();
+			var $divPessoaFamilia = $("#outro-pessoa-familia-inscricao");
+			var $inputPessoaFamilia = $("#outroPessoaFamilia");
+			
+			if(option === "Outro"){
+				$divPessoaFamilia.removeClass("hidden");
+			} else {
+				$divPessoaFamilia.addClass("hidden");
+				$inputPessoaFamilia.val("");
+			}   
+		});
+		
 	}
 
 	//Muda a consolidação de todas as inscrições
