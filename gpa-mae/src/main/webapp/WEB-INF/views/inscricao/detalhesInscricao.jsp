@@ -740,7 +740,8 @@
 										<div class="form-group">
 											<label class="col-sm-2 control-label">Resultado:</label>
 											<div class="col-sm-10">
-												<select name="resultado" class="form-control" required="required">
+												<select name="resultado" class="form-control"
+													required="required">
 													<c:choose>
 														<c:when
 															test="${inscricao.documentacao.deferimento eq 'DEFERIDO'}">
@@ -755,12 +756,13 @@
 															<option selected value="INDEFERIDO">Indeferido</option>
 														</c:when>
 														<c:otherwise>
-														    <option selected value="NAO_AVALIADO">Não avaliado</option>
-														    <option value="DEFERIDO">Deferido</option>
+															<option selected value="NAO_AVALIADO">Não
+																avaliado</option>
+															<option value="DEFERIDO">Deferido</option>
 															<option value="INDEFERIDO">Indeferido</option>
 														</c:otherwise>
 													</c:choose>
-												</select> 
+												</select>
 											</div>
 										</div>
 										<div class="form-group">
@@ -903,19 +905,11 @@
 													<label for="parentesco" class="control-label">
 														Parentesco: </label>
 													<form:select cssClass="form-control" path="parentesco"
-														id="parentesco" required="required">
+														id="select-parentesco-inscricao" required="required">
 														<c:forEach items="${grauParentesco }" var="parentesco">
 															<option value="${parentesco }">${parentesco.nome }</option>
 														</c:forEach>
 													</form:select>
-												</div>
-
-												<div id="outro-pessoa-familia"
-													class="col-sm-4 text-align-left hidden">
-													<label for="parentesco" class="control-label">
-														Especifique quem é esta outra pessoa: </label>
-													<form:input cssClass="form-control" type="text"
-														path="outro" id="outroPessoaFamilia" required="required" />
 												</div>
 												<div class="col-sm-2 text-align-left">
 													<label for="idade" class="control-label"> Idade: </label>
@@ -944,10 +938,17 @@
 													<form:input cssClass="form-control" id="rendaMensal"
 														path="rendaMensal" required="required" />
 												</div>
-												<div class="col-sm-2 col-offset-sm-6 text-align-left">
-													<input type="submit" class="btn btn-primary"
-														value="Adicionar Pessoa" />
+												<div id="outro-pessoa-familia-inscricao"
+													class="col-sm-4 text-align-left hidden">
+													<label for="parentesco" class="control-label">
+														Especifique quem é esta outra pessoa: </label>
+													<form:input cssClass="form-control" type="text"
+														path="outro" id="outroPessoaFamilia" required="required" />
 												</div>
+											</div>
+											<div class="col-sm-offset-5 text-align-left">
+												<input type="submit" class="btn btn-primary"
+													value="Adicionar Pessoa" />
 											</div>
 										</form:form>
 									</div>
@@ -1067,7 +1068,7 @@
 				<div class="tab-pane" id="visita-tab">
 					<c:choose>
 						<c:when
-							test="${inscricao.documentacao.deferimento eq 'INDEFERIDO'}">
+							test="${inscricao.documentacao.deferimento eq 'INDEFERIDO' || inscricao.entrevista.deferimento eq 'INDEFERIDO'}">
 							<div class="alert alert-danger alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
@@ -1079,7 +1080,7 @@
 						<c:otherwise>
 							<div class="panel panel-default panel-primary">
 								<div class="panel-heading">
-									<h3 class="panel-title">Entrevista</h3>
+									<h3 class="panel-title">Dados da Visita</h3>
 								</div>
 								<div class="panel-body">
 									<dl class='col-sm-12'>
@@ -1095,6 +1096,8 @@
 										</c:choose>
 										<dt class="col-sm-2">Observação:</dt>
 										<dd class="col-sm-2">${inscricao.visitaDomiciliar.observacaoParecer}</dd>
+										<dt class="col-sm-2">Responsável:</dt>
+										<dd class="col-sm-2">${inscricao.visitaDomiciliar.servidor.pessoa.nome}</dd>
 									</dl>
 								</div>
 							</div>
