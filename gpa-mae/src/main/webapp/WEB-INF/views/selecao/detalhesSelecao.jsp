@@ -36,7 +36,7 @@
 					<div class="f-conteiner" align="right">
 						<sec:authorize access="hasRole('DISCENTE')">
 							<a id="inscrever" title="Inscrever-se"
-								href="<c:url value="/aluno/inscricao/${selecao.id}/auxilio-moradia" />">
+								href="<c:url value="/aluno/inscricao/auxilio-moradia/${selecao.id}/${aluno.id}" />">
 								<button class="btn btn-info">
 									Inscrever-se <span class="glyphicon glyphicon-user"></span>
 								</button>

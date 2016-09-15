@@ -18,6 +18,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MEMBRO_COMISS
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_TIPO_BOLSA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_COMISSAO_FORMADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_SELECAO_ATUALIZADA;
@@ -444,30 +445,41 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = "/comissao/relatorioFinal/{idSelecao}")
-	public String getInformacoesRelatorioFinal(@PathVariable("idSelecao") Integer idSelecao, Model modelo){
+	public String getInformacoesRelatorioFinal(@PathVariable("idSelecao") Integer idSelecao, Model modelo,
+			Authentication auth,RedirectAttributes redirect){
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
+        Servidor servidor = servidorRepository.findByCpf(auth.getName());	
+		
+		if(selecao.getMembrosComissao().contains(servidor)){
+			
+			//dividi o resultado já em 3 listas a serem exibidas na jsp
 
-		//dividi o resultado já em 3 listas a serem exibidas na jsp
+			List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
+			List<Inscricao> reservas = inscricaoRepository.findClassificaveisBySelecao(selecao.getId());
+			List<Inscricao> indeferidos = inscricaoRepository.findIndeferidosBySelecao(selecao.getId());
 
-		List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
-		List<Inscricao> reservas = inscricaoRepository.findClassificaveisBySelecao(selecao.getId());
-		List<Inscricao> indeferidos = inscricaoRepository.findIndeferidosBySelecao(selecao.getId());
+			//ordeno de acordo com o nome dos alunos inscritos
+			Collections.sort(classificados);
+			Collections.sort(reservas);
+			Collections.sort(indeferidos);
 
-		//ordeno de acordo com o nome dos alunos inscritos
-		Collections.sort(classificados);
-		Collections.sort(reservas);
-		Collections.sort(indeferidos);
+			modelo.addAttribute("classificados", classificados);
+			modelo.addAttribute("reservas", reservas);
+			modelo.addAttribute("indeferidos", indeferidos);
+			modelo.addAttribute(SELECAO, selecao);
 
-		modelo.addAttribute("classificados", classificados);
-		modelo.addAttribute("reservas", reservas);
-		modelo.addAttribute("indeferidos", indeferidos);
-		modelo.addAttribute(SELECAO, selecao);
+			modelo.addAttribute(Constants.ABA_SELECIONADA, "classificados-tab");
+			modelo.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
 
-		modelo.addAttribute(Constants.ABA_SELECIONADA, "classificados-tab");
-		modelo.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
+			return PAGINA_RELATORIO_FINAL;
+			
+		}else{
+			 redirect.addFlashAttribute(ERRO,MENSAGEM_FALTA_DE_PERMISSAO);
+				
+			 return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
+		}
 
-		return PAGINA_RELATORIO_FINAL;
 	}
 
 }

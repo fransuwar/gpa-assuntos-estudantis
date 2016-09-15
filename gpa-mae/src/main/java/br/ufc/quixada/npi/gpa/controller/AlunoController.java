@@ -23,6 +23,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_EXI
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_REALIZAR_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_UPLOAD_FOTO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EDITADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_REALIZADA;
@@ -279,40 +280,49 @@ public class AlunoController {
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
 	}*/
 
-	@RequestMapping(value = { "inscricao/{idSelecao}/auxilio-moradia" }, method = RequestMethod.GET)
-	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao, Model model, Authentication auth, RedirectAttributes redirect){
+	@RequestMapping(value = { "inscricao/auxilio-moradia/{idSelecao}/{idAluno}" }, method = RequestMethod.GET)
+	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idAluno") Integer idAluno,
+			Model model, Authentication auth, RedirectAttributes redirect){
 
 		model.addAttribute(ACTION, INSCRICAO);
 
 		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		Selecao selecao = selecaoRepository.findById(idSelecao);
-
-		model.addAttribute(ALUNO, aluno);
-		model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, new QuestionarioAuxilioMoradia());
-
-		Date date = new Date();
 		
-		if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
-			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_REALIZAR_INSCRICAO);
-			return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
-		}else{
-
-		
-			model.addAttribute(ACTION, INSCRICAO);
-			
-			//Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
-	
+		//Testa se o aluno da sessão é igual ao aluno que fez a requisição
+		if(aluno.getId().equals(idAluno)){
 			model.addAttribute(ALUNO, aluno);
 			model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, new QuestionarioAuxilioMoradia());
+
+			Date date = new Date();
 			
-			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
-			model.mergeAttributes(modelFormAuxilio.asMap());
+			if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_REALIZAR_INSCRICAO);
+				return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
+			}else{
+
 			
-			model.addAttribute(SELECAO, selecao);
-			model.addAttribute(USUARIO_ATIVO, usuarioService.getByCpf(auth.getName()));
-	
-			return PAGINA_INSCREVER_AUXILIO_MORADIA;
-			}
+				model.addAttribute(ACTION, INSCRICAO);
+				
+				//Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
+		
+				model.addAttribute(ALUNO, aluno);
+				model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, new QuestionarioAuxilioMoradia());
+				
+				Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+				model.mergeAttributes(modelFormAuxilio.asMap());
+				
+				model.addAttribute(SELECAO, selecao);
+				model.addAttribute(USUARIO_ATIVO, usuarioService.getByCpf(auth.getName()));
+		
+				return PAGINA_INSCREVER_AUXILIO_MORADIA;
+				}
+			
+		}else{
+            redirect.addFlashAttribute(ERRO,MENSAGEM_FALTA_DE_PERMISSAO);
+			
+			return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
+		}
 	}
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia" }, method = RequestMethod.POST)
@@ -398,66 +408,67 @@ public class AlunoController {
 			RedirectAttributes redirect, Authentication auth) {
 
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
-		if(inscricao.isConsolidacao())
-			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
+		Aluno aluno = alunoRepository.findByCpf(auth.getName());
+		
+		if(aluno.equals(inscricao.getAluno())){
+			
+			if(inscricao.isConsolidacao())
+				return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 
+			Selecao selecao = inscricao.getSelecao();
+			Date date = new Date();
 
+			if (inscricao != null) {
 
-		Selecao selecao = inscricao.getSelecao();
-		Date date = new Date();
+				if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)) {
 
-		if (inscricao != null) {
+					if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
+						redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EDITAR_INSCRICAO);
+						return REDIRECT_PAGINA_MINHAS_INSCRICOES;
+					}else{
 
-			if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)) {
+						model.addAttribute(INSCRICAO, inscricao);
+						model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, inscricao.getQuestionarioAuxilioMoradia());
+						model.addAttribute(USUARIO_ATIVO, usuarioService.getByCpf(auth.getName()));
 
-				if(date.before(selecao.getDataInicio()) || date.after(selecao.getDataTermino())){		
-					redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EDITAR_INSCRICAO);
-					return REDIRECT_PAGINA_MINHAS_INSCRICOES;
-				}else{
+						Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
+						model.mergeAttributes(modelFormAuxilio.asMap());
+
+						model.addAttribute(SELECAO, inscricao.getSelecao());
+						model.addAttribute(ACTION, EDITAR);
+
+						return PAGINA_INSCREVER_AUXILIO_MORADIA;
+					}
+
+				} else {
 
 					model.addAttribute(INSCRICAO, inscricao);
-					model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, inscricao.getQuestionarioAuxilioMoradia());
-					model.addAttribute(USUARIO_ATIVO, usuarioService.getByCpf(auth.getName()));
-
-					Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
-					model.mergeAttributes(modelFormAuxilio.asMap());
-
 					model.addAttribute(SELECAO, inscricao.getSelecao());
-					model.addAttribute(ACTION, EDITAR);
+					model.addAttribute(QUESTIONARIO_INICIACAO_ACADEMICA, inscricao.getQuestionarioIniciacaoAcademica());
+					model.addAttribute(NIVEL_INSTRUCAO, NivelInstrucao.values());
+					model.addAttribute(TURNO, Turno.values());
+					model.addAttribute(DIAS_UTEIS, DiaUtil.values());
+					model.addAttribute(SITUACAO_RESIDENCIA, SituacaoResidencia.values());
+					model.addAttribute(TOTAL_ESTADO, Estado.values());
+					model.addAttribute(GRAU_PARENTESCO, GrauParentesco.getTodos());
+					model.addAttribute(ESCOLARIDADE,Escolaridade.values());
 
-					return PAGINA_INSCREVER_AUXILIO_MORADIA;
+					model.addAttribute("pessoasDaFamilia", inscricao.getQuestionarioAuxilioMoradia().getPessoas());
+
+
+					return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
+
 				}
-
-			} else {
-
-				model.addAttribute(INSCRICAO, inscricao);
-				model.addAttribute(SELECAO, inscricao.getSelecao());
-				model.addAttribute(QUESTIONARIO_INICIACAO_ACADEMICA, inscricao.getQuestionarioIniciacaoAcademica());
-				model.addAttribute(NIVEL_INSTRUCAO, NivelInstrucao.values());
-				model.addAttribute(TURNO, Turno.values());
-				model.addAttribute(DIAS_UTEIS, DiaUtil.values());
-				model.addAttribute(SITUACAO_RESIDENCIA, SituacaoResidencia.values());
-				model.addAttribute(TOTAL_ESTADO, Estado.values());
-				model.addAttribute(GRAU_PARENTESCO, GrauParentesco.getTodos());
-				model.addAttribute(ESCOLARIDADE,Escolaridade.values());
-
-
-//			//	List<HorarioDisponivel> horariosDisponiveis = inscricaoService
-//				//		.getHorariosDisponiveisIniciacaoAcademica(inscricao.getQuestionarioIniciacaoAcademica().getId());
-//				if (horariosDisponiveis != null && !horariosDisponiveis.isEmpty()) {
-//					model.addAttribute("horariosDisponiveis", horariosDisponiveis);
-//				}
-
-				model.addAttribute("pessoasDaFamilia", inscricao.getQuestionarioAuxilioMoradia().getPessoas());
-
-
-				return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
-
 			}
-		}
 
-		redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			return REDIRECT_PAGINA_LISTAR_SELECAO;
+			
+		}else{
+            redirect.addFlashAttribute(ERRO,MENSAGEM_FALTA_DE_PERMISSAO);
+			
+			return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
+		}
 
 	}
 
@@ -550,7 +561,8 @@ public class AlunoController {
 			return REDIRECT_PAGINA_MINHAS_INSCRICOES;
 
 		} else{
-
+			
+            inscricao.getDocumentacao().getDocumentosTipoInscricao().remove(inscricao.getDocumentacao().getDocumentosTipoInscricao());
             inscricaoRepository.delete(inscricao);
 			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA);
 
@@ -688,21 +700,31 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value= {"inscricao/removerDocumento/{idInscricao}/{idTipo}/{idDocumento}"}, method = RequestMethod.GET)
-	public String removerDocumento(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idTipo") Integer idTipo, @PathVariable("idDocumento") Integer idDocumento, Model modelo){
+	public String removerDocumento(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idTipo") Integer idTipo, 
+			@PathVariable("idDocumento") Integer idDocumento, Model modelo, Authentication auth,RedirectAttributes redirect){
+		
+        Aluno aluno = alunoRepository.findByCpf(auth.getName());
+        
+        Inscricao inscricao = inscricaoRepository.findById(idInscricao);
+		
+		if(aluno.equals(inscricao.getAluno())){
+			Documento documento = documentoRepository.findById(idDocumento);
 
-		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
+			inscricao.getDocumentacao().getDocumentosTipoInscricao().get(idTipo).getDocumentos().remove(documento);
 
-		Documento documento = documentoRepository.findById(idDocumento);
+			inscricaoRepository.save(inscricao);
 
-		inscricao.getDocumentacao().getDocumentosTipoInscricao().get(idTipo).getDocumentos().remove(documento);
+			documentoRepository.delete(documento);
 
-		inscricaoRepository.save(inscricao);
+			modelo.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
+			modelo.addAttribute(INSCRICAO, inscricao);
 
-		documentoRepository.delete(documento);
-
-		modelo.addAttribute(ABA_SELECIONADA, DOCUMENTOS_TAB);
-		modelo.addAttribute(INSCRICAO, inscricao);
-
-		return PAGINA_DETALHES_INSCRICAO;
+			return PAGINA_DETALHES_INSCRICAO;
+			
+		}else{
+            redirect.addFlashAttribute(ERRO,MENSAGEM_FALTA_DE_PERMISSAO);
+			
+			return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
+		}
 	}
 }

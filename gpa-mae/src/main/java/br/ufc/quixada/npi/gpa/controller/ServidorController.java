@@ -18,6 +18,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SERVIDOR_NAO_
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_VISITA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_DOMICILIAR_JA_EXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXISTENTE;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MORADIA_ESTADO;
@@ -31,6 +32,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_IN
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.VISITA_TAB;
 
@@ -334,24 +336,31 @@ public class ServidorController {
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao,Authentication auth, Model model, RedirectAttributes redirect){
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
-
-		if (selecao == null) {
-			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
-			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		} else {
-			Servidor servidor = servidorRepository.findByCpf(auth.getName());
-			List<Servidor> comissao = selecao.getMembrosComissao();
-			if(comissao.contains(servidor)) {
-				List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecao(idSelecao);
-				model.addAttribute(SELECAO, selecao);
-				model.addAttribute("inscricoes", inscricoes);
-				model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_INSCRICAO);
-				
-				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-			} else {
-				redirect.addFlashAttribute(ERRO,  MENSAGEM_PERMISSAO_NEGADA);
+		Servidor servidor = servidorRepository.findByCpf(auth.getName());	
+		
+		if(selecao.getMembrosComissao().contains(servidor)){
+			if (selecao == null) {
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
+			} else {
+				List<Servidor> comissao = selecao.getMembrosComissao();
+				if(comissao.contains(servidor)) {
+					List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecao(idSelecao);
+					model.addAttribute(SELECAO, selecao);
+					model.addAttribute("inscricoes", inscricoes);
+					model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_INSCRICAO);
+					
+					return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
+				} else {
+					redirect.addFlashAttribute(ERRO,  MENSAGEM_PERMISSAO_NEGADA);
+					return REDIRECT_PAGINA_LISTAR_SELECAO;
+				}
 			}
+			
+		}else{
+            redirect.addFlashAttribute(ERRO,MENSAGEM_FALTA_DE_PERMISSAO);
+			
+			return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 		}
 	}
 	
@@ -484,17 +493,27 @@ public class ServidorController {
 	}
 	
 	@RequestMapping(value= {"relatorioVisitas/{idSelecao}"}, method = RequestMethod.GET)
-	public String relatorioDeVisitas(@PathVariable("idSelecao") Integer idSelecao, Model model){
+	public String relatorioDeVisitas(@PathVariable("idSelecao") Integer idSelecao, Model model,Authentication auth,RedirectAttributes redirect){
 		
 		Selecao selecao = selecaoRepository.findById(idSelecao);
+        Servidor servidor = servidorRepository.findByCpf(auth.getName());	
 		
-		model.addAttribute("inscritosComVisita", selecao.getAlunosSelecionadosVisita());
-		model.addAttribute("inscritosSemVisita", selecao.getAlunosNaoSelecionadosVisita());
-		model.addAttribute("cidadesVisitadas", selecao.getCidadesVisita());
-		model.addAttribute(SELECAO, selecao);
+		if(selecao.getMembrosComissao().contains(servidor)){
+			
+			model.addAttribute("inscritosComVisita", selecao.getAlunosSelecionadosVisita());
+			model.addAttribute("inscritosSemVisita", selecao.getAlunosNaoSelecionadosVisita());
+			model.addAttribute("cidadesVisitadas", selecao.getCidadesVisita());
+			model.addAttribute(SELECAO, selecao);
+			
+			model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
+			
+			return PAGINA_RELATORIO_VISITAS;
+			
+		}else{
+            redirect.addFlashAttribute(ERRO,MENSAGEM_FALTA_DE_PERMISSAO);
+			
+			return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
+		}
 		
-		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
-		
-		return PAGINA_RELATORIO_VISITAS;
 	}
 }

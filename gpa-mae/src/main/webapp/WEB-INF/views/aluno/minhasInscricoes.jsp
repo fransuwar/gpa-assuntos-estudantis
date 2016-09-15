@@ -73,7 +73,7 @@
 							<tr class="linha">
 								<sec:authorize access="hasAnyRole('DISCENTE')">
 									<td><a id="detalhesSelecao"
-										href="<c:url value="/inscricao/detalhes/inscricao/${inscricao.id}"></c:url>">
+										href="<c:url value="/inscricao/detalhes/${inscricao.id}"></c:url>">
 											${inscricao.selecao.tipoSelecao.nome} </a></td>
 								</sec:authorize>
 								<td>${inscricao.selecao.ano}</td>
