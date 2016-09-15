@@ -164,6 +164,9 @@ public class ServidorController {
 		
 		Entrevista entrevista2 = entrevistaRepository.findById(idEntrevista);
 		entrevista2.setObservacao(entrevista.getObservacao());
+		if(entrevista.getDeferimento().equals(Resultado.INDEFERIDO)){
+			inscricao.setResultado(entrevista.getDeferimento());
+		}
 		entrevista2.setDeferimento(entrevista.getDeferimento());
 		inscricao.setRealizarVisita(realizarVisita);
 		entrevistaRepository.save(entrevista2);
@@ -181,14 +184,18 @@ public class ServidorController {
 		Servidor servidor = this.servidorRepository.findServidorComComissaoByCpf(auth.getName());
 		entrevista.setServidor(servidor);
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
-		inscricao.setEntrevista(entrevista);
-		
 		inscricao.setRealizarVisita(realizarVisita);
-
+		
+		if(entrevista.getDeferimento().name().equals(Resultado.INDEFERIDO)){
+			inscricao.setResultado(entrevista.getDeferimento());
+		}
+		
+		inscricao.setEntrevista(entrevista);
 		inscricaoRepository.save(inscricao);
 
+		redirect.addFlashAttribute(ABA_SELECIONADA, ENTREVISTA_TAB);
 		redirect.addFlashAttribute(INFO, MENSAGEM_DE_SUCESSO_ENTREVISTA);
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 	}
 	
 	
@@ -418,6 +425,9 @@ public class ServidorController {
 		
 		if(visitaDomiciliar != null){
 			Servidor servidor = servidorRepository.findByCpf(auth.getName());
+			if(parecer.equals(Resultado.INDEFERIDO)){
+				inscricao.setResultado(Resultado.valueOf(parecer));
+			}
 			visitaDomiciliar.setDeferimento(Resultado.valueOf(parecer));
 			visitaDomiciliar.setObservacaoParecer(observacao);
 			visitaDomiciliar.setServidor(servidor);
@@ -480,6 +490,9 @@ public class ServidorController {
         Servidor servidor = servidorRepository.findByCpf(auth.getName());
         
         AnaliseDocumentacao analiseDocumentacao = inscricao.getDocumentacao();
+        if(resultado.name().equals(Resultado.INDEFERIDO)){
+        	inscricao.setResultado(resultado);
+        }
         analiseDocumentacao.setDeferimento(resultado);
         analiseDocumentacao.setObservacao(observacao);
         analiseDocumentacao.setServidor(servidor);
