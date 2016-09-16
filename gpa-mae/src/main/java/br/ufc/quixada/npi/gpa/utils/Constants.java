@@ -133,6 +133,7 @@ public class Constants {
 	// "servidor/detalhesSelecao";
 
 	/** Redirecionamentos */
+
 	
 	public static final String REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS = "redirect:/selecao/selecionarClassificados/";
 
@@ -203,6 +204,8 @@ public class Constants {
 	public static final String MENSAGEM_SUCESSO_INSCRICAO_EDITADA = "Inscrição editada com sucesso.";
 	
 	public static final String MENSAGEM_SUCESSO_INSCRICAO_CONSOLIDADA = "Inscrição consolidada com sucesso.";
+	
+	public static final String MENSAGEM_FALTA_DE_PERMISSAO = "Você não tem permissão para acessar este recurso";
 
 	public static final String MENSAGEM_SUCESSO_INSCRICAO_EXCLUIDA = "Inscrição excluída com sucesso.";
 

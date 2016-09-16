@@ -3,6 +3,7 @@ package br.ufc.quixada.npi.gpa.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,7 +33,7 @@ public class AnaliseDocumentacao {
 	@ManyToOne
 	private Servidor servidor;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.REMOVE)
 	private Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
 
 	public Integer getId() {

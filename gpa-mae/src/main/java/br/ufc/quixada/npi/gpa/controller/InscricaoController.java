@@ -14,8 +14,11 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.USUARIO_ATIVO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_CONSOLIDADA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 
 import java.io.IOException;
 import java.util.Date;
@@ -41,10 +44,12 @@ import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.excecoes.FalhaCarregarImagemException;
+import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.utils.Constants;
@@ -60,13 +65,14 @@ public class InscricaoController {
 	@Inject
 	private InscricaoRepository inscricaoRepository;
 
-	
 	@Inject
 	private EmailService emailService;
 
-
 	@Inject
 	private SelecaoRepository selecaoRepository;
+	
+	@Inject
+	private AlunoRepository alunoRepository;
 
 	private void enviarImagemPadraoEmCasoDeErro(HttpServletResponse response){
 		try {
@@ -100,7 +106,7 @@ public class InscricaoController {
 		}
 	}
 
-	@RequestMapping(value = { "detalhes/inscricao/{idInscricao}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "detalhes/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhesInscricao(@PathVariable("idInscricao") Integer idInscricao, Model model) {
 		
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
@@ -168,44 +174,52 @@ public class InscricaoController {
 	public String consolidarInscricao(@PathVariable("idInscricao") Integer idInscricao,Model model, RedirectAttributes redirect, Authentication auth){
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		List<Selecao> selecoes = selecaoRepository.findAll();
-
-		inscricao.setConsolidacao(true);
-		inscricaoRepository.save(inscricao);
-		redirect.addFlashAttribute(INFO,MENSAGEM_SUCESSO_INSCRICAO_CONSOLIDADA);
-
-		model.addAttribute("selecoes", selecoes);
-		redirect.addFlashAttribute(ABA_SELECIONADA,INSCRICAO_TAB);
 		
+		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		
-		Runnable enviarEmail = new Runnable() {
-			@Override
-			public void run() {		
-				Email email=new Email();
-				String from=FROM;
-				String to=inscricao.getAluno().getPessoa().getEmail();
-				String body = BODY;							
-				email.setFrom(from);
-				email.setSubject(ASSUNTO);
-				email.setText(body);
-				email.setTo(to);
+		if(aluno.equals(inscricao.getAluno())){
+			inscricao.setConsolidacao(true);
+			inscricaoRepository.save(inscricao);
+			redirect.addFlashAttribute(INFO,MENSAGEM_SUCESSO_INSCRICAO_CONSOLIDADA);
 
-				try {
+			model.addAttribute("selecoes", selecoes);
+			redirect.addFlashAttribute(ABA_SELECIONADA,INSCRICAO_TAB);
+			
+			
+			Runnable enviarEmail = new Runnable() {
+				@Override
+				public void run() {		
+					Email email=new Email();
+					String from=FROM;
+					String to=inscricao.getAluno().getPessoa().getEmail();
+					String body = BODY;							
+					email.setFrom(from);
+					email.setSubject(ASSUNTO);
+					email.setText(body);
+					email.setTo(to);
 
-					emailService.sendEmail(email);
+					try {
 
-				} catch (MessagingException e) {
-					e.printStackTrace();
+						emailService.sendEmail(email);
+
+					} catch (MessagingException e) {
+						e.printStackTrace();
+					}
 				}
-			}
-		};
+			};
 
-		Thread threadEnviarEmail = new Thread(enviarEmail);
-		threadEnviarEmail.start();
-
+			Thread threadEnviarEmail = new Thread(enviarEmail);
+			threadEnviarEmail.start();
+			
+			return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
+			
+		} else{
+			redirect.addFlashAttribute(ERRO,MENSAGEM_FALTA_DE_PERMISSAO);
+			
+			return REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
+			
+		}
 		
-		
-
-		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 
 	}
 
