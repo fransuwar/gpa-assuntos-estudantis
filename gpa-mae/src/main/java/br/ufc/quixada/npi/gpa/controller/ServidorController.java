@@ -13,7 +13,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_DE_SUCESSO_ENTREVI
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ALUNO_INDEFERIDO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_INSCRICAO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_REALIZACAO_DE_VISITA_DOMICILIAR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SERVIDOR_NAO_PERTENCE_A_COMISSAO_VISITA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_DOMICILIAR_JA_EXISTENTE;
@@ -64,7 +63,6 @@ import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.AnaliseDocumentacao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
-import br.ufc.quixada.npi.gpa.model.Imagem;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
@@ -73,7 +71,6 @@ import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.EntrevistaRepository;
-import br.ufc.quixada.npi.gpa.repository.ImagemRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
@@ -88,9 +85,6 @@ public class ServidorController {
 	
 	@Inject
 	private InscricaoService inscricaoService;
-	
-	@Inject
-	private ImagemRepository imagemRepository;
 	
 	@Inject
 	private DocumentoRepository documentoRepository;
@@ -113,8 +107,9 @@ public class ServidorController {
 	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
-		Servidor servidor = servidorRepository.findByCpf(auth.getName());
-		model.addAttribute("selecoes", servidor.getParticipaComissao());
+		// TODO: alterar estratégia para mostrar as seleções de que um servidor participa
+		//Servidor servidor = servidorRepository.findByCpf(auth.getName());
+		//model.addAttribute("selecoes", servidor.getParticipaComissao());
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
@@ -264,7 +259,7 @@ public class ServidorController {
 
 			if(comissao.contains(servidor) ){
 				if(inscricao.getVisitaDomiciliar() == null){
-					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().getResultado().equals(Resultado.DEFERIDO)){
+					if (inscricao.getEntrevista().getResultado().equals(Resultado.DEFERIDO)){
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 
 						model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
@@ -345,26 +340,21 @@ public class ServidorController {
 		Selecao selecao = selecaoRepository.findById(idSelecao);
 		Servidor servidor = servidorRepository.findByCpf(auth.getName());	
 		
-		if(selecao.getComissao().contains(servidor)){
-			if (selecao == null) {
-				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
-				return REDIRECT_PAGINA_LISTAR_SELECAO;
+		if(selecao != null && selecao.getComissao().contains(servidor)){
+			List<Servidor> comissao = selecao.getComissao();
+			if(comissao.contains(servidor)) {
+				List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecao(idSelecao);
+				model.addAttribute(SELECAO, selecao);
+				model.addAttribute("inscricoes", inscricoes);
+				model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_INSCRICAO);
+				
+				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 			} else {
-				List<Servidor> comissao = selecao.getComissao();
-				if(comissao.contains(servidor)) {
-					List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecao(idSelecao);
-					model.addAttribute(SELECAO, selecao);
-					model.addAttribute("inscricoes", inscricoes);
-					model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_INSCRICAO);
-					
-					return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-				} else {
-					redirect.addFlashAttribute(ERRO,  MENSAGEM_PERMISSAO_NEGADA);
-					return REDIRECT_PAGINA_LISTAR_SELECAO;
-				}
+				redirect.addFlashAttribute(ERRO,  MENSAGEM_PERMISSAO_NEGADA);
+				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			}
 			
-		}else{
+		} else {
             redirect.addFlashAttribute(ERRO,MENSAGEM_FALTA_DE_PERMISSAO);
 			
 			return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
@@ -381,10 +371,10 @@ public class ServidorController {
 			List<String> formatos = Arrays.asList("image/jpg", "image/jpeg", "image/png");
 			
 			if(foto.getSize() > 0 && formatos.contains(multipartFile.getContentType())){
-				Imagem imagem = new Imagem();
-				imagem.setImg(foto.getBytes());
+				Documento imagem = new Documento();
+				imagem.setArquivo(foto.getBytes());
 				
-				imagemRepository.save(imagem);
+				documentoRepository.save(imagem);
 				
 				inscricao.getVisitaDomiciliar().getImagens().add(imagem);
 				inscricaoRepository.save(inscricao);
@@ -402,7 +392,7 @@ public class ServidorController {
 	@RequestMapping(value ={ "detalhes/inscricao/removerImagem/{idInscricao}/{idImagem}"}, method = RequestMethod.GET)
 	public String removerImagemDaVisitaNaInscricao(@PathVariable("idInscricao") Integer idInscricao, @PathVariable("idImagem") Integer idImagem, RedirectAttributes redirect){
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
-		Imagem imagem = imagemRepository.findById(idImagem);
+		Documento imagem = documentoRepository.findById(idImagem);
 		
 		inscricao.getVisitaDomiciliar().getImagens().remove(imagem);
 		

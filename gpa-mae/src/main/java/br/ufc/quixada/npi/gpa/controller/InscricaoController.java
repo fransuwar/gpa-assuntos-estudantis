@@ -4,21 +4,21 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ASSUNTO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.BODY;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
+import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ESCONDER_BOTOES;
 import static br.ufc.quixada.npi.gpa.utils.Constants.FROM;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_CONSOLIDADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INICIACAO_ACADEMICA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHES_INSCRICAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.RESULTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SUCESSO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.USUARIO_ATIVO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_INSCRICAO_CONSOLIDADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO;
 
 import java.io.IOException;
 import java.util.Date;
@@ -37,12 +37,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
-import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.excecoes.FalhaCarregarImagemException;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
@@ -56,10 +54,8 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.model.Email;
 import br.ufc.quixada.npi.service.EmailService;
 
-
 @Controller
 @RequestMapping("inscricao")
-@SessionAttributes({ Constants.USUARIO_ID, Constants.USUARIO_LOGADO})
 public class InscricaoController {
 
 	@Inject
@@ -116,7 +112,6 @@ public class InscricaoController {
 		model.addAttribute(USUARIO_ATIVO, inscricao.getAluno().getPessoa());
 		model.addAttribute("pessoaDaFamilia",new PessoaFamilia());
 
-		if(inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR)){
 			model.addAttribute(INSCRICAO, inscricao);
 			model.addAttribute(USUARIO_ATIVO, inscricao.getAluno().getPessoa());
 			
@@ -136,13 +131,14 @@ public class InscricaoController {
 				model.addAttribute(INFO, msgSucesso);
 			}
 			
-			if(inscricao.getEntrevista()!=null)
+			if(inscricao.getEntrevista()!=null) {
 				model.addAttribute(ENTREVISTA, inscricao.getEntrevista());
-			else
+			}
+			else {
 				model.addAttribute(ENTREVISTA, new Entrevista());
 			    model.addAttribute("grauParentesco", GrauParentesco.values());
 			    model.addAttribute("escolaridade",Escolaridade.values());
-		}
+			}
 		
 
 		 if (inscricao.getQuestionarioAuxilioMoradia() != null) {

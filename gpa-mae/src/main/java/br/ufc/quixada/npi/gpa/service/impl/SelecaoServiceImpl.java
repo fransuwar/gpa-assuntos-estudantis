@@ -22,15 +22,12 @@ public class SelecaoServiceImpl implements SelecaoService {
 	
 	@Inject
 	private GenericRepository<Selecao> selecaoService;
-	
 
 	@Override
 	@Transactional
 	public boolean SelecaoEstaCadastrada(Selecao selecao) {
-		@SuppressWarnings("unchecked")
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("tipo", selecao.getTipoSelecao());
 		map.put(ANO, selecao.getAno());
 		map.put("sequencial", selecao.getSequencial());
 		List<Selecao> selecoes = selecaoService.find(QueryType.JPQL,

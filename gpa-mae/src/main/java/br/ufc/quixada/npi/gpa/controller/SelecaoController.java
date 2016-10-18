@@ -1,4 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
+import static br.ufc.quixada.npi.gpa.utils.Constants.CLASSIFICADOS;
+import static br.ufc.quixada.npi.gpa.utils.Constants.CONTENT_DISPOSITION;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_QTD_VAGAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
@@ -10,18 +12,14 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RANKING_CLASSIFICADO
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECIONAR_CLASSIFICADOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_AUX_MORADIA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.CLASSIFICADOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.CONTENT_DISPOSITION;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECOES;
+import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_AUX_MORADIA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_INIC_ACAD;
-
 
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpEntity;
@@ -30,13 +28,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
@@ -48,12 +46,10 @@ import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
-import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
-@Named
+@Controller
 @RequestMapping("selecao")
-@SessionAttributes({ Constants.USUARIO_ID })
 public class SelecaoController {
 	
 	@Inject
@@ -68,9 +64,6 @@ public class SelecaoController {
 	@Inject
 	private SelecaoRepository selecaoRepository;
 	
-	@Inject
-	private ServidorRepository servidorRepository;
-
 	@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoesPublico(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		Selecao selecao = selecaoRepository.getOne(idSelecao);
@@ -160,9 +153,10 @@ public class SelecaoController {
 	@RequestMapping(value = "/listarPorServidor/{id}")
 	public String listarSelecaoPorServidor(@PathVariable("id") Integer id, ModelMap model) {
 
-		List<Selecao> selecoes = this.servidorRepository.findById(id).getParticipaComissao();
+		// TODO: alterar estratégia para buscar as seleções de que um servidor participa
+		//List<Selecao> selecoes = this.servidorRepository.findById(id).getParticipaComissao();
 
-		model.addAttribute(SELECOES, selecoes);
+		//model.addAttribute(SELECOES, selecoes);
 		model.addAttribute(TIPO_INIC_ACAD, TipoSelecao.INIC_ACAD);
 		model.addAttribute(TIPO_AUX_MORADIA, TipoSelecao.AUX_MOR);
 

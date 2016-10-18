@@ -41,7 +41,7 @@ public class DocumentoController {
 				InputStream is = new ByteArrayInputStream(documento.getArquivo());
 				response.setContentType(documento.getCaminho());
 				response.setHeader("Content-Disposition", "attachment; filename="
-						+ documento.getNomeOriginal().replace(" ", "_"));
+						+ documento.getNome().replace(" ", "_"));
 				IOUtils.copy(is, response.getOutputStream());
 				
 				response.flushBuffer();

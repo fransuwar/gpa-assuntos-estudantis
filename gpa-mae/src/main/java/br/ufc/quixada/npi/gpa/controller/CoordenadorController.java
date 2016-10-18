@@ -17,7 +17,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_TIPO_
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_TIPO_BOLSA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_COMISSAO_FORMADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO;
@@ -80,7 +79,6 @@ import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
 import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
-
 
 @Controller
 @RequestMapping("coordenador")
@@ -190,9 +188,6 @@ public class CoordenadorController {
 			if (selecaoService.SelecaoEstaCadastrada(selecao)) {
 				result.rejectValue("sequencial", "selecao.sequencial", MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR);
 			}			
-			if(selecao.getTipoSelecao()==null){
-				result.rejectValue(TIPO_SELECAO, "selecao.tipoSelecao", MENSAGEM_ERRO_TIPO_BOLSA);
-			}			
 		}
 
 		if (result.hasErrors()) {
@@ -286,7 +281,6 @@ public class CoordenadorController {
 		selecao.setQuantidadeVagas(selecaoAtualizada.getQuantidadeVagas());
 		selecao.setDataInicio(selecaoAtualizada.getDataInicio());
 		selecao.setDataTermino(selecaoAtualizada.getDataTermino());
-		selecao.setTipoSelecao(selecaoAtualizada.getTipoSelecao());
 
 		this.selecaoRepository.save(selecao);
 
