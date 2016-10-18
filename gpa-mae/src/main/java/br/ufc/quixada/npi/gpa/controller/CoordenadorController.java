@@ -305,7 +305,7 @@ public class CoordenadorController {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS);
 		}
 
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+		return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 	}
 
 	@RequestMapping(value = "/comissao/atribuir/{idSelecao}", method = RequestMethod.GET)
