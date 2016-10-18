@@ -14,24 +14,21 @@ public class Documento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String nomeOriginal;
-	
 	private String nome;
 	
-	private String tipo;
+	private String caminho;
 	
-	@Type(type="org.hibernate.type.BinaryType") 
+	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] arquivo;
 
 	public Documento(){
 		super();
 	}	
 	
-	public Documento(String nomeOriginal, String nome, String tipo, byte[] arquivo){
+	public Documento(String nome, String caminho, byte[] arquivo){
 		super();
-		this.nomeOriginal = nomeOriginal;
 		this.nome = nome;
-		this.tipo = tipo;
+		this.caminho = caminho;
 		this.arquivo = arquivo;
 	}
 	
@@ -43,14 +40,6 @@ public class Documento {
 		this.id = id;
 	}
 
-	public String getNomeOriginal() {
-		return nomeOriginal;
-	}
-
-	public void setNomeOriginal(String nomeOriginal) {
-		this.nomeOriginal = nomeOriginal;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -58,14 +47,13 @@ public class Documento {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 	
-	public String getTipo() {
-		return tipo;
+	public String getCaminho() {
+		return caminho;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setCaminho(String caminho) {
+		this.caminho = caminho;
 	}
 
 	public byte[] getArquivo() {

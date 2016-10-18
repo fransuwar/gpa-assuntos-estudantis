@@ -11,18 +11,18 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
-public class DocumentosTipoInscricao {
+public class Documentacao {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@OneToOne
+	private TipoDocumento tipoDocumento;
 	
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<Documento> documentos;
 	
-	@OneToOne
-	private TipoDocumento tipo;
-
 	public List<Documento> getDocumentos() {
 		if(documentos == null){
 			documentos = new ArrayList<>();
@@ -42,12 +42,12 @@ public class DocumentosTipoInscricao {
 		this.id = id;
 	}
 
-	public TipoDocumento getTipo() {
-		return tipo;
+	public TipoDocumento getTipoDocumento() {
+		return tipoDocumento;
 	}
 
-	public void setTipo(TipoDocumento tipo) {
-		this.tipo = tipo;
+	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
 	
 }

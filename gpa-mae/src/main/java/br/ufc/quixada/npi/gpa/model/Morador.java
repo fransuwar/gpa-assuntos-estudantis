@@ -6,17 +6,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
-@NamedQueries({
-	@NamedQuery(name = "ComQuemMora.findComQuemMoraByDescricao", query = "SELECT cqm FROM ComQuemMora cqm WHERE cqm.descricao = :descricao")
-	})
-
 @Entity
-public class ComQuemMora {
+public class Morador {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +18,8 @@ public class ComQuemMora {
 
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco descricao;
+	
+	private String outro;
 
 	public Integer getId() {
 		return id;
@@ -41,9 +37,12 @@ public class ComQuemMora {
 		this.descricao = descricao;
 	}
 
-	@Override
-	public String toString() {
-		return "ComQuemMora [id=" + id + ", descricao=" + descricao + "]";
+	public String getOutro() {
+		return outro;
+	}
+
+	public void setOutro(String outro) {
+		this.outro = outro;
 	}
 
 	

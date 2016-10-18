@@ -1,25 +1,18 @@
 package br.ufc.quixada.npi.gpa.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import br.ufc.quixada.npi.gpa.enums.Cargo;
-
 @Entity
+@EntityListeners(ServidorEntityListener.class)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "siape" }))
 public class Servidor {
 
@@ -30,47 +23,8 @@ public class Servidor {
 	@NotEmpty(message = "Campo obrigatório")
 	private String siape;
 
-	@NotNull(message = "Campo obrigatório")
-	@Enumerated(EnumType.STRING)
-	private Cargo cargo;
-
-	@OneToMany(mappedBy = "servidor")
-	private List<VisitaDomiciliar> visitas; 
-
-	@ManyToMany(mappedBy = "membrosComissao")
-	private List<Selecao> participaComissao;
-
 	@ManyToOne
 	private Pessoa pessoa;
-
-	@OneToMany
-	private List<Entrevista> entrevistas;
-
-
-	public Servidor() {
-		super();
-	}
-
-	public Servidor(Integer id){
-		this.id = id;
-	}
-
-	public List<Entrevista> getEntrevistas() {
-		return entrevistas;
-	}
-
-	public void setEntrevistas(List<Entrevista> entrevistas) {
-		this.entrevistas = entrevistas;
-
-	}
-
-	public List<VisitaDomiciliar> getVisitas() {
-		return visitas;
-	}
-
-	public void setVisitas(List<VisitaDomiciliar> visitas) {
-		this.visitas = visitas;
-	}
 
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -94,22 +48,6 @@ public class Servidor {
 
 	public void setSiape(String siape) {
 		this.siape = siape;
-	}
-
-	public List<Selecao> getParticipaComissao() {
-		return participaComissao;
-	}
-
-	public void setParticipaComissao(List<Selecao> participaComissao) {
-		this.participaComissao = participaComissao;
-	}
-
-	public Cargo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
 	}
 
 	@Override

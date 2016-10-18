@@ -22,16 +22,15 @@ import com.google.gson.LongSerializationPolicy;
 public class BemMovel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private String veiculo;
-
 	
 	@Enumerated(EnumType.STRING)
-	private GrauParentesco parentesco;
+	private GrauParentesco parentescoProprietario;
 	
-	private String outro;
+	private String outroParentesco;
 	
 	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidade;
@@ -47,12 +46,12 @@ public class BemMovel {
 		this.auxilioMoradia = auxilioMoradia;
 	}
 	
-	public GrauParentesco getParentesco() {
-		return parentesco;
+	public GrauParentesco getParentescoProprietario() {
+		return parentescoProprietario;
 	}
 
-	public void setParentesco(GrauParentesco parentesco) {
-		this.parentesco = parentesco;
+	public void setParentescoProprietario(GrauParentesco parentescoProprietario) {
+		this.parentescoProprietario = parentescoProprietario;
 	}
 	
 	public FinalidadeVeiculo getFinalidade() {
@@ -97,10 +96,10 @@ public class BemMovel {
 	}
 
 	public String getOutro() {
-		return outro;
+		return outroParentesco;
 	}
 
 	public void setOutro(String outro) {
-		this.outro = outro;
+		this.outroParentesco = outro;
 	}	
 }

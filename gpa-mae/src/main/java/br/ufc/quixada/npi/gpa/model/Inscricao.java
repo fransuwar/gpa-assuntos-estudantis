@@ -26,26 +26,19 @@ public class Inscricao implements Comparable<Inscricao>{
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date data;
 
-	//referente ao resultado final
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
 	
 	private boolean classificado;
-
-	private String observacoes;
 	
-	private String observacaoDocumentos;
-
-	//referente ao deferimento de documentação
+	@OneToOne
+	private Selecao selecao;
 	
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	private QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica;
+	@ManyToOne
+	private Aluno aluno;
 
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
-
-	@OneToOne
-	private Selecao selecao;
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private VisitaDomiciliar visitaDomiciliar;
@@ -53,16 +46,12 @@ public class Inscricao implements Comparable<Inscricao>{
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Entrevista entrevista;
 
-	@ManyToOne
-	private Aluno aluno;
-	
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private AnaliseDocumentacao documentacao;
 
 	private boolean realizarVisita;
 	
 	private boolean consolidacao;
-			
 
 	public boolean isConsolidacao() {
 		return consolidacao;
@@ -102,22 +91,6 @@ public class Inscricao implements Comparable<Inscricao>{
 
 	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
-	}
-
-	public String getObservacoes() {
-		return observacoes;
-	}
-
-	public void setObservacoes(String observacoes) {
-		this.observacoes = observacoes;
-	}
-
-	public QuestionarioIniciacaoAcademica getQuestionarioIniciacaoAcademica() {
-		return questionarioIniciacaoAcademica;
-	}
-
-	public void setQuestionarioIniciacaoAcademica(QuestionarioIniciacaoAcademica questionarioIniciacaoAcademica) {
-		this.questionarioIniciacaoAcademica = questionarioIniciacaoAcademica;
 	}
 
 	public Selecao getSelecao() {
@@ -179,15 +152,6 @@ public class Inscricao implements Comparable<Inscricao>{
 
 	public void setDocumentacao(AnaliseDocumentacao documentacao) {
 		this.documentacao = documentacao;
-	}
-
-	
-	public String getObservacaoDocumentos() {
-		return observacaoDocumentos;
-	}
-
-	public void setObservacaoDocumentos(String observacaoDocumentos) {
-		this.observacaoDocumentos = observacaoDocumentos;
 	}
 
 	@Override

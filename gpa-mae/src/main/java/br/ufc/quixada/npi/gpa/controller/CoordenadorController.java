@@ -235,7 +235,7 @@ public class CoordenadorController {
 			model.addAttribute(ACTION, EDITAR);
 			model.addAttribute(TIPO_SELECAO, TipoSelecao.values());
 			model.addAttribute(SELECAO, selecao);
-			model.addAttribute("membrosComissao", selecao.getMembrosComissao());
+			model.addAttribute("membrosComissao", selecao.getComissao());
 			model.addAttribute(TIPOS_DOCUMENTO,tiposDeDocumento);
 
 			return PAGINA_CADASTRAR_SELECAO;
@@ -325,7 +325,7 @@ public class CoordenadorController {
 			@RequestParam("idServidor") Integer idServidor, Model model, RedirectAttributes redirect) {
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
-		List<Servidor> comissao = selecao.getMembrosComissao();
+		List<Servidor> comissao = selecao.getComissao();
 		Servidor servidor = this.servidorRepository.findById(idServidor);
 
 
@@ -336,7 +336,7 @@ public class CoordenadorController {
 
 		} else {
 
-			selecao.getMembrosComissao().add(servidor);
+			selecao.getComissao().add(servidor);
 			selecaoRepository.save(selecao);
 			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_COMISSAO_FORMADA);
 
@@ -373,7 +373,7 @@ public class CoordenadorController {
 						Documento documento = new Documento();
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
-						documento.setTipo(mfiles.getContentType());
+						documento.setCaminho(mfiles.getContentType());
 
 						documentoRepository.save(documento);
 
@@ -433,7 +433,7 @@ public class CoordenadorController {
 
 		if(coordenador.getId() != servidor.getId()){
 
-			selecao.getMembrosComissao().remove(servidor);
+			selecao.getComissao().remove(servidor);
 			selecaoRepository.save(selecao);
 			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO);
 		}else
@@ -451,7 +451,7 @@ public class CoordenadorController {
 		Selecao selecao = selecaoRepository.findById(idSelecao);
         Servidor servidor = servidorRepository.findByCpf(auth.getName());	
 		
-		if(selecao.getMembrosComissao().contains(servidor)){
+		if(selecao.getComissao().contains(servidor)){
 			
 			//dividi o resultado já em 3 listas a serem exibidas na jsp
 

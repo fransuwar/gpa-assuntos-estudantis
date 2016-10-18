@@ -84,9 +84,9 @@ import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.enums.Turno;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.AnaliseDocumentacao;
-import br.ufc.quixada.npi.gpa.model.ComQuemMora;
+import br.ufc.quixada.npi.gpa.model.Morador;
 import br.ufc.quixada.npi.gpa.model.Documento;
-import br.ufc.quixada.npi.gpa.model.DocumentosTipoInscricao;
+import br.ufc.quixada.npi.gpa.model.Documentacao;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.PessoaFamilia;
 import br.ufc.quixada.npi.gpa.model.QuestionarioAuxilioMoradia;
@@ -368,8 +368,8 @@ public class AlunoController {
 			Selecao selecao = selecaoRepository.findById(idSelecao);
 
 			List<PessoaFamilia> pessoasEntrevista = new ArrayList<>();
-			if(auxilioMoradia.getPessoas() != null){
-				for(PessoaFamilia pessoa : auxilioMoradia.getPessoas()){
+			if(auxilioMoradia.getGrupoFamiliar() != null){
+				for(PessoaFamilia pessoa : auxilioMoradia.getGrupoFamiliar()){
 					pessoasEntrevista.add(pessoa.clone());
 				}
 			}
@@ -385,7 +385,7 @@ public class AlunoController {
 				inscricao.setSelecao(selecao);
 				inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
 				inscricao.setResultado(Resultado.NAO_AVALIADO);
-				auxilioMoradia.setComQuemMora(this.adicionarComQuemMora(comQuemMora));
+				auxilioMoradia.setMoradores(this.adicionarComQuemMora(comQuemMora));
 
                 inscricaoRepository.save(inscricao);
 
@@ -453,7 +453,7 @@ public class AlunoController {
 					model.addAttribute(GRAU_PARENTESCO, GrauParentesco.getTodos());
 					model.addAttribute(ESCOLARIDADE,Escolaridade.values());
 
-					model.addAttribute("pessoasDaFamilia", inscricao.getQuestionarioAuxilioMoradia().getPessoas());
+					model.addAttribute("pessoasDaFamilia", inscricao.getQuestionarioAuxilioMoradia().getGrupoFamiliar());
 
 
 					return PAGINA_INSCREVER_INICIACAO_ACADEMICA;
@@ -516,7 +516,7 @@ public class AlunoController {
 				redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_UPLOAD_FOTO);
 			}
 
-			auxilioMoradia.setComQuemMora(this.adicionarComQuemMora(comQuemMora));
+			auxilioMoradia.setMoradores(this.adicionarComQuemMora(comQuemMora));
 
 			inscricao.setQuestionarioAuxilioMoradia(auxilioMoradia);
 
@@ -572,13 +572,13 @@ public class AlunoController {
 
 	}
 
-	public List<ComQuemMora> adicionarComQuemMora(List<String> listaComQuemMora){
+	public List<Morador> adicionarComQuemMora(List<String> listaComQuemMora){
 
-		List<ComQuemMora> comQuemMoraList = new ArrayList<ComQuemMora>();
+		List<Morador> comQuemMoraList = new ArrayList<Morador>();
 
 		if(listaComQuemMora != null){
 			for (String m : listaComQuemMora) {
-				ComQuemMora comQuemMora = new ComQuemMora();
+				Morador comQuemMora = new Morador();
 				comQuemMora.setDescricao(GrauParentesco.valueOf(m));
 				comQuemMoraList.add(comQuemMora);
 			}
@@ -639,12 +639,12 @@ public class AlunoController {
 				Documento documento = new Documento();
 				documento.setArquivo(formulario.getBytes());
 				documento.setNome(formulario.getOriginalFilename());
-				documento.setTipo(formulario.getContentType());
+				documento.setCaminho(formulario.getContentType());
 
 				documentoRepository.save(documento);
 
 				AnaliseDocumentacao documentacao = null;
-				DocumentosTipoInscricao dti;
+				Documentacao dti;
 
 				if(inscricao.getDocumentacao() == null){
 					documentacao = new AnaliseDocumentacao();
@@ -652,8 +652,8 @@ public class AlunoController {
 
 					TipoDocumento tipo = tipoDocumentoRepository.findById(idTipo);
 
-					dti = new DocumentosTipoInscricao();					
-					dti.setTipo(tipo);
+					dti = new Documentacao();					
+					dti.setTipoDocumento(tipo);
 					dti.getDocumentos().add(documento);
 
 					documentacao.getDocumentosTipoInscricao().put(idTipo, dti);
@@ -667,8 +667,8 @@ public class AlunoController {
 					if(dti == null){
 						TipoDocumento tipo = tipoDocumentoRepository.findById(idTipo);
 
-						dti = new DocumentosTipoInscricao();											
-						dti.setTipo(tipo);
+						dti = new Documentacao();											
+						dti.setTipoDocumento(tipo);
 						dti.getDocumentos().add(documento);
 						
 						documentosTipoInscricaoRepository.save(dti);

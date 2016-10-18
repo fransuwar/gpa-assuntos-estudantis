@@ -1,5 +1,7 @@
 package br.ufc.quixada.npi.gpa.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,20 +16,23 @@ import br.ufc.quixada.npi.gpa.enums.Resultado;
 
 @Entity
 public class Entrevista {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	private Date data;
+	
 	private String observacao;
 	
 	@Enumerated(EnumType.STRING)
-	private Resultado deferimento;
+	private Resultado resultado;
 	
 	@OneToOne
 	private Inscricao inscricao;
 
 	@ManyToOne
-	private Servidor servidor;
+	private Servidor responsavel;
 	
 	public Integer getId() {
 		return id;
@@ -35,6 +40,14 @@ public class Entrevista {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	public String getObservacao() {
@@ -45,12 +58,12 @@ public class Entrevista {
 		this.observacao = observacao;
 	}
 
-	public Resultado getDeferimento() {
-		return deferimento;
+	public Resultado getResultado() {
+		return resultado;
 	}
 
-	public void setDeferimento(Resultado deferimento) {
-		this.deferimento = deferimento;
+	public void setResultado(Resultado resultado) {
+		this.resultado = resultado;
 	}
 
 	public Inscricao getInscricao() {
@@ -61,12 +74,12 @@ public class Entrevista {
 		this.inscricao = inscricao;
 	}
 
-	public Servidor getServidor() {
-		return servidor;
+	public Servidor getResponsavel() {
+		return responsavel;
 	}
 
-	public void setServidor(Servidor servidor) {
-		this.servidor = servidor;
+	public void setResponsavel(Servidor responsavel) {
+		this.responsavel = responsavel;
 	}
 
 	@Override
@@ -92,12 +105,6 @@ public class Entrevista {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Entrevista [id=" + id + ", observacao=" + observacao + ", deferimento=" + deferimento + ", inscricao="
-				+ inscricao + ", servidor=" + servidor + "]";
 	}
 
 }

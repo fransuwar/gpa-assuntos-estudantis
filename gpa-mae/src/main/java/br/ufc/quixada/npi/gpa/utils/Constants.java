@@ -2,20 +2,6 @@ package br.ufc.quixada.npi.gpa.utils;
 
 public class Constants {
 	
-	
-	/** Models*/
-	
-	public static final long MAX_IRA = 10;
-	public static final long MIN_IRA = 1;
-	public static final int MAX_DIGITOS_AGENCIA = 10;
-	public static final int MAX_DIGITOS_CONTA = 20;
-	
-	public static final int MIN_EDITAL = 1;
-	public static final int MIN_VAGAS = 1;
-	public static final int MAX_VAGAS = 999;
-	
-	
-	
 	/** Controllers*/
 	
 	public static final String ALUNO = "aluno";

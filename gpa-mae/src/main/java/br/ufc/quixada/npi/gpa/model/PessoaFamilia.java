@@ -3,11 +3,9 @@ package br.ufc.quixada.npi.gpa.model;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import br.ufc.quixada.npi.gpa.enums.Escolaridade;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
@@ -21,8 +19,6 @@ public class PessoaFamilia {
 
 	private String nome;
 
-	private Integer idade;
-	
 	@Enumerated(EnumType.STRING)
 	private Escolaridade escolaridade;
 
@@ -33,31 +29,17 @@ public class PessoaFamilia {
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
 	
-	private String outro;
+	private String outroParentesco;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private QuestionarioIniciacaoAcademica iniciacaoAcademica;
-	
 	public PessoaFamilia clone(){
 		PessoaFamilia pessoa = new PessoaFamilia();
-		
 		pessoa.setNome(nome);
-		pessoa.setIdade(idade);
 		pessoa.setEscolaridade(escolaridade);
 		pessoa.setProfissao(profissao);
 		pessoa.setRendaMensal(rendaMensal);
 		pessoa.setParentesco(parentesco);
-		pessoa.setIniciacaoAcademica(iniciacaoAcademica);
 		
 		return pessoa;
-	}
-
-	public QuestionarioIniciacaoAcademica getIniciacaoAcademica() {
-		return iniciacaoAcademica;
-	}
-
-	public void setIniciacaoAcademica(QuestionarioIniciacaoAcademica iniciacaoAcademica) {
-		this.iniciacaoAcademica = iniciacaoAcademica;
 	}
 
 	public Integer getId() {
@@ -84,14 +66,6 @@ public class PessoaFamilia {
 		this.nome = nome;
 	}
 
-	public Integer getIdade() {
-		return idade;
-	}
-
-	public void setIdade(Integer idade) {
-		this.idade = idade;
-	}
-
 	public String getProfissao() {
 		return profissao;
 	}
@@ -116,12 +90,12 @@ public class PessoaFamilia {
 		this.parentesco = grauParentesco;
 	}
 
-	public String getOutro() {
-		return outro;
+	public String getOutroParentesco() {
+		return outroParentesco;
 	}
 
-	public void setOutro(String outro) {
-		this.outro = outro;
+	public void setOutroParentesco(String outroParentesco) {
+		this.outroParentesco = outroParentesco;
 	}
 	
 	

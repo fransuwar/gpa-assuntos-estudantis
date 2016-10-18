@@ -130,13 +130,13 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
-			if(!inscricao.getDocumentacao().getDeferimento().equals(Resultado.NAO_AVALIADO)){
+			if(!inscricao.getDocumentacao().getResultado().equals(Resultado.NAO_AVALIADO)){
 
 				Selecao selecao = inscricao.getSelecao();
 
 				Servidor servidor = servidorRepository.findByCpf(auth.getName());
 
-				List<Servidor> comissao = selecao.getMembrosComissao();
+				List<Servidor> comissao = selecao.getComissao();
 
 				if(comissao.contains(servidor)){
 
@@ -164,10 +164,10 @@ public class ServidorController {
 		
 		Entrevista entrevista2 = entrevistaRepository.findById(idEntrevista);
 		entrevista2.setObservacao(entrevista.getObservacao());
-		if(entrevista.getDeferimento().equals(Resultado.INDEFERIDO)){
-			inscricao.setResultado(entrevista.getDeferimento());
+		if(entrevista.getResultado().equals(Resultado.INDEFERIDO)){
+			inscricao.setResultado(entrevista.getResultado());
 		}
-		entrevista2.setDeferimento(entrevista.getDeferimento());
+		entrevista2.setResultado(entrevista.getResultado());
 		inscricao.setRealizarVisita(realizarVisita);
 		entrevistaRepository.save(entrevista2);
 		inscricaoRepository.save(inscricao);
@@ -182,12 +182,12 @@ public class ServidorController {
 			RedirectAttributes redirect, Authentication auth, @RequestParam(value="realizarVisita", required=false) boolean realizarVisita ){
 		
 		Servidor servidor = this.servidorRepository.findServidorComComissaoByCpf(auth.getName());
-		entrevista.setServidor(servidor);
+		entrevista.setResponsavel(servidor);
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		inscricao.setRealizarVisita(realizarVisita);
 		
-		if(entrevista.getDeferimento().name().equals(Resultado.INDEFERIDO)){
-			inscricao.setResultado(entrevista.getDeferimento());
+		if(entrevista.getResultado().name().equals(Resultado.INDEFERIDO)){
+			inscricao.setResultado(entrevista.getResultado());
 		}
 		
 		inscricao.setEntrevista(entrevista);
@@ -228,7 +228,7 @@ public class ServidorController {
 			Documento documento = new Documento();
 			documento.setArquivo(formulario.getBytes());
 			documento.setNome(formulario.getOriginalFilename());
-			documento.setTipo(formulario.getContentType());
+			documento.setCaminho(formulario.getContentType());
 			
 			Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 			
@@ -260,11 +260,11 @@ public class ServidorController {
 
 			Servidor servidor = servidorRepository.findByCpf(auth.getName());
 
-			List<Servidor> comissao = inscricao.getSelecao().getMembrosComissao();
+			List<Servidor> comissao = inscricao.getSelecao().getComissao();
 
 			if(comissao.contains(servidor) ){
 				if(inscricao.getVisitaDomiciliar() == null){
-					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().getDeferimento().equals(Resultado.DEFERIDO)){
+					if (inscricao.getSelecao().getTipoSelecao().equals(TipoSelecao.AUX_MOR) &&  inscricao.getEntrevista().getResultado().equals(Resultado.DEFERIDO)){
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 
 						model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
@@ -299,7 +299,7 @@ public class ServidorController {
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		Servidor servidor = servidorRepository.findByCpf(auth.getName());
 		
-		relatorioVisitaDomiciliar.setServidor(servidor);
+		relatorioVisitaDomiciliar.setResponsavel(servidor);
 		inscricao.setVisitaDomiciliar(relatorioVisitaDomiciliar);
 
 		if (result.hasErrors()) {
@@ -345,12 +345,12 @@ public class ServidorController {
 		Selecao selecao = selecaoRepository.findById(idSelecao);
 		Servidor servidor = servidorRepository.findByCpf(auth.getName());	
 		
-		if(selecao.getMembrosComissao().contains(servidor)){
+		if(selecao.getComissao().contains(servidor)){
 			if (selecao == null) {
 				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
 			} else {
-				List<Servidor> comissao = selecao.getMembrosComissao();
+				List<Servidor> comissao = selecao.getComissao();
 				if(comissao.contains(servidor)) {
 					List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecao(idSelecao);
 					model.addAttribute(SELECAO, selecao);
@@ -429,8 +429,8 @@ public class ServidorController {
 				inscricao.setResultado(Resultado.valueOf(parecer));
 			}
 			visitaDomiciliar.setDeferimento(Resultado.valueOf(parecer));
-			visitaDomiciliar.setObservacaoParecer(observacao);
-			visitaDomiciliar.setServidor(servidor);
+			visitaDomiciliar.setParecer(observacao);
+			visitaDomiciliar.setResponsavel(servidor);
 			visitaRepository.save(visitaDomiciliar);
 		}
 		
@@ -493,9 +493,9 @@ public class ServidorController {
         if(resultado.name().equals(Resultado.INDEFERIDO)){
         	inscricao.setResultado(resultado);
         }
-        analiseDocumentacao.setDeferimento(resultado);
+        analiseDocumentacao.setResultado(resultado);
         analiseDocumentacao.setObservacao(observacao);
-        analiseDocumentacao.setServidor(servidor);
+        analiseDocumentacao.setResponsavel(servidor);
 		inscricao.setDocumentacao(analiseDocumentacao);
 		inscricaoRepository.save(inscricao);
 		
@@ -511,7 +511,7 @@ public class ServidorController {
 		Selecao selecao = selecaoRepository.findById(idSelecao);
         Servidor servidor = servidorRepository.findByCpf(auth.getName());	
 		
-		if(selecao.getMembrosComissao().contains(servidor)){
+		if(selecao.getComissao().contains(servidor)){
 			
 			model.addAttribute("inscritosComVisita", selecao.getAlunosSelecionadosVisita());
 			model.addAttribute("inscritosSemVisita", selecao.getAlunosNaoSelecionadosVisita());
