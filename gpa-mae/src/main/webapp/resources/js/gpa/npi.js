@@ -233,39 +233,39 @@ $(document).ready(function(){
 	$("#dataInicio").blur();
 
 
-	$("#adicionarSelecaoForm").validate({
-
-		rules: {
-			tipoSelecao:{
-				required:true
-			},
-			dataInicio:{
-				required:true,
-				periodo : true
-			},
-			dataTermino:{
-				required:true
-			},
-			ano: {
-				required: true
-			},
-			sequencial:{
-				required:true
-			},
-			duracao:{
-				required:true
-			},
-			tiposDeDocumento:{
-				required:true
-			},
-			agree: "required"
-		},
-
-		submitHandler: function(form) {
-			form.submit();
-		}
-
-	});
+//	$("#adicionarSelecaoForm").validate({
+//
+//		rules: {
+//			tipoSelecao:{
+//				required:true
+//			},
+//			dataInicio:{
+//				required:true
+//			},
+//			dataTermino:{
+//				required:true,
+//				periodo : true
+//			},
+//			ano: {
+//				required: true
+//			},
+//			sequencial:{
+//				required:true
+//			},
+//			duracao:{
+//				required:true
+//			},
+//			tiposDeDocumento:{
+//				required:true
+//			},
+//			agree: "required"
+//		},
+//
+//		submitHandler: function(form) {
+//			form.submit();
+//		}
+//
+//	});
 
 	$(".img-fullscreen").find("img").click(function(){
 		$(".img-fullscreen-background").remove();

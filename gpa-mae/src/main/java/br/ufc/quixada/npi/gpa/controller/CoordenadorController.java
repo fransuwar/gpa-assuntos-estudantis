@@ -170,9 +170,9 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
-	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
-			@RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos, BindingResult result, Authentication auth) {
-		
+	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, 
+			@RequestParam(value="checkDocumentos[]", required=false) List<Integer> idstiposDocumentos,
+			 Authentication auth) {
 		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
 
 		model.addAttribute(ACTION, CADASTRAR);
