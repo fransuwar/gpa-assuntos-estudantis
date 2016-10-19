@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/").authenticated()
+		http.csrf().disable().authorizeRequests().antMatchers("/").authenticated()
 			.antMatchers("/css/**", "/js/**", "/fonts/**", "/img/**", "/images/**").permitAll()
 			.antMatchers("/servidor/**").hasAnyAuthority("DOCENTE", "STA")
 			.antMatchers("/coordenador/**").hasAuthority("COORDENADOR_ASSUNTOS_ESTUDANTIS")
@@ -39,8 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		super.configure(auth);
-		
 		// Utilizado para autenticação via ldap
 		auth.authenticationProvider(provider);
 				

@@ -10,4 +10,8 @@
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <link href="<c:url value="/css/gpamae.css" />" rel="stylesheet" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- tokens -->
+
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 
