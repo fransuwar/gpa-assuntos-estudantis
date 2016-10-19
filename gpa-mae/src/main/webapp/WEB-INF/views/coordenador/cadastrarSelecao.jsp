@@ -127,8 +127,6 @@
 								cssClass="form-control data" placeholder="dd/mm/aaaa" readonly="true"
 								/>
 							<div class="error-validation" id="erro-dataInicio">
-								<label class="col-sm-10 control-label" id="label-erro">
-									${dataInicioError} </label>
 								<form:errors path="dataInicio" />
 							</div>
 						</div>
@@ -152,7 +150,7 @@
 										id="text-align-left">Documentos
 										Necessários:</label>
 								</div>
-								<div class="col-sm-12">
+							    <div class="col-sm-12">
 									<c:forEach var="documento" items="${tiposDeDocumento }">
 									    <c:set var="contains" value="false" />
 										<c:forEach var="documentoSelecionado"
@@ -165,21 +163,22 @@
 											<c:when test="${contains eq true }">
 												<div class="checkbox">
 													<input type="checkbox" id="tiposDeDocumento" data-toggle="toggle"
-														name="checkDocumentos[]" value="${documento.id }" required
+														name="checkDocumentos[]" value="${documento.id }" 
 														checked>${documento.nome }
 												</div>
 											</c:when>
 											<c:otherwise>
 												<div class="checkbox">
 													<input type="checkbox" id="tiposDeDocumento" data-toggle="toggle"
-														name="checkDocumentos[]" value="${documento.id }" required>${documento.nome }
+														name="checkDocumentos[]" value="${documento.id }" >${documento.nome }
 												</div>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
 								</div>
-							</div>
+							</div> 
 						</div>
+					
 					</div>
 					<div class="form-btn">
 						<a href="<c:url value="/servidor/selecao/listar"></c:url>" class="btn btn-default" id="form-btn">Cancelar</a>
