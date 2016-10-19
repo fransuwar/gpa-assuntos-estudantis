@@ -33,7 +33,7 @@ import br.ufc.quixada.npi.ldap.service.UsuarioService;
 
 @Controller
 public class LoginController {
-	@Inject
+	/*@Inject
 	private UsuarioService serviceUsuario;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -112,5 +112,5 @@ public class LoginController {
 					MENSAGEM_PERMISSAO_NEGADA);
 		}
 		return "403";
-	}
+	}*/
 }

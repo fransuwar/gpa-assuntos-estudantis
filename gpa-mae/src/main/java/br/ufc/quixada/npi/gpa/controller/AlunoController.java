@@ -102,7 +102,7 @@ public class AlunoController {
 	private SelecaoRepository selecaoRepository;
 
 
-	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"selecao/listar", "", "/"}, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 		List<Selecao> selecoes = selecaoRepository.findAll();
 		model.addAttribute("selecoes", selecoes);

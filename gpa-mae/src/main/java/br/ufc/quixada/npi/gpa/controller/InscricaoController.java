@@ -1,12 +1,9 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ASSUNTO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.BODY;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ESCONDER_BOTOES;
-import static br.ufc.quixada.npi.gpa.utils.Constants.FROM;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO_TAB;
@@ -25,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
@@ -51,8 +47,6 @@ import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.utils.Constants;
-import br.ufc.quixada.npi.model.Email;
-import br.ufc.quixada.npi.service.EmailService;
 
 @Controller
 @RequestMapping("inscricao")
@@ -61,8 +55,8 @@ public class InscricaoController {
 	@Inject
 	private InscricaoRepository inscricaoRepository;
 
-	@Inject
-	private EmailService emailService;
+	/*@Inject
+	private EmailService emailService;*/
 
 	@Inject
 	private SelecaoRepository selecaoRepository;
@@ -182,7 +176,7 @@ public class InscricaoController {
 			redirect.addFlashAttribute(ABA_SELECIONADA,INSCRICAO_TAB);
 			
 			
-			Runnable enviarEmail = new Runnable() {
+			/*Runnable enviarEmail = new Runnable() {
 				@Override
 				public void run() {		
 					Email email=new Email();
@@ -202,10 +196,10 @@ public class InscricaoController {
 						e.printStackTrace();
 					}
 				}
-			};
+			};*/
 
-			Thread threadEnviarEmail = new Thread(enviarEmail);
-			threadEnviarEmail.start();
+			/*Thread threadEnviarEmail = new Thread(enviarEmail);
+			threadEnviarEmail.start();*/
 			
 			return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
 			

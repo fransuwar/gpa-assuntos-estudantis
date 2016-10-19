@@ -38,6 +38,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TIPOS_DOCUMENTO;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,7 +49,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.joda.time.DateTime;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -165,12 +165,12 @@ public class CoordenadorController {
 
 		model.addAttribute(ACTION, CADASTRAR);
 
-		if ((selecao != null && selecao.getAno() != null) && (selecao.getAno() < DateTime.now().getYear())) {
+		if ((selecao != null && selecao.getAno() != null) && (selecao.getAno() < LocalDate.now().getYear())) {
 			result.rejectValue("ano", "selecao.ano", MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR);
 		}
 
 		if ((selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) && 
-				(new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio()))) {
+				selecao.getDataTermino().before(selecao.getDataInicio())) {
 			result.rejectValue(DATA_TERMINO, "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
 		}
 
@@ -231,7 +231,7 @@ public class CoordenadorController {
 			Model model, RedirectAttributes redirect, @RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos) {
 		model.addAttribute(ACTION, EDITAR);
 		if ((selecaoAtualizada != null && selecaoAtualizada.getDataInicio() != null && selecaoAtualizada.getDataTermino() != null) &&
-				(new DateTime(selecaoAtualizada.getDataTermino())).isBefore(new DateTime(selecaoAtualizada.getDataInicio()))) {
+				selecaoAtualizada.getDataTermino().before(selecaoAtualizada.getDataInicio())) {
 			result.rejectValue(DATA_TERMINO, "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
 		}
 
