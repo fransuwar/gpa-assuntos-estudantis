@@ -170,9 +170,9 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
-	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, 
-			@RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos, BindingResult result, Authentication auth) {
-		
+	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, 
+			@RequestParam(value="checkDocumentos[]", required=false) List<Integer> idstiposDocumentos,
+			 Authentication auth) {
 		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
 
 		model.addAttribute(ACTION, CADASTRAR);
@@ -305,7 +305,7 @@ public class CoordenadorController {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS);
 		}
 
-		return REDIRECT_PAGINA_LISTAR_SELECAO;
+		return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 	}
 
 	@RequestMapping(value = "/comissao/atribuir/{idSelecao}", method = RequestMethod.GET)
