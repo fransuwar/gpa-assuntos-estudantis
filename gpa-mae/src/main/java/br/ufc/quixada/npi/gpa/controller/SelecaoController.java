@@ -14,8 +14,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELE
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECOES;
-import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_AUX_MORADIA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_INIC_ACAD;
 
 import java.util.List;
 
@@ -37,7 +35,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -139,14 +136,8 @@ public class SelecaoController {
 
 	@RequestMapping(value = { "/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(ModelMap model, HttpServletRequest request) {
-
 		List<Selecao> selecoes = this.selecaoRepository.findAll();
-
 		model.addAttribute(SELECOES, selecoes);
-		model.addAttribute("tipoBolsa", TipoSelecao.values());
-		model.addAttribute(TIPO_INIC_ACAD, TipoSelecao.INIC_ACAD);
-		model.addAttribute(TIPO_AUX_MORADIA, TipoSelecao.AUX_MOR);
-
 		return PAGINA_LISTAR_SELECAO;
 	}
 
@@ -157,9 +148,6 @@ public class SelecaoController {
 		//List<Selecao> selecoes = this.servidorRepository.findById(id).getParticipaComissao();
 
 		//model.addAttribute(SELECOES, selecoes);
-		model.addAttribute(TIPO_INIC_ACAD, TipoSelecao.INIC_ACAD);
-		model.addAttribute(TIPO_AUX_MORADIA, TipoSelecao.AUX_MOR);
-
 		return PAGINA_LISTAR_SELECAO;
 	}
 

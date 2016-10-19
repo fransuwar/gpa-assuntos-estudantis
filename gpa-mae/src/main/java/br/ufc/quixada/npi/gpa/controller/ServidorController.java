@@ -1,6 +1,5 @@
 package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.CURSO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ENTREVISTA_TAB;
@@ -20,7 +19,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXIS
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MORADIA_ESTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
@@ -56,10 +54,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.enums.Curso;
-import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
-import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.AnaliseDocumentacao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Entrevista;
@@ -110,9 +105,6 @@ public class ServidorController {
 		// TODO: alterar estratégia para mostrar as seleções de que um servidor participa
 		//Servidor servidor = servidorRepository.findByCpf(auth.getName());
 		//model.addAttribute("selecoes", servidor.getParticipaComissao());
-		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
-
 		return PAGINA_LISTAR_SELECAO_SERVIDOR;
 	}
 
@@ -263,8 +255,6 @@ public class ServidorController {
 						VisitaDomiciliar relatorioVisitaDomiciliar = new VisitaDomiciliar();
 
 						model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
-						model.addAttribute(CURSO, Curso.values());
-						model.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
 						model.addAttribute(INSCRICAO, inscricao);
 						model.addAttribute(SELECAO, inscricao.getSelecao());
 						model.addAttribute(ID_INSCRICAO, inscricao.getId());
@@ -299,8 +289,6 @@ public class ServidorController {
 
 		if (result.hasErrors()) {
 
-			model.addAttribute(CURSO, Curso.values());
-			model.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
 			model.addAttribute(INSCRICAO, inscricao);
 			model.addAttribute(SELECAO, inscricao.getSelecao());
 

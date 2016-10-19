@@ -67,7 +67,6 @@ import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 import br.ufc.quixada.npi.gpa.enums.Resultado;
 import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsino;
-import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
@@ -107,9 +106,6 @@ public class AlunoController {
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 		List<Selecao> selecoes = selecaoRepository.findAll();
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
-
 		return PAGINA_SELECOES_ABERTAS;
 	}
 

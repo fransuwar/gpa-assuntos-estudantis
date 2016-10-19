@@ -37,8 +37,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELE
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TIPOS_DOCUMENTO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_BOLSA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_SELECAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,7 +64,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -143,14 +140,8 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(ModelMap model, HttpServletRequest request, Authentication auth){
-
 		List<Selecao> selecoes = this.selecaoRepository.findAll();
-
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute(TIPO_SELECAO, TipoSelecao.values());
-		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
-
 		return PAGINA_LISTAR_SELECAO_SERVIDOR;
 	}
 
@@ -228,42 +219,28 @@ public class CoordenadorController {
 
 		if (selecao != null) {
 			model.addAttribute(ACTION, EDITAR);
-			model.addAttribute(TIPO_SELECAO, TipoSelecao.values());
 			model.addAttribute(SELECAO, selecao);
 			model.addAttribute("membrosComissao", selecao.getComissao());
 			model.addAttribute(TIPOS_DOCUMENTO,tiposDeDocumento);
-
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-
-
 		return PAGINA_CADASTRAR_SELECAO;
-
 	}
 
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
 	public String editarSelecao(@Valid @ModelAttribute(SELECAO) Selecao selecaoAtualizada, BindingResult result,
 			Model model, RedirectAttributes redirect, @RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos) {
-
-
 		model.addAttribute(ACTION, EDITAR);
-
 		if ((selecaoAtualizada != null && selecaoAtualizada.getDataInicio() != null && selecaoAtualizada.getDataTermino() != null) &&
 				(new DateTime(selecaoAtualizada.getDataTermino())).isBefore(new DateTime(selecaoAtualizada.getDataInicio()))) {
 			result.rejectValue(DATA_TERMINO, "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
-
 		}
 
 		if (result.hasErrors()) {
 			model.addAttribute(SELECAO, selecaoAtualizada);
-			model.addAttribute(TIPO_SELECAO, TipoSelecao.values());
-
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-
-
 		Selecao selecao = selecaoRepository.findById(selecaoAtualizada.getId());
-
 		if(idstiposDocumentos != null ){
 
 			List<TipoDocumento> documentoSelecionados = new ArrayList<TipoDocumento>();
@@ -401,15 +378,10 @@ public class CoordenadorController {
 		if (documento != null) {
 			selecao.getDocumentos().remove(documento);
 			selecaoRepository.save(selecao);
-
-			model.addAttribute(TIPO_BOLSA, TipoSelecao.values());
 			model.addAttribute(SELECAO, selecao);
 
 			return  REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
-
 		} else {
-
-			model.addAttribute(TIPO_BOLSA, TipoSelecao.values());
 			model.addAttribute(SELECAO, selecao);
 			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
 
