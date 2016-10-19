@@ -12,6 +12,7 @@ import br.ufc.quixada.npi.ldap.service.UsuarioService;
 
 public class ServidorEntityListener implements ApplicationContextAware {
 	
+	@Autowired
 	private static ApplicationContext context;
 	
 	@Autowired

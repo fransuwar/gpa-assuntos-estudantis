@@ -18,24 +18,16 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import br.ufc.quixada.npi.gpa.model.Pessoa;
-import br.ufc.quixada.npi.gpa.repository.PessoaRepository;
-import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.ldap.model.Usuario;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
 @Named
-public class AuthenticationSuccessHandlerImpl implements
-		AuthenticationSuccessHandler {
+public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
 	private RedirectStrategy redirectStrategy;
 
 	@Inject
 	private UsuarioService serviceUsuario;
 	
-	
-	@Inject
-	private PessoaRepository pessoaRepository;
-
 	public AuthenticationSuccessHandlerImpl() {
 		redirectStrategy = new DefaultRedirectStrategy();
 	}
@@ -48,7 +40,6 @@ public class AuthenticationSuccessHandlerImpl implements
 	}
 
 	private void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-		usuarioLogado(request, authentication);
 		redirectStrategy.sendRedirect(request, response, determineUrl(authentication));
 	}
 
@@ -72,16 +63,6 @@ public class AuthenticationSuccessHandlerImpl implements
 		}
 		
 		return "/login";
-	}
-	
-	private void usuarioLogado(HttpServletRequest request, Authentication authentication) {
-		if (request.getSession().getAttribute(Constants.USUARIO_LOGADO) == null) {
-			Pessoa pessoa = pessoaRepository.findByCpf(authentication.getName());
-			String nome = pessoa.getNome();
-			Integer id = pessoa.getId();
-			request.getSession().setAttribute(Constants.USUARIO_ID, id);
-			request.getSession().setAttribute(Constants.USUARIO_LOGADO, nome);
-		}
 	}
 	
 }

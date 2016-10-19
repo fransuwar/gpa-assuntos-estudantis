@@ -9,8 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 @Entity
 @EntityListeners(ServidorEntityListener.class)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "siape" }))
@@ -20,7 +18,6 @@ public class Servidor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotEmpty(message = "Campo obrigatório")
 	private String siape;
 
 	@ManyToOne

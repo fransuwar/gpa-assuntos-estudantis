@@ -33,7 +33,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ADICIONAR_A
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TIPOS_DOCUMENTO;
@@ -187,7 +186,7 @@ public class CoordenadorController {
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 
-		Servidor coordenador = servidorRepository.findByCpf(auth.getName());
+		Servidor coordenador = servidorRepository.findByPessoaCpf(auth.getName());
 
 		if(selecao.getResponsavel() == null){
 			selecao.addCoordenador(coordenador);
@@ -394,7 +393,7 @@ public class CoordenadorController {
 			Model model, Authentication auth, RedirectAttributes redirect) {	
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
-		Servidor coordenador = servidorRepository.findByCpf(auth.getName());			
+		Servidor coordenador = servidorRepository.findByPessoaCpf(auth.getName());			
 		Servidor servidor = this.servidorRepository.findById(idServidor);
 
 		if(coordenador.getId() != servidor.getId()){
@@ -415,7 +414,7 @@ public class CoordenadorController {
 			Authentication auth,RedirectAttributes redirect){
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
-        Servidor servidor = servidorRepository.findByCpf(auth.getName());	
+        Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());	
 		
 		if(selecao.getComissao().contains(servidor)){
 			

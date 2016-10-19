@@ -40,6 +40,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,12 +72,16 @@ import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
 import br.ufc.quixada.npi.gpa.repository.VisitaDomiciliarRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
+import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
 @RequestMapping ("servidor")
 @SessionAttributes({ Constants.USUARIO_ID , Constants.USUARIO_LOGADO})
 public class ServidorController {
+	
+	@Autowired
+	private SelecaoService selecaoService;
 	
 	@Inject
 	private InscricaoService inscricaoService;
@@ -99,15 +104,14 @@ public class ServidorController {
 	@Inject
 	private ServidorRepository servidorRepository;
 	
-	
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
-	public String listarSelecoes(Model model, Authentication auth, RedirectAttributes redirect) {
-		// TODO: alterar estratégia para mostrar as seleções de que um servidor participa
-		//Servidor servidor = servidorRepository.findByCpf(auth.getName());
-		//model.addAttribute("selecoes", servidor.getParticipaComissao());
+	public String listarSelecoes(Model model, Authentication auth) {
+		model.addAttribute("selecoes", selecaoService.getByMembroComissao(auth.getName()));
 		return PAGINA_LISTAR_SELECAO_SERVIDOR;
 	}
 
+	
+	// old
 	@RequestMapping(value= {"entrevista/{idInscricao}"}, method = RequestMethod.GET)
 	public String realizarEntrevista(@PathVariable("idInscricao") Integer idInscricao,Authentication auth, RedirectAttributes redirect, Model model ){
 		Inscricao inscricao = this.inscricaoRepository.findById(idInscricao);		
@@ -121,7 +125,7 @@ public class ServidorController {
 
 				Selecao selecao = inscricao.getSelecao();
 
-				Servidor servidor = servidorRepository.findByCpf(auth.getName());
+				Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());
 
 				List<Servidor> comissao = selecao.getComissao();
 
@@ -168,7 +172,7 @@ public class ServidorController {
 	public String entrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao,
 			RedirectAttributes redirect, Authentication auth, @RequestParam(value="realizarVisita", required=false) boolean realizarVisita ){
 		
-		Servidor servidor = this.servidorRepository.findByCpf(auth.getName());
+		Servidor servidor = this.servidorRepository.findByPessoaCpf(auth.getName());
 		entrevista.setResponsavel(servidor);
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		inscricao.setRealizarVisita(realizarVisita);
@@ -245,7 +249,7 @@ public class ServidorController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}else{
 
-			Servidor servidor = servidorRepository.findByCpf(auth.getName());
+			Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());
 
 			List<Servidor> comissao = inscricao.getSelecao().getComissao();
 
@@ -282,7 +286,7 @@ public class ServidorController {
 			Model model, RedirectAttributes redirect, Authentication auth) {
 
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
-		Servidor servidor = servidorRepository.findByCpf(auth.getName());
+		Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());
 		
 		relatorioVisitaDomiciliar.setResponsavel(servidor);
 		inscricao.setVisitaDomiciliar(relatorioVisitaDomiciliar);
@@ -326,7 +330,7 @@ public class ServidorController {
 	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao,Authentication auth, Model model, RedirectAttributes redirect){
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
-		Servidor servidor = servidorRepository.findByCpf(auth.getName());	
+		Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());	
 		
 		if(selecao != null && selecao.getComissao().contains(servidor)){
 			List<Servidor> comissao = selecao.getComissao();
@@ -402,7 +406,7 @@ public class ServidorController {
 		VisitaDomiciliar visitaDomiciliar = inscricao.getVisitaDomiciliar();
 		
 		if(visitaDomiciliar != null){
-			Servidor servidor = servidorRepository.findByCpf(auth.getName());
+			Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());
 			if(parecer.equals(Resultado.INDEFERIDO)){
 				inscricao.setResultado(Resultado.valueOf(parecer));
 			}
@@ -465,7 +469,7 @@ public class ServidorController {
 			@RequestParam("observacao") String observacao, RedirectAttributes redirect, Authentication auth){
 
         Inscricao inscricao = inscricaoRepository.findById(idInscricao);
-        Servidor servidor = servidorRepository.findByCpf(auth.getName());
+        Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());
         
         AnaliseDocumentacao analiseDocumentacao = inscricao.getDocumentacao();
         if(resultado.name().equals(Resultado.INDEFERIDO)){
@@ -487,7 +491,7 @@ public class ServidorController {
 	public String relatorioDeVisitas(@PathVariable("idSelecao") Integer idSelecao, Model model,Authentication auth,RedirectAttributes redirect){
 		
 		Selecao selecao = selecaoRepository.findById(idSelecao);
-        Servidor servidor = servidorRepository.findByCpf(auth.getName());	
+        Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());	
 		
 		if(selecao.getComissao().contains(servidor)){
 			

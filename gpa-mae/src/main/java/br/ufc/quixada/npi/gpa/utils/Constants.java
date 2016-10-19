@@ -55,6 +55,12 @@ public class Constants {
 
 	/** Páginas */
 	
+	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR 		= "servidor/listar-selecao";
+	
+	
+	
+	
+	
 	public static final String PAGINA_GERENCIAR_DOCUMENTOS = "coordenador/gerenciarDocumentos";
 	
 	public static final String PAGINA_ATRIBUIR_COMISSAO = "coordenador/atribuirMembroComissao";
@@ -85,8 +91,6 @@ public class Constants {
 
 	public static final String PAGINA_LISTAR_SELECAO 				= "selecao/listarSelecao";
 
-	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR 		= "servidor/listaSelecoes";
-	
 	public static final String PAGINA_SELECIONAR_CLASSIFICADOS 		= "selecao/selecionarClassificados";
 	
 	public static final String PAGINA_ADICIONAR_ARQUIVO 			= "coordenador/adicionarArquivoSelecao";
