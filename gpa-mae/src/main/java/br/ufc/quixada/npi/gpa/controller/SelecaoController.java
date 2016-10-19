@@ -89,7 +89,7 @@ public class SelecaoController {
 
 		model.addAttribute(SELECAO, selecao);
 
-		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
+		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecaoAndByAluno(selecao.getId(),aluno.getId());
 		boolean controle = false;
 		

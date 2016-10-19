@@ -1,6 +1,5 @@
 package br.ufc.quixada.npi.gpa.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
@@ -23,10 +23,10 @@ public class Documentacao {
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<Documento> documentos;
 	
+	@ManyToOne
+	private AnaliseDocumentacao analiseDocumentacao;
+	
 	public List<Documento> getDocumentos() {
-		if(documentos == null){
-			documentos = new ArrayList<>();
-		}
 		return documentos;
 	}
 
@@ -48,6 +48,14 @@ public class Documentacao {
 
 	public void setTipoDocumento(TipoDocumento tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
+	}
+
+	public AnaliseDocumentacao getAnaliseDocumentacao() {
+		return analiseDocumentacao;
+	}
+
+	public void setAnaliseDocumentacao(AnaliseDocumentacao analiseDocumentacao) {
+		this.analiseDocumentacao = analiseDocumentacao;
 	}
 	
 }

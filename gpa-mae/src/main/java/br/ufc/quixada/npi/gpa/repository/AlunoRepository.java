@@ -16,8 +16,5 @@ public interface AlunoRepository extends JpaRepository <Aluno, Integer>{
 	public abstract Aluno findById(Integer idAluno);
 	
 	public abstract List<Aluno> findAll();
-	
-	@Query("SELECT a FROM Aluno a LEFT JOIN FETCH a.inscricoes WHERE a.pessoa.cpf = :cpf")
-	public abstract Aluno findAlunoComInscricoesPorCpf(@Param("cpf") String cpf);
 
 }

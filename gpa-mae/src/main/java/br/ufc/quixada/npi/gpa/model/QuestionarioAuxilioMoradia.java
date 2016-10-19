@@ -95,21 +95,21 @@ public class QuestionarioAuxilioMoradia {
 	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] foto;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
 	private List<PropriedadeRural> propriedadeRural;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
 	private List<BemMovel> bemMovel;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinTable(joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
+	@JoinTable(name= "grupo_familiar", joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> grupoFamiliar;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinTable(joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
+	@JoinTable(name = "grupo_familiar_entrevista", joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> grupoFamiliarEntrevista;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
 	private List<Morador> moradores;
 	
 	public double getValorMensalFinanciamento() {
@@ -447,12 +447,12 @@ public class QuestionarioAuxilioMoradia {
 		this.moradores = moradores;
 	}
 	
-	public List<PessoaFamilia> getPessoasEntrevista() {
+	public List<PessoaFamilia> getGrupoFamiliarEntrevista() {
 		return grupoFamiliarEntrevista;
 	}
 
-	public void setPessoasEntrevista(List<PessoaFamilia> pessoasEntrevista) {
-		this.grupoFamiliarEntrevista = pessoasEntrevista;
+	public void setGrupoFamiliarEntrevista(List<PessoaFamilia> grupoFamiliarEntrevista) {
+		this.grupoFamiliarEntrevista = grupoFamiliarEntrevista;
 	}
 
 	@Override

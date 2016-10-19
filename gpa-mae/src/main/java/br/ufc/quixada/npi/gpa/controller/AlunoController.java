@@ -106,9 +106,7 @@ public class AlunoController {
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(Model model, HttpServletRequest request, Authentication auth) {
 		List<Selecao> selecoes = selecaoRepository.findAll();
-		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute(ALUNO, aluno);
 		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
 		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
 
@@ -208,7 +206,7 @@ public class AlunoController {
 					pessoasEntrevista.add(pessoa.clone());
 				}
 			}
-			auxilioMoradia.setPessoasEntrevista(pessoasEntrevista);
+			auxilioMoradia.setGrupoFamiliarEntrevista(pessoasEntrevista);
 
 			if (inscricaoRepository.findInscricaoBySelecaoAndByAluno(selecao.getId(), aluno.getId()) == null) {
 
@@ -336,13 +334,8 @@ public class AlunoController {
 
 	@RequestMapping(value = { "inscricao/listar" }, method = RequestMethod.GET)
 	public String listarInscricoes(Model model, Authentication auth) {
-
-		Aluno aluno = alunoRepository.findAlunoComInscricoesPorCpf(auth.getName());
-		model.addAttribute(ALUNO, aluno);
-		// TODO: criar método para buscar as inscrições de um aluno
-		//model.addAttribute("inscricoes", aluno.getInscricoes());
+		model.addAttribute("inscricoes", inscricaoRepository.findByAlunoPessoaCpf(auth.getName()));
 		return PAGINA_INSCRICOES_ALUNO;
-
 	}
 
 	@RequestMapping(value = "/inscricao/excluir/{idInscricao}", method = RequestMethod.GET)

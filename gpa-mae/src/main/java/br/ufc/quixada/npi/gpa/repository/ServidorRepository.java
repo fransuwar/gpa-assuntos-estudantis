@@ -16,11 +16,5 @@ public interface ServidorRepository extends JpaRepository <Servidor, Integer>{
 	
 	@Query("SELECT s FROM Servidor s WHERE s.pessoa.cpf = :cpf")
 	public abstract Servidor findByCpf(@Param("cpf") String cpf);
-	
-	@Query("SELECT s FROM Servidor s LEFT JOIN FETCH s.participaComissao WHERE s.pessoa.cpf = :cpf")
-	public abstract Servidor findServidorComComissaoByCpf(@Param("cpf") String CPF);
-	
-	@Query("SELECT sr FROM Servidor sr LEFT JOIN sr.participaComissao s WHERE s.id = :idSelecao and :idServidor member of s.membrosComissao")
-	public abstract List<Servidor> findServidorPertenceBanca(@Param("idServidor") Integer idServidor, @Param("idSelecao") Integer idSelecao);
 
 }

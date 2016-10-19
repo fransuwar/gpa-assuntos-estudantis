@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -45,6 +46,7 @@ public class Selecao {
 	private List<Documento> documentos;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name = "comissao")
 	private List<Servidor> comissao;
 
 	@OneToMany(mappedBy = "selecao")

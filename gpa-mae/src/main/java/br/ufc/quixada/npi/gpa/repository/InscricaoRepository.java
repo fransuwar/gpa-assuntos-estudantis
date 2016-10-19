@@ -16,6 +16,8 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
 	
 	public abstract Inscricao findById(Integer idInscricao);
 	
+	List<Inscricao> findByAlunoPessoaCpf(String cpf);
+	
 	@Query("select i from Inscricao i where i.selecao.id = :idSelecao")
 	public abstract List<Inscricao> findInscricoesBySelecao(@Param("idSelecao") Integer idSelecao);
 	

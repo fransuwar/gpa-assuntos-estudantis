@@ -176,7 +176,7 @@ public class ServidorController {
 	public String entrevista(@Valid @ModelAttribute("entrevista") Entrevista entrevista, @RequestParam("idInscricao") Integer idInscricao,
 			RedirectAttributes redirect, Authentication auth, @RequestParam(value="realizarVisita", required=false) boolean realizarVisita ){
 		
-		Servidor servidor = this.servidorRepository.findServidorComComissaoByCpf(auth.getName());
+		Servidor servidor = this.servidorRepository.findByCpf(auth.getName());
 		entrevista.setResponsavel(servidor);
 		Inscricao inscricao = inscricaoRepository.findById(idInscricao);
 		inscricao.setRealizarVisita(realizarVisita);
@@ -440,7 +440,7 @@ public class ServidorController {
 			return REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 		}else{
 		QuestionarioAuxilioMoradia auxilio = inscricao.getQuestionarioAuxilioMoradia();
-		auxilio.getPessoasEntrevista().add(pessoa);
+		auxilio.getGrupoFamiliarEntrevista().add(pessoa);
 		inscricaoRepository.save(inscricao);
 		redirect.addFlashAttribute(ABA_SELECIONADA,ENTREVISTA_TAB);
 		return REDIRECT_PAGINA_DETALHES_INSCRICAO + idInscricao;
@@ -460,7 +460,7 @@ public class ServidorController {
 			return REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 		}else{
 		PessoaFamilia pessoa = inscricaoService.buscarPessoaFamiliaPorId(idPessoa);
-		inscricao.getQuestionarioAuxilioMoradia().getPessoasEntrevista().remove(pessoa);
+		inscricao.getQuestionarioAuxilioMoradia().getGrupoFamiliarEntrevista().remove(pessoa);
 
 		inscricaoRepository.save(inscricao);
         model.addAttribute(INSCRICAO,inscricao);

@@ -3,19 +3,18 @@ package br.ufc.quixada.npi.gpa.model;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
-import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
-
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.GsonBuilder;
 import com.google.gson.LongSerializationPolicy;
+
+import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
+import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
 @Entity
 
@@ -35,7 +34,7 @@ public class BemMovel {
 	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidade;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private QuestionarioAuxilioMoradia auxilioMoradia;
 
 	public QuestionarioAuxilioMoradia getAuxilioMoradia() {

@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
@@ -25,7 +26,10 @@ public class PropriedadeRural {
 	
 	private String estado;
 	
-	private String outroParentesco;	
+	private String outroParentesco;
+	
+	@ManyToOne
+	private QuestionarioAuxilioMoradia auxilioMoradia;
 
 	public GrauParentesco getParentescoProprietario() {
 		return parentescoProprietario;
@@ -74,4 +78,14 @@ public class PropriedadeRural {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
+		return auxilioMoradia;
+	}
+
+	public void setAuxilioMoradia(QuestionarioAuxilioMoradia auxilioMoradia) {
+		this.auxilioMoradia = auxilioMoradia;
+	}
+	
+	
 }

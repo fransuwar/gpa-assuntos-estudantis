@@ -33,7 +33,7 @@ public class AnaliseDocumentacao {
 	@ManyToOne
 	private Servidor responsavel;
 	
-	@ManyToMany(cascade = CascadeType.REMOVE)
+	@ManyToMany(mappedBy = "analiseDocumentacao", cascade = CascadeType.REMOVE)
 	private List<Documentacao> documentacao;
 
 	public Integer getId() {

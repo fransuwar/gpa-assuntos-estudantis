@@ -51,11 +51,6 @@ public class Servidor {
 	}
 
 	@Override
-	public String toString() {
-		return "Servidor [id=" + id +"]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -79,7 +74,5 @@ public class Servidor {
 			return false;
 		return true;
 	}
-
-
 
 }
