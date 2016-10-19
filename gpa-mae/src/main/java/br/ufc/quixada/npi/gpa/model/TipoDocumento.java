@@ -14,7 +14,6 @@ public class TipoDocumento {
 	
 	private String nome;
 	
-	
 	public String getNome() {
 		return nome;
 	}
@@ -27,8 +26,6 @@ public class TipoDocumento {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
 	
 
 }

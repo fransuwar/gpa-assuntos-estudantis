@@ -2,20 +2,6 @@ package br.ufc.quixada.npi.gpa.utils;
 
 public class Constants {
 	
-	
-	/** Models*/
-	
-	public static final long MAX_IRA = 10;
-	public static final long MIN_IRA = 1;
-	public static final int MAX_DIGITOS_AGENCIA = 10;
-	public static final int MAX_DIGITOS_CONTA = 20;
-	
-	public static final int MIN_EDITAL = 1;
-	public static final int MIN_VAGAS = 1;
-	public static final int MAX_VAGAS = 999;
-	
-	
-	
 	/** Controllers*/
 	
 	public static final String ALUNO = "aluno";
@@ -69,6 +55,12 @@ public class Constants {
 
 	/** Páginas */
 	
+	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR 		= "servidor/listar-selecao";
+	
+	
+	
+	
+	
 	public static final String PAGINA_GERENCIAR_DOCUMENTOS = "coordenador/gerenciarDocumentos";
 	
 	public static final String PAGINA_ATRIBUIR_COMISSAO = "coordenador/atribuirMembroComissao";
@@ -99,8 +91,6 @@ public class Constants {
 
 	public static final String PAGINA_LISTAR_SELECAO 				= "selecao/listarSelecao";
 
-	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR 		= "servidor/listaSelecoes";
-	
 	public static final String PAGINA_SELECIONAR_CLASSIFICADOS 		= "selecao/selecionarClassificados";
 	
 	public static final String PAGINA_ADICIONAR_ARQUIVO 			= "coordenador/adicionarArquivoSelecao";

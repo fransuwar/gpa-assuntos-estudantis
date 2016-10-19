@@ -1,15 +1,11 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-
-import static br.ufc.quixada.npi.gpa.utils.Constants.RELATORIO_VISITA_DOMICILIAR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MORADIA_ESTADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ALUNO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.CURSO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ID_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECAO_INSCRITOS;
-
+import static br.ufc.quixada.npi.gpa.utils.Constants.RELATORIO_VISITA_DOMICILIAR;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -24,15 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.enums.Curso;
-import br.ufc.quixada.npi.gpa.enums.EstadoMoradia;
 import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.repository.VisitaDomiciliarRepository;
 import br.ufc.quixada.npi.gpa.utils.Constants;
-
-
 
 @Controller
 @RequestMapping("relatorioVisita")
@@ -51,8 +43,6 @@ public class VisitaDomiciliarController {
 		
 		Aluno aluno = alunoRepository.findById(id);
 		modelo.addAttribute(RELATORIO_VISITA_DOMICILIAR, new VisitaDomiciliar());
-		modelo.addAttribute(CURSO, Curso.values());
-		modelo.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
 		modelo.addAttribute(ALUNO, aluno);
 		modelo.addAttribute(ID_SELECAO, idSelecao);
 		return PAGINA_RELATORIO_VISITA_SELECAO;
@@ -69,8 +59,6 @@ public class VisitaDomiciliarController {
 		if(result.hasErrors()){
 			Aluno aluno = alunoRepository.findById(idAluno);
 			modelo.addAttribute(RELATORIO_VISITA_DOMICILIAR, relatorioVisitaDomiciliar);
-			modelo.addAttribute(CURSO, Curso.values());
-			modelo.addAttribute(MORADIA_ESTADO, EstadoMoradia.values());
 			modelo.addAttribute(ALUNO, aluno);
 			modelo.addAttribute(ID_SELECAO, idSelecao);
 			if(relatorioVisitaDomiciliar.getId() != null) 

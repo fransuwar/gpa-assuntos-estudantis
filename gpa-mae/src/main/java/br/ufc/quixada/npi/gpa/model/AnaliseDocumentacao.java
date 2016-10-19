@@ -1,13 +1,13 @@
 package br.ufc.quixada.npi.gpa.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -19,11 +19,11 @@ import br.ufc.quixada.npi.gpa.enums.Resultado;
 public class AnaliseDocumentacao {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Enumerated(EnumType.STRING)
-	private Resultado deferimento;
+	private Resultado resultado;
 	
 	private String observacao;
 	
@@ -31,10 +31,10 @@ public class AnaliseDocumentacao {
 	private Inscricao inscricao;
 
 	@ManyToOne
-	private Servidor servidor;
+	private Servidor responsavel;
 	
-	@ManyToMany(cascade = CascadeType.REMOVE)
-	private Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao;
+	@ManyToMany(mappedBy = "analiseDocumentacao", cascade = CascadeType.REMOVE)
+	private List<Documentacao> documentacao;
 
 	public Integer getId() {
 		return id;
@@ -44,12 +44,12 @@ public class AnaliseDocumentacao {
 		this.id = id;
 	}
 
-	public Resultado getDeferimento() {
-		return deferimento;
+	public Resultado getResultado() {
+		return resultado;
 	}
 
-	public void setDeferimento(Resultado deferimento) {
-		this.deferimento = deferimento;
+	public void setResultado(Resultado resultado) {
+		this.resultado = resultado;
 	}
 
 	public String getObservacao() {
@@ -68,23 +68,22 @@ public class AnaliseDocumentacao {
 		this.inscricao = inscricao;
 	}
 
-	public Servidor getServidor() {
-		return servidor;
+	public Servidor getResponsavel() {
+		return responsavel;
 	}
 
-	public void setServidor(Servidor servidor) {
-		this.servidor = servidor;
+	public void setResponsavel(Servidor responsavel) {
+		this.responsavel = responsavel;
 	}
 
-	public Map<Integer, DocumentosTipoInscricao> getDocumentosTipoInscricao() {
-		if(documentosTipoInscricao == null){
-			documentosTipoInscricao = new HashMap<>();
-		}
-		return documentosTipoInscricao;
+	public List<Documentacao> getDocumentacao() {
+		return documentacao;
 	}
 
-	public void setDocumentosTipoInscricao(Map<Integer, DocumentosTipoInscricao> documentosTipoInscricao) {
-		this.documentosTipoInscricao = documentosTipoInscricao;
+	public void setDocumentacao(List<Documentacao> documentacao) {
+		this.documentacao = documentacao;
 	}
+
+	
 
 }

@@ -3,7 +3,6 @@ package br.ufc.quixada.npi.gpa.model;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,31 +11,25 @@ import javax.persistence.ManyToOne;
 import br.ufc.quixada.npi.gpa.enums.FinalidadeVeiculo;
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
-import com.google.gson.GsonBuilder;
-import com.google.gson.LongSerializationPolicy;
-
 @Entity
 
 public class BemMovel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private String veiculo;
-
 	
 	@Enumerated(EnumType.STRING)
-	private GrauParentesco parentesco;
+	private GrauParentesco parentescoProprietario;
 	
-	private String outro;
+	private String outroParentesco;
 	
 	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidade;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private QuestionarioAuxilioMoradia auxilioMoradia;
 
 	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
@@ -47,12 +40,12 @@ public class BemMovel {
 		this.auxilioMoradia = auxilioMoradia;
 	}
 	
-	public GrauParentesco getParentesco() {
-		return parentesco;
+	public GrauParentesco getParentescoProprietario() {
+		return parentescoProprietario;
 	}
 
-	public void setParentesco(GrauParentesco parentesco) {
-		this.parentesco = parentesco;
+	public void setParentescoProprietario(GrauParentesco parentescoProprietario) {
+		this.parentescoProprietario = parentescoProprietario;
 	}
 	
 	public FinalidadeVeiculo getFinalidade() {
@@ -79,28 +72,11 @@ public class BemMovel {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return new GsonBuilder().setLongSerializationPolicy( LongSerializationPolicy.STRING )
-				.setExclusionStrategies(new ExclusionStrategy() {
-			
-			@Override
-			public boolean shouldSkipField(FieldAttributes clazz) {
-				return false;
-			}
-			
-			@Override
-			public boolean shouldSkipClass(Class<?> clazz) {
-				return (clazz == QuestionarioAuxilioMoradia.class || clazz == QuestionarioAuxilioMoradia.class);
-			}
-		}).create().toJson(this);
-	}
-
 	public String getOutro() {
-		return outro;
+		return outroParentesco;
 	}
 
 	public void setOutro(String outro) {
-		this.outro = outro;
+		this.outroParentesco = outro;
 	}	
 }

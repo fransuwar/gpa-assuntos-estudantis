@@ -12,7 +12,7 @@ import java.io.InputStream;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,9 +39,9 @@ public class DocumentoController {
 			if(documento != null) {
 
 				InputStream is = new ByteArrayInputStream(documento.getArquivo());
-				response.setContentType(documento.getTipo());
+				response.setContentType(documento.getCaminho());
 				response.setHeader("Content-Disposition", "attachment; filename="
-						+ documento.getNomeOriginal().replace(" ", "_"));
+						+ documento.getNome().replace(" ", "_"));
 				IOUtils.copy(is, response.getOutputStream());
 				
 				response.flushBuffer();

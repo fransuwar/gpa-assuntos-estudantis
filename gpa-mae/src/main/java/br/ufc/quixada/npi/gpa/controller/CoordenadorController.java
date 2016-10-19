@@ -17,7 +17,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_TIPO_
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_TIPO_BOLSA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_COMISSAO_FORMADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO;
@@ -34,14 +33,12 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ADICIONAR_A
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.TIPOS_DOCUMENTO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_BOLSA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.TIPO_SELECAO;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,7 +49,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.joda.time.DateTime;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -67,7 +63,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
@@ -80,7 +75,6 @@ import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
 import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
-
 
 @Controller
 @RequestMapping("coordenador")
@@ -145,14 +139,8 @@ public class CoordenadorController {
 
 	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
 	public String listarSelecoes(ModelMap model, HttpServletRequest request, Authentication auth){
-
 		List<Selecao> selecoes = this.selecaoRepository.findAll();
-
 		model.addAttribute("selecoes", selecoes);
-		model.addAttribute(TIPO_SELECAO, TipoSelecao.values());
-		model.addAttribute("inic_acad", TipoSelecao.INIC_ACAD);
-		model.addAttribute("aux_mor", TipoSelecao.AUX_MOR);
-
 		return PAGINA_LISTAR_SELECAO_SERVIDOR;
 	}
 
@@ -177,21 +165,18 @@ public class CoordenadorController {
 
 		model.addAttribute(ACTION, CADASTRAR);
 
-		if ((selecao != null && selecao.getAno() != null) && (selecao.getAno() < DateTime.now().getYear())) {
+		if ((selecao != null && selecao.getAno() != null) && (selecao.getAno() < LocalDate.now().getYear())) {
 			result.rejectValue("ano", "selecao.ano", MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR);
 		}
 
 		if ((selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) && 
-				(new DateTime(selecao.getDataTermino())).isBefore(new DateTime(selecao.getDataInicio()))) {
+				selecao.getDataTermino().before(selecao.getDataInicio())) {
 			result.rejectValue(DATA_TERMINO, "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
 		}
 
 		if (selecao != null)  {
 			if (selecaoService.SelecaoEstaCadastrada(selecao)) {
 				result.rejectValue("sequencial", "selecao.sequencial", MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR);
-			}			
-			if(selecao.getTipoSelecao()==null){
-				result.rejectValue(TIPO_SELECAO, "selecao.tipoSelecao", MENSAGEM_ERRO_TIPO_BOLSA);
 			}			
 		}
 
@@ -201,7 +186,7 @@ public class CoordenadorController {
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 
-		Servidor coordenador = servidorRepository.findByCpf(auth.getName());
+		Servidor coordenador = servidorRepository.findByPessoaCpf(auth.getName());
 
 		if(selecao.getResponsavel() == null){
 			selecao.addCoordenador(coordenador);
@@ -233,42 +218,28 @@ public class CoordenadorController {
 
 		if (selecao != null) {
 			model.addAttribute(ACTION, EDITAR);
-			model.addAttribute(TIPO_SELECAO, TipoSelecao.values());
 			model.addAttribute(SELECAO, selecao);
-			model.addAttribute("membrosComissao", selecao.getMembrosComissao());
+			model.addAttribute("membrosComissao", selecao.getComissao());
 			model.addAttribute(TIPOS_DOCUMENTO,tiposDeDocumento);
-
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-
-
 		return PAGINA_CADASTRAR_SELECAO;
-
 	}
 
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
 	public String editarSelecao(@Valid @ModelAttribute(SELECAO) Selecao selecaoAtualizada, BindingResult result,
 			Model model, RedirectAttributes redirect, @RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos) {
-
-
 		model.addAttribute(ACTION, EDITAR);
-
 		if ((selecaoAtualizada != null && selecaoAtualizada.getDataInicio() != null && selecaoAtualizada.getDataTermino() != null) &&
-				(new DateTime(selecaoAtualizada.getDataTermino())).isBefore(new DateTime(selecaoAtualizada.getDataInicio()))) {
+				selecaoAtualizada.getDataTermino().before(selecaoAtualizada.getDataInicio())) {
 			result.rejectValue(DATA_TERMINO, "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
-
 		}
 
 		if (result.hasErrors()) {
 			model.addAttribute(SELECAO, selecaoAtualizada);
-			model.addAttribute(TIPO_SELECAO, TipoSelecao.values());
-
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-
-
 		Selecao selecao = selecaoRepository.findById(selecaoAtualizada.getId());
-
 		if(idstiposDocumentos != null ){
 
 			List<TipoDocumento> documentoSelecionados = new ArrayList<TipoDocumento>();
@@ -286,7 +257,6 @@ public class CoordenadorController {
 		selecao.setQuantidadeVagas(selecaoAtualizada.getQuantidadeVagas());
 		selecao.setDataInicio(selecaoAtualizada.getDataInicio());
 		selecao.setDataTermino(selecaoAtualizada.getDataTermino());
-		selecao.setTipoSelecao(selecaoAtualizada.getTipoSelecao());
 
 		this.selecaoRepository.save(selecao);
 
@@ -325,7 +295,7 @@ public class CoordenadorController {
 			@RequestParam("idServidor") Integer idServidor, Model model, RedirectAttributes redirect) {
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
-		List<Servidor> comissao = selecao.getMembrosComissao();
+		List<Servidor> comissao = selecao.getComissao();
 		Servidor servidor = this.servidorRepository.findById(idServidor);
 
 
@@ -336,7 +306,7 @@ public class CoordenadorController {
 
 		} else {
 
-			selecao.getMembrosComissao().add(servidor);
+			selecao.getComissao().add(servidor);
 			selecaoRepository.save(selecao);
 			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_COMISSAO_FORMADA);
 
@@ -373,7 +343,7 @@ public class CoordenadorController {
 						Documento documento = new Documento();
 						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
-						documento.setTipo(mfiles.getContentType());
+						documento.setCaminho(mfiles.getContentType());
 
 						documentoRepository.save(documento);
 
@@ -407,15 +377,10 @@ public class CoordenadorController {
 		if (documento != null) {
 			selecao.getDocumentos().remove(documento);
 			selecaoRepository.save(selecao);
-
-			model.addAttribute(TIPO_BOLSA, TipoSelecao.values());
 			model.addAttribute(SELECAO, selecao);
 
 			return  REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
-
 		} else {
-
-			model.addAttribute(TIPO_BOLSA, TipoSelecao.values());
 			model.addAttribute(SELECAO, selecao);
 			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
 
@@ -428,12 +393,12 @@ public class CoordenadorController {
 			Model model, Authentication auth, RedirectAttributes redirect) {	
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
-		Servidor coordenador = servidorRepository.findByCpf(auth.getName());			
+		Servidor coordenador = servidorRepository.findByPessoaCpf(auth.getName());			
 		Servidor servidor = this.servidorRepository.findById(idServidor);
 
 		if(coordenador.getId() != servidor.getId()){
 
-			selecao.getMembrosComissao().remove(servidor);
+			selecao.getComissao().remove(servidor);
 			selecaoRepository.save(selecao);
 			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO);
 		}else
@@ -449,9 +414,9 @@ public class CoordenadorController {
 			Authentication auth,RedirectAttributes redirect){
 
 		Selecao selecao = selecaoRepository.findById(idSelecao);
-        Servidor servidor = servidorRepository.findByCpf(auth.getName());	
+        Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());	
 		
-		if(selecao.getMembrosComissao().contains(servidor)){
+		if(selecao.getComissao().contains(servidor)){
 			
 			//dividi o resultado já em 3 listas a serem exibidas na jsp
 

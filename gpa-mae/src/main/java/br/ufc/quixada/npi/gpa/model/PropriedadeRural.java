@@ -3,52 +3,40 @@ package br.ufc.quixada.npi.gpa.model;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 import br.ufc.quixada.npi.gpa.enums.GrauParentesco;
 
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
-import com.google.gson.GsonBuilder;
-import com.google.gson.LongSerializationPolicy;
-
 @Entity
-
 public class PropriedadeRural {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Enumerated(EnumType.STRING)
+	private GrauParentesco parentescoProprietario;
 	
 	private Double area;
 	
 	private String cidade;
-
-	@Enumerated(EnumType.STRING)
-	private GrauParentesco parentesco;
 	
-	private String outro;	
-
-	@ManyToOne(fetch = FetchType.LAZY)
+	private String estado;
+	
+	private String outroParentesco;
+	
+	@ManyToOne
 	private QuestionarioAuxilioMoradia auxilioMoradia;
-	
-	public GrauParentesco getParentesco() {
-		return parentesco;
+
+	public GrauParentesco getParentescoProprietario() {
+		return parentescoProprietario;
 	}
 
-	public void setParentesco(GrauParentesco parentesco) {
-		this.parentesco = parentesco;
-	}
-
-	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
-		return auxilioMoradia;
-	}
-
-	public void setAuxilioMoradia(QuestionarioAuxilioMoradia auxilioMoradia) {
-		this.auxilioMoradia = auxilioMoradia;
+	public void setParentescoProprietario(GrauParentesco parentescoProprietario) {
+		this.parentescoProprietario = parentescoProprietario;
 	}
 
 	public Integer getId() {
@@ -57,23 +45,6 @@ public class PropriedadeRural {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String toString() {
-		return new GsonBuilder().setLongSerializationPolicy( LongSerializationPolicy.STRING )
-				.setExclusionStrategies(new ExclusionStrategy() {
-			
-			@Override
-			public boolean shouldSkipField(FieldAttributes clazz) {
-				
-				return false;
-			}
-			
-			@Override
-			public boolean shouldSkipClass(Class<?> clazz) {
-				return (clazz == QuestionarioAuxilioMoradia.class || clazz == QuestionarioAuxilioMoradia.class);
-			}
-		}).create().toJson(this);
 	}
 
 	public Double getArea() {
@@ -92,11 +63,29 @@ public class PropriedadeRural {
 		this.cidade = cidade;
 	}
 
-	public String getOutro() {
-		return outro;
+	public String getOutroParentesco() {
+		return outroParentesco;
 	}
 
-	public void setOutro(String outro) {
-		this.outro = outro;
+	public void setOutroParentesco(String outroParentesco) {
+		this.outroParentesco = outroParentesco;
 	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
+		return auxilioMoradia;
+	}
+
+	public void setAuxilioMoradia(QuestionarioAuxilioMoradia auxilioMoradia) {
+		this.auxilioMoradia = auxilioMoradia;
+	}
+	
+	
 }

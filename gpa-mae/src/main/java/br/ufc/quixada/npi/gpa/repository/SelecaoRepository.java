@@ -8,10 +8,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.Servidor;
 
 @Repository
 public interface SelecaoRepository extends JpaRepository<Selecao, Integer> {
 	
+	List<Selecao> findByComissaoIn(Servidor servidor);
+	
+	// old
 	public abstract List<Selecao> findAll();
 	
 	public abstract Selecao findById(Integer idSelecao);

@@ -1,0 +1,48 @@
+package br.ufc.quixada.npi.gpa.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+	// Utilizado para autenticação via banco de dados
+	/*@Autowired
+	private UserDetailsService userDetailsService;*/
+	
+	// Utilizado para autenticação via ldap
+	@Autowired
+	@Qualifier("authenticationLdapProvider")
+	private AuthenticationProvider provider;
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable().authorizeRequests().antMatchers("/").authenticated()
+			.antMatchers("/css/**", "/js/**", "/fonts/**", "/img/**", "/images/**").permitAll()
+			.antMatchers("/servidor/**").hasAnyAuthority("DOCENTE", "STA")
+			.antMatchers("/coordenador/**").hasAuthority("COORDENADOR_ASSUNTOS_ESTUDANTIS")
+			.antMatchers("/aluno/**").hasAuthority("DISCENTE")
+			.anyRequest().authenticated()
+			.and().formLogin()
+			.loginProcessingUrl("/login").loginPage("/login").permitAll().and().logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		// Utilizado para autenticação via ldap
+		auth.authenticationProvider(provider);
+				
+		// Utilizado para autenticação via banco de dados
+		//auth.userDetailsService(userDetailsService);
+	}
+}

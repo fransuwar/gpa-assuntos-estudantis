@@ -1,9 +1,5 @@
 package br.ufc.quixada.npi.gpa.model;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.MIN_EDITAL;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MIN_VAGAS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MAX_VAGAS;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,20 +8,17 @@ import java.util.TreeMap;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.ufc.quixada.npi.gpa.enums.TipoSelecao;
 @Entity
 public class Selecao {
 
@@ -36,35 +29,28 @@ public class Selecao {
 	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
 
-	@Range(min = MIN_EDITAL, message = "O valor do edital deve ser maior que 0")
 	private Integer sequencial;
 
-	@Range(min = MIN_VAGAS, max = MAX_VAGAS, message = "O número de vagas deve ser maior ou igual a 1")
 	private Integer quantidadeVagas;
 
-	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
-
 	
-	@NotNull(message = "Campo obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataTermino;
-
-	@Enumerated(EnumType.STRING)
-	private TipoSelecao tipoSelecao;
+	
+	@ManyToOne
+	private Servidor responsavel;
 
 	@OneToMany
 	private List<Documento> documentos;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<Servidor> membrosComissao;
-
-	@ManyToOne
-	private Servidor responsavel;
+	@JoinTable(name = "comissao")
+	private List<Servidor> comissao;
 
 	@OneToMany(mappedBy = "selecao")
-	private List<Inscricao> inscritos;
+	private List<Inscricao> inscricoes;
 	
 	@ManyToMany
 	private List<TipoDocumento> tiposDeDocumento;
@@ -92,8 +78,8 @@ public class Selecao {
 		return id;
 	}
 
-	public List<Servidor> getMembrosComissao() {
-		return membrosComissao;
+	public List<Servidor> getComissao() {
+		return comissao;
 	}
 
 	public Integer getQuantidadeVagas() {
@@ -106,11 +92,6 @@ public class Selecao {
 
 	public Integer getSequencial() {
 		return sequencial;
-	}
-
-
-	public TipoSelecao getTipoSelecao() {
-		return tipoSelecao;
 	}
 
 	public void setAno(Integer ano) {
@@ -133,8 +114,8 @@ public class Selecao {
 		this.id = id;
 	}
 
-	public void setMembrosComissao(List<Servidor> membrosComissao) {
-		this.membrosComissao = membrosComissao;
+	public void setComissao(List<Servidor> comissao) {
+		this.comissao = comissao;
 	}
 
 	public void setQuantidadeVagas(Integer quantidadeVagas) {
@@ -149,26 +130,19 @@ public class Selecao {
 		this.sequencial = sequencial;
 	}
 
-
-	public void setTipoSelecao(TipoSelecao tipoSelecao) {
-		this.tipoSelecao = tipoSelecao;
+	public List<Inscricao> getInscricoes() {
+		return inscricoes;
 	}
 
-	public List<Inscricao> getInscritos() {
-		return inscritos;
-	}
-	
-
-	public void setInscritos(List<Inscricao> inscritos) {
-		this.inscritos = inscritos;
+	public void setInscricoes(List<Inscricao> inscricoes) {
+		this.inscricoes = inscricoes;
 	}
 	public void addCoordenador (Servidor coordenador){
-		if(this.membrosComissao == null){
-			membrosComissao = new ArrayList<Servidor>();
+		if(this.comissao == null){
+			comissao = new ArrayList<Servidor>();
 		}
-		this.membrosComissao.add(coordenador);
+		this.comissao.add(coordenador);
 	}
-	
 	
 	public List<TipoDocumento> getTiposDeDocumento() {
 		return tiposDeDocumento;
@@ -202,46 +176,31 @@ public class Selecao {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Selecao [id=" + id + ", ano=" + ano + ", sequencial=" + sequencial + ", quantidadeVagas="
-				+ quantidadeVagas + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino				
-				+ ", tipoSelecao=" + tipoSelecao + ", documentos=" + documentos + ", membrosComissao=" + membrosComissao
-				+ ", responsavel=" + responsavel + "]";
-	}
 	
-public List<Inscricao> getAlunosSelecionadosVisita(){
-		
+
+	public List<Inscricao> getAlunosSelecionadosVisita(){
 		List<Inscricao> listaInscritos = new ArrayList<Inscricao>();
-		
-		for(Inscricao inscricao:this.inscritos){
+		for(Inscricao inscricao:this.inscricoes){
 			if(inscricao.isRealizarVisita()){
 				listaInscritos.add(inscricao);
 			}
 		}
-		
 		return listaInscritos;
 	}
 	
 	public List<Inscricao> getAlunosNaoSelecionadosVisita(){
-		
 		List<Inscricao> listaInscritos = new ArrayList<Inscricao>();
-		
-		for(Inscricao inscricao:this.inscritos){
+		for(Inscricao inscricao:this.inscricoes){
 			if(!inscricao.isRealizarVisita()){
 				listaInscritos.add(inscricao);
 			}
 		}
-		
 		return listaInscritos;
 	}
 	
 	public Map<String, Integer> getCidadesVisita(){
-		
 		Map<String, Integer> mapaCidades = new TreeMap<String, Integer>();
-		
-		for(Inscricao inscricao:inscritos){
+		for(Inscricao inscricao:inscricoes){
 			if(inscricao.isRealizarVisita()){
 				String cidade = inscricao.getQuestionarioAuxilioMoradia().getCidadeOrigem();
 				if(mapaCidades.containsKey(cidade)){
@@ -252,7 +211,6 @@ public List<Inscricao> getAlunosSelecionadosVisita(){
 				}
 			}
 		}
-		
 		return mapaCidades;
 	}
 

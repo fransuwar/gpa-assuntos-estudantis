@@ -11,11 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
@@ -23,47 +19,45 @@ import br.ufc.quixada.npi.gpa.enums.SituacaoImovel;
 import br.ufc.quixada.npi.gpa.enums.TipoEnsino;
 
 @Entity
-@NamedQueries({
-		@NamedQuery(name = "AuxMor.findAuxMorById", query = "SELECT DISTINCT am FROM QuestionarioAuxilioMoradia am WHERE am.id = :idQuest") })
-
 public class QuestionarioAuxilioMoradia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
+	private String nomePai;
+
+	private String nomeMae;
+	
+	@Enumerated(EnumType.STRING)
+	private SituacaoImovel situacaoImovel;
+	
+	private double valorMensalFinanciamento;
+	
 	@Enumerated(EnumType.STRING)
 	private TipoEnsino ensinoFundamental;
 
-	private int percentualParticularFundamental;
+	private int percentualFundamental;
 
 	@Enumerated(EnumType.STRING)
 	private TipoEnsino ensinoMedio;
 
-	private int percentualParticularMedio;
+	private int percentualMedio;
 
 	private boolean cursinho;
 
 	private String nomeCursinho;
 
-	@NotNull
 	private boolean bolsistaUfc;
 
 	private String descricaoBolsa;
 
-	@NotNull
 	private boolean graduacao;
 
 	private String descricaoGraduacao;
 
 	private String justificativa;
 
-	private String comQuemMoraOutros;
-
-	private String nomePai;
-
-	private String nomeMae;
-	
 	private String endereco;
 	
 	private String numero;
@@ -98,35 +92,25 @@ public class QuestionarioAuxilioMoradia {
 
 	private String telefoneOrigem;
 
-	@Enumerated(EnumType.STRING)
-	private SituacaoImovel situacaoImovel;
-	
 	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] foto;
 	
-	private double valorMensalFinanciamento;
-	
+	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
+	private List<PropriedadeRural> propriedadeRural;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<PropriedadeRural> propRural;
-
-
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
 	private List<BemMovel> bemMovel;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinTable( name = "inscricao_pessoa_familia", 
-			   joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
-	private List<PessoaFamilia> pessoas;
+	@JoinTable(name= "grupo_familiar", joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
+	private List<PessoaFamilia> grupoFamiliar;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinTable( name = "inscricao_pessoa_familia_editado", 
-	   joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
-	private List<PessoaFamilia> pessoasEntrevista;
+	@JoinTable(name = "grupo_familiar_entrevista", joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
+	private List<PessoaFamilia> grupoFamiliarEntrevista;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	private List<ComQuemMora> comQuemMora;
-	
+	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
+	private List<Morador> moradores;
 	
 	public double getValorMensalFinanciamento() {
 		return valorMensalFinanciamento;
@@ -153,12 +137,12 @@ public class QuestionarioAuxilioMoradia {
 		this.id = id;
 	}
 
-	public List<PessoaFamilia> getPessoas() {
-		return pessoas;
+	public List<PessoaFamilia> getGrupoFamiliar() {
+		return grupoFamiliar;
 	}
 
-	public void setPessoas(List<PessoaFamilia> pessoas) {
-		this.pessoas = pessoas;
+	public void setGrupoFamiliar(List<PessoaFamilia> grupoFamiliar) {
+		this.grupoFamiliar = grupoFamiliar;
 	}
 
 	public String getNomeMae() {
@@ -255,12 +239,12 @@ public class QuestionarioAuxilioMoradia {
 		this.ensinoFundamental = ensinoFundamental;
 	}
 
-	public int getPercentualParticularFundamental() {
-		return percentualParticularFundamental;
+	public int getPercentualFundamental() {
+		return percentualFundamental;
 	}
 
-	public void setPercentualParticularFundamental(int percentualParticularFundamental) {
-		this.percentualParticularFundamental = percentualParticularFundamental;
+	public void setPercentualFundamental(int percentualFundamental) {
+		this.percentualFundamental = percentualFundamental;
 	}
 
 	public TipoEnsino getEnsinoMedio() {
@@ -271,12 +255,12 @@ public class QuestionarioAuxilioMoradia {
 		this.ensinoMedio = ensinoMedio;
 	}
 
-	public int getPercentualParticularMedio() {
-		return percentualParticularMedio;
+	public int getPercentualMedio() {
+		return percentualMedio;
 	}
 
-	public void setPercentualParticularMedio(int percentualParticularMedio) {
-		this.percentualParticularMedio = percentualParticularMedio;
+	public void setPercentualMedio(int percentualMedio) {
+		this.percentualMedio = percentualMedio;
 	}
 
 	public boolean isCursinho() {
@@ -292,11 +276,11 @@ public class QuestionarioAuxilioMoradia {
 	}
 
 	public List<PropriedadeRural> getPropRural() {
-		return propRural;
+		return propriedadeRural;
 	}
 
 	public void setPropRural(List<PropriedadeRural> propRural) {
-		this.propRural = propRural;
+		this.propriedadeRural = propRural;
 	}
 
 	public List<BemMovel> getBemMovel() {
@@ -349,14 +333,6 @@ public class QuestionarioAuxilioMoradia {
 
 	public void setDescricaoBolsa(String descricaoBolsa) {
 		this.descricaoBolsa = descricaoBolsa;
-	}
-
-	public String getComQuemMoraOutros() {
-		return comQuemMoraOutros;
-	}
-
-	public void setComQuemMoraOutros(String comQuemMoraOutros) {
-		this.comQuemMoraOutros = comQuemMoraOutros;
 	}
 
 	public String getEndereco() {
@@ -462,20 +438,21 @@ public class QuestionarioAuxilioMoradia {
 	public void setReferenciaOrigem(String referenciaOrigem) {
 		this.referenciaOrigem = referenciaOrigem;
 	}
-
-
 	
-	@Override
-	public String toString() {
-		return "QuestionarioAuxilioMoradia [id=" + id + ", justificativa=" + justificativa + "]";
-	}
-	
-	public List<ComQuemMora> getComQuemMora() {
-		return comQuemMora;
+	public List<Morador> getMoradores() {
+		return moradores;
 	}
 
-	public void setComQuemMora(List<ComQuemMora> comQuemMora) {
-		this.comQuemMora = comQuemMora;
+	public void setMoradores(List<Morador> moradores) {
+		this.moradores = moradores;
+	}
+	
+	public List<PessoaFamilia> getGrupoFamiliarEntrevista() {
+		return grupoFamiliarEntrevista;
+	}
+
+	public void setGrupoFamiliarEntrevista(List<PessoaFamilia> grupoFamiliarEntrevista) {
+		this.grupoFamiliarEntrevista = grupoFamiliarEntrevista;
 	}
 
 	@Override
@@ -503,14 +480,5 @@ public class QuestionarioAuxilioMoradia {
 		return true;
 	}
 
-	public List<PessoaFamilia> getPessoasEntrevista() {
-		return pessoasEntrevista;
-	}
-
-	public void setPessoasEntrevista(List<PessoaFamilia> pessoasEntrevista) {
-		this.pessoasEntrevista = pessoasEntrevista;
-	}
-	
-	
 	
 }
