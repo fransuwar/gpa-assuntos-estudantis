@@ -17,10 +17,8 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SERVIDOR_NAO_
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_DOMICILIAR_JA_EXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_VISITA_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_PERMISSAO_NEGADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_VISITA_CADASTRADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_RELATORIO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_REALIZAR_ENTREVISTA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA;
@@ -30,8 +28,8 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SE
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.VISITA_TAB;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHE_SELECAO_COMISSAO;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -45,6 +43,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,7 +66,6 @@ import br.ufc.quixada.npi.gpa.model.VisitaDomiciliar;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.EntrevistaRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
-import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
 import br.ufc.quixada.npi.gpa.repository.VisitaDomiciliarRepository;
 import br.ufc.quixada.npi.gpa.service.InscricaoService;
@@ -97,15 +95,25 @@ public class ServidorController {
 	private VisitaDomiciliarRepository visitaRepository;
 	
 	@Inject
-	private SelecaoRepository selecaoRepository;
-	
-	@Inject
 	private ServidorRepository servidorRepository;
 	
-	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
+	@GetMapping("selecao/listar")
 	public String listarSelecoes(Model model, Authentication auth) {
 		model.addAttribute("selecoes", selecaoService.getByMembroComissao(auth.getName()));
 		return PAGINA_LISTAR_SELECAO_SERVIDOR;
+	}
+	
+	@GetMapping("selecao/detalhes/{id}")
+	public String visualizarSelecao(@PathVariable("id") Selecao selecao, Authentication auth, Model model, RedirectAttributes redirect){
+		// Verifica se o usuário faz parte da comissão da seleção
+		if (selecao == null || !selecao.getComissao().contains(servidorRepository.findByPessoaCpf(auth.getName()))) {
+			return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
+		}
+		
+		model.addAttribute("selecao", selecao);
+		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_INSCRICAO);
+		
+		return PAGINA_DETALHE_SELECAO_COMISSAO;
 	}
 
 	
@@ -258,7 +266,7 @@ public class ServidorController {
 
 						model.addAttribute("relatorioVisitaDomiciliar", relatorioVisitaDomiciliar);
 						model.addAttribute(INSCRICAO, inscricao);
-						model.addAttribute(SELECAO, inscricao.getSelecao());
+						model.addAttribute("selecao", inscricao.getSelecao());
 						model.addAttribute(ID_INSCRICAO, inscricao.getId());
 
 						return PAGINA_RELATORIO_VISITA;
@@ -292,7 +300,7 @@ public class ServidorController {
 		if (result.hasErrors()) {
 
 			model.addAttribute(INSCRICAO, inscricao);
-			model.addAttribute(SELECAO, inscricao.getSelecao());
+			model.addAttribute("selecao", inscricao.getSelecao());
 
 			return PAGINA_RELATORIO_VISITA;
 		}
@@ -324,32 +332,7 @@ public class ServidorController {
 		return PAGINA_LISTAR_INSCRITOS_SELECAO;
 	}
 
-	*/@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao,Authentication auth, Model model, RedirectAttributes redirect){
-
-		Selecao selecao = selecaoRepository.findById(idSelecao);
-		Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());	
-		
-		if(selecao != null && selecao.getComissao().contains(servidor)){
-			List<Servidor> comissao = selecao.getComissao();
-			if(comissao.contains(servidor)) {
-				List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecao(idSelecao);
-				model.addAttribute(SELECAO, selecao);
-				model.addAttribute("inscricoes", inscricoes);
-				model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_INSCRICAO);
-				
-				return PAGINA_INFORMACOES_SELECAO_SERVIDOR;
-			} else {
-				redirect.addFlashAttribute(ERRO,  MENSAGEM_PERMISSAO_NEGADA);
-				return REDIRECT_PAGINA_LISTAR_SELECAO;
-			}
-			
-		} else {
-            redirect.addFlashAttribute(ERRO,MENSAGEM_FALTA_DE_PERMISSAO);
-			
-			return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
-		}
-	}
+	*/
 	
 	@RequestMapping(value ={ "detalhes/inscricao/inserirImagem"}, method = RequestMethod.POST)
 	public String inserirImagemDaVisitaNaInscricao(@RequestParam("foto") MultipartFile foto, Integer idInscricao, RedirectAttributes redirect){
@@ -486,9 +469,8 @@ public class ServidorController {
 	}
 	
 	@RequestMapping(value= {"relatorioVisitas/{idSelecao}"}, method = RequestMethod.GET)
-	public String relatorioDeVisitas(@PathVariable("idSelecao") Integer idSelecao, Model model,Authentication auth,RedirectAttributes redirect){
+	public String relatorioDeVisitas(@PathVariable("idSelecao") Selecao selecao, Model model,Authentication auth,RedirectAttributes redirect){
 		
-		Selecao selecao = selecaoRepository.findById(idSelecao);
         Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());	
 		
 		if(selecao.getComissao().contains(servidor)){
@@ -496,7 +478,7 @@ public class ServidorController {
 			model.addAttribute("inscritosComVisita", selecao.getAlunosSelecionadosVisita());
 			model.addAttribute("inscritosSemVisita", selecao.getAlunosNaoSelecionadosVisita());
 			model.addAttribute("cidadesVisitadas", selecao.getCidadesVisita());
-			model.addAttribute(SELECAO, selecao);
+			model.addAttribute("selecao", selecao);
 			
 			model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
 			

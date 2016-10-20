@@ -1,9 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.ACTION;
-import static br.ufc.quixada.npi.gpa.utils.Constants.CADASTRAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DATA_TERMINO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.EDITAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
@@ -16,7 +13,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_TIPO_
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_COMISSAO_FORMADA;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO;
@@ -27,36 +23,29 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_ADICIONAR_ARQUIVO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_ATRIBUIR_COMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_CADASTRAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_GERENCIAR_DOCUMENTOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO_SERVIDOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_FINAL;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.TIPOS_DOCUMENTO;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.persistence.PersistenceException;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.orm.jpa.JpaSystemException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,186 +60,148 @@ import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
-import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
-import br.ufc.quixada.npi.gpa.repository.TipoDocumentoRepository;
+import br.ufc.quixada.npi.gpa.service.DocumentacaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
+import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
 @RequestMapping("coordenador")
 public class CoordenadorController {
 
-	@Inject
+	@Autowired
 	private SelecaoService selecaoService;
+	
+	@Autowired
+	private DocumentacaoService documentacaoService;
+	
+	@Autowired
+	private ServidorService servidorService;
 
-	@Inject
+	@Autowired
 	private InscricaoRepository inscricaoRepository;
 
-	@Inject
+	@Autowired
 	private DocumentoRepository documentoRepository;
 
-	@Inject
-	private TipoDocumentoRepository tipoDocumentoRepository;
-
-	@Inject
+	@Autowired
 	private SelecaoRepository selecaoRepository;
 
-	@Inject
-	private ServidorRepository servidorRepository;
+	
+	// Gerenciamento de seleções
+	
+	@GetMapping("selecao/cadastrar")
+	public String cadastrarSelecao(Model model) {
+		model.addAttribute("action", "cadastrar");
+		model.addAttribute("selecao", new Selecao());
+		model.addAttribute("tiposDeDocumento", documentacaoService.getAllTipoDocumento());
 
-	@RequestMapping(value = "excluir-tipo-documento/{id}", method = RequestMethod.GET)
-	public String excluirTipoDocumento(@PathVariable("id") Integer id,
-			Model model, RedirectAttributes redirect) {
+		return PAGINA_CADASTRAR_SELECAO;
+	}
 
-		TipoDocumento tipoDocumento = tipoDocumentoRepository.findById(id);
+	@PostMapping("selecao/cadastrar")
+	public String cadastroSelecao(@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, 
+			@RequestParam(value="checkDocumentos[]", required=false) List<Integer> idsTiposDocumentos,
+			 Authentication auth, Model model) {
 
-		if (tipoDocumento != null){
-			try{
-				tipoDocumentoRepository.delete(tipoDocumento);
-				redirect.addFlashAttribute(INFO, MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
-			}catch(JpaSystemException | PersistenceException | ConstraintViolationException e){
-				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO);
+		if (selecao.getAno() != null && selecao.getAno() < LocalDate.now().getYear()) {
+			result.rejectValue("ano", "selecao.ano", MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR);
+		}
+
+		if ((selecao.getDataInicio() != null && selecao.getDataTermino() != null) && 
+				selecao.getDataTermino().before(selecao.getDataInicio())) {
+			result.rejectValue(DATA_TERMINO, "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
+		}
+		
+		if (result.hasErrors()) {
+			model.addAttribute("selecao", selecao);
+			model.addAttribute("action", "cadastrar");
+			model.addAttribute("tiposDeDocumento", documentacaoService.getAllTipoDocumento());
+			return PAGINA_CADASTRAR_SELECAO;
+		}
+		
+		selecao.setResponsavel(servidorService.getByCpf(auth.getName()));
+		
+		if(idsTiposDocumentos != null) {
+			for(Integer id: idsTiposDocumentos) {
+				selecao.addTipoDocumento(documentacaoService.getTipoDocumentoById(id));
 			}
 		}
-		else{ 
-			model.addAttribute("Error", MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO);
+
+		this.selecaoService.cadastrar(selecao);
+		return REDIRECT_PAGINA_DETALHES_SELECAO + selecao.getId();
+
+	}
+	
+	
+	// Gerenciamento de tipos de documentos
+	
+	@GetMapping("tipo-documento")
+	public String listarTipoDocumento(Model model){
+		model.addAttribute("documentos", documentacaoService.getAllTipoDocumento());
+		return PAGINA_GERENCIAR_DOCUMENTOS;
+	}
+	
+	@PostMapping("tipo-documento/cadastrar")
+	public String cadastrarTipoDocumento(TipoDocumento tipoDocumento){
+		if(!tipoDocumento.getNome().isEmpty()){
+			documentacaoService.salvar(tipoDocumento);
 		}
-		model.addAttribute(DOCUMENTOS,tipoDocumentoRepository.findAll());
+		return REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
+	}
+	
+	@GetMapping("tipo-documento/excluir/{id}")
+	public String excluirTipoDocumento(@PathVariable("id") TipoDocumento tipoDocumento,
+			Model model, RedirectAttributes redirect) {
+
+		if (tipoDocumento != null){
+			try {
+				documentacaoService.excluirTipoDocumento(tipoDocumento.getId());
+				redirect.addFlashAttribute(INFO, MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
+			} catch(Exception e){
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO);
+			}
+		} else{ 
+			model.addAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO);
+		}
+		model.addAttribute("documentos", documentacaoService.getAllTipoDocumento());
 		return  REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
 
 
 	}
-
-	@RequestMapping(value = "adicionar-tipo-arquivo", method = RequestMethod.GET)
-	public String addTipoArquivo(TipoDocumento tipoDocumento){
-		if(!tipoDocumento.getNome().isEmpty()){
-			tipoDocumentoRepository.save(tipoDocumento);
-		}
-		return REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
-	}
-
-
-	@RequestMapping(value = "gerenciarDocumentos", method = RequestMethod.GET)
-	public String gerenciarDocumentos(ModelMap model){
-		model.addAttribute(DOCUMENTOS,tipoDocumentoRepository.findAll() );
-		return PAGINA_GERENCIAR_DOCUMENTOS;
-	}
-
-
-	@RequestMapping(value = { "selecao/listar" }, method = RequestMethod.GET)
-	public String listarSelecoes(ModelMap model, HttpServletRequest request, Authentication auth){
-		List<Selecao> selecoes = this.selecaoRepository.findAll();
-		model.addAttribute("selecoes", selecoes);
-		return PAGINA_LISTAR_SELECAO_SERVIDOR;
-	}
-
-	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.GET)
-	public String cadastroSelecao(Model model) {
-
-		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
-
-		model.addAttribute(ACTION, CADASTRAR);
-		model.addAttribute(SELECAO, new Selecao());
-		model.addAttribute(TIPOS_DOCUMENTO,tiposDeDocumento);
-
-		return PAGINA_CADASTRAR_SELECAO;
-
-	}
-
-	@RequestMapping(value = { "selecao/cadastrar" }, method = RequestMethod.POST)
-	public String cadastroSelecao(Model model,	@Valid @ModelAttribute("selecao") Selecao selecao, BindingResult result, 
-			@RequestParam(value="checkDocumentos[]", required=false) List<Integer> idstiposDocumentos,
-			 Authentication auth) {
-		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
-
-		model.addAttribute(ACTION, CADASTRAR);
-
-		if ((selecao != null && selecao.getAno() != null) && (selecao.getAno() < LocalDate.now().getYear())) {
-			result.rejectValue("ano", "selecao.ano", MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR);
-		}
-
-		if ((selecao != null && selecao.getDataInicio() != null && selecao.getDataTermino() != null) && 
-				selecao.getDataTermino().before(selecao.getDataInicio())) {
-			result.rejectValue(DATA_TERMINO, "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
-		}
-
-		if (selecao != null)  {
-			if (selecaoService.SelecaoEstaCadastrada(selecao)) {
-				result.rejectValue("sequencial", "selecao.sequencial", MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR);
-			}			
-		}
-
-		if (result.hasErrors()) {
-			model.addAttribute(SELECAO, selecao);
-			model.addAttribute(TIPOS_DOCUMENTO,tiposDeDocumento);
-			return PAGINA_CADASTRAR_SELECAO;
-		}
-
-		Servidor coordenador = servidorRepository.findByPessoaCpf(auth.getName());
-
-		if(selecao.getResponsavel() == null){
-			selecao.addCoordenador(coordenador);
-			selecao.setResponsavel(coordenador);
-		}
-
-		if(idstiposDocumentos != null ){
-
-			List<TipoDocumento> documentoSelecionados = new ArrayList<TipoDocumento>();
-
-			for(Integer id: idstiposDocumentos){
-				TipoDocumento documento = tipoDocumentoRepository.findById(id);
-				documentoSelecionados.add(documento);
-			}
-
-			selecao.setTiposDeDocumento(documentoSelecionados);
-
-		}
-
-		this.selecaoRepository.save(selecao);
-		return REDIRECT_PAGINA_DETALHES_SELECAO + selecao.getId();
-
-	}
-
+	
+	
+	// old
 	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
-	public String editarSelecao(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
-		Selecao selecao = selecaoRepository.findById(idSelecao);
-		List<TipoDocumento> tiposDeDocumento = tipoDocumentoRepository.findAll();
-
+	public String editarSelecao(@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
 		if (selecao != null) {
-			model.addAttribute(ACTION, EDITAR);
-			model.addAttribute(SELECAO, selecao);
+			model.addAttribute("action", EDITAR);
+			model.addAttribute("selecao", selecao);
 			model.addAttribute("membrosComissao", selecao.getComissao());
-			model.addAttribute(TIPOS_DOCUMENTO,tiposDeDocumento);
+			model.addAttribute("tiposDeDocumento",documentacaoService.getAllTipoDocumento());
 			return PAGINA_CADASTRAR_SELECAO;
 		}
 		return PAGINA_CADASTRAR_SELECAO;
 	}
 
 	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
-	public String editarSelecao(@Valid @ModelAttribute(SELECAO) Selecao selecaoAtualizada, BindingResult result,
+	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecaoAtualizada, BindingResult result,
 			Model model, RedirectAttributes redirect, @RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos) {
-		model.addAttribute(ACTION, EDITAR);
+		model.addAttribute("action", EDITAR);
 		if ((selecaoAtualizada != null && selecaoAtualizada.getDataInicio() != null && selecaoAtualizada.getDataTermino() != null) &&
 				selecaoAtualizada.getDataTermino().before(selecaoAtualizada.getDataInicio())) {
 			result.rejectValue(DATA_TERMINO, "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
 		}
 
 		if (result.hasErrors()) {
-			model.addAttribute(SELECAO, selecaoAtualizada);
+			model.addAttribute("selecao", selecaoAtualizada);
 			return PAGINA_CADASTRAR_SELECAO;
 		}
-		Selecao selecao = selecaoRepository.findById(selecaoAtualizada.getId());
-		if(idstiposDocumentos != null ){
-
-			List<TipoDocumento> documentoSelecionados = new ArrayList<TipoDocumento>();
-
+		Selecao selecao = selecaoService.getById(selecaoAtualizada.getId());
+		if(idstiposDocumentos != null ) {
 			for(Integer id: idstiposDocumentos){
-				TipoDocumento documento = tipoDocumentoRepository.findById(id);
-				documentoSelecionados.add(documento);
+				selecao.addTipoDocumento(documentacaoService.getTipoDocumentoById(id));
 			}
-
-			selecao.setTiposDeDocumento(documentoSelecionados);
-
 		}
 
 		selecao.setAno(selecaoAtualizada.getAno());
@@ -266,9 +217,8 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value =  "selecao/excluir/{idSelecao}" , method = RequestMethod.GET)
-	public String excluirSelecao(@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect) {
-		Selecao selecao = this.selecaoRepository.findById(idSelecao);
-		if (selecao != null && inscricaoRepository.countBySelecao_Id(idSelecao) == 0) {
+	public String excluirSelecao(@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect) {
+		if (selecao != null && inscricaoRepository.countBySelecao_Id(selecao.getId()) == 0) {
 			this.selecaoRepository.delete(selecao);
 			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_SELECAO_REMOVIDA);
 		} else {
@@ -279,30 +229,29 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = "/comissao/atribuir/{idSelecao}", method = RequestMethod.GET)
-	public String atribuirParecerista(@PathVariable("idSelecao") Integer idSelecao,
+	public String atribuirParecerista(@PathVariable("idSelecao") Selecao selecao,
 			Model model, RedirectAttributes redirectAttributes) {
 
-		model.addAttribute("idSelecao", idSelecao);
-		model.addAttribute("servidores", servidorRepository.findAll());
-		model.addAttribute(SELECAO, selecaoRepository.findById(idSelecao));	
+		model.addAttribute("idSelecao", selecao.getId());
+		model.addAttribute("servidores", servidorService.getAll());
+		model.addAttribute("selecao", selecao);	
 		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_COMISSAO);
 
 		return PAGINA_ATRIBUIR_COMISSAO;
 	}
 
 	@RequestMapping(value = "/comissao/atribuir", method = RequestMethod.POST)
-	public String atribuirPareceristaNoProjeto(@RequestParam("idSelecao") Integer idSelecao,
+	public String atribuirPareceristaNoProjeto(@RequestParam("idSelecao") Selecao selecao,
 			@RequestParam("idServidor") Integer idServidor, Model model, RedirectAttributes redirect) {
 
-		Selecao selecao = selecaoRepository.findById(idSelecao);
 		List<Servidor> comissao = selecao.getComissao();
-		Servidor servidor = this.servidorRepository.findById(idServidor);
+		Servidor servidor = servidorService.getById(idServidor);
 
 
 		if (comissao.contains(servidor)) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
 
-			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
+			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();
 
 		} else {
 
@@ -311,17 +260,16 @@ public class CoordenadorController {
 			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_COMISSAO_FORMADA);
 
 
-			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;	
+			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();	
 		}
 	}
 
 	@RequestMapping(value = "/selecao/adicionar-documento/{idSelecao}", method = RequestMethod.GET)
-	public String adicionarDocumento(@PathVariable("idSelecao") Integer idSelecao,
+	public String adicionarDocumento(@PathVariable("idSelecao") Selecao selecao,
 			Model model, RedirectAttributes redirectAttributes) {
 
-		Selecao selecao = selecaoRepository.findById(idSelecao);
 		if (selecao != null) {
-			model.addAttribute(SELECAO, selecao);
+			model.addAttribute("selecao", selecao);
 		}
 
 		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_ARQUIVOS);
@@ -332,7 +280,7 @@ public class CoordenadorController {
 
 	@RequestMapping(value = "/selecao/adicionar-documento", method = RequestMethod.POST)
 	public String adicionarDocumento(@RequestParam("files") List<MultipartFile> files,
-			@RequestParam("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
+			@RequestParam("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
 
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
 			for (MultipartFile mfiles : files) {
@@ -347,7 +295,6 @@ public class CoordenadorController {
 
 						documentoRepository.save(documento);
 
-						Selecao selecao = selecaoRepository.findById(idSelecao);
 						selecao.getDocumentos().add(documento);
 
 						selecaoRepository.save(selecao);
@@ -357,31 +304,30 @@ public class CoordenadorController {
 				} catch (IOException ioe) {
 					redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 
-					return REDIRECT_PAGINA_ADICIONAR_ARQUIVO +idSelecao;
+					return REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
 				}
 			} 
 
 		} 
 
-		return REDIRECT_PAGINA_ADICIONAR_ARQUIVO + idSelecao;
+		return REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
 	}
 
 	@RequestMapping(value = "/selecao/excluir-documento/{idSelecao}/{idDocumento}", method = RequestMethod.GET)
 	public String excluirDocumento(@PathVariable("idDocumento"
 			+ "") Integer idDocumento, 
-			@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
+			@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
 
-		Selecao selecao = selecaoRepository.findById(idSelecao);	
 		Documento documento = documentoRepository.findById(idDocumento);
 
 		if (documento != null) {
 			selecao.getDocumentos().remove(documento);
 			selecaoRepository.save(selecao);
-			model.addAttribute(SELECAO, selecao);
+			model.addAttribute("selecao", selecao);
 
 			return  REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
 		} else {
-			model.addAttribute(SELECAO, selecao);
+			model.addAttribute("selecao", selecao);
 			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
 
 			return REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
@@ -389,32 +335,31 @@ public class CoordenadorController {
 	}
 
 	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
-	public String excluirMembroComissao(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idServidor") Integer idServidor, 
+	public String excluirMembroComissao(@PathVariable("idSelecao") Selecao selecao,@PathVariable("idServidor") Integer idServidor, 
 			Model model, Authentication auth, RedirectAttributes redirect) {	
 
-		Selecao selecao = selecaoRepository.findById(idSelecao);
-		Servidor coordenador = servidorRepository.findByPessoaCpf(auth.getName());			
-		Servidor servidor = this.servidorRepository.findById(idServidor);
+		Servidor coordenador = servidorService.getByCpf(auth.getName());			
+		Servidor servidor = servidorService.getById(idServidor);
 
 		if(coordenador.getId() != servidor.getId()){
 
 			selecao.getComissao().remove(servidor);
 			selecaoRepository.save(selecao);
 			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO);
-		}else
+		} else {
 
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR);
+		}
 
-		return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + idSelecao;
+		return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();
 
 	}
 
 	@RequestMapping(value = "/comissao/relatorioFinal/{idSelecao}")
-	public String getInformacoesRelatorioFinal(@PathVariable("idSelecao") Integer idSelecao, Model modelo,
+	public String getInformacoesRelatorioFinal(@PathVariable("idSelecao") Selecao selecao, Model modelo,
 			Authentication auth,RedirectAttributes redirect){
 
-		Selecao selecao = selecaoRepository.findById(idSelecao);
-        Servidor servidor = servidorRepository.findByPessoaCpf(auth.getName());	
+        Servidor servidor = servidorService.getByCpf(auth.getName());	
 		
 		if(selecao.getComissao().contains(servidor)){
 			
@@ -432,7 +377,7 @@ public class CoordenadorController {
 			modelo.addAttribute("classificados", classificados);
 			modelo.addAttribute("reservas", reservas);
 			modelo.addAttribute("indeferidos", indeferidos);
-			modelo.addAttribute(SELECAO, selecao);
+			modelo.addAttribute("selecao", selecao);
 
 			modelo.addAttribute(Constants.ABA_SELECIONADA, "classificados-tab");
 			modelo.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);

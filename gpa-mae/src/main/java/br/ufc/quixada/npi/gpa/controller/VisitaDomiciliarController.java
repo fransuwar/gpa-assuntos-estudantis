@@ -1,7 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ALUNO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ID_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_VISITA_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECAO_INSCRITOS;
@@ -41,7 +40,7 @@ public class VisitaDomiciliarController {
 		Aluno aluno = alunoRepository.findById(id);
 		modelo.addAttribute(RELATORIO_VISITA_DOMICILIAR, new VisitaDomiciliar());
 		modelo.addAttribute(ALUNO, aluno);
-		modelo.addAttribute(ID_SELECAO, idSelecao);
+		modelo.addAttribute("idSelecao", idSelecao);
 		return PAGINA_RELATORIO_VISITA_SELECAO;
 	}
 	
@@ -57,7 +56,7 @@ public class VisitaDomiciliarController {
 			Aluno aluno = alunoRepository.findById(idAluno);
 			modelo.addAttribute(RELATORIO_VISITA_DOMICILIAR, relatorioVisitaDomiciliar);
 			modelo.addAttribute(ALUNO, aluno);
-			modelo.addAttribute(ID_SELECAO, idSelecao);
+			modelo.addAttribute("idSelecao", idSelecao);
 			if(relatorioVisitaDomiciliar.getId() != null) 
 				modelo.addAttribute("action", "editar");
 			return PAGINA_RELATORIO_VISITA_SELECAO;

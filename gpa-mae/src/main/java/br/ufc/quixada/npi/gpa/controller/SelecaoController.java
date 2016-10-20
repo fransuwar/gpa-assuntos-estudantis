@@ -6,13 +6,12 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_QTD_VAGAS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_INFORMACOES_SELECAO;
+import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHE_SELECAO_COMISSAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RANKING_CLASSIFICADOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECIONAR_CLASSIFICADOS;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.SELECOES;
 
 import java.util.List;
@@ -70,21 +69,20 @@ public class SelecaoController {
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 
-		model.addAttribute(SELECAO, selecao);
-		return PAGINA_INFORMACOES_SELECAO;
+		model.addAttribute("selecao", selecao);
+		return PAGINA_DETALHE_SELECAO_COMISSAO;
 	}
 
 	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect,Authentication auth) {
+	public String getInformacoes(@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect,Authentication auth) {
 		//Detalhe da seleção, apenas para aluno
-		Selecao selecao = selecaoRepository.findById(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
 		}
 
-		model.addAttribute(SELECAO, selecao);
+		model.addAttribute("selecao", selecao);
 
 		Aluno aluno = alunoRepository.findByCpf(auth.getName());
 		List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecaoAndByAluno(selecao.getId(),aluno.getId());
@@ -98,7 +96,7 @@ public class SelecaoController {
 
 		model.addAttribute("controle", controle);
 
-		return PAGINA_INFORMACOES_SELECAO;
+		return PAGINA_DETALHE_SELECAO_COMISSAO;
 	}
 
 
@@ -174,8 +172,7 @@ public class SelecaoController {
 	}
 	
 	@RequestMapping(value = {"ranking/{idSelecao}"}, method = RequestMethod.GET)
-	public String visualizarRanking(ModelMap model, @PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect){
-		Selecao selecao = selecaoRepository.findById(idSelecao);
+	public String visualizarRanking(ModelMap model, @PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect){
 
 		if (selecao == null) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -191,9 +188,8 @@ public class SelecaoController {
 	}
 	
 	@RequestMapping(value = {"selecionarClassificados/{idSelecao}"}, method = RequestMethod.GET)
-	public String visualizarPaginaSelecionarClassificados(ModelMap model, @PathVariable("idSelecao") Integer idSelecao,
+	public String visualizarPaginaSelecionarClassificados(ModelMap model, @PathVariable("idSelecao") Selecao selecao,
 		 RedirectAttributes redirect){		
-		Selecao selecao = selecaoRepository.findById(idSelecao);
 
 		if (selecao == null) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
@@ -208,7 +204,7 @@ public class SelecaoController {
 		model.addAttribute("classificaveis",classificaveis);
 		model.addAttribute("qtdClassificados",classificados.size());
 		model.addAttribute("qtdClassificaveis",classificaveis.size());
-		model.addAttribute(SELECAO,selecao);
+		model.addAttribute("selecao",selecao);
 		
 		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RANK);
 		
@@ -218,14 +214,12 @@ public class SelecaoController {
 	
 	@RequestMapping(value = {"/selecionarClassificados/{idSelecao}"}, method = RequestMethod.POST)
 	public String selecionarClassificados(ModelMap model, @RequestParam("checkClassificados[]") List<Integer> idsClassificados,
-			@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect, Authentication auth){
+			@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect, Authentication auth){
 		
 		if(idsClassificados.isEmpty()){
 			model.addAttribute(ERRO, MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO);
 		}
 		
-		Selecao selecao = selecaoRepository.findById(idSelecao);
-		 
 		 if (selecao == null) {
 				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 				return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -236,23 +230,21 @@ public class SelecaoController {
 		 
 		 if(idsClassificados.size() > vagasRestantes){
 			 redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_QTD_VAGAS); 
-			return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + idSelecao;
+			return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + selecao.getId();
 		 } else{		      
 		     for(Integer id: idsClassificados){
 		         inscricaoRepository.atualizarClassificacao(id, true);
 		     }
 		 }
 		
-		return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + idSelecao;
+		return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + selecao.getId();
 		
 	}
 	
 	@RequestMapping(value = {"/removerClassificados/{idSelecao}"}, method = RequestMethod.POST)
 	public String removerClassificados(ModelMap model, @RequestParam("checkClassificaveis[]") List<Integer> idsClassificaveis,
-			@PathVariable("idSelecao") Integer idSelecao, RedirectAttributes redirect, Authentication auth){
+			@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect, Authentication auth){
 
-		Selecao selecao = selecaoRepository.findById(idSelecao);
-		
 		if (selecao == null) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
 			return REDIRECT_PAGINA_LISTAR_SELECAO;
@@ -262,7 +254,7 @@ public class SelecaoController {
 			inscricaoRepository.atualizarClassificacao(id,false);
 		}
 		
-		return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + idSelecao;
+		return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + selecao.getId();
 		
 	}
 	

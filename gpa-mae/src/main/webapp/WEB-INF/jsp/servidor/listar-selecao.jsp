@@ -49,10 +49,9 @@
 				<table class="display" id="tabela-selecoes">
 					<thead>
 						<tr>
-							<th class="dt-head-center">Seleção</th>
 							<th class="dt-head-center">Ano</th>
 							<th class="dt-head-center">Vagas</th>
-							<th class="dt-head-center">Inscritos</th>
+							<th class="dt-head-center">Inscrições</th>
 							<th class="dt-head-center">Período de Inscrições</th>
 							<th></th>
 						</tr>
@@ -60,10 +59,11 @@
 					<tbody>
 						<c:forEach var="selecao" items="${selecoes}">
 							<tr>
-								<td class="dt-body-center"><a id="detalhes"
-									href="<c:url value="/servidor/detalhes/${selecao.id}"></c:url>">
-										${selecao.tipoSelecao.nome} </a></td>
-								<td class="dt-body-center">${selecao.sequencial}/${selecao.ano}</td>
+								<td class="dt-body-center">
+									<a id="detalhes" href="<c:url value="/servidor/selecao/detalhes/${selecao.id}"></c:url>">
+										${selecao.sequencial}/${selecao.ano}
+									</a>
+								</td>
 								<td class="dt-body-center">
 								<c:choose>
 									<c:when test="${not empty selecao.quantidadeVagas}">
@@ -74,7 +74,7 @@
 									</c:otherwise>
 								</c:choose>
 								</td>
-								<td class="dt-body-center">${selecao.inscritos.size() }</td>
+								<td class="dt-body-center">${selecao.inscricoes.size() }</td>
 								<td class="dt-body-center"><fmt:formatDate
 										pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à <fmt:formatDate
 										pattern="dd/MM/yyyy" value="${selecao.dataTermino}" /></td>

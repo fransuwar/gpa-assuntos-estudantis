@@ -35,18 +35,25 @@
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<sec:authorize access="hasAnyAuthority('STA', 'DOCENTE')">
-						<li><a href="<c:url value="/servidor/selecao/listar" />">Seleções</a>
+						<li>
+							<a href="<c:url value="/servidor/selecao/listar" />">Seleções</a>
 						</li>
 					</sec:authorize>
 					<sec:authorize access="hasAuthority('DISCENTE')">
-						<li><a href="<c:url value="/aluno/selecao/listar" />">Seleções</a>
+						<li>
+							<a href="<c:url value="/aluno/selecao/listar" />">Seleções</a>
 						</li>
-						<li><a href="<c:url value="/aluno/inscricao/listar" />">Minhas
-								Inscrições</a></li>
+						<li>
+							<a href="<c:url value="/aluno/inscricao/listar" />">Minhas Inscrições</a>
+						</li>
 					</sec:authorize>
 					<sec:authorize access="hasAuthority('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
-						<li><a href="<c:url value="/coordenador/selecao/cadastrar" />">Nova Seleção</a></li>
-						<li><a href="<c:url value="/coordenador/gerenciarDocumentos" />">Gerenciar Documentos</a></li>
+						<li>
+							<a href="<c:url value="/coordenador/selecao/cadastrar" />">Nova Seleção</a>
+						</li>
+						<li>
+							<a href="<c:url value="/coordenador/tipo-documento" />">Tipos de Documentos</a>
+						</li>
 					</sec:authorize>
 				</ul>
 
