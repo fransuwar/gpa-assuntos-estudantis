@@ -19,7 +19,7 @@
 		      
 		      <c:set var="logoRedirect"><c:url value="/selecao/listar"/></c:set>
 		      
-		      <sec:authorize access="hasAnyRole('DOCENTE', 'STA')">
+		      <sec:authorize access="hasRole('DOCENTE')">
 		      	<c:set var="logoRedirect"><c:url value='/servidor/selecao/listar'/></c:set>
 		      </sec:authorize>
 		      
@@ -28,29 +28,23 @@
 		      </sec:authorize>
 		      
 		      <a href="${logoRedirect}"> <img
-					src="<c:url value="/resources/images/logo-GPA.jpg" />"
+					src="<c:url value="/images/logo-GPA.jpg" />"
 					alt="GPA - Assuntos Estudantis" id="logo-gpa">
 				</a>
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<sec:authorize access="hasAnyRole('ADMINISTRADOR_GPA')">
-						<li><a href="<c:url value="/administrador/listar" />">Servidores</a>
-						</li>
-						<li><a href="<c:url value="/administrador/listar/alunos" />">Alunos</a>
-						</li>
-					</sec:authorize>
-					<sec:authorize access="hasAnyRole('DOCENTE', 'STA')">
+					<sec:authorize access="hasAnyAuthority('STA', 'DOCENTE')">
 						<li><a href="<c:url value="/servidor/selecao/listar" />">Seleções</a>
 						</li>
 					</sec:authorize>
-					<sec:authorize access="hasAnyRole('DISCENTE')">
+					<sec:authorize access="hasAuthority('DISCENTE')">
 						<li><a href="<c:url value="/aluno/selecao/listar" />">Seleções</a>
 						</li>
 						<li><a href="<c:url value="/aluno/inscricao/listar" />">Minhas
 								Inscrições</a></li>
 					</sec:authorize>
-					<sec:authorize access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
+					<sec:authorize access="hasAuthority('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
 						<li><a href="<c:url value="/coordenador/selecao/cadastrar" />">Nova Seleção</a></li>
 						<li><a href="<c:url value="/coordenador/gerenciarDocumentos" />">Gerenciar Documentos</a></li>
 					</sec:authorize>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
@@ -23,7 +24,8 @@ public class SelecaoServiceImpl implements SelecaoService {
 	
 	@Override
 	public List<Selecao> getByMembroComissao(String cpf) {
-		return selecaoRepository.findByComissaoIn(servidorRepository.findByPessoaCpf(cpf));
+		Servidor servidor = servidorRepository.findByPessoaCpf(cpf);
+		return selecaoRepository.findByComissaoIn(servidor);
 	}
 	
 	
