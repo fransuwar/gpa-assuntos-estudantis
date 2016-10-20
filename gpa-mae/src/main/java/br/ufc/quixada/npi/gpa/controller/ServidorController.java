@@ -75,7 +75,7 @@ import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
-@RequestMapping ("servidor")
+@RequestMapping("servidor")
 public class ServidorController {
 	
 	@Autowired

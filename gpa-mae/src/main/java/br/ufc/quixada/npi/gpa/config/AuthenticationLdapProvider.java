@@ -44,7 +44,7 @@ public class AuthenticationLdapProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Usuário e/ou senha inválidos");
         }
         
-        return new UsernamePasswordAuthenticationToken(pessoa, password, authorities);
+        return new UsernamePasswordAuthenticationToken(cpf, password, authorities);
 	}
 
 	@Override
