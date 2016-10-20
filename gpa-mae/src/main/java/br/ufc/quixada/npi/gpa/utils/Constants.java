@@ -42,24 +42,9 @@ public class Constants {
 	public static final String TIPO_SELECAO = "tipoSelecao";
 	public static final String RESULT = "result";
 
-	/** ServiceImpl*/
-	
-	public static final String ANO = "ano";
-	
-	
-	/** Usuário */
-
-	public static final String USUARIO_LOGADO = "usuario";
-
-	public static final String USUARIO_ID = "id";
-
 	/** Páginas */
 	
 	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR 		= "servidor/listar-selecao";
-	
-	
-	
-	
 	
 	public static final String PAGINA_GERENCIAR_DOCUMENTOS = "coordenador/gerenciarDocumentos";
 	
@@ -124,7 +109,13 @@ public class Constants {
 
 	/** Redirecionamentos */
 
+	public static final String REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR = "redirect:/servidor/selecao/listar";
 	
+	public static final String REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO = "redirect:/aluno/selecao/listar";
+	
+	
+	
+	// old
 	public static final String REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS = "redirect:/selecao/selecionarClassificados/";
 
 	public static final String REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS = "redirect:/coordenador/gerenciarDocumentos";
@@ -139,8 +130,6 @@ public class Constants {
 
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO = "redirect:/selecao/listar";
 	
-	public static final String REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR = "redirect:/servidor/selecao/listar";
-	
 	public static final String REDIRECT_PAGINA_MINHAS_INSCRICOES = "redirect:/aluno/inscricao/listar";
 
 	public static final String REDIRECT_PAGINA_DETALHES_SELECAO = "redirect:/servidor/detalhes/";
@@ -152,8 +141,6 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_INFORMACOES_SELECAO_SERVIDOR = "redirect:/servidor/detalhesSelecaoServidor";
 
 	public static final String REDIRECT_PAGINA_DETALHES_INSCRICAO = "redirect:/inscricao/detalhes/inscricao/";
-	
-	public static final String REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO = "redirect:/aluno/selecao/listar";
 	
 	public static final String REDIRECT_PAGINA_SELECAO_INSCRITOS = "redirect:/selecao/inscritos/";
 	
