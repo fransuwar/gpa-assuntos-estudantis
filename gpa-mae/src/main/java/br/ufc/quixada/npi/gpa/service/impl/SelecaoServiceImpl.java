@@ -2,10 +2,8 @@ package br.ufc.quixada.npi.gpa.service.impl;
 
 import java.util.List;
 
-import javax.inject.Named;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
@@ -13,7 +11,7 @@ import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.repository.ServidorRepository;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 
-@Named
+@Service
 public class SelecaoServiceImpl implements SelecaoService {
 	
 	@Autowired
@@ -28,21 +26,16 @@ public class SelecaoServiceImpl implements SelecaoService {
 		return selecaoRepository.findByComissaoIn(servidor);
 	}
 	
-	
-	// old
 	@Override
-	@Transactional
-	public boolean SelecaoEstaCadastrada(Selecao selecao) {
+	public void cadastrar(Selecao selecao) {
+		selecao.setSequencial(selecaoRepository.getNextSequencial(selecao.getAno()));
+		selecao.addMembroComissao(selecao.getResponsavel());
+		selecaoRepository.save(selecao);
+	}
 
-		/*Map<String, Object> map = new HashMap<String, Object>();
-		map.put(ANO, selecao.getAno());
-		map.put("sequencial", selecao.getSequencial());
-		List<Selecao> selecoes = selecaoService.find(QueryType.JPQL,
-				"from Selecao as p where p.tipoSelecao = :tipo and p.ano = :ano and p.sequencial = :sequencial",
-				map);
-
-		return !(selecoes == null || selecoes.isEmpty());*/
-		return true;
+	@Override
+	public Selecao getById(Integer id) {
+		return selecaoRepository.findOne(id);
 	}
 	
 }

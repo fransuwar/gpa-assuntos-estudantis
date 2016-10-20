@@ -114,10 +114,6 @@ public class Selecao {
 		this.id = id;
 	}
 
-	public void setComissao(List<Servidor> comissao) {
-		this.comissao = comissao;
-	}
-
 	public void setQuantidadeVagas(Integer quantidadeVagas) {
 		this.quantidadeVagas = quantidadeVagas;
 	}
@@ -137,19 +133,26 @@ public class Selecao {
 	public void setInscricoes(List<Inscricao> inscricoes) {
 		this.inscricoes = inscricoes;
 	}
-	public void addCoordenador (Servidor coordenador){
+	public void addMembroComissao (Servidor servidor){
 		if(this.comissao == null){
 			comissao = new ArrayList<Servidor>();
 		}
-		this.comissao.add(coordenador);
+		if (servidor != null && !this.comissao.contains(servidor)) {
+			this.comissao.add(servidor);
+		}
 	}
 	
 	public List<TipoDocumento> getTiposDeDocumento() {
 		return tiposDeDocumento;
 	}
-
-	public void setTiposDeDocumento(List<TipoDocumento> tiposDeDocumento) {
-		this.tiposDeDocumento = tiposDeDocumento;
+	
+	public void addTipoDocumento(TipoDocumento tipoDocumento) {
+		if (this.tiposDeDocumento == null) {
+			this.tiposDeDocumento = new ArrayList<TipoDocumento>();
+		}
+		if (tipoDocumento != null && !this.tiposDeDocumento.contains(tipoDocumento)) {
+			this.tiposDeDocumento.add(tipoDocumento);
+		}
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package br.ufc.quixada.npi.gpa.controller;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ABA_SELECIONADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ACTION;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ALUNO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DOCUMENTOS_TAB;
 import static br.ufc.quixada.npi.gpa.utils.Constants.EDITAR;
@@ -9,7 +8,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERROR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ESCOLARIDADE;
 import static br.ufc.quixada.npi.gpa.utils.Constants.GRAU_PARENTESCO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ID_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ADICIONAR_DOCUMENTOS_INSCRICAO;
@@ -32,7 +30,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ALUNO_LISTA
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_INSCRICAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_MINHAS_INSCRICOES;
-import static br.ufc.quixada.npi.gpa.utils.Constants.SELECAO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.USUARIO_ATIVO;
 
 import java.io.IOException;
@@ -107,13 +104,12 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = { "inscricao/auxilio-moradia/{idSelecao}/{idAluno}" }, method = RequestMethod.GET)
-	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Integer idSelecao,@PathVariable("idAluno") Integer idAluno,
+	public String realizarInscricaoAuxilioMoradia(@PathVariable("idSelecao") Selecao selecao,@PathVariable("idAluno") Integer idAluno,
 			Model model, Authentication auth, RedirectAttributes redirect){
 
-		model.addAttribute(ACTION, INSCRICAO);
+		model.addAttribute("action", INSCRICAO);
 
 		Aluno aluno = alunoRepository.findByCpf(auth.getName());
-		Selecao selecao = selecaoRepository.findById(idSelecao);
 		
 		//Testa se o aluno da sessão é igual ao aluno que fez a requisição
 		if(aluno.getId().equals(idAluno)){
@@ -128,7 +124,7 @@ public class AlunoController {
 			}else{
 
 			
-				model.addAttribute(ACTION, INSCRICAO);
+				model.addAttribute("action", INSCRICAO);
 				
 				//Aluno aluno = alunoService.getAlunoPorCPF(auth.getName());
 		
@@ -138,7 +134,7 @@ public class AlunoController {
 				Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 				model.mergeAttributes(modelFormAuxilio.asMap());
 				
-				model.addAttribute(SELECAO, selecao);
+				model.addAttribute("selecao", selecao);
 				model.addAttribute(USUARIO_ATIVO, usuarioService.getByCpf(auth.getName()));
 		
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
@@ -155,7 +151,7 @@ public class AlunoController {
 	public String realizarInscricaoAuxilioMoradia(
 			@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
 			BindingResult result, @RequestParam(value="mora", required=false) List<String> comQuemMora,
-			@RequestParam(ID_SELECAO) Integer idSelecao, Authentication auth, RedirectAttributes redirect,
+			@RequestParam("idSelecao") Selecao selecao, Authentication auth, RedirectAttributes redirect,
 			Model model, @RequestParam("fileFoto") MultipartFile foto) {
 
 		if(!this.verificarExtensaoFoto(foto)){
@@ -173,13 +169,13 @@ public class AlunoController {
 
 		if (result.hasErrors()) {
 
-			model.addAttribute(ACTION, INSCRICAO);
+			model.addAttribute("action", INSCRICAO);
 			model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, auxilioMoradia);
 
 			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 			model.mergeAttributes(modelFormAuxilio.asMap());
-			model.addAttribute(ID_SELECAO, idSelecao);
-			model.addAttribute(SELECAO, selecaoRepository.findById(idSelecao));
+			model.addAttribute("idSelecao", selecao.getId());
+			model.addAttribute("selecao", selecao);
 			model.addAttribute(USUARIO_ATIVO, usuarioService.getByCpf(auth.getName()));
 
 			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_DADOS_INSCRICAO);
@@ -191,7 +187,6 @@ public class AlunoController {
 		} else {
 
 			Aluno aluno = alunoRepository.findByCpf(auth.getName());
-			Selecao selecao = selecaoRepository.findById(idSelecao);
 
 			List<PessoaFamilia> pessoasEntrevista = new ArrayList<>();
 			if(auxilioMoradia.getGrupoFamiliar() != null){
@@ -252,8 +247,8 @@ public class AlunoController {
 				model.addAttribute(USUARIO_ATIVO, usuarioService.getByCpf(auth.getName()));
 				Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 				model.mergeAttributes(modelFormAuxilio.asMap());
-				model.addAttribute(SELECAO, inscricao.getSelecao());
-				model.addAttribute(ACTION, EDITAR);
+				model.addAttribute("selecao", inscricao.getSelecao());
+				model.addAttribute("action", EDITAR);
 
 				return PAGINA_INSCREVER_AUXILIO_MORADIA;
 			}
@@ -271,18 +266,18 @@ public class AlunoController {
 	@RequestMapping(value = { "inscricao/editar/{idInscricao}" }, method = RequestMethod.POST)
 	public String editarInscricaoPost(@Valid @ModelAttribute("questionarioAuxilioMoradia") QuestionarioAuxilioMoradia auxilioMoradia,
 			BindingResult result, @RequestParam(value="mora", required=false) List<String> comQuemMora, 
-			Authentication auth, RedirectAttributes redirect, @RequestParam(ID_SELECAO) Integer idSelecao,
+			Authentication auth, RedirectAttributes redirect, @RequestParam("idSelecao") Selecao selecao,
 			Model model, @RequestParam("fileFoto") MultipartFile foto,	@PathVariable("idInscricao") Integer idInscricao) {
 
 		if (result.hasErrors()) {
 
-			model.addAttribute(ACTION, INSCRICAO);
+			model.addAttribute("action", INSCRICAO);
 			model.addAttribute(QUESTIONARIO_AUXILIO_MORADIA, auxilioMoradia);
 
 			Model modelFormAuxilio = this.carregarFormularioAuxilioMoradia(model);
 			model.mergeAttributes(modelFormAuxilio.asMap());
-			model.addAttribute(ID_SELECAO, idSelecao);
-			model.addAttribute(SELECAO, selecaoRepository.findById(idSelecao));
+			model.addAttribute("idSelecao", selecao.getId());
+			model.addAttribute("selecao", selecao);
 
 			redirect.addFlashAttribute(ERROR, MENSAGEM_ERRO_DADOS_INSCRICAO);
 

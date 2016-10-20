@@ -7,8 +7,10 @@ import br.ufc.quixada.npi.gpa.model.Selecao;
 public interface SelecaoService {
 	
 	List<Selecao> getByMembroComissao(String cpf);
+	
+	void cadastrar(Selecao selecao);
+	
+	Selecao getById(Integer id);
 
-	// old
-	public abstract boolean SelecaoEstaCadastrada(Selecao selecao);
 	
 }

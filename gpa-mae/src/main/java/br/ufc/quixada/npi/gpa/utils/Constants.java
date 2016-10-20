@@ -7,12 +7,8 @@ public class Constants {
 	public static final String ALUNO = "aluno";
 	public static final String NIVEL_INSTRUCAO = "nivelInstrucao";
 	public static final String SITUACAO_RESIDENCIA = "situacaoResidencia";
-	public static final String SELECAO = "selecao";
 	public static final String SELECOES = "selecoes";
 	public static final String ID_INSCRICAO = "idInscricao";
-	public static final String ID_SELECAO = "idSelecao";
-	public static final String TIPOS_DOCUMENTO = "tiposDeDocumento";
-	public static final String ACTION = "action";
 	public static final String LOGIN = "login";
 	public static final String ENTREVISTA = "entrevista";
 	public static final String DOCUMENTACAO = "documentacao";
@@ -26,7 +22,6 @@ public class Constants {
 	public static final String QUESTIONARIO_INICIACAO_ACADEMICA = "questionarioIniciacaoAcademica";
 	public static final String TIPO_AUX_MORADIA = "aux_mor";
 	public static final String TIPO_INIC_ACAD = "inic_acad";
-	public static final String CADASTRAR = "cadastrar";
 	public static final String EDITAR = "editar";
 	public static final String USUARIO_ATIVO = "usuarioAtivo";
 	public static final String ESCONDER_BOTOES = "esconderBotoes";
@@ -44,17 +39,21 @@ public class Constants {
 
 	/** Páginas */
 	
-	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR 		= "servidor/listar-selecao";
+	public static final String PAGINA_CADASTRAR_SELECAO = "coordenador/cadastrar-selecao";
 	
-	public static final String PAGINA_GERENCIAR_DOCUMENTOS = "coordenador/gerenciarDocumentos";
+	public static final String PAGINA_GERENCIAR_DOCUMENTOS = "coordenador/gerenciar-documentos";
+	
+	public static final String PAGINA_DETALHE_SELECAO_COMISSAO = "servidor/detalhe-selecao";
+	
+	
+	
+	
+	// old
+	public static final String PAGINA_LISTAR_SELECAO_SERVIDOR 		= "servidor/listar-selecao";
 	
 	public static final String PAGINA_ATRIBUIR_COMISSAO = "coordenador/atribuirMembroComissao";
 
-	public static final String PAGINA_INFORMACOES_SELECAO			= "selecao/detalhesSelecao";
-	
 	public static final String PAGINA_RANKING_CLASSIFICADOS			= "selecao/rankingClassificados";
-	
-	public static final String PAGINA_INFORMACOES_SELECAO_SERVIDOR	= "servidor/detalhesSelecaoServidor";
 	
 	public static final String PAGINA_LISTAR_ALUNOS 				= "administrador/listarAlunos";
 	
@@ -72,8 +71,6 @@ public class Constants {
 	
 	public static final String PAGINA_REALIZAR_ENTREVISTA			= "servidor/realizarEntrevista";
 	
-	public static final String PAGINA_CADASTRAR_SELECAO             = "coordenador/cadastrarSelecao";
-
 	public static final String PAGINA_LISTAR_SELECAO 				= "selecao/listarSelecao";
 
 	public static final String PAGINA_SELECIONAR_CLASSIFICADOS 		= "selecao/selecionarClassificados";
@@ -104,8 +101,7 @@ public class Constants {
 	
 	public static final String PAGINA_RELATORIO_VISITA_SELECAO 		= "/selecao/relatorioVisita";
 
-	// public static final String PAGINA_DETALHES_SELECAO_SERVIDOR =
-	// "servidor/detalhesSelecao";
+	
 
 	/** Redirecionamentos */
 
@@ -113,13 +109,15 @@ public class Constants {
 	
 	public static final String REDIRECT_PAGINA_ALUNO_LISTAR_SELECAO = "redirect:/aluno/selecao/listar";
 	
+	public static final String REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS = "redirect:/coordenador/tipo-documento";
+	
+	public static final String REDIRECT_PAGINA_DETALHES_SELECAO = "redirect:/servidor/detalhe-selecao/";
+	
 	
 	
 	// old
 	public static final String REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS = "redirect:/selecao/selecionarClassificados/";
 
-	public static final String REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS = "redirect:/coordenador/gerenciarDocumentos";
-	
 	public static final String REDIRECT_PAGINA_EDITAR_SELECAO = "redirect:/coordenador/selecao/editar/";
 	
 	public static final String REDIRECT_PAGINA_ADICIONAR_ARQUIVO = "redirect:/coordenador/selecao/adicionar-documento/";
@@ -131,8 +129,6 @@ public class Constants {
 	public static final String REDIRECT_PAGINA_LISTAR_SELECAO = "redirect:/selecao/listar";
 	
 	public static final String REDIRECT_PAGINA_MINHAS_INSCRICOES = "redirect:/aluno/inscricao/listar";
-
-	public static final String REDIRECT_PAGINA_DETALHES_SELECAO = "redirect:/servidor/detalhes/";
 
 	public static final String REDIRECT_PAGINA_LISTAR_SERVIDOR = "redirect:/administrador/listar";
 
@@ -246,8 +242,6 @@ public class Constants {
 
 	public static final String MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR = "A data de término não pode ser anterior a data de início.";
 
-	public static final String MENSAGEM_ERRO_SEQUENCIAL_SELECAO_CADASTRAR = "Número do edital com esse tipo de Seleção já existente";
-
 	public static final String MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR = "Não é possivel excluir o Coordenador da Comissão";
 
 	public static final String MENSAGEM_DOCUMENTO_REMOVIDO                = "Documento removido com Sucesso";
@@ -309,8 +303,6 @@ public class Constants {
 	public static final String ADMINISTRADOR = "ADMINISTRADOR_GPA";
 
 	/** Resources */
-	
-	public static final String 	DOCUMENTOS = "documentos";
 	
 	public static final String CAMINHO_IMAGEM_ALUNO_SEM_FOTO = "/MAE/resources/img/alunoImage.png";
 	
