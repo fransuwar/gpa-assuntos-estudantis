@@ -50,7 +50,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -77,7 +76,6 @@ import br.ufc.quixada.npi.gpa.utils.Constants;
 
 @Controller
 @RequestMapping ("servidor")
-@SessionAttributes({ Constants.USUARIO_ID , Constants.USUARIO_LOGADO})
 public class ServidorController {
 	
 	@Autowired

@@ -1,4 +1,4 @@
-package br.ufc.quixada.npi.gpa.controller;
+package br.ufc.quixada.npi.gpa.config;
 
 import static br.ufc.quixada.npi.gpa.utils.Constants.ADMINISTRADOR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.DISCENTE;
@@ -8,7 +8,6 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.STA;
 import java.io.IOException;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,10 +16,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import br.ufc.quixada.npi.ldap.model.Usuario;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
-@Named
+
+@Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
 	private RedirectStrategy redirectStrategy;
