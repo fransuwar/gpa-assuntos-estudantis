@@ -1,11 +1,17 @@
 package br.ufc.quixada.npi.gpa.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,12 +20,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import br.ufc.quixada.npi.gpa.enums.Estado;
 
 @Entity
-@EntityListeners(PessoaEntityListener.class)
+//@EntityListeners(PessoaEntityListener.class)
 @Table(uniqueConstraints=@UniqueConstraint(columnNames = {"id", "email", "cpf" }))
-public class Pessoa {
+public class Pessoa implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +37,10 @@ public class Pessoa {
 	private String email;
 	
 	private String nome;
+
+	private String senha;
+
+	private boolean habilitado;
 	
 	@Temporal(TemporalType.DATE) 
 	private Date dataNascimento;
@@ -48,7 +61,29 @@ public class Pessoa {
 	private String telefone;
 	
 	private String estadoCivil;
-	
+
+	@Column(name = "papel")
+	@CollectionTable(name = "papel_usuario")
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(targetClass = Papel.class, fetch = FetchType.EAGER)
+	private List<Papel> papeis;
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public boolean isHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(boolean habilitado) {
+		this.habilitado = habilitado;
+	}
+
 	public Estado getUf() {
 		return uf;
 	}
@@ -146,9 +181,71 @@ public class Pessoa {
 		this.id = id;
 	}
 
+	public List<Papel> getPapeis() {
+		return papeis;
+	}
+
+	public void addPapel(Papel papel) {
+		if (this.papeis == null) {
+			this.papeis = new ArrayList<Papel>();
+		}
+		if (papel != null) {
+			this.papeis.add(papel);
+		}
+	}
+
 	@Override
 	public String toString() {
 		return "Pessoa [id=" + id + "]";
 	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.papeis;
+	}
+
+	@Override
+	public String getPassword() {
+		return this.senha;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.cpf;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return this.habilitado;
+	}
 	
+	public boolean isCoordenador() {
+		return this.papeis.stream().filter(p -> p.equals(Papel.COORDENADOR))
+				.findFirst().orElse(null) != null;
+	}
+	
+	public boolean isServidor() {
+		return this.papeis.stream().filter(p -> p.equals(Papel.SERVIDOR))
+				.findFirst().orElse(null) != null;
+	}
+	
+	public boolean isAluno() {
+		return this.papeis.stream().filter(p -> p.equals(Papel.ALUNO))
+				.findFirst().orElse(null) != null;
+	}
 }

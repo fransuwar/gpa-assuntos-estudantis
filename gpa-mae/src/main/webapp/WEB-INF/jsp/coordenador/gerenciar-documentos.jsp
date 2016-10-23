@@ -9,75 +9,53 @@
 <html>
 <head>
 	<jsp:include page="../fragments/headTag.jsp" />
-	<title>Gerenciar Documentos</title>
+	<title>Gerenciar Tipos de Documentos</title>
 </head>
 <body>
 
 	<jsp:include page="../fragments/bodyHeader.jsp" />
 
 	<div class="container">
-		<c:if test="${not empty erro}">
-			<div class="alert alert-danger alert-dismissible" role="alert"
-				id="alert-erro">
-				<button type="button" class="close" data-dismiss="alert">
-					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-				</button>
-				<div style="text-align: center">
-					<c:out value="${erro}"></c:out>
-				</div>
-			</div>
-		</c:if>
-		<c:if test="${not empty info}">
-			<div class="alert alert-success alert-dismissible" role="alert" id="alert-info">
-				<button type="button" class="close" data-dismiss="alert">
-					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-				</button>
-				<div style="text-align: center">
-					<c:out value="${info}"></c:out>
-				</div>
-			</div>
-		</c:if>
+	
+		<jsp:include page="../fragments/alert.jsp" />
 
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">Gerenciar Documentos</h3>
-			</div>
-			<div class="panel-body">
-			
-				<div class="s4-custom center-block">
-					<form id="adicionarArquivoForm" role="form" class="form-inline"
-						action="<c:url value="/coordenador/tipo-documento/cadastrar" />"
-						method="post" enctype="multipart/form-data">
-						<div class="form-group">
-							<label for="arquivo">Tipo de Documento:</label>
-							<input class="form-control" type="text" name="nome" required="required">
-						</div>
-						<input type="submit" class="btn btn-primary" value="Adicionar" id="form-btn" />
-					</form>
-				</div>
-
-				<div class="margin-top-s1 center-block s5">
-					<table id="tipo-arquivo-upload" role="presentation" class="table table-hover table-custom">
-						<thead class="th-custom">
-							<tr>
-								<th colspan="2" class="th-center">Documentos Cadastrados</th>
-							</tr>
-						</thead>
-						<tbody class="files">
-							<c:forEach items="${documentos}" var="documento">
-								<tr class="template-upload fade in" id="row-${documento.id}">
-									<td>${documento.nome}</td>
-									<td>
-										<a class="btn btn-danger btn-small btn-xs" id="id" data-toggle="modal" data-target="#confirm-delete"
-											data-href="<c:url value="/coordenador/tipo-documento/excluir/${documento.id }"></c:url>"
-											class="delete-document">
-											<span class="glyphicon glyphicon-trash"></span>
-										</a>
-									</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h2>Gerenciar Tipos de Documentos</h2>
+					<div class="divider"></div>
+					<div class="col-md-12">
+						<form class="form-horizontal" action="<c:url value="/coordenador/tipo-documento/cadastrar" />"
+							method="post" enctype="multipart/form-data">
+							<div class="form-group">
+								<label class="col-md-1 control-label" for="nome">Nome</label>
+								<div class="col-md-4">
+									<input class="form-control" type="text" name="nome" required="required">
+								</div>
+								<div class="col-md-2">
+									<input type="submit" class="btn btn-primary btn-raised" value="Adicionar"/>
+								</div>
+							</div>
+						</form>
+					</div>
+	
+					<div class="col-md-12">
+						<table class="table table-striped table-hover">
+							<tbody>
+								<c:forEach items="${documentos}" var="documento">
+									<tr id="row-${documento.id}">
+										<td>${documento.nome}</td>
+										<td>
+											<a class="btn btn-danger" data-toggle="modal" data-target="#excluir-tipo-documento" title="Excluir"
+												data-href="<c:url value="/coordenador/tipo-documento/excluir/${documento.id }"></c:url>">
+												<i class="material-icons">delete</i>
+											</a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -85,8 +63,9 @@
 
 	<jsp:include page="../fragments/footer.jsp" />
 	
-	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
+	<script src="<c:url value="/js/coordenador/gerenciar-documento.js" />"></script>
+	
+	<div class="modal fade" id="excluir-tipo-documento">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">Excluir</div>

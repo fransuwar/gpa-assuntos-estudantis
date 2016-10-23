@@ -1,0 +1,16 @@
+#logo-gpa {
+	padding: 0 0 2px 0;
+}
+
+#logo-gpa img {
+	max-height: 58px;
+}
+
+.alert {
+	text-align: center;
+}
+
+.divider {
+	border-bottom: 1px solid #c8c8c8;
+	margin-bottom: 20px;
+}

@@ -1,66 +1,38 @@
 package br.ufc.quixada.npi.gpa.controller;
-import static br.ufc.quixada.npi.gpa.utils.Constants.CLASSIFICADOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.CONTENT_DISPOSITION;
-import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_QTD_VAGAS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_DOWNLOAD_DOCUMENTO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_DETALHE_SELECAO_COMISSAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RANKING_CLASSIFICADOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_SELECIONAR_CLASSIFICADOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.SELECOES;
-
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.model.Aluno;
-import br.ufc.quixada.npi.gpa.model.Documento;
-import br.ufc.quixada.npi.gpa.model.Inscricao;
-import br.ufc.quixada.npi.gpa.model.Selecao;
-import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
-import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
-import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
-import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
-import br.ufc.quixada.npi.gpa.utils.Constants;
+import br.ufc.quixada.npi.gpa.model.Pessoa;
+import br.ufc.quixada.npi.gpa.service.PessoaService;
+import br.ufc.quixada.npi.gpa.service.SelecaoService;
+import br.ufc.quixada.npi.gpa.utils.PageConstants;
 
 @Controller
-@RequestMapping("selecao")
+@RequestMapping("/selecao")
 public class SelecaoController {
 	
-	@Inject
-	private AlunoRepository alunoRepository;
+	@Autowired
+	private PessoaService pessoaService;
 	
-	@Inject
-	private DocumentoRepository documentoRepository;
+	@Autowired
+	private SelecaoService selecaoService;
 	
-	@Inject
-	private InscricaoRepository inscricaoRepository;
+	@GetMapping("/listar")
+	public String listarSelecoes(Model model, Authentication auth) {
+		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
+		if (pessoa.isServidor()) {
+			model.addAttribute("selecoes", selecaoService.getByMembroComissao(pessoa.getCpf()));
+		} else if (pessoa.isServidor()) {
+			model.addAttribute("selecoes", selecaoService.getAll());
+		}
+		return PageConstants.LISTAR_SELECAO;
+	}
 	
-	@Inject
-	private SelecaoRepository selecaoRepository;
-	
-	@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
+	/*@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
 	public String getInformacoesPublico(@PathVariable("idSelecao") Integer idSelecao, Model model, RedirectAttributes redirect) {
 		Selecao selecao = selecaoRepository.getOne(idSelecao);
 
@@ -149,7 +121,7 @@ public class SelecaoController {
 		return PAGINA_LISTAR_SELECAO;
 	}
 
-	/*@RequestMapping(value = "parecer/{idSelecao}", method = RequestMethod.POST)
+	@RequestMapping(value = "parecer/{idSelecao}", method = RequestMethod.POST)
 	public String emitirParecer(@Valid @ModelAttribute("pareceres") ParecerForm parecerForm,
 			@PathVariable("idSelecao") Integer id, BindingResult result, HttpServletRequest request,
 			RedirectAttributes redirect) {
@@ -163,7 +135,7 @@ public class SelecaoController {
 		redirect.addFlashAttribute("info", MENSAGEM_SUCESSO_PARECER_EMITIDO);
 
 		return REDIRECT_PAGINA_LISTAR_SELECAO;
-	}*/
+	}
 
 	@RequestMapping(value = { "inscricao/detalhes/{idInscricao}" }, method = RequestMethod.GET)
 	public String detalhesInscricao() {
@@ -256,6 +228,6 @@ public class SelecaoController {
 		
 		return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + selecao.getId();
 		
-	}
+	}*/
 	
 }

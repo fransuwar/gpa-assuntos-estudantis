@@ -6,6 +6,8 @@ import br.ufc.quixada.npi.gpa.model.Selecao;
 
 public interface SelecaoService {
 	
+	List<Selecao> getAll();
+	
 	List<Selecao> getByMembroComissao(String cpf);
 	
 	void cadastrar(Selecao selecao);

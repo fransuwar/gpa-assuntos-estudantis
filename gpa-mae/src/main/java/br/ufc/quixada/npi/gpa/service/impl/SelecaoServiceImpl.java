@@ -37,5 +37,10 @@ public class SelecaoServiceImpl implements SelecaoService {
 	public Selecao getById(Integer id) {
 		return selecaoRepository.findOne(id);
 	}
+
+	@Override
+	public List<Selecao> getAll() {
+		return selecaoRepository.findAll();
+	}
 	
 }

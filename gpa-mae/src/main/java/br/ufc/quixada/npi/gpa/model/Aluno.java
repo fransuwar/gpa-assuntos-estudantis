@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@EntityListeners(AlunoEntityListener.class)
+//@EntityListeners(AlunoEntityListener.class)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "matricula" }) )
 public class Aluno {
 

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@EntityListeners(ServidorEntityListener.class)
+//@EntityListeners(ServidorEntityListener.class)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "siape" }))
 public class Servidor {
 

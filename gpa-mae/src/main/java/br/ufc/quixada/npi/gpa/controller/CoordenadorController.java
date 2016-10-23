@@ -64,6 +64,9 @@ import br.ufc.quixada.npi.gpa.service.DocumentacaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
 import br.ufc.quixada.npi.gpa.utils.Constants;
+import br.ufc.quixada.npi.gpa.utils.MessageConstants;
+import br.ufc.quixada.npi.gpa.utils.PageConstants;
+import br.ufc.quixada.npi.gpa.utils.RedirectConstants;
 
 @Controller
 @RequestMapping("coordenador")
@@ -78,19 +81,19 @@ public class CoordenadorController {
 	@Autowired
 	private ServidorService servidorService;
 
-	@Autowired
+	/*@Autowired
 	private InscricaoRepository inscricaoRepository;
 
 	@Autowired
 	private DocumentoRepository documentoRepository;
 
 	@Autowired
-	private SelecaoRepository selecaoRepository;
+	private SelecaoRepository selecaoRepository;*/
 
 	
 	// Gerenciamento de seleções
 	
-	@GetMapping("selecao/cadastrar")
+	/*@GetMapping("selecao/cadastrar")
 	public String cadastrarSelecao(Model model) {
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("selecao", new Selecao());
@@ -131,7 +134,7 @@ public class CoordenadorController {
 		this.selecaoService.cadastrar(selecao);
 		return REDIRECT_PAGINA_DETALHES_SELECAO + selecao.getId();
 
-	}
+	}*/
 	
 	
 	// Gerenciamento de tipos de documentos
@@ -139,7 +142,7 @@ public class CoordenadorController {
 	@GetMapping("tipo-documento")
 	public String listarTipoDocumento(Model model){
 		model.addAttribute("documentos", documentacaoService.getAllTipoDocumento());
-		return PAGINA_GERENCIAR_DOCUMENTOS;
+		return PageConstants.GERENCIAR_DOCUMENTOS;
 	}
 	
 	@PostMapping("tipo-documento/cadastrar")
@@ -147,32 +150,27 @@ public class CoordenadorController {
 		if(!tipoDocumento.getNome().isEmpty()){
 			documentacaoService.salvar(tipoDocumento);
 		}
-		return REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
+		return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
 	
 	@GetMapping("tipo-documento/excluir/{id}")
 	public String excluirTipoDocumento(@PathVariable("id") TipoDocumento tipoDocumento,
-			Model model, RedirectAttributes redirect) {
+			RedirectAttributes redirect) {
 
 		if (tipoDocumento != null){
 			try {
 				documentacaoService.excluirTipoDocumento(tipoDocumento.getId());
-				redirect.addFlashAttribute(INFO, MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
+				redirect.addFlashAttribute(INFO, MessageConstants.MSG_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
 			} catch(Exception e){
-				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO);
+				redirect.addFlashAttribute(ERRO, MessageConstants.MSG_ERRO_TIPO_DOCUMENTO_EM_USO);
 			}
-		} else{ 
-			model.addAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO);
 		}
-		model.addAttribute("documentos", documentacaoService.getAllTipoDocumento());
-		return  REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
-
-
+		return  RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
 	
 	
 	// old
-	@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
+	/*@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
 	public String editarSelecao(@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
 		if (selecao != null) {
 			model.addAttribute("action", EDITAR);
@@ -390,6 +388,6 @@ public class CoordenadorController {
 			 return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 		}
 
-	}
+	}*/
 
 }

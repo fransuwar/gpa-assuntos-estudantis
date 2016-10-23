@@ -3,7 +3,7 @@ body {
 }
 
 #container {
-	margin: 100px auto;
+	margin: 50px auto;
 	width: 550px;
 	
 	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 2px #ffffff;
@@ -60,24 +60,12 @@ body {
 	text-align: center;
 }
 
-#div-captcha-erro {
-	margin-top: 10px;
-	margin-left: 15px;
-}
-
-.controls {
+#btn-login {
 	text-align: center;
-	margin-top: 10px;
-}
-
-#captcha-erro {
-	text-align: center;
-	color: #E74C3C;
 }
 
 footer {
 	text-align: center;
-	margin-bottom: 40px;
 }
 
 footer > img {
@@ -88,20 +76,4 @@ footer > img {
 footer > p {
 	margin-bottom: 0;
 	color: #7C7C7C;
-}
-
-div#div-captcha-erro {
-	margin-top: 10px;
-	margin-left: 15px;
-}
-
-a, a:hover, a:VISITED, a:ACTIVE, button, button:hover, button:VISITED, button:ACTIVE
-input.btn, input.btn:VISITED, input.btn:ACTIVE, input.btn:FOCUS {
-	outline: none;
-	outline-offset:0;
-	text-decoration: none;
-}
-
-.has-success .form-control:focus {
-	box-shadow: none !important;
 }

@@ -8,8 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan({ "br.ufc.quixada.npi.ldap", "br.ufc.quixada.npi.gpa"})
 @EnableJpaRepositories("br.ufc.quixada.npi.gpa.repository")
+@ComponentScan({ "br.ufc.quixada.npi.ldap", "br.ufc.quixada.npi.gpa"})
 @EntityScan("br.ufc.quixada.npi.gpa.model")
 @EnableAutoConfiguration
 public class AssuntosEstudantisApplication {
