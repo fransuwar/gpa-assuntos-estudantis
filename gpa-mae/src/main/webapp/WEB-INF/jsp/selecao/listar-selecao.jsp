@@ -25,6 +25,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<h2>Seleções</h2>
+					<a href="<c:url value="/coordenador/selecao/cadastrar"></c:url>" class="btn btn-primary btn-fab right" title="Nova seleção"><i class="material-icons">add</i></a>
 					<div class="divider"></div>
 					<c:if test="${empty selecoes}">
 						<div class="alert alert-warning">
@@ -45,43 +46,39 @@
 							<tbody>
 								<c:forEach var="selecao" items="${selecoes}">
 									<tr>
-										<td class="dt-body-center">
+										<td>
 											<a id="detalhes" href="<c:url value="/servidor/selecao/detalhes/${selecao.id}"></c:url>">
 												${selecao.sequencial}/${selecao.ano}
 											</a>
 										</td>
-										<td class="dt-body-center">
-										<c:choose>
-											<c:when test="${not empty selecao.quantidadeVagas}">
-												${selecao.quantidadeVagas}
-											</c:when>
-											<c:otherwise>
-												-
-											</c:otherwise>
-										</c:choose>
+										<td>
+											<c:choose>
+												<c:when test="${not empty selecao.quantidadeVagas}">
+													${selecao.quantidadeVagas}
+												</c:when>
+												<c:otherwise>
+													-
+												</c:otherwise>
+											</c:choose>
 										</td>
-										<td class="dt-body-center">${selecao.inscricoes.size() }</td>
-										<td class="dt-body-center"><fmt:formatDate
-												pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à <fmt:formatDate
-												pattern="dd/MM/yyyy" value="${selecao.dataTermino}" /></td>
-										<sec:authorize access="hasRole('COORDENADOR_ASSUNTOS_ESTUDANTIS')">
-											<td class="dt-body-right"><a
-												href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>">
-													<button class="btn btn-info btn-small btn-xs" title="Editar Seleção">
-														<i class="fa fa-pencil-square-o"></i>
-													</button>
-											</a> 
-											 <c:if test="${selecao.inscritos.isEmpty() }">
-													<a id="excluir" data-toggle="modal"
-														data-target="#confirm-delete" href="#"
+										<td>${selecao.inscricoes.size() }</td>
+										<td>
+											<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataInicio}" /> à 
+											<fmt:formatDate pattern="dd/MM/yyyy" value="${selecao.dataTermino}" />
+										</td>
+										<td>
+											<sec:authorize access="hasAuthority('COORDENADOR')">
+												<a href="<c:url value="/coordenador/selecao/editar/${selecao.id}" ></c:url>" title="Editar">
+													<i class="material-icons icon-primary">create</i>
+												</a> 
+												<c:if test="${selecao.inscricoes.isEmpty() }">
+													<a data-toggle="modal" data-target="#confirm-delete" href="#" title="Excluir"
 														data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
-														<button class="btn btn-small btn-danger btn-xs"
-															title="Excluir Seleção">
-															<i class="fa fa-trash"></i>
-														</button>
+														<i class="material-icons icon-danger">delete</i>
 													</a>
-												</c:if></td>
-										</sec:authorize>
+												</c:if>
+											</sec:authorize>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>

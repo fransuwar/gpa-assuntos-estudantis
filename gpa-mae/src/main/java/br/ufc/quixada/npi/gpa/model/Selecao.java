@@ -154,6 +154,10 @@ public class Selecao {
 			this.tiposDeDocumento.add(tipoDocumento);
 		}
 	}
+	
+	public void removeAllTipoDocumento() {
+		this.tiposDeDocumento = new ArrayList<TipoDocumento>();
+	}
 
 	@Override
 	public int hashCode() {

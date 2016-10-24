@@ -24,10 +24,10 @@ public class SelecaoController {
 	@GetMapping("/listar")
 	public String listarSelecoes(Model model, Authentication auth) {
 		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
-		if (pessoa.isServidor()) {
-			model.addAttribute("selecoes", selecaoService.getByMembroComissao(pessoa.getCpf()));
-		} else if (pessoa.isServidor()) {
+		if (pessoa.isCoordenador() || pessoa.isAluno()) {
 			model.addAttribute("selecoes", selecaoService.getAll());
+		} else if (pessoa.isServidor()) {
+			model.addAttribute("selecoes", selecaoService.getByMembroComissao(pessoa.getCpf()));
 		}
 		return PageConstants.LISTAR_SELECAO;
 	}

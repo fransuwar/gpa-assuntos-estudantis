@@ -1,38 +1,9 @@
 package br.ufc.quixada.npi.gpa.controller;
 
-import static br.ufc.quixada.npi.gpa.utils.Constants.DATA_TERMINO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.EDITAR;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANEXO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_EXCLUIR_TIPO_DOCUMENTO_EM_USO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_FALTA_DE_PERMISSAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_COMISSAO_FORMADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_SELECAO_ATUALIZADA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_SUCESSO_SELECAO_REMOVIDA;
-import static br.ufc.quixada.npi.gpa.utils.Constants.MENSAGEM_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_ADICIONAR_ARQUIVO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_ATRIBUIR_COMISSAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_CADASTRAR_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_GERENCIAR_DOCUMENTOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.PAGINA_RELATORIO_FINAL;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_DETALHES_SELECAO;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_GERENCIAR_DOCUMENTOS;
-import static br.ufc.quixada.npi.gpa.utils.Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -47,29 +18,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.model.Documento;
-import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
-import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
-import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
-import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
-import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.service.DocumentacaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
-import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.gpa.utils.MessageConstants;
 import br.ufc.quixada.npi.gpa.utils.PageConstants;
 import br.ufc.quixada.npi.gpa.utils.RedirectConstants;
 
 @Controller
-@RequestMapping("coordenador")
+@RequestMapping("/coordenador")
 public class CoordenadorController {
 
 	@Autowired
@@ -93,13 +55,13 @@ public class CoordenadorController {
 	
 	// Gerenciamento de seleções
 	
-	/*@GetMapping("selecao/cadastrar")
+	@GetMapping("selecao/cadastrar")
 	public String cadastrarSelecao(Model model) {
 		model.addAttribute("action", "cadastrar");
 		model.addAttribute("selecao", new Selecao());
 		model.addAttribute("tiposDeDocumento", documentacaoService.getAllTipoDocumento());
 
-		return PAGINA_CADASTRAR_SELECAO;
+		return PageConstants.CADASTRAR_SELECAO;
 	}
 
 	@PostMapping("selecao/cadastrar")
@@ -108,19 +70,19 @@ public class CoordenadorController {
 			 Authentication auth, Model model) {
 
 		if (selecao.getAno() != null && selecao.getAno() < LocalDate.now().getYear()) {
-			result.rejectValue("ano", "selecao.ano", MENSAGEM_ERRO_ANO_SELECAO_CADASTRAR);
+			result.rejectValue("ano", "selecao.ano", MessageConstants.MSG_ERRO_ANO_SELECAO);
 		}
 
 		if ((selecao.getDataInicio() != null && selecao.getDataTermino() != null) && 
 				selecao.getDataTermino().before(selecao.getDataInicio())) {
-			result.rejectValue(DATA_TERMINO, "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
+			result.rejectValue("dataTermino", "selecao.dataTermino", MessageConstants.MSG_ERRO_DATATERMINO_SELECAO);
 		}
 		
 		if (result.hasErrors()) {
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("action", "cadastrar");
 			model.addAttribute("tiposDeDocumento", documentacaoService.getAllTipoDocumento());
-			return PAGINA_CADASTRAR_SELECAO;
+			return PageConstants.CADASTRAR_SELECAO;
 		}
 		
 		selecao.setResponsavel(servidorService.getByCpf(auth.getName()));
@@ -132,9 +94,78 @@ public class CoordenadorController {
 		}
 
 		this.selecaoService.cadastrar(selecao);
-		return REDIRECT_PAGINA_DETALHES_SELECAO + selecao.getId();
+		return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 
-	}*/
+	}
+	
+	@GetMapping("selecao/editar/{idSelecao}")
+	public String editarSelecao(@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
+		if (selecao != null) {
+			model.addAttribute("action", "editar");
+			model.addAttribute("selecao", selecao);
+			model.addAttribute("tiposDeDocumento", documentacaoService.getAllTipoDocumento());
+			return PageConstants.CADASTRAR_SELECAO;
+		}
+		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+	}
+
+	@PostMapping("selecao/editar")
+	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecaoAtualizada, BindingResult result,
+			Model model, RedirectAttributes redirect, @RequestParam("checkDocumentos[]") List<Integer> idsTiposDocumentos,
+			Authentication auth) {
+		if (selecaoAtualizada == null) {
+			return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+		}
+		if (selecaoAtualizada.getAno() != null && selecaoAtualizada.getAno() < LocalDate.now().getYear()) {
+			result.rejectValue("ano", "selecao.ano", MessageConstants.MSG_ERRO_ANO_SELECAO);
+		}
+
+		if ((selecaoAtualizada.getDataInicio() != null && selecaoAtualizada.getDataTermino() != null) && 
+				selecaoAtualizada.getDataTermino().before(selecaoAtualizada.getDataInicio())) {
+			result.rejectValue("dataTermino", "selecao.dataTermino", MessageConstants.MSG_ERRO_DATATERMINO_SELECAO);
+		}
+		
+		if (result.hasErrors()) {
+			selecaoAtualizada.removeAllTipoDocumento();
+			for(Integer id: idsTiposDocumentos) {
+				selecaoAtualizada.addTipoDocumento(documentacaoService.getTipoDocumentoById(id));
+			}
+			model.addAttribute("selecao", selecaoAtualizada);
+			model.addAttribute("action", "editar");
+			model.addAttribute("tiposDeDocumento", documentacaoService.getAllTipoDocumento());
+			return PageConstants.CADASTRAR_SELECAO;
+		}
+		
+		Selecao selecao = selecaoService.getById(selecaoAtualizada.getId());
+		selecaoAtualizada.setResponsavel(servidorService.getByCpf(auth.getName()));
+		
+		selecao.setAno(selecaoAtualizada.getAno());
+		selecao.setQuantidadeVagas(selecaoAtualizada.getQuantidadeVagas());
+		selecao.setDataInicio(selecaoAtualizada.getDataInicio());
+		selecao.setDataTermino(selecaoAtualizada.getDataTermino());
+		selecao.removeAllTipoDocumento();
+		if(idsTiposDocumentos != null) {
+			for(Integer id: idsTiposDocumentos) {
+				selecao.addTipoDocumento(documentacaoService.getTipoDocumentoById(id));
+			}
+		}
+
+		this.selecaoService.atualizar(selecaoAtualizada);
+
+		redirect.addFlashAttribute(INFO, MessageConstants.MSG_SUCESSO_SELECAO_ATUALIZADA);
+
+		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+	}
+	
+	@GetMapping("selecao/excluir/{idSelecao}")
+	public String excluirSelecao(@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect) {
+		if (selecao != null && (selecao.getInscricoes() == null || selecao.getInscricoes().isEmpty())) {
+			this.selecaoService.excluir(selecao);
+			redirect.addFlashAttribute(INFO, MessageConstants.MSG_SUCESSO_SELECAO_REMOVIDA);
+		}
+
+		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+	}
 	
 	
 	// Gerenciamento de tipos de documentos
@@ -170,61 +201,7 @@ public class CoordenadorController {
 	
 	
 	// old
-	/*@RequestMapping(value = { "selecao/editar/{idSelecao}" }, method = RequestMethod.GET)
-	public String editarSelecao(@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
-		if (selecao != null) {
-			model.addAttribute("action", EDITAR);
-			model.addAttribute("selecao", selecao);
-			model.addAttribute("membrosComissao", selecao.getComissao());
-			model.addAttribute("tiposDeDocumento",documentacaoService.getAllTipoDocumento());
-			return PAGINA_CADASTRAR_SELECAO;
-		}
-		return PAGINA_CADASTRAR_SELECAO;
-	}
-
-	@RequestMapping(value = { "selecao/editar" }, method = RequestMethod.POST)
-	public String editarSelecao(@Valid @ModelAttribute("selecao") Selecao selecaoAtualizada, BindingResult result,
-			Model model, RedirectAttributes redirect, @RequestParam("checkDocumentos[]") List<Integer> idstiposDocumentos) {
-		model.addAttribute("action", EDITAR);
-		if ((selecaoAtualizada != null && selecaoAtualizada.getDataInicio() != null && selecaoAtualizada.getDataTermino() != null) &&
-				selecaoAtualizada.getDataTermino().before(selecaoAtualizada.getDataInicio())) {
-			result.rejectValue(DATA_TERMINO, "selecao.dataTermino", MENSAGEM_ERRO_DATATERMINO_SELECAO_CADASTRAR);
-		}
-
-		if (result.hasErrors()) {
-			model.addAttribute("selecao", selecaoAtualizada);
-			return PAGINA_CADASTRAR_SELECAO;
-		}
-		Selecao selecao = selecaoService.getById(selecaoAtualizada.getId());
-		if(idstiposDocumentos != null ) {
-			for(Integer id: idstiposDocumentos){
-				selecao.addTipoDocumento(documentacaoService.getTipoDocumentoById(id));
-			}
-		}
-
-		selecao.setAno(selecaoAtualizada.getAno());
-		selecao.setQuantidadeVagas(selecaoAtualizada.getQuantidadeVagas());
-		selecao.setDataInicio(selecaoAtualizada.getDataInicio());
-		selecao.setDataTermino(selecaoAtualizada.getDataTermino());
-
-		this.selecaoRepository.save(selecao);
-
-		redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_SELECAO_ATUALIZADA);
-
-		return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
-	}
-
-	@RequestMapping(value =  "selecao/excluir/{idSelecao}" , method = RequestMethod.GET)
-	public String excluirSelecao(@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect) {
-		if (selecao != null && inscricaoRepository.countBySelecao_Id(selecao.getId()) == 0) {
-			this.selecaoRepository.delete(selecao);
-			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_SELECAO_REMOVIDA);
-		} else {
-			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_SELECAO_COM_INSCRITOS);
-		}
-
-		return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
-	}
+	/*
 
 	@RequestMapping(value = "/comissao/atribuir/{idSelecao}", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("idSelecao") Selecao selecao,

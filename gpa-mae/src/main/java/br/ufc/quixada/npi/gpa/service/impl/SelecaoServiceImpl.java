@@ -42,5 +42,16 @@ public class SelecaoServiceImpl implements SelecaoService {
 	public List<Selecao> getAll() {
 		return selecaoRepository.findAll();
 	}
+
+	@Override
+	public void atualizar(Selecao selecao) {
+		selecao.setSequencial(selecaoRepository.getNextSequencial(selecao.getAno()));
+		selecaoRepository.save(selecao);
+	}
+
+	@Override
+	public void excluir(Selecao selecao) {
+		selecaoRepository.delete(selecao);
+	}
 	
 }

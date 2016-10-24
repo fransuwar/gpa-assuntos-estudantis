@@ -12,6 +12,10 @@ public interface SelecaoService {
 	
 	void cadastrar(Selecao selecao);
 	
+	void atualizar(Selecao selecao);
+	
+	void excluir(Selecao selecao);
+	
 	Selecao getById(Integer id);
 
 	

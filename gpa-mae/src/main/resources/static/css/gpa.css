@@ -14,3 +14,39 @@
 	border-bottom: 1px solid #c8c8c8;
 	margin-bottom: 20px;
 }
+
+h2 {
+	display: inline-block;
+}
+
+.btn-fab.right {
+	float: right;
+}
+
+.checkbox label {
+	margin-right: 20px;
+}
+
+.checkbox-material .check {
+	margin-right: 5px;
+}
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}
+
+.btn-form input {
+	margin-left: 20px;
+}
+
+.icon-primary {
+	color: #009688;
+}
+
+.icon-danger {
+	color: #d9534f;
+}
