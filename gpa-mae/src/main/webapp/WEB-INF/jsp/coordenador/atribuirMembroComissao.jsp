@@ -85,15 +85,13 @@
 								<tr>
 									<th class="th-center">Nome</th>
 									<th class="th-center">SIAPE</th>
-									<th class="th-center">Cargo</th>
 									<th class="th-center">-</th>
 								</tr>
 							</thead>
-							<c:forEach var="servidor" items="${selecao.membrosComissao}">
+							<c:forEach var="servidor" items="${selecao.comissao}">
 								<tr>
 									<td>${servidor.pessoa.nome}</td>
 									<td>${servidor.siape }</td>
-									<td>${servidor.cargo.nome }</td>
 									<c:choose>
 										<c:when test="${selecao.responsavel.siape != servidor.siape}">
 											<td>

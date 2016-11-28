@@ -18,14 +18,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
+import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.service.DocumentacaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
+import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.gpa.utils.MessageConstants;
 import br.ufc.quixada.npi.gpa.utils.PageConstants;
 import br.ufc.quixada.npi.gpa.utils.RedirectConstants;
@@ -48,9 +52,9 @@ public class CoordenadorController {
 
 	@Autowired
 	private DocumentoRepository documentoRepository;
-
+	*/
 	@Autowired
-	private SelecaoRepository selecaoRepository;*/
+	private SelecaoRepository selecaoRepository;
 
 	
 	// Gerenciamento de seleções
@@ -199,9 +203,6 @@ public class CoordenadorController {
 		return  RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
 	
-	
-	// old
-	/*
 
 	@RequestMapping(value = "/comissao/atribuir/{idSelecao}", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("idSelecao") Selecao selecao,
@@ -212,7 +213,7 @@ public class CoordenadorController {
 		model.addAttribute("selecao", selecao);	
 		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_COMISSAO);
 
-		return PAGINA_ATRIBUIR_COMISSAO;
+		return Constants.PAGINA_ATRIBUIR_COMISSAO;
 	}
 
 	@RequestMapping(value = "/comissao/atribuir", method = RequestMethod.POST)
@@ -224,21 +225,22 @@ public class CoordenadorController {
 
 
 		if (comissao.contains(servidor)) {
-			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
+			redirect.addFlashAttribute(ERRO, Constants.MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
 
-			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();
+			return Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();
 
 		} else {
 
 			selecao.getComissao().add(servidor);
 			selecaoRepository.save(selecao);
-			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_COMISSAO_FORMADA);
+			redirect.addFlashAttribute(INFO, Constants.MENSAGEM_SUCESSO_COMISSAO_FORMADA);
 
 
-			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();	
+			return Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();	
 		}
 	}
 
+	/*
 	@RequestMapping(value = "/selecao/adicionar-documento/{idSelecao}", method = RequestMethod.GET)
 	public String adicionarDocumento(@PathVariable("idSelecao") Selecao selecao,
 			Model model, RedirectAttributes redirectAttributes) {
