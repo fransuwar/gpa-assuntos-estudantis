@@ -50,16 +50,16 @@
 			</div>
 		</c:if>
 		
-		<jsp:include page="../fragments/cards.jsp" />
+		<jsp:include page="../fragments/cards.jsp" />  
 
 		<sec:authorize
-			access="hasAnyRole('COORDENADOR_ASSUNTOS_ESTUDANTIS', 'STA', 'DOCENTE')">
+			access="hasAuthority('COORDENADOR')">
 			<div class="panel panel-primary" align="left">
 				<div class="panel-heading">
 					<h3 class="panel-title">Inscrições</h3>
 				</div>
 				<div class="panel-body">
-							<c:if test="${selecao.inscritos.size()>0 }">
+							<c:if test="${selecao.inscricoes.size()>0 }">
 								<div align="right">
 									<input id="idSelecao" type="hidden" value="${selecao.id}">
 									<button id="consolidacaoTodos" class="btn btn-primary" >Consolidar Todos </button>

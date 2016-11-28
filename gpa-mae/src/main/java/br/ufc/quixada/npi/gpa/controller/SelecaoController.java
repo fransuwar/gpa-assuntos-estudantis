@@ -1,12 +1,23 @@
 package br.ufc.quixada.npi.gpa.controller;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.ufc.quixada.npi.gpa.model.Aluno;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Pessoa;
+import br.ufc.quixada.npi.gpa.utils.*;
+import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
+import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.utils.PageConstants;
@@ -21,6 +32,11 @@ public class SelecaoController {
 	@Autowired
 	private SelecaoService selecaoService;
 	
+	@Autowired
+	private AlunoRepository alunoRepository;
+	
+	private InscricaoRepository inscricaoRepository;
+	
 	@GetMapping("/listar")
 	public String listarSelecoes(Model model, Authentication auth) {
 		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
@@ -30,6 +46,20 @@ public class SelecaoController {
 			model.addAttribute("selecoes", selecaoService.getByMembroComissao(pessoa.getCpf()));
 		}
 		return PageConstants.LISTAR_SELECAO;
+	}
+	
+	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
+	public String getInformacoes(@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect,Authentication auth) {
+		//Detalhe da seleção, apenas para aluno
+
+		if (selecao == null) {
+			redirect.addFlashAttribute(Constants.ERRO, Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			return Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
+
+		model.addAttribute("selecao", selecao);
+
+		return Constants.PAGINA_DETALHE_SELECAO_COMISSAO;
 	}
 	
 	/*@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
@@ -45,31 +75,7 @@ public class SelecaoController {
 		return PAGINA_DETALHE_SELECAO_COMISSAO;
 	}
 
-	@RequestMapping(value = { "detalhes/{idSelecao}" }, method = RequestMethod.GET)
-	public String getInformacoes(@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect,Authentication auth) {
-		//Detalhe da seleção, apenas para aluno
-
-		if (selecao == null) {
-			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
-			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}
-
-		model.addAttribute("selecao", selecao);
-
-		Aluno aluno = alunoRepository.findByCpf(auth.getName());
-		List<Inscricao> inscricoes = inscricaoRepository.findInscricoesBySelecaoAndByAluno(selecao.getId(),aluno.getId());
-		boolean controle = false;
-		
-		model.addAttribute("aluno", aluno);
-		if(!inscricoes.isEmpty()){
-			controle=true;
-			model.addAttribute("inscricao", inscricoes.get(0));
-		}
-
-		model.addAttribute("controle", controle);
-
-		return PAGINA_DETALHE_SELECAO_COMISSAO;
-	}
+	
 
 
 	@RequestMapping(value = {"documento/{idDocumento}"}, method = RequestMethod.GET)

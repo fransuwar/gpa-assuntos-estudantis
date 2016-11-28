@@ -81,11 +81,6 @@
 			<div class='f-content'>${selecao.sequencial}/${selecao.ano}</div>
 		</div>
 
-		<div class='f-container s2'>
-			<label class='f-title'>Seleção:</label>
-			<div class='f-content'>${selecao.tipoSelecao.nome}</div>
-		</div>
-
 		<div class='f-container s2-half'>
 			<label class='f-title'>Inscrições:</label>
 			<div class='f-content'>
@@ -102,7 +97,7 @@
 
 		<div class='f-container s1'>
 			<label class='f-title'>Inscritos:</label>
-			<div class='f-content'>${selecao.inscritos.size()}</div>
+			<div class='f-content'>${selecao.inscricoes.size()}</div>
 		</div>
 
 		<div class='f-container s3'>
