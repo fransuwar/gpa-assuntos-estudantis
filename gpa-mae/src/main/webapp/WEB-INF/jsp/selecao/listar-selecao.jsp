@@ -76,6 +76,21 @@
 														data-href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>">
 														<i class="material-icons icon-danger">delete</i>
 													</a>
+													
+													<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+														aria-labelledby="myModalLabel" aria-hidden="true">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">Excluir</div>
+																<div class="modal-body">Tem certeza de que deseja excluir essa
+																	seleção?</div>
+																<div class="modal-footer">
+																	<a href="<c:url value="/coordenador/selecao/excluir/${selecao.id}" ></c:url>" class="btn btn-danger" >Excluir</a>
+																	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+																</div>
+															</div>
+														</div>
+													</div>
 												</c:if>
 											</sec:authorize>
 										</td>
@@ -90,19 +105,5 @@
 	</div>
 
 	<jsp:include page="../fragments/footer.jsp" />
-	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">Excluir</div>
-				<div class="modal-body">Tem certeza de que deseja excluir essa
-					seleção?</div>
-				<div class="modal-footer">
-					<a href="#" class="btn btn-danger">Excluir</a>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				</div>
-			</div>
-		</div>
-	</div>
 </body>
 </html>
