@@ -239,6 +239,27 @@ public class CoordenadorController {
 			return Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();	
 		}
 	}
+	
+	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
+	public String excluirMembroComissao(@PathVariable("idSelecao") Selecao selecao,@PathVariable("idServidor") Integer idServidor, 
+			Model model, Authentication auth, RedirectAttributes redirect) {	
+
+		Servidor coordenador = servidorService.getByCpf(auth.getName());			
+		Servidor servidor = servidorService.getById(idServidor);
+
+		if(coordenador.getId() != servidor.getId()){
+
+			selecao.getComissao().remove(servidor);
+			selecaoRepository.save(selecao);
+			redirect.addFlashAttribute(INFO, Constants.MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO);
+		} else {
+
+			redirect.addFlashAttribute(ERRO, Constants.MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR);
+		}
+
+		return Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();
+
+	}
 
 	/*
 	@RequestMapping(value = "/selecao/adicionar-documento/{idSelecao}", method = RequestMethod.GET)
@@ -309,27 +330,6 @@ public class CoordenadorController {
 
 			return REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
 		}
-	}
-
-	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
-	public String excluirMembroComissao(@PathVariable("idSelecao") Selecao selecao,@PathVariable("idServidor") Integer idServidor, 
-			Model model, Authentication auth, RedirectAttributes redirect) {	
-
-		Servidor coordenador = servidorService.getByCpf(auth.getName());			
-		Servidor servidor = servidorService.getById(idServidor);
-
-		if(coordenador.getId() != servidor.getId()){
-
-			selecao.getComissao().remove(servidor);
-			selecaoRepository.save(selecao);
-			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO);
-		} else {
-
-			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR);
-		}
-
-		return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();
-
 	}
 
 	@RequestMapping(value = "/comissao/relatorioFinal/{idSelecao}")
