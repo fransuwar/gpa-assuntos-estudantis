@@ -158,7 +158,7 @@ public class CoordenadorController {
 			}
 		}
 
-		this.selecaoService.atualizar(selecaoAtualizada);
+		this.selecaoService.atualizar(selecao);
 
 		redirect.addFlashAttribute(INFO, MessageConstants.MSG_SUCESSO_SELECAO_ATUALIZADA);
 
