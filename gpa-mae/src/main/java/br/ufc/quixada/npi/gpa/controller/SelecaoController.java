@@ -5,21 +5,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.quixada.npi.gpa.model.Aluno;
 import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Pessoa;
-import br.ufc.quixada.npi.gpa.utils.*;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.repository.AlunoRepository;
 import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.service.PessoaService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
+import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.gpa.utils.PageConstants;
 
 @Controller
@@ -35,6 +36,7 @@ public class SelecaoController {
 	@Autowired
 	private AlunoRepository alunoRepository;
 	
+	@Autowired
 	private InscricaoRepository inscricaoRepository;
 	
 	@GetMapping("/listar")
@@ -60,6 +62,60 @@ public class SelecaoController {
 		model.addAttribute("selecao", selecao);
 
 		return Constants.PAGINA_DETALHE_SELECAO_COMISSAO;
+	}
+	
+	@RequestMapping(value = {"selecionarClassificados/{idSelecao}"}, method = RequestMethod.GET)
+	public String visualizarPaginaSelecionarClassificados(ModelMap model, @PathVariable("idSelecao") Selecao selecao,
+		 RedirectAttributes redirect){		
+
+		if (selecao == null) {
+			redirect.addFlashAttribute(Constants.ERRO, Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
+			return Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+		}
+		
+		List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
+		
+		List<Inscricao> classificaveis = inscricaoRepository.findClassificaveisBySelecao(selecao.getId());
+		
+		model.addAttribute(Constants.CLASSIFICADOS, classificados);
+		model.addAttribute("classificaveis",classificaveis);
+		model.addAttribute("qtdClassificados",classificados.size());
+		model.addAttribute("qtdClassificaveis",classificaveis.size());
+		model.addAttribute("selecao",selecao);
+		
+		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RANK);
+		
+		return Constants.PAGINA_SELECIONAR_CLASSIFICADOS;
+		
+	}
+	
+	@RequestMapping(value = {"/selecionarClassificados/{idSelecao}"}, method = RequestMethod.POST)
+	public String selecionarClassificados(ModelMap model, @RequestParam("checkClassificados[]") List<Integer> idsClassificados,
+			@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect, Authentication auth){
+		
+		if(idsClassificados.isEmpty()){
+			model.addAttribute( Constants.ERRO, Constants.MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO);
+		}
+		
+		 if (selecao == null) {
+				redirect.addFlashAttribute( Constants.ERRO, Constants.MENSAGEM_ERRO_SELECAO_INEXISTENTE ); 
+				return Constants.REDIRECT_PAGINA_LISTAR_SELECAO;
+			}
+		 
+		 List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
+		 Integer vagasRestantes = selecao.getQuantidadeVagas() - classificados.size();		     	
+		 
+		 if(idsClassificados.size() > vagasRestantes){
+			 redirect.addFlashAttribute( Constants.ERRO, Constants.MENSAGEM_ERRO_QTD_VAGAS ); 
+			return Constants.REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + selecao.getId();
+		 } else{		      
+		     for(Integer id: idsClassificados){
+		         inscricaoRepository.atualizarClassificacao(id, true);
+		     }
+		 }
+		
+		return Constants.REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + selecao.getId();
+		
 	}
 	
 	/*@RequestMapping(value = { "detalhesPublico/{idSelecao}" }, method = RequestMethod.GET)
@@ -165,59 +221,7 @@ public class SelecaoController {
 		
 	}
 	
-	@RequestMapping(value = {"selecionarClassificados/{idSelecao}"}, method = RequestMethod.GET)
-	public String visualizarPaginaSelecionarClassificados(ModelMap model, @PathVariable("idSelecao") Selecao selecao,
-		 RedirectAttributes redirect){		
-
-		if (selecao == null) {
-			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
-			return REDIRECT_PAGINA_LISTAR_SELECAO;
-		}
-		
-		List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
-		
-		List<Inscricao> classificaveis = inscricaoRepository.findClassificaveisBySelecao(selecao.getId());
-		
-		model.addAttribute(CLASSIFICADOS, classificados);
-		model.addAttribute("classificaveis",classificaveis);
-		model.addAttribute("qtdClassificados",classificados.size());
-		model.addAttribute("qtdClassificaveis",classificaveis.size());
-		model.addAttribute("selecao",selecao);
-		
-		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RANK);
-		
-		return PAGINA_SELECIONAR_CLASSIFICADOS;
-		
-	}
 	
-	@RequestMapping(value = {"/selecionarClassificados/{idSelecao}"}, method = RequestMethod.POST)
-	public String selecionarClassificados(ModelMap model, @RequestParam("checkClassificados[]") List<Integer> idsClassificados,
-			@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect, Authentication auth){
-		
-		if(idsClassificados.isEmpty()){
-			model.addAttribute(ERRO, MENSAGEM_ERRO_SELECIONE_UM_CLASSIFICADO);
-		}
-		
-		 if (selecao == null) {
-				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE); 
-				return REDIRECT_PAGINA_LISTAR_SELECAO;
-			}
-		 
-		 List<Inscricao> classificados = inscricaoRepository.findClassificadosBySelecao(selecao.getId());
-		 Integer vagasRestantes = selecao.getQuantidadeVagas() - classificados.size();		     	
-		 
-		 if(idsClassificados.size() > vagasRestantes){
-			 redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_QTD_VAGAS); 
-			return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + selecao.getId();
-		 } else{		      
-		     for(Integer id: idsClassificados){
-		         inscricaoRepository.atualizarClassificacao(id, true);
-		     }
-		 }
-		
-		return REDIRECT_PAGINA_SELECIONAR_CLASSIFICADOS + selecao.getId();
-		
-	}
 	
 	@RequestMapping(value = {"/removerClassificados/{idSelecao}"}, method = RequestMethod.POST)
 	public String removerClassificados(ModelMap model, @RequestParam("checkClassificaveis[]") List<Integer> idsClassificaveis,
