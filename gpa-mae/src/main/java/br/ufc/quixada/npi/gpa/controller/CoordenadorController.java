@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Selecao;
+import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
@@ -52,15 +53,13 @@ public class CoordenadorController {
 
 	@Autowired
 	private DocumentoRepository documentoRepository;
-	
+
 	@Autowired
 	private SelecaoRepository selecaoRepository;
 	
 	/*@Autowired
 	private InscricaoRepository inscricaoRepository;
 	*/
-
-
 	
 	// Gerenciamento de seleções
 	
@@ -276,9 +275,6 @@ public class CoordenadorController {
 			return Constants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
 		}
 	}
-	
-	// old
-	/*
 
 	@RequestMapping(value = "/comissao/atribuir/{idSelecao}", method = RequestMethod.GET)
 	public String atribuirParecerista(@PathVariable("idSelecao") Selecao selecao,
@@ -289,7 +285,7 @@ public class CoordenadorController {
 		model.addAttribute("selecao", selecao);	
 		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_COMISSAO);
 
-		return PAGINA_ATRIBUIR_COMISSAO;
+		return Constants.PAGINA_ATRIBUIR_COMISSAO;
 	}
 
 	@RequestMapping(value = "/comissao/atribuir", method = RequestMethod.POST)
@@ -301,21 +297,21 @@ public class CoordenadorController {
 
 
 		if (comissao.contains(servidor)) {
-			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
+			redirect.addFlashAttribute(ERRO, Constants.MENSAGEM_ERRO_MEMBRO_COMISSAO_REPETICAO);
 
-			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();
+			return Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();
 
 		} else {
 
 			selecao.getComissao().add(servidor);
 			selecaoRepository.save(selecao);
-			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_COMISSAO_FORMADA);
+			redirect.addFlashAttribute(INFO, Constants.MENSAGEM_SUCESSO_COMISSAO_FORMADA);
 
 
-			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();	
+			return Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();	
 		}
 	}
-
+	
 	@RequestMapping(value = "/comissao/excluir/{idSelecao}/{idServidor}", method = RequestMethod.GET)
 	public String excluirMembroComissao(@PathVariable("idSelecao") Selecao selecao,@PathVariable("idServidor") Integer idServidor, 
 			Model model, Authentication auth, RedirectAttributes redirect) {	
@@ -327,16 +323,17 @@ public class CoordenadorController {
 
 			selecao.getComissao().remove(servidor);
 			selecaoRepository.save(selecao);
-			redirect.addFlashAttribute(INFO, MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO);
+			redirect.addFlashAttribute(INFO, Constants.MENSAGEM_SUCESSO_MEMBRO_EXCLUIDO);
 		} else {
 
-			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR);
+			redirect.addFlashAttribute(ERRO, Constants.MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR);
 		}
 
-		return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();
+		return Constants.REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();
 
 	}
 
+	/*
 	@RequestMapping(value = "/comissao/relatorioFinal/{idSelecao}")
 	public String getInformacoesRelatorioFinal(@PathVariable("idSelecao") Selecao selecao, Model modelo,
 			Authentication auth,RedirectAttributes redirect){

@@ -85,15 +85,13 @@
 								<tr>
 									<th class="th-center">Nome</th>
 									<th class="th-center">SIAPE</th>
-									<th class="th-center">Cargo</th>
 									<th class="th-center">-</th>
 								</tr>
 							</thead>
-							<c:forEach var="servidor" items="${selecao.membrosComissao}">
+							<c:forEach var="servidor" items="${selecao.comissao}">
 								<tr>
 									<td>${servidor.pessoa.nome}</td>
 									<td>${servidor.siape }</td>
-									<td>${servidor.cargo.nome }</td>
 									<c:choose>
 										<c:when test="${selecao.responsavel.siape != servidor.siape}">
 											<td>
@@ -102,6 +100,20 @@
 														<span class="glyphicon glyphicon-trash"></span>
 													</button>
 												</a>
+												<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+													aria-labelledby="myModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">Excluir</div>
+															<div class="modal-body">Tem certeza de que deseja excluir esse
+																membro da Comissão?</div>
+															<div class="modal-footer">
+																<a href="<c:url value="/coordenador/comissao/excluir/${selecao.id}/${servidor.id}"></c:url>" class="btn btn-danger">Excluir</a>
+																<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+															</div>
+														</div>
+													</div>
+												</div>
 											</td>
 										</c:when>
 										<c:otherwise>
@@ -121,21 +133,6 @@
 		</div>
 	</div>
 	<jsp:include page="../fragments/footer.jsp"></jsp:include>
-
-	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">Excluir</div>
-				<div class="modal-body">Tem certeza de que deseja excluir esse
-					membro da Comissão?</div>
-				<div class="modal-footer">
-					<a class="btn btn-danger">Excluir</a>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
 </body>
 </html>
