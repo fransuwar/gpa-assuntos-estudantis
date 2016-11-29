@@ -6,7 +6,7 @@
 	<div class="panel-card-content">
 		<label id="card-selected" class="hidden">${card}</label>
 		<div id="card-inscricao" class="card card-hover">
-			<a href="<c:url value="/servidor/detalhes/${selecao.id}"></c:url>">
+			<a href="<c:url value="/servidor/selecao/detalhes/${selecao.id}"></c:url>">
 				<div class="card-content">
 					<div class="card-icon">
 						<i class="fa fa-folder-open"></i>
