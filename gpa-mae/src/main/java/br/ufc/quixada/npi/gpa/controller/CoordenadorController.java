@@ -5,6 +5,7 @@ import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -25,10 +26,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.quixada.npi.gpa.model.Documento;
+import br.ufc.quixada.npi.gpa.model.Inscricao;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.Servidor;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
 import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
+import br.ufc.quixada.npi.gpa.repository.InscricaoRepository;
 import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.service.DocumentacaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
@@ -57,9 +60,8 @@ public class CoordenadorController {
 	@Autowired
 	private SelecaoRepository selecaoRepository;
 	
-	/*@Autowired
+	@Autowired
 	private InscricaoRepository inscricaoRepository;
-	*/
 	
 	// Gerenciamento de seleções
 	
@@ -333,7 +335,6 @@ public class CoordenadorController {
 
 	}
 
-	/*
 	@RequestMapping(value = "/comissao/relatorioFinal/{idSelecao}")
 	public String getInformacoesRelatorioFinal(@PathVariable("idSelecao") Selecao selecao, Model modelo,
 			Authentication auth,RedirectAttributes redirect){
@@ -361,14 +362,14 @@ public class CoordenadorController {
 			modelo.addAttribute(Constants.ABA_SELECIONADA, "classificados-tab");
 			modelo.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_RELATORIO);
 
-			return PAGINA_RELATORIO_FINAL;
+			return Constants.PAGINA_RELATORIO_FINAL;
 			
 		}else{
-			 redirect.addFlashAttribute(ERRO,MENSAGEM_FALTA_DE_PERMISSAO);
+			 redirect.addFlashAttribute(ERRO, Constants.MENSAGEM_FALTA_DE_PERMISSAO);
 				
-			 return REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
+			 return Constants.REDIRECT_PAGINA_LISTAR_SELECAO_SERVIDOR;
 		}
 
-	}*/
+	}
 
 }
