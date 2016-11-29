@@ -3,6 +3,7 @@ package br.ufc.quixada.npi.gpa.controller;
 import static br.ufc.quixada.npi.gpa.utils.Constants.ERRO;
 import static br.ufc.quixada.npi.gpa.utils.Constants.INFO;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,14 +19,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.ufc.quixada.npi.gpa.model.Documento;
 import br.ufc.quixada.npi.gpa.model.Selecao;
 import br.ufc.quixada.npi.gpa.model.TipoDocumento;
+import br.ufc.quixada.npi.gpa.repository.DocumentoRepository;
+import br.ufc.quixada.npi.gpa.repository.SelecaoRepository;
 import br.ufc.quixada.npi.gpa.service.DocumentacaoService;
 import br.ufc.quixada.npi.gpa.service.SelecaoService;
 import br.ufc.quixada.npi.gpa.service.ServidorService;
+import br.ufc.quixada.npi.gpa.utils.Constants;
 import br.ufc.quixada.npi.gpa.utils.MessageConstants;
 import br.ufc.quixada.npi.gpa.utils.PageConstants;
 import br.ufc.quixada.npi.gpa.utils.RedirectConstants;
@@ -43,14 +50,16 @@ public class CoordenadorController {
 	@Autowired
 	private ServidorService servidorService;
 
-	/*@Autowired
-	private InscricaoRepository inscricaoRepository;
-
 	@Autowired
 	private DocumentoRepository documentoRepository;
-
+	
 	@Autowired
-	private SelecaoRepository selecaoRepository;*/
+	private SelecaoRepository selecaoRepository;
+	
+	/*@Autowired
+	private InscricaoRepository inscricaoRepository;
+	*/
+
 
 	
 	// Gerenciamento de seleções
@@ -199,6 +208,74 @@ public class CoordenadorController {
 		return  RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
 	
+	@RequestMapping(value = "/selecao/adicionar-documento/{idSelecao}", method = RequestMethod.GET)
+	public String adicionarDocumento(@PathVariable("idSelecao") Selecao selecao,
+			Model model, RedirectAttributes redirectAttributes) {
+
+		if (selecao != null) {
+			model.addAttribute("selecao", selecao);
+		}
+
+		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_ARQUIVOS);
+
+		return Constants.PAGINA_ADICIONAR_ARQUIVO;
+	}
+	
+	@RequestMapping(value = "/selecao/adicionar-documento", method = RequestMethod.POST)
+	public String adicionarDocumento(@RequestParam("files") List<MultipartFile> files,
+			@RequestParam("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
+
+		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
+			for (MultipartFile mfiles : files) {
+				try {
+
+					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
+
+						Documento documento = new Documento();
+						documento.setArquivo(mfiles.getBytes());
+						documento.setNome(mfiles.getOriginalFilename());
+						documento.setCaminho(mfiles.getContentType());
+
+						documentoRepository.save(documento);
+
+						selecao.getDocumentos().add(documento);
+
+						selecaoRepository.save(selecao);
+					}
+
+
+				} catch (IOException ioe) {
+					redirect.addFlashAttribute(ERRO, Constants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+
+					return Constants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+				}
+			} 
+
+		} 
+
+		return Constants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+	}
+	
+	@RequestMapping(value = "/selecao/excluir-documento/{idSelecao}/{idDocumento}", method = RequestMethod.GET)
+	public String excluirDocumento(@PathVariable("idDocumento"
+			+ "") Integer idDocumento, 
+			@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
+
+		Documento documento = documentoRepository.findById(idDocumento);
+
+		if (documento != null) {
+			selecao.getDocumentos().remove(documento);
+			selecaoRepository.save(selecao);
+			model.addAttribute("selecao", selecao);
+
+			return  Constants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+		} else {
+			model.addAttribute("selecao", selecao);
+			model.addAttribute("anexoError", Constants.MENSAGEM_ERRO_ANEXO);
+
+			return Constants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
+		}
+	}
 	
 	// old
 	/*
@@ -236,76 +313,6 @@ public class CoordenadorController {
 
 
 			return REDIRECT_PAGINA_ATRIBUIR_COMISSAO + selecao.getId();	
-		}
-	}
-
-	@RequestMapping(value = "/selecao/adicionar-documento/{idSelecao}", method = RequestMethod.GET)
-	public String adicionarDocumento(@PathVariable("idSelecao") Selecao selecao,
-			Model model, RedirectAttributes redirectAttributes) {
-
-		if (selecao != null) {
-			model.addAttribute("selecao", selecao);
-		}
-
-		model.addAttribute(Constants.CARD_SELECIONADO, Constants.CARD_ARQUIVOS);
-
-		return PAGINA_ADICIONAR_ARQUIVO;
-	}
-
-
-	@RequestMapping(value = "/selecao/adicionar-documento", method = RequestMethod.POST)
-	public String adicionarDocumento(@RequestParam("files") List<MultipartFile> files,
-			@RequestParam("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
-
-		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
-			for (MultipartFile mfiles : files) {
-				try {
-
-					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-
-						Documento documento = new Documento();
-						documento.setArquivo(mfiles.getBytes());
-						documento.setNome(mfiles.getOriginalFilename());
-						documento.setCaminho(mfiles.getContentType());
-
-						documentoRepository.save(documento);
-
-						selecao.getDocumentos().add(documento);
-
-						selecaoRepository.save(selecao);
-					}
-
-
-				} catch (IOException ioe) {
-					redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
-
-					return REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
-				}
-			} 
-
-		} 
-
-		return REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
-	}
-
-	@RequestMapping(value = "/selecao/excluir-documento/{idSelecao}/{idDocumento}", method = RequestMethod.GET)
-	public String excluirDocumento(@PathVariable("idDocumento"
-			+ "") Integer idDocumento, 
-			@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
-
-		Documento documento = documentoRepository.findById(idDocumento);
-
-		if (documento != null) {
-			selecao.getDocumentos().remove(documento);
-			selecaoRepository.save(selecao);
-			model.addAttribute("selecao", selecao);
-
-			return  REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
-		} else {
-			model.addAttribute("selecao", selecao);
-			model.addAttribute("anexoError", MENSAGEM_ERRO_ANEXO);
-
-			return REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
 		}
 	}
 
