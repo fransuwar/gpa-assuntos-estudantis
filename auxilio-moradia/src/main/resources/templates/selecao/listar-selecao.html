@@ -5,7 +5,7 @@
       layout:decorator="base/base">
 <head>
     <meta charset="UTF-8"/>
-    <title>Starter Page</title>
+    <title>Seleções</title>
 </head>
 <body>
 	<!-- Page Content -->
@@ -14,19 +14,38 @@
       <section class="content-header">
         <h1>Seleções</h1>
         <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a th:href="@{/}"><i class="fa fa-home"></i> Início</a></li>
           <li class="active">Seleções</li>
         </ol>
       </section>
       
       <!-- Main content -->
       <section class="content">
-        <div class="box box-default">
-          <div class="box-header with-border">
-            <h3 class="box-title">Blank Box</h3>
-          </div>
-          <div class="box-body">
-            The great content goes here
+        <div class="box box-primary">
+          <div class="box-body table-responsive">
+          	<div th:if="${#lists.isEmpty(selecoes)}">
+          		<div class="alert alert-warning">
+	                Não há seleções cadastradas.
+              	</div>
+          	</div>
+          	<table class="table table-hover" th:unless="${#lists.isEmpty(selecoes)}">
+          		<thead>
+          			<tr>
+          				<th>Ano</th>
+          				<th>Inscrições</th>
+          				<th>Vagas</th>
+          				<th>Responsável</th>
+          			</tr>
+          		</thead>
+          		<tbody>
+          			<tr th:each="selecao : ${selecoes}">
+          				<td th:text="${selecao.sequencial} + '/' + ${selecao.ano}">1/2015</td>
+          				<td th:text="${selecao.dataInicio} + ' a ' + ${selecao.dataTermino}"></td>
+          				<td th:text="${selecao.quantidadeVagas}"></td>
+          				<td th:text="${selecao.responsavel}"></td>
+          			</tr>
+          		</tbody>
+          	</table>
           </div>
           <!-- /.box-body -->
         </div>

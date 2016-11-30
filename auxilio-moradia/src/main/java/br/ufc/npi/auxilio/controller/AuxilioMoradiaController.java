@@ -13,7 +13,7 @@ public class AuxilioMoradiaController {
 	
 	@GetMapping("/")
 	public String index() {
-		return "selecao/listar-selecao";
+		return "redirect:/selecao";
 	}
 
 }
