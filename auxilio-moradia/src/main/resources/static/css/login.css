@@ -1,0 +1,9 @@
+#login-page {
+	position: absolute;
+    top: 35%;
+    left: 35%;
+    width: 30%;
+    text-align: center;
+    padding: 20px;
+    background-color: #FFF;
+}
