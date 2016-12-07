@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -102,21 +103,31 @@ public class SelecaoController {
 		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
 	}
 	
-	@GetMapping("/documento")
+	@Secured("COORDENADOR")
+	@GetMapping("/documentacao")
 	public String listarTipoDocumento(Model model){
+		model.addAttribute("documento", new TipoDocumento());
 		model.addAttribute("documentos", documentacaoService.getAllTipoDocumento());
 		return PageConstants.GERENCIAR_DOCUMENTOS;
 	}
 	
-	@PostMapping("tipo-documento/cadastrar")
-	public String cadastrarTipoDocumento(TipoDocumento tipoDocumento){
-		if(!tipoDocumento.getNome().isEmpty()){
-			documentacaoService.salvar(tipoDocumento);
+	@Secured("COORDENADOR")
+	@PostMapping("/documento/cadastrar")
+	public String cadastrarTipoDocumento(TipoDocumento tipoDocumento, RedirectAttributes redirect){
+		if(!tipoDocumento.getNome().isEmpty()) {
+			tipoDocumento.setNome(tipoDocumento.getNome().toUpperCase());
+			try {
+				documentacaoService.salvar(tipoDocumento);
+			} catch (DataIntegrityViolationException e) {
+				redirect.addFlashAttribute(Constants.ERRO, "Documento já existe!");
+				return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
+			}
 		}
 		return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
 	
-	@GetMapping("tipo-documento/excluir/{id}")
+	@Secured("COORDENADOR")
+	@GetMapping("/documento/excluir/{id}")
 	public String excluirTipoDocumento(@PathVariable("id") TipoDocumento tipoDocumento,
 			RedirectAttributes redirect) {
 
