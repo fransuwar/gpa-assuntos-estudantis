@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base/base">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cadastrar Seleção</title>
+</head>
+<body>
+	<!-- Page Content -->
+	<div class="container" layout:fragment="conteudo">
+    	<!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>Cadastrar Seleção</h1>
+        <ol class="breadcrumb">
+          <li><a th:href="@{/}"><i class="fa fa-home"></i> Início</a></li>
+          <li><a th:href="@{/selecao/listar}"> Seleções</a></li>
+          <li class="active">Documentação</li>
+        </ol>
+      </section>
+      
+      <section class="content">
+      	<div class="box box-primary">
+      		<form role="form" th:action="@{/selecao/documentacao}" th:object="${documento}" method="post">
+      			<div class="box-body">
+      				<div class="row">
+      					<div class="form-group col-xs-5">
+		                  <label for="ano">* Documento</label>
+		                  <input th:field="*{nome}" type="text" class="form-control" placeholder="nome" required="required"/>
+		                </div>
+      				</div>
+      			</div>
+      		</form>
+      		
+      		<div class="box-body table-responsive">
+      			<div th:if="${#lists.isEmpty(documentos)}">
+      				<div class="alert alert-warning">
+	                	Não há documentos cadastradas.
+              		</div>
+      			</div>
+      		</div>
+      		
+      		<table class="table table-hover" th:unless="${#lists.isEmpty(documentos)}">
+      			<thead>
+          			<tr>
+          				<th>Ano</th>
+          			</tr>
+          		</thead>
+      		</table>
+      	</div>
+      </section>
+
+</body>
+</html>
