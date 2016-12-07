@@ -21,11 +21,6 @@ public class DocumentacaoServiceImpl implements DocumentacaoService {
 	}
 
 	@Override
-	public TipoDocumento getTipoDocumentoById(Integer id) {
-		return tipoDocumentoRepository.findOne(id);
-	}
-
-	@Override
 	public void excluirTipoDocumento(Integer id) {
 		tipoDocumentoRepository.delete(id);
 	}

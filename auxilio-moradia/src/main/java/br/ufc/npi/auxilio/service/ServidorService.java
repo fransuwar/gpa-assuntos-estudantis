@@ -7,9 +7,5 @@ import br.ufc.npi.auxilio.model.Servidor;
 public interface ServidorService {
 	
 	Servidor getByCpf(String cpf);
-	
-	Servidor getById(Integer id);
-	
-	List<Servidor> getAll();
 
 }
