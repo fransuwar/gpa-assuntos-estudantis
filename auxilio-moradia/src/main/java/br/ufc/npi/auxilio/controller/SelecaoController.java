@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.npi.auxilio.model.Selecao;
+import br.ufc.npi.auxilio.model.TipoDocumento;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
 import br.ufc.npi.auxilio.service.SelecaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
@@ -99,6 +100,35 @@ public class SelecaoController {
 			return PageConstants.CADASTRAR_SELECAO;
 		}
 		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+	}
+	
+	@GetMapping("/documento")
+	public String listarTipoDocumento(Model model){
+		model.addAttribute("documentos", documentacaoService.getAllTipoDocumento());
+		return PageConstants.GERENCIAR_DOCUMENTOS;
+	}
+	
+	@PostMapping("tipo-documento/cadastrar")
+	public String cadastrarTipoDocumento(TipoDocumento tipoDocumento){
+		if(!tipoDocumento.getNome().isEmpty()){
+			documentacaoService.salvar(tipoDocumento);
+		}
+		return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
+	}
+	
+	@GetMapping("tipo-documento/excluir/{id}")
+	public String excluirTipoDocumento(@PathVariable("id") TipoDocumento tipoDocumento,
+			RedirectAttributes redirect) {
+
+		if (tipoDocumento != null){
+			try {
+				documentacaoService.excluirTipoDocumento(tipoDocumento.getId());
+				redirect.addFlashAttribute(Constants.INFO, MessageConstants.MSG_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
+			} catch(Exception e){
+				redirect.addFlashAttribute(Constants.ERRO, MessageConstants.MSG_ERRO_TIPO_DOCUMENTO_EM_USO);
+			}
+		}
+		return  RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
 
 }
