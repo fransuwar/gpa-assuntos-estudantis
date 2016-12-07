@@ -29,8 +29,6 @@ public class Selecao {
 	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
 
-	private Integer sequencial;
-
 	private Integer quantidadeVagas;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -55,6 +53,12 @@ public class Selecao {
 	@ManyToMany
 	private List<TipoDocumento> tiposDeDocumento;
 
+	public Selecao() {
+		this.comissao         = new ArrayList<Servidor>();
+		this.inscricoes       = new ArrayList<Inscricao>();
+		this.tiposDeDocumento = new ArrayList<TipoDocumento>();
+	}
+	
 	public Integer getAno() {
 		return ano;
 	}
@@ -90,10 +94,6 @@ public class Selecao {
 		return responsavel;
 	}
 
-	public Integer getSequencial() {
-		return sequencial;
-	}
-
 	public void setAno(Integer ano) {
 		this.ano = ano;
 	}
@@ -121,11 +121,7 @@ public class Selecao {
 	public void setResponsavel(Servidor responsavel) {
 		this.responsavel = responsavel;
 	}
-
-	public void setSequencial(Integer sequencial) {
-		this.sequencial = sequencial;
-	}
-
+	
 	public List<Inscricao> getInscricoes() {
 		return inscricoes;
 	}

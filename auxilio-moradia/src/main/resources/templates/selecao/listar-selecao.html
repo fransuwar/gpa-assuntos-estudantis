@@ -35,14 +35,46 @@
           				<th>Inscrições</th>
           				<th>Vagas</th>
           				<th>Responsável</th>
+          				<th></th>
           			</tr>
           		</thead>
           		<tbody>
           			<tr th:each="selecao : ${selecoes}">
-          				<td th:text="${selecao.sequencial} + '/' + ${selecao.ano}">1/2015</td>
-          				<td th:text="${selecao.dataInicio} + ' a ' + ${selecao.dataTermino}"></td>
+          				<td th:text="${selecao.ano}">2015</td>
+          				<td th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
           				<td th:text="${selecao.quantidadeVagas}"></td>
-          				<td th:text="${selecao.responsavel}"></td>
+          				<td th:text="${selecao.responsavel.pessoa.nome}"></td>
+          				<td class="tools text-align-right">
+          					<a th:href="@{/selecao/editar/__${selecao.id}__}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+          					
+          					<a data-toggle="modal" data-target="#confirme-delete" href="#" title="Excluir">
+								<i class="fa fa-close"></i>
+							</a>
+													
+							<div class="modal fade" id="confirme-delete" tabindex="-1" role="dialog"
+								aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
+										<div class="modal-header">Alerta</div>
+										<div class="modal-body">A seleção já possui inscrições!</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+										</div>
+									</div>
+									
+									<div class="modal-content" th:if="${#lists.isEmpty(selecao.inscricoes)}">
+										<div class="modal-header">Excluir</div>
+										<div class="modal-body">Tem certeza de que deseja excluir essa
+											seleção?</div>
+											<div class="modal-footer">
+											<a th:href="@{/selecao/excluir/__${selecao.id}__}" class="btn btn-danger" >Excluir</a>
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+          				</td>
           			</tr>
           		</tbody>
           	</table>
@@ -52,6 +84,10 @@
         <!-- /.box -->
       </section>
 	</div>
+	
+	<section layout:fragment="js">
+    	<script th:src="@{/js/selecao/selecao.js}"></script>
+    </section>
 
 </body>
 </html>
