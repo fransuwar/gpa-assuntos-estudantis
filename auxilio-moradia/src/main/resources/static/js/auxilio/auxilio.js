@@ -7,6 +7,6 @@ function loadToast() {
 		toastr.error($("#alerta-erro").text());
 	}
 	if($("#alerta-info").text() != ''){
-		toastr.error($("#alerta-info").text());
+		toastr.success($("#alerta-info").text());
 	}
 }

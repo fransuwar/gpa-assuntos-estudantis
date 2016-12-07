@@ -155,6 +155,10 @@ public class Selecao {
 		this.tiposDeDocumento = new ArrayList<TipoDocumento>();
 	}
 
+	public boolean hasInscricoes() {
+		return this.inscricoes.size() > 0;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

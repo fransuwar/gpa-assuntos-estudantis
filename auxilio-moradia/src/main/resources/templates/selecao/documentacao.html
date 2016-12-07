@@ -22,7 +22,7 @@
       
       <section class="content">
       	<div class="box box-primary">
-      		<form role="form" th:action="@{/selecao/documento/cadastrar}" th:object="${documento}" method="post">
+      		<form role="form" th:action="@{/documentacao/tipo-documento/cadastrar}" th:object="${documento}" method="post">
       			<div class="box-body">
       				<div class="row">
       					<div class="form-group col-xs-5">
@@ -52,7 +52,7 @@
 	      		<div th:unless="${#lists.isEmpty(documentos)}">
 	      			<span class="label label-primary font-size--14 margin-right--12" th:each="doc : ${documentos}">
 	      				<span th:text="${doc.nome}" class="margin-right--10"></span>
-	      				<a th:href="@{/selecao/documento/excluir/__${doc.id}__}" class="color-white"><i class="fa fa-close"></i></a>		
+	      				<a th:href="@{/documentacao/tipo-documento/excluir/__${doc.id}__}" class="color-white"><i class="fa fa-close"></i></a>		
 	      			</span>
 	      		</div>
       		</div>

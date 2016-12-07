@@ -1,31 +1,30 @@
 package br.ufc.npi.auxilio.controller;
 
-import java.time.LocalDate;
-
-import javax.validation.Valid;
+import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
+import static br.ufc.npi.auxilio.utils.Constants.ERRO;
+import static br.ufc.npi.auxilio.utils.Constants.INFO;
+import static br.ufc.npi.auxilio.utils.PageConstants.CADASTRAR_SELECAO;
+import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SELECAO_CADASTRADA;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_SELECAO_REMOVIDA;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Selecao;
-import br.ufc.npi.auxilio.model.TipoDocumento;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
 import br.ufc.npi.auxilio.service.SelecaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
-import br.ufc.npi.auxilio.utils.Constants;
-import br.ufc.npi.auxilio.utils.MessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
-import br.ufc.npi.auxilio.utils.RedirectConstants;
 
 @Controller
 @RequestMapping("/selecao")
@@ -46,100 +45,52 @@ public class SelecaoController {
 		return PageConstants.LISTAR_SELECAO;
 	}
 	
-	@Secured("COORDENADOR")
+	@Secured(COORDENADOR)
 	@GetMapping("/cadastrar")
 	public String cadastrarSelecaoForm(Model model) {
 		model.addAttribute("acao", "Cadastrar");
 		model.addAttribute("selecao", new Selecao());
-		return PageConstants.CADASTRAR_SELECAO;
+		return CADASTRAR_SELECAO;
 	}
 	
-	@Secured("COORDENADOR")
+	@Secured(COORDENADOR)
 	@PostMapping("/cadastrar")
-	public String cadastrarSelecao(@Valid Selecao selecao, Authentication auth, BindingResult result,
-			Model model) {
-		
-		if (selecao.getAno() != null && selecao.getAno() < LocalDate.now().getYear()) {
-			result.rejectValue("ano", "selecao.ano", MessageConstants.MSG_ERRO_ANO_SELECAO);
-		}
-
-		if ((selecao.getDataInicio() != null && selecao.getDataTermino() != null) && 
-				selecao.getDataTermino().before(selecao.getDataInicio())) {
-			result.rejectValue("dataTermino", "selecao.dataTermino", MessageConstants.MSG_ERRO_DATATERMINO_SELECAO);
-		}
-		
-		if (result.hasErrors()) {
-			model.addAttribute("selecao", selecao);
-			model.addAttribute("tiposDeDocumento", documentacaoService.getAllTipoDocumento());
-			return PageConstants.CADASTRAR_SELECAO;
-		}
+	public String cadastrarSelecao(Selecao selecao, Authentication auth, Model model, RedirectAttributes redirect) {
 		selecao.setResponsavel(servidorService.getByCpf(auth.getName()));
-		selecaoService.cadastrar(selecao);
-		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
-	}
-	
-	@Secured("COORDENADOR")
-	@GetMapping("/excluir/{idSelecao}")
-	public String excluirSelecao(@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect) {
-		if (selecao != null && (selecao.getInscricoes() == null || selecao.getInscricoes().isEmpty())) {
-			this.selecaoService.excluir(selecao);
-			redirect.addFlashAttribute(Constants.INFO, MessageConstants.MSG_SUCESSO_SELECAO_REMOVIDA);
+		try {
+			selecaoService.cadastrar(selecao);
+			redirect.addFlashAttribute(INFO, MSG_SELECAO_CADASTRADA);
+			return REDIRECT_LISTAR_SELECAO;
+		} catch (AuxilioMoradiaException e) {
+			model.addAttribute(ERRO, e.getMessage());
+			return CADASTRAR_SELECAO;
 		}
-
-		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
 	}
 	
-	@Secured("COORDENADOR")
-	@GetMapping("/editar/{idSelecao}")
-	public String editarSelecao(@PathVariable("idSelecao") Selecao selecao, Model model, 
+	@Secured(COORDENADOR)
+	@GetMapping("/excluir/{selecao}")
+	public String excluirSelecao(@PathVariable Selecao selecao, RedirectAttributes redirect) {
+		try {
+			selecaoService.excluir(selecao);
+			redirect.addFlashAttribute(INFO, MSG_SUCESSO_SELECAO_REMOVIDA);
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+		}
+		return REDIRECT_LISTAR_SELECAO;
+	}
+	
+	@Secured(COORDENADOR)
+	@GetMapping("/editar/{selecao}")
+	public String editarSelecao(@PathVariable Selecao selecao, Model model,
 			RedirectAttributes redirect) {
 		
 		if (selecao != null) {
 			model.addAttribute("acao", "Editar");
 			model.addAttribute("selecao", selecao);
 			model.addAttribute("tiposDeDocumento", documentacaoService.getAllTipoDocumento());
-			return PageConstants.CADASTRAR_SELECAO;
+			return CADASTRAR_SELECAO;
 		}
-		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
-	}
-	
-	@Secured("COORDENADOR")
-	@GetMapping("/documentacao")
-	public String listarTipoDocumento(Model model){
-		model.addAttribute("documento", new TipoDocumento());
-		model.addAttribute("documentos", documentacaoService.getAllTipoDocumento());
-		return PageConstants.GERENCIAR_DOCUMENTOS;
-	}
-	
-	@Secured("COORDENADOR")
-	@PostMapping("/documento/cadastrar")
-	public String cadastrarTipoDocumento(TipoDocumento tipoDocumento, RedirectAttributes redirect){
-		if(!tipoDocumento.getNome().isEmpty()) {
-			tipoDocumento.setNome(tipoDocumento.getNome().toUpperCase());
-			try {
-				documentacaoService.salvar(tipoDocumento);
-			} catch (DataIntegrityViolationException e) {
-				redirect.addFlashAttribute(Constants.ERRO, "Documento já existe!");
-				return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
-			}
-		}
-		return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
-	}
-	
-	@Secured("COORDENADOR")
-	@GetMapping("/documento/excluir/{id}")
-	public String excluirTipoDocumento(@PathVariable("id") TipoDocumento tipoDocumento,
-			RedirectAttributes redirect) {
-
-		if (tipoDocumento != null){
-			try {
-				documentacaoService.excluirTipoDocumento(tipoDocumento.getId());
-				redirect.addFlashAttribute(Constants.INFO, MessageConstants.MSG_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
-			} catch(Exception e){
-				redirect.addFlashAttribute(Constants.ERRO, MessageConstants.MSG_ERRO_TIPO_DOCUMENTO_EM_USO);
-			}
-		}
-		return  RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
+		return REDIRECT_LISTAR_SELECAO;
 	}
 
 }
