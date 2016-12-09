@@ -24,13 +24,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Documento;
+import br.ufc.npi.auxilio.model.Pessoa;
 import br.ufc.npi.auxilio.model.Selecao;
 import br.ufc.npi.auxilio.model.TipoDocumento;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
+import br.ufc.npi.auxilio.service.InscricaoService;
+import br.ufc.npi.auxilio.service.PessoaService;
 import br.ufc.npi.auxilio.service.SelecaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
 import br.ufc.npi.auxilio.utils.PageConstants;
@@ -47,6 +51,12 @@ public class SelecaoController {
 	
 	@Autowired
 	private DocumentacaoService documentacaoService;
+	
+	@Autowired
+	private InscricaoService inscricaoService;
+	
+	@Autowired
+	private PessoaService pessoaService;
 	
 	@GetMapping({"", "/", "/listar"})
 	public String listarSelecoes(Model model) {
@@ -105,6 +115,15 @@ public class SelecaoController {
 		return REDIRECT_LISTAR_SELECAO;
 	}
 	
+	@GetMapping("detalhes/{selecao}")
+	public ModelAndView detalhes(@PathVariable Selecao selecao, ModelAndView mav, Authentication auth){
+		mav.addObject("selecao", selecao);
+		mav.setViewName("selecao/detalhes");
+		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
+		mav.addObject("inscrito", inscricaoService.estaInscrito(pessoa, selecao));
+		return mav;
+	}
+
 	@RequestMapping(value="/cadastrar", params={"adicionaArquivo"})
 	public String adicionarDocumento( @RequestParam("files") List<MultipartFile> files,
 			Selecao selecao, Model model, @RequestParam("acao") String acao,
