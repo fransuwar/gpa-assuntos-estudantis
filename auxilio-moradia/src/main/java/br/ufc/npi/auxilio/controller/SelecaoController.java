@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.npi.auxilio.model.Selecao;
@@ -125,5 +126,12 @@ public class SelecaoController {
 		}
 		return  RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
-
+//	
+//	@GetMapping("detalhes/{id}")
+//	public ModelAndView detalhes(Selecao selecao, ModelAndView mav){
+//		mav.addObject("selecao", selecao);
+//		mav.setViewName("selecao/detalhes");
+//		return mav;
+//	}
+//
 }
