@@ -1,6 +1,13 @@
 package br.ufc.npi.auxilio.controller;
 
-import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
+import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
+import static br.ufc.npi.auxilio.utils.Constants.ERRO;
+import static br.ufc.npi.auxilio.utils.Constants.INFO;
+import static br.ufc.npi.auxilio.utils.PageConstants.CADASTRAR_SELECAO;
+import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SELECAO_CADASTRADA;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_SELECAO_REMOVIDA;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -13,23 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Selecao;
-import br.ufc.npi.auxilio.model.TipoDocumento;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
 import br.ufc.npi.auxilio.service.SelecaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
-import br.ufc.npi.auxilio.utils.Constants;
-import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
-import br.ufc.npi.auxilio.utils.RedirectConstants;
-
-import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
-import static br.ufc.npi.auxilio.utils.Constants.ERRO;
-import static br.ufc.npi.auxilio.utils.Constants.INFO;
-import static br.ufc.npi.auxilio.utils.PageConstants.CADASTRAR_SELECAO;
-import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
-import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SELECAO_CADASTRADA;
-import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_SELECAO_REMOVIDA;
 
 @Controller
 @RequestMapping("/selecao")
@@ -96,35 +92,6 @@ public class SelecaoController {
 			return CADASTRAR_SELECAO;
 		}
 		return REDIRECT_LISTAR_SELECAO;
-	}
-	
-	@GetMapping("/documento")
-	public String listarTipoDocumento(Model model){
-		model.addAttribute("documentos", documentacaoService.getAllTipoDocumento());
-		return PageConstants.GERENCIAR_DOCUMENTOS;
-	}
-	
-	@PostMapping("tipo-documento/cadastrar")
-	public String cadastrarTipoDocumento(TipoDocumento tipoDocumento){
-		if(!tipoDocumento.getNome().isEmpty()){
-			documentacaoService.salvar(tipoDocumento);
-		}
-		return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
-	}
-	
-	@GetMapping("tipo-documento/excluir/{tipoDocumento}")
-	public String excluirTipoDocumento(@PathVariable TipoDocumento tipoDocumento,
-			RedirectAttributes redirect) {
-
-		if (tipoDocumento != null){
-			try {
-				documentacaoService.excluirTipoDocumento(tipoDocumento.getId());
-				redirect.addFlashAttribute(Constants.INFO, SuccessMessageConstants.MSG_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
-			} catch(Exception e){
-				redirect.addFlashAttribute(Constants.ERRO, SuccessMessageConstants.MSG_ERRO_TIPO_DOCUMENTO_EM_USO);
-			}
-		}
-		return  RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
 //	
 //	@GetMapping("detalhes/{id}")
