@@ -25,6 +25,13 @@
 		<npi.ldap.version>0.3</npi.ldap.version>
 	</properties>
 
+	<repositories>
+	     <repository>
+	         <id>npi-mvn-repo</id>
+	         <url>http://npi-ufc-qxd.github.io/npi-mvn-repo/</url>
+	      </repository>
+	 </repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>br.ufc.quixada.npi</groupId>
@@ -62,6 +69,10 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+        </dependency>
 	</dependencies>
 
 	<build>
