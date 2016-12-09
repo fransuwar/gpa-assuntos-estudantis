@@ -8,4 +8,6 @@ public interface ServidorService {
 	
 	Servidor getByCpf(String cpf);
 
+	List<Servidor> getAll();
+
 }
