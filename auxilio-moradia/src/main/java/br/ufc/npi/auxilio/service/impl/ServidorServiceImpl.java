@@ -20,4 +20,10 @@ public class ServidorServiceImpl implements ServidorService {
 		return servidorRepository.findByPessoaCpf(cpf);
 	}
 
+	@Override
+	public List<Servidor> getAll() {
+		return servidorRepository.findAll();
+	}
+
+
 }

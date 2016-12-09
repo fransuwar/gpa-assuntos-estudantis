@@ -18,6 +18,8 @@ import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
 
+import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
+
 @Controller
 @RequestMapping("/documentacao")
 public class DocumentacaoController {
@@ -25,7 +27,7 @@ public class DocumentacaoController {
 	@Autowired
 	private DocumentacaoService documentacaoService;
 	
-	@Secured("COORDENADOR")
+	@Secured(COORDENADOR)
 	@GetMapping({"/", ""})
 	public String listarTipoDocumento(Model model){
 		model.addAttribute("documento", new TipoDocumento());
@@ -33,7 +35,7 @@ public class DocumentacaoController {
 		return PageConstants.GERENCIAR_DOCUMENTOS;
 	}
 	
-	@Secured("COORDENADOR")
+	@Secured(COORDENADOR)
 	@PostMapping("/tipo-documento/cadastrar")
 	public String cadastrarTipoDocumento(TipoDocumento tipoDocumento, RedirectAttributes redirect){
 		if(!tipoDocumento.getNome().isEmpty()) {
@@ -49,7 +51,7 @@ public class DocumentacaoController {
 		return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
 	
-	@Secured("COORDENADOR")
+	@Secured(COORDENADOR)
 	@GetMapping("/tipo-documento/excluir/{id}")
 	public String excluirTipoDocumento(@PathVariable("id") TipoDocumento tipoDocumento,
 			RedirectAttributes redirect) {

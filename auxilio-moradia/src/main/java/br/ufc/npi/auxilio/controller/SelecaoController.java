@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.tomcat.util.http.fileupload.FileUploadBase.FileSizeLimitExceededException;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -23,10 +21,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,10 +33,7 @@ import br.ufc.npi.auxilio.model.TipoDocumento;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
 import br.ufc.npi.auxilio.service.SelecaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
-import br.ufc.npi.auxilio.utils.Constants;
-import br.ufc.npi.auxilio.utils.ExceptionConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
-import br.ufc.npi.auxilio.utils.RedirectConstants;
 
 @Controller
 @RequestMapping("/selecao")
