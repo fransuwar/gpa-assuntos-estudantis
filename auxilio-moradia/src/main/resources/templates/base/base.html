@@ -7,7 +7,7 @@
     <title>Title</title>
 
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/gpa-icone.jpg}"/>
-
+	
     <!-- Bootstrap 3.3.6 -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <!-- Font Awesome -->
@@ -20,6 +20,7 @@
   	<link rel="stylesheet" th:href="@{/css/_all-skins.min.css}"/>
     <!-- Custom CSS -->
     <link th:href="@{/css/custom.css}" rel="stylesheet"/>
+    <link th:href="@{/css/toastr.css}" rel="stylesheet"/>
     <link th:href="@{/css/selecao/selecao.css}" rel="stylesheet"/>
 
     <!-- CONFIGURACAO DO CONTEXTO -->
@@ -32,6 +33,10 @@
     	
 	    <!-- Page Content -->
 	    <div class="content-wrapper">
+		    <div id="alerta-erro" class="hidden" th:text="${erro}">
+	  		</div>
+	  		 <div id="alerta-info" class="hidden" th:text="${info}">
+	  		</div>
 		    <div class="container" layout:fragment="conteudo">
 		    </div>
 	    </div>
@@ -56,6 +61,10 @@
     <script th:src="@{/js/app.min.js}"></script>
     <!-- AdminLTE for demo purposes -->
     <script th:src="@{/js/demo.js}"></script>
+    
+    <script th:src="@{/js/toastr.min.js}"></script>
+    
+    <script th:src="@{/js/auxilio/auxilio.js}"></script>
     
     <section layout:fragment="js"></section>
 

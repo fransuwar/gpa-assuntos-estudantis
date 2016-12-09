@@ -22,34 +22,48 @@
       
       <section class="content">
       	<div class="box box-primary">
-      		<form role="form" th:action="@{/selecao/documentacao}" th:object="${documento}" method="post">
+      		<form role="form" th:action="@{/documentacao/tipo-documento/cadastrar}" th:object="${documento}" method="post">
       			<div class="box-body">
       				<div class="row">
       					<div class="form-group col-xs-5">
 		                  <label for="ano">* Documento</label>
-		                  <input th:field="*{nome}" type="text" class="form-control" placeholder="nome" required="required"/>
+		                  <div class="input-group">		                  
+			                  <input th:field="*{nome}" type="text" class="form-control text-uppercase" 
+			                  placeholder="nome" required="required"/>
+			                  
+			                  <div class="input-group-btn">
+			                	<button type="submit" class="btn btn-primary">
+			                		<i class="fa fa-plus"></i>
+			                	</button>
+			                  </div>
+		                  </div>
 		                </div>
       				</div>
       			</div>
       		</form>
       		
-      		<div class="box-body table-responsive">
+      		<div class="box-body">
       			<div th:if="${#lists.isEmpty(documentos)}">
       				<div class="alert alert-warning">
 	                	Não há documentos cadastradas.
               		</div>
       			</div>
+
+	      		<div th:unless="${#lists.isEmpty(documentos)}">
+	      			<span class="label label-primary font-size--14 margin-right--12" th:each="doc : ${documentos}">
+	      				<span th:text="${doc.nome}" class="margin-right--10"></span>
+	      				<a th:href="@{/documentacao/tipo-documento/excluir/__${doc.id}__}" class="color-white"><i class="fa fa-close"></i></a>		
+	      			</span>
+	      		</div>
       		</div>
       		
-      		<table class="table table-hover" th:unless="${#lists.isEmpty(documentos)}">
-      			<thead>
-          			<tr>
-          				<th>Ano</th>
-          			</tr>
-          		</thead>
-      		</table>
       	</div>
       </section>
-
+	</div>
+	
+	<section layout:fragment="js">
+    	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
+    </section>
+    
 </body>
 </html>
