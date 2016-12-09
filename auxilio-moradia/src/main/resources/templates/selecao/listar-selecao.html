@@ -41,7 +41,7 @@
           		</thead>
           		<tbody>
           			<tr th:each="selecao : ${selecoes}">
-          				<td th:text="${selecao.ano}"> <a th:ref="@{/selecao/detalhes/__${selecao.id}__">2015</a> </td>
+          				<td > <a th:href="@{/selecao/detalhes/__${selecao.id}__}" th:text="${selecao.ano}"></a> </td>
           				<td th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
           				<td th:text="${selecao.quantidadeVagas}"></td>
           				<td th:text="${selecao.responsavel.pessoa.nome}"></td>
