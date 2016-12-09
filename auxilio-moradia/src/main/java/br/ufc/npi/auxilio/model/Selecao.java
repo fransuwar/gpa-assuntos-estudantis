@@ -55,6 +55,7 @@ public class Selecao {
 
 	public Selecao() {
 		this.comissao         = new ArrayList<Servidor>();
+		this.documentos       = new ArrayList<Documento>();
 		this.inscricoes       = new ArrayList<Inscricao>();
 		this.tiposDeDocumento = new ArrayList<TipoDocumento>();
 	}
@@ -219,6 +220,10 @@ public class Selecao {
 			}
 		}
 		return mapaCidades;
+	}
+
+	public void addAllTiposDeDocumento(List<TipoDocumento> tiposDeDocumento) {
+		this.tiposDeDocumento.addAll(tiposDeDocumento);
 	}
 
 }
