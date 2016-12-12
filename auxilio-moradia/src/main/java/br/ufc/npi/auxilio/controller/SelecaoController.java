@@ -30,10 +30,13 @@ import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Documento;
 import br.ufc.npi.auxilio.model.Selecao;
 import br.ufc.npi.auxilio.model.TipoDocumento;
+import br.ufc.npi.auxilio.repository.DocumentoRepository;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
 import br.ufc.npi.auxilio.service.SelecaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
+import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
+import br.ufc.npi.auxilio.utils.RedirectConstants;
 
 @Controller
 @RequestMapping("/selecao")
@@ -47,6 +50,9 @@ public class SelecaoController {
 	
 	@Autowired
 	private DocumentacaoService documentacaoService;
+	
+	@Autowired
+	private DocumentoRepository documentoRepository;
 	
 	@GetMapping({"", "/", "/listar"})
 	public String listarSelecoes(Model model) {
@@ -105,10 +111,21 @@ public class SelecaoController {
 		return REDIRECT_LISTAR_SELECAO;
 	}
 	
-	@RequestMapping(value="/cadastrar", params={"adicionaArquivo"})
+	@Secured(COORDENADOR)
+	@GetMapping(value = "/adicionar-documento/{idSelecao}")
+	public String adicionarDocumento( @PathVariable("idSelecao") Selecao selecao, Model model ) {
+
+		if ( selecao != null ) {
+			model.addAttribute("selecao", selecao);
+		}
+
+		return PageConstants.PAGINA_ADICIONAR_ARQUIVO;
+	}
+	
+	@Secured(COORDENADOR)
+	@PostMapping("/adicionar-documento/{idSelecao}")
 	public String adicionarDocumento( @RequestParam("files") List<MultipartFile> files,
-			Selecao selecao, Model model, @RequestParam("acao") String acao,
-			@RequestParam("tiposDocumento") List<TipoDocumento> tiposDeDocumento) {
+			@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect ) {
 		
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
 			for (MultipartFile mfiles : files) {
@@ -122,17 +139,25 @@ public class SelecaoController {
 
 						if(selecao.getDocumentos() == null)
 							selecao.setDocumentos(new ArrayList<Documento>());
+						
+						documentoRepository.save(documento);
 						selecao.getDocumentos().add(documento);
 					}
 				} catch (IOException e)	{
-					
+					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+
+					return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
 				}
 			} 
 		}
-		selecao.addAllTiposDeDocumento(tiposDeDocumento);
-		model.addAttribute("selecao", selecao);
-		model.addAttribute("acao", acao);
-		return PageConstants.CADASTRAR_SELECAO;
+		
+		try {
+			selecaoService.cadastrar(selecao);
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+		}
+
+		return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
 	}
 	
 	@ModelAttribute("tiposDeDocumento")
