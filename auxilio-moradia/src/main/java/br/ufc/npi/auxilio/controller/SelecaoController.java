@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,6 +31,7 @@ import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Documento;
 import br.ufc.npi.auxilio.model.Pessoa;
 import br.ufc.npi.auxilio.model.Selecao;
+import br.ufc.npi.auxilio.model.Servidor;
 import br.ufc.npi.auxilio.model.TipoDocumento;
 import br.ufc.npi.auxilio.repository.DocumentoRepository;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
@@ -182,7 +182,7 @@ public class SelecaoController {
 		return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
 	}
 	
-	@RequestMapping(value = "/excluir-documento/{idSelecao}/{idDocumento}", method = RequestMethod.GET)
+	@GetMapping("/excluir-documento/{idSelecao}/{idDocumento}")
 	public String excluirDocumento(@PathVariable("idDocumento") Documento documento, 
 			@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
 
@@ -205,9 +205,59 @@ public class SelecaoController {
 		}
 	}
 	
+	@Secured(COORDENADOR)
+	@GetMapping("/comissao/{idSelecao}")
+	public String formGerenciarComissao(@PathVariable("idSelecao") Selecao selecao, Authentication auth, Model model) {
+		model.addAttribute( "selecao", selecao );
+		model.addAttribute( "coordenador", servidorService.getByCpf( auth.getName() ) );
+		return PageConstants.GERENCIAR_COMISSAO;
+	}
+	
+	@Secured(COORDENADOR)
+	@PostMapping(value = "/comissao/{idSelecao}", params = {"adicionarServidor"})
+	public String adicionarMembroComissao( @PathVariable("idSelecao") Selecao selecao,
+			@RequestParam("idServidor") Servidor servidor, Model model, RedirectAttributes redirect ) {
+		selecao.getComissao().add(servidor);
+		try {
+			selecaoService.cadastrar(selecao);
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(Constants.ERRO, e.getMessage());
+			return RedirectConstants.REDIRECT_GERENCIAR_COMISSAO + selecao.getId();
+		}
+		redirect.addFlashAttribute("selecao", selecao);
+		return RedirectConstants.REDIRECT_GERENCIAR_COMISSAO + selecao.getId();
+	}
+	
+	@Secured(COORDENADOR)
+	@GetMapping("/comissao/excluir/{idSelecao}/{idServidor}")
+	public String excluirMembroComissao(@PathVariable("idSelecao") Selecao selecao, 
+			@PathVariable("idServidor") Servidor servidor, 
+			Authentication auth, RedirectAttributes redirect) {	
+
+		Servidor coordenador = servidorService.getByCpf(auth.getName());			
+
+		if(coordenador.getId() != servidor.getId()){
+			selecao.getComissao().remove(servidor);
+			try {
+				selecaoService.cadastrar(selecao);
+			} catch (AuxilioMoradiaException e) {
+				redirect.addFlashAttribute(ERRO, e.getMessage());
+			}
+			redirect.addFlashAttribute(INFO, SuccessMessageConstants.MSG_SUCESSO_MEMBRO_EXCLUIDO);
+		} else {
+			redirect.addFlashAttribute(ERRO, ErrorMessageConstants.ERRO_COMISSAO_EXCLUIR_COORDENADOR);
+		}
+		
+		return RedirectConstants.REDIRECT_GERENCIAR_COMISSAO + selecao.getId();
+	}
+	
 	@ModelAttribute("tiposDeDocumento")
 	public List<TipoDocumento> getTiposDeDocumento() {
 		return documentacaoService.getAllTipoDocumento();
 	}
 
+	@ModelAttribute("servidores")
+	public List<Servidor> getAllServidores() {
+		return servidorService.getAll();
+	}
 }

@@ -17,4 +17,6 @@ public class SuccessMessageConstants {
 	
 	public static final String MSG_SUCESSO_DOCUMENTO_REMOVIDO = "O documento foi removido com sucesso.";
 
+	public static final Object MSG_SUCESSO_MEMBRO_EXCLUIDO = "Membro da comissão excluído com sucesso.";
+
 }
