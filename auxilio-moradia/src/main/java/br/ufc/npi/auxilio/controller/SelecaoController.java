@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,9 +39,11 @@ import br.ufc.npi.auxilio.service.InscricaoService;
 import br.ufc.npi.auxilio.service.PessoaService;
 import br.ufc.npi.auxilio.service.SelecaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
+import br.ufc.npi.auxilio.utils.Constants;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
+import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
 
 @Controller
 @RequestMapping("/selecao")
@@ -177,6 +180,29 @@ public class SelecaoController {
 		}
 
 		return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+	}
+	
+	@RequestMapping(value = "/excluir-documento/{idSelecao}/{idDocumento}", method = RequestMethod.GET)
+	public String excluirDocumento(@PathVariable("idDocumento") Documento documento, 
+			@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
+
+		if ( documento != null ) {
+			selecao.getDocumentos().remove( documento );
+			try {
+				selecaoService.cadastrar( selecao );
+			} catch ( AuxilioMoradiaException e ) {
+				redirect.addFlashAttribute( ERRO, ErrorMessageConstants.MENSAGEM_ERRO_AO_ATUALIZAER_SELECAO );
+				return  RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+			}
+			documentoRepository.delete( documento );
+			redirect.addFlashAttribute( Constants.INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO );
+			
+			return  RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+		} else {
+			redirect.addFlashAttribute( ERRO, ErrorMessageConstants.MENSAGEM_ERRO_ANEXO );
+
+			return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
+		}
 	}
 	
 	@ModelAttribute("tiposDeDocumento")

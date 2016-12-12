@@ -39,7 +39,8 @@
 		                	<ul class="todo-list">
 		                		<li th:each="documento : ${selecao.documentos}">
 		                			<span class="text" th:text="${documento.nome}"></span>
-		                			<a href="#" class="tools"><i class="fa fa-trash-o"></i></a>
+		                			<a th:href="@{/selecao/excluir-documento/__${selecao.id}__/__${documento.id}__}" 
+		                			class="tools"><i class="fa fa-trash-o"></i></a>
 		                		</li>
 		                	</ul>
 	                	</div>
