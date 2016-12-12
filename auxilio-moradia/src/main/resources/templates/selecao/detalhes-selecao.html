@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="base/base"
+	th:with="currentPage='selecao'">
+
+<head>
+<title>Detalhes de Seleção</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="row">
+	
+		<div class="col s12 breadcrumbs valign-wrapper">
+            <a th:href="@{/}" class="breadcrumb blue-grey-text">
+                <i class="material-icons left">home</i>
+            </a>
+            
+            <a th:href="@{/selecao/listar}" class="breadcrumb blue-grey-text">Seleção</a>
+            
+            <a class="breadcrumb blue-grey-text">Cadastrar</a>
+        </div>
+	
+		<div class="col l6 m6 s12">
+
+			<div class="card">
+				<div class="card-content">
+					<div class="row">
+					
+						<div class="col l3 m4 s6">
+							<span class="bold grey-text text-darken-2">Ano:</span> <br/>
+							<span th:text="${selecao.ano}" class="text-20 light limit" data-max-length="10"></span>
+						</div>
+						
+						<div class="col l3 m4 s6">
+							<span class="bold grey-text text-darken-2">Vagas:</span> <br/>
+							<span th:text="${selecao.quantidadeVagas}" class="text-20 light limit" data-max-length="10"></span>
+						</div>
+						
+						<div class="col l3 m4 s6">
+							<span class="bold grey-text text-darken-2">Início:</span> <br/>
+							<span th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')}" class="text-20 light limit" data-max-length="10"></span>
+						</div>
+						
+						<div class="col l3 m4 s6">
+							<span class="bold grey-text text-darken-2">Término:</span> <br/>
+							<span th:text="${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light limit" data-max-length="10"></span>
+						</div>
+						
+						<div class="col l12 m12 s12">
+							<span class="bold grey-text text-darken-2">Responsável:</span> <br/>
+							<span th:text="${selecao.responsavel.pessoa.nome}" class="text-20 light limit" data-max-length="100"></span>
+						</div>
+					
+					</div>				
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!--end container-->
+</section>
+
+<section layout:fragment="js">
+	
+</section>
+
+</html>

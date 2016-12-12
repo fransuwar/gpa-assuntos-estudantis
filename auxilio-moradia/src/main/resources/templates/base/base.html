@@ -1,72 +1,80 @@
 <!DOCTYPE html>
-<html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
+	<title>Clínias</title>
 
-    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/gpa-icone.jpg}"/>
-	
-    <!-- Bootstrap 3.3.6 -->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <!-- Font Awesome -->
-  	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css}"/>
-  	<!-- Ionicons -->
-  	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css}"/>
-    <!-- Theme style -->
-  	<link rel="stylesheet" th:href="@{/css/AdminLTE.min.css}"/>
-  	<!-- AdminLTE Skins -->
-  	<link rel="stylesheet" th:href="@{/css/_all-skins.min.css}"/>
-    <!-- Custom CSS -->
-    <link th:href="@{/css/custom.css}" rel="stylesheet"/>
-    <link th:href="@{/css/toastr.css}" rel="stylesheet"/>
-    <link th:href="@{/css/selecao/selecao.css}" rel="stylesheet"/>
-
-    <!-- CONFIGURACAO DO CONTEXTO -->
-    <meta name="_context" th:content="${#httpServletRequest.getContextPath()}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/material/materialize/fonts/icons/material-icons.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/material/materialize/fonts/icons/material-icons-google.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/material/materialize/css/materialize.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/material/plugins/datatables/dataTables.materialize.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf-helpers.css}"/>
+			
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
 </head>
-<body class="hold-transition skin-blue layout-top-nav">
-	<div class="wrapper">
-		<!-- Header -->
-    	<div th:replace="base/header :: header"></div>
-    	
-	    <!-- Page Content -->
-	    <div class="content-wrapper">
-		    <div id="alerta-erro" class="hidden" th:text="${erro}">
-	  		</div>
-	  		 <div id="alerta-info" class="hidden" th:text="${info}">
-	  		</div>
-		    <div class="container" layout:fragment="conteudo">
-		    </div>
-	    </div>
-	</div>
-	<footer class="main-footer">
-    <div class="container">
-      <div class="pull-right hidden-xs">
-        <b>Version</b> 0.1
-      </div>
-      <strong>Núcleo de Práticas em Informática</strong>
-    </div>
-    <!-- /.container -->
-  </footer>
-    
 
-    <!-- jQuery -->
-    <script th:src="@{/js/jquery-2.2.3.min.js}"></script>
-    <script th:src="@{/js/jquery.mask.js}"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <!-- AdminLTE App -->
-    <script th:src="@{/js/app.min.js}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script th:src="@{/js/demo.js}"></script>
+<body class="root grey lighten-3">
+		
+	<div th:replace="base/side-nav :: side-nav"></div>
+	<div th:replace="base/header :: header"></div>
+	
+	<main class="sidenav-opened"> 
+        <div class="main-container">
+        	<section class="" layout:fragment="conteudo"></section>
+        </div>
+    </main>   
     
-    <script th:src="@{/js/toastr.min.js}"></script>
+	<!-- MENSAGENS DE ALERTA -->
+	<div th:each="alert : ${alertas}" 
+		class="alert-message" 
+		th:attr="data-type=${alert.type},data-delay=${alert.delay}" 
+		th:text="${alert.message}"></div>
+	<div th:if="${alerta}" 
+		class="alert-message" 
+		th:attr="data-type=${alerta.type},data-delay=${alerta.delay}" 
+		th:text="${alerta.message}"></div>
+	
+    <div class="mf-foreground white" ></div>
     
-    <script th:src="@{/js/auxilio/auxilio.js}"></script>
+    <!-- Plugins externos e JQuery -->
+    <script type="text/javascript" th:src="@{/material/plugins/jquery/jquery-2.1.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/material/plugins/jquery/jquery.mask.min.js}"></script>
+    <script type="text/javascript" th:src="@{/material/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script type="text/javascript" th:src="@{/material/plugins/datatables/dataTables.materialize.js}"></script>
+    <script type="text/javascript" th:src="@{/material/plugins/chart/chart.js}"></script>
+    <script type="text/javascript" th:src="@{/material/plugins/cookie/cookie.js}"></script>
+    <script type="text/javascript" th:src="@{/material/plugins/moment/moment.js}"></script>
     
-    <section layout:fragment="js"></section>
-
+    <!-- Framework base -->
+	<script type="text/javascript" th:src="@{/material/materialize/js/bin/materialize.js}"></script>
+	<script type="text/javascript" th:src="@{/material/js/mf.js}"></script>
+	<script type="text/javascript" th:src="@{/material/js/event-confirm.js}"></script>
+	
+	<section layout:fragment="js"></section>
+	
+	<script type="text/javascript">
+	
+		$(document).ready(function() {
+			Materialize.updateTextFields();
+			$('select').material_select();
+			
+			$('.datepicker').pickadate({
+			   selectMonths: true,
+			   selectYears: 100, 
+			   format: "dd/mm/yyyy"
+			});
+		});
+	
+	</script>
+    
 </body>
 </html>

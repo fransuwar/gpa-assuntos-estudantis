@@ -1,0 +1,32 @@
+
+<ul id="slide-out" class="side-nav fixed " th:fragment="side-nav">
+    <li>
+    	<a class="userView waves-effect waves-light blue valign-wrapper" th:href="@{/}">
+	        <i class="cover material-icons blue-grey-text text-lighten-5 tooltipped" data-tooltip="Início" data-position="right">dashboard</i>
+	        <span class="blue-grey-text text-lighten-5 title">AUXÍLIO</span>
+    	</a>
+    </li>
+    
+    <li>
+    	<a th:href="@{/}" 
+    		th:classappend="(${currentPage} == 'inicio')? sidenav-active" 
+    		class="waves-effect waves-light">
+    		
+    		<i class="material-icons tooltipped" data-tooltip="Início" data-position="right">home</i> Início
+    	</a>
+    </li>
+    
+    <li>
+    	<a th:href="@{/selecao}" 
+    		th:classappend="(${currentPage} == 'selecao')? sidenav-active" 
+    		class="waves-effect waves-light">
+    		
+    		<i class="mdi mdi-account-check tooltipped" data-tooltip="Seleção" data-position="right"></i> Seleção
+    	</a>
+    </li>
+    
+    <li><div class="divider blue-grey darken-3"></div></li>
+    
+    <li><a th:href="@{/logout}" class="waves-effect waves-light">Sair</a></li>
+    
+</ul>

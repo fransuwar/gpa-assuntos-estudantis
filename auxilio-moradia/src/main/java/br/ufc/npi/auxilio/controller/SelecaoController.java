@@ -1,12 +1,13 @@
 package br.ufc.npi.auxilio.controller;
 
+import static br.ufc.npi.auxilio.utils.Constants.ALERTA;
 import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
-import static br.ufc.npi.auxilio.utils.Constants.ERRO;
-import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.PageConstants.CADASTRAR_SELECAO;
+import static br.ufc.npi.auxilio.utils.PageConstants.DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SELECAO_CADASTRADA;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_SELECAO_REMOVIDA;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.SELECAO_INEXISTENTE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -25,6 +26,7 @@ import br.ufc.npi.auxilio.service.DocumentacaoService;
 import br.ufc.npi.auxilio.service.SelecaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
 import br.ufc.npi.auxilio.utils.PageConstants;
+import br.ufc.npi.auxilio.utils.alert.AlertSet;
 
 @Controller
 @RequestMapping("/selecao")
@@ -59,10 +61,10 @@ public class SelecaoController {
 		selecao.setResponsavel(servidorService.getByCpf(auth.getName()));
 		try {
 			selecaoService.cadastrar(selecao);
-			redirect.addFlashAttribute(INFO, MSG_SELECAO_CADASTRADA);
+			redirect.addFlashAttribute(ALERTA, AlertSet.createInfo(MSG_SELECAO_CADASTRADA));
 			return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
-			model.addAttribute(ERRO, e.getMessage());
+			model.addAttribute(ALERTA, AlertSet.createInfo(e.getMessage()));
 			return CADASTRAR_SELECAO;
 		}
 	}
@@ -72,9 +74,9 @@ public class SelecaoController {
 	public String excluirSelecao(@PathVariable Selecao selecao, RedirectAttributes redirect) {
 		try {
 			selecaoService.excluir(selecao);
-			redirect.addFlashAttribute(INFO, MSG_SUCESSO_SELECAO_REMOVIDA);
+			redirect.addFlashAttribute(ALERTA, MSG_SUCESSO_SELECAO_REMOVIDA);
 		} catch (AuxilioMoradiaException e) {
-			redirect.addFlashAttribute(ERRO, e.getMessage());
+			redirect.addFlashAttribute(ALERTA, e.getMessage());
 		}
 		return REDIRECT_LISTAR_SELECAO;
 	}
@@ -91,6 +93,20 @@ public class SelecaoController {
 			return CADASTRAR_SELECAO;
 		}
 		return REDIRECT_LISTAR_SELECAO;
+	}
+	
+	@GetMapping("/detalhes/{selecao}")
+	public String detalhesSelecao(@PathVariable Selecao selecao, Model model,
+			RedirectAttributes redirect) {
+		
+		if (selecao == null) {
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(SELECAO_INEXISTENTE));
+			return REDIRECT_LISTAR_SELECAO;
+		}
+		
+		model.addAttribute("selecao", selecao);
+		
+		return DETALHES_SELECAO;
 	}
 
 }

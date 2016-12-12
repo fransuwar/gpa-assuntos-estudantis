@@ -1,48 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
-<head>
-	<meta charset="UTF-8" />
-</head>
-
-<header class="main-header">
-    <nav class="navbar navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a th:href="@{/}" class="navbar-brand"><b>Auxílio</b>Moradia</a>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-            <i class="fa fa-bars"></i>
-          </button>
+<header class="navbar-fixed sidenav-opened" th:fragment="header">
+    <nav class="white">
+        <div class="nav-wrapper">
+            
+            <ul id="nav-mobile" class="left">
+            	<li>
+            		<a href="#" data-activates="slide-out" class="circular waves-effect  button-collapse-hide hide-on-large-only waves-effect">
+		                <i class="material-icons grey-text">menu</i>
+		            </a>
+		        </li>
+                <li>    
+		            <a href="#" data-activates="slide-out" class="circular waves-effect button-collapse-minimalize hide-on-med-and-down waves-effect">
+		                <i class="material-icons grey-text">menu</i>
+		            </a>
+            	</li>
+            </ul>
+           
+	        <ul id="nav-mobile" class="right">
+            	<li th:if="${#authentication}" class="blue-grey-text" >
+                	Olá, <span th:text="${#authentication?.principal?.nome}"></span>
+                </li>
+                <li>
+                	<a class="circular waves-effect dropdown-button" data-activates='user-account-options'
+                       data-alignment="right" data-constrainwidth="false" data-beloworigin="true">
+                    	<i class="material-icons grey-text">person</i>
+                	</a>
+                </li>
+            </ul>
+	        
+            <ul id='user-account-options' class='dropdown-content'>
+                <li><a class="waves-effect blue-grey-text text-darken-4">Meus dados</a></li>
+                <li><a th:href="@{/usuario/alterarSenha}" class="waves-effect blue-grey-text text-darken-4">Alterar Senha</a></li>
+                
+                <li><a th:href="@{/logout}" class="waves-effect blue-grey-text text-darken-4">Sair</a></li>
+            </ul>
+            
         </div>
-
-        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a th:href="@{/selecao/listar}">Seleções</a></li>
-            <li><a th:href="@{/selecao/cadastrar}">Nova seleção</a></li>
-            <li><a th:href="@{/documentacao}">Documentação</a></li>
-            <li><a th:href="@{/logout}">Sair</a></li>
-          </ul>
-        </div>
-        
-        <!-- Navbar Right Menu -->
-        <div class="navbar-custom-menu">
-          <ul class="nav navbar-nav">
-            <!-- User Account Menu -->
-            <li class="dropdown user user-menu">
-              <!-- Menu Toggle Button -->
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <span class="hidden-xs">Alexander Pierce</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <!-- /.navbar-custom-menu -->
-      </div>
-      <!-- /.container-fluid -->
     </nav>
-  </header>
-  
-</html>
+</header>

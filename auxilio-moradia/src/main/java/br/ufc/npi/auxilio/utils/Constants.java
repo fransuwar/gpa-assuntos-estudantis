@@ -3,9 +3,7 @@ package br.ufc.npi.auxilio.utils;
 public class Constants {
 	
 	/* Mensagens do sistema */
-    public static final String ERRO = "erro";
-
-    public static final String INFO = "info";
+    public static final String ALERTA = "alerta";
 
     /* Papéis */
     public static final String COORDENADOR = "COORDENADOR";
