@@ -2,7 +2,7 @@ package br.ufc.npi.auxilio.controller;
 
 import static br.ufc.npi.auxilio.utils.Constants.ALERTA;
 import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
-import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.SELECAO_INEXISTENTE;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.npi.auxilio.utils.PageConstants.CADASTRAR_SELECAO;
 import static br.ufc.npi.auxilio.utils.PageConstants.DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
@@ -32,13 +32,18 @@ import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Documento;
 import br.ufc.npi.auxilio.model.Pessoa;
 import br.ufc.npi.auxilio.model.Selecao;
+import br.ufc.npi.auxilio.model.Servidor;
 import br.ufc.npi.auxilio.model.TipoDocumento;
+import br.ufc.npi.auxilio.repository.DocumentoRepository;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
 import br.ufc.npi.auxilio.service.InscricaoService;
 import br.ufc.npi.auxilio.service.PessoaService;
 import br.ufc.npi.auxilio.service.SelecaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
+import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
+import br.ufc.npi.auxilio.utils.RedirectConstants;
+import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
 import br.ufc.npi.auxilio.utils.alert.AlertSet;
 
 @Controller
@@ -54,6 +59,9 @@ public class SelecaoController {
 	@Autowired
 	private DocumentacaoService documentacaoService;
 	
+	@Autowired
+	private DocumentoRepository documentoRepository;
+
 	@Autowired
 	private InscricaoService inscricaoService;
 	
@@ -121,7 +129,7 @@ public class SelecaoController {
 	public ModelAndView detalhes(@PathVariable Selecao selecao, Authentication auth, RedirectAttributes redirect){
 	
 		if (selecao == null) {
-			redirect.addFlashAttribute(ALERTA, AlertSet.createError(SELECAO_INEXISTENTE));
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(MENSAGEM_ERRO_SELECAO_INEXISTENTE));
 			return new ModelAndView(REDIRECT_LISTAR_SELECAO);
 		}
 		
@@ -132,11 +140,22 @@ public class SelecaoController {
 				.addObject("inscrito", inscricaoService.estaInscrito(pessoa, selecao));
 		
 	}
+	
+	@Secured(COORDENADOR)
+	@GetMapping(value = "/adicionar-documento/{idSelecao}")
+	public String adicionarDocumento( @PathVariable("idSelecao") Selecao selecao, Model model ) {
 
-	@RequestMapping(value="/cadastrar", params={"adicionaArquivo"})
+		if ( selecao != null ) {
+			model.addAttribute("selecao", selecao);
+		}
+
+		return PageConstants.PAGINA_ADICIONAR_ARQUIVO;
+	}
+	
+	@Secured(COORDENADOR)
+	@PostMapping("/adicionar-documento/{idSelecao}")
 	public String adicionarDocumento( @RequestParam("files") List<MultipartFile> files,
-			Selecao selecao, Model model, @RequestParam("acao") String acao,
-			@RequestParam("tiposDocumento") List<TipoDocumento> tiposDeDocumento) {
+			@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect ) {
 		
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
 			for (MultipartFile mfiles : files) {
@@ -150,17 +169,95 @@ public class SelecaoController {
 
 						if(selecao.getDocumentos() == null)
 							selecao.setDocumentos(new ArrayList<Documento>());
+						
+						documentoRepository.save(documento);
 						selecao.getDocumentos().add(documento);
 					}
 				} catch (IOException e)	{
 					
+					redirect.addFlashAttribute(ALERTA, AlertSet.createError(ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS));
+					return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+					
 				}
 			} 
 		}
-		selecao.addAllTiposDeDocumento(tiposDeDocumento);
-		model.addAttribute("selecao", selecao);
-		model.addAttribute("acao", acao);
-		return PageConstants.CADASTRAR_SELECAO;
+		
+		try {
+			selecaoService.cadastrar(selecao);
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(e.getMessage()));
+		}
+
+		return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+	}
+	
+	@GetMapping("/excluir-documento/{idSelecao}/{idDocumento}")
+	public String excluirDocumento(@PathVariable("idDocumento") Documento documento, 
+			@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
+
+		if ( documento != null ) {
+			selecao.getDocumentos().remove( documento );
+			try {
+				selecaoService.cadastrar( selecao );
+			} catch ( AuxilioMoradiaException e ) {
+				redirect.addFlashAttribute( ALERTA, AlertSet.createError(ErrorMessageConstants.MENSAGEM_ERRO_AO_ATUALIZAER_SELECAO) );
+				return  RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+			}
+			documentoRepository.delete( documento );
+			redirect.addFlashAttribute( ALERTA,  AlertSet.createSuccess(SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO) );
+			
+			return  RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+		} else {
+			redirect.addFlashAttribute( ALERTA, AlertSet.createError(ErrorMessageConstants.MENSAGEM_ERRO_ANEXO) );
+
+			return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
+		}
+	}
+	
+	@Secured(COORDENADOR)
+	@GetMapping("/comissao/{idSelecao}")
+	public String formGerenciarComissao(@PathVariable("idSelecao") Selecao selecao, Authentication auth, Model model) {
+		model.addAttribute( "selecao", selecao );
+		model.addAttribute( "coordenador", servidorService.getByCpf( auth.getName() ) );
+		return PageConstants.GERENCIAR_COMISSAO;
+	}
+	
+	@Secured(COORDENADOR)
+	@PostMapping(value = "/comissao/{idSelecao}", params = {"adicionarServidor"})
+	public String adicionarMembroComissao( @PathVariable("idSelecao") Selecao selecao,
+			@RequestParam("idServidor") Servidor servidor, Model model, RedirectAttributes redirect ) {
+		selecao.getComissao().add(servidor);
+		try {
+			selecaoService.cadastrar(selecao);
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(e.getMessage()));
+			return RedirectConstants.REDIRECT_GERENCIAR_COMISSAO + selecao.getId();
+		}
+		redirect.addFlashAttribute("selecao", selecao);
+		return RedirectConstants.REDIRECT_GERENCIAR_COMISSAO + selecao.getId();
+	}
+	
+	@Secured(COORDENADOR)
+	@GetMapping("/comissao/excluir/{idSelecao}/{idServidor}")
+	public String excluirMembroComissao(@PathVariable("idSelecao") Selecao selecao, 
+			@PathVariable("idServidor") Servidor servidor, 
+			Authentication auth, RedirectAttributes redirect) {	
+
+		Servidor coordenador = servidorService.getByCpf(auth.getName());			
+
+		if(coordenador.getId() != servidor.getId()){
+			selecao.getComissao().remove(servidor);
+			try {
+				selecaoService.cadastrar(selecao);
+			} catch (AuxilioMoradiaException e) {
+				redirect.addFlashAttribute(ALERTA, AlertSet.createError(e.getMessage()));
+			}
+			redirect.addFlashAttribute(ALERTA, AlertSet.createSuccess(SuccessMessageConstants.MSG_SUCESSO_MEMBRO_EXCLUIDO));
+		} else {
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(ErrorMessageConstants.MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR));
+		}
+		
+		return RedirectConstants.REDIRECT_GERENCIAR_COMISSAO + selecao.getId();
 	}
 	
 	@ModelAttribute("tiposDeDocumento")
@@ -168,4 +265,8 @@ public class SelecaoController {
 		return documentacaoService.getAllTipoDocumento();
 	}
 
+	@ModelAttribute("servidores")
+	public List<Servidor> getAllServidores() {
+		return servidorService.getAll();
+	}
 }
