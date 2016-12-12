@@ -19,45 +19,25 @@
             
             <a th:href="@{/selecao/listar}" class="breadcrumb blue-grey-text">Seleção</a>
             
-            <a class="breadcrumb blue-grey-text">Cadastrar</a>
+            <a class="breadcrumb blue-grey-text">Detalhes</a>
         </div>
 	
 		<div class="col l6 m6 s12">
-
-			<div class="card">
-				<div class="card-content">
-					<div class="row">
-					
-						<div class="col l3 m4 s6">
-							<span class="bold grey-text text-darken-2">Ano:</span> <br/>
-							<span th:text="${selecao.ano}" class="text-20 light limit" data-max-length="10"></span>
-						</div>
-						
-						<div class="col l3 m4 s6">
-							<span class="bold grey-text text-darken-2">Vagas:</span> <br/>
-							<span th:text="${selecao.quantidadeVagas}" class="text-20 light limit" data-max-length="10"></span>
-						</div>
-						
-						<div class="col l3 m4 s6">
-							<span class="bold grey-text text-darken-2">Início:</span> <br/>
-							<span th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')}" class="text-20 light limit" data-max-length="10"></span>
-						</div>
-						
-						<div class="col l3 m4 s6">
-							<span class="bold grey-text text-darken-2">Término:</span> <br/>
-							<span th:text="${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light limit" data-max-length="10"></span>
-						</div>
-						
-						<div class="col l12 m12 s12">
-							<span class="bold grey-text text-darken-2">Responsável:</span> <br/>
-							<span th:text="${selecao.responsavel.pessoa.nome}" class="text-20 light limit" data-max-length="100"></span>
-						</div>
-					
-					</div>				
-				</div>
-			</div>
-
+			<div th:replace="selecao/detalhes/selecao :: selecao" ></div>
 		</div>
+		
+		<div class="col l6 m6 s12">
+			<div th:replace="selecao/detalhes/arquivos :: arquivos"></div>
+		</div>
+		
+		<div class="col l6 m6 s12" sec:authorize="hasAuthority('SERVIDOR')" >
+			<div th:replace="selecao/detalhes/comissao :: comissao"></div>
+		</div>
+		
+		<div class="col l6 m6 s12" sec:authorize="hasAuthority('SERVIDOR')" >
+			<div th:replace="selecao/detalhes/inscricoes :: inscricoes"></div>
+		</div>
+				
 	</div>
 	<!--end container-->
 </section>

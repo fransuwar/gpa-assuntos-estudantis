@@ -96,9 +96,9 @@ public class SelecaoController {
 	public String excluirSelecao(@PathVariable Selecao selecao, RedirectAttributes redirect) {
 		try {
 			selecaoService.excluir(selecao);
-			redirect.addFlashAttribute(ALERTA, MSG_SUCESSO_SELECAO_REMOVIDA);
+			redirect.addFlashAttribute(ALERTA, AlertSet.createSuccess(MSG_SUCESSO_SELECAO_REMOVIDA));
 		} catch (AuxilioMoradiaException e) {
-			redirect.addFlashAttribute(ALERTA, e.getMessage());
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(e.getMessage()));
 		}
 		return REDIRECT_LISTAR_SELECAO;
 	}

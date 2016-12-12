@@ -29,7 +29,23 @@
         			<span class="bold blue-grey-text" th:text="${emptyListMessage}"></span>
         		</div>
         		
-        		<div th:if="${addEnabled}" class="relative">
+        		<div th:if="${addEnabled} and ${addAutorize == 'COORDENADOR'}" sec:authorize="hasAuthority('COORDENADOR')" class="relative">
+        			<a th:href="${addLink}" class="btn-floating btn-large bottom-right waves-effect waves-light tooltipped"  
+	        			th:attr="data-tooltip=${addTip}"
+	        			th:classappend="${#lists.isEmpty(list)}? self-sampled">
+	        			<i class="material-icons">add</i>
+	        		</a>
+        		</div>
+        		
+        		<div th:if="${addEnabled} and ${addAutorize == 'ALUNO'}" sec:authorize="hasAuthority('ALUNO')" class="relative">
+        			<a th:href="${addLink}" class="btn-floating btn-large bottom-right waves-effect waves-light tooltipped"  
+	        			th:attr="data-tooltip=${addTip}"
+	        			th:classappend="${#lists.isEmpty(list)}? self-sampled">
+	        			<i class="material-icons">add</i>
+	        		</a>
+        		</div>
+        		
+        		<div th:if="${addEnabled} and ${addAutorize == NULL}" class="relative">
         			<a th:href="${addLink}" class="btn-floating btn-large bottom-right waves-effect waves-light tooltipped"  
 	        			th:attr="data-tooltip=${addTip}"
 	        			th:classappend="${#lists.isEmpty(list)}? self-sampled">

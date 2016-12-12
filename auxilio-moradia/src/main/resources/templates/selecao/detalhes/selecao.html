@@ -1,16 +1,47 @@
-<!DOCTYPE html>
-<html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8"/>
-<title>Insert title here</title>
-</head>
-<body>
-	<div th:fragment="selecao">
-	<h3>Seleção</h3>
-	<div sec:authorize="hasAuthority('ALUNO')">
-		<a th:href="@{/inscricao/__${selecao.id}__}" th:text="'Inscreva-se'"></a>
+<div class="card" th:fragment="selecao">
+	<div class="card-content">
+		
+		<a class="btn-floating top-right btn-large waves-effect tooltipped"
+			th:href="@{/selecao/editar/__${selecao.id}__}"
+			data-tooltip="Editar">
+			<i class="material-icons">edit</i>
+		</a>
+		
+		<div class="row no-margin">
+		
+			<div class="col l3 m4 s6">
+				<span class="bold grey-text text-darken-2">Ano:</span> <br/>
+				<span th:text="${selecao.ano}" class="text-20 light limit" data-max-length="10"></span>
+			</div>
+			
+			<div class="col l3 m4 s6">
+				<span class="bold grey-text text-darken-2">Vagas:</span> <br/>
+				<span th:text="${selecao.quantidadeVagas}" class="text-20 light limit" data-max-length="10"></span>
+			</div>
+			
+			<div class="col l3 m4 s6">
+				<span class="bold grey-text text-darken-2">Início:</span> <br/>
+				<span th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')}" class="text-20 light limit" data-max-length="10"></span>
+			</div>
+			
+			<div class="col l3 m4 s6">
+				<span class="bold grey-text text-darken-2">Término:</span> <br/>
+				<span th:text="${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light limit" data-max-length="10"></span>
+			</div>
+			
+			<div class="col l12 m12 s12">
+				<span class="bold grey-text text-darken-2">Responsável:</span> <br/>
+				<span th:text="${selecao.responsavel.pessoa.nome}" class="text-20 light limit" data-max-length="100"></span>
+			</div>
+		
+		</div>				
 	</div>
+	
+	<div class="card-action right-align" sec:authorize="hasAuthority('ALUNO')">
+		<a 
+			th:href="@{/inscricao/__${selecao.id}__}" 
+			th:text="'Inscreva-se'"
+			class="btn-flat waves-effect"></a>
+	
 	</div>
-</body>
-</html>
+</div>

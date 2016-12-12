@@ -8,7 +8,6 @@
 <head>
 <title>Cadastro de Seleção</title>
 </head>
-<<<<<<< HEAD
 
 <section layout:fragment="conteudo">
 	<div class="row">
@@ -21,73 +20,7 @@
             <a th:href="@{/selecao/listar}" class="breadcrumb blue-grey-text">Seleção</a>
             
             <a class="breadcrumb blue-grey-text">Cadastrar</a>
-=======
-<body>
-	<!-- Page Content -->
-	<div class="container" layout:fragment="conteudo">
-    	<!-- Content Header (Page header) -->
-      <section class="content-header">
-        <h1>Cadastrar Seleção</h1>
-        <ol class="breadcrumb">
-          <li><a th:href="@{/}"><i class="fa fa-home"></i> Início</a></li>
-          <li><a th:href="@{/selecao/listar}"> Seleções</a></li>
-          <li class="active">Cadastrar</li>
-        </ol>
-      </section>
-      
-      <!-- Main content -->
-      <section class="content">
-        <div class="box box-primary">
-        	<form role="form" th:action="@{/selecao/cadastrar}" th:object="${selecao}" method="post" enctype="multipart/form-data">
-        		<input th:field="*{id}" type="hidden"/>
-        		<input type="hidden" th:value="${acao}" name="acao" />
-          		<div class="box-body">
-          			<div class="row">
-          				<div class="form-group col-xs-3">
-		                  <label for="ano">* Ano</label>
-		                  <input th:field="*{ano}" type="text" class="form-control" id="ano" placeholder="ano" required="required"/>
-		                </div>
-	          			<div class="form-group col-xs-3">
-		                  <label for="inicio">* Início</label>
-		                  <input th:field="*{dataInicio}" type="text" class="form-control" id="inicio" placeholder="dd/MM/aaaa" required="required"/>
-		                </div>
-		                <div class="form-group col-xs-3">
-		                  <label for="termino">* Término</label>
-		                  <input th:field="*{dataTermino}" type="text" class="form-control" id="termino" placeholder="dd/MM/aaaa" required="required"/>
-		                </div>
-		                <div class="form-group col-xs-3">
-		                  <label for="vagas">Vagas</label>
-		                  <input th:field="*{quantidadeVagas}" type="number" class="form-control" id="vagas" placeholder="Número de vagas"/>
-		                </div>
-	                </div>
-	                
-	                <div class="row">
-	                	<div class="col-xs-6">
-		                	<div class="box box-warning">
-		                		<div class="box-header">
-		                			<h3 class="box-title">Tipos de documentos necessários</h3>
-		                		</div>
-		                		
-		                		<div class="box-body">
-		                			<ul class="todo-list">
-		                				<li th:each="documento, state : ${tiposDeDocumento}">
-		                					<input type="checkbox" name="tiposDocumento" 
-		                					th:value="${documento.id}" th:attr="checked=${#lists.contains(selecao.tiposDeDocumento, documento)} ? checked : false" />
-		                					<span class="text" th:text="${documento.nome}"></span>
-		                				</li>
-		                			</ul>
-		                		</div>
-		                	</div>
-	                	</div>
-	                </div>
-	                
-          		</div>
-				<div class="box-footer">
-					<button type="submit" class="btn btn-primary pull-right" th:text="${acao}">Cadastrar</button>
-					<a th:href="@{/selecao}" class="btn btn-default pull-right">Cancelar</a>
-				</div>
-			</form>
->>>>>>> branch 'master' of https://github.com/npi-ufc-qxd/gpa-assuntos-estudantis.git
+
         </div>
 	
 		<div class="col s12">
@@ -123,6 +56,18 @@
 
 				</div>
 				
+				<div class="card-action">
+				
+					<div class="row">
+                		<div class="col l3 m4 s12" th:each="documento, state : ${tiposDeDocumento}">
+           					<input type="checkbox" name="tiposDocumento" 
+           					th:id="'td-' + ${documento.id}" th:value="${documento.id}" th:attr="checked=${#lists.contains(selecao.tiposDeDocumento, documento)} ? checked : false" />
+           					<label class="text" th:for="'td-' + ${documento.id}" th:text="${documento.nome}"></label>
+                		</div>
+	                </div>
+					
+				</div>
+				
 				<div class="card-action right-align">
 	            	<a th:href="@{/selecao/listar/}" type="button" class="btn-flat waves-effect">Cancelar</a>
                     <button type="submit" class="btn waves-effect white-text">Salvar</button>
@@ -136,15 +81,7 @@
 </section>
 
 <section layout:fragment="js">
-	
-<<<<<<< HEAD
+   	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
 </section>
-
-=======
-	<section layout:fragment="js">
-    	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
-    </section>
 	
-</body>
->>>>>>> branch 'master' of https://github.com/npi-ufc-qxd/gpa-assuntos-estudantis.git
 </html>

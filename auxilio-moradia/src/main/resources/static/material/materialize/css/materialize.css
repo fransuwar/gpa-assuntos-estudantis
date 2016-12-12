@@ -3768,6 +3768,9 @@ button.btn-floating, button.btn-icon {
 .btn-icon i {
   color: #7e57c2; }
 
+.btn-icon.disabled i {
+  color: #aaa; }
+
 .dropdown-content {
   background-color: #fff;
   margin: 0;

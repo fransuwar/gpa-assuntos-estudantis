@@ -2,25 +2,34 @@
 
 <td th:fragment="table-options-cell" class="right-align">
 	<div class="valign-wrapper right">
-   		<a th:if="${seeMoreEnabled}" class="btn-icon waves-effect tooltipped"
+   		<a th:if="${seeMoreEnabled}" class="btn btn-icon waves-effect tooltipped"
      		th:href="${seeMoreLink}"
      		th:attr="data-tooltip=${seeMoreTip}, data-target=${seeMoreDataTarget}, data-url=${seeMoreDataUrl}"
      		th:classappend="${seeMoreClass}" >
      		<i class="material-icons">zoom_in</i>
 		</a>
 		
-   		<a th:if="${editEnabled}" class="btn-icon waves-effect tooltipped"
+   		<a th:if="${editEnabled}" class="btn btn-icon waves-effect tooltipped"
      		th:href="${editLink}"
      		th:attr="data-tooltip=${editTip}, data-target=${editDataTarget}, data-url=${editDataUrl}"
      		th:classappend="${editClass}" >
      		<i class="material-icons">edit</i>
 		</a>
 		
-   		<a th:if="${removeEnabled}" class="btn-icon waves-effect tooltipped"
+		
+		<!-- Remove Button -->
+   		<a th:if="${removeEnabled} and !${removeDisabled}" class="btn btn-icon waves-effect tooltipped"
      		th:href="${removeLink}"
-     		th:attr="data-tooltip=${removeTip}, data-target=${removeDataTarget}, data-url=${removeDataUrl}"
+     		th:attr="data-tooltip=${removeTip}, data-target=${removeDataTarget}, data-url=${removeDataUrl}, data-text=${removeConfirmText}"
      		th:classappend="${removeClass}" >
      		<i class="material-icons">delete</i>
 		</a>
+		
+		<a th:if="${removeEnabled} and ${removeDisabled}" class="btn btn-icon tooltipped"
+     		th:attr="data-tooltip=${removeDisabledTip}"
+     		th:classappend="disabled" >
+     		<i class="material-icons">delete</i>
+		</a>
+		
 	</div>
 </td>

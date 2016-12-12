@@ -25,6 +25,24 @@
     	</a>
     </li>
     
+    <li sec:authorize="hasAuthority('COORDENADOR')">
+    	<a th:href="@{/selecao}" 
+    		th:classappend="(${currentPage} == 'selecao')? sidenav-active" 
+    		class="waves-effect waves-light">
+    		
+    		<i class="mdi mdi-document tooltipped" data-tooltip="Seleção" data-position="right"></i> Documentação
+    	</a>
+    </li>
+    
+    <li sec:authorize="hasAuthority('ALUNO')">
+    	<a th:href="@{/selecao}" 
+    		th:classappend="(${currentPage} == 'selecao')? sidenav-active" 
+    		class="waves-effect waves-light">
+    		
+    		<i class="mdi mdi-check-multiple tooltipped" data-tooltip="Seleção" data-position="right"></i> Minhas Inscrições
+    	</a>
+    </li>
+    
     <li><div class="divider blue-grey darken-3"></div></li>
     
     <li><a th:href="@{/logout}" class="waves-effect waves-light">Sair</a></li>
