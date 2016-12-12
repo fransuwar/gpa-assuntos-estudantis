@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Aluno;
+import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.model.Pessoa;
 import br.ufc.npi.auxilio.model.Selecao;
 import br.ufc.npi.auxilio.repository.InscricaoRepository;
@@ -25,8 +26,11 @@ public class InscricaoServiceImpl implements InscricaoService {
 	
 	@Override
 	public void salvar(Selecao selecao, Aluno aluno) throws AuxilioMoradiaException {
-		if (inscricaoRepository.findInscricaoBySelecaoAndAlunoPessoa(selecao, aluno.getPessoa()) != null){
-			inscricaoRepository.save(selecao, aluno);
+		Inscricao inscricao = new Inscricao();
+		inscricao.setSelecao(selecao);
+		inscricao.setAluno(aluno);
+		if (inscricaoRepository.findInscricaoBySelecaoAndAlunoPessoa(selecao, aluno.getPessoa()) == null){
+			inscricaoRepository.save(inscricao);
 		}else{
 			throw new AuxilioMoradiaException(ErrorMessageConstants.ERRO_INSCRICAO_DUPLICADA);
 		}

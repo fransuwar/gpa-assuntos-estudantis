@@ -47,7 +47,7 @@ public class InscricaoController {
 			mav.setViewName("inscricao/dados-bancarios");
 		}catch (AuxilioMoradiaException e) {
 			mav.addObject(Constants.ERRO, e.getMessage());
-			mav.setViewName("/");
+			mav.setViewName("redirect:/");
 		}
 		return mav;
 	}
