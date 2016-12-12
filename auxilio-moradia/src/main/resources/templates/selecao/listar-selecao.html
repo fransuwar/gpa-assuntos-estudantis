@@ -28,6 +28,7 @@
 	                Não há seleções cadastradas.
               	</div>
           	</div>
+          	
           	<table class="table table-hover" th:unless="${#lists.isEmpty(selecoes)}">
           		<thead>
           			<tr>
@@ -40,11 +41,11 @@
           		</thead>
           		<tbody>
           			<tr th:each="selecao : ${selecoes}">
-          				<td th:text="${selecao.ano}">2015</td>
+          				<td > <a th:href="@{/selecao/detalhes/__${selecao.id}__}" th:text="${selecao.ano}"></a> </td>
           				<td th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
           				<td th:text="${selecao.quantidadeVagas}"></td>
           				<td th:text="${selecao.responsavel.pessoa.nome}"></td>
-          				<td class="tools text-align-right">
+          				<td sec:authorize="hasAuthority('COORDENADOR')"  class="tools text-align-right">
           					<a th:href="@{/selecao/editar/__${selecao.id}__}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
           					
           					<a data-toggle="modal" data-target="#confirme-delete" href="#" title="Excluir">
@@ -78,6 +79,7 @@
           			</tr>
           		</tbody>
           	</table>
+
           </div>
           <!-- /.box-body -->
         </div>

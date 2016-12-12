@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base/base">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Detalhes da Seleção</title>
+</head>
+<body>
+	<div class="container" layout:fragment="conteudo">
+		<div th:replace="selecao/detalhes/selecao :: selecao" ></div>
+		<div th:replace="selecao/detalhes/arquivos :: arquivos"></div>
+		<div sec:authorize="hasAuthority('SERVIDOR')" ><div th:replace="selecao/detalhes/comissao :: comissao"></div></div>
+		<div sec:authorize="hasAuthority('SERVIDOR')" ><div th:replace="selecao/detalhes/inscricoes :: inscricoes"></div> </div>
+	</div>
+</body>
+</html>
