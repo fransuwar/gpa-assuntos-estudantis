@@ -15,4 +15,6 @@ public class SuccessMessageConstants {
 	
 	public static final String MSG_ERRO_DATATERMINO_SELECAO = "A data de término não pode ser anterior a data de início";
 
+	public static final Object MSG_SUCESSO_MEMBRO_EXCLUIDO = "Membro da comissão excluído com sucesso.";
+
 }
