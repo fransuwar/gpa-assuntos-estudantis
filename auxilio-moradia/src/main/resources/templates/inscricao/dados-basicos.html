@@ -10,7 +10,10 @@
 <body>
 	<div class="container" layout:fragment="conteudo">
 		<span th:value="${aluno.nome}"></span>
-		<form th:action="@{/inscricao/__${selecao.id}__}" th:method="post"></form>
+		<form th:action="@{/inscricao/__${selecao.id}__}" th:method="post">
+			<span>Confira os dados e clique em continuar.</span><br>
+			<input type="submit" value="Continuar"/>
+		</form>
 	</div>
 </body>
 </html>
