@@ -1,5 +1,9 @@
 package br.ufc.npi.auxilio.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.tomcat.util.http.fileupload.FileUploadBase.FileSizeLimitExceededException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,9 +20,13 @@ public class ExceptionHandlingController extends ResponseEntityExceptionHandler 
 	}
 	
 	@ExceptionHandler( MultipartException.class )
-	public String arquivoTamanhoExcedido( MultipartException e ) {
+	public String arquivoTamanhoExcedido( HttpServletRequest request, MultipartException e ) {
 		if( e.getRootCause() instanceof FileSizeLimitExceededException ) {
-			return RedirectConstants.REDIRECT_ERROR_TAMANHO_ARQUIVO_EXCEDIDO;
+			if( request.getRequestURL().toString().contains("/selecao/adicionar-documento") ) {
+				String[] url = request.getRequestURL().toString().split("/");
+				Integer idSelecao = Integer.valueOf( url[url.length-1] );
+				return RedirectConstants.REDIRECT_ERROR_TAMANHO_ARQUIVO_EXCEDIDO + idSelecao;
+			}
 		}
 		return RedirectConstants.REDIRECT_ERROR;
 	}

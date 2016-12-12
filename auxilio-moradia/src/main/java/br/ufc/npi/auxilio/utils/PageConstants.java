@@ -9,5 +9,7 @@ public class PageConstants {
 	public static final String CADASTRAR_SELECAO = "selecao/cadastrar-selecao";
 
 	public static final String GERENCIAR_COMISSAO = "selecao/gerenciar-comissao";
+	
+	public static final String PAGINA_ADICIONAR_ARQUIVO = "selecao/adicionar-arquivo";
 
 }

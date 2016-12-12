@@ -14,6 +14,8 @@ public class SuccessMessageConstants {
 	public static final String MSG_ERRO_ANO_SELECAO = "Digite um ano maior ou igual ao atual";
 	
 	public static final String MSG_ERRO_DATATERMINO_SELECAO = "A data de término não pode ser anterior a data de início";
+	
+	public static final String MSG_SUCESSO_DOCUMENTO_REMOVIDO = "O documento foi removido com sucesso.";
 
 	public static final Object MSG_SUCESSO_MEMBRO_EXCLUIDO = "Membro da comissão excluído com sucesso.";
 

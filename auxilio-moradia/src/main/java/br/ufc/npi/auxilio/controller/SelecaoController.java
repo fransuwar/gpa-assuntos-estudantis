@@ -12,14 +12,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +33,7 @@ import br.ufc.npi.auxilio.model.Pessoa;
 import br.ufc.npi.auxilio.model.Selecao;
 import br.ufc.npi.auxilio.model.Servidor;
 import br.ufc.npi.auxilio.model.TipoDocumento;
+import br.ufc.npi.auxilio.repository.DocumentoRepository;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
 import br.ufc.npi.auxilio.service.InscricaoService;
 import br.ufc.npi.auxilio.service.PessoaService;
@@ -60,6 +58,9 @@ public class SelecaoController {
 	@Autowired
 	private DocumentacaoService documentacaoService;
 	
+	@Autowired
+	private DocumentoRepository documentoRepository;
+
 	@Autowired
 	private InscricaoService inscricaoService;
 	
@@ -131,11 +132,22 @@ public class SelecaoController {
 		mav.addObject("inscrito", inscricaoService.estaInscrito(pessoa, selecao));
 		return mav;
 	}
+	
+	@Secured(COORDENADOR)
+	@GetMapping(value = "/adicionar-documento/{idSelecao}")
+	public String adicionarDocumento( @PathVariable("idSelecao") Selecao selecao, Model model ) {
 
-	@RequestMapping(value="/cadastrar", params={"adicionaArquivo"})
+		if ( selecao != null ) {
+			model.addAttribute("selecao", selecao);
+		}
+
+		return PageConstants.PAGINA_ADICIONAR_ARQUIVO;
+	}
+	
+	@Secured(COORDENADOR)
+	@PostMapping("/adicionar-documento/{idSelecao}")
 	public String adicionarDocumento( @RequestParam("files") List<MultipartFile> files,
-			Selecao selecao, Model model, @RequestParam("acao") String acao,
-			@RequestParam("tiposDocumento") List<TipoDocumento> tiposDeDocumento) {
+			@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect ) {
 		
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
 			for (MultipartFile mfiles : files) {
@@ -149,19 +161,51 @@ public class SelecaoController {
 
 						if(selecao.getDocumentos() == null)
 							selecao.setDocumentos(new ArrayList<Documento>());
+						
+						documentoRepository.save(documento);
 						selecao.getDocumentos().add(documento);
 					}
 				} catch (IOException e)	{
-					
+					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+
+					return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
 				}
 			} 
 		}
-		selecao.addAllTiposDeDocumento(tiposDeDocumento);
-		model.addAttribute("selecao", selecao);
-		model.addAttribute("acao", acao);
-		return PageConstants.CADASTRAR_SELECAO;
+		
+		try {
+			selecaoService.cadastrar(selecao);
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+		}
+
+		return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
 	}
 	
+	@GetMapping("/excluir-documento/{idSelecao}/{idDocumento}")
+	public String excluirDocumento(@PathVariable("idDocumento") Documento documento, 
+			@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
+
+		if ( documento != null ) {
+			selecao.getDocumentos().remove( documento );
+			try {
+				selecaoService.cadastrar( selecao );
+			} catch ( AuxilioMoradiaException e ) {
+				redirect.addFlashAttribute( ERRO, ErrorMessageConstants.MENSAGEM_ERRO_AO_ATUALIZAER_SELECAO );
+				return  RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+			}
+			documentoRepository.delete( documento );
+			redirect.addFlashAttribute( Constants.INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO );
+			
+			return  RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+		} else {
+			redirect.addFlashAttribute( ERRO, ErrorMessageConstants.MENSAGEM_ERRO_ANEXO );
+
+			return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
+		}
+	}
+	
+	@Secured(COORDENADOR)
 	@GetMapping("/comissao/{idSelecao}")
 	public String formGerenciarComissao(@PathVariable("idSelecao") Selecao selecao, Authentication auth, Model model) {
 		model.addAttribute( "selecao", selecao );
@@ -169,6 +213,7 @@ public class SelecaoController {
 		return PageConstants.GERENCIAR_COMISSAO;
 	}
 	
+	@Secured(COORDENADOR)
 	@PostMapping(value = "/comissao/{idSelecao}", params = {"adicionarServidor"})
 	public String adicionarMembroComissao( @PathVariable("idSelecao") Selecao selecao,
 			@RequestParam("idServidor") Servidor servidor, Model model, RedirectAttributes redirect ) {
@@ -183,6 +228,7 @@ public class SelecaoController {
 		return RedirectConstants.REDIRECT_GERENCIAR_COMISSAO + selecao.getId();
 	}
 	
+	@Secured(COORDENADOR)
 	@GetMapping("/comissao/excluir/{idSelecao}/{idServidor}")
 	public String excluirMembroComissao(@PathVariable("idSelecao") Selecao selecao, 
 			@PathVariable("idServidor") Servidor servidor, 
