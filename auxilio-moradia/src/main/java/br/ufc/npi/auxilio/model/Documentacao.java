@@ -1,5 +1,6 @@
 package br.ufc.npi.auxilio.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,6 +26,10 @@ public class Documentacao {
 	
 	@ManyToOne
 	private AnaliseDocumentacao analiseDocumentacao;
+	
+	public Documentacao() {
+		this.documentos = new ArrayList<Documento>();
+	}
 	
 	public List<Documento> getDocumentos() {
 		return documentos;

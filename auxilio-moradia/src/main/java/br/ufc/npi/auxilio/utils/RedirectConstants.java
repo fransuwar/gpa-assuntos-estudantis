@@ -17,5 +17,7 @@ public class RedirectConstants {
 	public static final String REDIRECT_GERENCIAR_COMISSAO = "redirect:/selecao/comissao/";
 
 	public static final String REDIRECT_PAGINA_ADICIONAR_ARQUIVO = "redirect:/selecao/adicionar-documento/";
+
+	public static final String REDIRECT_INSCRICAO_DOCUMENTACAO = "redirect:/documentacao/";
 	
 }

@@ -1,5 +1,6 @@
 package br.ufc.npi.auxilio.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -35,6 +36,10 @@ public class AnaliseDocumentacao {
 	
 	@ManyToMany(mappedBy = "analiseDocumentacao", cascade = CascadeType.REMOVE)
 	private List<Documentacao> documentacao;
+	
+	public AnaliseDocumentacao() {
+		this.documentacao = new ArrayList<Documentacao>();
+	}
 
 	public Integer getId() {
 		return id;

@@ -12,4 +12,6 @@ public class PageConstants {
 	
 	public static final String PAGINA_ADICIONAR_ARQUIVO = "selecao/adicionar-arquivo";
 
+	public static final String ENVIAR_DOCUMENTACAO = "inscricao/enviar-documento";
+
 }
