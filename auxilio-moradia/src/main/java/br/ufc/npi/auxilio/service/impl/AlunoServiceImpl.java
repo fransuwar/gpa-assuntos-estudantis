@@ -18,6 +18,12 @@ public class AlunoServiceImpl implements AlunoService{
 	public Aluno buscarPorCpf(String cpf) {
 		return alunoRepository.findByCpf(cpf);
 	}
+
+
+	@Override
+	public Aluno salvar(Aluno aluno) {
+		return alunoRepository.save(aluno);
+	}
 	
 	
 	

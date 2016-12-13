@@ -4,14 +4,12 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Aluno;
 import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.model.Pessoa;
 import br.ufc.npi.auxilio.model.Selecao;
 import br.ufc.npi.auxilio.repository.InscricaoRepository;
 import br.ufc.npi.auxilio.service.InscricaoService;
-import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 
 @Named
 public class InscricaoServiceImpl implements InscricaoService {
@@ -24,15 +22,18 @@ public class InscricaoServiceImpl implements InscricaoService {
 		return inscricaoRepository.findInscricaoBySelecaoAndAlunoPessoa(selecao, pessoa) != null;
 	}
 	
+	//Remover
 	@Override
-	public void salvar(Selecao selecao, Aluno aluno) throws AuxilioMoradiaException {
+	public Inscricao salvar(Selecao selecao, Aluno aluno) {
 		Inscricao inscricao = new Inscricao();
 		inscricao.setSelecao(selecao);
 		inscricao.setAluno(aluno);
-		if (inscricaoRepository.findInscricaoBySelecaoAndAlunoPessoa(selecao, aluno.getPessoa()) == null){
-			inscricaoRepository.save(inscricao);
-		}else{
-			throw new AuxilioMoradiaException(ErrorMessageConstants.ERRO_INSCRICAO_DUPLICADA);
-		}
+		return inscricaoRepository.save(inscricao);
+	}
+	///
+	
+	@Override
+	public Inscricao salvar(Inscricao inscricao) {
+		return inscricaoRepository.save(inscricao);
 	}
 }

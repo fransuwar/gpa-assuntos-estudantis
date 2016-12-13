@@ -1,13 +1,14 @@
 package br.ufc.npi.auxilio.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
-//@EntityListeners(AlunoEntityListener.class)
 public class Aluno {
 
 	@Id
@@ -19,6 +20,9 @@ public class Aluno {
 	private String curso;
 
 	private String anoIngresso;
+	
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	private DadosBancarios dadosBancarios;
 
 	@ManyToOne
 	private Pessoa pessoa;
@@ -62,7 +66,17 @@ public class Aluno {
 	public void setCurso(String curso) {
 		this.curso = curso;
 	}
+
 	
+	
+	public DadosBancarios getDadosBancarios() {
+		return dadosBancarios;
+	}
+
+	public void setDadosBancarios(DadosBancarios dadosBancarios) {
+		this.dadosBancarios = dadosBancarios;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

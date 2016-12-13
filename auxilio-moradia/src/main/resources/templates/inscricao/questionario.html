@@ -9,10 +9,13 @@
 </head>
 <body>
 	<div class="container" layout:fragment="conteudo">
-		<form th:action="@{/inscricao/__${selecao.id}__}" th:method="post">
-			<span>Confira os dados e clique em continuar.</span><br/>
+		<form th:action="@{/inscricao/__${inscricao.id}__/questionario}" th:object="${inscricao.questionarioAuxilioMoradia}" th:method="post">
+			<label for="nome-mae">Nome da Mãe</label>
+			<input id="nome-mae" th:field="*{nomeMae}" type="text"/>
+			
 			<input type="submit" value="Continuar"/>
 		</form>
 	</div>
+
 </body>
 </html>

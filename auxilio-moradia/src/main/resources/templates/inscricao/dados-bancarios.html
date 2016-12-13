@@ -4,10 +4,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="base/base">
 <head>
-<meta charset="UTF-8"/>
-<title>Insert title here</title>
+	<meta charset="UTF-8"/>
+<title>Inscrição</title>
 </head>
 <body>
-
+	<div class="container" layout:fragment="conteudo">
+		<form th:action="@{/inscricao/__${inscricao.id}__/dados-bancarios}" th:method="post" th:object="${dadosBancarios}">
+			<label for="nome-banco">Banco</label>
+			<input id="nome-banco" th:field="*{nomeBanco}" type="text"/>
+			
+			<label for="agencia-banco">Agencia</label>
+			<input id="agencia-banco" th:field="*{agenciaBanco}" type="text"/>
+			
+			<label for="numero-conta">Conta</label>
+			<input id="numero-conta" th:field="*{numeroConta}" type="text"/>
+			
+			<input type="submit" name="dados-bancarios" value="Continuar"/>
+		</form>
+	</div>
 </body>
 </html>
