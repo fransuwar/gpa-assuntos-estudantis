@@ -1,5 +1,7 @@
 package br.ufc.npi.auxilio.model;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -480,5 +482,43 @@ public class QuestionarioAuxilioMoradia {
 		return true;
 	}
 
+	
+//	public void setHistorico(QuestionarioAuxilioMoradia novo){
+//		ensinoFundamental = novo.ensinoFundamental;
+//		percentualFundamental = novo.percentualFundamental;
+//		ensinoMedio = novo.getEnsinoMedio();
+//		percentualMedio = novo.percentualMedio;
+//		cursinho = novo.isCursinho();
+//		nomeCursinho = novo.getNomeCursinho();
+//		bolsistaUfc = novo.isBolsistaUfc();
+//		
+//	}
+	
+	public void merge(Object update){
+	    if(!this.getClass().isAssignableFrom(update.getClass())){
+	        return;
+	    }
+
+	    Method[] methods = this.getClass().getMethods();
+
+	    for(Method fromMethod: methods){
+	        if(fromMethod.getDeclaringClass().equals(this.getClass())
+	                && fromMethod.getName().startsWith("get")){
+
+	            String fromName = fromMethod.getName();
+	            String toName = fromName.replace("get", "set");
+
+	            try {
+	                Method toMetod = this.getClass().getMethod(toName, fromMethod.getReturnType());
+	                Object value = fromMethod.invoke(update, (Object[])null);
+	                if(value != null){
+	                    toMetod.invoke(this, value);
+	                }
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            } 
+	        }
+	    }
+	}
 	
 }

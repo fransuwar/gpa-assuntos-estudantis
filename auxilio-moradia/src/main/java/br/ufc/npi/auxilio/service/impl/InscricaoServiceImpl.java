@@ -22,15 +22,17 @@ public class InscricaoServiceImpl implements InscricaoService {
 		return inscricaoRepository.findInscricaoBySelecaoAndAlunoPessoa(selecao, pessoa) != null;
 	}
 	
-	//Remover
 	@Override
 	public Inscricao salvar(Selecao selecao, Aluno aluno) {
-		Inscricao inscricao = new Inscricao();
-		inscricao.setSelecao(selecao);
-		inscricao.setAluno(aluno);
-		return inscricaoRepository.save(inscricao);
+		Inscricao old = inscricaoRepository.findInscricaoBySelecaoAndAlunoPessoa(selecao, aluno.getPessoa());
+		if (old == null){
+			Inscricao inscricao = new Inscricao();
+			inscricao.setSelecao(selecao);
+			inscricao.setAluno(aluno);
+			return inscricaoRepository.save(inscricao);
+		}
+		return old;
 	}
-	///
 	
 	@Override
 	public Inscricao salvar(Inscricao inscricao) {

@@ -9,10 +9,14 @@
 </head>
 <body>
 	<div class="container" layout:fragment="conteudo">
-		<form th:action="@{/inscricao/__${inscricao.id}__/questionario}" th:object="${questionarioAuxilioMoradia}" th:method="post">
-			<label for="nome-mae">Nome da Mãe</label>
-			<input id="nome-mae" th:field="*{nomeMae}" type="text"/>
-			
+		<form th:action="@{/inscricao/__${inscricao.id}__/historico}" th:object="${questionarioAuxilioMoradia}" th:method="post">
+			<label for="ensino-fundamental">Ensino Fundamental</label>
+			<select id="ensino-fundamental" th:field="*{ensinoFundamental}" >
+				<option th:each="tipo : ${tipoEnsino}"
+						th:value="${tipo}"
+						th:text="${tipo.nome}">
+				</option>
+			</select>
 			<input type="submit" value="Continuar"/>
 		</form>
 	</div>
