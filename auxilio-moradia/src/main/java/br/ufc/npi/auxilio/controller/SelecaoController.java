@@ -189,7 +189,6 @@ public class SelecaoController {
 				} catch (IOException e)	{
 					
 					redirect.addFlashAttribute(ALERTA, AlertSet.createError(ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS));
-					return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 					
 				}
 			} 

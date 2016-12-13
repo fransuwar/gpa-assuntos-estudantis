@@ -253,14 +253,21 @@ var mf_base = function() {
     }
     
     initBinding = function() {
+        var analyzeElement = function(el, target) {
+            if(target.val())
+                el.show();
+            else
+                el.hide();
+        };
+
     	$('[data-show-if!=""]').each(function(_, el) {
-    		if($(el).data("show-if") !== undefined)
-    		$($(el).data("show-if")).change(function() {
-    			if($(this).val())
-    				$(el).show();
-    			else
-    				$(el).hide();
-    		});
+    		if($(el).data("show-if") !== undefined) {
+                $($(el).data("show-if")).change(function() {
+                    analyzeElement($(el), $($(el).data("show-if")));
+                });
+                analyzeElement($(el), $($(el).data("show-if")));
+            }
+                
     	});
     }
 

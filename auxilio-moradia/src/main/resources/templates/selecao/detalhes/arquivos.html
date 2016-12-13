@@ -30,7 +30,11 @@
 	<div class="card-action no-padding">
        	
     	<div class="file-field">
-    		<button data-show-if="#file" class="btn-floating top-right btn-large waves-effect waves-light" style="height: 55.5px">
+    		<button 
+    			data-hide-if="#file" 
+    			class="btn-floating top-right btn-large waves-effect waves-light tooltipped"
+    			data-tooltip="Selecionar arquivos para enviar"
+    			style="height: 55.5px">
     			<i class="material-icons">file_upload</i>
 	    		<input type="file" id="file" name="files" multiple="multiple" />
     		</button>
@@ -41,9 +45,9 @@
      		</div>
     	</div>
        	
-		<button data-hide-if="#file" class="btn-floating top-right btn-large waves-effect waves-light tooltipped"
+		<button data-show-if="#file" class="btn-floating top-right btn-large waves-effect waves-light tooltipped"
 			type="submit"
-			data-tooltip="Editar">
+			data-tooltip="Enviar">
 			<i class="material-icons">check</i>
 		</button>
 	
