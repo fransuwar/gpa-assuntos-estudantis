@@ -1,6 +1,5 @@
 package br.ufc.npi.auxilio.model;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -482,17 +481,6 @@ public class QuestionarioAuxilioMoradia {
 		return true;
 	}
 
-	
-//	public void setHistorico(QuestionarioAuxilioMoradia novo){
-//		ensinoFundamental = novo.ensinoFundamental;
-//		percentualFundamental = novo.percentualFundamental;
-//		ensinoMedio = novo.getEnsinoMedio();
-//		percentualMedio = novo.percentualMedio;
-//		cursinho = novo.isCursinho();
-//		nomeCursinho = novo.getNomeCursinho();
-//		bolsistaUfc = novo.isBolsistaUfc();
-//		
-//	}
 	
 	public void merge(Object update){
 	    if(!this.getClass().isAssignableFrom(update.getClass())){

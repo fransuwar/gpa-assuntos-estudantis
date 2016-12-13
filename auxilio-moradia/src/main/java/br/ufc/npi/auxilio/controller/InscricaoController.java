@@ -3,13 +3,13 @@ package br.ufc.npi.auxilio.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.ufc.npi.auxilio.enums.GrauParentesco;
 import br.ufc.npi.auxilio.enums.TipoEnsino;
 import br.ufc.npi.auxilio.model.Aluno;
 import br.ufc.npi.auxilio.model.DadosBancarios;
@@ -17,9 +17,7 @@ import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.model.QuestionarioAuxilioMoradia;
 import br.ufc.npi.auxilio.model.Selecao;
 import br.ufc.npi.auxilio.service.AlunoService;
-import br.ufc.npi.auxilio.service.DadosBancariosService;
 import br.ufc.npi.auxilio.service.InscricaoService;
-import br.ufc.npi.auxilio.service.QuestionarioAuxilioMoradiaService;
 
 @Controller
 @RequestMapping("inscricao")
@@ -63,8 +61,9 @@ public class InscricaoController {
 	
 	@GetMapping("{idInscricao}/questionario")
 	public ModelAndView inscreverQuestionario(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao){
-		mav.addObject("questionarioAuxilioMoradia", new QuestionarioAuxilioMoradia());
+		mav.addObject("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
 		mav.addObject("inscricao", inscricao);
+		mav.addObject("moraCom", GrauParentesco.values());
 		mav.setViewName("inscricao/questionario");
 		return mav;
 	}
@@ -91,12 +90,28 @@ public class InscricaoController {
 	public ModelAndView inscreverHistorico(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao, 
 			QuestionarioAuxilioMoradia questionarioAuxilioMoradia){
 		inscricao.getQuestionarioAuxilioMoradia().merge(questionarioAuxilioMoradia);
-//		inscricao.setQuestionarioAuxilioMoradia(questionarioAuxilioMoradia);
 		inscricaoService.salvar(inscricao);
-		mav.setViewName("redirect:/");
+		mav.setViewName(String.format("redirect:/inscricao/%1d/situacao-socio-economica", inscricao.getId()));
 		return mav;		
 	}
-
+	
+	@GetMapping("{idInscricao}/situacao-socio-economica")
+	public ModelAndView inscreverSituacaoSocioEconomica(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao){
+		mav.addObject("inscricao", inscricao);
+		mav.addObject("questionarioAuxilioMoradia", inscricao.getQuestionarioAuxilioMoradia());
+		mav.setViewName("inscricao/situacao-socio-economica");
+		return mav;		
+	}
+	
+	@PostMapping("{idInscricao}/situacao-socio-economica")
+	public ModelAndView inscreverSituacaoSocioEconomica(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao, 
+			QuestionarioAuxilioMoradia questionarioAuxilioMoradia){
+		inscricao.getQuestionarioAuxilioMoradia().merge(questionarioAuxilioMoradia);
+		inscricaoService.salvar(inscricao);
+		mav.setViewName(String.format("redirect:/documentacao/%1d", inscricao.getId()));
+		return mav;		
+	}
+	
 }
 
 

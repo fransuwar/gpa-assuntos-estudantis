@@ -9,13 +9,9 @@
 </head>
 <body>
 	<div class="container" layout:fragment="conteudo">
-		<form th:action="@{/inscricao/__${inscricao.id}__/questionario}" th:object="${questionarioAuxilioMoradia}" th:method="post">
-			<label>Mora com</label>
-			 <input type="checkbox" th:field="*{morador}" />
-			
-			<label for="nome-mae">Nome da Mãe</label>
-			<input id="nome-mae" th:field="*{nomeMae}" type="text"/><br/>
-			
+		<form th:action="@{/inscricao/__${inscricao.id}__/situacao-socio-economica}" th:object="${questionarioAuxilioMoradia}" th:method="post">
+			<label for="justifcativa">Justificativa</label>
+			<input id="justificativa" th:type="text" th:value="*{justificativa}"/>
 			<input type="submit" value="Continuar"/>
 		</form>
 	</div>
