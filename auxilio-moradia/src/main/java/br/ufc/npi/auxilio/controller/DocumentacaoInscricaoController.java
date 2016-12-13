@@ -1,11 +1,13 @@
 package br.ufc.npi.auxilio.controller;
 
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
+import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +29,11 @@ import br.ufc.npi.auxilio.repository.DocumentacaoRepository;
 import br.ufc.npi.auxilio.repository.DocumentoRepository;
 import br.ufc.npi.auxilio.repository.InscricaoRepository;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
+import br.ufc.npi.auxilio.utils.Constants;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
+import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
 
 @Controller
 @RequestMapping("/documentacao")
@@ -50,12 +54,14 @@ public class DocumentacaoInscricaoController {
 	@Autowired
 	private AnaliseDocumentacaoRepository analiseDocumentacaoRepository;
 	
+	@Secured(ALUNO)
 	@GetMapping("/{idInscricao}")
 	public String formDocumentacao( @PathVariable("idInscricao") Inscricao inscricao, Model model ) {
 		model.addAttribute("inscricao", inscricao);
 		return PageConstants.ENVIAR_DOCUMENTACAO;
 	}
 	
+	@Secured(ALUNO)
 	@PostMapping("/{idInscricao}")
 	public String adicionarDocumentacao( @RequestParam("files") List<MultipartFile> files,
 			@PathVariable("idInscricao") Inscricao inscricao, 
@@ -103,16 +109,22 @@ public class DocumentacaoInscricaoController {
 			inscricaoRepository.save(inscricao);
 		}
 		
+		redirect.addFlashAttribute(Constants.INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO);
+		
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 	}
 	
+	@Secured(ALUNO)
 	@GetMapping("/inscricao/{idInscricao}/documentacao/{idDocumentacao}/excluir-documento/{idDocumento}")
 	public String excluirDocumentoDaInscricao(@PathVariable("idInscricao") Inscricao inscricao,
 			@PathVariable("idDocumentacao") Documentacao documentacao,
-			@PathVariable("idDocumento") Documento documento) {
+			@PathVariable("idDocumento") Documento documento,
+			RedirectAttributes redirect) {
 		documentacao.getDocumentos().remove(documento);
 		documentacaoRepository.save(documentacao);
 		documentoRepository.delete(documento);
+		
+		redirect.addFlashAttribute(Constants.INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO);
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 	}
 	

@@ -10,7 +10,7 @@ public class RedirectConstants {
 	
 	public static final String REDIRECT_DETALHES_SELECAO = "redirect:/selecao/detalhes/";
 	
-	public static final String REDIRECT_ERROR_TAMANHO_ARQUIVO_EXCEDIDO = "forward:/error/arquivoLimiteExcedido/";
+	public static final String REDIRECT_ERROR_TAMANHO_ARQUIVO_EXCEDIDO = "forward:/error/selecao/limite-excedido/";
 	
 	public static final String REDIRECT_ERROR = "redirect:/error";
 
@@ -19,5 +19,7 @@ public class RedirectConstants {
 	public static final String REDIRECT_PAGINA_ADICIONAR_ARQUIVO = "redirect:/selecao/adicionar-documento/";
 
 	public static final String REDIRECT_INSCRICAO_DOCUMENTACAO = "redirect:/documentacao/";
+
+	public static final String REDIRECT_ERROR_TAMANHO_ARQUIVO_EXCEDIDO_INSCRICAO = "forward:/error/inscricao/limite-excedido/";
 	
 }
