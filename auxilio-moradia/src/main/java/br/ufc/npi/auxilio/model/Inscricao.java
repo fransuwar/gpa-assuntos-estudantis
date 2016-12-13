@@ -47,7 +47,7 @@ public class Inscricao implements Comparable<Inscricao>{
 	private Entrevista entrevista;
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-	private AnaliseDocumentacao documentacao;
+	private AnaliseDocumentacao analiseDocumentacao;
 
 	private boolean realizarVisita;
 	
@@ -148,12 +148,12 @@ public class Inscricao implements Comparable<Inscricao>{
 	}
 	
 
-	public AnaliseDocumentacao getDocumentacao() {
-		return documentacao;
+	public AnaliseDocumentacao getAnaliseDocumentacao() {
+		return analiseDocumentacao;
 	}
 
-	public void setDocumentacao(AnaliseDocumentacao documentacao) {
-		this.documentacao = documentacao;
+	public void setAnaliseDocumentacao(AnaliseDocumentacao documentacao) {
+		this.analiseDocumentacao = documentacao;
 	}
 
 	@Override
