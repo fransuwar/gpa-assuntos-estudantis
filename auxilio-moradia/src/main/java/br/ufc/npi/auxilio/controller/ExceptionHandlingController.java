@@ -1,7 +1,5 @@
 package br.ufc.npi.auxilio.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.tomcat.util.http.fileupload.FileUploadBase.FileSizeLimitExceededException;
@@ -26,6 +24,11 @@ public class ExceptionHandlingController extends ResponseEntityExceptionHandler 
 				String[] url = request.getRequestURL().toString().split("/");
 				Integer idSelecao = Integer.valueOf( url[url.length-1] );
 				return RedirectConstants.REDIRECT_ERROR_TAMANHO_ARQUIVO_EXCEDIDO + idSelecao;
+			}
+			if( request.getRequestURL().toString().contains("/documentacao") ) {
+				String[] url = request.getRequestURL().toString().split("/");
+				Integer idInscricao = Integer.valueOf( url[url.length-1] );
+				return RedirectConstants.REDIRECT_ERROR_TAMANHO_ARQUIVO_EXCEDIDO_INSCRICAO + idInscricao;
 			}
 		}
 		return RedirectConstants.REDIRECT_ERROR;
