@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base/base">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cadastrar Seleção</title>
+</head>
+<body>
+	<!-- Page Content -->
+	<div class="container" layout:fragment="conteudo">
+    	<!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>Gerenciar Comissão</h1>
+        <ol class="breadcrumb">
+          <li><a th:href="@{/}"><i class="fa fa-home"></i> Início</a></li>
+          <li><a th:href="@{/selecao/listar}"> Seleções</a></li>
+          <li class="active">Comissão</li>
+        </ol>
+      </section>
+      
+      <section class="content">
+      	<div class="box box-primary">
+      		<form role="form" th:action="@{/selecao/comissao/__${selecao.id}__}" th:object="${selecao}" method="post">
+      			<div class="box-body">
+      				<div class="row">
+      					<div class="form-group col-xs-5">
+		                  <label for="ano">* Membro</label>
+		                  <div class="input-group">		                  
+			                  <select name="idServidor">
+			                  	<option th:each="servidor : ${servidores}" th:if="${servidor.id} != ${coordenador.id}"
+			                  	th:value="${servidor.id}" th:text="${servidor.pessoa.nome}"></option>
+			                  </select>
+			                  
+			                  <div class="input-group-btn">
+			                	<button type="submit" class="btn btn-primary" name="adicionarServidor">
+			                		<i class="fa fa-plus"></i>
+			                	</button>
+			                  </div>
+		                  </div>
+		                </div>
+      				</div>
+      			</div>
+      			
+      			<div class="box-body">
+	      			<div th:if="*{#lists.isEmpty(comissao)}">
+	      				<div class="alert alert-warning">
+		                	Não há comissão cadastradas.
+	              		</div>
+	      			</div>
+	
+		      		<div th:unless="*{#lists.isEmpty(comissao)}">
+		      			<ul class="todo-list">
+		      				<li th:each="servidor : *{comissao}">
+		      					<span class="text" th:text="${servidor.pessoa.nome}"></span>
+		      					<div class="tools">
+		      						<a th:if="${servidor.id} != ${coordenador.id}" th:href="@{/selecao/comissao/excluir/__*{id}__/__${servidor.id}__}">
+		      							<i class="fa fa-trash-o"></i>
+		      						</a>
+		      					</div>
+		      				</li>
+		      			</ul>
+		      		</div>
+      			</div>
+      			
+      			<div class="box-footer">
+					<a th:href="@{/selecao}" class="btn btn-default pull-right">Cancelar</a>
+				</div>
+      		</form>
+      		
+      	</div>
+      </section>
+	</div>
+	
+	<section layout:fragment="js">
+    	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
+    </section>
+    
+</body>
+</html>

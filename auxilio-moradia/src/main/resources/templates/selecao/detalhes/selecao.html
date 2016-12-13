@@ -9,22 +9,22 @@
 		
 		<div class="row no-margin">
 		
-			<div class="col l3 m4 s6">
+			<div class="col l6 m6 s12">
 				<span class="bold grey-text text-darken-2">Ano:</span> <br/>
 				<span th:text="${selecao.ano}" class="text-20 light limit" data-max-length="10"></span>
 			</div>
 			
-			<div class="col l3 m4 s6">
+			<div class="col l6 m6 s12">
 				<span class="bold grey-text text-darken-2">Vagas:</span> <br/>
 				<span th:text="${selecao.quantidadeVagas}" class="text-20 light limit" data-max-length="10"></span>
 			</div>
 			
-			<div class="col l3 m4 s6">
+			<div class="col l6 m6 s12">
 				<span class="bold grey-text text-darken-2">Início:</span> <br/>
 				<span th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')}" class="text-20 light limit" data-max-length="10"></span>
 			</div>
 			
-			<div class="col l3 m4 s6">
+			<div class="col l6 m6 s12">
 				<span class="bold grey-text text-darken-2">Término:</span> <br/>
 				<span th:text="${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light limit" data-max-length="10"></span>
 			</div>

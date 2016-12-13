@@ -1,3 +1,51 @@
-<div class="card" th:fragment="arquivos">
-	<div class="card-content"> arquivos... </div>		
-</div>
+<form th:action="@{/selecao/adicionar-documento/__${selecao.id}__}" 
+	method="post" 
+    enctype="multipart/form-data"
+    class="card" 
+    th:fragment="arquivos">
+
+	<div class="card-content">
+	
+		<div class="row">
+			<span class="bold grey-text text-darken-2">Arquivos:</span> <br/>
+			<div class="col l4 m6 s12" th:each="doc : ${selecao.documentos}">
+				
+				<div class="card">
+					<div class="card-image indigo lighten-3 center">
+						<i class="material-icons text-96">description</i>
+					</div>
+					<div class="card-action valign-wrapper">
+						<span class="" th:text="${doc.nome}"></span>
+						<a th:href="@{/selecao/excluir-documento/__${selecao.id}__/__${doc.id}__}" class="btn-icon waves-effect">
+							<i class="material-icons">delete</i>
+						</a>
+					</div>
+				</div>
+				
+			</div>
+		</div>	
+	
+	</div>
+
+	<div class="card-action no-padding">
+       	
+    	<div class="file-field">
+    		<button data-show-if="#file" class="btn-floating top-right btn-large waves-effect waves-light" style="height: 55.5px">
+    			<i class="material-icons">file_upload</i>
+	    		<input type="file" id="file" name="files" multiple="multiple" />
+    		</button>
+    		<div class="card-content">
+	    		<div class="file-path-wrapper no-padding">
+	       			<input class="file-path validate" readonly="true" type="text"/>
+	     		</div>
+     		</div>
+    	</div>
+       	
+		<button data-hide-if="#file" class="btn-floating top-right btn-large waves-effect waves-light tooltipped"
+			type="submit"
+			data-tooltip="Editar">
+			<i class="material-icons">check</i>
+		</button>
+	
+	</div>
+</form>

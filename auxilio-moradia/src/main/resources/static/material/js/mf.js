@@ -251,6 +251,18 @@ var mf_base = function() {
         	$('form:first *:input[type!=hidden]:first').parent().find("label").addClass("active");    		
     	}, 100);
     }
+    
+    initBinding = function() {
+    	$('[data-show-if!=""]').each(function(_, el) {
+    		if($(el).data("show-if") !== undefined)
+    		$($(el).data("show-if")).change(function() {
+    			if($(this).val())
+    				$(el).show();
+    			else
+    				$(el).hide();
+    		});
+    	});
+    }
 
     return {
         
@@ -265,6 +277,7 @@ var mf_base = function() {
             initDataTables();
             initLimit();
             initInputFocus();
+            initBinding();
             
             hideForeground();            
         },

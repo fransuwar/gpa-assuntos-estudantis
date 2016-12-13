@@ -4,6 +4,12 @@ public class Constants {
 	
 	/* Mensagens do sistema */
     public static final String ALERTA = "alerta";
+    
+    /* Tipos ação de página */
+    public static final String ACAO = "acao";
+    public static final String CADASTRAR = "Cadastrar";
+    public static final String EDITAR = "Editar";
+    
 
     /* Papéis */
     public static final String COORDENADOR = "COORDENADOR";
