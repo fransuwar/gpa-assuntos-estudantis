@@ -1,5 +1,7 @@
 package br.ufc.npi.auxilio.controller;
 
+import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.annotation.Secured;
@@ -17,8 +19,6 @@ import br.ufc.npi.auxilio.utils.Constants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
-
-import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
 
 @Controller
 @RequestMapping("/documentacao")
@@ -43,11 +43,11 @@ public class DocumentacaoController {
 			try {
 				documentacaoService.salvar(tipoDocumento);
 			} catch (DataIntegrityViolationException e) {
-				redirect.addFlashAttribute(Constants.ERRO, "Documento já existe!");
+				redirect.addFlashAttribute(Constants.ALERTA, "Documento já existe!");
 				return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 			}
 		}
-		redirect.addFlashAttribute(Constants.INFO, "Documento cadastrado com sucesso!");
+		redirect.addFlashAttribute(Constants.ALERTA, "Documento cadastrado com sucesso!");
 		return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
 	
@@ -59,9 +59,9 @@ public class DocumentacaoController {
 		if (tipoDocumento != null){
 			try {
 				documentacaoService.excluirTipoDocumento(tipoDocumento.getId());
-				redirect.addFlashAttribute(Constants.INFO, SuccessMessageConstants.MSG_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
+				redirect.addFlashAttribute(Constants.ALERTA, SuccessMessageConstants.MSG_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
 			} catch(Exception e){
-				redirect.addFlashAttribute(Constants.ERRO, SuccessMessageConstants.MSG_ERRO_TIPO_DOCUMENTO_EM_USO);
+				redirect.addFlashAttribute(Constants.ALERTA, SuccessMessageConstants.MSG_ERRO_TIPO_DOCUMENTO_EM_USO);
 			}
 		}
 		return  RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;

@@ -1,10 +1,15 @@
 package br.ufc.npi.auxilio.controller;
 
+import static br.ufc.npi.auxilio.utils.Constants.ALERTA;
+import static br.ufc.npi.auxilio.utils.Constants.ACAO;
+import static br.ufc.npi.auxilio.utils.Constants.EDITAR;
+import static br.ufc.npi.auxilio.utils.Constants.CADASTRAR;
 import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
-import static br.ufc.npi.auxilio.utils.Constants.ERRO;
-import static br.ufc.npi.auxilio.utils.Constants.INFO;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.npi.auxilio.utils.PageConstants.CADASTRAR_SELECAO;
+import static br.ufc.npi.auxilio.utils.PageConstants.DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
+import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SELECAO_CADASTRADA;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_SELECAO_REMOVIDA;
 
@@ -39,11 +44,11 @@ import br.ufc.npi.auxilio.service.InscricaoService;
 import br.ufc.npi.auxilio.service.PessoaService;
 import br.ufc.npi.auxilio.service.SelecaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
-import br.ufc.npi.auxilio.utils.Constants;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
+import br.ufc.npi.auxilio.utils.alert.AlertSet;
 
 @Controller
 @RequestMapping("/selecao")
@@ -76,7 +81,7 @@ public class SelecaoController {
 	@Secured(COORDENADOR)
 	@GetMapping("/cadastrar")
 	public String cadastrarSelecaoForm(Model model) {
-		model.addAttribute("acao", "Cadastrar");
+		model.addAttribute(ACAO, CADASTRAR);
 		model.addAttribute("selecao", new Selecao());
 		
 		return CADASTRAR_SELECAO;
@@ -88,12 +93,13 @@ public class SelecaoController {
 			@RequestParam("tiposDocumento") List<TipoDocumento> tiposDeDocumento) {
 		selecao.setResponsavel(servidorService.getByCpf(auth.getName()));
 		selecao.addAllTiposDeDocumento(tiposDeDocumento);
+		
 		try {
 			selecaoService.cadastrar(selecao);
-			redirect.addFlashAttribute(INFO, MSG_SELECAO_CADASTRADA);
+			redirect.addFlashAttribute(ALERTA, AlertSet.createInfo(MSG_SELECAO_CADASTRADA));
 			return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
-			model.addAttribute(ERRO, e.getMessage());
+			model.addAttribute(ALERTA, AlertSet.createInfo(e.getMessage()));
 			return CADASTRAR_SELECAO;
 		}
 	}
@@ -101,12 +107,24 @@ public class SelecaoController {
 	@Secured(COORDENADOR)
 	@GetMapping("/excluir/{selecao}")
 	public String excluirSelecao(@PathVariable Selecao selecao, RedirectAttributes redirect) {
-		try {
-			selecaoService.excluir(selecao);
-			redirect.addFlashAttribute(INFO, MSG_SUCESSO_SELECAO_REMOVIDA);
-		} catch (AuxilioMoradiaException e) {
-			redirect.addFlashAttribute(ERRO, e.getMessage());
+		
+		// Se a seleção não existe
+		if (selecao == null) {
+			// Avisa ao usuário...
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(MENSAGEM_ERRO_SELECAO_INEXISTENTE));
+		} else {
+			
+			try {
+				// Tenta excluir a seleção
+				selecaoService.excluir(selecao);
+				// Avisa ao usuário do sucesso da remoção
+				redirect.addFlashAttribute(ALERTA, AlertSet.createSuccess(MSG_SUCESSO_SELECAO_REMOVIDA));
+			} catch (AuxilioMoradiaException e) {
+				// Avisa ao usuário do erro na remoção
+				redirect.addFlashAttribute(ALERTA, AlertSet.createError(e.getMessage()));
+			}
 		}
+		
 		return REDIRECT_LISTAR_SELECAO;
 	}
 	
@@ -115,8 +133,10 @@ public class SelecaoController {
 	public String editarSelecao(@PathVariable Selecao selecao, Model model,
 			RedirectAttributes redirect) {
 		
-		if (selecao != null) {
-			model.addAttribute("acao", "Editar");
+		if (selecao == null) {
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(MENSAGEM_ERRO_SELECAO_INEXISTENTE));
+		} else {
+			model.addAttribute(ACAO, EDITAR);
 			model.addAttribute("selecao", selecao);
 			
 			return CADASTRAR_SELECAO;
@@ -125,29 +145,30 @@ public class SelecaoController {
 	}
 	
 	@GetMapping("detalhes/{selecao}")
-	public ModelAndView detalhes(@PathVariable Selecao selecao, ModelAndView mav, Authentication auth){
-		mav.addObject("selecao", selecao);
-		mav.setViewName("selecao/detalhes");
-		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
-		mav.addObject("inscrito", inscricaoService.estaInscrito(pessoa, selecao));
-		return mav;
-	}
+	public ModelAndView detalhes(@PathVariable Selecao selecao, Authentication auth, RedirectAttributes redirect){
 	
-	@Secured(COORDENADOR)
-	@GetMapping(value = "/adicionar-documento/{idSelecao}")
-	public String adicionarDocumento( @PathVariable("idSelecao") Selecao selecao, Model model ) {
-
-		if ( selecao != null ) {
-			model.addAttribute("selecao", selecao);
+		if (selecao == null) {
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(MENSAGEM_ERRO_SELECAO_INEXISTENTE));
+			return new ModelAndView(REDIRECT_LISTAR_SELECAO);
 		}
-
-		return PageConstants.PAGINA_ADICIONAR_ARQUIVO;
+		
+		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
+		
+		return new ModelAndView(DETALHES_SELECAO)
+				.addObject("selecao", selecao)
+				.addObject("inscrito", inscricaoService.estaInscrito(pessoa, selecao));
+		
 	}
 	
 	@Secured(COORDENADOR)
 	@PostMapping("/adicionar-documento/{idSelecao}")
 	public String adicionarDocumento( @RequestParam("files") List<MultipartFile> files,
 			@PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect ) {
+		
+		if (selecao == null) {
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(MENSAGEM_ERRO_SELECAO_INEXISTENTE));
+			return REDIRECT_LISTAR_SELECAO;
+		}
 		
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
 			for (MultipartFile mfiles : files) {
@@ -166,9 +187,9 @@ public class SelecaoController {
 						selecao.getDocumentos().add(documento);
 					}
 				} catch (IOException e)	{
-					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
-
-					return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+					
+					redirect.addFlashAttribute(ALERTA, AlertSet.createError(ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS));
+					
 				}
 			} 
 		}
@@ -176,32 +197,37 @@ public class SelecaoController {
 		try {
 			selecaoService.cadastrar(selecao);
 		} catch (AuxilioMoradiaException e) {
-			redirect.addFlashAttribute(ERRO, e.getMessage());
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(e.getMessage()));
 		}
 
-		return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+		return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 	}
 	
 	@GetMapping("/excluir-documento/{idSelecao}/{idDocumento}")
 	public String excluirDocumento(@PathVariable("idDocumento") Documento documento, 
 			@PathVariable("idSelecao") Selecao selecao, Model model, RedirectAttributes redirect) {
 
+		if (selecao == null) {
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(MENSAGEM_ERRO_SELECAO_INEXISTENTE));
+			return REDIRECT_LISTAR_SELECAO;
+		}
+		
 		if ( documento != null ) {
 			selecao.getDocumentos().remove( documento );
 			try {
 				selecaoService.cadastrar( selecao );
 			} catch ( AuxilioMoradiaException e ) {
-				redirect.addFlashAttribute( ERRO, ErrorMessageConstants.MENSAGEM_ERRO_AO_ATUALIZAER_SELECAO );
-				return  RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+				redirect.addFlashAttribute( ALERTA, AlertSet.createError(ErrorMessageConstants.MENSAGEM_ERRO_AO_ATUALIZAER_SELECAO) );
+				return  RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 			}
 			documentoRepository.delete( documento );
-			redirect.addFlashAttribute( Constants.INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO );
+			redirect.addFlashAttribute( ALERTA,  AlertSet.createSuccess(SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO) );
 			
-			return  RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+			return  RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 		} else {
-			redirect.addFlashAttribute( ERRO, ErrorMessageConstants.MENSAGEM_ERRO_ANEXO );
+			redirect.addFlashAttribute( ALERTA, AlertSet.createError(ErrorMessageConstants.MENSAGEM_ERRO_ANEXO) );
 
-			return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO;
+			return RedirectConstants.REDIRECT_DETALHES_SELECAO;
 		}
 	}
 	
@@ -221,7 +247,7 @@ public class SelecaoController {
 		try {
 			selecaoService.cadastrar(selecao);
 		} catch (AuxilioMoradiaException e) {
-			redirect.addFlashAttribute(Constants.ERRO, e.getMessage());
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(e.getMessage()));
 			return RedirectConstants.REDIRECT_GERENCIAR_COMISSAO + selecao.getId();
 		}
 		redirect.addFlashAttribute("selecao", selecao);
@@ -241,11 +267,11 @@ public class SelecaoController {
 			try {
 				selecaoService.cadastrar(selecao);
 			} catch (AuxilioMoradiaException e) {
-				redirect.addFlashAttribute(ERRO, e.getMessage());
+				redirect.addFlashAttribute(ALERTA, AlertSet.createError(e.getMessage()));
 			}
-			redirect.addFlashAttribute(INFO, SuccessMessageConstants.MSG_SUCESSO_MEMBRO_EXCLUIDO);
+			redirect.addFlashAttribute(ALERTA, AlertSet.createSuccess(SuccessMessageConstants.MSG_SUCESSO_MEMBRO_EXCLUIDO));
 		} else {
-			redirect.addFlashAttribute(ERRO, ErrorMessageConstants.ERRO_COMISSAO_EXCLUIR_COORDENADOR);
+			redirect.addFlashAttribute(ALERTA, AlertSet.createError(ErrorMessageConstants.MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR));
 		}
 		
 		return RedirectConstants.REDIRECT_GERENCIAR_COMISSAO + selecao.getId();

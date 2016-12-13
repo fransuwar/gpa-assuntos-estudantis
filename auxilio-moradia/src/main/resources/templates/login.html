@@ -1,52 +1,111 @@
 <!DOCTYPE html>
-<html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
+<html xmlns:th="http://www.thymeleaf.org">
 
-    <title>Login</title>
-    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/gpa-icone.jpg}"/>
-
-    <!-- Bootstrap 3.3.6 -->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <!-- Font Awesome -->
-  	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css}"/>
-  	<!-- Ionicons -->
-  	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css}"/>
-    <!-- Theme style -->
-  	<link rel="stylesheet" th:href="@{/css/AdminLTE.min.css}"/>
-    <!-- Custom CSS -->
-    <link th:href="@{/css/style.css}" rel="stylesheet"/>
-</head>
-<body class="hold-transition login-page">
-	<div class="login-box">
-	  <div class="login-logo">
-	    <a href="../../index2.html"><b>Auxílio Moradia</b></a>
-	  </div>
-	  <div class="login-box-body">
-	    <p class="login-box-msg">Login</p>
+	<head>
 	
-	    <form th:action="@{/login}" method="post">
-	      <div class="form-group has-feedback input-group">
-	        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-	        <input type="text" class="form-control" placeholder="CPF" name="username"/>
-	      </div>
-	      <div class="form-group has-feedback input-group">
-	        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-	        <input type="password" class="form-control" placeholder="Senha" name="password"/>
-	      </div>
-	      <div class="row">
-	        <div class="col-xs-12">
-	          <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-	        </div>
-	      </div>
-	    </form>
-	  </div>
-	</div>
-
-	<!-- jQuery -->
-    <script th:src="@{/js/jquery-2.2.3.min.js}"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-</body>
+		<title>Clínicas - Login</title>
+		
+		<!-- BEGIN META -->
+		
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Sistema de Gerenciamento de Estoque das Clínicas de Odontologia da UFC" />
+		
+		<!-- END META -->
+		
+		
+		<!-- BEGIN STYLESHEETS -->
+		
+		<link rel="stylesheet" type="text/css" th:href="@{/material/materialize/fonts/icons/material-icons.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/material/materialize/fonts/icons/material-icons-google.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/material/materialize/css/materialize.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf-helpers.css}"/>
+		
+		<link rel="stylesheet" type="text/css" th:href="@{/css/login/login.css}"/>
+		
+		<!-- END STYLESHEETS -->
+		
+		
+	</head>
+	
+	<body class="grey lighten-3">
+		
+		<div class="login__background-top blue darken-3"></div>
+		
+		<!-- BEGIN LOGIN SECTION -->
+		
+		<div class="login__card-wrapper valign-wrapper">
+			
+			<form class="login__card card" th:action="@{/login}" method="post">
+			
+				<div class="login__card-image card-image blue darken-1">
+					
+					<i th:unless="${param.error}" class="login__card-image-icon material-icons blue-text text-lighten-3">person</i>
+					<i th:if="${param.error}" class="login__card-image-icon mdi mdi-account-alert blue-text text-lighten-3"></i>
+									
+				</div>
+				
+				<div class="login__card-content card-content valign-wrapper">
+					
+					<div class="row no-margin">
+						
+						<div class="col s12 col s12 red-text text-lighten-2 bold text-18 self-sampled center" th:if="${param.error}">
+							Login ou senha incorreta!
+						</div>
+						
+						<!-- INPUT USERNAME -->
+						<div class="input-field col s12">
+							<input id="username" name="username" type="text" class=""/>
+							<label for="username">Email</label>
+						</div>
+						
+						<!-- INPUT PASSWORD -->
+						<div class="input-field col s12">
+							<input id="password" name="password" type="password" class="" autocomplete="off"/>
+							<label for="password">Senha</label>
+						</div>
+						
+						<div class="col s12">
+							<!-- SIBMIT BUTTON -->
+							<button type="submit" class="btn-large block waves-effect waves-light">
+								Entrar
+							</button>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="card-action right-align">
+					<a href="usuario/recuperarSenha" class="btn-flat waves-effect ">Recuperar Senha</a>
+					
+				</div>
+				
+			</form>
+			
+		</div>
+		<!--end .card -->
+		
+		<!-- END LOGIN SECTION -->
+	
+		<div class="mf-foreground white" ></div>
+		
+		<!-- BEGIN JAVASCRIPT -->
+		
+	    <script type="text/javascript" th:src="@{/material/plugins/jquery/jquery-2.1.1.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/material/plugins/chart/chart.js}"></script>
+	    
+		<script type="text/javascript" th:src="@{/material/materialize/js/bin/materialize.js}"></script>
+		<script type="text/javascript" th:src="@{/material/js/mf.js}"></script>
+		
+		<section layout:fragment="js">
+		
+			<script type="text/javascript" th:src="@{/js/auxilio/login/login.js}"></script>
+		
+		</section>
+		
+		<!-- END JAVASCRIPT -->
+	
+	</body>
 </html>
+

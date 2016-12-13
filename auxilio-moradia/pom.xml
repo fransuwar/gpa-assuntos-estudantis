@@ -26,12 +26,12 @@
 	</properties>
 	
 	<repositories>
-        <repository>
-            <id>npi-mvn-repo</id>
-            <url>http://npi-ufc-qxd.github.io/npi-mvn-repo/</url>
-        </repository>
-    </repositories>
-
+      <repository>
+          <id>npi-mvn-repo</id>
+          <url>http://npi-ufc-qxd.github.io/npi-mvn-repo/</url>
+      </repository>
+  	</repositories>
+  	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
