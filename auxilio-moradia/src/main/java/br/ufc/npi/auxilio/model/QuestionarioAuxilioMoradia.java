@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -110,8 +112,10 @@ public class QuestionarioAuxilioMoradia {
 	@JoinTable(name = "grupo_familiar_entrevista", joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> grupoFamiliarEntrevista;
 
-	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
-	private List<Morador> moradores;
+	@ElementCollection
+	@CollectionTable(name = "moradores")
+//	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
+	private List<String> moradores;
 	
 	public double getValorMensalFinanciamento() {
 		return valorMensalFinanciamento;
@@ -440,11 +444,11 @@ public class QuestionarioAuxilioMoradia {
 		this.referenciaOrigem = referenciaOrigem;
 	}
 	
-	public List<Morador> getMoradores() {
+	public List<String> getMoradores() {
 		return moradores;
 	}
 
-	public void setMoradores(List<Morador> moradores) {
+	public void setMoradores(List<String> moradores) {
 		this.moradores = moradores;
 	}
 	
