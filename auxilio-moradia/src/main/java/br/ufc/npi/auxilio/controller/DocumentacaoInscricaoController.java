@@ -69,7 +69,7 @@ public class DocumentacaoInscricaoController {
 			RedirectAttributes redirect) {
 		
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
-			Documentacao documentacao = documentacaoRepository.findByTipoDocumento(tipoDocumento, inscricao.getAnaliseDocumentacao());;
+			Documentacao documentacao = documentacaoRepository.findByTipoDocumento(tipoDocumento, inscricao.getAnaliseDocumentacao());
 			if( documentacao == null )
 				documentacao = new Documentacao();
 			
