@@ -280,11 +280,11 @@ public class QuestionarioAuxilioMoradia {
 		return nomeCursinho;
 	}
 
-	public List<PropriedadeRural> getPropRural() {
+	public List<PropriedadeRural> getPropriedadeRural() {
 		return propriedadeRural;
 	}
 
-	public void setPropRural(List<PropriedadeRural> propRural) {
+	public void setPropriedadeRural(List<PropriedadeRural> propRural) {
 		this.propriedadeRural = propRural;
 	}
 
