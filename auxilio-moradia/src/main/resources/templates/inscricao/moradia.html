@@ -11,14 +11,14 @@
 	<div class="container" layout:fragment="conteudo">
 		<form th:action="@{/inscricao/__${inscricao.id}__/questionario}" th:object="${questionarioAuxilioMoradia}" th:method="post">
 			<label>Mora com</label>
-			<input type="checkbox" th:field="*{moradores}" th:each=" morador : ${moraCom}" th:value="${morador}" th:text="${morador.nome}"/>
+			<input class="mora-com" type="checkbox" th:field="*{moradores}" th:each=" morador : ${moraCom}" th:value="${morador.nome}" th:text="${morador.nome}"/>			
 			
 			<label for="nome-mae">Nome da Mãe</label>
-			<input id="nome-mae" th:field="*{nomeMae}" type="text"/><br/>
+			<input id="nome-mae" type="text" th:filed="*{nomeMae}"/><br/>
 			
 			<input type="submit" value="Continuar"/>
 		</form>
 	</div>
-
+	
 </body>
 </html>

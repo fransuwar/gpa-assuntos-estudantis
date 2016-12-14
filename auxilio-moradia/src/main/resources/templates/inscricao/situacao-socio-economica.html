@@ -11,7 +11,7 @@
 	<div class="container" layout:fragment="conteudo">
 		<form th:action="@{/inscricao/__${inscricao.id}__/situacao-socio-economica}" th:object="${questionarioAuxilioMoradia}" th:method="post">
 			<label for="justifcativa">Justificativa</label>
-			<input id="justificativa" th:type="text" th:value="*{justificativa}"/>
+			<input id="justificativa" th:type="text" th:value="*{justificativa}" th:field="*{justificativa}"/>
 			<input type="submit" value="Continuar"/>
 		</form>
 	</div>
