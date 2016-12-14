@@ -1,15 +1,14 @@
 package br.ufc.npi.auxilio.controller;
 
-import static br.ufc.npi.auxilio.utils.Constants.ALERTA;
 import static br.ufc.npi.auxilio.utils.Constants.ACAO;
-import static br.ufc.npi.auxilio.utils.Constants.EDITAR;
+import static br.ufc.npi.auxilio.utils.Constants.ALERTA;
 import static br.ufc.npi.auxilio.utils.Constants.CADASTRAR;
 import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
+import static br.ufc.npi.auxilio.utils.Constants.EDITAR;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.npi.auxilio.utils.PageConstants.CADASTRAR_SELECAO;
 import static br.ufc.npi.auxilio.utils.PageConstants.DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
-import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SELECAO_CADASTRADA;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_SELECAO_REMOVIDA;
 
