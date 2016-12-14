@@ -29,7 +29,7 @@
 			<div th:replace="selecao/detalhes/selecao :: selecao" ></div>
 		</div>
 		
-		<div class="col l6 m12 s12">
+		<div class="col l6 m12 s12" sec:authorize="hasAuthority('ALUNO')">
 			<div th:replace="selecao/detalhes/arquivos :: arquivos"></div>
 		</div>
 		

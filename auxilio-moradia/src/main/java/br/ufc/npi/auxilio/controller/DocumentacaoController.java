@@ -19,6 +19,7 @@ import br.ufc.npi.auxilio.utils.Constants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
+import br.ufc.npi.auxilio.utils.alert.AlertSet;
 
 @Controller
 @RequestMapping("/documentacao")
@@ -59,9 +60,9 @@ public class DocumentacaoController {
 		if (tipoDocumento != null){
 			try {
 				documentacaoService.excluirTipoDocumento(tipoDocumento.getId());
-				redirect.addFlashAttribute(Constants.ALERTA, SuccessMessageConstants.MSG_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
+				redirect.addFlashAttribute(Constants.ALERTA, AlertSet.createSuccess(SuccessMessageConstants.MSG_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO));
 			} catch(Exception e){
-				redirect.addFlashAttribute(Constants.ALERTA, SuccessMessageConstants.MSG_ERRO_TIPO_DOCUMENTO_EM_USO);
+				redirect.addFlashAttribute(Constants.ALERTA, AlertSet.createError(SuccessMessageConstants.MSG_ERRO_TIPO_DOCUMENTO_EM_USO));
 			}
 		}
 		return  RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;

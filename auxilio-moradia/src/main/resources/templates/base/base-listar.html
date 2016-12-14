@@ -30,7 +30,7 @@
         		</div>
         		
         		<div th:if="${addEnabled} and ${addAutorize == 'COORDENADOR'}" sec:authorize="hasAuthority('COORDENADOR')" class="relative">
-        			<a th:href="${addLink}" class="btn-floating btn-large bottom-right waves-effect waves-light tooltipped"  
+        			<a th:href="${addLink}" class="btn-add btn-floating btn-large bottom-right waves-effect waves-light tooltipped"  
 	        			th:attr="data-tooltip=${addTip}"
 	        			th:classappend="${#lists.isEmpty(list)}? self-sampled">
 	        			<i class="material-icons">add</i>
@@ -38,7 +38,7 @@
         		</div>
         		
         		<div th:if="${addEnabled} and ${addAutorize == 'ALUNO'}" sec:authorize="hasAuthority('ALUNO')" class="relative">
-        			<a th:href="${addLink}" class="btn-floating btn-large bottom-right waves-effect waves-light tooltipped"  
+        			<a th:href="${addLink}" class="btn-add btn-floating btn-large bottom-right waves-effect waves-light tooltipped"  
 	        			th:attr="data-tooltip=${addTip}"
 	        			th:classappend="${#lists.isEmpty(list)}? self-sampled">
 	        			<i class="material-icons">add</i>
@@ -46,10 +46,10 @@
         		</div>
         		
         		<div th:if="${addEnabled} and ${addAutorize == NULL}" class="relative">
-        			<a th:href="${addLink}" class="btn-floating btn-large bottom-right waves-effect waves-light tooltipped"  
+        			<a th:href="${addLink}" class="btn-add btn-floating btn-large bottom-right waves-effect waves-light tooltipped"  
 	        			th:attr="data-tooltip=${addTip}"
 	        			th:classappend="${#lists.isEmpty(list)}? self-sampled">
-	        			<i class="material-icons">add</i>
+	        			<i class="material-icons">add</i> 
 	        		</a>
         		</div>
         	
