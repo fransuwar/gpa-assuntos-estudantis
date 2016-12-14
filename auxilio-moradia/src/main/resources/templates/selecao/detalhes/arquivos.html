@@ -12,13 +12,13 @@
 				
 				<div class="card">
 					<div class="card-image indigo lighten-3 center">
-						<i class="material-icons text-96">description</i>
+						<i class="material-icons text-96 white-text">description</i>
+						<a th:href="@{/selecao/excluir-documento/__${selecao.id}__/__${doc.id}__}" class="btn-icon waves-effect top-right-hover">
+							<i class="material-icons white-text">clear</i>
+						</a>
 					</div>
 					<div class="card-action valign-wrapper">
-						<span class="" th:text="${doc.nome}"></span>
-						<a th:href="@{/selecao/excluir-documento/__${selecao.id}__/__${doc.id}__}" class="btn-icon waves-effect">
-							<i class="material-icons">delete</i>
-						</a>
+						<span class="limit" data-max-length="8" th:text="${doc.nome}"></span>
 					</div>
 				</div>
 				
@@ -27,21 +27,18 @@
 	
 	</div>
 
-	<div class="card-action no-padding">
+	<div class="card-action">
        	
-    	<div class="file-field">
+    	<div class="file-field input-field">
     		<button 
     			data-hide-if="#file" 
-    			class="btn-floating top-right btn-large waves-effect waves-light tooltipped"
-    			data-tooltip="Selecionar arquivos para enviar"
-    			style="height: 55.5px">
+    			class="btn waves-effect waves-light tooltipped"
+    			data-tooltip="Selecionar arquivos para enviar">
     			<i class="material-icons">file_upload</i>
 	    		<input type="file" id="file" name="files" multiple="multiple" />
     		</button>
-    		<div class="card-content">
-	    		<div class="file-path-wrapper no-padding">
-	       			<input class="file-path validate" readonly="true" type="text"/>
-	     		</div>
+    		<div class="file-path-wrapper no-padding">
+       			<input class="file-path validate" readonly="true" type="text"/>
      		</div>
     	</div>
        	
