@@ -24,6 +24,8 @@ public class Entrevista {
 	
 	private String observacao;
 	
+	private boolean vaiVisitar;
+	
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
 	
@@ -33,6 +35,14 @@ public class Entrevista {
 	@ManyToOne
 	private Servidor responsavel;
 	
+	public boolean isVaiVisitar() {
+		return vaiVisitar;
+	}
+
+	public void setVaiVisitar(boolean vaiVisitar) {
+		this.vaiVisitar = vaiVisitar;
+	}
+
 	public Integer getId() {
 		return id;
 	}

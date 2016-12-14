@@ -21,5 +21,7 @@ public class RedirectConstants {
 	public static final String REDIRECT_INSCRICAO_DOCUMENTACAO = "redirect:/documentacao/";
 
 	public static final String REDIRECT_ERROR_TAMANHO_ARQUIVO_EXCEDIDO_INSCRICAO = "forward:/error/inscricao/limite-excedido/";
+
+	public static final String REDIRECT_PAGINA_ENTREVISTA = "redirect:/entrevista/";
 	
 }
