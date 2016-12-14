@@ -37,6 +37,10 @@
           				</div>
           			</div>
           			<div class="row">
+          				<input th:field="*{data}" type="text" class="datepicker"
+          				 placeholder="dd/MM/aaaa" required="required"/>
+          			</div>
+          			<div class="row">
           				<input type="checkbox" th:field="*{vaiVisitar}" id="vaiVisitar" />
           				<label class="text" for="vaiVisitar">Vai fazer visita</label>
           			</div>
