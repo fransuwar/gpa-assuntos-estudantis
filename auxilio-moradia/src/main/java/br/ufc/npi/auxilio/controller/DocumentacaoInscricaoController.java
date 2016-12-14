@@ -1,7 +1,7 @@
 package br.ufc.npi.auxilio.controller;
 
-import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
+import static br.ufc.npi.auxilio.utils.Constants.ALERTA;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +34,7 @@ import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
+import br.ufc.npi.auxilio.utils.alert.AlertSet;
 
 @Controller
 @RequestMapping("/documentacao")
@@ -88,7 +89,7 @@ public class DocumentacaoInscricaoController {
 						documentacao.getDocumentos().add(documento);
 					}
 				} catch (IOException e)	{
-					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+					redirect.addFlashAttribute(ALERTA, AlertSet.createError(ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS));
 
 					return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 				}
@@ -109,7 +110,7 @@ public class DocumentacaoInscricaoController {
 			inscricaoRepository.save(inscricao);
 		}
 		
-		redirect.addFlashAttribute(Constants.INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO);
+		redirect.addFlashAttribute(ALERTA, AlertSet.createSuccess(SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO));
 		
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 	}
@@ -124,7 +125,7 @@ public class DocumentacaoInscricaoController {
 		documentacaoRepository.save(documentacao);
 		documentoRepository.delete(documento);
 		
-		redirect.addFlashAttribute(Constants.INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO);
+		redirect.addFlashAttribute(ALERTA, AlertSet.createSuccess(SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO));
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 	}
 	

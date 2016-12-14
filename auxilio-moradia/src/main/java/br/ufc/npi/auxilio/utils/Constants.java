@@ -3,9 +3,13 @@ package br.ufc.npi.auxilio.utils;
 public class Constants {
 	
 	/* Mensagens do sistema */
-    public static final String ERRO = "erro";
-
-    public static final String INFO = "info";
+    public static final String ALERTA = "alerta";
+    
+    /* Tipos ação de página */
+    public static final String ACAO = "acao";
+    public static final String CADASTRAR = "Cadastrar";
+    public static final String EDITAR = "Editar";
+    
 
     /* Papéis */
     public static final String COORDENADOR = "COORDENADOR";

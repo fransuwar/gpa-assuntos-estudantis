@@ -21,4 +21,4 @@ public class SuccessMessageConstants {
 
 	public static final String MSG_SUCESSO_DOCUMENTO_ADICIONADO = "Arquivo adicionado com sucesso.";
 
-}
+} 

@@ -1,95 +1,70 @@
 <!DOCTYPE html>
-<html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="base/base">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Seleções</title>
-</head>
-<body>
-	<!-- Page Content -->
-	<div class="container" layout:fragment="conteudo">
-    	<!-- Content Header (Page header) -->
-      <section class="content-header">
-        <h1>Seleções</h1>
-        <ol class="breadcrumb">
-          <li><a th:href="@{/}"><i class="fa fa-home"></i> Início</a></li>
-          <li class="active">Seleções</li>
-        </ol>
-      </section>
-      
-      <!-- Main content -->
-      <section class="content">
-        <div class="box box-primary">
-          <div class="box-body table-responsive">
-          	<div th:if="${#lists.isEmpty(selecoes)}">
-          		<div class="alert alert-warning">
-	                Não há seleções cadastradas.
-              	</div>
-          	</div>
-          	
-          	<table class="table table-hover" th:unless="${#lists.isEmpty(selecoes)}">
-          		<thead>
-          			<tr>
-          				<th>Ano</th>
-          				<th>Inscrições</th>
-          				<th>Vagas</th>
-          				<th>Responsável</th>
-          				<th></th>
-          			</tr>
-          		</thead>
-          		<tbody>
-          			<tr th:each="selecao : ${selecoes}">
-          				<td > <a th:href="@{/selecao/detalhes/__${selecao.id}__}" th:text="${selecao.ano}"></a> </td>
-          				<td th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
-          				<td th:text="${selecao.quantidadeVagas}"></td>
-          				<td th:text="${selecao.responsavel.pessoa.nome}"></td>
-          				<td sec:authorize="hasAuthority('COORDENADOR')"  class="tools text-align-right">
-          					<a th:href="@{/selecao/editar/__${selecao.id}__}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-          					
-          					<a data-toggle="modal" data-target="#confirme-delete" href="#" title="Excluir">
-								<i class="fa fa-trash-o"></i>
-							</a>
-													
-							<div class="modal fade" id="confirme-delete" tabindex="-1" role="dialog"
-								aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
-										<div class="modal-header">Alerta</div>
-										<div class="modal-body">A seleção já possui inscrições!</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-										</div>
-									</div>
-									
-									<div class="modal-content" th:if="${#lists.isEmpty(selecao.inscricoes)}">
-										<div class="modal-header">Excluir</div>
-										<div class="modal-body">Tem certeza de que deseja excluir essa
-											seleção?</div>
-											<div class="modal-footer">
-											<a th:href="@{/selecao/excluir/__${selecao.id}__}" class="btn btn-danger" >Excluir</a>
-											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-          				</td>
-          			</tr>
-          		</tbody>
-          	</table>
-
-          </div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-      </section>
-	</div>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="base/base-listar"
+    th:with="
+    		currentPage = 'selecao', 
+    		
+    		list = ${selecoes},
+    		emptyListMessage = 'Nenhuma seleção cadastrada!',
+    		
+    		addEnabled = true, 
+    		addTip = 'Adicionar uma selecao', 
+    		addLink = @{/selecao/cadastrar/},
+    		addAutorize = 'COORDENADOR', 
+    		
+    		breadcrumbName = 'Seleção', 
+    		filterEnabled = true, 
+    		filterName = 'Buscar seleções'" >
+										
+<table 
+	layout:fragment="table"
+	data-sort-col="0,1" data-sort-direction="desc,asc">
 	
-	<section layout:fragment="js">
-    	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
-    </section>
+   <thead>
+       <tr>
+			<th class="hide-on-med-and-down">Ano</th>
+			<th>Inscrições</th>
+			<th>Vagas</th>
+			<th class="hide-on-med-and-down">Responsável</th>
+           
+           <!-- CABEÇALHO DE OPÇÕES -->
+           <th th:replace="base/base-listar-options :: table-options-header"></th>
+       </tr>
+   </thead>				 
+   <tbody>
+   		
+       <tr th:each="selecao:${list}"
+       		th:with="
+       			editEnabled = true, 
+	    		editTip = 'Editar', 
+	    		editLink = @{/selecao/editar/__${selecao.id}__},
+	    		
+	    		seeMoreEnabled = true, 
+	    		seeMoreTip = 'Detalhes', 
+	    		seeMoreLink = @{/selecao/detalhes/__${selecao.id}__}, 
+	    		
+	    		removeEnabled = true, 
+	    		removeTip = 'Remover', 
+	    		removeLink = @{/selecao/excluir/__${selecao.id}__},
+	    		removeClass = 'confirm',
+	    		removeDisabled = !${#lists.isEmpty(selecao.inscricoes)}, 
+	    		removeDisabledTip = 'Esta seleção possui inscrições e não pode ser removida!', 
+	    		removeConfirmText = 'Deseja remover esta seleção?'
+	    		
+       		">
+			
+			<td class="hide-on-med-and-down" th:text="${selecao.ano}"></td>
+			<td th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
+			<td th:text="${selecao.quantidadeVagas}"></td>
+			<td class="hide-on-med-and-down limit" data-max-length="30" th:text="${selecao.responsavel.pessoa.nome}"></td>
 
-</body>
+			<!-- OPÇÕES (EDITAR, REMOVER E VER MAIS) -->
+			<td th:replace="base/base-listar-options :: table-options-cell"></td>
+       	</tr>					        
+	</tbody>
+	
+</table>
+
 </html>
