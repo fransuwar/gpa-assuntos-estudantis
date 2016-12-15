@@ -44,11 +44,11 @@ public class DocumentacaoController {
 			try {
 				documentacaoService.salvar(tipoDocumento);
 			} catch (DataIntegrityViolationException e) {
-				redirect.addFlashAttribute(Constants.ALERTA, "Documento já existe!");
+				redirect.addFlashAttribute(Constants.ALERTA, AlertSet.createWarning("O Tipo de documento digitado já existe!"));
 				return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 			}
 		}
-		redirect.addFlashAttribute(Constants.ALERTA, "Documento cadastrado com sucesso!");
+		redirect.addFlashAttribute(Constants.ALERTA, AlertSet.createSuccess("Tipo de documento cadastrado com sucesso!"));
 		return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
 	

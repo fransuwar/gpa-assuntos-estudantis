@@ -26,23 +26,23 @@ var formDialog = function() {
 	};
 
 	var dialogTemplate = 
-		'<div id=":MODAL_ID" class="modal">' + 
+		'<div id=":MODAL_ID" class="modal card">' + 
     		'<div class="modal-content">' + 
     			'<div class="row">' + 
     				'<span class="text-20 bold col s12">:TITLE</span><br/>' + 
     				'<p class="text-14 light col s12 justify">:TEXT</p>' + 
     			'</div>' + 
-    			'<div class="row">' + 
+    			'<form action=":FORM_ACTION" method=":METHOD" class="row">' + 
       				':CONTENT' + 
-      			'</div>' + 
+      			'</form>' + 
     		'</div>' + 
-    		'<div class="modal-footer">' + 
-      			':ACTIONS'
+    		'<div class="modal-footer card-action">' + 
+      			':ACTIONS' + 
     		'</div>' + 
   		'</div>';
 
   	var actionTemplate = 
-  		'<button class="modal-action :MODAL_CLOSE waves-effect waves-green btn-flat">:ACTION_TEXT</a>';
+  		'<button class="modal-action :MODAL_CLOSE waves-effect btn-flat">:ACTION_TEXT</a>';
 
 	var textTemplate = 
 		'<div class="input-field :COL">' + 
@@ -63,18 +63,24 @@ var formDialog = function() {
                 title: "Title", 
                 text: "", 
                 form: [
-                	{ "type": inputTypes.TEXT_LINE, "label": "Type anything", "maxLength": 2, id: "input-test", disabled: true }
+                	{ "type": inputTypes.TEXT_LINE, "label": "Type anything", "maxLength": 2, id: "input-test", disabled: false }
                 ], 
-                buttons: [
-                	{ text: "OK", onClick: function(formData) {}, closeDialog: true }
+                actions: [
+                	{ text: "OK", onClick: function(formData) {}, modalClose: true }
                 ]
             }, options);
 
 			var id = __getDialogID();
+			var actions = "";
 			var form = "";
 
-			options.form.map(function(i) {
-				console.log(i.disabled);
+			options.actions.map(function(a) {
+				var template = actionTemplate
+					.replace(/:MODAL_CLOSE/, a.modalClose? "modal-close" : "")
+					.replace(/:ACTION_TEXT/, a.text);
+					actions += template;
+			});
+			options.form.fields.map(function(i) {
 				if(i.type === inputTypes.TEXT_LINE) {
 					var template = textTemplate
 						.replace(/:ID/g, i.id || "")
@@ -93,7 +99,20 @@ var formDialog = function() {
 				.replace(/:TITLE/g, options.title)
 				.replace(/:TEXT/g, options.text)
 				.replace(/:CONTENT/g, form)
+				.replace(/:FORM_ACTION/g, options.form.action)
+				.replace(/:METHOD/g, options.form.method)
+				.replace(/:ACTIONS/g, actions)
 				.replace(/:MODAL_ID/g, id);
+
+			dialog = $($.parseHTML(dialog));
+			dialog.find(".modal-action").click(function() {
+				options.actions.map(function(a) {
+					a.onClick(dialog.find("form").serialize());
+					if(!!a.submitForm) {
+						dialog.find("form").submit();
+					}
+				});
+			});
 
 			$("body").append(dialog);
 			Materialize.updateTextFields();
@@ -101,9 +120,6 @@ var formDialog = function() {
 			$(options.trigger).click(function() {
 				$("#" + id).openModal();
 			});
-
-			console.log(dialog);
-
 		}
 
 	};

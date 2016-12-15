@@ -1,7 +1,23 @@
 $(document).ready(function() {
 	formDialog.create({
 		trigger: ".btn-add", 
-		title: "Felipe", 
-		text: "sldjf açlsj fçalskdjf çalsdjfçalsdkjf çalsdjf çalskdjfçalskdjf çalskdjf çalskdfj çalskdjf çasldkjf"
+		title: "Cadastrar tipo de documento", 
+		text: "", 
+		form: {
+			action: "/documentacao/tipo-documento/cadastrar",
+			method: "post", 
+			fields: [
+		       	{ type: 'text', label: "Nome", name: "nome", id: "nome", col: "col s12" }
+		    ]
+		}, 
+		actions: [
+		        { 
+		        	text: "OK", 
+		        	onClick: function(data) { return true; }, 
+		        	modalClose: true, 
+		        	submitForm: true
+		        }, 
+		        { text: "CANCEL", onClick: function() {}, modalClose: true } 
+		]
 	});
 });
