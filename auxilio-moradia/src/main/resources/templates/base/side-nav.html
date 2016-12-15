@@ -26,11 +26,11 @@
     </li>
     
     <li sec:authorize="hasAuthority('COORDENADOR')">
-    	<a th:href="@{/selecao}" 
-    		th:classappend="(${currentPage} == 'selecao')? sidenav-active" 
+    	<a th:href="@{/documentacao}" 
+    		th:classappend="(${currentPage} == 'documentacao')? sidenav-active" 
     		class="waves-effect waves-light">
     		
-    		<i class="mdi mdi-document tooltipped" data-tooltip="Seleção" data-position="right"></i> Documentação
+    		<i class="mdi mdi-book tooltipped" data-tooltip="Seleção" data-position="right"></i> Documentação
     	</a>
     </li>
     
