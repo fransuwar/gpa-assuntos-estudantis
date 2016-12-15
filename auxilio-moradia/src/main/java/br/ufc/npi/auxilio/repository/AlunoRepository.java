@@ -18,5 +18,5 @@ public interface AlunoRepository extends JpaRepository <Aluno, Integer>{
 	public abstract Aluno findById(Integer idAluno);
 	
 	public abstract List<Aluno> findAll();
-
-}
+	
+ }

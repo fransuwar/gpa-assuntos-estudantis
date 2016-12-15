@@ -1,8 +1,11 @@
 package br.ufc.npi.auxilio.model;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -109,8 +112,10 @@ public class QuestionarioAuxilioMoradia {
 	@JoinTable(name = "grupo_familiar_entrevista", joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> grupoFamiliarEntrevista;
 
-	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
-	private List<Morador> moradores;
+	@ElementCollection
+	@CollectionTable(name = "moradores")
+//	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
+	private List<String> moradores;
 	
 	public double getValorMensalFinanciamento() {
 		return valorMensalFinanciamento;
@@ -275,11 +280,11 @@ public class QuestionarioAuxilioMoradia {
 		return nomeCursinho;
 	}
 
-	public List<PropriedadeRural> getPropRural() {
+	public List<PropriedadeRural> getPropriedadeRural() {
 		return propriedadeRural;
 	}
 
-	public void setPropRural(List<PropriedadeRural> propRural) {
+	public void setPropriedadeRural(List<PropriedadeRural> propRural) {
 		this.propriedadeRural = propRural;
 	}
 
@@ -439,11 +444,11 @@ public class QuestionarioAuxilioMoradia {
 		this.referenciaOrigem = referenciaOrigem;
 	}
 	
-	public List<Morador> getMoradores() {
+	public List<String> getMoradores() {
 		return moradores;
 	}
 
-	public void setMoradores(List<Morador> moradores) {
+	public void setMoradores(List<String> moradores) {
 		this.moradores = moradores;
 	}
 	
@@ -480,5 +485,32 @@ public class QuestionarioAuxilioMoradia {
 		return true;
 	}
 
+	
+	public void merge(Object update){
+	    if(!this.getClass().isAssignableFrom(update.getClass())){
+	        return;
+	    }
+
+	    Method[] methods = this.getClass().getMethods();
+
+	    for(Method fromMethod: methods){
+	        if(fromMethod.getDeclaringClass().equals(this.getClass())
+	                && fromMethod.getName().startsWith("get")){
+
+	            String fromName = fromMethod.getName();
+	            String toName = fromName.replace("get", "set");
+
+	            try {
+	                Method toMetod = this.getClass().getMethod(toName, fromMethod.getReturnType());
+	                Object value = fromMethod.invoke(update, (Object[])null);
+	                if(value != null){
+	                    toMetod.invoke(this, value);
+	                }
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            } 
+	        }
+	    }
+	}
 	
 }

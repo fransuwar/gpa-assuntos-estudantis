@@ -4,6 +4,8 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import br.ufc.npi.auxilio.model.Aluno;
+import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.model.Pessoa;
 import br.ufc.npi.auxilio.model.Selecao;
 import br.ufc.npi.auxilio.repository.InscricaoRepository;
@@ -19,5 +21,21 @@ public class InscricaoServiceImpl implements InscricaoService {
 	public boolean estaInscrito(Pessoa pessoa, Selecao selecao) {
 		return inscricaoRepository.findInscricaoBySelecaoAndAlunoPessoa(selecao, pessoa) != null;
 	}
-
+	
+	@Override
+	public Inscricao salvar(Selecao selecao, Aluno aluno) {
+		Inscricao old = inscricaoRepository.findInscricaoBySelecaoAndAlunoPessoa(selecao, aluno.getPessoa());
+		if (old == null){
+			Inscricao inscricao = new Inscricao();
+			inscricao.setSelecao(selecao);
+			inscricao.setAluno(aluno);
+			return inscricaoRepository.save(inscricao);
+		}
+		return old;
+	}
+	
+	@Override
+	public Inscricao salvar(Inscricao inscricao) {
+		return inscricaoRepository.save(inscricao);
+	}
 }

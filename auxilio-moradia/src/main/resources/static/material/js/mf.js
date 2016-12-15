@@ -65,6 +65,7 @@ var mf_base = function() {
             $('.phone').mask('(00) 00000-0000', {reverse: false});
             $('.cpf').mask('000.000.000-00', {reverse: false});
             $('.money, .number, .decimal, .float').mask('000.000.000.000.000,00', {reverse: true});
+            $('.bank, .checking-account, .account, .bank-branch, .branch').mask('00000000000-0', {reverse: true});
             $('.year, .integer, long').mask('0000000000000000000000000000000', {reverse: false});
             $('.date').mask('00/00/0000', {reverse: false});
             
@@ -254,15 +255,19 @@ var mf_base = function() {
     
     initBinding = function() {
         var analyzeElement = function(el, target) {
-            if(target.val())
-                el.show();
-            else
-                el.hide();
+            if(
+                (target.attr("type") != "checkbox" && target.val()) || 
+                (target.attr("type") == "checkbox" && target.is(':checked'))
+            ) {
+                el.show("fast");
+            } else {
+                el.hide("fast");
+            }
         };
 
     	$('[data-show-if!=""]').each(function(_, el) {
     		if($(el).data("show-if") !== undefined) {
-                $($(el).data("show-if")).change(function() {
+                $($(el).data("show-if") + ", " + $(el).data("show-if") + ":checkbox").change(function() {
                     analyzeElement($(el), $($(el).data("show-if")));
                 });
                 analyzeElement($(el), $($(el).data("show-if")));

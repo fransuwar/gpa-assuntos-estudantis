@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base/base">
+<head>
+    <meta charset="UTF-8"/>
+<title>Inscrição</title>
+</head>
+<body>
+	<div class="container" layout:fragment="conteudo">
+		<form th:action="@{/inscricao/__${inscricao.id}__/historico}" th:object="${questionarioAuxilioMoradia}" th:method="post">
+			<label for="ensino-fundamental">Ensino Fundamental</label>
+			<select id="ensino-fundamental" th:field="*{ensinoFundamental}" >
+				<option th:each="tipo : ${tipoEnsino}"
+						th:value="${tipo}"
+						th:text="${tipo.nome}">
+				</option>
+			</select>
+			<input type="submit" value="Continuar"/>
+		</form>
+	</div>
+
+</body>
+</html>

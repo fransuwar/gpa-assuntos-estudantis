@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base/base"
+	  th:with="currentPage='selecao'">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Inscrição</title>
+</head>
+
+<div layout:fragment="conteudo">
+	<div class="row">
+	
+		<div class="col s12 breadcrumbs valign-wrapper">
+            <a th:href="@{/}" class="breadcrumb blue-grey-text">
+                <i class="material-icons left">home</i>
+            </a>
+            
+            <a class="breadcrumb blue-grey-text">Inscrição</a>
+            
+            <a class="breadcrumb blue-grey-text">Dados Bancários</a>
+
+        </div>
+	
+		<div class="col s12">
+
+			<form class="card" data-model="selecao" th:action="@{/inscricao/__${inscricao.id}__/dados-bancarios}" th:method="post" th:object="${dadosBancarios}">
+				<div class="card-content">
+					<div class="row no-margin">
+						
+						<div class="col l4 m6 s12 input-field">
+							<label for="nome-banco">Banco</label>
+							<input id="nome-banco" th:field="*{nomeBanco}" type="text"/>
+						</div>
+						
+						<div class="col l4 m6 s12 input-field">
+							<label for="agencia-banco">Agencia</label>
+							<input id="agencia-banco" th:field="*{agenciaBanco}" type="text" class="bank"/>
+						</div>
+						
+						<div class="col l4 m6 s12 input-field">
+							<label for="numero-conta">Conta</label>
+							<input id="numero-conta" th:field="*{numeroConta}" type="text" class="bank"/>
+						</div>
+						
+					</div>
+				</div>
+				<div class="card-action right-align">
+					<input type="submit" class="btn" name="dados-bancarios" value="Continuar"/>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+</html>
