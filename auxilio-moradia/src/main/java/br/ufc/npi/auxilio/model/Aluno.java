@@ -21,6 +21,8 @@ public class Aluno {
 
 	private String anoIngresso;
 	
+	private Double ira;
+	
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private DadosBancarios dadosBancarios;
 
@@ -70,6 +72,8 @@ public class Aluno {
 	
 	
 	public DadosBancarios getDadosBancarios() {
+//		if (dadosBancarios == null)
+//			return new DadosBancarios();
 		return dadosBancarios;
 	}
 
@@ -100,6 +104,14 @@ public class Aluno {
 		} else if (!matricula.equals(other.matricula))
 			return false;
 		return true;
+	}
+
+	public Double getIra() {
+		return ira;
+	}
+
+	public void setIra(Double ira) {
+		this.ira = ira;
 	}
 
 

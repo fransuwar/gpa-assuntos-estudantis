@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +28,6 @@ import br.ufc.npi.auxilio.service.InscricaoService;
 import br.ufc.npi.auxilio.service.QuestionarioAuxilioMoradiaService;
 import br.ufc.npi.auxilio.utils.api.Response;
 
-@Controller
 @RestController
 @RequestMapping("inscricao")
 public class InscricaoController {
@@ -55,18 +54,27 @@ public class InscricaoController {
 	public ModelAndView inscreverDadosBasico(ModelAndView mav,  @PathVariable("idSelecao") Selecao selecao, Authentication auth){
 		Aluno aluno = alunoService.buscarPorCpf(auth.getName());
 		Inscricao inscricao = inscricaoService.salvar(selecao, aluno);
+		mav.setViewName(String.format("redirect:/inscricao/%1d/dados-bancarios", inscricao.getId()));
+		return mav;
+	}
+	
+	@GetMapping("{idInscricao}/dados-bancarios")
+	public ModelAndView inscreverDadosBancarios(@PathVariable("idInscricao") Inscricao inscricao,  Authentication auth, ModelAndView mav){
+		Aluno aluno = alunoService.buscarPorCpf(auth.getName());
+		aluno.setDadosBancarios(new DadosBancarios());
 		mav.addObject("inscricao", inscricao);
-		mav.addObject("dadosBancarios", new DadosBancarios());
+		mav.addObject("aluno", aluno);
 		mav.setViewName("inscricao/dados-bancarios");
 		return mav;
 	}
 	
 	@PostMapping("{idInscricao}/dados-bancarios")
-	public ModelAndView inscreverDadosBancarios(@PathVariable("idInscricao") Inscricao inscricao, DadosBancarios dadosBancarios, 
-			Authentication auth, ModelAndView mav){
-		Aluno aluno = alunoService.buscarPorCpf(auth.getName());
-		aluno.setDadosBancarios(dadosBancarios);
-		alunoService.salvar(aluno);
+	public ModelAndView inscreverDadosBancarios(@PathVariable("idInscricao") Inscricao inscricao, 
+			Aluno aluno, ModelAndView mav, Authentication auth){
+		Aluno alunoOld = alunoService.buscarPorCpf(auth.getName());
+		alunoOld.setIra(aluno.getIra());
+		alunoOld.setDadosBancarios(aluno.getDadosBancarios());
+		alunoService.salvar(alunoOld);
 		mav.setViewName(String.format("redirect:/inscricao/%1d/questionario", inscricao.getId()));
 		return mav;
 	}
