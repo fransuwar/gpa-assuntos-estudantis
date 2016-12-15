@@ -4,7 +4,7 @@ $(document).ready(function() {
 		title: "Cadastrar tipo de documento", 
 		text: "", 
 		form: {
-			action: "/documentacao/tipo-documento/cadastrar",
+			action: $(".form-action-url").text(),
 			method: "post", 
 			fields: [
 		       	{ type: 'text', label: "Nome", name: "nome", id: "nome", col: "col s12" }
