@@ -2,6 +2,7 @@
 	<div class="card-content">
 		
 		<a class="btn-floating top-right btn-large waves-effect tooltipped"
+			sec:authorize="hasAuthority('COORDENADOR')"
 			th:href="@{/selecao/editar/__${selecao.id}__}"
 			data-tooltip="Editar">
 			<i class="material-icons">edit</i>

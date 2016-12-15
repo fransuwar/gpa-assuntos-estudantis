@@ -1,69 +1,66 @@
-<!DOCTYPE html>
-<html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="base/base">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Cadastrar Seleção</title>
-</head>
-<body>
-	<!-- Page Content -->
-	<div class="container" layout:fragment="conteudo">
-    	<!-- Content Header (Page header) -->
-      <section class="content-header">
-        <h1>Cadastrar Seleção</h1>
-        <ol class="breadcrumb">
-          <li><a th:href="@{/}"><i class="fa fa-home"></i> Início</a></li>
-          <li><a th:href="@{/selecao/listar}"> Seleções</a></li>
-          <li class="active">Documentação</li>
-        </ol>
-      </section>
-      
-      <section class="content">
-      	<div class="box box-primary">
-      		<form role="form" th:action="@{/documentacao/tipo-documento/cadastrar}" th:object="${documento}" method="post">
-      			<div class="box-body">
-      				<div class="row">
-      					<div class="form-group col-xs-5">
-		                  <label >* Documento</label>
-		                  <div class="input-group">		                  
-			                  <input th:field="*{nome}" type="text" class="form-control text-uppercase" 
-			                  placeholder="nome" required="required"/>
-			                  
-			                  <div class="input-group-btn">
-			                	<button type="submit" class="btn btn-primary">
-			                		<i class="fa fa-plus"></i>
-			                	</button>
-			                  </div>
-		                  </div>
-		                </div>
-      				</div>
-      			</div>
-      		</form>
-      		
-      		<div class="box-body">
-      			<div th:if="${#lists.isEmpty(documentos)}">
-      				<div class="alert alert-warning">
-	                	Não há documentos cadastradas.
-              		</div>
-      			</div>
 
-	      		<div th:unless="${#lists.isEmpty(documentos)}">
-	      			<span class="label label-primary font-size--14 margin-right--12" th:each="doc : ${documentos}">
-	      				<span th:text="${doc.nome}" class="margin-right--10"></span>
-	      				<a th:href="@{/documentacao/tipo-documento/excluir/__${doc.id}__}" class="color-white"><i class="fa fa-close"></i></a>		
-	      			</span>
-	      		</div>
-      		</div>
-      		
-      	</div>
-      </section>
-	</div>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="base/base-listar"
+    th:with="
+    		currentPage = 'documentacao', 
+    		
+    		list = ${documentos},
+    		emptyListMessage = 'Nenhum tipo de documento cadastrado!',
+    		
+    		addEnabled = true, 
+    		addTip = 'Adicionar um tipo de documento', 
+    		addLink = '#',
+    		addAutorize = 'COORDENADOR', 
+    		
+    		breadcrumbName = 'Tipo de Documento', 
+    		filterEnabled = true, 
+    		filterName = 'Buscar tipos de documento'" >
+										
+<table 
+	layout:fragment="table"
+	data-sort-col="0" data-sort-direction="desc">
 	
-	<section layout:fragment="js">
-    	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
-    </section>
-    
-</body>
+   <thead>
+       <tr>
+			<th class="">Nome</th>
+			
+           <!-- CABEÇALHO DE OPÇÕES -->
+           <th th:replace="base/base-listar-options :: table-options-header"></th>
+       </tr>
+   </thead>				 
+   <tbody>
+   		
+       <tr th:each="documento:${list}"
+       		th:with="
+       			
+	    		removeEnabled = true, 
+	    		removeTip = 'Remover', 
+	    		removeLink = @{/documentacao/tipo-documento/excluir/__${documento.id}__},
+	    		removeClass = 'confirm',  
+	    		removeConfirmText = 'Deseja remover este tipo de documento?'
+	    		
+       		">
+			
+			<td class="limit" data-max-length="20" th:text="${documento.nome}"></td>
+			
+			<!-- OPÇÕES (EDITAR, REMOVER E VER MAIS) -->
+			<td th:replace="base/base-listar-options :: table-options-cell"></td>
+       	</tr>					        
+	</tbody>
+	
+</table>
+
+<div layout:fragment="extra-content" >
+	<span class="hode form-action-url" th:text="@{/documentacao/tipo-documento/cadastrar}"></span>
+</div>
+
+<section layout:fragment="js">
+	
+	<script type="text/javascript" th:src="@{/js/auxilio/documentacao/listar.js}"></script>
+	
+</section>
+
 </html>
