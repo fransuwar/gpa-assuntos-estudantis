@@ -20,6 +20,14 @@
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
     
+        
+<!--     CONFIGURACAO DO CSRF -->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+<!--     default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!-- CONFIGURACAO DO CONTEXTO -->
+    <meta name="_context" th:content="${#httpServletRequest.getContextPath()}" />
+    
 </head>
 
 <body class="root grey lighten-3">

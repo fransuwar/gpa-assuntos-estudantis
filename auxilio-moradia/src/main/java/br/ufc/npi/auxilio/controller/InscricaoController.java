@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.ufc.npi.auxilio.enums.GrauParentesco;
@@ -28,6 +29,7 @@ import br.ufc.npi.auxilio.service.QuestionarioAuxilioMoradiaService;
 import br.ufc.npi.auxilio.utils.api.Response;
 
 @Controller
+@RestController
 @RequestMapping("inscricao")
 public class InscricaoController {
 
@@ -138,7 +140,7 @@ public class InscricaoController {
 		}
 		questionario.setPropriedadeRural(propriedades);
 		questionarioAuxilioMoradiaService.salvar(questionario);
-		return new Response();
+		return new Response().withObject(propriedadeRural);
 	}
 	
 	@PostMapping("api/{idInscricao}/bem-movel")
@@ -151,6 +153,7 @@ public class InscricaoController {
 			bensMoveis = new ArrayList<>();
 			bensMoveis.add(bemMovel);
 		}
+		
 		questionario.setBemMovel(bensMoveis);
 		questionarioAuxilioMoradiaService.salvar(questionario);
 		return new Response();

@@ -3,13 +3,9 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="base/base">
-<head>
-    <meta charset="UTF-8"/>
-<title>Inscrição</title>
-</head>
-<body>
+
 	<div class="container" layout:fragment="conteudo">
-	<!-- 	<form th:action="@{/inscricao/__${inscricao.id}__/questionario}" th:object="${questionarioAuxilioMoradia}" th:method="post">
+	 	<form th:action="@{/inscricao/__${inscricao.id}__/questionario}" th:object="${questionarioAuxilioMoradia}" th:method="post">
 			<label>Mora com</label>
 			<input class="mora-com" type="checkbox" th:field="*{moradores}" th:each=" morador : ${moraCom}" th:value="${morador.nome}" th:text="${morador.nome}"/>			
 			
@@ -17,9 +13,8 @@
 			<input id="nome-mae" type="text" th:filed="*{nomeMae}"/><br/>
 			
 			<input type="submit" value="Continuar"/>
-		</form> -->
-		
-		<form  th:object="${propriedadeRural}" class="form-propriedade-rural " method="post" th:attr="data-id-questionario=${questionarioAuxilioMoradia.id}">
+		</form> 	
+		<form  th:object="${propriedadeRural}" class="form-propriedade-rural " method="post" th:attr="data-id-inscricao=${inscricao.id}">
 			<label>Grau de parentesco do proprietario</label>
 			<select id="parentesco" th:field="*{parentescoProprietario}" >
 				<option th:each="tipo : ${moraCom}"
@@ -27,16 +22,21 @@
 						th:text="${tipo.nome}">
 				</option>
 			</select>
-			<label> Cidade</label>
-			<input type="text" th:field="*{cidade}"/>
-			<!-- <input type="submit" value="Adicionar"/> -->
+			<label>Cidade</label>
+			<input id="area" type="text" th:field="*{area}"/>
+			
+			<input id="cidade" type="text" th:field="*{cidade}"/>
+			<input id="estado" type="text" th:field="*{estado}"/>
+			<input id="outroParentesco" type="text" th:field="*{outroParentesco}"/>
+			
+			
 			<button class="form-propriedade-rural-bt">Adicionar</button>
 			
 		</form>
+		
 	</div>
 	<section layout:fragment="js">
     	<script th:src="@{/js/auxilio/inscricao/inscricao.js}"></script>
     </section>
 	
-</body>
 </html>
