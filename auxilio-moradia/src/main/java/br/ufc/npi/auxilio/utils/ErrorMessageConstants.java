@@ -7,5 +7,9 @@ public class ErrorMessageConstants {
 	public static final String MENSAGEM_ERRO_SALVAR_DOCUMENTOS = "Não foi possível salvar os documentos.";
 	public static final String MENSAGEM_ERRO_ANEXO = "Erro ao excluir arquivo.";
 	public static final String MENSAGEM_ERRO_AO_ATUALIZAER_SELECAO = "Erro ao atualizar seleção.";
+	
+	
+	/* Inscrição */
+	public static final String ERRO_INSCRICAO_DUPLICADA = "Você já se increveu nesta seleção";
 
 }

@@ -102,6 +102,8 @@ public class Inscricao implements Comparable<Inscricao>{
 	}
 
 	public QuestionarioAuxilioMoradia getQuestionarioAuxilioMoradia() {
+		if (questionarioAuxilioMoradia  == null)
+			return new QuestionarioAuxilioMoradia();
 		return questionarioAuxilioMoradia;
 	}
 
