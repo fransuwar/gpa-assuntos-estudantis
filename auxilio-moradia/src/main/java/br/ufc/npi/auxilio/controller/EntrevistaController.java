@@ -14,6 +14,7 @@ import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.model.Entrevista;
 import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.repository.EntrevistaRepository;
+import br.ufc.npi.auxilio.repository.InscricaoRepository;
 import br.ufc.npi.auxilio.service.ServidorService;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
@@ -26,6 +27,9 @@ public class EntrevistaController {
 	
 	@Autowired
 	private EntrevistaRepository entrevistaRepository;
+	
+	@Autowired
+	private InscricaoRepository InscricaoRepository;
 	
 	@GetMapping("/{idInscricao}")
 	public String formEntrevista( @PathVariable("idInscricao") Inscricao inscricao, Model model ) {
@@ -48,6 +52,9 @@ public class EntrevistaController {
 		entrevista.setInscricao(inscricao);
 		entrevista.setResponsavel(servidorService.getByCpf(auth.getName()));
 		entrevistaRepository.save(entrevista);
+		
+		inscricao.setEntrevista(entrevista);
+		InscricaoRepository.save(inscricao);
 		
 		return RedirectConstants.REDIRECT_PAGINA_ENTREVISTA + inscricao.getId();
 	}
