@@ -147,7 +147,7 @@ public class InscricaoController {
 		}
 		questionario.setPropriedadeRural(propriedades);
 		questionarioAuxilioMoradiaService.salvar(questionario);
-		return new Response().withObject(propriedadeRural);
+		return new Response().withObject(propriedadeRural).withSuccessMessage("Propriedade Adicionada!");
 	}
 	
 	@PostMapping("api/{idInscricao}/bem-movel")
