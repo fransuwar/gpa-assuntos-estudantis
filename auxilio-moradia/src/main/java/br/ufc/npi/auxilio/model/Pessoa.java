@@ -27,6 +27,8 @@ import br.ufc.npi.auxilio.enums.Estado;
 //@EntityListeners(PessoaEntityListener.class)
 public class Pessoa implements UserDetails {
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -243,6 +245,11 @@ public class Pessoa implements UserDetails {
 	
 	public boolean isAluno() {
 		return this.papeis.stream().filter(p -> p.equals(Papel.ALUNO))
+				.findFirst().orElse(null) != null;
+	}
+	
+	public boolean isAssistenteSocial() {
+		return this.papeis.stream().filter(p -> p.equals(Papel.ASSISTENTE_SOCIAL))
 				.findFirst().orElse(null) != null;
 	}
 }

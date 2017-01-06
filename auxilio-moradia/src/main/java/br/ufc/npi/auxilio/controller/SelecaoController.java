@@ -1,10 +1,7 @@
 package br.ufc.npi.auxilio.controller;
 
-import static br.ufc.npi.auxilio.utils.Constants.ACAO;
-import static br.ufc.npi.auxilio.utils.Constants.ALERTA;
-import static br.ufc.npi.auxilio.utils.Constants.CADASTRAR;
 import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
-import static br.ufc.npi.auxilio.utils.Constants.EDITAR;
+import static br.ufc.npi.auxilio.utils.Constants.ALERTA;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.npi.auxilio.utils.PageConstants.CADASTRAR_SELECAO;
 import static br.ufc.npi.auxilio.utils.PageConstants.DETALHES_SELECAO;
@@ -80,7 +77,7 @@ public class SelecaoController {
 	@Secured(COORDENADOR)
 	@GetMapping("/cadastrar")
 	public String cadastrarSelecaoForm(Model model) {
-		model.addAttribute(ACAO, CADASTRAR);
+		model.addAttribute("acao", "cadastrar");
 		model.addAttribute("selecao", new Selecao());
 		
 		return CADASTRAR_SELECAO;
@@ -88,17 +85,14 @@ public class SelecaoController {
 	
 	@Secured(COORDENADOR)
 	@PostMapping("/cadastrar")
-	public String cadastrarSelecao(Selecao selecao, Authentication auth, Model model, RedirectAttributes redirect,
-			@RequestParam("tiposDocumento") List<TipoDocumento> tiposDeDocumento) {
+	public String cadastrarSelecao(Selecao selecao, Authentication auth, Model model, RedirectAttributes redirect) {
 		selecao.setResponsavel(servidorService.getByCpf(auth.getName()));
-		selecao.addAllTiposDeDocumento(tiposDeDocumento);
-		
 		try {
 			selecaoService.cadastrar(selecao);
 			redirect.addFlashAttribute(ALERTA, AlertSet.createInfo(MSG_SELECAO_CADASTRADA));
 			return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
-			model.addAttribute(ALERTA, AlertSet.createInfo(e.getMessage()));
+			model.addAttribute(ALERTA, AlertSet.createError(e.getMessage()));
 			return CADASTRAR_SELECAO;
 		}
 	}
@@ -135,7 +129,7 @@ public class SelecaoController {
 		if (selecao == null) {
 			redirect.addFlashAttribute(ALERTA, AlertSet.createError(MENSAGEM_ERRO_SELECAO_INEXISTENTE));
 		} else {
-			model.addAttribute(ACAO, EDITAR);
+			model.addAttribute("acao", "editar");
 			model.addAttribute("selecao", selecao);
 			
 			return CADASTRAR_SELECAO;
@@ -145,14 +139,11 @@ public class SelecaoController {
 	
 	@GetMapping("detalhes/{selecao}")
 	public ModelAndView detalhes(@PathVariable Selecao selecao, Authentication auth, RedirectAttributes redirect){
-	
 		if (selecao == null) {
 			redirect.addFlashAttribute(ALERTA, AlertSet.createError(MENSAGEM_ERRO_SELECAO_INEXISTENTE));
 			return new ModelAndView(REDIRECT_LISTAR_SELECAO);
 		}
-		
 		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
-		
 		return new ModelAndView(DETALHES_SELECAO)
 				.addObject("selecao", selecao)
 				.addObject("inscrito", inscricaoService.estaInscrito(pessoa, selecao));

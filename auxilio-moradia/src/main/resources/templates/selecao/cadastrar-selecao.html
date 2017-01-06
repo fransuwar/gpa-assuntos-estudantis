@@ -36,16 +36,16 @@
 					<div class="row no-margin">
 						
 						<div class="col l3 m6 s12 input-field">
-		                  <input th:field="*{ano}" type="text" class="year" id="ano" placeholder="2016" required="required"/>
+		                  <input th:field="*{ano}" type="text" class="year" id="ano" placeholder="aaaa" required="required" maxlength="4"/>
 		                  <label for="ano">* Ano</label>
 		                </div>
 	          			<div class="col l3 m6 s12 input-field">
-		                  <input th:field="*{dataInicio}" type="text" class="datepicker" id="inicio" placeholder="dd/MM/aaaa" required="required"/>
+		                  <input th:field="*{dataInicio}" type="text" class="datepicker" id="inicio" placeholder="dd/mm/aaaa" required="required"/>
 		                  <label for="inicio">* Início</label>
 		                </div>
 		                <div class="col l3 m6 s12 input-field">
 		                  <label for="termino">* Término</label>
-		                  <input th:field="*{dataTermino}" type="text" class="datepicker" id="termino" placeholder="dd/MM/aaaa" required="required"/>
+		                  <input th:field="*{dataTermino}" type="text" class="datepicker" id="termino" placeholder="dd/mm/aaaa" required="required"/>
 		                </div>
 		                <div class="col l3 m6 s12 input-field">
 		                  <label for="vagas">Vagas</label>
@@ -56,25 +56,11 @@
 
 				</div>
 				
-				<div class="card-action">
-				
-					<div class="row">
-                		<div class="col l3 m4 s12" th:each="documento, state : ${tiposDeDocumento}">
-           					<input type="checkbox" name="tiposDocumento" 
-           					th:id="'td-' + ${documento.id}" th:value="${documento.id}" th:attr="checked=${#lists.contains(selecao.tiposDeDocumento, documento)} ? checked : false" />
-           					<label class="text" th:for="'td-' + ${documento.id}" th:text="${documento.nome}"></label>
-                		</div>
-	                </div>
-					
-				</div>
-				
 				<div class="card-action right-align">
 	            	<a th:href="@{/selecao/listar/}" type="button" class="btn-flat waves-effect">Cancelar</a>
                     <button type="submit" class="btn waves-effect white-text">Salvar</button>
 	            </div>
-				
 			</form>
-
 		</div>
 	</div>
 	<!--end container-->

@@ -2,8 +2,8 @@
 <ul id="slide-out" class="side-nav fixed " th:fragment="side-nav">
     <li>
     	<a class="userView waves-effect waves-light blue valign-wrapper" th:href="@{/}">
-	        <i class="cover material-icons blue-grey-text text-lighten-5 tooltipped" data-tooltip="Início" data-position="right">dashboard</i>
-	        <span class="blue-grey-text text-lighten-5 title">AUXÍLIO</span>
+	        <i class="cover material-icons blue-grey-text text-lighten-5 tooltipped" data-tooltip="InÃ­cio" data-position="right">dashboard</i>
+	        <span class="blue-grey-text text-lighten-5 title">AUXÃ�LIO</span>
     	</a>
     </li>
     
@@ -21,16 +21,7 @@
     		th:classappend="(${currentPage} == 'selecao')? sidenav-active" 
     		class="waves-effect waves-light">
     		
-    		<i class="mdi mdi-account-check tooltipped" data-tooltip="Seleção" data-position="right"></i> Seleção
-    	</a>
-    </li>
-    
-    <li sec:authorize="hasAuthority('COORDENADOR')">
-    	<a th:href="@{/documentacao}" 
-    		th:classappend="(${currentPage} == 'documentacao')? sidenav-active" 
-    		class="waves-effect waves-light">
-    		
-    		<i class="mdi mdi-book tooltipped" data-tooltip="Seleção" data-position="right"></i> Documentação
+    		<i class="mdi mdi-account-check tooltipped" data-tooltip="Seleções" data-position="right"></i> Seleções
     	</a>
     </li>
     

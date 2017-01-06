@@ -31,17 +31,6 @@ public class PessoaFamilia {
 	
 	private String outroParentesco;
 
-	public PessoaFamilia clone(){
-		PessoaFamilia pessoa = new PessoaFamilia();
-		pessoa.setNome(nome);
-		pessoa.setEscolaridade(escolaridade);
-		pessoa.setProfissao(profissao);
-		pessoa.setRendaMensal(rendaMensal);
-		pessoa.setParentesco(parentesco);
-		
-		return pessoa;
-	}
-
 	public Integer getId() {
 		return id;
 	}

@@ -26,7 +26,7 @@ public class AnaliseDocumentacao {
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
 	
-	private String observacao;
+	private String parecer;
 	
 	@OneToOne
 	private Inscricao inscricao;
@@ -57,12 +57,12 @@ public class AnaliseDocumentacao {
 		this.resultado = resultado;
 	}
 
-	public String getObservacao() {
-		return observacao;
+	public String getParecer() {
+		return parecer;
 	}
 
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public void setParecer(String parecer) {
+		this.parecer = parecer;
 	}
 
 	public Inscricao getInscricao() {

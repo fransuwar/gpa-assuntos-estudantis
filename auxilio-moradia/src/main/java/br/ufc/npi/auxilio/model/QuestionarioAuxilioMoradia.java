@@ -98,10 +98,10 @@ public class QuestionarioAuxilioMoradia {
 	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] foto;
 	
-	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<PropriedadeRural> propriedadeRural;
 
-	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<BemMovel> bemMovel;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -114,7 +114,6 @@ public class QuestionarioAuxilioMoradia {
 
 	@ElementCollection
 	@CollectionTable(name = "moradores")
-//	@OneToMany(mappedBy = "auxilioMoradia", cascade = CascadeType.ALL)
 	private List<String> moradores;
 	
 	public double getValorMensalFinanciamento() {

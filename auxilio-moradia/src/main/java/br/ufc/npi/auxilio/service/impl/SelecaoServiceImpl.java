@@ -1,29 +1,24 @@
 package br.ufc.npi.auxilio.service.impl;
 
-import java.util.List;
-
-import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import br.ufc.npi.auxilio.model.Selecao;
-import br.ufc.npi.auxilio.model.Servidor;
-import br.ufc.npi.auxilio.repository.SelecaoRepository;
-import br.ufc.npi.auxilio.repository.ServidorRepository;
-import br.ufc.npi.auxilio.service.SelecaoService;
-
 import static br.ufc.npi.auxilio.utils.ExceptionConstants.CAMPOS_OBRIGATORIOS;
 import static br.ufc.npi.auxilio.utils.ExceptionConstants.PERIODO_INSCRICAO_EXCEPTION;
 import static br.ufc.npi.auxilio.utils.ExceptionConstants.SELECAO_COM_INSCRICAO_EXCEPTION;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
+import br.ufc.npi.auxilio.model.Selecao;
+import br.ufc.npi.auxilio.repository.SelecaoRepository;
+import br.ufc.npi.auxilio.service.SelecaoService;
 
 @Service
 public class SelecaoServiceImpl implements SelecaoService {
 	
 	@Autowired
 	private SelecaoRepository selecaoRepository;
-	
-	@Autowired
-	private ServidorRepository servidorRepository;
 	
 	@Override
 	public void cadastrar(Selecao selecao) throws AuxilioMoradiaException {

@@ -6,7 +6,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import br.ufc.npi.auxilio.enums.FinalidadeVeiculo;
 import br.ufc.npi.auxilio.enums.GrauParentesco;
@@ -28,17 +27,6 @@ public class BemMovel {
 	
 	@Enumerated(EnumType.STRING)
 	private FinalidadeVeiculo finalidade;
-	
-	@ManyToOne
-	private QuestionarioAuxilioMoradia auxilioMoradia;
-
-	public QuestionarioAuxilioMoradia getAuxilioMoradia() {
-		return auxilioMoradia;
-	}
-
-	public void setAuxilioMoradia(QuestionarioAuxilioMoradia auxilioMoradia) {
-		this.auxilioMoradia = auxilioMoradia;
-	}
 	
 	public GrauParentesco getParentescoProprietario() {
 		return parentescoProprietario;

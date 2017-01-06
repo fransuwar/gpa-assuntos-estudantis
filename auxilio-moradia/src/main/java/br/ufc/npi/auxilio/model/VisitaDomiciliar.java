@@ -34,7 +34,7 @@ public class VisitaDomiciliar {
 	private String parecer;
 
 	@OneToOne
-	private Documento formularioVisita;
+	private Documento formulario;
 
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
@@ -42,12 +42,12 @@ public class VisitaDomiciliar {
 	@OneToMany
 	private List<Documento> imagens;
 
-	public Documento getFormularioVisita() {
-		return formularioVisita;
+	public Documento getFormulario() {
+		return formulario;
 	}
 
-	public void setFormularioVisita(Documento formularioVisita) {
-		this.formularioVisita = formularioVisita;
+	public void setFormulario(Documento formulario) {
+		this.formulario = formulario;
 	}
 
 	public List<Documento> getImagens() {

@@ -17,7 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.ufc.npi.auxilio.enums.Resultado;
 
 @Entity
-public class Inscricao implements Comparable<Inscricao>{
+public class Inscricao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,11 @@ public class Inscricao implements Comparable<Inscricao>{
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
 	
-	private boolean classificado;
+	private boolean classificada;
+	
+	private boolean realizarVisita;
+	
+	private boolean consolidada;
 	
 	@OneToOne
 	private Selecao selecao;
@@ -49,16 +53,12 @@ public class Inscricao implements Comparable<Inscricao>{
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private AnaliseDocumentacao analiseDocumentacao;
 
-	private boolean realizarVisita;
-	
-	private boolean consolidacao;
-
-	public boolean isConsolidacao() {
-		return consolidacao;
+	public boolean isConsolidada() {
+		return consolidada;
 	}
 
-	public void setConsolidacao(boolean consolidacao) {
-		this.consolidacao = consolidacao;
+	public void setConsolidada(boolean consolidada) {
+		this.consolidada = consolidada;
 	}
 
 	public boolean isRealizarVisita() {
@@ -139,14 +139,13 @@ public class Inscricao implements Comparable<Inscricao>{
 		this.aluno = aluno;
 	}
 	
-	public boolean isClassificado() {
-		return classificado;
+	public boolean isClassificada() {
+		return classificada;
 	}
 
-	public void setClassificado(boolean classificado) {
-		this.classificado = classificado;
+	public void setClassificada(boolean classificada) {
+		this.classificada = classificada;
 	}
-	
 
 	public AnaliseDocumentacao getAnaliseDocumentacao() {
 		return analiseDocumentacao;
@@ -179,16 +178,6 @@ public class Inscricao implements Comparable<Inscricao>{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Inscricao [id=" + id + "]";
-	}
-
-	@Override
-	public int compareTo(Inscricao o) {
-		return getAluno().getPessoa().getNome().compareTo(o.getAluno().getPessoa().getNome());
 	}
 
 }

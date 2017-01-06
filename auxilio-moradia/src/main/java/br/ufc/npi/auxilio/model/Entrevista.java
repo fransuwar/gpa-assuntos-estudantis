@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import br.ufc.npi.auxilio.enums.Resultado;
 
@@ -22,16 +21,13 @@ public class Entrevista {
 	
 	private Date data;
 	
-	private String observacao;
+	private String parecer;
 	
 	private boolean vaiVisitar;
 	
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
 	
-	@OneToOne
-	private Inscricao inscricao;
-
 	@ManyToOne
 	private Servidor responsavel;
 	
@@ -59,12 +55,12 @@ public class Entrevista {
 		this.data = data;
 	}
 
-	public String getObservacao() {
-		return observacao;
+	public String getParecer() {
+		return parecer;
 	}
 
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public void setParecer(String parecer) {
+		this.parecer = parecer;
 	}
 
 	public Resultado getResultado() {
@@ -73,14 +69,6 @@ public class Entrevista {
 
 	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
-	}
-
-	public Inscricao getInscricao() {
-		return inscricao;
-	}
-
-	public void setInscricao(Inscricao inscricao) {
-		this.inscricao = inscricao;
 	}
 
 	public Servidor getResponsavel() {

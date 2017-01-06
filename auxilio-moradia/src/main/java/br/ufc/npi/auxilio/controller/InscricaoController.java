@@ -17,7 +17,6 @@ import br.ufc.npi.auxilio.enums.GrauParentesco;
 import br.ufc.npi.auxilio.enums.TipoEnsino;
 import br.ufc.npi.auxilio.model.Aluno;
 import br.ufc.npi.auxilio.model.BemMovel;
-import br.ufc.npi.auxilio.model.DadosBancarios;
 import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.model.PropriedadeRural;
 import br.ufc.npi.auxilio.model.QuestionarioAuxilioMoradia;
@@ -60,7 +59,6 @@ public class InscricaoController {
 	@GetMapping("{idInscricao}/dados-bancarios")
 	public ModelAndView inscreverDadosBancarios(@PathVariable("idInscricao") Inscricao inscricao,  Authentication auth, ModelAndView mav){
 		Aluno aluno = alunoService.buscarPorCpf(auth.getName());
-		aluno.setDadosBancarios(new DadosBancarios());
 		mav.addObject("inscricao", inscricao);
 		mav.addObject("aluno", aluno);
 		mav.setViewName("inscricao/dados-bancarios");
@@ -72,7 +70,6 @@ public class InscricaoController {
 			Aluno aluno, ModelAndView mav, Authentication auth){
 		Aluno alunoOld = alunoService.buscarPorCpf(auth.getName());
 		alunoOld.setIra(aluno.getIra());
-		alunoOld.setDadosBancarios(aluno.getDadosBancarios());
 		alunoService.salvar(alunoOld);
 		mav.setViewName(String.format("redirect:/inscricao/%1d/questionario", inscricao.getId()));
 		return mav;

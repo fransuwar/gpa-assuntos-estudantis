@@ -1,12 +1,10 @@
 package br.ufc.npi.auxilio.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Aluno {
@@ -23,9 +21,6 @@ public class Aluno {
 	
 	private Double ira;
 	
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	private DadosBancarios dadosBancarios;
-
 	@ManyToOne
 	private Pessoa pessoa;
 
@@ -69,16 +64,12 @@ public class Aluno {
 		this.curso = curso;
 	}
 
-	
-	
-	public DadosBancarios getDadosBancarios() {
-//		if (dadosBancarios == null)
-//			return new DadosBancarios();
-		return dadosBancarios;
+	public Double getIra() {
+		return ira;
 	}
 
-	public void setDadosBancarios(DadosBancarios dadosBancarios) {
-		this.dadosBancarios = dadosBancarios;
+	public void setIra(Double ira) {
+		this.ira = ira;
 	}
 
 	@Override
@@ -105,14 +96,5 @@ public class Aluno {
 			return false;
 		return true;
 	}
-
-	public Double getIra() {
-		return ira;
-	}
-
-	public void setIra(Double ira) {
-		this.ira = ira;
-	}
-
 
 }

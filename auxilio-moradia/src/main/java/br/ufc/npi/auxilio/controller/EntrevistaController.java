@@ -49,7 +49,6 @@ public class EntrevistaController {
 			return RedirectConstants.REDIRECT_LISTAR_SELECAO;
 		}
 		
-		entrevista.setInscricao(inscricao);
 		entrevista.setResponsavel(servidorService.getByCpf(auth.getName()));
 		entrevistaRepository.save(entrevista);
 		

@@ -1,7 +1,7 @@
 package br.ufc.npi.auxilio.controller;
 
-import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
 import static br.ufc.npi.auxilio.utils.Constants.ALERTA;
+import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,7 +29,6 @@ import br.ufc.npi.auxilio.repository.DocumentacaoRepository;
 import br.ufc.npi.auxilio.repository.DocumentoRepository;
 import br.ufc.npi.auxilio.repository.InscricaoRepository;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
-import br.ufc.npi.auxilio.utils.Constants;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;

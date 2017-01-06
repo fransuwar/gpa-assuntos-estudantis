@@ -15,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,7 +25,6 @@ public class Selecao {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@NotNull(message = "Campo obrigatório")
 	private Integer ano;
 
 	private Integer quantidadeVagas;
