@@ -1,7 +1,10 @@
 package br.ufc.npi.auxilio.controller;
 
-import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
-
+import br.ufc.npi.auxilio.model.TipoDocumento;
+import br.ufc.npi.auxilio.service.DocumentacaoService;
+import br.ufc.npi.auxilio.utils.PageConstants;
+import br.ufc.npi.auxilio.utils.RedirectConstants;
+import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.annotation.Secured;
@@ -13,13 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.npi.auxilio.model.TipoDocumento;
-import br.ufc.npi.auxilio.service.DocumentacaoService;
-import br.ufc.npi.auxilio.utils.Constants;
-import br.ufc.npi.auxilio.utils.PageConstants;
-import br.ufc.npi.auxilio.utils.RedirectConstants;
-import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
-import br.ufc.npi.auxilio.utils.alert.AlertSet;
+import static br.ufc.npi.auxilio.utils.Constants.*;
 
 @Controller
 @RequestMapping("/documentacao")
@@ -44,11 +41,11 @@ public class DocumentacaoController {
 			try {
 				documentacaoService.salvar(tipoDocumento);
 			} catch (DataIntegrityViolationException e) {
-				redirect.addFlashAttribute(Constants.ALERTA, AlertSet.createWarning("O Tipo de documento digitado já existe!"));
+				redirect.addFlashAttribute(ERRO, "O Tipo de documento digitado já existe!");
 				return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 			}
 		}
-		redirect.addFlashAttribute(Constants.ALERTA, AlertSet.createSuccess("Tipo de documento cadastrado com sucesso!"));
+		redirect.addFlashAttribute(INFO, "Tipo de documento cadastrado com sucesso!");
 		return RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;
 	}
 	
@@ -60,9 +57,9 @@ public class DocumentacaoController {
 		if (tipoDocumento != null){
 			try {
 				documentacaoService.excluirTipoDocumento(tipoDocumento.getId());
-				redirect.addFlashAttribute(Constants.ALERTA, AlertSet.createSuccess(SuccessMessageConstants.MSG_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO));
+				redirect.addFlashAttribute(INFO, SuccessMessageConstants.MSG_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO);
 			} catch(Exception e){
-				redirect.addFlashAttribute(Constants.ALERTA, AlertSet.createError(SuccessMessageConstants.MSG_ERRO_TIPO_DOCUMENTO_EM_USO));
+				redirect.addFlashAttribute(ERRO, SuccessMessageConstants.MSG_ERRO_TIPO_DOCUMENTO_EM_USO);
 			}
 		}
 		return  RedirectConstants.REDIRECT_GERENCIAR_DOCUMENTOS;

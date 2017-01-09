@@ -1,29 +1,6 @@
 package br.ufc.npi.auxilio.controller;
 
-import static br.ufc.npi.auxilio.utils.Constants.ALERTA;
-import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
-
-import java.io.IOException;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import br.ufc.npi.auxilio.model.AnaliseDocumentacao;
-import br.ufc.npi.auxilio.model.Documentacao;
-import br.ufc.npi.auxilio.model.Documento;
-import br.ufc.npi.auxilio.model.Inscricao;
-import br.ufc.npi.auxilio.model.TipoDocumento;
+import br.ufc.npi.auxilio.model.*;
 import br.ufc.npi.auxilio.repository.AnaliseDocumentacaoRepository;
 import br.ufc.npi.auxilio.repository.DocumentacaoRepository;
 import br.ufc.npi.auxilio.repository.DocumentoRepository;
@@ -33,7 +10,20 @@ import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
-import br.ufc.npi.auxilio.utils.alert.AlertSet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.util.List;
+
+import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
+import static br.ufc.npi.auxilio.utils.Constants.ERRO;
+import static br.ufc.npi.auxilio.utils.Constants.INFO;
 
 @Controller
 @RequestMapping("/documentacao")
@@ -88,7 +78,7 @@ public class DocumentacaoInscricaoController {
 						documentacao.getDocumentos().add(documento);
 					}
 				} catch (IOException e)	{
-					redirect.addFlashAttribute(ALERTA, AlertSet.createError(ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS));
+					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 
 					return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 				}
@@ -109,7 +99,7 @@ public class DocumentacaoInscricaoController {
 			inscricaoRepository.save(inscricao);
 		}
 		
-		redirect.addFlashAttribute(ALERTA, AlertSet.createSuccess(SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO));
+		redirect.addFlashAttribute(INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 		
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 	}
@@ -124,7 +114,7 @@ public class DocumentacaoInscricaoController {
 		documentacaoRepository.save(documentacao);
 		documentoRepository.delete(documento);
 		
-		redirect.addFlashAttribute(ALERTA, AlertSet.createSuccess(SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO));
+		redirect.addFlashAttribute(INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO);
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 	}
 	

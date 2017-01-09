@@ -10,9 +10,10 @@ public class Constants {
 	public static final String COORDENADOR = "COORDENADOR";
 	
 	public static final String ASSISTENTE_SOCIAL = "ASSISTENTE_SOCIAL";
-	
-	
-	public static final String ALERTA = "alerta";
-	
+
+	// Geral
+	public static final String INFO = "info";
+
+	public static final String ERRO = "erro";
 
 }
