@@ -32,30 +32,24 @@
 	
 	<div class="container">
         <div id="toast-container">
-            <div class="toast alert-info rounded" th:if="${not #strings.isEmpty(info)}">
+            <div class="toast green alert-info rounded" th:if="${not #strings.isEmpty(info)}">
                 <div class="valign-wrapper">
-                    <i class="material-icons green-text">check</i>
-                    <span class="green-text" th:text="${info}"></span>
+                    <i class="material-icons white-text">check</i>
+                    <span class="white-text" th:text="${info}"></span>
                 </div>
             </div>
 
-            <div class="toast alert-info rounded" th:if="${not #strings.isEmpty(erro)}">
+            <div class="toast red alert-info rounded" th:if="${not #strings.isEmpty(erro)}">
                 <div class="valign-wrapper">
-                    <i class="material-icons red-text">error</i>
-                    <span class="red-text" th:text="${erro}"></span>
+                    <i class="material-icons white-text">error</i>
+                    <span class="white-text" th:text="${erro}"></span>
                 </div>
             </div>
         </div>
 		<section class="" layout:fragment="conteudo"></section>
 	</div>
 
-	<!-- MENSAGENS DE ALERTA -->
-	<!--<div th:each="alert : ${alertas}" class="alert-message"
-		th:attr="data-type=${alert.type},data-delay=${alert.delay}" th:text="${alert.message}"></div>
-	<div th:if="${alerta}" class="alert-message"
-		th:attr="data-type=${alerta.type},data-delay=${alerta.delay}" th:text="${alerta.message}"></div>-->
-	
-    <div class="mf-foreground white" ></div>
+	<div class="mf-foreground white" ></div>
     
     <!-- Plugins externos e JQuery -->
     <script type="text/javascript" th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>

@@ -7,6 +7,7 @@ $(document).ready(function() {
     });
 
     aux_base.initAlerts();
+    aux_base.initModals();
 });
 
 var aux_base = function() {
@@ -15,6 +16,13 @@ var aux_base = function() {
         initAlerts : function() {
             $("#toast-container").click(function () {
                 $(this).remove();
+            });
+        },
+        initModals : function () {
+            $('.modal').modal({
+                ready: function(modal, trigger) {
+                    $('#confirm-excluir').attr('href', $(trigger).attr('data-url'));
+                }
             });
         }
     };

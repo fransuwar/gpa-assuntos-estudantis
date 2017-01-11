@@ -2,14 +2,22 @@ package br.ufc.npi.auxilio.utils;
 
 public class ErrorMessageConstants {
 
-	public static final String MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR = "O coordenador não pode ser excluído da comissão.";
-	public static final String MENSAGEM_ERRO_SELECAO_INEXISTENTE = "Esta seleção não existe!";
-	public static final String MENSAGEM_ERRO_SALVAR_DOCUMENTOS = "Não foi possível salvar os documentos.";
-	public static final String MENSAGEM_ERRO_ANEXO = "Erro ao excluir arquivo.";
-	public static final String MENSAGEM_ERRO_AO_ATUALIZAER_SELECAO = "Erro ao atualizar seleção.";
-	
+	/* Seleção */
+	public static final String MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR = "O responsável não pode ser excluído da comissão";
+	public static final String MENSAGEM_ERRO_SELECAO_INEXISTENTE = "Esta seleção não existe";
+	public static final String MENSAGEM_ERRO_SALVAR_DOCUMENTOS = "Não foi possível salvar o documento";
+	public static final String MENSAGEM_ERRO_EXCLUIR_ARQUIVO = "Erro ao excluir arquivo";
+	public static final String MENSAGEM_ERRO_BUSCAR_ARQUIVO = "Erro ao buscar arquivo";
+	public static final String MENSAGEM_ERRO_EXCLUIR_DOCUMENTACAO = "Erro ao excluir documentação";
+	public static final String MENSAGEM_ERRO_SELECAO_COM_INSCRICAO = "Essa seleção já possui inscrições realizadas e não é possível excluí-la";
+
 	
 	/* Inscrição */
-	public static final String ERRO_INSCRICAO_DUPLICADA = "Você já se increveu nesta seleção";
+	public static final String MENSAGEM_ERRO_PERIODO_INSCRICAO = "A data de término das inscrições deve ser posterior à data de início";
+
+
+	/* Outras */
+	public static final String TAMANHO_LIMITE_ARQUIVO_EXCEPTION = "Tamanho dos arquivos ultrapassam o limite";
+	public static final String CAMPOS_OBRIGATORIOS = "Preencha todos os campos obrigatórios";
 
 }

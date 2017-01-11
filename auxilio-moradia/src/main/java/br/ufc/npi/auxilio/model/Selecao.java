@@ -6,16 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
+import org.hibernate.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -48,7 +44,7 @@ public class Selecao {
 	@OneToMany(mappedBy = "selecao")
 	private List<Inscricao> inscricoes;
 	
-	@ManyToMany
+	@OneToMany(mappedBy = "selecao")
 	private List<TipoDocumento> tiposDeDocumento;
 
 	public Selecao() {
@@ -128,6 +124,7 @@ public class Selecao {
 	public void setInscricoes(List<Inscricao> inscricoes) {
 		this.inscricoes = inscricoes;
 	}
+
 	public void addMembroComissao (Servidor servidor){
 		if(this.comissao == null){
 			comissao = new ArrayList<Servidor>();
@@ -135,6 +132,13 @@ public class Selecao {
 		if (servidor != null && !this.comissao.contains(servidor)) {
 			this.comissao.add(servidor);
 		}
+	}
+
+	public void removeMembroComissao (Servidor servidor){
+		if(this.comissao == null){
+			comissao = new ArrayList<Servidor>();
+		}
+		this.comissao.remove(servidor);
 	}
 	
 	public List<TipoDocumento> getTiposDeDocumento() {
@@ -224,4 +228,16 @@ public class Selecao {
 		this.tiposDeDocumento.addAll(tiposDeDocumento);
 	}
 
+    public void addDocumento(Documento documento) {
+		if (documentos == null) {
+			documentos = new ArrayList<Documento>();
+		}
+		documentos.add(documento);
+    }
+
+	public void removeDocumento(Documento documento) {
+		if (documentos != null) {
+			documentos.remove(documento);
+		}
+	}
 }

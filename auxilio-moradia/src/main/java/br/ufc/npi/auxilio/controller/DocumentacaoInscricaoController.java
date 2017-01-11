@@ -68,7 +68,6 @@ public class DocumentacaoInscricaoController {
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
 
 						Documento documento = new Documento();
-						documento.setArquivo(mfiles.getBytes());
 						documento.setNome(mfiles.getOriginalFilename());
 						documento.setCaminho(mfiles.getContentType());
 

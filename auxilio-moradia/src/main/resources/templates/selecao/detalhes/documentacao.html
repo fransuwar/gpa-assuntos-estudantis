@@ -1,0 +1,37 @@
+<div class="card" th:fragment="documentacao">
+	<div class="card-content">
+		<h5 class="light">Documentação</h5>
+
+		<!-- Nenhum tipo de documento cadastrado -->
+		<span class="blue-grey-text" th:if="${#lists.isEmpty(selecao.tiposDeDocumento)}">Nenhuma documentação cadastrada</span>
+
+		<!-- Tipos de documentos -->
+		<div class="row">
+			<div class="chip deep-purple lighten-1" th:each="tipo : ${selecao.tiposDeDocumento}">
+				<div class="text-20 light white-text" th:title="${tipo.descricao}" th:text="${tipo.nome}"></div>
+				<a title="Excluir" th:href="@{/selecao/documentacao/excluir/__${tipo.id}__}">
+					<i class="text-20 white-text material-icons">close</i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="card-action right-align">
+		<form th:action="@{/selecao/documentacao/adicionar}" method="post">
+			<input type="hidden" name="selecao" th:value="${selecao.id}"/>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="nome" name="nome" type="text" required="required"/>
+					<label for="nome">* Nome</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="descricao" name="descricao" type="text"/>
+					<label for="descricao">Descrição</label>
+				</div>
+			</div>
+			<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
+		</form>
+	</div>
+</div>

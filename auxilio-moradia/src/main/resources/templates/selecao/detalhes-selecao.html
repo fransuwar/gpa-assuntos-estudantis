@@ -13,24 +13,27 @@
 <section layout:fragment="conteudo">
 	<div class="row">
 		<!-- Informações da seleção -->
-		<div class="col s12">
+		<div class="col s6">
 			<div th:replace="selecao/detalhes/selecao :: selecao" ></div>
+		</div>
+		<!-- Arquivos -->
+		<div class="col s6">
+			<div th:replace="selecao/detalhes/arquivos :: arquivos"></div>
 		</div>
 	</div>
 	<div class="row">
-		<!-- Arquivos -->
-		<div class="col s6" sec:authorize="hasAuthority('ALUNO')">
-			<div th:replace="selecao/detalhes/arquivos :: arquivos"></div>
-		</div>
-
 		<!-- Comissão -->
-		<div class="col s6" sec:authorize="hasAuthority('SERVIDOR')" >
+		<div class="col s6">
 			<div th:replace="selecao/detalhes/comissao :: comissao"></div>
+		</div>
+		<!-- Documentação -->
+		<div class="col s6">
+			<div th:replace="selecao/detalhes/documentacao :: documentacao"></div>
 		</div>
 	</div>
 	<div class="row">
 		<!-- Inscrições -->
-		<div class="col s12" sec:authorize="hasAuthority('SERVIDOR')" >
+		<div class="col s12">
 			<div th:replace="selecao/detalhes/inscricoes :: inscricoes"></div>
 		</div>
 	</div>

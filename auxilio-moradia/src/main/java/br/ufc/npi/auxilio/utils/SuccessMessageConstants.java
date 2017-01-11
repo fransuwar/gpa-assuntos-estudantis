@@ -7,18 +7,24 @@ public class SuccessMessageConstants {
 
 	public static final String MSG_SUCESSO_SELECAO_REMOVIDA = "Seleção removida com sucesso";
 
-	public static final String MSG_TIPO_DOCUMENTO_EXCUIDO_COM_SUCESSO = "Tipo de documento excluído com sucesso";
-	
-	public static final String MSG_ERRO_TIPO_DOCUMENTO_EM_USO = "Não é possível excluir este tipo de documento pois ele já está em uso";
-	
-	public static final String MSG_ERRO_ANO_SELECAO = "Digite um ano maior ou igual ao atual";
-	
-	public static final String MSG_ERRO_DATATERMINO_SELECAO = "A data de término não pode ser anterior a data de início";
-	
-	public static final String MSG_SUCESSO_DOCUMENTO_REMOVIDO = "O documento foi removido com sucesso.";
 
-	public static final String MSG_SUCESSO_MEMBRO_EXCLUIDO = "Membro da comissão excluído com sucesso.";
+	/* Arquivos da seleção */
+	public static final String MSG_SUCESSO_DOCUMENTO_ADICIONADO = "Arquivo adicionado com sucesso";
+	
+	public static final String MSG_SUCESSO_DOCUMENTO_REMOVIDO = "Arquivo removido com sucesso";
 
-	public static final String MSG_SUCESSO_DOCUMENTO_ADICIONADO = "Arquivo adicionado com sucesso.";
+
+	/* Comissão da seleção */
+	public static final String MSG_SUCESSO_MEMBRO_ADICIONADO = "Membro da comissão adicionado com sucesso";
+
+	public static final String MSG_SUCESSO_MEMBRO_REMOVIDO = "Membro da comissão removido com sucesso";
+
+
+	/* Documentação da seleção */
+	public static final String MSG_SUCESSO_TIPO_DOCUMENTO_ADICIONADO = "Documentação adicionada com sucesso";
+
+	public static final String MSG_SUCESSO_TIPO_DOCUMENTO_REMOVIDO = "Documentação removida com sucesso";
+
+
 
 } 

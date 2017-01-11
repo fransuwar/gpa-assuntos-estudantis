@@ -1,30 +1,24 @@
 <div class="card" th:fragment="selecao">
 	<div class="card-content">
 		<h5 class="light">Detalhes</h5>
-		<!--<a class="btn-floating top-right btn-large waves-effect tooltipped"
-			sec:authorize="hasAuthority('COORDENADOR')"
-			th:href="@{/selecao/editar/__${selecao.id}__}"
-			data-tooltip="Editar">
-			<i class="material-icons">edit</i>
-		</a>-->
-		
 		<div class="row no-margin">
-			<div class="col s2">
+			<div class="col s4">
 				<span class="bold grey-text text-darken-2">Ano:</span> <br/>
 				<span th:text="${selecao.ano}" class="text-20 light"></span>
 			</div>
 			
-			<div class="col s2">
+			<div class="col s4">
 				<span class="bold grey-text text-darken-2">Início:</span> <br/>
 				<span th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')}" class="text-20 light"></span>
 			</div>
 			
-			<div class="col s2">
+			<div class="col s4">
 				<span class="bold grey-text text-darken-2">Término:</span> <br/>
 				<span th:text="${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light"></span>
 			</div>
-
-			<div class="col s2">
+		</div>
+		<div class="row no-margin">
+			<div class="col s4">
 				<span class="bold grey-text text-darken-2">Vagas:</span> <br/>
 				<span th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'" class="text-20 light"></span>
 			</div>
@@ -39,6 +33,20 @@
 	
 	<div class="card-action right-align">
 		<a th:href="@{/selecao/editar/__${selecao.id}__}" class="waves-effect waves-light btn">Editar</a>
-		<a th:href="@{/selecao/excluir/__${selecao.id}__}" class="waves-effect waves-light btn red">Excluir</a>
+		<a class="waves-effect waves-light btn red" href="#excluir-selecao" th:attr="data-url=@{/selecao/excluir/__${selecao.id}__}">Excluir</a>
+	</div>
+
+	<!-- Modal excluir seleção -->
+	<div id="excluir-selecao" class="modal">
+		<div class="modal-content">
+			<h4>Excluir seleção</h4>
+			<p>Tem certeza de que deseja excluir essa seleção?</p>
+		</div>
+		<div class="modal-footer">
+			<a id="confirm-excluir" href="#!" class="modal-action waves-effect waves-light btn red">Excluir</a>
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+		</div>
 	</div>
 </div>
+
+

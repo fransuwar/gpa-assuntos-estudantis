@@ -15,8 +15,20 @@ public class TipoDocumento {
 
 	private String nome;
 
+	private String descricao;
+
 	@ManyToOne
-	private Inscricao inscricao;
+	private Selecao selecao;
+
+	public TipoDocumento() {
+		super();
+	}
+
+	public TipoDocumento(String nome, String descricao) {
+		super();
+		this.nome = nome;
+		this.descricao = descricao;
+	}
 
 	public String getNome() {
 		return nome;
@@ -34,12 +46,19 @@ public class TipoDocumento {
 		this.id = id;
 	}
 
-	public Inscricao getInscricao() {
-		return inscricao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setInscricao(Inscricao inscricao) {
-		this.inscricao = inscricao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
+	public Selecao getSelecao() {
+		return selecao;
+	}
+
+	public void setSelecao(Selecao selecao) {
+		this.selecao = selecao;
+	}
 }

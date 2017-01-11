@@ -8,13 +8,18 @@ nav .brand-logo {
     margin-top: 30px;
 }
 
-.toast {
-    background-color: #FFF;
+/* Badges */
+.chip div, .chip i {
+    display: inline;
 }
 
 /* Helpers */
 .text-10 {
     font-size: 10px;
+}
+
+.text-15 {
+    font-size: 15px;
 }
 
 .text-20 {
@@ -31,5 +36,9 @@ nav .brand-logo {
 
 .text-50 {
     font-size: 50px;
+}
+
+.text-right {
+    text-align: right;
 }
 

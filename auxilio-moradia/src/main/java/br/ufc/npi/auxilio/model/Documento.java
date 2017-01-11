@@ -1,9 +1,6 @@
 package br.ufc.npi.auxilio.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
 
@@ -18,8 +15,11 @@ public class Documento {
 	
 	private String caminho;
 	
-	@Type(type="org.hibernate.type.BinaryType")
+	@Transient
 	private byte[] arquivo;
+
+	@Enumerated(EnumType.STRING)
+	private Tipo tipo;
 
 	public Documento(){
 		super();
@@ -62,6 +62,28 @@ public class Documento {
 
 	public void setArquivo(byte[] arquivo) {
 		this.arquivo = arquivo;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	public enum Tipo {
+		PDF("pdf"), JPG("jpg"), JPEG("jpeg"), PNG("png");
+
+		private String nome;
+
+		private Tipo(String nome){
+			this.nome = nome;
+		}
+
+		public String getNome() {
+			return nome;
+		}
 	}
 	
 	@Override
