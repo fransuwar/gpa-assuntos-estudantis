@@ -25,7 +25,7 @@
     	</a>
     </li>
     
-    <li sec:authorize="hasAuthority('ALUNO')">
+    <li>
     	<a th:href="@{/selecao}" 
     		th:classappend="(${currentPage} == 'selecao')? sidenav-active" 
     		class="waves-effect waves-light">

@@ -31,7 +31,7 @@
 			<div th:replace="selecao/detalhes/documentacao :: documentacao"></div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row" th:if="${membroComissao}">
 		<!-- Inscrições -->
 		<div class="col s12">
 			<div th:replace="selecao/detalhes/inscricoes :: inscricoes"></div>

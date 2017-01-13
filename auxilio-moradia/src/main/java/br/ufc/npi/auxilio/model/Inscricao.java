@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import br.ufc.npi.auxilio.model.questionario.DadosBancarios;
+import br.ufc.npi.auxilio.model.questionario.Moradia;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.ufc.npi.auxilio.enums.Resultado;
@@ -42,7 +44,7 @@ public class Inscricao {
 	private Aluno aluno;
 
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
+	private QuestionarioAuxilioMoradia questionario;
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private VisitaDomiciliar visitaDomiciliar;
@@ -101,21 +103,21 @@ public class Inscricao {
 		this.selecao = selecao;
 	}
 
-	public QuestionarioAuxilioMoradia getQuestionarioAuxilioMoradia() {
-		if (questionarioAuxilioMoradia  == null)
+	public QuestionarioAuxilioMoradia getQuestionario() {
+		if (questionario == null) {
 			return new QuestionarioAuxilioMoradia();
-		return questionarioAuxilioMoradia;
+		}
+		return questionario;
 	}
 
-	public void setQuestionarioAuxilioMoradia(QuestionarioAuxilioMoradia questionarioAuxilioMoradia) {
-		this.questionarioAuxilioMoradia = questionarioAuxilioMoradia;
+	public void setQuestionario(QuestionarioAuxilioMoradia questionario) {
+		this.questionario = questionario;
 	}
 
 	public VisitaDomiciliar getVisitaDomiciliar() {
 		if(visitaDomiciliar == null){
 			visitaDomiciliar = new VisitaDomiciliar();
 		}
- 		
 		return visitaDomiciliar;
 	}
 
@@ -180,4 +182,30 @@ public class Inscricao {
 		return true;
 	}
 
+	public void setDadosBancarios(DadosBancarios dadosBancarios) {
+		if (questionario == null) {
+			questionario = new QuestionarioAuxilioMoradia();
+		}
+		this.questionario.setBanco(dadosBancarios.getBanco());
+		this.questionario.setAgencia(dadosBancarios.getAgencia());
+		this.questionario.setContaCorrente(dadosBancarios.getContaCorrente());
+	}
+
+	public DadosBancarios getDadosBancarios() {
+		if (questionario == null) {
+			return new DadosBancarios();
+		}
+		return new DadosBancarios(questionario.getBanco(),
+				questionario.getAgencia(), questionario.getContaCorrente());
+
+	}
+
+	public Moradia getMoradia() {
+		return new Moradia(questionario.getNomeMae(), questionario.getNomePai());
+	}
+
+	public void setMoradia(Moradia moradia) {
+		this.questionario.setNomeMae(moradia.getMae());
+		this.questionario.setNomePai(moradia.getPai());
+	}
 }

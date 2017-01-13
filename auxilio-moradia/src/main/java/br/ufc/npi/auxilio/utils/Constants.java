@@ -16,4 +16,9 @@ public class Constants {
 
 	public static final String ERRO = "erro";
 
+	// Permissões
+	public static final String PERMISSAO_COORDENADOR = "hasAuthority('COORDENADOR')";
+	public static final String PERMISSAO_ALUNO = "hasAuthority('ALUNO')";
+
+
 }

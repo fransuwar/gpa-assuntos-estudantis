@@ -27,6 +27,13 @@ public class QuestionarioAuxilioMoradia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
+	// Dados Bancários
+	private String banco;
+
+	private String agencia;
+
+	private String contaCorrente;
 	
 	private String nomePai;
 
@@ -115,7 +122,31 @@ public class QuestionarioAuxilioMoradia {
 	@ElementCollection
 	@CollectionTable(name = "moradores")
 	private List<String> moradores;
-	
+
+	public String getBanco() {
+		return banco;
+	}
+
+	public void setBanco(String banco) {
+		this.banco = banco;
+	}
+
+	public String getAgencia() {
+		return agencia;
+	}
+
+	public void setAgencia(String agencia) {
+		this.agencia = agencia;
+	}
+
+	public String getContaCorrente() {
+		return contaCorrente;
+	}
+
+	public void setContaCorrente(String contaCorrente) {
+		this.contaCorrente = contaCorrente;
+	}
+
 	public double getValorMensalFinanciamento() {
 		return valorMensalFinanciamento;
 	}

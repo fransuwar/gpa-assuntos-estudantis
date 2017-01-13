@@ -18,13 +18,13 @@ public class ErroController {
 	@PostMapping("/selecao/limite-excedido/{idSelecao}")
 	public String errorArquivoLimiteExcedido( @PathVariable("idSelecao") Selecao selecao, RedirectAttributes redirect ) {
 		redirect.addFlashAttribute(ERRO, TAMANHO_LIMITE_ARQUIVO_EXCEPTION);
-		return RedirectConstants.REDIRECT_PAGINA_ADICIONAR_ARQUIVO + selecao.getId();
+		return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 	}
 	
 	@PostMapping("/inscricao/limite-excedido/{idInscricao}")
 	public String errorInscricaoLimiteExcedido(@PathVariable("idInscricao") Inscricao inscricao, 
 			RedirectAttributes redirect) {
 		redirect.addFlashAttribute(ERRO, TAMANHO_LIMITE_ARQUIVO_EXCEPTION);
-		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
+		return RedirectConstants.REDIRECT_DETALHES_SELECAO + inscricao.getId();
 	}
 }

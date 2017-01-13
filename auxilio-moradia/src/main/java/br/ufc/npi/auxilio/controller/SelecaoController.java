@@ -2,14 +2,13 @@ package br.ufc.npi.auxilio.controller;
 
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
-import br.ufc.npi.auxilio.repository.DocumentoRepository;
 import br.ufc.npi.auxilio.service.*;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.util.List;
 
-import static br.ufc.npi.auxilio.utils.Constants.INFO;
-import static br.ufc.npi.auxilio.utils.Constants.ERRO;
-import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
+import static br.ufc.npi.auxilio.utils.Constants.*;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.npi.auxilio.utils.PageConstants.CADASTRAR_SELECAO;
 import static br.ufc.npi.auxilio.utils.PageConstants.DETALHES_SELECAO;
@@ -40,6 +37,12 @@ public class SelecaoController {
 	
 	@Autowired
 	private ServidorService servidorService;
+
+	@Autowired
+	private InscricaoService inscricaoService;
+
+	@Autowired
+	private AlunoService alunoService;
 	
 	@GetMapping({"", "/", "/listar"})
 	public String listarSelecoes(Model model) {
@@ -48,17 +51,23 @@ public class SelecaoController {
 	}
 
 	@GetMapping("detalhes/{selecao}")
-	public ModelAndView detalhes(@PathVariable Selecao selecao, RedirectAttributes redirect){
+	public String detalhes(@PathVariable Selecao selecao, Model model, Authentication auth, RedirectAttributes redirect){
 		if (selecao == null) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE);
-			return new ModelAndView(REDIRECT_LISTAR_SELECAO);
+			return REDIRECT_LISTAR_SELECAO;
 		}
-		return new ModelAndView(DETALHES_SELECAO)
-				.addObject("selecao", selecao);
+		Aluno aluno = alunoService.buscarPorCpf(auth.getName());
+		Inscricao inscricao = inscricaoService.get(aluno, selecao);
+		model.addAttribute("selecao", selecao)
+				.addAttribute("membroComissao", selecao.isMembroComissao(servidorService.getByCpf(auth.getName())))
+				.addAttribute("inscricaoAberta", selecao.isInscricaoAberta())
+				.addAttribute("inscricaoRealizada", inscricao != null)
+				.addAttribute("inscricaoConsolidada", inscricao != null && inscricao.isConsolidada());
+		return DETALHES_SELECAO;
 
 	}
-	
-	@Secured(COORDENADOR)
+
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/cadastrar")
 	public String cadastrarSelecaoForm(Model model) {
 		model.addAttribute("acao", "cadastrar");
@@ -66,8 +75,8 @@ public class SelecaoController {
 		
 		return CADASTRAR_SELECAO;
 	}
-	
-	@Secured(COORDENADOR)
+
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/cadastrar")
 	public String cadastrarSelecao(Selecao selecao, Authentication auth, Model model, RedirectAttributes redirect) {
 		selecao.setResponsavel(servidorService.getByCpf(auth.getName()));
@@ -80,8 +89,8 @@ public class SelecaoController {
 			return CADASTRAR_SELECAO;
 		}
 	}
-	
-	@Secured(COORDENADOR)
+
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/excluir/{selecao}")
 	public String excluirSelecao(@PathVariable Selecao selecao, RedirectAttributes redirect) {
 		// Se a seleção não existe
@@ -101,8 +110,8 @@ public class SelecaoController {
 		}
 		return REDIRECT_LISTAR_SELECAO;
 	}
-	
-	@Secured(COORDENADOR)
+
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/editar/{selecao}")
 	public String editarSelecao(@PathVariable Selecao selecao, Model model, RedirectAttributes redirect) {
 		if (selecao == null) {
@@ -114,8 +123,8 @@ public class SelecaoController {
 		}
 		return REDIRECT_LISTAR_SELECAO;
 	}
-	
-	@Secured(COORDENADOR)
+
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/documento/{selecao}/adicionar")
 	public String adicionarDocumento( @RequestParam List<MultipartFile> files,
 			@PathVariable Selecao selecao, RedirectAttributes redirect ) {
@@ -134,7 +143,7 @@ public class SelecaoController {
 		return REDIRECT_DETALHES_SELECAO + selecao.getId();
 	}
 
-	@Secured(COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/documento/{selecao}/excluir/{documento}")
 	public String excluirDocumento(@PathVariable Documento documento,
 			@PathVariable Selecao selecao, Model model, RedirectAttributes redirect) {
@@ -160,8 +169,8 @@ public class SelecaoController {
 		}
 		return null;
 	}
-	
-	@Secured(COORDENADOR)
+
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping(value = "/comissao/adicionar")
 	public String adicionarMembroComissao(@RequestParam Selecao selecao,
 			@RequestParam Servidor servidor, RedirectAttributes redirect) {
@@ -173,8 +182,8 @@ public class SelecaoController {
 		}
 		return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 	}
-	
-	@Secured(COORDENADOR)
+
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/comissao/{selecao}/excluir/{servidor}")
 	public String excluirMembroComissao(@PathVariable Selecao selecao,
 			@PathVariable Servidor servidor, RedirectAttributes redirect) {
@@ -187,7 +196,7 @@ public class SelecaoController {
 		return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 	}
 
-	@Secured(COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping(value = "/documentacao/adicionar")
 	public String adicionarTipoDocumento(@RequestParam Selecao selecao, @RequestParam String nome, @RequestParam String descricao,
 		 RedirectAttributes redirect) {
@@ -201,7 +210,7 @@ public class SelecaoController {
 		return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 	}
 
-	@Secured(COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/documentacao/excluir/{tipoDocumento}")
 	public String excluirTipoDocumento(@PathVariable TipoDocumento tipoDocumento, RedirectAttributes redirect) {
 		Selecao selecao = tipoDocumento.getSelecao();

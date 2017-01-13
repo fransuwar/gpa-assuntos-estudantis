@@ -15,7 +15,7 @@
 		<div class="col s12">
 			<div class="card">
 				<div class="card-content">
-					<h5 class="light">Seleções</h5>
+					<h5 class="title light">Seleções</h5>
 					<!-- Nenhuma seleção cadastrada -->
 					<span class="boldtable-datatables blue-grey-text" th:if="${#lists.isEmpty(selecoes)}">Nenhuma seleção cadastrada</span>
 
@@ -31,13 +31,13 @@
 						<tbody>
 							<tr th:each="selecao:${selecoes}">
 								<td><a th:href="@{/selecao/detalhes/__${selecao.id}__}" th:text="${selecao.ano}" title="Visualizar"></a></td>
-								<td th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
+								<td th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
 								<td th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'">-</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="card-action right-align">
+				<div class="card-action right-align" sec:authorize="hasAuthority('COORDENADOR')">
 					<a class="waves-effect waves-light btn" th:href="@{/selecao/cadastrar}">Nova Seleção</a>
 				</div>
 			</div>

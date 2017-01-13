@@ -10,11 +10,13 @@ public class ErrorMessageConstants {
 	public static final String MENSAGEM_ERRO_BUSCAR_ARQUIVO = "Erro ao buscar arquivo";
 	public static final String MENSAGEM_ERRO_EXCLUIR_DOCUMENTACAO = "Erro ao excluir documentação";
 	public static final String MENSAGEM_ERRO_SELECAO_COM_INSCRICAO = "Essa seleção já possui inscrições realizadas e não é possível excluí-la";
+	public static final String MENSAGEM_ERRO_PERIODO_INSCRICAO = "A data de término das inscrições deve ser posterior à data de início";
 
 	
 	/* Inscrição */
-	public static final String MENSAGEM_ERRO_PERIODO_INSCRICAO = "A data de término das inscrições deve ser posterior à data de início";
-
+	public static final String MENSAGEM_ERRO_REALIZAR_INSCRICAO = "Erro ao realizar inscrição";
+	public static final String MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO = "Não é possível realizar inscrição fora do prazo";
+	public static final String MENSAGEM_ERRO_INSCRICAO_EXISTENTE = "Você já está inscrito nessa seleção";
 
 	/* Outras */
 	public static final String TAMANHO_LIMITE_ARQUIVO_EXCEPTION = "Tamanho dos arquivos ultrapassam o limite";

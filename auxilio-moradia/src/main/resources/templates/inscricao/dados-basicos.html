@@ -1,98 +1,109 @@
 <!DOCTYPE html>
-<html lang="pt-BR"
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       layout:decorator="base/base">
+
 <head>
-    <meta charset="UTF-8"/>
-	<title>Inscrição</title>
+	<title>Auxílio - Realizar Inscrição</title>
 </head>
 
 <section layout:fragment="conteudo">
 	<div class="row">
-	
-		<div class="col s12 breadcrumbs valign-wrapper">
-            <a th:href="@{/}" class="breadcrumb blue-grey-text">
-                <i class="material-icons left">home</i>
-            </a>
-            <a class="breadcrumb blue-grey-text">Inscrição</a>
-        </div>
 		<div class="col s12">
-			<div class="row">
-				<form class="card" th:action="@{/inscricao/__${selecao.id}__}" th:method="post">
+			<div class="card">
+				<form th:action="@{/inscricao/__${selecao.id}__}" th:object="${identificacao}" th:method="post">
 					<div class="card-content">
-					<div class="row">
-						<div class="col s12 m6 l8">
-							<span class="bold">Nome Completo:</span>
-							<span class=" text-18 truncate" th:text="${aluno.pessoa.nome}"></span>
+						<h5 class="title light" th:text="Identificação"></h5>
+						<div class="row">
+							<div class="col s4">
+								<span class="bold">Nome Completo:</span>
+								<span class="text-20 truncate" th:text="${aluno.pessoa.nome} ? ${aluno.pessoa.nome} : '-'"></span>
+							</div>
+							<div class="col s4">
+								<span class="bold">CPF:</span>
+								<span class="text-20 truncate" th:text="${aluno.pessoa.cpf} ? ${aluno.pessoa.cpf} : '-'"></span>
+							</div>
+							<div class="col s2">
+								<span class="bold">Data de Nascimento:</span>
+								<span class="text-20 truncate" th:text="${aluno.pessoa.dataNascimento} ? ${#temporals.format(aluno.pessoa.dataNascimento,'dd/MM/yyyy')} : '-'"></span>
+							</div>
+							<div class="col s2">
+								<span class="bold">Sexo:</span>
+								<span class="text-20 truncate" th:text="${aluno.pessoa.sexo} ? ${aluno.pessoa.sexo} : '-'"></span>
+							</div>
 						</div>
-						<div class="col s12 m6 l4">					
-							<span class="bold">Estado Civil:</span>
-							<span class="text-18 truncate" th:text="${aluno.pessoa.estadoCivil}"></span>
+						<div class="row">
+							<div class="col s4">
+								<span class="bold">Email:</span>
+								<span class="text-20 truncate" th:text="${aluno.pessoa.email} ? ${aluno.pessoa.email} : '-'"></span>
+							</div>
+							<div class="col s4">
+								<span class="bold">Curso:</span>
+								<span class="text-20 truncate" th:text="${aluno.curso} ? ${aluno.curso} : '-'"></span>
+							</div>
+							<div class="col s2">
+								<span class="bold">Matrícula:</span>
+								<span class="text-20 truncate" th:text="${aluno.matricula} ? ${aluno.matricula} : '-'"></span>
+							</div>
+							<div class="col s2">
+								<span class="bold">Ano Ingresso:</span>
+								<span class="text-20 truncate" th:text="${aluno.anoIngresso} ? ${aluno.anoIngresso} : '-'"></span>
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col s12 m6 l3">
-							<span class="bold">Data de Nascimento:</span>
-							<span class="text-18 truncate" th:text="${#calendars.format(aluno.pessoa.dataNascimento,'dd/MM/yyyy')}"></span>
+						<div class="row">
+							<div class="col s3 input-field">
+								<input th:field="*{identidade}" type="text" id="identidade" required="required"/>
+								<label for="identidade">* Identidade</label>
+							</div>
+							<div class="col s3 input-field">
+								<input th:field="*{orgaoEmissor}" type="text" id="orgaoEmissor" required="required"/>
+								<label for="orgaoEmissor">* Órgão emissor</label>
+							</div>
+							<div class="col s3 input-field">
+								<select id="ufIdentidade" th:field="*{ufIdentidade}">
+									<option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+								</select>
+								<label for="ufIdentidade">* UF</label>
+							</div>
+							<div class="col s3 input-field">
+								<input th:field="*{ira}" type="text" id="ira" required="required"/>
+								<label for="ira">* IRA atual</label>
+							</div>
 						</div>
-						<div class="col s12 m6 l3">					
-							<span class="bold">Sexo:</span>
-							<span class="text-18 truncate" th:text="${aluno.pessoa.sexo}"></span>
+						<div class="row">
+							<div class="col s3 input-field">
+								<input th:field="*{naturalidade}" type="text" id="naturalidade" required="required"/>
+								<label for="naturalidade">* Naturalidade</label>
+							</div>
+							<div class="col s3 input-field">
+								<select id="ufNaturalidade" th:field="*{ufNaturalidade}">
+									<option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+								</select>
+								<label for="ufNaturalidade">* UF naturalidade</label>
+							</div>
+							<div class="col s3 input-field">
+								<select id="estadoCivil" th:field="*{estadoCivil}">
+									<option th:each="estado : ${estadosCivis}" th:value="${estado}" th:text="${estado.nome}"></option>
+								</select>
+								<label for="estadoCivil">* Estado civil</label>
+							</div>
+							<div class="col s3 input-field">
+								<input th:field="*{contato}" type="text" id="contato" required="required"/>
+								<label for="contato">* Contato</label>
+							</div>
 						</div>
-						<div class="col s12 m6 l3">
-							<span class="bold">Nacionalidade</span>
-							<span class="text-18 truncate" th:text="${aluno.pessoa.nacionalidade}"></span>
+						<div class="row">
+							<span>Confira os seus dados. Se houver algum erro corrija-os <a href="http://cadastroaluno.intranet">aqui</a>.
+								Preencha o formulário e clique em Realizar Inscrição.</span>
 						</div>
-						<div class="col s12 m6 l3">					
-							<span class="bold">Natural de:</span>
-							<span class="text-18 truncate" th:text="${aluno.pessoa.naturalidade} + ' - ' + ${aluno.pessoa.uf}"></span>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col s12 m6 l3">
-							<span class="bold">CPF:</span>
-							<span class="text-18 truncate" th:text="${aluno.pessoa.cpf}"></span>
-						</div>
-						<div class="col s12 m6 l3">					
-							<span class="bold">Identidade:</span>
-							<span class="text-18 truncate" th:text="${aluno.pessoa.rg}"></span>
-						</div>
-						<div class="col s12 m6 l3">
-							<span class="bold">Matrícula:</span>
-							<span class="text-18 truncate" th:text="${aluno.matricula}"></span>
-						</div>
-						<div class="col s12 m6 l3">
-							<span class="bold">Curso:</span>
-							<span class="text-18 truncate" th:text="${aluno.curso}"></span>
-						</div>
-					</div>			
-					<div class="row">
-						<div class="col s12 m6 l3">
-							<span class="bold">Ano Ingresso:</span>
-							<span class="text-18 truncate" th:text="${aluno.anoIngresso}"></span>
-						</div>
-						<div class="col s12 m6 l3">
-							<span class="bold">IRA:</span>
-							<span class="text-18 truncate" ></span>
-						</div>
-						<div class="col s12 m6 l3">
-							<span class="bold">Email:</span>
-							<span class="text-18 truncate" th:text="${aluno.pessoa.email}"></span>
-						</div>
-						<div class="col s12 m6 l3">
-							<span class="bold">Telefone para contato:</span>
-							<span class="text-18 truncate" th:text="${aluno.pessoa.telefone}"></span>
-						</div>
-					</div>
-						<span>Confira os seus dados. Se houver algum erro corrija-os <a href="http://cadastroaluno.intranet">aqui</a>, senão clique em Realizar Inscrição.</span><br/>
 					</div>
 					<div class="card-action right-align">
-						<button class="btn waves-effect waves-light" type="submit" name="action"> Realizar Inscrição
-							<i class="mdi mdi-account-check right"></i>
-						</button>
+						<button class="btn waves-effect waves-light" type="submit"
+							th:text="${identificacao.naturalidade} ? 'Avançar' : 'Realizar Inscrição'"></button>
 					</div>
-				</form>        
+				</form>
 			</div>
 		</div>
    </div>

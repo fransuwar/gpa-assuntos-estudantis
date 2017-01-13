@@ -1,5 +1,7 @@
 package br.ufc.npi.auxilio.model;
 
+import br.ufc.npi.auxilio.model.questionario.Identificacao;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -95,6 +97,23 @@ public class Aluno {
 		} else if (!matricula.equals(other.matricula))
 			return false;
 		return true;
+	}
+
+	public void setIdentificacao(Identificacao identificacao) {
+		this.pessoa.setRg(identificacao.getIdentidade());
+		this.pessoa.setOrgaoEmissorRg(identificacao.getOrgaoEmissor());
+		this.pessoa.setUfRg(identificacao.getUfIdentidade());
+		this.pessoa.setNaturalidade(identificacao.getNaturalidade());
+		this.pessoa.setUfNaturalidade(identificacao.getUfNaturalidade());
+		this.pessoa.setEstadoCivil(identificacao.getEstadoCivil());
+		this.pessoa.setTelefone(identificacao.getContato());
+		this.ira = identificacao.getIra();
+	}
+
+	public Identificacao getIdentificacao() {
+		Identificacao identificacao = new Identificacao(pessoa.getRg(), pessoa.getOrgaoEmissorRg(), pessoa.getUfRg(),
+				pessoa.getNaturalidade(), pessoa.getUfNaturalidade(), pessoa.getEstadoCivil(), pessoa.getTelefone(), ira);
+		return identificacao;
 	}
 
 }

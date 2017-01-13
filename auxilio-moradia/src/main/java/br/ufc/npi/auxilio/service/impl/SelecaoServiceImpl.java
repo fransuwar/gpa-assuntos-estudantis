@@ -41,7 +41,7 @@ public class SelecaoServiceImpl implements SelecaoService {
 			throw new AuxilioMoradiaException(CAMPOS_OBRIGATORIOS);
 		}
 		// Verifica se a data de término é posterior à data de início
-		if (selecao.getDataTermino().before(selecao.getDataInicio())) {
+		if (selecao.getDataTermino().isBefore(selecao.getDataInicio())) {
 			throw new AuxilioMoradiaException(MENSAGEM_ERRO_PERIODO_INSCRICAO);
 		}
 		// Inclui o responsável na comissão da seleção

@@ -2,24 +2,31 @@
 <html lang="pt-BR"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="base/base"
-      th:with="currentPage='inscricao'">
+      layout:decorator="base/base">
 
 	<div layout:fragment="conteudo">
-	
 		<div class="row">
-			<div class="col s12 breadcrumbs valign-wrapper">
-	            <a th:href="@{/}" class="breadcrumb blue-grey-text">
-	                <i class="material-icons left">home</i>
-	            </a>
-	            <a class="breadcrumb blue-grey-text">Inscricao</a>
-	            <a class="breadcrumb blue-grey-text">Moradia</a>
-	        </div>
-	
 			<div class="col s12">
 			 	<div class="card">
-			 		
-			 		<form class="card-content form-moradia"
+					<form th:action="@{/inscricao/moradia/__${selecao.id}__}" th:object="${moradia}" th:method="post">
+						<div class="card-content">
+							<h5 class="title light">Núcleo familiar</h5>
+							<div class="row">
+								<div class="col s6 input-field">
+									<input th:field="*{mae}" type="text" id="mae" required="required"/>
+									<label for="mae">* Nome da mãe</label>
+								</div>
+								<div class="col s6 input-field">
+									<input th:field="*{pai}" type="text" id="pai" required="required"/>
+									<label for="pai">* Nome do pai</label>
+								</div>
+							</div>
+						</div>
+						<div class="card-action right-align">
+							<input class="btn waves-effect waves-light" type="submit" value="Avançar"/>
+						</div>
+					</form>
+			 		<!--<form class="card-content form-moradia"
 				 		th:action="@{/inscricao/__${inscricao.id}__/questionario}" 
 				 		th:object="${questionarioAuxilioMoradia}" 
 				 		th:method="post">
@@ -111,13 +118,9 @@
 						
 						</div>
 						
-					</form>
+					</form>-->
 					
-					<div class="card-action right-align">
-						<input class="btn waves-effect waves-light" type="submit" value="Continuar"/>
-					</div>
-					
-				</div> 	
+				</div>
 			</div>
 		</div>
 	</div>

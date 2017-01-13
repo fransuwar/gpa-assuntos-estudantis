@@ -1,7 +1,7 @@
 package br.ufc.npi.auxilio.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -9,9 +9,7 @@ import java.util.TreeMap;
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OrderBy;
 
-import org.hibernate.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -26,10 +24,10 @@ public class Selecao {
 	private Integer quantidadeVagas;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date dataInicio;
+	private LocalDate dataInicio;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date dataTermino;
+	private LocalDate dataTermino;
 	
 	@ManyToOne
 	private Servidor responsavel;
@@ -58,11 +56,11 @@ public class Selecao {
 		return ano;
 	}
 
-	public Date getDataInicio() {
+	public LocalDate getDataInicio() {
 		return dataInicio;
 	}
 
-	public Date getDataTermino() {
+	public LocalDate getDataTermino() {
 		return dataTermino;
 	}
 
@@ -93,11 +91,11 @@ public class Selecao {
 		this.ano = ano;
 	}
 
-	public void setDataInicio(Date datadeInicio) {
+	public void setDataInicio(LocalDate datadeInicio) {
 		this.dataInicio = datadeInicio;
 	}
 
-	public void setDataTermino(Date datadeTermino) {
+	public void setDataTermino(LocalDate datadeTermino) {
 		this.dataTermino = datadeTermino;
 	}
 
@@ -212,7 +210,7 @@ public class Selecao {
 		Map<String, Integer> mapaCidades = new TreeMap<String, Integer>();
 		for(Inscricao inscricao:inscricoes){
 			if(inscricao.isRealizarVisita()){
-				String cidade = inscricao.getQuestionarioAuxilioMoradia().getCidadeOrigem();
+				String cidade = inscricao.getQuestionario().getCidadeOrigem();
 				if(mapaCidades.containsKey(cidade)){
 					int numAlunos = mapaCidades.get(cidade);
 					mapaCidades.put(cidade, numAlunos+1);
@@ -239,5 +237,13 @@ public class Selecao {
 		if (documentos != null) {
 			documentos.remove(documento);
 		}
+	}
+
+    public boolean isMembroComissao(Servidor servidor) {
+		return this.comissao.contains(servidor);
+    }
+
+	public boolean isInscricaoAberta() {
+		return !this.dataInicio.isAfter(LocalDate.now()) && !LocalDate.now().isAfter(this.dataTermino);
 	}
 }

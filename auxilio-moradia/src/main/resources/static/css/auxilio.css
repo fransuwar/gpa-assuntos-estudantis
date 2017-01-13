@@ -13,6 +13,10 @@ nav .brand-logo {
     display: inline;
 }
 
+h5.title {
+    margin-bottom: 30px;
+}
+
 /* Helpers */
 .text-10 {
     font-size: 10px;

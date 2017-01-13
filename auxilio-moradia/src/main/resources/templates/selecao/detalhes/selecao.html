@@ -1,6 +1,6 @@
 <div class="card" th:fragment="selecao">
 	<div class="card-content">
-		<h5 class="light">Detalhes</h5>
+		<h5 class="title light">Detalhes</h5>
 		<div class="row no-margin">
 			<div class="col s4">
 				<span class="bold grey-text text-darken-2">Ano:</span> <br/>
@@ -9,12 +9,12 @@
 			
 			<div class="col s4">
 				<span class="bold grey-text text-darken-2">Início:</span> <br/>
-				<span th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')}" class="text-20 light"></span>
+				<span th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')}" class="text-20 light"></span>
 			</div>
 			
 			<div class="col s4">
 				<span class="bold grey-text text-darken-2">Término:</span> <br/>
-				<span th:text="${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light"></span>
+				<span th:text="${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light"></span>
 			</div>
 		</div>
 		<div class="row no-margin">
@@ -23,7 +23,7 @@
 				<span th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'" class="text-20 light"></span>
 			</div>
 			
-			<div class="col s4">
+			<div class="col s8">
 				<span class="bold grey-text text-darken-2">Responsável:</span> <br/>
 				<span th:text="${selecao.responsavel.pessoa.nome}" class="text-20 light"></span>
 			</div>
@@ -31,9 +31,14 @@
 		</div>				
 	</div>
 	
-	<div class="card-action right-align">
+	<div class="card-action right-align" sec:authorize="hasAuthority('COORDENADOR')">
 		<a th:href="@{/selecao/editar/__${selecao.id}__}" class="waves-effect waves-light btn">Editar</a>
 		<a class="waves-effect waves-light btn red" href="#excluir-selecao" th:attr="data-url=@{/selecao/excluir/__${selecao.id}__}">Excluir</a>
+	</div>
+	<div class="card-action right-align" sec:authorize="hasAnyAuthority('ALUNO')" th:if="${inscricaoAberta or inscricaoRealizada}">
+		<a th:unless="${inscricaoRealizada}" th:href="@{/inscricao/__${selecao.id}__}" class="waves-effect waves-light btn">Realizar Inscrição</a>
+		<a th:if="${inscricaoRealizada and !inscricaoConsolidada}" th:href="@{/inscricao/__${selecao.id}__}" class="waves-effect waves-light btn">Atualizar Inscrição</a>
+		<a th:if="${inscricaoRealizada and inscricaoConsolidada}" th:href="@{/inscricao/visualizar/__${selecao.id}__}" class="waves-effect waves-light btn">Visualizar Inscrição</a>
 	</div>
 
 	<!-- Modal excluir seleção -->

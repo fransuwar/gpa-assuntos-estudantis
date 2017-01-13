@@ -1,5 +1,6 @@
 package br.ufc.npi.auxilio.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -41,21 +42,23 @@ public class Pessoa implements UserDetails {
 
 	private boolean habilitado;
 	
-	@Temporal(TemporalType.DATE) 
-	private Date dataNascimento;
-	
-	private String nacionalidade;
+	private LocalDate dataNascimento;
 	
 	private String naturalidade;
 
 	@Enumerated(EnumType.STRING)
-	private Estado uf;
+	private Estado ufNaturalidade;
 	
 	private String sexo;
 	
 	private String cpf;
 	
 	private String rg;
+
+	private String orgaoEmissorRg;
+
+	@Enumerated(EnumType.STRING)
+	private Estado ufRg;
 
 	private String telefone;
 	
@@ -83,14 +86,6 @@ public class Pessoa implements UserDetails {
 		this.habilitado = habilitado;
 	}
 
-	public Estado getUf() {
-		return uf;
-	}
-	
-	public void setUf(Estado uf) {
-		this.uf = uf;
-	}
-		
 	public String getEmail() {
 		return email;
 	}
@@ -107,20 +102,12 @@ public class Pessoa implements UserDetails {
 		this.nome = nome;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
-	}
-
-	public String getNacionalidade() {
-		return nacionalidade;
-	}
-
-	public void setNacionalidade(String nacionalidade) {
-		this.nacionalidade = nacionalidade;
 	}
 
 	public String getNaturalidade() {
@@ -131,7 +118,6 @@ public class Pessoa implements UserDetails {
 		this.naturalidade = naturalidade;
 	}
 
-	
 	public String getSexo() {
 		return sexo;
 	}
@@ -150,6 +136,30 @@ public class Pessoa implements UserDetails {
 
 	public String getRg() {
 		return rg;
+	}
+
+	public Estado getUfNaturalidade() {
+		return ufNaturalidade;
+	}
+
+	public void setUfNaturalidade(Estado ufNaturalidade) {
+		this.ufNaturalidade = ufNaturalidade;
+	}
+
+	public String getOrgaoEmissorRg() {
+		return orgaoEmissorRg;
+	}
+
+	public void setOrgaoEmissorRg(String orgaoEmissorRg) {
+		this.orgaoEmissorRg = orgaoEmissorRg;
+	}
+
+	public Estado getUfRg() {
+		return ufRg;
+	}
+
+	public void setUfRg(Estado ufRg) {
+		this.ufRg = ufRg;
 	}
 
 	public void setRg(String rg) {
