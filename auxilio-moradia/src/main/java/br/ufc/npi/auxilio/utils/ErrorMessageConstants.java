@@ -15,6 +15,7 @@ public class ErrorMessageConstants {
 	
 	/* Inscrição */
 	public static final String MENSAGEM_ERRO_REALIZAR_INSCRICAO = "Erro ao realizar inscrição";
+	public static final String MENSAGEM_ERRO_ATUALIZAR_INSCRICAO = "Erro ao atualizar inscrição";
 	public static final String MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO = "Não é possível realizar inscrição fora do prazo";
 	public static final String MENSAGEM_ERRO_INSCRICAO_EXISTENTE = "Você já está inscrito nessa seleção";
 

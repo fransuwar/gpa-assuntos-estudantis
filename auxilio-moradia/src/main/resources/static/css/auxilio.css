@@ -8,6 +8,23 @@ nav .brand-logo {
     margin-top: 30px;
 }
 
+.checkbox-inline {
+    display: inline;
+    margin-left: 35px !important;
+}
+
+.checkbox-inline label {
+    padding-left: 25px;
+}
+
+div.subtitle {
+    margin-top: 50px;
+}
+
+.no-display {
+    display: none;
+}
+
 /* Badges */
 .chip div, .chip i {
     display: inline;

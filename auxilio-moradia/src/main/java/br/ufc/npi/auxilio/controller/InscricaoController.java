@@ -1,10 +1,7 @@
 package br.ufc.npi.auxilio.controller;
 
 
-import br.ufc.npi.auxilio.enums.Estado;
-import br.ufc.npi.auxilio.enums.EstadoCivil;
-import br.ufc.npi.auxilio.enums.GrauParentesco;
-import br.ufc.npi.auxilio.enums.TipoEnsino;
+import br.ufc.npi.auxilio.enums.*;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
 import br.ufc.npi.auxilio.model.questionario.DadosBancarios;
@@ -32,6 +29,7 @@ import java.util.List;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_ALUNO;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_INSCRICAO_EXISTENTE;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
@@ -48,7 +46,10 @@ public class InscricaoController {
 
 	@Autowired
 	private QuestionarioAuxilioMoradiaService questionarioAuxilioMoradiaService;
-	
+
+	/**
+	 * Formulário de dados básicos
+	 */
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@GetMapping("{selecao}")
 	public String inscreverDadosBasicosForm(@PathVariable Selecao selecao, Model model, Authentication auth, RedirectAttributes redirect){
@@ -59,8 +60,11 @@ public class InscricaoController {
 		model.addAttribute("estadosCivis", EstadoCivil.values());
 		Inscricao inscricao = inscricaoService.get(aluno, selecao);
 
-		// Se o aluno já estiver inscrito e ainda não finalizou a inscrição, retorna página de identificação para atualização dos dados
-		if (inscricao != null) {
+		// Se o aluno não estiver inscrito, inicia a inscrição
+		if (inscricao == null) {
+			model.addAttribute("identificacao", new Identificacao());
+		} else if (inscricao.getSelecao().isInscricaoAberta()) {
+			// Se o aluno ainda não finalizou a inscrição, retorna página de identificação para atualização dos dados
 			if (!inscricao.isConsolidada()) {
 				model.addAttribute("identificacao", inscricao.getAluno().getIdentificacao());
 			} else {
@@ -68,13 +72,17 @@ public class InscricaoController {
 				return REDIRECT_DETALHES_SELECAO + selecao.getId();
 			}
 		} else {
-			// Se o aluno não estiver inscrito, inicia a inscrição
-			model.addAttribute("identificacao", new Identificacao());
+			// O período de inscrição já encerrou e não é possível atualizar a inscrição
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
+			return REDIRECT_DETALHES_SELECAO + selecao.getId();
 		}
 
 		return INSCRICAO_DADOS_BASICOS;
 	}
 
+	/**
+	 * Dados básicos no aluno
+	 */
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@PostMapping("{selecao}")
 	public String inscreverDadosBasicos(@PathVariable Selecao selecao, Identificacao identificacao,
@@ -82,10 +90,11 @@ public class InscricaoController {
 		Aluno aluno = alunoService.buscarPorCpf(auth.getName());
 		try {
 			Inscricao inscricao = inscricaoService.get(aluno, selecao);
-			// Verifica se o aluno já está inscrito
+			// Cria uma nova inscrição se o aluno ainda não estiver inscrito
 			if (inscricao == null) {
-				inscricaoService.salvar(selecao, aluno, identificacao);
-			} else {
+				inscricao = inscricaoService.salvar(selecao, aluno, identificacao);
+			} else if (inscricao.getSelecao().isInscricaoAberta()) {
+				// Atualiza as informações básicas se a seleção estiver aberta e a inscrição não estiver sido consolidada
 				if (!inscricao.isConsolidada()) {
 					aluno.setIdentificacao(identificacao);
 					alunoService.salvar(aluno);
@@ -93,8 +102,13 @@ public class InscricaoController {
 					redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_EXISTENTE);
 					return REDIRECT_DETALHES_SELECAO + selecao.getId();
 				}
+			} else {
+				// O período de inscrição já encerrou e não é possível atualizar a inscrição
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
+				return REDIRECT_DETALHES_SELECAO + selecao.getId();
 			}
-			model.addAttribute("inscricao", inscricaoService.get(aluno, selecao));
+			// Redireciona para a página de dados bancários
+			model.addAttribute("inscricao", inscricao);
 			model.addAttribute("dadosBancarios", inscricao.getDadosBancarios());
 			return INSCRICAO_DADOS_BANCARIOS;
 		} catch (AuxilioMoradiaException e) {
@@ -103,37 +117,58 @@ public class InscricaoController {
 		}
 	}
 
+	/**
+	 * Dados bancários
+	 */
 	@PostMapping("dados-bancarios/{selecao}")
 	public String inscreverDadosBancarios(@PathVariable Selecao selecao, DadosBancarios dadosBancarios,
 			Model model, Authentication auth, RedirectAttributes redirect){
-		Aluno aluno = alunoService.buscarPorCpf(auth.getName());
-		Inscricao inscricao = inscricaoService.get(aluno, selecao);
-		// Verifica se o aluno possui inscrição na seleção
-		if(inscricao == null) {
+
+		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+		inscricao.setDadosBancarios(dadosBancarios);
+		try {
+			inscricaoService.atualizar(inscricao);
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
 		}
-		// Inclui os dados bancários e atualiza a inscrição
-		inscricao.setDadosBancarios(dadosBancarios);
-		inscricaoService.salvar(inscricao);
+
+		// Redireciona para a página de moradia
 		model.addAttribute("moradia", inscricao.getMoradia());
+		model.addAttribute("opcoesMoradoresOrigem", MoradoresOrigem.values());
+		model.addAttribute("opcoesMoradores", Moradores.values());
+		model.addAttribute("estados", Estado.values());
+		model.addAttribute("imoveis", SituacaoImovel.values());
 		return INSCRICAO_MORADIA;
 	}
 
+	/**
+	 * Moradia de origem e moradia atual
+	 */
 	@PostMapping("moradia/{selecao}")
 	public String inscreverMoradia(@PathVariable Selecao selecao, Moradia moradia,
-			Model model, Authentication auth){
-		Aluno aluno = alunoService.buscarPorCpf(auth.getName());
-		Inscricao inscricao = inscricaoService.get(aluno, selecao);
-		// Verifica se o aluno possui inscrição na seleção
-		if(inscricao == null) {
+			Model model, Authentication auth, RedirectAttributes redirect){
+		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+		inscricao.setMoradia(moradia);
+		try {
+			inscricaoService.atualizar(inscricao);
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
 		}
-		// Inclui os dados da moradia e atualiza a inscrição
-		inscricao.setMoradia(moradia);
-		inscricaoService.salvar(inscricao);
+
+		// Redireciona para a página de histórico escolar
+		/*model.addAttribute("moradia", inscricao.getMoradia());
+		model.addAttribute("opcoesMoradoresOrigem", MoradoresOrigem.values());
+		model.addAttribute("opcoesMoradores", Moradores.values());
+		model.addAttribute("estados", Estado.values());
+		model.addAttribute("imoveis", SituacaoImovel.values());*/
 		return INSCRICAO_HISTORICO;
 	}
-	
+
+	/**
+	 * Histórico escolar
+	 */
 	@PostMapping("{idInscricao}/questionario")
 	public ModelAndView inscreverQuestionario(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao, 
 			QuestionarioAuxilioMoradia questionarioAuxilioMoradia){
@@ -155,7 +190,7 @@ public class InscricaoController {
 	@PostMapping("{idInscricao}/historico")
 	public ModelAndView inscreverHistorico(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao, 
 			QuestionarioAuxilioMoradia questionarioAuxilioMoradia){
-		inscricao.getQuestionario().merge(questionarioAuxilioMoradia);
+		//inscricao.getQuestionario().merge(questionarioAuxilioMoradia);
 		inscricaoService.salvar(inscricao);
 		mav.setViewName(String.format("redirect:/inscricao/%1d/situacao-socio-economica", inscricao.getId()));
 		return mav;		
@@ -172,7 +207,7 @@ public class InscricaoController {
 	@PostMapping("{idInscricao}/situacao-socio-economica")
 	public ModelAndView inscreverSituacaoSocioEconomica(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao, 
 			QuestionarioAuxilioMoradia questionarioAuxilioMoradia){
-		inscricao.getQuestionario().merge(questionarioAuxilioMoradia);
+		//inscricao.getQuestionario().merge(questionarioAuxilioMoradia);
 		inscricaoService.salvar(inscricao);
 		mav.setViewName(String.format("redirect:/documentacao/%1d", inscricao.getId()));
 		return mav;		
@@ -198,7 +233,7 @@ public class InscricaoController {
 	@PostMapping("api/{idInscricao}/bem-movel")
 	public Response inscreverBemMovel(@PathVariable("idInscricao") Inscricao inscricao, BemMovel bemMovel){
 		QuestionarioAuxilioMoradia questionario = inscricao.getQuestionario();
-		List<BemMovel> bensMoveis = questionario.getBemMovel(); 
+		/*List<BemMovel> bensMoveis = questionario.getBemMovel();
 		if (bensMoveis != null){
 			bensMoveis.add(bemMovel);
 		}else {
@@ -206,7 +241,7 @@ public class InscricaoController {
 			bensMoveis.add(bemMovel);
 		}
 		
-		questionario.setBemMovel(bensMoveis);
+		questionario.setBemMovel(bensMoveis);*/
 		questionarioAuxilioMoradiaService.salvar(questionario);
 		return new Response();
 	}

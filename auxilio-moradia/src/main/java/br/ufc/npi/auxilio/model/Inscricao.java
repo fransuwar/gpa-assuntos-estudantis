@@ -1,22 +1,14 @@
 package br.ufc.npi.auxilio.model;
 
-import java.util.Date;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
+import br.ufc.npi.auxilio.enums.Moradores;
+import br.ufc.npi.auxilio.enums.MoradoresOrigem;
+import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.model.questionario.DadosBancarios;
 import br.ufc.npi.auxilio.model.questionario.Moradia;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.ufc.npi.auxilio.enums.Resultado;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Inscricao {
@@ -201,11 +193,83 @@ public class Inscricao {
 	}
 
 	public Moradia getMoradia() {
-		return new Moradia(questionario.getNomeMae(), questionario.getNomePai());
+		Moradia moradia = new Moradia();
+
+		// Núcleo familiar
+		moradia.setMae(questionario.getNomeMae());
+		moradia.setPai(questionario.getNomePai());
+
+		// Moradia de origem
+		moradia.setMoradoresOrigem(questionario.getMoradoresOrigem());
+		moradia.setOutroMoradorOrigem(questionario.getOutroMoradorOrigem());
+		moradia.setEnderecoOrigem(questionario.getEnderecoOrigem());
+		moradia.setNumeroOrigem(questionario.getNumeroOrigem());
+		moradia.setBairroOrigem(questionario.getBairroOrigem());
+		moradia.setCidadeOrigem(questionario.getCidadeOrigem());
+		moradia.setEstadoOrigem(questionario.getEstadoOrigem());
+		moradia.setCepOrigem(questionario.getCepOrigem());
+		moradia.setReferenciaOrigem(questionario.getReferenciaOrigem());
+
+		// Moradia de origem - outras informações
+		moradia.setSituacaoImovel(questionario.getSituacaoImovel());
+		moradia.setFinanciamento(questionario.getFinanciamento());
+		moradia.setQuantidadeBemMovel(questionario.getQuantidadeBemMovel());
+		moradia.setDescricaoBemMovel(questionario.getDescricaoBemMovel());
+
+		// Moradia atual;
+		moradia.setMoradores(questionario.getMoradores());
+		moradia.setOutroMorador(questionario.getOutroMorador());
+		moradia.setEndereco(questionario.getEndereco());
+		moradia.setNumero(questionario.getNumero());
+		moradia.setBairro(questionario.getBairro());
+		moradia.setCidade(questionario.getCidade());
+		moradia.setEstado(questionario.getEstado());
+		moradia.setCep(questionario.getCep());
+		moradia.setReferencia(questionario.getReferencia());
+
+		return moradia;
 	}
 
 	public void setMoradia(Moradia moradia) {
-		this.questionario.setNomeMae(moradia.getMae());
-		this.questionario.setNomePai(moradia.getPai());
+		// Núcleo familiar
+		questionario.setNomeMae(moradia.getMae());
+		questionario.setNomePai(moradia.getPai());
+
+		// Moradia de origem
+		questionario.setMoradoresOrigem(moradia.getMoradoresOrigem());
+		if (moradia.getMoradoresOrigem().contains(MoradoresOrigem.OUTROS.name())) {
+			questionario.setOutroMoradorOrigem(moradia.getOutroMoradorOrigem());
+		} else {
+			questionario.setOutroMoradorOrigem(null);
+		}
+		questionario.setEnderecoOrigem(moradia.getEnderecoOrigem());
+		questionario.setNumeroOrigem(moradia.getNumeroOrigem());
+		questionario.setBairroOrigem(moradia.getBairroOrigem());
+		questionario.setCidadeOrigem(moradia.getCidadeOrigem());
+		questionario.setEstadoOrigem(moradia.getEstadoOrigem());
+		questionario.setCepOrigem(moradia.getCepOrigem());
+		questionario.setReferenciaOrigem(moradia.getReferenciaOrigem());
+
+		// Moradia de origem - outras informações
+		questionario.setSituacaoImovel(moradia.getSituacaoImovel());
+		questionario.setFinanciamento(moradia.getFinanciamento());
+		questionario.setQuantidadeBemMovel(moradia.getQuantidadeBemMovel());
+		questionario.setDescricaoBemMovel(moradia.getDescricaoBemMovel());
+
+		// Moradia atual
+		questionario.setMoradores(moradia.getMoradores());
+		if (moradia.getMoradores().contains(Moradores.OUTROS.name())) {
+			questionario.setOutroMorador(moradia.getOutroMorador());
+		} else {
+			questionario.setOutroMorador(null);
+		}
+
+		questionario.setEndereco(moradia.getEndereco());
+		questionario.setNumero(moradia.getNumero());
+		questionario.setBairro(moradia.getBairro());
+		questionario.setCidade(moradia.getCidade());
+		questionario.setEstado(moradia.getEstado());
+		questionario.setCep(moradia.getCep());
+		questionario.setReferencia(moradia.getReferencia());
 	}
 }

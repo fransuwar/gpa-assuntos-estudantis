@@ -1,18 +1,25 @@
-
-var propriedadeTemplate = $(".propriedade-reference"); propriedadeTemplate.remove();
-var adicionarPropriedade = function(p) {
-	
-	$('#table-propriedade').dataTable().fnAddData( [
-		p.parentescoProprietario,
-		p.outroParentesco, 
-		p.area, 
-		p.cidade, 
-		p.estado
-	]);
-}
-
 $(document).ready( function() {
-	var token = $("meta[name='_csrf']").attr("content");
+
+	// Formulário de moradia
+	$('#OUTROS-origem').click(function () {
+		if($(this).prop('checked')) {
+            $('#div-outroMoradorOrigem').removeClass('no-display');
+		} else {
+            $('#div-outroMoradorOrigem').addClass('no-display');
+		}
+    });
+
+    $('#OUTROS').click(function () {
+        if($(this).prop('checked')) {
+            $('#div-outroMorador').removeClass('no-display');
+        } else {
+            $('#div-outroMorador').addClass('no-display');
+        }
+    });
+
+
+
+	/*var token = $("meta[name='_csrf']").attr("content");
 	var context = !!$("meta[name='_context']").attr("content") || "";
 	var header = $("meta[name='_csrf_header']").attr("content");
 	
@@ -40,26 +47,6 @@ $(document).ready( function() {
 			    adicionarPropriedade(response.object);
 		    }
 		});
-	});
+	});*/
 		
 });
-		
-//		$.post(url, data, function(data) {
-//			console.log(data);
-//		});
-//		$.ajax({
-//			url: url,
-//			type: 'post',
-//			success: function(response) {
-//				console.log(JSON.stringify(response));
-//				mf_base.doAlertSet(response.alert);
-//			},		
-//	        error: function() {
-//	        	console.log("erro");
-//	        }
-//		});
-//	});
-
-
-
-

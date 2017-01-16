@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
+import br.ufc.npi.auxilio.enums.Estado;
 import org.hibernate.annotations.Type;
 
 import br.ufc.npi.auxilio.enums.SituacaoImovel;
@@ -35,15 +36,70 @@ public class QuestionarioAuxilioMoradia {
 
 	private String contaCorrente;
 	
+	// Núcleo Familiar
 	private String nomePai;
 
 	private String nomeMae;
-	
+
+	// Endereço origem
+	@ElementCollection
+	@CollectionTable(name = "moradores")
+	private List<String> moradoresOrigem;
+
+	private String outroMoradorOrigem;
+
+	private String enderecoOrigem;
+
+	private String numeroOrigem;
+
+	private String complementoOrigem;
+
+	private String bairroOrigem;
+
+	private String cepOrigem;
+
+	private String cidadeOrigem;
+
+	@Enumerated(EnumType.STRING)
+	private Estado estadoOrigem;
+
+	private String referenciaOrigem;
+
+	// Endereço de origem - outras informações
 	@Enumerated(EnumType.STRING)
 	private SituacaoImovel situacaoImovel;
+
+	private Double financiamento;
+
+	private Integer quantidadeBemMovel;
+
+	private String descricaoBemMovel;
+
+	// Endereço atual
+	@ElementCollection
+	@CollectionTable(name = "moradores")
+	private List<String> moradores;
+
+	private String outroMorador;
+
+	private String endereco;
+
+	private String numero;
+
+	private String complemento;
+
+	private String bairro;
+
+	private String cep;
+
+	private String cidade;
+
+	@Enumerated(EnumType.STRING)
+	private Estado estado;
+
+	private String referencia;
 	
-	private double valorMensalFinanciamento;
-	
+	// Histórico escolar
 	@Enumerated(EnumType.STRING)
 	private TipoEnsino ensinoFundamental;
 
@@ -68,38 +124,6 @@ public class QuestionarioAuxilioMoradia {
 
 	private String justificativa;
 
-	private String endereco;
-	
-	private String numero;
-	
-	private String complemento;
-	
-	private String bairro;
-	
-	private String cep;
-	
-	private String cidade;
-	
-	private String estado;
-	
-	private String referencia;
-	
-	private String enderecoOrigem;
-
-	private Long numeroOrigem;
-
-	private String complementoOrigem;
-
-	private String bairroOrigem;
-
-	private String cepOrigem;
-
-	private String cidadeOrigem;
-
-	private String estadoOrigem;
-
-	private String referenciaOrigem;
-
 	private String telefoneOrigem;
 
 	@Type(type="org.hibernate.type.BinaryType")
@@ -108,21 +132,10 @@ public class QuestionarioAuxilioMoradia {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<PropriedadeRural> propriedadeRural;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<BemMovel> bemMovel;
-
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name= "grupo_familiar", joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> grupoFamiliar;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinTable(name = "grupo_familiar_entrevista", joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
-	private List<PessoaFamilia> grupoFamiliarEntrevista;
-
-	@ElementCollection
-	@CollectionTable(name = "moradores")
-	private List<String> moradores;
-
 	public String getBanco() {
 		return banco;
 	}
@@ -147,15 +160,14 @@ public class QuestionarioAuxilioMoradia {
 		this.contaCorrente = contaCorrente;
 	}
 
-	public double getValorMensalFinanciamento() {
-		return valorMensalFinanciamento;
+	public double getFinanciamento() {
+		return financiamento;
 	}
 
-	public void setValorMensalFinanciamento(double valorMensalFinanciamento) {
-		this.valorMensalFinanciamento = valorMensalFinanciamento;
+	public void setFinanciamento(Double financiamento) {
+		this.financiamento = financiamento;
 	}
-	
-	
+
 	public byte[] getFoto() {
 		return foto;
 	}
@@ -196,11 +208,19 @@ public class QuestionarioAuxilioMoradia {
 		this.nomePai = nomePai;
 	}
 
-	public Long getNumeroOrigem() {
+	public String getNumeroOrigem() {
 		return numeroOrigem;
 	}
 
-	public void setNumeroOrigem(Long numeroOrigem) {
+	public String getOutroMorador() {
+		return outroMorador;
+	}
+
+	public void setOutroMorador(String outroMorador) {
+		this.outroMorador = outroMorador;
+	}
+
+	public void setNumeroOrigem(String numeroOrigem) {
 		this.numeroOrigem = numeroOrigem;
 	}
 
@@ -252,11 +272,11 @@ public class QuestionarioAuxilioMoradia {
 		this.telefoneOrigem = telefoneOrigem;
 	}
 
-	public String getEstadoOrigem() {
+	public Estado getEstadoOrigem() {
 		return estadoOrigem;
 	}
 
-	public void setEstadoOrigem(String estadoOrigem) {
+	public void setEstadoOrigem(Estado estadoOrigem) {
 		this.estadoOrigem = estadoOrigem;
 	}
 
@@ -316,14 +336,6 @@ public class QuestionarioAuxilioMoradia {
 
 	public void setPropriedadeRural(List<PropriedadeRural> propRural) {
 		this.propriedadeRural = propRural;
-	}
-
-	public List<BemMovel> getBemMovel() {
-		return bemMovel;
-	}
-
-	public void setBemMovel(List<BemMovel> bemMovel) {
-		this.bemMovel = bemMovel;
 	}
 
 	public void setNomeCursinho(String nomeCursinho) {
@@ -418,11 +430,11 @@ public class QuestionarioAuxilioMoradia {
 		this.cidade = cidade;
 	}
 
-	public String getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 
@@ -481,13 +493,37 @@ public class QuestionarioAuxilioMoradia {
 	public void setMoradores(List<String> moradores) {
 		this.moradores = moradores;
 	}
-	
-	public List<PessoaFamilia> getGrupoFamiliarEntrevista() {
-		return grupoFamiliarEntrevista;
+
+	public List<String> getMoradoresOrigem() {
+		return moradoresOrigem;
 	}
 
-	public void setGrupoFamiliarEntrevista(List<PessoaFamilia> grupoFamiliarEntrevista) {
-		this.grupoFamiliarEntrevista = grupoFamiliarEntrevista;
+	public void setMoradoresOrigem(List<String> moradoresOrigem) {
+		this.moradoresOrigem = moradoresOrigem;
+	}
+
+	public Integer getQuantidadeBemMovel() {
+		return quantidadeBemMovel;
+	}
+
+	public void setQuantidadeBemMovel(Integer quantidadeBemMovel) {
+		this.quantidadeBemMovel = quantidadeBemMovel;
+	}
+
+	public String getDescricaoBemMovel() {
+		return descricaoBemMovel;
+	}
+
+	public void setDescricaoBemMovel(String descricaoBemMovel) {
+		this.descricaoBemMovel = descricaoBemMovel;
+	}
+
+	public String getOutroMoradorOrigem() {
+		return outroMoradorOrigem;
+	}
+
+	public void setOutroMoradorOrigem(String outroMoradorOrigem) {
+		this.outroMoradorOrigem = outroMoradorOrigem;
 	}
 
 	@Override
@@ -516,7 +552,7 @@ public class QuestionarioAuxilioMoradia {
 	}
 
 	
-	public void merge(Object update){
+	/*public void merge(Object update){
 	    if(!this.getClass().isAssignableFrom(update.getClass())){
 	        return;
 	    }
@@ -541,6 +577,6 @@ public class QuestionarioAuxilioMoradia {
 	            } 
 	        }
 	    }
-	}
+	}*/
 	
 }
