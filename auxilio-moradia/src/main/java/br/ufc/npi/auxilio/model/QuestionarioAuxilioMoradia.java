@@ -1,6 +1,6 @@
 package br.ufc.npi.auxilio.model;
 
-import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import br.ufc.npi.auxilio.enums.Estado;
+import br.ufc.npi.auxilio.enums.MoradoresOrigem;
 import org.hibernate.annotations.Type;
 
 import br.ufc.npi.auxilio.enums.SituacaoImovel;
@@ -101,37 +102,66 @@ public class QuestionarioAuxilioMoradia {
 	
 	// Histórico escolar
 	@Enumerated(EnumType.STRING)
-	private TipoEnsino ensinoFundamental;
-
-	private int percentualFundamental;
-
-	@Enumerated(EnumType.STRING)
 	private TipoEnsino ensinoMedio;
 
-	private int percentualMedio;
+	private boolean bolsistaEnsinoMedio;
 
-	private boolean cursinho;
+	private Integer percentualEnsinoMedio;
 
-	private String nomeCursinho;
+	private Integer quantidadeParticipacaoAuxilio;
 
-	private boolean bolsistaUfc;
+	private String bolsaAtual;
 
-	private String descricaoBolsa;
+	private String outraGraduacao;
 
-	private boolean graduacao;
+	@ElementCollection
+	@CollectionTable(name = "servicos_pro_reitoria")
+	private List<String> servicos;
 
-	private String descricaoGraduacao;
+	private String outroServico;
 
+	// Trajeto até a universidade
+	@ElementCollection
+	@CollectionTable(name = "trajetos")
+	private List<String> trajetos;
+
+	private String outroTrajeto;
+
+	private Double valorMensalTransporte;
+
+	// Em KM
+	private Integer distancia;
+
+	// Em horas
+	private Integer tempoGasto;
+
+	// Com relação à saúde
+	private boolean medicamento;
+
+	private String doencaMedicamento;
+
+	private boolean deficiencia;
+
+	private String nomeDeficiencia;
+
+	private boolean doencaGrave;
+
+	private String membroDoencaGrave;
+
+	private boolean membroDeficiencia;
+
+	private String nomeMembroDeficiencia;
+
+	private boolean assistenciaMedica;
+
+	private Double valorAssistenciaMedica;
+
+	// Outras informações
 	private String justificativa;
-
-	private String telefoneOrigem;
 
 	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] foto;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<PropriedadeRural> propriedadeRural;
-
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name= "grupo_familiar", joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
 	private List<PessoaFamilia> grupoFamiliar;
@@ -160,7 +190,7 @@ public class QuestionarioAuxilioMoradia {
 		this.contaCorrente = contaCorrente;
 	}
 
-	public double getFinanciamento() {
+	public Double getFinanciamento() {
 		return financiamento;
 	}
 
@@ -264,14 +294,6 @@ public class QuestionarioAuxilioMoradia {
 		this.referenciaOrigem = pontoReferenciaOrigem;
 	}
 
-	public String getTelefoneOrigem() {
-		return telefoneOrigem;
-	}
-
-	public void setTelefoneOrigem(String telefoneOrigem) {
-		this.telefoneOrigem = telefoneOrigem;
-	}
-
 	public Estado getEstadoOrigem() {
 		return estadoOrigem;
 	}
@@ -287,20 +309,6 @@ public class QuestionarioAuxilioMoradia {
 	public void setSituacaoImovel(SituacaoImovel situacaoImovel) {
 		this.situacaoImovel = situacaoImovel;
 	}
-	public TipoEnsino getEnsinoFundamental() {
-		return ensinoFundamental;
-	}
-	public void setEnsinoFundamental(TipoEnsino ensinoFundamental) {
-		this.ensinoFundamental = ensinoFundamental;
-	}
-
-	public int getPercentualFundamental() {
-		return percentualFundamental;
-	}
-
-	public void setPercentualFundamental(int percentualFundamental) {
-		this.percentualFundamental = percentualFundamental;
-	}
 
 	public TipoEnsino getEnsinoMedio() {
 		return ensinoMedio;
@@ -310,76 +318,12 @@ public class QuestionarioAuxilioMoradia {
 		this.ensinoMedio = ensinoMedio;
 	}
 
-	public int getPercentualMedio() {
-		return percentualMedio;
-	}
-
-	public void setPercentualMedio(int percentualMedio) {
-		this.percentualMedio = percentualMedio;
-	}
-
-	public boolean isCursinho() {
-		return cursinho;
-	}
-
-	public void setCursinho(boolean cursinho) {
-		this.cursinho = cursinho;
-	}
-
-	public String getNomeCursinho() {
-		return nomeCursinho;
-	}
-
-	public List<PropriedadeRural> getPropriedadeRural() {
-		return propriedadeRural;
-	}
-
-	public void setPropriedadeRural(List<PropriedadeRural> propRural) {
-		this.propriedadeRural = propRural;
-	}
-
-	public void setNomeCursinho(String nomeCursinho) {
-		this.nomeCursinho = nomeCursinho;
-	}
-
-	public boolean isBolsista() {
-		return bolsistaUfc;
-	}
-
-	public void setBolsista(boolean bolsista) {
-		this.bolsistaUfc = bolsista;
-	}
-
-	public boolean isPossuiGraduacao() {
-		return graduacao;
-	}
-
-	public void setPossuiGraduacao(boolean possuiGraduacao) {
-		this.graduacao = possuiGraduacao;
-	}
-
-	public String getDescricaoGraduacao() {
-		return descricaoGraduacao;
-	}
-
-	public void setDescricaoGraduacao(String descricaoGraduacao) {
-		this.descricaoGraduacao = descricaoGraduacao;
-	}
-
 	public String getJustificativa() {
 		return justificativa;
 	}
 
 	public void setJustificativa(String justificativa) {
 		this.justificativa = justificativa;
-	}
-
-	public String getDescricaoBolsa() {
-		return descricaoBolsa;
-	}
-
-	public void setDescricaoBolsa(String descricaoBolsa) {
-		this.descricaoBolsa = descricaoBolsa;
 	}
 
 	public String getEndereco() {
@@ -454,20 +398,20 @@ public class QuestionarioAuxilioMoradia {
 		this.enderecoOrigem = enderecoDeOrigem;
 	}
 
-	public boolean isBolsistaUfc() {
-		return bolsistaUfc;
+	public boolean isBolsistaEnsinoMedio() {
+		return bolsistaEnsinoMedio;
 	}
 
-	public void setBolsistaUfc(boolean bolsistaUfc) {
-		this.bolsistaUfc = bolsistaUfc;
+	public void setBolsistaEnsinoMedio(boolean bolsistaEnsinoMedio) {
+		this.bolsistaEnsinoMedio = bolsistaEnsinoMedio;
 	}
 
-	public boolean isGraduacao() {
-		return graduacao;
+	public Integer getPercentualEnsinoMedio() {
+		return percentualEnsinoMedio;
 	}
 
-	public void setGraduacao(boolean graduacao) {
-		this.graduacao = graduacao;
+	public void setPercentualEnsinoMedio(Integer percentualEnsinoMedio) {
+		this.percentualEnsinoMedio = percentualEnsinoMedio;
 	}
 
 	public String getEnderecoOrigem() {
@@ -487,7 +431,7 @@ public class QuestionarioAuxilioMoradia {
 	}
 	
 	public List<String> getMoradores() {
-		return moradores;
+		return moradores == null ? new ArrayList<String>() : moradores;
 	}
 
 	public void setMoradores(List<String> moradores) {
@@ -495,7 +439,7 @@ public class QuestionarioAuxilioMoradia {
 	}
 
 	public List<String> getMoradoresOrigem() {
-		return moradoresOrigem;
+		return moradoresOrigem == null ? new ArrayList<String>() : moradoresOrigem;
 	}
 
 	public void setMoradoresOrigem(List<String> moradoresOrigem) {
@@ -526,6 +470,166 @@ public class QuestionarioAuxilioMoradia {
 		this.outroMoradorOrigem = outroMoradorOrigem;
 	}
 
+	public Integer getQuantidadeParticipacaoAuxilio() {
+		return quantidadeParticipacaoAuxilio;
+	}
+
+	public void setQuantidadeParticipacaoAuxilio(Integer quantidadeParticipacaoAuxilio) {
+		this.quantidadeParticipacaoAuxilio = quantidadeParticipacaoAuxilio;
+	}
+
+	public String getBolsaAtual() {
+		return bolsaAtual;
+	}
+
+	public void setBolsaAtual(String bolsaAtual) {
+		this.bolsaAtual = bolsaAtual;
+	}
+
+	public String getOutraGraduacao() {
+		return outraGraduacao;
+	}
+
+	public void setOutraGraduacao(String outraGraduacao) {
+		this.outraGraduacao = outraGraduacao;
+	}
+
+	public List<String> getServicos() {
+		return servicos == null ? new ArrayList<String>() : servicos;
+	}
+
+	public void setServicos(List<String> servicos) {
+		this.servicos = servicos;
+	}
+
+	public String getOutroServico() {
+		return outroServico;
+	}
+
+	public void setOutroServico(String outroServico) {
+		this.outroServico = outroServico;
+	}
+
+	public List<String> getTrajetos() {
+		return trajetos == null ? new ArrayList<String>() : trajetos;
+	}
+
+	public void setTrajetos(List<String> trajetos) {
+		this.trajetos = trajetos;
+	}
+
+	public String getOutroTrajeto() {
+		return outroTrajeto;
+	}
+
+	public void setOutroTrajeto(String outroTrajeto) {
+		this.outroTrajeto = outroTrajeto;
+	}
+
+	public Double getValorMensalTransporte() {
+		return valorMensalTransporte;
+	}
+
+	public void setValorMensalTransporte(Double valorMensalTransporte) {
+		this.valorMensalTransporte = valorMensalTransporte;
+	}
+
+	public Integer getDistancia() {
+		return distancia;
+	}
+
+	public void setDistancia(Integer distancia) {
+		this.distancia = distancia;
+	}
+
+	public Integer getTempoGasto() {
+		return tempoGasto;
+	}
+
+	public void setTempoGasto(Integer tempoGasto) {
+		this.tempoGasto = tempoGasto;
+	}
+
+	public boolean isMedicamento() {
+		return medicamento;
+	}
+
+	public void setMedicamento(boolean medicamento) {
+		this.medicamento = medicamento;
+	}
+
+	public String getDoencaMedicamento() {
+		return doencaMedicamento;
+	}
+
+	public void setDoencaMedicamento(String doencaMedicamento) {
+		this.doencaMedicamento = doencaMedicamento;
+	}
+
+	public boolean isDeficiencia() {
+		return deficiencia;
+	}
+
+	public void setDeficiencia(boolean deficiencia) {
+		this.deficiencia = deficiencia;
+	}
+
+	public String getNomeDeficiencia() {
+		return nomeDeficiencia;
+	}
+
+	public void setNomeDeficiencia(String nomeDeficiencia) {
+		this.nomeDeficiencia = nomeDeficiencia;
+	}
+
+	public boolean isDoencaGrave() {
+		return doencaGrave;
+	}
+
+	public void setDoencaGrave(boolean doencaGrave) {
+		this.doencaGrave = doencaGrave;
+	}
+
+	public String getMembroDoencaGrave() {
+		return membroDoencaGrave;
+	}
+
+	public void setMembroDoencaGrave(String membroDoencaGrave) {
+		this.membroDoencaGrave = membroDoencaGrave;
+	}
+
+	public boolean isMembroDeficiencia() {
+		return membroDeficiencia;
+	}
+
+	public void setMembroDeficiencia(boolean membroDeficiencia) {
+		this.membroDeficiencia = membroDeficiencia;
+	}
+
+	public String getNomeMembroDeficiencia() {
+		return nomeMembroDeficiencia;
+	}
+
+	public void setNomeMembroDeficiencia(String nomeMembroDeficiencia) {
+		this.nomeMembroDeficiencia = nomeMembroDeficiencia;
+	}
+
+	public boolean isAssistenciaMedica() {
+		return assistenciaMedica;
+	}
+
+	public void setAssistenciaMedica(boolean assistenciaMedica) {
+		this.assistenciaMedica = assistenciaMedica;
+	}
+
+	public Double getValorAssistenciaMedica() {
+		return valorAssistenciaMedica;
+	}
+
+	public void setValorAssistenciaMedica(Double valorAssistenciaMedica) {
+		this.valorAssistenciaMedica = valorAssistenciaMedica;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -551,32 +655,5 @@ public class QuestionarioAuxilioMoradia {
 		return true;
 	}
 
-	
-	/*public void merge(Object update){
-	    if(!this.getClass().isAssignableFrom(update.getClass())){
-	        return;
-	    }
-
-	    Method[] methods = this.getClass().getMethods();
-
-	    for(Method fromMethod: methods){
-	        if(fromMethod.getDeclaringClass().equals(this.getClass())
-	                && fromMethod.getName().startsWith("get")){
-
-	            String fromName = fromMethod.getName();
-	            String toName = fromName.replace("get", "set");
-
-	            try {
-	                Method toMetod = this.getClass().getMethod(toName, fromMethod.getReturnType());
-	                Object value = fromMethod.invoke(update, (Object[])null);
-	                if(value != null){
-	                    toMetod.invoke(this, value);
-	                }
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            } 
-	        }
-	    }
-	}*/
 	
 }

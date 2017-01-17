@@ -10,7 +10,7 @@ nav .brand-logo {
 
 .checkbox-inline {
     display: inline;
-    margin-left: 35px !important;
+    margin-right: 35px !important;
 }
 
 .checkbox-inline label {
@@ -61,5 +61,9 @@ h5.title {
 
 .text-right {
     text-align: right;
+}
+
+.mt-50 {
+    margin-top: 50px;
 }
 

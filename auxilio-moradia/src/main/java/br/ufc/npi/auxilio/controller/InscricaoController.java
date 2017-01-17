@@ -4,9 +4,7 @@ package br.ufc.npi.auxilio.controller;
 import br.ufc.npi.auxilio.enums.*;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
-import br.ufc.npi.auxilio.model.questionario.DadosBancarios;
-import br.ufc.npi.auxilio.model.questionario.Identificacao;
-import br.ufc.npi.auxilio.model.questionario.Moradia;
+import br.ufc.npi.auxilio.model.questionario.*;
 import br.ufc.npi.auxilio.service.AlunoService;
 import br.ufc.npi.auxilio.service.InscricaoService;
 import br.ufc.npi.auxilio.service.QuestionarioAuxilioMoradiaService;
@@ -157,93 +155,49 @@ public class InscricaoController {
 			return REDIRECT_LISTAR_SELECAO;
 		}
 
-		// Redireciona para a página de histórico escolar
-		/*model.addAttribute("moradia", inscricao.getMoradia());
-		model.addAttribute("opcoesMoradoresOrigem", MoradoresOrigem.values());
-		model.addAttribute("opcoesMoradores", Moradores.values());
-		model.addAttribute("estados", Estado.values());
-		model.addAttribute("imoveis", SituacaoImovel.values());*/
+		model.addAttribute("historico", inscricao.getHistoricoEscolar());
+		model.addAttribute("opcoesEnsinoMedio", TipoEnsino.values());
+		model.addAttribute("opcoesServicos", ServicosProReitoria.values());
+		model.addAttribute("opcoesTrajetos", Trajeto.values());
 		return INSCRICAO_HISTORICO;
 	}
 
 	/**
 	 * Histórico escolar
 	 */
-	@PostMapping("{idInscricao}/questionario")
-	public ModelAndView inscreverQuestionario(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao, 
-			QuestionarioAuxilioMoradia questionarioAuxilioMoradia){
-		inscricao.setQuestionario(questionarioAuxilioMoradia);
-		inscricaoService.salvar(inscricao);
-		mav.setViewName(String.format("redirect:/inscricao/%1d/historico", inscricao.getId()));
-		return mav;
-	}
-	
-	@GetMapping("{idInscricao}/historico")
-	public ModelAndView inscreverHistorico(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao){
-		mav.addObject("inscricao", inscricao);
-		mav.addObject("questionarioAuxilioMoradia", inscricao.getQuestionario());
-		mav.addObject("tipoEnsino", TipoEnsino.values());
-		mav.setViewName("inscricao/historico");
-		return mav;		
-	}
-	
-	@PostMapping("{idInscricao}/historico")
-	public ModelAndView inscreverHistorico(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao, 
-			QuestionarioAuxilioMoradia questionarioAuxilioMoradia){
-		//inscricao.getQuestionario().merge(questionarioAuxilioMoradia);
-		inscricaoService.salvar(inscricao);
-		mav.setViewName(String.format("redirect:/inscricao/%1d/situacao-socio-economica", inscricao.getId()));
-		return mav;		
-	}
-	
-	@GetMapping("{idInscricao}/situacao-socio-economica")
-	public ModelAndView inscreverSituacaoSocioEconomica(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao){
-		mav.addObject("inscricao", inscricao);
-		mav.addObject("questionarioAuxilioMoradia", inscricao.getQuestionario());
-		mav.setViewName("inscricao/situacao-socio-economica");
-		return mav;		
-	}
-	
-	@PostMapping("{idInscricao}/situacao-socio-economica")
-	public ModelAndView inscreverSituacaoSocioEconomica(ModelAndView mav, @PathVariable("idInscricao") Inscricao inscricao, 
-			QuestionarioAuxilioMoradia questionarioAuxilioMoradia){
-		//inscricao.getQuestionario().merge(questionarioAuxilioMoradia);
-		inscricaoService.salvar(inscricao);
-		mav.setViewName(String.format("redirect:/documentacao/%1d", inscricao.getId()));
-		return mav;		
-	}
-	
+	@PostMapping("historico/{selecao}")
+	public String inscreverQuestionario(@PathVariable Selecao selecao, HistoricoEscolar historico,
+		  	Model model, Authentication auth, RedirectAttributes redirect){
+		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+		inscricao.setHistoricoEscolar(historico);
+		try {
+			inscricaoService.atualizar(inscricao);
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+			return REDIRECT_LISTAR_SELECAO;
+		}
 
-	
-	@PostMapping("api/{idInscricao}/propriedade-rural")
-	public Response inscreverPropriedade(@PathVariable("idInscricao") Inscricao inscricao, PropriedadeRural propriedadeRural){
-		QuestionarioAuxilioMoradia questionario = inscricao.getQuestionario();
-		List<PropriedadeRural> propriedades = questionario.getPropriedadeRural(); 
-		if (propriedades != null){
-			propriedades.add(propriedadeRural);
-		}else {
-			propriedades = new ArrayList<>();
-			propriedades.add(propriedadeRural);
-		}
-		questionario.setPropriedadeRural(propriedades);
-		questionarioAuxilioMoradiaService.salvar(questionario);
-		return new Response().withObject(propriedadeRural).withSuccessMessage("Propriedade Adicionada!");
+		model.addAttribute("situacao", inscricao.getSituacaoSocioeconomica());
+		return INSCRICAO_SITUACAO_SOCIOECONOMICA;
 	}
-	
-	@PostMapping("api/{idInscricao}/bem-movel")
-	public Response inscreverBemMovel(@PathVariable("idInscricao") Inscricao inscricao, BemMovel bemMovel){
-		QuestionarioAuxilioMoradia questionario = inscricao.getQuestionario();
-		/*List<BemMovel> bensMoveis = questionario.getBemMovel();
-		if (bensMoveis != null){
-			bensMoveis.add(bemMovel);
-		}else {
-			bensMoveis = new ArrayList<>();
-			bensMoveis.add(bemMovel);
+
+	/**
+	 * Situação Socioeconômica
+	 */
+	@PostMapping("situacao-socioeconomica/{selecao}")
+	public String inscreverSituacaoSocioeconomica(@PathVariable Selecao selecao, SituacaoSocioeconomica situacao,
+			Model model, Authentication auth, RedirectAttributes redirect){
+		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+		inscricao.setSituacaoSocioEconomica(situacao);
+		try {
+			inscricaoService.atualizar(inscricao);
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+			return REDIRECT_LISTAR_SELECAO;
 		}
-		
-		questionario.setBemMovel(bensMoveis);*/
-		questionarioAuxilioMoradiaService.salvar(questionario);
-		return new Response();
+
+		model.addAttribute("situacao", inscricao.getSituacaoSocioeconomica());
+		return INSCRICAO_OUTRAS_INFORMACOES;
 	}
 }
 

@@ -1,10 +1,10 @@
 package br.ufc.npi.auxilio.model;
 
-import br.ufc.npi.auxilio.enums.Moradores;
-import br.ufc.npi.auxilio.enums.MoradoresOrigem;
-import br.ufc.npi.auxilio.enums.Resultado;
+import br.ufc.npi.auxilio.enums.*;
 import br.ufc.npi.auxilio.model.questionario.DadosBancarios;
+import br.ufc.npi.auxilio.model.questionario.HistoricoEscolar;
 import br.ufc.npi.auxilio.model.questionario.Moradia;
+import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -237,7 +237,7 @@ public class Inscricao {
 
 		// Moradia de origem
 		questionario.setMoradoresOrigem(moradia.getMoradoresOrigem());
-		if (moradia.getMoradoresOrigem().contains(MoradoresOrigem.OUTROS.name())) {
+		if (moradia.getMoradoresOrigem() != null && moradia.getMoradoresOrigem().contains(MoradoresOrigem.OUTROS.name())) {
 			questionario.setOutroMoradorOrigem(moradia.getOutroMoradorOrigem());
 		} else {
 			questionario.setOutroMoradorOrigem(null);
@@ -252,13 +252,21 @@ public class Inscricao {
 
 		// Moradia de origem - outras informações
 		questionario.setSituacaoImovel(moradia.getSituacaoImovel());
-		questionario.setFinanciamento(moradia.getFinanciamento());
+		if (moradia.getSituacaoImovel() != null && moradia.getSituacaoImovel().equals(SituacaoImovel.FINANCIADO)) {
+			questionario.setFinanciamento(moradia.getFinanciamento());
+		} else {
+			questionario.setFinanciamento(null);
+		}
 		questionario.setQuantidadeBemMovel(moradia.getQuantidadeBemMovel());
-		questionario.setDescricaoBemMovel(moradia.getDescricaoBemMovel());
+		if (moradia.getQuantidadeBemMovel() != null && moradia.getQuantidadeBemMovel() > 0) {
+			questionario.setDescricaoBemMovel(moradia.getDescricaoBemMovel());
+		} else {
+			questionario.setDescricaoBemMovel(null);
+		}
 
 		// Moradia atual
 		questionario.setMoradores(moradia.getMoradores());
-		if (moradia.getMoradores().contains(Moradores.OUTROS.name())) {
+		if (moradia.getMoradores() != null && moradia.getMoradores().contains(Moradores.OUTROS.name())) {
 			questionario.setOutroMorador(moradia.getOutroMorador());
 		} else {
 			questionario.setOutroMorador(null);
@@ -272,4 +280,91 @@ public class Inscricao {
 		questionario.setCep(moradia.getCep());
 		questionario.setReferencia(moradia.getReferencia());
 	}
+
+	public HistoricoEscolar getHistoricoEscolar() {
+		HistoricoEscolar historico = new HistoricoEscolar();
+
+		historico.setEnsinoMedio(questionario.getEnsinoMedio());
+		historico.setBolsistaEnsinoMedio(questionario.isBolsistaEnsinoMedio());
+		historico.setPercentualEnsinoMedio(questionario.getPercentualEnsinoMedio());
+		historico.setQuantidadeParticipacaoAuxilio(questionario.getQuantidadeParticipacaoAuxilio());
+		historico.setBolsaAtual(questionario.getBolsaAtual());
+		historico.setOutraGraduacao(questionario.getOutraGraduacao());
+		historico.setServicos(questionario.getServicos());
+		historico.setOutroServico(questionario.getOutroServico());
+
+		// Trajeto até a universidade
+		historico.setTrajetos(questionario.getTrajetos());
+		historico.setOutroTrajeto(questionario.getOutroTrajeto());
+		historico.setValorMensalTransporte(questionario.getValorMensalTransporte());
+		historico.setDistancia(questionario.getDistancia());
+		historico.setTempoGasto(questionario.getTempoGasto());
+
+		return historico;
+	}
+
+	public void setHistoricoEscolar(HistoricoEscolar historico) {
+		questionario.setEnsinoMedio(historico.getEnsinoMedio());
+		if(historico.getEnsinoMedio() != null && !historico.getEnsinoMedio().equals(TipoEnsino.PUBLICO)) {
+			questionario.setBolsistaEnsinoMedio(historico.isBolsistaEnsinoMedio());
+		} else {
+			questionario.setBolsistaEnsinoMedio(false);
+		}
+		questionario.setPercentualEnsinoMedio(historico.isBolsistaEnsinoMedio() ? historico.getPercentualEnsinoMedio() : null);
+		if(historico.getQuantidadeParticipacaoAuxilio() != null && historico.getQuantidadeParticipacaoAuxilio() > 0) {
+			questionario.setQuantidadeParticipacaoAuxilio(historico.getQuantidadeParticipacaoAuxilio());
+		} else {
+			questionario.setQuantidadeParticipacaoAuxilio(null);
+		}
+		questionario.setBolsaAtual(historico.getBolsaAtual());
+		questionario.setOutraGraduacao(historico.getOutraGraduacao());
+		questionario.setServicos(historico.getServicos());
+		if (historico.getServicos() != null && historico.getServicos().contains(ServicosProReitoria.OUTROS.name())) {
+			questionario.setOutroServico(historico.getOutroServico());
+		} else {
+			questionario.setOutroServico(null);
+		}
+
+		// Trajeto até a universidade
+		questionario.setTrajetos(historico.getTrajetos());
+		if (historico.getTrajetos() != null && historico.getTrajetos().contains(Trajeto.OUTROS.name())) {
+			questionario.setOutroTrajeto(historico.getOutroTrajeto());
+		} else {
+			questionario.setOutroTrajeto(null);
+		}
+		questionario.setValorMensalTransporte(historico.getValorMensalTransporte());
+		questionario.setDistancia(historico.getDistancia());
+		questionario.setTempoGasto(historico.getTempoGasto());
+	}
+
+	public SituacaoSocioeconomica getSituacaoSocioeconomica() {
+		SituacaoSocioeconomica situacao = new SituacaoSocioeconomica();
+
+		situacao.setMedicamento(questionario.isMedicamento());
+		situacao.setDoencaMedicamento(questionario.getDoencaMedicamento());
+		situacao.setDeficiencia(questionario.isDeficiencia());
+		situacao.setNomeDeficiencia(questionario.getNomeDeficiencia());
+		situacao.setDoencaGrave(questionario.isDoencaGrave());
+		situacao.setMembroDoencaGrave(questionario.getMembroDoencaGrave());
+		situacao.setMembroDeficiencia(questionario.isMembroDeficiencia());
+		situacao.setNomeMembroDeficiencia(questionario.getNomeMembroDeficiencia());
+		situacao.setAssistenciaMedica(questionario.isAssistenciaMedica());
+		situacao.setValorAssistenciaMedica(questionario.getValorAssistenciaMedica());
+
+		return situacao;
+	}
+
+	public void setSituacaoSocioEconomica(SituacaoSocioeconomica situacao) {
+		questionario.setMedicamento(situacao.isMedicamento());
+		questionario.setDoencaMedicamento(situacao.isMedicamento() ? situacao.getDoencaMedicamento() : null);
+		questionario.setDeficiencia(situacao.isDeficiencia());
+		questionario.setNomeDeficiencia(situacao.isDeficiencia() ? situacao.getNomeDeficiencia() : null);
+		questionario.setDoencaGrave(situacao.isDoencaGrave());
+		questionario.setMembroDoencaGrave(situacao.isDoencaGrave() ? situacao.getMembroDoencaGrave() : null);
+		questionario.setMembroDeficiencia(situacao.isMembroDeficiencia());
+		questionario.setNomeMembroDeficiencia(situacao.isMembroDeficiencia() ? situacao.getNomeMembroDeficiencia() : null);
+		questionario.setAssistenciaMedica(situacao.getAssistenciaMedica());
+		questionario.setValorAssistenciaMedica(situacao.getAssistenciaMedica() ? situacao.getValorAssistenciaMedica() : null);
+	}
+
 }
