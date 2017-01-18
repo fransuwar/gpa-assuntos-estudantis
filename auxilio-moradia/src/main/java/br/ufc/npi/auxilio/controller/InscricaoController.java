@@ -14,10 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -64,7 +61,7 @@ public class InscricaoController {
 		} else if (inscricao.getSelecao().isInscricaoAberta()) {
 			// Se o aluno ainda não finalizou a inscrição, retorna página de identificação para atualização dos dados
 			if (!inscricao.isConsolidada()) {
-				model.addAttribute("identificacao", inscricao.getAluno().getIdentificacao());
+				model.addAttribute("identificacao", inscricao.getIdentificacao());
 			} else {
 				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_EXISTENTE);
 				return REDIRECT_DETALHES_SELECAO + selecao.getId();
@@ -92,52 +89,25 @@ public class InscricaoController {
 			if (inscricao == null) {
 				inscricao = inscricaoService.salvar(selecao, aluno, identificacao);
 			} else if (inscricao.getSelecao().isInscricaoAberta()) {
-				// Atualiza as informações básicas se a seleção estiver aberta e a inscrição não estiver sido consolidada
-				if (!inscricao.isConsolidada()) {
-					aluno.setIdentificacao(identificacao);
-					alunoService.salvar(aluno);
-				} else {
-					redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_EXISTENTE);
-					return REDIRECT_DETALHES_SELECAO + selecao.getId();
-				}
+				// Atualiza a inscrição existente
+				inscricao.setIdentificacao(identificacao);
+				inscricaoService.atualizar(inscricao);
 			} else {
 				// O período de inscrição já encerrou e não é possível atualizar a inscrição
 				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
 				return REDIRECT_DETALHES_SELECAO + selecao.getId();
 			}
-			// Redireciona para a página de dados bancários
-			model.addAttribute("inscricao", inscricao);
-			model.addAttribute("dadosBancarios", inscricao.getDadosBancarios());
-			return INSCRICAO_DADOS_BANCARIOS;
+			// Redireciona para a página de moradia
+			model.addAttribute("moradia", inscricao.getMoradia());
+			model.addAttribute("opcoesMoradoresOrigem", MoradoresOrigem.values());
+			model.addAttribute("opcoesMoradores", Moradores.values());
+			model.addAttribute("estados", Estado.values());
+			model.addAttribute("imoveis", SituacaoImovel.values());
+			return INSCRICAO_MORADIA;
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
 		}
-	}
-
-	/**
-	 * Dados bancários
-	 */
-	@PostMapping("dados-bancarios/{selecao}")
-	public String inscreverDadosBancarios(@PathVariable Selecao selecao, DadosBancarios dadosBancarios,
-			Model model, Authentication auth, RedirectAttributes redirect){
-
-		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
-		inscricao.setDadosBancarios(dadosBancarios);
-		try {
-			inscricaoService.atualizar(inscricao);
-		} catch (AuxilioMoradiaException e) {
-			redirect.addFlashAttribute(ERRO, e.getMessage());
-			return REDIRECT_LISTAR_SELECAO;
-		}
-
-		// Redireciona para a página de moradia
-		model.addAttribute("moradia", inscricao.getMoradia());
-		model.addAttribute("opcoesMoradoresOrigem", MoradoresOrigem.values());
-		model.addAttribute("opcoesMoradores", Moradores.values());
-		model.addAttribute("estados", Estado.values());
-		model.addAttribute("imoveis", SituacaoImovel.values());
-		return INSCRICAO_MORADIA;
 	}
 
 	/**
@@ -178,6 +148,9 @@ public class InscricaoController {
 		}
 
 		model.addAttribute("situacao", inscricao.getSituacaoSocioeconomica());
+		model.addAttribute("opcoesParentesco", GrauParentesco.values());
+		model.addAttribute("opcoesEscolaridade", Escolaridade.values());
+		model.addAttribute("inscricao", inscricao);
 		return INSCRICAO_SITUACAO_SOCIOECONOMICA;
 	}
 
@@ -196,8 +169,34 @@ public class InscricaoController {
 			return REDIRECT_LISTAR_SELECAO;
 		}
 
-		model.addAttribute("situacao", inscricao.getSituacaoSocioeconomica());
 		return INSCRICAO_OUTRAS_INFORMACOES;
+	}
+
+	@PostMapping("situacao-socioeconomica/{selecao}/adicionar")
+	public @ResponseBody PessoaFamilia adicionarMembroFamilia(@PathVariable Selecao selecao,
+		  	@RequestBody PessoaFamilia pessoa, Authentication auth) {
+		if(selecao != null && selecao.isInscricaoAberta()) {
+			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+			if (inscricao != null) {
+				pessoa.setQuestionario(inscricao.getQuestionario());
+				pessoa = inscricaoService.adicionarMembroFamilia(pessoa);
+			}
+		}
+		return pessoa;
+	}
+
+	@PostMapping("situacao-socioeconomica/{selecao}/remover/{membro}")
+	public @ResponseBody Status removerMembroFamilia(@PathVariable Selecao selecao, @PathVariable PessoaFamilia membro,
+			  Authentication auth) {
+		if(selecao != null && membro != null && selecao.isInscricaoAberta()) {
+			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+			if (inscricao != null && inscricao.getQuestionario().getGrupoFamiliar().contains(membro)) {
+				inscricao.getQuestionario().getGrupoFamiliar().remove(membro);
+				inscricaoService.removerMembroFamilia(membro);
+				return Status.OK;
+			}
+		}
+		return Status.ERROR;
 	}
 }
 

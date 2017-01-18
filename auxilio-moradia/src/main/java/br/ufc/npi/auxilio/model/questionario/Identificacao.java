@@ -20,6 +20,13 @@ public class Identificacao {
 
     private Double ira;
 
+    // Dados bancários
+    private String banco;
+
+    private String agencia;
+
+    private String contaCorrente;
+
     public Identificacao() {
 
     }
@@ -98,5 +105,29 @@ public class Identificacao {
 
     public void setIra(Double ira) {
         this.ira = ira;
+    }
+
+    public String getBanco() {
+        return banco;
+    }
+
+    public void setBanco(String banco) {
+        this.banco = banco;
+    }
+
+    public String getAgencia() {
+        return agencia;
+    }
+
+    public void setAgencia(String agencia) {
+        this.agencia = agencia;
+    }
+
+    public String getContaCorrente() {
+        return contaCorrente;
+    }
+
+    public void setContaCorrente(String contaCorrente) {
+        this.contaCorrente = contaCorrente;
     }
 }

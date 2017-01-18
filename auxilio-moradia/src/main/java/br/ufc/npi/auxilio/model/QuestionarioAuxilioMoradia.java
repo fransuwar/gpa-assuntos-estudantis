@@ -156,14 +156,17 @@ public class QuestionarioAuxilioMoradia {
 
 	private Double valorAssistenciaMedica;
 
+	private boolean despesaMedicamento;
+
+	private String descricaoDespesaMedicamento;
+
 	// Outras informações
 	private String justificativa;
 
 	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] foto;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinTable(name= "grupo_familiar", joinColumns = @JoinColumn(name = "questionario_id"), inverseJoinColumns = @JoinColumn(name = "pessoa_familia_id"))
+	@OneToMany(mappedBy = "questionario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PessoaFamilia> grupoFamiliar;
 	
 	public String getBanco() {
@@ -628,6 +631,22 @@ public class QuestionarioAuxilioMoradia {
 
 	public void setValorAssistenciaMedica(Double valorAssistenciaMedica) {
 		this.valorAssistenciaMedica = valorAssistenciaMedica;
+	}
+
+	public boolean isDespesaMedicamento() {
+		return despesaMedicamento;
+	}
+
+	public void setDespesaMedicamento(boolean despesaMedicamento) {
+		this.despesaMedicamento = despesaMedicamento;
+	}
+
+	public String getDescricaoDespesaMedicamento() {
+		return descricaoDespesaMedicamento;
+	}
+
+	public void setDescricaoDespesaMedicamento(String descricaoDespesaMedicamento) {
+		this.descricaoDespesaMedicamento = descricaoDespesaMedicamento;
 	}
 
 	@Override

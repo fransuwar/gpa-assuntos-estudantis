@@ -46,6 +46,10 @@ $(document).ready( function() {
         if($(this).val() != 'PUBLICO') {
             $('#div-particular').removeClass('no-display');
             $('#bolsistaEnsinoMedio').attr('required', 'required');
+            if($('#bolsistaEnsinoMedio').val() === 'true') {
+                $('#div-percentual').removeClass('no-display');
+                $('#percentualEnsinoMedio').attr('required', 'required');
+            }
         } else {
             $('#div-particular,#div-percentual').addClass('no-display');
             $('#bolsistaEnsinoMedio').removeAttr('required');
@@ -165,6 +169,131 @@ $(document).ready( function() {
             $('#valorAssistenciaMedica').removeAttr('required', 'required');
         }
     });
+
+    $('#despesaMedicamento').change(function () {
+        if($(this).val() === 'true') {
+            $('#div-despesa-medicamento').removeClass('no-display');
+            $('#descricaoDespesaMedicamento').attr('required', 'required');
+        } else {
+            $('#div-despesa-medicamento').addClass('no-display');
+            $('#descricaoDespesaMedicamento').removeAttr('required', 'required');
+        }
+    });
+
+    // Adicionar membro da família
+    var token = $("meta[name='_csrf']").attr("content");
+    var context = !!$("meta[name='_context']").attr("content") || "";
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    $("#form-add-membro").submit(function (event){
+        event.preventDefault();
+        var url = $("#form-add-membro").attr('action');
+        var data = {}
+        data["nome"] = $("#nome").val();
+        data["idade"] = $("#idade").val();
+        data["parentesco"] = $("#parentesco").val();
+        data["escolaridade"] = $("#escolaridade").val();
+        data["profissao"] = $("#profissao").val();
+        data["rendaMensal"] = $("#rendaMensal").val();
+        $.ajax({
+            url : url,
+            contentType : "application/json",
+            dataType : 'json',
+            type : 'POST',
+            data : JSON.stringify(data),
+            beforeSend: function (request) {
+                request.setRequestHeader(header, token);
+            },
+            success : function(response) {
+                if(response.id != null) {
+                    $('#form-add-membro').trigger("reset");
+                    addMembroFamilia(response);
+                }
+            }
+        });
+    });
+
+    // Remover membro da família
+    $(".remover-membro").click(function () {
+        var row = $(this);
+        var selecao = $('#selecao').val();
+        var url = context + '/inscricao/situacao-socioeconomica/' + selecao + '/remover/' + $(this).attr('id');
+        $.ajax({
+            url : url,
+            contentType : "application/json",
+            dataType : 'json',
+            type : 'POST',
+            beforeSend: function (request) {
+                request.setRequestHeader(header, token);
+            },
+            success : function(response) {
+                if(response == 'OK') {
+                    row.parent().parent().remove();
+                }
+            }
+        });
+    });
+
+    function addMembroFamilia(membro) {
+        $('#table-grupo-familiar tr:last').after('<tr>' +
+            '<td>' + membro.nome + '</td>' +
+            '<td>' + membro.idade + '</td>' +
+            '<td>' + parseParentesco(membro.parentesco) + '</td>' +
+            '<td>' + parseEscolaridade(membro.escolaridade) + '</td>' +
+            '<td>' + membro.profissao + '</td>' +
+            '<td>' + membro.rendaMensal + '</td>' +
+            '<td><a id="' + membro.id + '" class="remover-membro" href="#" title="Excluir">' +
+                '<i class="material-icons red-text">delete</i></a></td>' +
+            '</tr>');
+    }
+
+    function parseParentesco(parentesco) {
+        if (parentesco == 'EU') {
+            return 'Eu';
+        }
+        if (parentesco == 'PAI') {
+            return 'Pai';
+        }
+        if (parentesco == 'MAE') {
+            return 'Mãe';
+        }
+        if (parentesco == 'IRMAO') {
+            return 'Irmão(ã)';
+        }
+        if (parentesco == 'FILHO') {
+            return 'Filho(a)';
+        }
+        if (parentesco == 'CONJ_COMP') {
+            return 'Cônjuge ou Companheiro(a)';
+        }
+        if (parentesco == 'OUTRO') {
+            return 'Outro';
+        }
+    }
+    
+    function parseEscolaridade(escolaridade) {
+        if (escolaridade == 'SEM_ESCOLARIDADE') {
+            return 'Sem Escolaridade';
+        }
+        if (escolaridade == 'FUNDAMENTAL_INCOMPLETO') {
+            return 'Ensino Fundamental Incompleto';
+        }
+        if (escolaridade == 'FUNDAMENTAL_COMPLETO') {
+            return 'Ensino Fundamental Completo';
+        }
+        if (escolaridade == 'MEDIO_INCOMPLETO') {
+            return 'Ensino Médio Incompleto';
+        }
+        if (escolaridade == 'MEDIO_COMPLETO') {
+            return 'Ensino Médio Completo';
+        }
+        if (escolaridade == 'SUPERIOR_INCOMPLETO') {
+            return 'Ensino Superior Incompleto';
+        }
+        if (escolaridade == 'SUPERIOR_COMPLETO') {
+            return 'Ensino Superior Completo';
+        }
+    }
 
 
 

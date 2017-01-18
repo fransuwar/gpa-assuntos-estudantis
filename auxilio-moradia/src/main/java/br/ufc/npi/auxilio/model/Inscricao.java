@@ -1,8 +1,8 @@
 package br.ufc.npi.auxilio.model;
 
 import br.ufc.npi.auxilio.enums.*;
-import br.ufc.npi.auxilio.model.questionario.DadosBancarios;
 import br.ufc.npi.auxilio.model.questionario.HistoricoEscolar;
+import br.ufc.npi.auxilio.model.questionario.Identificacao;
 import br.ufc.npi.auxilio.model.questionario.Moradia;
 import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -174,28 +174,53 @@ public class Inscricao {
 		return true;
 	}
 
-	public void setDadosBancarios(DadosBancarios dadosBancarios) {
+	public void setIdentificacao(Identificacao identificacao) {
+		this.aluno.getPessoa().setRg(identificacao.getIdentidade());
+		this.aluno.getPessoa().setOrgaoEmissorRg(identificacao.getOrgaoEmissor());
+		this.aluno.getPessoa().setUfRg(identificacao.getUfIdentidade());
+		this.aluno.getPessoa().setNaturalidade(identificacao.getNaturalidade());
+		this.aluno.getPessoa().setUfNaturalidade(identificacao.getUfNaturalidade());
+		this.aluno.getPessoa().setEstadoCivil(identificacao.getEstadoCivil());
+		this.aluno.getPessoa().setTelefone(identificacao.getContato());
+		this.aluno.setIra(identificacao.getIra());
+
+		// Dados bancários
 		if (questionario == null) {
 			questionario = new QuestionarioAuxilioMoradia();
 		}
-		this.questionario.setBanco(dadosBancarios.getBanco());
-		this.questionario.setAgencia(dadosBancarios.getAgencia());
-		this.questionario.setContaCorrente(dadosBancarios.getContaCorrente());
+		this.questionario.setBanco(identificacao.getBanco());
+		this.questionario.setAgencia(identificacao.getAgencia());
+		this.questionario.setContaCorrente(identificacao.getContaCorrente());
 	}
 
-	public DadosBancarios getDadosBancarios() {
-		if (questionario == null) {
-			return new DadosBancarios();
-		}
-		return new DadosBancarios(questionario.getBanco(),
-				questionario.getAgencia(), questionario.getContaCorrente());
+	public Identificacao getIdentificacao() {
+		Identificacao identificacao = new Identificacao();
+		identificacao.setIdentidade(aluno.getPessoa().getRg());
+		identificacao.setOrgaoEmissor(aluno.getPessoa().getOrgaoEmissorRg());
+		identificacao.setUfIdentidade(aluno.getPessoa().getUfRg());
+		identificacao.setNaturalidade(aluno.getPessoa().getNaturalidade());
+		identificacao.setUfNaturalidade(aluno.getPessoa().getUfNaturalidade());
+		identificacao.setEstadoCivil(aluno.getPessoa().getEstadoCivil());
+		identificacao.setContato(aluno.getPessoa().getTelefone());
+		identificacao.setIra(aluno.getIra());
 
+		// Dados bancários
+		if (questionario == null) {
+			questionario = new QuestionarioAuxilioMoradia();
+		}
+		identificacao.setBanco(this.questionario.getBanco());
+		identificacao.setAgencia(this.questionario.getAgencia());
+		identificacao.setContaCorrente(this.questionario.getContaCorrente());
+		return identificacao;
 	}
 
 	public Moradia getMoradia() {
 		Moradia moradia = new Moradia();
 
 		// Núcleo familiar
+		if (questionario == null) {
+			questionario = new QuestionarioAuxilioMoradia();
+		}
 		moradia.setMae(questionario.getNomeMae());
 		moradia.setPai(questionario.getNomePai());
 
@@ -350,6 +375,8 @@ public class Inscricao {
 		situacao.setNomeMembroDeficiencia(questionario.getNomeMembroDeficiencia());
 		situacao.setAssistenciaMedica(questionario.isAssistenciaMedica());
 		situacao.setValorAssistenciaMedica(questionario.getValorAssistenciaMedica());
+		situacao.setDespesaMedicamento(questionario.isDespesaMedicamento());
+		situacao.setDescricaoDespesaMedicamento(questionario.getDescricaoDespesaMedicamento());
 
 		return situacao;
 	}
@@ -365,6 +392,8 @@ public class Inscricao {
 		questionario.setNomeMembroDeficiencia(situacao.isMembroDeficiencia() ? situacao.getNomeMembroDeficiencia() : null);
 		questionario.setAssistenciaMedica(situacao.getAssistenciaMedica());
 		questionario.setValorAssistenciaMedica(situacao.getAssistenciaMedica() ? situacao.getValorAssistenciaMedica() : null);
+		questionario.setDespesaMedicamento(situacao.isDespesaMedicamento());
+		questionario.setDescricaoDespesaMedicamento(situacao.isDespesaMedicamento() ? situacao.getDescricaoDespesaMedicamento() : null);
 	}
 
 }

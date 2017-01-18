@@ -3,9 +3,11 @@ package br.ufc.npi.auxilio.service.impl;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Aluno;
 import br.ufc.npi.auxilio.model.Inscricao;
+import br.ufc.npi.auxilio.model.PessoaFamilia;
 import br.ufc.npi.auxilio.model.Selecao;
 import br.ufc.npi.auxilio.model.questionario.Identificacao;
 import br.ufc.npi.auxilio.repository.InscricaoRepository;
+import br.ufc.npi.auxilio.repository.PessoaFamiliaRepository;
 import br.ufc.npi.auxilio.service.InscricaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,6 +21,9 @@ public class InscricaoServiceImpl implements InscricaoService {
 	
 	@Autowired
 	private InscricaoRepository inscricaoRepository;
+
+	@Autowired
+	private PessoaFamiliaRepository pessoaFamiliaRepository;
 	
 	@Override
 	public boolean isInscrito(Aluno aluno, Selecao selecao) {
@@ -38,10 +43,11 @@ public class InscricaoServiceImpl implements InscricaoService {
 		}
 		// Cria uma nova inscrição
 		Inscricao inscricao = new Inscricao();
-		aluno.setIdentificacao(identificacao);
 		inscricao.setSelecao(selecao);
 		inscricao.setAluno(aluno);
 		inscricao.setData(new Date());
+		inscricaoRepository.save(inscricao);
+		inscricao.setIdentificacao(identificacao);
 		return inscricaoRepository.save(inscricao);
 	}
 
@@ -65,5 +71,15 @@ public class InscricaoServiceImpl implements InscricaoService {
 			throw new AuxilioMoradiaException(MENSAGEM_ERRO_INSCRICAO_EXISTENTE);
 		}
 		return inscricaoRepository.save(inscricao);
+	}
+
+	@Override
+	public PessoaFamilia adicionarMembroFamilia(PessoaFamilia pessoa) {
+		return pessoaFamiliaRepository.save(pessoa);
+	}
+
+	@Override
+	public void removerMembroFamilia(PessoaFamilia pessoa) {
+		pessoaFamiliaRepository.delete(pessoa);
 	}
 }

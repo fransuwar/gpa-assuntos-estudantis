@@ -23,6 +23,10 @@ public class SituacaoSocioeconomica {
 
     private Double valorAssistenciaMedica;
 
+    private boolean despesaMedicamento;
+
+    private String descricaoDespesaMedicamento;
+
 
     public boolean isMedicamento() {
         return medicamento;
@@ -102,5 +106,25 @@ public class SituacaoSocioeconomica {
 
     public void setValorAssistenciaMedica(Double valorAssistenciaMedica) {
         this.valorAssistenciaMedica = valorAssistenciaMedica;
+    }
+
+    public boolean isAssistenciaMedica() {
+        return assistenciaMedica;
+    }
+
+    public boolean isDespesaMedicamento() {
+        return despesaMedicamento;
+    }
+
+    public void setDespesaMedicamento(boolean despesaMedicamento) {
+        this.despesaMedicamento = despesaMedicamento;
+    }
+
+    public String getDescricaoDespesaMedicamento() {
+        return descricaoDespesaMedicamento;
+    }
+
+    public void setDescricaoDespesaMedicamento(String descricaoDespesaMedicamento) {
+        this.descricaoDespesaMedicamento = descricaoDespesaMedicamento;
     }
 }

@@ -1,10 +1,7 @@
 package br.ufc.npi.auxilio.service;
 
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
-import br.ufc.npi.auxilio.model.Aluno;
-import br.ufc.npi.auxilio.model.Inscricao;
-import br.ufc.npi.auxilio.model.Pessoa;
-import br.ufc.npi.auxilio.model.Selecao;
+import br.ufc.npi.auxilio.model.*;
 import br.ufc.npi.auxilio.model.questionario.Identificacao;
 
 public interface InscricaoService {
@@ -19,5 +16,8 @@ public interface InscricaoService {
 
 	Inscricao atualizar(Inscricao inscricao) throws AuxilioMoradiaException;
 
+    PessoaFamilia adicionarMembroFamilia(PessoaFamilia pessoa);
+
+    void removerMembroFamilia(PessoaFamilia pessoa);
 }
 
