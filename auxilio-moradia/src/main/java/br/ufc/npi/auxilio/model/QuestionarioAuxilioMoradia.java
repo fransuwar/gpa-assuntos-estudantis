@@ -160,6 +160,10 @@ public class QuestionarioAuxilioMoradia {
 
 	private String descricaoDespesaMedicamento;
 
+	private boolean beneficio;
+
+	private String descricaoBeneficio;
+
 	// Outras informações
 	private String justificativa;
 
@@ -647,6 +651,22 @@ public class QuestionarioAuxilioMoradia {
 
 	public void setDescricaoDespesaMedicamento(String descricaoDespesaMedicamento) {
 		this.descricaoDespesaMedicamento = descricaoDespesaMedicamento;
+	}
+
+	public boolean isBeneficio() {
+		return beneficio;
+	}
+
+	public void setBeneficio(boolean beneficio) {
+		this.beneficio = beneficio;
+	}
+
+	public String getDescricaoBeneficio() {
+		return descricaoBeneficio;
+	}
+
+	public void setDescricaoBeneficio(String descricaoBeneficio) {
+		this.descricaoBeneficio = descricaoBeneficio;
 	}
 
 	@Override

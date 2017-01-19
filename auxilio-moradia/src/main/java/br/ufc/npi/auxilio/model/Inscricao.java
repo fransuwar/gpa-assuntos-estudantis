@@ -377,6 +377,8 @@ public class Inscricao {
 		situacao.setValorAssistenciaMedica(questionario.getValorAssistenciaMedica());
 		situacao.setDespesaMedicamento(questionario.isDespesaMedicamento());
 		situacao.setDescricaoDespesaMedicamento(questionario.getDescricaoDespesaMedicamento());
+		situacao.setBeneficio(questionario.isBeneficio());
+		situacao.setDescricaoBeneficio(questionario.getDescricaoBeneficio());
 
 		return situacao;
 	}
@@ -394,6 +396,8 @@ public class Inscricao {
 		questionario.setValorAssistenciaMedica(situacao.getAssistenciaMedica() ? situacao.getValorAssistenciaMedica() : null);
 		questionario.setDespesaMedicamento(situacao.isDespesaMedicamento());
 		questionario.setDescricaoDespesaMedicamento(situacao.isDespesaMedicamento() ? situacao.getDescricaoDespesaMedicamento() : null);
+		questionario.setBeneficio(situacao.isBeneficio());
+		questionario.setDescricaoBeneficio(situacao.isBeneficio() ? situacao.getDescricaoBeneficio() : null);
 	}
 
 }

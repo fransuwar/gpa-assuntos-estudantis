@@ -67,8 +67,6 @@ public class InscricaoServiceImpl implements InscricaoService {
 			throw new AuxilioMoradiaException(MENSAGEM_ERRO_ATUALIZAR_INSCRICAO);
 		} else if(!inscricao.getSelecao().isInscricaoAberta()) {
 			throw new AuxilioMoradiaException(MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
-		} else if(inscricao.isConsolidada()) {
-			throw new AuxilioMoradiaException(MENSAGEM_ERRO_INSCRICAO_EXISTENTE);
 		}
 		return inscricaoRepository.save(inscricao);
 	}

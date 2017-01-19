@@ -27,6 +27,9 @@ public class SituacaoSocioeconomica {
 
     private String descricaoDespesaMedicamento;
 
+    private boolean beneficio;
+
+    private String descricaoBeneficio;
 
     public boolean isMedicamento() {
         return medicamento;
@@ -126,5 +129,21 @@ public class SituacaoSocioeconomica {
 
     public void setDescricaoDespesaMedicamento(String descricaoDespesaMedicamento) {
         this.descricaoDespesaMedicamento = descricaoDespesaMedicamento;
+    }
+
+    public boolean isBeneficio() {
+        return beneficio;
+    }
+
+    public void setBeneficio(boolean beneficio) {
+        this.beneficio = beneficio;
+    }
+
+    public String getDescricaoBeneficio() {
+        return descricaoBeneficio;
+    }
+
+    public void setDescricaoBeneficio(String descricaoBeneficio) {
+        this.descricaoBeneficio = descricaoBeneficio;
     }
 }

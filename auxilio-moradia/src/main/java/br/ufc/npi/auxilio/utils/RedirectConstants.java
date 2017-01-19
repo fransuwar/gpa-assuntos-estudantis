@@ -14,9 +14,13 @@ public class RedirectConstants {
 
 
 	// Inscrição
-
+	public static final String REDIRECT_INSCRICAO_MORADIA = "redirect:/inscricao/moradia/";
+	public static final String REDIRECT_INSCRICAO_HISTORICO = "redirect:/inscricao/historico/";
+	public static final String REDIRECT_INSCRICAO_SITUACAO_SOCIO = "redirect:/inscricao/situacao-socioeconomica/";
+	public static final String REDIRECT_INSCRICAO_OUTROS = "redirect:/inscricao/outras-informacoes/";
 	public static final String REDIRECT_INSCRICAO_DOCUMENTACAO = "redirect:/documentacao/";
 	public static final String REDIRECT_ERROR_TAMANHO_ARQUIVO_EXCEDIDO_INSCRICAO = "forward:/error/inscricao/limite-excedido/";
 	public static final String REDIRECT_PAGINA_ENTREVISTA = "redirect:/entrevista/";
+	public static final String REDIRECT_DETALHES_INSCRICAO = "redirect:/inscricao/detalhes/";
 	
 }

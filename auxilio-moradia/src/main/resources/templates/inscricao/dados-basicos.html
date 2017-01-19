@@ -18,37 +18,37 @@
 						<h5 class="title light" th:text="Identificação"></h5>
 						<div class="row">
 							<div class="col s4">
-								<span class="bold">Nome Completo:</span>
+								<span>Nome Completo:</span>
 								<span class="text-20 truncate" th:text="${aluno.pessoa.nome} ? ${aluno.pessoa.nome} : '-'"></span>
 							</div>
 							<div class="col s4">
-								<span class="bold">CPF:</span>
+								<span>CPF:</span>
 								<span class="text-20 truncate" th:text="${aluno.pessoa.cpf} ? ${aluno.pessoa.cpf} : '-'"></span>
 							</div>
 							<div class="col s2">
-								<span class="bold">Data de Nascimento:</span>
+								<span>Data de Nascimento:</span>
 								<span class="text-20 truncate" th:text="${aluno.pessoa.dataNascimento} ? ${#temporals.format(aluno.pessoa.dataNascimento,'dd/MM/yyyy')} : '-'"></span>
 							</div>
 							<div class="col s2">
-								<span class="bold">Sexo:</span>
+								<span>Sexo:</span>
 								<span class="text-20 truncate" th:text="${aluno.pessoa.sexo} ? ${aluno.pessoa.sexo} : '-'"></span>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col s4">
-								<span class="bold">Email:</span>
+								<span>Email:</span>
 								<span class="text-20 truncate" th:text="${aluno.pessoa.email} ? ${aluno.pessoa.email} : '-'"></span>
 							</div>
 							<div class="col s4">
-								<span class="bold">Curso:</span>
+								<span>Curso:</span>
 								<span class="text-20 truncate" th:text="${aluno.curso} ? ${aluno.curso} : '-'"></span>
 							</div>
 							<div class="col s2">
-								<span class="bold">Matrícula:</span>
+								<span>Matrícula:</span>
 								<span class="text-20 truncate" th:text="${aluno.matricula} ? ${aluno.matricula} : '-'"></span>
 							</div>
 							<div class="col s2">
-								<span class="bold">Ano Ingresso:</span>
+								<span>Ano Ingresso:</span>
 								<span class="text-20 truncate" th:text="${aluno.anoIngresso} ? ${aluno.anoIngresso} : '-'"></span>
 							</div>
 						</div>

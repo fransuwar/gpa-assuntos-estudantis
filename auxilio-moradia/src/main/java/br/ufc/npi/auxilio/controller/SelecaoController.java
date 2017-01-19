@@ -62,7 +62,8 @@ public class SelecaoController {
 				.addAttribute("membroComissao", selecao.isMembroComissao(servidorService.getByCpf(auth.getName())))
 				.addAttribute("inscricaoAberta", selecao.isInscricaoAberta())
 				.addAttribute("inscricaoRealizada", inscricao != null)
-				.addAttribute("inscricaoConsolidada", inscricao != null && inscricao.isConsolidada());
+				.addAttribute("inscricaoConsolidada", inscricao != null && inscricao.isConsolidada())
+				.addAttribute("inscricao", inscricao != null ? inscricao.getId() : null);
 		return DETALHES_SELECAO;
 
 	}

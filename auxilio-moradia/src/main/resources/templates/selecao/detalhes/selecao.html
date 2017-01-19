@@ -35,10 +35,9 @@
 		<a th:href="@{/selecao/editar/__${selecao.id}__}" class="waves-effect waves-light btn">Editar</a>
 		<a class="waves-effect waves-light btn red" href="#excluir-selecao" th:attr="data-url=@{/selecao/excluir/__${selecao.id}__}">Excluir</a>
 	</div>
-	<div class="card-action right-align" sec:authorize="hasAnyAuthority('ALUNO')" th:if="${inscricaoAberta or inscricaoRealizada}">
-		<a th:if="${inscricaoAberta and !inscricaoRealizada}" th:href="@{/inscricao/__${selecao.id}__}" class="waves-effect waves-light btn">Realizar Inscrição</a>
-		<a th:if="${inscricaoAberta and inscricaoRealizada and !inscricaoConsolidada}" th:href="@{/inscricao/__${selecao.id}__}" class="waves-effect waves-light btn">Atualizar Inscrição</a>
-		<a th:if="${!inscricaoAberta and inscricaoRealizada and inscricaoConsolidada}" th:href="@{/inscricao/visualizar/__${selecao.id}__}" class="waves-effect waves-light btn">Visualizar Inscrição</a>
+	<div class="card-action right-align" sec:authorize="hasAuthority('ALUNO')" th:if="${inscricaoAberta or inscricaoRealizada}">
+		<a th:if="${inscricaoAberta}" th:text="${inscricaoRealizada} ? 'Atualizar inscrição' : 'Realizar inscrição'" th:href="@{/inscricao/__${selecao.id}__}" class="waves-effect waves-light btn">Realizar Inscrição</a>
+		<a th:if="${inscricaoRealizada}" th:href="@{/inscricao/detalhes/__${inscricao}__}" class="waves-effect waves-light btn">Visualizar Inscrição</a>
 	</div>
 
 	<!-- Modal excluir seleção -->

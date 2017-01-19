@@ -12,10 +12,10 @@ public class PageConstants {
 
 	// Inscrição
 	public static final String INSCRICAO_DADOS_BASICOS = "inscricao/dados-basicos";
-	public static final String INSCRICAO_DADOS_BANCARIOS = "inscricao/dados-bancarios";
 	public static final String INSCRICAO_MORADIA = "inscricao/moradia";
 	public static final String INSCRICAO_HISTORICO = "inscricao/historico";
 	public static final String INSCRICAO_SITUACAO_SOCIOECONOMICA = "inscricao/situacao-socio-economica";
 	public static final String INSCRICAO_OUTRAS_INFORMACOES = "inscricao/outras-informacoes";
+	public static final String INSCRICAO_DETALHES = "inscricao/detalhes/detalhes-inscricao";
 
 }

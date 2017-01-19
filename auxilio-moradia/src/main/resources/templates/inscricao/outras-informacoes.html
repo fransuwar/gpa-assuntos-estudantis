@@ -11,89 +11,20 @@
 	<div class="row">
 		<div class="col s12">
 			<div class="card">
-				<!--<form  th:action="@{/inscricao/situacao-socio-economica/__${selecao.id}__}" th:method="post" th:object="${situacao}">
+				<form  th:action="@{/inscricao/outras-informacoes/__${selecao.id}__}" th:method="post">
 					<div class="card-content">
-						<h5 class="title light">Com relação à sua saúde</h5>
+						<h5 class="title light">Outras informações</h5>
 						<div class="row">
-							<div class="col s4 input-field">
-								<select id="medicamento">
-									<option value="false">NÃO</option>
-									<option th:selected="${situacao.medicamento}" value="true">SIM</option>
-								</select>
-								<label for="medicamento">* Faz uso contínuo de medicamentos?</label>
-							</div>
-							<div id="div-doenca-medicamento" th:class="${situacao.medicamento} ? '' : 'no-display'">
-								<div class="col s8 input-field">
-									<input th:field="*{doencaMedicamento}" type="text" id="doencaMedicamento" th:required="${situacao.medicamento}"/>
-									<label for="doencaMedicamento">* Para qual doença?</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s4 input-field">
-								<select id="deficiencia">
-									<option value="false">NÃO</option>
-									<option th:selected="${situacao.deficiencia}" value="true">SIM</option>
-								</select>
-								<label for="deficiencia">* Apresenta alguma deficiência?</label>
-							</div>
-							<div id="div-nome-deficiencia" th:class="${situacao.deficiencia} ? '' : 'no-display'">
-								<div class="col s8 input-field">
-									<input th:field="*{nomeDeficiencia}" type="text" id="nomeDeficiencia" th:required="${situacao.deficiencia}"/>
-									<label for="nomeDeficiencia">* Qual deficiência?</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s4 input-field">
-								<select id="doencaGrave">
-									<option value="false">NÃO</option>
-									<option th:selected="${situacao.doencaGrave}" value="true">SIM</option>
-								</select>
-								<label for="doencaGrave">* Há algum membro do grupo familiar com doença grave?</label>
-							</div>
-							<div id="div-membro-doenca-grave" th:class="${situacao.doencaGrave} ? '' : 'no-display'">
-								<div class="col s8 input-field">
-									<input th:field="*{membroDoencaGrave}" type="text" id="membroDoencaGrave" th:required="${situacao.doencaGrave}"/>
-									<label for="membroDoencaGrave">* Qual membro?</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s4 input-field">
-								<select id="membroDeficiencia">
-									<option value="false">NÃO</option>
-									<option th:selected="${situacao.membroDeficiencia}" value="true">SIM</option>
-								</select>
-								<label for="membroDeficiencia">* Há algum membro do grupo familiar com deficiência?</label>
-							</div>
-							<div id="div-membro-deficiencia" th:class="${situacao.membroDeficiencia} ? '' : 'no-display'">
-								<div class="col s8 input-field">
-									<input th:field="*{nomeMembroDeficiencia}" type="text" id="nomeMembroDeficiencia" th:required="${situacao.membroDeficiencia}"/>
-									<label for="nomeMembroDeficiencia">* Qual membro?</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s4 input-field">
-								<select id="assistenciaMedica">
-									<option value="false">NÃO</option>
-									<option th:selected="${situacao.assistenciaMedica}" value="true">SIM</option>
-								</select>
-								<label for="assistenciaMedica">* A família possui plano de assistência médica?</label>
-							</div>
-							<div id="div-valor-assistencia" th:class="${situacao.assistenciaMedica} ? '' : 'no-display'">
-								<div class="col s8 input-field">
-									<input th:field="*{valorAssistenciaMedica}" type="text" id="valorAssistenciaMedica" th:required="${situacao.assistenciaMedica}"/>
-									<label for="valorAssistenciaMedica">* Qual o valor do plano?</label>
-								</div>
+							<div class="col s12 input-field">
+								<textarea id="justificativa" th:text="${justificativa}" name="justificativa" class="materialize-textarea"></textarea>
+								<label for="justificativa">* Justificativa do pedido</label>
 							</div>
 						</div>
 					</div>
 					<div class="card-action right-align">
-						<button class="btn waves-effect waves-light" type="submit">Avançar</button>
+						<button class="btn waves-effect waves-light" type="submit">Finalizar</button>
 					</div>
-				</form>-->
+				</form>
 			</div>
 		</div>
 	</div>

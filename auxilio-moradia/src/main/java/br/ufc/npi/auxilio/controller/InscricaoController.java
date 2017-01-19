@@ -4,30 +4,27 @@ package br.ufc.npi.auxilio.controller;
 import br.ufc.npi.auxilio.enums.*;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
-import br.ufc.npi.auxilio.model.questionario.*;
-import br.ufc.npi.auxilio.service.AlunoService;
-import br.ufc.npi.auxilio.service.InscricaoService;
-import br.ufc.npi.auxilio.service.QuestionarioAuxilioMoradiaService;
-import br.ufc.npi.auxilio.utils.api.Response;
+import br.ufc.npi.auxilio.model.questionario.HistoricoEscolar;
+import br.ufc.npi.auxilio.model.questionario.Identificacao;
+import br.ufc.npi.auxilio.model.questionario.Moradia;
+import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
+import br.ufc.npi.auxilio.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
+import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_ALUNO;
-import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_INSCRICAO_EXISTENTE;
-import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
-import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
-import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
+import static br.ufc.npi.auxilio.utils.RedirectConstants.*;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_MEMBRO_FAMILIA_ADICIONADO;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_MEMBRO_FAMILIA_REMOVIDO;
 
 @Controller
 @RequestMapping("inscricao")
@@ -40,7 +37,10 @@ public class InscricaoController {
 	private AlunoService alunoService;
 
 	@Autowired
-	private QuestionarioAuxilioMoradiaService questionarioAuxilioMoradiaService;
+	private ServidorService servidorService;
+
+	@Autowired
+	private PessoaService pessoaService;
 
 	/**
 	 * Formulário de dados básicos
@@ -48,29 +48,26 @@ public class InscricaoController {
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@GetMapping("{selecao}")
 	public String inscreverDadosBasicosForm(@PathVariable Selecao selecao, Model model, Authentication auth, RedirectAttributes redirect){
+		// Verifica se está no período de inscrição
+		if (selecao == null || !selecao.isInscricaoAberta()) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
+			return REDIRECT_LISTAR_SELECAO;
+		}
 		Aluno aluno = alunoService.buscarPorCpf(auth.getName());
+		Inscricao inscricao = inscricaoService.get(aluno, selecao);
+
+		// Verifica se o aluno já possui inscrição
+		if (inscricao == null) {
+			// Realiza uma nova inscrição
+			model.addAttribute("identificacao", new Identificacao());
+		} else {
+			// Atualiza inscrição existente
+			model.addAttribute("identificacao", inscricao.getIdentificacao());
+		}
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("estados", Estado.values());
 		model.addAttribute("estadosCivis", EstadoCivil.values());
-		Inscricao inscricao = inscricaoService.get(aluno, selecao);
-
-		// Se o aluno não estiver inscrito, inicia a inscrição
-		if (inscricao == null) {
-			model.addAttribute("identificacao", new Identificacao());
-		} else if (inscricao.getSelecao().isInscricaoAberta()) {
-			// Se o aluno ainda não finalizou a inscrição, retorna página de identificação para atualização dos dados
-			if (!inscricao.isConsolidada()) {
-				model.addAttribute("identificacao", inscricao.getIdentificacao());
-			} else {
-				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_EXISTENTE);
-				return REDIRECT_DETALHES_SELECAO + selecao.getId();
-			}
-		} else {
-			// O período de inscrição já encerrou e não é possível atualizar a inscrição
-			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
-			return REDIRECT_DETALHES_SELECAO + selecao.getId();
-		}
 
 		return INSCRICAO_DADOS_BASICOS;
 	}
@@ -81,48 +78,89 @@ public class InscricaoController {
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@PostMapping("{selecao}")
 	public String inscreverDadosBasicos(@PathVariable Selecao selecao, Identificacao identificacao,
-		   Model model, Authentication auth, RedirectAttributes redirect){
-		Aluno aluno = alunoService.buscarPorCpf(auth.getName());
+		   Authentication auth, RedirectAttributes redirect){
 		try {
+			Aluno aluno = alunoService.buscarPorCpf(auth.getName());
 			Inscricao inscricao = inscricaoService.get(aluno, selecao);
-			// Cria uma nova inscrição se o aluno ainda não estiver inscrito
+			// Verifica se o aluno já possui inscrição
 			if (inscricao == null) {
+				// Cria uma nova inscrição
 				inscricao = inscricaoService.salvar(selecao, aluno, identificacao);
-			} else if (inscricao.getSelecao().isInscricaoAberta()) {
+			} else {
 				// Atualiza a inscrição existente
 				inscricao.setIdentificacao(identificacao);
 				inscricaoService.atualizar(inscricao);
-			} else {
-				// O período de inscrição já encerrou e não é possível atualizar a inscrição
-				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
-				return REDIRECT_DETALHES_SELECAO + selecao.getId();
 			}
 			// Redireciona para a página de moradia
-			model.addAttribute("moradia", inscricao.getMoradia());
-			model.addAttribute("opcoesMoradoresOrigem", MoradoresOrigem.values());
-			model.addAttribute("opcoesMoradores", Moradores.values());
-			model.addAttribute("estados", Estado.values());
-			model.addAttribute("imoveis", SituacaoImovel.values());
-			return INSCRICAO_MORADIA;
+			return REDIRECT_INSCRICAO_MORADIA + selecao.getId();
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
 		}
 	}
 
+	@PreAuthorize(PERMISSAO_ALUNO)
+	@GetMapping("moradia/{selecao}")
+	public String inscreverMoradiaForm(@PathVariable Selecao selecao, Model model, Authentication auth,
+		   RedirectAttributes redirect) {
+		// Verifica se está no período de inscrição
+		if(selecao == null || !selecao.isInscricaoAberta()) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
+			return REDIRECT_LISTAR_SELECAO;
+		}
+
+		// Verifica se já existe uma inscrição
+		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+		if (inscricao == null) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_REALIZAR_INSCRICAO);
+			return REDIRECT_DETALHES_SELECAO + selecao.getId();
+		}
+
+		model.addAttribute("moradia", inscricao.getMoradia());
+		model.addAttribute("opcoesMoradoresOrigem", MoradoresOrigem.values());
+		model.addAttribute("opcoesMoradores", Moradores.values());
+		model.addAttribute("estados", Estado.values());
+		model.addAttribute("imoveis", SituacaoImovel.values());
+		return INSCRICAO_MORADIA;
+	}
+
 	/**
 	 * Moradia de origem e moradia atual
 	 */
+	@PreAuthorize(PERMISSAO_ALUNO)
 	@PostMapping("moradia/{selecao}")
 	public String inscreverMoradia(@PathVariable Selecao selecao, Moradia moradia,
-			Model model, Authentication auth, RedirectAttributes redirect){
-		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
-		inscricao.setMoradia(moradia);
+			Authentication auth, RedirectAttributes redirect){
 		try {
+			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+			if (inscricao == null) {
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+				return REDIRECT_LISTAR_SELECAO;
+			}
+			inscricao.setMoradia(moradia);
 			inscricaoService.atualizar(inscricao);
+			return REDIRECT_INSCRICAO_HISTORICO + selecao.getId();
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
+		}
+	}
+
+	@PreAuthorize(PERMISSAO_ALUNO)
+	@GetMapping("historico/{selecao}")
+	public String inscreverHistoricoForm(@PathVariable Selecao selecao, Model model, Authentication auth,
+									   RedirectAttributes redirect) {
+		// Verifica se está no período de inscrição
+		if(selecao == null || !selecao.isInscricaoAberta()) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
+			return REDIRECT_LISTAR_SELECAO;
+		}
+
+		// Verifica se já existe uma inscrição
+		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+		if (inscricao == null) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_REALIZAR_INSCRICAO);
+			return REDIRECT_DETALHES_SELECAO + selecao.getId();
 		}
 
 		model.addAttribute("historico", inscricao.getHistoricoEscolar());
@@ -136,91 +174,187 @@ public class InscricaoController {
 	 * Histórico escolar
 	 */
 	@PostMapping("historico/{selecao}")
-	public String inscreverQuestionario(@PathVariable Selecao selecao, HistoricoEscolar historico,
+	public String inscreverHistorico(@PathVariable Selecao selecao, HistoricoEscolar historico,
 		  	Model model, Authentication auth, RedirectAttributes redirect){
-		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
-		inscricao.setHistoricoEscolar(historico);
 		try {
+			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+			if (inscricao == null) {
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+				return REDIRECT_LISTAR_SELECAO;
+			}
+			inscricao.setHistoricoEscolar(historico);
 			inscricaoService.atualizar(inscricao);
+			return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
+		}
+	}
+
+	/**
+	 * Formulário de situação socioeconômica
+	 */
+	@PreAuthorize(PERMISSAO_ALUNO)
+	@GetMapping("situacao-socioeconomica/{selecao}")
+	public String inscreverSituacaoSocioeconomicaForm(@PathVariable Selecao selecao, Model model, Authentication auth,
+			 RedirectAttributes redirect) {
+		// Verifica se está no período de inscrição
+		if(selecao == null || !selecao.isInscricaoAberta()) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
+			return REDIRECT_LISTAR_SELECAO;
+		}
+
+		// Verifica se já existe uma inscrição
+		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+		if (inscricao == null) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_REALIZAR_INSCRICAO);
+			return REDIRECT_DETALHES_SELECAO + selecao.getId();
 		}
 
 		model.addAttribute("situacao", inscricao.getSituacaoSocioeconomica());
 		model.addAttribute("opcoesParentesco", GrauParentesco.values());
 		model.addAttribute("opcoesEscolaridade", Escolaridade.values());
 		model.addAttribute("inscricao", inscricao);
+		model.addAttribute("pessoa", new PessoaFamilia());
 		return INSCRICAO_SITUACAO_SOCIOECONOMICA;
 	}
 
 	/**
 	 * Situação Socioeconômica
 	 */
+	@PreAuthorize(PERMISSAO_ALUNO)
 	@PostMapping("situacao-socioeconomica/{selecao}")
 	public String inscreverSituacaoSocioeconomica(@PathVariable Selecao selecao, SituacaoSocioeconomica situacao,
-			Model model, Authentication auth, RedirectAttributes redirect){
-		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
-		inscricao.setSituacaoSocioEconomica(situacao);
+			Authentication auth, RedirectAttributes redirect){
 		try {
+			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+			if (inscricao == null) {
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+				return REDIRECT_LISTAR_SELECAO;
+			}
+			inscricao.setSituacaoSocioEconomica(situacao);
 			inscricaoService.atualizar(inscricao);
+			return REDIRECT_INSCRICAO_OUTROS + selecao.getId();
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
 		}
+	}
 
+	/**
+	 * Inclui membro da família na situação socioeconômica
+	 */
+	@PreAuthorize(PERMISSAO_ALUNO)
+	@PostMapping("situacao-socioeconomica/{selecao}/adicionar")
+	public String adicionarMembroFamilia(@PathVariable Selecao selecao, PessoaFamilia pessoa,
+										 Model model, RedirectAttributes redirect, Authentication auth) {
+		if(selecao == null || !selecao.isInscricaoAberta()) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
+			return REDIRECT_LISTAR_SELECAO;
+		}
+		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+		if (inscricao == null) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			return REDIRECT_DETALHES_SELECAO + selecao.getId();
+		}
+		pessoa.setQuestionario(inscricao.getQuestionario());
+		inscricaoService.adicionarMembroFamilia(pessoa);
+		model.addAttribute(INFO, MSG_SUCESSO_MEMBRO_FAMILIA_ADICIONADO);
+		return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
+	}
+
+	/**
+	 * Remove membro da família na situação socioeconômica
+	 */
+	@PreAuthorize(PERMISSAO_ALUNO)
+	@GetMapping("situacao-socioeconomica/{selecao}/remover/{membro}")
+	public String removerMembroFamilia(@PathVariable Selecao selecao, @PathVariable PessoaFamilia membro,
+													 Model model, RedirectAttributes redirect, Authentication auth) {
+		if(selecao == null || !selecao.isInscricaoAberta()) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
+			return REDIRECT_LISTAR_SELECAO;
+		}
+		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+		if (inscricao == null) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+			return REDIRECT_DETALHES_SELECAO + selecao.getId();
+		}
+		if(membro != null && inscricao.getQuestionario().getGrupoFamiliar().contains(membro)) {
+			inscricao.getQuestionario().getGrupoFamiliar().remove(membro);
+			inscricaoService.removerMembroFamilia(membro);
+			model.addAttribute(INFO, MSG_SUCESSO_MEMBRO_FAMILIA_REMOVIDO);
+			return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
+		} else {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_REMOVER_MEMBRO);
+			return REDIRECT_LISTAR_SELECAO;
+		}
+	}
+
+	/**
+	 * Formulário de utras informações
+	 */
+	@PreAuthorize(PERMISSAO_ALUNO)
+	@GetMapping("outras-informacoes/{selecao}")
+	public String inscreverOutrasInformacoesForm(@PathVariable Selecao selecao, Authentication auth,
+													  Model model, RedirectAttributes redirect) {
+		// Verifica se está no período de inscrição
+		if(selecao == null || !selecao.isInscricaoAberta()) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
+			return REDIRECT_LISTAR_SELECAO;
+		}
+
+		// Verifica se já existe uma inscrição
+		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
+		if (inscricao == null) {
+			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_REALIZAR_INSCRICAO);
+			return REDIRECT_DETALHES_SELECAO + selecao.getId();
+		}
+
+		model.addAttribute("justificativa", inscricao.getQuestionario().getJustificativa());
 		return INSCRICAO_OUTRAS_INFORMACOES;
 	}
 
-	@PostMapping("situacao-socioeconomica/{selecao}/adicionar")
-	public @ResponseBody PessoaFamilia adicionarMembroFamilia(@PathVariable Selecao selecao,
-		  	@RequestBody PessoaFamilia pessoa, Authentication auth) {
-		if(selecao != null && selecao.isInscricaoAberta()) {
+	/**
+	 * Outras informações
+	 */
+	@PreAuthorize(PERMISSAO_ALUNO)
+	@PostMapping("outras-informacoes/{selecao}")
+	public String inscreverOutrasInformacoesForm(@PathVariable Selecao selecao, @RequestParam String justificativa,
+												  Authentication auth, RedirectAttributes redirect){
+		try {
 			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
-			if (inscricao != null) {
-				pessoa.setQuestionario(inscricao.getQuestionario());
-				pessoa = inscricaoService.adicionarMembroFamilia(pessoa);
+			if (inscricao == null) {
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
+				return REDIRECT_LISTAR_SELECAO;
 			}
+			inscricao.getQuestionario().setJustificativa(justificativa);
+			inscricaoService.atualizar(inscricao);
+			return REDIRECT_DETALHES_INSCRICAO + inscricao.getId();
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+			return REDIRECT_LISTAR_SELECAO;
 		}
-		return pessoa;
 	}
 
-	@PostMapping("situacao-socioeconomica/{selecao}/remover/{membro}")
-	public @ResponseBody Status removerMembroFamilia(@PathVariable Selecao selecao, @PathVariable PessoaFamilia membro,
-			  Authentication auth) {
-		if(selecao != null && membro != null && selecao.isInscricaoAberta()) {
-			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
-			if (inscricao != null && inscricao.getQuestionario().getGrupoFamiliar().contains(membro)) {
-				inscricao.getQuestionario().getGrupoFamiliar().remove(membro);
-				inscricaoService.removerMembroFamilia(membro);
-				return Status.OK;
+	/**
+	 * Visualizar detalhes da inscricao
+	 */
+
+	@GetMapping("detalhes/{inscricao}")
+	public String visualizarInscricao(@PathVariable Inscricao inscricao, RedirectAttributes redirect,
+			Model model, Authentication auth) {
+		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
+		if(inscricao != null || pessoa != null) {
+			Servidor servidor = servidorService.getByCpf(auth.getName());
+			Aluno aluno = alunoService.buscarPorCpf(auth.getName());
+			if((pessoa.isServidor() && inscricao.getSelecao().getComissao().contains(servidor))
+					|| (pessoa.isAluno() && inscricao.getAluno().equals(aluno))) {
+				model.addAttribute("inscricao", inscricao);
+				return INSCRICAO_DETALHES;
 			}
 		}
-		return Status.ERROR;
+
+		redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_VISUALIZAR_INSCRICAO);
+		return REDIRECT_LISTAR_SELECAO;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

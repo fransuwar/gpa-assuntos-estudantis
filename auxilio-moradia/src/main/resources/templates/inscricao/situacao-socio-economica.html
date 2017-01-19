@@ -15,18 +15,21 @@
 			<div class="card">
 				<div class="card-content">
 					<h5 class="title light">Situação socioeconômica</h5>
-					<form id="form-add-membro" th:action="@{/inscricao/situacao-socioeconomica/__${inscricao.selecao.id}__/adicionar}" th:method="post">
+					<div class="row">
+						<span class="col s12">Adicione os membros da família de origem, <span class="bold">incluindo você</span>.</span>
+					</div>
+					<form id="form-add-membro" th:object="${pessoa}" th:action="@{/inscricao/situacao-socioeconomica/__${inscricao.selecao.id}__/adicionar}" th:method="post">
 						<div class="row">
 							<div class="col s6 input-field">
-								<input id="nome" name="nome" type="text" required="required"/>
+								<input id="nome" th:field="*{nome}" type="text" required="required"/>
 								<label for="nome">* Nome</label>
 							</div>
 							<div class="col s2 input-field">
-								<input id="idade" name="idade" type="number" required="required"/>
+								<input id="idade" th:field="*{idade}" type="number" required="required" min="0"/>
 								<label for="idade">* Idade</label>
 							</div>
 							<div class="col s4 input-field">
-								<select id="parentesco" name="parentesco">
+								<select id="parentesco" th:field="*{parentesco}" >
 									<option th:value="${parentesco}" th:each="parentesco : ${opcoesParentesco}" th:text="${parentesco.nome}"></option>
 								</select>
 								<label for="parentesco">* Parentesco</label>
@@ -34,17 +37,17 @@
 						</div>
 						<div class="row">
 							<div class="col s4 input-field">
-								<select id="escolaridade" name="escolaridade">
+								<select id="escolaridade" th:field="*{escolaridade}" >
 									<option th:value="${escolaridade}" th:each="escolaridade : ${opcoesEscolaridade}" th:text="${escolaridade.nome}"></option>
 								</select>
 								<label for="escolaridade">* Escolaridade</label>
 							</div>
 							<div class="col s4 input-field">
-								<input id="profissao" name="profissao" type="text" required="required"/>
+								<input id="profissao" th:field="*{profissao}" type="text" required="required"/>
 								<label for="profissao">* Atividade ou profissão</label>
 							</div>
 							<div class="col s4 input-field">
-								<input id="rendaMensal" name="rendaMensal" type="number" required="required"/>
+								<input id="rendaMensal" th:field="*{rendaMensal}" min="0" type="number" required="required"/>
 								<label for="rendaMensal">* Renda mensal (R$)</label>
 							</div>
 						</div>
@@ -52,8 +55,7 @@
 							<button class="btn waves-effect waves-light" type="submit">Adicionar</button>
 						</div>
 					</form>
-					<input id="selecao" type="hidden" th:value="__${inscricao.selecao.id}__"/>
-					<table id="table-grupo-familiar" class="bordered">
+					<table class="striped">
 						<thead>
 							<tr>
 								<th>Nome</th>
@@ -74,13 +76,16 @@
 								<td th:text="${membro.profissao}"></td>
 								<td th:text="${membro.rendaMensal}"></td>
 								<td>
-									<a th:id="__${membro.id}__" class="remover-membro" href="#" title="Excluir">
+									<a th:href="@{/inscricao/situacao-socioeconomica/__${inscricao.selecao.id}__/remover/__${membro.id}__}" title="Excluir">
 										<i class="material-icons red-text">delete</i>
 									</a>
 								</td>
 							</tr>
 						</tbody>
 					</table>
+					<div class="row mt-30 center">
+						<span class="blue-grey-text" th:if="${#lists.isEmpty(inscricao.questionario.grupoFamiliar)}">Nenhum membro cadastrado</span>
+					</div>
 				</div>
 			</div>
 
@@ -176,6 +181,21 @@
 								<div class="col s8 input-field">
 									<input th:field="*{descricaoDespesaMedicamento}" type="text" id="descricaoDespesaMedicamento" th:required="${situacao.despesaMedicamento}"/>
 									<label for="descricaoDespesaMedicamento">* Especifique</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s4 input-field">
+								<select id="beneficio" th:field="*{beneficio}">
+									<option value="false">NÃO</option>
+									<option th:selected="${situacao.beneficio}" value="true">SIM</option>
+								</select>
+								<label for="beneficio">* Recebe algum benefício assistencial/previdenciário?</label>
+							</div>
+							<div id="div-beneficio" th:class="${situacao.beneficio} ? '' : 'no-display'">
+								<div class="col s8 input-field">
+									<input th:field="*{descricaoBeneficio}" type="text" id="descricaoBeneficio" th:required="${situacao.beneficio}"/>
+									<label for="descricaoBeneficio">* Qual?</label>
 								</div>
 							</div>
 						</div>
