@@ -8,8 +8,10 @@
 	<title>Auxílio Moradia</title>
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/materialize.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/auxilio.css}"/>
+    <link rel="stylesheet" media="print" th:href="@{/css/auxilio-print.css}"/>
 			
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -54,12 +56,11 @@
     <!-- Plugins externos e JQuery -->
     <script type="text/javascript" th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/jquery/jquery.mask.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/plugins/datatables/jquery.dataTables.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/plugins/datatables/dataTables.materialize.js}"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" th:src="@{/js/plugins/chart/chart.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/cookie/cookie.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/moment/moment.js}"></script>
-    
+
     <!-- Framework base -->
 	<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/auxilio/auxilio.js}"></script>
@@ -78,6 +79,34 @@
 			   selectYears: 100, 
 			   format: "dd/mm/yyyy"
 			});
+
+            $('#inscricoes').DataTable({
+                "lengthChange": false,
+                "paging": false,
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "_MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                }
+            });
 		});
 	</script>
     

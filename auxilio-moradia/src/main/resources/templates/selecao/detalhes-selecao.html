@@ -7,37 +7,39 @@
 
 <head>
 	<title>Auxílio - Detalhes da Seleção</title>
-	<link rel="stylesheet" th:href="@{/css/selecao/detalhes.css}"/>
 </head>
 
 <section layout:fragment="conteudo">
+	<!-- Informações da seleção -->
 	<div class="row">
-		<!-- Informações da seleção -->
-		<div class="col s6">
+		<div class="col s12">
 			<div th:replace="selecao/detalhes/selecao :: selecao" ></div>
 		</div>
-		<!-- Arquivos -->
-		<div class="col s6">
+	</div>
+
+	<!-- Comissão -->
+	<div class="row" sec:authorize="hasAuthority('SERVIDOR')">
+		<div class="col s12">
+			<div th:replace="selecao/detalhes/comissao :: comissao"></div>
+		</div>
+	</div>
+
+	<!-- Documentação -->
+	<div class="row">
+		<div class="col s8">
+			<div th:replace="selecao/detalhes/documentacao :: documentacao"></div>
+		</div>
+		<div class="col s4">
 			<div th:replace="selecao/detalhes/arquivos :: arquivos"></div>
 		</div>
 	</div>
+
+	<!-- Arquivos -->
 	<div class="row">
-		<!-- Comissão -->
-		<div class="col s6">
-			<div th:replace="selecao/detalhes/comissao :: comissao"></div>
-		</div>
-		<!-- Documentação -->
-		<div class="col s6">
-			<div th:replace="selecao/detalhes/documentacao :: documentacao"></div>
-		</div>
+
 	</div>
-	<div class="row" th:if="${membroComissao}">
-		<!-- Inscrições -->
-		<div class="col s12">
-			<div th:replace="selecao/detalhes/inscricoes :: inscricoes"></div>
-		</div>
-	</div>
-	<!--end container-->
+
+
 </section>
 
 <section layout:fragment="js">

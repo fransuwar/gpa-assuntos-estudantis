@@ -32,14 +32,14 @@
 							</div>
 							<div class="col s12 input-field">
 								<p th:each="morador : ${opcoesMoradoresOrigem}" class="checkbox-inline">
-									<input th:checked="${#lists.contains(moradia.moradoresOrigem, morador.name())}" th:value="${morador}" type="checkbox" class="filled-in" th:id="'__${morador}__-origem'" name="moradoresOrigem"/>
+									<input th:checked="${#lists.contains(moradia.moradoresOrigem, morador)}" th:value="${morador}" type="checkbox" class="filled-in" th:id="'__${morador}__-origem'" name="moradoresOrigem"/>
 									<label th:for="'__${morador}__-origem'" th:text="${morador.nome}"></label>
 								</p>
 							</div>
 						</div>
-						<div id="div-outroMoradorOrigem" th:class="${#lists.contains(moradia.moradoresOrigem, 'OUTROS')} ? 'row' : 'row no-display'">
+						<div id="div-outroMoradorOrigem" th:class="${#lists.contains(moradia.moradoresOrigem, T(br.ufc.npi.auxilio.enums.MoradoresOrigem).OUTROS)} ? 'row' : 'row no-display'">
 							<div class="col s6 input-field">
-								<input th:field="*{outroMoradorOrigem}" type="text" id="outroMoradorOrigem" th:required="${#lists.contains(moradia.moradoresOrigem, 'OUTROS')}"/>
+								<input th:field="*{outroMoradorOrigem}" type="text" id="outroMoradorOrigem" th:required="${#lists.contains(moradia.moradoresOrigem, T(br.ufc.npi.auxilio.enums.MoradoresOrigem).OUTROS)}"/>
 								<label for="outroMoradorOrigem">* Especifique</label>
 							</div>
 						</div>
@@ -121,14 +121,14 @@
 							</div>
 							<div class="col s12 input-field">
 								<p th:each="morador : ${opcoesMoradores}" class="checkbox-inline">
-									<input th:checked="${#lists.contains(moradia.moradores, morador.name())}" th:value="${morador}" type="checkbox" class="filled-in" th:id="${morador}" name="moradores"/>
+									<input th:checked="${#lists.contains(moradia.moradores, morador)}" th:value="${morador}" type="checkbox" class="filled-in" th:id="${morador}" name="moradores"/>
 									<label th:for="${morador}" th:text="${morador.nome}"></label>
 								</p>
 							</div>
 						</div>
-						<div id="div-outroMorador" th:class="${#lists.contains(moradia.moradores, 'OUTROS')} ? 'row' : 'row no-display'">
+						<div id="div-outroMorador" th:class="${#lists.contains(moradia.moradores, T(br.ufc.npi.auxilio.enums.Moradores).OUTROS)} ? 'row' : 'row no-display'">
 							<div class="col s6 input-field">
-								<input th:field="*{outroMorador}" type="text" id="outroMorador"/>
+								<input th:field="*{outroMorador}" type="text" id="outroMorador" th:required="${#lists.contains(moradia.moradores, T(br.ufc.npi.auxilio.enums.Moradores).OUTROS)}"/>
 								<label for="outroMorador">* Especifique</label>
 							</div>
 						</div>

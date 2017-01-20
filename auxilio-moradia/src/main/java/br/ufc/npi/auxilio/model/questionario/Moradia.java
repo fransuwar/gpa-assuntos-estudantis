@@ -1,6 +1,8 @@
 package br.ufc.npi.auxilio.model.questionario;
 
 import br.ufc.npi.auxilio.enums.Estado;
+import br.ufc.npi.auxilio.enums.Moradores;
+import br.ufc.npi.auxilio.enums.MoradoresOrigem;
 import br.ufc.npi.auxilio.enums.SituacaoImovel;
 
 import java.util.List;
@@ -13,7 +15,7 @@ public class Moradia {
     private String pai;
 
     // Moradia de origem
-    private List<String> moradoresOrigem;
+    private List<MoradoresOrigem> moradoresOrigem;
 
     private String outroMoradorOrigem;
 
@@ -41,7 +43,7 @@ public class Moradia {
     private String descricaoBemMovel;
 
     // Moradia atual
-    private List<String> moradores;
+    private List<Moradores> moradores;
 
     private String outroMorador;
 
@@ -75,11 +77,11 @@ public class Moradia {
         this.pai = pai;
     }
 
-    public List<String> getMoradores() {
+    public List<Moradores> getMoradores() {
         return moradores;
     }
 
-    public void setMoradores(List<String> moradores) {
+    public void setMoradores(List<Moradores> moradores) {
         this.moradores = moradores;
     }
 
@@ -171,11 +173,11 @@ public class Moradia {
         this.quantidadeBemMovel = quantidadeBemMovel;
     }
 
-    public List<String> getMoradoresOrigem() {
+    public List<MoradoresOrigem> getMoradoresOrigem() {
         return moradoresOrigem;
     }
 
-    public void setMoradoresOrigem(List<String> moradoresOrigem) {
+    public void setMoradoresOrigem(List<MoradoresOrigem> moradoresOrigem) {
         this.moradoresOrigem = moradoresOrigem;
     }
 

@@ -262,7 +262,7 @@ public class Inscricao {
 
 		// Moradia de origem
 		questionario.setMoradoresOrigem(moradia.getMoradoresOrigem());
-		if (moradia.getMoradoresOrigem() != null && moradia.getMoradoresOrigem().contains(MoradoresOrigem.OUTROS.name())) {
+		if (moradia.getMoradoresOrigem() != null && moradia.getMoradoresOrigem().contains(MoradoresOrigem.OUTROS)) {
 			questionario.setOutroMoradorOrigem(moradia.getOutroMoradorOrigem());
 		} else {
 			questionario.setOutroMoradorOrigem(null);
@@ -291,7 +291,7 @@ public class Inscricao {
 
 		// Moradia atual
 		questionario.setMoradores(moradia.getMoradores());
-		if (moradia.getMoradores() != null && moradia.getMoradores().contains(Moradores.OUTROS.name())) {
+		if (moradia.getMoradores() != null && moradia.getMoradores().contains(Moradores.OUTROS)) {
 			questionario.setOutroMorador(moradia.getOutroMorador());
 		} else {
 			questionario.setOutroMorador(null);
@@ -344,7 +344,7 @@ public class Inscricao {
 		questionario.setBolsaAtual(historico.getBolsaAtual());
 		questionario.setOutraGraduacao(historico.getOutraGraduacao());
 		questionario.setServicos(historico.getServicos());
-		if (historico.getServicos() != null && historico.getServicos().contains(ServicosProReitoria.OUTROS.name())) {
+		if (historico.getServicos() != null && historico.getServicos().contains(ServicosProReitoria.OUTROS)) {
 			questionario.setOutroServico(historico.getOutroServico());
 		} else {
 			questionario.setOutroServico(null);
@@ -352,7 +352,7 @@ public class Inscricao {
 
 		// Trajeto até a universidade
 		questionario.setTrajetos(historico.getTrajetos());
-		if (historico.getTrajetos() != null && historico.getTrajetos().contains(Trajeto.OUTROS.name())) {
+		if (historico.getTrajetos() != null && historico.getTrajetos().contains(Trajeto.OUTROS)) {
 			questionario.setOutroTrajeto(historico.getOutroTrajeto());
 		} else {
 			questionario.setOutroTrajeto(null);
@@ -398,6 +398,18 @@ public class Inscricao {
 		questionario.setDescricaoDespesaMedicamento(situacao.isDespesaMedicamento() ? situacao.getDescricaoDespesaMedicamento() : null);
 		questionario.setBeneficio(situacao.isBeneficio());
 		questionario.setDescricaoBeneficio(situacao.isBeneficio() ? situacao.getDescricaoBeneficio() : null);
+	}
+
+	public Double getRendaTotal() {
+		Double total = 0.0;
+		for (PessoaFamilia pessoa : questionario.getGrupoFamiliar()) {
+			total += pessoa.getRendaMensal();
+		}
+		return total;
+	}
+
+	public Double getRendaPerCapita() {
+		return questionario.getGrupoFamiliar().isEmpty() ? 0.0 : getRendaTotal()/questionario.getGrupoFamiliar().size();
 	}
 
 }

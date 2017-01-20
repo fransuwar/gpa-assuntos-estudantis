@@ -85,40 +85,6 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col s12">
-								<h6>Quais serviços você já utilizou?</h6>
-							</div>
-							<div class="col s12 input-field">
-								<p th:each="servico : ${opcoesServicos}" class="checkbox-inline">
-									<input th:checked="${#lists.contains(historico.servicos, servico.name())}" th:value="${servico}" type="checkbox" class="filled-in" th:id="__${servico}__-servico" name="servicos"/>
-									<label th:for="__${servico}__-servico" th:text="${servico.nome}"></label>
-								</p>
-							</div>
-						</div>
-						<div id="div-outro-servico" th:class="${#lists.contains(historico.servicos, 'OUTROS')} ? 'row' : 'row no-display'">
-							<div class="col s6 input-field">
-								<input th:field="*{outroServico}" type="text" id="outroServico" th:required="${#lists.contains(historico.servicos, 'OUTROS')}"/>
-								<label for="outroServico">* Especifique</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<h6>Como faz o trajeto até a universidade diariamente?</h6>
-							</div>
-							<div class="col s12 input-field">
-								<p th:each="trajeto : ${opcoesTrajetos}" class="checkbox-inline">
-									<input th:checked="${#lists.contains(historico.trajetos, trajeto.name())}" th:value="${trajeto}" type="checkbox" class="filled-in" th:id="__${trajeto}__-trajeto" name="trajetos"/>
-									<label th:for="__${trajeto}__-trajeto" th:text="${trajeto.nome}"></label>
-								</p>
-							</div>
-						</div>
-						<div id="div-outro-trajeto" th:class="${#lists.contains(historico.trajetos, 'OUTROS')} ? 'row' : 'row no-display'">
-							<div class="col s6 input-field">
-								<input th:field="*{outroTrajeto}" type="text" id="outroTrajeto" th:required="${#lists.contains(historico.trajetos, 'OUTROS')}" />
-								<label for="outroTrajeto">* Especifique</label>
-							</div>
-						</div>
-						<div class="row">
 							<div class="col s4 input-field">
 								<input id="valorMensalTransporte" th:field="*{valorMensalTransporte}" min="0" type="number" required="required"/>
 								<label for="valorMensalTransporte">* Valor mensal gasto com transporte</label>
@@ -130,6 +96,40 @@
 							<div class="col s4 input-field">
 								<input id="tempoGasto" th:field="*{tempoGasto}" type="number" min="0" required="required"/>
 								<label for="tempoGasto">* Tempo gasto com deslocamento (horas)</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<h6>Como faz o trajeto até a universidade diariamente?</h6>
+							</div>
+							<div class="col s12 input-field">
+								<p th:each="trajeto : ${opcoesTrajetos}" class="checkbox-inline">
+									<input th:checked="${#lists.contains(historico.trajetos, trajeto)}" th:value="${trajeto}" type="checkbox" class="filled-in" th:id="__${trajeto}__-trajeto" name="trajetos"/>
+									<label th:for="__${trajeto}__-trajeto" th:text="${trajeto.nome}"></label>
+								</p>
+							</div>
+						</div>
+						<div id="div-outro-trajeto" th:class="${#lists.contains(historico.trajetos, T(br.ufc.npi.auxilio.enums.Trajeto).OUTROS)} ? 'row' : 'row no-display'">
+							<div class="col s6 input-field">
+								<input th:field="*{outroTrajeto}" type="text" id="outroTrajeto" th:required="${#lists.contains(historico.trajetos, T(br.ufc.npi.auxilio.enums.Trajeto).OUTROS)}" />
+								<label for="outroTrajeto">* Especifique</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<h6>Quais serviços você já utilizou?</h6>
+							</div>
+							<div class="col s12 input-field">
+								<p th:each="servico : ${opcoesServicos}" class="checkbox-inline">
+									<input th:checked="${#lists.contains(historico.servicos, servico)}" th:value="${servico}" type="checkbox" class="filled-in" th:id="__${servico}__-servico" name="servicos"/>
+									<label th:for="__${servico}__-servico" th:text="${servico.nome}"></label>
+								</p>
+							</div>
+						</div>
+						<div id="div-outro-servico" th:class="${#lists.contains(historico.servicos, T(br.ufc.npi.auxilio.enums.ServicosProReitoria).OUTROS)} ? 'row' : 'row no-display'">
+							<div class="col s6 input-field">
+								<input th:field="*{outroServico}" type="text" id="outroServico" th:required="${#lists.contains(historico.servicos, T(br.ufc.npi.auxilio.enums.ServicosProReitoria).OUTROS)}"/>
+								<label for="outroServico">* Especifique</label>
 							</div>
 						</div>
 					</div>

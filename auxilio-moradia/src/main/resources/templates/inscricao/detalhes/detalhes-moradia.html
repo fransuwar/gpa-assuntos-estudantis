@@ -1,0 +1,74 @@
+<section th:fragment="moradia">
+	<div class="card">
+		<div class="card-content details">
+			<h5 class="title light">Moradia de origem</h5>
+			<div class="row">
+				<div class="col s4">
+					<span>Nome da mãe:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.nomeMae}"></span>
+				</div>
+				<div class="col s4">
+					<span>Nome do pai:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.nomePai}"></span>
+				</div>
+				<div class="col s4">
+					<span>Morava ou mora com:</span>
+					<span class="text-18 bold inline" th:each="morador : ${inscricao.questionario.moradoresOrigem}" th:if="${morador != T(br.ufc.npi.auxilio.enums.MoradoresOrigem).OUTROS}" th:text="'__${morador.nome}__ - '"></span>
+					<span class="text-18 bold inline" th:if="${#lists.contains(inscricao.questionario.moradoresOrigem, T(br.ufc.npi.auxilio.enums.MoradoresOrigem).OUTROS)}" th:text="${inscricao.questionario.outroMoradorOrigem}"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s8">
+					<span>Endereço:</span>
+					<span class="text-18 bold" th:text="'__${inscricao.questionario.enderecoOrigem}__, __${inscricao.questionario.numeroOrigem}__, __${inscricao.questionario.bairroOrigem}__, __${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__'"></span>
+				</div>
+				<div class="col s4">
+					<span>Ponto de referência:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.referenciaOrigem} ? ${inscricao.questionario.referenciaOrigem} : '-'"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s2">
+					<span>CEP:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.cepOrigem}"></span>
+				</div>
+				<div class="col s4">
+					<span>Situação do imóvel:</span>
+					<span class="text-18 bold"
+						  th:text="${inscricao.questionario.situacaoImovel == T(br.ufc.npi.auxilio.enums.SituacaoImovel).FINANCIADO} ? '__${inscricao.questionario.situacaoImovel.nome}__: __${inscricao.questionario.financiamento}__' : ${inscricao.questionario.situacaoImovel.nome}"></span>
+				</div>
+				<div class="col s6">
+					<span>Quantidade de bens móveis:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.quantidadeBemMovel > 0} ? '__${inscricao.questionario.quantidadeBemMovel}__: __${inscricao.questionario.descricaoBemMovel}__' : ${inscricao.questionario.quantidadeBemMovel}"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-content details">
+			<h5 class="title light">Moradia atual</h5>
+			<div class="row">
+				<div class="col s12">
+					<span>Mora em/com:</span>
+					<span class="text-18 bold inline" th:each="morador : ${inscricao.questionario.moradores}" th:if="${morador != T(br.ufc.npi.auxilio.enums.Moradores).OUTROS}" th:text="'__${morador.nome}__ - '"></span>
+					<span class="text-18 bold inline" th:if="${#lists.contains(inscricao.questionario.moradores, T(br.ufc.npi.auxilio.enums.Moradores).OUTROS)}" th:text="${inscricao.questionario.outroMorador}"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<span>Endereço:</span>
+					<span class="text-18 bold" th:text="'__${inscricao.questionario.endereco}__, __${inscricao.questionario.numero}__, __${inscricao.questionario.bairro}__, __${inscricao.questionario.cidade}__ - __${inscricao.questionario.estado}__'"></span>
+				</div>
+				<div class="col s2">
+					<span>CEP:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.cep}"></span>
+				</div>
+				<div class="col s4">
+					<span>Ponto de referência:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.referencia} ? ${inscricao.questionario.referencia} : '-'"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

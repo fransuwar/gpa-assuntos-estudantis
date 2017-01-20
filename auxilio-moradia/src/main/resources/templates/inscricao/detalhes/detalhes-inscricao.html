@@ -9,13 +9,27 @@
 </head>
 
 <section layout:fragment="conteudo">
-	<!-- Identificação -->
 	<div class="row">
+		<!-- Identificação -->
 		<div class="col s12">
 			<div th:replace="inscricao/detalhes/detalhes-dados-basicos :: dados-basicos" ></div>
 		</div>
-	</div>
 
+		<!-- Moradia -->
+		<div class="col s12">
+			<div th:replace="inscricao/detalhes/detalhes-moradia :: moradia" ></div>
+		</div>
+
+		<!-- Histórico escolar -->
+		<div class="col s12">
+			<div th:replace="inscricao/detalhes/detalhes-historico :: historico" ></div>
+		</div>
+
+		<!-- Situação socioeconômica -->
+		<div class="col s12">
+			<div th:replace="inscricao/detalhes/detalhes-situacao-socioeconomica :: situacao-socioeconomica" ></div>
+		</div>
+	</div>
 	<!--end container-->
 </section>
 

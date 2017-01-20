@@ -2,23 +2,7 @@
 	<div class="card-content">
 		<h5 class="title light">Documentação</h5>
 
-		<!-- Nenhum tipo de documento cadastrado -->
-		<span class="blue-grey-text" th:if="${#lists.isEmpty(selecao.tiposDeDocumento)}">Nenhuma documentação cadastrada</span>
-
-		<!-- Tipos de documentos -->
-		<div class="row">
-			<div class="chip deep-purple lighten-1" th:each="tipo : ${selecao.tiposDeDocumento}">
-				<div class="text-20 light white-text" th:title="${tipo.descricao}" th:text="${tipo.nome}"></div>
-				<a title="Excluir" th:href="@{/selecao/documentacao/excluir/__${tipo.id}__}"
-				   sec:authorize="hasAuthority('COORDENADOR')">
-					<i class="text-20 white-text material-icons">close</i>
-				</a>
-			</div>
-		</div>
-	</div>
-
-	<div class="card-action right-align" sec:authorize="hasAuthority('COORDENADOR')">
-		<form th:action="@{/selecao/documentacao/adicionar}" method="post">
+		<form th:action="@{/selecao/documentacao/adicionar}" method="post" sec:authorize="hasAuthority('COORDENADOR')">
 			<input type="hidden" name="selecao" th:value="${selecao.id}"/>
 			<div class="row">
 				<div class="input-field col s12">
@@ -32,7 +16,39 @@
 					<label for="descricao">Descrição</label>
 				</div>
 			</div>
-			<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
+			<div class="row">
+				<div class="input-field col 6 right">
+					<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
+				</div>
+			</div>
 		</form>
+
+		<!-- Nenhum tipo de documento cadastrado -->
+		<span class="blue-grey-text" th:if="${#lists.isEmpty(selecao.tiposDeDocumento)}">Nenhuma documentação cadastrada</span>
+
+		<!-- Tipos de documentos -->
+		<div class="row" th:unless="${#lists.isEmpty(selecao.tiposDeDocumento)}">
+			<table class="striped bordered">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Descrição</th>
+						<th sec:authorize="hasAuthority('COORDENADOR')"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="tipo : ${selecao.tiposDeDocumento}">
+						<td class="bold" th:text="${tipo.nome}"></td>
+						<td th:text="${tipo.descricao}"></td>
+						<td sec:authorize="hasAuthority('COORDENADOR')">
+							<a th:href="@{/selecao/documentacao/excluir/__${tipo.id}__}" title="Excluir">
+								<i class="material-icons red-text">delete</i>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
+
 </div>

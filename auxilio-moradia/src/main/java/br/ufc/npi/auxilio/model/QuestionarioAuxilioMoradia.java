@@ -16,12 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
-import br.ufc.npi.auxilio.enums.Estado;
-import br.ufc.npi.auxilio.enums.MoradoresOrigem;
+import br.ufc.npi.auxilio.enums.*;
 import org.hibernate.annotations.Type;
-
-import br.ufc.npi.auxilio.enums.SituacaoImovel;
-import br.ufc.npi.auxilio.enums.TipoEnsino;
 
 @Entity
 public class QuestionarioAuxilioMoradia {
@@ -43,9 +39,10 @@ public class QuestionarioAuxilioMoradia {
 	private String nomeMae;
 
 	// Endereço origem
+	@Enumerated(EnumType.STRING)
 	@ElementCollection
 	@CollectionTable(name = "moradores")
-	private List<String> moradoresOrigem;
+	private List<MoradoresOrigem> moradoresOrigem;
 
 	private String outroMoradorOrigem;
 
@@ -77,9 +74,10 @@ public class QuestionarioAuxilioMoradia {
 	private String descricaoBemMovel;
 
 	// Endereço atual
+	@Enumerated(EnumType.STRING)
 	@ElementCollection
 	@CollectionTable(name = "moradores")
-	private List<String> moradores;
+	private List<Moradores> moradores;
 
 	private String outroMorador;
 
@@ -114,16 +112,18 @@ public class QuestionarioAuxilioMoradia {
 
 	private String outraGraduacao;
 
+	@Enumerated(EnumType.STRING)
 	@ElementCollection
 	@CollectionTable(name = "servicos_pro_reitoria")
-	private List<String> servicos;
+	private List<ServicosProReitoria> servicos;
 
 	private String outroServico;
 
 	// Trajeto até a universidade
+	@Enumerated(EnumType.STRING)
 	@ElementCollection
 	@CollectionTable(name = "trajetos")
-	private List<String> trajetos;
+	private List<Trajeto> trajetos;
 
 	private String outroTrajeto;
 
@@ -222,7 +222,7 @@ public class QuestionarioAuxilioMoradia {
 	}
 
 	public List<PessoaFamilia> getGrupoFamiliar() {
-		return grupoFamiliar;
+		return grupoFamiliar == null ? new ArrayList<PessoaFamilia>() : grupoFamiliar;
 	}
 
 	public void setGrupoFamiliar(List<PessoaFamilia> grupoFamiliar) {
@@ -437,19 +437,19 @@ public class QuestionarioAuxilioMoradia {
 		this.referenciaOrigem = referenciaOrigem;
 	}
 	
-	public List<String> getMoradores() {
-		return moradores == null ? new ArrayList<String>() : moradores;
+	public List<Moradores> getMoradores() {
+		return moradores == null ? new ArrayList<Moradores>() : moradores;
 	}
 
-	public void setMoradores(List<String> moradores) {
+	public void setMoradores(List<Moradores> moradores) {
 		this.moradores = moradores;
 	}
 
-	public List<String> getMoradoresOrigem() {
-		return moradoresOrigem == null ? new ArrayList<String>() : moradoresOrigem;
+	public List<MoradoresOrigem> getMoradoresOrigem() {
+		return moradoresOrigem == null ? new ArrayList<MoradoresOrigem>() : moradoresOrigem;
 	}
 
-	public void setMoradoresOrigem(List<String> moradoresOrigem) {
+	public void setMoradoresOrigem(List<MoradoresOrigem> moradoresOrigem) {
 		this.moradoresOrigem = moradoresOrigem;
 	}
 
@@ -501,11 +501,11 @@ public class QuestionarioAuxilioMoradia {
 		this.outraGraduacao = outraGraduacao;
 	}
 
-	public List<String> getServicos() {
-		return servicos == null ? new ArrayList<String>() : servicos;
+	public List<ServicosProReitoria> getServicos() {
+		return servicos == null ? new ArrayList<ServicosProReitoria>() : servicos;
 	}
 
-	public void setServicos(List<String> servicos) {
+	public void setServicos(List<ServicosProReitoria> servicos) {
 		this.servicos = servicos;
 	}
 
@@ -517,11 +517,11 @@ public class QuestionarioAuxilioMoradia {
 		this.outroServico = outroServico;
 	}
 
-	public List<String> getTrajetos() {
-		return trajetos == null ? new ArrayList<String>() : trajetos;
+	public List<Trajeto> getTrajetos() {
+		return trajetos == null ? new ArrayList<Trajeto>() : trajetos;
 	}
 
-	public void setTrajetos(List<String> trajetos) {
+	public void setTrajetos(List<Trajeto> trajetos) {
 		this.trajetos = trajetos;
 	}
 

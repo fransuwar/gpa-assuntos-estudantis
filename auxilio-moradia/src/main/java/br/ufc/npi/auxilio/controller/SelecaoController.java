@@ -22,8 +22,7 @@ import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.Constants.*;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
-import static br.ufc.npi.auxilio.utils.PageConstants.CADASTRAR_SELECAO;
-import static br.ufc.npi.auxilio.utils.PageConstants.DETALHES_SELECAO;
+import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.*;
@@ -222,6 +221,16 @@ public class SelecaoController {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 		}
 		return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
+	}
+
+	@PreAuthorize(PERMISSAO_SERVIDOR)
+	@GetMapping("/inscricoes/{selecao}")
+	public String listarInscricoes(@PathVariable Selecao selecao, Authentication auth, Model model) {
+		if (selecao == null || !selecao.isMembroComissao(servidorService.getByCpf(auth.getName()))) {
+			return REDIRECT_LISTAR_SELECAO;
+		}
+		model.addAttribute("selecao", selecao);
+		return LISTAR_INSCRICOES;
 	}
 
 	@ModelAttribute("servidores")

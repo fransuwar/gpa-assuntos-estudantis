@@ -1,6 +1,8 @@
 package br.ufc.npi.auxilio.model.questionario;
 
+import br.ufc.npi.auxilio.enums.ServicosProReitoria;
 import br.ufc.npi.auxilio.enums.TipoEnsino;
+import br.ufc.npi.auxilio.enums.Trajeto;
 
 import java.util.List;
 
@@ -18,12 +20,12 @@ public class HistoricoEscolar {
 
     private String outraGraduacao;
 
-    private List<String> servicos;
+    private List<ServicosProReitoria> servicos;
 
     private String outroServico;
 
     // Trajeto até a universidade
-    private List<String> trajetos;
+    private List<Trajeto> trajetos;
 
     private String outroTrajeto;
 
@@ -83,11 +85,11 @@ public class HistoricoEscolar {
         this.outraGraduacao = outraGraduacao;
     }
 
-    public List<String> getServicos() {
+    public List<ServicosProReitoria> getServicos() {
         return servicos;
     }
 
-    public void setServicos(List<String> servicos) {
+    public void setServicos(List<ServicosProReitoria> servicos) {
         this.servicos = servicos;
     }
 
@@ -99,11 +101,11 @@ public class HistoricoEscolar {
         this.outroServico = outroServico;
     }
 
-    public List<String> getTrajetos() {
+    public List<Trajeto> getTrajetos() {
         return trajetos;
     }
 
-    public void setTrajetos(List<String> trajetos) {
+    public void setTrajetos(List<Trajeto> trajetos) {
         this.trajetos = trajetos;
     }
 

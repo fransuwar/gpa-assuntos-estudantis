@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="base/base">
+
+<head>
+	<title>Auxílio - Listar Inscrições</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="row">
+		<div class="col s12">
+			<div class="card" th:fragment="inscricoes">
+				<div class="card-content">
+					<h5 class="title light">Inscrições</h5>
+
+					<!-- Nenhuma inscrição realizada -->
+					<span class="blue-grey-text" th:if="${#lists.isEmpty(selecao.inscricoes)}">Nenhuma inscrição realizada</span>
+
+
+					<!-- Inscrições -->
+					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
+						<div class="col s12">
+							<table id="inscricoes" class="striped bordered">
+								<thead>
+								<tr>
+									<th>Aluno</th>
+									<th>Curso</th>
+									<th>Renda total</th>
+									<th>Renda per capita</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:each="inscricao : ${selecao.inscricoes}">
+									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
+									<td th:text="${inscricao.aluno.curso}"></td>
+									<td th:text="'R$ ' + ${inscricao.getRendaTotal()}"></td>
+									<td th:text="'R$ ' + ${inscricao.getRendaPerCapita()}"></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

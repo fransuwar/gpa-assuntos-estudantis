@@ -55,7 +55,7 @@
 							<button class="btn waves-effect waves-light" type="submit">Adicionar</button>
 						</div>
 					</form>
-					<table class="striped">
+					<table class="striped bordered">
 						<thead>
 							<tr>
 								<th>Nome</th>
@@ -74,7 +74,7 @@
 								<td th:text="${membro.parentesco.nome}"></td>
 								<td th:text="${membro.escolaridade.nome}"></td>
 								<td th:text="${membro.profissao}"></td>
-								<td th:text="${membro.rendaMensal}"></td>
+								<td th:text="'R$ ' + ${membro.rendaMensal}"></td>
 								<td>
 									<a th:href="@{/inscricao/situacao-socioeconomica/__${inscricao.selecao.id}__/remover/__${membro.id}__}" title="Excluir">
 										<i class="material-icons red-text">delete</i>
@@ -164,7 +164,7 @@
 							</div>
 							<div id="div-valor-assistencia" th:class="${situacao.assistenciaMedica} ? '' : 'no-display'">
 								<div class="col s8 input-field">
-									<input th:field="*{valorAssistenciaMedica}" type="text" id="valorAssistenciaMedica" th:required="${situacao.assistenciaMedica}"/>
+									<input th:field="*{valorAssistenciaMedica}" type="number" id="valorAssistenciaMedica" th:required="${situacao.assistenciaMedica}"/>
 									<label for="valorAssistenciaMedica">* Qual o valor do plano?</label>
 								</div>
 							</div>

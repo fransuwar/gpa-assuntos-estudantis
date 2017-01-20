@@ -7,8 +7,27 @@
 
 
 		<!-- Inscrições -->
-		<div class="row">
-
+		<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
+			<div class="col s12">
+			<table id="inscricoes" class="striped bordered">
+				<thead>
+				<tr>
+					<th>Aluno</th>
+					<th>Curso</th>
+					<th>Renda total</th>
+					<th>Renda per capita</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:each="inscricao : ${selecao.inscricoes}">
+					<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
+					<td th:text="${inscricao.aluno.curso}"></td>
+					<td th:text="'R$ ' + ${inscricao.getRendaTotal()}"></td>
+					<td th:text="'R$ ' + ${inscricao.getRendaPerCapita()}"></td>
+				</tr>
+				</tbody>
+			</table>
+			</div>
 		</div>
 	</div>
 </div>
