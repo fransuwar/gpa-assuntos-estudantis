@@ -5,9 +5,10 @@ import br.ufc.npi.auxilio.model.questionario.HistoricoEscolar;
 import br.ufc.npi.auxilio.model.questionario.Identificacao;
 import br.ufc.npi.auxilio.model.questionario.Moradia;
 import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -17,8 +18,7 @@ public class Inscricao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data;
+	private LocalDateTime data;
 
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
@@ -71,11 +71,11 @@ public class Inscricao {
 		this.id = id;
 	}
 
-	public Date getData() {
+	public LocalDateTime getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
 
