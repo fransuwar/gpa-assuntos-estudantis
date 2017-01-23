@@ -4,6 +4,8 @@ import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
 import br.ufc.npi.auxilio.model.questionario.Identificacao;
 
+import java.util.List;
+
 public interface InscricaoService {
 	
 	boolean isInscrito(Aluno aluno, Selecao selecao);
@@ -19,5 +21,7 @@ public interface InscricaoService {
     PessoaFamilia adicionarMembroFamilia(PessoaFamilia pessoa);
 
     void removerMembroFamilia(PessoaFamilia pessoa);
+
+    List<Inscricao> getAll(Aluno aluno);
 }
 

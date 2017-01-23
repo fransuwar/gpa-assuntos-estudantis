@@ -43,6 +43,17 @@ public class InscricaoController {
 	private PessoaService pessoaService;
 
 	/**
+	 * Lista das inscrições de um aluno
+	 */
+	@PreAuthorize(PERMISSAO_ALUNO)
+	@GetMapping({"", "/"})
+	public String listarInscricoes(Model model, Authentication auth) {
+		model.addAttribute("inscricoes", inscricaoService.getAll(alunoService.buscarPorCpf(auth.getName())));
+		return MINHAS_INSCRICOES;
+	}
+
+
+	/**
 	 * Formulário de dados básicos
 	 */
 	@PreAuthorize(PERMISSAO_ALUNO)
@@ -291,7 +302,7 @@ public class InscricaoController {
 	}
 
 	/**
-	 * Formulário de utras informações
+	 * Formulário de outras informações
 	 */
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@GetMapping("outras-informacoes/{selecao}")

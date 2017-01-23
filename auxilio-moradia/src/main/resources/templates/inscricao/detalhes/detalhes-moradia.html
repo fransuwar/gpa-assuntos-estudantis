@@ -35,7 +35,7 @@
 				<div class="col s4">
 					<span>Situação do imóvel:</span>
 					<span class="text-18 bold"
-						  th:text="${inscricao.questionario.situacaoImovel == T(br.ufc.npi.auxilio.enums.SituacaoImovel).FINANCIADO} ? '__${inscricao.questionario.situacaoImovel.nome}__: __${inscricao.questionario.financiamento}__' : ${inscricao.questionario.situacaoImovel.nome}"></span>
+						  th:text="${inscricao.questionario.situacaoImovel eq T(br.ufc.npi.auxilio.enums.SituacaoImovel).FINANCIADO} ? '__${inscricao.questionario.situacaoImovel.nome}__: R$ ' + ${#numbers.formatDecimal(inscricao.questionario.financiamento, 1, 'POINT', 2, 'COMMA')} : ${inscricao.questionario.situacaoImovel.nome}"></span>
 				</div>
 				<div class="col s6">
 					<span>Quantidade de bens móveis:</span>

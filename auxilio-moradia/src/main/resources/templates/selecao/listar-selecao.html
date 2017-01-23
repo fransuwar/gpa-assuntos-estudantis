@@ -23,6 +23,7 @@
 					<table th:unless="${#lists.isEmpty(selecoes)}">
 						<thead>
 							<tr>
+								<th>Seleção</th>
 								<th>Ano</th>
 								<th>Inscrições</th>
 								<th>Vagas</th>
@@ -30,7 +31,8 @@
 						</thead>
 						<tbody>
 							<tr th:each="selecao:${selecoes}">
-								<td><a th:href="@{/selecao/detalhes/__${selecao.id}__}" th:text="${selecao.ano}" title="Visualizar"></a></td>
+								<td><a th:href="@{/selecao/detalhes/__${selecao.id}__}" th:text="${selecao.tipo.nome}" title="Visualizar"></a></td>
+								<td th:text="${selecao.ano}"></td>
 								<td th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
 								<td th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'">-</td>
 							</tr>

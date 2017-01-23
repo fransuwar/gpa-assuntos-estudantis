@@ -12,6 +12,7 @@ public class PageConstants {
 
 
 	// Inscrição
+	public static final String MINHAS_INSCRICOES = "inscricao/listar-inscricao";
 	public static final String INSCRICAO_DADOS_BASICOS = "inscricao/dados-basicos";
 	public static final String INSCRICAO_MORADIA = "inscricao/moradia";
 	public static final String INSCRICAO_HISTORICO = "inscricao/historico";

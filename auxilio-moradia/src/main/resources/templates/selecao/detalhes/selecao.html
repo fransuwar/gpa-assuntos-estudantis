@@ -2,6 +2,11 @@
 	<div class="card-content details">
 		<h5 class="title light">Detalhes</h5>
 		<div class="row no-margin">
+			<div class="col s4">
+				<span>Seleção:</span>
+				<span th:text="${selecao.tipo.nome}" class="text-20 light bold"></span>
+			</div>
+
 			<div class="col s2">
 				<span>Ano:</span>
 				<span th:text="${selecao.ano}" class="text-20 light bold"></span>
@@ -16,14 +21,10 @@
 				<span>Término:</span>
 				<span th:text="${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light bold"></span>
 			</div>
+
 			<div class="col s2">
 				<span>Vagas:</span>
 				<span th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'" class="text-20 light bold"></span>
-			</div>
-
-			<div class="col s4">
-				<span>Responsável:</span>
-				<span th:text="${selecao.responsavel.pessoa.nome}" class="text-20 light bold"></span>
 			</div>
 		</div>
 	</div>

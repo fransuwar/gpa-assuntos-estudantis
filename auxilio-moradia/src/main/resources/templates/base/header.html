@@ -8,6 +8,7 @@
                     </a>
                 </li>
                 <li><a th:href="@{/selecao}">Seleções</a></li>
+                <li sec:authorize="hasAuthority('ALUNO')"><a th:href="@{/inscricao}">Minhas Inscrições</a></li>
             </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a th:href="@{/logout}">Sair</a></li>

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 
+import br.ufc.npi.auxilio.enums.TipoSelecao;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -18,6 +19,9 @@ public class Selecao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
+	@Enumerated(EnumType.STRING)
+	private TipoSelecao tipo;
 
 	private Integer ano;
 
@@ -158,6 +162,14 @@ public class Selecao {
 
 	public boolean hasInscricoes() {
 		return this.inscricoes.size() > 0;
+	}
+
+	public TipoSelecao getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoSelecao tipo) {
+		this.tipo = tipo;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package br.ufc.npi.auxilio.controller;
 
+import br.ufc.npi.auxilio.enums.TipoSelecao;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
 import br.ufc.npi.auxilio.service.*;
@@ -71,6 +72,7 @@ public class SelecaoController {
 	@GetMapping("/cadastrar")
 	public String cadastrarSelecaoForm(Model model) {
 		model.addAttribute("acao", "cadastrar");
+		model.addAttribute("opcoesTipoSelecao", TipoSelecao.values());
 		model.addAttribute("selecao", new Selecao());
 		
 		return CADASTRAR_SELECAO;
@@ -118,6 +120,7 @@ public class SelecaoController {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE);
 		} else {
 			model.addAttribute("acao", "editar");
+			model.addAttribute("opcoesTipoSelecao", TipoSelecao.values());
 			model.addAttribute("selecao", selecao);
 			return CADASTRAR_SELECAO;
 		}

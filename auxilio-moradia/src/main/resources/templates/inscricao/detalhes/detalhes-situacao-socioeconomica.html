@@ -21,7 +21,7 @@
 						<td th:text="${membro.parentesco.nome}"></td>
 						<td th:text="${membro.escolaridade.nome}"></td>
 						<td th:text="${membro.profissao}"></td>
-						<td class="bold" th:text="'R$ ' + ${membro.rendaMensal}"></td>
+						<td class="bold" th:text="'R$ ' + ${#numbers.formatDecimal(membro.rendaMensal, 1, 'POINT', 2, 'COMMA')}"></td>
 					</tr>
 					</tbody>
 				</table>
@@ -32,11 +32,11 @@
 			<div class="row">
 				<div class="col s4">
 					<span>Renda total:</span>
-					<span class="text-20 bold" th:text="'R$ __${inscricao.getRendaTotal()}__'"></span>
+					<span class="text-20 bold" th:text="'R$ __${#numbers.formatDecimal(inscricao.getRendaTotal(), 1, 'POINT', 2, 'COMMA')}__'"></span>
 				</div>
 				<div class="col s4">
 					<span>Renda per capita:</span>
-					<span class="text-20 bold" th:text="'R$ __${inscricao.getRendaPerCapita()}__'"></span>
+					<span class="text-20 bold" th:text="'R$ __${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}__'"></span>
 				</div>
 			</div>
 		</div>
@@ -67,7 +67,7 @@
 			<div class="row">
 				<div class="col s6">
 					<span>A família possui plano de assistência médica?</span>
-					<span class="text-18 bold" th:text="${inscricao.questionario.assistenciaMedica} ? 'SIM (R$ __${inscricao.questionario.valorAssistenciaMedica}__)' : 'NÃO'"></span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.assistenciaMedica} ? 'SIM (R$ ' + ${#numbers.formatDecimal(inscricao.questionario.valorAssistenciaMedica, 0, 'COMMA', 2, 'POINT')} + ')' : 'NÃO'"></span>
 				</div>
 				<div class="col s6">
 					<span>Há gastos constantes com medicamentos na família?</span>

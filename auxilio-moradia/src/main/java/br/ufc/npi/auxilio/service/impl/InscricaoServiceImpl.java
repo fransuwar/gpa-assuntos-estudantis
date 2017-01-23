@@ -12,7 +12,10 @@ import br.ufc.npi.auxilio.service.InscricaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
 
@@ -45,7 +48,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 		Inscricao inscricao = new Inscricao();
 		inscricao.setSelecao(selecao);
 		inscricao.setAluno(aluno);
-		inscricao.setData(new Date());
+		inscricao.setData(LocalDateTime.now());
 		inscricaoRepository.save(inscricao);
 		inscricao.setIdentificacao(identificacao);
 		return inscricaoRepository.save(inscricao);
@@ -79,5 +82,10 @@ public class InscricaoServiceImpl implements InscricaoService {
 	@Override
 	public void removerMembroFamilia(PessoaFamilia pessoa) {
 		pessoaFamiliaRepository.delete(pessoa);
+	}
+
+	@Override
+	public List<Inscricao> getAll(Aluno aluno) {
+		return inscricaoRepository.findInscricaoByAluno(aluno);
 	}
 }

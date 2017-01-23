@@ -13,8 +13,34 @@
 	<div class="row">
 		<div class="col s12">
 			<div class="card" th:fragment="inscricoes">
-				<div class="card-content">
+				<div class="card-content details">
 					<h5 class="title light">Inscrições</h5>
+					<div class="row no-margin">
+						<div class="col s4">
+							<span>Seleção:</span>
+							<span th:text="${selecao.tipo.nome}" class="text-20 light bold"></span>
+						</div>
+
+						<div class="col s2">
+							<span>Ano:</span>
+							<span th:text="${selecao.ano}" class="text-20 light bold"></span>
+						</div>
+
+						<div class="col s2">
+							<span>Início:</span>
+							<span th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')}" class="text-20 light bold"></span>
+						</div>
+
+						<div class="col s2">
+							<span>Término:</span>
+							<span th:text="${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light bold"></span>
+						</div>
+
+						<div class="col s2">
+							<span>Vagas:</span>
+							<span th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'" class="text-20 light bold"></span>
+						</div>
+					</div>
 
 					<!-- Nenhuma inscrição realizada -->
 					<span class="blue-grey-text" th:if="${#lists.isEmpty(selecao.inscricoes)}">Nenhuma inscrição realizada</span>
@@ -36,8 +62,8 @@
 								<tr th:each="inscricao : ${selecao.inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td th:text="${inscricao.aluno.curso}"></td>
-									<td th:text="'R$ ' + ${inscricao.getRendaTotal()}"></td>
-									<td th:text="'R$ ' + ${inscricao.getRendaPerCapita()}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaTotal(), 0, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 0, 'POINT', 2, 'COMMA')}"></td>
 								</tr>
 								</tbody>
 							</table>
