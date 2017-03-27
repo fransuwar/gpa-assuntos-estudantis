@@ -34,7 +34,7 @@
 						<!-- INPUT USERNAME -->
 						<div class="input-field col s12">
 							<input id="username" name="username" type="text" class=""/>
-							<label for="username">Email</label>
+							<label for="username">CPF</label>
 						</div>
 						
 						<!-- INPUT PASSWORD -->
@@ -51,9 +51,10 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="card-action right-align">
-					<a href="usuario/recuperarSenha" class="btn-flat waves-effect ">Recuperar Senha</a>
+					<a th:href="@{http://cadastroaluno.quixada.ufc.br/}" class="btn-flat waves-effect ">Não sou cadastrado</a>
+					<a th:href="@{http://identidadepessoa.quixada.ufc.br/}" class="btn-flat waves-effect ">Esqueci a senha</a>
 				</div>
 			</form>
 		</div>

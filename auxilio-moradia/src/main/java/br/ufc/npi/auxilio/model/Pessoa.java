@@ -6,18 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import br.ufc.npi.auxilio.enums.Estado;
 
 @Entity
-//@EntityListeners(PessoaEntityListener.class)
+@EntityListeners(PessoaEntityListener.class)
 public class Pessoa implements UserDetails {
 
 	private static final long serialVersionUID = 1L;

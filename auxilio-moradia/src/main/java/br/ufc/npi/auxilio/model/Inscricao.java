@@ -412,4 +412,45 @@ public class Inscricao {
 		return questionario.getGrupoFamiliar().isEmpty() ? 0.0 : getRendaTotal()/questionario.getGrupoFamiliar().size();
 	}
 
+	public Double getRendaPai() {
+		for (PessoaFamilia pessoa : questionario.getGrupoFamiliar()) {
+			if (GrauParentesco.PAI.equals(pessoa.getParentesco())) {
+				return pessoa.getRendaMensal();
+			}
+		}
+		return 0.0;
+	}
+
+	public Double getRendaMae() {
+		for (PessoaFamilia pessoa : questionario.getGrupoFamiliar()) {
+			if (GrauParentesco.MAE.equals(pessoa.getParentesco())) {
+				return pessoa.getRendaMensal();
+			}
+		}
+		return 0.0;
+	}
+
+	// Retorna a soma da renda de todos os membros, exceto pai e mãe
+	public Double getRendaOutros() {
+		return getRendaTotal() - getRendaMae() - getRendaPai();
+	}
+
+	public String getProfissaoMae() {
+		for (PessoaFamilia pessoa : questionario.getGrupoFamiliar()) {
+			if (GrauParentesco.MAE.equals(pessoa.getParentesco())) {
+				return pessoa.getProfissao();
+			}
+		}
+		return null;
+	}
+
+	public String getProfissaoPai() {
+		for (PessoaFamilia pessoa : questionario.getGrupoFamiliar()) {
+			if (GrauParentesco.PAI.equals(pessoa.getParentesco())) {
+				return pessoa.getProfissao();
+			}
+		}
+		return null;
+	}
+
 }

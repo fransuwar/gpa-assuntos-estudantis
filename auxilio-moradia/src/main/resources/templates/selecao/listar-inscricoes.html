@@ -49,21 +49,35 @@
 					<!-- Inscrições -->
 					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
 						<div class="col s12">
-							<table id="inscricoes" class="striped bordered">
+							<table id="inscricoes" class="display nowrap striped bordered" cellspacing="0" width="100%">
 								<thead>
 								<tr>
 									<th>Aluno</th>
 									<th>Curso</th>
-									<th>Renda total</th>
+									<th>Email</th>
+									<th>Origem</th>
+									<th>Renda Pai</th>
+									<th>Renda Mãe</th>
+									<th>Renda outros</th>
+									<th>Nº pessoas</th>
 									<th>Renda per capita</th>
+									<th>Profissão Pai</th>
+									<th>Profissão Mãe</th>
 								</tr>
 								</thead>
 								<tbody>
 								<tr th:each="inscricao : ${selecao.inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td th:text="${inscricao.aluno.curso}"></td>
-									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaTotal(), 0, 'POINT', 2, 'COMMA')}"></td>
-									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 0, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="${inscricao.aluno.pessoa.email}"></td>
+									<td th:text="'__${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__'"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPai(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaMae(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaOutros(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="${inscricao.questionario.grupoFamiliar.size()}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="${inscricao.getProfissaoMae()}"></td>
+									<td th:text="${inscricao.getProfissaoPai()}"></td>
 								</tr>
 								</tbody>
 							</table>
@@ -74,4 +88,15 @@
 		</div>
 	</div>
 </section>
+
+<section layout:fragment="js">
+	<script type="text/javascript" th:src="@{http://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js}"></script>
+</section>
+
 </html>

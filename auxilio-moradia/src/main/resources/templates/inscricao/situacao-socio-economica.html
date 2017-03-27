@@ -74,7 +74,7 @@
 								<td th:text="${membro.parentesco.nome}"></td>
 								<td th:text="${membro.escolaridade.nome}"></td>
 								<td th:text="${membro.profissao}"></td>
-								<td th:text="'R$ ' + ${membro.rendaMensal}"></td>
+								<td th:text="'R$ ' + ${#numbers.formatDecimal(membro.rendaMensal, 1, 'POINT', 2, 'COMMA')}"></td>
 								<td>
 									<a th:href="@{/inscricao/situacao-socioeconomica/__${inscricao.selecao.id}__/remover/__${membro.id}__}" title="Excluir">
 										<i class="material-icons red-text">delete</i>
