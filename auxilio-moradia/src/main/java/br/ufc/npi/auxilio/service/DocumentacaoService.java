@@ -6,10 +6,7 @@ import br.ufc.npi.auxilio.model.TipoDocumento;
 
 public interface DocumentacaoService {
 	
-	// Tipos de Documentos
 	List<TipoDocumento> getAllTipoDocumento();
-	
-	void excluirTipoDocumento(Integer id);
 	
 	void salvar(TipoDocumento tipoDocumento);
 

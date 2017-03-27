@@ -6,43 +6,40 @@
 	th:with="currentPage='selecao'">
 
 <head>
-<title>Detalhes de Seleção</title>
-
-	<link rel="stylesheet" th:href="@{/css/selecao/detalhes.css}"/>
-
+	<title>Auxílio - Detalhes da Seleção</title>
 </head>
 
 <section layout:fragment="conteudo">
+	<!-- Informações da seleção -->
 	<div class="row">
-	
-		<div class="col s12 breadcrumbs valign-wrapper">
-            <a th:href="@{/}" class="breadcrumb blue-grey-text">
-                <i class="material-icons left">home</i>
-            </a>
-            
-            <a th:href="@{/selecao/listar}" class="breadcrumb blue-grey-text">Seleção</a>
-            
-            <a class="breadcrumb blue-grey-text">Detalhes</a>
-        </div>
-	
-		<div class="col l6 m12 s12">
+		<div class="col s12">
 			<div th:replace="selecao/detalhes/selecao :: selecao" ></div>
 		</div>
-		
-		<div class="col l6 m12 s12" sec:authorize="hasAuthority('ALUNO')">
-			<div th:replace="selecao/detalhes/arquivos :: arquivos"></div>
-		</div>
-		
-		<div class="col l6 m12 s12" sec:authorize="hasAuthority('SERVIDOR')" >
+	</div>
+
+	<!-- Comissão -->
+	<div class="row" sec:authorize="hasAuthority('SERVIDOR')">
+		<div class="col s12">
 			<div th:replace="selecao/detalhes/comissao :: comissao"></div>
 		</div>
-		
-		<div class="col l6 m12 s12" sec:authorize="hasAuthority('SERVIDOR')" >
-			<div th:replace="selecao/detalhes/inscricoes :: inscricoes"></div>
-		</div>
-				
 	</div>
-	<!--end container-->
+
+	<!-- Documentação -->
+	<div class="row">
+		<div class="col s8">
+			<div th:replace="selecao/detalhes/documentacao :: documentacao"></div>
+		</div>
+		<div class="col s4">
+			<div th:replace="selecao/detalhes/arquivos :: arquivos"></div>
+		</div>
+	</div>
+
+	<!-- Arquivos -->
+	<div class="row">
+
+	</div>
+
+
 </section>
 
 <section layout:fragment="js">

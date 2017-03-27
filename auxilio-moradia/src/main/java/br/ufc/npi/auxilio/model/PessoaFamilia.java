@@ -1,14 +1,10 @@
 package br.ufc.npi.auxilio.model;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import br.ufc.npi.auxilio.enums.Escolaridade;
 import br.ufc.npi.auxilio.enums.GrauParentesco;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class PessoaFamilia {
@@ -20,27 +16,22 @@ public class PessoaFamilia {
 	private String nome;
 
 	@Enumerated(EnumType.STRING)
+	private GrauParentesco parentesco;
+
+	private String outroParentesco;
+
+	@Enumerated(EnumType.STRING)
 	private Escolaridade escolaridade;
+
+	private Integer idade;
 
 	private String profissao;
 
 	private Double rendaMensal;
 
-	@Enumerated(EnumType.STRING)
-	private GrauParentesco parentesco;
-	
-	private String outroParentesco;
-
-	public PessoaFamilia clone(){
-		PessoaFamilia pessoa = new PessoaFamilia();
-		pessoa.setNome(nome);
-		pessoa.setEscolaridade(escolaridade);
-		pessoa.setProfissao(profissao);
-		pessoa.setRendaMensal(rendaMensal);
-		pessoa.setParentesco(parentesco);
-		
-		return pessoa;
-	}
+	@JsonIgnore
+	@ManyToOne
+	private QuestionarioAuxilioMoradia questionario;
 
 	public Integer getId() {
 		return id;
@@ -97,6 +88,35 @@ public class PessoaFamilia {
 	public void setOutroParentesco(String outroParentesco) {
 		this.outroParentesco = outroParentesco;
 	}
-	
-	
+
+	public Integer getIdade() {
+		return idade;
+	}
+
+	public void setIdade(Integer idade) {
+		this.idade = idade;
+	}
+
+	public QuestionarioAuxilioMoradia getQuestionario() {
+		return questionario;
+	}
+
+	public void setQuestionario(QuestionarioAuxilioMoradia questionario) {
+		this.questionario = questionario;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		PessoaFamilia that = (PessoaFamilia) o;
+
+		return id != null ? id.equals(that.id) : that.id == null;
+	}
+
+	@Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : 0;
+	}
 }

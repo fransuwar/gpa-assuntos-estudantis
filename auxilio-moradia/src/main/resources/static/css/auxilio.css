@@ -1,0 +1,94 @@
+nav .brand-logo {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.container {
+    width: 90%;
+    margin-top: 30px;
+}
+
+.checkbox-inline {
+    display: inline;
+    margin-right: 35px !important;
+}
+
+.checkbox-inline label {
+    padding-left: 25px;
+}
+
+div.subtitle {
+    margin-top: 50px;
+}
+
+.no-display {
+    display: none;
+}
+
+/* Badges */
+.chip div, .chip i {
+    display: inline;
+}
+
+h5.title {
+    margin-bottom: 30px;
+}
+
+span.bold {
+    font-weight: bold;
+}
+
+.details span {
+    display: block;
+}
+
+.details span.inline {
+    display: inline;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/* Helpers */
+.text-10 {
+    font-size: 10px;
+}
+
+.text-15 {
+    font-size: 15px;
+}
+
+.text-18 {
+    font-size: 18px;
+}
+
+.text-20 {
+    font-size: 20px;
+}
+
+.text-30 {
+    font-size: 30px;
+}
+
+.text-40 {
+    font-size: 40px;
+}
+
+.text-50 {
+    font-size: 50px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+

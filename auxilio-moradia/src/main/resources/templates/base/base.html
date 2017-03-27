@@ -5,22 +5,22 @@
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-	<title>Clínias</title>
+	<title>Auxílio Moradia</title>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/material/materialize/fonts/icons/material-icons.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/material/materialize/fonts/icons/material-icons-google.css}"/>
-	<link rel="stylesheet" type="text/css" th:href="@{/material/materialize/css/materialize.css}"/>
-	<link rel="stylesheet" type="text/css" th:href="@{/material/plugins/datatables/dataTables.materialize.css}"/>
-	<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf.css}"/>
-	<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf-helpers.css}"/>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="http://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/materialize.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/auxilio.css}"/>
+    <link rel="stylesheet" media="print" th:href="@{/css/auxilio-print.css}"/>
+
 			
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
-    
-        
+
 <!--     CONFIGURACAO DO CSRF -->
     <meta name="_csrf" th:content="${_csrf.token}"/>
 <!--     default header name is X-CSRF-TOKEN -->
@@ -30,59 +30,95 @@
     
 </head>
 
-<body class="root grey lighten-3">
+<body class="grey lighten-3">
 		
-	<div th:replace="base/side-nav :: side-nav"></div>
 	<div th:replace="base/header :: header"></div>
 	
-	<main class="sidenav-opened"> 
-        <div class="main-container">
-        	<section class="" layout:fragment="conteudo"></section>
+	<div class="container">
+        <div id="toast-container">
+            <div class="toast green alert-info rounded" th:if="${not #strings.isEmpty(info)}">
+                <div class="valign-wrapper">
+                    <i class="material-icons white-text">check</i>
+                    <span class="white-text" th:text="${info}"></span>
+                </div>
+            </div>
+
+            <div class="toast red alert-info rounded" th:if="${not #strings.isEmpty(erro)}">
+                <div class="valign-wrapper">
+                    <i class="material-icons white-text">error</i>
+                    <span class="white-text" th:text="${erro}"></span>
+                </div>
+            </div>
         </div>
-    </main>   
-    
-	<!-- MENSAGENS DE ALERTA -->
-	<div th:each="alert : ${alertas}" 
-		class="alert-message" 
-		th:attr="data-type=${alert.type},data-delay=${alert.delay}" 
-		th:text="${alert.message}"></div>
-	<div th:if="${alerta}" 
-		class="alert-message" 
-		th:attr="data-type=${alerta.type},data-delay=${alerta.delay}" 
-		th:text="${alerta.message}"></div>
-	
-    <div class="mf-foreground white" ></div>
+		<section class="" layout:fragment="conteudo"></section>
+	</div>
+
+	<div class="mf-foreground white" ></div>
     
     <!-- Plugins externos e JQuery -->
-    <script type="text/javascript" th:src="@{/material/plugins/jquery/jquery-2.1.1.min.js}"></script>
-    <script type="text/javascript" th:src="@{/material/plugins/jquery/jquery.mask.min.js}"></script>
-    <script type="text/javascript" th:src="@{/material/plugins/datatables/jquery.dataTables.min.js}"></script>
-    <script type="text/javascript" th:src="@{/material/plugins/datatables/dataTables.materialize.js}"></script>
-    <script type="text/javascript" th:src="@{/material/plugins/chart/chart.js}"></script>
-    <script type="text/javascript" th:src="@{/material/plugins/cookie/cookie.js}"></script>
-    <script type="text/javascript" th:src="@{/material/plugins/moment/moment.js}"></script>
-    
+    <script type="text/javascript" th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/jquery/jquery.mask.min.js}"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/chart/chart.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/cookie/cookie.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/moment/moment.js}"></script>
+
     <!-- Framework base -->
-	<script type="text/javascript" th:src="@{/material/materialize/js/bin/materialize.js}"></script>
-	<script type="text/javascript" th:src="@{/material/js/mf.js}"></script>
-	<script type="text/javascript" th:src="@{/material/js/event-confirm.js}"></script>
-	<script type="text/javascript" th:src="@{/material/js/form-dialog.js}"></script>
-	
+	<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/auxilio/auxilio.js}"></script>
+
 	<section layout:fragment="js"></section>
 	
 	<script type="text/javascript">
-	
 		$(document).ready(function() {
 			Materialize.updateTextFields();
 			$('select').material_select();
+
+            $('textarea').trigger('autoresize');
 			
 			$('.datepicker').pickadate({
 			   selectMonths: true,
 			   selectYears: 100, 
 			   format: "dd/mm/yyyy"
 			});
+
+            $('#inscricoes').DataTable({
+                "scrollX": true,
+                "paging": false,
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    },
+                    'excel', 'print'
+                ],
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "_MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                }
+            });
 		});
-	
 	</script>
     
 </body>

@@ -1,0 +1,97 @@
+<section th:fragment="dados-basicos">
+	<div class="card">
+		<div class="card-content details">
+			<h5 class="title light">Identificação</h5>
+			<div class="row">
+				<div class="col s4">
+					<span>Nome completo:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.nome} ? ${inscricao.aluno.pessoa.nome} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>CPF:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.cpf} ? ${inscricao.aluno.pessoa.cpf} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>Email:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.email} ? ${inscricao.aluno.pessoa.email} : '-'"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s4">
+					<span>Data de nascimento:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.dataNascimento} ? ${#temporals.format(inscricao.aluno.pessoa.dataNascimento,'dd/MM/yyyy')} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>Sexo:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.sexo} ? ${inscricao.aluno.pessoa.sexo} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>Estado civil:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.estadoCivil} ? ${inscricao.aluno.pessoa.estadoCivil} : '-'"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s4">
+					<span>Curso:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.curso} ? ${inscricao.aluno.curso} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>Matrícula:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.matricula} ? ${inscricao.aluno.matricula} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>Ingresso:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.anoIngresso} ? ${inscricao.aluno.anoIngresso} : '-'"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s4">
+					<span>Identidade:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.rg} ? ${inscricao.aluno.pessoa.rg} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>Órgão emissor:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.orgaoEmissorRg} ? ${inscricao.aluno.pessoa.orgaoEmissorRg} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>UF identidade:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.ufRg} ? ${inscricao.aluno.pessoa.ufRg} : '-'"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s4">
+					<span>Naturalidade:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.naturalidade} ? ${inscricao.aluno.pessoa.naturalidade} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>UF naturalidade:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.ufNaturalidade} ? ${inscricao.aluno.pessoa.ufNaturalidade} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>Contato:</span>
+					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.telefone} ? ${inscricao.aluno.pessoa.telefone} : '-'"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-content details">
+			<h5 class="title light">Dados bancários</h5>
+			<div class="row">
+				<div class="col s4">
+					<span>Banco:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.banco} ? ${inscricao.questionario.banco} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>Agência:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.agencia} ? ${inscricao.questionario.agencia} : '-'"></span>
+				</div>
+				<div class="col s4">
+					<span>Conta:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.contaCorrente} ? ${inscricao.questionario.contaCorrente} : '-'"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="base/base"
+  	th:with="currentPage='selecao'">
+
+<head>
+	<title>Auxílio - Minhas Inscrições</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="row">
+		<div class="col s12">
+			<div class="card">
+				<div class="card-content">
+					<h5 class="title light">Minhas Inscrições</h5>
+					<!-- Nenhuma inscrição cadastrada -->
+					<span class="boldtable-datatables blue-grey-text" th:if="${#lists.isEmpty(inscricoes)}">Nenhuma inscrição realizada</span>
+
+					<!-- Lista de inscrições -->
+					<table th:unless="${#lists.isEmpty(inscricoes)}">
+						<thead>
+							<tr>
+								<th>Seleção</th>
+								<th>Ano</th>
+								<th>Data da inscrição</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="inscricao : ${inscricoes}">
+								<td><a th:href="@{/inscricao/detalhes/__${inscricao.id}__}" th:text="${inscricao.selecao.tipo.nome}" title="Visualizar"></a></td>
+								<td th:text="${inscricao.selecao.ano}"></td>
+								<td th:text="${#temporals.format(inscricao.data, 'dd/MM/yyyy HH:mm')}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

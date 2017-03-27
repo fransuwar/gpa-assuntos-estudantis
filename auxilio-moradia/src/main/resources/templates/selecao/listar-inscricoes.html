@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="base/base">
+
+<head>
+	<title>Auxílio - Listar Inscrições</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="row">
+		<div class="col s12">
+			<div class="card" th:fragment="inscricoes">
+				<div class="card-content details">
+					<h5 class="title light">Inscrições</h5>
+					<div class="row no-margin">
+						<div class="col s4">
+							<span>Seleção:</span>
+							<span th:text="${selecao.tipo.nome}" class="text-20 light bold"></span>
+						</div>
+
+						<div class="col s2">
+							<span>Ano:</span>
+							<span th:text="${selecao.ano}" class="text-20 light bold"></span>
+						</div>
+
+						<div class="col s2">
+							<span>Início:</span>
+							<span th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')}" class="text-20 light bold"></span>
+						</div>
+
+						<div class="col s2">
+							<span>Término:</span>
+							<span th:text="${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light bold"></span>
+						</div>
+
+						<div class="col s2">
+							<span>Vagas:</span>
+							<span th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'" class="text-20 light bold"></span>
+						</div>
+					</div>
+
+					<!-- Nenhuma inscrição realizada -->
+					<span class="blue-grey-text" th:if="${#lists.isEmpty(selecao.inscricoes)}">Nenhuma inscrição realizada</span>
+
+
+					<!-- Inscrições -->
+					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
+						<div class="col s12">
+							<table id="inscricoes" class="display nowrap striped bordered" cellspacing="0" width="100%">
+								<thead>
+								<tr>
+									<th>Aluno</th>
+									<th>Curso</th>
+									<th>Email</th>
+									<th>Origem</th>
+									<th>Renda Pai</th>
+									<th>Renda Mãe</th>
+									<th>Renda outros</th>
+									<th>Nº pessoas</th>
+									<th>Renda per capita</th>
+									<th>Profissão Pai</th>
+									<th>Profissão Mãe</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:each="inscricao : ${selecao.inscricoes}">
+									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
+									<td th:text="${inscricao.aluno.curso}"></td>
+									<td th:text="${inscricao.aluno.pessoa.email}"></td>
+									<td th:text="'__${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__'"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPai(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaMae(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaOutros(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="${inscricao.questionario.grupoFamiliar.size()}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="${inscricao.getProfissaoMae()}"></td>
+									<td th:text="${inscricao.getProfissaoPai()}"></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section layout:fragment="js">
+	<script type="text/javascript" th:src="@{http://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js}"></script>
+	<script type="text/javascript" th:src="@{http://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js}"></script>
+</section>
+
+</html>

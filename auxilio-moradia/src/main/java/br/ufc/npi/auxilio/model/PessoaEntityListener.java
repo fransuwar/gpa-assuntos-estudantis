@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.ufc.quixada.npi.ldap.model.Usuario;
 import br.ufc.quixada.npi.ldap.service.UsuarioService;
 
+import java.time.LocalDate;
+
 public class PessoaEntityListener {
 
 	@Autowired
@@ -18,7 +20,7 @@ public class PessoaEntityListener {
 		Usuario usuario = usuarioService.getByCpf(pessoa.getCpf());
 		pessoa.setNome(usuario.getNome());
 		pessoa.setEmail(usuario.getEmail());
-		pessoa.setDataNascimento(usuario.getNascimento());
+		pessoa.setDataNascimento(new java.sql.Date(usuario.getNascimento().getTime()).toLocalDate());
 		pessoa.setTelefone(usuario.getTelefone());
 		
 	}

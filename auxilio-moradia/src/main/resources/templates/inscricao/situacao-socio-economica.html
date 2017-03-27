@@ -1,20 +1,214 @@
 <!DOCTYPE html>
 <html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="base/base">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="base/base">
 <head>
-    <meta charset="UTF-8"/>
-<title>Inscrição</title>
+	<title>Auxílio - Realizar Inscrição</title>
 </head>
-<body>
-	<div class="container" layout:fragment="conteudo">
-		<form th:action="@{/inscricao/__${inscricao.id}__/situacao-socio-economica}" th:object="${questionarioAuxilioMoradia}" th:method="post">
-			<label for="justifcativa">Justificativa</label>
-			<input id="justificativa" th:type="text" th:value="*{justificativa}" th:field="*{justificativa}"/>
-			<input type="submit" value="Continuar"/>
-		</form>
-	</div>
 
-</body>
+<section layout:fragment="conteudo">
+	<div class="row">
+		<div class="col s12">
+
+			<!-- Situação socioeconômica -->
+			<div class="card">
+				<div class="card-content">
+					<h5 class="title light">Situação socioeconômica (Passo 4/5)</h5>
+					<div class="row">
+						<span class="col s12">Adicione os membros da família de origem, <span class="bold">incluindo você</span>.</span>
+					</div>
+					<form id="form-add-membro" th:object="${pessoa}" th:action="@{/inscricao/situacao-socioeconomica/__${inscricao.selecao.id}__/adicionar}" th:method="post">
+						<div class="row">
+							<div class="col s6 input-field">
+								<input id="nome" th:field="*{nome}" type="text" required="required"/>
+								<label for="nome">* Nome</label>
+							</div>
+							<div class="col s2 input-field">
+								<input id="idade" th:field="*{idade}" type="number" required="required" min="0"/>
+								<label for="idade">* Idade</label>
+							</div>
+							<div class="col s4 input-field">
+								<select id="parentesco" th:field="*{parentesco}" >
+									<option th:value="${parentesco}" th:each="parentesco : ${opcoesParentesco}" th:text="${parentesco.nome}"></option>
+								</select>
+								<label for="parentesco">* Parentesco</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s4 input-field">
+								<select id="escolaridade" th:field="*{escolaridade}" >
+									<option th:value="${escolaridade}" th:each="escolaridade : ${opcoesEscolaridade}" th:text="${escolaridade.nome}"></option>
+								</select>
+								<label for="escolaridade">* Escolaridade</label>
+							</div>
+							<div class="col s4 input-field">
+								<input id="profissao" th:field="*{profissao}" type="text" required="required"/>
+								<label for="profissao">* Atividade ou profissão</label>
+							</div>
+							<div class="col s4 input-field">
+								<input id="rendaMensal" th:field="*{rendaMensal}" min="0" type="number" required="required"/>
+								<label for="rendaMensal">* Renda mensal (R$)</label>
+							</div>
+						</div>
+						<div class="row right-align">
+							<button class="btn waves-effect waves-light" type="submit">Adicionar</button>
+						</div>
+					</form>
+					<table class="striped bordered">
+						<thead>
+							<tr>
+								<th>Nome</th>
+								<th>Idade</th>
+								<th>Parentesco</th>
+								<th>Escolaridade</th>
+								<th>Atividade ou profissão</th>
+								<th>Renda mensal</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="membro : ${inscricao.questionario.grupoFamiliar}">
+								<td th:text="${membro.nome}"></td>
+								<td th:text="${membro.idade}"></td>
+								<td th:text="${membro.parentesco.nome}"></td>
+								<td th:text="${membro.escolaridade.nome}"></td>
+								<td th:text="${membro.profissao}"></td>
+								<td th:text="'R$ ' + ${#numbers.formatDecimal(membro.rendaMensal, 1, 'POINT', 2, 'COMMA')}"></td>
+								<td>
+									<a th:href="@{/inscricao/situacao-socioeconomica/__${inscricao.selecao.id}__/remover/__${membro.id}__}" title="Excluir">
+										<i class="material-icons red-text">delete</i>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row mt-30 center">
+						<span class="blue-grey-text" th:if="${#lists.isEmpty(inscricao.questionario.grupoFamiliar)}">Nenhum membro cadastrado</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Em relação à saúde -->
+			<div class="card">
+				<form  th:action="@{/inscricao/situacao-socioeconomica/__${selecao.id}__}" th:method="post" th:object="${situacao}">
+					<div class="card-content">
+						<h5 class="title light">Com relação à saúde</h5>
+						<div class="row">
+							<div class="col s4 input-field">
+								<select id="medicamento" th:field="*{medicamento}">
+									<option value="false">NÃO</option>
+									<option th:selected="${situacao.medicamento}" value="true">SIM</option>
+								</select>
+								<label for="medicamento">* Faz uso contínuo de medicamentos?</label>
+							</div>
+							<div id="div-doenca-medicamento" th:class="${situacao.medicamento} ? '' : 'no-display'">
+								<div class="col s8 input-field">
+									<input th:field="*{doencaMedicamento}" type="text" id="doencaMedicamento" th:required="${situacao.medicamento}"/>
+									<label for="doencaMedicamento">* Para qual doença?</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s4 input-field">
+								<select id="deficiencia" th:field="*{deficiencia}">
+									<option value="false">NÃO</option>
+									<option th:selected="${situacao.deficiencia}" value="true">SIM</option>
+								</select>
+								<label for="deficiencia">* Apresenta alguma deficiência?</label>
+							</div>
+							<div id="div-nome-deficiencia" th:class="${situacao.deficiencia} ? '' : 'no-display'">
+								<div class="col s8 input-field">
+									<input th:field="*{nomeDeficiencia}" type="text" id="nomeDeficiencia" th:required="${situacao.deficiencia}"/>
+									<label for="nomeDeficiencia">* Qual deficiência?</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s4 input-field">
+								<select id="doencaGrave" th:field="*{doencaGrave}">
+									<option value="false">NÃO</option>
+									<option th:selected="${situacao.doencaGrave}" value="true">SIM</option>
+								</select>
+								<label for="doencaGrave">* Há algum membro do grupo familiar com doença grave?</label>
+							</div>
+							<div id="div-membro-doenca-grave" th:class="${situacao.doencaGrave} ? '' : 'no-display'">
+								<div class="col s8 input-field">
+									<input th:field="*{membroDoencaGrave}" type="text" id="membroDoencaGrave" th:required="${situacao.doencaGrave}"/>
+									<label for="membroDoencaGrave">* Qual membro?</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s4 input-field">
+								<select id="membroDeficiencia" th:field="*{membroDeficiencia}">
+									<option value="false">NÃO</option>
+									<option th:selected="${situacao.membroDeficiencia}" value="true">SIM</option>
+								</select>
+								<label for="membroDeficiencia">* Há algum membro do grupo familiar com deficiência?</label>
+							</div>
+							<div id="div-membro-deficiencia" th:class="${situacao.membroDeficiencia} ? '' : 'no-display'">
+								<div class="col s8 input-field">
+									<input th:field="*{nomeMembroDeficiencia}" type="text" id="nomeMembroDeficiencia" th:required="${situacao.membroDeficiencia}"/>
+									<label for="nomeMembroDeficiencia">* Qual membro?</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s4 input-field">
+								<select id="assistenciaMedica" th:field="*{assistenciaMedica}">
+									<option value="false">NÃO</option>
+									<option th:selected="${situacao.assistenciaMedica}" value="true">SIM</option>
+								</select>
+								<label for="assistenciaMedica">* A família possui plano de assistência médica?</label>
+							</div>
+							<div id="div-valor-assistencia" th:class="${situacao.assistenciaMedica} ? '' : 'no-display'">
+								<div class="col s8 input-field">
+									<input th:field="*{valorAssistenciaMedica}" type="number" id="valorAssistenciaMedica" th:required="${situacao.assistenciaMedica}"/>
+									<label for="valorAssistenciaMedica">* Qual o valor do plano?</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s4 input-field">
+								<select id="despesaMedicamento" th:field="*{despesaMedicamento}">
+									<option value="false">NÃO</option>
+									<option th:selected="${situacao.despesaMedicamento}" value="true">SIM</option>
+								</select>
+								<label for="despesaMedicamento">* Há gastos constantes com medicamentos na família?</label>
+							</div>
+							<div id="div-despesa-medicamento" th:class="${situacao.despesaMedicamento} ? '' : 'no-display'">
+								<div class="col s8 input-field">
+									<input th:field="*{descricaoDespesaMedicamento}" type="text" id="descricaoDespesaMedicamento" th:required="${situacao.despesaMedicamento}"/>
+									<label for="descricaoDespesaMedicamento">* Especifique</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s4 input-field">
+								<select id="beneficio" th:field="*{beneficio}">
+									<option value="false">NÃO</option>
+									<option th:selected="${situacao.beneficio}" value="true">SIM</option>
+								</select>
+								<label for="beneficio">* Recebe algum benefício assistencial/previdenciário?</label>
+							</div>
+							<div id="div-beneficio" th:class="${situacao.beneficio} ? '' : 'no-display'">
+								<div class="col s8 input-field">
+									<input th:field="*{descricaoBeneficio}" type="text" id="descricaoBeneficio" th:required="${situacao.beneficio}"/>
+									<label for="descricaoBeneficio">* Qual?</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-action right-align">
+						<button class="btn waves-effect waves-light" type="submit">Avançar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+<section layout:fragment="js">
+	<script th:src="@{/js/auxilio/inscricao/inscricao.js}"></script>
+</section>
 </html>

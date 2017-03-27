@@ -1,3 +1,31 @@
 <div class="card" th:fragment="comissao">
-	<div class="card-content"> comissão... </div>		
+	<div class="card-content">
+		<h5 class="title light">Comissão</h5>
+
+		<form th:action="@{/selecao/comissao/adicionar}" method="post">
+			<input type="hidden" name="selecao" th:value="${selecao.id}"/>
+			<div class="row">
+				<div class="input-field col s4">
+					<select name="servidor">
+						<option th:each="servidor : ${servidores}" th:value="${servidor.id}" th:text="${servidor.pessoa.nome}"></option>
+					</select>
+					<label>Servidor</label>
+				</div>
+				<div class="input-field col s3">
+					<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
+				</div>
+			</div>
+		</form>
+
+		<!-- Membros da comissão -->
+		<div class="row">
+			<div class="chip deep-purple lighten-1" th:each="servidor : ${selecao.comissao}">
+				<div class="text-20 light white-text" th:text="${servidor.pessoa.nome}"></div>
+				<a title="Excluir" th:href="@{/selecao/comissao/__${selecao.id}__/excluir/__${servidor.id}__}"
+				   sec:authorize="hasAuthority('COORDENADOR')">
+					<i class="text-20 white-text material-icons">close</i>
+				</a>
+			</div>
+		</div>
+	</div>
 </div>

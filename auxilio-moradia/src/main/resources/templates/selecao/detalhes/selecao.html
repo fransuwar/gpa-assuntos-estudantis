@@ -1,48 +1,55 @@
 <div class="card" th:fragment="selecao">
-	<div class="card-content">
-		
-		<a class="btn-floating top-right btn-large waves-effect tooltipped"
-			sec:authorize="hasAuthority('COORDENADOR')"
-			th:href="@{/selecao/editar/__${selecao.id}__}"
-			data-tooltip="Editar">
-			<i class="material-icons">edit</i>
-		</a>
-		
+	<div class="card-content details">
+		<h5 class="title light">Detalhes</h5>
 		<div class="row no-margin">
-		
-			<div class="col l6 m6 s12">
-				<span class="bold grey-text text-darken-2">Ano:</span> <br/>
-				<span th:text="${selecao.ano}" class="text-20 light limit" data-max-length="10"></span>
+			<div class="col s4">
+				<span>Seleção:</span>
+				<span th:text="${selecao.tipo.nome}" class="text-20 light bold"></span>
+			</div>
+
+			<div class="col s2">
+				<span>Ano:</span>
+				<span th:text="${selecao.ano}" class="text-20 light bold"></span>
 			</div>
 			
-			<div class="col l6 m6 s12">
-				<span class="bold grey-text text-darken-2">Vagas:</span> <br/>
-				<span th:text="${selecao.quantidadeVagas}" class="text-20 light limit" data-max-length="10"></span>
+			<div class="col s2">
+				<span>Início:</span>
+				<span th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')}" class="text-20 light bold"></span>
 			</div>
 			
-			<div class="col l6 m6 s12">
-				<span class="bold grey-text text-darken-2">Início:</span> <br/>
-				<span th:text="${#dates.format(selecao.dataInicio, 'dd/MM/yyyy')}" class="text-20 light limit" data-max-length="10"></span>
+			<div class="col s2">
+				<span>Término:</span>
+				<span th:text="${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light bold"></span>
 			</div>
-			
-			<div class="col l6 m6 s12">
-				<span class="bold grey-text text-darken-2">Término:</span> <br/>
-				<span th:text="${#dates.format(selecao.dataTermino, 'dd/MM/yyyy')}" class="text-20 light limit" data-max-length="10"></span>
+
+			<div class="col s2">
+				<span>Vagas:</span>
+				<span th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'" class="text-20 light bold"></span>
 			</div>
-			
-			<div class="col l12 m12 s12">
-				<span class="bold grey-text text-darken-2">Responsável:</span> <br/>
-				<span th:text="${selecao.responsavel.pessoa.nome}" class="text-20 light limit" data-max-length="100"></span>
-			</div>
-		
-		</div>				
+		</div>
 	</div>
 	
-	<div class="card-action right-align" sec:authorize="hasAuthority('ALUNO')">
-		<a 
-			th:href="@{/inscricao/__${selecao.id}__}" 
-			th:text="'Inscreva-se'"
-			class="btn-flat waves-effect"></a>
-	
+	<div class="card-action right-align" th:if="${membroComissao}">
+		<a th:href="@{/selecao/inscricoes/__${selecao.id}__}" class="waves-effect waves-light btn">Visualizar inscrições</a>
+		<a th:href="@{/selecao/editar/__${selecao.id}__}" sec:authorize="hasAuthority('COORDENADOR')" class="waves-effect waves-light btn">Editar</a>
+		<a class="waves-effect waves-light btn red" sec:authorize="hasAuthority('COORDENADOR')" href="#excluir-selecao" th:attr="data-url=@{/selecao/excluir/__${selecao.id}__}">Excluir</a>
+	</div>
+	<div class="card-action right-align" sec:authorize="hasAuthority('ALUNO')" th:if="${inscricaoAberta or inscricaoRealizada}">
+		<a th:if="${inscricaoAberta}" th:text="${inscricaoRealizada} ? 'Atualizar inscrição' : 'Realizar inscrição'" th:href="@{/inscricao/__${selecao.id}__}" class="waves-effect waves-light btn">Realizar Inscrição</a>
+		<a th:if="${inscricaoRealizada}" th:href="@{/inscricao/detalhes/__${inscricao}__}" class="waves-effect waves-light btn">Visualizar Inscrição</a>
+	</div>
+
+	<!-- Modal excluir seleção -->
+	<div id="excluir-selecao" class="modal">
+		<div class="modal-content">
+			<h4>Excluir seleção</h4>
+			<p>Tem certeza de que deseja excluir essa seleção?</p>
+		</div>
+		<div class="modal-footer">
+			<a id="confirm-excluir" href="#!" class="modal-action waves-effect waves-light btn red">Excluir</a>
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+		</div>
 	</div>
 </div>
+
+

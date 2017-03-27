@@ -1,55 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 	<head>
-	
-		<title>Clínicas - Login</title>
+		<title>Auxílio Moradia - Login</title>
 		
 		<!-- BEGIN META -->
-		
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="Sistema de Gerenciamento de Estoque das Clínicas de Odontologia da UFC" />
-		
+		<meta name="description" content="Sistema de Seleção do Programa de Auxílio Moradia da UFC" />
 		<!-- END META -->
-		
-		
+
 		<!-- BEGIN STYLESHEETS -->
-		
-		<link rel="stylesheet" type="text/css" th:href="@{/material/materialize/fonts/icons/material-icons.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/material/materialize/fonts/icons/material-icons-google.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/material/materialize/css/materialize.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/material/css/mf-helpers.css}"/>
-		
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/materialize.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/login/login.css}"/>
-		
 		<!-- END STYLESHEETS -->
-		
-		
 	</head>
 	
 	<body class="grey lighten-3">
-		
 		<div class="login__background-top blue darken-3"></div>
 		
 		<!-- BEGIN LOGIN SECTION -->
-		
 		<div class="login__card-wrapper valign-wrapper">
-			
 			<form class="login__card card" th:action="@{/login}" method="post">
-			
 				<div class="login__card-image card-image blue darken-1">
-					
 					<i th:unless="${param.error}" class="login__card-image-icon material-icons blue-text text-lighten-3">person</i>
-					<i th:if="${param.error}" class="login__card-image-icon mdi mdi-account-alert blue-text text-lighten-3"></i>
-									
 				</div>
-				
 				<div class="login__card-content card-content valign-wrapper">
-					
 					<div class="row no-margin">
-						
 						<div class="col s12 col s12 red-text text-lighten-2 bold text-18 self-sampled center" th:if="${param.error}">
 							Login ou senha incorreta!
 						</div>
@@ -57,7 +34,7 @@
 						<!-- INPUT USERNAME -->
 						<div class="input-field col s12">
 							<input id="username" name="username" type="text" class=""/>
-							<label for="username">Email</label>
+							<label for="username">CPF</label>
 						</div>
 						
 						<!-- INPUT PASSWORD -->
@@ -73,39 +50,24 @@
 							</button>
 						</div>
 					</div>
-					
 				</div>
-				
+
 				<div class="card-action right-align">
-					<a href="usuario/recuperarSenha" class="btn-flat waves-effect ">Recuperar Senha</a>
-					
+					<a th:href="@{http://cadastroaluno.quixada.ufc.br/}" class="btn-flat waves-effect ">Não sou cadastrado</a>
+					<a th:href="@{http://identidadepessoa.quixada.ufc.br/}" class="btn-flat waves-effect ">Esqueci a senha</a>
 				</div>
-				
 			</form>
-			
 		</div>
 		<!--end .card -->
-		
 		<!-- END LOGIN SECTION -->
-	
+
 		<div class="mf-foreground white" ></div>
 		
 		<!-- BEGIN JAVASCRIPT -->
-		
-	    <script type="text/javascript" th:src="@{/material/plugins/jquery/jquery-2.1.1.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/material/plugins/chart/chart.js}"></script>
-	    
-		<script type="text/javascript" th:src="@{/material/materialize/js/bin/materialize.js}"></script>
-		<script type="text/javascript" th:src="@{/material/js/mf.js}"></script>
-		
-		<section layout:fragment="js">
-		
-			<script type="text/javascript" th:src="@{/js/auxilio/login/login.js}"></script>
-		
-		</section>
-		
+	    <script type="text/javascript" th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/auxilio/login/login.js}"></script>
 		<!-- END JAVASCRIPT -->
-	
 	</body>
 </html>
 

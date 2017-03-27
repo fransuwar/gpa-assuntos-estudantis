@@ -1,22 +1,12 @@
 package br.ufc.npi.auxilio.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,8 +14,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import br.ufc.npi.auxilio.enums.Estado;
 
 @Entity
-//@EntityListeners(PessoaEntityListener.class)
+@EntityListeners(PessoaEntityListener.class)
 public class Pessoa implements UserDetails {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,21 +31,23 @@ public class Pessoa implements UserDetails {
 
 	private boolean habilitado;
 	
-	@Temporal(TemporalType.DATE) 
-	private Date dataNascimento;
-	
-	private String nacionalidade;
+	private LocalDate dataNascimento;
 	
 	private String naturalidade;
 
 	@Enumerated(EnumType.STRING)
-	private Estado uf;
+	private Estado ufNaturalidade;
 	
 	private String sexo;
 	
 	private String cpf;
 	
 	private String rg;
+
+	private String orgaoEmissorRg;
+
+	@Enumerated(EnumType.STRING)
+	private Estado ufRg;
 
 	private String telefone;
 	
@@ -81,14 +75,6 @@ public class Pessoa implements UserDetails {
 		this.habilitado = habilitado;
 	}
 
-	public Estado getUf() {
-		return uf;
-	}
-	
-	public void setUf(Estado uf) {
-		this.uf = uf;
-	}
-		
 	public String getEmail() {
 		return email;
 	}
@@ -105,20 +91,12 @@ public class Pessoa implements UserDetails {
 		this.nome = nome;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
-	}
-
-	public String getNacionalidade() {
-		return nacionalidade;
-	}
-
-	public void setNacionalidade(String nacionalidade) {
-		this.nacionalidade = nacionalidade;
 	}
 
 	public String getNaturalidade() {
@@ -129,7 +107,6 @@ public class Pessoa implements UserDetails {
 		this.naturalidade = naturalidade;
 	}
 
-	
 	public String getSexo() {
 		return sexo;
 	}
@@ -148,6 +125,30 @@ public class Pessoa implements UserDetails {
 
 	public String getRg() {
 		return rg;
+	}
+
+	public Estado getUfNaturalidade() {
+		return ufNaturalidade;
+	}
+
+	public void setUfNaturalidade(Estado ufNaturalidade) {
+		this.ufNaturalidade = ufNaturalidade;
+	}
+
+	public String getOrgaoEmissorRg() {
+		return orgaoEmissorRg;
+	}
+
+	public void setOrgaoEmissorRg(String orgaoEmissorRg) {
+		this.orgaoEmissorRg = orgaoEmissorRg;
+	}
+
+	public Estado getUfRg() {
+		return ufRg;
+	}
+
+	public void setUfRg(Estado ufRg) {
+		this.ufRg = ufRg;
 	}
 
 	public void setRg(String rg) {
@@ -243,6 +244,11 @@ public class Pessoa implements UserDetails {
 	
 	public boolean isAluno() {
 		return this.papeis.stream().filter(p -> p.equals(Papel.ALUNO))
+				.findFirst().orElse(null) != null;
+	}
+	
+	public boolean isAssistenteSocial() {
+		return this.papeis.stream().filter(p -> p.equals(Papel.ASSISTENTE_SOCIAL))
 				.findFirst().orElse(null) != null;
 	}
 }

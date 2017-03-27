@@ -21,11 +21,6 @@ public class DocumentacaoServiceImpl implements DocumentacaoService {
 	}
 
 	@Override
-	public void excluirTipoDocumento(Integer id) {
-		tipoDocumentoRepository.delete(id);
-	}
-
-	@Override
 	public void salvar(TipoDocumento tipoDocumento) {
 		tipoDocumentoRepository.save(tipoDocumento);
 	}

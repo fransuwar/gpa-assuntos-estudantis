@@ -1,22 +1,16 @@
 package br.ufc.npi.auxilio.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
+import br.ufc.npi.auxilio.enums.TipoSelecao;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -26,16 +20,18 @@ public class Selecao {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@NotNull(message = "Campo obrigatório")
+	@Enumerated(EnumType.STRING)
+	private TipoSelecao tipo;
+
 	private Integer ano;
 
 	private Integer quantidadeVagas;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date dataInicio;
+	private LocalDate dataInicio;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date dataTermino;
+	private LocalDate dataTermino;
 	
 	@ManyToOne
 	private Servidor responsavel;
@@ -50,7 +46,7 @@ public class Selecao {
 	@OneToMany(mappedBy = "selecao")
 	private List<Inscricao> inscricoes;
 	
-	@ManyToMany
+	@OneToMany(mappedBy = "selecao")
 	private List<TipoDocumento> tiposDeDocumento;
 
 	public Selecao() {
@@ -64,11 +60,11 @@ public class Selecao {
 		return ano;
 	}
 
-	public Date getDataInicio() {
+	public LocalDate getDataInicio() {
 		return dataInicio;
 	}
 
-	public Date getDataTermino() {
+	public LocalDate getDataTermino() {
 		return dataTermino;
 	}
 
@@ -99,11 +95,11 @@ public class Selecao {
 		this.ano = ano;
 	}
 
-	public void setDataInicio(Date datadeInicio) {
+	public void setDataInicio(LocalDate datadeInicio) {
 		this.dataInicio = datadeInicio;
 	}
 
-	public void setDataTermino(Date datadeTermino) {
+	public void setDataTermino(LocalDate datadeTermino) {
 		this.dataTermino = datadeTermino;
 	}
 
@@ -130,6 +126,7 @@ public class Selecao {
 	public void setInscricoes(List<Inscricao> inscricoes) {
 		this.inscricoes = inscricoes;
 	}
+
 	public void addMembroComissao (Servidor servidor){
 		if(this.comissao == null){
 			comissao = new ArrayList<Servidor>();
@@ -137,6 +134,13 @@ public class Selecao {
 		if (servidor != null && !this.comissao.contains(servidor)) {
 			this.comissao.add(servidor);
 		}
+	}
+
+	public void removeMembroComissao (Servidor servidor){
+		if(this.comissao == null){
+			comissao = new ArrayList<Servidor>();
+		}
+		this.comissao.remove(servidor);
 	}
 	
 	public List<TipoDocumento> getTiposDeDocumento() {
@@ -158,6 +162,14 @@ public class Selecao {
 
 	public boolean hasInscricoes() {
 		return this.inscricoes.size() > 0;
+	}
+
+	public TipoSelecao getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoSelecao tipo) {
+		this.tipo = tipo;
 	}
 
 	@Override
@@ -210,7 +222,7 @@ public class Selecao {
 		Map<String, Integer> mapaCidades = new TreeMap<String, Integer>();
 		for(Inscricao inscricao:inscricoes){
 			if(inscricao.isRealizarVisita()){
-				String cidade = inscricao.getQuestionarioAuxilioMoradia().getCidadeOrigem();
+				String cidade = inscricao.getQuestionario().getCidadeOrigem();
 				if(mapaCidades.containsKey(cidade)){
 					int numAlunos = mapaCidades.get(cidade);
 					mapaCidades.put(cidade, numAlunos+1);
@@ -226,4 +238,24 @@ public class Selecao {
 		this.tiposDeDocumento.addAll(tiposDeDocumento);
 	}
 
+    public void addDocumento(Documento documento) {
+		if (documentos == null) {
+			documentos = new ArrayList<Documento>();
+		}
+		documentos.add(documento);
+    }
+
+	public void removeDocumento(Documento documento) {
+		if (documentos != null) {
+			documentos.remove(documento);
+		}
+	}
+
+    public boolean isMembroComissao(Servidor servidor) {
+		return this.comissao.contains(servidor);
+    }
+
+	public boolean isInscricaoAberta() {
+		return !this.dataInicio.isAfter(LocalDate.now()) && !LocalDate.now().isAfter(this.dataTermino);
+	}
 }

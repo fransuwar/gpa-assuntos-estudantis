@@ -1,0 +1,61 @@
+<section th:fragment="historico">
+	<div class="card">
+		<div class="card-content details">
+			<h5 class="title light">Histórico escolar</h5>
+			<div class="row">
+				<div class="col s4">
+					<span>Ensino médio:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.ensinoMedio.nome}"></span>
+				</div>
+				<div th:if="${inscricao.questionario.ensinoMedio != T(br.ufc.npi.auxilio.enums.TipoEnsino).PUBLICO}" class="col s4">
+					<span>Bolsista:</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.bolsistaEnsinoMedio} ? 'SIM' : 'NÃO'"></span>
+				</div>
+				<div th:if="${inscricao.questionario.bolsistaEnsinoMedio}" class="col s4">
+					<span>Percentual da bolsa:</span>
+					<span class="text-18 bold" th:text="'__${inscricao.questionario.percentualEnsinoMedio}__%'"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s4">
+					<span>Já participou de seleção para o Programa Auxílio Moradia?</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.quantidadeParticipacaoAuxilio} and ${inscricao.questionario.quantidadeParticipacaoAuxilio} > 0 ? 'SIM (__${inscricao.questionario.quantidadeParticipacaoAuxilio}__)' : 'NÃO'"></span>
+				</div>
+				<div class="col s4">
+					<span>Atualmente é bolsista?</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.bolsaAtual} != null and ${inscricao.questionario.bolsaAtual} != '' ? 'SIM (__${inscricao.questionario.bolsaAtual}__)' : 'NÃO'"></span>
+				</div>
+				<div class="col s4">
+					<span>Já concluiu alguma graduação?</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.outraGraduacao} != null and ${inscricao.questionario.outraGraduacao} != '' ? 'SIM (__${inscricao.questionario.outraGraduacao}__)' : 'NÃO'"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s4">
+					<span>Valor mensal gasto com transporte:</span>
+					<span class="text-18 bold" th:text="'R$ __${#numbers.formatDecimal(inscricao.questionario.valorMensalTransporte, 1, 'POINT', 2, 'COMMA')}__'"></span>
+				</div>
+				<div class="col s4">
+					<span>Distância até a UFC:</span>
+					<span class="text-18 bold" th:text="'__${inscricao.questionario.distancia}__ KM'"></span>
+				</div>
+				<div class="col s4">
+					<span>Tempo gasto com deslocamento:</span>
+					<span class="text-18 bold" th:text="'__${inscricao.questionario.tempoGasto}__ hora(s)'"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<span>Como faz o trajeto até a universidade diariamente?</span>
+					<span class="text-18 bold inline" th:each="trajeto : ${inscricao.questionario.trajetos}" th:if="${trajeto != T(br.ufc.npi.auxilio.enums.Trajeto).OUTROS}" th:text="'__${trajeto.nome}__ - '"></span>
+					<span class="text-18 bold inline" th:if="${#lists.contains(inscricao.questionario.trajetos, T(br.ufc.npi.auxilio.enums.Trajeto).OUTROS)}" th:text="${inscricao.questionario.outroTrajeto}"></span>
+				</div>
+				<div class="col s6">
+					<span>Quais serviços já utilizou?</span>
+					<span class="text-18 bold inline" th:each="servico : ${inscricao.questionario.servicos}" th:if="${servico != T(br.ufc.npi.auxilio.enums.ServicosProReitoria).OUTROS}" th:text="'__${servico.nome}__ - '"></span>
+					<span class="text-18 bold inline" th:if="${#lists.contains(inscricao.questionario.servicos, T(br.ufc.npi.auxilio.enums.ServicosProReitoria).OUTROS)}" th:text="${inscricao.questionario.outroServico}"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

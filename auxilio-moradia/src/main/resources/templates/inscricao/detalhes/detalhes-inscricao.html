@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="base/base">
+
+<head>
+	<title>Auxílio - Detalhes da Inscricao</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="row">
+		<!-- Identificação -->
+		<div class="col s12">
+			<div th:replace="inscricao/detalhes/detalhes-dados-basicos :: dados-basicos" ></div>
+		</div>
+
+		<!-- Moradia -->
+		<div class="col s12">
+			<div th:replace="inscricao/detalhes/detalhes-moradia :: moradia" ></div>
+		</div>
+
+		<!-- Histórico escolar -->
+		<div class="col s12">
+			<div th:replace="inscricao/detalhes/detalhes-historico :: historico" ></div>
+		</div>
+
+		<!-- Situação socioeconômica -->
+		<div class="col s12">
+			<div th:replace="inscricao/detalhes/detalhes-situacao-socioeconomica :: situacao-socioeconomica" ></div>
+		</div>
+	</div>
+	<!--end container-->
+</section>
+
+<section layout:fragment="js">
+	
+</section>
+
+</html>

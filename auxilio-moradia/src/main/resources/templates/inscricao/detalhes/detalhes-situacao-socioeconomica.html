@@ -1,0 +1,95 @@
+<section th:fragment="situacao-socioeconomica">
+	<div class="card">
+		<div class="card-content details">
+			<h5 class="title light">Situação socioeconômica</h5>
+			<div class="row">
+				<table class="striped bordered">
+					<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Idade</th>
+						<th>Parentesco</th>
+						<th>Escolaridade</th>
+						<th>Atividade ou profissão</th>
+						<th>Renda mensal</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="membro : ${inscricao.questionario.grupoFamiliar}">
+						<td th:text="${membro.nome}"></td>
+						<td th:text="${membro.idade}"></td>
+						<td th:text="${membro.parentesco.nome}"></td>
+						<td th:text="${membro.escolaridade.nome}"></td>
+						<td th:text="${membro.profissao}"></td>
+						<td class="bold" th:text="'R$ ' + ${#numbers.formatDecimal(membro.rendaMensal, 1, 'POINT', 2, 'COMMA')}"></td>
+					</tr>
+					</tbody>
+				</table>
+				<div class="row mt-30 center">
+					<span class="blue-grey-text" th:if="${#lists.isEmpty(inscricao.questionario.grupoFamiliar)}">Nenhum membro cadastrado</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s4">
+					<span>Renda total:</span>
+					<span class="text-20 bold" th:text="'R$ __${#numbers.formatDecimal(inscricao.getRendaTotal(), 1, 'POINT', 2, 'COMMA')}__'"></span>
+				</div>
+				<div class="col s4">
+					<span>Renda per capita:</span>
+					<span class="text-20 bold" th:text="'R$ __${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}__'"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-content details">
+			<h5 class="title light">Com relação à saúde</h5>
+			<div class="row">
+				<div class="col s6">
+					<span>Faz uso contínuo de medicamentos?</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.medicamento} ? 'SIM (__${inscricao.questionario.doencaMedicamento}__)' : 'NÃO'"></span>
+				</div>
+				<div class="col s6">
+					<span>Apresenta alguma deficiência?</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.deficiencia} ? 'SIM (__${inscricao.questionario.nomeDeficiencia}__)' : 'NÃO'"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<span>Há algum membro do grupo familiar com doença grave?</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.doencaGrave} ? 'SIM (__${inscricao.questionario.membroDoencaGrave}__)' : 'NÃO'"></span>
+				</div>
+				<div class="col s6">
+					<span>Há algum membro do grupo familiar com deficiência?</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.membroDeficiencia} ? 'SIM (__${inscricao.questionario.nomeMembroDeficiencia}__)' : 'NÃO'"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<span>A família possui plano de assistência médica?</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.assistenciaMedica} ? 'SIM (R$ ' + ${#numbers.formatDecimal(inscricao.questionario.valorAssistenciaMedica, 0, 'COMMA', 2, 'POINT')} + ')' : 'NÃO'"></span>
+				</div>
+				<div class="col s6">
+					<span>Há gastos constantes com medicamentos na família?</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.despesaMedicamento} ? 'SIM (__${inscricao.questionario.descricaoDespesaMedicamento}__)' : 'NÃO'"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<span>Recebe algum benefício assistencial/previdenciário?</span>
+					<span class="text-18 bold" th:text="${inscricao.questionario.beneficio} ? 'SIM (__${inscricao.questionario.descricaoBeneficio}__)' : 'NÃO'"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-content details">
+			<h5 class="title light">Justificativa</h5>
+			<div class="row">
+				<div class="col s12">
+					<span class="text-18 bold" th:text="${inscricao.questionario.justificativa}"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

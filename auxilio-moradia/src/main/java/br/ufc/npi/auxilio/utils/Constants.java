@@ -2,21 +2,24 @@ package br.ufc.npi.auxilio.utils;
 
 public class Constants {
 	
-	/* Mensagens do sistema */
-    public static final String ALERTA = "alerta";
-    
-    /* Tipos ação de página */
-    public static final String ACAO = "acao";
-    public static final String CADASTRAR = "Cadastrar";
-    public static final String EDITAR = "Editar";
-    
+	// Papéis
+	public static final String ALUNO = "ALUNO";
+	
+	public static final String SERVIDOR = "SERVIDOR";
+	
+	public static final String COORDENADOR = "COORDENADOR";
+	
+	public static final String ASSISTENTE_SOCIAL = "ASSISTENTE_SOCIAL";
 
-    /* Papéis */
-    public static final String COORDENADOR = "COORDENADOR";
+	// Geral
+	public static final String INFO = "info";
 
-    public static final String SERVIDOR = "SERVIDOR";
+	public static final String ERRO = "erro";
 
-    public static final String ALUNO = "ALUNO";
+	// Permissões
+	public static final String PERMISSAO_COORDENADOR = "hasAuthority('COORDENADOR')";
+	public static final String PERMISSAO_SERVIDOR = "hasAuthority('SERVIDOR')";
+	public static final String PERMISSAO_ALUNO = "hasAuthority('ALUNO')";
 
 
 }

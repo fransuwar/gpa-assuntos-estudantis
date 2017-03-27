@@ -1,35 +1,33 @@
 package br.ufc.npi.auxilio.model;
 
+import br.ufc.npi.auxilio.enums.*;
+import br.ufc.npi.auxilio.model.questionario.HistoricoEscolar;
+import br.ufc.npi.auxilio.model.questionario.Identificacao;
+import br.ufc.npi.auxilio.model.questionario.Moradia;
+import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import br.ufc.npi.auxilio.enums.Resultado;
-
 @Entity
-public class Inscricao implements Comparable<Inscricao>{
+public class Inscricao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data;
+	private LocalDateTime data;
 
 	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
 	
-	private boolean classificado;
+	private boolean classificada;
+	
+	private boolean realizarVisita;
+	
+	private boolean consolidada;
 	
 	@OneToOne
 	private Selecao selecao;
@@ -38,7 +36,7 @@ public class Inscricao implements Comparable<Inscricao>{
 	private Aluno aluno;
 
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	private QuestionarioAuxilioMoradia questionarioAuxilioMoradia;
+	private QuestionarioAuxilioMoradia questionario;
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private VisitaDomiciliar visitaDomiciliar;
@@ -49,16 +47,12 @@ public class Inscricao implements Comparable<Inscricao>{
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private AnaliseDocumentacao analiseDocumentacao;
 
-	private boolean realizarVisita;
-	
-	private boolean consolidacao;
-
-	public boolean isConsolidacao() {
-		return consolidacao;
+	public boolean isConsolidada() {
+		return consolidada;
 	}
 
-	public void setConsolidacao(boolean consolidacao) {
-		this.consolidacao = consolidacao;
+	public void setConsolidada(boolean consolidada) {
+		this.consolidada = consolidada;
 	}
 
 	public boolean isRealizarVisita() {
@@ -77,11 +71,11 @@ public class Inscricao implements Comparable<Inscricao>{
 		this.id = id;
 	}
 
-	public Date getData() {
+	public LocalDateTime getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
 
@@ -101,21 +95,21 @@ public class Inscricao implements Comparable<Inscricao>{
 		this.selecao = selecao;
 	}
 
-	public QuestionarioAuxilioMoradia getQuestionarioAuxilioMoradia() {
-		if (questionarioAuxilioMoradia  == null)
+	public QuestionarioAuxilioMoradia getQuestionario() {
+		if (questionario == null) {
 			return new QuestionarioAuxilioMoradia();
-		return questionarioAuxilioMoradia;
+		}
+		return questionario;
 	}
 
-	public void setQuestionarioAuxilioMoradia(QuestionarioAuxilioMoradia questionarioAuxilioMoradia) {
-		this.questionarioAuxilioMoradia = questionarioAuxilioMoradia;
+	public void setQuestionario(QuestionarioAuxilioMoradia questionario) {
+		this.questionario = questionario;
 	}
 
 	public VisitaDomiciliar getVisitaDomiciliar() {
 		if(visitaDomiciliar == null){
 			visitaDomiciliar = new VisitaDomiciliar();
 		}
- 		
 		return visitaDomiciliar;
 	}
 
@@ -139,14 +133,13 @@ public class Inscricao implements Comparable<Inscricao>{
 		this.aluno = aluno;
 	}
 	
-	public boolean isClassificado() {
-		return classificado;
+	public boolean isClassificada() {
+		return classificada;
 	}
 
-	public void setClassificado(boolean classificado) {
-		this.classificado = classificado;
+	public void setClassificada(boolean classificada) {
+		this.classificada = classificada;
 	}
-	
 
 	public AnaliseDocumentacao getAnaliseDocumentacao() {
 		return analiseDocumentacao;
@@ -181,14 +174,283 @@ public class Inscricao implements Comparable<Inscricao>{
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Inscricao [id=" + id + "]";
+	public void setIdentificacao(Identificacao identificacao) {
+		this.aluno.getPessoa().setRg(identificacao.getIdentidade());
+		this.aluno.getPessoa().setOrgaoEmissorRg(identificacao.getOrgaoEmissor());
+		this.aluno.getPessoa().setUfRg(identificacao.getUfIdentidade());
+		this.aluno.getPessoa().setNaturalidade(identificacao.getNaturalidade());
+		this.aluno.getPessoa().setUfNaturalidade(identificacao.getUfNaturalidade());
+		this.aluno.getPessoa().setEstadoCivil(identificacao.getEstadoCivil());
+		this.aluno.getPessoa().setTelefone(identificacao.getContato());
+		this.aluno.setIra(identificacao.getIra());
+
+		// Dados bancários
+		if (questionario == null) {
+			questionario = new QuestionarioAuxilioMoradia();
+		}
+		this.questionario.setBanco(identificacao.getBanco());
+		this.questionario.setAgencia(identificacao.getAgencia());
+		this.questionario.setContaCorrente(identificacao.getContaCorrente());
 	}
 
-	@Override
-	public int compareTo(Inscricao o) {
-		return getAluno().getPessoa().getNome().compareTo(o.getAluno().getPessoa().getNome());
+	public Identificacao getIdentificacao() {
+		Identificacao identificacao = new Identificacao();
+		identificacao.setIdentidade(aluno.getPessoa().getRg());
+		identificacao.setOrgaoEmissor(aluno.getPessoa().getOrgaoEmissorRg());
+		identificacao.setUfIdentidade(aluno.getPessoa().getUfRg());
+		identificacao.setNaturalidade(aluno.getPessoa().getNaturalidade());
+		identificacao.setUfNaturalidade(aluno.getPessoa().getUfNaturalidade());
+		identificacao.setEstadoCivil(aluno.getPessoa().getEstadoCivil());
+		identificacao.setContato(aluno.getPessoa().getTelefone());
+		identificacao.setIra(aluno.getIra());
+
+		// Dados bancários
+		if (questionario == null) {
+			questionario = new QuestionarioAuxilioMoradia();
+		}
+		identificacao.setBanco(this.questionario.getBanco());
+		identificacao.setAgencia(this.questionario.getAgencia());
+		identificacao.setContaCorrente(this.questionario.getContaCorrente());
+		return identificacao;
+	}
+
+	public Moradia getMoradia() {
+		Moradia moradia = new Moradia();
+
+		// Núcleo familiar
+		if (questionario == null) {
+			questionario = new QuestionarioAuxilioMoradia();
+		}
+		moradia.setMae(questionario.getNomeMae());
+		moradia.setPai(questionario.getNomePai());
+
+		// Moradia de origem
+		moradia.setMoradoresOrigem(questionario.getMoradoresOrigem());
+		moradia.setOutroMoradorOrigem(questionario.getOutroMoradorOrigem());
+		moradia.setEnderecoOrigem(questionario.getEnderecoOrigem());
+		moradia.setNumeroOrigem(questionario.getNumeroOrigem());
+		moradia.setBairroOrigem(questionario.getBairroOrigem());
+		moradia.setCidadeOrigem(questionario.getCidadeOrigem());
+		moradia.setEstadoOrigem(questionario.getEstadoOrigem());
+		moradia.setCepOrigem(questionario.getCepOrigem());
+		moradia.setReferenciaOrigem(questionario.getReferenciaOrigem());
+
+		// Moradia de origem - outras informações
+		moradia.setSituacaoImovel(questionario.getSituacaoImovel());
+		moradia.setFinanciamento(questionario.getFinanciamento());
+		moradia.setQuantidadeBemMovel(questionario.getQuantidadeBemMovel());
+		moradia.setDescricaoBemMovel(questionario.getDescricaoBemMovel());
+
+		// Moradia atual;
+		moradia.setMoradores(questionario.getMoradores());
+		moradia.setOutroMorador(questionario.getOutroMorador());
+		moradia.setEndereco(questionario.getEndereco());
+		moradia.setNumero(questionario.getNumero());
+		moradia.setBairro(questionario.getBairro());
+		moradia.setCidade(questionario.getCidade());
+		moradia.setEstado(questionario.getEstado());
+		moradia.setCep(questionario.getCep());
+		moradia.setReferencia(questionario.getReferencia());
+
+		return moradia;
+	}
+
+	public void setMoradia(Moradia moradia) {
+		// Núcleo familiar
+		questionario.setNomeMae(moradia.getMae());
+		questionario.setNomePai(moradia.getPai());
+
+		// Moradia de origem
+		questionario.setMoradoresOrigem(moradia.getMoradoresOrigem());
+		if (moradia.getMoradoresOrigem() != null && moradia.getMoradoresOrigem().contains(MoradoresOrigem.OUTROS)) {
+			questionario.setOutroMoradorOrigem(moradia.getOutroMoradorOrigem());
+		} else {
+			questionario.setOutroMoradorOrigem(null);
+		}
+		questionario.setEnderecoOrigem(moradia.getEnderecoOrigem());
+		questionario.setNumeroOrigem(moradia.getNumeroOrigem());
+		questionario.setBairroOrigem(moradia.getBairroOrigem());
+		questionario.setCidadeOrigem(moradia.getCidadeOrigem());
+		questionario.setEstadoOrigem(moradia.getEstadoOrigem());
+		questionario.setCepOrigem(moradia.getCepOrigem());
+		questionario.setReferenciaOrigem(moradia.getReferenciaOrigem());
+
+		// Moradia de origem - outras informações
+		questionario.setSituacaoImovel(moradia.getSituacaoImovel());
+		if (moradia.getSituacaoImovel() != null && moradia.getSituacaoImovel().equals(SituacaoImovel.FINANCIADO)) {
+			questionario.setFinanciamento(moradia.getFinanciamento());
+		} else {
+			questionario.setFinanciamento(null);
+		}
+		questionario.setQuantidadeBemMovel(moradia.getQuantidadeBemMovel());
+		if (moradia.getQuantidadeBemMovel() != null && moradia.getQuantidadeBemMovel() > 0) {
+			questionario.setDescricaoBemMovel(moradia.getDescricaoBemMovel());
+		} else {
+			questionario.setDescricaoBemMovel(null);
+		}
+
+		// Moradia atual
+		questionario.setMoradores(moradia.getMoradores());
+		if (moradia.getMoradores() != null && moradia.getMoradores().contains(Moradores.OUTROS)) {
+			questionario.setOutroMorador(moradia.getOutroMorador());
+		} else {
+			questionario.setOutroMorador(null);
+		}
+
+		questionario.setEndereco(moradia.getEndereco());
+		questionario.setNumero(moradia.getNumero());
+		questionario.setBairro(moradia.getBairro());
+		questionario.setCidade(moradia.getCidade());
+		questionario.setEstado(moradia.getEstado());
+		questionario.setCep(moradia.getCep());
+		questionario.setReferencia(moradia.getReferencia());
+	}
+
+	public HistoricoEscolar getHistoricoEscolar() {
+		HistoricoEscolar historico = new HistoricoEscolar();
+
+		historico.setEnsinoMedio(questionario.getEnsinoMedio());
+		historico.setBolsistaEnsinoMedio(questionario.isBolsistaEnsinoMedio());
+		historico.setPercentualEnsinoMedio(questionario.getPercentualEnsinoMedio());
+		historico.setQuantidadeParticipacaoAuxilio(questionario.getQuantidadeParticipacaoAuxilio());
+		historico.setBolsaAtual(questionario.getBolsaAtual());
+		historico.setOutraGraduacao(questionario.getOutraGraduacao());
+		historico.setServicos(questionario.getServicos());
+		historico.setOutroServico(questionario.getOutroServico());
+
+		// Trajeto até a universidade
+		historico.setTrajetos(questionario.getTrajetos());
+		historico.setOutroTrajeto(questionario.getOutroTrajeto());
+		historico.setValorMensalTransporte(questionario.getValorMensalTransporte());
+		historico.setDistancia(questionario.getDistancia());
+		historico.setTempoGasto(questionario.getTempoGasto());
+
+		return historico;
+	}
+
+	public void setHistoricoEscolar(HistoricoEscolar historico) {
+		questionario.setEnsinoMedio(historico.getEnsinoMedio());
+		if(historico.getEnsinoMedio() != null && !historico.getEnsinoMedio().equals(TipoEnsino.PUBLICO)) {
+			questionario.setBolsistaEnsinoMedio(historico.isBolsistaEnsinoMedio());
+		} else {
+			questionario.setBolsistaEnsinoMedio(false);
+		}
+		questionario.setPercentualEnsinoMedio(historico.isBolsistaEnsinoMedio() ? historico.getPercentualEnsinoMedio() : null);
+		if(historico.getQuantidadeParticipacaoAuxilio() != null && historico.getQuantidadeParticipacaoAuxilio() > 0) {
+			questionario.setQuantidadeParticipacaoAuxilio(historico.getQuantidadeParticipacaoAuxilio());
+		} else {
+			questionario.setQuantidadeParticipacaoAuxilio(null);
+		}
+		questionario.setBolsaAtual(historico.getBolsaAtual());
+		questionario.setOutraGraduacao(historico.getOutraGraduacao());
+		questionario.setServicos(historico.getServicos());
+		if (historico.getServicos() != null && historico.getServicos().contains(ServicosProReitoria.OUTROS)) {
+			questionario.setOutroServico(historico.getOutroServico());
+		} else {
+			questionario.setOutroServico(null);
+		}
+
+		// Trajeto até a universidade
+		questionario.setTrajetos(historico.getTrajetos());
+		if (historico.getTrajetos() != null && historico.getTrajetos().contains(Trajeto.OUTROS)) {
+			questionario.setOutroTrajeto(historico.getOutroTrajeto());
+		} else {
+			questionario.setOutroTrajeto(null);
+		}
+		questionario.setValorMensalTransporte(historico.getValorMensalTransporte());
+		questionario.setDistancia(historico.getDistancia());
+		questionario.setTempoGasto(historico.getTempoGasto());
+	}
+
+	public SituacaoSocioeconomica getSituacaoSocioeconomica() {
+		SituacaoSocioeconomica situacao = new SituacaoSocioeconomica();
+
+		situacao.setMedicamento(questionario.isMedicamento());
+		situacao.setDoencaMedicamento(questionario.getDoencaMedicamento());
+		situacao.setDeficiencia(questionario.isDeficiencia());
+		situacao.setNomeDeficiencia(questionario.getNomeDeficiencia());
+		situacao.setDoencaGrave(questionario.isDoencaGrave());
+		situacao.setMembroDoencaGrave(questionario.getMembroDoencaGrave());
+		situacao.setMembroDeficiencia(questionario.isMembroDeficiencia());
+		situacao.setNomeMembroDeficiencia(questionario.getNomeMembroDeficiencia());
+		situacao.setAssistenciaMedica(questionario.isAssistenciaMedica());
+		situacao.setValorAssistenciaMedica(questionario.getValorAssistenciaMedica());
+		situacao.setDespesaMedicamento(questionario.isDespesaMedicamento());
+		situacao.setDescricaoDespesaMedicamento(questionario.getDescricaoDespesaMedicamento());
+		situacao.setBeneficio(questionario.isBeneficio());
+		situacao.setDescricaoBeneficio(questionario.getDescricaoBeneficio());
+
+		return situacao;
+	}
+
+	public void setSituacaoSocioEconomica(SituacaoSocioeconomica situacao) {
+		questionario.setMedicamento(situacao.isMedicamento());
+		questionario.setDoencaMedicamento(situacao.isMedicamento() ? situacao.getDoencaMedicamento() : null);
+		questionario.setDeficiencia(situacao.isDeficiencia());
+		questionario.setNomeDeficiencia(situacao.isDeficiencia() ? situacao.getNomeDeficiencia() : null);
+		questionario.setDoencaGrave(situacao.isDoencaGrave());
+		questionario.setMembroDoencaGrave(situacao.isDoencaGrave() ? situacao.getMembroDoencaGrave() : null);
+		questionario.setMembroDeficiencia(situacao.isMembroDeficiencia());
+		questionario.setNomeMembroDeficiencia(situacao.isMembroDeficiencia() ? situacao.getNomeMembroDeficiencia() : null);
+		questionario.setAssistenciaMedica(situacao.getAssistenciaMedica());
+		questionario.setValorAssistenciaMedica(situacao.getAssistenciaMedica() ? situacao.getValorAssistenciaMedica() : null);
+		questionario.setDespesaMedicamento(situacao.isDespesaMedicamento());
+		questionario.setDescricaoDespesaMedicamento(situacao.isDespesaMedicamento() ? situacao.getDescricaoDespesaMedicamento() : null);
+		questionario.setBeneficio(situacao.isBeneficio());
+		questionario.setDescricaoBeneficio(situacao.isBeneficio() ? situacao.getDescricaoBeneficio() : null);
+	}
+
+	public Double getRendaTotal() {
+		Double total = 0.0;
+		for (PessoaFamilia pessoa : questionario.getGrupoFamiliar()) {
+			total += pessoa.getRendaMensal();
+		}
+		return total;
+	}
+
+	public Double getRendaPerCapita() {
+		return questionario.getGrupoFamiliar().isEmpty() ? 0.0 : getRendaTotal()/questionario.getGrupoFamiliar().size();
+	}
+
+	public Double getRendaPai() {
+		for (PessoaFamilia pessoa : questionario.getGrupoFamiliar()) {
+			if (GrauParentesco.PAI.equals(pessoa.getParentesco())) {
+				return pessoa.getRendaMensal();
+			}
+		}
+		return 0.0;
+	}
+
+	public Double getRendaMae() {
+		for (PessoaFamilia pessoa : questionario.getGrupoFamiliar()) {
+			if (GrauParentesco.MAE.equals(pessoa.getParentesco())) {
+				return pessoa.getRendaMensal();
+			}
+		}
+		return 0.0;
+	}
+
+	// Retorna a soma da renda de todos os membros, exceto pai e mãe
+	public Double getRendaOutros() {
+		return getRendaTotal() - getRendaMae() - getRendaPai();
+	}
+
+	public String getProfissaoMae() {
+		for (PessoaFamilia pessoa : questionario.getGrupoFamiliar()) {
+			if (GrauParentesco.MAE.equals(pessoa.getParentesco())) {
+				return pessoa.getProfissao();
+			}
+		}
+		return null;
+	}
+
+	public String getProfissaoPai() {
+		for (PessoaFamilia pessoa : questionario.getGrupoFamiliar()) {
+			if (GrauParentesco.PAI.equals(pessoa.getParentesco())) {
+				return pessoa.getProfissao();
+			}
+		}
+		return null;
 	}
 
 }

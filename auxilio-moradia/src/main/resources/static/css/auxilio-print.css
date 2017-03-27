@@ -1,0 +1,13 @@
+.card {
+    border: none;
+    border-top: 2px solid;
+    box-shadow: none;
+}
+
+header {
+    display: none;
+}
+
+table.striped > tbody > tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
