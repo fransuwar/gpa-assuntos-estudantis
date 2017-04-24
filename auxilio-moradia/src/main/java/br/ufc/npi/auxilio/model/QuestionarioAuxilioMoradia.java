@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,12 +13,17 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
-import br.ufc.npi.auxilio.enums.*;
 import org.hibernate.annotations.Type;
+
+import br.ufc.npi.auxilio.enums.Estado;
+import br.ufc.npi.auxilio.enums.Moradores;
+import br.ufc.npi.auxilio.enums.MoradoresOrigem;
+import br.ufc.npi.auxilio.enums.ServicosProReitoria;
+import br.ufc.npi.auxilio.enums.SituacaoImovel;
+import br.ufc.npi.auxilio.enums.TipoEnsino;
+import br.ufc.npi.auxilio.enums.Trajeto;
 
 @Entity
 public class QuestionarioAuxilioMoradia {
@@ -165,6 +171,7 @@ public class QuestionarioAuxilioMoradia {
 	private String descricaoBeneficio;
 
 	// Outras informações
+	@Column(columnDefinition="TEXT")
 	private String justificativa;
 
 	@Type(type="org.hibernate.type.BinaryType")

@@ -5,7 +5,8 @@
 			<div class="row">
 				<div class="col s4">
 					<span>Ensino médio:</span>
-					<span class="text-18 bold" th:text="${inscricao.questionario.ensinoMedio.nome}"></span>
+					<span th:unless="${inscricao.questionario.ensinoMedio}" class="text-18 bold">-</span>
+					<span th:if="${inscricao.questionario.ensinoMedio}" class="text-18 bold" th:text="${inscricao.questionario.ensinoMedio.nome}"></span>
 				</div>
 				<div th:if="${inscricao.questionario.ensinoMedio != T(br.ufc.npi.auxilio.enums.TipoEnsino).PUBLICO}" class="col s4">
 					<span>Bolsista:</span>
@@ -33,15 +34,18 @@
 			<div class="row">
 				<div class="col s4">
 					<span>Valor mensal gasto com transporte:</span>
-					<span class="text-18 bold" th:text="'R$ __${#numbers.formatDecimal(inscricao.questionario.valorMensalTransporte, 1, 'POINT', 2, 'COMMA')}__'"></span>
+					<span th:unless="${inscricao.questionario.valorMensalTransporte}" class="text-18 bold">-</span>
+					<span th:if="${inscricao.questionario.valorMensalTransporte}" class="text-18 bold" th:text="'R$ __${#numbers.formatDecimal(inscricao.questionario.valorMensalTransporte, 1, 'POINT', 2, 'COMMA')}__'"></span>
 				</div>
 				<div class="col s4">
 					<span>Distância até a UFC:</span>
-					<span class="text-18 bold" th:text="'__${inscricao.questionario.distancia}__ KM'"></span>
+					<span th:unless="${inscricao.questionario.distancia}" class="text-18 bold">-</span>
+					<span th:if="${inscricao.questionario.distancia}" class="text-18 bold" th:text="'__${inscricao.questionario.distancia}__ KM'"></span>
 				</div>
 				<div class="col s4">
 					<span>Tempo gasto com deslocamento:</span>
-					<span class="text-18 bold" th:text="'__${inscricao.questionario.tempoGasto}__ hora(s)'"></span>
+					<span th:unless="${inscricao.questionario.tempoGasto}" class="text-18 bold">-</span>
+					<span th:if="${inscricao.questionario.tempoGasto}" class="text-18 bold" th:text="'__${inscricao.questionario.tempoGasto}__ hora(s)'"></span>
 				</div>
 			</div>
 			<div class="row">

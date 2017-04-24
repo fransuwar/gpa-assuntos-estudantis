@@ -20,7 +20,7 @@
 			<div class="row">
 				<div class="col s8">
 					<span>Endereço:</span>
-					<span class="text-18 bold" th:text="'__${inscricao.questionario.enderecoOrigem}__, __${inscricao.questionario.numeroOrigem}__, __${inscricao.questionario.bairroOrigem}__, __${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__'"></span>
+					<span th:if="${inscricao.questionario.enderecoOrigem}" class="text-18 bold" th:text="'__${inscricao.questionario.enderecoOrigem}__, __${inscricao.questionario.numeroOrigem}__, __${inscricao.questionario.bairroOrigem}__, __${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__'"></span>
 				</div>
 				<div class="col s4">
 					<span>Ponto de referência:</span>
@@ -34,7 +34,8 @@
 				</div>
 				<div class="col s4">
 					<span>Situação do imóvel:</span>
-					<span class="text-18 bold"
+					<span th:unless="${inscricao.questionario.situacaoImovel}" class="text-18 bold">-</span>
+					<span th:if="${inscricao.questionario.situacaoImovel}" class="text-18 bold"
 						  th:text="${inscricao.questionario.situacaoImovel eq T(br.ufc.npi.auxilio.enums.SituacaoImovel).FINANCIADO} ? '__${inscricao.questionario.situacaoImovel.nome}__: R$ ' + ${#numbers.formatDecimal(inscricao.questionario.financiamento, 1, 'POINT', 2, 'COMMA')} : ${inscricao.questionario.situacaoImovel.nome}"></span>
 				</div>
 				<div class="col s6">
@@ -58,7 +59,7 @@
 			<div class="row">
 				<div class="col s6">
 					<span>Endereço:</span>
-					<span class="text-18 bold" th:text="'__${inscricao.questionario.endereco}__, __${inscricao.questionario.numero}__, __${inscricao.questionario.bairro}__, __${inscricao.questionario.cidade}__ - __${inscricao.questionario.estado}__'"></span>
+					<span th:if="${inscricao.questionario.endereco}" class="text-18 bold" th:text="'__${inscricao.questionario.endereco}__, __${inscricao.questionario.numero}__, __${inscricao.questionario.bairro}__, __${inscricao.questionario.cidade}__ - __${inscricao.questionario.estado}__'"></span>
 				</div>
 				<div class="col s2">
 					<span>CEP:</span>
