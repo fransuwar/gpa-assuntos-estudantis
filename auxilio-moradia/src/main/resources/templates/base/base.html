@@ -8,8 +8,8 @@
 	<title>Auxílio Moradia</title>
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"/>
-    <link rel="stylesheet" href="http://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.dataTables.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/buttons.dataTables.min.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/materialize.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/auxilio.css}"/>
     <link rel="stylesheet" media="print" th:href="@{/css/auxilio-print.css}"/>
@@ -58,7 +58,7 @@
     <!-- Plugins externos e JQuery -->
     <script type="text/javascript" th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/jquery/jquery.mask.min.js}"></script>
-    <script type="text/javascript" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/datatables/jquery.dataTables.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/chart/chart.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/cookie/cookie.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/moment/moment.js}"></script>
