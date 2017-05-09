@@ -27,6 +27,7 @@
 								<th>Ano</th>
 								<th>Inscrições</th>
 								<th>Vagas</th>
+								<th>Opções</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -35,6 +36,23 @@
 								<td th:text="${selecao.ano}"></td>
 								<td th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
 								<td th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'">-</td>
+								
+								<td><a class="btn-icon waves-effect tooltipped"
+						     		th:href="@{/selecao/inscricoes/__${selecao.id}__}"
+						     		th:attr="data-tooltip=${'Visualizar Inscrições'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+						     		<i class="material-icons">zoom_in</i>
+								</a>
+								<a class="btn-icon waves-effect tooltipped"
+						     		th:href="@{/selecao/editar/__${selecao.id}__}"
+						     		th:attr="data-tooltip=${'Editar'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+						     		<i class="material-icons">edit</i>
+								</a>
+								<a class="btn-icon waves-effect tooltipped"
+						     		th:href="@{/selecao/excluir/__${selecao.id}__}"
+						     		th:attr="data-tooltip=${'Deletar'}, data-target=${deleteDataTarget}, data-url=${deleteDataUrl}">
+						     		<i class="material-icons">delete</i>
+								</a>
+								</td>
 							</tr>
 						</tbody>
 					</table>
