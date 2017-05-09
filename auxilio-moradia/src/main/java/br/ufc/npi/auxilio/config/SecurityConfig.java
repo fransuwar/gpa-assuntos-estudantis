@@ -20,14 +20,14 @@ import br.ufc.npi.auxilio.model.Papel;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	// Utilizado para autenticação via banco de dados
-	/*@Autowired
-	private UserDetailsService userDetailsService;*/
-	
-	// Utilizado para autenticação via ldap
 	@Autowired
-	@Qualifier("authenticationLdapProvider")
-	private AuthenticationProvider provider;
+	private UserDetailsService userDetailsService;
 	
+//	// Utilizado para autenticação via ldap
+//	@Autowired
+//	@Qualifier("authenticationLdapProvider")
+//	private AuthenticationProvider provider;
+//	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/").authenticated()
@@ -41,10 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// Utilizado para autenticação via ldap
-		auth.authenticationProvider(provider);
-				
+//		// Utilizado para autenticação via ldap
+//		auth.authenticationProvider(provider);
+//				
 		// Utilizado para autenticação via banco de dados
-		//auth.userDetailsService(userDetailsService);
+		auth.userDetailsService(userDetailsService);
 	}
 }
