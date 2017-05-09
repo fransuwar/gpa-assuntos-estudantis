@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="base/base"
+	th:with="currentPage='selecao'">
+
+<head>
+	<title>Auxílio - Visita Domiciliar</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="col s12">
+		<a th:href="@{/selecao}" class="breadcrumb-auxilio"><span class=" cyan-text text-lighten-2">Seleções</span></a>
+		<a th:href="@{/selecao/inscricoes/__${inscricao.selecao.id}__}"  class="breadcrumb-auxilio"><span class=" cyan-text text-lighten-2">Inscrições</span></a>
+		<a th:href="@{/visita/detalhes/__${inscricao.id}__}" class="breadcrumb-auxilio"><span class=" cyan-text text-lighten-2">Visita Domiciliar</span></a>
+	</div>
+	<div class="row">
+		<div class="col s12">
+<!-- 			<nav class="white"> -->
+<!-- 			    <div class="nav-wrapper"> -->
+<!-- 			      <div class="col s12"> -->
+<!-- 						<a th:href="@{/selecao}" class="breadcrumb-auxilio"><span class=" cyan-text text-lighten-2">Seleções</span></a> -->
+<!-- 						<a th:href="@{/selecao/inscricoes/__${inscricao.selecao.id}__}"  class="breadcrumb-auxilio"><span class=" cyan-text text-lighten-2">Inscrições</span></a> -->
+<!-- 						<a th:href="@{/visita/detalhes/__${inscricao.id}__}" class="breadcrumb-auxilio"><span class=" cyan-text text-lighten-2">Visita Domiciliar</span></a> -->
+<!-- 			      </div> -->
+<!-- 			    </div> -->
+<!-- 			</nav> -->
+			<div class="card">
+				<div class="card-content details">
+					<h5 class="title light">Aluno</h5>
+					<div class="row no-margin">
+						<div class="col s12">
+							<div class="col s4">
+								<span th:text="${inscricao.aluno.pessoa.nome}" class="text-20 light bold"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<form data-model="visita" th:action="@{/visita/cadastrar}" th:object="${visita}" th:method="post">
+				<div class="card">
+					<div class="card-content">
+						<h5 class="title light">Visita Domiciliar</h5>
+						<div class="row">
+							<div class="col s12 input-field">
+								<textarea id="relatorioVisita" th:text="${relatorioVisita}" name="relatorioVisita" class="materialize-textarea"></textarea>
+								<label for="relatorioVisita">Relatório Geral Visita Domiciliar</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-content">
+						<h5 class="title light">Arquivos Auxiliares</h5>
+						<label for="tipoDocumento">Tipo de Documento</label>
+<!-- 						<select name="tipoDocumento" id="tipoDocumento" th:field="*{tipoDocumento}"> -->
+<!-- 	          				<option th:each="tipoDocumento : ${opcoesTipoDocumento}" th:value="${tipoDocumento}" th:text="${tipoDocumento.nome}"></option> -->
+<!-- 	          			</select> -->
+	          		
+	          			<div class="col-xs-5">
+	          				<input type="file" name="files" multiple="multiple" />
+	          			</div>
+	          		</div>
+	            </div>
+	            <div class="card">
+	            	<div class="card-content">
+	            	<h5 class="title light">Parecer da Visita</h5>
+	            		<div class="row">
+							<div class="col s12 input-field">
+								<textarea id="parecer" th:text="${parecer}" name="parecer" class="materialize-textarea"></textarea>
+								<label for="parecer">Observações</label>
+							</div>
+						</div>
+	            		<select name="resultado" id="resultado" th:field="*{resultado}">
+	          				<option th:each="resultado : ${resultados}" th:value="${resultado}" th:text="${resultado.nome}"></option>
+	          			</select>
+	            	</div>
+	            	<div class="card-action right-align">
+	            		<a th:href="@{/selecao/inscricoes/__${inscricao.selecao.id}__}"  type="button">Cancelar</a>
+						<button class="btn waves-effect waves-light" type="submit">Finalizar</button>
+					</div>
+	            </div>
+			</form>
+		</div>
+	</div>
+</section>
+
+<section layout:fragment="js">
+	
+</section>
+
+<section layout:fragment="js">
+    	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
+</section>
+</html>
