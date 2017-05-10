@@ -79,7 +79,7 @@
 									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
 									<td th:text="${inscricao.getProfissaoMae()}"></td>
 									<td th:text="${inscricao.getProfissaoPai()}"></td>
-									<td><a th:href="@{/visita/detalhes/__${inscricao.id}__}" class="btn">Visita Domiciliar</a></td>
+									<td><a th:href="@{/visita/cadastrar/__${inscricao.id}__}" class="btn">Visita Domiciliar</a></td>
 								</tr>
 								</tbody>
 							</table>
