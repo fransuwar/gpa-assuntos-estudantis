@@ -27,6 +27,7 @@
 								<th>Ano</th>
 								<th>Inscrições</th>
 								<th>Vagas</th>
+								<th>Opções</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -45,10 +46,35 @@
 	    		removeLink = @{#excluir-selecao}, 
 	    		removeAtt = @{/selecao/excluir/__${selecao.id}__}, 
        		">
-								<td><a th:href="@{/selecao/detalhes/__${selecao.id}__}" th:text="${selecao.tipo.nome}" title="Visualizar"></a></td>
+								<td th:text="${selecao.tipo.nome}"></td>
 								<td th:text="${selecao.ano}"></td>
 								<td th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
 								<td th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'">-</td>
+								<td sec:authorize="hasAuthority('ALUNO')">
+									<a class="btn-icon waves-effect tooltipped"
+									 th:if="${selecao.inscricaoAberta and inscricaoSelecao.get(selecao.id)==null}" 
+                                     th:href="@{/inscricao/__${selecao.id}__}"
+                                     th:attr="data-tooltip=${'Realizar Inscrição'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+                                     <i class="material-icons">border_color</i>
+									</a>
+									<a class="btn-icon waves-effect tooltipped"
+									 th:if="${selecao.inscricaoAberta and inscricaoSelecao.get(selecao.id)!=null}"
+                                     th:href="@{/inscricao/__${selecao.id}__}"
+                                     th:attr="data-tooltip=${'Editar Inscrição'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+                                     <i class="material-icons">edit</i>
+									</a>
+									<a class="btn-icon waves-effect tooltipped"
+									 th:if="${inscricaoSelecao.get(selecao.id)!=null}"
+                                     th:href="@{/inscricao/detalhes/__${inscricaoSelecao.get(selecao.id).id}__}"
+                                     th:attr="data-tooltip=${'Visualizar Inscrição'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+                                     <i class="material-icons">zoom_in</i>
+									</a>
+									<a class="btn-icon waves-effect tooltipped"
+									 th:if="${selecao.inscricaoAberta and inscricaoSelecao.get(selecao.id)!=null}"
+                                     th:attr="data-tooltip=${'Adicionar Arquivos'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+                                     <i class="material-icons">note_add</i>
+									</a>
+								</td>
 								<div sec:authorize="hasAuthority('COORDENADOR')">
 									<td th:replace="base/base-listar-options :: table-options-cell"></td>
 								</div>
