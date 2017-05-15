@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.Constants.*;
@@ -44,9 +45,24 @@ public class SelecaoController {
 	@Autowired
 	private AlunoService alunoService;
 	
+	@Autowired
+	private PessoaService pessoaService;
+	
+	
 	@GetMapping({"", "/", "/listar"})
-	public String listarSelecoes(Model model) {
-		model.addAttribute("selecoes", selecaoService.getAll());
+	public String listarSelecoes(Model model, Authentication auth) {
+		List<Selecao> selecoes = selecaoService.getAll();
+		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
+		if(pessoa.isAluno()){
+			HashMap<Integer, Inscricao> inscricaoSelecao = new HashMap<>();
+			Aluno aluno = alunoService.buscarPorCpf(auth.getName());
+			for(Selecao selecao: selecoes){
+				Inscricao inscricao = inscricaoService.get(aluno, selecao);
+				inscricaoSelecao.put(selecao.getId(), inscricao);
+			}
+			model.addAttribute("inscricaoSelecao", inscricaoSelecao);
+		}
+		model.addAttribute("selecoes", selecoes);
 		return PageConstants.LISTAR_SELECAO;
 	}
 
@@ -238,7 +254,10 @@ public class SelecaoController {
 		if (selecao == null || !selecao.isMembroComissao(servidorService.getByCpf(auth.getName()))) {
 			return REDIRECT_LISTAR_SELECAO;
 		}
+		//System.out.println(selecao.getInscricoes().size());
+		List<Inscricao> inscricoes = selecao.getInscricoes();
 		model.addAttribute("selecao", selecao);
+		model.addAttribute("inscricoes", inscricoes);
 		return LISTAR_INSCRICOES;
 	}
 
