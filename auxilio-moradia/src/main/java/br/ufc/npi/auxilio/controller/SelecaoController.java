@@ -1,5 +1,6 @@
 package br.ufc.npi.auxilio.controller;
 
+import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.enums.TipoSelecao;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
@@ -250,6 +251,19 @@ public class SelecaoController {
 		}
 		//System.out.println(selecao.getInscricoes().size());
 		List<Inscricao> inscricoes = selecao.getInscricoes();
+		for(Inscricao i: inscricoes){
+			AnaliseDocumentacao ad = new AnaliseDocumentacao();
+			ad.setInscricao(i);
+			ad.setParecer("MASSA GOSTEI");
+			ad.setResultado(Resultado.DEFERIDO);
+			i.setAnaliseDocumentacao(ad);
+
+			i.getAnaliseDocumentacao().setResultado(Resultado.DEFERIDO);
+			i.getEntrevista().setResultado(Resultado.INDEFERIDO);
+			i.getVisitaDomiciliar().setDeferimento(Resultado.NAO_AVALIADO);
+			i.setResultado(Resultado.INDEFERIDO);
+		}
+		inscricoes.get(2).setResultado(Resultado.DEFERIDO);
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("inscricoes", inscricoes);
 		return LISTAR_INSCRICOES;

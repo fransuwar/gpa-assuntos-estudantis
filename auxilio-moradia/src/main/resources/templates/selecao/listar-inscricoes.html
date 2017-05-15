@@ -49,35 +49,26 @@
 					<!-- Inscrições -->
 					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
 						<div class="col s12">
-							<table id="inscricoes" class="display nowrap striped bordered" cellspacing="0" width="100%">
+							<table id="inscricoes" class="display nowrap striped bordered" cellspacing="0" width="100%"
+							data-sort-col="4" data-sort-direction="asc">
 								<thead>
 								<tr>
 									<th>Aluno</th>
-									<th>Curso</th>
-									<th>Email</th>
-									<th>Origem</th>
-									<th>Renda Pai</th>
-									<th>Renda Mãe</th>
-									<th>Renda outros</th>
-									<th>Nº pessoas</th>
-									<th>Renda per capita</th>
-									<th>Profissão Mãe</th>
-									<th>Profissão Pai</th>
+									<th>Análise dos Documentos</th>
+									<th>Entrevista</th>
+									<th>Visita Domiciliar</th>
+									<th>Parecer Final</th>
+									<th>Ranking</th>
 								</tr>
 								</thead>
 								<tbody>
 								<tr th:each="inscricao : ${selecao.inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
-									<td th:text="${inscricao.aluno.curso}"></td>
-									<td th:text="${inscricao.aluno.pessoa.email}"></td>
-									<td th:text="${inscricao.questionario.cidadeOrigem} ? '__${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__' : '-'"></td>
-									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPai(), 1, 'POINT', 2, 'COMMA')}"></td>
-									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaMae(), 1, 'POINT', 2, 'COMMA')}"></td>
-									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaOutros(), 1, 'POINT', 2, 'COMMA')}"></td>
-									<td th:text="${inscricao.questionario.grupoFamiliar.size()}"></td>
-									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
-									<td th:text="${inscricao.getProfissaoMae()}"></td>
-									<td th:text="${inscricao.getProfissaoPai()}"></td>
+									<td th:text="${inscricao.analiseDocumentacao.resultado}"></td>
+									<td th:text="${inscricao.entrevista.resultado}"></td>
+									<td th:text="${inscricao.visitaDomiciliar.resultado}"></td>
+									<td th:text="${inscricao.resultado}"></td>
+									<td th:value="1" th:text="${inscricao.getRendaPerCapita()}"></td>
 								</tr>
 								</tbody>
 							</table>
