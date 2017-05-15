@@ -21,10 +21,8 @@
 				<div class="card-content details">
 					<h5 class="title light">Aluno</h5>
 					<div class="row no-margin">
-						<div class="col s12">
-							<div class="col s4">
-								<span th:text="${inscricao.aluno.pessoa.nome}" class="text-20 light bold"></span>
-							</div>
+						<div class="col s4">
+							<span th:text="${inscricao.aluno.pessoa.nome}" class="text-20 light bold"></span>
 						</div>
 					</div>
 				</div>
@@ -33,11 +31,30 @@
 				<input type="hidden" th:field="*{id}" />
 				<div class="card">
 					<div class="card-content">
-						<h5 class="title light">Visita Domiciliar</h5>
+					<h5 class="title light">Visita Domiciliar</h5>
+						<div class="row no-margin">
+							<div class="col s6">
+								<h6 class="title light">Responsável</h6>
+								<div class="input-field">
+									<span th:text="${servidor.pessoa.nome}" class="text-20 light" th:field="${servidor}"></span>
+								</div> 
+							</div>
+							<div class="col s3">
+								<h6 class="title light">Data</h6>
+								<div class="input-field">
+									<input th:field="*{data}" type="text" class="datepicker" placeholder="dd/MM/aaaa" required="required"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-content">
+						<h5 class="title light">Parecer</h5>
 						<div class="row">
 							<div class="col s12 input-field">
-								<textarea id="relatorioVisita" th:text="${relatorioVisita}" name="relatorioVisita" class="materialize-textarea"></textarea>
-								<label for="relatorioVisita">Relatório Geral Visita Domiciliar</label>
+								<textarea id="parecer" th:text="${parecer}" name="parecer" class="materialize-textarea" th:field="*{parecer}"></textarea>
+								<label for="parecer">Relatório Geral da Visita Domiciliar</label>
 							</div>
 						</div>
 					</div>
@@ -45,32 +62,42 @@
 				<div class="card">
 					<div class="card-content">
 						<h5 class="title light">Arquivos Auxiliares</h5>
-						<div class="col-xs-5">
-          					<select name="tipoDocumento">
-          						<option th:each="tipo : ${tiposDeDocumento}" th:text="${tipo.nome}"
-          						th:value="${tipo.id}"></option>
-          					</select>
-          				</div>
-	          			<div class="col-xs-5">
-	          				<input type="file" name="files" multiple="multiple" />
+						<div class="row no-margin">
+							<div class="col s6">
+								<h6 class="title light">Formulário</h6>
+								<div class="file-field input-field">
+							      <div class="btn">
+							        <span><i class="material-icons">attach_file</i></span>
+							        <input type="file"></input>
+							      </div>
+							      <div class="file-path-wrapper">
+							      	<input th:field="*{formulario}" class="file-path validate" type="text" placeholder="Upload one or more files"></input>
+							      </div>
+							    </div>
+	          				</div>
+	          				<div class="col s6">
+								<h6 class="title light">Imagens</h6>
+								<div class="file-field input-field">
+							      <div class="btn">
+							        <span><i class="material-icons">attach_file</i></span>
+							        <input type="file" multiple = "multiple"></input>
+							      </div>
+							      <div class="file-path-wrapper">
+							        <input th:field="*{imagens}" class="file-path validate" type="text" placeholder="Upload one or more files"></input>
+							      </div>
+							    </div>
+	          				</div>
 	          			</div>
 	          		</div>
 	            </div>
 	            <div class="card">
 	            	<div class="card-content">
-	            	<h5 class="title light">Parecer da Visita</h5>
-	            		<div class="row">
-							<div class="col s12 input-field">
-								<textarea id="parecer" th:text="${parecer}" name="parecer" class="materialize-textarea"></textarea>
-								<label for="parecer">Observações</label>
-							</div>
-						</div>
+	            	<h5 class="title light">Resultado</h5>
 						<div class="row">
-							<div class="col s6">
-								<label> Resultado </label>
-								<select name="resultado" id="resultado" th:field="*{resultado}">
-			          				<option th:each="resultado : ${resultados}" th:value="${resultado}" th:text="${resultado.nome}"></option>
-			          			</select>
+							<div class="col s3 input-field">
+								<select th:field="*{resultado}">
+          							<option th:each="resultado : ${resultados}" th:value="${resultado}" th:text="${resultado.nome}"></option>
+          						</select>
 		          			</div>
 	          			</div>
 	            	</div>
