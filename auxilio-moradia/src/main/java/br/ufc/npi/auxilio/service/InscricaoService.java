@@ -23,5 +23,7 @@ public interface InscricaoService {
     void removerMembroFamilia(PessoaFamilia pessoa);
 
     List<Inscricao> getAll(Aluno aluno);
+
+	List<Inscricao> getAllOrdenado(Selecao selecao);
 }
 

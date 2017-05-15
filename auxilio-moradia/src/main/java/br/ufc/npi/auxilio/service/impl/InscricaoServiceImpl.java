@@ -88,4 +88,11 @@ public class InscricaoServiceImpl implements InscricaoService {
 	public List<Inscricao> getAll(Aluno aluno) {
 		return inscricaoRepository.findInscricaoByAluno(aluno);
 	}
+
+	@Override
+	public List<Inscricao> getAllOrdenado(Selecao selecao) {
+		return inscricaoRepository.findInscricaoBySelecaoOrderByResultadoAsc(selecao);
+	}
+	
+	
 }
