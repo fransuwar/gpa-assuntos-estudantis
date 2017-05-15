@@ -36,6 +36,7 @@
 								</div>
 							</div>
 						</div>
+						<div th:if="${inscricao.analiseDocumentacao != null}">
 						<div class="col s4" th:each="documentacao : ${inscricao.analiseDocumentacao.documentacao}">
 							<ul class="collapsible" data-collapsible="accordion" >
 								<li>
@@ -56,6 +57,7 @@
 									</div>
 								</li>
 							</ul>
+						</div>
 						</div>
 						<!-- <div th:if="${inscricao.analiseDocumentacao != null}">
 							<div class="col s12"
