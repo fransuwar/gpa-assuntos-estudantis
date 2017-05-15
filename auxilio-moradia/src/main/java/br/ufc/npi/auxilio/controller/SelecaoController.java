@@ -232,7 +232,10 @@ public class SelecaoController {
 		if (selecao == null || !selecao.isMembroComissao(servidorService.getByCpf(auth.getName()))) {
 			return REDIRECT_LISTAR_SELECAO;
 		}
+		//System.out.println(selecao.getInscricoes().size());
+		List<Inscricao> inscricoes = selecao.getInscricoes();
 		model.addAttribute("selecao", selecao);
+		model.addAttribute("inscricoes", inscricoes);
 		return LISTAR_INSCRICOES;
 	}
 
