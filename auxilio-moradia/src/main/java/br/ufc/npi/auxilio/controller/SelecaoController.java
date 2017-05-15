@@ -1,4 +1,4 @@
-package br.ufc.npi.auxilio.controller;
+	package br.ufc.npi.auxilio.controller;
 
 import br.ufc.npi.auxilio.enums.TipoSelecao;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
@@ -233,7 +233,8 @@ public class SelecaoController {
 			return REDIRECT_LISTAR_SELECAO;
 		}
 		model.addAttribute("selecao", selecao);
-		return LISTAR_INSCRICOES;
+		//return LISTAR_INSCRICOES;
+		return "selecao/visualizar_inscricoes";
 	}
 
 	@ModelAttribute("servidores")
