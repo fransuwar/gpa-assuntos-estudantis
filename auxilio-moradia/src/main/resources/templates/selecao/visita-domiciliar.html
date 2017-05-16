@@ -27,7 +27,7 @@
 					</div>
 				</div>
 			</div>
-			<form data-model="visita" th:action="@{/visita/cadastrar}" th:object="${visita}" th:method="post">
+			<form data-model="visita" th:action="@{/visita/cadastrar}" th:object="${visita}" th:method="post" enctype="multipart/form-data">
 				<input type="hidden" th:field="*{id}" />
 				<div class="card">
 					<div class="card-content">
@@ -50,7 +50,7 @@
 				</div>
 				<div class="card">
 					<div class="card-content">
-						<h5 class="title light">Parecer</h5>
+						<h5 class="title light">Relátorio</h5>
 						<div class="row">
 							<div class="col s12 input-field">
 								<textarea id="relatorio" th:text="${relatorio}" name="relatorio" class="materialize-textarea" th:field="*{relatorio}"></textarea>
@@ -63,27 +63,27 @@
 					<div class="card-content">
 						<h5 class="title light">Arquivos Auxiliares</h5>
 						<div class="row no-margin">
-							<div class="col s6">
+							<div class="col s3">
 								<h6 class="title light">Formulário</h6>
 								<div class="file-field input-field">
 							      <div class="btn">
 							        <span><i class="material-icons">attach_file</i></span>
-							        <input type="file"></input>
+							        <input type="file" name="formularioVisita"></input>
 							      </div>
 							      <div class="file-path-wrapper">
-							      	<input th:field="*{formulario}" class="file-path validate" type="text" placeholder="Upload one or more files"></input>
+							      	<input class="file-path validate" type="text" placeholder="Upload file"></input>
 							      </div>
 							    </div>
 	          				</div>
-	          				<div class="col s6">
+	          				<div class="col s9">
 								<h6 class="title light">Imagens</h6>
 								<div class="file-field input-field">
 							      <div class="btn">
 							        <span><i class="material-icons">attach_file</i></span>
-							        <input type="file" multiple = "multiple"></input>
+							        <input type="file" name="imagensVisita"></input>
 							      </div>
 							      <div class="file-path-wrapper">
-							        <input th:field="*{imagens}" class="file-path validate" type="text" placeholder="Upload one or more files"></input>
+							        <input class="file-path validate" type="text" placeholder="Upload one or more files"></input>
 							      </div>
 							    </div>
 	          				</div>
@@ -91,27 +91,23 @@
 	          		</div>
 	            </div>
 	            <div class="card">
-					<div class="card-content">
-						<h5 class="title light">Observações</h5>
+	            	<div class="card-content">
+	            	<h5 class="title light">Parecer</h5>
+	            	<label>Resultado</label>
 						<div class="row">
 							<div class="col s12 input-field">
-								<textarea id="observacoes" th:text="${observacoes}" name="observacoes" class="materialize-textarea" th:field="*{observacoes}"></textarea>
-								<label for="observacoes">Observações</label>
-							</div>
-						</div>
-					</div>
-				</div>
-	            <div class="card">
-	            	<div class="card-content">
-	            	<h5 class="title light">Resultado</h5>
-						<div class="row">
-							<div class="col s3 input-field">
 								<select th:field="*{resultado}">
-          							<option th:each="resultado : ${resultados}" th:value="${resultado}" th:text="${resultado.nome}"></option>
+          							<option th:each="resultado : ${resultados}" th:value="${resultado}" th:text="${resultado}"></option>
           						</select>
 		          			</div>
 	          			</div>
-	            	</div>
+	          			<div class="row">
+							<div class="col s12 input-field">
+								<label for="observacoes">Observações</label>
+								<textarea id="observacoes" th:text="${observacoes}" name="observacoes" class="materialize-textarea" th:field="*{observacoes}"></textarea>
+							</div>
+						</div>
+					</div>
 	            	<div class="card-action right-align">
 	            		<a th:href="@{/selecao/inscricoes/__${inscricao.selecao.id}__}"  type="button" class=" btn waves-effect">Cancelar</a>
 						<button class="btn waves-effect waves-light" type="submit">Finalizar</button>
