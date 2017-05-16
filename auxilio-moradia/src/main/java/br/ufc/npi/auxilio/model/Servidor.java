@@ -3,7 +3,7 @@ package br.ufc.npi.auxilio.model;
 import javax.persistence.*;
 
 @Entity
-@EntityListeners(ServidorEntityListener.class)
+//@EntityListeners(ServidorEntityListener.class)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "siape" }))
 public class Servidor {
 

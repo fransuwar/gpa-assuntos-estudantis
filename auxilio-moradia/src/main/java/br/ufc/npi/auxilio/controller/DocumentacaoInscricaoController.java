@@ -7,12 +7,14 @@ import br.ufc.npi.auxilio.repository.DocumentacaoRepository;
 import br.ufc.npi.auxilio.repository.DocumentoRepository;
 import br.ufc.npi.auxilio.repository.InscricaoRepository;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
+import br.ufc.npi.auxilio.service.PessoaService;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,9 +48,15 @@ public class DocumentacaoInscricaoController {
 	@Autowired
 	private AnaliseDocumentacaoRepository analiseDocumentacaoRepository;
 	
+	@Autowired
+	private PessoaService pessoaService;
+	
 	@Secured(ALUNO)
 	@GetMapping("/{idInscricao}")
-	public String formDocumentacao( @PathVariable("idInscricao") Inscricao inscricao, Model model ) {
+	public String formDocumentacao( @PathVariable("idInscricao") Inscricao inscricao, Model model , Authentication auth) {
+		if(!pessoaService.getByCpf(auth.getName()).equals(inscricao.getAluno().getPessoa())){
+			return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+		}
 		model.addAttribute("inscricao", inscricao);
 		return PageConstants.ENVIAR_DOCUMENTACAO;
 	}
