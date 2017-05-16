@@ -41,15 +41,15 @@
         		<div class="card">
         			<div class="card-content">
 						<h5 class="title light">Parecer</h5>
-						<div class="col s8 input-field">
-							<textarea class="materialize-textarea" id="observacao"></textarea>
-							<label for="observacao">Observação</label>
-						</div>
 						<div class="col s4 input-field">
 							<select>
 								<option th:each="tipoResultado : ${resultado}" th:value="${tipoResultado}" th:text="${tipoResultado}"></option>
 							</select>
 							<label for="parecer">Resultado</label>
+						</div>
+						<div class="col s8 input-field">
+							<textarea class="materialize-textarea" id="observacao"></textarea>
+							<label for="observacao">Observação</label>
 						</div>
 					</div>
         		</div>
