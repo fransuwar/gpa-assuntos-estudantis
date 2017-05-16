@@ -91,4 +91,12 @@ span.bold {
     margin-top: 50px;
 }
 
+.breadcrumb{
+	font-size: 1.64rem;
+}
+
+.breadcrumb:before {
+    color: #7e57c2;
+}
+
 
