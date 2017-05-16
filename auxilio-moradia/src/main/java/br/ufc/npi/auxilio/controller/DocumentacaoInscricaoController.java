@@ -1,5 +1,6 @@
 package br.ufc.npi.auxilio.controller;
 
+import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.model.*;
 import br.ufc.npi.auxilio.repository.AnaliseDocumentacaoRepository;
 import br.ufc.npi.auxilio.repository.DocumentacaoRepository;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
+import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 
@@ -129,4 +131,13 @@ public class DocumentacaoInscricaoController {
 	public List<TipoDocumento> getTiposDeDocumento() {
 		return documentacaoService.getAllTipoDocumento();
 	}
+	
+	@Secured(COORDENADOR)
+	@GetMapping("/inscricao/{idInscricao}")
+	public String analisarDocumentacaoInscricao(@PathVariable("idInscricao") Inscricao inscricao, Model model){
+		model.addAttribute("resultado", Resultado.values());
+		model.addAttribute("inscricao", inscricao);
+		return "inscricao/analisar-documento";
+	}
+	
 }
