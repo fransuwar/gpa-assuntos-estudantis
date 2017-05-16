@@ -31,7 +31,7 @@ public class VisitaDomiciliar {
 	@ManyToOne
 	private Servidor responsavel;
 
-	private String parecer;
+	private String relatorio;
 
 	@OneToOne
 	private Documento formulario;
@@ -41,6 +41,8 @@ public class VisitaDomiciliar {
 
 	@OneToMany
 	private List<Documento> imagens;
+	
+	private String observacoes;
 
 	public Documento getFormulario() {
 		return formulario;
@@ -77,12 +79,12 @@ public class VisitaDomiciliar {
 		this.data = data;
 	}
 
-	public String getParecer() {
-		return parecer;
+	public String getRelatorio() {
+		return relatorio;
 	}
 
-	public void setParecer(String parecer) {
-		this.parecer = parecer;
+	public void setRelatorio(String relatorio) {
+		this.relatorio = relatorio;
 	}
 
 	public Servidor getResponsavel() {
@@ -97,8 +99,16 @@ public class VisitaDomiciliar {
 		return resultado;
 	}
 
-	public void setDeferimento(Resultado resultado) {
+	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
+	}
+	
+	public String getObservacoes() {
+		return observacoes;
+	}
+	
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
 	}
 
 	@Override
