@@ -109,7 +109,6 @@ public class SelecaoController {
 	@PostMapping("/cadastrar")
 	public String cadastrarSelecao(Selecao selecao, Authentication auth, Model model, RedirectAttributes redirect) {
 		selecao.setResponsavel(servidorService.getByCpf(auth.getName()));
-		System.out.println(selecao.getComissao().size());
 		try {
 			selecaoService.cadastrar(selecao);
 			redirect.addFlashAttribute(INFO, MSG_SELECAO_CADASTRADA);
