@@ -31,21 +31,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="selecao:${selecoes}" th:with="
-       			
-       			seeMoreEnabled = true,
-       			seeMoreTip = 'Ver mais',
-       			seeMoreLink = @{/selecao/detalhes/{id}(id=${selecao.id})},
-       		
-	    		editEnabled = true, 
-	    		editTip = 'Editar', 
-	    		editLink = @{/selecao/editar/{id}(id=${selecao.id})},
-	    		
-	    		removeEnabled = true, 
-	    		removeTip = 'Remover', 
-	    		removeLink = @{#excluir-selecao}, 
-	    		removeAtt = @{/selecao/excluir/__${selecao.id}__}, 
-       		">
+							<tr th:each="selecao:${selecoes}">
 								<td th:text="${selecao.tipo.nome}"></td>
 								<td th:text="${selecao.ano}"></td>
 								<td th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
@@ -94,9 +80,6 @@
 									</a>
 
 								</td>
-								<div sec:authorize="hasAuthority('COORDENADOR')">
-									<td th:replace="base/base-listar-options :: table-options-cell"></td>
-								</div>
 							</tr>
 						</tbody>
 					</table>
