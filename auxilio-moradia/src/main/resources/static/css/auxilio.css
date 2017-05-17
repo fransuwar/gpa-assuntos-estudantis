@@ -91,20 +91,12 @@ span.bold {
     margin-top: 50px;
 }
 
-.breadcrumb-bootstrap {
-    text-align: center;
-    vertical-align: top;
-    line-height: 37px;
-    font-size: 18px;
-    color: #00bcd4;
-    margin-bottom: 24px;
+.breadcrumb{
+	font-size: 1.64rem;
 }
 
-.breadcrumb-bootstrap:before {
-    color: #00bcd4 !important;
-    content: "/\00a0";
-    display: inline-block;
-    font-size: 25px;
-    margin: 0 10px 0 8px;
+.breadcrumb:before {
+    color: #7e57c2;
 }
+
 

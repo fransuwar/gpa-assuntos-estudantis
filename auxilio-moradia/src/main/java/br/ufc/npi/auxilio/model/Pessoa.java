@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import br.ufc.npi.auxilio.enums.Estado;
 
 @Entity
-@EntityListeners(PessoaEntityListener.class)
+//@EntityListeners(PessoaEntityListener.class)
 public class Pessoa implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
