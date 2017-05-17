@@ -18,7 +18,7 @@
         	<span th:if="${inscricao.analiseDocumentacao.resultado.nome} == 'indeferido'" class="chip red-text" th:text="'I'"></span>
         </a>
         <a th:unless="${inscricao.visitaDomiciliar==null or inscricao.entrevista==null}" href="#!" class="breadcrumb deep-purple-text text-lighten-1">
-        	Visita domiciliar: <span th:if="${inscricao.visitaDomiciliar.resultado.nome} == 'deferido'" class="chip green-text" th:text="'D'"></span>
+        	Visita Domiciliar: <span th:if="${inscricao.visitaDomiciliar.resultado.nome} == 'deferido'" class="chip green-text" th:text="'D'"></span>
         	<span th:if="${inscricao.visitaDomiciliar.resultado.nome} == 'indeferido'" class="chip red-text" th:text="'I'"></span>
         </a>
         <a th:unless="${inscricao.resultado == null or inscricao.visitaDomiciliar==null}" href="#!" class="breadcrumb deep-purple-text text-lighten-1">
