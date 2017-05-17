@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -249,24 +250,18 @@ public class SelecaoController {
 		if (selecao == null || !selecao.isMembroComissao(servidorService.getByCpf(auth.getName()))) {
 			return REDIRECT_LISTAR_SELECAO;
 		}
-		//System.out.println(selecao.getInscricoes().size());
-		List<Inscricao> inscricoes = selecao.getInscricoes();
-		for(Inscricao i: inscricoes){
+		List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
+		Collections.sort(inscricoes);
+		for(int i = 0; i < inscricoes.size(); i++){
 			AnaliseDocumentacao ad = new AnaliseDocumentacao();
-			ad.setInscricao(i);
+			ad.setInscricao(inscricoes.get(i));
 			ad.setParecer("MASSA GOSTEI");
 			ad.setResultado(Resultado.DEFERIDO);
-			i.setAnaliseDocumentacao(ad);
-
-			i.getAnaliseDocumentacao().setResultado(Resultado.DEFERIDO);
-			i.getEntrevista().setResultado(Resultado.INDEFERIDO);
-			i.getVisitaDomiciliar().setDeferimento(Resultado.NAO_AVALIADO);
-			i.setResultado(Resultado.INDEFERIDO);
+			inscricoes.get(i).setAnaliseDocumentacao(ad);
 		}
-		inscricoes.get(2).setResultado(Resultado.DEFERIDO);
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("inscricoes", inscricoes);
-		return LISTAR_INSCRICOES;
+		return VISUALIZAR_INSCRICOES;
 	}
 
 	@ModelAttribute("servidores")
