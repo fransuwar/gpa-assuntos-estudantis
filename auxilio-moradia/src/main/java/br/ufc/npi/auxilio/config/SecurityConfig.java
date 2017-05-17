@@ -1,9 +1,9 @@
 package br.ufc.npi.auxilio.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+//import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
+//import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import br.ufc.npi.auxilio.model.Papel;
+//import br.ufc.npi.auxilio.model.Papel;
 
 @Configuration
 @EnableWebSecurity
@@ -20,14 +20,14 @@ import br.ufc.npi.auxilio.model.Papel;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	// Utilizado para autenticação via banco de dados
-	/*@Autowired
-	private UserDetailsService userDetailsService;*/
-	
-	// Utilizado para autenticação via ldap
 	@Autowired
-	@Qualifier("authenticationLdapProvider")
-	private AuthenticationProvider provider;
+	private UserDetailsService userDetailsService;
 	
+//	// Utilizado para autenticação via ldap
+//	@Autowired
+//	@Qualifier("authenticationLdapProvider")
+//	private AuthenticationProvider provider;
+//	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/").authenticated()
@@ -41,10 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// Utilizado para autenticação via ldap
-		auth.authenticationProvider(provider);
-				
+//		// Utilizado para autenticação via ldap
+//		auth.authenticationProvider(provider);
+//				
 		// Utilizado para autenticação via banco de dados
-		//auth.userDetailsService(userDetailsService);
+		auth.userDetailsService(userDetailsService);
 	}
 }

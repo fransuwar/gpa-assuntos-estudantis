@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base/base">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Enviar Documentação</title>
+</head>
+<body>
+	<!-- Page Content -->
+	<div layout:fragment="conteudo">
+    <!-- Content Header (Page header) -->
+      
+      <!-- Main content -->
+      <section class="content">
+        <div>
+       	<div class="card">
+       			<div class="card-content">
+					<h5 class="title light" th:text="'Análise de Documentação: '+${inscricao.selecao.tipo.nome} +' '+${inscricao.selecao.ano}"></h5>
+					<h5 class="title light" th:text="${inscricao.aluno.pessoa.nome}"></h5>
+					<table>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Descrição</th>
+							<th>Download</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="tipoDocumento:${inscricao.selecao.tiposDeDocumento}">
+							<td th:text="${tipoDocumento.nome}"></td>
+							<td th:text="${tipoDocumento.descricao}"></td>
+							<td><i class="material-icons">file_download</i></td>
+						</tr>
+					</tbody>					
+					</table>					
+				</div>
+       		</div>
+        	<form role="form" th:object="${inscricao}" th:method="post">
+        		<div class="card">
+        			<div class="card-content">
+						<h5 class="title light">Parecer</h5>
+						<div class="col s4 input-field">
+							<select>
+								<option th:each="tipoResultado : ${resultado}" th:value="${tipoResultado}" th:text="${tipoResultado}"></option>
+							</select>
+							<label for="parecer">Resultado</label>
+						</div>
+						<div class="col s8 input-field">
+							<textarea class="materialize-textarea" id="observacao"></textarea>
+							<label for="observacao">Observação</label>
+						</div>
+					</div>
+        		</div>
+        		<div class="card-action right-align">
+						<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
+				</div>
+			</form>
+        </div>
+        <!-- /.box -->
+      </section>
+	</div>
+	
+	<section layout:fragment="js">
+    	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
+    </section>
+	
+</body>
+</html>

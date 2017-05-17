@@ -50,6 +50,24 @@
 								<td th:text="${selecao.ano}"></td>
 								<td th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
 								<td th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'">-</td>
+
+								
+								<td sec:authorize="hasAuthority('COORDENADOR')"><a class="btn-icon waves-effect tooltipped"
+						     		th:href="@{/selecao/inscricoes/__${selecao.id}__}"
+						     		th:attr="data-tooltip=${'Visualizar Inscrições'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+						     		<i class="material-icons">zoom_in</i>
+									</a>
+									<a class="btn-icon waves-effect tooltipped"
+							     		th:href="@{/selecao/editar/__${selecao.id}__}"
+							     		th:attr="data-tooltip=${'Editar'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+							     		<i class="material-icons">edit</i>
+									</a>
+									<a class="btn-icon waves-effect tooltipped"
+							     		th:href="@{/selecao/excluir/__${selecao.id}__}"
+							     		th:attr="data-tooltip=${'Deletar'}, data-target=${deleteDataTarget}, data-url=${deleteDataUrl}">
+							     		<i class="material-icons">delete</i>
+									</a>
+								</td>
 								<td sec:authorize="hasAuthority('ALUNO')">
 									<a class="btn-icon waves-effect tooltipped"
 									 th:if="${selecao.inscricaoAberta and inscricaoSelecao.get(selecao.id)==null}" 
@@ -74,6 +92,7 @@
                                      th:attr="data-tooltip=${'Adicionar Arquivos'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
                                      <i class="material-icons">note_add</i>
 									</a>
+
 								</td>
 								<div sec:authorize="hasAuthority('COORDENADOR')">
 									<td th:replace="base/base-listar-options :: table-options-cell"></td>
