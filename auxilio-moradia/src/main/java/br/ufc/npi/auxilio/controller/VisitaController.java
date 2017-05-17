@@ -1,8 +1,5 @@
 package br.ufc.npi.auxilio.controller;
 
-import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
-import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +25,7 @@ import br.ufc.npi.auxilio.repository.VisitaDomiciliarRepository;
 import br.ufc.npi.auxilio.service.AlunoService;
 import br.ufc.npi.auxilio.service.ServidorService;
 import br.ufc.npi.auxilio.service.VisitaService;
+import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import static br.ufc.npi.auxilio.utils.Constants.*;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.*;
@@ -78,7 +76,7 @@ public class VisitaController {
 						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 					}
 				} catch (Exception e) {
-					System.out.println("erro ao cadastrar imagens");
+					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 				}
 			}
 		}
@@ -91,7 +89,7 @@ public class VisitaController {
 						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 					}
 				} catch (Exception e) {
-					System.out.println("erro ao cadastrar imagens");
+					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 				}
 			}
 		}
