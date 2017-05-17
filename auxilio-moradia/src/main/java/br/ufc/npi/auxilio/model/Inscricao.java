@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-public class Inscricao {
+public class Inscricao implements Comparable<Inscricao>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -451,6 +451,27 @@ public class Inscricao {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public int compareTo(Inscricao o) {
+		if(this.getResultado()==Resultado.DEFERIDO && o.getResultado()==Resultado.INDEFERIDO){
+			return -1;
+		}
+		if(this.getResultado()==Resultado.INDEFERIDO && o.getResultado()==Resultado.DEFERIDO){
+			return 1;
+		}
+		
+		if(this.getResultado() == o.getResultado()){
+			if ((this.getRendaPerCapita() < o.getRendaPerCapita())) {
+			     return -1;
+			}
+			if ((this.getRendaPerCapita() > o.getRendaPerCapita())&& this.getResultado()==Resultado.INDEFERIDO) {
+			     return 1;
+			}
+		}
+		
+		return 0;
 	}
 
 }
