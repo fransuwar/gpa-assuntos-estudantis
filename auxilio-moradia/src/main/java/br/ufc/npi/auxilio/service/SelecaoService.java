@@ -12,6 +12,10 @@ public interface SelecaoService {
 	
 	List<Selecao> getAll();
 	
+	Selecao getById(Integer id);
+	
+	void editar(Selecao selecao);
+
 	void cadastrar(Selecao selecao) throws AuxilioMoradiaException;
 
 	void excluir(Selecao selecao) throws AuxilioMoradiaException;

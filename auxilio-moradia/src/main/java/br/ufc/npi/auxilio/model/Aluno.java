@@ -5,7 +5,7 @@ import br.ufc.npi.auxilio.model.questionario.Identificacao;
 import javax.persistence.*;
 
 @Entity
-@EntityListeners(AlunoEntityListener.class)
+//@EntityListeners(AlunoEntityListener.class)
 public class Aluno {
 
 	@Id
