@@ -90,6 +90,18 @@
 				</div>
 			</div>
 		</div>
+		
+	</div>
+	<!-- Modal excluir seleção -->
+	<div id="excluir-selecao" class="modal">
+		<div class="modal-content">
+			<h4>Excluir seleção</h4>
+			<p>Tem certeza de que deseja excluir essa seleção?</p>
+		</div>
+		<div class="modal-footer">
+			<a id="confirm-excluir" th:href="${removeAtt}" class="modal-action waves-effect waves-light btn red">Excluir</a>
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+		</div>
 	</div>
 </section>
 </html>
