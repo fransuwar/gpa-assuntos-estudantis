@@ -67,11 +67,14 @@
 								<tr th:each="inscricao : ${selecao.inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td th:unless="${inscricao.analiseDocumentacao}">
+										<a href="#">
 										<div class="chip grey lighten-1">
 											Não Avaliado
 										</div>
+										</a>
 									</td>
 									<td th:if="${inscricao.analiseDocumentacao}">
+										<a href="#">
 										<div th:unless="${inscricao.analiseDocumentacao.parecer}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>
@@ -84,13 +87,17 @@
 										<div th:if="${inscricao.analiseDocumentacao.parecer eq 'indeferido'}" class="chip red lighten-1">
 											Indeferido
 										</div>
+										</a>
 									</td>
 									<td th:unless="${inscricao.entrevista}">
+										<a href="#">
 										<div class="chip grey lighten-1">
 											Não Avaliado
 										</div>
+										</a>
 									</td>
 									<td th:if="${inscricao.entrevista}">
+										<a href="#">
 										<div th:unless="${inscricao.entrevista.parecer}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>
@@ -103,13 +110,17 @@
 										<div th:if="${inscricao.entrevista.parecer eq 'indeferido'}" class="chip red lighten-1">
 											Indeferido
 										</div>
+										</a>
 									</td>
 									<td th:unless="${inscricao.visitaDomiciliar}">
+										<a href="#">
 										<div class="chip grey lighten-1">
 											Não Avaliado
 										</div>
+										</a>
 									</td>
 									<td th:if="${inscricao.visitaDomiciliar}">
+										<a href="#">
 										<div th:unless="${inscricao.visitaDomiciliar.parecer}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>
@@ -122,13 +133,17 @@
 										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'indeferido'}" class="chip red lighten-1">
 											Indeferido
 										</div>
+										</a>
 									</td>
 									<td th:unless="${inscricao.resultado}">
+										<a href="#">
 										<div class="chip grey lighten-1">
 											Não Avaliado
 										</div>
+										</a>
 									</td>
 									<td th:if="${inscricao.resultado}">
+										<a href="#">
 										<div th:unless="${inscricao.resultado.nome}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>
@@ -141,6 +156,7 @@
 										<div th:if="${inscricao.resultado.nome eq 'indeferido'}" class="chip red lighten-1">
 											Indeferido
 										</div>
+										</a>
 									</td>
 								</tr>
 								</tbody>
