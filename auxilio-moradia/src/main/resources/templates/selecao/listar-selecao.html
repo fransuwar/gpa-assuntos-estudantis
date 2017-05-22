@@ -74,6 +74,7 @@
                                      <i class="material-icons">zoom_in</i>
 									</a>
 									<a class="btn-icon waves-effect tooltipped"
+									th:href="@{/documentacao/__${inscricaoSelecao.get(selecao.id).id}__}"
 									 th:if="${selecao.inscricaoAberta and inscricaoSelecao.get(selecao.id)!=null}"
                                      th:attr="data-tooltip=${'Adicionar Arquivos'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
                                      <i class="material-icons">note_add</i>
