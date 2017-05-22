@@ -262,7 +262,7 @@ public class SelecaoController {
 		List<Inscricao> inscricoes = selecao.getInscricoes();
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("inscricoes", inscricoes);
-		return LISTAR_INSCRICOES;
+		return VISUALIZAR_INSCRICOES;
 	}
 
 	@ModelAttribute("servidores")
