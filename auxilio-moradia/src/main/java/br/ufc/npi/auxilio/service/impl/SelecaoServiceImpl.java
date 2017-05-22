@@ -138,10 +138,15 @@ public class SelecaoServiceImpl implements SelecaoService {
 	}
 
 	@Override
-	public void adicionarTipoDocumento(Selecao selecao, TipoDocumento tipoDocumento) throws AuxilioMoradiaException {
+	public Boolean adicionarTipoDocumento(Selecao selecao, TipoDocumento tipoDocumento) throws AuxilioMoradiaException {
 		if (selecao != null && tipoDocumento.getNome() != null) {
 			tipoDocumento.setSelecao(selecao);
+			List<TipoDocumento> tds = tipoDocumentoRepository.search(tipoDocumento.getNome());
+			for (TipoDocumento td : tds)
+				if (td.getSelecao().getId().equals(selecao.getId()))
+					return false;
 			tipoDocumentoRepository.save(tipoDocumento);
+			return true;
 		} else {
 			throw new AuxilioMoradiaException(CAMPOS_OBRIGATORIOS);
 		}
