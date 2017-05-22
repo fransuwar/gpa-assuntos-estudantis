@@ -254,17 +254,8 @@ public class SelecaoController {
 		if (selecao == null || !selecao.isMembroComissao(servidorService.getByCpf(auth.getName()))) {
 			return REDIRECT_LISTAR_SELECAO;
 		}
-
-		List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
+		List<Inscricao> inscricoes = selecao.getInscricoes();
 		Collections.sort(inscricoes);
-		for(int i = 0; i < inscricoes.size(); i++){
-			AnaliseDocumentacao ad = new AnaliseDocumentacao();
-			ad.setInscricao(inscricoes.get(i));
-			ad.setParecer("MASSA GOSTEI");
-			ad.setResultado(Resultado.DEFERIDO);
-			inscricoes.get(i).setAnaliseDocumentacao(ad);
-		}
-
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("inscricoes", inscricoes);
 		return VISUALIZAR_INSCRICOES;
