@@ -1,6 +1,5 @@
 package br.ufc.npi.auxilio.controller;
 
-import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.enums.TipoSelecao;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
@@ -19,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 

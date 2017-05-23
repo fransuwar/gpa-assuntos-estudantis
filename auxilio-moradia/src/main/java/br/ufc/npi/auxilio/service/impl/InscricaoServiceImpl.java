@@ -10,11 +10,8 @@ import br.ufc.npi.auxilio.repository.InscricaoRepository;
 import br.ufc.npi.auxilio.repository.PessoaFamiliaRepository;
 import br.ufc.npi.auxilio.service.InscricaoService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.inject.Named;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
