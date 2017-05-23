@@ -254,7 +254,7 @@ public class SelecaoController {
 		if (selecao == null || !selecao.isMembroComissao(servidorService.getByCpf(auth.getName()))) {
 			return REDIRECT_LISTAR_SELECAO;
 		}
-		List<Inscricao> inscricoes = selecao.getInscricoes();
+		List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
 		Collections.sort(inscricoes);
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("inscricoes", inscricoes);
