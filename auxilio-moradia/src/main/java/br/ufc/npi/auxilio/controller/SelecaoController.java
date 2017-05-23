@@ -255,7 +255,6 @@ public class SelecaoController {
 			return REDIRECT_LISTAR_SELECAO;
 		}
 		List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
-		Collections.sort(inscricoes);
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("inscricoes", inscricoes);
 		return VISUALIZAR_INSCRICOES;

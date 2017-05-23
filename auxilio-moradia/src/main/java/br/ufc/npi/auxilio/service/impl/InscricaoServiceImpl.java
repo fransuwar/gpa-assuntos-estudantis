@@ -91,7 +91,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 	@Override
 	public List<Inscricao> getAllOrdenado(Selecao selecao) {
-		return inscricaoRepository.findInscricaoBySelecaoOrderByResultadoAsc(selecao);
+		return inscricaoRepository.findInscricaoBySelecaoOrderByPosicaoRankingAsc(selecao);
 	}
 	
 	

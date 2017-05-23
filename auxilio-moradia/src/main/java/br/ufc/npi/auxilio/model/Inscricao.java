@@ -44,6 +44,8 @@ public class Inscricao implements Comparable<Inscricao>{
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private AnaliseDocumentacao analiseDocumentacao;
+	
+	private Integer posicaoRanking;
 
 	public boolean isConsolidada() {
 		return consolidada;
@@ -91,6 +93,14 @@ public class Inscricao implements Comparable<Inscricao>{
 
 	public void setSelecao(Selecao selecao) {
 		this.selecao = selecao;
+	}
+
+	public Integer getPosicaoRanking() {
+		return posicaoRanking;
+	}
+
+	public void setPosicaoRanking(Integer posicaoRanking) {
+		this.posicaoRanking = posicaoRanking;
 	}
 
 	public QuestionarioAuxilioMoradia getQuestionario() {
@@ -460,7 +470,7 @@ public class Inscricao implements Comparable<Inscricao>{
 			return 1;
 		}
 		
-		if(this.getResultado() == o.getResultado()){
+		if(this.getResultado() == o.getResultado() && this.getQuestionario() != null ){
 			if ((this.getRendaPerCapita() < o.getRendaPerCapita())) {
 			     return -1;
 			}

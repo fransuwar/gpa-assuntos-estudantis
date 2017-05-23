@@ -26,6 +26,9 @@ import static br.ufc.npi.auxilio.utils.RedirectConstants.*;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_MEMBRO_FAMILIA_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_MEMBRO_FAMILIA_REMOVIDO;
 
+import java.util.Collections;
+import java.util.List;
+
 @Controller
 @RequestMapping("inscricao")
 public class InscricaoController {
@@ -339,6 +342,11 @@ public class InscricaoController {
 				return REDIRECT_LISTAR_SELECAO;
 			}
 			inscricao.getQuestionario().setJustificativa(justificativa);
+			List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
+			Collections.sort(inscricoes);
+			for(int i = 0; i < inscricoes.size(); i++){
+				inscricoes.get(i).setPosicaoRanking(i+1);
+			}
 			inscricaoService.atualizar(inscricao);
 			return REDIRECT_DETALHES_INSCRICAO + inscricao.getId();
 		} catch (AuxilioMoradiaException e) {
