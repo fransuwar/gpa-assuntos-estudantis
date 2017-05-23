@@ -1,8 +1,16 @@
 package br.ufc.npi.auxilio.controller;
 
+import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
+import static br.ufc.npi.auxilio.utils.Constants.ERRO;
+import static br.ufc.npi.auxilio.utils.Constants.INFO;
+import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
+
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,7 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.npi.auxilio.enums.Resultado;
+import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Aluno;
+import br.ufc.npi.auxilio.model.Documento;
 import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.model.Servidor;
 import br.ufc.npi.auxilio.model.VisitaDomiciliar;
@@ -27,8 +37,7 @@ import br.ufc.npi.auxilio.service.ServidorService;
 import br.ufc.npi.auxilio.service.VisitaService;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
-import static br.ufc.npi.auxilio.utils.Constants.*;
-import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.*;
+import br.ufc.npi.auxilio.utils.RedirectConstants;
 
 @Controller
 @RequestMapping("visita")
@@ -48,7 +57,7 @@ public class VisitaController {
 
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/cadastrar/{inscricao}")
-	public String cadastrarVisitaForm(@PathVariable Inscricao inscricao, Authentication auth, Model model) {
+	public String cadastrar(@PathVariable Inscricao inscricao, Authentication auth, Model model) {
 		Aluno aluno = alunoService.buscarPorCpf(inscricao.getAluno().getPessoa().getCpf());
 		Servidor servidor = servidorService.getByCpf(auth.getName());
 
@@ -60,11 +69,23 @@ public class VisitaController {
 
 		return PageConstants.PAGINA_VISITA;
 	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/editar/{inscricao}")
+	public String editar(@PathVariable Inscricao inscricao, Authentication auth, Model model) {
+		
+		VisitaDomiciliar visitaDomiciliar = inscricao.getVisitaDomiciliar();
+		Servidor servidor = servidorService.getByCpf(auth.getName());
+
+		model.addAttribute("servidor", servidor);
+		model.addAttribute("visita", visitaDomiciliar);
+		return PageConstants.PAGINA_VISITA;
+	}
 
 	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@PostMapping("/cadastrar")
-	public String cadastrarVisita(@RequestParam("imagensVisita") List<MultipartFile> imagens,
-			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visitaDomiciliar,
+	@PostMapping("/cadastrar/{inscricao}")
+	public String cadastrar(@RequestParam("imagensVisita") List<MultipartFile> imagens,
+			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visitaDomiciliar,@PathVariable("inscricao") Inscricao inscricao,
 			Model model, Authentication auth, RedirectAttributes redirect) {
 
 		// Salvar Imagens
@@ -75,8 +96,10 @@ public class VisitaController {
 						visitaService.adicionarImagens(visitaDomiciliar, mfiles);
 						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 					}
-				} catch (Exception e) {
+				} catch (IOException e)	{
 					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+				} catch (AuxilioMoradiaException e) {
+					redirect.addFlashAttribute(ERRO, e.getMessage());
 				}
 			}
 		}
@@ -88,15 +111,32 @@ public class VisitaController {
 						visitaService.adicionarFormulario(visitaDomiciliar, mfiles);
 						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 					}
-				} catch (Exception e) {
+				} catch (IOException e)	{
 					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+				} catch (AuxilioMoradiaException e) {
+					redirect.addFlashAttribute(ERRO, e.getMessage());
 				}
 			}
 		}
-		
+		inscricao.setVisitaDomiciliar(visitaDomiciliar);
 		visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
+		//salvar visita
 		this.visitaDomiciliarRepository.save(visitaDomiciliar);
-		return "redirect:/selecao/";
+		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/documento/{inscricao}/download/{documento}")
+	public HttpEntity<?> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento documento) {
+		try {
+			if(inscricao != null && documento != null) {
+				documento = visitaService.buscarDocumento(documento);
+				return visitaService.downloadDocumento(documento, "attachment");
+			}
+		} catch (AuxilioMoradiaException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@ModelAttribute("resultados")

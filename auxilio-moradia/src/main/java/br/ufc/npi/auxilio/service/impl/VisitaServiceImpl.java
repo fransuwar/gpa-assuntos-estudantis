@@ -1,8 +1,10 @@
 package br.ufc.npi.auxilio.service.impl;
 
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_BUSCAR_ARQUIVO;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -101,5 +103,21 @@ public class VisitaServiceImpl implements VisitaService{
 			throw new AuxilioMoradiaException(MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 		}
 	}
+	
+	@Override
+	public Documento buscarDocumento(Documento documento) throws AuxilioMoradiaException {
+		try {
+			File file = new File(documento.getCaminho() + "/" + documento.getNome());
+			byte[] bFile = new byte[(int) file.length()];
+			FileInputStream fileInputStream = new FileInputStream(file);
+			fileInputStream.read(bFile);
+			fileInputStream.close();
+			documento.setArquivo(bFile);
+			return documento;
+		} catch (IOException e) {
+			throw new AuxilioMoradiaException(MENSAGEM_ERRO_BUSCAR_ARQUIVO);
+		}
+	}
+
 
 }
