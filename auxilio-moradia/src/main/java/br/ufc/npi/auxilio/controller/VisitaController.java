@@ -31,7 +31,6 @@ import br.ufc.npi.auxilio.model.Documento;
 import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.model.Servidor;
 import br.ufc.npi.auxilio.model.VisitaDomiciliar;
-import br.ufc.npi.auxilio.repository.VisitaDomiciliarRepository;
 import br.ufc.npi.auxilio.service.AlunoService;
 import br.ufc.npi.auxilio.service.ServidorService;
 import br.ufc.npi.auxilio.service.VisitaService;
@@ -48,9 +47,6 @@ public class VisitaController {
 
 	@Autowired
 	private ServidorService servidorService;
-
-	@Autowired
-	private VisitaDomiciliarRepository visitaDomiciliarRepository;
 
 	@Autowired
 	private VisitaService visitaService;
@@ -81,6 +77,7 @@ public class VisitaController {
 		model.addAttribute("visita", visitaDomiciliar);
 		return PageConstants.PAGINA_VISITA;
 	}
+	
 
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/cadastrar/{inscricao}")
@@ -120,10 +117,22 @@ public class VisitaController {
 		}
 		inscricao.setVisitaDomiciliar(visitaDomiciliar);
 		visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
-		//salvar visita
-		this.visitaDomiciliarRepository.save(visitaDomiciliar);
+		visitaService.salvar(visitaDomiciliar);
 		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
 	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PostMapping("/editar/{inscricao}")
+	public String editar(@PathVariable Inscricao inscricao, Authentication auth, Model model, RedirectAttributes redirect) {
+		
+		VisitaDomiciliar visitaDomiciliar = inscricao.getVisitaDomiciliar();
+		Servidor servidor = servidorService.getByCpf(auth.getName());
+
+		model.addAttribute("servidor", servidor);
+		model.addAttribute("visita", visitaDomiciliar);
+		return PageConstants.PAGINA_VISITA;
+	}
+	
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/documento/{inscricao}/download/{documento}")

@@ -18,6 +18,7 @@ import br.ufc.npi.auxilio.model.Documento;
 import br.ufc.npi.auxilio.model.DocumentoDownload;
 import br.ufc.npi.auxilio.model.VisitaDomiciliar;
 import br.ufc.npi.auxilio.repository.DocumentoRepository;
+import br.ufc.npi.auxilio.repository.VisitaDomiciliarRepository;
 import br.ufc.npi.auxilio.service.VisitaService;
 
 @Service
@@ -25,9 +26,17 @@ public class VisitaServiceImpl implements VisitaService{
 
 	@Autowired
 	private DocumentoRepository documentoRepository;
+	
+	@Autowired
+	private VisitaDomiciliarRepository visitaDomiciliarRepository;
 
 	@Value("${documents.folder}")
 	private String FOLDER_DOCUMENTOS;
+	
+	@Override
+	public void salvar(VisitaDomiciliar visitaDomiciliar){
+		visitaDomiciliarRepository.save(visitaDomiciliar);
+	}
 	
 	@Override
 	public void adicionarFormulario(VisitaDomiciliar visitaDomiciliar, MultipartFile file) throws IOException, AuxilioMoradiaException {
@@ -44,7 +53,6 @@ public class VisitaServiceImpl implements VisitaService{
 
 				documentoRepository.save(documento);
 				visitaDomiciliar.setFormulario(documento);
-
 				salvarArquivoLocal(documento);
 			} catch (Exception e) {
 				throw new AuxilioMoradiaException(MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
