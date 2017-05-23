@@ -8,6 +8,8 @@ $(document).ready(function() {
 
     aux_base.initAlerts();
     aux_base.initModals();
+    
+    
 });
 
 var aux_base = function() {
