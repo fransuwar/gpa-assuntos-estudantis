@@ -49,10 +49,10 @@
 					<!-- Inscrições -->
 					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
 						<div>
-							<a th:href="@{/selecao/inscricoes/relatorio/__${selecao.id}__}" class="waves-effect waves-light btn">Relatório Geral</a>
+							<a th:href="@{/selecao/inscricoes/listar-inscricoes/__${selecao.id}__}" class="waves-effect waves-light btn">Relatório Geral</a>
 						</div>
 						<div class="col s12">
-							<table id="inscricoes" class="display nowrap striped bordered lighten-1" cellspacing="0" width="100%">
+							<table id="inscricoes" class="display nowrap striped bordered" cellspacing="0" width="100%">
 								<thead>
 								<tr>
 									<th>Aluno</th>
@@ -67,96 +67,80 @@
 								<tr th:each="inscricao : ${selecao.inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td th:unless="${inscricao.analiseDocumentacao}">
-										<a href="#">
-										<div class="chip grey lighten-1">
+										<div  class="chip grey lighten-1">
 											Não Avaliado
 										</div>
-										</a>
 									</td>
 									<td th:if="${inscricao.analiseDocumentacao}">
-										<a href="#">
-										<div th:unless="${inscricao.analiseDocumentacao.parecer}" class="chip grey lighten-1">
+										<div th:unless="${inscricao.analiseDocumentacao.parecer}" class="waves-effect waves-light btn red">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.analiseDocumentacao.parecer eq 'não avaliado'}" class="chip grey lighten-1">
+										<div th:if="${inscricao.analiseDocumentacao.parecer eq 'não avaliado'}"  class="waves-effect waves-light btn red">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.analiseDocumentacao.parecer eq 'deferido'}" class="chip green lighten-1">
+										<div th:if="${inscricao.analiseDocumentacao.parecer eq 'deferido'}"  style="background-color:green">
 											Deferido
 										</div>
-										<div th:if="${inscricao.analiseDocumentacao.parecer eq 'indeferido'}" class="chip red lighten-1">
+										<div th:if="${inscricao.analiseDocumentacao.parecer eq 'indeferido'}"  style="background-color:red">
 											Indeferido
 										</div>
-										</a>
 									</td>
 									<td th:unless="${inscricao.entrevista}">
-										<a href="#">
-										<div class="chip grey lighten-1">
+										<div  style="background-color:grey">
 											Não Avaliado
 										</div>
-										</a>
 									</td>
 									<td th:if="${inscricao.entrevista}">
-										<a href="#">
-										<div th:unless="${inscricao.entrevista.parecer}" class="chip grey lighten-1">
+										<div th:unless="${inscricao.entrevista.parecer}" style="background-color:grey">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.entrevista.parecer eq 'não avaliado'}" class="chip grey lighten-1">
+										<div th:if="${inscricao.entrevista.parecer eq 'não avaliado'}"  style="background-color:grey">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.entrevista.parecer eq 'deferido'}" class="chip green lighten-1">
+										<div th:if="${inscricao.entrevista.parecer eq 'deferido'}"  style="background-color:green">
 											Deferido
 										</div>
-										<div th:if="${inscricao.entrevista.parecer eq 'indeferido'}" class="chip red lighten-1">
+										<div th:if="${inscricao.entrevista.parecer eq 'indeferido'}"  style="background-color:red">
 											Indeferido
 										</div>
-										</a>
 									</td>
 									<td th:unless="${inscricao.visitaDomiciliar}">
-										<a href="#">
-										<div class="chip grey lighten-1">
+										<div  style="background-color:grey">
 											Não Avaliado
 										</div>
-										</a>
 									</td>
 									<td th:if="${inscricao.visitaDomiciliar}">
-										<a href="#">
-										<div th:unless="${inscricao.visitaDomiciliar.parecer}" class="chip grey lighten-1">
+										<div th:unless="${inscricao.visitaDomiciliar.parecer}" style="background-color:grey">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'não avaliado'}" class="chip grey lighten-1">
+										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'não avaliado'}"  style="background-color:grey">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'deferido' }" class="chip green lighten-1">
+										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'deferido' }"  style="background-color:green">
 											Deferido
 										</div>
-										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'indeferido'}" class="chip red lighten-1">
+										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'indeferido'}"  style="background-color:red">
 											Indeferido
 										</div>
-										</a>
 									</td>
 									<td th:unless="${inscricao.resultado}">
-										<a href="#">
-										<div class="chip grey lighten-1">
+										<div  style="background-color:grey">
 											Não Avaliado
 										</div>
-										</a>
 									</td>
 									<td th:if="${inscricao.resultado}">
-										<a href="#">
-										<div th:unless="${inscricao.resultado.nome}" class="chip grey lighten-1">
+										<div th:unless="${inscricao.resultado.nome}" style="background-color:grey">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.resultado.nome eq 'não avaliado'}" class="chip grey lighten-1">
+										<div th:if="${inscricao.resultado.nome eq 'não avaliado'}"  style="background-color:grey">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.resultado.nome eq 'deferido' }" class="chip green lighten-1">
+										<div th:if="${inscricao.resultado.nome eq 'deferido' }"  style="background-color:green">
 											Deferido
 										</div>
-										<div th:if="${inscricao.resultado.nome eq 'indeferido'}" class="chip red lighten-1">
+										<div th:if="${inscricao.resultado.nome eq 'indeferido'}"  style="background-color:red">
 											Indeferido
 										</div>
-										</a>
 									</td>
 								</tr>
 								</tbody>
@@ -170,13 +154,13 @@
 </section>
 
 <section layout:fragment="js">
-	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js}"></script>
-	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js}"></script>
-	<script type="text/java" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js}"></script>
-	<script type="text/java" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js}"></script>
-	<script type="text/java" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js}"></script>
-	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js}"></script>
-	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js}"></script>
+	<script type="text/javascript" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js}"></script>
 </section>
 
 </html>

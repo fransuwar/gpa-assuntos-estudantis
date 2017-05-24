@@ -264,8 +264,14 @@ public class SelecaoController {
 		}
 		List<Inscricao> inscricoes = selecao.getInscricoes();
 		model.addAttribute("selecao", selecao);
-		model.addAttribute("inscricoes", inscricoes);
 		return VISUALIZAR_INSCRICOES;
+	}
+	
+	@PreAuthorize(PERMISSAO_SERVIDOR)
+	@GetMapping("/inscricoes/relatorio/{selecao}")
+	public String listarInscricoesGeral(@PathVariable Selecao selecao, Authentication auth, Model model) {
+		model.addAttribute("selecao", selecao);
+		return LISTAR_INSCRICOES;
 	}
 
 	@ModelAttribute("servidores")
