@@ -24,6 +24,7 @@ import java.util.List;
 import static br.ufc.npi.auxilio.utils.Constants.*;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
@@ -203,8 +204,10 @@ public class SelecaoController {
 	public String adicionarMembroComissao(@RequestParam Selecao selecao,
 			@RequestParam Servidor servidor, RedirectAttributes redirect) {
 		try {
-			selecaoService.adicionarMembroComissao(servidor, selecao);
-			redirect.addFlashAttribute(INFO, MSG_SUCESSO_MEMBRO_ADICIONADO);
+			if (selecaoService.adicionarMembroComissao(servidor, selecao))
+				redirect.addFlashAttribute(INFO, MSG_SUCESSO_MEMBRO_ADICIONADO);
+			else
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO);
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 		}
