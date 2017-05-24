@@ -48,7 +48,13 @@
 
 					<!-- Inscrições -->
 					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
-						<div class="col s12">
+						<div class="col s3 input-field">
+				          <input id="busca_inscricoes" type="search"/>
+				          <label id="lupa" class="label-icon" for="search"><i class="material-icons">search</i></label>
+				          <i class="material-icons">close</i>
+				        </div>
+				        <div class="col s9" id="linha_botoes"></div>
+						<div class="col s12">				            
 							<table id="inscricoes" class="display nowrap striped bordered" cellspacing="0" width="100%">
 								<thead>
 								<tr>
@@ -62,7 +68,8 @@
 									<th>Nº pessoas</th>
 									<th>Renda per capita</th>
 									<th>Profissão Mãe</th>
-									<th>Profissão Pai</th>
+									<th>Profissão Pai</th> 
+									<th>IRA</th>
 								</tr>
 								</thead>
 								<tbody>
@@ -78,6 +85,7 @@
 									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
 									<td th:text="${inscricao.getProfissaoMae()}"></td>
 									<td th:text="${inscricao.getProfissaoPai()}"></td>
+									<td th:text="${inscricao.aluno.ira}"></td>
 								</tr>
 								</tbody>
 							</table>
@@ -88,6 +96,7 @@
 		</div>
 	</div>
 </section>
+
 
 <section layout:fragment="js">
 	<script type="text/javascript" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js}"></script>
