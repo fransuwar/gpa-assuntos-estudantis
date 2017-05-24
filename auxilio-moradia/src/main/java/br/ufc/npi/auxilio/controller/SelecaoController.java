@@ -254,6 +254,7 @@ public class SelecaoController {
 		}
 		List<Inscricao> inscricoes = selecao.getInscricoes();
 		model.addAttribute("selecao", selecao);
+		//return VISUALIZAR_INSCRIÇÕES;
 		return VISUALIZAR_INSCRIÇÕES;
 	}
 	
