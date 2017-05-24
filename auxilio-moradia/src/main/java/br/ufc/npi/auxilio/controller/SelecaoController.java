@@ -233,6 +233,14 @@ public class SelecaoController {
 			return REDIRECT_LISTAR_SELECAO;
 		}
 		model.addAttribute("selecao", selecao);
+		//return LISTAR_INSCRICOES;
+		return VISUALIZAR_INSCRIÇÕES;
+	}
+	
+	@PreAuthorize(PERMISSAO_SERVIDOR)
+	@GetMapping("/inscricoes/listar-inscricoes/{selecao}")
+	public String listarInscricoesGeral(@PathVariable Selecao selecao, Authentication auth, Model model) {
+		model.addAttribute("selecao", selecao);
 		return LISTAR_INSCRICOES;
 	}
 
