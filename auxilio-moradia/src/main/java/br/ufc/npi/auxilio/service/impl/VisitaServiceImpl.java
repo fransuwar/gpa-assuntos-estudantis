@@ -39,6 +39,11 @@ public class VisitaServiceImpl implements VisitaService{
 	}
 	
 	@Override
+	public void editar(VisitaDomiciliar visitaDomiciliar){
+		
+	}
+	
+	@Override
 	public void adicionarFormulario(VisitaDomiciliar visitaDomiciliar, MultipartFile file) throws IOException, AuxilioMoradiaException {
 		if (visitaDomiciliar!= null && file.getBytes() != null && file.getBytes().length != 0) {
 			Documento documento = new Documento();

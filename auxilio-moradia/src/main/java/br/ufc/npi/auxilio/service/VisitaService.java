@@ -13,6 +13,8 @@ public interface VisitaService {
 	
 	void salvar(VisitaDomiciliar visitaDomiciliar);
 	
+	void editar(VisitaDomiciliar visitaDomiciliar);
+	
 	void adicionarFormulario(VisitaDomiciliar visitaDomiciliar, MultipartFile file) throws IOException, AuxilioMoradiaException;
 	
 	void adicionarImagens(VisitaDomiciliar visitaDomiciliar, MultipartFile file) throws IOException, AuxilioMoradiaException;
