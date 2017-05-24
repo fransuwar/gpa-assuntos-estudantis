@@ -7,8 +7,25 @@
 <head>
 	<title>Auxílio - Detalhes da Inscricao</title>
 </head>
-
 <section layout:fragment="conteudo">
+	<div class="col s12">
+        <a th:unless="${inscricao.analiseDocumentacao.resultado==null}" href="#!" class="breadcrumb deep-purple-text text-lighten-1">
+        	Análise Documentação: <span th:if="${inscricao.analiseDocumentacao.resultado.nome} == 'deferido'" class="chip green-text" th:text="'D'"></span>
+        	<span th:if="${inscricao.analiseDocumentacao.resultado.nome} == 'indeferido'" class="chip red-text" th:text="'I'"></span>
+        </a>
+        <a th:unless="${inscricao.entrevista==null or inscricao.analiseDocumentacao.resultado==null}" href="#!" class="breadcrumb deep-purple-text text-lighten-1">
+        	Entrevista: <span th:if="${inscricao.entrevista.resultado.nome} == 'deferido'" class="chip green-text" th:text="'D'"></span>
+        	<span th:if="${inscricao.analiseDocumentacao.resultado.nome} == 'indeferido'" class="chip red-text" th:text="'I'"></span>
+        </a>
+        <a th:unless="${inscricao.visitaDomiciliar==null or inscricao.entrevista==null}" href="#!" class="breadcrumb deep-purple-text text-lighten-1">
+        	Visita Domiciliar: <span th:if="${inscricao.visitaDomiciliar.resultado.nome} == 'deferido'" class="chip green-text" th:text="'D'"></span>
+        	<span th:if="${inscricao.visitaDomiciliar.resultado.nome} == 'indeferido'" class="chip red-text" th:text="'I'"></span>
+        </a>
+        <a th:unless="${inscricao.resultado == null or inscricao.visitaDomiciliar==null}" href="#!" class="breadcrumb deep-purple-text text-lighten-1">
+        	Resultado Final: <span th:if="${inscricao.resultado.nome} == 'deferido'" class="chip green-text" th:text="'D'"></span>
+        	<span th:if="${inscricao.resultado.nome} == 'indeferido'" class="chip red-text" th:text="'I'"></span>
+        </a>
+    </div>
 	<div class="row">
 		<!-- Identificação -->
 		<div class="col s12">

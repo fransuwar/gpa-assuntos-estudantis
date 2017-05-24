@@ -60,6 +60,10 @@ public class Selecao {
 		return ano;
 	}
 
+	public void setComissao(List<Servidor> comissao) {
+		this.comissao = comissao;
+	}
+
 	public LocalDate getDataInicio() {
 		return dataInicio;
 	}

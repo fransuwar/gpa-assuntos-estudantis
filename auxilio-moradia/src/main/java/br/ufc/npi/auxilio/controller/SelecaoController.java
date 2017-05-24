@@ -15,10 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.Constants.*;
@@ -44,9 +44,24 @@ public class SelecaoController {
 	@Autowired
 	private AlunoService alunoService;
 	
+	@Autowired
+	private PessoaService pessoaService;
+	
+	
 	@GetMapping({"", "/", "/listar"})
-	public String listarSelecoes(Model model) {
-		model.addAttribute("selecoes", selecaoService.getAll());
+	public String listarSelecoes(Model model, Authentication auth) {
+		List<Selecao> selecoes = selecaoService.getAll();
+		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
+		if(pessoa.isAluno()){
+			HashMap<Integer, Inscricao> inscricaoSelecao = new HashMap<>();
+			Aluno aluno = alunoService.buscarPorCpf(auth.getName());
+			for(Selecao selecao: selecoes){
+				Inscricao inscricao = inscricaoService.get(aluno, selecao);
+				inscricaoSelecao.put(selecao.getId(), inscricao);
+			}
+			model.addAttribute("inscricaoSelecao", inscricaoSelecao);
+		}
+		model.addAttribute("selecoes", selecoes);
 		return PageConstants.LISTAR_SELECAO;
 	}
 
@@ -62,6 +77,7 @@ public class SelecaoController {
 				.addAttribute("membroComissao", selecao.isMembroComissao(servidorService.getByCpf(auth.getName())))
 				.addAttribute("inscricaoAberta", selecao.isInscricaoAberta())
 				.addAttribute("inscricaoRealizada", inscricao != null)
+				.addAttribute("opcoesTipoSelecao", TipoSelecao.values())
 				.addAttribute("inscricaoConsolidada", inscricao != null && inscricao.isConsolidada())
 				.addAttribute("inscricao", inscricao != null ? inscricao.getId() : null);
 		return DETALHES_SELECAO;
@@ -77,6 +93,16 @@ public class SelecaoController {
 		
 		return CADASTRAR_SELECAO;
 	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/editar/{id}")
+	public String editarSelecaoForm(Model model, @PathVariable("id") Integer id) {
+		model.addAttribute("acao", "editar");
+		model.addAttribute("opcoesTipoSelecao", TipoSelecao.values());
+		model.addAttribute("selecao", selecaoService.getById(id));
+		
+		return DETALHES_SELECAO;
+	}
 
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/cadastrar")
@@ -90,6 +116,14 @@ public class SelecaoController {
 			model.addAttribute(ERRO, e.getMessage());
 			return CADASTRAR_SELECAO;
 		}
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PostMapping("/editar")
+	public String editarSelecao(Selecao selecao, Authentication auth, Model model, RedirectAttributes redirect) {
+		selecaoService.editar(selecao);
+		redirect.addFlashAttribute(INFO, MSG_SELECAO_EDITADA);
+		return REDIRECT_LISTAR_SELECAO;
 	}
 
 	@PreAuthorize(PERMISSAO_COORDENADOR)
@@ -109,20 +143,6 @@ public class SelecaoController {
 				// Avisa ao usuário do erro na remoção
 				redirect.addFlashAttribute(ERRO, e.getMessage());
 			}
-		}
-		return REDIRECT_LISTAR_SELECAO;
-	}
-
-	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@GetMapping("/editar/{selecao}")
-	public String editarSelecao(@PathVariable Selecao selecao, Model model, RedirectAttributes redirect) {
-		if (selecao == null) {
-			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_SELECAO_INEXISTENTE);
-		} else {
-			model.addAttribute("acao", "editar");
-			model.addAttribute("opcoesTipoSelecao", TipoSelecao.values());
-			model.addAttribute("selecao", selecao);
-			return CADASTRAR_SELECAO;
 		}
 		return REDIRECT_LISTAR_SELECAO;
 	}
@@ -232,8 +252,8 @@ public class SelecaoController {
 		if (selecao == null || !selecao.isMembroComissao(servidorService.getByCpf(auth.getName()))) {
 			return REDIRECT_LISTAR_SELECAO;
 		}
+		List<Inscricao> inscricoes = selecao.getInscricoes();
 		model.addAttribute("selecao", selecao);
-		//return LISTAR_INSCRICOES;
 		return VISUALIZAR_INSCRIÇÕES;
 	}
 	

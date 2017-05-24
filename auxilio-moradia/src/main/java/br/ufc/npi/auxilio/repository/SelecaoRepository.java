@@ -15,6 +15,8 @@ public interface SelecaoRepository extends JpaRepository<Selecao, Integer> {
 	
 	List<Selecao> findByComissaoIn(Servidor servidor);
 	
+	Selecao findById(Integer id);
+	
 	@Query("select coalesce(MAX(sequencial), 0) + 1 from Selecao where ano = :ano")
 	public abstract Integer getNextSequencial(@Param("ano") Integer ano);
 	

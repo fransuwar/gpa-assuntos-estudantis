@@ -1,17 +1,20 @@
 package br.ufc.npi.auxilio.controller;
 
+import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.model.*;
 import br.ufc.npi.auxilio.repository.AnaliseDocumentacaoRepository;
 import br.ufc.npi.auxilio.repository.DocumentacaoRepository;
 import br.ufc.npi.auxilio.repository.DocumentoRepository;
 import br.ufc.npi.auxilio.repository.InscricaoRepository;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
+import br.ufc.npi.auxilio.service.PessoaService;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
+import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 
@@ -44,9 +48,15 @@ public class DocumentacaoInscricaoController {
 	@Autowired
 	private AnaliseDocumentacaoRepository analiseDocumentacaoRepository;
 	
+	@Autowired
+	private PessoaService pessoaService;
+	
 	@Secured(ALUNO)
 	@GetMapping("/{idInscricao}")
-	public String formDocumentacao( @PathVariable("idInscricao") Inscricao inscricao, Model model ) {
+	public String formDocumentacao( @PathVariable("idInscricao") Inscricao inscricao, Model model , Authentication auth) {
+		if(!pessoaService.getByCpf(auth.getName()).equals(inscricao.getAluno().getPessoa())){
+			return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+		}
 		model.addAttribute("inscricao", inscricao);
 		return PageConstants.ENVIAR_DOCUMENTACAO;
 	}
@@ -121,4 +131,13 @@ public class DocumentacaoInscricaoController {
 	public List<TipoDocumento> getTiposDeDocumento() {
 		return documentacaoService.getAllTipoDocumento();
 	}
+	
+	@Secured(COORDENADOR)
+	@GetMapping("/inscricao/{idInscricao}")
+	public String analisarDocumentacaoInscricao(@PathVariable("idInscricao") Inscricao inscricao, Model model){
+		model.addAttribute("resultado", Resultado.values());
+		model.addAttribute("inscricao", inscricao);
+		return "inscricao/analisar-documento";
+	}
+	
 }

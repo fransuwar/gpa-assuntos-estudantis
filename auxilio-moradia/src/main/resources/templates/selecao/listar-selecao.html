@@ -27,14 +27,60 @@
 								<th>Ano</th>
 								<th>Inscrições</th>
 								<th>Vagas</th>
+								<th>Opções</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="selecao:${selecoes}">
-								<td><a th:href="@{/selecao/detalhes/__${selecao.id}__}" th:text="${selecao.tipo.nome}" title="Visualizar"></a></td>
+								<td th:text="${selecao.tipo.nome}"></td>
 								<td th:text="${selecao.ano}"></td>
 								<td th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
 								<td th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'">-</td>
+
+								
+								<td sec:authorize="hasAuthority('COORDENADOR')"><a class="btn-icon waves-effect tooltipped"
+						     		th:href="@{/selecao/inscricoes/__${selecao.id}__}"
+						     		th:attr="data-tooltip=${'Visualizar Inscrições'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+						     		<i class="material-icons">zoom_in</i>
+									</a>
+									<a class="btn-icon waves-effect tooltipped"
+							     		th:href="@{/selecao/editar/__${selecao.id}__}"
+							     		th:attr="data-tooltip=${'Editar'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+							     		<i class="material-icons">edit</i>
+									</a>
+									<a class="btn-icon waves-effect tooltipped"
+							     		th:href="@{/selecao/excluir/__${selecao.id}__}"
+							     		th:attr="data-tooltip=${'Deletar'}, data-target=${deleteDataTarget}, data-url=${deleteDataUrl}">
+							     		<i class="material-icons">delete</i>
+									</a>
+								</td>
+								<td sec:authorize="hasAuthority('ALUNO')">
+									<a class="btn-icon waves-effect tooltipped"
+									 th:if="${selecao.inscricaoAberta and inscricaoSelecao.get(selecao.id)==null}" 
+                                     th:href="@{/inscricao/__${selecao.id}__}"
+                                     th:attr="data-tooltip=${'Realizar Inscrição'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+                                     <i class="material-icons">border_color</i>
+									</a>
+									<a class="btn-icon waves-effect tooltipped"
+									 th:if="${selecao.inscricaoAberta and inscricaoSelecao.get(selecao.id)!=null}"
+                                     th:href="@{/inscricao/__${selecao.id}__}"
+                                     th:attr="data-tooltip=${'Editar Inscrição'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+                                     <i class="material-icons">edit</i>
+									</a>
+									<a class="btn-icon waves-effect tooltipped"
+									 th:if="${inscricaoSelecao.get(selecao.id)!=null}"
+                                     th:href="@{/inscricao/detalhes/__${inscricaoSelecao.get(selecao.id).id}__}"
+                                     th:attr="data-tooltip=${'Visualizar Inscrição'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+                                     <i class="material-icons">zoom_in</i>
+									</a>
+									<a class="btn-icon waves-effect tooltipped"
+									th:href="@{/documentacao/__${inscricaoSelecao.get(selecao.id).id}__}"
+									 th:if="${selecao.inscricaoAberta and inscricaoSelecao.get(selecao.id)!=null}"
+                                     th:attr="data-tooltip=${'Adicionar Arquivos'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+                                     <i class="material-icons">note_add</i>
+									</a>
+
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -43,6 +89,18 @@
 					<a class="waves-effect waves-light btn" th:href="@{/selecao/cadastrar}">Nova Seleção</a>
 				</div>
 			</div>
+		</div>
+		
+	</div>
+	<!-- Modal excluir seleção -->
+	<div id="excluir-selecao" class="modal">
+		<div class="modal-content">
+			<h4>Excluir seleção</h4>
+			<p>Tem certeza de que deseja excluir essa seleção?</p>
+		</div>
+		<div class="modal-footer">
+			<a id="confirm-excluir" th:href="${removeAtt}" class="modal-action waves-effect waves-light btn red">Excluir</a>
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
 		</div>
 	</div>
 </section>

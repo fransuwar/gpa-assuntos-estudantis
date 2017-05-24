@@ -184,4 +184,19 @@ public class SelecaoServiceImpl implements SelecaoService {
 		}
 	}
 
+	@Override
+	public void editar(Selecao selecao) {
+		if(selecao != null){
+			List<Servidor> comissao = this.getById(selecao.getId()).getComissao();
+			selecao.setComissao(comissao);
+			selecaoRepository.save(selecao);
+		}
+	}
+	
+	public Selecao getById(Integer id){
+		return selecaoRepository.findById(id);
+	}
+
+	
+
 }
