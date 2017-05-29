@@ -21,7 +21,7 @@
 						<input type="hidden" th:field="*{id}" />
 						<div class="row no-margin">
 							<div class="col s4 input-field">
-								<select id="tipo" th:field="*{tipo}">
+								<select id="tipo" th:field="*{tipo}" required="required">
 									<option th:each="tipoSelecao : ${opcoesTipoSelecao}" th:value="${tipoSelecao}" th:text="${tipoSelecao.nome}"></option>
 								</select>
 								<label for="tipo">* Tipo da seleção</label>
