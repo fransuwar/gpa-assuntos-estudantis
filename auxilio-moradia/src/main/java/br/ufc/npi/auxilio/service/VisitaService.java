@@ -13,8 +13,6 @@ public interface VisitaService {
 	
 	void salvar(VisitaDomiciliar visitaDomiciliar);
 	
-	void editar(VisitaDomiciliar visitaDomiciliar);
-	
 	void adicionarFormulario(VisitaDomiciliar visitaDomiciliar, MultipartFile file) throws IOException, AuxilioMoradiaException;
 	
 	void adicionarImagens(VisitaDomiciliar visitaDomiciliar, MultipartFile file) throws IOException, AuxilioMoradiaException;
@@ -22,5 +20,7 @@ public interface VisitaService {
 	DocumentoDownload downloadDocumento(Documento documento, String procedimento);
 	
 	Documento buscarDocumento(Documento documento) throws AuxilioMoradiaException;
+	
+	VisitaDomiciliar buscar(Integer idVisita);
 
 }

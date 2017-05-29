@@ -39,8 +39,8 @@ public class VisitaServiceImpl implements VisitaService{
 	}
 	
 	@Override
-	public void editar(VisitaDomiciliar visitaDomiciliar){
-		
+	public VisitaDomiciliar buscar(Integer idVisita){
+		return visitaDomiciliarRepository.findById(idVisita);
 	}
 	
 	@Override

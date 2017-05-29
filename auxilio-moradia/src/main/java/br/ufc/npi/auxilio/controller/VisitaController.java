@@ -82,15 +82,17 @@ public class VisitaController {
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/cadastrar/{inscricao}")
 	public String cadastrar(@RequestParam("imagensVisita") List<MultipartFile> imagens,
-			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visitaDomiciliar,@PathVariable("inscricao") Inscricao inscricao,
+			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visitaDomiciliar ,@PathVariable("inscricao") Inscricao inscricao,
 			Model model, Authentication auth, RedirectAttributes redirect) {
-
+		
+		VisitaDomiciliar visitaDomiciliarBanco = visitaService.buscar(visitaDomiciliar.getId());
+		
 		// Salvar Imagens
 		if (imagens != null && !imagens.isEmpty() && imagens.get(0).getSize() > 0) {
 			for (MultipartFile mfiles : imagens) {
 				try {
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-						visitaService.adicionarImagens(visitaDomiciliar, mfiles);
+						visitaService.adicionarImagens(visitaDomiciliarBanco, mfiles);
 						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 					}
 				} catch (IOException e)	{
@@ -105,7 +107,7 @@ public class VisitaController {
 			for (MultipartFile mfiles : formulario) {
 				try {
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-						visitaService.adicionarFormulario(visitaDomiciliar, mfiles);
+						visitaService.adicionarFormulario(visitaDomiciliarBanco, mfiles);
 						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 					}
 				} catch (IOException e)	{
@@ -116,9 +118,19 @@ public class VisitaController {
 			}
 		}
 		
-		inscricao.setVisitaDomiciliar(visitaDomiciliar);	
-		visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
-		visitaService.salvar(visitaDomiciliar);
+		//condição para cadastrar uma
+		if(inscricao.getVisitaDomiciliar() == null){
+			inscricao.setVisitaDomiciliar(visitaDomiciliarBanco);
+		}else {
+			//condição para quando for editar uma visita
+			visitaDomiciliarBanco.setData(visitaDomiciliar.getData());
+			visitaDomiciliarBanco.setObservacoes(visitaDomiciliar.getObservacoes());
+			visitaDomiciliarBanco.setRelatorio(visitaDomiciliar.getRelatorio());
+			visitaDomiciliarBanco.setResultado(visitaDomiciliar.getResultado());
+		}
+		
+		visitaDomiciliarBanco.setResponsavel(servidorService.getByCpf(auth.getName()));
+		visitaService.salvar(visitaDomiciliarBanco);
 		
 		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
 	}	

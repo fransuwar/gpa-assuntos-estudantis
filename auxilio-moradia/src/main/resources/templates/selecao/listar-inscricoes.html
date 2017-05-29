@@ -69,7 +69,6 @@
 									<th>Renda per capita</th>
 									<th>Profissão Mãe</th>
 									<th>Profissão Pai</th>
-									<th>Visita Domiciliar</th>
 									<th>IRA</th>
 								</tr>
 								</thead>
@@ -86,9 +85,6 @@
 									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
 									<td th:text="${inscricao.getProfissaoMae()}"></td>
 									<td th:text="${inscricao.getProfissaoPai()}"></td>
-									<td><a th:href="@{/visita/cadastrar/__${inscricao.id}__}" class="btn">Visita Domiciliar</a>
-										<a th:href="@{/visita/editar/__${inscricao.id}__}" class="btn"> Editar Visita Domiciliar</a>
-									</td>
 									<td th:text="${inscricao.aluno.ira}"></td>
 								</tr>
 								</tbody>
