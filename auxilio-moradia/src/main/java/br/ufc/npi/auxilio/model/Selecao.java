@@ -131,13 +131,15 @@ public class Selecao {
 		this.inscricoes = inscricoes;
 	}
 
-	public void addMembroComissao (Servidor servidor){
+	public Boolean addMembroComissao (Servidor servidor){
 		if(this.comissao == null){
 			comissao = new ArrayList<Servidor>();
 		}
 		if (servidor != null && !this.comissao.contains(servidor)) {
 			this.comissao.add(servidor);
+			return true;
 		}
+		return false;
 	}
 
 	public void removeMembroComissao (Servidor servidor){
