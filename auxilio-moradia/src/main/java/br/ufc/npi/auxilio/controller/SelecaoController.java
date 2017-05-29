@@ -28,6 +28,7 @@ import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_MEMBR
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
+import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_CADASTRAR_SELECAO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.*;
 
 @Controller
@@ -116,8 +117,8 @@ public class SelecaoController {
 			redirect.addFlashAttribute(INFO, MSG_SELECAO_CADASTRADA);
 			return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
-			model.addAttribute(ERRO, e.getMessage());
-			return CADASTRAR_SELECAO;
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+			return REDIRECT_CADASTRAR_SELECAO;
 		}
 	}
 	
@@ -262,7 +263,6 @@ public class SelecaoController {
 		if (selecao == null || !selecao.isMembroComissao(servidorService.getByCpf(auth.getName()))) {
 			return REDIRECT_LISTAR_SELECAO;
 		}
-		List<Inscricao> inscricoes = selecao.getInscricoes();
 		model.addAttribute("selecao", selecao);
 		return VISUALIZAR_INSCRICOES;
 	}
