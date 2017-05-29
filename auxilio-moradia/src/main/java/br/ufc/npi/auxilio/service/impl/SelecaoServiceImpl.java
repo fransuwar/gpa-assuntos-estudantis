@@ -119,11 +119,13 @@ public class SelecaoServiceImpl implements SelecaoService {
 	}
 
 	@Override
-	public void adicionarMembroComissao(Servidor servidor, Selecao selecao) throws AuxilioMoradiaException {
+	public Boolean adicionarMembroComissao(Servidor servidor, Selecao selecao) throws AuxilioMoradiaException {
 		if (servidor != null && selecao != null) {
-			selecao.addMembroComissao(servidor);
+			Boolean b  = selecao.addMembroComissao(servidor);
 			this.cadastrar(selecao);
+			return b;
 		}
+		return false;
 	}
 
 	@Override

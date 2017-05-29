@@ -13,6 +13,7 @@ public class ErrorMessageConstants {
 	public static final String MENSAGEM_ERRO_SELECAO_COM_INSCRICAO = "Essa seleção já possui inscrições realizadas e não é possível excluí-la";
 	public static final String MENSAGEM_ERRO_PERIODO_INSCRICAO = "A data de término das inscrições deve ser posterior à data de início";
 	public static final String MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA = "A documentação já foi adicionada";
+	public static final String MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO = "O membro já foi adicionado";
 	
 	/* Inscrição */
 	public static final String MENSAGEM_ERRO_INSCRICAO_INEXISTENTE = "Você não possui nenhuma inscrição para essa seleção";
