@@ -6,7 +6,7 @@
 	layout:decorator="base/base">
 
 <head>
-	<title>Auxílio - Listar Inscrições</title>
+	<title>Auxílio - Visualizar Inscrições</title>
 </head>
 
 <section layout:fragment="conteudo">
@@ -48,26 +48,125 @@
 
 					<!-- Inscrições -->
 					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
+						<div>
+							<a th:href="@{/selecao/inscricoes/relatorio/__${selecao.id}__}" class="waves-effect waves-light btn">Relatório Geral</a>
+						</div>
 						<div class="col s12">
-							<table id="inscricoes" class="display nowrap striped bordered" cellspacing="0" width="100%">
+							<table id="inscricoes" class="display nowrap striped bordered lighten-1" cellspacing="0" width="100%">
 								<thead>
 								<tr>
 									<th>Aluno</th>
-									<th>Analise de Documentação</th>
+									<th>Análise dos Documentos</th>
 									<th>Entrevista</th>
 									<th>Visita Domiciliar</th>
 									<th>Parecer Final</th>
 									<th>Ranking</th>
+									<th>Selecionar</th>
 								</tr>
 								</thead>
 								<tbody>
-								<tr th:each="inscricao, row : ${inscricoes}" >
+								<tr th:each="inscricao, row : ${selecao.inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
-									<td th:text="${inscricao.analiseDocumentacao.resultado}"></td>
-									<td th:text="${inscricao.entrevista.resultado}"></td>
-									<td th:text="${inscricao.visitaDomiciliar.resultado}"></td>
-									<td th:text="${inscricao.resultado}"></td>
+									<td th:unless="${inscricao.analiseDocumentacao}">
+										<a href="#">
+										<div class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										</a>
+									</td>
+									<td th:if="${inscricao.analiseDocumentacao}">
+										<a href="#">
+										<div th:unless="${inscricao.analiseDocumentacao.parecer}" class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										<div th:if="${inscricao.analiseDocumentacao.parecer eq 'não avaliado'}" class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										<div th:if="${inscricao.analiseDocumentacao.parecer eq 'deferido'}" class="chip green lighten-1">
+											Deferido
+										</div>
+										<div th:if="${inscricao.analiseDocumentacao.parecer eq 'indeferido'}" class="chip red lighten-1">
+											Indeferido
+										</div>
+										</a>
+									</td>
+									<td th:unless="${inscricao.entrevista}">
+										<a href="#">
+										<div class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										</a>
+									</td>
+									<td th:if="${inscricao.entrevista}">
+										<a href="#">
+										<div th:unless="${inscricao.entrevista.parecer}" class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										<div th:if="${inscricao.entrevista.parecer eq 'não avaliado'}" class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										<div th:if="${inscricao.entrevista.parecer eq 'deferido'}" class="chip green lighten-1">
+											Deferido
+										</div>
+										<div th:if="${inscricao.entrevista.parecer eq 'indeferido'}" class="chip red lighten-1">
+											Indeferido
+										</div>
+										</a>
+									</td>
+									<td th:unless="${inscricao.visitaDomiciliar}">
+										<a href="#">
+										<div class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										</a>
+									</td>
+									<td th:if="${inscricao.visitaDomiciliar}">
+										<a href="#">
+										<div th:unless="${inscricao.visitaDomiciliar.parecer}" class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'não avaliado'}" class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'deferido' }" class="chip green lighten-1">
+											Deferido
+										</div>
+										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'indeferido'}" class="chip red lighten-1">
+											Indeferido
+										</div>
+										</a>
+									</td>
+									<td th:unless="${inscricao.resultado}">
+										<a href="#">
+										<div class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										</a>
+									</td>
+									<td th:if="${inscricao.resultado}">
+										<a href="#">
+										<div th:unless="${inscricao.resultado.nome}" class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										<div th:if="${inscricao.resultado.nome eq 'não avaliado'}" class="chip grey lighten-1">
+											Não Avaliado
+										</div>
+										<div th:if="${inscricao.resultado.nome eq 'deferido' }" class="chip green lighten-1">
+											Deferido
+										</div>
+										<div th:if="${inscricao.resultado.nome eq 'indeferido'}" class="chip red lighten-1">
+											Indeferido
+										</div>
+										</a>
+									</td>
 									<td th:text="${row.count}"></td>
+									<td>
+										<div class="switch">
+											<label><input type="checkbox" class="selecionar" th:id="${inscricao.id}" th:checked="${inscricao.classificada}" /> <span
+											class="lever"></span>
+											</label>
+										</div>
+									</td>
 								</tr>
 								</tbody>
 							</table>
@@ -80,13 +179,14 @@
 </section>
 
 <section layout:fragment="js">
-	<script type="text/javascript" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js}"></script>
-	<script type="text/javascript" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js}"></script>
-	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js}"></script>
-	<script type="text/javascript" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js}"></script>
-	<script type="text/javascript" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js}"></script>
-	<script type="text/javascript" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js}"></script>
-	<script type="text/javascript" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js}"></script>
+	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js}"></script>
+	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/auxilio/inscricao/inscricao-classificar.js}"></script>
+	<script type="text/java" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js}"></script>
+	<script type="text/java" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js}"></script>
+	<script type="text/java" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js}"></script>
+	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js}"></script>
+	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js}"></script>
 </section>
 
 </html>

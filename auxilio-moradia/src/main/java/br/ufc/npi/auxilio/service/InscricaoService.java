@@ -25,5 +25,11 @@ public interface InscricaoService {
     List<Inscricao> getAll(Aluno aluno);
 
 	List<Inscricao> getAllOrdenado(Selecao selecao);
+	
+	boolean selecionarInscricao(Integer idInscricao, boolean selecionar);
+	
+	Inscricao buscarInscricaoPorId(Integer idInscricao);
+
+	boolean editar(Inscricao i);
 }
 

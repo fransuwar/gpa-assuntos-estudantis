@@ -32,7 +32,34 @@ public class InscricaoServiceImpl implements InscricaoService {
 	public boolean isInscrito(Aluno aluno, Selecao selecao) {
 		return inscricaoRepository.findInscricaoBySelecaoAndAluno(selecao, aluno) != null;
 	}
+	@Override
+	public Inscricao buscarInscricaoPorId(Integer idInscricao){
+		return inscricaoRepository.findInscricaoById(idInscricao);
+	}
 	
+	@Override
+	public boolean editar(Inscricao i) {
+		Inscricao iAn = this.buscarInscricaoPorId(i.getId());
+		if(iAn == null){
+			return false;
+		}
+		try {
+			i.setClassificada(iAn.isClassificada());
+			
+			inscricaoRepository.save(i);
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean selecionarInscricao(Integer idInscricao,boolean selecionar) {
+		Inscricao inscricao = this.buscarInscricaoPorId(idInscricao);
+		inscricao.setClassificada(selecionar);
+		return editar(inscricao);
+	}
+
 	@Override
 	public Inscricao salvar(Selecao selecao, Aluno aluno, Identificacao identificacao) throws AuxilioMoradiaException{
 		if (aluno == null || selecao == null) {
