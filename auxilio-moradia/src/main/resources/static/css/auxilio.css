@@ -91,6 +91,12 @@ span.bold {
     margin-top: 50px;
 }
 
+#lupa.active{
+ font-size: 0.8rem;
+ -webkit-transform: translateY(-50%);
+         transform: translateY(-50%);
+}
+
 .breadcrumb{
 	font-size: 1.64rem;
 }
@@ -98,5 +104,4 @@ span.bold {
 .breadcrumb:before {
     color: #7e57c2;
 }
-
 

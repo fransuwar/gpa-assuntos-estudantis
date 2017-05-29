@@ -1,44 +1,37 @@
 <div class="card" th:fragment="selecao">
 	<div class="card-content details">
 		<h5 class="title light">Detalhes Seleção</h5>
-		<div class="row no-margin">
-			<form data-model="selecao" th:action="@{/selecao/editar}" th:object="${selecao}" th:method="post" sec:authorize="hasAuthority('COORDENADOR')">
-				<div class="card">
-					<div class="card-content">
-						<!-- Formulário de edição de seleção -->
-						<input type="hidden" th:field="*{id}" />
-						<div class="row no-margin">
-							<div class="col s4 input-field">
-								<select id="tipo" th:field="*{tipo}">
-									<option th:each="tipoSelecao : ${opcoesTipoSelecao}" th:value="${tipoSelecao}" th:text="${tipoSelecao.nome}"></option>
-								</select>
-								<label for="tipo">* Tipo da seleção</label>
-							</div>
-							<div class="col s2 input-field">
-								<input th:field="*{ano}" type="text" value="${selecao.ano}" class="validate" id="ano" required="required" maxlength="4"/>
-								<label for="ano">* Ano</label>
-							</div>
-							<div class="col s2 input-field">
-								<input th:field="*{dataInicio}" type="text" class="datepicker" id="inicio" required="required"/>
-								<label for="inicio">* Início das Incrições</label>
-							</div>
-							<div class="col s2 input-field">
-								<input th:field="*{dataTermino}" type="text" class="datepicker" id="termino" required="required"/>
-								<label for="termino">* Término das Incrições</label>
-							</div>
-							<div class="col s2 input-field">
-								<input th:field="*{quantidadeVagas}" value="${selecao.quantidadeVagas}" type="text" class="integer" id="vagas"/>
-								<label for="vagas">Vagas</label>
-							</div>
-						</div>
-
-					</div>
-					<div class="card-action right-align">
-						<button type="submit" class="btn waves-effect white-text">Salvar</button>
-					</div>
+		<form data-model="selecao" th:action="@{/selecao/editar}" th:object="${selecao}" th:method="post" sec:authorize="hasAuthority('COORDENADOR')">
+			<!-- Formulário de edição de seleção -->
+			<input type="hidden" th:field="*{id}" />
+			<div class="row no-margin">
+				<div class="col s4 input-field">
+					<select id="tipo" th:field="*{tipo}">
+						<option th:each="tipoSelecao : ${opcoesTipoSelecao}" th:value="${tipoSelecao}" th:text="${tipoSelecao.nome}"></option>
+					</select>
+					<label for="tipo">* Tipo da seleção</label>
 				</div>
-			</form>
-		</div>
+				<div class="col s2 input-field">
+					<input th:field="*{ano}" type="text" value="${selecao.ano}" class="validate" id="ano" required="required" maxlength="4"/>
+					<label for="ano">* Ano</label>
+				</div>
+				<div class="col s2 input-field">
+					<input th:field="*{dataInicio}" type="text" class="datepicker" id="inicio" required="required"/>
+					<label for="inicio">* Início das Incrições</label>
+				</div>
+				<div class="col s2 input-field">
+					<input th:field="*{dataTermino}" type="text" class="datepicker" id="termino" required="required"/>
+					<label for="termino">* Término das Incrições</label>
+				</div>
+				<div class="col s2 input-field">
+					<input th:field="*{quantidadeVagas}" value="${selecao.quantidadeVagas}" type="text" class="integer" id="vagas"/>
+					<label for="vagas">Vagas</label>
+				</div>
+			</div>
+			<div class="card-action right-align">
+				<button type="submit" class="btn waves-effect white-text">Salvar</button>
+			</div>
+		</form>
 	</div>
 
 	
