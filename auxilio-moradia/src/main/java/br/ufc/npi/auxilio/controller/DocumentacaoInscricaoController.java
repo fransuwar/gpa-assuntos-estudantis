@@ -108,6 +108,12 @@ public class DocumentacaoInscricaoController {
 			inscricaoRepository.save(inscricao);
 		}
 		
+		else {
+			redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_NENHUM_ARQUIVO);
+
+			return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
+		}
+		
 		redirect.addFlashAttribute(INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 		
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();

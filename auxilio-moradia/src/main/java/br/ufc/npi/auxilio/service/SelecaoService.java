@@ -30,7 +30,7 @@ public interface SelecaoService {
 
 	void removerMembroComissao(Servidor servidor, Selecao selecao) throws AuxilioMoradiaException;
 
-	void adicionarTipoDocumento(Selecao selecao, TipoDocumento tipoDocumento) throws AuxilioMoradiaException;
+	Boolean adicionarTipoDocumento(Selecao selecao, TipoDocumento tipoDocumento) throws AuxilioMoradiaException;
 
 	void removerTipoDocumento(TipoDocumento tipoDocumento) throws AuxilioMoradiaException;
 

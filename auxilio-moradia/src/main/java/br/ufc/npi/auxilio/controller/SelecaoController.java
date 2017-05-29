@@ -25,6 +25,7 @@ import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.Constants.*;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
@@ -33,6 +34,7 @@ import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.*;
 @Controller
 @RequestMapping("/selecao")
 public class SelecaoController {
+	
 	
 	@Autowired
 	private SelecaoService selecaoService;
@@ -165,6 +167,9 @@ public class SelecaoController {
 				}
 			} 
 		}
+		else {
+			redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_NENHUM_ARQUIVO);
+		}
 		return REDIRECT_DETALHES_SELECAO + selecao.getId();
 	}
 
@@ -227,8 +232,10 @@ public class SelecaoController {
 		 RedirectAttributes redirect) {
 		try {
 			TipoDocumento tipoDocumento = new TipoDocumento(nome, descricao);
-			selecaoService.adicionarTipoDocumento(selecao, tipoDocumento);
-			redirect.addFlashAttribute(INFO, MSG_SUCESSO_TIPO_DOCUMENTO_ADICIONADO);
+			if (selecaoService.adicionarTipoDocumento(selecao, tipoDocumento))
+				redirect.addFlashAttribute(INFO, MSG_SUCESSO_TIPO_DOCUMENTO_ADICIONADO);
+			else
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA);
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 		}
@@ -266,8 +273,17 @@ public class SelecaoController {
 		}
 
 		model.addAttribute("selecao", selecao);
+
 		model.addAttribute("inscricoes", inscricoes);
 		return VISUALIZAR_INSCRICOES;
+	}
+	
+	@PreAuthorize(PERMISSAO_SERVIDOR)
+	@GetMapping("/inscricoes/relatorio/{selecao}")
+	public String listarInscricoesGeral(@PathVariable Selecao selecao, Authentication auth, Model model) {
+		model.addAttribute("selecao", selecao);
+		return LISTAR_INSCRICOES;
+
 	}
 
 	@ModelAttribute("servidores")
