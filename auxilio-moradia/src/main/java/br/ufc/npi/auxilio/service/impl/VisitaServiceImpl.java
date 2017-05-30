@@ -83,7 +83,9 @@ public class VisitaServiceImpl implements VisitaService{
 				visitaDomiciliar.getImagens().add(documento);
 
 				salvarArquivoLocal(documento);
-			} catch (Exception e) {
+			} catch (IOException e) {
+				throw new AuxilioMoradiaException(MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+			} catch (AuxilioMoradiaException e){
 				throw new AuxilioMoradiaException(MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 			}
 		}
