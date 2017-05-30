@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -30,7 +31,8 @@ public class VisitaDomiciliar {
 
 	@ManyToOne
 	private Servidor responsavel;
-
+	
+	@Column(name="relatorio", columnDefinition="text", length=10485760)
 	private String relatorio;
 
 	@OneToOne
@@ -42,6 +44,7 @@ public class VisitaDomiciliar {
 	@OneToMany
 	private List<Documento> imagens;
 	
+	@Column(name="observacoes", columnDefinition="text", length=10485760)
 	private String observacoes;
 
 	public Documento getFormulario() {
