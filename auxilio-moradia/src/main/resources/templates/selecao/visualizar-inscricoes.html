@@ -90,14 +90,14 @@
 										</a>
 									</td>
 									<td th:unless="${inscricao.entrevista}">
-										<a href="#">
+										<a th:href="@{/entrevista/__${inscricao.id}__}">
 										<div class="chip grey lighten-1">
 											Não Avaliado
 										</div>
 										</a>
 									</td>
 									<td th:if="${inscricao.entrevista}">
-										<a href="#">
+										<a th:href="@{/entrevista/__${inscricao.id}__}">
 										<div th:unless="${inscricao.entrevista.parecer}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>
