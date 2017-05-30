@@ -47,9 +47,11 @@ public class VisitaServiceImpl implements VisitaService{
 	public void adicionarFormulario(VisitaDomiciliar visitaDomiciliar, MultipartFile file) throws IOException, AuxilioMoradiaException {
 		if (visitaDomiciliar!= null && file.getBytes() != null && file.getBytes().length != 0) {
 			Documento documento = new Documento();
+			
 			try {
+				String homeDir = System.getProperty("user.home");
 				documento.setNome(file.getOriginalFilename());
-				documento.setCaminho(FOLDER_DOCUMENTOS + "formularioVisita" + visitaDomiciliar.getId());
+				documento.setCaminho(homeDir + FOLDER_DOCUMENTOS + "formularioVisita" + visitaDomiciliar.getId());
 				documento.setArquivo(file.getBytes());
 
 				// Pega  o fomato do arquivo
@@ -71,8 +73,9 @@ public class VisitaServiceImpl implements VisitaService{
 		if (visitaDomiciliar!= null && file.getBytes() != null && file.getBytes().length != 0) {
 			Documento documento = new Documento();
 			try {
+				String homeDir = System.getProperty("user.home");
 				documento.setNome(file.getOriginalFilename());
-				documento.setCaminho(FOLDER_DOCUMENTOS + "imagensVisita" +visitaDomiciliar.getId());
+				documento.setCaminho(homeDir + FOLDER_DOCUMENTOS + "imagensVisita" +visitaDomiciliar.getId());
 				documento.setArquivo(file.getBytes());
 
 				// Pega  o fomato do arquivo
