@@ -32,7 +32,7 @@ public class VisitaDomiciliar {
 	@ManyToOne
 	private Servidor responsavel;
 	
-	@Column(name="relatorio", columnDefinition="text", length=10485760)
+	@Column(name="relatorio", columnDefinition="text")
 	private String relatorio;
 
 	@OneToOne
@@ -44,7 +44,7 @@ public class VisitaDomiciliar {
 	@OneToMany
 	private List<Documento> imagens;
 	
-	@Column(name="observacoes", columnDefinition="text", length=10485760)
+	@Column(name="observacoes", columnDefinition="text")
 	private String observacoes;
 
 	public Documento getFormulario() {
