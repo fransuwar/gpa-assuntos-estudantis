@@ -26,7 +26,7 @@ public interface SelecaoService {
 
 	Documento buscarDocumento(Documento documento) throws AuxilioMoradiaException;
 
-	void adicionarMembroComissao(Servidor servidor, Selecao selecao) throws AuxilioMoradiaException;
+	Boolean adicionarMembroComissao(Servidor servidor, Selecao selecao) throws AuxilioMoradiaException;
 
 	void removerMembroComissao(Servidor servidor, Selecao selecao) throws AuxilioMoradiaException;
 
