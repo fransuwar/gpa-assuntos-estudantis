@@ -14,6 +14,57 @@
 				<form  th:action="@{/inscricao/outras-informacoes/__${selecao.id}__}" th:method="post">
 					<div class="card-content">
 						<h5 class="title light">Outras informações (Passo 5/5)</h5>
+						
+						
+					<h5 class="title light">Enviar Documentos</h5>
+				
+					<div class="row">
+						<div class="col l4 m6 s12">
+							<label for="tipo-doc">Escolha o tipo de documento</label>
+							<select id="tipo-doc" name="tipoDocumento">
+								<option th:each="tipo : ${inscricao.selecao.tiposDeDocumento}"
+									th:text="${tipo.nome}" th:value="${tipo.id}"></option>
+							</select>
+						</div>
+						<div class="col l8 m6 s12">
+							<label for="tipo-doc">Selecione os arquivos</label>
+							<div class="file-field input-field">
+							
+								<div class="btn right-align">
+									<span>Arquivos</span> <input type="file" name="files" multiple="multiple"/>
+								</div>
+								<div class="file-path-wrapper">
+									<input class="file-path validate" type="text"/>
+								</div>
+							</div>
+						</div>
+					 	<div th:if="${inscricao.analiseDocumentacao != null}"> 
+						<div class="col s4" th:each="documentacao : ${inscricao.analiseDocumentacao.documentacao}">
+							<ul class="collapsible" data-collapsible="accordion" >
+								<li>
+									<div class="collapsible-header" data-collapsible="expandable">
+										<span th:text="${documentacao.tipoDocumento.nome}"></span>
+									</div>
+									<div class="collapsible-body">
+										<ul class="collection with-header">
+       								 		<li class="collection-item" th:each="documento : ${documentacao.documentos}">
+       								 		<div>
+       								 			<span class="text" th:text="${documento.nome}"></span> 
+       								 			<a th:href="@{/documentacao/inscricao/__${inscricao.id}__/documentacao/__${documentacao.id}__/excluir-documento/__${documento.id}__}" 
+       								 				class="secondary-content"> <i class="material-icons">delete</i>
+       								 			</a>
+       								 		</div>
+       								 		</li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+						 </div> 
+					</div>
+						
+						
+						
 						<div class="row">
 							<div class="col s12 input-field">
 								<textarea id="justificativa" th:text="${justificativa}" name="justificativa" class="materialize-textarea"></textarea>
