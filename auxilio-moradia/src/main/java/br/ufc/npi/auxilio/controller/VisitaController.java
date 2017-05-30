@@ -57,6 +57,7 @@ public class VisitaController {
 		Aluno aluno = alunoService.buscarPorCpf(inscricao.getAluno().getPessoa().getCpf());
 		Servidor servidor = servidorService.getByCpf(auth.getName());
 
+		model.addAttribute("acao", "cadastrar");
 		model.addAttribute("servidor", servidor);
 		model.addAttribute("inscrição", inscricao != null ? inscricao.getId() : null);
 		model.addAttribute(ALUNO, aluno);
@@ -72,7 +73,8 @@ public class VisitaController {
 		
 		VisitaDomiciliar visitaDomiciliar = inscricao.getVisitaDomiciliar();
 		Servidor servidor = servidorService.getByCpf(auth.getName());
-
+		
+		model.addAttribute("acao", "editar");
 		model.addAttribute("servidor", servidor);
 		model.addAttribute("visita", visitaDomiciliar);
 		return PageConstants.PAGINA_VISITA;
@@ -84,6 +86,49 @@ public class VisitaController {
 	public String cadastrar(@RequestParam("imagensVisita") List<MultipartFile> imagens,
 			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visitaDomiciliar ,@PathVariable("inscricao") Inscricao inscricao,
 			Model model, Authentication auth, RedirectAttributes redirect) {
+		
+		// Salvar Imagens
+		if (imagens != null && !imagens.isEmpty() && imagens.get(0).getSize() > 0) {
+			for (MultipartFile mfiles : imagens) {
+				try {
+					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
+						visitaService.adicionarImagens(visitaDomiciliar, mfiles);
+						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
+					}
+				} catch (IOException e)	{
+					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+				} catch (AuxilioMoradiaException e) {
+					redirect.addFlashAttribute(ERRO, e.getMessage());
+				}
+			}
+		}
+		// Salvar Formulário
+		if (formulario != null && !formulario.isEmpty() && formulario.get(0).getSize() > 0) {
+			for (MultipartFile mfiles : formulario) {
+				try {
+					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
+						visitaService.adicionarFormulario(visitaDomiciliar, mfiles);
+						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
+					}
+				} catch (IOException e)	{
+					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+				} catch (AuxilioMoradiaException e) {
+					redirect.addFlashAttribute(ERRO, e.getMessage());
+				}
+			}
+		}
+		
+		inscricao.setVisitaDomiciliar(visitaDomiciliar);
+		visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
+		visitaService.salvar(visitaDomiciliar);
+		
+		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PostMapping("/editar/{inscricao}")
+	public String editar(@RequestParam("imagensVisita") List<MultipartFile> imagens,
+			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visitaDomiciliar ,@PathVariable("inscricao") Inscricao inscricao, Authentication auth, RedirectAttributes redirect) {
 		
 		VisitaDomiciliar visitaDomiciliarBanco = visitaService.buscar(visitaDomiciliar.getId());
 		
@@ -117,23 +162,16 @@ public class VisitaController {
 				}
 			}
 		}
-		
-		//condição para cadastrar uma
-		if(inscricao.getVisitaDomiciliar() == null){
-			inscricao.setVisitaDomiciliar(visitaDomiciliarBanco);
-		}else {
-			//condição para quando for editar uma visita
-			visitaDomiciliarBanco.setData(visitaDomiciliar.getData());
-			visitaDomiciliarBanco.setObservacoes(visitaDomiciliar.getObservacoes());
-			visitaDomiciliarBanco.setRelatorio(visitaDomiciliar.getRelatorio());
-			visitaDomiciliarBanco.setResultado(visitaDomiciliar.getResultado());
-		}
-		
+		visitaDomiciliarBanco.setData(visitaDomiciliar.getData());
+		visitaDomiciliarBanco.setObservacoes(visitaDomiciliar.getObservacoes());
+		visitaDomiciliarBanco.setRelatorio(visitaDomiciliar.getRelatorio());
+		visitaDomiciliarBanco.setResultado(visitaDomiciliar.getResultado());		
 		visitaDomiciliarBanco.setResponsavel(servidorService.getByCpf(auth.getName()));
 		visitaService.salvar(visitaDomiciliarBanco);
 		
 		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
-	}	
+	}
+	
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/documento/{inscricao}/download/{documento}")
