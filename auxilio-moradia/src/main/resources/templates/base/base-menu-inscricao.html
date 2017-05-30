@@ -3,32 +3,32 @@
       	<div class="nav-wrapper">
 	<ul id="nav-mobile" class="left">
 		<li>
-			<a th:if="${detalhes_inscricao}" class="white" th:href="@{/inscricao/detalhes/__${inscricao.id}__}">
-				<span class="cyan-text text-lighten-2 title">Detalhes Inscrição</span>
+			<a th:if="${detalhes_inscricao}" class="deep-purple" th:href="@{/inscricao/detalhes/__${inscricao.id}__}">
+				Detalhes Inscrição
 			</a>
 			<a th:unless="${detalhes_inscricao}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}">
 				Detalhes Inscrição
 			</a>
 		</li>
 		<li>
-			<a th:if="${analise_documentos}" class="white" th:href="@{/inscricao/analise-documentos/__${inscricao.id}__}">
-				<span class="cyan-text text-lighten-2 title">Análise de Documentos</span>
+			<a th:if="${analise_documentos}" class="deep-purple" th:href="@{/inscricao/analise-documentos/__${inscricao.id}__}">
+				Análise de Documentos
 			</a>
 			<a th:unless="${analise_documentos}" th:href="@{/inscricao/analise-documentos/__${inscricao.id}__}">
 				Análise de Documentos
 			</a>
 		</li>
 		<li>
-			<a th:if="${entrevista}" class="white" th:href="@{/inscricao/entrevista/__${inscricao.id}__}">
-				<span class="cyan-text text-lighten-2 title">Entrevista</span>
+			<a th:if="${entrevista}" class="deep-purple" th:href="@{/inscricao/entrevista/__${inscricao.id}__}">
+				Entrevista
 			</a>
 			<a th:unless="${entrevista}" th:href="@{/inscricao/entrevista/__${inscricao.id}__}">
 				Entrevista
 			</a>
 		</li>
 		<li>
-			<a th:if="${visita_domiciliar}" class="white" th:href="@{/inscricao/visita-domiciliar/__${inscricao.id}__}">
-				<span class="cyan-text text-lighten-2 title">Visita Domiciliar</span>
+			<a th:if="${visita_domiciliar}" class="deep-purple" th:href="@{/inscricao/visita-domiciliar/__${inscricao.id}__}">
+				Visita Domiciliar
 			</a>
 			<a th:unless="${visita_domiciliar}" th:href="@{/inscricao/visita-domiciliar/__${inscricao.id}__}">
 				Visita Domiciliar
@@ -37,7 +37,7 @@
 	</ul>
 	<ul id="nav-mobile" class="right">
 		<li>
-			<a href="#">Resultado Final
+			<a href="#" th:if="${inscricao.resultado}">Resultado Final
 				<span th:if="${inscricao.resultado.nome} == 'deferido'" class="chip green-text" th:text="'Deferido'"></span>
         		<span th:if="${inscricao.resultado.nome} == 'indeferido'" class="chip red-text" th:text="'Indeferido'"></span>
 			</a>
