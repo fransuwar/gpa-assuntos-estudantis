@@ -119,6 +119,67 @@ public class DocumentacaoInscricaoController {
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 	}
 	
+
+	@Secured(ALUNO)
+	@PostMapping("/pagina/{idInscricao}")
+	public String adicionarDocumentacao2( @RequestParam("files") List<MultipartFile> files,
+			@PathVariable("idInscricao") Inscricao inscricao, 
+			@RequestParam("tipoDocumento") TipoDocumento tipoDocumento,
+			RedirectAttributes redirect) {
+		
+		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
+			Documentacao documentacao = documentacaoRepository.findByTipoDocumento(tipoDocumento, inscricao.getAnaliseDocumentacao());
+			if( documentacao == null )
+				documentacao = new Documentacao();
+			
+			for (MultipartFile mfiles : files) {
+				try {
+					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
+
+						Documento documento = new Documento();
+						documento.setNome(mfiles.getOriginalFilename());
+						documento.setCaminho(mfiles.getContentType());
+
+						if(inscricao.getAnaliseDocumentacao() == null)
+							inscricao.setAnaliseDocumentacao(new AnaliseDocumentacao());
+						documentoRepository.save(documento);
+						documentacao.getDocumentos().add(documento);
+					}
+				} catch (IOException e)	{
+					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+
+					return RedirectConstants.REDIRECT_INSCRICAO_OUTROS+ inscricao.getSelecao().getId();
+				}
+			}
+			documentacao.setTipoDocumento(tipoDocumento);
+			
+			AnaliseDocumentacao analiseDocumento = inscricao.getAnaliseDocumentacao();
+			if( analiseDocumento == null || analiseDocumento.getId() == null ) {
+				analiseDocumento = new AnaliseDocumentacao();
+				analiseDocumentacaoRepository.save(analiseDocumento);
+			}
+			
+			analiseDocumento.setInscricao(inscricao);
+			documentacao.setAnaliseDocumentacao(analiseDocumento);
+			documentacaoRepository.save(documentacao);
+			
+			inscricao.setAnaliseDocumentacao(analiseDocumento);
+			inscricaoRepository.save(inscricao);
+		}
+		
+		else {
+			redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_NENHUM_ARQUIVO);
+
+			return RedirectConstants.REDIRECT_INSCRICAO_OUTROS+ inscricao.getSelecao().getId();
+		}
+		
+		redirect.addFlashAttribute(INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO);
+		
+		return RedirectConstants.REDIRECT_INSCRICAO_OUTROS+ inscricao.getSelecao().getId();
+		//"redirect:/inscricao/outras-informacoes/";
+	}
+	
+	
 	@Secured(ALUNO)
 	@GetMapping("/inscricao/{idInscricao}/documentacao/{idDocumentacao}/excluir-documento/{idDocumento}")
 	public String excluirDocumentoDaInscricao(@PathVariable("idInscricao") Inscricao inscricao,
