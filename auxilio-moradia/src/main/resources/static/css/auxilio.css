@@ -17,6 +17,17 @@ nav .brand-logo {
     padding-left: 25px;
 }
 
+#entrevista:not(.active) {
+font-size: 1rem;
+-webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+}
+.label-auxilio {
+font-size: 0.8rem;
+-webkit-transform: translateY(-30%);
+        transform: translateY(-30%);
+}
+
 div.subtitle {
     margin-top: 50px;
 }
@@ -104,3 +115,4 @@ span.bold {
 .breadcrumb:before {
     color: #7e57c2;
 }
+
