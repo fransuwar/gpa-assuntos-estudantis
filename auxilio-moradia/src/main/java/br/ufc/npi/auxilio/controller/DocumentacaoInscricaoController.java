@@ -119,7 +119,7 @@ public class DocumentacaoInscricaoController {
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 	}
 	
-
+	/*Controller enviar documentação página de inscriçaõ do aluno */
 	@Secured(ALUNO)
 	@PostMapping("/pagina/{idInscricao}")
 	public String adicionarDocumentacao2( @RequestParam("files") List<MultipartFile> files,
@@ -178,6 +178,22 @@ public class DocumentacaoInscricaoController {
 		return RedirectConstants.REDIRECT_INSCRICAO_OUTROS+ inscricao.getSelecao().getId();
 		//"redirect:/inscricao/outras-informacoes/";
 	}
+	
+	/*Controller excluir documentação página de inscrição do aluno */
+	@Secured(ALUNO)
+	@GetMapping("/inscricao/{idInscricao}/documentacao/{idDocumentacao}/excluir-documento2/{idDocumento}")
+	public String excluirDocumentoDaInscricao2(@PathVariable("idInscricao") Inscricao inscricao,
+			@PathVariable("idDocumentacao") Documentacao documentacao,
+			@PathVariable("idDocumento") Documento documento,
+			RedirectAttributes redirect) {
+		documentacao.getDocumentos().remove(documento);
+		documentacaoRepository.save(documentacao);
+		documentoRepository.delete(documento);
+		
+		redirect.addFlashAttribute(INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO);
+		return RedirectConstants.REDIRECT_INSCRICAO_OUTROS+ inscricao.getSelecao().getId();
+	}
+	
 	
 	
 	@Secured(ALUNO)
