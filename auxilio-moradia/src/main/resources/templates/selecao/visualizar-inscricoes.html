@@ -67,14 +67,14 @@
 								<tr th:each="inscricao : ${selecao.inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td th:unless="${inscricao.analiseDocumentacao}">
-										<a href="#">
+										<a th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
 										<div class="chip grey lighten-1">
 											Não Avaliado
 										</div>
 										</a>
 									</td>
 									<td th:if="${inscricao.analiseDocumentacao}">
-										<a href="#">
+										<a th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
 										<div th:unless="${inscricao.analiseDocumentacao.parecer}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>

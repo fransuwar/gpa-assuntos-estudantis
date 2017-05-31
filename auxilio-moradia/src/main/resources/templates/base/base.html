@@ -69,7 +69,7 @@
 
 	<section layout:fragment="js"></section>
 	
-	<script type="text/javascript">
+	<script th:inline="javascript">
 		function filterGlobal (){
 			$("#inscricoes").DataTable().search(
 					$("#busca_inscricoes").val()
@@ -86,6 +86,41 @@
 			   selectYears: 100, 
 			   format: "dd/mm/yyyy"
 			});
+			
+			$("#analise-documento tbody tr td.editaveldinheiro").click(function(){
+				var conteudoOriginal = $(this).text();
+				conteudoOriginal = conteudoOriginal.replace('R$ ','');
+				var novoElemento = $('<input/>', {type:'text', value:conteudoOriginal});
+				
+				$(this).html(novoElemento.blur(function(){
+					var conteudoNovo = $(this).val();
+					conteudoNovo = conteudoNovo.replace(' ','');
+					if (conteudoNovo === '')
+						conteudoNovo = '0,00';
+					$(this).parent().html('R$ '+conteudoNovo);
+					var rendaPai = parseFloat(document.getElementById("rendaPai").innerHTML.replace('R$ ','').replace('.','').replace(',','.'));
+					var rendaMae = parseFloat(document.getElementById("rendaMae").innerHTML.replace('R$ ','').replace('.','').replace(',','.'));
+					var rendaOutros = parseFloat(document.getElementById("rendaOutros").innerHTML.replace('R$ ','').replace('.','').replace(',','.'));
+					var grupoFamiliar = parseFloat(document.getElementById("grupoFamiliar").innerHTML);
+					var rendaPerCapita = (rendaPai+rendaMae+rendaOutros)/grupoFamiliar;
+					$(document.getElementById("rendaPerCapita")).html(rendaPerCapita);
+							
+				}));
+				
+				$(this).children().select();
+			})
+			
+			$("#analise-documento tbody tr td.editavel").click(function(){
+				var conteudoOriginal = $(this).text();
+				var novoElemento = $('<input/>', {type:'text', value:conteudoOriginal});
+				
+				$(this).html(novoElemento.blur(function(){
+					var conteudoNovo = $(this).val();
+					$(this).parent().html(conteudoNovo);
+				}));
+				
+				$(this).children().select();
+			})
 			
 			var table = $("#inscricoes").DataTable({
                 "scrollX": true,

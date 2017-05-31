@@ -37,7 +37,55 @@
 					</table>					
 				</div>
        		</div>
-        	<form role="form" th:object="${inscricao}" th:method="post">
+       		<div class="card">
+       			<div class="card-content">
+       				<table id ="analise-documento" class="display nowrap" cellspacing="0" width="10	0%">
+								<thead>
+								<tr>
+									<!-- <th>Aluno</th> -->
+									<th></th>
+									<th>Curso</th>
+									<th>Origem</th>
+									<th>Renda Pai</th>
+									<th>Renda Mãe</th>
+									<th>Renda outros</th>
+									<th>Nº pessoas</th>
+									<th>Renda per capita</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<!-- <td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td> -->
+									<td>Fornecido Pelo Aluno</td>
+									<td th:text="${inscricao.aluno.curso}"></td>
+									
+									<td th:text="${inscricao.questionario.cidadeOrigem} ? '__${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__' : '-'"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPai(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaMae(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaOutros(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="${inscricao.questionario.grupoFamiliar.size()}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
+									
+								</tr>
+								
+								<tr>
+       							
+       							<td>Valores reais</td>
+       							<td class="editavel" th:text="${inscricao.aluno.curso}"></td>
+									
+									<td class="editavel" id="cidadeOrigem" th:text="${inscricao.questionario.cidadeOrigem} ? '__${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__' : '-'"></td>
+									<td class="editaveldinheiro" id="rendaPai" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPai(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td class="editaveldinheiro" id="rendaMae" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaMae(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td class="editaveldinheiro" id="rendaOutros" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaOutros(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td class="editavel" id="grupoFamiliar" th:text="${inscricao.questionario.grupoFamiliar.size()}"></td>
+									<td id="rendaPerCapita" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
+									
+								</tr>
+								</tbody>
+							</table>
+       			</div>
+       		</div>
+       		<form role="form" th:object="${inscricao}" th:method="post">
         		<div class="card">
         			<div class="card-content">
 						<h5 class="title light">Parecer</h5>
