@@ -13,7 +13,7 @@
 			<div th:replace="base/base-menu-inscricao :: menu-inscricao"></div>
     	</div>
     	<div class="col s12" sec:authorize="hasAuthority('ALUNO')">
-	        <a th:unless="${inscricao.resultado == null or inscricao.visitaDomiciliar==null}" href="#!" class="breadcrumb deep-purple-text text-lighten-1">
+	        <a th:if="${inscricao.resultado}" href="#!" class="breadcrumb deep-purple-text text-lighten-1">
 	        	Resultado Final: <span th:if="${inscricao.resultado.nome} == 'deferido'" class="chip green-text" th:text="'Deferido'"></span>
 	        	<span th:if="${inscricao.resultado.nome} == 'indeferido'" class="chip red-text" th:text="'Indeferido'"></span>
 	        </a>
