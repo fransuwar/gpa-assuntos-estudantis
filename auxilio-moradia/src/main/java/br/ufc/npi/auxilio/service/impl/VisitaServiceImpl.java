@@ -61,7 +61,8 @@ public class VisitaServiceImpl implements VisitaService{
 				documentoRepository.save(documento);
 				visitaDomiciliar.setFormulario(documento);
 				salvarArquivoLocal(documento);
-			} catch (Exception e) {
+			} catch (IOException e) {
+				e.printStackTrace();
 				throw new AuxilioMoradiaException(MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 			}
 		}
@@ -87,8 +88,10 @@ public class VisitaServiceImpl implements VisitaService{
 
 				salvarArquivoLocal(documento);
 			} catch (IOException e) {
+				e.printStackTrace();
 				throw new AuxilioMoradiaException(MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 			} catch (AuxilioMoradiaException e){
+				e.printStackTrace();
 				throw new AuxilioMoradiaException(MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 			}
 		}
