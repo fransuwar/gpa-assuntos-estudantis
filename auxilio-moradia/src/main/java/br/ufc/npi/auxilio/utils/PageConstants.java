@@ -11,6 +11,7 @@ public class PageConstants {
 	public static final String DETALHES_SELECAO = "selecao/detalhes-selecao";
 	public static final String ENVIAR_DOCUMENTACAO = "inscricao/enviar-documento";
 	public static final String PAGINA_ENTREVISTA = "inscricao/entrevista";
+	public static final String PAGINA_VISITA = "inscricao/visita-domiciliar";
 
 
 	// Inscrição
