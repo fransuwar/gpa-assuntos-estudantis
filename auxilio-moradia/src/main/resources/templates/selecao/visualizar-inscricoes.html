@@ -121,16 +121,16 @@
 									</td>
 									<td th:if="${inscricao.visitaDomiciliar}">
 										<a href="#">
-										<div th:unless="${inscricao.visitaDomiciliar.parecer}" class="chip grey lighten-1">
+										<div th:unless="${inscricao.visitaDomiciliar.resultado}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'não avaliado'}" class="chip grey lighten-1">
+										<div th:if="${inscricao.visitaDomiciliar.resultado eq 'não avaliado'}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'deferido' }" class="chip green lighten-1">
+										<div th:if="${inscricao.visitaDomiciliar.resultado eq 'deferido' }" class="chip green lighten-1">
 											Deferido
 										</div>
-										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'indeferido'}" class="chip red lighten-1">
+										<div th:if="${inscricao.visitaDomiciliar.resultado eq 'indeferido'}" class="chip red lighten-1">
 											Indeferido
 										</div>
 										</a>

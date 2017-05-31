@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="base/base"
+	th:with="currentPage='selecao'">
+
+<head>
+	<title>Auxílio - Visita Domiciliar</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="row">
+		<a th:href="@{/selecao}" class="breadcrumb"><span class=" cyan-text text-lighten-2">Seleções</span></a>
+		<a th:href="@{/selecao/inscricoes/__${inscricao.selecao.id}__}"  class="breadcrumb"><span class=" cyan-text text-lighten-2">Inscrições</span></a>
+	</div>
+	<div class="row">
+		<div class="col s12">
+			<div class="card">
+				<div class="card-content details">
+					<h5 class="title light">Aluno</h5>
+					<div class="row no-margin">
+						<div class="col s4">
+							<span th:text="${inscricao.aluno.pessoa.nome}" class="text-20 light bold"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<form data-model="visita" th:action="@{/visita/__${acao}__/__${inscricao.id}__}" th:object="${visita}" th:method="post" enctype="multipart/form-data">
+				<input type="hidden" th:field="*{id}" />
+				<div class="card">
+					<div class="card-content">
+					<h5 class="title light">Visita Domiciliar</h5>
+						<div class="row no-margin">
+							<div class="col s6">
+								<h6 class="title light">Responsável</h6>
+								<div class="input-field">
+									<span th:text="${servidor.pessoa.nome}" id="servidor" class="text-20 light" th:field="${servidor}"></span>
+								</div> 
+							</div>
+							<div class="col s3">
+								<h6 class="title light">Data</h6>
+								<div class="input-field">
+									<input th:field="*{data}" type="text" id="data" class="datepicker" placeholder="dd/MM/aaaa" required="required"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-content">
+						<h5 class="title light">Relátorio</h5>
+						<div class="row">
+							<div class="col s12 input-field">
+								<textarea id="relatorio"  th:field="*{relatorio}" class="materialize-textarea"></textarea>
+								<label for="relatorio">Relatório Geral da Visita Domiciliar</label>
+							</div>
+						</div>
+					</div>
+				</div>
+	            <div class="card">
+					<div class="card-content">
+						<h5 class="title light">Arquivos Auxiliares</h5>
+						<div class="row no-margin">
+							<div class="col s3">
+								<h6 class="title light">Formulário</h6>
+								<div class="file-field input-field">
+							      <div class="btn">
+							        <span><i class="material-icons">attach_file</i></span>
+							        <input type="file" name="formularioVisita"></input>
+							      </div>
+							      <div class="file-path-wrapper">
+							      	<input class="file-path validate" id="formulario" type="text" placeholder="Upload file"></input>
+							      </div>
+							    </div>
+							    <div class="card" th:if="${visita.formulario != null}">
+									<a title="Download" th:href="@{/visita/documento/__${inscricao.id}__/download/__${visita.formulario.id}__}" class="btn-icon waves-effect top-right-hover">
+										<span class="limit valign-wrapper card-action" data-max-length="8" th:text="${visita.formulario.nome}"></span>
+									</a>
+								</div>
+	          				</div>
+	          				<div class="col s9">
+								<h6 class="title light">Imagens</h6>
+								<div class="file-field input-field">
+							      <div class="btn">
+							        <span><i class="material-icons">attach_file</i></span>
+							        <input type="file" name="imagensVisita" multiple="multiple"></input>
+							      </div>
+							      <div class="file-path-wrapper">
+							        <input class="file-path validate" type="text" id="imagens" placeholder="Upload one or more files"></input>
+							      </div>
+							    </div>
+							    <div th:if="${visita.imagens != null}">
+									<div class="card" th:each="imagem : ${visita.imagens}">
+										<a title="Download" th:href="@{/visita/documento/__${inscricao.id}__/download/__${imagem.id}__}" class="btn-icon waves-effect top-right-hover">
+											<span class="limit valign-wrapper card-action" data-max-length="8" th:text="${imagem.nome}"></span>
+										</a>
+									</div>
+								</div>
+	          				</div>
+	          			</div>
+	          		</div>
+	            </div>
+	            <div class="card">
+	            	<div class="card-content">
+	            	<h5 class="title light">Parecer</h5>
+						<div class="row">
+							<div class="col s12 input-field">
+								<select th:field="*{resultado}" id="resultado">
+          							<option th:each="resultado : ${resultados}" th:value="${resultado}" th:text="${resultado}"></option>
+          						</select>
+          						<label class="title light">Resultado</label>
+		          			</div>
+	          			</div>
+	          			<div class="row">
+							<div class="col s12 input-field">
+								<label for="observacoes">Observações</label>
+								<textarea id="observacoes" th:field="*{observacoes}" class="materialize-textarea"></textarea>
+							</div>
+						</div>
+						
+	            		<div class="card-action right-align">
+	            			<a th:href="@{/selecao/inscricoes/__${inscricao.selecao.id}__}"  type="button" class=" btn waves-effect">Cancelar</a>
+							<button class="btn waves-effect waves-light" type="submit">Finalizar</button>
+						</div>
+					</div>
+	            </div>
+			</form>
+		</div>
+	</div>
+</section>
+
+<section layout:fragment="js">
+	
+</section>
+
+<section layout:fragment="js">
+    	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
+</section>
+</html>
