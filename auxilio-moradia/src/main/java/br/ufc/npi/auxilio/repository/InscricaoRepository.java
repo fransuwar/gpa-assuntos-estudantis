@@ -20,5 +20,7 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
 	public List<Inscricao> findInscricaoBySelecaoOrderByPosicaoRankingAsc(Selecao selecao);
 	
 	public List<Inscricao> findAllBySelecao(Selecao selecao);
+
+	public Inscricao findInscricaoById(Integer idInscricao);
 	
 }

@@ -17,6 +17,8 @@ public interface InscricaoService {
 	Inscricao salvar(Inscricao inscricao);
 
 	Inscricao atualizar(Inscricao inscricao) throws AuxilioMoradiaException;
+	
+	boolean editar(Inscricao inscricao);
 
     PessoaFamilia adicionarMembroFamilia(PessoaFamilia pessoa);
 
@@ -25,5 +27,11 @@ public interface InscricaoService {
     List<Inscricao> getAll(Aluno aluno);
 
 	List<Inscricao> getAllOrdenado(Selecao selecao);
+	
+	Inscricao buscarInscricaoPorId(Integer idInscricao);
+		
+	boolean selecionarInscricao(Integer idInscricao,boolean selecionar);
+		
+	
 }
 

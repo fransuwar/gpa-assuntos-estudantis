@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -253,6 +255,10 @@ public class SelecaoController {
 			return REDIRECT_LISTAR_SELECAO;
 		}
 		List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
+		Collections.sort(inscricoes);
+		for(Inscricao i : inscricoes){
+			System.out.println(i.getResultado() + " " + i.getRendaPerCapita() + i.getPosicaoRanking());
+		}
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("inscricoes", inscricoes);
 		return VISUALIZAR_INSCRICOES;

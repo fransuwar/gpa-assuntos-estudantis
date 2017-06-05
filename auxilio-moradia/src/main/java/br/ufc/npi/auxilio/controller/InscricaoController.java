@@ -9,6 +9,9 @@ import br.ufc.npi.auxilio.model.questionario.Identificacao;
 import br.ufc.npi.auxilio.model.questionario.Moradia;
 import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
 import br.ufc.npi.auxilio.service.*;
+import br.ufc.npi.auxilio.utils.api.Response;
+import br.ufc.quixada.npi.ldap.service.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -376,4 +379,28 @@ public class InscricaoController {
 		redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_VISUALIZAR_INSCRICAO);
 		return REDIRECT_LISTAR_SELECAO;
 	}
+	
+	@PostMapping(value = "/selecionar")
+	@ResponseBody
+	public Response selecionarInscricao(Integer idInscricao, boolean selecionar){
+		if (inscricaoService.selecionarInscricao(idInscricao, selecionar) ){
+			Response r = new Response();
+			System.out.println(r.getStatus());
+			return r;
+		}
+		else
+			return new Response().withFailStatus().withErrorMessage("Error ao selecionar esta inscricao");
+	}
+	
+	/*@PostMapping("/selecionar")
+	public String selecionarInscricao(Integer idInscricao, boolean selecionar){
+		if (inscricaoService.selecionarInscricao(idInscricao, selecionar) ){
+			System.out.println(idInscricao + " " + selecionar);
+			return REDIRECT_LISTAR_SELECAO;
+		}
+		return VISUALIZAR_INSCRICOES+"/52";
+	}
+	*/
+	
+
 }

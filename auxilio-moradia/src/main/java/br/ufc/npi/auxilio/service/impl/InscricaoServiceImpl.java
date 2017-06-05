@@ -46,6 +46,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 		inscricao.setSelecao(selecao);
 		inscricao.setAluno(aluno);
 		inscricao.setData(LocalDateTime.now());
+		inscricao.setSelecionado(false);
 		inscricaoRepository.save(inscricao);
 		inscricao.setIdentificacao(identificacao);
 		return inscricaoRepository.save(inscricao);
@@ -70,6 +71,22 @@ public class InscricaoServiceImpl implements InscricaoService {
 		}
 		return inscricaoRepository.save(inscricao);
 	}
+	
+	@Override
+	public boolean editar(Inscricao inscricao) {
+		Inscricao inscricaoAntigo = this.buscarInscricaoPorId(inscricao.getId());
+		if(inscricaoAntigo == null){
+			return false;
+		}
+		try {
+			inscricao.setSelecionado(inscricaoAntigo.isSelecionado());
+			
+			inscricaoRepository.save(inscricao);
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
+		return true;
+	}
 
 	@Override
 	public PessoaFamilia adicionarMembroFamilia(PessoaFamilia pessoa) {
@@ -90,6 +107,20 @@ public class InscricaoServiceImpl implements InscricaoService {
 	public List<Inscricao> getAllOrdenado(Selecao selecao) {
 		return inscricaoRepository.findInscricaoBySelecaoOrderByPosicaoRankingAsc(selecao);
 	}
+	
+	@Override
+	public Inscricao buscarInscricaoPorId(Integer idInscricao){
+		return inscricaoRepository.findInscricaoById(idInscricao);
+	}
+	
+	@Override
+	public boolean selecionarInscricao(Integer idInscricao,boolean selecionar) {
+		Inscricao inscricao = this.buscarInscricaoPorId(idInscricao);
+		inscricao.setSelecionado(selecionar);
+		return editar(inscricao);
+	}
+
+	
 	
 	
 }
