@@ -20,10 +20,10 @@
 		<!-- Membros da comissão -->
 		<div class="row">
 			<div class="chip deep-purple lighten-1" th:each="servidor : ${selecao.comissao}">
-				<div class="text-20 light white-text" th:text="${servidor.pessoa.nome}"></div>
+				<div class="text-17 light white-text" th:text="${servidor.pessoa.nome}"></div>
 				<a title="Excluir" th:href="@{/selecao/comissao/__${selecao.id}__/excluir/__${servidor.id}__}"
 				   sec:authorize="hasAuthority('COORDENADOR')">
-					<i class="text-20 white-text material-icons">close</i>
+					<i class="close white-text material-icons">close</i>
 				</a>
 			</div>
 		</div>

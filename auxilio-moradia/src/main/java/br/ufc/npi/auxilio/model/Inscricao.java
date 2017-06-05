@@ -125,9 +125,6 @@ public class Inscricao implements Comparable<Inscricao>{
 	}
 
 	public VisitaDomiciliar getVisitaDomiciliar() {
-		if(visitaDomiciliar == null){
-			visitaDomiciliar = new VisitaDomiciliar();
-		}
 		return visitaDomiciliar;
 	}
 

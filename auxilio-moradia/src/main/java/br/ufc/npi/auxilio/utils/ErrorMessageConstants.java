@@ -6,12 +6,14 @@ public class ErrorMessageConstants {
 	public static final String MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR = "O responsável não pode ser excluído da comissão";
 	public static final String MENSAGEM_ERRO_SELECAO_INEXISTENTE = "Esta seleção não existe";
 	public static final String MENSAGEM_ERRO_SALVAR_DOCUMENTOS = "Não foi possível salvar o documento";
+	public static final String MENSAGEM_ERRO_NENHUM_ARQUIVO = "Nenhum arquivo foi selecionado";
 	public static final String MENSAGEM_ERRO_EXCLUIR_ARQUIVO = "Erro ao excluir arquivo";
 	public static final String MENSAGEM_ERRO_BUSCAR_ARQUIVO = "Erro ao buscar arquivo";
 	public static final String MENSAGEM_ERRO_EXCLUIR_DOCUMENTACAO = "Erro ao excluir documentação";
 	public static final String MENSAGEM_ERRO_SELECAO_COM_INSCRICAO = "Essa seleção já possui inscrições realizadas e não é possível excluí-la";
 	public static final String MENSAGEM_ERRO_PERIODO_INSCRICAO = "A data de término das inscrições deve ser posterior à data de início";
-
+	public static final String MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA = "A documentação já foi adicionada";
+	public static final String MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO = "O membro já foi adicionado";
 	
 	/* Inscrição */
 	public static final String MENSAGEM_ERRO_INSCRICAO_INEXISTENTE = "Você não possui nenhuma inscrição para essa seleção";

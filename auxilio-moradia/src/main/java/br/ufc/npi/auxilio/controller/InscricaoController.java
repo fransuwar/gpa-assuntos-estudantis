@@ -328,6 +328,7 @@ public class InscricaoController {
 		}
 
 		model.addAttribute("justificativa", inscricao.getQuestionario().getJustificativa());
+		model.addAttribute("inscricao", inscricao); // joao
 		return INSCRICAO_OUTRAS_INFORMACOES;
 	}
 

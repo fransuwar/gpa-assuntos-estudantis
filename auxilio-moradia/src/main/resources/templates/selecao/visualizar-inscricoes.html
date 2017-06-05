@@ -48,8 +48,8 @@
 
 					<!-- Inscrições -->
 					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
-						<div class="dt-buttons">
-							<a class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="inscricoes" href="#"><span>Relatório Geral</span></a>
+						<div>
+							<a th:href="@{/selecao/inscricoes/relatorio/__${selecao.id}__}" class="waves-effect waves-light btn">Relatório Geral</a>
 						</div>
 						<div class="col s12">
 							<table id="inscricoes" class="display nowrap striped bordered lighten-1" cellspacing="0" width="100%">
@@ -91,14 +91,14 @@
 										</a>
 									</td>
 									<td th:unless="${inscricao.entrevista}">
-										<a href="#">
+										<a th:href="@{/entrevista/__${inscricao.id}__}">
 										<div class="chip grey lighten-1">
 											Não Avaliado
 										</div>
 										</a>
 									</td>
 									<td th:if="${inscricao.entrevista}">
-										<a href="#">
+										<a th:href="@{/entrevista/__${inscricao.id}__}">
 										<div th:unless="${inscricao.entrevista.parecer}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>
@@ -122,16 +122,16 @@
 									</td>
 									<td th:if="${inscricao.visitaDomiciliar}">
 										<a href="#">
-										<div th:unless="${inscricao.visitaDomiciliar.parecer}" class="chip grey lighten-1">
+										<div th:unless="${inscricao.visitaDomiciliar.resultado}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'não avaliado'}" class="chip grey lighten-1">
+										<div th:if="${inscricao.visitaDomiciliar.resultado eq 'não avaliado'}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>
-										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'deferido' }" class="chip green lighten-1">
+										<div th:if="${inscricao.visitaDomiciliar.resultado eq 'deferido' }" class="chip green lighten-1">
 											Deferido
 										</div>
-										<div th:if="${inscricao.visitaDomiciliar.parecer eq 'indeferido'}" class="chip red lighten-1">
+										<div th:if="${inscricao.visitaDomiciliar.resultado eq 'indeferido'}" class="chip red lighten-1">
 											Indeferido
 										</div>
 										</a>
