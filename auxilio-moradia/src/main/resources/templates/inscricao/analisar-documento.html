@@ -9,12 +9,8 @@
 </head>
 <body>
 	<!-- Page Content -->
-	<div layout:fragment="conteudo">
+	<section layout:fragment="conteudo">
     <!-- Content Header (Page header) -->
-      
-      <!-- Main content -->
-      <section class="content">
-        <div>
        	<div class="card">
        			<div class="card-content">
 					<h5 class="title light" th:text="'Análise de Documentação: '+${inscricao.selecao.tipo.nome} +' '+${inscricao.selecao.ano}"></h5>
@@ -37,18 +33,18 @@
 					</table>					
 				</div>
        		</div>
-        	<form role="form" th:object="${inscricao}" th:method="post">
+        	<form data-model="analiseDocumentacao" th:action="@{/}" th:object="${inscricao.analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
         		<div class="card">
         			<div class="card-content">
 						<h5 class="title light">Parecer</h5>
 						<div class="col s4 input-field">
-							<select>
+							<select th:field="*{resultado}">
 								<option th:each="tipoResultado : ${resultado}" th:value="${tipoResultado}" th:text="${tipoResultado}"></option>
 							</select>
 							<label for="parecer">Resultado</label>
 						</div>
 						<div class="col s8 input-field">
-							<textarea class="materialize-textarea" id="observacao"></textarea>
+							<textarea class="materialize-textarea" id="observacao" th:field="*{observacoes}"></textarea>
 							<label for="observacao">Observação</label>
 						</div>
 					</div>
@@ -57,10 +53,7 @@
 						<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
 				</div>
 			</form>
-        </div>
-        <!-- /.box -->
-      </section>
-	</div>
+    </section>
 	
 	<section layout:fragment="js">
     	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
