@@ -48,6 +48,5 @@ public class EmailServiceImpl implements EmailService{
 		            e.printStackTrace();
 		        } finally {}
 		        mailSender.send(mail);
-			System.out.println("Enviar o email");
 		}
 }
