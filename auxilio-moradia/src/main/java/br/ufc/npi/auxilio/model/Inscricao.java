@@ -49,17 +49,6 @@ public class Inscricao implements Comparable<Inscricao>{
 	
 	@Column(nullable=true)
 	private Integer selecionado;
-	
-	
-	/*public boolean isSelecionado() {
-		return selecionado;
-	}
-
-	public void setSelecionado(boolean selecionado) {
-		this.selecionado = selecionado;
-	}*/
-	
-	
 
 	public boolean isConsolidada() {
 		return consolidada;
