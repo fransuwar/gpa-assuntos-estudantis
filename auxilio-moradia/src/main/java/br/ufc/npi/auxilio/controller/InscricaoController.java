@@ -383,7 +383,9 @@ public class InscricaoController {
 	@PostMapping(value = "/selecionar")
 	@ResponseBody
 	public Response selecionarInscricao(Integer idInscricao, boolean selecionar){
-		if (inscricaoService.selecionarInscricao(idInscricao, selecionar) ){
+		Integer n = 0;
+		if(selecionar == true) n = 1; else n = 0;
+		if (inscricaoService.selecionarInscricao(idInscricao, n) ){
 			Response r = new Response();
 			return r;
 		}

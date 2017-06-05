@@ -46,7 +46,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 		inscricao.setSelecao(selecao);
 		inscricao.setAluno(aluno);
 		inscricao.setData(LocalDateTime.now());
-		inscricao.setSelecionado(false);
+		inscricao.setSelecionado(0);
 		inscricaoRepository.save(inscricao);
 		inscricao.setIdentificacao(identificacao);
 		return inscricaoRepository.save(inscricao);
@@ -79,7 +79,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 			return false;
 		}
 		try {
-			inscricao.setSelecionado(inscricaoAntigo.isSelecionado());
+			inscricao.setSelecionado(inscricaoAntigo.getSelecionado());
 			
 			inscricaoRepository.save(inscricao);
 		} catch (IllegalArgumentException e) {
@@ -114,7 +114,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 	
 	@Override
-	public boolean selecionarInscricao(Integer idInscricao,boolean selecionar) {
+	public boolean selecionarInscricao(Integer idInscricao,Integer selecionar) {
 		Inscricao inscricao = this.buscarInscricaoPorId(idInscricao);
 		inscricao.setSelecionado(selecionar);
 		return editar(inscricao);

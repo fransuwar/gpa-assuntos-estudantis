@@ -30,7 +30,7 @@ public interface InscricaoService {
 	
 	Inscricao buscarInscricaoPorId(Integer idInscricao);
 		
-	boolean selecionarInscricao(Integer idInscricao,boolean selecionar);
+	boolean selecionarInscricao(Integer idInscricao,Integer selecionar);
 		
 	
 }

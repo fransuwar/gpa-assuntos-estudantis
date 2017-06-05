@@ -47,19 +47,30 @@ public class Inscricao implements Comparable<Inscricao>{
 	
 	private Integer posicaoRanking;
 	
-	@Column(nullable = true)
-	private boolean selecionado;
+	@Column(nullable=true)
+	private Integer selecionado;
 	
-	public boolean isSelecionado() {
+	
+	/*public boolean isSelecionado() {
 		return selecionado;
 	}
 
 	public void setSelecionado(boolean selecionado) {
 		this.selecionado = selecionado;
-	}
+	}*/
+	
+	
 
 	public boolean isConsolidada() {
 		return consolidada;
+	}
+
+	public Integer getSelecionado() {
+		return selecionado;
+	}
+
+	public void setSelecionado(Integer selecionado) {
+		this.selecionado = selecionado;
 	}
 
 	public void setConsolidada(boolean consolidada) {
