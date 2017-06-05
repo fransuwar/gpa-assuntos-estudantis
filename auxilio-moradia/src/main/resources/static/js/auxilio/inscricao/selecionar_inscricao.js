@@ -21,13 +21,8 @@ $(document).ready(function() {
 					 }else{
 						checkbox.prop('checked', false); 	
 					 }
-				 }else{
-					 consolog.log("aksdkaskd");
 				 }
-			 },
-			 error: function(data){
-				    alert("ERRO");
-			    }
+			 }
 		});
 	});
 	
