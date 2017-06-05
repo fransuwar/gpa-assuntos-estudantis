@@ -356,8 +356,6 @@ public class InscricaoController {
 	public String visualizarInscricao(@PathVariable Inscricao inscricao, RedirectAttributes redirect,
 			Model model, Authentication auth) {
 		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
-		System.out.println(inscricao.getSelecao().getTipo().getNome());
-
 		if(inscricao != null || pessoa != null) {
 			Servidor servidor = servidorService.getByCpf(auth.getName());
 			Aluno aluno = alunoService.buscarPorCpf(auth.getName());

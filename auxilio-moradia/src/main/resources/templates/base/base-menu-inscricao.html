@@ -26,11 +26,11 @@
 				Entrevista
 			</a>
 		</li>
-		<li th:if="${inscricao.selecao.tipo.nome == 'Auxílio Moradia'}">
-			<a th:if="${visita_domiciliar}" class="deep-purple" th:href="@{/inscricao/visita-domiciliar/__${inscricao.id}__}">
+		<li th:if="${inscricao.selecao.tipo == inscricao.selecao.tipo.AUXILIO_MORADIA}">
+			<a th:if="${visita_domiciliar}" class="deep-purple" th:href="@{/visita/cadastrar/__${inscricao.id}__}">
 				Visita Domiciliar
 			</a>
-			<a th:unless="${visita_domiciliar}" th:href="@{/inscricao/visita-domiciliar/__${inscricao.id}__}">
+			<a th:unless="${visita_domiciliar}" th:href="@{/visita/cadastrar/__${inscricao.id}__}">
 				Visita Domiciliar
 			</a>
 		</li>
