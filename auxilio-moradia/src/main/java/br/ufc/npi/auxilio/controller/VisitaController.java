@@ -56,37 +56,42 @@ public class VisitaController {
 	public String cadastrar(@PathVariable Inscricao inscricao, Authentication auth, Model model) {
 		Aluno aluno = alunoService.buscarPorCpf(inscricao.getAluno().getPessoa().getCpf());
 		Servidor servidor = servidorService.getByCpf(auth.getName());
-
-		model.addAttribute("acao", "cadastrar");
+		
+		if(inscricao.getVisitaDomiciliar() ==  null){
+			model.addAttribute("visita", new VisitaDomiciliar());
+			model.addAttribute("acao", "cadastrar");
+		}else{
+			VisitaDomiciliar visitaDomiciliar = visitaService.buscar(inscricao.getVisitaDomiciliar().getId());
+			model.addAttribute("visita", visitaDomiciliar);
+			model.addAttribute("acao", "editar");
+		}
 		model.addAttribute("servidor", servidor);
 		model.addAttribute("inscrição", inscricao != null ? inscricao.getId() : null);
 		model.addAttribute(ALUNO, aluno);
 		model.addAttribute("selecao", inscricao.getSelecao());
-		model.addAttribute("visita", new VisitaDomiciliar());
-
+	
 		return PageConstants.PAGINA_VISITA;
 	}
 	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@GetMapping("/editar/{inscricao}")
-	public String editar(@PathVariable Inscricao inscricao, Authentication auth, Model model) {
-		
-		VisitaDomiciliar visitaDomiciliar = inscricao.getVisitaDomiciliar();
-		Servidor servidor = servidorService.getByCpf(auth.getName());
-		
-		model.addAttribute("acao", "editar");
-		model.addAttribute("servidor", servidor);
-		model.addAttribute("visita", visitaDomiciliar);
-		return PageConstants.PAGINA_VISITA;
-	}
-	
-
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/cadastrar/{inscricao}")
 	public String cadastrar(@RequestParam("imagensVisita") List<MultipartFile> imagens,
-			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visitaDomiciliar ,@PathVariable("inscricao") Inscricao inscricao,
+			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visita ,@PathVariable("inscricao") Inscricao inscricao,
 			Model model, Authentication auth, RedirectAttributes redirect) {
 		
+		
+		VisitaDomiciliar visitaDomiciliar = visitaService.buscar(visita.getId());
+		if(visitaDomiciliar ==  null){
+			visitaDomiciliar = visita;
+		}else{
+
+			visitaDomiciliar.setData(visita.getData());
+			visitaDomiciliar.setObservacoes(visita.getObservacoes());
+			visitaDomiciliar.setRelatorio(visita.getRelatorio());
+			visitaDomiciliar.setResultado(visita.getResultado());		
+			visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
+			
+		}
 		// Salvar Imagens
 		if (imagens != null && !imagens.isEmpty() && imagens.get(0).getSize() > 0) {
 			for (MultipartFile mfiles : imagens) {
@@ -117,57 +122,12 @@ public class VisitaController {
 				}
 			}
 		}
+		if(inscricao.getVisitaDomiciliar() == null){
+			inscricao.setVisitaDomiciliar(visitaDomiciliar);
+		}
 		
-		inscricao.setVisitaDomiciliar(visitaDomiciliar);
 		visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
 		visitaService.salvar(visitaDomiciliar);
-		
-		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
-	}
-	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@PostMapping("/editar/{inscricao}")
-	public String editar(@RequestParam("imagensVisita") List<MultipartFile> imagens,
-			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visitaDomiciliar ,@PathVariable("inscricao") Inscricao inscricao, Authentication auth, RedirectAttributes redirect) {
-		
-		VisitaDomiciliar visitaDomiciliarBanco = visitaService.buscar(visitaDomiciliar.getId());
-		
-		// Salvar Imagens
-		if (imagens != null && !imagens.isEmpty() && imagens.get(0).getSize() > 0) {
-			for (MultipartFile mfiles : imagens) {
-				try {
-					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-						visitaService.adicionarImagens(visitaDomiciliarBanco, mfiles);
-						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
-					}
-				} catch (IOException e)	{
-					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
-				} catch (AuxilioMoradiaException e) {
-					redirect.addFlashAttribute(ERRO, e.getMessage());
-				}
-			}
-		}
-		// Salvar Formulário
-		if (formulario != null && !formulario.isEmpty() && formulario.get(0).getSize() > 0) {
-			for (MultipartFile mfiles : formulario) {
-				try {
-					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-						visitaService.adicionarFormulario(visitaDomiciliarBanco, mfiles);
-						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
-					}
-				} catch (IOException e)	{
-					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
-				} catch (AuxilioMoradiaException e) {
-					redirect.addFlashAttribute(ERRO, e.getMessage());
-				}
-			}
-		}
-		visitaDomiciliarBanco.setData(visitaDomiciliar.getData());
-		visitaDomiciliarBanco.setObservacoes(visitaDomiciliar.getObservacoes());
-		visitaDomiciliarBanco.setRelatorio(visitaDomiciliar.getRelatorio());
-		visitaDomiciliarBanco.setResultado(visitaDomiciliar.getResultado());		
-		visitaDomiciliarBanco.setResponsavel(servidorService.getByCpf(auth.getName()));
-		visitaService.salvar(visitaDomiciliarBanco);
 		
 		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
 	}
