@@ -43,7 +43,7 @@ public class EmailServiceImpl implements EmailService{
 		            helper.setReplyTo("someone@localhost");
 		            helper.setFrom("auxilioMoradia@gmail.com");
 		            helper.setSubject("Comissão de Entrevista para bolsa");
-		            helper.setText("Você foi selecionado para a comissão da seleção" + selecao.getTipo().getNome()+".");
+		            helper.setText("Você foi selecionado para a comissão da seleção " + selecao.getTipo().getNome()+" "+ selecao.getAno() + ".");
 		        } catch (MessagingException e) {
 		            e.printStackTrace();
 		        } finally {}
