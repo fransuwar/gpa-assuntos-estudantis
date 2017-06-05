@@ -47,6 +47,7 @@ public class Inscricao implements Comparable<Inscricao>{
 	
 	private Integer posicaoRanking;
 	
+	@Column(nullable = true)
 	private boolean selecionado;
 	
 	public boolean isSelecionado() {
