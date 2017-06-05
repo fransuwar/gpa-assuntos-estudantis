@@ -263,7 +263,6 @@ public class SelecaoController {
 		if (selecao == null || !selecao.isMembroComissao(servidorService.getByCpf(auth.getName()))) {
 			return REDIRECT_LISTAR_SELECAO;
 		}
-		System.out.println(selecao.getTipo().getNome());
 		model.addAttribute("selecao", selecao);
 		return VISUALIZAR_INSCRICOES;
 	}

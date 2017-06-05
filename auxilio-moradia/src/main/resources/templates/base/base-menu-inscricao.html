@@ -26,7 +26,7 @@
 				Entrevista
 			</a>
 		</li>
-		<li>
+		<li th:if="${inscricao.selecao.tipo.nome == 'Auxílio Moradia'}">
 			<a th:if="${visita_domiciliar}" class="deep-purple" th:href="@{/inscricao/visita-domiciliar/__${inscricao.id}__}">
 				Visita Domiciliar
 			</a>
