@@ -5,12 +5,12 @@ $(document).ready(function() {
 		var url = "/inscricao/selecionar";
 		var token = $("meta[name='_csrf']").attr("content");
 		var id =$(this).attr("id");
-		var hab = $(this).is(':checked');
+		var hab = $(this).is(":checked");
 		var param = {idInscricao : id, selecionar : hab };
 		$.ajax({
 			url: url,
-			type: 'post',
-			dataType: 'json',
+			type: "post",
+			dataType: "json",
 			data: param,
 			headers: {"X-CSRF-TOKEN":token},
 			
