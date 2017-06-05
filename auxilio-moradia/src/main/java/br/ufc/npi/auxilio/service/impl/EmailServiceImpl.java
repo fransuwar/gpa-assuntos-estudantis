@@ -42,8 +42,8 @@ public class EmailServiceImpl implements EmailService{
 		            helper.setTo(servidor.getPessoa().getEmail());
 		            helper.setReplyTo("someone@localhost");
 		            helper.setFrom("auxilioMoradia@gmail.com");
-		            helper.setSubject("Lorem ipsum");
-		            helper.setText("Lorem ipsum dolor sit amet [...]");
+		            helper.setSubject("Comissão de Entrevista para bolsa");
+		            helper.setText("VOcê foi selecionado para a comissão da seleção de entrevista");
 		        } catch (MessagingException e) {
 		            e.printStackTrace();
 		        } finally {}
