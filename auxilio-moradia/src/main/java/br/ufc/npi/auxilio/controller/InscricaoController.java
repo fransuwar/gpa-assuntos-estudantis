@@ -384,7 +384,11 @@ public class InscricaoController {
 	@ResponseBody
 	public Response selecionarInscricao(Integer idInscricao, boolean selecionar){
 		Integer n = 0;
-		if(selecionar == true) n = 1; else n = 0;
+		if(selecionar == true) {
+			n = 1; 
+		}else {
+			n = 0;
+		}
 		if (inscricaoService.selecionarInscricao(idInscricao, n) ){
 			Response r = new Response();
 			return r;
