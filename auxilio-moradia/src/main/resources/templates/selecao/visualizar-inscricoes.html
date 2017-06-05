@@ -109,7 +109,7 @@
 										</a>
 									</td>
 									<td>
-										<a th:if="${inscricao.visitaDomiciliar}" th:href="@{/visita/cadastrar/__${inscricao.id}__}">
+										<a th:if="${inscricao.visitaDomiciliar}" th:href="@{/visita/__${inscricao.id}__}">
 											<div th:if="${inscricao.visitaDomiciliar.resultado.nome eq 'não avaliado'}" class="chip grey lighten-1">
 												Não Avaliado
 											</div>
@@ -120,7 +120,7 @@
 												Indeferido
 											</div>
 										</a>
-										<a th:unless="${inscricao.visitaDomiciliar}" th:href="@{/visita/cadastrar/__${inscricao.id}__}">
+										<a th:unless="${inscricao.visitaDomiciliar}" th:href="@{/visita/__${inscricao.id}__}">
 											<div class="chip grey lighten-1">
 												Não Avaliado
 											</div>
