@@ -8,6 +8,14 @@ nav .brand-logo {
     margin-top: 30px;
 }
 
+a{
+	color: #7e57c2;
+}
+
+.btn{
+	background-color: #7e57c2;
+}
+
 .checkbox-inline {
     display: inline;
     margin-right: 35px !important;
