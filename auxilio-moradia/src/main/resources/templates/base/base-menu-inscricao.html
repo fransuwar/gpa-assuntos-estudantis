@@ -3,34 +3,34 @@
       	<div class="nav-wrapper">
 	<ul id="nav-mobile" class="left">
 		<li>
-			<a th:if="${detalhes_inscricao}" class="deep-purple" th:href="@{/inscricao/detalhes/__${inscricao.id}__}">
+			<a th:if="${menu_detalhes}" class="deep-purple" th:href="@{/inscricao/detalhes/__${inscricao.id}__}">
 				Detalhes Inscrição
 			</a>
-			<a th:unless="${detalhes_inscricao}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}">
+			<a th:unless="${menu_detalhes}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}">
 				Detalhes Inscrição
 			</a>
 		</li>
 		<li>
-			<a th:if="${analise_documentos}" class="deep-purple" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
+			<a th:if="${menu_documentos}" class="deep-purple" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
 				Análise de Documentos
 			</a>
-			<a th:unless="${analise_documentos}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
+			<a th:unless="${menu_documentos}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
 				Análise de Documentos
 			</a>
 		</li>
 		<li>
-			<a th:if="${entrevista}" class="deep-purple" th:href="@{/entrevista/__${inscricao.id}__}">
+			<a th:if="${menu_entrevista}" class="deep-purple" th:href="@{/entrevista/__${inscricao.id}__}">
 				Entrevista
 			</a>
-			<a th:unless="${entrevista}" th:href="@{/entrevista/__${inscricao.id}__}">
+			<a th:unless="${menu_entrevista}" th:href="@{/entrevista/__${inscricao.id}__}">
 				Entrevista
 			</a>
 		</li>
 		<li>
-			<a th:if="${visita_domiciliar}" class="deep-purple" th:href="@{/visita/__${inscricao.id}__}">
+			<a th:if="${menu_visita}" class="deep-purple" th:href="@{/visita/__${inscricao.id}__}">
 				Visita Domiciliar
 			</a>
-			<a th:unless="${visita_domiciliar}" th:href="@{/visita/__${inscricao.id}__}">
+			<a th:unless="${menu_visita}" th:href="@{/visita/__${inscricao.id}__}">
 				Visita Domiciliar
 			</a>
 		</li>

@@ -16,6 +16,12 @@ a{
 	background-color: #7e57c2;
 }
 
+.switch label input[type=checkbox]:checked+.lever {
+ background-color: #9575cd;
+}.switch label input[type=checkbox]:checked+.lever:after {
+ background-color: #7e57c2;
+}
+
 .checkbox-inline {
     display: inline;
     margin-right: 35px !important;

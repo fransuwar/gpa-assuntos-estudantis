@@ -49,15 +49,20 @@
 					<!-- Inscrições -->
 					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
 						<div class="fixed-action-btn">
-						    <a class="btn-floating btn-large deep-purple lighteen 1">
-						      <i class="large material-icons">add</i>
-						    </a>
-						    <ul>
-						      <li>
-						      <a th:href="@{/selecao/inscricoes/relatorio/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Relatório Geral"><i class="material-icons">insert_chart</i></a></li>
-						      <li><a class="btn-floating deep-purple lighten-1"><i class="material-icons">format_quote</i></a></li>
-						    </ul>
-						  </div>
+							<a class="btn-floating btn-large deep-purple lighteen 1">
+								<i class="large material-icons">add</i>
+							</a>
+							<ul>
+								<li>
+									<a th:href="@{/selecao/inscricoes/relatorio/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Relatório Geral">
+										<i class="material-icons">insert_chart</i>
+									</a>
+								</li>
+								<li>
+									<a class="btn-floating deep-purple lighten-1"><i class="material-icons">format_quote</i></a>
+								</li>
+							</ul>
+						</div>
 						<div class="col s12">
 							<table class="centered display nowrap striped bordered lighten-1">
 								<thead>

@@ -70,6 +70,14 @@
 	
 }
 
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating){
+	color: #7e57c2;
+}
+
+.btn-large{
+	background-color: #7e57c2;
+}
+
 button[type='submit'] {
 	width: 100%;
 }
