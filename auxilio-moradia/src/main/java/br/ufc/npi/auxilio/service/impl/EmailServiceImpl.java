@@ -5,7 +5,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -18,19 +17,8 @@ import br.ufc.npi.auxilio.service.EmailService;
 
 @Service
 public class EmailServiceImpl implements EmailService{
-	/*	@Autowired
-		private Environment env;
 	
-		@Autowired
-		private JavaMailSender mailSender;
-	
-		@Autowired
-		private TemplateEngine templateEngine;
-	
-		private void enviarEmail(MimeMessage email) {
-			this.mailSender.send(email);
-		}
-	*/	@Autowired
+	@Autowired
 		private JavaMailSender mailSender;
 	
 		@Override
@@ -46,7 +34,7 @@ public class EmailServiceImpl implements EmailService{
 		            helper.setText("Você foi selecionado para a comissão da seleção " + selecao.getTipo().getNome()+" "+ selecao.getAno() + ".");
 		        } catch (MessagingException e) {
 		            e.printStackTrace();
-		        } finally {}
+		        }
 		        mailSender.send(mail);
 		}
 }
