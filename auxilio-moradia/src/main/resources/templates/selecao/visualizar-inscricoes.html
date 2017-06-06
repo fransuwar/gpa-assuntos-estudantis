@@ -68,10 +68,11 @@
 									<th>Visita Domiciliar</th>
 									<th>Parecer Final</th>
 									<th>Ranking</th>
+									<th>Selecionados</th>
 								</tr>
 								</thead>
 								<tbody>
-								<tr th:each="inscricao : ${selecao.inscricoes}">
+								<tr th:each="inscricao, row : ${inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td>
 										<a th:if="${inscricao.analiseDocumentacao}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
@@ -156,6 +157,15 @@
 										</div>
 										</a>
 									</td>
+									<td th:text="${row.count}"></td>
+									<td>
+										<div class="switch">
+											<label>
+												<input type="checkbox" class="selecionar" th:id="${inscricao.id}" th:checked="${inscricao.selecionado}" /> 
+												<span class="lever"></span>
+											</label>
+										</div>
+									</td>
 								</tr>
 								</tbody>
 							</table>
@@ -169,6 +179,7 @@
 
 <section layout:fragment="js">
 	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/auxilio/inscricao/selecionar_inscricao.js}"></script>
 	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js}"></script>
 	<script type="text/java" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js}"></script>
 	<script type="text/java" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js}"></script>
