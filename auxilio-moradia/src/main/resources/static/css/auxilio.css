@@ -16,6 +16,14 @@ a{
 	background-color: #7e57c2;
 }
 
+.btn:hover{
+	background-color: #b39ddb;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating){
+	color: #7e57c2;
+}
+
 .switch label input[type=checkbox]:checked+.lever {
  background-color: #9575cd;
 }.switch label input[type=checkbox]:checked+.lever:after {
