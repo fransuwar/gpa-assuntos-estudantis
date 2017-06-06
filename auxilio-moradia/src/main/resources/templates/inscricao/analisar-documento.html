@@ -27,7 +27,19 @@
 						<tr th:each="tipoDocumento:${inscricao.selecao.tiposDeDocumento}">
 							<td th:text="${tipoDocumento.nome}"></td>
 							<td th:text="${tipoDocumento.descricao}"></td>
-							<td><i class="material-icons">file_download</i></td>
+							<td>
+								<div th:if="${inscricao.analiseDocumentacao != null}">
+									<div th:each="documentacao : ${inscricao.analiseDocumentacao.documentacao}">
+										<ul th:if="${documentacao.tipoDocumento.nome == tipoDocumento.nome}">
+											<li class="chip" th:each="documento : ${documentacao.documentos}">
+			       								<a th:href="@{/selecao/documento/__${inscricao.selecao.id}__/download/__${documento.id}__}" class="secondary-content">
+			       									<span class="text" th:text="${documento.nome}"></span>
+			       								 </a>
+			       							</li>
+										</ul>
+									</div>
+								</div>
+							</td>
 						</tr>
 					</tbody>					
 					</table>					
