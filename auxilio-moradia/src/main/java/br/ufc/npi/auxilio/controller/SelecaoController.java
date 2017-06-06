@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -263,6 +264,11 @@ public class SelecaoController {
 		if (selecao == null || !selecao.isMembroComissao(servidorService.getByCpf(auth.getName()))) {
 			return REDIRECT_LISTAR_SELECAO;
 		}
+
+		List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
+		Collections.sort(inscricoes);
+
+		model.addAttribute("inscricoes", inscricoes);
 		model.addAttribute("selecao", selecao);
 		return VISUALIZAR_INSCRICOES;
 	}
