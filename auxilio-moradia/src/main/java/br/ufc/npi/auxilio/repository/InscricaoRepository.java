@@ -2,8 +2,6 @@ package br.ufc.npi.auxilio.repository;
 
 import br.ufc.npi.auxilio.model.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.ufc.npi.auxilio.model.Inscricao;
@@ -18,7 +16,6 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
 
 	public List<Inscricao> findInscricaoByAluno(Aluno aluno);
 	
-	@Query("SELECT a from Inscricao a inner join a.analiseDocumentacao ad where ad.id = 1")
-	public List<Inscricao> findAllInscricaoAptasParaEntrevista(@Param("idSelecao") Integer idSelecao);
+	public List<Inscricao> findInscricaoBySelecaoAndAnaliseDocumentacao_Parecer(Selecao selecao, String parecer);
 	 	
 }

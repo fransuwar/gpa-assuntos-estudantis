@@ -50,6 +50,8 @@
 					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
 						<div>
 							<a th:href="@{/selecao/inscricoes/relatorio/__${selecao.id}__}" class="waves-effect waves-light btn">Relatório Geral</a>
+						</div><div>
+							<a th:href="@{/selecao/inscricoes/agendarEntrevista/__${selecao.id}__}" class="waves-effect waves-light btn">Agendar</a>
 						</div>
 						<div class="col s12">
 							<table id="inscricoes" class="display nowrap striped bordered lighten-1" cellspacing="0" width="100%">
