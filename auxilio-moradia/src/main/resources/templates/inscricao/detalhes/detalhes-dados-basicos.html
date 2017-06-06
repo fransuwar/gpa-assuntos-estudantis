@@ -1,7 +1,7 @@
 <section th:fragment="dados-basicos">
 
 	<div class="right-align" sec:authorize="hasAuthority('ALUNO')">
-		<a th:href="@{/documentacao/__${inscricao.id}__}">Para anexar arquivos clique aqui.</a>
+		Para anexar arquivos clique <a th:href="@{/documentacao/__${inscricao.id}__}">aqui.</a>
 		</div>
 	<div class="card">
 		<div class="card-content details">
