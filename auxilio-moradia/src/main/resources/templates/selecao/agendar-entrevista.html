@@ -17,7 +17,7 @@
 				<div class="card-content details">
 					<h5 class="title light">Inscrições para Entrevista</h5>
 					<div class="row">
-						<div class="col s12">
+						<div class="col s6">
 								<table id="inscricoes" class="display nowrap striped bordered lighten-1" cellspacing="0" width="100%">
 									<thead>
 									<tr>
@@ -30,6 +30,31 @@
 									</tr>
 									</tbody>
 							    </table>
+						</div>
+						<div class="col s6">
+							<div class="row">
+								<div class="col s3 input-field">
+									<input type="text" class="datepicker" id="inicio" required="required"/>
+									<label for="inicio">Dia para entrevista</label>
+								</div>
+								 <div class="input-field col s9">
+								    <select multiple="multiple">
+								      <optgroup label="MANHÃ">
+								        <option value="1">AB</option>
+								        <option value="2">CD</option>
+								      </optgroup>
+								      <optgroup label="TARDE">
+								        <option value="3">AB</option>
+								        <option value="4">CD</option>
+								      </optgroup>
+								      <optgroup label="NOITE">
+								        <option value="5">AB</option>
+								        <option value="6">CD</option>
+								      </optgroup>
+								    </select>
+								    <label>Horário</label>
+								  </div>
+							</div>
 						</div>
 					</div>
 				</div>
