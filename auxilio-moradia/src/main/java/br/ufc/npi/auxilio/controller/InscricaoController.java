@@ -380,16 +380,18 @@ public class InscricaoController {
 		return REDIRECT_LISTAR_SELECAO;
 	}
 	
+	public Integer isSelecionado(boolean selecionar){
+		if(selecionar == true){
+			return 1;
+		} else{
+			return 0;
+		}
+	}	
 	@PostMapping(value = "/selecionar")
 	@ResponseBody
 	public Response selecionarInscricao(Integer idInscricao, boolean selecionar){
-		Integer n = 0;
-		if(selecionar == true) {
-			n = 1; 
-		}else {
-			n = 0;
-		}
-		if (inscricaoService.selecionarInscricao(idInscricao, n) ){
+
+		if (inscricaoService.selecionarInscricao(idInscricao, isSelecionado(selecionar)) ){
 			Response r = new Response();
 			return r;
 		}

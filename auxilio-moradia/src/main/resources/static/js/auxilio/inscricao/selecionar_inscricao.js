@@ -8,21 +8,21 @@ $(document).ready(function() {
 		var hab = $(this).is(":checked");
 		var param = {idInscricao : id, selecionar : hab };
 		$.ajax({
-			url: url,
+			url,
 			type: "post",
 			dataType: "json",
 			data: param,
 			headers: {"X-CSRF-TOKEN":token},
 			
 			success: function(response) {
-				 if(response.status === "DONE"){
-					 if(hab){ 
-						checkbox.prop('checked', true);
-					 }else{
-						checkbox.prop('checked', false); 	
-					 }
-				 }
-			 }
+				if(response.status === "DONE"){
+					if(hab){ 
+						checkbox.prop("checked", true);
+					}else{
+						checkbox.prop("checked", false); 	
+					}
+				}
+			}
 		});
 	});
 	
