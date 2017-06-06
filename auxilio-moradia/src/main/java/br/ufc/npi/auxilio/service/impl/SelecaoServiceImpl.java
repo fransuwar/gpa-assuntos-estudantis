@@ -5,6 +5,7 @@ import br.ufc.npi.auxilio.model.*;
 import br.ufc.npi.auxilio.repository.DocumentoRepository;
 import br.ufc.npi.auxilio.repository.SelecaoRepository;
 import br.ufc.npi.auxilio.repository.TipoDocumentoRepository;
+import br.ufc.npi.auxilio.service.EmailService;
 import br.ufc.npi.auxilio.service.SelecaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,9 @@ public class SelecaoServiceImpl implements SelecaoService {
 	
 	@Autowired
 	private SelecaoRepository selecaoRepository;
+	
+	@Autowired
+	private EmailService emailService;
 
 	@Autowired
 	private DocumentoRepository documentoRepository;
@@ -122,6 +126,7 @@ public class SelecaoServiceImpl implements SelecaoService {
 	public Boolean adicionarMembroComissao(Servidor servidor, Selecao selecao) throws AuxilioMoradiaException {
 		if (servidor != null && selecao != null) {
 			Boolean b  = selecao.addMembroComissao(servidor);
+			emailService.enviarEmailComissao(servidor, selecao);
 			this.cadastrar(selecao);
 			return b;
 		}
