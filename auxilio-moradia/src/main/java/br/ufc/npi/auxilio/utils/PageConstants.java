@@ -7,7 +7,6 @@ public class PageConstants {
 	public static final String LISTAR_INSCRICOES = "selecao/listar-inscricoes";
 	public static final String VISUALIZAR_INSCRICOES = "selecao/visualizar-inscricoes";
 	public static final String CADASTRAR_SELECAO = "selecao/cadastrar-selecao";
-	public static final String EDITAR_SELECAO = "selecao/detalhes/selecao";
 	public static final String DETALHES_SELECAO = "selecao/detalhes-selecao";
 	public static final String ENVIAR_DOCUMENTACAO = "inscricao/enviar-documento";
 	public static final String PAGINA_ENTREVISTA = "inscricao/entrevista";
