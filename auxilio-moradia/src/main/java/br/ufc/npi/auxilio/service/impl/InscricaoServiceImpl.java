@@ -12,9 +12,7 @@ import br.ufc.npi.auxilio.service.InscricaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
@@ -87,5 +85,10 @@ public class InscricaoServiceImpl implements InscricaoService {
 	@Override
 	public List<Inscricao> getAll(Aluno aluno) {
 		return inscricaoRepository.findInscricaoByAluno(aluno);
+	}
+	
+	@Override
+	public List<Inscricao> inscricoesParaEntrevista(Selecao selecao) {
+		return inscricaoRepository.findAllInscricaoAptasParaEntrevista(selecao.getId());
 	}
 }

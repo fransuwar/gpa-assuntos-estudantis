@@ -278,4 +278,11 @@ public class SelecaoController {
 	public List<Servidor> getAllServidores() {
 		return servidorService.getAll();
 	}
+	
+	@GetMapping("/inscricoes/agendarEntrevista/{selecao}")
+	public String agendarEntrevista(@PathVariable Selecao selecao, Authentication auth, Model model){
+		List<Inscricao> inscricoes = inscricaoService.inscricoesParaEntrevista(selecao);
+		model.addAttribute("inscricoes", inscricoes);
+		return AGENDAR_ENTREVISTA;
+	}
 }
