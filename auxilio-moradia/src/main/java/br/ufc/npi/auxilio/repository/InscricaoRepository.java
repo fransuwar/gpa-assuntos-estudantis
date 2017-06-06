@@ -18,7 +18,7 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
 
 	public List<Inscricao> findInscricaoByAluno(Aluno aluno);
 	
-	@Query("SELECT a from Inscricao a where")
+	@Query("SELECT a from Inscricao a inner join a.analiseDocumentacao ad where ad.id = 1")
 	public List<Inscricao> findAllInscricaoAptasParaEntrevista(@Param("idSelecao") Integer idSelecao);
 	 	
 }
