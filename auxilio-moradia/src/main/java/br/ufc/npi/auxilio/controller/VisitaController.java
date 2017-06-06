@@ -52,7 +52,7 @@ public class VisitaController {
 	private VisitaService visitaService;
 
 	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@GetMapping("/cadastrar/{inscricao}")
+	@GetMapping("/{inscricao}")
 	public String cadastrar(@PathVariable Inscricao inscricao, Authentication auth, Model model) {
 		Aluno aluno = alunoService.buscarPorCpf(inscricao.getAluno().getPessoa().getCpf());
 		Servidor servidor = servidorService.getByCpf(auth.getName());
@@ -74,7 +74,7 @@ public class VisitaController {
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@PostMapping("/cadastrar/{inscricao}")
+	@PostMapping("/{inscricao}")
 	public String cadastrar(@RequestParam("imagensVisita") List<MultipartFile> imagens,
 			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visita ,@PathVariable("inscricao") Inscricao inscricao,
 			Model model, Authentication auth, RedirectAttributes redirect) {
@@ -129,7 +129,7 @@ public class VisitaController {
 		visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
 		visitaService.salvar(visitaDomiciliar);
 		
-		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+		return RedirectConstants.REDIRECT_SELECAO_INSCRICOES + inscricao.getSelecao().getId();
 	}
 	
 	
