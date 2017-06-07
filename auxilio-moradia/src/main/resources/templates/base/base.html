@@ -62,7 +62,6 @@
     <script type="text/javascript" th:src="@{/js/plugins/chart/chart.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/cookie/cookie.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/moment/moment.js}"></script>
-
     <!-- Framework base -->
     <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/auxilio/auxilio.js}"></script>
@@ -92,16 +91,18 @@
                 "paging": false,
                 "ordering": false,
                 dom: 'Blrtp',
-
                 buttons: [
                     {
+                    	text: '<i class="material-icons">picture_as_pdf</i>',
                     	extend: 'pdfHtml5',
                         orientation: 'landscape',
                         pageSize: 'LEGAL',
-                        className: 'waves-effect waves-light btn'
+                        className: 'btn-floating deep-purple lighten-1 tooltipped'
                     },              
-                    {text:'excel', className: 'waves-effect waves-light btn'},
-                    {text:'print',className: 'waves-effect waves-light btn'}                   
+                    {	
+                    	text:'<i class="material-icons">insert_chart</i>',
+                     	className: 'btn-floating deep-purple lighten-1 tooltipped'                  
+                    }
                     
                 ],
                 "language": {
@@ -128,15 +129,31 @@
                     }
                 }
             });
-            $(".dt-buttons").addClass("row")
-            $(".dt-button").removeClass("dt-button");
-            
+			
+                        
                    
             $("#busca_inscricoes").on( 'keyup click', function () {
     	        filterGlobal();
     	    } );
-            
-            table.buttons().container().appendTo("#linha_botoes");
+            //Alocação dos botões do dataTables dentro de um FAB do materialize
+            if(table.buttons){
+            	$(".dt-button").removeClass("dt-button");
+	            var botoes = table.buttons().container().children();
+	            botoes.detach();
+	            botoes.each(function (){
+	            	$(this).attr("data-position", "left");
+	            	$(this).attr("data-delay", "50");
+	            	if($(this).hasClass("buttons-pdf")){
+	            		$(this).attr("data-tooltip", "Exportar para pdf");            	
+	            	}else{
+	            		$(this).attr("data-tooltip", "Exportar para excel"); 
+	            	}
+	            	var tag = $("<li></li>");
+	            	$(this).appendTo(tag);
+	            	tag.appendTo("#float_relatorio");
+	            })            
+	            $('.tooltipped').tooltip();
+            }
 		});
 	</script>
     
