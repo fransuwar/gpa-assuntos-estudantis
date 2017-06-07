@@ -121,7 +121,7 @@
 											</div>
 										</a>
 									</td>
-									<td th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">
+									<td th:if="${selecao.tipo.nome} == 'Auxílio Moradia'" >
 										<a th:if="${inscricao.visitaDomiciliar}" th:href="@{/visita/__${inscricao.id}__}">
 											<div th:if="${inscricao.visitaDomiciliar.resultado.nome eq 'não avaliado'}" class="chip grey lighten-1">
 												Não Avaliado
