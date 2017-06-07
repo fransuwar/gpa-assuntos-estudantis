@@ -58,7 +58,7 @@
 									<th>Aluno</th>
 									<th>Análise dos Documentos</th>
 									<th>Entrevista</th>
-									<th>Visita Domiciliar</th>
+									<th th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">Visita Domiciliar</th>
 									<th>Parecer Final</th>
 									<th>Ranking</th>
 									<th>Selecionados</th>

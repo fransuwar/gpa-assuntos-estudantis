@@ -375,7 +375,6 @@ public class InscricaoController {
 				return INSCRICAO_DETALHES;
 			}
 		}
-
 		redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_VISUALIZAR_INSCRICAO);
 		return REDIRECT_LISTAR_SELECAO;
 	}
