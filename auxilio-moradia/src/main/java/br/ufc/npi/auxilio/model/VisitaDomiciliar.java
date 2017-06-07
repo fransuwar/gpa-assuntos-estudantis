@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -31,6 +32,9 @@ public class VisitaDomiciliar {
 	@ManyToOne
 	private Servidor responsavel;
 
+	Column(name="relatorio", columnDefinition="text")
+	private String relatorio;
+	
 	@OneToOne
 	private Documento formulario;
 
@@ -39,7 +43,10 @@ public class VisitaDomiciliar {
 
 	@OneToMany
 	private List<Documento> imagens;
-
+	
+	@Column(name="observacoes", columnDefinition="text")
+	private String observacoes;
+	
 	public Documento getFormulario() {
 		return formulario;
 	}
@@ -74,6 +81,15 @@ public class VisitaDomiciliar {
 	public void setData(Date data) {
 		this.data = data;
 	}
+	
+	public String getRelatorio() {
+		return relatorio;
+	}
+
+	public void setRelatorio(String relatorio) {
+		this.relatorio = relatorio;
+	}
+	
 
 	public Servidor getResponsavel() {
 		return responsavel;
@@ -90,7 +106,15 @@ public class VisitaDomiciliar {
 	public void setParecer(Resultado parecer) {
 		this.parecer = parecer;
 	}
-
+		
+	public String getObservacoes() {
+		return observacoes;
+	}
+	
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

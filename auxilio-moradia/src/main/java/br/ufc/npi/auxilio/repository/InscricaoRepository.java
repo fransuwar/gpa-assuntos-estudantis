@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.ufc.npi.auxilio.model.Inscricao;
-import br.ufc.npi.auxilio.model.Pessoa;
 import br.ufc.npi.auxilio.model.Selecao;
 
 import java.util.List;
@@ -16,5 +15,11 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
 	public Inscricao findInscricaoBySelecaoAndAluno(Selecao selecao, Aluno aluno);
 
 	public List<Inscricao> findInscricaoByAluno(Aluno aluno);
-	 	
+	
+	public List<Inscricao> findInscricaoBySelecaoOrderByPosicaoRankingAsc(Selecao selecao);
+	
+	public List<Inscricao> findAllBySelecao(Selecao selecao);
+
+	public Inscricao findInscricaoById(Integer idInscricao); 
+	
 }

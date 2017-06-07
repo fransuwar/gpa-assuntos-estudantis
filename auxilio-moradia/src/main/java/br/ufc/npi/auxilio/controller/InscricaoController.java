@@ -9,6 +9,8 @@ import br.ufc.npi.auxilio.model.questionario.Identificacao;
 import br.ufc.npi.auxilio.model.questionario.Moradia;
 import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
 import br.ufc.npi.auxilio.service.*;
+import br.ufc.npi.auxilio.utils.api.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -25,6 +27,9 @@ import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.*;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_MEMBRO_FAMILIA_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_MEMBRO_FAMILIA_REMOVIDO;
+
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("inscricao")
@@ -322,6 +327,7 @@ public class InscricaoController {
 		}
 
 		model.addAttribute("justificativa", inscricao.getQuestionario().getJustificativa());
+		model.addAttribute("inscricao", inscricao); // joao
 		return INSCRICAO_OUTRAS_INFORMACOES;
 	}
 
@@ -339,6 +345,11 @@ public class InscricaoController {
 				return REDIRECT_LISTAR_SELECAO;
 			}
 			inscricao.getQuestionario().setJustificativa(justificativa);
+			List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
+			Collections.sort(inscricoes);
+			for(int i = 0; i < inscricoes.size(); i++){
+				inscricoes.get(i).setPosicaoRanking(i+1);
+			}
 			inscricaoService.atualizar(inscricao);
 			return REDIRECT_DETALHES_INSCRICAO + inscricao.getId();
 		} catch (AuxilioMoradiaException e) {
@@ -364,8 +375,27 @@ public class InscricaoController {
 				return INSCRICAO_DETALHES;
 			}
 		}
-
 		redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_VISUALIZAR_INSCRICAO);
 		return REDIRECT_LISTAR_SELECAO;
 	}
+	
+	public Integer isSelecionado(boolean selecionar){
+		if(selecionar == true){
+			return 1;
+		} else{
+			return 0;
+		}
+	}	
+	@PostMapping(value = "/selecionar")
+	@ResponseBody
+	public Response selecionarInscricao(Integer idInscricao, boolean selecionar){
+
+		if (inscricaoService.selecionarInscricao(idInscricao, isSelecionado(selecionar)) ){
+			Response r = new Response();
+			return r;
+		}
+		else
+			return new Response().withFailStatus().withErrorMessage("Error ao selecionar esta inscricao");
+	}
+
 }

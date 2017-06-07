@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class Inscricao {
+public class Inscricao implements Comparable<Inscricao>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,9 +44,22 @@ public class Inscricao {
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private AnaliseDocumentacao analiseDocumentacao;
+	
+	private Integer posicaoRanking;
+	
+	@Column(nullable=true)
+	private Integer selecionado;
 
 	public boolean isConsolidada() {
 		return consolidada;
+	}
+
+	public Integer getSelecionado() {
+		return selecionado;
+	}
+
+	public void setSelecionado(Integer selecionado) {
+		this.selecionado = selecionado;
 	}
 
 	public void setConsolidada(boolean consolidada) {
@@ -93,6 +106,14 @@ public class Inscricao {
 		this.selecao = selecao;
 	}
 
+	public Integer getPosicaoRanking() {
+		return posicaoRanking;
+	}
+
+	public void setPosicaoRanking(Integer posicaoRanking) {
+		this.posicaoRanking = posicaoRanking;
+	}
+
 	public QuestionarioAuxilioMoradia getQuestionario() {
 		if (questionario == null) {
 			return new QuestionarioAuxilioMoradia();
@@ -105,9 +126,6 @@ public class Inscricao {
 	}
 
 	public VisitaDomiciliar getVisitaDomiciliar() {
-		if(visitaDomiciliar == null){
-			visitaDomiciliar = new VisitaDomiciliar();
-		}
 		return visitaDomiciliar;
 	}
 
@@ -449,6 +467,27 @@ public class Inscricao {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public int compareTo(Inscricao o) {
+		if(this.getResultado()==Resultado.DEFERIDO && o.getResultado()==Resultado.INDEFERIDO){
+			return -1;
+		}
+		if(this.getResultado()==Resultado.INDEFERIDO && o.getResultado()==Resultado.DEFERIDO){
+			return 1;
+		}
+		
+		if(this.getResultado() == o.getResultado() && this.getQuestionario() != null ){
+			if ((this.getRendaPerCapita() < o.getRendaPerCapita())) {
+			     return -1;
+			}
+			if ((this.getRendaPerCapita() > o.getRendaPerCapita())&& this.getResultado()==Resultado.INDEFERIDO) {
+			     return 1;
+			}
+		}
+		
+		return 0;
 	}
 
 }

@@ -9,12 +9,8 @@
 </head>
 <body>
 	<!-- Page Content -->
-	<div layout:fragment="conteudo">
+	<section layout:fragment="conteudo">
     <!-- Content Header (Page header) -->
-      
-      <!-- Main content -->
-      <section class="content">
-        <div>
        	<div class="card">
        			<div class="card-content">
 					<h5 class="title light" th:text="'Análise de Documentação: '+${inscricao.selecao.tipo.nome} +' '+${inscricao.selecao.ano}"></h5>
@@ -37,6 +33,7 @@
 					</table>					
 				</div>
        		</div>
+<<<<<<< HEAD
        		<form th:action="@{/documentacao/inscricao/__${inscricao.id}__/salvar}" th:object="${analiseDocumentacao}" th:method="post">
        			<div class="card">
        				<div class="card-content">
@@ -105,9 +102,13 @@
 						</table>
        				</div>
        			</div>
+=======
+        	<form data-model="analiseDocumentacao" th:action="@{/}" th:object="${inscricao.analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
+>>>>>>> refs/heads/master
         		<div class="card">
         			<div class="card-content">
 						<h5 class="title light">Parecer</h5>
+<<<<<<< HEAD
 							<div class="col s4 input-field">
 								<select id="parecer" th:field="*{parecer}">
 									<option th:each="tipoResultado : ${resultado}" th:value="${tipoResultado}" th:text="${tipoResultado}"></option>
@@ -121,13 +122,34 @@
 							<div class="card-action right-align">
 								<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
 							</div>
+=======
+						<div class="col s4 input-field">
+							<select th:field="*{resultado}">
+								<option th:each="tipoResultado : ${resultado}" th:value="${tipoResultado}" th:text="${tipoResultado}"></option>
+							</select>
+							<label for="parecer">Resultado</label>
+>>>>>>> refs/heads/master
 						</div>
+<<<<<<< HEAD
         			</div>
 				</form>
         	</div>
         <!-- /.box -->
       	</section>
 	</div>
+=======
+						<div class="col s8 input-field">
+							<textarea class="materialize-textarea" id="observacao" th:field="*{observacoes}"></textarea>
+							<label for="observacao">Observação</label>
+						</div>
+					</div>
+        		</div>
+        		<div class="card-action right-align">
+						<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
+				</div>
+			</form>
+    </section>
+>>>>>>> refs/heads/master
 	
 	<section layout:fragment="js">
     	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>

@@ -28,6 +28,7 @@ public class AnaliseDocumentacao {
 	
 	private String cidade;
 	
+<<<<<<< HEAD
 	private Boolean beneficio;
 	
 	private String cidadeOrigem;
@@ -78,6 +79,10 @@ public class AnaliseDocumentacao {
 		this.observacao = observacao;
 	}
 
+=======
+	private String observacoes;
+	
+>>>>>>> refs/heads/master
 	@OneToOne
 	private Inscricao inscricao;
 
@@ -86,6 +91,7 @@ public class AnaliseDocumentacao {
 	
 	@ManyToMany(mappedBy = "analiseDocumentacao", cascade = CascadeType.REMOVE)
 	private List<Documentacao> documentacao;
+	
 	
 	public AnaliseDocumentacao() {
 		this.documentacao = new ArrayList<Documentacao>();
@@ -133,6 +139,15 @@ public class AnaliseDocumentacao {
 		this.documentacao = documentacao;
 	}
 
+	public String getObservacoes() {
+		return observacoes;
+	}
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
+	
+	
 	
 	
 
