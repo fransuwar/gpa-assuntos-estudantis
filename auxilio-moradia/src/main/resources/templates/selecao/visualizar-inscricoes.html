@@ -48,23 +48,36 @@
 
 					<!-- Inscrições -->
 					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
-						<div>
-							<a th:href="@{/selecao/inscricoes/relatorio/__${selecao.id}__}" class="waves-effect waves-light btn">Relatório Geral</a>
+						<div class="fixed-action-btn">
+							<a class="btn-floating btn-large deep-purple lighteen 1">
+								<i class="large material-icons">menu</i>
+							</a>
+							<ul>
+								<li>
+									<a th:href="@{/selecao/inscricoes/relatorio/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Relatório Geral">
+										<i class="material-icons">insert_chart</i>
+									</a>
+								</li>
+								<li>
+									<a class="btn-floating deep-purple lighten-1"><i class="material-icons">format_quote</i></a>
+								</li>
+							</ul>
 						</div>
 						<div class="col s12">
-							<table id="inscricoes" class="display nowrap striped bordered lighten-1" cellspacing="0" width="100%">
+							<table class="centered display nowrap striped bordered lighten-1">
 								<thead>
 								<tr>
 									<th>Aluno</th>
 									<th>Análise dos Documentos</th>
 									<th>Entrevista</th>
-									<th>Visita Domiciliar</th>
+									<th th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">Visita Domiciliar</th>
 									<th>Parecer Final</th>
 									<th>Ranking</th>
+									<th>Selecionados</th>
 								</tr>
 								</thead>
 								<tbody>
-								<tr th:each="inscricao : ${selecao.inscricoes}">
+								<tr th:each="inscricao, row : ${inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td>
 										<a th:if="${inscricao.analiseDocumentacao}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
@@ -149,10 +162,19 @@
 										</div>
 										</a>
 									</td>
+									<td th:text="${row.count}"></td>
+									<td>
+										<div class="switch">
+											<label>
+												<input type="checkbox" class="selecionar" th:id="${inscricao.id}" th:checked="${inscricao.selecionado}" /> 
+												<span class="lever"></span>
+											</label>
+										</div>
+									</td>
 								</tr>
 								</tbody>
 							</table>
-						</div>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -162,6 +184,7 @@
 
 <section layout:fragment="js">
 	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/auxilio/inscricao/selecionar_inscricao.js}"></script>
 	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js}"></script>
 	<script type="text/java" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js}"></script>
 	<script type="text/java" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js}"></script>
