@@ -143,7 +143,38 @@ public class DocumentacaoInscricaoController {
 	public String analisarDocumentacaoInscricao(@PathVariable("idInscricao") Inscricao inscricao, Model model){
 		model.addAttribute("resultado", Resultado.values());
 		model.addAttribute("inscricao", inscricao);
+		if (inscricao.getAnaliseDocumentacao() == null) {
+			AnaliseDocumentacao aD = new AnaliseDocumentacao();
+			inscricao.setAnaliseDocumentacao(aD);
+			inscricaoRepository.save(inscricao);
+		}
+		model.addAttribute("analiseDocumentacao", inscricao.getAnaliseDocumentacao());
 		return "inscricao/analisar-documento";
+	}
+	
+	@Secured(COORDENADOR)
+	@PostMapping("/inscricao/{idInscricao}/salvar")
+	public String salvarAnaliseDocumentacao(@PathVariable("idInscricao") Inscricao inscricao, 
+			AnaliseDocumentacao analiseDocumentacao){
+//		System.out.println(analiseDocumentacao.getCidadeOrigem());
+//		System.out.println(analiseDocumentacao.getCidade());
+//		System.out.println(analiseDocumentacao.getRendaPai());
+//		System.out.println(analiseDocumentacao.getRendaMae());
+//		System.out.println(analiseDocumentacao.getRendaOutros());
+//		System.out.println(analiseDocumentacao.getRendaPerCapita());
+//		System.out.println(analiseDocumentacao.getGrupoFamiliar());
+//		System.out.println(analiseDocumentacao.getBeneficio());
+//		System.out.println(analiseDocumentacao.getEnergia());
+//		System.out.println(analiseDocumentacao.getParecer());
+//		System.out.println(analiseDocumentacao.getObservacao());
+		analiseDocumentacao.setRendaPerCapita(((analiseDocumentacao.getRendaPai()==null?0:analiseDocumentacao.getRendaPai())+
+				(analiseDocumentacao.getRendaMae() == null? 0:analiseDocumentacao.getRendaMae())+
+				(analiseDocumentacao.getRendaOutros()==null? 0:analiseDocumentacao.getRendaOutros()))/
+				(analiseDocumentacao.getGrupoFamiliar()==null? 1:analiseDocumentacao.getGrupoFamiliar()));
+		
+		inscricao.setAnaliseDocumentacao(analiseDocumentacao);
+		inscricaoRepository.save(inscricao);
+		return "redirect:/documentacao/inscricao/"+inscricao.getId();
 	}
 	
 }

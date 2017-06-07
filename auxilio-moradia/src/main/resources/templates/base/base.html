@@ -87,41 +87,48 @@
 			   format: "dd/mm/yyyy"
 			});
 			
-			$("#analise-documento tbody tr td.editaveldinheiro").click(function(){
-				var conteudoOriginal = $(this).text();
-				conteudoOriginal = conteudoOriginal.replace('R$ ','');
-				var novoElemento = $('<input/>', {type:'text', value:conteudoOriginal});
-				
-				$(this).html(novoElemento.blur(function(){
-					var conteudoNovo = $(this).val();
-					conteudoNovo = conteudoNovo.replace(' ','');
-					if (conteudoNovo === '')
-						conteudoNovo = '0,00';
-					$(this).parent().html('R$ '+conteudoNovo);
-					var rendaPai = parseFloat(document.getElementById("rendaPai").innerHTML.replace('R$ ','').replace('.','').replace(',','.'));
-					var rendaMae = parseFloat(document.getElementById("rendaMae").innerHTML.replace('R$ ','').replace('.','').replace(',','.'));
-					var rendaOutros = parseFloat(document.getElementById("rendaOutros").innerHTML.replace('R$ ','').replace('.','').replace(',','.'));
-					var grupoFamiliar = parseFloat(document.getElementById("grupoFamiliar").innerHTML);
+			$("#analise-documento tbody tr td input.dinheiro").blur(function(){
+				//$(this).blur(function(){
+					var rendaPai = parseInt(document.getElementById("rendaPai").value);
+					if (isNaN(rendaPai))
+						rendaPai = 0;
+					var rendaMae = parseInt(document.getElementById("rendaMae").value);
+					if (isNaN(rendaMae))
+						rendaMae = 0;
+					var rendaOutros = parseInt(document.getElementById("rendaOutros").value);
+					if (isNaN(rendaOutros))
+						rendaOutros = 0;
+					var grupoFamiliar = parseInt(document.getElementById("grupoFamiliar").value);
 					var rendaPerCapita = (rendaPai+rendaMae+rendaOutros)/grupoFamiliar;
-					$(document.getElementById("rendaPerCapita")).html(rendaPerCapita);
+					//alert(rendaPerCapita)
+					$(document.getElementById("rendaPerCapita")).val(rendaPerCapita);
 							
-				}));
+				//}));
 				
-				$(this).children().select();
+				//$(this).children().select();
 			})
 			
-			$("#analise-documento tbody tr td.editavel").click(function(){
-				var conteudoOriginal = $(this).text();
-				var novoElemento = $('<input/>', {type:'text', value:conteudoOriginal});
+			$("#analise-documento tbody tr td input.dinheiro").change(function(){
+				//$(this).blur(function(){
+					var rendaPai = parseInt(document.getElementById("rendaPai").value);
+					if (isNaN(rendaPai))
+						rendaPai = 0;
+					var rendaMae = parseInt(document.getElementById("rendaMae").value);
+					if (isNaN(rendaMae))
+						rendaMae = 0;
+					var rendaOutros = parseInt(document.getElementById("rendaOutros").value);
+					if (isNaN(rendaOutros))
+						rendaOutros = 0;
+					var grupoFamiliar = parseInt(document.getElementById("grupoFamiliar").value);
+					var rendaPerCapita = (rendaPai+rendaMae+rendaOutros)/grupoFamiliar;
+					//alert(rendaPerCapita)
+					$(document.getElementById("rendaPerCapita")).val(rendaPerCapita);
+							
+				//}));
 				
-				$(this).html(novoElemento.blur(function(){
-					var conteudoNovo = $(this).val();
-					$(this).parent().html(conteudoNovo);
-				}));
-				
-				$(this).children().select();
+				//$(this).children().select();
 			})
-			
+						
 			var table = $("#inscricoes").DataTable({
                 "scrollX": true,
                 "paging": false,

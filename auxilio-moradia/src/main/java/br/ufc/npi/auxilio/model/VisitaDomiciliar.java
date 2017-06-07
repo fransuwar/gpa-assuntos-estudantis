@@ -31,13 +31,11 @@ public class VisitaDomiciliar {
 	@ManyToOne
 	private Servidor responsavel;
 
-	private String parecer;
-
 	@OneToOne
 	private Documento formulario;
 
 	@Enumerated(EnumType.STRING)
-	private Resultado resultado;
+	private Resultado parecer;
 
 	@OneToMany
 	private List<Documento> imagens;
@@ -77,14 +75,6 @@ public class VisitaDomiciliar {
 		this.data = data;
 	}
 
-	public String getParecer() {
-		return parecer;
-	}
-
-	public void setParecer(String parecer) {
-		this.parecer = parecer;
-	}
-
 	public Servidor getResponsavel() {
 		return responsavel;
 	}
@@ -93,12 +83,12 @@ public class VisitaDomiciliar {
 		this.responsavel = responsavel;
 	}
 
-	public Resultado getResultado() {
-		return resultado;
+	public Resultado getParecer() {
+		return parecer;
 	}
 
-	public void setDeferimento(Resultado resultado) {
-		this.resultado = resultado;
+	public void setParecer(Resultado parecer) {
+		this.parecer = parecer;
 	}
 
 	@Override
