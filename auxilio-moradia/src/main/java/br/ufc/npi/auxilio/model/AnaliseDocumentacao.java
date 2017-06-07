@@ -28,7 +28,6 @@ public class AnaliseDocumentacao {
 	
 	private String cidade;
 	
-<<<<<<< HEAD
 	private Boolean beneficio;
 	
 	private String cidadeOrigem;
@@ -79,10 +78,8 @@ public class AnaliseDocumentacao {
 		this.observacao = observacao;
 	}
 
-=======
 	private String observacoes;
 	
->>>>>>> refs/heads/master
 	@OneToOne
 	private Inscricao inscricao;
 
@@ -146,10 +143,6 @@ public class AnaliseDocumentacao {
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
-	
-	
-	
-	
 
 	public Double getRendaPai() {
 		return rendaPai;

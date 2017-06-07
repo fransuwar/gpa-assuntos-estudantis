@@ -32,7 +32,7 @@ public class VisitaDomiciliar {
 	@ManyToOne
 	private Servidor responsavel;
 
-	Column(name="relatorio", columnDefinition="text")
+	@Column(name="relatorio", columnDefinition="text")
 	private String relatorio;
 	
 	@OneToOne
