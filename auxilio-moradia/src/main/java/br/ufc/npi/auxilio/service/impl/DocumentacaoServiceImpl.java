@@ -8,7 +8,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.hibernate.validator.internal.util.logging.Log;
+import org.jboss.logging.BasicLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -56,6 +60,7 @@ public class DocumentacaoServiceImpl implements DocumentacaoService {
 	}
 
 	public void adicionarDocumentos(Inscricao inscricao, Documentacao documentacao, MultipartFile multipartFile) throws AuxilioMoradiaException, IOException{
+		Logger logger = Logger.getLogger(DocumentacaoServiceImpl.class.getName());
 		if (inscricao!= null && multipartFile.getBytes() != null && multipartFile.getBytes().length != 0) {
 			Documento documento = new Documento();
 			try {
@@ -73,10 +78,10 @@ public class DocumentacaoServiceImpl implements DocumentacaoService {
 				
 				salvarArquivoLocal(documento);
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, e.getMessage(), e);
 				throw new AuxilioMoradiaException(MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 			} catch (AuxilioMoradiaException e){
-				e.printStackTrace();
+				logger.log(Level.SEVERE, e.getMessage(), e);
 				throw new AuxilioMoradiaException(MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 			}
 		}
