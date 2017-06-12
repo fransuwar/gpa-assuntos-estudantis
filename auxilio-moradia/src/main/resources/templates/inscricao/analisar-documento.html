@@ -41,7 +41,7 @@
 							<td th:text="${tipoDocumento.nome}"></td>
 							<td th:text="${tipoDocumento.descricao}"></td>
 							<td>
-								<div th:if="${inscricao.analiseDocumentacao != null}">
+								<div th:if="${inscricao.analiseDocumentacao}">
 									<div th:each="documentacao : ${inscricao.analiseDocumentacao.documentacao}">
 										<ul class="row" th:if="${documentacao.tipoDocumento.nome == tipoDocumento.nome}">
 											<li class="col s1" th:each="documento : ${documentacao.documentos}">
@@ -51,6 +51,9 @@
 			       							</li>
 										</ul>
 									</div>
+								</div>
+								<div th:else="${inscricao.analiseDocumentacao}">
+									<i class="material-icons">file_download</i>
 								</div>
 							</td>
 						</tr>
