@@ -32,7 +32,7 @@
 									<div th:each="documentacao : ${inscricao.analiseDocumentacao.documentacao}">
 										<ul th:if="${documentacao.tipoDocumento.nome == tipoDocumento.nome}">
 											<li class="chip" th:each="documento : ${documentacao.documentos}">
-			       								<a th:href="@{/selecao/documento/__${inscricao.selecao.id}__/download/__${documento.id}__}" class="secondary-content">
+			       								<a th:href="@{/documentacao/documento/__${inscricao.id}__/download/__${documento.id}__}" class="secondary-content">
 			       									<span class="text" th:text="${documento.nome}"></span>
 			       								 </a>
 			       							</li>
@@ -45,7 +45,8 @@
 					</table>					
 				</div>
        		</div>
-        	<form data-model="analiseDocumentacao" th:action="@{/}" th:object="${inscricao.analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
+        	<form data-model="analiseDocumentacao" th:action="@{/documentacao/analiseDocumentacao/__${inscricao.id}__}" th:object="${analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
+        		<input type="hidden" th:field="*{id}" />
         		<div class="card">
         			<div class="card-content">
 						<h5 class="title light">Parecer</h5>
@@ -60,10 +61,10 @@
 							<label for="observacao">Observação</label>
 						</div>
 					</div>
-        		</div>
-        		<div class="card-action right-align">
+					<div class="card-action right-align">
 						<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
-				</div>
+					</div>
+        		</div>
 			</form>
     </section>
 	
