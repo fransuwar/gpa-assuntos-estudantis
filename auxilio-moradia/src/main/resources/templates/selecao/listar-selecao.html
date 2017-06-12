@@ -86,7 +86,13 @@
 					</table>
 				</div>
 				<div class="card-action right-align" sec:authorize="hasAuthority('COORDENADOR')">
-					<a class="waves-effect waves-light btn" th:href="@{/selecao/cadastrar}">Nova Seleção</a>
+					<!--<a class="waves-effect waves-light btn" th:href="@{/selecao/cadastrar}">Nova Seleção</a>-->
+					<div class="fixed-action-btn">
+						<a class="btn-floating btn-large deep-purple lighteen 1 tooltipped" th:href="@{/selecao/cadastrar}"
+						   data-position="left" data-delay="500" data-tooltip="Nova Seleção">
+							<i class="large material-icons">add</i>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
