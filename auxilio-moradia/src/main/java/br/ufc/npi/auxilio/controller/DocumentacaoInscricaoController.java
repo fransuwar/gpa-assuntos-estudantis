@@ -98,6 +98,7 @@ public class DocumentacaoInscricaoController {
 			AnaliseDocumentacao analiseDocumento = inscricao.getAnaliseDocumentacao();
 			if( analiseDocumento == null || analiseDocumento.getId() == null ) {
 				analiseDocumento = new AnaliseDocumentacao();
+				analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
 				analiseDocumentacaoRepository.save(analiseDocumento);
 				
 			}

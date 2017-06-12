@@ -43,10 +43,10 @@
 							<td>
 								<div th:if="${inscricao.analiseDocumentacao != null}">
 									<div th:each="documentacao : ${inscricao.analiseDocumentacao.documentacao}">
-										<ul th:if="${documentacao.tipoDocumento.nome == tipoDocumento.nome}">
-											<li class="chip" th:each="documento : ${documentacao.documentos}">
-			       								<a th:href="@{/documentacao/documento/__${inscricao.id}__/download/__${documento.id}__}" class="secondary-content">
-			       									<span class="text" th:text="${documento.nome}"></span>
+										<ul class="row" th:if="${documentacao.tipoDocumento.nome == tipoDocumento.nome}">
+											<li class="col s1" th:each="documento : ${documentacao.documentos}">
+			       								<a th:href="@{/documentacao/documento/__${inscricao.id}__/download/__${documento.id}__}" class="tooltipped" data-position="left" data-delay="50" th:attr="data-tooltip=${documento.nome}">
+			       									<i class="material-icons">file_download</i>
 			       								 </a>
 			       							</li>
 										</ul>
@@ -75,6 +75,7 @@
 						</div>
 					</div>
 					<div class="card-action right-align">
+						<a th:href="@{/selecao/inscricoes/__${inscricao.selecao.id}__}"  type="button" class=" btn waves-effect">Cancelar</a>
 						<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
 					</div>
         		</div>
