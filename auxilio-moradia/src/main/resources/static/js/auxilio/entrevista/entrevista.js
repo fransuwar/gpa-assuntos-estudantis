@@ -1,6 +1,6 @@
 function mostraCampo(el) {
 		var inputOutros = document.getElementById("AproveitamentoSatisfatorio");
-		if (el.value === "Sim") {
+		if (el.value === "true") {
 			inputOutros.style.display = "block";
 		} else {
 			inputOutros.style.display = "none";
@@ -11,7 +11,7 @@ function mostraCampo(el) {
 		var div = document.getElementById("divHabilidadesDesenvolvidas");
 		var div1 = document.getElementById("divHabilidadesDesenvolvidas1");
 
-		if (el.value === "Sim") {
+		if (el.value === "true") {
 			div.style.display = "block";
 			div1.style.display = "none";
 		} else {
@@ -24,7 +24,7 @@ function mostraCampo(el) {
 
 		var v2 = document.getElementById("cQuem");
 
-		if (el.value === "Sim") {
+		if (el.value === "true") {
 			v2.style.display = "block";
 		} else {
 			v2.style.display = "none";
@@ -33,7 +33,7 @@ function mostraCampo(el) {
 
 	function mostraCampoDiv(el) {
 		var v = document.getElementById("LinhaAdd");
-		if (el.value === "Sim") {
+		if (el.value === "true") {
 			v.style.display = "block";
 		} else {
 			v.style.display = "none";
@@ -44,7 +44,17 @@ function mostraCampo(el) {
 	function mostraCampoaQualDeficiencia(el){
 		var v2 = document.getElementById("QualDeficienciaAluno");
 
-		if (el.value === "Sim") {
+		if (el.value === "true") {
+			v2.style.display = "block";
+		} else {
+			v2.style.display = "none";
+		}
+	}
+	
+	function mostraCampoaQualMedicamento(el){
+		var v2 = document.getElementById("QualMedicamento");
+
+		if (el.value === "true") {
 			v2.style.display = "block";
 		} else {
 			v2.style.display = "none";
@@ -54,7 +64,7 @@ function mostraCampo(el) {
 	function mostraCampoMembroC_DoencaGrave(el){
 		var v2 = document.getElementById("QueMembroPossuiDoenca");
 
-		if (el.value === 'Sim') {
+		if (el.value === 'true') {
 			v2.style.display = "block";
 		} else {
 			v2.style.display = "none";
@@ -64,7 +74,7 @@ function mostraCampo(el) {
 	function mostraCampoMembroQualMembroC_deficiencia(el){
 		var v2 = document.getElementById("QualMembroC_Deficiencia");
 
-		if (el.value === "Sim") {
+		if (el.value === "true") {
 			v2.style.display = "block";
 		} else {
 			v2.style.display = "none";

@@ -1,6 +1,9 @@
 package br.ufc.npi.auxilio.controller;
 
+import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,18 +34,20 @@ public class EntrevistaController {
 	@Autowired
 	private InscricaoRepository InscricaoRepository;
 	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/{idInscricao}")
 	public String formEntrevista( @PathVariable("idInscricao") Inscricao inscricao, Model model ) {
 		if( inscricao == null ) {
 			return RedirectConstants.REDIRECT_LISTAR_SELECAO;
 		}
 		model.addAttribute("inscricao", inscricao);
-		model.addAttribute("entrevista", new Entrevista());
+		model.addAttribute("entrevista", inscricao.getEntrevista() == null ? new Entrevista() : inscricao.getEntrevista());
 		
 		return PageConstants.PAGINA_ENTREVISTA;
 	}
 	
-	@PostMapping("/{idInscricao}")
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PostMapping("/{idInscricao}/salvar")
 	public String cadastrarEntrevista( @PathVariable("idInscricao") Inscricao inscricao, Entrevista entrevista,
 			Authentication auth) {
 		if( inscricao == null ) {
