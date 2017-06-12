@@ -7,7 +7,19 @@
                         <span class="deep-purple-text text-lighten-2 title">AUXÍLIO MORADIA</span>
                     </a>
                 </li>
-                <li><a th:href="@{/selecao}">Seleções</a></li>
+                <li th:unless="${hasBreadcrumb}">
+                	<a th:href="@{/selecao}">
+                		<i class="material-icons left valign-wrapper">home</i>Seleções
+                	</a>
+                </li>
+                <li th:if="${hasBreadcrumb}">
+                	<div class="col s12 breadcrumbs valign-wrapper">
+			            <a th:href="@{/}" class="breadcrumb white-text">
+			                <i class="material-icons left">home</i> Seleção
+			            </a>
+			            <a class="breadcrumb white-text" th:text="${breadcrumbName}"> </a>
+			        </div>
+                </li>
             </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a th:href="@{/logout}">Sair</a></li>

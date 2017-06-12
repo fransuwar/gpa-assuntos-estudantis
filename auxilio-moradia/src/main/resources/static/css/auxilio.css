@@ -131,10 +131,10 @@ span.bold {
 }
 
 .breadcrumb{
-	font-size: 1.64rem;
+	font-size: 1rem;
 }
 
 .breadcrumb:before {
-    color: #7e57c2;
+    color: #FFF;
 }
 
