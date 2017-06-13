@@ -9,8 +9,12 @@
 </head>
 <body>
 	<!-- Page Content -->
-	<section layout:fragment="conteudo">
+	<div layout:fragment="conteudo">
     <!-- Content Header (Page header) -->
+      
+      <!-- Main content -->
+      <section class="content">
+        <div>
        	<div class="card">
        			<div class="card-content">
 					<h5 class="title light" th:text="'Análise de Documentação: '+${inscricao.selecao.tipo.nome} +' '+${inscricao.selecao.ano}"></h5>
@@ -33,31 +37,100 @@
 					</table>					
 				</div>
        		</div>
-        	<form data-model="analiseDocumentacao" th:action="@{/}" th:object="${inscricao.analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
+       		<form th:action="@{/documentacao/inscricao/__${inscricao.id}__/salvar}" th:object="${analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
+       			<div class="card">
+       				<div class="card-content">
+       					<table id ="analise-documento" class="display nowrap striped bordered" cellspacing="0" width="10	0%">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Cidade de Origem</th>
+									<th>Cidade Residência</th>
+									<th>Renda Pai</th>
+									<th>Renda Mãe</th>
+									<th>Renda outros</th>
+									<th>Nº pessoas</th>
+									<th>Renda per capita</th>
+									<th>Benefícios do Gov Federal</th>
+									<th>Conta de Energia</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<!-- <td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td> -->
+									<td>Fornecido Pelo Aluno</td>
+									<td th:text="${inscricao.questionario.cidadeOrigem} ? '__${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__' : '-'"></td>							
+									<td th:text="${inscricao.questionario.cidade} ? '__${inscricao.questionario.cidade}__ - __${inscricao.questionario.estado}__' : '-'"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPai(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaMae(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaOutros(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="${inscricao.questionario.grupoFamiliar.size()}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="${inscricao.questionario.beneficio} ? 'Sim' : 'Não'"></td>
+									<td>-</td>
+															
+								</tr>	
+								<tr>
+	   								<td>Valores reais</td>
+	   								<td title="Editar">
+	   									<input id="cidadeOrigem" placeholder="Ex.: Quixadá - CE" th:field="*{cidadeOrigem}" />
+	   								</td>
+									<td title="Editar">
+										<input id="cidade" placeholder="Ex.: Quixadá - CE" th:field="*{cidade}" />
+									</td>
+									<td title="Editar">
+										<input class="dinheiro" id="rendaPai" placeholder="Ex.: 1000" min="0" type="number" th:field="*{rendaPai}" />
+									</td>
+									<td title="Editar" >
+										<input id="rendaMae" class="dinheiro" placeholder="Ex.: 1000" min="0" type="number" th:field="*{rendaMae}" />
+									</td>
+									<td title="Editar" >
+										<input id="rendaOutros" class="dinheiro" placeholder="Ex.: 1000" min="0" type="number" th:field="*{rendaOutros}" />
+									</td>
+									<td title="Editar">
+										<input id="grupoFamiliar" class="dinheiro" placeholder="Ex.: 3" min="0" type="number" th:field="*{grupoFamiliar}" />
+									</td>
+									<td>
+										<input id="rendaPerCapita" disabled="disabled" min="0" type="number" th:field="*{rendaPerCapita}" />
+									</td>
+									<td><select id="beneficio" th:field="*{beneficio}" >
+										<option th:value="true">Sim</option>
+										<option th:value="false">Não</option>
+									</select></td>
+									<td>
+										<input id="energia" placeholder="Ex.: 100" min="0" type="number" th:field="*{energia}" />
+									</td>					
+								</tr>
+							</tbody>
+						</table>
+       				</div>
+       			</div>
         		<div class="card">
         			<div class="card-content">
 						<h5 class="title light">Parecer</h5>
-						<div class="col s4 input-field">
-							<select th:field="*{resultado}">
-								<option th:each="tipoResultado : ${resultado}" th:value="${tipoResultado}" th:text="${tipoResultado}"></option>
-							</select>
-							<label for="parecer">Resultado</label>
+							<div class="col s4 input-field">
+								<select id="parecer" th:field="*{parecer}">
+									<option th:each="tipoResultado : ${resultado}" th:value="${tipoResultado}" th:text="${tipoResultado}"></option>
+								</select>
+								<label for="parecer">Resultado</label>
+							</div>
+							<div class="col s8 input-field">
+								<textarea th:field="*{observacao}" class="materialize-textarea" id="observacao"></textarea>
+								<label for="observacao">Observação</label>
+							</div>
+							<div class="card-action right-align">
+								<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
+							</div>
 						</div>
-						<div class="col s8 input-field">
-							<textarea class="materialize-textarea" id="observacao" th:field="*{observacoes}"></textarea>
-							<label for="observacao">Observação</label>
-						</div>
-					</div>
-        		</div>
-        		<div class="card-action right-align">
-						<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
-				</div>
-			</form>
-    </section>
+        			</div>
+				</form>
+        	</div>
+        <!-- /.box -->
+      	</section>
+	</div>
 	
 	<section layout:fragment="js">
     	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
     </section>
-	
 </body>
 </html>
