@@ -3,7 +3,10 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="base/base"
-	th:with="currentPage='selecao'">
+	th:with="currentPage='selecao',
+			hasBreadcrumb = true,
+			breadcrumbName = 'Detalhes Seleção',
+			selecao = ${selecao}">
 
 <head>
 	<title>Auxílio - Detalhes da Seleção</title>
