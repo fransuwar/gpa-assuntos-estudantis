@@ -24,30 +24,34 @@
 	</div>
 	<div class="row">
 		<div class="col s12">
-
+			<div class="card">
+				<div class="card-content details">
+					<h5 class="title light">Identificação</h5>
+					<div class="row no-margin">
+						<div class="col s4">
+							<span th:text="${inscricao.aluno.pessoa.nome}" class="text-20 light bold"></span>
+						</div>
+					</div>
+				</div>
+			</div>
 			<form th:action="@{/inscricao/__${inscricao.selecao.id}__}"
 				th:object="${identificacao}" th:method="post">
 				<div class="card">
 					<div class="card-content">
-						<h5 class="title light">Identificação</h5>
+						<h5 class="title light">Dados da Entrevista</h5>
 						<div class="row">
-							<div class="col s3">
-								<span>Nome:</span> <span class="text-20 truncate"
-									th:text="${inscricao.aluno.pessoa.nome} ? ${inscricao.aluno.pessoa.nome} : '-'"></span>
-							</div>
-
 							<div class="col s2 input-field">
 								<input type="text" class="datepicker" id="data-entrevista"
 									required="required" /> <label for="data-entrevista">*
 									Data da Entrevista</label>
 							</div>
 
-							<div class="col s4 input-field">
+							<div class="col s5 input-field">
 								<input type="text" class="text-20 truncate" id="endereco" /> <label
 									for="endereco">Endereço</label>
 							</div>
 
-							<div class="col s2 input-field">
+							<div class="col s5 input-field">
 								<input type="tel" id="contato" /> <label for="contato">Contato</label>
 							</div>
 						</div>

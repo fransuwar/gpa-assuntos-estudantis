@@ -24,10 +24,18 @@
 	</div>
 	
     <!-- Content Header (Page header) -->
+    	<div class="card">
+			<div class="card-content details">
+				<h5 class="title light">Identificação</h5>
+				<div class="row no-margin">
+					<div class="col s4">
+						<span th:text="${inscricao.aluno.pessoa.nome}" class="text-20 light bold"></span>
+					</div>
+				</div>
+			</div>
+		</div>
        	<div class="card">
        			<div class="card-content">
-					<h5 class="title light" th:text="'Análise de Documentação: '+${inscricao.selecao.tipo.nome} +' '+${inscricao.selecao.ano}"></h5>
-					<h5 class="title light" th:text="${inscricao.aluno.pessoa.nome}"></h5>
 					<table>
 					<thead>
 						<tr>
