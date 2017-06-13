@@ -284,4 +284,11 @@ public class SelecaoController {
 	public List<Servidor> getAllServidores() {
 		return servidorService.getAll();
 	}
+	
+	@GetMapping("/resultadoSelecao/{selecao}")
+	public String resultadoSelecao(@PathVariable Selecao selecao, Model model){
+		
+		model.addAttribute("selecao", selecao);
+		return "/selecao/resultado-final";
+	}
 }
