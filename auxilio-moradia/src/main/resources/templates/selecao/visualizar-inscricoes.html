@@ -68,7 +68,7 @@
 								<tr th:each="inscricao, row : ${inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td>
-										<a th:if="${inscricao.analiseDocumentacao}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
+										<a th:if="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.parecer != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
 											<div th:unless="${inscricao.analiseDocumentacao.parecer.nome}" class="chip grey lighten-1">
 												Não Avaliado
 											</div>
@@ -82,14 +82,14 @@
 												Indeferido
 											</div>
 										</a>
-										<a th:unless="${inscricao.analiseDocumentacao}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
+										<a th:unless="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.parecer != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
 											<div class="chip grey lighten-1">
 												Não Avaliado
 											</div>
 										</a>
 									</td>
 									<td>
-										<a th:if="${inscricao.entrevista}" th:href="@{/entrevista/__${inscricao.id}__}">
+										<a th:if="${inscricao.entrevista != null and inscricao.entrevista.parecer != null}" th:href="@{/entrevista/__${inscricao.id}__}">
 											<div th:unless="${inscricao.entrevista.parecer.nome}" class="chip grey lighten-1">
 												Não Avaliado
 											</div>
@@ -103,14 +103,14 @@
 												Indeferido
 											</div>
 										</a>
-										<a th:unless="${inscricao.entrevista}" th:href="@{/entrevista/__${inscricao.id}__}">
+										<a th:unless="${inscricao.entrevista != null and inscricao.entrevista.parecer != null}" th:href="@{/entrevista/__${inscricao.id}__}">
 											<div class="chip grey lighten-1">
 												Não Avaliado
 											</div>
 										</a>
 									</td>
-									<td>
-										<a th:if="${inscricao.visitaDomiciliar}" th:href="@{/visita/__${inscricao.id}__}">
+									<td th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">
+										<a th:if="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.parecer != null}" th:href="@{/visita/__${inscricao.id}__}">
 											<div th:if="${inscricao.visitaDomiciliar.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1">
 												Não Avaliado
 											</div>
@@ -121,7 +121,7 @@
 												Indeferido
 											</div>
 										</a>
-										<a th:unless="${inscricao.visitaDomiciliar}" th:href="@{/visita/__${inscricao.id}__}">
+										<a th:unless="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.parecer != null}" th:href="@{/visita/__${inscricao.id}__}">
 											<div class="chip grey lighten-1">
 												Não Avaliado
 											</div>
