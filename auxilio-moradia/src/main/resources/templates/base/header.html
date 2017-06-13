@@ -6,24 +6,28 @@
                     <a class="white" th:href="@{/}">
                         <span class="deep-purple-text text-lighten-2 title">AUXÍLIO MORADIA</span>
                     </a>
-                </li>
-                <li th:unless="${hasBreadcrumb}">
+                </li>                
+            </ul>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a th:href="@{/logout}">Sair</a></li>
+            </ul>
+            <ul>
+            	 <li class="personal container" th:replace="${personal}">
                 	<a th:href="@{/selecao}">
                 		<i class="material-icons left valign-wrapper">home</i>Seleções
                 	</a>
                 </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- 
                 <li th:if="${hasBreadcrumb}">
                 	<div class="col s12 breadcrumbs valign-wrapper">
 			            <a th:href="@{/}" class="breadcrumb white-text">
 			                <i class="material-icons left">home</i> Seleção
 			            </a>
-			            <a class="breadcrumb white-text" th:text="${breadcrumbName}"> </a>
+			            <a class="breadcrumb white-text" th:text="${breadcrumbName + ': ' +selecao.tipo.nome +' '+selecao.ano}"> </a>
 			        </div>
                 </li>
-            </ul>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a th:href="@{/logout}">Sair</a></li>
-            </ul>
-        </div>
-    </nav>
-</header>
+                -->
