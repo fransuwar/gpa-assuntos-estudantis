@@ -103,6 +103,7 @@ public class DocumentacaoInscricaoController {
 				
 			}
 			analiseDocumento.setInscricao(inscricao);
+			analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
 			analiseDocumentacaoRepository.save(analiseDocumento);
 			
 			documentacao.setAnaliseDocumentacao(analiseDocumento);
