@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.ufc.npi.auxilio.enums.Modalidades;
 import br.ufc.npi.auxilio.enums.ParticipouSelecaoResultado;
 import br.ufc.npi.auxilio.enums.Resultado;
@@ -21,9 +23,11 @@ public class Entrevista {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date data;
 	
-	private String parecer;
+	@Enumerated(EnumType.STRING)
+	private Resultado parecer;
 	
 	private String endereco;
 	
@@ -111,9 +115,17 @@ public class Entrevista {
 	
 	private String representaBIA;
 	
+	private String observacao;
 	
 	
-	
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
 	public String getMotivoProjeto() {
 		return motivoProjeto;
 	}
@@ -460,9 +472,6 @@ public class Entrevista {
 
 	private boolean vaiVisitar;
 	
-	@Enumerated(EnumType.STRING)
-	private Resultado resultado;
-	
 	@ManyToOne
 	private Servidor responsavel;
 	
@@ -490,20 +499,12 @@ public class Entrevista {
 		this.data = data;
 	}
 
-	public String getParecer() {
+	public Resultado getParecer() {
 		return parecer;
 	}
 
-	public void setParecer(String parecer) {
+	public void setParecer(Resultado parecer) {
 		this.parecer = parecer;
-	}
-
-	public Resultado getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(Resultado resultado) {
-		this.resultado = resultado;
 	}
 
 	public Servidor getResponsavel() {

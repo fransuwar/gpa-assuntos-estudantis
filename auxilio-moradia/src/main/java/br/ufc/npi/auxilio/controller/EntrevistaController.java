@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.ufc.npi.auxilio.enums.Modalidades;
+import br.ufc.npi.auxilio.enums.ParticipouSelecaoResultado;
 import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.model.Entrevista;
 import br.ufc.npi.auxilio.model.Inscricao;
@@ -40,6 +42,9 @@ public class EntrevistaController {
 		if( inscricao == null ) {
 			return RedirectConstants.REDIRECT_LISTAR_SELECAO;
 		}
+		model.addAttribute("modalidade", Modalidades.values());
+		model.addAttribute("participouSelecao", ParticipouSelecaoResultado.values());
+		model.addAttribute("resultado", Resultado.values());
 		model.addAttribute("inscricao", inscricao);
 		model.addAttribute("entrevista", inscricao.getEntrevista() == null ? new Entrevista() : inscricao.getEntrevista());
 		
@@ -47,7 +52,7 @@ public class EntrevistaController {
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@PostMapping("/{idInscricao}/salvar")
+	@PostMapping("/{idInscricao}")
 	public String cadastrarEntrevista( @PathVariable("idInscricao") Inscricao inscricao, Entrevista entrevista,
 			Authentication auth) {
 		if( inscricao == null ) {
