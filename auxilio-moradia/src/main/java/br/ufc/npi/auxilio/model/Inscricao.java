@@ -199,6 +199,7 @@ public class Inscricao implements Comparable<Inscricao>{
 		this.aluno.getPessoa().setEstadoCivil(identificacao.getEstadoCivil());
 		this.aluno.getPessoa().setTelefone(identificacao.getContato());
 		this.aluno.setIra(identificacao.getIra());
+		this.aluno.setAnoIngresso(identificacao.getAnoIngresso());
 
 		// Dados bancários
 		if (questionario == null) {

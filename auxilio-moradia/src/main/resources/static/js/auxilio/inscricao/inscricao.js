@@ -1,4 +1,16 @@
+function mostraCampoParentesco (el) {
+	var div = document.getElementById("descricaoParentescoDiv");
+	
+	if(el.value === 'OUTRO')
+		div.style = 'display:block';
+	else
+		div.style = 'display:none';
+}
+
 $(document).ready( function() {
+	
+	var paren = document.getElementById("parentesco");
+	mostraCampoParentesco(paren);
 
 	// Formulário de moradia
 	$('#OUTROS-origem').click(function () {
