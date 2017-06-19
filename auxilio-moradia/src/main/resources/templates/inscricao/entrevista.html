@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-	layout:decorator="base/base">
+<html lang="pt-BR"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="base/base">
 
 <head>
 <title>Auxílio - Realizar Entrevista</title>
@@ -135,14 +134,14 @@
 							<div id="LinhaAdd" style="display:none">
 
 								<div class="col s4 input-field">
-									<input type="number" min="0" id="valorAluguel" th:field="*{valorAluguel}" /> <label
+									<input required="required" type="number" min="0" id="valorAluguel" th:field="*{valorAluguel}" /> <label
 										for="valorAluguel">* Qual o valor do Aluguel?</label>
 	
 								</div>
 	
 								<div class="col s4 input-field">
 									<input min="0" type="number" id="n_pessoasMoradia" th:field="*{qtColegas}"
-										required="required" /> <label for="n_pessoasMoradia">Com
+										required="required" /> <label for="n_pessoasMoradia">* Com
 										quantos colegas você compartilha a moradia? </label>
 								</div>
 	
@@ -185,12 +184,12 @@
 							</div>
 							<div class="col s4 input-field">
 								<input min="0" type="number" id="quantidadeIdosos" th:field="*{qtIdosos}"
-									required="required" /> <label for="quantidadeIdosos">Quantidade
+									required="required" /> <label for="quantidadeIdosos">* Quantidade
 									de idosos no grupo familiar</label>
 							</div>
 							<div class="col s4 input-field">
 								<input min="0" type="number" id="quantidadeCriancas" th:field="*{qtCriancas}"
-									required="required" /> <label for="quantidadeCriancas">Quantidade
+									required="required" /> <label for="quantidadeCriancas">* Quantidade
 									de crianças/adolescentes grupo familiar</label>
 							</div>
 						</div>

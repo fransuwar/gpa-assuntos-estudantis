@@ -26,8 +26,10 @@ function mostraCampoSelect(el) {
 
 	if (el.value === "true") {
 		v2.style.display = "block";
+		document.getElementById("comquem").required = true;
 	} else {
 		v2.style.display = "none";
+		document.getElementById("comquem").required = false;
 	}
 }
 
@@ -35,8 +37,12 @@ function mostraCampoDiv(el) {
 	var v = document.getElementById("LinhaAdd");
 	if (el.value === "true") {
 		v.style.display = "block";
+		document.getElementById("n_pessoasMoradia").required = true;
+		document.getElementById("valorAluguel").required = true;
 	} else {
 		v.style.display = "none";
+		document.getElementById("n_pessoasMoradia").required = false;
+		document.getElementById("valorAluguel").required = false;
 	}
 
 }
