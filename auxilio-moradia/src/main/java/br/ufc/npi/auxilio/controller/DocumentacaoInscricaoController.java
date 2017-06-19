@@ -1,19 +1,23 @@
 package br.ufc.npi.auxilio.controller;
 
 import br.ufc.npi.auxilio.enums.Resultado;
+import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
 import br.ufc.npi.auxilio.repository.AnaliseDocumentacaoRepository;
 import br.ufc.npi.auxilio.repository.DocumentacaoRepository;
 import br.ufc.npi.auxilio.repository.DocumentoRepository;
-import br.ufc.npi.auxilio.repository.InscricaoRepository;
 import br.ufc.npi.auxilio.service.DocumentacaoService;
+import br.ufc.npi.auxilio.service.InscricaoService;
 import br.ufc.npi.auxilio.service.PessoaService;
+import br.ufc.npi.auxilio.service.ServidorService;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +32,8 @@ import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
 import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
+import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
 
 @Controller
 @RequestMapping("/documentacao")
@@ -37,8 +43,11 @@ public class DocumentacaoInscricaoController {
 	private DocumentacaoService documentacaoService;
 	
 	@Autowired
-	private InscricaoRepository inscricaoRepository;
+	private InscricaoService inscricaoService;
 	
+	@Autowired
+	private ServidorService servidorService;
+		
 	@Autowired
 	private DocumentoRepository documentoRepository;
 	
@@ -66,7 +75,7 @@ public class DocumentacaoInscricaoController {
 	public String adicionarDocumentacao( @RequestParam("files") List<MultipartFile> files,
 			@PathVariable("idInscricao") Inscricao inscricao, 
 			@RequestParam("tipoDocumento") TipoDocumento tipoDocumento,
-			RedirectAttributes redirect) {
+			RedirectAttributes redirect) throws AuxilioMoradiaException {
 		
 		if (files != null && !files.isEmpty() && files.get(0).getSize() > 0) { 
 			Documentacao documentacao = documentacaoRepository.findByTipoDocumento(tipoDocumento, inscricao.getAnaliseDocumentacao());
@@ -76,19 +85,11 @@ public class DocumentacaoInscricaoController {
 			for (MultipartFile mfiles : files) {
 				try {
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-
-						Documento documento = new Documento();
-						documento.setNome(mfiles.getOriginalFilename());
-						documento.setCaminho(mfiles.getContentType());
-
-						if(inscricao.getAnaliseDocumentacao() == null)
-							inscricao.setAnaliseDocumentacao(new AnaliseDocumentacao());
-						documentoRepository.save(documento);
-						documentacao.getDocumentos().add(documento);
+						documentacaoService.adicionarDocumentos(inscricao, documentacao, mfiles);
+						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 					}
 				} catch (IOException e)	{
 					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
-
 					return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 				}
 			}
@@ -97,25 +98,27 @@ public class DocumentacaoInscricaoController {
 			AnaliseDocumentacao analiseDocumento = inscricao.getAnaliseDocumentacao();
 			if( analiseDocumento == null || analiseDocumento.getId() == null ) {
 				analiseDocumento = new AnaliseDocumentacao();
+				analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
 				analiseDocumentacaoRepository.save(analiseDocumento);
+				
 			}
-			
 			analiseDocumento.setInscricao(inscricao);
+			analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
+			analiseDocumentacaoRepository.save(analiseDocumento);
+			
 			documentacao.setAnaliseDocumentacao(analiseDocumento);
-			documentacaoRepository.save(documentacao);
+			documentacaoService.salvar(documentacao);
 			
 			inscricao.setAnaliseDocumentacao(analiseDocumento);
-			inscricaoRepository.save(inscricao);
+			inscricaoService.salvar(inscricao);
 		}
 		
 		else {
 			redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_NENHUM_ARQUIVO);
-
 			return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 		}
 		
-		redirect.addFlashAttribute(INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO);
-		
+		redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 	}
 	
@@ -126,7 +129,7 @@ public class DocumentacaoInscricaoController {
 			@PathVariable("idDocumento") Documento documento,
 			RedirectAttributes redirect) {
 		documentacao.getDocumentos().remove(documento);
-		documentacaoRepository.save(documentacao);
+		documentacaoService.salvar(documentacao);
 		documentoRepository.delete(documento);
 		
 		redirect.addFlashAttribute(INFO, SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO);
@@ -141,40 +144,45 @@ public class DocumentacaoInscricaoController {
 	@Secured(COORDENADOR)
 	@GetMapping("/inscricao/{idInscricao}")
 	public String analisarDocumentacaoInscricao(@PathVariable("idInscricao") Inscricao inscricao, Model model){
-		model.addAttribute("resultado", Resultado.values());
-		model.addAttribute("inscricao", inscricao);
+		
 		if (inscricao.getAnaliseDocumentacao() == null) {
 			AnaliseDocumentacao aD = new AnaliseDocumentacao();
 			inscricao.setAnaliseDocumentacao(aD);
-			inscricaoRepository.save(inscricao);
+			inscricaoServicw.salvar(inscricao);
 		}
 		model.addAttribute("analiseDocumentacao", inscricao.getAnaliseDocumentacao());
+		model.addAttribute("resultado", Resultado.values());
+		model.addAttribute("inscricao", inscricao);
 		return "inscricao/analisar-documento";
 	}
 	
 	@Secured(COORDENADOR)
-	@PostMapping("/inscricao/{idInscricao}/salvar")
-	public String salvarAnaliseDocumentacao(@PathVariable("idInscricao") Inscricao inscricao, 
-			AnaliseDocumentacao analiseDocumentacao){
-//		System.out.println(analiseDocumentacao.getCidadeOrigem());
-//		System.out.println(analiseDocumentacao.getCidade());
-//		System.out.println(analiseDocumentacao.getRendaPai());
-//		System.out.println(analiseDocumentacao.getRendaMae());
-//		System.out.println(analiseDocumentacao.getRendaOutros());
-//		System.out.println(analiseDocumentacao.getRendaPerCapita());
-//		System.out.println(analiseDocumentacao.getGrupoFamiliar());
-//		System.out.println(analiseDocumentacao.getBeneficio());
-//		System.out.println(analiseDocumentacao.getEnergia());
-//		System.out.println(analiseDocumentacao.getParecer());
-//		System.out.println(analiseDocumentacao.getObservacao());
+	@PostMapping("/analiseDocumentacao/{inscricao}")
+	public String analisarDocumentacaoInscricao(@PathVariable Inscricao inscricao, AnaliseDocumentacao analiseDocumentacao, Authentication auth, RedirectAttributes redirectAttributes){
+		
+		Servidor servidor = servidorService.getByCpf(auth.getName());
 		analiseDocumentacao.setRendaPerCapita(((analiseDocumentacao.getRendaPai()==null?0:analiseDocumentacao.getRendaPai())+
 				(analiseDocumentacao.getRendaMae() == null? 0:analiseDocumentacao.getRendaMae())+
 				(analiseDocumentacao.getRendaOutros()==null? 0:analiseDocumentacao.getRendaOutros()))/
 				(analiseDocumentacao.getGrupoFamiliar()==null? 1:analiseDocumentacao.getGrupoFamiliar()));
-		
-		inscricao.setAnaliseDocumentacao(analiseDocumentacao);
-		inscricaoRepository.save(inscricao);
-		return "redirect:/documentacao/inscricao/"+inscricao.getId();
+		analiseDocumentacao.setInscricao(inscricao);
+		analiseDocumentacao.setResponsavel(servidor);
+		analiseDocumentacaoRepository.save(analiseDocumentacao);
+		return RedirectConstants.REDIRECT_SELECAO_INSCRICOES+inscricao.getSelecao().getId();
 	}
 	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/documento/{inscricao}/download/{documento}")
+	public HttpEntity<byte[]> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento documento, RedirectAttributes redirect) {
+		try {
+			if(inscricao != null && documento != null) {
+				Documento documentoBanco = documentacaoService.buscarDocumento(documento);
+				return documentacaoService.downloadDocumento(documentoBanco, "attachment");
+			}
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+		}
+		return null;
+	}
+
 }
