@@ -1,5 +1,5 @@
 <header th:fragment="header">
-    <nav>
+    <nav id="nav-header">
         <div class="nav-wrapper">
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li>
@@ -9,17 +9,11 @@
                 </li>
             </ul>
             <ul>
-                <li th:unless="${hasBreadcrumb}">
-                	<a th:href="@{/selecao}">
-                		<i class="material-icons left valign-wrapper">home</i>Seleções
-                	</a>
-                </li>
-                <li th:if="${hasBreadcrumb}">
-                	<div class="col s12 breadcrumbs valign-wrapper">
+                <li>
+                	<div id="caminho" class="col s12 breadcrumbs valign-wrapper">
 			            <a th:href="@{/}" class="breadcrumb white-text">
-			                <i class="material-icons left">home</i> Seleção
+			                <i class="material-icons left">home</i> Seleções
 			            </a>
-			            <a class="breadcrumb white-text" th:text="${breadcrumbName}"> </a>
 			        </div>
                 </li>
             </ul>
