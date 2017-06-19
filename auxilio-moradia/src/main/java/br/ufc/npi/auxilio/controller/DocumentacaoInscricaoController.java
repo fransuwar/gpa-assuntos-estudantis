@@ -181,8 +181,8 @@ public class DocumentacaoInscricaoController {
 	public HttpEntity<byte[]> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento documento, RedirectAttributes redirect) {
 		try {
 			if(inscricao != null && documento != null) {
-				documento = documentacaoService.buscarDocumento(documento);
-				return documentacaoService.downloadDocumento(documento, "attachment");
+				Documento documentoBanco = documentacaoService.buscarDocumento(documento);
+				return documentacaoService.downloadDocumento(documentoBanco, "attachment");
 			}
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
