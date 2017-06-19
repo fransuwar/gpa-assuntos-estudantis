@@ -397,5 +397,11 @@ public class InscricaoController {
 		else
 			return new Response().withFailStatus().withErrorMessage("Error ao selecionar esta inscricao");
 	}
+	
+	@GetMapping("/resultadoSelecao/{selecao}")
+	public String resultadoSelecao(@PathVariable Selecao selecao, Model model){
+		model.addAttribute("inscricoes", inscricaoService.getSelecionados(selecao));	
+		return "/selecao/resultado-final";
+	}
 
 }

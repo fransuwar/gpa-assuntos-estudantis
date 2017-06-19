@@ -27,10 +27,10 @@
 			<div class="card-content">
 				<h5 class="title light">Selecionados:</h5>
 				<!-- Nenhuma inscrição realizada -->
-				<span class="blue-grey-text" th:if="${#lists.isEmpty(selecao.inscricoes)}">Nenhuma inscrição realizada</span>
+				<span class="blue-grey-text" th:if="${#lists.isEmpty(inscricoes)}">Nenhum Aluno selecionado</span>
 
 				<!-- Inscrições -->
-				<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
+				<div class="row" th:unless="${#lists.isEmpty(inscricoes)}">
 					<div class="col s3 input-field">
 						<input id="busca_inscricoes" type="search"/>
 						<label id="lupa" class="label-icon" for="search"><i class="material-icons">search</i></label>
@@ -54,7 +54,7 @@
 									</tr>
 							</thead>
 							<tbody>
-								<tr th:each="inscricao : ${selecao.inscricoes}">
+								<tr th:each="inscricao : ${inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td th:text="${inscricao.aluno.curso}"></td>
 									<td th:text="${inscricao.aluno.pessoa.email}"></td>

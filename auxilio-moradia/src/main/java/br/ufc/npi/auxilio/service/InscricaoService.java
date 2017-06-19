@@ -6,6 +6,8 @@ import br.ufc.npi.auxilio.model.questionario.Identificacao;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 public interface InscricaoService {
 	
 	boolean isInscrito(Aluno aluno, Selecao selecao);
@@ -31,7 +33,9 @@ public interface InscricaoService {
 	Inscricao buscarInscricaoPorId(Integer idInscricao);
 		
 	boolean selecionarInscricao(Integer idInscricao,Integer selecionar);
-		
 	
+	List<Inscricao> getDeferidos(Selecao selecao);
+		
+	List<Inscricao> getSelecionados(Selecao selecao);
 }
 
