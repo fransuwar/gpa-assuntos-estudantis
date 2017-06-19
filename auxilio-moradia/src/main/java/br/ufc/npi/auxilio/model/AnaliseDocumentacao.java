@@ -14,6 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 import br.ufc.npi.auxilio.enums.Resultado;
 
 @Entity
@@ -28,7 +31,7 @@ public class AnaliseDocumentacao {
 	
 	private String cidade;
 	
-	private Boolean beneficio;
+	private String beneficio;
 	
 	private String cidadeOrigem;
 	
@@ -62,11 +65,11 @@ public class AnaliseDocumentacao {
 		this.cidade = cidade;
 	}
 
-	public Boolean getBeneficio() {
+	public String getBeneficio() {
 		return beneficio;
 	}
 
-	public void setBeneficio(Boolean beneficio) {
+	public void setBeneficio(String beneficio) {
 		this.beneficio = beneficio;
 	}
 

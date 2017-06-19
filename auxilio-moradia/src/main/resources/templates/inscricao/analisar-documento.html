@@ -66,7 +66,7 @@
 									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaOutros(), 1, 'POINT', 2, 'COMMA')}"></td>
 									<td th:text="${inscricao.questionario.grupoFamiliar.size()}"></td>
 									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
-									<td th:text="${inscricao.questionario.beneficio} ? 'Sim' : 'Não'"></td>
+									<td th:text="${inscricao.questionario.beneficio} ? '__${inscricao.questionario.descricaoBeneficio}__' : 'Não'"></td>
 									<td>-</td>
 															
 								</tr>	
@@ -93,10 +93,13 @@
 									<td>
 										<input id="rendaPerCapita" disabled="disabled" min="0" type="number" th:field="*{rendaPerCapita}" />
 									</td>
-									<td><select id="beneficio" th:field="*{beneficio}" >
+									<!--  <td><select id="beneficio" th:field="*{beneficio}" >
 										<option th:value="true">Sim</option>
 										<option th:value="false">Não</option>
-									</select></td>
+									</select></td>-->
+									<td title="Editar">
+										<input id="beneficio" min="0" placeholder="Ex.: 800,00 INSS" th:field="*{beneficio}" />
+									</td>
 									<td>
 										<input id="energia" placeholder="Ex.: 100" min="0" type="number" th:field="*{energia}" />
 									</td>					

@@ -68,7 +68,7 @@
 								<tr th:each="inscricao, row : ${inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td>
-										<a th:if="${inscricao.analiseDocumentacao}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
+										<a th:if="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.parecer != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
 											<div th:unless="${inscricao.analiseDocumentacao.parecer.nome}" class="chip grey lighten-1">
 												Não Avaliado
 											</div>
@@ -82,7 +82,7 @@
 												Indeferido
 											</div>
 										</a>
-										<a th:unless="${inscricao.analiseDocumentacao}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
+										<a th:unless="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.parecer != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
 											<div class="chip grey lighten-1">
 												Não Avaliado
 											</div>
