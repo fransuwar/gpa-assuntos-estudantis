@@ -17,6 +17,8 @@ public class PessoaFamilia {
 
 	@Enumerated(EnumType.STRING)
 	private GrauParentesco parentesco;
+	
+	private String descricaoParentesco;
 
 	private String outroParentesco;
 
@@ -32,6 +34,14 @@ public class PessoaFamilia {
 	@JsonIgnore
 	@ManyToOne
 	private QuestionarioAuxilioMoradia questionario;
+	
+	public String getDescricaoParentesco() {
+		return descricaoParentesco;
+	}
+
+	public void setDescricaoParentesco(String descricaoParentesco) {
+		this.descricaoParentesco = descricaoParentesco;
+	}
 
 	public Integer getId() {
 		return id;

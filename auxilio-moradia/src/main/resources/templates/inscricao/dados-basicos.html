@@ -47,9 +47,9 @@
 								<span>Matrícula:</span>
 								<span class="text-20 truncate" th:text="${aluno.matricula} ? ${aluno.matricula} : '-'"></span>
 							</div>
-							<div class="col s2">
-								<span>Ano Ingresso:</span>
-								<span class="text-20 truncate" th:text="${aluno.anoIngresso} ? ${aluno.anoIngresso} : '-'"></span>
+							<div class="col s2 input-field">
+								<input id="anoIngresso" type="text" th:value="${aluno.anoIngresso != null? aluno.anoIngresso : ''}" th:id="anoIngresso" th:name="anoIngresso"/>
+								<label for="anoIngresso">Ano Ingresso</label>
 							</div>
 						</div>
 						<div class="row">
@@ -75,13 +75,13 @@
 						<div class="row">
 							<div class="col s3 input-field">
 								<input th:field="*{naturalidade}" type="text" id="naturalidade" required="required"/>
-								<label for="naturalidade">* Naturalidade</label>
+								<label for="naturalidade">* Local de Nascimento</label>
 							</div>
 							<div class="col s3 input-field">
 								<select id="ufNaturalidade" th:field="*{ufNaturalidade}">
 									<option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
 								</select>
-								<label for="ufNaturalidade">* UF naturalidade</label>
+								<label for="ufNaturalidade">* UF Local de Nascimento</label>
 							</div>
 							<div class="col s3 input-field">
 								<select id="estadoCivil" th:field="*{estadoCivil}">
