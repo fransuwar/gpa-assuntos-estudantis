@@ -178,7 +178,7 @@ public class DocumentacaoInscricaoController {
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/documento/{inscricao}/download/{documento}")
-	public HttpEntity<?> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento documento, RedirectAttributes redirect) {
+	public HttpEntity<byte[]> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento documento, RedirectAttributes redirect) {
 		try {
 			if(inscricao != null && documento != null) {
 				documento = documentacaoService.buscarDocumento(documento);
