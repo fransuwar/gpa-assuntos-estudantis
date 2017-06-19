@@ -9,13 +9,15 @@
                 </li>
             </ul>
             <ul>
-                <li>
-                	<div id="caminho" class="col s12 breadcrumbs valign-wrapper">
-			            <a th:href="@{/}" class="breadcrumb white-text">
-			                <i class="material-icons left">home</i> Seleções
-			            </a>
-			        </div>
-                </li>
+            	<li>
+					<div id="caminho" class="col s12 breadcrumbs valign-wrapper">
+						<a th:href="@{/}" class="breadcrumb white-text">
+							<i class="material-icons left">home</i> Seleções
+						</a>
+						<a th:each="bread : ${breadcrumbName}" th:text="${bread.get(name)}" th:href="@{/}" class="breadcrumb white-text">
+						</a>
+					</div>
+			    </li>
             </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a th:href="@{/logout}">Sair</a></li>

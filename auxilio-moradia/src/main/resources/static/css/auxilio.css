@@ -12,11 +12,11 @@ a{
 	color: #7e57c2;
 }
 
-.btn{
+.btn, .btn-large{
 	background-color: #7e57c2;
 }
 
-.btn:hover{
+.btn:hover, .btn:focus, .btn-large:hover, .btn-large:focus{
 	background-color: #b39ddb;
 }
 

@@ -78,6 +78,10 @@
 	background-color: #7e57c2;
 }
 
+.btn-large:hover, .btn-large:focus{
+	background-color: #b39ddb;
+}
+
 button[type='submit'] {
 	width: 100%;
 }
