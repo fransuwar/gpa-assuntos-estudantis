@@ -195,6 +195,16 @@ public class AnaliseDocumentacao {
 		this.grupoFamiliar = grupoFamiliar;
 	}
 
+	public void setResultado(Resultado naoAvaliado) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Resultado getResultado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 	

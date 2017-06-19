@@ -156,14 +156,14 @@ public class DocumentacaoInscricaoController {
 		if (inscricao.getAnaliseDocumentacao() == null) {
 			AnaliseDocumentacao aD = new AnaliseDocumentacao();
 			inscricao.setAnaliseDocumentacao(aD);
-			inscricaoRepository.save(inscricao);
+			inscricaoService.salvar(inscricao);
 		}
 		model.addAttribute("analiseDocumentacao", inscricao.getAnaliseDocumentacao());
 		return "inscricao/analisar-documento";
 	}
 	
 	@Secured(COORDENADOR)
-<<<<<<< HEAD
+
 	@PostMapping("/inscricao/{idInscricao}/salvar")
 	public String salvarAnaliseDocumentacao(@PathVariable("idInscricao") Inscricao inscricao, 
 			AnaliseDocumentacao analiseDocumentacao){
@@ -184,10 +184,10 @@ public class DocumentacaoInscricaoController {
 				(analiseDocumentacao.getGrupoFamiliar()==null? 1:analiseDocumentacao.getGrupoFamiliar()));
 		
 		inscricao.setAnaliseDocumentacao(analiseDocumentacao);
-		inscricaoRepository.save(inscricao);
+		inscricaoService.salvar(inscricao);
 		return "redirect:/documentacao/inscricao/"+inscricao.getId();
 	}
-=======
+
 	@PostMapping("/analiseDocumentacao/{inscricao}")
 	public String analisarDocumentacaoInscricao(@PathVariable Inscricao inscricao, AnaliseDocumentacao analiseDocumentacao, Authentication auth, RedirectAttributes redirectAttributes){
 		
@@ -220,7 +220,5 @@ public class DocumentacaoInscricaoController {
 		}
 		return null;
 	}
-	
->>>>>>> refs/heads/master
 	
 }
