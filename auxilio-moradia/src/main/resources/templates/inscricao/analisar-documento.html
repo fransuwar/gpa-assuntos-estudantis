@@ -72,7 +72,7 @@
         			<div class="card-content">
 						<h5 class="title light">Parecer</h5>
 						<div class="col s4 input-field">
-							<select th:field="*{resultado}">
+							<select th:field="*{parecer}">
 								<option th:each="tipoResultado : ${resultado}" th:value="${tipoResultado}" th:text="${tipoResultado}"></option>
 							</select>
 							<label for="parecer">Resultado</label>

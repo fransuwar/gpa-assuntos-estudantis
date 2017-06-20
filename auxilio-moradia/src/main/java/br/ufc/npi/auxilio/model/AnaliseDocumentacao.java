@@ -24,9 +24,7 @@ public class AnaliseDocumentacao {
 	private Integer id;
 	
 	@Enumerated(EnumType.STRING)
-	private Resultado resultado;
-	
-	private String parecer;
+	private Resultado parecer;
 	
 	private String observacoes;
 	
@@ -48,24 +46,18 @@ public class AnaliseDocumentacao {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
-	public Resultado getResultado() {
-		return resultado;
-	}
 
-	public void setResultado(Resultado resultado) {
-		this.resultado = resultado;
-	}
-
-	public String getParecer() {
+	public Resultado getParecer() {
 		return parecer;
 	}
 
-	public void setParecer(String parecer) {
+	public void setParecer(Resultado parecer) {
 		this.parecer = parecer;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Inscricao getInscricao() {
