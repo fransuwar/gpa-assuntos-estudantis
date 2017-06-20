@@ -39,9 +39,10 @@
 				</div>
 			</div>
 		</div>
-       	<form th:action="@{/documentacao/inscricao/__${inscricao.id}__/salvar}" th:object="${analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
+       	<form th:action="@{/documentacao/inscricao/__${inscricao.id}__}" th:object="${analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
        			<div class="card">
        				<div class="card-content">
+       					<h5 class="title light">Dados</h5>
        					<table id ="analise-documento" class="display nowrap striped bordered" cellspacing="0" width="10	0%">
 							<thead>
 								<tr>
@@ -110,8 +111,8 @@
 						</table>
        				</div>
        			</div>
-			</form>
-	       	<div class="card">
+       			
+       			<div class="card">
 	       		<div class="card-content">
 	       			<h5 class="title light">Documentos</h5>
 					<table>
@@ -144,9 +145,8 @@
 					</table>					
 				</div>
 	       	</div>
-        	<form data-model="analiseDocumentacao" th:action="@{/documentacao/analiseDocumentacao/__${inscricao.id}__}" th:object="${analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
-        		<input type="hidden" th:field="*{id}" />
-        		<div class="card">
+       			
+       			<div class="card">
         			<div class="card-content">
 						<h5 class="title light">Parecer</h5>
 							<div class="col s4 input-field">
@@ -166,6 +166,8 @@
 					</div>
         		</div>
 			</form>
+	       	
+        	
     </div>
     </section>	
 	<section layout:fragment="js">
