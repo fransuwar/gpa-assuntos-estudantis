@@ -117,6 +117,11 @@ public class Entrevista {
 	
 	private String observacao;
 	
+	private boolean vaiVisitar;
+	
+	@ManyToOne
+	private Servidor responsavel;
+	
 	
 	public String getObservacao() {
 		return observacao;
@@ -217,7 +222,7 @@ public class Entrevista {
 	public Double getValorAluguel() {
 		return valorAluguel;
 	}
-
+	
 	public void setValorAluguel(Double valorAluguel) {
 		this.valorAluguel = valorAluguel;
 	}
@@ -469,11 +474,6 @@ public class Entrevista {
 	public void setRepresentaBIA(String representaBIA) {
 		this.representaBIA = representaBIA;
 	}
-
-	private boolean vaiVisitar;
-	
-	@ManyToOne
-	private Servidor responsavel;
 	
 	public boolean isVaiVisitar() {
 		return vaiVisitar;

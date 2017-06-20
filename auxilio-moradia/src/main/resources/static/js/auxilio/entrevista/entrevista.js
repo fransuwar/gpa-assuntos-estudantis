@@ -70,7 +70,7 @@ function mostraCampoaQualMedicamento(el){
 function mostraCampoMembroC_DoencaGrave(el){
 	var v2 = document.getElementById("QueMembroPossuiDoenca");
 
-	if (el != null && el.value === 'true') {
+	if (el != null && el.value === "true") {
 		v2.style.display = "block";
 	} else if (el != null){
 		v2.style.display = "none";
