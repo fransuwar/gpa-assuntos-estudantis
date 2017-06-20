@@ -31,7 +31,9 @@ public interface InscricaoService {
 	Inscricao buscarInscricaoPorId(Integer idInscricao);
 		
 	boolean selecionarInscricao(Integer idInscricao,Integer selecionar);
-		
 	
+	List<Inscricao> getIndeferidos(Selecao selecao);
+		
+	List<Inscricao> getSelecionados(Selecao selecao);
 }
 

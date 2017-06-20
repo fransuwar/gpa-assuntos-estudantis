@@ -54,6 +54,16 @@
 							</a>
 							<ul>
 								<li>
+									<a th:href="@{/inscricao/resultadoSelecaoIndeferidos/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Lista de Indeferidos">
+										<i class="material-icons">list</i>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/inscricao/resultadoSelecaoSelecionados/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Lista de Selecionados">
+										<i class="material-icons">list</i>
+									</a>
+								</li>
+								<li>
 									<a th:href="@{/selecao/inscricoes/relatorio/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Relatório Geral">
 										<i class="material-icons">insert_chart</i>
 									</a>

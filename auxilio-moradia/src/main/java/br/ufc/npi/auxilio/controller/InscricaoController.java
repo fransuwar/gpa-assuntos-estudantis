@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_ALUNO;
+import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.*;
@@ -396,6 +397,21 @@ public class InscricaoController {
 		}
 		else
 			return new Response().withFailStatus().withErrorMessage("Error ao selecionar esta inscricao");
+	}
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/resultadoSelecaoIndeferidos/{selecao}")
+	public String resultadoSelecaoIndeferidos(@PathVariable Selecao selecao, Model model){
+		model.addAttribute("inscricoes", inscricaoService.getIndeferidos(selecao));
+		model.addAttribute("tipoResultado", "Indeferidos");
+		return PAGINA_RESULTADO;
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/resultadoSelecaoSelecionados/{selecao}")
+	public String resultadoSelecaoSelecionados(@PathVariable Selecao selecao, Model model){
+		model.addAttribute("inscricoes", inscricaoService.getSelecionados(selecao));
+		model.addAttribute("tipoResultado", "Selecionados");
+		return PAGINA_RESULTADO;
 	}
 
 }
