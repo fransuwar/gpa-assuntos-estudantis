@@ -427,9 +427,10 @@ public class InscricaoController {
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@GetMapping("/resultadoSelecaoSelecionados/{selecao}")
-	public String resultadoSelecaoSelecionados(@PathVariable Selecao selecao, Model model){
-		model.addAttribute("inscricoes", inscricaoService.getSelecionados(selecao));
+	@GetMapping("/resultadoSelecao/{selecao}")
+	public String resultadoSelecao(@PathVariable Selecao selecao, Model model){
+		model.addAttribute("inscricoesDeferidas", inscricaoService.getSelecionados(selecao));
+		model.addAttribute("inscricoesIndeferidas", inscricaoService.getIndeferidos(selecao));
 		model.addAttribute("tipoResultado", "Selecionados");
 		return PAGINA_RESULTADO;
 	}
