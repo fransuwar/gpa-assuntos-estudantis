@@ -165,8 +165,25 @@ public class DocumentacaoInscricaoController {
 				(analiseDocumentacao.getRendaMae() == null? 0:analiseDocumentacao.getRendaMae())+
 				(analiseDocumentacao.getRendaOutros()==null? 0:analiseDocumentacao.getRendaOutros()))/
 				(analiseDocumentacao.getGrupoFamiliar()==null? 1:analiseDocumentacao.getGrupoFamiliar()));
-		inscricao.setAnaliseDocumentacao(analiseDocumentacao);
-		inscricaoService.salvar(inscricao);
+		AnaliseDocumentacao analise = analiseDocumentacaoRepository.findById(analiseDocumentacao.getId());
+		if(analise == null){
+			analise = analiseDocumentacao;
+			inscricao.setAnaliseDocumentacao(analise);
+		}else{
+			analise.setObservacoes(analiseDocumentacao.getObservacoes());
+			analise.setResultado(analiseDocumentacao.getResultado());
+			analise.setCidadeOrigem(analiseDocumentacao.getCidadeOrigem());
+			analise.setCidade(analiseDocumentacao.getCidade());
+			analise.setRendaPai(analiseDocumentacao.getRendaPai());
+			analise.setRendaMae(analiseDocumentacao.getRendaMae());
+			analise.setRendaOutros(analiseDocumentacao.getRendaOutros());
+			analise.setGrupoFamiliar(analiseDocumentacao.getGrupoFamiliar());
+			analise.setRendaPerCapita(analiseDocumentacao.getRendaPerCapita());
+			analise.setBeneficio(analiseDocumentacao.getBeneficio());
+			analise.setEnergia(analiseDocumentacao.getEnergia());
+		}
+		analise.setResponsavel(servidor);
+		analiseDocumentacaoRepository.save(analise);
 		return RedirectConstants.REDIRECT_INSCRICAO_ANALISAR_DOCUMENTO+inscricao.getId();
 	}
 	
