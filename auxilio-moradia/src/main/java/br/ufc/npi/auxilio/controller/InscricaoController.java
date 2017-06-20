@@ -155,9 +155,9 @@ public class InscricaoController {
 			}
 			inscricao.setMoradia(moradia);
 			inscricaoService.atualizar(inscricao);
-			if (action.equals("avancar"))
+			if ("avancar".equals(action))
 				return REDIRECT_INSCRICAO_HISTORICO + selecao.getId();
-			else if (action.equals("voltar"))
+			else if ("voltar".equals(action))
 				return REDIRECT_INSCRICAO_DADOS_BASICOS + selecao.getId();
 			else
 				return REDIRECT_LISTAR_SELECAO;
@@ -205,9 +205,9 @@ public class InscricaoController {
 			}
 			inscricao.setHistoricoEscolar(historico);
 			inscricaoService.atualizar(inscricao);
-			if (action.equals("avancar"))
+			if ("avancar".equals(action))
 				return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
-			else if (action.equals("voltar"))
+			else if ("voltar".equals(action))
 				return REDIRECT_INSCRICAO_MORADIA + selecao.getId();
 			else
 				return REDIRECT_LISTAR_SELECAO;
@@ -260,9 +260,9 @@ public class InscricaoController {
 			}
 			inscricao.setSituacaoSocioEconomica(situacao);
 			inscricaoService.atualizar(inscricao);
-			if (action.equals("avancar"))
+			if ("avancar".equals(action))
 				return REDIRECT_INSCRICAO_OUTROS + selecao.getId();
-			else if (action.equals("voltar"))
+			else if ("voltar".equals(action))
 				return REDIRECT_INSCRICAO_HISTORICO + selecao.getId();
 			else
 				return REDIRECT_LISTAR_SELECAO;
@@ -366,9 +366,9 @@ public class InscricaoController {
 				inscricoes.get(i).setPosicaoRanking(i+1);
 			}
 			inscricaoService.atualizar(inscricao);
-			if (action.equals("finalizar"))
+			if ("finalizar".equals(action))
 				return REDIRECT_DETALHES_INSCRICAO + inscricao.getId();
-			else if (action.equals("voltar"))
+			else if ("voltar".equals(action))
 				return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
 			else
 				return REDIRECT_LISTAR_SELECAO;
