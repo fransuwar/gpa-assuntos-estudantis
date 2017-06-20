@@ -85,6 +85,8 @@
 			   selectYears: 100, 
 			   format: "dd/mm/yyyy"
 			});
+			if(document.getElementById("rendaPerCapita") != null)
+				$(document.getElementById("rendaPerCapita")).val(parseFloat(document.getElementById("rendaPerCapita").value).toFixed(2));
 			
 			$("#analise-documento tbody tr td input.dinheiro").blur(function(){
 				//$(this).blur(function(){
@@ -100,7 +102,7 @@
 					var grupoFamiliar = parseInt(document.getElementById("grupoFamiliar").value);
 					var rendaPerCapita = (rendaPai+rendaMae+rendaOutros)/grupoFamiliar;
 					//alert(rendaPerCapita)
-					$(document.getElementById("rendaPerCapita")).val(rendaPerCapita);
+					$(document.getElementById("rendaPerCapita")).val(rendaPerCapita.toFixed(2));
 							
 				//}));
 				

@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+
 import br.ufc.npi.auxilio.enums.Resultado;
 
 @Entity
@@ -28,7 +29,7 @@ public class AnaliseDocumentacao {
 	
 	private String cidade;
 	
-	private Boolean beneficio;
+	private String beneficio;
 	
 	private String cidadeOrigem;
 	
@@ -62,11 +63,11 @@ public class AnaliseDocumentacao {
 		this.cidade = cidade;
 	}
 
-	public Boolean getBeneficio() {
+	public String getBeneficio() {
 		return beneficio;
 	}
 
-	public void setBeneficio(Boolean beneficio) {
+	public void setBeneficio(String beneficio) {
 		this.beneficio = beneficio;
 	}
 
@@ -190,6 +191,16 @@ public class AnaliseDocumentacao {
 
 	public void setGrupoFamiliar(Integer grupoFamiliar) {
 		this.grupoFamiliar = grupoFamiliar;
+	}
+
+	public void setResultado(Resultado naoAvaliado) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Resultado getResultado() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
