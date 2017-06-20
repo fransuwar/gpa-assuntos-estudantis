@@ -31,22 +31,22 @@ public class VisitaDomiciliar {
 
 	@ManyToOne
 	private Servidor responsavel;
-	
+
 	@Column(name="relatorio", columnDefinition="text")
 	private String relatorio;
-
+	
 	@OneToOne
 	private Documento formulario;
 
 	@Enumerated(EnumType.STRING)
-	private Resultado resultado;
+	private Resultado parecer;
 
 	@OneToMany
 	private List<Documento> imagens;
 	
 	@Column(name="observacoes", columnDefinition="text")
 	private String observacoes;
-
+	
 	public Documento getFormulario() {
 		return formulario;
 	}
@@ -81,7 +81,7 @@ public class VisitaDomiciliar {
 	public void setData(Date data) {
 		this.data = data;
 	}
-
+	
 	public String getRelatorio() {
 		return relatorio;
 	}
@@ -89,6 +89,7 @@ public class VisitaDomiciliar {
 	public void setRelatorio(String relatorio) {
 		this.relatorio = relatorio;
 	}
+	
 
 	public Servidor getResponsavel() {
 		return responsavel;
@@ -98,14 +99,14 @@ public class VisitaDomiciliar {
 		this.responsavel = responsavel;
 	}
 
-	public Resultado getResultado() {
-		return resultado;
+	public Resultado getParecer() {
+		return parecer;
 	}
 
-	public void setResultado(Resultado resultado) {
-		this.resultado = resultado;
+	public void setParecer(Resultado parecer) {
+		this.parecer = parecer;
 	}
-	
+		
 	public String getObservacoes() {
 		return observacoes;
 	}
@@ -113,7 +114,7 @@ public class VisitaDomiciliar {
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
