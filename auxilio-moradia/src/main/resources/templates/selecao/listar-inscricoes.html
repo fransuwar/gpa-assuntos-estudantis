@@ -70,32 +70,70 @@
 								<tr>
 									<th>Aluno</th>
 									<th>Curso</th>
-									<th>Email</th>
+									<!-- <th>Email</th> -->
+									<th>IRA</th>
 									<th>Origem</th>
+									<th>Residência</th>
+									<th>Profissão Mãe</th>
+									<th>Profissão Pai</th>
 									<th>Renda Pai</th>
 									<th>Renda Mãe</th>
 									<th>Renda outros</th>
 									<th>Nº pessoas</th>
 									<th>Renda per capita</th>
-									<th>Profissão Mãe</th>
-									<th>Profissão Pai</th>
-									<th>IRA</th>
+									<th>Benefícios do Gov Federal</th>
+									<th>Conta de Energia</th>
+									
+									
 								</tr>
 								</thead>
 								<tbody>
 								<tr th:each="inscricao : ${selecao.inscricoes}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td th:text="${inscricao.aluno.curso}"></td>
-									<td th:text="${inscricao.aluno.pessoa.email}"></td>
-									<td th:text="${inscricao.questionario.cidadeOrigem} ? '__${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__' : '-'"></td>
-									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPai(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<!-- <td th:text="${inscricao.aluno.pessoa.email}"></td>  -->
+									<!-- <td th:text="${inscricao.questionario.cidadeOrigem} ? '__${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__' : '-'"></td>
+									 <td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPai(), 1, 'POINT', 2, 'COMMA')}"></td>
 									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaMae(), 1, 'POINT', 2, 'COMMA')}"></td>
 									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaOutros(), 1, 'POINT', 2, 'COMMA')}"></td>
 									<td th:text="${inscricao.questionario.grupoFamiliar.size()}"></td>
-									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td> -->
+									
+									<td th:text="${inscricao.aluno.ira}"></td>
+									
+									<td th:if= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.cidadeOrigem != null and not #strings.isEmpty(inscricao.analiseDocumentacao.cidadeOrigem)}" th:text="${inscricao.analiseDocumentacao.cidadeOrigem}"></td>
+									<td th:unless= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.cidadeOrigem != null and not #strings.isEmpty(inscricao.analiseDocumentacao.cidadeOrigem)}" th:text="${inscricao.questionario.cidadeOrigem} ? '__${inscricao.questionario.cidadeOrigem}__ - __${inscricao.questionario.estadoOrigem}__' : '-'"></td>
+									
+									<td th:if= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.cidade != null and not #strings.isEmpty(inscricao.analiseDocumentacao.cidade)}" th:text="${inscricao.analiseDocumentacao.cidade}"></td>
+									<td th:unless= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.cidade != null and not #strings.isEmpty(inscricao.analiseDocumentacao.cidade)}" th:text="${inscricao.questionario.cidade} ? '__${inscricao.questionario.cidade}__ - __${inscricao.questionario.estado}__' : '-'"></td>
+									
 									<td th:text="${inscricao.getProfissaoMae()}"></td>
 									<td th:text="${inscricao.getProfissaoPai()}"></td>
-									<td th:text="${inscricao.aluno.ira}"></td>
+									
+									<td th:if= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.rendaPai != null}" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.analiseDocumentacao.rendaPai,1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:unless= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.rendaPai != null}" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPai(), 1, 'POINT', 2, 'COMMA')}"></td>
+									
+									<td th:if= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.rendaMae != null}" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.analiseDocumentacao.rendaMae,1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:unless= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.rendaMae != null}" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaMae(), 1, 'POINT', 2, 'COMMA')}"></td>
+									
+									<td th:if= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.rendaOutros != null}" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.analiseDocumentacao.rendaOutros,1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:unless= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.rendaOutros != null}" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaOutros(), 1, 'POINT', 2, 'COMMA')}"></td>
+									
+									<td th:if= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.grupoFamiliar != null}" th:text="${inscricao.analiseDocumentacao.grupoFamiliar}"></td>
+									<td th:unless= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.grupoFamiliar != null}" th:text="${inscricao.questionario.grupoFamiliar.size()}"></td>
+									
+									<td th:if= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.rendaPerCapita != null}" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.analiseDocumentacao.rendaPerCapita,1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:unless= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.rendaPerCapita != null}" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
+									
+									<td th:if= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.beneficio != null and not #strings.isEmpty(inscricao.analiseDocumentacao.beneficio)}" th:text="'R$ ' + ${inscricao.analiseDocumentacao.beneficio}"></td>
+									<td th:unless= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.beneficio != null and not #strings.isEmpty(inscricao.analiseDocumentacao.beneficio)}" th:text="${inscricao.questionario.beneficio} ? '__${inscricao.questionario.descricaoBeneficio}__': 'Não'"></td>
+									
+									<td th:if= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.energia != null}" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.analiseDocumentacao.energia,1, 'POINT', 2, 'COMMA')}"></td>
+									<td th:unless= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.energia != null}" th:text="'-'"></td>
+									
+									
+									
+									
 								</tr>
 								</tbody>
 							</table>

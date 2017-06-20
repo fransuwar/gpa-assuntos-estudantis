@@ -71,7 +71,7 @@
 
 	<section layout:fragment="js"></section>
 	
-	<script type="text/javascript">
+	<script th:inline="javascript">
 		function filterGlobal (){
 			$("#inscricoes").DataTable().search(
 					$("#busca_inscricoes").val()
@@ -88,7 +88,51 @@
 			   selectYears: 100, 
 			   format: "dd/mm/yyyy"
 			});
+			if(document.getElementById("rendaPerCapita") != null)
+				$(document.getElementById("rendaPerCapita")).val(parseFloat(document.getElementById("rendaPerCapita").value).toFixed(2));
 			
+			$("#analise-documento tbody tr td input.dinheiro").blur(function(){
+				//$(this).blur(function(){
+					var rendaPai = parseInt(document.getElementById("rendaPai").value);
+					if (isNaN(rendaPai))
+						rendaPai = 0;
+					var rendaMae = parseInt(document.getElementById("rendaMae").value);
+					if (isNaN(rendaMae))
+						rendaMae = 0;
+					var rendaOutros = parseInt(document.getElementById("rendaOutros").value);
+					if (isNaN(rendaOutros))
+						rendaOutros = 0;
+					var grupoFamiliar = parseInt(document.getElementById("grupoFamiliar").value);
+					var rendaPerCapita = (rendaPai+rendaMae+rendaOutros)/grupoFamiliar;
+					//alert(rendaPerCapita)
+					$(document.getElementById("rendaPerCapita")).val(rendaPerCapita.toFixed(2));
+							
+				//}));
+				
+				//$(this).children().select();
+			})
+			
+			$("#analise-documento tbody tr td input.dinheiro").change(function(){
+				//$(this).blur(function(){
+					var rendaPai = parseInt(document.getElementById("rendaPai").value);
+					if (isNaN(rendaPai))
+						rendaPai = 0;
+					var rendaMae = parseInt(document.getElementById("rendaMae").value);
+					if (isNaN(rendaMae))
+						rendaMae = 0;
+					var rendaOutros = parseInt(document.getElementById("rendaOutros").value);
+					if (isNaN(rendaOutros))
+						rendaOutros = 0;
+					var grupoFamiliar = parseInt(document.getElementById("grupoFamiliar").value);
+					var rendaPerCapita = (rendaPai+rendaMae+rendaOutros)/grupoFamiliar;
+					//alert(rendaPerCapita)
+					$(document.getElementById("rendaPerCapita")).val(rendaPerCapita);
+							
+				//}));
+				
+				//$(this).children().select();
+			})
+						
 			var table = $("#inscricoes").DataTable({
                 "scrollX": true,
                 "paging": false,
@@ -100,13 +144,13 @@
                     	extend: 'pdfHtml5',
                         orientation: 'landscape',
                         pageSize: 'LEGAL',
-                        className: 'btn-floating deep-purple lighten-1 tooltipped'
+                        className: 'btn-floating deep-purple lighten-1 tooltipped',
                     },              
                     {	
-                    	text:'<i class="material-icons">insert_chart</i>',
+						extend:'excelHtml5',
+						text:'<i class="material-icons">insert_chart</i>',
                      	className: 'btn-floating deep-purple lighten-1 tooltipped'                  
                     }
-                    
                 ],
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",

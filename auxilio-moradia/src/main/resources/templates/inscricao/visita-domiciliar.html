@@ -25,10 +25,10 @@
 		<div class="col s12">
 			<div class="card">
 				<div class="card-content details">
-					<h5 class="title light">Aluno</h5>
+					<h5 class="title light">Identificação</h5>
 					<div class="row no-margin">
 						<div class="col s4">
-							<span th:text="${inscricao.aluno.pessoa.nome}" class="text-20 light bold"></span>
+							<span th:text="${inscricao.aluno.pessoa.nome}" class="text-18 bold"></span>
 						</div>
 					</div>
 				</div>
@@ -37,16 +37,15 @@
 				<input type="hidden" th:field="*{id}" />
 				<div class="card">
 					<div class="card-content">
-					<h5 class="title light">Visita Domiciliar</h5>
 						<div class="row no-margin">
 							<div class="col s6">
-								<h6 class="title light">Responsável</h6>
+								<h5 class="title light">Responsável</h5>
 								<div class="input-field">
 									<span th:text="${servidor.pessoa.nome}" id="servidor" class="text-20 light" th:field="${servidor}"></span>
 								</div> 
 							</div>
 							<div class="col s3">
-								<h6 class="title light">Data</h6>
+								<h5 class="title light">Data</h5>
 								<div class="input-field">
 									<input th:field="*{data}" type="text" id="data" class="datepicker" placeholder="dd/MM/aaaa" required="required"/>
 								</div>
@@ -113,7 +112,7 @@
 	            	<h5 class="title light">Parecer</h5>
 						<div class="row">
 							<div class="col s12 input-field">
-								<select th:field="*{resultado}" id="resultado">
+								<select th:field="*{parecer}" id="resultado">
           							<option th:each="resultado : ${resultados}" th:value="${resultado}" th:text="${resultado}"></option>
           						</select>
           						<label class="title light">Resultado</label>

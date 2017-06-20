@@ -21,8 +21,6 @@ public class Entrevista {
 	
 	private Date data;
 	
-	private String parecer;
-	
 	private boolean vaiVisitar;
 	
 	@Enumerated(EnumType.STRING)
@@ -55,13 +53,7 @@ public class Entrevista {
 		this.data = data;
 	}
 
-	public String getParecer() {
-		return parecer;
-	}
-
-	public void setParecer(String parecer) {
-		this.parecer = parecer;
-	}
+	
 
 	public Resultado getResultado() {
 		return resultado;
