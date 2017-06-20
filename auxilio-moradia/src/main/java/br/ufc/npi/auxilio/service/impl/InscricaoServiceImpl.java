@@ -123,8 +123,8 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	
-	public List<Inscricao> getDeferidos(Selecao selecao){
-		return inscricaoRepository.getDeferidos(selecao);
+	public List<Inscricao> getIndeferidos(Selecao selecao){
+		return inscricaoRepository.getIndeferidos(selecao);
 	}
 	
 	public List<Inscricao> getSelecionados(@Param("selecao") Selecao selecao){

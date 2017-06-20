@@ -24,8 +24,8 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
 
 	public Inscricao findInscricaoById(Integer idInscricao); 
 	
-	@Query("select i from Inscricao i where i.resultado = 'DEFERIDO' and i.selecao = :selecao")
-	public List<Inscricao> getDeferidos(@Param("selecao") Selecao selecao);
+	@Query("select i from Inscricao i where i.resultado = 'INDEFERIDO' and i.selecao = :selecao")
+	public List<Inscricao> getIndeferidos(@Param("selecao") Selecao selecao);
 	
 	@Query("select i from Inscricao i where i.selecionado = '1' and i.selecao = :selecao")
 	public List<Inscricao> getSelecionados(@Param("selecao") Selecao selecao);
