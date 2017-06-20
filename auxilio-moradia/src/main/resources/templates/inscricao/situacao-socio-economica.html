@@ -29,10 +29,16 @@
 								<label for="idade">* Idade</label>
 							</div>
 							<div class="col s4 input-field">
-								<select id="parentesco" th:field="*{parentesco}" >
+								<select id="parentesco" th:field="*{parentesco}" onchange="mostraCampoParentesco(this)" >
 									<option th:value="${parentesco}" th:each="parentesco : ${opcoesParentesco}" th:text="${parentesco.nome}"></option>
 								</select>
 								<label for="parentesco">* Parentesco</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12 input-field" id="descricaoParentescoDiv" style="display:none">
+								<input id = "descricaoParentesco" th:field="*{descricaoParentesco}"  type="text" />
+								<label for="descricaoParentesco">Descrição Parentesco</label>
 							</div>
 						</div>
 						<div class="row">

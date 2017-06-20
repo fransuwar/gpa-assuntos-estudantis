@@ -5,7 +5,9 @@ import br.ufc.npi.auxilio.enums.Estado;
 public class Identificacao {
 
     private String identidade;
-
+    
+    private String anoIngresso;
+    
     private String orgaoEmissor;
 
     private Estado ufIdentidade;
@@ -30,8 +32,22 @@ public class Identificacao {
     public Identificacao() {
 
     }
+    
+    
 
-    public Identificacao(String identidade, String orgaoEmissor, Estado ufIdentidade, String naturalidade,
+    public String getAnoIngresso() {
+		return anoIngresso;
+	}
+
+
+
+	public void setAnoIngresso(String anoIngresso) {
+		this.anoIngresso = anoIngresso;
+	}
+
+
+
+	public Identificacao(String identidade, String orgaoEmissor, Estado ufIdentidade, String naturalidade,
              Estado ufNaturalidade, String estadoCivil, String contato, Double ira) {
         this.identidade = identidade;
         this.orgaoEmissor = orgaoEmissor;
