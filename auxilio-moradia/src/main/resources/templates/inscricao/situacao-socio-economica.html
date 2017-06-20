@@ -77,7 +77,8 @@
 							<tr th:each="membro : ${inscricao.questionario.grupoFamiliar}">
 								<td th:text="${membro.nome}"></td>
 								<td th:text="${membro.idade}"></td>
-								<td th:text="${membro.parentesco.nome}"></td>
+								<td th:unless="${membro.parentesco.nome eq T(br.ufc.npi.auxilio.enums.GrauParentesco).OUTRO.nome}" th:text="${membro.parentesco.nome}"></td>
+								<td th:if="${membro.parentesco.nome eq T(br.ufc.npi.auxilio.enums.GrauParentesco).OUTRO.nome}" th:text="${membro.descricaoParentesco}"></td>
 								<td th:text="${membro.escolaridade.nome}"></td>
 								<td th:text="${membro.profissao}"></td>
 								<td th:text="'R$ ' + ${#numbers.formatDecimal(membro.rendaMensal, 1, 'POINT', 2, 'COMMA')}"></td>
@@ -207,7 +208,8 @@
 						</div>
 					</div>
 					<div class="card-action right-align">
-						<button class="btn waves-effect waves-light" type="submit">Avançar</button>
+						<button name="action" class="btn waves-effect waves-light" value="voltar" type="submit">Voltar</button>
+						<button name="action" class="btn waves-effect waves-light" value="avancar" type="submit">Avançar</button>
 					</div>
 				</form>
 			</div>
