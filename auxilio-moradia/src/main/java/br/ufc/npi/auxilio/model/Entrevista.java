@@ -21,12 +21,10 @@ public class Entrevista {
 	
 	private Date data;
 	
-	private String parecer;
-	
 	private boolean vaiVisitar;
 	
 	@Enumerated(EnumType.STRING)
-	private Resultado resultado;
+	private Resultado parecer;
 	
 	@ManyToOne
 	private Servidor responsavel;
@@ -55,20 +53,14 @@ public class Entrevista {
 		this.data = data;
 	}
 
-	public String getParecer() {
+	
+
+	public Resultado getParecer() {
 		return parecer;
 	}
 
-	public void setParecer(String parecer) {
+	public void setParecer(Resultado parecer) {
 		this.parecer = parecer;
-	}
-
-	public Resultado getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(Resultado resultado) {
-		this.resultado = resultado;
 	}
 
 	public Servidor getResponsavel() {
