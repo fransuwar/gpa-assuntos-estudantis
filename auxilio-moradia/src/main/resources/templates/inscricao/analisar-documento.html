@@ -48,13 +48,26 @@
 						<tr th:each="tipoDocumento:${inscricao.selecao.tiposDeDocumento}">
 							<td th:text="${tipoDocumento.nome}"></td>
 							<td th:text="${tipoDocumento.descricao}"></td>
-							<td><i class="material-icons">file_download</i></td>
+							<td>
+								<div th:if="${inscricao.analiseDocumentacao}">
+									<div th:each="documentacao : ${inscricao.analiseDocumentacao.documentacao}">
+										<ul class="row" th:if="${documentacao.tipoDocumento.nome == tipoDocumento.nome}">
+											<li class="col s1" th:each="documento : ${documentacao.documentos}">
+			       								<a th:href="@{/documentacao/documento/__${inscricao.id}__/download/__${documento.id}__}" class="tooltipped" data-position="left" data-delay="50" th:attr="data-tooltip=${documento.nome}">
+			       									<i class="material-icons">file_download</i>
+			       								 </a>
+			       							</li>
+										</ul>
+									</div>
+								</div>
+							</td>
 						</tr>
 					</tbody>					
 					</table>					
 				</div>
        		</div>
-        	<form data-model="analiseDocumentacao" th:action="@{/}" th:object="${inscricao.analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
+        	<form data-model="analiseDocumentacao" th:action="@{/documentacao/analiseDocumentacao/__${inscricao.id}__}" th:object="${analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
+        		<input type="hidden" th:field="*{id}" />
         		<div class="card">
         			<div class="card-content">
 						<h5 class="title light">Parecer</h5>
@@ -69,10 +82,11 @@
 							<label for="observacao">Observação</label>
 						</div>
 					</div>
-        		</div>
-        		<div class="card-action right-align">
+					<div class="card-action right-align">
+						<a th:href="@{/selecao/inscricoes/__${inscricao.selecao.id}__}"  type="button" class=" btn waves-effect">Cancelar</a>
 						<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
-				</div>
+					</div>
+        		</div>
 			</form>
     </section>
 	
