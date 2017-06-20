@@ -367,7 +367,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="card">
+				<div class="card" th:if="${inscricao.selecao.tipo.nome eq T(br.ufc.npi.auxilio.enums.TipoSelecao).INICIACAO_ACADEMICA.nome}">
 					<div class="card-content">
 						<h5 class="title light">Bolsa de Iniciação Acadêmica</h5>
 						<div class="row">
@@ -379,7 +379,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="card">
+				<div class="card" th:if="${inscricao.selecao.tipo.nome eq T(br.ufc.npi.auxilio.enums.TipoSelecao).INICIACAO_ACADEMICA.nome}">
 					<div class="card-content">
 						<h5 class="title light">Em caso de ter sido bolsista BIA:</h5>
 						<div class="row">

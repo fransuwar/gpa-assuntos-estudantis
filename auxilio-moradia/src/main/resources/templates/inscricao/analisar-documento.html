@@ -9,9 +9,10 @@
 </head>
 <body>
 	<!-- Page Content -->
+
 	<section layout:fragment="conteudo">
-    <!-- Content Header (Page header) -->
-      <div class="col s12" th:with="menu_documentos = true">
+	
+	<div class="col s12" th:with="menu_documentos = true">
 		<div class="row">
 			<div th:replace="base/base-menu-inscricao :: menu-inscricao"></div>
     	</div>
@@ -22,8 +23,12 @@
 	        </a>
 	    </div>
 	</div>
-	
+
     <!-- Content Header (Page header) -->
+
+      
+      <!-- Main content -->
+      <div class="content">
     	<div class="card">
 			<div class="card-content details">
 				<h5 class="title light">Identificação</h5>
@@ -34,44 +39,7 @@
 				</div>
 			</div>
 		</div>
-      <!-- Main content -->
-      <section class="content">
-        <div>
-       	<div class="card">
-       		<div class="card-content">
-					<h5 class="title light" th:text="'Análise de Documentação: '+${inscricao.selecao.tipo.nome} +' '+${inscricao.selecao.ano}"></h5>
-					<h5 class="title light" th:text="${inscricao.aluno.pessoa.nome}"></h5>
-					<table>
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Descrição</th>
-							<th>Download</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="tipoDocumento:${inscricao.selecao.tiposDeDocumento}">
-							<td th:text="${tipoDocumento.nome}"></td>
-							<td th:text="${tipoDocumento.descricao}"></td>
-							<td>
-								<div th:if="${inscricao.analiseDocumentacao}">
-									<div th:each="documentacao : ${inscricao.analiseDocumentacao.documentacao}">
-										<ul class="row" th:if="${documentacao.tipoDocumento.nome == tipoDocumento.nome}">
-											<li class="col s1" th:each="documento : ${documentacao.documentos}">
-			       								<a th:href="@{/documentacao/documento/__${inscricao.id}__/download/__${documento.id}__}" class="tooltipped" data-position="left" data-delay="50" th:attr="data-tooltip=${documento.nome}">
-			       									<i class="material-icons">file_download</i>
-			       								 </a>
-			       							</li>
-										</ul>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</tbody>					
-					</table>					
-				</div>
-       		</div>
-       		<form th:action="@{/documentacao/inscricao/__${inscricao.id}__/salvar}" th:object="${analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
+       	<form th:action="@{/documentacao/inscricao/__${inscricao.id}__}" th:object="${analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
        			<div class="card">
        				<div class="card-content">
        					<table id ="analise-documento" class="display nowrap striped bordered" cellspacing="0" width="10	0%">
@@ -100,7 +68,7 @@
 									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaOutros(), 1, 'POINT', 2, 'COMMA')}"></td>
 									<td th:text="${inscricao.questionario.grupoFamiliar.size()}"></td>
 									<td th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.getRendaPerCapita(), 1, 'POINT', 2, 'COMMA')}"></td>
-									<td th:text="${inscricao.questionario.beneficio} ? 'Sim' : 'Não'"></td>
+									<td th:text="${inscricao.questionario.beneficio} ? '__${inscricao.questionario.descricaoBeneficio}__' : 'Não'"></td>
 									<td>-</td>
 															
 								</tr>	
@@ -127,10 +95,13 @@
 									<td>
 										<input id="rendaPerCapita" disabled="disabled" min="0" type="number" th:field="*{rendaPerCapita}" />
 									</td>
-									<td><select id="beneficio" th:field="*{beneficio}" >
+									<!--  <td><select id="beneficio" th:field="*{beneficio}" >
 										<option th:value="true">Sim</option>
 										<option th:value="false">Não</option>
-									</select></td>
+									</select></td>-->
+									<td title="Editar">
+										<input id="beneficio" min="0" placeholder="Ex.: 800,00 INSS" th:field="*{beneficio}" />
+									</td>
 									<td>
 										<input id="energia" placeholder="Ex.: 100" min="0" type="number" th:field="*{energia}" />
 									</td>					
@@ -139,7 +110,42 @@
 						</table>
        				</div>
        			</div>
-        		<div class="card">
+       			
+       			<div class="card">
+	       		<div class="card-content">
+	       			<h5 class="title light">Documentos</h5>
+					<table>
+						<thead>
+							<tr>
+								<th>Nome</th>
+								<th>Descrição</th>
+								<th>Download</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="tipoDocumento:${inscricao.selecao.tiposDeDocumento}">
+								<td th:text="${tipoDocumento.nome}"></td>
+								<td th:text="${tipoDocumento.descricao}"></td>
+								<td>
+									<div th:if="${inscricao.analiseDocumentacao}">
+										<div th:each="documentacao : ${inscricao.analiseDocumentacao.documentacao}">
+											<ul class="row" th:if="${documentacao.tipoDocumento.nome == tipoDocumento.nome}">
+												<li class="col s1" th:each="documento : ${documentacao.documentos}">
+				       								<a th:href="@{/documentacao/documento/__${inscricao.id}__/download/__${documento.id}__}" class="tooltipped" data-position="left" data-delay="50" th:attr="data-tooltip=${documento.nome}">
+				       									<i class="material-icons">file_download</i>
+				       								 </a>
+				       							</li>
+											</ul>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>					
+					</table>					
+				</div>
+	       	</div>
+       			
+       			<div class="card">
         			<div class="card-content">
 						<h5 class="title light">Parecer</h5>
 							<div class="col s4 input-field">
@@ -149,20 +155,20 @@
 								<label for="parecer">Resultado</label>
 							</div>
 							<div class="col s8 input-field">
-								<textarea th:field="*{observacao}" class="materialize-textarea" id="observacao"></textarea>
+								<textarea class="materialize-textarea" id="observacao" th:field="*{observacoes}"></textarea>
 								<label for="observacao">Observação</label>
 							</div>
-							<div class="card-action right-align">
-								<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
-							</div>
-						</div>
-        			</div>
-				</form>
-        	</div>
-        <!-- /.box -->
-      	</section>
-	</section>
-	
+					</div>
+					<div class="card-action right-align">
+						<a th:href="@{/selecao/inscricoes/__${inscricao.selecao.id}__}"  type="button" class=" btn waves-effect">Cancelar</a>
+						<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
+					</div>
+        		</div>
+			</form>
+	       	
+        	
+    </div>
+    </section>	
 	<section layout:fragment="js">
     	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
     </section>

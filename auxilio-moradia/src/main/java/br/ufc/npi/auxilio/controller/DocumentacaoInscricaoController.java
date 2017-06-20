@@ -98,12 +98,12 @@ public class DocumentacaoInscricaoController {
 			AnaliseDocumentacao analiseDocumento = inscricao.getAnaliseDocumentacao();
 			if( analiseDocumento == null || analiseDocumento.getId() == null ) {
 				analiseDocumento = new AnaliseDocumentacao();
-				analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
+				analiseDocumento.setParecer(Resultado.NAO_AVALIADO);
 				analiseDocumentacaoRepository.save(analiseDocumento);
 				
 			}
 			analiseDocumento.setInscricao(inscricao);
-			analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
+			analiseDocumento.setParecer(Resultado.NAO_AVALIADO);
 			analiseDocumentacaoRepository.save(analiseDocumento);
 			
 			documentacao.setAnaliseDocumentacao(analiseDocumento);
@@ -148,7 +148,7 @@ public class DocumentacaoInscricaoController {
 		if (inscricao.getAnaliseDocumentacao() == null) {
 			AnaliseDocumentacao aD = new AnaliseDocumentacao();
 			inscricao.setAnaliseDocumentacao(aD);
-			inscricaoServicw.salvar(inscricao);
+			inscricaoService.salvar(inscricao);
 		}
 		model.addAttribute("analiseDocumentacao", inscricao.getAnaliseDocumentacao());
 		model.addAttribute("resultado", Resultado.values());
@@ -157,7 +157,7 @@ public class DocumentacaoInscricaoController {
 	}
 	
 	@Secured(COORDENADOR)
-	@PostMapping("/analiseDocumentacao/{inscricao}")
+	@PostMapping("/inscricao/{inscricao}")
 	public String analisarDocumentacaoInscricao(@PathVariable Inscricao inscricao, AnaliseDocumentacao analiseDocumentacao, Authentication auth, RedirectAttributes redirectAttributes){
 		
 		Servidor servidor = servidorService.getByCpf(auth.getName());
@@ -165,10 +165,9 @@ public class DocumentacaoInscricaoController {
 				(analiseDocumentacao.getRendaMae() == null? 0:analiseDocumentacao.getRendaMae())+
 				(analiseDocumentacao.getRendaOutros()==null? 0:analiseDocumentacao.getRendaOutros()))/
 				(analiseDocumentacao.getGrupoFamiliar()==null? 1:analiseDocumentacao.getGrupoFamiliar()));
-		analiseDocumentacao.setInscricao(inscricao);
-		analiseDocumentacao.setResponsavel(servidor);
-		analiseDocumentacaoRepository.save(analiseDocumentacao);
-		return RedirectConstants.REDIRECT_SELECAO_INSCRICOES+inscricao.getSelecao().getId();
+		inscricao.setAnaliseDocumentacao(analiseDocumentacao);
+		inscricaoService.salvar(inscricao);
+		return RedirectConstants.REDIRECT_INSCRICAO_ANALISAR_DOCUMENTO+inscricao.getId();
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
