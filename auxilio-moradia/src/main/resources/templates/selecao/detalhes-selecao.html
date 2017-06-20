@@ -4,9 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="base/base"
 	th:with="currentPage='selecao',
-			hasBreadcrumb = true,
-			breadcrumbName = 'Detalhes Seleção',
-			selecao = ${selecao}">
+			breadcrumbName = ${ { {name:'Detalhes Seleção', link: '/selecao/detalhes/__${selecao.id}__', sec:'COORDENADOR'} } }">
 
 <head>
 	<title>Auxílio - Detalhes da Seleção</title>

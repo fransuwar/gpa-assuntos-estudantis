@@ -14,7 +14,9 @@
 						<a th:href="@{/}" class="breadcrumb white-text">
 							<i class="material-icons left">home</i> Seleções
 						</a>
-						<a th:each="bread : ${breadcrumbName}" th:text="${bread.get(name)}" th:href="@{/}" class="breadcrumb white-text">
+						<a th:each="bread : ${breadcrumbName}" th:text="${bread.name}" 
+							th:if="${#authorization.expression('hasAnyAuthority(''__${bread.sec}__'')')}"
+							th:href="@{${bread.get('link')}}" class="breadcrumb white-text">
 						</a>
 					</div>
 			    </li>
