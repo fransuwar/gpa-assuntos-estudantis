@@ -146,7 +146,7 @@ public class InscricaoController {
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@PostMapping("moradia/{selecao}")
 	public String inscreverMoradia(@PathVariable Selecao selecao, Moradia moradia,
-			Authentication auth, RedirectAttributes redirect){
+			Authentication auth, RedirectAttributes redirect, @RequestParam String action){
 		try {
 			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
 			if (inscricao == null) {
@@ -155,7 +155,12 @@ public class InscricaoController {
 			}
 			inscricao.setMoradia(moradia);
 			inscricaoService.atualizar(inscricao);
-			return REDIRECT_INSCRICAO_HISTORICO + selecao.getId();
+			if (action.equals("avancar"))
+				return REDIRECT_INSCRICAO_HISTORICO + selecao.getId();
+			else if (action.equals("voltar"))
+				return REDIRECT_INSCRICAO_DADOS_BASICOS + selecao.getId();
+			else
+				return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
@@ -191,7 +196,7 @@ public class InscricaoController {
 	 */
 	@PostMapping("historico/{selecao}")
 	public String inscreverHistorico(@PathVariable Selecao selecao, HistoricoEscolar historico,
-		  	Model model, Authentication auth, RedirectAttributes redirect){
+		  	Model model, Authentication auth, RedirectAttributes redirect, @RequestParam String action){
 		try {
 			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
 			if (inscricao == null) {
@@ -200,7 +205,12 @@ public class InscricaoController {
 			}
 			inscricao.setHistoricoEscolar(historico);
 			inscricaoService.atualizar(inscricao);
-			return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
+			if (action.equals("avancar"))
+				return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
+			else if (action.equals("voltar"))
+				return REDIRECT_INSCRICAO_MORADIA + selecao.getId();
+			else
+				return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
@@ -241,7 +251,7 @@ public class InscricaoController {
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@PostMapping("situacao-socioeconomica/{selecao}")
 	public String inscreverSituacaoSocioeconomica(@PathVariable Selecao selecao, SituacaoSocioeconomica situacao,
-			Authentication auth, RedirectAttributes redirect){
+			Authentication auth, RedirectAttributes redirect, @RequestParam String action){
 		try {
 			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
 			if (inscricao == null) {
@@ -250,7 +260,12 @@ public class InscricaoController {
 			}
 			inscricao.setSituacaoSocioEconomica(situacao);
 			inscricaoService.atualizar(inscricao);
-			return REDIRECT_INSCRICAO_OUTROS + selecao.getId();
+			if (action.equals("avancar"))
+				return REDIRECT_INSCRICAO_OUTROS + selecao.getId();
+			else if (action.equals("voltar"))
+				return REDIRECT_INSCRICAO_HISTORICO + selecao.getId();
+			else
+				return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
@@ -337,7 +352,7 @@ public class InscricaoController {
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@PostMapping("outras-informacoes/{selecao}")
 	public String inscreverOutrasInformacoesForm(@PathVariable Selecao selecao, @RequestParam String justificativa,
-												  Authentication auth, RedirectAttributes redirect){
+												  Authentication auth, RedirectAttributes redirect, @RequestParam String action){
 		try {
 			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
 			if (inscricao == null) {
@@ -351,7 +366,12 @@ public class InscricaoController {
 				inscricoes.get(i).setPosicaoRanking(i+1);
 			}
 			inscricaoService.atualizar(inscricao);
-			return REDIRECT_DETALHES_INSCRICAO + inscricao.getId();
+			if (action.equals("finalizar"))
+				return REDIRECT_DETALHES_INSCRICAO + inscricao.getId();
+			else if (action.equals("voltar"))
+				return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
+			else
+				return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
