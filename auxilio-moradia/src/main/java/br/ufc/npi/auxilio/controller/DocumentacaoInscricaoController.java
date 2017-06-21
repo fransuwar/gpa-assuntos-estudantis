@@ -98,12 +98,12 @@ public class DocumentacaoInscricaoController {
 			AnaliseDocumentacao analiseDocumento = inscricao.getAnaliseDocumentacao();
 			if( analiseDocumento == null || analiseDocumento.getId() == null ) {
 				analiseDocumento = new AnaliseDocumentacao();
-				analiseDocumento.setParecer(Resultado.NAO_AVALIADO);
+				analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
 				analiseDocumentacaoRepository.save(analiseDocumento);
 				
 			}
 			analiseDocumento.setInscricao(inscricao);
-			analiseDocumento.setParecer(Resultado.NAO_AVALIADO);
+			analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
 			analiseDocumentacaoRepository.save(analiseDocumento);
 			
 			documentacao.setAnaliseDocumentacao(analiseDocumento);
