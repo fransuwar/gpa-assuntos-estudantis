@@ -24,7 +24,7 @@ public class Entrevista {
 	private boolean vaiVisitar;
 	
 	@Enumerated(EnumType.STRING)
-	private Resultado parecer;
+	private Resultado resultado;
 	
 	@ManyToOne
 	private Servidor responsavel;
@@ -55,12 +55,12 @@ public class Entrevista {
 
 	
 
-	public Resultado getParecer() {
-		return parecer;
+	public Resultado getResultado() {
+		return resultado;
 	}
 
-	public void setParecer(Resultado parecer) {
-		this.parecer = parecer;
+	public void setResultado(Resultado resultado) {
+		this.resultado = resultado;
 	}
 
 	public Servidor getResponsavel() {
