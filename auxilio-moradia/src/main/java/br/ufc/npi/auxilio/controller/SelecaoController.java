@@ -29,7 +29,9 @@ import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELEC
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
-import static br.ufc.npi.auxilio.utils.RedirectConstants.*;
+import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
+import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
+import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_CADASTRAR_SELECAO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.*;
 
 @Controller
@@ -228,7 +230,7 @@ public class SelecaoController {
 		else
 			redirect.addFlashAttribute(ERRO, "ERRO AO ALOCAR");
 		
-		return REDIRECT_AGENDAMENTO_ENTREVISTA + agendamento.getInscricoes().get(0).getSelecao().getId();
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + agendamento.getInscricoes().get(0).getSelecao().getId();
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
@@ -244,7 +246,7 @@ public class SelecaoController {
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 		}
-		return REDIRECT_LISTAR_SELECAO;
+		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
