@@ -127,7 +127,6 @@ public class InscricaoServiceImpl implements InscricaoService {
 		return editar(inscricao);
 	}
 
-	
 	public List<Inscricao> getIndeferidos(Selecao selecao){
 		return inscricaoRepository.getIndeferidos(selecao);
 	}

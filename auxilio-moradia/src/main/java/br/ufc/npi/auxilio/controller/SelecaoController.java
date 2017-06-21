@@ -29,9 +29,7 @@ import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELEC
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
-import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
-import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
-import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_CADASTRAR_SELECAO;
+import static br.ufc.npi.auxilio.utils.RedirectConstants.*;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.*;
 
 @Controller
