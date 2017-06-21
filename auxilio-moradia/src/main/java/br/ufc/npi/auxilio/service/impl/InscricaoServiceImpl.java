@@ -10,6 +10,7 @@ import br.ufc.npi.auxilio.repository.InscricaoRepository;
 import br.ufc.npi.auxilio.repository.PessoaFamiliaRepository;
 import br.ufc.npi.auxilio.service.InscricaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.inject.Named;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -121,6 +122,11 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	
+	public List<Inscricao> getIndeferidos(Selecao selecao){
+		return inscricaoRepository.getIndeferidos(selecao);
+	}
 	
-	
+	public List<Inscricao> getSelecionados(Selecao selecao){
+		return inscricaoRepository.getSelecionados(selecao);
+	}
 }

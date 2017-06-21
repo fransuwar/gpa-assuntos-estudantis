@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="base/base">
+	layout:decorator="base/base"
+	th:with="breadcrumbName = ${ { {name:'Dados Básico', link: '/inscricao/moradia/__${selecao.id}__', sec:'ALUNO'}, 
+      								{name:'Moradia', link: '/inscricao/moradia/__${selecao.id}__', sec:'ALUNO'},
+      								{name:'Histórico', link: '/inscricao/historico/__${selecao.id}__', sec:'ALUNO'},
+      								{name:'Situação Socioeconômica', link: '/inscricao/situacao-socioeconomica/__${selecao.id}__', sec:'ALUNO'},
+      								{name:'Outras informações', link: '#', sec:'ALUNO'} } }">
 <head>
 <title>Auxílio - Realizar Inscrição</title>
 </head>
@@ -25,7 +30,8 @@
 						</div>
 					</div>
 					<div class="card-action right-align">
-						<button class="btn waves-effect waves-light" type="submit">Finalizar</button>
+						<button name="action" class="btn waves-effect waves-light" value="voltar" type="submit">Voltar</button>
+						<button name="action" value="finalizar" class="btn waves-effect waves-light" type="submit">Finalizar</button>
 					</div>
 				</form>
 			</div>

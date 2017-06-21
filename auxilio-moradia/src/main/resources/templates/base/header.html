@@ -1,5 +1,5 @@
 <header th:fragment="header">
-    <nav>
+    <nav id="nav-header">
         <div class="nav-wrapper">
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li>
@@ -7,7 +7,19 @@
                         <span class="deep-purple-text text-lighten-2 title">AUXÍLIO MORADIA</span>
                     </a>
                 </li>
-                <li><a th:href="@{/selecao}">Seleções</a></li>
+            </ul>
+            <ul>
+            	<li>
+					<div id="caminho" class="col s12 breadcrumbs valign-wrapper">
+						<a th:href="@{/}" class="breadcrumb white-text">
+							<i class="material-icons left">home</i> Seleções
+						</a>
+						<a th:each="bread : ${breadcrumbName}" th:text="${bread.name}" 
+							th:if="${#authorization.expression('hasAnyAuthority(''__${bread.sec}__'')')}"
+							th:href="@{${bread.get('link')}}" class="breadcrumb white-text">
+						</a>
+					</div>
+			    </li>
             </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a th:href="@{/logout}">Sair</a></li>

@@ -27,7 +27,7 @@ public class Entrevista {
 	private Date data;
 	
 	@Enumerated(EnumType.STRING)
-	private Resultado parecer;
+	private Resultado resultado;
 	
 	private String endereco;
 	
@@ -499,12 +499,12 @@ public class Entrevista {
 		this.data = data;
 	}
 
-	public Resultado getParecer() {
-		return parecer;
+	public Resultado getResultado() {
+		return resultado;
 	}
 
-	public void setParecer(Resultado parecer) {
-		this.parecer = parecer;
+	public void setResultado(Resultado resultado) {
+		this.resultado = resultado;
 	}
 
 	public Servidor getResponsavel() {
