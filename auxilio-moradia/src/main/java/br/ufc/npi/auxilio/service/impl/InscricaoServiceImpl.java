@@ -1,5 +1,6 @@
 package br.ufc.npi.auxilio.service.impl;
 
+import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Aluno;
 import br.ufc.npi.auxilio.model.Inscricao;
@@ -106,12 +107,12 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 	@Override
 	public List<Inscricao> inscricoesParaEntrevista(Selecao selecao) {
-		return inscricaoRepository.findInscricaoBySelecaoAndAnaliseDocumentacao_Parecer(selecao, "DEFERIDO");
+		return inscricaoRepository.findInscricaoBySelecaoAndAnaliseDocumentacao_Resultado(selecao, Resultado.DEFERIDO);
 	}
 
 	@Override
 	public List<Inscricao> getAllOrdenado(Selecao selecao) {
-		return inscricaoRepository.findInscricaoBySelecaoOrderByPosicaoRankingAsc(selecao);
+		return inscricaoRepository.findAllBySelecao(selecao);
 	}
 	
 	@Override

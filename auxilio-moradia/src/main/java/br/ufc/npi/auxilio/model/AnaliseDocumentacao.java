@@ -27,6 +27,9 @@ public class AnaliseDocumentacao {
 	@Enumerated(EnumType.STRING)
 	private Resultado parecer;
 	
+	@Enumerated(EnumType.STRING)
+	private Resultado resultado;
+	
 	private String cidade;
 	
 	private String beneficio;
@@ -193,18 +196,12 @@ public class AnaliseDocumentacao {
 		this.grupoFamiliar = grupoFamiliar;
 	}
 
-	public void setResultado(Resultado naoAvaliado) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public Resultado getResultado() {
-		// TODO Auto-generated method stub
-		return null;
+		return resultado;
 	}
 
-	
-
-	
+	public void setResultado(Resultado resultado) {
+		this.resultado = resultado;
+	}
 
 }

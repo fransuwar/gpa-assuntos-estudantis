@@ -483,7 +483,7 @@ public class Inscricao implements Comparable<Inscricao>{
 			if ((this.getRendaPerCapita() < o.getRendaPerCapita())) {
 			     return -1;
 			}
-			if ((this.getRendaPerCapita() > o.getRendaPerCapita())&& this.getResultado()==Resultado.INDEFERIDO) {
+			if ((this.getRendaPerCapita() > o.getRendaPerCapita())) {
 			     return 1;
 			}
 		}
