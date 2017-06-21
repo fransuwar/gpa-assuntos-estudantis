@@ -230,17 +230,13 @@ public class SelecaoController {
 		else
 			redirect.addFlashAttribute(ERRO, "ERRO AO ALOCAR");
 		
-		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + agendamento.getInscricoes().get(0).getSelecao().getId();
 	}
 	
-	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping(value="/agendamentoEntrevista/adicionar")
 	public String adicionarAgendamentoEntrevista(Model model, AgendamentoEntrevista agendamento, Authentication auth, 
 			RedirectAttributes redirect){
-		System.out.println("HERE");
-		System.out.println(agendamento.getHorario().name());
-		System.out.println(agendamento.getTurno().name());
-		System.out.println(agendamento.getData());	
 		
 		try {
 			if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento))
@@ -272,7 +268,7 @@ public class SelecaoController {
 			@PathVariable Inscricao inscricao, RedirectAttributes redirect) throws AuxilioMoradiaException {
 		agendamentoEntrevistaService.removerInscricaoAgendamento(inscricao, agendamento);
 		redirect.addFlashAttribute(INFO, "REMOVIDO");
-		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + agendamento.getInscricoes().get(0).getSelecao().getId();
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
