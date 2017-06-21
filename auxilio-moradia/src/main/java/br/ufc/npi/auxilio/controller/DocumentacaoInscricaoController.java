@@ -145,12 +145,12 @@ public class DocumentacaoInscricaoController {
 	@GetMapping("/inscricao/{idInscricao}")
 	public String analisarDocumentacaoInscricao(@PathVariable("idInscricao") Inscricao inscricao, Model model){
 		
-		if (inscricao.getAnaliseDocumentacao() == null) {
-			AnaliseDocumentacao aD = new AnaliseDocumentacao();
-			inscricao.setAnaliseDocumentacao(aD);
-			inscricaoService.salvar(inscricao);
+		AnaliseDocumentacao analiseDocumentacao = inscricao.getAnaliseDocumentacao();
+		if(analiseDocumentacao == null){
+			model.addAttribute("analiseDocumentacao", new AnaliseDocumentacao());
+		}else {
+			model.addAttribute("analiseDocumentacao", analiseDocumentacao);
 		}
-		model.addAttribute("analiseDocumentacao", inscricao.getAnaliseDocumentacao());
 		model.addAttribute("resultado", Resultado.values());
 		model.addAttribute("inscricao", inscricao);
 		return "inscricao/analisar-documento";
