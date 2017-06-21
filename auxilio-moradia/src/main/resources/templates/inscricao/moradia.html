@@ -2,7 +2,8 @@
 <html lang="pt-BR"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="base/base">
+      layout:decorator="base/base"
+      th:with="breadcrumbName = ${ { {name:'Dados Básico', link: '/inscricao/__${selecao.id}__', sec:'ALUNO'}, {name:'Moradia', link: '#', sec:'ALUNO'} } }">
 
 <head>
 	<title>Auxílio - Realizar Inscrição</title>
@@ -67,7 +68,7 @@
 						<div class="row">
 							<div class="col s2 input-field">
 								<select id="estadoOrigem" th:field="*{estadoOrigem}">
-									<option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado.nome}"></option>
+									<option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
 								</select>
 								<label for="estadoOrigem">* Estado</label>
 							</div>
@@ -171,7 +172,8 @@
 						</div>
 					</div>
 					<div class="card-action right-align">
-						<input class="btn waves-effect waves-light" type="submit" value="Avançar"/>
+						<button name="action" class="btn waves-effect waves-light" value="voltar" type="submit">Voltar</button>
+						<button name="action" class="btn waves-effect waves-light" value="avancar" type="submit">Avançar</button>
 					</div>
 				</div>
 			</form>

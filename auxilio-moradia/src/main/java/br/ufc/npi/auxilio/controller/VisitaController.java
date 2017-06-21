@@ -88,7 +88,7 @@ public class VisitaController {
 			visitaDomiciliar.setData(visita.getData());
 			visitaDomiciliar.setObservacoes(visita.getObservacoes());
 			visitaDomiciliar.setRelatorio(visita.getRelatorio());
-			visitaDomiciliar.setResultado(visita.getResultado());		
+			visitaDomiciliar.setParecer(visita.getParecer());		
 			visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
 			
 		}

@@ -9,6 +9,8 @@ import br.ufc.npi.auxilio.model.questionario.Identificacao;
 import br.ufc.npi.auxilio.model.questionario.Moradia;
 import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
 import br.ufc.npi.auxilio.service.*;
+import br.ufc.npi.auxilio.utils.api.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -20,11 +22,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_ALUNO;
+import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.*;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_MEMBRO_FAMILIA_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_MEMBRO_FAMILIA_REMOVIDO;
+
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("inscricao")
@@ -141,7 +147,7 @@ public class InscricaoController {
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@PostMapping("moradia/{selecao}")
 	public String inscreverMoradia(@PathVariable Selecao selecao, Moradia moradia,
-			Authentication auth, RedirectAttributes redirect){
+			Authentication auth, RedirectAttributes redirect, @RequestParam String action){
 		try {
 			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
 			if (inscricao == null) {
@@ -150,7 +156,12 @@ public class InscricaoController {
 			}
 			inscricao.setMoradia(moradia);
 			inscricaoService.atualizar(inscricao);
-			return REDIRECT_INSCRICAO_HISTORICO + selecao.getId();
+			if ("avancar".equals(action))
+				return REDIRECT_INSCRICAO_HISTORICO + selecao.getId();
+			else if ("voltar".equals(action))
+				return REDIRECT_INSCRICAO_DADOS_BASICOS + selecao.getId();
+			else
+				return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
@@ -186,7 +197,7 @@ public class InscricaoController {
 	 */
 	@PostMapping("historico/{selecao}")
 	public String inscreverHistorico(@PathVariable Selecao selecao, HistoricoEscolar historico,
-		  	Model model, Authentication auth, RedirectAttributes redirect){
+		  	Model model, Authentication auth, RedirectAttributes redirect, @RequestParam String action){
 		try {
 			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
 			if (inscricao == null) {
@@ -195,7 +206,12 @@ public class InscricaoController {
 			}
 			inscricao.setHistoricoEscolar(historico);
 			inscricaoService.atualizar(inscricao);
-			return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
+			if ("avancar".equals(action))
+				return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
+			else if ("voltar".equals(action))
+				return REDIRECT_INSCRICAO_MORADIA + selecao.getId();
+			else
+				return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
@@ -236,7 +252,7 @@ public class InscricaoController {
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@PostMapping("situacao-socioeconomica/{selecao}")
 	public String inscreverSituacaoSocioeconomica(@PathVariable Selecao selecao, SituacaoSocioeconomica situacao,
-			Authentication auth, RedirectAttributes redirect){
+			Authentication auth, RedirectAttributes redirect, @RequestParam String action){
 		try {
 			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
 			if (inscricao == null) {
@@ -245,7 +261,12 @@ public class InscricaoController {
 			}
 			inscricao.setSituacaoSocioEconomica(situacao);
 			inscricaoService.atualizar(inscricao);
-			return REDIRECT_INSCRICAO_OUTROS + selecao.getId();
+			if ("avancar".equals(action))
+				return REDIRECT_INSCRICAO_OUTROS + selecao.getId();
+			else if ("voltar".equals(action))
+				return REDIRECT_INSCRICAO_HISTORICO + selecao.getId();
+			else
+				return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
@@ -332,7 +353,7 @@ public class InscricaoController {
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@PostMapping("outras-informacoes/{selecao}")
 	public String inscreverOutrasInformacoesForm(@PathVariable Selecao selecao, @RequestParam String justificativa,
-												  Authentication auth, RedirectAttributes redirect){
+												  Authentication auth, RedirectAttributes redirect, @RequestParam String action){
 		try {
 			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
 			if (inscricao == null) {
@@ -340,8 +361,18 @@ public class InscricaoController {
 				return REDIRECT_LISTAR_SELECAO;
 			}
 			inscricao.getQuestionario().setJustificativa(justificativa);
+			List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
+			Collections.sort(inscricoes);
+			for(int i = 0; i < inscricoes.size(); i++){
+				inscricoes.get(i).setPosicaoRanking(i+1);
+			}
 			inscricaoService.atualizar(inscricao);
-			return REDIRECT_DETALHES_INSCRICAO + inscricao.getId();
+			if ("finalizar".equals(action))
+				return REDIRECT_DETALHES_INSCRICAO + inscricao.getId();
+			else if ("voltar".equals(action))
+				return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
+			else
+				return REDIRECT_LISTAR_SELECAO;
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_LISTAR_SELECAO;
@@ -365,8 +396,42 @@ public class InscricaoController {
 				return INSCRICAO_DETALHES;
 			}
 		}
-
 		redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_VISUALIZAR_INSCRICAO);
 		return REDIRECT_LISTAR_SELECAO;
 	}
+	
+	public Integer isSelecionado(boolean selecionar){
+		if(selecionar == true){
+			return 1;
+		} else{
+			return 0;
+		}
+	}	
+	@PostMapping(value = "/selecionar")
+	@ResponseBody
+	public Response selecionarInscricao(Integer idInscricao, boolean selecionar){
+
+		if (inscricaoService.selecionarInscricao(idInscricao, isSelecionado(selecionar)) ){
+			Response r = new Response();
+			return r;
+		}
+		else
+			return new Response().withFailStatus().withErrorMessage("Error ao selecionar esta inscricao");
+	}
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/resultadoSelecaoIndeferidos/{selecao}")
+	public String resultadoSelecaoIndeferidos(@PathVariable Selecao selecao, Model model){
+		model.addAttribute("inscricoes", inscricaoService.getIndeferidos(selecao));
+		model.addAttribute("tipoResultado", "Indeferidos");
+		return PAGINA_RESULTADO;
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/resultadoSelecaoSelecionados/{selecao}")
+	public String resultadoSelecaoSelecionados(@PathVariable Selecao selecao, Model model){
+		model.addAttribute("inscricoes", inscricaoService.getSelecionados(selecao));
+		model.addAttribute("tipoResultado", "Selecionados");
+		return PAGINA_RESULTADO;
+	}
+
 }

@@ -3,7 +3,8 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-	layout:decorator="base/base">
+	layout:decorator="base/base"
+	th:with="breadcrumbName = ${ { {name:'Visualizar Inscrições', link: '/selecao/inscricoes/__${selecao.id}__', sec:'COORDENADOR'} } }">>
 
 <head>
 	<title>Auxílio - Visualizar Inscrições</title>

@@ -7,5 +7,5 @@ import br.ufc.npi.auxilio.model.AnaliseDocumentacao;
 
 @Repository
 public interface AnaliseDocumentacaoRepository extends JpaRepository<AnaliseDocumentacao, Integer>{
-
+	public abstract AnaliseDocumentacao findById(Integer idAnaliseDocumentacao);
 }

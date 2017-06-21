@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+
 import br.ufc.npi.auxilio.enums.Resultado;
 
 @Entity
@@ -24,10 +25,60 @@ public class AnaliseDocumentacao {
 	private Integer id;
 	
 	@Enumerated(EnumType.STRING)
-	private Resultado resultado;
+	private Resultado parecer;
 	
-	private String parecer;
+	private String cidade;
 	
+	private String beneficio;
+	
+	private String cidadeOrigem;
+	
+	private Double rendaPai;
+	
+	private Double rendaMae;
+	
+	private Double rendaOutros;
+	
+	private Double rendaPerCapita;
+	
+	private Integer grupoFamiliar;
+	
+	private String observacao;
+	
+	private Double energia;
+	
+	public Double getEnergia() {
+		return energia;
+	}
+
+	public void setEnergia(Double energia) {
+		this.energia = energia;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getBeneficio() {
+		return beneficio;
+	}
+
+	public void setBeneficio(String beneficio) {
+		this.beneficio = beneficio;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
 	private String observacoes;
 	
 	@OneToOne
@@ -52,19 +103,13 @@ public class AnaliseDocumentacao {
 		this.id = id;
 	}
 
-	public Resultado getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(Resultado resultado) {
-		this.resultado = resultado;
-	}
-
-	public String getParecer() {
+	
+	
+	public Resultado getParecer() {
 		return parecer;
 	}
 
-	public void setParecer(String parecer) {
+	public void setParecer(Resultado parecer) {
 		this.parecer = parecer;
 	}
 
@@ -99,8 +144,67 @@ public class AnaliseDocumentacao {
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
+
+	public Double getRendaPai() {
+		return rendaPai;
+	}
+
+	public void setRendaPai(Double rendaPai) {
+		this.rendaPai = rendaPai;
+	}
+
+	public Double getRendaMae() {
+		return rendaMae;
+	}
+
+	public void setRendaMae(Double rendaMae) {
+		this.rendaMae = rendaMae;
+	}
+
+	public Double getRendaOutros() {
+		return rendaOutros;
+	}
+
+	public void setRendaOutros(Double rendaOutros) {
+		this.rendaOutros = rendaOutros;
+	}
+
+	public Double getRendaPerCapita() {
+		return rendaPerCapita;
+	}
+
+	public void setRendaPerCapita(Double rendaPerCapita) {
+		this.rendaPerCapita = rendaPerCapita;
+	}
+
+	public String getCidadeOrigem() {
+		return cidadeOrigem;
+	}
+
+	public void setCidadeOrigem(String cidadeOrigem) {
+		this.cidadeOrigem = cidadeOrigem;
+	}
+
+	public Integer getGrupoFamiliar() {
+		return grupoFamiliar;
+	}
+
+	public void setGrupoFamiliar(Integer grupoFamiliar) {
+		this.grupoFamiliar = grupoFamiliar;
+	}
+
+	public void setResultado(Resultado naoAvaliado) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Resultado getResultado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
-	
+
 	
 
 }

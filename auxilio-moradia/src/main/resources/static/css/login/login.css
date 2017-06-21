@@ -70,6 +70,18 @@
 	
 }
 
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating){
+	color: #7e57c2;
+}
+
+.btn-large{
+	background-color: #7e57c2;
+}
+
+.btn-large:hover, .btn-large:focus{
+	background-color: #b39ddb;
+}
+
 button[type='submit'] {
 	width: 100%;
 }
@@ -79,7 +91,13 @@ input {
 	letter-spacing: .1rem;
 }
 
+input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+	border-bottom: 1px solid #7e57c2;
+    box-shadow: 0 1px 0 0 #b39ddb;
+}
+
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px white inset !important;
 }
+
 	
