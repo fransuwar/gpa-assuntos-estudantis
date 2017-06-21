@@ -145,12 +145,14 @@ public class DocumentacaoInscricaoController {
 	@GetMapping("/inscricao/{idInscricao}")
 	public String analisarDocumentacaoInscricao(@PathVariable("idInscricao") Inscricao inscricao, Model model){
 		
-		if (inscricao.getAnaliseDocumentacao() == null) {
-			AnaliseDocumentacao aD = new AnaliseDocumentacao();
-			inscricao.setAnaliseDocumentacao(aD);
+		AnaliseDocumentacao analiseDocumentacao = inscricao.getAnaliseDocumentacao();
+		if(analiseDocumentacao == null){
+			inscricao.setAnaliseDocumentacao(new AnaliseDocumentacao());
 			inscricaoService.salvar(inscricao);
+			model.addAttribute("analiseDocumentacao", inscricao.getAnaliseDocumentacao());
+		}else {
+			model.addAttribute("analiseDocumentacao", analiseDocumentacao);
 		}
-		model.addAttribute("analiseDocumentacao", inscricao.getAnaliseDocumentacao());
 		model.addAttribute("resultado", Resultado.values());
 		model.addAttribute("inscricao", inscricao);
 		return "inscricao/analisar-documento";
@@ -165,8 +167,27 @@ public class DocumentacaoInscricaoController {
 				(analiseDocumentacao.getRendaMae() == null? 0:analiseDocumentacao.getRendaMae())+
 				(analiseDocumentacao.getRendaOutros()==null? 0:analiseDocumentacao.getRendaOutros()))/
 				(analiseDocumentacao.getGrupoFamiliar()==null? 1:analiseDocumentacao.getGrupoFamiliar()));
-		inscricao.setAnaliseDocumentacao(analiseDocumentacao);
+		AnaliseDocumentacao analise = analiseDocumentacaoRepository.findById(inscricao.getAnaliseDocumentacao().getId());
+		if(analise == null){
+			analise = analiseDocumentacao;
+		}else{
+			analise.setObservacoes(analiseDocumentacao.getObservacoes());
+			analise.setResultado(analiseDocumentacao.getResultado());
+			analise.setCidadeOrigem(analiseDocumentacao.getCidadeOrigem());
+			analise.setCidade(analiseDocumentacao.getCidade());
+			analise.setRendaPai(analiseDocumentacao.getRendaPai());
+			analise.setRendaMae(analiseDocumentacao.getRendaMae());
+			analise.setRendaOutros(analiseDocumentacao.getRendaOutros());
+			analise.setGrupoFamiliar(analiseDocumentacao.getGrupoFamiliar());
+			analise.setRendaPerCapita(analiseDocumentacao.getRendaPerCapita());
+			analise.setBeneficio(analiseDocumentacao.getBeneficio());
+			analise.setEnergia(analiseDocumentacao.getEnergia());
+		}
+		analise.setResponsavel(servidor);
+		inscricao.setAnaliseDocumentacao(analise);
+		analise.setInscricao(inscricao);
 		inscricaoService.salvar(inscricao);
+		analiseDocumentacaoRepository.save(analise);
 		return RedirectConstants.REDIRECT_INSCRICAO_ANALISAR_DOCUMENTO+inscricao.getId();
 	}
 	
