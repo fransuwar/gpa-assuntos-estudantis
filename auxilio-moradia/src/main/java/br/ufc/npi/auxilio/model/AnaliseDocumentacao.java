@@ -25,7 +25,7 @@ public class AnaliseDocumentacao {
 	private Integer id;
 	
 	@Enumerated(EnumType.STRING)
-	private Resultado parecer;
+	private Resultado resultado;
 	
 	private String cidade;
 	
@@ -103,14 +103,12 @@ public class AnaliseDocumentacao {
 		this.id = id;
 	}
 
-	
-	
-	public Resultado getParecer() {
-		return parecer;
+	public Resultado getResultado() {
+		return resultado;
 	}
 
-	public void setParecer(Resultado parecer) {
-		this.parecer = parecer;
+	public void setResultado(Resultado resultado) {
+		this.resultado = resultado;
 	}
 
 	public Inscricao getInscricao() {
@@ -192,19 +190,5 @@ public class AnaliseDocumentacao {
 	public void setGrupoFamiliar(Integer grupoFamiliar) {
 		this.grupoFamiliar = grupoFamiliar;
 	}
-
-	public void setResultado(Resultado naoAvaliado) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Resultado getResultado() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
-
-	
-
 }
