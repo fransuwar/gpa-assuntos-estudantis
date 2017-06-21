@@ -85,6 +85,7 @@ public class AgendamentoEntrevista {
 		}
 		if (inscricao != null && !this.inscricoes.contains(inscricao)) {
 			this.inscricoes.add(inscricao);
+			
 			return true;
 		}
 		return false;
