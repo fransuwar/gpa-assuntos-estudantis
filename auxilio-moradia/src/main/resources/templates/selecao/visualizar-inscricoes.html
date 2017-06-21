@@ -78,17 +78,18 @@
 							<table id="visualizar-inscricoes" class="centered display nowrap striped bordered lighten-1">
 								<thead>
 								<tr>
+									<th>Ranking</th>
 									<th>Aluno</th>
 									<th>Análise dos Documentos</th>
 									<th>Entrevista</th>
 									<th th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">Visita Domiciliar</th>
 									<th>Parecer Final</th>
-									<th>Ranking</th>
 									<th>Selecionados</th>
 								</tr>
 								</thead>
 								<tbody>
 								<tr th:each="inscricao, row : ${inscricoes}">
+									<td th:text="${row.count}"></td>
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td>
 										<a th:if="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.resultado != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
@@ -173,7 +174,6 @@
 										</div>
 										</a>
 									</td>
-									<td th:text="${row.count}"></td>
 									<td>
 										<div class="switch">
 											<label>
