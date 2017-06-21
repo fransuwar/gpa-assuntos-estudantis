@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
-import org.springframework.http.HttpEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface SelecaoService {
@@ -35,4 +34,6 @@ public interface SelecaoService {
 	void removerTipoDocumento(TipoDocumento tipoDocumento) throws AuxilioMoradiaException;
 
 	DocumentoDownload downloadDocumento(Documento documento, String procedimento);
+	
+	
 }

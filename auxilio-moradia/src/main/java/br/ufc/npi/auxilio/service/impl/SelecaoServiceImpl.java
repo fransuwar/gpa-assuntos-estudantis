@@ -205,5 +205,4 @@ public class SelecaoServiceImpl implements SelecaoService {
 	}
 
 	
-
 }

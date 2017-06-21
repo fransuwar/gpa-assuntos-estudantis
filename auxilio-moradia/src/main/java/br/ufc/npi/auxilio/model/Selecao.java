@@ -42,6 +42,9 @@ public class Selecao {
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "comissao")
 	private List<Servidor> comissao;
+	
+	@OneToMany
+	private List<AgendamentoEntrevista> agendamentos; 
 
 	@OneToMany(mappedBy = "selecao")
 	private List<Inscricao> inscricoes;
@@ -50,6 +53,7 @@ public class Selecao {
 	private List<TipoDocumento> tiposDeDocumento;
 
 	public Selecao() {
+		this.agendamentos	  = new ArrayList<AgendamentoEntrevista>();
 		this.comissao         = new ArrayList<Servidor>();
 		this.documentos       = new ArrayList<Documento>();
 		this.inscricoes       = new ArrayList<Inscricao>();
@@ -137,6 +141,17 @@ public class Selecao {
 		}
 		if (servidor != null && !this.comissao.contains(servidor)) {
 			this.comissao.add(servidor);
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean addAgendamentoEntrevista(AgendamentoEntrevista agendamento){
+		if(agendamentos == null){
+			this.agendamentos = new ArrayList<AgendamentoEntrevista>();
+		}
+		if(agendamento != null && !this.agendamentos.contains(agendamento)){
+			this.agendamentos.add(agendamento);
 			return true;
 		}
 		return false;
@@ -263,5 +278,13 @@ public class Selecao {
 
 	public boolean isInscricaoAberta() {
 		return !this.dataInicio.isAfter(LocalDate.now()) && !LocalDate.now().isAfter(this.dataTermino);
+	}
+
+	public List<AgendamentoEntrevista> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<AgendamentoEntrevista> agendamentos) {
+		this.agendamentos = agendamentos;
 	}
 }

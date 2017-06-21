@@ -1,6 +1,8 @@
 package br.ufc.npi.auxilio.controller;
 
+import br.ufc.npi.auxilio.enums.HorarioEntrevista;
 import br.ufc.npi.auxilio.enums.TipoSelecao;
+import br.ufc.npi.auxilio.enums.Turno;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
 import br.ufc.npi.auxilio.service.*;
@@ -41,6 +43,9 @@ public class SelecaoController {
 	
 	@Autowired
 	private ServidorService servidorService;
+	
+	@Autowired
+	private AgendamentoEntrevistaService agendamentoEntrevistaService;
 
 	@Autowired
 	private InscricaoService inscricaoService;
@@ -214,7 +219,39 @@ public class SelecaoController {
 		}
 		return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 	}
-
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PostMapping(value="/alocacaoAgendamentoEntrevista/adicionar")
+	public String alocacaoAgendamentoEntrevista(@RequestParam AgendamentoEntrevista agendamento, @RequestParam Inscricao inscricao,
+			 RedirectAttributes redirect){
+		if (agendamentoEntrevistaService.alocarAgendamentoEntrevista(agendamento, inscricao))
+			redirect.addFlashAttribute(INFO, "ALOCADO OK");
+		else
+			redirect.addFlashAttribute(ERRO, "ERRO AO ALOCAR");
+		
+		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+	}
+	
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PostMapping(value="/agendamentoEntrevista/adicionar")
+	public String adicionarAgendamentoEntrevista(Model model, AgendamentoEntrevista agendamento, Authentication auth, 
+			RedirectAttributes redirect){
+		System.out.println("HERE");
+		System.out.println(agendamento.getHorario().name());
+		System.out.println(agendamento.getTurno().name());
+		System.out.println(agendamento.getData());	
+		
+		try {
+			if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento))
+				redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTREVISTA);
+			else
+				redirect.addFlashAttribute(ERRO, "Erro ao inserir agendamento de entrevista");
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+		}
+		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+	}
+	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/comissao/{selecao}/excluir/{servidor}")
 	public String excluirMembroComissao(@PathVariable Selecao selecao,
@@ -227,6 +264,17 @@ public class SelecaoController {
 		}
 		return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/agendamentoEntrevista/{agendamento}/excluir/{inscricao}")
+	public String excluirInscricaoAgendamento(@PathVariable AgendamentoEntrevista agendamento,
+			@PathVariable Inscricao inscricao, RedirectAttributes redirect) throws AuxilioMoradiaException {
+		agendamentoEntrevistaService.removerInscricaoAgendamento(inscricao, agendamento);
+		redirect.addFlashAttribute(INFO, "REMOVIDO");
+		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+	}
+	
+	
 
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping(value = "/documentacao/adicionar")
@@ -282,7 +330,14 @@ public class SelecaoController {
 	@GetMapping("/inscricoes/agendarEntrevista/{selecao}")
 	public String agendarEntrevista(@PathVariable Selecao selecao, Authentication auth, Model model){
 		List<Inscricao> inscricoes = inscricaoService.inscricoesParaEntrevista(selecao);
+		AgendamentoEntrevista ae = new AgendamentoEntrevista();
+		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findAll();
 		model.addAttribute("inscricoes", inscricoes);
+		model.addAttribute("agendamentos", agendamentos);
+		model.addAttribute("selecao", selecao);
+		model.addAttribute("agendamento", ae);
+		model.addAttribute("horario", HorarioEntrevista.values());
+		model.addAttribute("turno", Turno.values());
 		return AGENDAR_ENTREVISTA;
 	}
 }

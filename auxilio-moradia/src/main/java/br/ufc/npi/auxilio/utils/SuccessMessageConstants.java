@@ -6,6 +6,9 @@ public class SuccessMessageConstants {
 	public static final String MSG_SELECAO_CADASTRADA = "Seleção cadastrada com sucesso";
 	public static final String MSG_SELECAO_EDITADA = "Seleção editada com sucesso";
 	public static final String MSG_SUCESSO_SELECAO_REMOVIDA = "Seleção removida com sucesso";
+	
+	/* Entrevista Agendamento */
+	public static final String MSG_SUCESSO_AGENDAMENTO_ENTREVISTA = "Entrevista com agendamento com sucesso";
 
 
 	/* Arquivos da seleção */

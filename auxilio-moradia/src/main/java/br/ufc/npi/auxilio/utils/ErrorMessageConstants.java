@@ -14,7 +14,9 @@ public class ErrorMessageConstants {
 	public static final String MENSAGEM_ERRO_PERIODO_INSCRICAO = "A data de término das inscrições deve ser posterior à data de início";
 	public static final String MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA = "A documentação já foi adicionada";
 	public static final String MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO = "O membro já foi adicionado";
-	
+	public static final String MENSAGEM_ERRO_AGENDAMENTO_ENTREVISTA = "Erro ao inserir agendamento de entrevista";
+
+	/* Entrevista Agendamento */
 	/* Inscrição */
 	public static final String MENSAGEM_ERRO_INSCRICAO_INEXISTENTE = "Você não possui nenhuma inscrição para essa seleção";
 	public static final String MENSAGEM_ERRO_REALIZAR_INSCRICAO = "Erro ao realizar inscrição";
