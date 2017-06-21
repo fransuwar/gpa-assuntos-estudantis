@@ -228,7 +228,7 @@ public class SelecaoController {
 		else
 			redirect.addFlashAttribute(ERRO, "ERRO AO ALOCAR");
 		
-		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + agendamento.getInscricoes().get(0).getSelecao().getId();
+		return REDIRECT_AGENDAMENTO_ENTREVISTA + agendamento.getInscricoes().get(0).getSelecao().getId();
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
