@@ -244,7 +244,7 @@ public class SelecaoController {
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 		}
-		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+		return REDIRECT_LISTAR_SELECAO;
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
