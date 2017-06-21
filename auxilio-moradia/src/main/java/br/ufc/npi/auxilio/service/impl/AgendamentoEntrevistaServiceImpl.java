@@ -1,7 +1,5 @@
 package br.ufc.npi.auxilio.service.impl;
 
-import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +10,16 @@ import br.ufc.npi.auxilio.model.AgendamentoEntrevista;
 import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.repository.AgendamentoEntrevistaRepository;
 import br.ufc.npi.auxilio.service.AgendamentoEntrevistaService;
+import br.ufc.npi.auxilio.service.EmailService;
 
 @Service
 public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaService{
 
 	@Autowired
 	private AgendamentoEntrevistaRepository agendamentoEntrevistaRepository;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@Override
 	public Boolean adicionarHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento)
@@ -39,6 +41,7 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 		if (inscricao != null && agendamento != null) {
 			Boolean b  = agendamento.alocaAgendamentoEntrevista(inscricao);
 			agendamentoEntrevistaRepository.save(agendamento);
+			emailService.enviarEmailEntrevistaAgendada(agendamento, inscricao);
 			return b;
 		}
 		return false;
