@@ -274,8 +274,6 @@ public class SelecaoController {
 		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
 	}
 	
-	
-
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping(value = "/documentacao/adicionar")
 	public String adicionarTipoDocumento(@RequestParam Selecao selecao, @RequestParam String nome, @RequestParam String descricao,

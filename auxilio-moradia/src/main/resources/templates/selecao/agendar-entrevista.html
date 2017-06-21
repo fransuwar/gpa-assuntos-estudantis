@@ -49,70 +49,76 @@
 				</div>
 			</div>
 		</div>
-		
-		
-		<div class="card " th:fragment="horarios">
-			<div class="card-content">
-				<h5 class="title light">HORÁRIO</h5>
-							<div class="card-content" th:each="agendamento : ${agendamentos}">
-								<div class="card-content" th:fragment="horariosSeparados">
-										<form th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}" method="post" th:object="${agendamento}">
-											<input type="hidden" name="agendamento" th:value="${agendamento.id}"/>
-											<div class="row">
-												<h5 th:text="${agendamento.data} + ' ' +${agendamento.turno.nome} + ' ' + ${agendamento.horario.nome}" class="card-content details">
-											</h5>												
-												<div class="input-field col s6">
-													<select name="inscricao">
-														<option th:each="inscricao : ${inscricoes}" th:value="${inscricao.id}" th:text="${inscricao.aluno.pessoa.nome}"></option>
-													</select>
-													<label>Aluno</label>
-												</div>
-												<div class="input-field col s3">
-													<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
-												</div>
-											</div>
-										</form>
-										<div class="row">
-											<div class="chip deep-purple lighten-1" th:each="inscricao : ${agendamento.inscricoes}">
-												<div class="text-17 light white-text" th:text="${inscricao.aluno.pessoa.nome}"></div>
-												 <a title="Excluir" th:href="@{/selecao/agendamentoEntrevista/__${agendamento.id}__/excluir/__${inscricao.id}__}"
-												   sec:authorize="hasAuthority('COORDENADOR')">
-													<i class="close white-text material-icons">close</i>
-												</a> 
-											</div>
-										</div>
+
+
+		<div class="row">
+			<div class="card" th:each="agendamento : ${agendamentos}">
+				<div class="card-content">
+					<div class="card-content " th:fragment="horariosSeparados">
+						<form
+							th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
+							method="post" th:object="${agendamento}">
+							<input type="hidden" name="agendamento"
+								th:value="${agendamento.id}" />
+							<div class="row">
+								<h5
+									th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')} + '  -  ' +${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}"
+									class="card-content details"></h5>
+								<div class="input-field col s6">
+									<select name="inscricao">
+										<option th:each="inscricao : ${inscricoes}"
+											th:value="${inscricao.id}"
+											th:text="${inscricao.aluno.pessoa.nome}"></option>
+									</select> <label>Aluno</label>
 								</div>
-							</div> 
+								<div class="input-field col s3">
+									<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
+								</div>
+							</div>
+						</form>
+						<div class="row">
+							<div class="chip deep-purple lighten-1"
+								th:each="inscricao : ${agendamento.inscricoes}">
+								<div class="text-17 light white-text"
+									th:text="${inscricao.aluno.pessoa.nome}"></div>
+								<a title="Excluir"
+									th:href="@{/selecao/agendamentoEntrevista/__${agendamento.id}__/excluir/__${inscricao.id}__}"
+									sec:authorize="hasAuthority('COORDENADOR')"> <i
+									class="close white-text material-icons">close</i>
+								</a>
+							</div>
 						</div>
+					</div>
 				</div>
-		
-		
-	<div class="row">
+			</div>
+
+		</div>
+
+		<!-- <div class="row">
 		<div class="col s12">
 			<div class="card" th:fragment="inscricoes">
 				<div class="card-content details">
 					<h5 class="title light">Inscrições para Entrevista</h5>
 					<div class="row">
 						<div class="col s6">
-								<table id="inscricoes" class="display nowrap striped bordered lighten-1" cellspacing="0" width="100%">
-									<thead>
+							<table id="inscricoes" class="display nowrap striped bordered lighten-1" cellspacing="0" width="100%">
+								<thead>
 									<tr>
 										<th>Aluno</th>
 									</tr>
-									</thead>
-									<tbody>
+								</thead>
+								<tbody>
 									<tr th:each="inscricao : ${inscricoes}">
 										<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									</tr>
-									</tbody>
-							    </table>
+								</tbody>
+							</table>
 						</div>
-						</div>
-						</div>
-						</div>
-						</div>
-						</div>
-				
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
 </section>
 
 </body>
