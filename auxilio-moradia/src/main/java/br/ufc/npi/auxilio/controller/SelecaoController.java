@@ -226,7 +226,7 @@ public class SelecaoController {
 	public String alocacaoAgendamentoEntrevista(@RequestParam AgendamentoEntrevista agendamento, @RequestParam Inscricao inscricao,
 			 RedirectAttributes redirect){
 		if (agendamentoEntrevistaService.alocarAgendamentoEntrevista(agendamento, inscricao))
-			redirect.addFlashAttribute(INFO, "ALOCADO OK");
+			redirect.addFlashAttribute(INFO, MSG_SUCESSO_ALOCACAO_INSCRICAO_AGENDAMENTO_ADICIONADA);
 		else
 			redirect.addFlashAttribute(ERRO, "ERRO AO ALOCAR");
 		
@@ -266,9 +266,10 @@ public class SelecaoController {
 	@GetMapping("/agendamentoEntrevista/{agendamento}/excluir/{inscricao}")
 	public String excluirInscricaoAgendamento(@PathVariable AgendamentoEntrevista agendamento,
 			@PathVariable Inscricao inscricao, RedirectAttributes redirect) throws AuxilioMoradiaException {
+		int selecaoId = agendamento.getInscricoes().get(0).getSelecao().getId();
 		agendamentoEntrevistaService.removerInscricaoAgendamento(inscricao, agendamento);
-		redirect.addFlashAttribute(INFO, "REMOVIDO");
-		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + agendamento.getInscricoes().get(0).getSelecao().getId();
+		redirect.addFlashAttribute(INFO, MSG_SUCESSO_ALOCACAO_INSCRICAO_AGENDAMENTO_REMOVIDA);
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecaoId;
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)

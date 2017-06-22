@@ -8,7 +8,10 @@ public class SuccessMessageConstants {
 	public static final String MSG_SUCESSO_SELECAO_REMOVIDA = "Seleção removida com sucesso";
 	
 	/* Entrevista Agendamento */
-	public static final String MSG_SUCESSO_AGENDAMENTO_ENTREVISTA = "Entrevista com agendamento com sucesso";
+	public static final String MSG_SUCESSO_AGENDAMENTO_ENTREVISTA = "Agendamento de entrevista cadastrado com sucesso";
+	public static final String MSG_SUCESSO_ALOCACAO_INSCRICAO_AGENDAMENTO_ADICIONADA = "Alocação cadastrada com sucesso";
+	public static final String MSG_SUCESSO_ALOCACAO_INSCRICAO_AGENDAMENTO_REMOVIDA = "Alocação removida com sucesso";
+	
 
 
 	/* Arquivos da seleção */
