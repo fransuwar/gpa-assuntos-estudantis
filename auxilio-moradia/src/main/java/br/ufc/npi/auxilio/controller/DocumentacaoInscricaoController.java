@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
@@ -158,15 +159,24 @@ public class DocumentacaoInscricaoController {
 	
 	@Secured(COORDENADOR)
 	@PostMapping("/inscricao/{inscricao}")
-	public String analisarDocumentacaoInscricao(@PathVariable Inscricao inscricao, AnaliseDocumentacao analiseDocumentacao, Authentication auth, RedirectAttributes redirectAttributes){
+	public String analisarDocumentacaoInscricao(@PathVariable Inscricao inscricao, AnaliseDocumentacao analiseDocumentacao, Authentication auth, RedirectAttributes redirectAttributes) throws AuxilioMoradiaException{
 		
 		Servidor servidor = servidorService.getByCpf(auth.getName());
-		analiseDocumentacao.setRendaPerCapita(((analiseDocumentacao.getRendaPai()==null?0:analiseDocumentacao.getRendaPai())+
-				(analiseDocumentacao.getRendaMae() == null? 0:analiseDocumentacao.getRendaMae())+
-				(analiseDocumentacao.getRendaOutros()==null? 0:analiseDocumentacao.getRendaOutros()))/
-				(analiseDocumentacao.getGrupoFamiliar()==null? 1:analiseDocumentacao.getGrupoFamiliar()));
+		Double rendaPai = inscricao.getRendaPai() == null ? 0:inscricao.getRendaPai();
+		Double rendaMae = inscricao.getRendaMae() == null ? 0:inscricao.getRendaMae();
+		Double rendaOutros = inscricao.getRendaOutros() == null? 0:inscricao.getRendaOutros();
+		Double grupoFamiliar = (double) (inscricao.getQuestionario().getGrupoFamiliar().size() == 0? 1 : inscricao.getQuestionario().getGrupoFamiliar().size());
+		analiseDocumentacao.setRendaPerCapita(((analiseDocumentacao.getRendaPai()==null? rendaPai:analiseDocumentacao.getRendaPai())+
+				(analiseDocumentacao.getRendaMae() == null? rendaMae:analiseDocumentacao.getRendaMae())+
+				(analiseDocumentacao.getRendaOutros()==null? rendaOutros:analiseDocumentacao.getRendaOutros()))/
+				(analiseDocumentacao.getGrupoFamiliar()==null? grupoFamiliar:analiseDocumentacao.getGrupoFamiliar()));
 		inscricao.setAnaliseDocumentacao(analiseDocumentacao);
-		inscricaoService.salvar(inscricao);
+		List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(inscricao.getSelecao());
+		Collections.sort(inscricoes);
+		for(int i = 0; i < inscricoes.size(); i++){
+			inscricoes.get(i).setPosicaoRanking(i+1);
+		}
+		inscricaoService.atualizar(inscricao);
 		return RedirectConstants.REDIRECT_INSCRICAO_ANALISAR_DOCUMENTO+inscricao.getId();
 	}
 	

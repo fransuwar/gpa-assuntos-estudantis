@@ -479,7 +479,7 @@ public class Inscricao implements Comparable<Inscricao>{
 			return 1;
 		}
 		
-		if(this.getResultado() == o.getResultado() && this.getQuestionario() != null ){
+		if(this.getAnaliseDocumentacao() == null && o.getAnaliseDocumentacao() == null && this.getResultado() == o.getResultado() && this.getQuestionario() != null ){
 			if ((this.getRendaPerCapita() < o.getRendaPerCapita())) {
 			     return -1;
 			}
@@ -487,7 +487,30 @@ public class Inscricao implements Comparable<Inscricao>{
 			     return 1;
 			}
 		}
-		
+		if (this.getAnaliseDocumentacao() != null && o.getAnaliseDocumentacao() == null && this.getResultado() == o.getResultado() && this.getQuestionario() != null ) {
+			if ((this.getAnaliseDocumentacao().getRendaPerCapita() < o.getRendaPerCapita())) {
+			     return -1;
+			}
+			if ((this.getAnaliseDocumentacao().getRendaPerCapita() > o.getRendaPerCapita())&& this.getResultado()==Resultado.INDEFERIDO) {
+			     return 1;
+			}
+		}
+		if (this.getAnaliseDocumentacao() == null && o.getAnaliseDocumentacao() != null && this.getResultado() == o.getResultado() && this.getQuestionario() != null ) {
+			if ((this.getRendaPerCapita() < o.getAnaliseDocumentacao().getRendaPerCapita())) {
+			     return -1;
+			}
+			if ((this.getRendaPerCapita() > o.getAnaliseDocumentacao().getRendaPerCapita())&& this.getResultado()==Resultado.INDEFERIDO) {
+			     return 1;
+			}
+		}
+		if (this.getAnaliseDocumentacao() != null && o.getAnaliseDocumentacao() != null && this.getResultado() == o.getResultado() && this.getQuestionario() != null ) {
+			if ((this.getAnaliseDocumentacao().getRendaPerCapita() < o.getAnaliseDocumentacao().getRendaPerCapita())) {
+			     return -1;
+			}
+			if ((this.getAnaliseDocumentacao().getRendaPerCapita() > o.getAnaliseDocumentacao().getRendaPerCapita())&& this.getResultado()==Resultado.INDEFERIDO) {
+			     return 1;
+			}
+		}
 		return 0;
 	}
 
