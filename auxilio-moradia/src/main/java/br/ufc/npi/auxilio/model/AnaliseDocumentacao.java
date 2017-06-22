@@ -25,9 +25,6 @@ public class AnaliseDocumentacao {
 	private Integer id;
 	
 	@Enumerated(EnumType.STRING)
-	private Resultado parecer;
-	
-	@Enumerated(EnumType.STRING)
 	private Resultado resultado;
 	
 	private String cidade;
@@ -45,10 +42,19 @@ public class AnaliseDocumentacao {
 	private Double rendaPerCapita;
 	
 	private Integer grupoFamiliar;
-	
-	private String observacao;
-	
+		
 	private Double energia;
+	
+	private String observacoes;
+	
+	@OneToOne
+	private Inscricao inscricao;
+
+	@ManyToOne
+	private Servidor responsavel;
+	
+	@ManyToMany(mappedBy = "analiseDocumentacao", cascade = CascadeType.REMOVE)
+	private List<Documentacao> documentacao;
 	
 	public Double getEnergia() {
 		return energia;
@@ -73,26 +79,6 @@ public class AnaliseDocumentacao {
 	public void setBeneficio(String beneficio) {
 		this.beneficio = beneficio;
 	}
-
-	public String getObservacao() {
-		return observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
-
-	private String observacoes;
-	
-	@OneToOne
-	private Inscricao inscricao;
-
-	@ManyToOne
-	private Servidor responsavel;
-	
-	@ManyToMany(mappedBy = "analiseDocumentacao", cascade = CascadeType.REMOVE)
-	private List<Documentacao> documentacao;
-	
 	
 	public AnaliseDocumentacao() {
 		this.documentacao = new ArrayList<Documentacao>();
@@ -104,16 +90,6 @@ public class AnaliseDocumentacao {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	
-	
-	public Resultado getParecer() {
-		return parecer;
-	}
-
-	public void setParecer(Resultado parecer) {
-		this.parecer = parecer;
 	}
 
 	public Inscricao getInscricao() {
@@ -130,6 +106,14 @@ public class AnaliseDocumentacao {
 
 	public void setResponsavel(Servidor responsavel) {
 		this.responsavel = responsavel;
+	}
+
+	public Resultado getResultado() {
+		return resultado;
+	}
+
+	public void setResultado(Resultado resultado) {
+		this.resultado = resultado;
 	}
 
 	public List<Documentacao> getDocumentacao() {
@@ -194,14 +178,6 @@ public class AnaliseDocumentacao {
 
 	public void setGrupoFamiliar(Integer grupoFamiliar) {
 		this.grupoFamiliar = grupoFamiliar;
-	}
-
-	public Resultado getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(Resultado resultado) {
-		this.resultado = resultado;
 	}
 
 }
