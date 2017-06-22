@@ -234,10 +234,9 @@ public class SelecaoController {
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@PostMapping(value="/agendamentoEntrevista/adicionar")
-	public String adicionarAgendamentoEntrevista(Model model, AgendamentoEntrevista agendamento, Authentication auth, 
+	@PostMapping(value="/agendamentoEntrevista/adicionar/{selecao}")
+	public String adicionarAgendamentoEntrevista(@PathVariable Selecao selecao, AgendamentoEntrevista agendamento, Authentication auth, 
 			RedirectAttributes redirect){
-		
 		try {
 			if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento))
 				redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTREVISTA);
@@ -246,7 +245,7 @@ public class SelecaoController {
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 		}
-		return RedirectConstants.REDIRECT_LISTAR_SELECAO;
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecao.getId();
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)

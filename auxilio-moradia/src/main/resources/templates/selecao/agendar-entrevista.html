@@ -16,7 +16,7 @@
 					<h5 class="title light">Inscrições para Entrevista</h5>
 					<div class="row">
 						<div class="col s12">
-						<form  data-model="agendamento" th:action="@{/selecao/agendamentoEntrevista/adicionar}" th:object="${agendamento}" method="post">
+						<form  data-model="agendamento" th:action="@{/selecao/agendamentoEntrevista/adicionar/__${selecao.id}__}" th:object="${agendamento}" method="post">
 							<input type="hidden" th:field="*{id}"/>
 							<div class="col s12">
 								<div class="row">
