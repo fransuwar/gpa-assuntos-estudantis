@@ -52,8 +52,8 @@
 
 
 		<div class="row">
-			<div class="card" th:each="agendamento : ${agendamentos}">
-				<div class="card-content">
+			<div class="card col s8" th:each="agendamento : ${agendamentos}">
+				<div class="card-content ">
 					<div class="card-content " th:fragment="horariosSeparados">
 						<form
 							th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
@@ -64,7 +64,7 @@
 								<h5
 									th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')} + '  -  ' +${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}"
 									class="card-content details"></h5>
-								<div class="input-field col s6">
+								<div class="input-field col s9">
 									<select name="inscricao">
 										<option th:each="inscricao : ${inscricoes}"
 											th:value="${inscricao.id}"

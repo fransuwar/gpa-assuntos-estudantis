@@ -37,7 +37,7 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 
 	@Override
 	public List<AgendamentoEntrevista> findAll() {
-		return agendamentoEntrevistaRepository.findAll();
+		return agendamentoEntrevistaRepository.findAllByOrderByData();
 	}
 
 	@Override
