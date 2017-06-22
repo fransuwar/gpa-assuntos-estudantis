@@ -224,7 +224,7 @@ public class SelecaoController {
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping(value="/alocacaoAgendamentoEntrevista/adicionar")
 	public String alocacaoAgendamentoEntrevista(@RequestParam AgendamentoEntrevista agendamento, @RequestParam Inscricao inscricao,
-			 RedirectAttributes redirect){
+			 RedirectAttributes redirect) throws AuxilioMoradiaException{
 		if (agendamentoEntrevistaService.alocarAgendamentoEntrevista(agendamento, inscricao))
 			redirect.addFlashAttribute(INFO, MSG_SUCESSO_ALOCACAO_INSCRICAO_AGENDAMENTO_ADICIONADA);
 		else

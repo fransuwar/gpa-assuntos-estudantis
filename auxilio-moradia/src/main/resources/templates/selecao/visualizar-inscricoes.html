@@ -49,12 +49,7 @@
 
 					<!-- Inscrições -->
 					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
-
 						<div>
-							<a th:href="@{/selecao/inscricoes/relatorio/__${selecao.id}__}" class="waves-effect waves-light btn">Relatório Geral</a>
-							<a th:href="@{/selecao/inscricoes/agendarEntrevista/__${selecao.id}__}" class="waves-effect waves-light btn">Agendar Entrevistas</a>
-						</div><div>
-
 						<div class="fixed-action-btn">
 							<a class="btn-floating btn-large deep-purple lighteen 1">
 								<i class="large material-icons">menu</i>
@@ -76,7 +71,9 @@
 									</a>
 								</li>
 								<li>
-									<a class="btn-floating deep-purple lighten-1"><i class="material-icons">format_quote</i></a>
+									<a th:href="@{/selecao/inscricoes/agendarEntrevista/__${selecao.id}__}"  class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Agendar Entrevista">
+										<i class="material-icons">date_range</i>
+									</a>								
 								</li>
 							</ul>
 

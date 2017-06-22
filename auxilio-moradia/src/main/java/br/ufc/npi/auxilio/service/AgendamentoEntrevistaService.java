@@ -13,7 +13,7 @@ public interface AgendamentoEntrevistaService {
 
 	List<AgendamentoEntrevista> findAll();
 
-	boolean alocarAgendamentoEntrevista(AgendamentoEntrevista agendamento, Inscricao inscricao);
+	boolean alocarAgendamentoEntrevista(AgendamentoEntrevista agendamento, Inscricao inscricao) throws AuxilioMoradiaException;
 
-	void removerInscricaoAgendamento(Inscricao inscricao, AgendamentoEntrevista agendamento);
+	void removerInscricaoAgendamento(Inscricao inscricao, AgendamentoEntrevista agendamento) throws AuxilioMoradiaException;
 }

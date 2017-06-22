@@ -11,6 +11,7 @@ import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.repository.AgendamentoEntrevistaRepository;
 import br.ufc.npi.auxilio.service.AgendamentoEntrevistaService;
 import br.ufc.npi.auxilio.service.EmailService;
+import br.ufc.npi.auxilio.service.InscricaoService;
 
 @Service
 public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaService{
@@ -20,6 +21,9 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private InscricaoService inscricaoService;
 	
 	@Override
 	public Boolean adicionarHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento)
@@ -37,9 +41,11 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	}
 
 	@Override
-	public boolean alocarAgendamentoEntrevista(AgendamentoEntrevista agendamento, Inscricao inscricao) {
+	public boolean alocarAgendamentoEntrevista(AgendamentoEntrevista agendamento, Inscricao inscricao) throws AuxilioMoradiaException {
 		if (inscricao != null && agendamento != null) {
 			Boolean b  = agendamento.alocaAgendamentoEntrevista(inscricao);
+			inscricao.setEntrevistaAgendada(1);
+			inscricaoService.atualizar(inscricao);
 			agendamentoEntrevistaRepository.save(agendamento);
 			emailService.enviarEmailEntrevistaAgendada(agendamento, inscricao);
 			return b;
@@ -48,9 +54,10 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	}
 
 	@Override
-	public void removerInscricaoAgendamento(Inscricao inscricao, AgendamentoEntrevista agendamento) {
+	public void removerInscricaoAgendamento(Inscricao inscricao, AgendamentoEntrevista agendamento) throws AuxilioMoradiaException {
 		if (inscricao != null && agendamento != null) {
-			
+			inscricao.setEntrevistaAgendada(0);
+			inscricaoService.atualizar(inscricao);
 			agendamento.removeInscricaoAgendamento(inscricao);
 			agendamentoEntrevistaRepository.save(agendamento);
 		}

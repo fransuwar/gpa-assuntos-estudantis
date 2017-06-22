@@ -107,7 +107,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 	@Override
 	public List<Inscricao> inscricoesParaEntrevista(Selecao selecao) {
-		return inscricaoRepository.findInscricaoBySelecaoAndAnaliseDocumentacao_Resultado(selecao, Resultado.DEFERIDO);
+		return inscricaoRepository.findInscricaoBySelecaoAndEntrevistaAgendadaAndAnaliseDocumentacao_Resultado(selecao, 0, Resultado.DEFERIDO);
 	}
 
 	@Override
