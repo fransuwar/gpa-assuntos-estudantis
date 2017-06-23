@@ -66,6 +66,7 @@ public class SelecaoController {
 			}
 			model.addAttribute("inscricaoSelecao", inscricaoSelecao);
 		}
+		model.addAttribute("opcoesTipoSelecao", TipoSelecao.values());	
 		model.addAttribute("selecoes", selecoes);
 		return PageConstants.LISTAR_SELECAO;
 	}
