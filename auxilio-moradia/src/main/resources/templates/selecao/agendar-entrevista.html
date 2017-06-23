@@ -51,187 +51,200 @@
 
 	<div th:if="${acao != 'editar'}" class="card">
 		<div class="card-content">
-			<h5>Horários</h5>	
-			<ul  class="collapsible" data-collapsible="accordion">
-		    <li>
-		      <div class="collapsible-header"><i class="material-icons">schedule</i>Manhã</div>
-		      <div class="collapsible-body">
-		      		<div class="row">
-							<div th:if="${agendamento.turno.nome eq T(br.ufc.npi.auxilio.enums.Turno).MANHA.nome}" class="card col s8" th:each="agendamento : ${agendamentos}">
-								<div class=" card-content">
-									<form
-										th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
-										method="post" th:object="${agendamento}">
-										
-										<input type="hidden" name="agendamento"
-											th:value="${agendamento.id}" />
-										<div class=" col s12">
-												<h5 class=" col s10"
-													th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')} + '  -  ' +${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}"
-												></h5>
-											<div class="col s2">
-												<a class="btn-icon waves-effect tooltipped"
-											     		th:href="@{/selecao/agendamentoEntrevista/editar/__${selecao.id}__/__${agendamento.id}__}"
-											     		th:attr="data-tooltip='Editar'">
-											     		<i class="material-icons">edit</i>
-													</a>
-													<a  class="btn-icon waves-effect tooltipped"
-											     		th:href="@{/selecao/agendamentoEntrevista/excluir/__${selecao.id}__/__${agendamento.id}__}"
-											     		th:attr="data-tooltip='Deletar'">
-											     		<i class="material-icons">delete</i>
-													</a>
-												</div>
+			<h5 class="title light col s10" th:text="Horários"></h5>
+			<ul class="collapsible popout" data-collapsible="accordion">
+			    <li>
+			      <div class="collapsible-header white-text"><i class="material-icons">schedule</i>Manhã</div>
+			      <div class="collapsible-body">
+			      		<div class="row">
+								<div th:if="${agendamento.turno.nome eq T(br.ufc.npi.auxilio.enums.Turno).MANHA.nome}" class="col s8 " th:each="agendamento : ${agendamentos}">
+									<div class="card">
+										<div class="row"></div>
+										<form
+											th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
+											method="post" th:object="${agendamento}">
 											
-											<div class="input-field col s9">
-												<select name="inscricao">
-													<option th:each="inscricao : ${inscricoes}"
-														th:value="${inscricao.id}"
-														th:text="${inscricao.aluno.pessoa.nome}"></option>
-												</select> <label>Aluno</label>
-											</div>
-											<div class="input-field col s3">
-												<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
-											</div>
-										</div>
-									</form>
-									<div class="row">
-										<div class="chip deep-purple lighten-1"
-											th:each="inscricao : ${agendamento.inscricoes}">
-											<div class="text-17 light white-text"
-												th:text="${inscricao.aluno.pessoa.nome}"></div>
-											<a title="Excluir"
-												th:href="@{/selecao/agendamentoEntrevista/__${agendamento.id}__/excluir/__${inscricao.id}__}"
-												sec:authorize="hasAuthority('COORDENADOR')"> <i
-												class="close white-text material-icons">close</i>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div> 
-						</div>
-		      		</div>
-		    </li>
-		    <li>
-		      <div class="collapsible-header"><i class="material-icons">schedule</i>Tarde</div>
-		      <div class="collapsible-body">
-		      		<div class="row">
-							<div th:if="${agendamento.turno.nome eq T(br.ufc.npi.auxilio.enums.Turno).TARDE.nome}" class="card col s8" th:each="agendamento : ${agendamentos}">
-								<div class=" card-content">
-									<form
-										th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
-										method="post" th:object="${agendamento}">
-										
-										<input type="hidden" name="agendamento"
-											th:value="${agendamento.id}" />
-										<div class=" col s12">
-												<h5 class=" col s10"
-													th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')} + '  -  ' +${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}"
-												></h5>
-											<div class="col s2">
-												<a class="btn-icon waves-effect tooltipped"
-											     		th:href="@{/selecao/agendamentoEntrevista/editar/__${selecao.id}__/__${agendamento.id}__}"
-											     		th:attr="data-tooltip='Editar'">
-											     		<i class="material-icons">edit</i>
-													</a>
-													<a  class="btn-icon waves-effect tooltipped"
-											     		th:href="@{/selecao/agendamentoEntrevista/excluir/__${selecao.id}__/__${agendamento.id}__}"
-											     		th:attr="data-tooltip='Deletar'">
-											     		<i class="material-icons">delete</i>
-													</a>
+											<input type="hidden" name="agendamento"
+												th:value="${agendamento.id}" />
+											<div class=" col s12">
+													<h5 class="title light col s10  center"
+														th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')} + '  -  ' +${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}"
+													></h5>
+												<div class="col s2">
+													<a class="btn-icon waves-effect tooltipped"
+												     		th:href="@{/selecao/agendamentoEntrevista/editar/__${selecao.id}__/__${agendamento.id}__}"
+												     		th:attr="data-tooltip='Editar'">
+												     		<i class="material-icons">edit</i>
+														</a>
+														<a  class="btn-icon waves-effect tooltipped"
+												     		th:href="@{/selecao/agendamentoEntrevista/excluir/__${selecao.id}__/__${agendamento.id}__}"
+												     		th:attr="data-tooltip='Deletar'">
+												     		<i class="material-icons">delete</i>
+														</a>
+													</div>
+												
+												<div class="input-field col s9">
+													<select name="inscricao">
+														<option th:each="inscricao : ${inscricoes}"
+															th:value="${inscricao.id}"
+															th:text="${inscricao.aluno.pessoa.nome}"></option>
+													</select> <label>Aluno</label>
 												</div>
-											
-											<div class="input-field col s9">
-												<select name="inscricao">
-													<option th:each="inscricao : ${inscricoes}"
-														th:value="${inscricao.id}"
-														th:text="${inscricao.aluno.pessoa.nome}"></option>
-												</select> <label>Aluno</label>
+												<div class="input-field col s3">
+													<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
+												</div>
 											</div>
-											<div class="input-field col s3">
-												<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
+										</form>
+										<div class="row center">
+											<div class="chip deep-purple lighten-1"
+												th:each="inscricao : ${agendamento.inscricoes}">
+												<div class="text-17 light white-text"
+													th:text="${inscricao.aluno.pessoa.nome}"></div>
+												<a title="Excluir"
+													th:href="@{/selecao/agendamentoEntrevista/__${agendamento.id}__/excluir/__${inscricao.id}__}"
+													sec:authorize="hasAuthority('COORDENADOR')"> <i
+													class="close white-text material-icons">close</i>
+												</a>
 											</div>
 										</div>
-									</form>
-									<div class="row">
-										<div class="chip deep-purple lighten-1"
-											th:each="inscricao : ${agendamento.inscricoes}">
-											<div class="text-17 light white-text"
-												th:text="${inscricao.aluno.pessoa.nome}"></div>
-											<a title="Excluir"
-												th:href="@{/selecao/agendamentoEntrevista/__${agendamento.id}__/excluir/__${inscricao.id}__}"
-												sec:authorize="hasAuthority('COORDENADOR')"> <i
-												class="close white-text material-icons">close</i>
-											</a>
-										</div>
+										<div class="row"></div>
 									</div>
+									<div class="row"></div>
+								</div> 
+							</div>
+			      		</div>
+			    </li>
+			    <li>
+			      <div class="collapsible-header white-text"><i class="material-icons">schedule</i>Tarde</div>
+			      <div class="collapsible-body">
+			      		<div class="row">
+								<div th:if="${agendamento.turno.nome eq T(br.ufc.npi.auxilio.enums.Turno).TARDE.nome}" class="col s8" th:each="agendamento : ${agendamentos}">
+									<div class="card">
+										<div class="row"></div>
+										<form
+											th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
+											method="post" th:object="${agendamento}">
+											
+											<input type="hidden" name="agendamento"
+												th:value="${agendamento.id}" />
+											<div class=" col s12">
+													<h5 class="title light col s10"
+														th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')} + '  -  ' +${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}"
+													></h5>
+												<div class="col s2">
+													<a class="btn-icon waves-effect tooltipped"
+												     		th:href="@{/selecao/agendamentoEntrevista/editar/__${selecao.id}__/__${agendamento.id}__}"
+												     		th:attr="data-tooltip='Editar'">
+												     		<i class="material-icons">edit</i>
+														</a>
+														<a  class="btn-icon waves-effect tooltipped"
+												     		th:href="@{/selecao/agendamentoEntrevista/excluir/__${selecao.id}__/__${agendamento.id}__}"
+												     		th:attr="data-tooltip='Deletar'">
+												     		<i class="material-icons">delete</i>
+														</a>
+													</div>
+												
+												<div class="input-field col s9">
+													<select name="inscricao">
+														<option th:each="inscricao : ${inscricoes}"
+															th:value="${inscricao.id}"
+															th:text="${inscricao.aluno.pessoa.nome}"></option>
+													</select> <label>Aluno</label>
+												</div>
+												<div class="input-field col s3">
+													<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
+												</div>
+											</div>
+										</form>
+										<div class="row">
+											<div class="chip deep-purple lighten-1"
+												th:each="inscricao : ${agendamento.inscricoes}">
+												<div class="text-17 light white-text"
+													th:text="${inscricao.aluno.pessoa.nome}"></div>
+												<a title="Excluir"
+													th:href="@{/selecao/agendamentoEntrevista/__${agendamento.id}__/excluir/__${inscricao.id}__}"
+													sec:authorize="hasAuthority('COORDENADOR')"> <i
+													class="close white-text material-icons">close</i>
+												</a>
+											</div>
+											<div class="row"></div>
+									</div>
+									<div class="row"></div>									
 								</div>
 							</div>
 						</div>
-		      </div>
-		    </li>
-		    <li>
-		      <div class="collapsible-header"><i class="material-icons">schedule</i>Noite</div>
-		      <div class="collapsible-body ">
-		      		<div class="row">
-							<div th:if="${agendamento.turno.nome eq T(br.ufc.npi.auxilio.enums.Turno).NOITE.nome}" class="card col s8" th:each="agendamento : ${agendamentos}">
-								<div class="card-content ">
-									<form
-										th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
-										method="post" th:object="${agendamento}">
-										
-										<input type="hidden" name="agendamento"
-											th:value="${agendamento.id}" />
-										<div class=" col s12">
-												<h5 class=" col s10"
-													th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')} + '  -  ' +${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}"
-												></h5>
-											<div class="col s2">
-												<a class="btn-icon waves-effect tooltipped"
-											     		th:href="@{/selecao/agendamentoEntrevista/editar/__${selecao.id}__/__${agendamento.id}__}"
-											     		th:attr="data-tooltip='Editar'">
-											     		<i class="material-icons">edit</i>
-													</a>
-													<a  class="btn-icon waves-effect tooltipped"
-											     		th:href="@{/selecao/agendamentoEntrevista/excluir/__${selecao.id}__/__${agendamento.id}__}"
-											     		th:attr="data-tooltip='Deletar'">
-											     		<i class="material-icons">delete</i>
-													</a>
-												</div>
+			      </div>
+			    </li>
+			    <li>
+			      <div class="collapsible-header white-text"><i class="material-icons">schedule</i>Noite</div>
+			      <div class="collapsible-body ">
+			      		<div class="row">
+								<div th:if="${agendamento.turno.nome eq T(br.ufc.npi.auxilio.enums.Turno).NOITE.nome}" class="col s8" th:each="agendamento : ${agendamentos}">
+									<div class="card">
+										<div class="row"></div>
+										<form
+											th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
+											method="post" th:object="${agendamento}">
 											
-											<div class="input-field col s9">
-												<select name="inscricao">
-													<option th:each="inscricao : ${inscricoes}"
-														th:value="${inscricao.id}"
-														th:text="${inscricao.aluno.pessoa.nome}"></option>
-												</select> <label>Aluno</label>
+											<input type="hidden" name="agendamento"
+												th:value="${agendamento.id}" />
+											<div class=" col s12">
+													<h5 class="title light col s10"
+														th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')} + '  -  ' +${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}"
+													></h5>
+												<div class="col s2">
+													<a class="btn-icon waves-effect tooltipped"
+												     		th:href="@{/selecao/agendamentoEntrevista/editar/__${selecao.id}__/__${agendamento.id}__}"
+												     		th:attr="data-tooltip='Editar'">
+												     		<i class="material-icons">edit</i>
+														</a>
+														<a  class="btn-icon waves-effect tooltipped"
+												     		th:href="@{/selecao/agendamentoEntrevista/excluir/__${selecao.id}__/__${agendamento.id}__}"
+												     		th:attr="data-tooltip='Deletar'">
+												     		<i class="material-icons">delete</i>
+														</a>
+													</div>
+												
+												<div class="input-field col s9">
+													<select name="inscricao">
+														<option th:each="inscricao : ${inscricoes}"
+															th:value="${inscricao.id}"
+															th:text="${inscricao.aluno.pessoa.nome}"></option>
+													</select> <label>Aluno</label>
+												</div>
+												<div class="input-field col s3">
+													<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
+												</div>
 											</div>
-											<div class="input-field col s3">
-												<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
+										</form>
+										<div class="row">
+											<div class="chip deep-purple lighten-1"
+												th:each="inscricao : ${agendamento.inscricoes}">
+												<div class="text-17 light white-text"
+													th:text="${inscricao.aluno.pessoa.nome}"></div>
+												<a title="Excluir"
+													th:href="@{/selecao/agendamentoEntrevista/__${agendamento.id}__/excluir/__${inscricao.id}__}"
+													sec:authorize="hasAuthority('COORDENADOR')"> <i
+													class="close white-text material-icons">close</i>
+												</a>
 											</div>
 										</div>
-									</form>
-									<div class="row">
-										<div class="chip deep-purple lighten-1"
-											th:each="inscricao : ${agendamento.inscricoes}">
-											<div class="text-17 light white-text"
-												th:text="${inscricao.aluno.pessoa.nome}"></div>
-											<a title="Excluir"
-												th:href="@{/selecao/agendamentoEntrevista/__${agendamento.id}__/excluir/__${inscricao.id}__}"
-												sec:authorize="hasAuthority('COORDENADOR')"> <i
-												class="close white-text material-icons">close</i>
-											</a>
-										</div>
-									</div>
+									<div class="row"></div>
 								</div>
+								<div class="row"></div>
 							</div>
 						</div>
-		      </div>
-		    </li>
+			      </div>
+			  </li>
 		  </ul>
 		</div>
 	</div>
 		
 </section>
-
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.carousel').carousel();
+  });
+      </script>
 </body>
 </html>
