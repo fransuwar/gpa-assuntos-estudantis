@@ -126,7 +126,7 @@
 						</thead>
 						<tbody>
 							<tr th:each="tipoDocumento:${inscricao.selecao.tiposDeDocumento}">
-								<tresultadod th:text="${tipoDocumento.nome}"></td>
+								<td th:text="${tipoDocumento.nome}"></td>
 								<td th:text="${tipoDocumento.descricao}"></td>
 								<td>
 									<div th:if="${inscricao.analiseDocumentacao}">
