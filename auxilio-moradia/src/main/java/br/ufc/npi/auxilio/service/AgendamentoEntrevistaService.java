@@ -16,4 +16,8 @@ public interface AgendamentoEntrevistaService {
 	boolean alocarAgendamentoEntrevista(AgendamentoEntrevista agendamento, Inscricao inscricao) throws AuxilioMoradiaException;
 
 	void removerInscricaoAgendamento(Inscricao inscricao, AgendamentoEntrevista agendamento) throws AuxilioMoradiaException;
+
+	void excluirHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento) throws AuxilioMoradiaException;
+
+	void editar(AgendamentoEntrevista agendamento);
 }

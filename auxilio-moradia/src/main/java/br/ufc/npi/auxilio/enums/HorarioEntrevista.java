@@ -1,7 +1,7 @@
 package br.ufc.npi.auxilio.enums;
 
 public enum HorarioEntrevista {
-    AB("AB"), CD("CD"), ABCD("TODOS");
+    AB("AB"), CD("CD"), ABCD("TODOS HORÁRIOS");
 	
 	private String nome;
 

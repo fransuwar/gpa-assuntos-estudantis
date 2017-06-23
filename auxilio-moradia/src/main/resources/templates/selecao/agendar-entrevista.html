@@ -8,19 +8,18 @@
 <meta charset="UTF-8"/>
 <title>Auxílio - Agendamento de Entrevista</title>
 </head>
-<body>
+<body >
 
 <section layout:fragment="conteudo">
 	<div class="card" th:fragment="agendamento">
 				<div class="card-content details">
-					<h5 class="title light">Inscrições para Entrevista</h5>
+					<h5 th:text="${acao == 'editar' ? 'Edição de Horários para Entrevista' : 'Cadastro de Horários para Entrevista'}" class="title light"></h5>
 					<div class="row">
 						<div class="col s12">
 						<form  data-model="agendamento" th:action="@{/selecao/agendamentoEntrevista/adicionar/__${selecao.id}__}" th:object="${agendamento}" method="post">
 							<input type="hidden" th:field="*{id}"/>
 							<div class="col s12">
-								<div class="row">
-									<div class="col s5 input-field">
+									<div class="col s3 input-field">
 										<input th:field="*{data}" type="text" class="datepicker" id="inicio" required="required"/>
 										<label for="inicio">Dia para entrevista</label>
 									</div>
@@ -40,16 +39,15 @@
 									    <label>Horário</label>
 									  </div>
 									  <div class="row input-field col s3">
-									 	    <button type="submit" class="waves-effect waves-light btn">Adicionar</button>
+									 	    <button th:if="${acao != 'editar'}" type="submit" class="waves-effect waves-light btn">Adicionar</button>
+									 	    <button th:if="${acao == 'editar'}" type="submit" class="waves-effect waves-light btn">Editar</button>
 									 </div>
 								</div>
-							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-
 
 		<div class="row">
 			<div class="card col s8" th:each="agendamento : ${agendamentos}">
@@ -58,12 +56,26 @@
 						<form
 							th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
 							method="post" th:object="${agendamento}">
+							
 							<input type="hidden" name="agendamento"
 								th:value="${agendamento.id}" />
-							<div class="row">
-								<h5
+							<div class=" col s12">
+								<h5 class="col s10"
 									th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')} + '  -  ' +${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}"
-									class="card-content details"></h5>
+									></h5>
+								<div class="col s2">
+									<a class="btn-icon waves-effect tooltipped"
+								     		th:href="@{/selecao/agendamentoEntrevista/editar/__${selecao.id}__/__${agendamento.id}__}"
+								     		th:attr="data-tooltip='Editar'">
+								     		<i class="material-icons">edit</i>
+										</a>
+										<a  class="btn-icon waves-effect tooltipped"
+								     		th:href="@{/selecao/agendamentoEntrevista/excluir/__${selecao.id}__/__${agendamento.id}__}"
+								     		th:attr="data-tooltip='Deletar'">
+								     		<i class="material-icons">delete</i>
+										</a>
+									</div>
+								
 								<div class="input-field col s9">
 									<select name="inscricao">
 										<option th:each="inscricao : ${inscricoes}"
@@ -93,32 +105,6 @@
 			</div>
 
 		</div>
-
-		<!-- <div class="row">
-		<div class="col s12">
-			<div class="card" th:fragment="inscricoes">
-				<div class="card-content details">
-					<h5 class="title light">Inscrições para Entrevista</h5>
-					<div class="row">
-						<div class="col s6">
-							<table id="inscricoes" class="display nowrap striped bordered lighten-1" cellspacing="0" width="100%">
-								<thead>
-									<tr>
-										<th>Aluno</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="inscricao : ${inscricoes}">
-										<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
 </section>
 
 </body>

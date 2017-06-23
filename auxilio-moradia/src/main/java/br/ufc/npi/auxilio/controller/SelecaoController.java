@@ -156,6 +156,34 @@ public class SelecaoController {
 		}
 		return REDIRECT_LISTAR_SELECAO;
 	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/agendamentoEntrevista/editar/{selecao}/{agendamento}")
+	public String editarAgendamentoEntrevistaForm(@PathVariable Selecao selecao, Model model,RedirectAttributes redirect, @PathVariable AgendamentoEntrevista agendamento) {
+		model.addAttribute("agendamento", agendamento);
+		model.addAttribute("selecao", selecao);
+		model.addAttribute("horario", HorarioEntrevista.values());
+		model.addAttribute("turno", Turno.values());
+		model.addAttribute("acao", "editar");
+		return AGENDAR_ENTREVISTA;
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PostMapping("/agendamentoEntrevista/editar/{selecao}/{agendamento}")
+	public String editarAgendamentoEntrevista(@PathVariable Selecao selecao, @PathVariable AgendamentoEntrevista agendamento, Authentication auth, Model model, RedirectAttributes redirect) {
+		agendamentoEntrevistaService.editar(agendamento);
+		redirect.addFlashAttribute(INFO, "AGENDAMENTO EDITADO");
+		return REDIRECT_LISTAR_SELECAO;
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping(value="/agendamentoEntrevista/excluir/{selecao}/{agendamento}")
+	public String excluirAgendamentoEntrevista(@PathVariable Selecao selecao, @PathVariable AgendamentoEntrevista agendamento, Authentication auth, 
+			RedirectAttributes redirect) throws AuxilioMoradiaException{
+		agendamentoEntrevistaService.excluirHorarioAgendamentoEntrevista(agendamento);
+			redirect.addFlashAttribute(INFO, "Horário deletado com sucesso");
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecao.getId();
+	}
 
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/documento/{selecao}/adicionar")

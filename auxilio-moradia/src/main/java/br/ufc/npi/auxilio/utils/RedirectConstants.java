@@ -28,4 +28,5 @@ public class RedirectConstants {
 	
 	//Entrevista
 	public static final String REDIRECT_AGENDAMENTO_ENTREVISTA = "redirect:/selecao/inscricoes/agendarEntrevista/";
+	
 }

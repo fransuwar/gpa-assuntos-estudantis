@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.AgendamentoEntrevista;
 import br.ufc.npi.auxilio.model.Inscricao;
+import br.ufc.npi.auxilio.model.Selecao;
+import br.ufc.npi.auxilio.model.Servidor;
 import br.ufc.npi.auxilio.repository.AgendamentoEntrevistaRepository;
 import br.ufc.npi.auxilio.service.AgendamentoEntrevistaService;
 import br.ufc.npi.auxilio.service.EmailService;
@@ -61,6 +63,28 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 			agendamento.removeInscricaoAgendamento(inscricao);
 			agendamentoEntrevistaRepository.save(agendamento);
 		}
+	}
+
+	@Override
+	public void excluirHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento) throws AuxilioMoradiaException {
+		if (agendamento.getInscricoes() == null) {
+			throw new AuxilioMoradiaException("O agendamento possui inscricões associadas");
+		}
+		agendamentoEntrevistaRepository.delete(agendamento);
+	}
+	
+	public AgendamentoEntrevista getById(Integer id){
+		return agendamentoEntrevistaRepository.findById(id);
+	}
+
+
+	@Override
+	public void editar(AgendamentoEntrevista agendamento) {
+		if(agendamento != null){
+			List<Inscricao> inscricoes = this.getById(agendamento.getId()).getInscricoes();
+			agendamento.setInscricoes(inscricoes);
+			agendamentoEntrevistaRepository.save(agendamento);
+		}		
 	}
 
 }

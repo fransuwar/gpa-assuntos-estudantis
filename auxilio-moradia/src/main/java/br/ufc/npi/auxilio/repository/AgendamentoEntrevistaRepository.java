@@ -11,6 +11,8 @@ import br.ufc.npi.auxilio.model.AgendamentoEntrevista;
 public interface AgendamentoEntrevistaRepository extends JpaRepository <AgendamentoEntrevista, Integer>{
 	
 	public abstract List<AgendamentoEntrevista> findAllByOrderByData();
+	
+	public abstract AgendamentoEntrevista findById(Integer id);
 
 	
 	
