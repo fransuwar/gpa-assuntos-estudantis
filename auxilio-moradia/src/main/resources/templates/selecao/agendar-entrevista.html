@@ -128,7 +128,7 @@
 											<input type="hidden" name="agendamento"
 												th:value="${agendamento.id}" />
 											<div class=" col s12">
-													<h5 class="title light col s10"
+													<h5 class="title light col s10 center"
 														th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')} + '  -  ' +${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}"
 													></h5>
 												<div class="col s2">
@@ -189,7 +189,7 @@
 											<input type="hidden" name="agendamento"
 												th:value="${agendamento.id}" />
 											<div class=" col s12">
-													<h5 class="title light col s10"
+													<h5 class="title light col s10 center"
 														th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')} + '  -  ' +${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}"
 													></h5>
 												<div class="col s2">
