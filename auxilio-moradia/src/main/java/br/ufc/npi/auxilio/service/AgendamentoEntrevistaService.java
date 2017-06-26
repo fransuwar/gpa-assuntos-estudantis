@@ -20,4 +20,6 @@ public interface AgendamentoEntrevistaService {
 	void excluirHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento) throws AuxilioMoradiaException;
 
 	void editar(AgendamentoEntrevista agendamento);
+	
+	List<AgendamentoEntrevista> findAllDatas(); 
 }

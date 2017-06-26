@@ -97,6 +97,10 @@ public class AgendamentoEntrevista {
 		}
 		this.inscricoes.remove(inscricao);
 	}
+
+
+	
+	
 	
 	
 }

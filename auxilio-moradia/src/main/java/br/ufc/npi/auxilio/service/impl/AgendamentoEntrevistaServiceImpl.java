@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.AgendamentoEntrevista;
 import br.ufc.npi.auxilio.model.Inscricao;
-import br.ufc.npi.auxilio.model.Selecao;
-import br.ufc.npi.auxilio.model.Servidor;
 import br.ufc.npi.auxilio.repository.AgendamentoEntrevistaRepository;
 import br.ufc.npi.auxilio.service.AgendamentoEntrevistaService;
 import br.ufc.npi.auxilio.service.EmailService;
@@ -30,11 +28,17 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	@Override
 	public Boolean adicionarHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento)
 			throws AuxilioMoradiaException {
-		if(agendamento != null){
+			List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaRepository.findAll();
+			if(agendamentos.size()!=0){
+				System.out.println(agendamento.getData() + " " + agendamento.getTurno()+ " +" + agendamento.getHorario());
+				for(AgendamentoEntrevista ea : agendamentos ){
+					if(ea.getData().equals(agendamento.getData()) && ea.getHorario().equals(agendamento.getHorario()) && ea.getTurno().equals(agendamento.getTurno())){
+						return false;
+					}
+				}
+			}
 			agendamentoEntrevistaRepository.save(agendamento);
 			return true;
-		}
-		return false;
 	}
 
 	@Override
@@ -85,6 +89,12 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 			agendamento.setInscricoes(inscricoes);
 			agendamentoEntrevistaRepository.save(agendamento);
 		}		
+	}
+
+	@Override
+	public List<AgendamentoEntrevista> findAllDatas() {
+		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaRepository.findDistinctDataBy();
+		return agendamentos;
 	}
 
 }

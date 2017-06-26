@@ -266,6 +266,7 @@ public class SelecaoController {
 	public String adicionarAgendamentoEntrevista(@PathVariable Selecao selecao, AgendamentoEntrevista agendamento, Authentication auth, 
 			RedirectAttributes redirect){
 		try {
+			
 			if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento))
 				redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTREVISTA);
 			else
@@ -360,12 +361,15 @@ public class SelecaoController {
 		List<Inscricao> inscricoes = inscricaoService.inscricoesParaEntrevista(selecao);
 		AgendamentoEntrevista ae = new AgendamentoEntrevista();
 		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findAll();
+		List<AgendamentoEntrevista> datas = agendamentoEntrevistaService.findAllDatas();
+		
 		model.addAttribute("inscricoes", inscricoes);
 		model.addAttribute("agendamentos", agendamentos);
 		model.addAttribute("selecao", selecao);
 		model.addAttribute("agendamento", ae);
 		model.addAttribute("horario", HorarioEntrevista.values());
 		model.addAttribute("turno", Turno.values());
+		model.addAttribute("datas", datas);
 		return AGENDAR_ENTREVISTA;
 	}
 }
