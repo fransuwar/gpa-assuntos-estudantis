@@ -3,7 +3,7 @@ package br.ufc.npi.auxilio.enums;
 
 public enum TipoSelecao {
 
-    AUXILIO_MORADIA("Auxílio Moradia"), INICIACAO_ACADEMICA("Iniciação Acadêmica"), AUXILIO_EMERGENCIAL("Auxílio Emergencial");
+	AUXILIO_EMERGENCIAL("Auxílio Emergencial"), AUXILIO_MORADIA("Auxílio Moradia"), INICIACAO_ACADEMICA("Iniciação Acadêmica");
 
     private String nome;
 
