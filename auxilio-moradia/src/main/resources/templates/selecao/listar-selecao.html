@@ -16,6 +16,13 @@
 			<div class="card">
 				<div class="card-content">
 					<h5 class="title light">Seleções</h5>
+					<div class="right">
+						<label for="filtro">Tipo Seleção</label>
+						<select id="filtro" name="filtro" onchange="filtra(this)">
+							<option value="vertodas">Ver todas as seleçoes</option>
+							<option th:each="tipoSelecao:${opcoesTipoSelecao}" th:value="${tipoSelecao}" th:text="'__${tipoSelecao.nome}__'"></option>
+						</select>
+					</div>
 					<!-- Nenhuma seleção cadastrada -->
 					<span class="boldtable-datatables blue-grey-text" th:if="${#lists.isEmpty(selecoes)}">Nenhuma seleção cadastrada</span>
 
@@ -31,7 +38,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="selecao:${selecoes}">
+							<tr th:each="selecao:${selecoes}" th:class="${selecao.tipo}">
 								<td th:text="${selecao.tipo.nome}"></td>
 								<td th:text="${selecao.ano}"></td>
 								<td th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
@@ -110,4 +117,8 @@
 		</div>
 	</div>
 </section>
+<section layout:fragment="js">
+	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>
+	
+	</section>
 </html>
