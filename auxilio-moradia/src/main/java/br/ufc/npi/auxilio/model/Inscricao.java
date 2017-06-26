@@ -480,50 +480,20 @@ public class Inscricao implements Comparable<Inscricao>{
 		}
 		
 		Double rendaPerCapita1 = 0D, rendaPerCapita2 = 0D;
-		if(this.getRendaPerCapita() == null)
-			rendaPerCapita1 = 0D;
-		else
+		if(this.getRendaPerCapita() != null)
 			rendaPerCapita1 = this.getRendaPerCapita();
 		if (this.getAnaliseDocumentacao() != null && this.getAnaliseDocumentacao().getRendaPerCapita() != null)
 			rendaPerCapita1 = this.getAnaliseDocumentacao().getRendaPerCapita();
-		if(o.getRendaPerCapita() == null)
-			rendaPerCapita2 = 0D;
-		else
+		if(o.getRendaPerCapita() != null)
 			rendaPerCapita2 = o.getRendaPerCapita();
 		if (o.getAnaliseDocumentacao() != null && o.getAnaliseDocumentacao().getRendaPerCapita() != null)
 			rendaPerCapita2 = o.getAnaliseDocumentacao().getRendaPerCapita();
 			
-		if(this.getAnaliseDocumentacao() == null && o.getAnaliseDocumentacao() == null && this.getResultado() == o.getResultado() && this.getQuestionario() != null ){
-			if ((this.getRendaPerCapita() < o.getRendaPerCapita())) {
+		if (rendaPerCapita1 < rendaPerCapita2) {
 			     return -1;
-			}
-			if ((this.getRendaPerCapita() > o.getRendaPerCapita())&& this.getResultado()==Resultado.INDEFERIDO) {
-			     return 1;
-			}
 		}
-		if (this.getAnaliseDocumentacao() != null && o.getAnaliseDocumentacao() == null && this.getResultado() == o.getResultado() && this.getQuestionario() != null ) {
-			if ((this.getAnaliseDocumentacao().getRendaPerCapita() < o.getRendaPerCapita())) {
-			     return -1;
-			}
-			if ((this.getAnaliseDocumentacao().getRendaPerCapita() > o.getRendaPerCapita())&& this.getResultado()==Resultado.INDEFERIDO) {
+		if (rendaPerCapita1 > rendaPerCapita2 || this.getResultado()==Resultado.INDEFERIDO) {
 			     return 1;
-			}
-		}
-		if (this.getAnaliseDocumentacao() == null && o.getAnaliseDocumentacao() != null && this.getResultado() == o.getResultado() && this.getQuestionario() != null ) {
-			if ((this.getRendaPerCapita() < o.getAnaliseDocumentacao().getRendaPerCapita())) {
-			     return -1;
-			}
-			if ((this.getRendaPerCapita() > o.getAnaliseDocumentacao().getRendaPerCapita())&& this.getResultado()==Resultado.INDEFERIDO) {
-			     return 1;
-			}
-		}
-		if (this.getAnaliseDocumentacao() != null && o.getAnaliseDocumentacao() != null && this.getResultado() == o.getResultado() && this.getQuestionario() != null ) {
-			if ((this.getAnaliseDocumentacao().getRendaPerCapita() < o.getAnaliseDocumentacao().getRendaPerCapita())) {
-			     return -1;
-			}
-			if ((this.getAnaliseDocumentacao().getRendaPerCapita() > o.getAnaliseDocumentacao().getRendaPerCapita())&& this.getResultado()==Resultado.INDEFERIDO) {
-			     return 1;
-			}
 		}
 		return 0;
 	}
