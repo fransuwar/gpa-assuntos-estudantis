@@ -422,16 +422,15 @@ public class InscricaoController {
 	@GetMapping("/resultadoSelecaoIndeferidos/{selecao}")
 	public String resultadoSelecaoIndeferidos(@PathVariable Selecao selecao, Model model){
 		model.addAttribute("inscricoes", inscricaoService.getIndeferidos(selecao));
-		model.addAttribute("tipoResultado", "Indeferidos");
+		model.addAttribute("resultadoGeral", "indeferidos");
 		return PAGINA_RESULTADO;
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/resultadoSelecao/{selecao}")
 	public String resultadoSelecao(@PathVariable Selecao selecao, Model model){
-		model.addAttribute("inscricoesDeferidas", inscricaoService.getSelecionados(selecao));
-		model.addAttribute("inscricoesIndeferidas", inscricaoService.getIndeferidos(selecao));
-		model.addAttribute("tipoResultado", "Selecionados");
+		model.addAttribute("deferidos", inscricaoService.getSelecionados(selecao));
+		model.addAttribute("indeferidos", inscricaoService.getIndeferidos(selecao));
 		return PAGINA_RESULTADO;
 	}
 
