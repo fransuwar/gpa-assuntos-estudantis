@@ -489,7 +489,7 @@ public class Inscricao implements Comparable<Inscricao>{
 		if (o.getAnaliseDocumentacao() != null && o.getAnaliseDocumentacao().getRendaPerCapita() != null)
 			rendaPerCapita2 = o.getAnaliseDocumentacao().getRendaPerCapita();
 			
-		if (rendaPerCapita1 < rendaPerCapita2) {
+		if (rendaPerCapita1 < rendaPerCapita2 && this.getResultado() != Resultado.INDEFERIDO) {
 			     return -1;
 		}
 		if (rendaPerCapita1 > rendaPerCapita2 || this.getResultado()==Resultado.INDEFERIDO) {
