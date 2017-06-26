@@ -133,7 +133,7 @@
 										</a>
 									</td>
 									<td th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">
-										<a th:if="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.parecer != null}" th:href="@{/visita/__${inscricao.id}__}">
+										<a th:if="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.resultado != null}" th:href="@{/visita/__${inscricao.id}__}">
 											<div th:if="${inscricao.visitaDomiciliar.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1">
 												Não Avaliado
 											</div>
@@ -144,7 +144,7 @@
 												Indeferido
 											</div>
 										</a>
-										<a th:unless="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.parecer != null}" th:href="@{/visita/__${inscricao.id}__}">
+										<a th:unless="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.resultado != null}" th:href="@{/visita/__${inscricao.id}__}">
 											<div class="chip grey lighten-1">
 												Não Avaliado
 											</div>
