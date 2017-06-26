@@ -66,6 +66,7 @@ public class SelecaoController {
 			}
 			model.addAttribute("inscricaoSelecao", inscricaoSelecao);
 		}
+		model.addAttribute("opcoesTipoSelecao", TipoSelecao.values());	
 		model.addAttribute("selecoes", selecoes);
 		return PageConstants.LISTAR_SELECAO;
 	}
@@ -116,7 +117,7 @@ public class SelecaoController {
 		try {
 			selecaoService.cadastrar(selecao);
 			redirect.addFlashAttribute(INFO, MSG_SELECAO_CADASTRADA);
-			return REDIRECT_LISTAR_SELECAO;
+			return REDIRECT_DETALHES_SELECAO+selecao.getId();
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_CADASTRAR_SELECAO;
