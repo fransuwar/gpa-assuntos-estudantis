@@ -19,7 +19,7 @@
 					<div class="right">
 						<label for="filtro">Tipo Seleção</label>
 						<select id="filtro" name="filtro" onchange="filtra(this)">
-							<option value="vertodas">Ver todas as seleçoes</option>
+							<option value="vertodas">Todas</option>
 							<option th:each="tipoSelecao:${opcoesTipoSelecao}" th:value="${tipoSelecao}" th:text="'__${tipoSelecao.nome}__'"></option>
 						</select>
 					</div>
