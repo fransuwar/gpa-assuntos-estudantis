@@ -112,7 +112,7 @@
 	            	<h5 class="title light">Parecer</h5>
 						<div class="row">
 							<div class="col s12 input-field">
-								<select th:field="*{parecer}" id="resultado">
+								<select th:field="*{resultado}" id="resultado">
           							<option th:each="resultado : ${resultados}" th:value="${resultado}" th:text="${resultado}"></option>
           						</select>
           						<label class="title light">Resultado</label>

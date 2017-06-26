@@ -479,6 +479,20 @@ public class Inscricao implements Comparable<Inscricao>{
 			return 1;
 		}
 		
+		Double rendaPerCapita1, rendaPerCapita2;
+		if(this.getRendaPerCapita() == null)
+			rendaPerCapita1 = 0D;
+		else
+			rendaPerCapita1 = this.getRendaPerCapita();
+		if (this.getAnaliseDocumentacao() != null && this.getAnaliseDocumentacao().getRendaPerCapita() != null)
+			rendaPerCapita1 = this.getAnaliseDocumentacao().getRendaPerCapita();
+		if(o.getRendaPerCapita() == null)
+			rendaPerCapita2 = 0D;
+		else
+			rendaPerCapita2 = o.getRendaPerCapita();
+		if (o.getAnaliseDocumentacao() != null && o.getAnaliseDocumentacao().getRendaPerCapita() != null)
+			rendaPerCapita2 = o.getAnaliseDocumentacao().getRendaPerCapita();
+			
 		if(this.getAnaliseDocumentacao() == null && o.getAnaliseDocumentacao() == null && this.getResultado() == o.getResultado() && this.getQuestionario() != null ){
 			if ((this.getRendaPerCapita() < o.getRendaPerCapita())) {
 			     return -1;
