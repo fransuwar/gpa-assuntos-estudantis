@@ -479,7 +479,7 @@ public class Inscricao implements Comparable<Inscricao>{
 			return 1;
 		}
 		
-		Double rendaPerCapita1, rendaPerCapita2;
+		Double rendaPerCapita1 = 0D, rendaPerCapita2 = 0D;
 		if(this.getRendaPerCapita() == null)
 			rendaPerCapita1 = 0D;
 		else
