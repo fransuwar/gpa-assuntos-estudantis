@@ -479,15 +479,22 @@ public class Inscricao implements Comparable<Inscricao>{
 			return 1;
 		}
 		
-		if(this.getResultado() == o.getResultado() && this.getQuestionario() != null ){
-			if ((this.getRendaPerCapita() < o.getRendaPerCapita())) {
+		Double rendaPerCapita1 = 0D, rendaPerCapita2 = 0D;
+		if(this.getRendaPerCapita() != null)
+			rendaPerCapita1 = this.getRendaPerCapita();
+		if (this.getAnaliseDocumentacao() != null && this.getAnaliseDocumentacao().getRendaPerCapita() != null)
+			rendaPerCapita1 = this.getAnaliseDocumentacao().getRendaPerCapita();
+		if(o.getRendaPerCapita() != null)
+			rendaPerCapita2 = o.getRendaPerCapita();
+		if (o.getAnaliseDocumentacao() != null && o.getAnaliseDocumentacao().getRendaPerCapita() != null)
+			rendaPerCapita2 = o.getAnaliseDocumentacao().getRendaPerCapita();
+			
+		if (rendaPerCapita1 < rendaPerCapita2 && this.getResultado() != Resultado.INDEFERIDO) {
 			     return -1;
-			}
-			if ((this.getRendaPerCapita() > o.getRendaPerCapita())&& this.getResultado()==Resultado.INDEFERIDO) {
-			     return 1;
-			}
 		}
-		
+		if (rendaPerCapita1 > rendaPerCapita2 || this.getResultado()==Resultado.INDEFERIDO) {
+			     return 1;
+		}
 		return 0;
 	}
 

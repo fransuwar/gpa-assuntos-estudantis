@@ -40,7 +40,7 @@
 				</div>
 			</div>
 		</div>
-       	<form th:action="@{/documentacao/inscricao/__${inscricao.id}__}" th:object="${analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
+       	<form  data-model="analiseDocumentacao" th:action="@{/documentacao/inscricao/__${inscricao.id}__}" th:object="${analiseDocumentacao}" th:method="post" enctype="multipart/form-data">
        			<div class="card">
        				<div class="card-content">
        					<h5 class="title light">Dados</h5>
@@ -129,8 +129,8 @@
 								<td th:text="${tipoDocumento.nome}"></td>
 								<td th:text="${tipoDocumento.descricao}"></td>
 								<td>
-									<div th:if="${inscricao.analiseDocumentacao}">
-										<div th:each="documentacao : ${inscricao.analiseDocumentacao.documentacao}">
+									<div th:if="${analiseDocumentacao}">
+										<div th:each="documentacao : ${analiseDocumentacao.documentacao}">
 											<ul class="row" th:if="${documentacao.tipoDocumento.nome == tipoDocumento.nome}">
 												<li class="col s1" th:each="documento : ${documentacao.documentos}">
 				       								<a th:href="@{/documentacao/documento/__${inscricao.id}__/download/__${documento.id}__}" class="tooltipped" data-position="left" data-delay="50" th:attr="data-tooltip=${documento.nome}">
@@ -151,7 +151,7 @@
         			<div class="card-content">
 						<h5 class="title light">Parecer</h5>
 							<div class="col s4 input-field">
-								<select id="parecer" th:field="*{parecer}">
+								<select id="parecer" th:field="*{resultado}">
 									<option th:each="tipoResultado : ${resultado}" th:value="${tipoResultado}" th:text="${tipoResultado}"></option>
 								</select>
 								<label for="parecer">Resultado</label>
@@ -166,7 +166,7 @@
 						<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
 					</div>
         		</div>
-			</form>
+			</form>resultado
 	       	
         	
     </div>
