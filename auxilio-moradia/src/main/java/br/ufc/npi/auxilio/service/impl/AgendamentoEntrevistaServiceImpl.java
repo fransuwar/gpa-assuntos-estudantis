@@ -48,7 +48,7 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 
 	@Override
 	public boolean alocarAgendamentoEntrevista(AgendamentoEntrevista agendamento, Inscricao inscricao) throws AuxilioMoradiaException {
-		if (inscricao != null && agendamento != null) {
+		if(inscricao != null && agendamento != null) {
 			Boolean b  = agendamento.alocaAgendamentoEntrevista(inscricao);
 			inscricao.setEntrevistaAgendada(1);
 			inscricaoService.atualizar(inscricao);
