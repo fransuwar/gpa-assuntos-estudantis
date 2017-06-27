@@ -26,29 +26,31 @@
 		<div class="card">
 			<div class="card-content">
 				<div class="col s12">
-				<ul class="tabs">
-					<li class="tab col s6"><a href="#alunos-deferidos">DEFERIDOS</a></li>
-				 	<li class="tab col s6"><a href="#alunos-indeferidos">INDEFERIDOS</a></li>
-				 </ul>
+					<ul class="tabs">
+						<li class="tab col s6"><a href="#alunos-deferidos">DEFERIDOS</a></li>
+					 	<li class="tab col s6"><a href="#alunos-indeferidos">INDEFERIDOS</a></li>
+					 </ul>
 				 </div>
-				<!-- Nenhuma inscrição realizada -->
-				<span class="blue-grey-text" th:if="${#lists.isEmpty(deferidos)}">Nenhum Aluno selecionado</span>
 
 				<!-- Inscrições Deferidas-->
-				<div id="alunos-deferidos" class="row" th:unless="${#lists.isEmpty(deferidos)}">
-					<div class="col s12">
-						<div class="fixed-action-btn">
-							<a class="btn-floating btn-large deep-purple lighteen 1">
-								<i class="large material-icons">menu</i>
-							</a>
-							<ul id="float_relatorio">
-							</ul>
+				<div id="alunos-deferidos">
+					<!-- Nenhuma inscrição realizada -->
+					<span class="blue-grey-text" th:if="${#lists.isEmpty(deferidos)}">Nenhum Aluno selecionado</span>
+					
+					<div class="row" th:unless="${#lists.isEmpty(deferidos)}">
+						<div class="col s12">
+							<div class="fixed-action-btn">
+								<a class="btn-floating btn-large deep-purple lighteen 1">
+									<i class="large material-icons">menu</i>
+								</a>
+								<ul id="float_relatorio">
+								</ul>
+							</div>
 						</div>
-						
-						<table id="inscricoes" class=" striped bordered" cellspacing="0" width="100%">
+						<table id="inscricoes" class="striped bordered" cellspacing="0" width="100%">
 							<thead>
 								<tr>
-									<th class="pull-left">Aluno</th>
+									<th>Aluno</th>
 									<th>Curso</th>
 								</tr>
 							</thead>
@@ -63,17 +65,21 @@
 				</div>
 				
 				<!-- Inscrições InDeferidas-->
-				<div id="alunos-indeferidos" class="row" th:unless="${#lists.isEmpty(indeferidos)}">
-					<div class="col s12">
-						<div class="fixed-action-btn">
-							<a class="btn-floating btn-large deep-purple lighteen 1">
-								<i class="large material-icons">menu</i>
-							</a>
-							<ul id="float_relatorio_indeferidos">
-							</ul>
+				<div id="alunos-indeferidos" >
+					<!-- Nenhuma inscrição realizada -->
+					<span class="blue-grey-text" th:if="${#lists.isEmpty(indeferidos)}">Nenhum Aluno indeferido</span>
+							
+					<div class="row" th:unless="${#lists.isEmpty(indeferidos)}">
+						<div class="col s12">
+							<div class="fixed-action-btn">
+								<a class="btn-floating btn-large deep-purple lighteen 1">
+									<i class="large material-icons">menu</i>
+								</a>
+								<ul id="float_relatorio_indeferidos">
+								</ul>
+							</div>
 						</div>
-						
-						<table id="inscricoes-indeferidas" class=" striped bordered" cellspacing="0" width="100%">
+						<table id="inscricoes-indeferidas" class="striped bordered" cellspacing="0" width="100%">
 							<thead>
 								<tr>
 									<th>Aluno</th>
@@ -89,7 +95,6 @@
 						</table>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 	</div>

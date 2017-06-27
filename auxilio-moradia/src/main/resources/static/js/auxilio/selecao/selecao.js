@@ -3,11 +3,11 @@ $(document).ready(function() {
 	$("#inicio").mask("00/00/0000");
 	$("#termino").mask("00/00/0000");
 	
+	
+	//tabela referente ao resultado final - indeferidas
 	var table = $("#inscricoes-indeferidas").DataTable({
-        "scrollX": true,
         "paging": false,
         "ordering": false,
-        "responsive": true,
         dom: 'Blrtp',
         buttons: [
             {
@@ -34,7 +34,6 @@ $(document).ready(function() {
             "sLoadingRecords": "Carregando...",
             "sProcessing": "Processando...",
             "sZeroRecords": "Nenhum registro encontrado",
-            "sSearch": "Pesquisar",
             "oPaginate": {
                 "sNext": "Próximo",
                 "sPrevious": "Anterior",
@@ -47,6 +46,7 @@ $(document).ready(function() {
             }
         }
     });
+	
 	
     //Alocação dos botões do dataTables dentro de um FAB do materialize
     if(table.buttons){
