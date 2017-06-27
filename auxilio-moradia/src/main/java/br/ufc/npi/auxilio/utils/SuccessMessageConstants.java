@@ -28,6 +28,11 @@ public class SuccessMessageConstants {
 	
 	/*Entrevista*/
 	public static final String MSG_SUCESSO_ENTREVISTA = "Entrevista cadastrada com sucesso";
+	
+	/*Visita Domiciliar*/
+	public static final String MSG_SUCESSO_VISITA = "Visita Domiciliar cadastrada com sucesso";
 
+	/*Analise Documentação*/
+	public static final String MSG_SUCESSO_ANALISE_DOCUMENTACAO = "Análise de Documentos cadastrada com sucesso";
 
 } 

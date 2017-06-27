@@ -44,11 +44,11 @@
 					</div>
 
 					<!-- Nenhuma inscrição realizada -->
-					<span class="blue-grey-text" th:if="${#lists.isEmpty(selecao.inscricoes)}">Nenhuma inscrição realizada</span>
+					<span class="blue-grey-text" th:if="${#lists.isEmpty(inscricoes)}">Nenhuma inscrição realizada</span>
 
 
 					<!-- Inscrições -->
-					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
+					<div class="row" th:unless="${#lists.isEmpty(inscricoes)}">
 						<div class="fixed-action-btn">
 							<a class="btn-floating btn-large deep-purple lighteen 1">
 								<i class="large material-icons">menu</i>

@@ -278,6 +278,9 @@ public class SelecaoController {
 	@GetMapping("/inscricoes/relatorio/{selecao}")
 	public String listarInscricoesGeral(@PathVariable Selecao selecao, Authentication auth, Model model) {
 		model.addAttribute("selecao", selecao);
+		List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
+		Collections.sort(inscricoes);
+		model.addAttribute("inscricoes", inscricoes);
 		return LISTAR_INSCRICOES;
 	}
 
