@@ -28,7 +28,7 @@
 								<label for="tipo">* Tipo da seleção</label>
 							</div>
 							<div class="col s2 input-field">
-								<input th:field="*{ano}" type="text" class="validate" id="ano" required="required" maxlength="4"/>
+								<input th:field="*{ano}" type="number" class="validate" id="ano" required="required" maxlength="4"/>
 								<label for="ano">* Ano</label>
 							</div>
 							<div class="col s2 input-field">
@@ -40,7 +40,7 @@
 								<label for="termino">* Término das Incrições</label>
 							</div>
 							<div class="col s2 input-field">
-								<input th:field="*{quantidadeVagas}" type="text" class="integer" id="vagas"/>
+								<input th:field="*{quantidadeVagas}" type="number" class="integer" id="vagas"/>
 								<label for="vagas">Vagas</label>
 							</div>
 						</div>
