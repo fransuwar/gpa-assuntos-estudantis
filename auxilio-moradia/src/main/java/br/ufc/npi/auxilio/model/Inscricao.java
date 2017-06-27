@@ -472,7 +472,7 @@ public class Inscricao implements Comparable<Inscricao>{
 	
 	public void verificarResultado(){
 		Integer result = this.converterResultado(this.analiseDocumentacao) + this.converterResultado(entrevista) + this.converterResultado(visitaDomiciliar);
-		if(result == 2 && !(this.selecao.getTipo()==TipoSelecao.AUXILIO_MORADIA)){
+		if(result == 2 && this.selecao.getTipo()!=TipoSelecao.AUXILIO_MORADIA){
 			this.setResultado(Resultado.DEFERIDO);
 		}else if(result ==3){
 			this.setResultado(Resultado.DEFERIDO);
