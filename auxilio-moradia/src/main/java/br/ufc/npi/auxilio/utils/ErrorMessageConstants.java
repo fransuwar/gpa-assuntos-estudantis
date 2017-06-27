@@ -16,7 +16,10 @@ public class ErrorMessageConstants {
 	public static final String MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO = "O membro já foi adicionado";
 	public static final String MENSAGEM_ERRO_AGENDAMENTO_ENTREVISTA = "Erro ao inserir agendamento de entrevista";
 
-	/* Entrevista Agendamento */
+	/* Entrevista Agendamento alocacao*/
+
+	
+	
 	/* Inscrição */
 	public static final String MENSAGEM_ERRO_INSCRICAO_INEXISTENTE = "Você não possui nenhuma inscrição para essa seleção";
 	public static final String MENSAGEM_ERRO_REALIZAR_INSCRICAO = "Erro ao realizar inscrição";

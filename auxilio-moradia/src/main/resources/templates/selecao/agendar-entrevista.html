@@ -16,7 +16,7 @@
 					<h5 th:text="${acao == 'editar' ? 'Edição de Horários para Entrevista' : 'Cadastro de Horários para Entrevista'}" class="title light"></h5>
 					<div class="row">
 						<div class="col s12">
-						<form  data-model="agendamento" th:action="@{/selecao/agendamentoEntrevista/adicionar/__${selecao.id}__}" th:object="${agendamento}" method="post">
+						<form  data-model="agendamento" th:action="@{${acao == 'editar' ? '/selecao/agendamentoEntrevista/editar/__${selecao.id}__' : '/selecao/agendamentoEntrevista/adicionar/__${selecao.id}__'}	}" th:object="${agendamento}" method="post">
 							<input type="hidden" th:field="*{id}"/>
 							<div class="col s12">
 									<div class="col s3 input-field">
@@ -25,7 +25,9 @@
 									</div>
 									<div class="col s3 input-field">
 										<select id="turno" th:field="*{turno}" class="validate" required="required">
-											<option th:each="turno : ${turno}" th:value="${turno}" th:text="${turno.nome}"></option>
+											<option th:each="turno : ${turno}" 
+											th:value="${turno}" 
+											th:text="${turno.nome}"></option>
 										</select>
 									    <label>Turno</label>
 									</div>
@@ -62,14 +64,14 @@
 									<div th:each="agendamento : ${agendamentos}">
 										<ul class="collapsible popout " data-collapsible="accordion">
 											<li>
-												<div th:if="${data == agendamento.data}" th:text="${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}" class="collapsible-header center white-text"></div>
+												<div th:if="${data == agendamento.data}" th:text="${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}" class="collapsible-header center white-text "></div>
 													<div class="card collapsible-body">
 														<form
 															th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
 															method="post" th:object="${agendamento}">
 															<input type="hidden" name="agendamento" th:value="${agendamento.id}" />
-															<div class=" col s10">
-																<div class="input-field col s8">
+															<div class=" col s12">
+																<div class="input-field col s6">
 																	<select name="inscricao">
 																		<option th:each="inscricao : ${inscricoes}"
 																			th:value="${inscricao.id}"
@@ -77,8 +79,9 @@
 																	</select> 
 																	<label>Aluno</label>
 																</div>
-																
-																<div class="col s2 right">
+																<div class="input-field col s6">
+																	<button type="submit" class="waves-effect waves-light btn col s7">Adicionar</button>
+																	<div class="col s1 offset-s4">
 																	<a class="btn-icon waves-effect tooltipped"
 																     		th:href="@{/selecao/agendamentoEntrevista/editar/__${selecao.id}__/__${agendamento.id}__}"
 																     		th:attr="data-tooltip='Editar'">
@@ -90,11 +93,8 @@
 																     		<i class="material-icons">delete</i>
 																		</a>
 																	</div>
-																<div class="input-field col s3">
-																	<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
 																</div>
 															</div>
-															
 														</form>
 														
 														<div class="row"></div>

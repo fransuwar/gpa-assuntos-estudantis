@@ -169,11 +169,11 @@ public class SelecaoController {
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@PostMapping("/agendamentoEntrevista/editar/{selecao}/{agendamento}")
-	public String editarAgendamentoEntrevista(@PathVariable Selecao selecao, @PathVariable AgendamentoEntrevista agendamento, Authentication auth, Model model, RedirectAttributes redirect) {
+	@PostMapping("/agendamentoEntrevista/editar/{selecao}")
+	public String editarAgendamentoEntrevista(@PathVariable Selecao selecao, AgendamentoEntrevista agendamento, Authentication auth, Model model, RedirectAttributes redirect) {
 		agendamentoEntrevistaService.editar(agendamento);
-		redirect.addFlashAttribute(INFO, "AGENDAMENTO EDITADO");
-		return REDIRECT_LISTAR_SELECAO;
+		redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTRVISTA_EDICAO);
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecao.getId();
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
@@ -181,7 +181,7 @@ public class SelecaoController {
 	public String excluirAgendamentoEntrevista(@PathVariable Selecao selecao, @PathVariable AgendamentoEntrevista agendamento, Authentication auth, 
 			RedirectAttributes redirect) throws AuxilioMoradiaException{
 		agendamentoEntrevistaService.excluirHorarioAgendamentoEntrevista(agendamento);
-			redirect.addFlashAttribute(INFO, "Horário deletado com sucesso");
+			redirect.addFlashAttribute(INFO, MSG_SUCESSO_HORARIO_REMOVIDO);
 		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecao.getId();
 	}
 
@@ -256,7 +256,7 @@ public class SelecaoController {
 		if (agendamentoEntrevistaService.alocarAgendamentoEntrevista(agendamento, inscricao))
 			redirect.addFlashAttribute(INFO, MSG_SUCESSO_ALOCACAO_INSCRICAO_AGENDAMENTO_ADICIONADA);
 		else
-			redirect.addFlashAttribute(ERRO, "ERRO AO ALOCAR");
+			redirect.addFlashAttribute(ERRO, "Erro ao realizar alocação nesse horário");
 		
 		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + agendamento.getInscricoes().get(0).getSelecao().getId();
 	}

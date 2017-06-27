@@ -31,7 +31,6 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 			throws AuxilioMoradiaException {
 			List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaRepository.findAll();
 			if(agendamentos.size()!=0){
-				System.out.println(agendamento.getData() + " " + agendamento.getTurno()+ " +" + agendamento.getHorario());
 				for(AgendamentoEntrevista ea : agendamentos ){
 					if(ea.getData().equals(agendamento.getData()) && ea.getHorario().equals(agendamento.getHorario()) && ea.getTurno().equals(agendamento.getTurno())){
 						return false;
@@ -73,19 +72,20 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	@Override
 	public void excluirHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento) throws AuxilioMoradiaException {
 		if (agendamento.getInscricoes() != null) {
+			for(int i = 0; i < agendamento.getInscricoes().size(); i++)
+			{
+				agendamento.getInscricoes().get(i).setEntrevistaAgendada(0);
+			}
 			agendamentoEntrevistaRepository.delete(agendamento);
 		}
 		else{
 			throw new AuxilioMoradiaException("O agendamento possui inscricões associadas");
 		}
-
-	
 	}
 	
 	public AgendamentoEntrevista getById(Integer id){
 		return agendamentoEntrevistaRepository.findById(id);
 	}
-
 
 	@Override
 	public void editar(AgendamentoEntrevista agendamento) {
