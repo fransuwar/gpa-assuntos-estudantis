@@ -126,8 +126,8 @@ span.bold {
 
 #lupa.active{
  font-size: 0.8rem;
- -webkit-transform: translateY(-50%);
-         transform: translateY(-50%);
+ -webkit-transform: translateY(-25%);
+         transform: translateY(-25%);
 }
 
 .breadcrumb{

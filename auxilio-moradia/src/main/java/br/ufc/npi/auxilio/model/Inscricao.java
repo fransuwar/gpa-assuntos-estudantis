@@ -7,6 +7,8 @@ import br.ufc.npi.auxilio.model.questionario.Moradia;
 import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
 
 import javax.persistence.*;
+
+
 import java.time.LocalDateTime;
 
 @Entity
