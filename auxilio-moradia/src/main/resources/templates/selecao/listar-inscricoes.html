@@ -131,12 +131,10 @@
 									<td th:if= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.energia != null}" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.analiseDocumentacao.energia,1, 'POINT', 2, 'COMMA')}"></td>
 									<td th:unless= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.energia != null}" th:text="'-'"></td>
 									
-									
-									
-									
 								</tr>
 								</tbody>
-							</table>
+							
+						</table>
 								<div class="hide">
 								<table style="visibility:hidden" id="pagamento" class="display nowrap striped bordered" cellspacing="0" width="100%">
 									
@@ -160,6 +158,7 @@
 									</tbody>
 								</table>
 								</div>
+						
 						</div>
 					</div>
 				</div>
