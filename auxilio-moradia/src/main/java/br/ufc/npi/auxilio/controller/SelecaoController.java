@@ -71,6 +71,7 @@ public class SelecaoController {
 			}
 			model.addAttribute("inscricaoSelecao", inscricaoSelecao);
 		}
+		model.addAttribute("opcoesTipoSelecao", TipoSelecao.values());	
 		model.addAttribute("selecoes", selecoes);
 		return PageConstants.LISTAR_SELECAO;
 	}
@@ -121,7 +122,7 @@ public class SelecaoController {
 		try {
 			selecaoService.cadastrar(selecao);
 			redirect.addFlashAttribute(INFO, MSG_SELECAO_CADASTRADA);
-			return REDIRECT_LISTAR_SELECAO;
+			return REDIRECT_DETALHES_SELECAO+selecao.getId();
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 			return REDIRECT_CADASTRAR_SELECAO;
@@ -255,9 +256,6 @@ public class SelecaoController {
 			 RedirectAttributes redirect) throws AuxilioMoradiaException{
 		if (agendamentoEntrevistaService.alocarAgendamentoEntrevista(agendamento, inscricao))
 			redirect.addFlashAttribute(INFO, MSG_SUCESSO_ALOCACAO_INSCRICAO_AGENDAMENTO_ADICIONADA);
-		else
-			redirect.addFlashAttribute(ERRO, "Erro ao realizar alocação nesse horário");
-		
 		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + agendamento.getInscricoes().get(0).getSelecao().getId();
 	}
 	

@@ -42,7 +42,7 @@ public class AnaliseDocumentacao {
 	private Double rendaPerCapita;
 	
 	private Integer grupoFamiliar;
-		
+	
 	private Double energia;
 	
 	private String observacoes;
@@ -55,6 +55,7 @@ public class AnaliseDocumentacao {
 	
 	@ManyToMany(mappedBy = "analiseDocumentacao", cascade = CascadeType.REMOVE)
 	private List<Documentacao> documentacao;
+	
 	
 	public Double getEnergia() {
 		return energia;
@@ -179,5 +180,4 @@ public class AnaliseDocumentacao {
 	public void setGrupoFamiliar(Integer grupoFamiliar) {
 		this.grupoFamiliar = grupoFamiliar;
 	}
-
 }

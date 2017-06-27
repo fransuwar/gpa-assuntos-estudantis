@@ -39,7 +39,7 @@ public class VisitaDomiciliar {
 	private Documento formulario;
 
 	@Enumerated(EnumType.STRING)
-	private Resultado parecer;
+	private Resultado resultado;
 
 	@OneToMany
 	private List<Documento> imagens;
@@ -99,12 +99,12 @@ public class VisitaDomiciliar {
 		this.responsavel = responsavel;
 	}
 
-	public Resultado getParecer() {
-		return parecer;
+	public Resultado getResultado() {
+		return resultado;
 	}
 
-	public void setParecer(Resultado parecer) {
-		this.parecer = parecer;
+	public void setResultado(Resultado resultado) {
+		this.resultado = resultado;
 	}
 		
 	public String getObservacoes() {
