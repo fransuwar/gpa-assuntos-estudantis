@@ -68,7 +68,7 @@
 					<div class="card-content">
 						<h5 class="title light">Arquivos Auxiliares</h5>
 						<div class="row no-margin">
-							<div class="col s3">
+							<div class="col s4">
 								<h6 class="title light">Formulário</h6>
 								<div class="file-field input-field">
 							      <div class="btn">
@@ -80,12 +80,17 @@
 							      </div>
 							    </div>
 							    <div class="card" th:if="${visita.formulario != null}">
+									<div class="card-image deep-purple text-right" sec:authorize="hasAuthority('COORDENADOR')">
+										<a title="Excluir" th:href="@{/visita/documento/__${inscricao.id}__/excluirformulario}" class="btn-icon waves-effect">
+											<i class="material-icons text-30 white-text">clear</i>
+										</a>
+									</div>
 									<a title="Download" th:href="@{/visita/documento/__${inscricao.id}__/download/__${visita.formulario.id}__}" class="btn-icon waves-effect top-right-hover">
 										<span class="limit valign-wrapper card-action" data-max-length="8" th:text="${visita.formulario.nome}"></span>
 									</a>
 								</div>
 	          				</div>
-	          				<div class="col s9">
+	          				<div class="col s8">
 								<h6 class="title light">Imagens</h6>
 								<div class="file-field input-field">
 							      <div class="btn">
@@ -97,7 +102,12 @@
 							      </div>
 							    </div>
 							    <div th:if="${visita.imagens != null}">
-									<div class="card" th:each="imagem : ${visita.imagens}">
+									<div class="card col s6" th:each="imagem : ${visita.imagens}">
+										<div class="card-image deep-purple text-right" sec:authorize="hasAuthority('COORDENADOR')">
+											<a title="Excluir" th:href="@{/visita/documento/__${inscricao.id}__/excluir/__${imagem.id}__}" class="btn-icon waves-effect">
+												<i class="material-icons text-30 white-text">clear</i>
+											</a>
+										</div>
 										<a title="Download" th:href="@{/visita/documento/__${inscricao.id}__/download/__${imagem.id}__}" class="btn-icon waves-effect top-right-hover">
 											<span class="limit valign-wrapper card-action" data-max-length="8" th:text="${imagem.nome}"></span>
 										</a>

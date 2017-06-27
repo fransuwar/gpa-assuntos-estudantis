@@ -17,6 +17,8 @@ public interface VisitaService {
 	
 	void adicionarImagens(VisitaDomiciliar visitaDomiciliar, MultipartFile file) throws IOException, AuxilioMoradiaException;
 	
+	void excluirDocumento(VisitaDomiciliar visitaDomiciliar,Documento documento) throws AuxilioMoradiaException;
+	
 	DocumentoDownload downloadDocumento(Documento documento, String procedimento);
 	
 	Documento buscarDocumento(Documento documento) throws AuxilioMoradiaException;

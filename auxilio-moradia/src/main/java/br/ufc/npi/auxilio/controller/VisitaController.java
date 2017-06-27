@@ -5,6 +5,7 @@ import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO;
 
 import java.io.IOException;
 import java.util.List;
@@ -145,6 +146,21 @@ public class VisitaController {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 		}
 		return null;
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/documento/{inscricao}/excluir/{documento}")
+	public String excluirImagem(@PathVariable Inscricao inscricao, @PathVariable Documento documento, RedirectAttributes redirect) {
+		try {
+			if(inscricao != null && documento != null) {
+				documento = visitaService.buscarDocumento(documento);
+				visitaService.excluirDocumento(inscricao.getVisitaDomiciliar(), documento);
+				redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_REMOVIDO);
+			}
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+		}
+		return RedirectConstants.REDIRECT_VISITA_DOMICILIAR + inscricao.getId();
 	}
 
 	@ModelAttribute("resultados")

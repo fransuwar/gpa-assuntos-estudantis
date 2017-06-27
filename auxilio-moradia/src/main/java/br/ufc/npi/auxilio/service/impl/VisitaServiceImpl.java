@@ -1,6 +1,7 @@
 package br.ufc.npi.auxilio.service.impl;
 
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_BUSCAR_ARQUIVO;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_EXCLUIR_ARQUIVO;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS;
 
 import java.io.File;
@@ -140,5 +141,17 @@ public class VisitaServiceImpl implements VisitaService{
 		}
 	}
 
+	@Override
+	public void excluirDocumento(VisitaDomiciliar visitaDomiciliar, Documento documento) throws AuxilioMoradiaException {
+		if (visitaDomiciliar != null && documento != null && visitaDomiciliar.getImagens().contains(documento)) {
+			visitaDomiciliar.removeImagem(documento);
+			this.salvar(visitaDomiciliar);
+			File file = new File(documento.getCaminho() + "/" + documento.getNome());
+			file.delete();
+			documentoRepository.delete(documento);
+		} else {
+			throw new AuxilioMoradiaException(MENSAGEM_ERRO_EXCLUIR_ARQUIVO);
+		}
+	}
 
 }
