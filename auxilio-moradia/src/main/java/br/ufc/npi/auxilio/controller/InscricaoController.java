@@ -418,13 +418,6 @@ public class InscricaoController {
 		else
 			return new Response().withFailStatus().withErrorMessage("Error ao selecionar esta inscricao");
 	}
-	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@GetMapping("/resultadoSelecaoIndeferidos/{selecao}")
-	public String resultadoSelecaoIndeferidos(@PathVariable Selecao selecao, Model model){
-		model.addAttribute("inscricoes", inscricaoService.getIndeferidos(selecao));
-		model.addAttribute("resultadoGeral", "indeferidos");
-		return PAGINA_RESULTADO;
-	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/resultadoSelecao/{selecao}")
