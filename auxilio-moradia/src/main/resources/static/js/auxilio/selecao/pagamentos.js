@@ -6,7 +6,7 @@ $(document).ready(function(){
 dom: "Blrtp",
 buttons: [
 {
-	text: '<i class="material-icons">payment</i>',
+	text: "<i class='material-icons'>payment</i>",
 	extend: "pdfHtml5",
 	title: "Lista - Pagamento",
 	orientation: "portrait",
