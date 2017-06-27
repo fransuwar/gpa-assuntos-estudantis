@@ -360,8 +360,8 @@ public class SelecaoController {
 	public String agendarEntrevista(@PathVariable Selecao selecao, Authentication auth, Model model){
 		List<Inscricao> inscricoes = inscricaoService.inscricoesParaEntrevista(selecao);
 		AgendamentoEntrevista ae = new AgendamentoEntrevista();
-		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findAll();
-		List<AgendamentoEntrevista> datas = agendamentoEntrevistaService.findAllDatas();
+		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findAll(selecao);
+		List<AgendamentoEntrevista> datas = agendamentoEntrevistaService.findAllDatas(selecao);
 		
 		model.addAttribute("inscricoes", inscricoes);
 		model.addAttribute("agendamentos", agendamentos);

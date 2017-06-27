@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,7 +38,16 @@ public class AgendamentoEntrevista {
 	@OneToMany
 	private List<Inscricao> inscricoes;
 	
+	@ManyToOne
+	private Selecao selecao;
 	
+	public Selecao getSelecao() {
+		return selecao;
+	}
+
+	public void setSelecao(Selecao selecao) {
+		this.selecao = selecao;
+	}
 
 	public List<Inscricao> getInscricoes() {
 		return inscricoes;

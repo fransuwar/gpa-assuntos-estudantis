@@ -51,24 +51,24 @@
 
 	<div th:if="${acao != 'editar'}" class="card">
 		<div class="card-content">
-			<h5 class="title light col s10" th:text="Horários"></h5>
-			<div th:each="data : ${datas}" class="white-text">
+			<h5 class="title light col s12" th:text="Horários"></h5>
+			<div th:each="data : ${datas}">
 				<ul class="collapsible popout" data-collapsible="accordion">
 				    <li>
-				      	<div class="collapsible-header" th:text="${#temporals.format(data, 'dd/MM/yyyy')}"></div>
-				      		<div class="collapsible-body center">
-				      			<div class="row">
+				      	<div class="collapsible-header white-text" th:text="${#temporals.format(data, 'dd/MM/yyyy')}"></div>
+				      		<div class="collapsible-body">
+				      			<div class="container col s12">
+				      				<div class="row">
 									<div th:each="agendamento : ${agendamentos}">
-										<ul class="collapsible popout" data-collapsible="accordion">
+										<ul class="collapsible popout " data-collapsible="accordion">
 											<li>
-												<div th:if="${data == agendamento.data}" th:text="${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}" class="white-text collapsible-header"></div>
-													<div class="card collapsible-body ">
+												<div th:if="${data == agendamento.data}" th:text="${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}" class="collapsible-header center white-text"></div>
+													<div class="card collapsible-body">
 														<form
 															th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
 															method="post" th:object="${agendamento}">
-															<input type="hidden" name="agendamento"
-																th:value="${agendamento.id}" />
-															<div class=" col s12">
+															<input type="hidden" name="agendamento" th:value="${agendamento.id}" />
+															<div class=" col s10">
 																<div class="input-field col s8">
 																	<select name="inscricao">
 																		<option th:each="inscricao : ${inscricoes}"
@@ -77,6 +77,7 @@
 																	</select> 
 																	<label>Aluno</label>
 																</div>
+																
 																<div class="col s2 right">
 																	<a class="btn-icon waves-effect tooltipped"
 																     		th:href="@{/selecao/agendamentoEntrevista/editar/__${selecao.id}__/__${agendamento.id}__}"
@@ -93,7 +94,9 @@
 																	<button type="submit" class="waves-effect waves-light btn">Adicionar</button>
 																</div>
 															</div>
+															
 														</form>
+														
 														<div class="row"></div>
 														<div class="row center">
 															<div class="chip deep-purple lighten-1"
@@ -108,18 +111,33 @@
 															</div>
 														</div>
 													</div>
+													
 												</li>
+												
 											</ul>
+											
 										</div> 
+										
+										</div>
+										
 									</div>
+									
 				      			</div>
+				      			
 				  			</li>
+				  			
 			  			</ul>
+			  			
 		  			</div>
+		  			
 				</div>
 			</div>
 		
 </section>
-
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+</script>
 </body>
 </html>

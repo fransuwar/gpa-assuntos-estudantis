@@ -5,13 +5,12 @@ import java.util.List;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.AgendamentoEntrevista;
 import br.ufc.npi.auxilio.model.Inscricao;
+import br.ufc.npi.auxilio.model.Selecao;
 
 public interface AgendamentoEntrevistaService {
 	
 	Boolean adicionarHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento)
 			throws AuxilioMoradiaException;
-
-	List<AgendamentoEntrevista> findAll();
 
 	boolean alocarAgendamentoEntrevista(AgendamentoEntrevista agendamento, Inscricao inscricao) throws AuxilioMoradiaException;
 
@@ -21,5 +20,7 @@ public interface AgendamentoEntrevistaService {
 
 	void editar(AgendamentoEntrevista agendamento);
 	
-	List<AgendamentoEntrevista> findAllDatas(); 
+	List<AgendamentoEntrevista> findAllDatas(Selecao selecao);
+
+	List<AgendamentoEntrevista> findAll(Selecao selecao); 
 }

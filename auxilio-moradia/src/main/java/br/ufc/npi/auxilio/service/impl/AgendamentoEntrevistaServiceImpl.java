@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.AgendamentoEntrevista;
 import br.ufc.npi.auxilio.model.Inscricao;
+import br.ufc.npi.auxilio.model.Selecao;
 import br.ufc.npi.auxilio.repository.AgendamentoEntrevistaRepository;
 import br.ufc.npi.auxilio.service.AgendamentoEntrevistaService;
 import br.ufc.npi.auxilio.service.EmailService;
@@ -42,7 +43,7 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	}
 
 	@Override
-	public List<AgendamentoEntrevista> findAll() {
+	public List<AgendamentoEntrevista> findAll(Selecao selecao) {
 		return agendamentoEntrevistaRepository.findAllByOrderByData();
 	}
 
@@ -71,10 +72,14 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 
 	@Override
 	public void excluirHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento) throws AuxilioMoradiaException {
-		if (agendamento.getInscricoes() == null) {
+		if (agendamento.getInscricoes() != null) {
+			agendamentoEntrevistaRepository.delete(agendamento);
+		}
+		else{
 			throw new AuxilioMoradiaException("O agendamento possui inscricões associadas");
 		}
-		agendamentoEntrevistaRepository.delete(agendamento);
+
+	
 	}
 	
 	public AgendamentoEntrevista getById(Integer id){
@@ -92,8 +97,8 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	}
 
 	@Override
-	public List<AgendamentoEntrevista> findAllDatas() {
-		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaRepository.findDistinctDataBy();
+	public List<AgendamentoEntrevista> findAllDatas(Selecao selecao) {
+		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaRepository.findDistinctDataBy(selecao.getId());
 		return agendamentos;
 	}
 

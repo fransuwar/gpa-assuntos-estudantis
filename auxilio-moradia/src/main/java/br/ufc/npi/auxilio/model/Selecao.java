@@ -35,7 +35,7 @@ public class Selecao {
 	
 	@ManyToOne
 	private Servidor responsavel;
-
+	
 	@OneToMany
 	private List<Documento> documentos;
 
