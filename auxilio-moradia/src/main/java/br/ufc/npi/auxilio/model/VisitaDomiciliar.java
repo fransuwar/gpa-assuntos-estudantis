@@ -31,10 +31,10 @@ public class VisitaDomiciliar {
 
 	@ManyToOne
 	private Servidor responsavel;
-	
+
 	@Column(name="relatorio", columnDefinition="text")
 	private String relatorio;
-
+	
 	@OneToOne
 	private Documento formulario;
 
@@ -46,7 +46,7 @@ public class VisitaDomiciliar {
 	
 	@Column(name="observacoes", columnDefinition="text")
 	private String observacoes;
-
+	
 	public Documento getFormulario() {
 		return formulario;
 	}
@@ -81,7 +81,7 @@ public class VisitaDomiciliar {
 	public void setData(Date data) {
 		this.data = data;
 	}
-
+	
 	public String getRelatorio() {
 		return relatorio;
 	}
@@ -89,6 +89,7 @@ public class VisitaDomiciliar {
 	public void setRelatorio(String relatorio) {
 		this.relatorio = relatorio;
 	}
+	
 
 	public Servidor getResponsavel() {
 		return responsavel;
@@ -105,7 +106,7 @@ public class VisitaDomiciliar {
 	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
 	}
-	
+		
 	public String getObservacoes() {
 		return observacoes;
 	}
@@ -113,7 +114,7 @@ public class VisitaDomiciliar {
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

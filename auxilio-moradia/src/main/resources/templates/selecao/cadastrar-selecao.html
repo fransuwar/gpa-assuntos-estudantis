@@ -3,7 +3,8 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="base/base"
-	th:with="currentPage='selecao'">
+	th:with="currentPage='selecao', 
+	breadcrumbName = ${ { {name:'Cadastrar seleção', link: '#', sec:'COORDENADOR'} } }">
 
 <head>
 	<title>Auxílio - Cadastrar Seleção</title>

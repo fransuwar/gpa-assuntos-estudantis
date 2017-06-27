@@ -3,7 +3,8 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-	layout:decorator="base/base">
+	layout:decorator="base/base"
+	th:with="breadcrumbName = ${ { {name:'Visualizar Inscrições', link: '/selecao/inscricoes/__${selecao.id}__', sec:'COORDENADOR'} } }">
 
 <head>
 	<title>Auxílio - Visualizar Inscrições</title>
@@ -54,6 +55,16 @@
 							</a>
 							<ul>
 								<li>
+									<a th:href="@{/inscricao/resultadoSelecaoIndeferidos/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Lista de Indeferidos">
+										<i class="material-icons">list</i>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/inscricao/resultadoSelecaoSelecionados/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Lista de Selecionados">
+										<i class="material-icons">list</i>
+									</a>
+								</li>
+								<li>
 									<a th:href="@{/selecao/inscricoes/relatorio/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Relatório Geral">
 										<i class="material-icons">insert_chart</i>
 									</a>
@@ -64,65 +75,67 @@
 							</ul>
 						</div>
 						<div class="col s12">
-							<table id="inscricoes" class="display nowrap striped bordered lighten-1" cellspacing="0" width="100%">
+							<table id="visualizar-inscricoes" class="centered display nowrap striped bordered lighten-1">
 								<thead>
 								<tr>
+									<th>Ranking</th>
 									<th>Aluno</th>
 									<th>Análise dos Documentos</th>
 									<th>Entrevista</th>
 									<th th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">Visita Domiciliar</th>
 									<th>Parecer Final</th>
-									<th>Ranking</th>
+									
 									<th>Selecionados</th>
 								</tr>
 								</thead>
 								<tbody>
 								<tr th:each="inscricao, row : ${inscricoes}">
+									<td th:text="${row.count}"></td>
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td>
-										<a th:if="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.parecer != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
-											<div th:unless="${inscricao.analiseDocumentacao.parecer.nome}" class="chip grey lighten-1">
+										<a th:if="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.resultado != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
+											<div th:unless="${inscricao.analiseDocumentacao.resultado.nome}" class="chip grey lighten-1">
 												Não Avaliado
 											</div>
-											<div th:if="${inscricao.analiseDocumentacao.parecer.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1">
+											<div th:if="${inscricao.analiseDocumentacao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1">
 												Não Avaliado
 											</div>
-											<div th:if="${inscricao.analiseDocumentacao.parecer.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome}" class="chip green lighten-1">
+											<div th:if="${inscricao.analiseDocumentacao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome}" class="chip green lighten-1">
 												Deferido
 											</div>
-											<div th:if="${inscricao.analiseDocumentacao.parecer.nome eq T(br.ufc.npi.auxilio.enums.Resultado).INDEFERIDO.nome}" class="chip red lighten-1">
+											<div th:if="${inscricao.analiseDocumentacao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).INDEFERIDO.nome}" class="chip red lighten-1">
 												Indeferido
 											</div>
 										</a>
-										<a th:unless="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.parecer != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
+										<a th:unless="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.resultado != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
 											<div class="chip grey lighten-1">
 												Não Avaliado
 											</div>
 										</a>
 									</td>
 									<td>
-										<a th:if="${inscricao.entrevista != null and inscricao.entrevista.parecer != null}" th:href="@{/entrevista/__${inscricao.id}__}">
-											<div th:unless="${inscricao.entrevista.parecer.nome}" class="chip grey lighten-1">
+										<a th:if="${inscricao.entrevista != null and inscricao.entrevista.resultado != null}" th:href="@{/entrevista/__${inscricao.id}__}">
+											<div th:if="${inscricao.entrevista.resultado.nome==null}" class="chip grey lighten-1">
 												Não Avaliado
 											</div>
-											<div th:if="${inscricao.entrevista.parecer.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1">
+											<div th:if="${inscricao.entrevista.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1">
 												Não Avaliado
 											</div>
-											<div th:if="${inscricao.entrevista.parecer.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome}" class="chip green lighten-1">
+											<div th:if="${inscricao.entrevista.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome}" class="chip green lighten-1">
 												Deferido
 											</div>
-											<div th:if="${inscricao.entrevista.parecer.nome eq T(br.ufc.npi.auxilio.enums.Resultado).INDEFERIDO.nome}" class="chip red lighten-1">
+											<div th:if="${inscricao.entrevista.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).INDEFERIDO.nome}" class="chip red lighten-1">
 												Indeferido
 											</div>
 										</a>
-										<a th:unless="${inscricao.entrevista != null and inscricao.entrevista.parecer != null}" th:href="@{/entrevista/__${inscricao.id}__}">
+										<a th:unless="${inscricao.entrevista != null and inscricao.entrevista.resultado != null}" th:href="@{/entrevista/__${inscricao.id}__}">
 											<div class="chip grey lighten-1">
 												Não Avaliado
 											</div>
 										</a>
 									</td>
 									<td th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">
-										<a th:if="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.parecer != null}" th:href="@{/visita/__${inscricao.id}__}">
+										<a th:if="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.resultado != null}" th:href="@{/visita/__${inscricao.id}__}">
 											<div th:if="${inscricao.visitaDomiciliar.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1">
 												Não Avaliado
 											</div>
@@ -133,7 +146,7 @@
 												Indeferido
 											</div>
 										</a>
-										<a th:unless="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.parecer != null}" th:href="@{/visita/__${inscricao.id}__}">
+										<a th:unless="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.resultado != null}" th:href="@{/visita/__${inscricao.id}__}">
 											<div class="chip grey lighten-1">
 												Não Avaliado
 											</div>
@@ -162,7 +175,6 @@
 										</div>
 										</a>
 									</td>
-									<td th:text="${row.count}"></td>
 									<td>
 										<div class="switch">
 											<label>
@@ -184,7 +196,7 @@
 
 <section layout:fragment="js">
 	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js}"></script>
-	<script type="text/java" th:src="@{/js/auxilio/inscricao/selecionar_inscricao.js}"></script>
+	<script type="text/javascript" th:src="@{/js/auxilio/inscricao/selecionar_inscricao.js}"></script>
 	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js}"></script>
 	<script type="text/java" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js}"></script>
 	<script type="text/java" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js}"></script>

@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
@@ -47,7 +48,7 @@ public class DocumentacaoInscricaoController {
 	
 	@Autowired
 	private ServidorService servidorService;
-	
+		
 	@Autowired
 	private DocumentoRepository documentoRepository;
 	
@@ -98,12 +99,12 @@ public class DocumentacaoInscricaoController {
 			AnaliseDocumentacao analiseDocumento = inscricao.getAnaliseDocumentacao();
 			if( analiseDocumento == null || analiseDocumento.getId() == null ) {
 				analiseDocumento = new AnaliseDocumentacao();
-				analiseDocumento.setParecer(Resultado.NAO_AVALIADO);
+				analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
 				analiseDocumentacaoRepository.save(analiseDocumento);
 				
 			}
 			analiseDocumento.setInscricao(inscricao);
-			analiseDocumento.setParecer(Resultado.NAO_AVALIADO);
+			analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
 			analiseDocumentacaoRepository.save(analiseDocumento);
 			
 			documentacao.setAnaliseDocumentacao(analiseDocumento);
@@ -147,7 +148,9 @@ public class DocumentacaoInscricaoController {
 		
 		AnaliseDocumentacao analiseDocumentacao = inscricao.getAnaliseDocumentacao();
 		if(analiseDocumentacao == null){
-			model.addAttribute("analiseDocumentacao", new AnaliseDocumentacao());
+			inscricao.setAnaliseDocumentacao(new AnaliseDocumentacao());
+			inscricaoService.salvar(inscricao);
+			model.addAttribute("analiseDocumentacao", inscricao.getAnaliseDocumentacao());
 		}else {
 			model.addAttribute("analiseDocumentacao", analiseDocumentacao);
 		}
@@ -157,23 +160,45 @@ public class DocumentacaoInscricaoController {
 	}
 	
 	@Secured(COORDENADOR)
-	@PostMapping("/analiseDocumentacao/{inscricao}")
-	public String analisarDocumentacaoInscricao(@PathVariable Inscricao inscricao, AnaliseDocumentacao analiseDocumentacao, Authentication auth, RedirectAttributes redirectAttributes){
+	@PostMapping("/inscricao/{inscricao}")
+	public String analisarDocumentacaoInscricao(@PathVariable Inscricao inscricao, AnaliseDocumentacao analiseDocumentacao, Authentication auth, RedirectAttributes redirectAttributes) throws AuxilioMoradiaException{
 		
 		Servidor servidor = servidorService.getByCpf(auth.getName());
-		AnaliseDocumentacao analise = analiseDocumentacaoRepository.findById(analiseDocumentacao.getId());
-		
+		Double rendaPai = inscricao.getRendaPai() == null ? 0:inscricao.getRendaPai();
+		Double rendaMae = inscricao.getRendaMae() == null ? 0:inscricao.getRendaMae();
+		Double rendaOutros = inscricao.getRendaOutros() == null? 0:inscricao.getRendaOutros();
+		Double grupoFamiliar = (double) (inscricao.getQuestionario().getGrupoFamiliar().size() == 0? 1 : inscricao.getQuestionario().getGrupoFamiliar().size());
+		analiseDocumentacao.setRendaPerCapita(((analiseDocumentacao.getRendaPai()==null? rendaPai:analiseDocumentacao.getRendaPai())+
+				(analiseDocumentacao.getRendaMae() == null? rendaMae:analiseDocumentacao.getRendaMae())+
+				(analiseDocumentacao.getRendaOutros()==null? rendaOutros:analiseDocumentacao.getRendaOutros()))/
+				(analiseDocumentacao.getGrupoFamiliar()==null? grupoFamiliar:analiseDocumentacao.getGrupoFamiliar()));
+		AnaliseDocumentacao analise = analiseDocumentacaoRepository.findById(inscricao.getAnaliseDocumentacao().getId());
 		if(analise == null){
 			analise = analiseDocumentacao;
-			inscricao.setAnaliseDocumentacao(analise);
 		}else{
 			analise.setObservacoes(analiseDocumentacao.getObservacoes());
-			analise.setParecer(analiseDocumentacao.getParecer());
-			
+			analise.setResultado(analiseDocumentacao.getResultado());
+			analise.setCidadeOrigem(analiseDocumentacao.getCidadeOrigem());
+			analise.setCidade(analiseDocumentacao.getCidade());
+			analise.setRendaPai(analiseDocumentacao.getRendaPai());
+			analise.setRendaMae(analiseDocumentacao.getRendaMae());
+			analise.setRendaOutros(analiseDocumentacao.getRendaOutros());
+			analise.setGrupoFamiliar(analiseDocumentacao.getGrupoFamiliar());
+			analise.setRendaPerCapita(analiseDocumentacao.getRendaPerCapita());
+			analise.setBeneficio(analiseDocumentacao.getBeneficio());
+			analise.setEnergia(analiseDocumentacao.getEnergia());
 		}
 		analise.setResponsavel(servidor);
+		inscricao.setAnaliseDocumentacao(analise);
+		analise.setInscricao(inscricao);
+		List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(inscricao.getSelecao());
+		Collections.sort(inscricoes);
+		for(int i = 0; i < inscricoes.size(); i++){
+			inscricoes.get(i).setPosicaoRanking(i+1);
+		}
+		inscricaoService.atualizar(inscricao);
 		analiseDocumentacaoRepository.save(analise);
-		return RedirectConstants.REDIRECT_SELECAO_INSCRICOES+inscricao.getSelecao().getId();
+		return RedirectConstants.REDIRECT_INSCRICAO_ANALISAR_DOCUMENTO+inscricao.getId();
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
@@ -189,6 +214,5 @@ public class DocumentacaoInscricaoController {
 		}
 		return null;
 	}
-	
-	
+
 }

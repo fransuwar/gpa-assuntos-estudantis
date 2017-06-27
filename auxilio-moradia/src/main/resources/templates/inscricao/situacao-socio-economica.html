@@ -2,7 +2,11 @@
 <html lang="pt-BR"
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorator="base/base">
+	  layout:decorator="base/base"
+	  th:with="breadcrumbName = ${ { {name:'Dados Básico', link: '/inscricao/moradia/__${selecao.id}__', sec:'ALUNO'}, 
+      								{name:'Moradia', link: '/inscricao/moradia/__${selecao.id}__', sec:'ALUNO'},
+      								{name:'Histórico', link: '/inscricao/historico/__${selecao.id}__', sec:'ALUNO'},
+      								{name:'Situação Socioeconômica', link: '#', sec:'ALUNO'}  } }">
 <head>
 	<title>Auxílio - Realizar Inscrição</title>
 </head>
@@ -77,7 +81,8 @@
 							<tr th:each="membro : ${inscricao.questionario.grupoFamiliar}">
 								<td th:text="${membro.nome}"></td>
 								<td th:text="${membro.idade}"></td>
-								<td th:text="${membro.parentesco.nome}"></td>
+								<td th:unless="${membro.parentesco.nome eq T(br.ufc.npi.auxilio.enums.GrauParentesco).OUTRO.nome}" th:text="${membro.parentesco.nome}"></td>
+								<td th:if="${membro.parentesco.nome eq T(br.ufc.npi.auxilio.enums.GrauParentesco).OUTRO.nome}" th:text="${membro.descricaoParentesco}"></td>
 								<td th:text="${membro.escolaridade.nome}"></td>
 								<td th:text="${membro.profissao}"></td>
 								<td th:text="'R$ ' + ${#numbers.formatDecimal(membro.rendaMensal, 1, 'POINT', 2, 'COMMA')}"></td>
@@ -201,13 +206,14 @@
 							<div id="div-beneficio" th:class="${situacao.beneficio} ? '' : 'no-display'">
 								<div class="col s8 input-field">
 									<input th:field="*{descricaoBeneficio}" type="text" id="descricaoBeneficio" th:required="${situacao.beneficio}"/>
-									<label for="descricaoBeneficio">* Qual?</label>
+									<label for="descricaoBeneficio">* Qual Beneficio? Valor?</label>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="card-action right-align">
-						<button class="btn waves-effect waves-light" type="submit">Avançar</button>
+						<button name="action" class="btn waves-effect waves-light" value="voltar" type="submit">Voltar</button>
+						<button name="action" class="btn waves-effect waves-light" value="avancar" type="submit">Avançar</button>
 					</div>
 				</form>
 			</div>

@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+    >
 
 <head>
 	<title>Auxílio Moradia</title>
@@ -32,7 +33,8 @@
 
 <body class="grey lighten-3">
 		
-	<div th:replace="base/header :: header"></div>
+	<div th:replace="base/header :: header">	
+	</div>
 	
 	<div class="container">
         <div id="toast-container">
@@ -65,10 +67,11 @@
     <!-- Framework base -->
     <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/auxilio/auxilio.js}"></script>
+	<!--<script type="text/javascript" th:src="@{/js/auxilio/breadcrumb.js}"></script>-->
 
 	<section layout:fragment="js"></section>
 	
-	<script type="text/javascript">
+	<script th:inline="javascript">
 		function filterGlobal (){
 			$("#inscricoes").DataTable().search(
 					$("#busca_inscricoes").val()
@@ -85,7 +88,51 @@
 			   selectYears: 100, 
 			   format: "dd/mm/yyyy"
 			});
+			if(document.getElementById("rendaPerCapita") != null)
+				$(document.getElementById("rendaPerCapita")).val(parseFloat(document.getElementById("rendaPerCapita").value).toFixed(2));
 			
+			$("#analise-documento tbody tr td input.dinheiro").blur(function(){
+				//$(this).blur(function(){
+					var rendaPai = parseInt(document.getElementById("rendaPai").value);
+					if (isNaN(rendaPai))
+						rendaPai = 0;
+					var rendaMae = parseInt(document.getElementById("rendaMae").value);
+					if (isNaN(rendaMae))
+						rendaMae = 0;
+					var rendaOutros = parseInt(document.getElementById("rendaOutros").value);
+					if (isNaN(rendaOutros))
+						rendaOutros = 0;
+					var grupoFamiliar = parseInt(document.getElementById("grupoFamiliar").value);
+					var rendaPerCapita = (rendaPai+rendaMae+rendaOutros)/grupoFamiliar;
+					//alert(rendaPerCapita)
+					$(document.getElementById("rendaPerCapita")).val(rendaPerCapita.toFixed(2));
+							
+				//}));
+				
+				//$(this).children().select();
+			})
+			
+			$("#analise-documento tbody tr td input.dinheiro").change(function(){
+				//$(this).blur(function(){
+					var rendaPai = parseInt(document.getElementById("rendaPai").value);
+					if (isNaN(rendaPai))
+						rendaPai = 0;
+					var rendaMae = parseInt(document.getElementById("rendaMae").value);
+					if (isNaN(rendaMae))
+						rendaMae = 0;
+					var rendaOutros = parseInt(document.getElementById("rendaOutros").value);
+					if (isNaN(rendaOutros))
+						rendaOutros = 0;
+					var grupoFamiliar = parseInt(document.getElementById("grupoFamiliar").value);
+					var rendaPerCapita = (rendaPai+rendaMae+rendaOutros)/grupoFamiliar;
+					//alert(rendaPerCapita)
+					$(document.getElementById("rendaPerCapita")).val(rendaPerCapita);
+							
+				//}));
+				
+				//$(this).children().select();
+			})
+						
 			var table = $("#inscricoes").DataTable({
                 "scrollX": true,
                 "paging": false,

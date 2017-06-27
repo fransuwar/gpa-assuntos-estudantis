@@ -43,9 +43,9 @@
 					<span th:if="${inscricao.questionario.distancia}" class="text-18 bold" th:text="'__${inscricao.questionario.distancia}__ KM'"></span>
 				</div>
 				<div class="col s4">
-					<span>Tempo gasto com deslocamento:</span>
+					<span>Tempo gasto com deslocamento (horas/minutos):</span>
 					<span th:unless="${inscricao.questionario.tempoGasto}" class="text-18 bold">-</span>
-					<span th:if="${inscricao.questionario.tempoGasto}" class="text-18 bold" th:text="'__${inscricao.questionario.tempoGasto}__ hora(s)'"></span>
+					<span th:if="${inscricao.questionario.tempoGasto}" class="text-18 bold" th:text="'__${inscricao.questionario.tempoGasto}__'"></span>
 				</div>
 			</div>
 			<div class="row">
