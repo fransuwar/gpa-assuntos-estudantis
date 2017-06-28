@@ -25,7 +25,7 @@ public class SuccessMessageConstants {
 	/* Inscrição */
 	public static final String MSG_SUCESSO_MEMBRO_FAMILIA_ADICIONADO = "Membro da família adicionado com sucesso";
 	public static final String MSG_SUCESSO_MEMBRO_FAMILIA_REMOVIDO = "Membro da família removido com sucesso";
-	
+	public static final String MSG_SUCESSO_CADASTRO_INSCRICAO = "Inscricao realizada com sucesso";
 	/*Entrevista*/
 	public static final String MSG_SUCESSO_ENTREVISTA = "Entrevista cadastrada com sucesso";
 
