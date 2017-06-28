@@ -25,4 +25,8 @@ public class RedirectConstants {
 	public static final String REDIRECT_PAGINA_ENTREVISTA = "redirect:/entrevista/";
 	public static final String REDIRECT_DETALHES_INSCRICAO = "redirect:/inscricao/detalhes/";
 	public static final String REDIRECT_INSCRICAO_ANALISAR_DOCUMENTO = "redirect:/documentacao/inscricao/";
+	
+	//Entrevista
+	public static final String REDIRECT_AGENDAMENTO_ENTREVISTA = "redirect:/selecao/inscricoes/agendarEntrevista/";
+	
 }
