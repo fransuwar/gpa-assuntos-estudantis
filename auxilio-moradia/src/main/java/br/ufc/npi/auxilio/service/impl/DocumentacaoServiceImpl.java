@@ -57,24 +57,31 @@ public class DocumentacaoServiceImpl implements DocumentacaoService {
 		documentacaoRepository.save(documentacao);
 	}
 
-	public void adicionarDocumentos(Inscricao inscricao, Documentacao documentacao, MultipartFile multipartFile) throws AuxilioMoradiaException, IOException{
+	public boolean adicionarDocumentos(Inscricao inscricao, Documentacao documentacao, MultipartFile multipartFile) throws AuxilioMoradiaException, IOException{
 		Logger logger = Logger.getLogger(DocumentacaoServiceImpl.class.getName());
 		if (inscricao!= null && multipartFile.getBytes() != null && multipartFile.getBytes().length != 0) {
 			Documento documento = new Documento();
 			try {
 				String homeDir = System.getProperty("user.home");
-				documento.setNome(multipartFile.getOriginalFilename());
-				documento.setCaminho(homeDir + FOLDER_DOCUMENTOS + "analiseDocumentacao" +inscricao.getId());
-				documento.setArquivo(multipartFile.getBytes());
-
-				// Pega  o fomato do arquivo
-				String extensao = documento.getNome().substring(documento.getNome().lastIndexOf('.') + 1);
-				documento.setTipo(Documento.Tipo.valueOf(extensao.toUpperCase()));
-
-				documentoRepository.save(documento);
-				documentacao.getDocumentos().add(documento);
+				String extensao = (multipartFile.getOriginalFilename()).substring((multipartFile.getOriginalFilename()).lastIndexOf('.') + 1);
 				
-				salvarArquivoLocal(documento);
+				if(verificarTipoDocumento(extensao)){
+					documento.setNome(multipartFile.getOriginalFilename());
+					documento.setCaminho(homeDir + FOLDER_DOCUMENTOS + "analiseDocumentacao" +inscricao.getId());
+					documento.setArquivo(multipartFile.getBytes());
+	
+					// Pega  o fomato do arquivo
+					//String extensao = documento.getNome().substring(documento.getNome().lastIndexOf('.') + 1);
+					documento.setTipo(Documento.Tipo.valueOf(extensao.toUpperCase()));
+	
+					documentoRepository.save(documento);
+					documentacao.getDocumentos().add(documento);
+					
+					salvarArquivoLocal(documento);
+					return true;
+				}else{
+					return false;
+				}
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, e.getMessage(), e);
 				throw new AuxilioMoradiaException(MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
@@ -83,6 +90,17 @@ public class DocumentacaoServiceImpl implements DocumentacaoService {
 				throw new AuxilioMoradiaException(MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
 			}
 		}
+		return false;
+	}
+	
+	private boolean verificarTipoDocumento(String tipoDocumento){
+		Documento.Tipo tipos[] = Documento.Tipo.values();
+		for(Documento.Tipo tipo: tipos){
+			if(tipoDocumento.equals(tipo.getNome())){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override
