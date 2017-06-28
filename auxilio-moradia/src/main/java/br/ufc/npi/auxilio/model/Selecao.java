@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import br.ufc.npi.auxilio.enums.TipoSelecao;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 @Entity
 public class Selecao {
 

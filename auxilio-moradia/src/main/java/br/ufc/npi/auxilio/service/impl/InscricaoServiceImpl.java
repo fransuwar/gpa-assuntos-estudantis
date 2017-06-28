@@ -61,6 +61,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 	@Override
 	public Inscricao salvar(Inscricao inscricao) {
+		inscricao.verificarResultado();
 		return inscricaoRepository.save(inscricao);
 	}
 

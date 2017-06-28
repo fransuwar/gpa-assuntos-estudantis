@@ -9,7 +9,12 @@ import br.ufc.npi.auxilio.service.*;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
+
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -348,19 +353,19 @@ public class SelecaoController {
 		model.addAttribute("selecao", selecao);
 		return LISTAR_INSCRICOES;
 	}
-
+	
 	@ModelAttribute("servidores")
 	public List<Servidor> getAllServidores() {
 		return servidorService.getAll();
 	}
 	
+
 	@GetMapping("/inscricoes/agendarEntrevista/{selecao}")
 	public String agendarEntrevista(@PathVariable Selecao selecao, Authentication auth, Model model){
 		List<Inscricao> inscricoes = inscricaoService.inscricoesParaEntrevista(selecao);
 		AgendamentoEntrevista ae = new AgendamentoEntrevista();
 		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findAll(selecao);
 		List<AgendamentoEntrevista> datas = agendamentoEntrevistaService.findAllDatas(selecao);
-		
 		model.addAttribute("inscricoes", inscricoes);
 		model.addAttribute("agendamentos", agendamentos);
 		model.addAttribute("selecao", selecao);
@@ -370,4 +375,5 @@ public class SelecaoController {
 		model.addAttribute("datas", datas);
 		return AGENDAR_ENTREVISTA;
 	}
+
 }
