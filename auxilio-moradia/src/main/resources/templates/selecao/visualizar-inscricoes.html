@@ -44,11 +44,12 @@
 					</div>
 
 					<!-- Nenhuma inscrição realizada -->
-					<span class="blue-grey-text" th:if="${#lists.isEmpty(selecao.inscricoes)}">Nenhuma inscrição realizada</span>
+					<span class="blue-grey-text" th:if="${#lists.isEmpty(inscricoes)}">Nenhuma inscrição realizada</span>
 
 
 					<!-- Inscrições -->
-					<div class="row" th:unless="${#lists.isEmpty(selecao.inscricoes)}">
+					<div class="row" th:unless="${#lists.isEmpty(inscricoes)}">
+						<div>
 						<div class="fixed-action-btn">
 							<a class="btn-floating btn-large deep-purple lighteen 1">
 								<i class="large material-icons">menu</i>
@@ -65,7 +66,9 @@
 									</a>
 								</li>
 								<li>
-									<a class="btn-floating deep-purple lighten-1"><i class="material-icons">format_quote</i></a>
+									<a th:href="@{/selecao/inscricoes/agendarEntrevista/__${selecao.id}__}"  class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Agendar Entrevista">
+										<i class="material-icons">date_range</i>
+									</a>								
 								</li>
 							</ul>
 						</div>
@@ -79,7 +82,6 @@
 									<th>Entrevista</th>
 									<th th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">Visita Domiciliar</th>
 									<th>Parecer Final</th>
-									
 									<th>Selecionados</th>
 								</tr>
 								</thead>
@@ -171,9 +173,9 @@
 										</a>
 									</td>
 									<td>
-										<div class="switch">
+										<div class="switch" th:if="${inscricao.resultado != null and inscricao.resultado.nome != null}">
 											<label>
-												<input type="checkbox" class="selecionar" th:id="${inscricao.id}" th:checked="${inscricao.selecionado}" /> 
+												<input  th:attr="disabled=${inscricao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome ? false : 'disabled' }" type="checkbox" class="selecionar" th:id="${inscricao.id}" th:checked="${inscricao.selecionado}" /> 
 												<span class="lever"></span>
 											</label>
 										</div>
@@ -187,6 +189,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 </section>
 
 <section layout:fragment="js">

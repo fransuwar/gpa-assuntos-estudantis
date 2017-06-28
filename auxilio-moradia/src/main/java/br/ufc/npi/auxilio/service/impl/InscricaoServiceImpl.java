@@ -1,5 +1,6 @@
 package br.ufc.npi.auxilio.service.impl;
 
+import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Aluno;
 import br.ufc.npi.auxilio.model.Inscricao;
@@ -107,8 +108,13 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	@Override
+	public List<Inscricao> inscricoesParaEntrevista(Selecao selecao) {
+		return inscricaoRepository.findInscricaoBySelecaoAndEntrevistaAgendadaAndAnaliseDocumentacao_Resultado(selecao, 0, Resultado.DEFERIDO);
+	}
+
+	@Override
 	public List<Inscricao> getAllOrdenado(Selecao selecao) {
-		return inscricaoRepository.findInscricaoBySelecaoOrderByPosicaoRankingAsc(selecao);
+		return inscricaoRepository.findAllBySelecao(selecao);
 	}
 	
 	@Override
@@ -119,16 +125,19 @@ public class InscricaoServiceImpl implements InscricaoService {
 	@Override
 	public boolean selecionarInscricao(Integer idInscricao,Integer selecionar) {
 		Inscricao inscricao = this.buscarInscricaoPorId(idInscricao);
-		inscricao.setSelecionado(selecionar);
-		return editar(inscricao);
+		if(inscricao.getResultado() == Resultado.DEFERIDO){
+			inscricao.setSelecionado(selecionar);
+			return editar(inscricao);
+		}
+		return false;
 	}
 
-	
 	public List<Inscricao> getIndeferidos(Selecao selecao){
 		return inscricaoRepository.getIndeferidos(selecao);
 	}
 	
 	public List<Inscricao> getSelecionados(Selecao selecao){
 		return inscricaoRepository.getSelecionados(selecao);
+
 	}
 }

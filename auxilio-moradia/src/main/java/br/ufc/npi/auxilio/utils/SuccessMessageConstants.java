@@ -6,6 +6,13 @@ public class SuccessMessageConstants {
 	public static final String MSG_SELECAO_CADASTRADA = "Seleção cadastrada com sucesso";
 	public static final String MSG_SELECAO_EDITADA = "Seleção editada com sucesso";
 	public static final String MSG_SUCESSO_SELECAO_REMOVIDA = "Seleção removida com sucesso";
+	
+	/* Entrevista Agendamento */
+	public static final String MSG_SUCESSO_AGENDAMENTO_ENTREVISTA = "Agendamento de entrevista cadastrado com sucesso";
+	public static final String MSG_SUCESSO_ALOCACAO_INSCRICAO_AGENDAMENTO_ADICIONADA = "Alocação cadastrada com sucesso";
+	public static final String MSG_SUCESSO_ALOCACAO_INSCRICAO_AGENDAMENTO_REMOVIDA = "Alocação removida com sucesso";
+	public static final String MSG_SUCESSO_AGENDAMENTO_ENTRVISTA_EDICAO = "Agendamento de entrevista editado com sucesso";
+	public static final String MSG_SUCESSO_HORARIO_REMOVIDO = "Horario deletado com sucesso";
 
 
 	/* Arquivos da seleção */
@@ -28,6 +35,11 @@ public class SuccessMessageConstants {
 	public static final String MSG_SUCESSO_CADASTRO_INSCRICAO = "Inscricao realizada com sucesso";
 	/*Entrevista*/
 	public static final String MSG_SUCESSO_ENTREVISTA = "Entrevista cadastrada com sucesso";
+	
+	/*Visita Domiciliar*/
+	public static final String MSG_SUCESSO_VISITA = "Visita Domiciliar cadastrada com sucesso";
 
+	/*Analise Documentação*/
+	public static final String MSG_SUCESSO_ANALISE_DOCUMENTACAO = "Análise de Documentos cadastrada com sucesso";
 
 } 

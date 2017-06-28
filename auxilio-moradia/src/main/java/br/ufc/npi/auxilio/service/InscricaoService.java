@@ -26,6 +26,8 @@ public interface InscricaoService {
 
     List<Inscricao> getAll(Aluno aluno);
 
+	List<Inscricao> inscricoesParaEntrevista(Selecao selecao);
+
 	List<Inscricao> getAllOrdenado(Selecao selecao);
 	
 	Inscricao buscarInscricaoPorId(Integer idInscricao);
@@ -35,5 +37,6 @@ public interface InscricaoService {
 	List<Inscricao> getIndeferidos(Selecao selecao);
 		
 	List<Inscricao> getSelecionados(Selecao selecao);
+
 }
 

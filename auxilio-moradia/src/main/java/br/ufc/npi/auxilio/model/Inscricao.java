@@ -51,9 +51,20 @@ public class Inscricao implements Comparable<Inscricao>{
 	
 	@Column(nullable=true)
 	private Integer selecionado;
+	
+	@Column(nullable=true)
+	private Integer entrevistaAgendada;
 
 	public boolean isConsolidada() {
 		return consolidada;
+	}
+	
+	public Integer getEntrevistaAgendada() {
+		return entrevistaAgendada;
+	}
+
+	public void setEntrevistaAgendada(Integer entrevistaAgendada) {
+		this.entrevistaAgendada = entrevistaAgendada;
 	}
 
 	public Integer getSelecionado() {
