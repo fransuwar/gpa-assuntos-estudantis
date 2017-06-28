@@ -72,15 +72,16 @@ public class SelecaoServiceImpl implements SelecaoService {
 		if (selecao != null && file.getBytes() != null && file.getBytes().length != 0) {
 			Documento documento = new Documento();
 			try {
+				String homeDir = System.getProperty("user.home");
 				documento.setNome(file.getOriginalFilename());
-				documento.setCaminho(FOLDER_DOCUMENTOS + selecao.getId());
+				documento.setCaminho(homeDir + FOLDER_DOCUMENTOS + "selecao" +selecao.getId());
 				documento.setArquivo(file.getBytes());
 
 				// Pega  o fomato do arquivo
 				String extensao = documento.getNome().substring(documento.getNome().lastIndexOf('.') + 1);
 				documento.setTipo(Documento.Tipo.valueOf(extensao.toUpperCase()));
-
 				documentoRepository.save(documento);
+				salvarArquivoLocal(documento);
 				selecao.addDocumento(documento);
 				this.cadastrar(selecao);
 
