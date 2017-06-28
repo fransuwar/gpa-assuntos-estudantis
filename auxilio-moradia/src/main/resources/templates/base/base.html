@@ -67,6 +67,7 @@
     <!-- Framework base -->
     <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/auxilio/auxilio.js}"></script>
+    <script type="text/javascript" th:src="@{/js/auxilio/selecao/selecao.js}"></script>
 	<!--<script type="text/javascript" th:src="@{/js/auxilio/breadcrumb.js}"></script>-->
 
 	<section layout:fragment="js"></section>
@@ -193,7 +194,7 @@
 	            	if($(this).hasClass("buttons-pdf")){
 	            		$(this).attr("data-tooltip", "Exportar para pdf");            	
 	            	}else{
-	            		$(this).attr("data-tooltip", "Exportar para excel"); 
+	            		$(this).attr("data-tooltip", "Exportar para planilha"); 
 	            	}
 	            	var tag = $("<li></li>");
 	            	$(this).appendTo(tag);

@@ -49,18 +49,14 @@
 
 					<!-- Inscrições -->
 					<div class="row" th:unless="${#lists.isEmpty(inscricoes)}">
+						<div>
 						<div class="fixed-action-btn">
 							<a class="btn-floating btn-large deep-purple lighteen 1">
 								<i class="large material-icons">menu</i>
 							</a>
 							<ul>
 								<li>
-									<a th:href="@{/inscricao/resultadoSelecaoIndeferidos/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Lista de Indeferidos">
-										<i class="material-icons">list</i>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/inscricao/resultadoSelecaoSelecionados/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Lista de Selecionados">
+									<a th:href="@{/inscricao/resultadoSelecao/__${selecao.id}__}" class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Lista de Selecionados">
 										<i class="material-icons">list</i>
 									</a>
 								</li>
@@ -70,7 +66,9 @@
 									</a>
 								</li>
 								<li>
-									<a class="btn-floating deep-purple lighten-1"><i class="material-icons">format_quote</i></a>
+									<a th:href="@{/selecao/inscricoes/agendarEntrevista/__${selecao.id}__}"  class="btn-floating deep-purple lighten-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Agendar Entrevista">
+										<i class="material-icons">date_range</i>
+									</a>								
 								</li>
 							</ul>
 						</div>
@@ -78,17 +76,18 @@
 							<table id="visualizar-inscricoes" class="centered display nowrap striped bordered lighten-1">
 								<thead>
 								<tr>
+									<th>Ranking</th>
 									<th>Aluno</th>
 									<th>Análise dos Documentos</th>
 									<th>Entrevista</th>
 									<th th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">Visita Domiciliar</th>
 									<th>Parecer Final</th>
-									<th>Ranking</th>
 									<th>Selecionados</th>
 								</tr>
 								</thead>
 								<tbody>
 								<tr th:each="inscricao, row : ${inscricoes}">
+									<td th:text="${row.count}"></td>
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td>
 										<a th:if="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.resultado != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
@@ -173,11 +172,10 @@
 										</div>
 										</a>
 									</td>
-									<td th:text="${row.count}"></td>
 									<td>
 										<div class="switch">
 											<label>
-												<input type="checkbox" class="selecionar" th:id="${inscricao.id}" th:checked="${inscricao.selecionado}" /> 
+												<input  th:attr="disabled=${inscricao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome ? false : 'disabled' }" type="checkbox" class="selecionar" th:id="${inscricao.id}" th:checked="${inscricao.selecionado}" /> 
 												<span class="lever"></span>
 											</label>
 										</div>
@@ -191,6 +189,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 </section>
 
 <section layout:fragment="js">
