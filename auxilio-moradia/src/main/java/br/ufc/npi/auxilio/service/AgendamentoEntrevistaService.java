@@ -23,4 +23,6 @@ public interface AgendamentoEntrevistaService {
 	List<AgendamentoEntrevista> findAllDatas(Selecao selecao);
 
 	List<AgendamentoEntrevista> findAll(Selecao selecao); 
+	
+	List<AgendamentoEntrevista> findBySelecao(Selecao selecao);
 }

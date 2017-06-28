@@ -45,6 +45,12 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	public List<AgendamentoEntrevista> findAll(Selecao selecao) {
 		return agendamentoEntrevistaRepository.findAllByOrderByData();
 	}
+	
+	@Override
+	public List<AgendamentoEntrevista> findBySelecao(Selecao selecao) {
+		
+		return agendamentoEntrevistaRepository.findBySelecao(selecao);
+	}
 
 	@Override
 	public boolean alocarAgendamentoEntrevista(AgendamentoEntrevista agendamento, Inscricao inscricao) throws AuxilioMoradiaException {
