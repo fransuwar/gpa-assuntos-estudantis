@@ -8,6 +8,7 @@ import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUM
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,13 @@ public class VisitaController {
 		}
 		// Salvar Imagens
 		if (imagens != null && !imagens.isEmpty() && imagens.get(0).getSize() > 0) {
+			while(!visitaDomiciliar.getImagens().isEmpty())
+				try {
+					visitaService.excluirDocumento(visitaDomiciliar, visitaDomiciliar.getImagens().get(0));
+				} catch (AuxilioMoradiaException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			for (MultipartFile mfiles : imagens) {
 				try {
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
@@ -113,6 +121,8 @@ public class VisitaController {
 			for (MultipartFile mfiles : formulario) {
 				try {
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
+						if (visitaDomiciliar.getFormulario() != null)
+							visitaService.excluirFormulario(visitaDomiciliar);
 						visitaService.adicionarFormulario(visitaDomiciliar, mfiles);
 						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 					}
@@ -155,6 +165,20 @@ public class VisitaController {
 			if(inscricao != null && documento != null) {
 				documento = visitaService.buscarDocumento(documento);
 				visitaService.excluirDocumento(inscricao.getVisitaDomiciliar(), documento);
+				redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_REMOVIDO);
+			}
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+		}
+		return RedirectConstants.REDIRECT_VISITA_DOMICILIAR + inscricao.getId();
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/documento/{inscricao}/excluirformulario")
+	public String excluirFormulario(@PathVariable Inscricao inscricao, RedirectAttributes redirect) {
+		try {
+			if(inscricao != null && inscricao.getVisitaDomiciliar().getFormulario() != null) {
+				visitaService.excluirFormulario(inscricao.getVisitaDomiciliar());
 				redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_REMOVIDO);
 			}
 		} catch (AuxilioMoradiaException e) {

@@ -83,10 +83,8 @@ public class VisitaServiceImpl implements VisitaService{
 				// Pega  o fomato do arquivo
 				String extensao = documento.getNome().substring(documento.getNome().lastIndexOf('.') + 1);
 				documento.setTipo(Documento.Tipo.valueOf(extensao.toUpperCase()));
-
 				documentoRepository.save(documento);
 				visitaDomiciliar.getImagens().add(documento);
-
 				salvarArquivoLocal(documento);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -152,6 +150,21 @@ public class VisitaServiceImpl implements VisitaService{
 		} else {
 			throw new AuxilioMoradiaException(MENSAGEM_ERRO_EXCLUIR_ARQUIVO);
 		}
+	}
+
+	@Override
+	public void excluirFormulario(VisitaDomiciliar visitaDomiciliar) throws AuxilioMoradiaException {
+		if (visitaDomiciliar != null && visitaDomiciliar.getFormulario() != null) {
+			Documento documento = visitaDomiciliar.getFormulario();
+			visitaDomiciliar.setFormulario(null);
+			this.salvar(visitaDomiciliar);
+			File file = new File(documento.getCaminho() + "/" + documento.getNome());
+			file.delete();
+			documentoRepository.delete(documento);
+		} else {
+			throw new AuxilioMoradiaException(MENSAGEM_ERRO_EXCLUIR_ARQUIVO);
+		}
+		
 	}
 
 }

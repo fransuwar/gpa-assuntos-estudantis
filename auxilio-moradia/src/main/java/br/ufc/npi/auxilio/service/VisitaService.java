@@ -25,4 +25,6 @@ public interface VisitaService {
 	
 	VisitaDomiciliar buscar(Integer idVisita);
 
+	void excluirFormulario(VisitaDomiciliar visitaDomiciliar) throws AuxilioMoradiaException;
+
 }
