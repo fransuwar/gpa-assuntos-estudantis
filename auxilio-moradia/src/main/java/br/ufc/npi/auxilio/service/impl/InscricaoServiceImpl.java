@@ -124,8 +124,11 @@ public class InscricaoServiceImpl implements InscricaoService {
 	@Override
 	public boolean selecionarInscricao(Integer idInscricao,Integer selecionar) {
 		Inscricao inscricao = this.buscarInscricaoPorId(idInscricao);
-		inscricao.setSelecionado(selecionar);
-		return editar(inscricao);
+		if(inscricao.getResultado() == Resultado.DEFERIDO){
+			inscricao.setSelecionado(selecionar);
+			return editar(inscricao);
+		}
+		return false;
 	}
 
 	public List<Inscricao> getIndeferidos(Selecao selecao){
