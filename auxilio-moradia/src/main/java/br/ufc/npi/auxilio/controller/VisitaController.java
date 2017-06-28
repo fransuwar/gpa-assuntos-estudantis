@@ -5,6 +5,7 @@ import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_VISITA;
 
 import java.io.IOException;
 import java.util.List;
@@ -132,8 +133,9 @@ public class VisitaController {
 		
 		visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
 		visitaService.salvar(visitaDomiciliar);
+		redirect.addFlashAttribute(INFO, MSG_SUCESSO_VISITA);
 		inscricaoService.salvar(inscricao);
-		return RedirectConstants.REDIRECT_SELECAO_INSCRICOES + inscricao.getSelecao().getId();
+		return RedirectConstants.REDIRECT_PAGINA_VISITA + inscricao.getId();
 	}
 	
 	

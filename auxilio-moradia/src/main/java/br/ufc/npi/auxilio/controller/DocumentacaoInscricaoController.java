@@ -35,6 +35,7 @@ import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_ANALISE_DOCUMENTACAO;
 
 @Controller
 @RequestMapping("/documentacao")
@@ -198,6 +199,7 @@ public class DocumentacaoInscricaoController {
 		}
 		inscricaoService.salvar(inscricao);
 		analiseDocumentacaoRepository.save(analise);
+		redirectAttributes.addFlashAttribute(INFO, MSG_SUCESSO_ANALISE_DOCUMENTACAO);
 		return RedirectConstants.REDIRECT_INSCRICAO_ANALISAR_DOCUMENTO+inscricao.getId();
 	}
 	
