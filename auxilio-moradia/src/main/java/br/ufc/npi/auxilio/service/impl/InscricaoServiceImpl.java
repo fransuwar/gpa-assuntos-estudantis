@@ -1,5 +1,6 @@
 package br.ufc.npi.auxilio.service.impl;
 
+import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Aluno;
 import br.ufc.npi.auxilio.model.Inscricao;
@@ -118,8 +119,11 @@ public class InscricaoServiceImpl implements InscricaoService {
 	@Override
 	public boolean selecionarInscricao(Integer idInscricao,Integer selecionar) {
 		Inscricao inscricao = this.buscarInscricaoPorId(idInscricao);
-		inscricao.setSelecionado(selecionar);
-		return editar(inscricao);
+		if(inscricao.getResultado() == Resultado.DEFERIDO){
+			inscricao.setSelecionado(selecionar);
+			return editar(inscricao);
+		}
+		return false;
 	}
 
 	
