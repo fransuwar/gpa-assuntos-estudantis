@@ -1,13 +1,20 @@
 package br.ufc.npi.auxilio.controller;
 
+import br.ufc.npi.auxilio.enums.HorarioEntrevista;
 import br.ufc.npi.auxilio.enums.TipoSelecao;
+import br.ufc.npi.auxilio.enums.Turno;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.*;
 import br.ufc.npi.auxilio.service.*;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
+
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -42,6 +49,9 @@ public class SelecaoController {
 	
 	@Autowired
 	private ServidorService servidorService;
+	
+	@Autowired
+	private AgendamentoEntrevistaService agendamentoEntrevistaService;
 
 	@Autowired
 	private InscricaoService inscricaoService;
@@ -152,6 +162,34 @@ public class SelecaoController {
 		}
 		return REDIRECT_LISTAR_SELECAO;
 	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/agendamentoEntrevista/editar/{selecao}/{agendamento}")
+	public String editarAgendamentoEntrevistaForm(@PathVariable Selecao selecao, Model model,RedirectAttributes redirect, @PathVariable AgendamentoEntrevista agendamento) {
+		model.addAttribute("agendamento", agendamento);
+		model.addAttribute("selecao", selecao);
+		model.addAttribute("horario", HorarioEntrevista.values());
+		model.addAttribute("turno", Turno.values());
+		model.addAttribute("acao", "editar");
+		return AGENDAR_ENTREVISTA;
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PostMapping("/agendamentoEntrevista/editar/{selecao}")
+	public String editarAgendamentoEntrevista(@PathVariable Selecao selecao, AgendamentoEntrevista agendamento, Authentication auth, Model model, RedirectAttributes redirect) {
+		agendamentoEntrevistaService.editar(agendamento);
+		redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTRVISTA_EDICAO);
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecao.getId();
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping(value="/agendamentoEntrevista/excluir/{selecao}/{agendamento}")
+	public String excluirAgendamentoEntrevista(@PathVariable Selecao selecao, @PathVariable AgendamentoEntrevista agendamento, Authentication auth, 
+			RedirectAttributes redirect) throws AuxilioMoradiaException{
+		agendamentoEntrevistaService.excluirHorarioAgendamentoEntrevista(agendamento);
+			redirect.addFlashAttribute(INFO, MSG_SUCESSO_HORARIO_REMOVIDO);
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecao.getId();
+	}
 
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/documento/{selecao}/adicionar")
@@ -216,7 +254,32 @@ public class SelecaoController {
 		}
 		return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 	}
-
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PostMapping(value="/alocacaoAgendamentoEntrevista/adicionar")
+	public String alocacaoAgendamentoEntrevista(@RequestParam AgendamentoEntrevista agendamento, @RequestParam Inscricao inscricao,
+			 RedirectAttributes redirect) throws AuxilioMoradiaException{
+		if (agendamentoEntrevistaService.alocarAgendamentoEntrevista(agendamento, inscricao))
+			redirect.addFlashAttribute(INFO, MSG_SUCESSO_ALOCACAO_INSCRICAO_AGENDAMENTO_ADICIONADA);
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + agendamento.getInscricoes().get(0).getSelecao().getId();
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PostMapping(value="/agendamentoEntrevista/adicionar/{selecao}")
+	public String adicionarAgendamentoEntrevista(@PathVariable Selecao selecao, AgendamentoEntrevista agendamento, Authentication auth, 
+			RedirectAttributes redirect){
+		try {
+			
+			if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento))
+				redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTREVISTA);
+			else
+				redirect.addFlashAttribute(ERRO, "Erro ao inserir agendamento de entrevista");
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+		}
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecao.getId();
+	}
+	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/comissao/{selecao}/excluir/{servidor}")
 	public String excluirMembroComissao(@PathVariable Selecao selecao,
@@ -229,7 +292,17 @@ public class SelecaoController {
 		}
 		return RedirectConstants.REDIRECT_DETALHES_SELECAO + selecao.getId();
 	}
-
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/agendamentoEntrevista/{agendamento}/excluir/{inscricao}")
+	public String excluirInscricaoAgendamento(@PathVariable AgendamentoEntrevista agendamento,
+			@PathVariable Inscricao inscricao, RedirectAttributes redirect) throws AuxilioMoradiaException {
+		int selecaoId = agendamento.getInscricoes().get(0).getSelecao().getId();
+		agendamentoEntrevistaService.removerInscricaoAgendamento(inscricao, agendamento);
+		redirect.addFlashAttribute(INFO, MSG_SUCESSO_ALOCACAO_INSCRICAO_AGENDAMENTO_REMOVIDA);
+		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecaoId;
+	}
+	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping(value = "/documentacao/adicionar")
 	public String adicionarTipoDocumento(@RequestParam Selecao selecao, @RequestParam String nome, @RequestParam String descricao,
@@ -280,9 +353,27 @@ public class SelecaoController {
 		model.addAttribute("selecao", selecao);
 		return LISTAR_INSCRICOES;
 	}
-
+	
 	@ModelAttribute("servidores")
 	public List<Servidor> getAllServidores() {
 		return servidorService.getAll();
 	}
+	
+
+	@GetMapping("/inscricoes/agendarEntrevista/{selecao}")
+	public String agendarEntrevista(@PathVariable Selecao selecao, Authentication auth, Model model){
+		List<Inscricao> inscricoes = inscricaoService.inscricoesParaEntrevista(selecao);
+		AgendamentoEntrevista ae = new AgendamentoEntrevista();
+		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findAll(selecao);
+		List<AgendamentoEntrevista> datas = agendamentoEntrevistaService.findAllDatas(selecao);
+		model.addAttribute("inscricoes", inscricoes);
+		model.addAttribute("agendamentos", agendamentos);
+		model.addAttribute("selecao", selecao);
+		model.addAttribute("agendamento", ae);
+		model.addAttribute("horario", HorarioEntrevista.values());
+		model.addAttribute("turno", Turno.values());
+		model.addAttribute("datas", datas);
+		return AGENDAR_ENTREVISTA;
+	}
+
 }

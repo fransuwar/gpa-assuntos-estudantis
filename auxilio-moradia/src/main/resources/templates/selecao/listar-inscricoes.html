@@ -131,12 +131,34 @@
 									<td th:if= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.energia != null}" th:text="'R$ ' + ${#numbers.formatDecimal(inscricao.analiseDocumentacao.energia,1, 'POINT', 2, 'COMMA')}"></td>
 									<td th:unless= "${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.energia != null}" th:text="'-'"></td>
 									
-									
-									
-									
 								</tr>
 								</tbody>
-							</table>
+							
+						</table>
+								<div class="hide">
+								<table style="visibility:hidden" id="pagamento" class="display nowrap striped bordered" cellspacing="0" width="100%">
+									
+									<thead>
+									<tr>
+										<th>Aluno</th>
+										<th>CPF</th>
+										<th>Banco</th>
+										<th>Agência</th>
+										<th>Conta</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr th:each="inscricao : ${selecao.inscricoes}">
+										<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
+										<td th:text="${inscricao.aluno.pessoa.cpf}"></td>
+										<td th:text="${inscricao.questionario.banco}"></td>
+										<td th:text="${inscricao.questionario.agencia}"></td>
+										<td th:text="${inscricao.questionario.contaCorrente}"></td>
+									</tr>
+									</tbody>
+								</table>
+								</div>
+						
 						</div>
 					</div>
 				</div>
@@ -154,6 +176,7 @@
 	<script type="text/javascript" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js}"></script>
 	<script type="text/javascript" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js}"></script>
 	<script type="text/javascript" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/js/auxilio/selecao/pagamentos.js}"></script>
 </section>
 
 </html>

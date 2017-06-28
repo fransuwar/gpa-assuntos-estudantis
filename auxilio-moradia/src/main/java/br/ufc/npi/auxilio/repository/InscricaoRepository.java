@@ -1,5 +1,6 @@
 package br.ufc.npi.auxilio.repository;
 
+import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.model.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +19,8 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
 
 	public List<Inscricao> findInscricaoByAluno(Aluno aluno);
 	
+	public List<Inscricao> findInscricaoBySelecaoAndEntrevistaAgendadaAndAnaliseDocumentacao_Resultado(Selecao selecao, Integer entrevistaAgendada, Resultado resultado);
+	 	
 	public List<Inscricao> findInscricaoBySelecaoOrderByPosicaoRankingAsc(Selecao selecao);
 	
 	public List<Inscricao> findAllBySelecao(Selecao selecao);
@@ -29,4 +32,5 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
 	
 	@Query("select i from Inscricao i where i.selecionado = '1' and i.selecao = :selecao")
 	public List<Inscricao> getSelecionados(@Param("selecao") Selecao selecao);
+
 }

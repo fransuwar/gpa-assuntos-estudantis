@@ -93,14 +93,6 @@ public class AnaliseDocumentacao {
 		this.id = id;
 	}
 
-	public Resultado getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(Resultado resultado) {
-		this.resultado = resultado;
-	}
-
 	public Inscricao getInscricao() {
 		return inscricao;
 	}
@@ -115,6 +107,14 @@ public class AnaliseDocumentacao {
 
 	public void setResponsavel(Servidor responsavel) {
 		this.responsavel = responsavel;
+	}
+
+	public Resultado getResultado() {
+		return resultado;
+	}
+
+	public void setResultado(Resultado resultado) {
+		this.resultado = resultado;
 	}
 
 	public List<Documentacao> getDocumentacao() {
@@ -180,5 +180,4 @@ public class AnaliseDocumentacao {
 	public void setGrupoFamiliar(Integer grupoFamiliar) {
 		this.grupoFamiliar = grupoFamiliar;
 	}
-	
 }

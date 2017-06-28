@@ -196,7 +196,7 @@ public class DocumentacaoInscricaoController {
 		for(int i = 0; i < inscricoes.size(); i++){
 			inscricoes.get(i).setPosicaoRanking(i+1);
 		}
-		inscricaoService.atualizar(inscricao);
+		inscricaoService.salvar(inscricao);
 		analiseDocumentacaoRepository.save(analise);
 		return RedirectConstants.REDIRECT_INSCRICAO_ANALISAR_DOCUMENTO+inscricao.getId();
 	}
