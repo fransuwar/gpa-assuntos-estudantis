@@ -100,13 +100,6 @@ public class VisitaController {
 		}
 		// Salvar Imagens
 		if (imagens != null && !imagens.isEmpty() && imagens.get(0).getSize() > 0) {
-			while(!visitaDomiciliar.getImagens().isEmpty())
-				try {
-					visitaService.excluirDocumento(visitaDomiciliar, visitaDomiciliar.getImagens().get(0));
-				} catch (AuxilioMoradiaException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 			for (MultipartFile mfiles : imagens) {
 				try {
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
