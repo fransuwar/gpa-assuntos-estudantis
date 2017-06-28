@@ -7,6 +7,8 @@ import br.ufc.npi.auxilio.model.questionario.Moradia;
 import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
 
 import javax.persistence.*;
+
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -49,9 +51,20 @@ public class Inscricao implements Comparable<Inscricao>{
 	
 	@Column(nullable=true)
 	private Integer selecionado;
+	
+	@Column(nullable=true)
+	private Integer entrevistaAgendada;
 
 	public boolean isConsolidada() {
 		return consolidada;
+	}
+	
+	public Integer getEntrevistaAgendada() {
+		return entrevistaAgendada;
+	}
+
+	public void setEntrevistaAgendada(Integer entrevistaAgendada) {
+		this.entrevistaAgendada = entrevistaAgendada;
 	}
 
 	public Integer getSelecionado() {
@@ -468,6 +481,41 @@ public class Inscricao implements Comparable<Inscricao>{
 			}
 		}
 		return null;
+	}
+	
+	public void verificarResultado(){
+		Integer result = this.converterResultado(this.analiseDocumentacao) + this.converterResultado(entrevista) + this.converterResultado(visitaDomiciliar);
+		if(result == 2 && this.selecao.getTipo()!=TipoSelecao.AUXILIO_MORADIA){
+			this.setResultado(Resultado.DEFERIDO);
+		}else if(result ==3){
+			this.setResultado(Resultado.DEFERIDO);
+		}else if(result < 0){
+			this.setResultado(Resultado.INDEFERIDO);
+		}else{
+			this.setResultado(Resultado.NAO_AVALIADO);
+		}
+	}
+	
+	private Integer converterResultado(Object obj){
+		Resultado resultado;
+		if(obj == null){
+			return 0;
+		}
+		if(obj instanceof AnaliseDocumentacao){
+			resultado = ((AnaliseDocumentacao) obj).getResultado();
+		}else if(obj instanceof Entrevista){
+			resultado = ((Entrevista) obj).getResultado();
+		}else if(obj instanceof VisitaDomiciliar){
+			resultado = ((VisitaDomiciliar) obj).getResultado();
+		}else return 0;
+		if(resultado == Resultado.NAO_AVALIADO){
+			return 0;
+		}else if(resultado == Resultado.DEFERIDO){
+			return 1;
+		}else{
+			return -5;
+		}
+		
 	}
 
 	@Override

@@ -34,6 +34,7 @@ import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.model.Servidor;
 import br.ufc.npi.auxilio.model.VisitaDomiciliar;
 import br.ufc.npi.auxilio.service.AlunoService;
+import br.ufc.npi.auxilio.service.InscricaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
 import br.ufc.npi.auxilio.service.VisitaService;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
@@ -52,6 +53,9 @@ public class VisitaController {
 
 	@Autowired
 	private VisitaService visitaService;
+	
+	@Autowired
+	private InscricaoService inscricaoService;
 
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/{inscricao}")
@@ -139,7 +143,7 @@ public class VisitaController {
 		
 		visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
 		visitaService.salvar(visitaDomiciliar);
-		
+		inscricaoService.salvar(inscricao);
 		return RedirectConstants.REDIRECT_SELECAO_INSCRICOES + inscricao.getSelecao().getId();
 	}
 	

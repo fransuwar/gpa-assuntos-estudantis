@@ -24,7 +24,7 @@ import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.model.Entrevista;
 import br.ufc.npi.auxilio.model.Inscricao;
 import br.ufc.npi.auxilio.repository.EntrevistaRepository;
-import br.ufc.npi.auxilio.repository.InscricaoRepository;
+import br.ufc.npi.auxilio.service.InscricaoService;
 import br.ufc.npi.auxilio.service.ServidorService;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
@@ -39,7 +39,7 @@ public class EntrevistaController {
 	private EntrevistaRepository entrevistaRepository;
 	
 	@Autowired
-	private InscricaoRepository InscricaoRepository;
+	private InscricaoService inscricaoService;
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/{idInscricao}")
@@ -69,7 +69,7 @@ public class EntrevistaController {
 		entrevistaRepository.save(entrevista);
 		
 		inscricao.setEntrevista(entrevista);
-		InscricaoRepository.save(inscricao);
+		inscricaoService.salvar(inscricao);
 		redirect.addFlashAttribute(INFO, MSG_SUCESSO_ENTREVISTA);
 		return RedirectConstants.REDIRECT_PAGINA_ENTREVISTA + inscricao.getId();
 	}
