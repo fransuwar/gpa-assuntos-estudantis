@@ -173,11 +173,15 @@
 										</a>
 									</td>
 									<td>
-										<div class="switch" th:if="${inscricao.resultado != null and inscricao.resultado.nome != null}">
-											<label>
-												<input  th:attr="disabled=${inscricao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome ? false : 'disabled' }" type="checkbox" class="selecionar" th:id="${inscricao.id}" th:checked="${inscricao.selecionado}" /> 
-												<span class="lever"></span>
-											</label>
+										<div th:if="${inscricao.resultado}">
+											<div th:unless="${inscricao.resultado.nome}" class="switch">
+											</div>
+											<div class="switch">
+												<label>
+													<input  th:attr="disabled=${inscricao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome ? false : 'disabled' }" type="checkbox" class="selecionar" th:id="${inscricao.id}" th:checked="${inscricao.selecionado}" /> 
+													<span class="lever"></span>
+												</label>
+											</div>
 										</div>
 									</td>
 								</tr>
