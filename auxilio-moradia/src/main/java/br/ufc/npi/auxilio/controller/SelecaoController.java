@@ -10,9 +10,6 @@ import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpEntity;
@@ -269,7 +266,6 @@ public class SelecaoController {
 	public String adicionarAgendamentoEntrevista(@PathVariable Selecao selecao, AgendamentoEntrevista agendamento, Authentication auth, 
 			RedirectAttributes redirect){
 		try {
-			
 			if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento))
 				redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTREVISTA);
 			else
@@ -367,7 +363,7 @@ public class SelecaoController {
 	public String agendarEntrevista(@PathVariable Selecao selecao, Authentication auth, Model model){
 		List<Inscricao> inscricoes = inscricaoService.inscricoesParaEntrevista(selecao);
 		AgendamentoEntrevista ae = new AgendamentoEntrevista();
-		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findAll(selecao);
+		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findBySelecao(selecao);
 		List<AgendamentoEntrevista> datas = agendamentoEntrevistaService.findAllDatas(selecao);
 		model.addAttribute("inscricoes", inscricoes);
 		model.addAttribute("agendamentos", agendamentos);

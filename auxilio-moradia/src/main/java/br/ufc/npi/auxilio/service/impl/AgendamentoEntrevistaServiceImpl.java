@@ -1,5 +1,6 @@
 package br.ufc.npi.auxilio.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,12 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	private InscricaoService inscricaoService;
 	
 	@Override
-	public Boolean adicionarHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento)
-			throws AuxilioMoradiaException {
+	public Boolean adicionarHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento)	throws AuxilioMoradiaException {
+			
+			if(agendamento.getData() == null){
+				LocalDate hoje = LocalDate.now();
+				agendamento.setData(hoje);
+			}
 			List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaRepository.findAll();
 			if(agendamentos.size()!=0){
 				for(AgendamentoEntrevista ea : agendamentos ){
@@ -100,6 +105,11 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	public List<AgendamentoEntrevista> findAllDatas(Selecao selecao) {
 		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaRepository.findDistinctDataBy(selecao.getId());
 		return agendamentos;
+	}
+	
+	@Override
+	public List<AgendamentoEntrevista> findBySelecao(Selecao selecao) {
+	 		return agendamentoEntrevistaRepository.findBySelecao(selecao);
 	}
 
 }

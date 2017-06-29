@@ -8,10 +8,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.ufc.npi.auxilio.model.AgendamentoEntrevista;
+import br.ufc.npi.auxilio.model.Selecao;
 
 @Repository
 public interface AgendamentoEntrevistaRepository extends JpaRepository <AgendamentoEntrevista, Integer>{
 	
+	@Query("SELECT a FROM AgendamentoEntrevista a WHERE a.selecao = :selecao")
+	public abstract List<AgendamentoEntrevista> findBySelecao(@Param("selecao") Selecao selecao);
 	
 	public abstract List<AgendamentoEntrevista> findAllByOrderByData();
 	
