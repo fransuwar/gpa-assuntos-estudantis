@@ -35,7 +35,7 @@ public class HistoricoEscolar {
     private Integer distancia;
 
     // Em horas
-    private String tempoGasto;
+    private Integer tempoGasto;
 
     public TipoEnsino getEnsinoMedio() {
         return ensinoMedio;
@@ -133,11 +133,11 @@ public class HistoricoEscolar {
         this.distancia = distancia;
     }
 
-    public String getTempoGasto() {
+    public Integer getTempoGasto() {
         return tempoGasto;
     }
 
-    public void setTempoGasto(String tempoGasto) {
+    public void setTempoGasto(Integer tempoGasto) {
         this.tempoGasto = tempoGasto;
     }
 }

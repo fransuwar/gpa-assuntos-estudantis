@@ -139,7 +139,7 @@ public class QuestionarioAuxilioMoradia {
 	private Integer distancia;
 
 	// Em horas
-	private String tempoGasto;
+	private Integer tempoGasto;
 
 	// Com relação à saúde
 	private boolean medicamento;
@@ -556,11 +556,11 @@ public class QuestionarioAuxilioMoradia {
 		this.distancia = distancia;
 	}
 
-	public String getTempoGasto() {
+	public Integer getTempoGasto() {
 		return tempoGasto;
 	}
 
-	public void setTempoGasto(String tempoGasto) {
+	public void setTempoGasto(Integer tempoGasto) {
 		this.tempoGasto = tempoGasto;
 	}
 

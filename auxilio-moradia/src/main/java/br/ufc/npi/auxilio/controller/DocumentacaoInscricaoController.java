@@ -87,8 +87,11 @@ public class DocumentacaoInscricaoController {
 			for (MultipartFile mfiles : files) {
 				try {
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-						documentacaoService.adicionarDocumentos(inscricao, documentacao, mfiles);
-						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
+						if(!documentacaoService.adicionarDocumentos(inscricao, documentacao, mfiles)){
+							redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+						}else{
+							redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
+						}
 					}
 				} catch (IOException e)	{
 					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
@@ -120,7 +123,6 @@ public class DocumentacaoInscricaoController {
 			return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 		}
 		
-		redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 	}
 	
