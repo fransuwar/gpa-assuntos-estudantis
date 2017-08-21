@@ -35,6 +35,7 @@ import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_ANALISE_DOCUMENTACAO;
 
 @Controller
 @RequestMapping("/documentacao")
@@ -86,8 +87,11 @@ public class DocumentacaoInscricaoController {
 			for (MultipartFile mfiles : files) {
 				try {
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-						documentacaoService.adicionarDocumentos(inscricao, documentacao, mfiles);
-						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
+						if(!documentacaoService.adicionarDocumentos(inscricao, documentacao, mfiles)){
+							redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
+						}else{
+							redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
+						}
 					}
 				} catch (IOException e)	{
 					redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
@@ -119,7 +123,6 @@ public class DocumentacaoInscricaoController {
 			return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 		}
 		
-		redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 		return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 	}
 	
@@ -198,6 +201,7 @@ public class DocumentacaoInscricaoController {
 		}
 		inscricaoService.salvar(inscricao);
 		analiseDocumentacaoRepository.save(analise);
+		redirectAttributes.addFlashAttribute(INFO, MSG_SUCESSO_ANALISE_DOCUMENTACAO);
 		return RedirectConstants.REDIRECT_INSCRICAO_ANALISAR_DOCUMENTO+inscricao.getId();
 	}
 	

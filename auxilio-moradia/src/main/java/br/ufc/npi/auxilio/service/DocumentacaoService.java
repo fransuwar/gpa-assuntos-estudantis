@@ -20,7 +20,7 @@ public interface DocumentacaoService {
 	
 	void salvar(TipoDocumento tipoDocumento);
 	
-	void adicionarDocumentos(Inscricao inscricao, Documentacao documentacao, MultipartFile multipartFile) throws AuxilioMoradiaException, IOException;
+	boolean adicionarDocumentos(Inscricao inscricao, Documentacao documentacao, MultipartFile multipartFile) throws AuxilioMoradiaException, IOException;
 	
 	DocumentoDownload downloadDocumento(Documento documento, String procedimento);
 

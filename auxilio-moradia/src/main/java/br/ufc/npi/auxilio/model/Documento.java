@@ -2,8 +2,6 @@ package br.ufc.npi.auxilio.model;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.Type;
-
 @Entity
 public class Documento {
 
