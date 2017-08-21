@@ -199,6 +199,7 @@ public class DocumentacaoInscricaoController {
 		for(int i = 0; i < inscricoes.size(); i++){
 			inscricoes.get(i).setPosicaoRanking(i+1);
 		}
+		inscricao.setEntrevistaAgendada(0);
 		inscricaoService.salvar(inscricao);
 		analiseDocumentacaoRepository.save(analise);
 		redirectAttributes.addFlashAttribute(INFO, MSG_SUCESSO_ANALISE_DOCUMENTACAO);

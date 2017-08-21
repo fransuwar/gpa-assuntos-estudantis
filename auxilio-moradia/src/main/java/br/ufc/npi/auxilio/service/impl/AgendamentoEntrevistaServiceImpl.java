@@ -27,9 +27,9 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	private InscricaoService inscricaoService;
 	
 	@Override
-	public Boolean adicionarHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento)
+	public Boolean adicionarHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento, Selecao selecao)
 			throws AuxilioMoradiaException {
-			List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaRepository.findAll();
+			List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaRepository.findAllBySelecao(selecao);			
 			if(agendamentos.size()!=0){
 				for(AgendamentoEntrevista ea : agendamentos ){
 					if(ea.getData().equals(agendamento.getData()) && ea.getHorario().equals(agendamento.getHorario()) && ea.getTurno().equals(agendamento.getTurno())){
@@ -57,7 +57,7 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 		if(inscricao != null && agendamento != null) {
 			Boolean b  = agendamento.alocaAgendamentoEntrevista(inscricao);
 			inscricao.setEntrevistaAgendada(1);
-			inscricaoService.atualizar(inscricao);
+			inscricaoService.editar(inscricao);
 			agendamentoEntrevistaRepository.save(agendamento);
 			emailService.enviarEmailEntrevistaAgendada(agendamento, inscricao);
 			return b;
@@ -69,7 +69,7 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 	public void removerInscricaoAgendamento(Inscricao inscricao, AgendamentoEntrevista agendamento) throws AuxilioMoradiaException {
 		if (inscricao != null && agendamento != null) {
 			inscricao.setEntrevistaAgendada(0);
-			inscricaoService.atualizar(inscricao);
+			inscricaoService.editar(inscricao);
 			agendamento.removeInscricaoAgendamento(inscricao);
 			agendamentoEntrevistaRepository.save(agendamento);
 		}

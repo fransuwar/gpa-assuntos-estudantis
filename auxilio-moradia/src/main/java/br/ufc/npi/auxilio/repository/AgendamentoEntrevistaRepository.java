@@ -16,6 +16,8 @@ public interface AgendamentoEntrevistaRepository extends JpaRepository <Agendame
 	
 	public abstract List<AgendamentoEntrevista> findAllByOrderByData();
 	
+	public abstract List<AgendamentoEntrevista> findAllBySelecao(Selecao selecao);
+	
 	public abstract AgendamentoEntrevista findById(Integer id);
 	
 	@Query("select DISTINCT(p.data) FROM AgendamentoEntrevista p inner join p.selecao s where s.id = :idSelecao")

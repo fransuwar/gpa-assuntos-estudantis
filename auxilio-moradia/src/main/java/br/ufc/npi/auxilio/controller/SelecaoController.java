@@ -270,7 +270,7 @@ public class SelecaoController {
 			RedirectAttributes redirect){
 		try {
 			
-			if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento))
+			if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento, selecao))
 				redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTREVISTA);
 			else
 				redirect.addFlashAttribute(ERRO, "Erro ao inserir agendamento de entrevista");
