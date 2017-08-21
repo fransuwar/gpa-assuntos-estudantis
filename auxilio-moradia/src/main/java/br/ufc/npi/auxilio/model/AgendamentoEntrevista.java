@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,6 +33,7 @@ public class AgendamentoEntrevista {
 	@Enumerated(EnumType.STRING)
 	private HorarioEntrevista horario;
 
+	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate data;
 
