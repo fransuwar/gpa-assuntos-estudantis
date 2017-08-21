@@ -9,7 +9,7 @@ import br.ufc.npi.auxilio.model.Selecao;
 
 public interface AgendamentoEntrevistaService {
 	
-	Boolean adicionarHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento)
+	Boolean adicionarHorarioAgendamentoEntrevista(AgendamentoEntrevista agendamento, Selecao selecao)
 			throws AuxilioMoradiaException;
 
 	boolean alocarAgendamentoEntrevista(AgendamentoEntrevista agendamento, Inscricao inscricao) throws AuxilioMoradiaException;
@@ -23,4 +23,6 @@ public interface AgendamentoEntrevistaService {
 	List<AgendamentoEntrevista> findAllDatas(Selecao selecao);
 
 	List<AgendamentoEntrevista> findAll(Selecao selecao); 
+	
+	List<AgendamentoEntrevista> findBySelecao(Selecao selecao);
 }

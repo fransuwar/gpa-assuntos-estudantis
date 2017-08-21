@@ -83,8 +83,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 			return false;
 		}
 		try {
-			inscricao.setSelecionado(inscricaoAntigo.getSelecionado());
-			
+			inscricao.setSelecionado(inscricaoAntigo.getSelecionado());			
 			inscricaoRepository.save(inscricao);
 		} catch (IllegalArgumentException e) {
 			return false;
