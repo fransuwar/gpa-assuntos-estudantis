@@ -12,7 +12,7 @@
 					<label for="tipo">* Tipo da seleção</label>
 				</div>
 				<div class="col s2 input-field">
-					<input th:field="*{ano}" type="text" value="${selecao.ano}" class="validate" id="ano" required="required" maxlength="4"/>
+					<input th:field="*{ano}" type="number" value="${selecao.ano}" class="validate" id="ano" required="required" maxlength="4"/>
 					<label for="ano">* Ano</label>
 				</div>
 				<div class="col s2 input-field">
@@ -24,7 +24,7 @@
 					<label for="termino">* Término das Incrições</label>
 				</div>
 				<div class="col s2 input-field">
-					<input th:field="*{quantidadeVagas}" value="${selecao.quantidadeVagas}" type="text" class="integer" id="vagas"/>
+					<input th:field="*{quantidadeVagas}" value="${selecao.quantidadeVagas}" type="number" class="integer" id="vagas"/>
 					<label for="vagas">Vagas</label>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 		</div>
 		<div class="modal-footer">
 			<a id="confirm-excluir" href="#!" class="modal-action waves-effect waves-light btn red">Excluir</a>
-			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat purple-text white">Cancelar</a>
 		</div>
 	</div>
 </div>

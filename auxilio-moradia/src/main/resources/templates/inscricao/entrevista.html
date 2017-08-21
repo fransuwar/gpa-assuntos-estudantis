@@ -56,7 +56,7 @@
 							</div>
 
 							<div class="col s2 input-field">
-								<input type="tel" th:field="*{contato}" id="contato" /> 
+								<input type="tel" th:field="*{contato}" id="contato" placeholder="Ex.: (00) 00000-0000"/> 
 								<label for="contato">Contato</label>
 							</div>
 						</div>
@@ -445,7 +445,8 @@
 						</div>
 					</div>
 					<div class="card-action right-align">
-						<button class="btn waves-effect waves-light" type="submit">Avançar</button>
+						<a th:href="@{/selecao/inscricoes/__${inscricao.selecao.id}__}"  type="button">Cancelar</a>
+						<button class="btn waves-effect waves-light" type="submit">Finalizar</button>
 					</div>
         		</div>
         		

@@ -367,6 +367,7 @@ public class InscricaoController {
 				inscricoes.get(i).setPosicaoRanking(i+1);
 			}
 			inscricaoService.atualizar(inscricao);
+			redirect.addFlashAttribute(INFO, MSG_SUCESSO_CADASTRO_INSCRICAO);
 			if ("finalizar".equals(action))
 				return REDIRECT_DETALHES_INSCRICAO + inscricao.getId();
 			else if ("voltar".equals(action))
