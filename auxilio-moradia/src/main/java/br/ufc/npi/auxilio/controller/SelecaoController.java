@@ -269,8 +269,9 @@ public class SelecaoController {
 	public String adicionarAgendamentoEntrevista(@PathVariable Selecao selecao, AgendamentoEntrevista agendamento, Authentication auth, 
 			RedirectAttributes redirect){
 		try {
-			
-			if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento))
+			if(agendamento.getData() == null)
+				redirect.addFlashAttribute(ERRO, "Data de agendamento de entrevista inválida");
+			else if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento, selecao))
 				redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTREVISTA);
 			else
 				redirect.addFlashAttribute(ERRO, "Erro ao inserir agendamento de entrevista");
@@ -367,7 +368,7 @@ public class SelecaoController {
 	public String agendarEntrevista(@PathVariable Selecao selecao, Authentication auth, Model model){
 		List<Inscricao> inscricoes = inscricaoService.inscricoesParaEntrevista(selecao);
 		AgendamentoEntrevista ae = new AgendamentoEntrevista();
-		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findAll(selecao);
+		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findBySelecao(selecao);
 		List<AgendamentoEntrevista> datas = agendamentoEntrevistaService.findAllDatas(selecao);
 		model.addAttribute("inscricoes", inscricoes);
 		model.addAttribute("agendamentos", agendamentos);
