@@ -160,8 +160,7 @@ public class VisitaController {
 	public String excluirImagem(@PathVariable Inscricao inscricao, @PathVariable Documento arquivo, RedirectAttributes redirect) {
 		try {
 			if(inscricao != null && arquivo != null) {
-				arquivo = visitaService.buscarDocumento(arquivo);
-				visitaService.excluirDocumento(inscricao.getVisitaDomiciliar(), arquivo);
+				visitaService.excluirDocumento(inscricao.getVisitaDomiciliar(), visitaService.buscarDocumento(arquivo));
 				redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_REMOVIDO);
 			}
 		} catch (AuxilioMoradiaException e) {
