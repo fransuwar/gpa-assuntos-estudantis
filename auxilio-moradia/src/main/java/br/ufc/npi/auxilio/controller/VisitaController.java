@@ -147,8 +147,7 @@ public class VisitaController {
 	public HttpEntity<?> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento documento, RedirectAttributes redirect) {
 		try {
 			if(inscricao != null && documento != null) {
-				documento = visitaService.buscarDocumento(documento);
-				return visitaService.downloadDocumento(documento, "attachment");
+				return visitaService.downloadDocumento(visitaService.buscarDocumento(documento), "attachment");
 			}
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
