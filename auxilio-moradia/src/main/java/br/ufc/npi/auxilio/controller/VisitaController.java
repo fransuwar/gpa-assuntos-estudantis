@@ -5,6 +5,7 @@ import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
+import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_VISITA;
 
 import java.io.IOException;
@@ -117,6 +118,8 @@ public class VisitaController {
 			for (MultipartFile mfiles : formulario) {
 				try {
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
+						if (visitaDomiciliar.getFormulario() != null)
+							visitaService.excluirFormulario(visitaDomiciliar);
 						visitaService.adicionarFormulario(visitaDomiciliar, mfiles);
 						redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 					}
@@ -135,22 +138,49 @@ public class VisitaController {
 		visitaService.salvar(visitaDomiciliar);
 		redirect.addFlashAttribute(INFO, MSG_SUCESSO_VISITA);
 		inscricaoService.salvar(inscricao);
-		return RedirectConstants.REDIRECT_PAGINA_VISITA + inscricao.getId();
+		return RedirectConstants.REDIRECT_VISITA_DOMICILIAR + inscricao.getId();
 	}
 	
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@GetMapping("/documento/{inscricao}/download/{documento}")
-	public HttpEntity<?> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento documento, RedirectAttributes redirect) {
+	@GetMapping("/documento/{inscricao}/download/{arquivo}")
+	public HttpEntity<?> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento arquivo, RedirectAttributes redirect) {
 		try {
-			if(inscricao != null && documento != null) {
-				documento = visitaService.buscarDocumento(documento);
-				return visitaService.downloadDocumento(documento, "attachment");
+			if(inscricao != null && arquivo != null) {
+				return visitaService.downloadDocumento(visitaService.buscarDocumento(arquivo), "attachment");
 			}
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 		}
 		return null;
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/documento/{inscricao}/excluir/{arquivo}")
+	public String excluirImagem(@PathVariable Inscricao inscricao, @PathVariable Documento arquivo, RedirectAttributes redirect) {
+		try {
+			if(inscricao != null && arquivo != null) {
+				visitaService.excluirDocumento(inscricao.getVisitaDomiciliar(), visitaService.buscarDocumento(arquivo));
+				redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_REMOVIDO);
+			}
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+		}
+		return RedirectConstants.REDIRECT_VISITA_DOMICILIAR + inscricao.getId();
+	}
+	
+	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@GetMapping("/documento/{inscricao}/excluirformulario")
+	public String excluirFormulario(@PathVariable Inscricao inscricao, RedirectAttributes redirect) {
+		try {
+			if(inscricao != null && inscricao.getVisitaDomiciliar().getFormulario() != null) {
+				visitaService.excluirFormulario(inscricao.getVisitaDomiciliar());
+				redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_REMOVIDO);
+			}
+		} catch (AuxilioMoradiaException e) {
+			redirect.addFlashAttribute(ERRO, e.getMessage());
+		}
+		return RedirectConstants.REDIRECT_VISITA_DOMICILIAR + inscricao.getId();
 	}
 
 	@ModelAttribute("resultados")
