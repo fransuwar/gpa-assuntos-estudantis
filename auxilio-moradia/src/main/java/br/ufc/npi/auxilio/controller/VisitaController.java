@@ -156,12 +156,12 @@ public class VisitaController {
 	}
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@GetMapping("/documento/{inscricao}/excluir/{documento}")
-	public String excluirImagem(@PathVariable Inscricao inscricao, @PathVariable Documento documento, RedirectAttributes redirect) {
+	@GetMapping("/documento/{inscricao}/excluir/{arquivo}")
+	public String excluirImagem(@PathVariable Inscricao inscricao, @PathVariable Documento arquivo, RedirectAttributes redirect) {
 		try {
-			if(inscricao != null && documento != null) {
-				documento = visitaService.buscarDocumento(documento);
-				visitaService.excluirDocumento(inscricao.getVisitaDomiciliar(), documento);
+			if(inscricao != null && arquivo != null) {
+				arquivo = visitaService.buscarDocumento(arquivo);
+				visitaService.excluirDocumento(inscricao.getVisitaDomiciliar(), arquivo);
 				redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_REMOVIDO);
 			}
 		} catch (AuxilioMoradiaException e) {
