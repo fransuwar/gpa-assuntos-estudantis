@@ -17,25 +17,11 @@ function filtra(ele) {
 		$(".AUXILIO_EMERGENCIAL").show();
 	}
 }
-
-$(document).ready(function() {
-	$("select").material_select();
-	$("#inicio").mask("00/00/0000");
-	$("#termino").mask("00/00/0000");
-	$("#ano").mask("0000");
-	$("#vagas").mask("###");
-	
-	criarTabela("#inscricoes-deferidas", "#float_relatorio_deferidos");
-	criarTabela("#inscricoes-indeferidas", "#float_relatorio_indeferidos");
-	
-	
-});
-
-
 function criarTabela(id, relatorio){
-	//tabela referente ao resultado final - indeferidas
-	var table = $(id.string).DataTable({
-        "paging": false,
+	//tabela referente ao resultado final
+	var table = $("#"+id).DataTable({
+        
+		"paging": false,
         "ordering": false,
         dom: 'Blrtp',
         buttons: [
@@ -51,7 +37,30 @@ function criarTabela(id, relatorio){
 				text:'<i class="material-icons">insert_chart</i>',
              	className: 'btn-floating deep-purple lighten-1 tooltipped'                  
             }
-        ]
+        ],
+        "language": {
+            "sEmptyTable": "Nenhum registro encontrado",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sInfoThousands": ".",
+            "sLengthMenu": "_MENU_ resultados por página",
+            "sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...",
+            "sZeroRecords": "Nenhum registro encontrado",
+            "sSearch": "Pesquisar",
+            "oPaginate": {
+                "sNext": "Próximo",
+                "sPrevious": "Anterior",
+                "sFirst": "Primeiro",
+                "sLast": "Último"
+            },
+            "oAria": {
+                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                "sSortDescending": ": Ordenar colunas de forma descendente"
+            }
+        },
     });
 	
     //Alocação dos botões do dataTables dentro de um FAB do materialize
@@ -69,8 +78,21 @@ function criarTabela(id, relatorio){
         	}
         	var tag = $("<li></li>");
         	$(this).appendTo(tag);
-        	tag.appendTo(relatorio);
+        	tag.appendTo("#"+relatorio);
         })            
         $('.tooltipped').tooltip();
     }
+    
+    return table;
 }
+
+$(document).ready(function() {
+	$("select").material_select();
+	$("#inicio").mask("00/00/0000");
+	$("#termino").mask("00/00/0000");
+	$("#ano").mask("0000");
+	$("#vagas").mask("###");
+	
+	criarTabela("inscricoes-deferidas", "float_relatorio_deferidos");
+	criarTabela("inscricoes-indeferidas", "float_relatorio_indeferidos");
+});
