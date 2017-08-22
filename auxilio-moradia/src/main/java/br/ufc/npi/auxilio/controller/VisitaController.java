@@ -143,11 +143,11 @@ public class VisitaController {
 	
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
-	@GetMapping("/documento/{inscricao}/download/{documento}")
-	public HttpEntity<?> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento documento, RedirectAttributes redirect) {
+	@GetMapping("/documento/{inscricao}/download/{arquivo}")
+	public HttpEntity<?> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento arquivo, RedirectAttributes redirect) {
 		try {
-			if(inscricao != null && documento != null) {
-				return visitaService.downloadDocumento(visitaService.buscarDocumento(documento), "attachment");
+			if(inscricao != null && arquivo != null) {
+				return visitaService.downloadDocumento(visitaService.buscarDocumento(arquivo), "attachment");
 			}
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
