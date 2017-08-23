@@ -491,8 +491,11 @@ public class Inscricao implements Comparable<Inscricao>{
 			this.setResultado(Resultado.DEFERIDO);
 		}else if(result < 0){
 			this.setResultado(Resultado.INDEFERIDO);
+			//caso haja uma alteração que faça com que a inscrição seja indeferida ou não avaliada o switch retorna a posição 'não selecionada'
+			this.selecionado = 0;
 		}else{
 			this.setResultado(Resultado.NAO_AVALIADO);
+			this.selecionado = 0;
 		}
 	}
 	
