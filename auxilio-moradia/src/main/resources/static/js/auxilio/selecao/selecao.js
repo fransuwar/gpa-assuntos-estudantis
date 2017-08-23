@@ -17,17 +17,11 @@ function filtra(ele) {
 		$(".AUXILIO_EMERGENCIAL").show();
 	}
 }
-
-$(document).ready(function() {
-	$("select").material_select();
-	$("#inicio").mask("00/00/0000");
-	$("#termino").mask("00/00/0000");
-	$("#ano").mask("0000");
-	$("#vagas").mask("###");
-	
-	//tabela referente ao resultado final - indeferidas
-	var table = $("#inscricoes-indeferidas").DataTable({
-        "paging": false,
+function criarTabela(id, relatorio){
+	//tabela referente ao resultado final
+	var table = $("#"+id).DataTable({
+        
+		"paging": false,
         "ordering": false,
         dom: 'Blrtp',
         buttons: [
@@ -55,6 +49,7 @@ $(document).ready(function() {
             "sLoadingRecords": "Carregando...",
             "sProcessing": "Processando...",
             "sZeroRecords": "Nenhum registro encontrado",
+            "sSearch": "Pesquisar",
             "oPaginate": {
                 "sNext": "Próximo",
                 "sPrevious": "Anterior",
@@ -65,9 +60,8 @@ $(document).ready(function() {
                 "sSortAscending": ": Ordenar colunas de forma ascendente",
                 "sSortDescending": ": Ordenar colunas de forma descendente"
             }
-        }
+        },
     });
-	
 	
     //Alocação dos botões do dataTables dentro de um FAB do materialize
     if(table.buttons){
@@ -84,8 +78,21 @@ $(document).ready(function() {
         	}
         	var tag = $("<li></li>");
         	$(this).appendTo(tag);
-        	tag.appendTo("#float_relatorio_indeferidos");
+        	tag.appendTo("#"+relatorio);
         })            
         $('.tooltipped').tooltip();
     }
+    
+    return table;
+}
+
+$(document).ready(function() {
+	$("select").material_select();
+	$("#inicio").mask("00/00/0000");
+	$("#termino").mask("00/00/0000");
+	$("#ano").mask("0000");
+	$("#vagas").mask("###");
+	
+	criarTabela("inscricoes-deferidas", "float_relatorio_deferidos");
+	criarTabela("inscricoes-indeferidas", "float_relatorio_indeferidos");
 });

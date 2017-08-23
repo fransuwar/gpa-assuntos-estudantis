@@ -140,7 +140,7 @@
 				
 				//$(this).children().select();
 			})
-						
+									
 			var table = $("#inscricoes").DataTable({
                 "scrollX": true,
                 "paging": false,
@@ -190,7 +190,7 @@
             $("#busca_inscricoes").on( 'keyup click', function () {
     	        filterGlobal();
     	    } );
-            //Alocação dos botões do dataTables dentro de um FAB do materialize
+             //Alocação dos botões do dataTables dentro de um FAB do materialize
             if(table.buttons){
             	$(".dt-button").removeClass("dt-button");
 	            var botoes = table.buttons().container().children();

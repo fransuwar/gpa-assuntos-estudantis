@@ -138,7 +138,12 @@ public class VisitaDomiciliar {
 			return false;
 		return true;
 	}
-
+	
+	public void removeImagem(Documento documento) {
+		if (imagens != null) {
+			imagens.remove(documento);
+		}
+	}
 
 
 
