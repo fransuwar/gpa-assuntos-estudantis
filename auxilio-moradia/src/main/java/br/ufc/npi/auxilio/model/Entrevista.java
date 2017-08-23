@@ -33,7 +33,7 @@ public class Entrevista {
 	
 	private String contato;
 	
-	private Boolean renovacao;
+	
 	
 	private Boolean aproveitamento;
 	
@@ -53,9 +53,11 @@ public class Entrevista {
 	
 	private Integer qtColegas;
 	
-	private Boolean provedor;
+	//João Vitor
+	private String provedor;
 	
-	private Boolean maeChefe;
+	//João Vitor
+	private Boolean outra_graduacao;
 	
 	private Boolean temFilhos;
 	
@@ -123,6 +125,14 @@ public class Entrevista {
 	private Servidor responsavel;
 	
 	
+	public Boolean getOutra_graduacao() {
+		return outra_graduacao;
+	}
+
+	public void setOutra_graduacao(Boolean outra_graduacao) {
+		this.outra_graduacao = outra_graduacao;
+	}
+	
 	public String getObservacao() {
 		return observacao;
 	}
@@ -153,14 +163,6 @@ public class Entrevista {
 
 	public void setContato(String contato) {
 		this.contato = contato;
-	}
-
-	public Boolean getRenovacao() {
-		return renovacao;
-	}
-
-	public void setRenovacao(Boolean renovacao) {
-		this.renovacao = renovacao;
 	}
 
 	public Boolean getAproveitamento() {
@@ -235,20 +237,12 @@ public class Entrevista {
 		this.qtColegas = qtColegas;
 	}
 
-	public Boolean getProvedor() {
+	public String getProvedor() {
 		return provedor;
 	}
 
-	public void setProvedor(Boolean provedor) {
+	public void setProvedor(String provedor) {
 		this.provedor = provedor;
-	}
-
-	public Boolean getMaeChefe() {
-		return maeChefe;
-	}
-
-	public void setMaeChefe(Boolean maeChefe) {
-		this.maeChefe = maeChefe;
 	}
 
 	public Boolean getTemFilhos() {

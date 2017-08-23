@@ -88,8 +88,6 @@ function mostraCampoMembroQualMembroC_deficiencia(el){
 }
 
 
-
-
 $(document).ready( function() {
 	var s = document.getElementById("renovacaoAuxilio");
 	mostraCampo(s);

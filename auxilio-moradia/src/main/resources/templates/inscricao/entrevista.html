@@ -38,13 +38,8 @@
 			<form id="formentrevista" th:object="${entrevista}" th:action="@{/entrevista/__${inscricao.id}__}" th:method="post">
 				<div class="card">
 				 <div class="card-content">
-						<h5 class="title light">Identificação</h5>
+						<h5 class="title light">Dados Gerais I</h5>
 						<div class="row">
-							<div class="col s3">
-								<span>Nome:</span> <span class="text-20 truncate"
-									th:text="${inscricao.aluno.pessoa.nome} ? ${inscricao.aluno.pessoa.nome} : '-'"></span>
-							</div>
-
 							<div class="col s2 input-field">
 								<input type="text" class="datepicker" id="data-entrevista" th:field="*{data}" required="required" /> 
 								<label for="data-entrevista">* Data da Entrevista</label>
@@ -66,28 +61,21 @@
 				
 				<div class="card">
 					<div class="card-content">
-						<h5 class="title light">Dados Gerais I</h5>
-						<div class="row">
-							<div class="col s4 input-field">
-								<select id="renovacaoAuxilio" th:field="*{renovacao}" onchange='mostraCampo(this)'>
-									<option value="false">NÃO</option>
-									<option value="true">SIM</option>
-								</select> 
-								<label for="renovacaoAuxilio">* Renovação de solicitação de auxílio/bolsa?</label>
-							</div>
-							
-							<div class="col s4 input-field">
+						<h5 class="title light">Dados Gerais II</h5>
+						
+						<div class="col s4 input-field">
 								<input type="text" th:field="*{cursoSemestre}" class="filled-in" id="curso-semestre" /> <label
 									for="curso-semestre">Curso/semestre</label>
 							</div>
+						
+					
 							<div class="col s4 input-field">
-								<select th:field="*{concluiuOutra}" id="concluiu-outra-graduacao">
+								<select id="concl_outra_gradua" th:field="*{outra_graduacao}">
 									<option value="false">NÃO</option>
 									<option value="true">SIM</option>
-								</select> <label for="concluiu-outra-graduacao">* Concluiu outra
-									graduação?</label>
-							</div>
-						</div>
+								</select> <label for="prov-grupo-familiar">* Já concluiu outra graduação?</label>
+							</div>		
+						
 						<div class="row">
 							<div class="col s12 input-field" id="AproveitamentoSatisfatorio" style="display:none">
 								<select id="aproveitamentoSatisfatorio" th:field="*{aproveitamento}" >
@@ -97,6 +85,9 @@
 								<label for="aproveitamentoSatisfatorio">Possui aproveitamento positivo de no mínimo 50% das disciplinas matriculadas no semestre anterior e matriculado em no mínimo 12 créditos, salvo se a grade curricular do curso não permitir?</label>
 							</div>
 						</div>
+
+
+
 
 						<div class="row">
 
@@ -153,24 +144,14 @@
 
 						<div class="row">
 							<div class="col s4 input-field">
-								<select id="prov-grupo-familiar" th:field="*{provedor}">
-									<option value="false">NÃO</option>
-									<option value="true">SIM</option>
-								</select> <label for="prov-grupo-familiar">* Estudante provedor
-									financeiro do grupo familiar?</label>
+								<input type="text" required="required" id="prov-grupo-familiar" th:field="*{provedor}"/>
+								<label for="prov-grupo-familiar">* Quem é o provedor financeiro da família?</label>
 							</div>
-							<div class="col s4 input-field">
-								<select id="mae-chefe-familia" th:field="*{maeChefe}">
-									<option value="false">NÃO</option>
-									<option value="true">SIM</option>
-								</select> 
-								<label
-									for="mae-chefe-familia">Mãe chefe de família?</label>
-							</div>
+							
 							<div class="col s4 input-field">
 								<select id="estudante-com-filhos" th:field="*{temFilhos}">
 									<option value="false">NÃO</option>
-									<option value="true">SIM</option>
+									<option value="true">SIM.</option>
 								</select> <label for="estudante-com-filhos">* Estudante com
 									filhos?</label>
 							</div>
@@ -200,7 +181,7 @@
 				</div>
 				<div class="card">
 					<div class="card-content">
-						<h5 class="title light">Dados Gerais II</h5>
+						<h5 class="title light">Dados Gerais III</h5>
 						<div class="row">
 							<div class="col s6 input-field">
 								<select id="AlguemUsaMedicamento" th:field="*{medicamento}" onchange='mostraCampoaQualMedicamento(this)'>
@@ -306,15 +287,13 @@
 						<div class="row">
 							<div class="col s12 input-field">
 								<input th:field="*{atendidoCRAS}" type="text" id="FamiliaJaAtendidaSaude" /> <label
-									for="FamiliaJaAtendidaSaude">Família já foi atendida
-									pelo CRAS/CREAS/CAPS/PSF/NASF/CENTRO DE REFERÊNCIA DA MULHER de
-									seu município?</label>
+									for="FamiliaJaAtendidaSaude">17) Família já foi atendida pela rede socioassistencial do município onde reside? CRAS/CREAS/CAPS/PSF/NASF/ CENTRO DE REFERÊNCIA DA MULHER de seu município?</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col s6 input-field">
 								<input th:field="*{dinamicaFamiliar}" type="text" id="dinamicaFamiliar" /> <label
-									for="dinamicaFamiliar">Como é sua dinâmica familiar?</label>
+									for="dinamicaFamiliar">Como são suas relações familiares?</label>
 							</div>
 							<div class="col s6 input-field">
 								<input th:field="*{relacoesAbitoAcademico}" type="text" id="relacoesAcademicas" /> <label
@@ -327,7 +306,7 @@
 				</div>
 				<div class="card">
 					<div class="card-content">
-						<h5 class="title light">Dados Gerais III</h5>
+						<h5 class="title light">Dados Gerais IV</h5>
 						<div class="row">
 							<div class="col s12 input-field">
 								<select th:field="*{modalidade}">
@@ -364,9 +343,11 @@
 								<select th:field="*{participouSelecao}">
 									<option th:each="tipoParticipouSelecao : ${participouSelecao}" th:value="${tipoParticipouSelecao}" th:text="${tipoParticipouSelecao.nome}"></option>
 								</select>
-								<label for="parecer">Participou de editais da seleção do Auxílio Moradia, Bolsa de Iniciação Acadêmica, Auxílio creche ou Auxílio emergencial?</label>
+								<label for="parecer">24) Participou dos editais da seleção do Auxílio Moradia, Bolsa de Iniciação Acadêmica, isenção do RU, auxílio creche ou auxílio emergencial ?</label>
 							</div>
 						</div>
+
+						
 					</div>
 				</div>
 				<div class="card" th:if="${inscricao.selecao.tipo.nome eq T(br.ufc.npi.auxilio.enums.TipoSelecao).INICIACAO_ACADEMICA.nome}">
@@ -413,7 +394,7 @@
 							<div class="col s12 input-field"
 								id="divHabilidadesDesenvolvidas1" style="display:none">
 								<input type="text" id="MotivoMudarProjeto" th:field="*{motivoProjeto}" /> 
-								<label for="MotivoMudarProjeto">* O que te faz querer mudar de projeto?</label>
+						    	<label for="MotivoMudarProjeto">* O que te faz querer mudar de projeto?</label>
 
 							</div>
 						</div>
