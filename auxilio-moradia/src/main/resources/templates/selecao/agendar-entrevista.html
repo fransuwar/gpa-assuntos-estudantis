@@ -64,7 +64,7 @@
 				      			<div class="container col s12">
 				      				<div class="row">
 									<div th:each="agendamento : ${agendamentos}">
-										<ul class="collapsible popout " data-collapsible="accordion">
+										<ul class="collapsible popout" data-collapsible="accordion">
 											<li>
 												<div th:if="${data == agendamento.data}" th:text="${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}" class="collapsible-header center white-text "></div>
 													<div class="card collapsible-body">
@@ -73,11 +73,17 @@
 															method="post" th:object="${agendamento}">
 															<input type="hidden" name="agendamento" th:value="${agendamento.id}" />
 															<div class=" col s12">
+																<div class="row input-field col s12" id="filtra-cursos">
+																	<span class="col s3 check" th:each="curso:${cursos}">
+																		<input type="checkbox" name="curso" th:id="${curso}" />
+																		<label th:for="${curso}" th:text="${curso}">curso</label>
+																	</span>
+																</div>
 																<div class="input-field col s6">
 																	<select name="inscricao">
 																		<option th:each="inscricao : ${inscricoes}"
 																			th:value="${inscricao.id}"
-																			th:text="${inscricao.aluno.pessoa.nome}"></option>
+																			th:text="${{inscricao.aluno.pessoa.nome +':	 '+ inscricao.aluno.curso}}"></option>
 																	</select> 
 																	<label>Aluno</label>
 																</div>
@@ -135,6 +141,9 @@
 				</div>
 			</div>
 		
+</section>
+<section layout:fragment="js">
+   	<script th:src="@{/js/auxilio/selecao/entrevista.js}"></script>
 </section>
 <script type="text/javascript">
 $(document).ready(function(){

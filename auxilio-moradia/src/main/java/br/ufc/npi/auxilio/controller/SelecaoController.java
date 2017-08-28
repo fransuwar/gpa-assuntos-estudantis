@@ -9,9 +9,7 @@ import br.ufc.npi.auxilio.service.*;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
-
-
-
+import br.ufc.npi.auxilio.utils.api.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -370,6 +369,7 @@ public class SelecaoController {
 		AgendamentoEntrevista ae = new AgendamentoEntrevista();
 		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findBySelecao(selecao);
 		List<AgendamentoEntrevista> datas = agendamentoEntrevistaService.findAllDatas(selecao);
+		model.addAttribute("cursos", inscricaoService.cursosParaEntrevista(selecao));
 		model.addAttribute("inscricoes", inscricoes);
 		model.addAttribute("agendamentos", agendamentos);
 		model.addAttribute("selecao", selecao);
@@ -378,6 +378,25 @@ public class SelecaoController {
 		model.addAttribute("turno", Turno.values());
 		model.addAttribute("datas", datas);
 		return AGENDAR_ENTREVISTA;
+	}
+	
+	@PostMapping(value = "/filtrar/curso")
+	@ResponseBody
+	public Response selecionarInscricao(Integer inscricao, String cursos){
+		String[] vetorCursos = cursos.split(","); 
+		if (inscricao != null && vetorCursos.length>0){
+			List<String> resultado = new ArrayList<>();
+			for(Inscricao objetoInscricao : inscricaoService.inscricoesParaEntrevista(inscricao, vetorCursos)){
+				resultado.add("{\"value\": \""+objetoInscricao.getId()+
+						"\",\"text\":\""+objetoInscricao.getAluno().getPessoa().getNome()+"-"+objetoInscricao.getAluno().getCurso()
+						+"\"}");
+			}
+			Response r = new Response();
+			r.setObject(resultado);
+			return r;
+		}
+		else
+			return new Response().withFailStatus().withErrorMessage("Error ao selecionar esta inscricao");
 	}
 
 }
