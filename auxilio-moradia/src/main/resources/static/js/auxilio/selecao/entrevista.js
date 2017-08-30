@@ -18,18 +18,32 @@ $(".filtrar-cursos").on("click", ".filtro-curso",function(){
 
 function ocultar(opcoes, seletor,filtros){
 	mostrarTodos(seletor);
+	let primeiraOpcao = null;
 	for(let j=0; j< opcoes.length; j++){
 		let opcao = opcoes[j];
 		let existeAluno = false;
 		for(let i=0; i<filtros.length; i++){
 			if(opcao.id==filtros[i].toString()) existeAluno = true;
 		}
-		if(!existeAluno) $(seletor[j]).hide();
+		if(!existeAluno){
+			$(seletor[j]).attr("hidden","");			
+		}
+		else if(primeiraOpcao == null){
+			primeiraOpcao = opcao;
+		}
 	}
+	atualizarSeletor($(seletor), primeiraOpcao);
 }
 
 function mostrarTodos(opcoes){
-	opcoes.attr("style","");
+	opcoes.removeAttr("hidden");
+}
+
+function atualizarSeletor(seletor, opcao){	
+	let exibivel = $(".alunos ul").parent().find("input");
+	let filtrados = $.map($(seletor), function(c){ if(!$(c).prop("hidden")) return $(c).text() });
+	exibivel.val(filtrados[0]);
+	$('select.alunos').val($(opcao).val());
 }
 
 /*
