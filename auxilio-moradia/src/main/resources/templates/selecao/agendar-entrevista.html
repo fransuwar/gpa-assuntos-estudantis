@@ -56,6 +56,12 @@
 	<div th:if="${acao != 'editar'}" class="card">
 		<div class="card-content">
 			<h5 class="title light col s12" th:text="Horários"></h5>
+			<div class="container filtrar-cursos row input-field col s12" >
+				<span class="col s3 check" th:each="curso:${cursos}">
+					<input class="filtro-curso" type="checkbox" name="curso" th:id="${curso}"/>
+					<label th:for="${curso}" th:text="${curso}">curso</label>
+				</span>
+			</div>
 			<div th:each="data : ${datas}">
 				<ul class="collapsible popout" data-collapsible="accordion">
 				    <li>
@@ -73,17 +79,11 @@
 															method="post" th:object="${agendamento}">
 															<input type="hidden" name="agendamento" th:value="${agendamento.id}" />
 															<div class=" col s12">
-																<div class="row input-field col s12" id="filtra-cursos">
-																	<span class="col s3 check" th:each="curso:${cursos}">
-																		<input type="checkbox" name="curso" th:id="${curso}" />
-																		<label th:for="${curso}" th:text="${curso}">curso</label>
-																	</span>
-																</div>
 																<div class="input-field col s6">
-																	<select name="inscricao">
-																		<option th:each="inscricao : ${inscricoes}"
+																	<select class="alunos" name="inscricao">
+																		<option th:each="inscricao : ${inscricoes}" th:id="${inscricao.aluno.curso}"
 																			th:value="${inscricao.id}"
-																			th:text="${{inscricao.aluno.pessoa.nome +':	 '+ inscricao.aluno.curso}}"></option>
+																			th:text="${inscricao.aluno.pessoa.nome}"></option>
 																	</select> 
 																	<label>Aluno</label>
 																</div>
