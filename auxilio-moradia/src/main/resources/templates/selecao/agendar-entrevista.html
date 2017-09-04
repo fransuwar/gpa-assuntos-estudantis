@@ -76,7 +76,8 @@
 													<div class="card collapsible-body">
 														<form
 															th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
-															method="post" th:object="${agendamento}">
+															method="post" th:object="${agendamento}"
+															id="agendamento-alunos">
 															<input type="hidden" name="agendamento" th:value="${agendamento.id}" />
 															<div class=" col s12">
 																<div class="input-field col s6">
@@ -88,7 +89,7 @@
 																	<label>Aluno</label>
 																</div>
 																<div class="input-field col s6">
-																	<button type="submit" class="waves-effect waves-light btn col s7">Adicionar</button>
+																	<button type="submit" class="submeter waves-effect waves-light btn col s7">Adicionar</button>
 																	<div class="col s1 offset-s4">
 																	<a class="btn-icon waves-effect tooltipped"
 																     		th:href="@{/selecao/agendamentoEntrevista/editar/__${selecao.id}__/__${agendamento.id}__}"

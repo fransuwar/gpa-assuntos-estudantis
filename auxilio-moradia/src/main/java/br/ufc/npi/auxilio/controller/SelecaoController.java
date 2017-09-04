@@ -9,6 +9,8 @@ import br.ufc.npi.auxilio.service.*;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
+import br.ufc.npi.auxilio.utils.alert.Alert;
+import br.ufc.npi.auxilio.utils.alert.Type;
 import br.ufc.npi.auxilio.utils.api.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +25,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.Constants.*;
-import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
-import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA;
-import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
@@ -61,6 +60,8 @@ public class SelecaoController {
 	@Autowired
 	private PessoaService pessoaService;
 	
+	@Autowired
+	private EmailService emailService;
 	
 	@GetMapping({"", "/", "/listar"})
 	public String listarSelecoes(Model model, Authentication auth) {
@@ -380,23 +381,22 @@ public class SelecaoController {
 		return AGENDAR_ENTREVISTA;
 	}
 	
-	@PostMapping(value = "/filtrar/curso")
+	@PostMapping(value = "/agendamentoEntrevista/adicionar")
 	@ResponseBody
-	public Response selecionarInscricao(Integer inscricao, String cursos){
-		String[] vetorCursos = cursos.split(","); 
-		if (inscricao != null && vetorCursos.length>0){
-			List<String> resultado = new ArrayList<>();
-			for(Inscricao objetoInscricao : inscricaoService.inscricoesParaEntrevista(inscricao, vetorCursos)){
-				resultado.add("{\"value\": \""+objetoInscricao.getId()+
-						"\",\"text\":\""+objetoInscricao.getAluno().getPessoa().getNome()+"-"+objetoInscricao.getAluno().getCurso()
-						+"\"}");
-			}
-			Response r = new Response();
-			r.setObject(resultado);
-			return r;
+	public Response confirmarAgendamento(Integer idAgendamento, Integer idInscricao) throws AuxilioMoradiaException{
+		AgendamentoEntrevista agendamento = agendamentoEntrevistaService.buscarAgendamentoPorId(idAgendamento);
+		Inscricao inscricao = inscricaoService.buscarInscricaoPorId(idInscricao);
+		Response r = new Response();
+		if (agendamentoEntrevistaService.alocarAgendamentoEntrevista(agendamento, inscricao)){
+			emailService.enviarEmailEntrevistaAgendada(agendamento, inscricao);
+			String json = "{\"nome\":\""+inscricao.getAluno().getPessoa().getNome()+"\", \"agendamento\":\""+agendamento.getId()+"\", \"inscricao\":\""+inscricao.getId()+"\"}";
+			r.setObject(json);
+			r.withDoneStatus().setAlert(new Alert(Type.INFO, MSG_SUCESSO_AGENDAMENTO_ENTREVISTA, 3000));
 		}
-		else
-			return new Response().withFailStatus().withErrorMessage("Error ao selecionar esta inscricao");
+		else{
+			r.withFailStatus().setAlert(new Alert(Type.ERROR,MSG_ERRO_AGENDAMENTO_ENTREVISTA, 3000));
+		}
+		return r;
 	}
 
 }
