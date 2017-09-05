@@ -73,7 +73,7 @@
 							</ul>
 						</div>
 						<div class="col s12">
-							<table id="visualizar-inscricoes" class="centered display nowrap striped bordered lighten-1">
+							<table id="visualizar-inscricoes" class="teste centered display nowrap bordered lighten-1">
 								<thead>
 								<tr>
 									<th>Ranking</th>
@@ -86,7 +86,7 @@
 								</tr>
 								</thead>
 								<tbody>
-								<tr th:each="inscricao, row : ${inscricoes}">
+								<tr class="card" th:each="inscricao, row : ${inscricoes}" th:classappend="${inscricao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome} ? movel : imovel">
 									<td th:text="${row.count}"></td>
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td>
@@ -205,6 +205,7 @@
 	<script type="text/java" th:src="@{https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js}"></script>
 	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js}"></script>
 	<script type="text/java" th:src="@{https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js}"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </section>
 
 </html>

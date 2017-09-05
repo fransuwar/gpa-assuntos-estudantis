@@ -529,7 +529,9 @@ public class Inscricao implements Comparable<Inscricao>{
 		if(this.getResultado()==Resultado.INDEFERIDO && o.getResultado()==Resultado.DEFERIDO){
 			return 1;
 		}
-		
+		if(this.posicaoRanking != null){
+			return 0;
+		}		
 		Double rendaPerCapita1 = 0D, rendaPerCapita2 = 0D;
 		if(this.getRendaPerCapita() != null)
 			rendaPerCapita1 = this.getRendaPerCapita();

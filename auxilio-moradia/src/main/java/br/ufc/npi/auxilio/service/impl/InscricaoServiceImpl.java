@@ -139,4 +139,20 @@ public class InscricaoServiceImpl implements InscricaoService {
 		return inscricaoRepository.getSelecionados(selecao);
 
 	}
+
+	@Override
+	public boolean atualizarRank(Integer idInscricao, Integer inicio, Integer fim) {
+		
+		boolean result = false;
+		
+		List<Inscricao> inscricoes = inscricaoRepository.findInscricaoBySelecaoOrderByPosicaoRankingAsc(
+				inscricaoRepository.findInscricaoById(idInscricao).getSelecao());
+		for(int i = inicio; i<=fim; i++){
+			Inscricao inscricao = inscricoes.get(i);
+			inscricao.setPosicaoRanking((i+1));
+			if(inscricaoRepository.save(inscricao)!= null) result = true;
+			else result = false;
+		}
+		return result;
+	}
 }
