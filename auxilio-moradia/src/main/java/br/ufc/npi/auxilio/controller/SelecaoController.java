@@ -30,7 +30,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.Constants.*;
-import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MSG_ERRO_AGENDAMENTO_ENTREVISTA;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
@@ -387,14 +390,15 @@ public class SelecaoController {
 		AgendamentoEntrevista agendamento = agendamentoEntrevistaService.buscarAgendamentoPorId(idAgendamento);
 		Inscricao inscricao = inscricaoService.buscarInscricaoPorId(idInscricao);
 		Response r = new Response();
+		Integer delay = 3000;
 		if (agendamentoEntrevistaService.alocarAgendamentoEntrevista(agendamento, inscricao)){
 			emailService.enviarEmailEntrevistaAgendada(agendamento, inscricao);
 			String json = "{\"nome\":\""+inscricao.getAluno().getPessoa().getNome()+"\", \"agendamento\":\""+agendamento.getId()+"\", \"inscricao\":\""+inscricao.getId()+"\"}";
 			r.setObject(json);
-			r.withDoneStatus().setAlert(new Alert(Type.INFO, MSG_SUCESSO_AGENDAMENTO_ENTREVISTA, 3000));
+			r.withDoneStatus().setAlert(new Alert(Type.INFO, MSG_SUCESSO_AGENDAMENTO_ENTREVISTA, delay));
 		}
 		else{
-			r.withFailStatus().setAlert(new Alert(Type.ERROR,MSG_ERRO_AGENDAMENTO_ENTREVISTA, 3000));
+			r.withFailStatus().setAlert(new Alert(Type.ERROR,MSG_ERRO_AGENDAMENTO_ENTREVISTA, delay));
 		}
 		return r;
 	}
