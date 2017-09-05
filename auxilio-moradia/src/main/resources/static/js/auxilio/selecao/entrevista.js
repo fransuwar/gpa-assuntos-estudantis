@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+
 });
 
 function atualizarSeletor(seletor, opcao){	
@@ -10,7 +10,7 @@ function atualizarSeletor(seletor, opcao){
 }
 
 function ocultar(opcoes, seletor,filtros){
-	opcoes.removeAttr("hidden");
+	seletor.removeAttr("hidden");
 	let primeiraOpcao = null;
 	for(let j=0; j< opcoes.length; j++){
 		let opcao = opcoes[j];
@@ -34,6 +34,7 @@ $(".filtrar-cursos").on("click", ".filtro-curso",function(){
 	let filtros = $.map($("input:checked"), function(c){return c.id;});
 	if(filtros.length === 0){
 		seletor.removeAttr("hidden");
+		atualizarSeletor(seletor, opcoes[0]);
 	}
 	else{
 		ocultar(opcoes, seletor,filtros);
@@ -62,7 +63,6 @@ $("form#agendamento-alunos").on("submit",function(event){
 	let agendamento = form.find("input[name='agendamento']").attr("value");
 	var url = "/selecao/agendamentoEntrevista/adicionar";
 	var token = $("meta[name='_csrf']").attr("content");
-	var id =$(this).attr("id");
 	var param = {idAgendamento : agendamento, idInscricao : select };
 	$.ajax({
 		url,
