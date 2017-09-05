@@ -9,6 +9,8 @@ import br.ufc.npi.auxilio.model.questionario.Identificacao;
 import br.ufc.npi.auxilio.model.questionario.Moradia;
 import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
 import br.ufc.npi.auxilio.service.*;
+import br.ufc.npi.auxilio.utils.alert.Alert;
+import br.ufc.npi.auxilio.utils.alert.Type;
 import br.ufc.npi.auxilio.utils.api.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -426,6 +428,20 @@ public class InscricaoController {
 		model.addAttribute("deferidos", inscricaoService.getSelecionados(selecao));
 		model.addAttribute("indeferidos", inscricaoService.getIndeferidos(selecao));
 		return PAGINA_RESULTADO;
+	}
+	
+	@PostMapping(value = "/rank")
+	@ResponseBody
+	public Response atualizarRank(Integer idInscricao, Integer comeco, Integer fim) throws AuxilioMoradiaException{
+		Response r = new Response();
+		Integer delay = 3000;
+		if (inscricaoService.atualizarRank(idInscricao, comeco, fim)){
+			r.withDoneStatus().setAlert(new Alert(Type.INFO, "Posição atualizada com sucesso", delay));
+		}
+		else{
+			r.withFailStatus().setAlert(new Alert(Type.ERROR,"Desculpe não foi possível atualizar a posição selecionada", delay));
+		}
+		return r;
 	}
 
 }

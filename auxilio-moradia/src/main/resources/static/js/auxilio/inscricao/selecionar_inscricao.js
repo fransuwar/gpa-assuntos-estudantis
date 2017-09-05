@@ -43,10 +43,12 @@ $(document).ready(function() {
 	}
 	
 	function salvarRank(comeco, final){
-		let inscricao = ($(".teste tbody").find("tr").eq(comeco)).find("td:second-child").text();
-		var url = "/selecao/agendamentoEntrevista/adicionar";
+		let inscricao = ($(".teste tbody").find("tr").eq(comeco)).find("td:nth-child(2)");
+		inscricao = inscricao.find("a").attr("href");
+		inscricao = inscricao.split("/")[3];
+		var url = "/inscricao/rank";
 		var token = $("meta[name='_csrf']").attr("content");
-		var param = {idAgendamento : agendamento, idInscricao : select };
+		var param = {idInscricao : inscricao, comeco : comeco, fim: final };
 		$.ajax({
 			url,
 			type: "post",
@@ -56,7 +58,7 @@ $(document).ready(function() {
 			
 			success: function(response) {			
 				if(response.status === "DONE"){
-					adicionarAluno(JSON.parse(response.object), form);
+					atualizarRank(comeco, final);
 					Materialize.toast(response.alert.message, response.alert.delay, "green rounded");
 				}else{
 					Materialize.toast(response.alert.message, response.alert.delay, "red rounded");
@@ -70,9 +72,9 @@ $(document).ready(function() {
 		let velhoRank = parseInt(ui.item.attr('data-previndex'));
 		ui.item.removeAttr('data-previndex');
 		if (ui.originalPosition.top > ui.position.top){
-			atualizarRank(novoRank, velhoRank);
+			salvarRank(novoRank, velhoRank);
 		}else{
-			atualizarRank(velhorRank, novoRank);
+			salvarRank(velhorRank, novoRank);
 			
 		}		
 	});
