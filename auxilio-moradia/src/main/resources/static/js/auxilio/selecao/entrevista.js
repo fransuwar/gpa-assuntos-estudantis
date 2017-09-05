@@ -21,8 +21,8 @@ function ocultar(opcoes, seletor,filtros){
 		if(!existeAluno){
 			$(seletor[j]).attr("hidden","");			
 		}
-		else if(primeiraOpcao == null){
-			primeiraOpcao = opcao;
+		else{
+			if(primeiraOpcao == null) primeiraOpcao = opcao;
 		}
 	}
 	atualizarSeletor($(seletor), primeiraOpcao);
