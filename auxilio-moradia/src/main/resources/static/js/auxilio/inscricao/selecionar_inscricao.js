@@ -38,12 +38,31 @@ $(document).ready(function() {
 	
 	function atualizarRank(comeco, final){
 		for(let i = comeco; i<=final; i++){
-			($(".teste tbody").find('tr').eq(i)).find('td:first-child').text((i+1));
+			($(".teste tbody").find("tr").eq(i)).find("td:first-child").text((i+1));
 		}
 	}
 	
 	function salvarRank(comeco, final){
-		
+		let inscricao = ($(".teste tbody").find("tr").eq(comeco)).find("td:second-child").text();
+		var url = "/selecao/agendamentoEntrevista/adicionar";
+		var token = $("meta[name='_csrf']").attr("content");
+		var param = {idAgendamento : agendamento, idInscricao : select };
+		$.ajax({
+			url,
+			type: "post",
+			dataType: "json",
+			data: param,
+			headers: {"X-CSRF-TOKEN":token},
+			
+			success: function(response) {			
+				if(response.status === "DONE"){
+					adicionarAluno(JSON.parse(response.object), form);
+					Materialize.toast(response.alert.message, response.alert.delay, "green rounded");
+				}else{
+					Materialize.toast(response.alert.message, response.alert.delay, "red rounded");
+				}
+			}
+		});
 	}
 	
 	$(".teste tbody").on( "sortupdate", function( event, ui ) {
