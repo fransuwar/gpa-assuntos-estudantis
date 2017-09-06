@@ -9,5 +9,7 @@ public interface ServidorService {
 	Servidor getByCpf(String cpf);
 
 	List<Servidor> getAll();
-
+	
+	Servidor getById (Integer id);
+	
 }
