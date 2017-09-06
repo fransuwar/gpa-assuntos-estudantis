@@ -38,7 +38,7 @@ public interface InscricaoService {
 		
 	List<Inscricao> getSelecionados(Selecao selecao);
 	
-	boolean atualizarRank(Integer idInscricao, Integer inicio, Integer fim);
+	boolean atualizarRank(Integer idInscricao, Integer posicao);
 
 }
 

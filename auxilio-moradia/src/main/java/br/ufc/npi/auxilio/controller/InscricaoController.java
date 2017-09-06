@@ -432,10 +432,10 @@ public class InscricaoController {
 	
 	@PostMapping(value = "/rank")
 	@ResponseBody
-	public Response atualizarRank(Integer idInscricao, Integer comeco, Integer fim) throws AuxilioMoradiaException{
+	public Response atualizarRank(Integer idInscricao, Integer posicao) throws AuxilioMoradiaException{
 		Response r = new Response();
 		Integer delay = 3000;
-		if (inscricaoService.atualizarRank(idInscricao, comeco, fim)){
+		if (inscricaoService.atualizarRank(idInscricao, posicao)){
 			r.withDoneStatus().setAlert(new Alert(Type.INFO, "Posição atualizada com sucesso", delay));
 		}
 		else{
