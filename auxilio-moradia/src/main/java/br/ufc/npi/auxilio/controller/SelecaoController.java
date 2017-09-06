@@ -66,6 +66,7 @@ public class SelecaoController {
 	@GetMapping({"", "/", "/listar"})
 	public String listarSelecoes(Model model, Authentication auth) {
 		List<Selecao> selecoes = selecaoService.getAll();
+		
 		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
 		if(pessoa.isAluno()){
 			HashMap<Integer, Inscricao> inscricaoSelecao = new HashMap<>();
@@ -75,6 +76,9 @@ public class SelecaoController {
 				inscricaoSelecao.put(selecao.getId(), inscricao);
 			}
 			model.addAttribute("inscricaoSelecao", inscricaoSelecao);
+		}
+		else if(pessoa.isServidor()){
+			model.addAttribute("servidor", servidorService.getByCpf(pessoa.getCpf()));
 		}
 		model.addAttribute("opcoesTipoSelecao", TipoSelecao.values());	
 		model.addAttribute("selecoes", selecoes);

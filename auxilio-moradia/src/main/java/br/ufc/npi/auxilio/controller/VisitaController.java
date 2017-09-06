@@ -4,6 +4,7 @@ import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
+import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_SERVIDOR;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_VISITA;
@@ -57,7 +58,8 @@ public class VisitaController {
 	@Autowired
 	private InscricaoService inscricaoService;
 
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@GetMapping("/{inscricao}")
 	public String cadastrar(@PathVariable Inscricao inscricao, Authentication auth, Model model) {
 		Aluno aluno = alunoService.buscarPorCpf(inscricao.getAluno().getPessoa().getCpf());
@@ -79,7 +81,8 @@ public class VisitaController {
 		return PageConstants.PAGINA_VISITA;
 	}
 	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@PostMapping("/{inscricao}")
 	public String cadastrar(@RequestParam("imagensVisita") List<MultipartFile> imagens,
 			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visita ,@PathVariable("inscricao") Inscricao inscricao,
@@ -142,7 +145,8 @@ public class VisitaController {
 	}
 	
 	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@GetMapping("/documento/{inscricao}/download/{arquivo}")
 	public HttpEntity<?> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento arquivo, RedirectAttributes redirect) {
 		try {
@@ -155,7 +159,8 @@ public class VisitaController {
 		return null;
 	}
 	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@GetMapping("/documento/{inscricao}/excluir/{arquivo}")
 	public String excluirImagem(@PathVariable Inscricao inscricao, @PathVariable Documento arquivo, RedirectAttributes redirect) {
 		try {
@@ -169,7 +174,8 @@ public class VisitaController {
 		return RedirectConstants.REDIRECT_VISITA_DOMICILIAR + inscricao.getId();
 	}
 	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@GetMapping("/documento/{inscricao}/excluirformulario")
 	public String excluirFormulario(@PathVariable Inscricao inscricao, RedirectAttributes redirect) {
 		try {

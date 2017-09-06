@@ -4,7 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 	layout:decorator="base/base"
-	th:with="breadcrumbName = ${ { {name:'Visualizar Inscrições', link: '/selecao/inscricoes/__${selecao.id}__', sec:'COORDENADOR'} } }">
+	th:with="breadcrumbName = ${ { {name:'Visualizar Inscrições', link: '/selecao/inscricoes/__${selecao.id}__', sec:'SERVIDOR'} } }">
 
 <head>
 	<title>Auxílio - Visualizar Inscrições</title>
@@ -48,7 +48,7 @@
 
 
 					<!-- Inscrições -->
-					<div class="row" th:unless="${#lists.isEmpty(inscricoes)}">
+					<div sec:authorize="hasAuthority('COORDENADOR') or hasAuthority('SERVIDOR')" class="row" th:unless="${#lists.isEmpty(inscricoes)}">
 						<div>
 						<div class="fixed-action-btn">
 							<a class="btn-floating btn-large deep-purple lighteen 1">
@@ -77,12 +77,12 @@
 								<thead>
 								<tr>
 									<th>Ranking</th>
-									<th>Aluno</th>
-									<th>Análise dos Documentos</th>
-									<th>Entrevista</th>
+									<th >Aluno</th>
+									<th sec:authorize="hasAuthority('COORDENADOR')">Análise dos Documentos</th>
+									<th >Entrevista</th>
 									<th th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">Visita Domiciliar</th>
-									<th>Parecer Final</th>
-									<th>Selecionados</th>
+									<th  sec:authorize="hasAuthority('COORDENADOR')">Parecer Final</th>
+									<th  sec:authorize="hasAuthority('COORDENADOR')">Selecionados</th>
 								</tr>
 								</thead>
 								<tbody>
@@ -110,7 +110,7 @@
 											</div>
 										</a>
 									</td>
-									<td>
+									<td  sec:authorize="hasAuthority('COORDENADOR')">
 										<a th:if="${inscricao.entrevista != null and inscricao.entrevista.resultado != null}" th:href="@{/entrevista/__${inscricao.id}__}">
 											<div th:if="${inscricao.entrevista.resultado.nome==null}" class="chip grey lighten-1">
 												Não Avaliado
@@ -149,14 +149,14 @@
 											</div>
 										</a>
 									</td>
-									<td th:unless="${inscricao.resultado}">
+									<td  sec:authorize="hasAuthority('COORDENADOR')" th:unless="${inscricao.resultado}">
 										<a href="#">
 										<div class="chip grey lighten-1">
 											Não Avaliado
 										</div>
 										</a>
 									</td>
-									<td th:if="${inscricao.resultado}">
+									<td  sec:authorize="hasAuthority('COORDENADOR')" th:if="${inscricao.resultado}">
 										<a href="#">
 										<div th:unless="${inscricao.resultado.nome}" class="chip grey lighten-1">
 											Não Avaliado
@@ -172,7 +172,7 @@
 										</div>
 										</a>
 									</td>
-									<td>
+									<td  sec:authorize="hasAuthority('COORDENADOR')">
 										<div th:if="${inscricao.resultado}">
 											<div th:unless="${inscricao.resultado.nome}" class="switch">
 											</div>
@@ -190,6 +190,11 @@
 						</div>
 					</div>
 				</div>
+				
+				<!-- acesso disponível para o servidor  -->
+				
+				<!-- fim das opcoes disponíveis para servidor -->
+				
 			</div>
 		</div>
 	</div>
