@@ -548,5 +548,6 @@ public class Inscricao implements Comparable<Inscricao>{
 		}
 		return 0;
 	}
+	
 
 }
