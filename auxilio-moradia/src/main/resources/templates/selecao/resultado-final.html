@@ -28,8 +28,9 @@
 			<div class="card-content">
 				<div class="col s12">
 					<ul class="tabs">
-						<li class="tab col s6"><a href="#alunos-deferidos">DEFERIDOS</a></li>
-					 	<li class="tab col s6"><a href="#alunos-indeferidos">INDEFERIDOS</a></li>
+						<li class="tab col s4"><a href="#alunos-deferidos">DEFERIDOS</a></li>
+					 	<li class="tab col s4"><a href="#alunos-indeferidos">INDEFERIDOS</a></li>
+					 	<li class="tab col s4"><a href="#alunos-reservas">RESERVA</a></li>					 	
 					 </ul>
 				 </div>
 
@@ -51,14 +52,18 @@
 						<table id="inscricoes-deferidas" class="striped bordered">
 							<thead>
 								<tr>
-									<th width="50%">Aluno</th>
-									<th width="50%">Curso</th>
+									<th width="25%">Aluno</th>
+									<th width="25%">Curso</th>
+									<th width="25%">Cpf</th>
+									<th width="25%">Email</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="inscricao : ${deferidos}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td th:text="${inscricao.aluno.curso}"></td>
+									<td th:text="${inscricao.aluno.pessoa.cpf}"></td>
+									<td th:text="${inscricao.aluno.pessoa.email}"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -83,19 +88,60 @@
 						<table id="inscricoes-indeferidas" class="striped bordered">
 							<thead>
 								<tr>
-									<th width="50%">Aluno</th>
-									<th width="50%">Curso</th>
+									<th width="25%">Aluno</th>
+									<th width="25%">Curso</th>
+									<th width="25%">Cpf</th>
+									<th width="25%">Email</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="inscricao : ${indeferidos}">
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td th:text="${inscricao.aluno.curso}"></td>
+									<td th:text="${inscricao.aluno.pessoa.cpf}"></td>
+									<td th:text="${inscricao.aluno.pessoa.email}"></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
+				
+				<!-- Inscrições Reserva-->
+				<div id="alunos-reservas" >
+					<!-- Nenhuma inscrição realizada -->
+<!-- Alterar lista  -->	<span class="blue-grey-text" th:if="${#lists.isEmpty(reserva)}">Nenhum Aluno na reserva</span>
+							
+					<div class="row" th:unless="${#lists.isEmpty(reserva)}">
+						<div class="col s12">
+							<div class="fixed-action-btn">
+								<a class="btn-floating btn-large deep-purple lighteen 1">
+									<i class="large material-icons">menu</i>
+								</a>
+								<ul id="float_relatorio_reservas">
+								</ul>
+							</div>
+						</div>
+						<table id="inscricoes-reservas" class="striped bordered">
+							<thead>
+								<tr>
+									<th width="25%">Aluno</th>
+									<th width="25%">Curso</th>
+									<th width="25%">Cpf</th>
+									<th width="25%">Email</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="inscricao : ${reserva}">
+									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
+									<td th:text="${inscricao.aluno.curso}"></td>
+									<td th:text="${inscricao.aluno.pessoa.cpf}"></td>
+									<td th:text="${inscricao.aluno.pessoa.email}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	</div>

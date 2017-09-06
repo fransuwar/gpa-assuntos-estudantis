@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
@@ -138,5 +139,10 @@ public class InscricaoServiceImpl implements InscricaoService {
 	public List<Inscricao> getSelecionados(Selecao selecao){
 		return inscricaoRepository.getSelecionados(selecao);
 
+	}
+
+	@Override
+	public List<Inscricao> getReserva(Selecao selecao) {
+		return inscricaoRepository.getReserva(selecao);
 	}
 }

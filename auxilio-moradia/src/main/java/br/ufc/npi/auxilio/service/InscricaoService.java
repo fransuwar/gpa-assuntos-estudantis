@@ -37,6 +37,8 @@ public interface InscricaoService {
 	List<Inscricao> getIndeferidos(Selecao selecao);
 		
 	List<Inscricao> getSelecionados(Selecao selecao);
+	
+	List<Inscricao> getReserva(Selecao selecao);
 
 }
 
