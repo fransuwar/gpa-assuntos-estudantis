@@ -40,6 +40,8 @@ public interface InscricaoService {
 		
 	List<Inscricao> getSelecionados(Selecao selecao);
 	
+	List<Inscricao> getReserva(Selecao selecao);
+
 	List<String> cursosParaEntrevista(Selecao selecao);
 
 }

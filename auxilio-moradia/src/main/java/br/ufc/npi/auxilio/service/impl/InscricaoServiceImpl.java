@@ -142,6 +142,9 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	@Override
+	public List<Inscricao> getReserva(Selecao selecao) {
+		return inscricaoRepository.getReserva(selecao);
+	}
 	public List<String> cursosParaEntrevista(Selecao selecao) {
 		return inscricaoRepository.getCursosParaEntrevista(selecao);
 	}
@@ -161,5 +164,6 @@ public class InscricaoServiceImpl implements InscricaoService {
 		}
 
 		return resultado;
+
 	}
 }
