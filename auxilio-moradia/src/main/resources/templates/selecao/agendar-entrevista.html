@@ -56,6 +56,12 @@
 	<div th:if="${acao != 'editar'}" class="card">
 		<div class="card-content">
 			<h5 class="title light col s12" th:text="Horários"></h5>
+			<div class="container filtrar-cursos row input-field col s12" >
+				<span class="col s3 check" th:each="curso:${cursos}">
+					<input class="filtro-curso" type="checkbox" name="curso" th:id="${curso}"/>
+					<label th:for="${curso}" th:text="${curso}">curso</label>
+				</span>
+			</div>
 			<div th:each="data : ${datas}">
 				<ul class="collapsible popout" data-collapsible="accordion">
 				    <li>
@@ -64,25 +70,26 @@
 				      			<div class="container col s12">
 				      				<div class="row">
 									<div th:each="agendamento : ${agendamentos}">
-										<ul class="collapsible popout " data-collapsible="accordion">
+										<ul class="collapsible popout" data-collapsible="accordion">
 											<li>
 												<div th:if="${data == agendamento.data}" th:text="${agendamento.turno.nome} + ' -  ' + ${agendamento.horario.nome}" class="collapsible-header center white-text "></div>
 													<div class="card collapsible-body">
 														<form
 															th:action="@{/selecao/alocacaoAgendamentoEntrevista/adicionar}"
-															method="post" th:object="${agendamento}">
+															method="post" th:object="${agendamento}"
+															id="agendamento-alunos">
 															<input type="hidden" name="agendamento" th:value="${agendamento.id}" />
 															<div class=" col s12">
 																<div class="input-field col s6">
-																	<select name="inscricao">
-																		<option th:each="inscricao : ${inscricoes}"
+																	<select class="alunos" name="inscricao">
+																		<option th:each="inscricao : ${inscricoes}" th:id="${inscricao.aluno.curso}"
 																			th:value="${inscricao.id}"
 																			th:text="${inscricao.aluno.pessoa.nome}"></option>
 																	</select> 
 																	<label>Aluno</label>
 																</div>
 																<div class="input-field col s6">
-																	<button type="submit" class="waves-effect waves-light btn col s7">Adicionar</button>
+																	<button type="submit" class="submeter waves-effect waves-light btn col s7">Adicionar</button>
 																	<div class="col s1 offset-s4">
 																	<a class="btn-icon waves-effect tooltipped"
 																     		th:href="@{/selecao/agendamentoEntrevista/editar/__${selecao.id}__/__${agendamento.id}__}"
@@ -135,6 +142,9 @@
 				</div>
 			</div>
 		
+</section>
+<section layout:fragment="js">
+   	<script th:src="@{/js/auxilio/selecao/entrevista.js}"></script>
 </section>
 <script type="text/javascript">
 $(document).ready(function(){

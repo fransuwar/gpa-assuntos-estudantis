@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
@@ -143,5 +144,26 @@ public class InscricaoServiceImpl implements InscricaoService {
 	@Override
 	public List<Inscricao> getReserva(Selecao selecao) {
 		return inscricaoRepository.getReserva(selecao);
+	}
+	public List<String> cursosParaEntrevista(Selecao selecao) {
+		return inscricaoRepository.getCursosParaEntrevista(selecao);
+	}
+
+	@Override
+	public List<Inscricao> inscricoesParaEntrevista(Integer inscricaoId, String[] cursos) {
+		Selecao selecao = inscricaoRepository.findInscricaoById(inscricaoId).getSelecao();
+		List <Inscricao> inscricoes =  inscricaoRepository.findInscricaoBySelecaoAndEntrevistaAgendadaAndAnaliseDocumentacao_Resultado(selecao, 0, Resultado.DEFERIDO);
+		List <Inscricao> resultado = new ArrayList<>();
+		for(Inscricao inscricao: inscricoes){
+			for(String curso: cursos){
+				if(inscricao.getAluno().getCurso().equals(curso)){					
+					resultado.add(inscricao);
+					break;
+				}
+			}
+		}
+
+		return resultado;
+
 	}
 }
