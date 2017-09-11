@@ -430,12 +430,18 @@ public class InscricaoController {
 		return PAGINA_RESULTADO;
 	}
 	
-	@PostMapping(value = "/rank")
+	@PostMapping(value = "/ordernar")
 	@ResponseBody
-	public Response atualizarRank(Integer idInscricao, Integer posicao) throws AuxilioMoradiaException{
+	public Response atualizarRank(String inscricoes) throws AuxilioMoradiaException{
 		Response r = new Response();
 		Integer delay = 3000;
-		if (inscricaoService.atualizarRank(idInscricao, posicao)){
+		String[] idInscricoes = inscricoes.split(",");
+		boolean result = false;
+		for(int i = 0; i < idInscricoes.length; i++){
+			result = inscricaoService.atualizarRank(Integer.parseInt(idInscricoes[i]), (i+1));
+		}
+		
+		if (result){
 			r.withDoneStatus().setAlert(new Alert(Type.INFO, "Posição atualizada com sucesso", delay));
 		}
 		else{

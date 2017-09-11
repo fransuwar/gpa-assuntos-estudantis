@@ -142,7 +142,6 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 	@Override
 	public boolean atualizarRank(Integer idInscricao, Integer posicao) {
-		
 		Inscricao inscricao = inscricaoRepository.findInscricaoById(idInscricao);
 		inscricao.setPosicaoRanking((posicao));
 		if(inscricaoRepository.save(inscricao)!= null) return true;

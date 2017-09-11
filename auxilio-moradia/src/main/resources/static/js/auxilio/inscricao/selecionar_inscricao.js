@@ -38,19 +38,21 @@ $(document).ready(function() {
 	
 	function atualizarRank(comeco, final){
 		let response;
+		let inscricoes = ""; 
+		let posicoes = [];
 		for(let i = comeco; i<=final; i++){
 			($(".teste tbody").find("tr").eq(i)).find("td:first-child").text((i+1));
-			let rank = ($(".teste tbody").find("tr").eq(i)).find("td:first-child").text();
 			let inscricao = (($(".teste tbody").find("tr").eq(i)).find("a").attr("href")).split("/")[3];
-			response = salvarRank(inscricao, rank);			
+			inscricoes+=inscricao+",";		
 		}
+		console.log(inscricoes);
+		salvarRank(inscricoes);
 	}
 	
-	function salvarRank(inscricao, rank){
-		var url = "/inscricao/rank";
+	function salvarRank(inscricao){
+		var url = "/inscricao/ordernar";
 		var token = $("meta[name='_csrf']").attr("content");
-		var param = {idInscricao : parseInt(inscricao), posicao : parseInt(rank) };
-		var result = false;
+		var param = {inscricoes: inscricao};
 		$.ajax({
 			url,
 			type: "post",
@@ -62,11 +64,8 @@ $(document).ready(function() {
 					Materialize.toast(response.alert.message, response.alert.delay, "green rounded");
 				}else{
 					Materialize.toast(response.alert.message, response.alert.delay, "red rounded");
-				}
-			}
+				}			}
 		});
-		
-		return result;
 	}
 	
 	$(".teste tbody").on( "sortupdate", function( event, ui ) {
