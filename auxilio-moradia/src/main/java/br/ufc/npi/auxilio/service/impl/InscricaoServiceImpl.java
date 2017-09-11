@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
