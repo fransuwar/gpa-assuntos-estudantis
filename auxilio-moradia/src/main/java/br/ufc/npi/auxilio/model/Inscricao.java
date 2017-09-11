@@ -25,6 +25,7 @@ public class Inscricao implements Comparable<Inscricao>{
 	
 	private boolean classificada;
 	
+	
 	private boolean realizarVisita;
 	
 	private boolean consolidada;
