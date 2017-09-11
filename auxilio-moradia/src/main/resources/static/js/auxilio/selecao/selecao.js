@@ -95,4 +95,6 @@ $(document).ready(function() {
 	
 	criarTabela("inscricoes-deferidas", "float_relatorio_deferidos");
 	criarTabela("inscricoes-indeferidas", "float_relatorio_indeferidos");
+	criarTabela("inscricoes-reservas", "float_relatorio_reservas");
+
 });

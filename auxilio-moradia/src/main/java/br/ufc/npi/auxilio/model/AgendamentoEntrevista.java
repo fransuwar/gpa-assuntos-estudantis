@@ -110,6 +110,14 @@ public class AgendamentoEntrevista {
 		this.inscricoes.remove(inscricao);
 	}
 
+	@Override
+	public String toString() {
+		return "AgendamentoEntrevista [id=" + id + ", turno=" + turno + ", horario=" + horario + ", data=" + data
+				+ ", inscricoes=" + inscricoes + ", selecao=" + selecao + "]";
+	}
+	
+	
+
 
 	
 	

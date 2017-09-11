@@ -41,7 +41,12 @@
 							<div class="col s6">
 								<h5 class="title light">Responsável</h5>
 								<div class="input-field">
-									<span th:text="${servidor.pessoa.nome}" id="servidor" class="text-20 light" th:field="${servidor}"></span>
+									<!-- <span th:text="${servidor.pessoa.nome}" id="servidor" class="text-20 light" th:field="${servidor}"></span>-->
+									<!-- <input th:value="${servidor.pessoa.nome}" th:field="${servidor}" type="text" id="servidor"/>   -->
+									<select name="servidor" id="servidor">
+										<option th:each="servidor : ${servidor}" th:value="${servidor.id}" th:text="${servidor.pessoa.nome}" id="servidor"></option>
+									</select>
+									<label>Servidor Responsável.</label>
 								</div> 
 							</div>
 							<div class="col s3">

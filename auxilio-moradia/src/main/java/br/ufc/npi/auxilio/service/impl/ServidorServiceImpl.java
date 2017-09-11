@@ -25,5 +25,9 @@ public class ServidorServiceImpl implements ServidorService {
 		return servidorRepository.findAll();
 	}
 
-
+	@Override
+	public Servidor getById(Integer id) {
+		return servidorRepository.findById(id);
+	}
+	
 }

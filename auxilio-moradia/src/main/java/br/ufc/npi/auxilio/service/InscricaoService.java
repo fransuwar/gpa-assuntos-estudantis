@@ -27,6 +27,8 @@ public interface InscricaoService {
     List<Inscricao> getAll(Aluno aluno);
 
 	List<Inscricao> inscricoesParaEntrevista(Selecao selecao);
+	
+	List<Inscricao> inscricoesParaEntrevista(Integer inscricaoId, String[] cursos);
 
 	List<Inscricao> getAllOrdenado(Selecao selecao);
 	
@@ -39,6 +41,11 @@ public interface InscricaoService {
 	List<Inscricao> getSelecionados(Selecao selecao);
 	
 	boolean atualizarRank(Integer idInscricao, Integer posicao);
+
+	List<Inscricao> getReserva(Selecao selecao);
+
+	List<String> cursosParaEntrevista(Selecao selecao);
+
 
 }
 

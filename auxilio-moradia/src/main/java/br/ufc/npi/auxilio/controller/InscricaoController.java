@@ -427,6 +427,7 @@ public class InscricaoController {
 	public String resultadoSelecao(@PathVariable Selecao selecao, Model model){
 		model.addAttribute("deferidos", inscricaoService.getSelecionados(selecao));
 		model.addAttribute("indeferidos", inscricaoService.getIndeferidos(selecao));
+		model.addAttribute("reserva", inscricaoService.getReserva(selecao));
 		return PAGINA_RESULTADO;
 	}
 	
