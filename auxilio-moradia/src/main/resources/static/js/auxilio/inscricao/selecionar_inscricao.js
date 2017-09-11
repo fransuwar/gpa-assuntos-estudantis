@@ -29,7 +29,7 @@ $(document).ready(function() {
 	$(".teste tbody").sortable({
 		items:".movel",
 		revert: true,
-	    helper: "clone"
+		helper: "clone"
 	});
 	
 	$(".teste tbody").on( "sortstart", function( event, ui ) {
@@ -87,7 +87,7 @@ $(document).ready(function() {
 	
 	$(".teste tbody").on( "sortupdate", function( event, ui ) {
 		let novoRank = ui.item.index();
-		let velhoRank = parseInt(ui.item.attr('data-previndex'));
+		let velhoRank = parseInt(ui.item.attr("data-previndex"));
 		ui.item.removeAttr("data-previndex");
 		if (ui.originalPosition.top > ui.position.top){
 			atualizarRank(novoRank, velhoRank);
