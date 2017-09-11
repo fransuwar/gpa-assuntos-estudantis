@@ -37,7 +37,6 @@ $(document).ready(function() {
     });
 	
 	function atualizarSelecionados(param){
-		let inscricoes = $.map(param.inscricoes.split(","), function(c){if(c!== ""){return parseInt(c);}});
 		let posicoes = $.map(param.posicoes.split(","), function(c){if(c!== ""){return parseInt(c);}});
 		let vagas = parseInt($("#vagas").text());
 		let table = $.map(posicoes, function(c){
@@ -74,7 +73,6 @@ $(document).ready(function() {
 	}
 	
 	function atualizarRank(comeco, final){
-		let response;
 		let inscricoes = ""; 
 		let posicoes = "";
 		for(let i = comeco; i<=final; i++){
