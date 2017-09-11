@@ -9,9 +9,9 @@ import br.ufc.npi.auxilio.service.*;
 import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
-
-
-
+import br.ufc.npi.auxilio.utils.alert.Alert;
+import br.ufc.npi.auxilio.utils.alert.Type;
+import br.ufc.npi.auxilio.utils.api.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,6 +33,7 @@ import static br.ufc.npi.auxilio.utils.Constants.*;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MSG_ERRO_AGENDAMENTO_ENTREVISTA;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_DETALHES_SELECAO;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.REDIRECT_LISTAR_SELECAO;
@@ -62,6 +63,8 @@ public class SelecaoController {
 	@Autowired
 	private PessoaService pessoaService;
 	
+	@Autowired
+	private EmailService emailService;
 	
 	@GetMapping({"", "/", "/listar"})
 	public String listarSelecoes(Model model, Authentication auth) {
@@ -374,6 +377,7 @@ public class SelecaoController {
 		AgendamentoEntrevista ae = new AgendamentoEntrevista();
 		List<AgendamentoEntrevista> agendamentos = agendamentoEntrevistaService.findBySelecao(selecao);
 		List<AgendamentoEntrevista> datas = agendamentoEntrevistaService.findAllDatas(selecao);
+		model.addAttribute("cursos", inscricaoService.cursosParaEntrevista(selecao));
 		model.addAttribute("inscricoes", inscricoes);
 		model.addAttribute("agendamentos", agendamentos);
 		model.addAttribute("selecao", selecao);
@@ -382,6 +386,25 @@ public class SelecaoController {
 		model.addAttribute("turno", Turno.values());
 		model.addAttribute("datas", datas);
 		return AGENDAR_ENTREVISTA;
+	}
+	
+	@PostMapping(value = "/agendamentoEntrevista/adicionar")
+	@ResponseBody
+	public Response confirmarAgendamento(Integer idAgendamento, Integer idInscricao) throws AuxilioMoradiaException{
+		AgendamentoEntrevista agendamento = agendamentoEntrevistaService.buscarAgendamentoPorId(idAgendamento);
+		Inscricao inscricao = inscricaoService.buscarInscricaoPorId(idInscricao);
+		Response r = new Response();
+		Integer delay = 3000;
+		if (agendamentoEntrevistaService.alocarAgendamentoEntrevista(agendamento, inscricao)){
+			emailService.enviarEmailEntrevistaAgendada(agendamento, inscricao);
+			String json = "{\"nome\":\""+inscricao.getAluno().getPessoa().getNome()+"\", \"agendamento\":\""+agendamento.getId()+"\", \"inscricao\":\""+inscricao.getId()+"\"}";
+			r.setObject(json);
+			r.withDoneStatus().setAlert(new Alert(Type.INFO, MSG_SUCESSO_AGENDAMENTO_ENTREVISTA, delay));
+		}
+		else{
+			r.withFailStatus().setAlert(new Alert(Type.ERROR,MSG_ERRO_AGENDAMENTO_ENTREVISTA, delay));
+		}
+		return r;
 	}
 
 }

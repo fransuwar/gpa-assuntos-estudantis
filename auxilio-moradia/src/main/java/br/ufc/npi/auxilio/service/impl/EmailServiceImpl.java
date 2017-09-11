@@ -52,10 +52,12 @@ public class EmailServiceImpl implements EmailService{
 	            
 	            helper.setTo(inscricao.getAluno().getPessoa().getEmail());
 	            helper.setReplyTo("someone@localhost");
-	            helper.setFrom("auxilioMoradia@gmail.com");
+	            helper.setFrom("Seleção Acadêmica <auxilioMoradia@gmail.com>");
 	            helper.setSubject("Agendamento de Entrevista para bolsa");
-	            helper.setText("Sua entrevista já foi agendada, no data: "+ data + " no turno da " + agendamento.getTurno().getNome() + 
-	            		" no horário "+ agendamento.getHorario().getNome()+". ");
+	            helper.setText("Caro candidato,\nSua entrevista para a seleção "+agendamento.getSelecao().getTipo().getNome()+" já têm data marcada, conforme os dados abaixo:"
+	            		+ "\nData: "+ data + 
+	            		".\nHorário: "+ agendamento.getHorario().getNome()
+	            		+ ".\nTurno: " + agendamento.getTurno().getNome()+".");
 
 	        } catch (MessagingException e) {
 		            e.printStackTrace(); 

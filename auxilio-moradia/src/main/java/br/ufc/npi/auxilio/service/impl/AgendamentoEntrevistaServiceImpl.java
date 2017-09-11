@@ -108,4 +108,9 @@ public class AgendamentoEntrevistaServiceImpl implements AgendamentoEntrevistaSe
 		return agendamentos;
 	}
 
+	@Override
+	public AgendamentoEntrevista buscarAgendamentoPorId(Integer idAgendamento) {
+		return agendamentoEntrevistaRepository.findById(idAgendamento);
+	}
+
 }

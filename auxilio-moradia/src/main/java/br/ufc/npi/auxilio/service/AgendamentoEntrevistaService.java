@@ -25,4 +25,6 @@ public interface AgendamentoEntrevistaService {
 	List<AgendamentoEntrevista> findAll(Selecao selecao); 
 	
 	List<AgendamentoEntrevista> findBySelecao(Selecao selecao);
+	
+	AgendamentoEntrevista buscarAgendamentoPorId(Integer idAgendamento);
 }
