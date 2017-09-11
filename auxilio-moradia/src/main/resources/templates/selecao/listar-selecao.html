@@ -39,8 +39,7 @@
 						</thead>
 						<tbody >
 						
-							<!-- listar apenas seleções em que o servidor está como integrante da comissão?? -->
-							<tr th:if="${#lists.contains(selecao.comissao, servidor)}" th:each="selecao:${selecoes}" th:class="${selecao.tipo}">
+							<tr th:if="${#lists.contains(selecao.comissao, servidor) or #authorization.expression('hasAuthority(''ALUNO'')')}" th:each="selecao:${selecoes}" th:class="${selecao.tipo}">
 								<td th:text="${selecao.tipo.nome}"></td>
 								<td th:text="${selecao.ano}"></td>
 								<td th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>

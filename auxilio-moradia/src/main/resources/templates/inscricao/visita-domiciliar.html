@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="base/base"
-	th:with="currentPage='selecao',breadcrumbName = ${ { {name:'Visualizar Inscrições', link: '/selecao/inscricoes/__${inscricao.selecao.id}__', sec:'COORDENADOR'}, {name:'Visita Domiciliar', link: '/visita/__${inscricao.id}__', sec:'COORDENADOR'} } }">
+	th:with="currentPage='selecao',breadcrumbName = ${ { {name:'Visualizar Inscrições', link: '/selecao/inscricoes/__${inscricao.selecao.id}__', sec:'SERVIDOR'}, {name:'Visita Domiciliar', link: '/visita/__${inscricao.id}__', sec:'SERVIDOR'} } }">
 
 <head>
 	<title>Auxílio - Visita Domiciliar</title>

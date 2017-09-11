@@ -1,8 +1,8 @@
-<div class="col l12 s12" th:fragment="menu-inscricao" sec:authorize="hasAuthority('COORDENADOR')">
+<div class="col l12 s12" th:fragment="menu-inscricao" sec:authorize="hasAuthority('SERVIDOR')">
 	 <nav>
       	<div class="nav-wrapper">
 	<ul id="nav-mobile" class="left">
-		<li>
+		<li sec:authorize="hasAuthority('COORDENADOR')">
 			<a th:if="${menu_detalhes}" class="deep-purple" th:href="@{/inscricao/detalhes/__${inscricao.id}__}">
 				Detalhes Inscrição
 			</a>
@@ -10,7 +10,7 @@
 				Detalhes Inscrição
 			</a>
 		</li>
-		<li>
+		<li sec:authorize="hasAuthority('COORDENADOR')">
 			<a th:if="${menu_documentos}" class="deep-purple" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
 				Análise de Documentos
 			</a>
@@ -36,7 +36,7 @@
 		</li>
 	</ul>
 	<ul id="nav-mobile" class="right">
-		<li>
+		<li sec:authorize="hasAuthority('COORDENADOR')">
 			<a href="#" th:if="${inscricao.resultado}">Resultado Final
 				<span th:if="${inscricao.resultado.nome} == 'deferido'" class="chip green-text" th:text="'Deferido'"></span>
         		<span th:if="${inscricao.resultado.nome} == 'indeferido'" class="chip red-text" th:text="'Indeferido'"></span>
