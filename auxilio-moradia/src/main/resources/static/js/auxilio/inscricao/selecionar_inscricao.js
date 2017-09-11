@@ -26,13 +26,13 @@ $(document).ready(function() {
 		});
 	});
 	
-	$(".teste tbody").sortable({
+	$(".ordenavel tbody").sortable({
 		items:".movel",
 		revert: true,
 		helper: "clone"
 	});
 	
-	$(".teste tbody").on( "sortstart", function( event, ui ) {
+	$(".ordenavel tbody").on( "sortstart", function( event, ui ) {
        ui.item.attr("data-previndex", ui.item.index());
     });
 	
@@ -40,7 +40,7 @@ $(document).ready(function() {
 		let posicoes = $.map(param.posicoes.split(","), function(c){if(c!== ""){return parseInt(c);}});
 		let vagas = parseInt($("#vagas").text());
 		let table = $.map(posicoes, function(c){
-			return $(".teste tbody").find("tr").eq((c-1)).find(".selecionar");
+			return $(".ordenavel tbody").find("tr").eq((c-1)).find(".selecionar");
 		});
 		for( let i = 0; i < posicoes.length; i++){
 			let hab = table[i].is(":checked");
@@ -76,14 +76,14 @@ $(document).ready(function() {
 		let inscricoes = ""; 
 		let posicoes = "";
 		for(let i = comeco; i<=final; i++){
-			($(".teste tbody").find("tr").eq(i)).find("td:first-child").text((i+1));
-			inscricoes+= (($(".teste tbody").find("tr").eq(i)).find("a").attr("href")).split("/")[3]+",";
-			posicoes += ($(".teste tbody").find("tr").eq(i)).find("td:first-child").text()+",";		
+			($(".ordenavel tbody").find("tr").eq(i)).find("td:first-child").text((i+1));
+			inscricoes+= (($(".ordenavel tbody").find("tr").eq(i)).find("a").attr("href")).split("/")[3]+",";
+			posicoes += ($(".ordenavel tbody").find("tr").eq(i)).find("td:first-child").text()+",";		
 		}
 		salvarRank(inscricoes, posicoes);
 	}
 	
-	$(".teste tbody").on( "sortupdate", function( event, ui ) {
+	$(".ordenavel tbody").on( "sortupdate", function( event, ui ) {
 		let novoRank = ui.item.index();
 		let velhoRank = parseInt(ui.item.attr("data-previndex"));
 		ui.item.removeAttr("data-previndex");
