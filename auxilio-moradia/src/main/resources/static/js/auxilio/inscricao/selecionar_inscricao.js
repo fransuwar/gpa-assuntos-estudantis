@@ -39,20 +39,36 @@ $(document).ready(function() {
 	function atualizarRank(comeco, final){
 		let response;
 		let inscricoes = ""; 
-		let posicoes = [];
+		let posicoes = "";
 		for(let i = comeco; i<=final; i++){
 			($(".teste tbody").find("tr").eq(i)).find("td:first-child").text((i+1));
-			let inscricao = (($(".teste tbody").find("tr").eq(i)).find("a").attr("href")).split("/")[3];
-			inscricoes+=inscricao+",";		
+			inscricoes+= (($(".teste tbody").find("tr").eq(i)).find("a").attr("href")).split("/")[3]+",";
+			posicoes += ($(".teste tbody").find("tr").eq(i)).find("td:first-child").text()+",";		
 		}
-		console.log(inscricoes);
-		salvarRank(inscricoes);
+		salvarRank(inscricoes, posicoes);
 	}
 	
-	function salvarRank(inscricao){
+	function atualizarSelecionados(param){
+		let inscricoes = $.map(param.inscricoes.split(","), function(c){if(c!= "") return parseInt(c)});
+		let posicoes = $.map(param.posicoes.split(","), function(c){if(c!= "") return parseInt(c)});
+		let vagas = parseInt($("#vagas").text());
+		let table = $.map(posicoes, function(c){
+			return $(".teste tbody").find("tr").eq((c-1)).find(".selecionar");
+		});
+		for( let i = 0; i < posicoes.length; i++){
+			let hab = table[i].is(":checked");
+			if(posicoes[i]<=vagas && !hab){
+				table[i].trigger("click");
+			}else if(posicoes[i]>vagas && hab){
+				table[i].trigger("click");
+			}
+		}
+	}
+	
+	function salvarRank(inscricao, posicoes){
 		var url = "/inscricao/ordernar";
 		var token = $("meta[name='_csrf']").attr("content");
-		var param = {inscricoes: inscricao};
+		var param = {inscricoes: inscricao, posicoes: posicoes};
 		$.ajax({
 			url,
 			type: "post",
@@ -62,6 +78,7 @@ $(document).ready(function() {
 			success: function(response) {			
 				if(response.status === "DONE"){
 					Materialize.toast(response.alert.message, response.alert.delay, "green rounded");
+					atualizarSelecionados(param);
 				}else{
 					Materialize.toast(response.alert.message, response.alert.delay, "red rounded");
 				}			}

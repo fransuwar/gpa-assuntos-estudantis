@@ -432,13 +432,14 @@ public class InscricaoController {
 	
 	@PostMapping(value = "/ordernar")
 	@ResponseBody
-	public Response atualizarRank(String inscricoes) throws AuxilioMoradiaException{
+	public Response atualizarRank(String inscricoes, String posicoes) throws AuxilioMoradiaException{
 		Response r = new Response();
 		Integer delay = 3000;
 		String[] idInscricoes = inscricoes.split(",");
+		String[] posicaoRanking = posicoes.split(",");
 		boolean result = false;
 		for(int i = 0; i < idInscricoes.length; i++){
-			result = inscricaoService.atualizarRank(Integer.parseInt(idInscricoes[i]), (i+1));
+			result = inscricaoService.atualizarRank(Integer.parseInt(idInscricoes[i]), Integer.parseInt(posicaoRanking[i]));
 		}
 		
 		if (result){
