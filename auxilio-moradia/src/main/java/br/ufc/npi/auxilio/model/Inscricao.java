@@ -30,6 +30,8 @@ public class Inscricao implements Comparable<Inscricao>{
 	
 	private boolean consolidada;
 	
+	private String observacao;
+	
 	@OneToOne
 	private Selecao selecao;
 	
@@ -60,6 +62,14 @@ public class Inscricao implements Comparable<Inscricao>{
 		return consolidada;
 	}
 	
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
 	public Integer getEntrevistaAgendada() {
 		return entrevistaAgendada;
 	}

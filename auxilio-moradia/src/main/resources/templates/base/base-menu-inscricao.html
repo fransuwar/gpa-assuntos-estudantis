@@ -34,6 +34,14 @@
 				Visita Domiciliar
 			</a>
 		</li>
+		<li>
+			<a th:if="${menu_parecer_final}" class="deep-purple" th:href="@{/parecerFinal/__${inscricao.id}__}">
+				Editar Parecer Final
+			</a>
+			<a th:unless="${menu_parecer_final}" th:href="@{/parecerFinal/__${inscricao.id}__}">
+				Editar Parecer Final
+			</a>
+		</li>
 	</ul>
 	<ul id="nav-mobile" class="right">
 		<li>
