@@ -36,21 +36,9 @@ $(document).ready(function() {
        ui.item.attr("data-previndex", ui.item.index());
     });
 	
-	function atualizarRank(comeco, final){
-		let response;
-		let inscricoes = ""; 
-		let posicoes = "";
-		for(let i = comeco; i<=final; i++){
-			($(".teste tbody").find("tr").eq(i)).find("td:first-child").text((i+1));
-			inscricoes+= (($(".teste tbody").find("tr").eq(i)).find("a").attr("href")).split("/")[3]+",";
-			posicoes += ($(".teste tbody").find("tr").eq(i)).find("td:first-child").text()+",";		
-		}
-		salvarRank(inscricoes, posicoes);
-	}
-	
 	function atualizarSelecionados(param){
-		let inscricoes = $.map(param.inscricoes.split(","), function(c){if(c!= "") return parseInt(c)});
-		let posicoes = $.map(param.posicoes.split(","), function(c){if(c!= "") return parseInt(c)});
+		let inscricoes = $.map(param.inscricoes.split(","), function(c){if(c!== ""){return parseInt(c);}});
+		let posicoes = $.map(param.posicoes.split(","), function(c){if(c!== ""){return parseInt(c);}});
 		let vagas = parseInt($("#vagas").text());
 		let table = $.map(posicoes, function(c){
 			return $(".teste tbody").find("tr").eq((c-1)).find(".selecionar");
@@ -83,6 +71,18 @@ $(document).ready(function() {
 					Materialize.toast(response.alert.message, response.alert.delay, "red rounded");
 				}			}
 		});
+	}
+	
+	function atualizarRank(comeco, final){
+		let response;
+		let inscricoes = ""; 
+		let posicoes = "";
+		for(let i = comeco; i<=final; i++){
+			($(".teste tbody").find("tr").eq(i)).find("td:first-child").text((i+1));
+			inscricoes+= (($(".teste tbody").find("tr").eq(i)).find("a").attr("href")).split("/")[3]+",";
+			posicoes += ($(".teste tbody").find("tr").eq(i)).find("td:first-child").text()+",";		
+		}
+		salvarRank(inscricoes, posicoes);
 	}
 	
 	$(".teste tbody").on( "sortupdate", function( event, ui ) {
