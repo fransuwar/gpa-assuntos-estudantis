@@ -9,5 +9,5 @@ import br.ufc.npi.auxilio.model.VisitaDomiciliar;
 public interface VisitaDomiciliarRepository extends JpaRepository<VisitaDomiciliar, Integer>{
 	
 	public abstract VisitaDomiciliar findById(Integer idVisita);
-
+	
 }

@@ -114,7 +114,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 
 	@Override
 	public List<Inscricao> getAllOrdenado(Selecao selecao) {
-		return inscricaoRepository.findAllBySelecao(selecao);
+		return inscricaoRepository.findInscricaoBySelecaoOrderByPosicaoRankingAsc(selecao);
 	}
 	
 	@Override
@@ -142,6 +142,15 @@ public class InscricaoServiceImpl implements InscricaoService {
 	}
 
 	@Override
+	public boolean atualizarRank(Integer idInscricao, Integer posicao) {
+		Inscricao inscricao = inscricaoRepository.findInscricaoById(idInscricao);
+		inscricao.setPosicaoRanking((posicao));
+		return (inscricaoRepository.save(inscricao)!= null);
+	}
+
+	public List<Inscricao> getReserva(Selecao selecao) {
+		return inscricaoRepository.getReserva(selecao);
+	}
 	public List<String> cursosParaEntrevista(Selecao selecao) {
 		return inscricaoRepository.getCursosParaEntrevista(selecao);
 	}

@@ -25,9 +25,12 @@ public class Inscricao implements Comparable<Inscricao>{
 	
 	private boolean classificada;
 	
+	
 	private boolean realizarVisita;
 	
 	private boolean consolidada;
+	
+	private String observacao;
 	
 	@OneToOne
 	private Selecao selecao;
@@ -59,6 +62,14 @@ public class Inscricao implements Comparable<Inscricao>{
 		return consolidada;
 	}
 	
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
 	public Integer getEntrevistaAgendada() {
 		return entrevistaAgendada;
 	}
@@ -529,7 +540,9 @@ public class Inscricao implements Comparable<Inscricao>{
 		if(this.getResultado()==Resultado.INDEFERIDO && o.getResultado()==Resultado.DEFERIDO){
 			return 1;
 		}
-		
+		if(this.posicaoRanking != null){
+			return 0;
+		}		
 		Double rendaPerCapita1 = 0D, rendaPerCapita2 = 0D;
 		if(this.getRendaPerCapita() != null)
 			rendaPerCapita1 = this.getRendaPerCapita();

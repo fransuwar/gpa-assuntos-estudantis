@@ -40,7 +40,12 @@ public interface InscricaoService {
 		
 	List<Inscricao> getSelecionados(Selecao selecao);
 	
+	boolean atualizarRank(Integer idInscricao, Integer posicao);
+
+	List<Inscricao> getReserva(Selecao selecao);
+
 	List<String> cursosParaEntrevista(Selecao selecao);
+
 
 }
 
