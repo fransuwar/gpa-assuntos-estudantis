@@ -145,8 +145,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 	public boolean atualizarRank(Integer idInscricao, Integer posicao) {
 		Inscricao inscricao = inscricaoRepository.findInscricaoById(idInscricao);
 		inscricao.setPosicaoRanking((posicao));
-		if(inscricaoRepository.save(inscricao)!= null) return true;
-		return false;
+		return (inscricaoRepository.save(inscricao)!= null);
 	}
 
 	public List<Inscricao> getReserva(Selecao selecao) {
