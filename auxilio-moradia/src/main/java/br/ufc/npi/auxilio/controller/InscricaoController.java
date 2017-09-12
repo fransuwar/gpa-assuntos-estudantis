@@ -9,6 +9,8 @@ import br.ufc.npi.auxilio.model.questionario.Identificacao;
 import br.ufc.npi.auxilio.model.questionario.Moradia;
 import br.ufc.npi.auxilio.model.questionario.SituacaoSocioeconomica;
 import br.ufc.npi.auxilio.service.*;
+import br.ufc.npi.auxilio.utils.alert.Alert;
+import br.ufc.npi.auxilio.utils.alert.Type;
 import br.ufc.npi.auxilio.utils.api.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -427,6 +429,27 @@ public class InscricaoController {
 		model.addAttribute("indeferidos", inscricaoService.getIndeferidos(selecao));
 		model.addAttribute("reserva", inscricaoService.getReserva(selecao));
 		return PAGINA_RESULTADO;
+	}
+	
+	@PostMapping(value = "/ordernar")
+	@ResponseBody
+	public Response atualizarRank(String inscricoes, String posicoes) throws AuxilioMoradiaException{
+		Response r = new Response();
+		Integer delay = 3000;
+		String[] idInscricoes = inscricoes.split(",");
+		String[] posicaoRanking = posicoes.split(",");
+		boolean result = false;
+		for(int i = 0; i < idInscricoes.length; i++){
+			result = inscricaoService.atualizarRank(Integer.parseInt(idInscricoes[i]), Integer.parseInt(posicaoRanking[i]));
+		}
+		
+		if (result){
+			r.withDoneStatus().setAlert(new Alert(Type.INFO, "Posição atualizada com sucesso", delay));
+		}
+		else{
+			r.withFailStatus().setAlert(new Alert(Type.ERROR,"Desculpe não foi possível atualizar a posição selecionada", delay));
+		}
+		return r;
 	}
 
 }
