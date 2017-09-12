@@ -38,7 +38,6 @@
 							</tr>
 						</thead>
 						<tbody >
-						
 							<tr th:if="${#lists.contains(selecao.comissao, servidor) or #authorization.expression('hasAuthority(''ALUNO'')')}" th:each="selecao:${selecoes}" th:class="${selecao.tipo}">
 								<td th:text="${selecao.tipo.nome}"></td>
 								<td th:text="${selecao.ano}"></td>
