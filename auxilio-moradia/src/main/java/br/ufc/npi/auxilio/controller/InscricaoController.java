@@ -435,7 +435,6 @@ public class InscricaoController {
 	@ResponseBody
 	public Response atualizarRank(String inscricoes, String posicoes) throws AuxilioMoradiaException{
 		Response r = new Response();
-		Integer delay = 3000;
 		String[] idInscricoes = inscricoes.split(",");
 		String[] posicaoRanking = posicoes.split(",");
 		boolean result = false;
@@ -444,10 +443,10 @@ public class InscricaoController {
 		}
 		
 		if (result){
-			r.withDoneStatus().setAlert(new Alert(Type.INFO, "Posição atualizada com sucesso", delay));
+			r.withDoneStatus().setAlert(new Alert(Type.INFO, "Posição atualizada com sucesso",3000));
 		}
 		else{
-			r.withFailStatus().setAlert(new Alert(Type.ERROR,"Desculpe não foi possível atualizar a posição selecionada", delay));
+			r.withFailStatus().setAlert(new Alert(Type.ERROR,"Desculpe não foi possível atualizar a posição selecionada", 3000));
 		}
 		return r;
 	}
