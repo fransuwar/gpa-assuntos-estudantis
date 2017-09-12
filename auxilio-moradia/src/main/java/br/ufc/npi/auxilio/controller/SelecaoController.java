@@ -1,6 +1,7 @@
 package br.ufc.npi.auxilio.controller;
 
 import br.ufc.npi.auxilio.enums.HorarioEntrevista;
+import br.ufc.npi.auxilio.enums.Resultado;
 import br.ufc.npi.auxilio.enums.TipoSelecao;
 import br.ufc.npi.auxilio.enums.Turno;
 import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
@@ -342,7 +343,7 @@ public class SelecaoController {
 
 		List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
 		Collections.sort(inscricoes);
-
+		model.addAttribute("resultado", Resultado.values());
 		model.addAttribute("inscricoes", inscricoes);
 		model.addAttribute("selecao", selecao);
 		return VISUALIZAR_INSCRICOES;

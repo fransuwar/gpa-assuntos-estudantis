@@ -28,4 +28,18 @@ $(document).ready(function() {
 	
 });
 
+$(document).on("click", ".alterarParecer", function () {
+    $("#nomeAluno").text("Aluno(a): "+$(this).data("text"));
+    $("#disabled").val($(this).data("id"))
+});
+
+$("#modal1 form").on("submit", function(event){
+	event.preventDefault();
+	let inscricaoId = $("#disabled").val();
+	let resultado = $(this).find("select").val();
+	let observacao = $(this).find("#observacao").val();
+	
+	console.log(inscricaoId, resultado, observacao);
+});
+
 

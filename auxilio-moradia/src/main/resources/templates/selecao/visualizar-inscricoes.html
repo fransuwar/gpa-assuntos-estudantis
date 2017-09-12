@@ -160,7 +160,8 @@
 										</a>
 									</td>
 									<td th:if="${inscricao.resultado}">
-										<a  th:href="@{/parecerFinal/__${inscricao.id}__}">
+										<!--<a  th:href="@{/parecerFinal/__${inscricao.id}__}">-->
+										<a  class="alterarParecer modal-trigger" href="#modal1" th:attr="data-id=${inscricao.id}, data-text=${inscricao.aluno.pessoa.nome}">
 										<div th:unless="${inscricao.resultado.nome}" class="chip grey lighten-1" >
 											Não Avaliado
 										</div>
@@ -197,6 +198,32 @@
 		</div>
 	</div>
 </div>
+
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <form action="#" th:object="${inscricao}" th:method="post">
+      	<h5 class="title light">Alterar Parecer Final</h5>
+      	<p class="title bold" id="nomeAluno">Aluno(a): Bruna Nogueira</p>
+      	<div class="input-field col s12" hidden="hidden">
+          <input disabled="disabled" value="I am not editable" id="disabled" type="text" class="validate"></input>
+        </div>
+      	<div class="col s12 input-field">
+      		<select id="parecer">
+      			<option th:each="tipoResultado : ${resultado}" th:value="${tipoResultado}" th:text="${tipoResultado}"></option>
+      		</select>
+			<label for="parecer">Resultado</label>
+		</div>
+		<div class="col s12 input-field">
+			<textarea class="materialize-textarea" id="observacao"></textarea>
+			<label for="observacao">Observação</label>
+		</div>
+		<div class="card-action right-align">
+			<a href="#"  type="button" class=" btn waves-effect purple-text white modal-close">Cancelar</a>
+			<button class="btn waves-effect waves-light" type="submit" th:text="'Salvar'"></button>
+		</div>
+	</form>
+    </div>
+  </div>
 </section>
 
 <section layout:fragment="js">
