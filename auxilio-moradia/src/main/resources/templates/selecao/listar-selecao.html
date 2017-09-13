@@ -37,30 +37,32 @@
 								<th>Opções</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr th:each="selecao:${selecoes}" th:class="${selecao.tipo}">
+						<tbody >
+							<tr th:if="${#lists.contains(selecao.comissao, servidor) or #authorization.expression('hasAuthority(''ALUNO'')')}" th:each="selecao:${selecoes}" th:class="${selecao.tipo}">
 								<td th:text="${selecao.tipo.nome}"></td>
 								<td th:text="${selecao.ano}"></td>
 								<td th:text="${#temporals.format(selecao.dataInicio, 'dd/MM/yyyy')} + ' a ' + ${#temporals.format(selecao.dataTermino, 'dd/MM/yyyy')}"></td>
 								<td th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'">-</td>
 
 								
-								<td sec:authorize="hasAuthority('COORDENADOR')"><a class="btn-icon waves-effect tooltipped"
+								<td sec:authorize="hasAuthority('SERVIDOR')"><a class="btn-icon waves-effect tooltipped"
 						     		th:href="@{/selecao/inscricoes/__${selecao.id}__}"
 						     		th:attr="data-tooltip=${'Visualizar Inscrições'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
 						     		<i class="material-icons">zoom_in</i>
 									</a>
-									<a class="btn-icon waves-effect tooltipped"
+									<a sec:authorize="hasAuthority('COORDENADOR')" class="btn-icon waves-effect tooltipped"
 							     		th:href="@{/selecao/detalhes/__${selecao.id}__}"
 							     		th:attr="data-tooltip=${'Editar'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
 							     		<i class="material-icons">edit</i>
 									</a>
-									<a class="btn-icon waves-effect tooltipped"
+									<a sec:authorize="hasAuthority('COORDENADOR')" class="btn-icon waves-effect tooltipped"
 							     		th:href="@{/selecao/excluir/__${selecao.id}__}"
 							     		th:attr="data-tooltip=${'Deletar'}, data-target=${deleteDataTarget}, data-url=${deleteDataUrl}">
 							     		<i class="material-icons">delete</i>
 									</a>
 								</td>
+								
+								
 								<td sec:authorize="hasAuthority('ALUNO')">
 									<a class="btn-icon waves-effect tooltipped"
 									 th:if="${selecao.inscricaoAberta and inscricaoSelecao.get(selecao.id)==null}" 

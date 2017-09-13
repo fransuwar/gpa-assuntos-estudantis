@@ -38,7 +38,7 @@ public class Inscricao implements Comparable<Inscricao>{
 	@ManyToOne
 	private Aluno aluno;
 
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioAuxilioMoradia questionario;
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
