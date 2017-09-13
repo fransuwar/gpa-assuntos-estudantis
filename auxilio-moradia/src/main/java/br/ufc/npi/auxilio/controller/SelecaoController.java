@@ -190,7 +190,7 @@ public class SelecaoController {
 				redirect.addFlashAttribute(ERRO, "Erro ao editar agendamento de entrevista");
 		} catch (AuxilioMoradiaException e) {
 			e.printStackTrace();
-		} 
+		}
 		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecao.getId();
 	}
 	
