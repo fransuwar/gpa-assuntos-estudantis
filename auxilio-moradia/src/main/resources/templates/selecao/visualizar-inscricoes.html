@@ -86,7 +86,7 @@
 								</tr>
 								</thead>
 								<tbody>
-								<tr class="card" th:each="inscricao, row : ${inscricoes}" th:classappend="${inscricao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome} ? movel : imovel">
+								<tr class="card" th:each="inscricao, row : ${inscricoes}" th:classappend="${inscricao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome and #authorization.expression('hasAuthority(''COORDENADOR'')')} ? movel : imovel">
 									<td th:text="${row.count}"></td>
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td sec:authorize="hasAuthority('COORDENADOR')">
