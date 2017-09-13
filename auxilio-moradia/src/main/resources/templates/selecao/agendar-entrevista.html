@@ -58,7 +58,7 @@
 			<h5 class="title light col s12" th:text="Horários"></h5>
 			<div class="container filtrar-cursos row input-field col s12" >
 				<span class="col s3 check" th:each="curso:${cursos}">
-					<input class="filtro-curso" type="checkbox" name="curso" th:id="${curso}"/>
+					<input th:if="${curso}" class="filtro-curso" type="checkbox" name="curso" th:id="${curso}"/>
 					<label th:for="${curso}" th:text="${curso}">curso</label>
 				</span>
 			</div>
