@@ -179,9 +179,18 @@ public class SelecaoController {
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/agendamentoEntrevista/editar/{selecao}")
-	public String editarAgendamentoEntrevista(@PathVariable Selecao selecao, AgendamentoEntrevista agendamento, Authentication auth, Model model, RedirectAttributes redirect) {
-		agendamentoEntrevistaService.editar(agendamento);
-		redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTRVISTA_EDICAO);
+	public String editarAgendamentoEntrevista(@PathVariable Selecao selecao, AgendamentoEntrevista agendamento, Authentication auth, Model model, 
+			RedirectAttributes redirect) {
+		try {
+			if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento, selecao)) {
+				agendamentoEntrevistaService.editar(agendamento);
+				redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTRVISTA_EDICAO);
+			}
+			else
+				redirect.addFlashAttribute(ERRO, "Erro ao editar agendamento de entrevista");
+		} catch (AuxilioMoradiaException e) {
+			e.printStackTrace();
+		} 
 		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecao.getId();
 	}
 	
