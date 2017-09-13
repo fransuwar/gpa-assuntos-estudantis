@@ -4,7 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 	layout:decorator="base/base"
-	th:with="breadcrumbName = ${ { {name:'Visualizar Inscrições', link: '/selecao/inscricoes/__${selecao.id}__', sec:'COORDENADOR'} } }">
+	th:with="breadcrumbName = ${ { {name:'Visualizar Inscrições', link: '/selecao/inscricoes/__${selecao.id}__', sec:'SERVIDOR'} } }">
 
 <head>
 	<title>Auxílio - Visualizar Inscrições</title>
@@ -48,7 +48,7 @@
 
 
 					<!-- Inscrições -->
-					<div class="row" th:unless="${#lists.isEmpty(inscricoes)}">
+					<div sec:authorize="hasAuthority('COORDENADOR') or hasAuthority('SERVIDOR')" class="row" th:unless="${#lists.isEmpty(inscricoes)}">
 						<div>
 						<div class="fixed-action-btn">
 							<a class="btn-floating btn-large deep-purple lighteen 1">
@@ -69,7 +69,7 @@
 								</li>
 								<li>
 									<a href="#" class="btn-floating mobile-fab-tip hide">Agendar Entrevista</a>
-									<a th:href="@{/selecao/inscricoes/agendarEntrevista/__${selecao.id}__}"  class="btn-floating deep-purple lighten-1">
+									<a sec:authorize="hasAuthority('COORDENADOR')" th:href="@{/selecao/inscricoes/agendarEntrevista/__${selecao.id}__}"  class="btn-floating deep-purple lighten-1">
 										<i class="material-icons">date_range</i>
 									</a>								
 								</li>
@@ -81,18 +81,18 @@
 								<tr>
 									<th>Ranking</th>
 									<th>Aluno</th>
-									<th>Análise dos Documentos</th>
+									<th sec:authorize="hasAuthority('COORDENADOR')">Análise dos Documentos</th>
 									<th>Entrevista</th>
 									<th th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">Visita Domiciliar</th>
-									<th>Parecer Final</th>
-									<th>Selecionados</th>
+									<th sec:authorize="hasAuthority('COORDENADOR')">Parecer Final</th>
+									<th sec:authorize="hasAuthority('COORDENADOR')">Selecionados</th>
 								</tr>
 								</thead>
 								<tbody>
-								<tr class="card" th:each="inscricao, row : ${inscricoes}" th:classappend="${inscricao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome} ? movel : imovel">
+								<tr class="card" th:each="inscricao, row : ${inscricoes}" th:classappend="${inscricao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome and #authorization.expression('hasAuthority(''COORDENADOR'')')} ? movel : imovel">
 									<td th:text="${row.count}"></td>
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
-									<td>
+									<td sec:authorize="hasAuthority('COORDENADOR')">
 										<a th:if="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.resultado != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
 											<div th:unless="${inscricao.analiseDocumentacao.resultado.nome}" class="chip grey lighten-1">
 												Não Avaliado
@@ -113,7 +113,7 @@
 											</div>
 										</a>
 									</td>
-									<td>
+									<td  sec:authorize="hasAuthority('SERVIDOR')">
 										<a th:if="${inscricao.entrevista != null and inscricao.entrevista.resultado != null}" th:href="@{/entrevista/__${inscricao.id}__}">
 											<div th:if="${inscricao.entrevista.resultado.nome==null}" class="chip grey lighten-1">
 												Não Avaliado
@@ -152,19 +152,17 @@
 											</div>
 										</a>
 									</td>
-									
 									<!-- Parecer Final -->
-									
-									<td th:unless="${inscricao.resultado}">
+									<td  sec:authorize="hasAuthority('COORDENADOR')" th:unless="${inscricao.resultado}">
 										<a href="#">
 										<div class="chip grey lighten-1">
 											Não Avaliado
 										</div>
 										</a>
 									</td>
-									<td th:if="${inscricao.resultado}">
-										<a  th:href="@{/parecerFinal/__${inscricao.id}__}">
-										<div th:unless="${inscricao.resultado.nome}" class="chip grey lighten-1" >
+									<td  sec:authorize="hasAuthority('COORDENADOR')" th:if="${inscricao.resultado}">
+										<a href="#">
+										<div th:unless="${inscricao.resultado.nome}" class="chip grey lighten-1">
 											Não Avaliado
 										</div>
 										<div th:if="${inscricao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1">
@@ -178,7 +176,7 @@
 										</div>
 										</a>
 									</td>
-									<td>
+									<td  sec:authorize="hasAuthority('COORDENADOR')">
 										<div th:if="${inscricao.resultado}">
 											<div th:unless="${inscricao.resultado.nome}" class="switch">
 											</div>

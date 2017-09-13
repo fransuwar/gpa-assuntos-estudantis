@@ -3,6 +3,7 @@ package br.ufc.npi.auxilio.controller;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
+import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_SERVIDOR;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_ENTREVISTA;
 
@@ -41,7 +42,8 @@ public class EntrevistaController {
 	@Autowired
 	private InscricaoService inscricaoService;
 	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@GetMapping("/{idInscricao}")
 	public String formEntrevista( @PathVariable("idInscricao") Inscricao inscricao, Model model ) {
 		if( inscricao == null ) {
@@ -56,7 +58,8 @@ public class EntrevistaController {
 		return PageConstants.PAGINA_ENTREVISTA;
 	}
 	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@PostMapping("/{idInscricao}")
 	public String cadastrarEntrevista( @PathVariable("idInscricao") Inscricao inscricao, Entrevista entrevista,
 			Authentication auth,  RedirectAttributes redirect) {

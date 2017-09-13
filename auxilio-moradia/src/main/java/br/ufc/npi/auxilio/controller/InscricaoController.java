@@ -24,7 +24,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_ALUNO;
-import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
+import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_SERVIDOR;
+
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
 import static br.ufc.npi.auxilio.utils.RedirectConstants.*;
@@ -422,7 +423,7 @@ public class InscricaoController {
 			return new Response().withFailStatus().withErrorMessage("Error ao selecionar esta inscricao");
 	}
 	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_SERVIDOR)
 	@GetMapping("/resultadoSelecao/{selecao}")
 	public String resultadoSelecao(@PathVariable Selecao selecao, Model model){
 		model.addAttribute("deferidos", inscricaoService.getSelecionados(selecao));

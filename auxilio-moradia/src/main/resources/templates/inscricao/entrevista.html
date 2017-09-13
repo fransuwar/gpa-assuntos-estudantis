@@ -4,7 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 	layout:decorator="base/base"
-	th:with="breadcrumbName = ${ { {name:'Visualizar Inscrições', link: '/selecao/inscricoes/__${inscricao.selecao.id}__', sec:'COORDENADOR'}, {name:'Entrevista', link: '/entrevista/__${inscricao.id}__', sec:'COORDENADOR'} } }">
+	th:with="breadcrumbName = ${ { {name:'Visualizar Inscrições', link: '/selecao/inscricoes/__${inscricao.selecao.id}__', sec:'SERVIDOR'}, {name:'Entrevista', link: '/entrevista/__${inscricao.id}__', sec:'SERVIDOR'} } }">
 
 <head>
 <title>Auxílio - Realizar Entrevista</title>

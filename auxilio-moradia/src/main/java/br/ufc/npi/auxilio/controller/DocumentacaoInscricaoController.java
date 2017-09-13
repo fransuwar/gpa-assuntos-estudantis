@@ -34,6 +34,7 @@ import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
+import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_SERVIDOR;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_ANALISE_DOCUMENTACAO;
 
@@ -146,6 +147,7 @@ public class DocumentacaoInscricaoController {
 	}
 	
 	@Secured(COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/inscricao/{idInscricao}")
 	public String analisarDocumentacaoInscricao(@PathVariable("idInscricao") Inscricao inscricao, Model model){
 		
@@ -163,6 +165,7 @@ public class DocumentacaoInscricaoController {
 	}
 	
 	@Secured(COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/inscricao/{inscricao}")
 	public String analisarDocumentacaoInscricao(@PathVariable Inscricao inscricao, AnaliseDocumentacao analiseDocumentacao, Authentication auth, RedirectAttributes redirectAttributes) throws AuxilioMoradiaException{
 		
