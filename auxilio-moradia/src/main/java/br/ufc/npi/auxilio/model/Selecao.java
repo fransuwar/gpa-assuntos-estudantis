@@ -50,7 +50,7 @@ public class Selecao {
 	@OneToMany(mappedBy = "selecao")
 	private List<Inscricao> inscricoes;
 	
-	@OneToMany(mappedBy = "selecao")
+	@OneToMany(mappedBy = "selecao", cascade = CascadeType.REMOVE)
 	private List<TipoDocumento> tiposDeDocumento;
 
 	public Selecao() {
@@ -273,6 +273,12 @@ public class Selecao {
 		}
 	}
 
+	public void removeTipoDocumento(TipoDocumento tipoDocumento) {
+		if (tiposDeDocumento != null) {
+			tiposDeDocumento.remove(tipoDocumento);
+		}
+	}
+	
     public boolean isMembroComissao(Servidor servidor) {
 		return this.comissao.contains(servidor);
     }

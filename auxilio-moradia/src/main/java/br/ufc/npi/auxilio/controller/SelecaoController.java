@@ -147,7 +147,7 @@ public class SelecaoController {
 
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@GetMapping("/excluir/{selecao}")
-	public String excluirSelecao(@PathVariable Selecao selecao, RedirectAttributes redirect) {
+	public String excluirSelecao(@PathVariable Selecao selecao,RedirectAttributes redirect) {
 		// Se a seleção não existe
 		if (selecao == null) {
 			// Avisa ao usuário...
@@ -156,6 +156,7 @@ public class SelecaoController {
 			try {
 				// Tenta excluir a seleção
 				selecaoService.excluir(selecao);
+			
 				// Avisa ao usuário do sucesso da remoção
 				redirect.addFlashAttribute(INFO, MSG_SUCESSO_SELECAO_REMOVIDA);
 			} catch (AuxilioMoradiaException e) {
