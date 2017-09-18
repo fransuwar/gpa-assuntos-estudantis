@@ -140,7 +140,13 @@ public class SelecaoController {
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/editar")
 	public String editarSelecao(Selecao selecao, Authentication auth, Model model, RedirectAttributes redirect) {
-		selecaoService.editar(selecao);
+		Selecao selecao2 = selecaoService.getById(selecao.getId());
+		selecao2.setTipo(selecao.getTipo());
+		selecao2.setAno(selecao.getAno());
+		selecao2.setQuantidadeVagas(selecao.getQuantidadeVagas());
+		selecao2.setDataInicio(selecao.getDataInicio());
+		selecao2.setDataTermino(selecao.getDataTermino());
+		selecaoService.editar(selecao2);
 		redirect.addFlashAttribute(INFO, MSG_SELECAO_EDITADA);
 		return REDIRECT_LISTAR_SELECAO;
 	}
