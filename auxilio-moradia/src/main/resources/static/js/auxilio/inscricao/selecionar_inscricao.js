@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
 	$( ".selecionar" ).click(function(event) {
 		event.preventDefault();
 		var checkbox = $(this);
@@ -68,7 +69,8 @@ $(document).ready(function() {
 					atualizarSelecionados(param);
 				}else{
 					Materialize.toast(response.alert.message, response.alert.delay, "red rounded");
-				}			}
+				}
+			}
 		});
 	}
 	
@@ -93,6 +95,14 @@ $(document).ready(function() {
 			atualizarRank(velhoRank, novoRank);
 			
 		}		
+	});
+	
+	$("#fab-items li a").hover(function(){
+		let fab =  $(this).siblings();
+		fab.toggleClass("hide");
+	}, function(){
+		let fab =  $(this).siblings();
+		fab.toggleClass("hide");
 	});
 
 	

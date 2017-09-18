@@ -69,6 +69,7 @@ public class SelecaoController {
 	@GetMapping({"", "/", "/listar"})
 	public String listarSelecoes(Model model, Authentication auth) {
 		List<Selecao> selecoes = selecaoService.getAll();
+		
 		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
 		if(pessoa.isAluno()){
 			HashMap<Integer, Inscricao> inscricaoSelecao = new HashMap<>();
@@ -78,6 +79,9 @@ public class SelecaoController {
 				inscricaoSelecao.put(selecao.getId(), inscricao);
 			}
 			model.addAttribute("inscricaoSelecao", inscricaoSelecao);
+		}
+		else if(pessoa.isServidor()){
+			model.addAttribute("servidor", servidorService.getByCpf(pessoa.getCpf()));
 		}
 		model.addAttribute("opcoesTipoSelecao", TipoSelecao.values());	
 		model.addAttribute("selecoes", selecoes);
@@ -140,7 +144,13 @@ public class SelecaoController {
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/editar")
 	public String editarSelecao(Selecao selecao, Authentication auth, Model model, RedirectAttributes redirect) {
-		selecaoService.editar(selecao);
+		Selecao selecao2 = selecaoService.getById(selecao.getId());
+		selecao2.setTipo(selecao.getTipo());
+		selecao2.setAno(selecao.getAno());
+		selecao2.setQuantidadeVagas(selecao.getQuantidadeVagas());
+		selecao2.setDataInicio(selecao.getDataInicio());
+		selecao2.setDataTermino(selecao.getDataTermino());
+		selecaoService.editar(selecao2);
 		redirect.addFlashAttribute(INFO, MSG_SELECAO_EDITADA);
 		return REDIRECT_LISTAR_SELECAO;
 	}
@@ -180,9 +190,18 @@ public class SelecaoController {
 	
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/agendamentoEntrevista/editar/{selecao}")
-	public String editarAgendamentoEntrevista(@PathVariable Selecao selecao, AgendamentoEntrevista agendamento, Authentication auth, Model model, RedirectAttributes redirect) {
-		agendamentoEntrevistaService.editar(agendamento);
-		redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTRVISTA_EDICAO);
+	public String editarAgendamentoEntrevista(@PathVariable Selecao selecao, AgendamentoEntrevista agendamento, Authentication auth, Model model, 
+			RedirectAttributes redirect) {
+		try {
+			if(agendamentoEntrevistaService.adicionarHorarioAgendamentoEntrevista(agendamento, selecao)) {
+				agendamentoEntrevistaService.editar(agendamento);
+				redirect.addFlashAttribute(INFO, MSG_SUCESSO_AGENDAMENTO_ENTRVISTA_EDICAO);
+			}
+			else
+				redirect.addFlashAttribute(ERRO, "Erro ao editar agendamento de entrevista");
+		} catch (AuxilioMoradiaException e) {
+			e.printStackTrace();
+		}
 		return RedirectConstants.REDIRECT_AGENDAMENTO_ENTREVISTA + selecao.getId();
 	}
 	
