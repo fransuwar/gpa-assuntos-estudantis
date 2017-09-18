@@ -31,6 +31,8 @@ public class Selecao {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataInicio;
 	
+	
+	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataTermino;
 	
