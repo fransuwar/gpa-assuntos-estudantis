@@ -94,7 +94,7 @@ public class VisitaDomiciliar {
 	public Servidor getResponsavel() {
 		return responsavel;
 	}
-
+	
 	public void setResponsavel(Servidor responsavel) {
 		this.responsavel = responsavel;
 	}
@@ -145,7 +145,9 @@ public class VisitaDomiciliar {
 		}
 	}
 
-
+	public void isResponsavel(Servidor servidor) {
+		this.responsavel = servidor;
+    }
 
 
 }

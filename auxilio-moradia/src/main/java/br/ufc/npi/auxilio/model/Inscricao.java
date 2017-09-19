@@ -25,6 +25,7 @@ public class Inscricao implements Comparable<Inscricao>{
 	
 	private boolean classificada;
 	
+	
 	private boolean realizarVisita;
 	
 	private boolean consolidada;
@@ -37,7 +38,7 @@ public class Inscricao implements Comparable<Inscricao>{
 	@ManyToOne
 	private Aluno aluno;
 
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE })
 	private QuestionarioAuxilioMoradia questionario;
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -539,7 +540,9 @@ public class Inscricao implements Comparable<Inscricao>{
 		if(this.getResultado()==Resultado.INDEFERIDO && o.getResultado()==Resultado.DEFERIDO){
 			return 1;
 		}
-		
+		if(this.posicaoRanking != null){
+			return 0;
+		}		
 		Double rendaPerCapita1 = 0D, rendaPerCapita2 = 0D;
 		if(this.getRendaPerCapita() != null)
 			rendaPerCapita1 = this.getRendaPerCapita();
@@ -558,5 +561,6 @@ public class Inscricao implements Comparable<Inscricao>{
 		}
 		return 0;
 	}
+	
 
 }

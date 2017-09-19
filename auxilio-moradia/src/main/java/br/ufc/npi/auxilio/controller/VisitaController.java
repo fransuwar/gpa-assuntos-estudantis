@@ -4,6 +4,7 @@ import static br.ufc.npi.auxilio.utils.Constants.ALUNO;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
+import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_SERVIDOR;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_VISITA;
@@ -31,6 +32,7 @@ import br.ufc.npi.auxilio.excecao.AuxilioMoradiaException;
 import br.ufc.npi.auxilio.model.Aluno;
 import br.ufc.npi.auxilio.model.Documento;
 import br.ufc.npi.auxilio.model.Inscricao;
+import br.ufc.npi.auxilio.model.Selecao;
 import br.ufc.npi.auxilio.model.Servidor;
 import br.ufc.npi.auxilio.model.VisitaDomiciliar;
 import br.ufc.npi.auxilio.service.AlunoService;
@@ -57,34 +59,43 @@ public class VisitaController {
 	@Autowired
 	private InscricaoService inscricaoService;
 
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@GetMapping("/{inscricao}")
 	public String cadastrar(@PathVariable Inscricao inscricao, Authentication auth, Model model) {
-		Aluno aluno = alunoService.buscarPorCpf(inscricao.getAluno().getPessoa().getCpf());
-		Servidor servidor = servidorService.getByCpf(auth.getName());
+		Aluno aluno = alunoService.buscarPorCpf(inscricao.getAluno().getPessoa().getCpf());	
+		VisitaDomiciliar visitaDomiciliar = new VisitaDomiciliar();
+		List<Servidor> servidores = inscricao.getSelecao().getComissao();
+		
+		model.addAttribute("servidor", servidores);
 		
 		if(inscricao.getVisitaDomiciliar() ==  null){
-			model.addAttribute("visita", new VisitaDomiciliar());
+			model.addAttribute("visita", visitaDomiciliar );
 			model.addAttribute("acao", "cadastrar");
+			model.addAttribute("servidor", servidores);
 		}else{
-			VisitaDomiciliar visitaDomiciliar = visitaService.buscar(inscricao.getVisitaDomiciliar().getId());
+			visitaDomiciliar = visitaService.buscar(inscricao.getVisitaDomiciliar().getId());
+			model.addAttribute("servidor", servidorService.getById(visitaDomiciliar.getResponsavel().getId()));
 			model.addAttribute("visita", visitaDomiciliar);
 			model.addAttribute("acao", "editar");
 		}
-		model.addAttribute("servidor", servidor);
+		
+		//servidorService.getById(visitaDomiciliar.getResponsavel().getId())
+		
+		
 		model.addAttribute("inscrição", inscricao != null ? inscricao.getId() : null);
 		model.addAttribute(ALUNO, aluno);
 		model.addAttribute("selecao", inscricao.getSelecao());
 	
 		return PageConstants.PAGINA_VISITA;
 	}
-	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@PostMapping("/{inscricao}")
 	public String cadastrar(@RequestParam("imagensVisita") List<MultipartFile> imagens,
 			@RequestParam("formularioVisita") List<MultipartFile> formulario, VisitaDomiciliar visita ,@PathVariable("inscricao") Inscricao inscricao,
-			Model model, Authentication auth, RedirectAttributes redirect) {
+			Model model, Authentication auth, RedirectAttributes redirect, Selecao selecao, @RequestParam("servidor") Servidor servidor) {
 		
+		servidor = servidorService.getById(servidor.getPessoa().getId());
 		
 		VisitaDomiciliar visitaDomiciliar = visitaService.buscar(visita.getId());
 		if(visitaDomiciliar ==  null){
@@ -94,8 +105,9 @@ public class VisitaController {
 			visitaDomiciliar.setData(visita.getData());
 			visitaDomiciliar.setObservacoes(visita.getObservacoes());
 			visitaDomiciliar.setRelatorio(visita.getRelatorio());
-			visitaDomiciliar.setResultado(visita.getResultado());		
-			visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
+			visitaDomiciliar.setResultado(visita.getResultado());
+			//visitaDomiciliar.setResponsave(servidorService.getByCpf(auth.getName()));
+			visitaDomiciliar.setResponsavel(servidor);
 			
 		}
 		// Salvar Imagens
@@ -134,7 +146,7 @@ public class VisitaController {
 			inscricao.setVisitaDomiciliar(visitaDomiciliar);
 		}
 		
-		visitaDomiciliar.setResponsavel(servidorService.getByCpf(auth.getName()));
+		visitaDomiciliar.setResponsavel(servidor);
 		visitaService.salvar(visitaDomiciliar);
 		redirect.addFlashAttribute(INFO, MSG_SUCESSO_VISITA);
 		inscricaoService.salvar(inscricao);
@@ -142,7 +154,8 @@ public class VisitaController {
 	}
 	
 	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@GetMapping("/documento/{inscricao}/download/{arquivo}")
 	public HttpEntity<?> downloadDocumento(@PathVariable Inscricao inscricao, @PathVariable Documento arquivo, RedirectAttributes redirect) {
 		try {
@@ -155,7 +168,8 @@ public class VisitaController {
 		return null;
 	}
 	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@GetMapping("/documento/{inscricao}/excluir/{arquivo}")
 	public String excluirImagem(@PathVariable Inscricao inscricao, @PathVariable Documento arquivo, RedirectAttributes redirect) {
 		try {
@@ -169,7 +183,8 @@ public class VisitaController {
 		return RedirectConstants.REDIRECT_VISITA_DOMICILIAR + inscricao.getId();
 	}
 	
-	@PreAuthorize(PERMISSAO_COORDENADOR)
+	//@PreAuthorize(PERMISSAO_COORDENADOR)
+	@PreAuthorize(PERMISSAO_COORDENADOR + " or " + PERMISSAO_SERVIDOR)
 	@GetMapping("/documento/{inscricao}/excluirformulario")
 	public String excluirFormulario(@PathVariable Inscricao inscricao, RedirectAttributes redirect) {
 		try {
@@ -187,4 +202,10 @@ public class VisitaController {
 	public Resultado[] getResultados() {
 		return Resultado.values();
 	}
+	
+	@ModelAttribute("servidores")
+	public List<Servidor> getAllServidores() {
+		return servidorService.getAll();
+	}
+		
 }

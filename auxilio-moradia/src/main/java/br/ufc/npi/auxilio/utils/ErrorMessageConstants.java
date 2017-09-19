@@ -17,7 +17,7 @@ public class ErrorMessageConstants {
 	public static final String MENSAGEM_ERRO_AGENDAMENTO_ENTREVISTA = "Erro ao inserir agendamento de entrevista";
 
 	/* Entrevista Agendamento alocacao*/
-
+	public static final String MSG_ERRO_AGENDAMENTO_ENTREVISTA = "Agendamento de entrevista não cadastrado, tente novamente";
 	
 	
 	/* Inscrição */
