@@ -425,8 +425,7 @@ public class InscricaoController {
 			return new Response().withFailStatus().withErrorMessage("Error ao selecionar esta inscricao");
 	}
 	
-	
-	@Secured(COORDENADOR)
+    @Secured(COORDENADOR)
 	@PostMapping("/parecerFinal")
 	@ResponseBody
 	public Response editarParecerFinal(Integer inscricaoId,
