@@ -91,20 +91,7 @@
                                      <i class="material-icons">note_add</i>
 									</a>
 
-								</td>
-								
-								
-								<!-- Modal excluir seleção -->					
-								<div id="excluir-selecao" class="modal">
-									<div class="modal-content">
-										<h4>Excluir seleção</h4>
-										<p>Tem certeza de que deseja excluir essa seleção?</p>
-									</div>
-									<div class="modal-footer">
-										<a id="confirm-excluir"  sec:authorize="hasAuthority('COORDENADOR')" class="modal-action waves-effect waves-light btn red" th:href="@{/selecao/excluir/__${selecao.id}__}">Excluir</a>
-										<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat purple-text white">Cancelar</a>
-									</div>
-								</div>
+								</td>							
 							</tr>
 						</tbody>
 					</table>	
@@ -121,7 +108,17 @@
 			</div>
 		</div>
 	</div>
-	
+	<!-- Modal excluir seleção -->					
+	<div id="excluir-selecao" class="modal">
+		<div class="modal-content">
+			<h4>Excluir seleção</h4>
+			<p>Tem certeza de que deseja excluir essa seleção?</p>
+		</div>
+		<div class="modal-footer">
+			<a id="confirm-excluir" sec:authorize="hasAuthority('COORDENADOR')" class="modal-action waves-effect waves-light btn red ">Excluir</a>
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat purple-text white">Cancelar</a>
+		</div>
+	</div>
 
 	
 </section>
