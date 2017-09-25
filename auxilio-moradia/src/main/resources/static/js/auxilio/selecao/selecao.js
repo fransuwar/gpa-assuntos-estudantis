@@ -98,3 +98,29 @@ $(document).ready(function() {
 	criarTabela("inscricoes-reservas", "float_relatorio_reservas");
 
 });
+
+
+
+$("#confirm-excluir").on("click", function(event){
+    event.preventDefault();    
+    let _context = $("meta[name='_context']").attr("content");
+    let token = $("meta[name='_csrf']").attr("content");
+    let id_selecao = document.getElementById("teste").value
+     console.log("id: "+id_selecao);
+    let url = "/selecao/excluir/"+id_selecao;
+    var param = {selecao : id_selecao};
+    $.ajax({
+        url,
+        type: "post",
+        dataType: "json",
+        data: param,
+        headers: {"X-CSRF-TOKEN":token},
+        
+        success: function(response) {
+            if(response.status === "DONE"){
+                console.log("Sucesso");
+            }
+            $('.modal').modal('close');
+        }
+    });
+});

@@ -32,6 +32,7 @@ import java.util.List;
 import static br.ufc.npi.auxilio.utils.Constants.*;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_SELECAO_INEXISTENTE;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_DOCUMENTACAO_JA_ADICIONADA;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_EXCLUIR_DOCUMENTACAO;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_MEMBRO_JA_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MSG_ERRO_AGENDAMENTO_ENTREVISTA;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
@@ -348,8 +349,11 @@ public class SelecaoController {
 	public String excluirTipoDocumento(@PathVariable TipoDocumento tipoDocumento, RedirectAttributes redirect) {
 		Selecao selecao = tipoDocumento.getSelecao();
 		try {
-			selecaoService.removerTipoDocumento(tipoDocumento);
-			redirect.addFlashAttribute(INFO, MSG_SUCESSO_TIPO_DOCUMENTO_REMOVIDO);
+			if (selecaoService.removerTipoDocumento(tipoDocumento)) {
+				redirect.addFlashAttribute(INFO, MSG_SUCESSO_TIPO_DOCUMENTO_REMOVIDO);
+			} else {
+				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_EXCLUIR_DOCUMENTACAO);
+			}
 		} catch (AuxilioMoradiaException e) {
 			redirect.addFlashAttribute(ERRO, e.getMessage());
 		}
