@@ -433,6 +433,13 @@ public class InscricaoController {
 		Inscricao insc = inscricaoService.buscarInscricaoPorId(inscricaoId);
 		insc.setObservacao(observacao);
 		insc.setResultado(Resultado.valueOf(resultado));
+		if(Resultado.valueOf(resultado) != Resultado.DEFERIDO &&
+				insc.getSelecionado()==1){
+			
+				insc.setSelecionado(0);
+			
+		}
+		
 		inscricaoService.editar(insc);
 		return new Response().withDoneStatus();
 	}
