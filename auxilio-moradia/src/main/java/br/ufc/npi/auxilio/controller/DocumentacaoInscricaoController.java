@@ -34,7 +34,6 @@ import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
-import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_SERVIDOR;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_ANALISE_DOCUMENTACAO;
 
@@ -87,11 +86,31 @@ public class DocumentacaoInscricaoController {
 			
 			for (MultipartFile mfiles : files) {
 				try {
+					
 					if (mfiles.getBytes() != null && mfiles.getBytes().length != 0) {
-						if(!documentacaoService.adicionarDocumentos(inscricao, documentacao, mfiles)){
-							redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS);
-						}else{
+						if(documentacaoService.adicionarDocumentos(inscricao, documentacao, mfiles)){
 							redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
+							documentacao.setTipoDocumento(tipoDocumento);
+							
+							AnaliseDocumentacao analiseDocumento = inscricao.getAnaliseDocumentacao();
+							if( analiseDocumento == null || analiseDocumento.getId() == null ) {
+								analiseDocumento = new AnaliseDocumentacao();
+								analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
+								analiseDocumentacaoRepository.save(analiseDocumento);
+								
+							}
+							analiseDocumento.setInscricao(inscricao);
+							analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
+							analiseDocumentacaoRepository.save(analiseDocumento);
+							
+							documentacao.setAnaliseDocumentacao(analiseDocumento);
+							documentacaoService.salvar(documentacao);
+							
+							inscricao.setAnaliseDocumentacao(analiseDocumento);
+							inscricaoService.salvar(inscricao);
+							
+						}else{
+							redirect.addFlashAttribute(ERRO, ErrorMessageConstants.MENSAGEM_ERRO_SALVAR_DOCUMENTOS_EXTENSAO);
 						}
 					}
 				} catch (IOException e)	{
@@ -99,24 +118,6 @@ public class DocumentacaoInscricaoController {
 					return RedirectConstants.REDIRECT_INSCRICAO_DOCUMENTACAO + inscricao.getId();
 				}
 			}
-			documentacao.setTipoDocumento(tipoDocumento);
-			
-			AnaliseDocumentacao analiseDocumento = inscricao.getAnaliseDocumentacao();
-			if( analiseDocumento == null || analiseDocumento.getId() == null ) {
-				analiseDocumento = new AnaliseDocumentacao();
-				analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
-				analiseDocumentacaoRepository.save(analiseDocumento);
-				
-			}
-			analiseDocumento.setInscricao(inscricao);
-			analiseDocumento.setResultado(Resultado.NAO_AVALIADO);
-			analiseDocumentacaoRepository.save(analiseDocumento);
-			
-			documentacao.setAnaliseDocumentacao(analiseDocumento);
-			documentacaoService.salvar(documentacao);
-			
-			inscricao.setAnaliseDocumentacao(analiseDocumento);
-			inscricaoService.salvar(inscricao);
 		}
 		
 		else {
@@ -153,7 +154,9 @@ public class DocumentacaoInscricaoController {
 		
 		AnaliseDocumentacao analiseDocumentacao = inscricao.getAnaliseDocumentacao();
 		if(analiseDocumentacao == null){
-			inscricao.setAnaliseDocumentacao(new AnaliseDocumentacao());
+			AnaliseDocumentacao novaAnalise = new AnaliseDocumentacao();
+			novaAnalise.setResultado(Resultado.NAO_AVALIADO);
+			inscricao.setAnaliseDocumentacao(novaAnalise);
 			inscricaoService.salvar(inscricao);
 			model.addAttribute("analiseDocumentacao", inscricao.getAnaliseDocumentacao());
 		}else {

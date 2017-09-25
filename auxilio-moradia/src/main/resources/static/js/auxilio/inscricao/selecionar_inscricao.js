@@ -3,7 +3,7 @@ $(document).ready(function() {
 	$( ".selecionar" ).click(function(event) {
 		event.preventDefault();
 		var checkbox = $(this);
-		var url = "/inscricao/selecionar";
+		var url = _context + "/inscricao/selecionar";
 		var token = $("meta[name='_csrf']").attr("content");
 		var id =$(this).attr("id");
 		var hab = $(this).is(":checked");
@@ -54,7 +54,7 @@ $(document).ready(function() {
 	}
 	
 	function salvarRank(inscricao, posicoes){
-		var url = "/inscricao/ordernar";
+		var url = _context + "/inscricao/ordernar";
 		var token = $("meta[name='_csrf']").attr("content");
 		var param = {inscricoes: inscricao, posicoes: posicoes};
 		$.ajax({
