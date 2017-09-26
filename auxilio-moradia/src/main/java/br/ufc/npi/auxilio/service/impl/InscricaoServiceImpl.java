@@ -50,6 +50,7 @@ public class InscricaoServiceImpl implements InscricaoService {
 		inscricao.setAluno(aluno);
 		inscricao.setData(LocalDateTime.now());
 		inscricao.setSelecionado(0);
+		inscricao.setResultado(Resultado.NAO_AVALIADO);
 		inscricaoRepository.save(inscricao);
 		inscricao.setIdentificacao(identificacao);
 		return inscricaoRepository.save(inscricao);

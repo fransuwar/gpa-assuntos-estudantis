@@ -69,18 +69,11 @@ public class DocumentacaoServiceImpl implements DocumentacaoService {
 					documento.setNome(multipartFile.getOriginalFilename());
 					documento.setCaminho(homeDir + FOLDER_DOCUMENTOS + "analiseDocumentacao" +inscricao.getId());
 					documento.setArquivo(multipartFile.getBytes());
-	
-					// Pega  o fomato do arquivo
-					//String extensao = documento.getNome().substring(documento.getNome().lastIndexOf('.') + 1);
-					documento.setTipo(Documento.Tipo.valueOf(extensao.toUpperCase()));
-	
+					documento.setTipo(Documento.Tipo.valueOf(extensao.toUpperCase()));	
 					documentoRepository.save(documento);
-					documentacao.getDocumentos().add(documento);
-					
+					documentacao.getDocumentos().add(documento);					
 					salvarArquivoLocal(documento);
 					return true;
-				}else{
-					return false;
 				}
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, e.getMessage(), e);

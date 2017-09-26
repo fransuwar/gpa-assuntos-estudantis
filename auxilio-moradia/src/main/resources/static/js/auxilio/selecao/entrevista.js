@@ -61,7 +61,7 @@ $("form#agendamento-alunos").on("submit",function(event){
 	let form = $(this);
 	let select = form.find("select").val();
 	let agendamento = form.find("input[name='agendamento']").attr("value");
-	var url = "/selecao/agendamentoEntrevista/adicionar";
+	var url = _context + "/selecao/agendamentoEntrevista/adicionar";
 	var token = $("meta[name='_csrf']").attr("content");
 	var param = {idAgendamento : agendamento, idInscricao : select };
 	$.ajax({
