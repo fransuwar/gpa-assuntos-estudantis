@@ -1,4 +1,4 @@
-var _context = $("meta[name='_context']").attr("content");
+var _context = $("meta[name='_context']").attr("content") != null? $("meta[name='_context']").attr("content"): "";
 $(document).ready(function() {
     $(this).ajaxSend(function(event, jqxhr, settings) {
         var token = $("meta[name='_csrf']").attr("content");
