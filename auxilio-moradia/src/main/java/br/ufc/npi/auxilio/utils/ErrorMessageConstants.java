@@ -6,6 +6,7 @@ public class ErrorMessageConstants {
 	public static final String MENSAGEM_ERRO_COMISSAO_EXCLUIR_COORDENADOR = "O responsável não pode ser excluído da comissão";
 	public static final String MENSAGEM_ERRO_SELECAO_INEXISTENTE = "Esta seleção não existe";
 	public static final String MENSAGEM_ERRO_SALVAR_DOCUMENTOS = "Não foi possível salvar o documento";
+	public static final String MENSAGEM_ERRO_SALVAR_DOCUMENTOS_EXTENSAO = "Não foi possível salvar o documento, verifique se extensao do arquivo é uma das seguintes: PDF, PNG, JPG ou JPEG";
 	public static final String MENSAGEM_ERRO_NENHUM_ARQUIVO = "Nenhum arquivo foi selecionado";
 	public static final String MENSAGEM_ERRO_EXCLUIR_ARQUIVO = "Erro ao excluir arquivo";
 	public static final String MENSAGEM_ERRO_BUSCAR_ARQUIVO = "Erro ao buscar arquivo";
