@@ -171,7 +171,6 @@ public class SelecaoServiceImpl implements SelecaoService {
 				return false;
 			}
 		} else {
-			System.out.println("Teste3");
 			throw new AuxilioMoradiaException(MENSAGEM_ERRO_EXCLUIR_DOCUMENTACAO);
 		}
 	}
