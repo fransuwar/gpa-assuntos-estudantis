@@ -3,7 +3,6 @@ $(document).ready(function() {
 	$( ".selecionar" ).click(function(event) {
 		event.preventDefault();
 		var checkbox = $(this);
-		var _context = $("meta[name='_context']").attr("content");
 		var token = $("meta[name='_csrf']").attr("content");
 		var url = _context+"/inscricao/selecionar";
 		var id =$(this).attr("id");
@@ -55,8 +54,7 @@ $(document).ready(function() {
 	}
 	
 	function salvarRank(inscricao, posicoes){
-		var _context = $("meta[name='_context']").attr("content");
-		var url = _context+"/inscricao/ordernar";
+		var url = _context + "/inscricao/ordernar";
 		var token = $("meta[name='_csrf']").attr("content");
 		var param = {inscricoes: inscricao, posicoes: posicoes};
 		$.ajax({
