@@ -3,8 +3,8 @@ $(document).ready(function() {
 	$( ".selecionar" ).click(function(event) {
 		event.preventDefault();
 		var checkbox = $(this);
-		var url = _context + "/inscricao/selecionar";
 		var token = $("meta[name='_csrf']").attr("content");
+		var url = _context+"/inscricao/selecionar";
 		var id =$(this).attr("id");
 		var hab = $(this).is(":checked");
 		var param = {idInscricao : id, selecionar : hab };
@@ -18,9 +18,9 @@ $(document).ready(function() {
 			success: function(response) {
 				if(response.status === "DONE"){
 					if(hab){ 
-						checkbox.prop("checked", true);
+						checkbox.prop("checked", true); 
 					}else{
-						checkbox.prop("checked", false); 	
+						checkbox.prop("checked", false);  	
 					}
 				}
 			}
@@ -79,7 +79,7 @@ $(document).ready(function() {
 		let posicoes = "";
 		for(let i = comeco; i<=final; i++){
 			($(".ordenavel tbody").find("tr").eq(i)).find("td:first-child").text((i+1));
-			inscricoes+= (($(".ordenavel tbody").find("tr").eq(i)).find("a").attr("href")).split("/")[3]+",";
+			inscricoes+= (($(".ordenavel tbody").find("tr").eq(i)).find("a").attr("href")).split("/")[4]+",";
 			posicoes += ($(".ordenavel tbody").find("tr").eq(i)).find("td:first-child").text()+",";		
 		}
 		salvarRank(inscricoes, posicoes);
@@ -108,4 +108,35 @@ $(document).ready(function() {
 	
 });
 
+
+$(document).on("click", ".alterarParecer", function () {
+    $("#nomeAluno").text("Aluno(a): "+$(this).data("text"));
+    $("#disabled").val($(this).data("id"))
+});
+
+$("#modal1 form").on("submit", function(event){
+	event.preventDefault();	
+	let _context = $("meta[name='_context']").attr("content");
+	let token = $("meta[name='_csrf']").attr("content");
+	let id = $("#disabled").val();
+	let resultado = $(this).find("select").val();
+	let observacao = $(this).find("#observacao").val();
+	let url = _context+"/inscricao/parecerFinal";
+	let param = {inscricaoId : id, resultado : resultado, observacao : observacao};
+	$.ajax({
+		url,
+		type: "post",
+		dataType: "json",
+		data: param,
+		headers: {"X-CSRF-TOKEN":token},
+		success: function(response) {
+			if(response.status === "DONE"){
+				location.reload();
+			}
+			
+		}
+	});
+	
+	$('.modal').modal('close');
+});
 
