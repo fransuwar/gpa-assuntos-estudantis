@@ -161,9 +161,15 @@ public class SelecaoServiceImpl implements SelecaoService {
 	}
 
 	@Override
-	public void removerTipoDocumento(TipoDocumento tipoDocumento) throws AuxilioMoradiaException {
-		if (tipoDocumento != null) {
-			tipoDocumentoRepository.delete(tipoDocumento);
+	public Boolean removerTipoDocumento(TipoDocumento tipoDocumento) throws AuxilioMoradiaException {
+		if (tipoDocumento != null) {			
+			try {
+				tipoDocumentoRepository.delete(tipoDocumento);
+				return true;
+			}
+			catch (Exception e) {
+				return false;
+			}
 		} else {
 			throw new AuxilioMoradiaException(MENSAGEM_ERRO_EXCLUIR_DOCUMENTACAO);
 		}

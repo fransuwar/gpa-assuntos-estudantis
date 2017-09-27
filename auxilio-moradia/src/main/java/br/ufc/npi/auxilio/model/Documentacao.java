@@ -18,13 +18,13 @@ public class Documentacao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE) 	
 	private TipoDocumento tipoDocumento;
 	
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<Documento> documentos;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	private AnaliseDocumentacao analiseDocumentacao;
 	
 	public Documentacao() {

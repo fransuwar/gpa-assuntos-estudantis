@@ -56,10 +56,12 @@
 							     		<i class="material-icons">edit</i>
 									</a>
 									<a sec:authorize="hasAuthority('COORDENADOR')" class="btn-icon waves-effect tooltipped"
-							     		th:href="@{/selecao/excluir/__${selecao.id}__}"
-							     		th:attr="data-tooltip=${'Deletar'}, data-target=${deleteDataTarget}, data-url=${deleteDataUrl}">
+							     		href="#excluir-selecao" id="excluir-bt" 
+							     		th:attr="data-id=${selecao.id}, data-tooltip=${'Deletar'}, data-target=${deleteDataTarget}, data-url=${deleteDataUrl}">
 							     		<i class="material-icons">delete</i>
 									</a>
+									
+									
 								</td>
 								
 								
@@ -90,9 +92,10 @@
 									</a>
 
 								</td>
+
 							</tr>
 						</tbody>
-					</table>
+					</table>	
 				</div>
 				<div class="card-action right-align" sec:authorize="hasAuthority('COORDENADOR')">
 					<!--<a class="waves-effect waves-light btn" th:href="@{/selecao/cadastrar}">Nova Seleção</a>-->
@@ -105,19 +108,20 @@
 				</div>
 			</div>
 		</div>
-		
 	</div>
-	<!-- Modal excluir seleção -->
+	<!-- Modal excluir seleção -->					
 	<div id="excluir-selecao" class="modal">
 		<div class="modal-content">
 			<h4>Excluir seleção</h4>
 			<p>Tem certeza de que deseja excluir essa seleção?</p>
 		</div>
 		<div class="modal-footer">
-			<a id="confirm-excluir" th:href="${removeAtt}" class="modal-action waves-effect waves-light btn red">Excluir</a>
-			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat purple-text white">Cancelar</a>
+			<a id="confirm-excluir" sec:authorize="hasAuthority('COORDENADOR')" class="modal-action waves-effect waves-light btn ">Excluir</a>
+			<a href="#!" class="modal-action modal-close waves-effect waves-purple btn-flat purple-text white">Cancelar</a>
 		</div>
 	</div>
+
+	
 </section>
 <section layout:fragment="js">
 	<script th:src="@{/js/auxilio/selecao/selecao.js}"></script>

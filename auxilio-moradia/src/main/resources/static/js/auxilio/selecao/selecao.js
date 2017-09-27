@@ -98,3 +98,9 @@ $(document).ready(function() {
 	criarTabela("inscricoes-reservas", "float_relatorio_reservas");
 
 });
+
+
+$(document).on("click", "#excluir-bt", function () {
+		var url = _context+"/selecao/excluir/"+$(this).data("id");
+		$("#confirm-excluir").attr("href", url);
+	});

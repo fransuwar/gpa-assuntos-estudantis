@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.ufc.npi.auxilio.model.TipoDocumento;
+
 @Repository
 public interface TipoDocumentoRepository extends JpaRepository <TipoDocumento, Integer>{
 	
@@ -15,6 +16,5 @@ public interface TipoDocumentoRepository extends JpaRepository <TipoDocumento, I
             "SELECT td FROM TipoDocumento td WHERE LOWER(td.nome) = LOWER(:nomeTipoDocumento)" 
     )
 	List<TipoDocumento> search(@Param("nomeTipoDocumento") String nomeTipoDocumento);
-	
-	
+
 }

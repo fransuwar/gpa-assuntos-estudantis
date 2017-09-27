@@ -31,7 +31,7 @@ public interface SelecaoService {
 
 	Boolean adicionarTipoDocumento(Selecao selecao, TipoDocumento tipoDocumento) throws AuxilioMoradiaException;
 
-	void removerTipoDocumento(TipoDocumento tipoDocumento) throws AuxilioMoradiaException;
+	Boolean removerTipoDocumento(TipoDocumento tipoDocumento) throws AuxilioMoradiaException;
 
 	DocumentoDownload downloadDocumento(Documento documento, String procedimento);
 	

@@ -1,6 +1,5 @@
 package br.ufc.npi.auxilio.config;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Named;
@@ -19,7 +18,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 
 import br.ufc.npi.auxilio.model.Pessoa;
 import br.ufc.npi.auxilio.repository.PessoaRepository;
