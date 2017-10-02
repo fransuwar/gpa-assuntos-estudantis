@@ -1,8 +1,10 @@
 package br.ufc.npi.auxilio.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 //import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 //import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -23,11 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
-//	// Utilizado para autenticação via ldap
-//	@Autowired
-//	@Qualifier("authenticationLdapProvider")
-//	private AuthenticationProvider provider;
-//	
+	// Utilizado para autenticação via ldap
+	// @Autowired
+	// @Qualifier("authenticationLdapProvider")
+	// private AuthenticationProvider provider;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/").authenticated()
@@ -41,9 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		// Utilizado para autenticação via ldap
-//		auth.authenticationProvider(provider);
-//				
+//		 Utilizado para autenticação via ldap
+	//   auth.authenticationProvider(provider);
+				
 		// Utilizado para autenticação via banco de dados
 		auth.userDetailsService(userDetailsService);
 	}
