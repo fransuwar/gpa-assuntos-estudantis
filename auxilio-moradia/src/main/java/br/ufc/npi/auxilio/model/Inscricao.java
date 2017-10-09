@@ -30,6 +30,7 @@ public class Inscricao implements Comparable<Inscricao>{
 	
 	private boolean consolidada;
 	
+	@Column(columnDefinition="varchar(1000)")
 	private String observacao;
 	
 	@OneToOne

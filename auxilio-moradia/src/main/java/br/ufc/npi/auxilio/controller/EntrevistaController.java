@@ -5,6 +5,7 @@ import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_SERVIDOR;
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MSG_ERRO_ANALISE_DOCUMENTACAO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_ENTREVISTA;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,10 @@ public class EntrevistaController {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
 			return RedirectConstants.REDIRECT_LISTAR_SELECAO;
 		}
-		
+		if( entrevista.getObservacao().length() > 1000){
+			redirect.addFlashAttribute(ERRO, MSG_ERRO_ANALISE_DOCUMENTACAO);
+			return RedirectConstants.REDIRECT_PAGINA_ENTREVISTA + inscricao.getId();
+		}
 		entrevista.setResponsavel(servidorService.getByCpf(auth.getName()));
 		entrevistaRepository.save(entrevista);
 		

@@ -8,6 +8,7 @@ import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_SERVIDOR;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_VISITA;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MSG_ERRO_ANALISE_DOCUMENTACAO;
 
 import java.io.IOException;
 import java.util.List;
@@ -96,7 +97,10 @@ public class VisitaController {
 			Model model, Authentication auth, RedirectAttributes redirect, Selecao selecao, @RequestParam("servidor") Servidor servidor) {
 		
 		servidor = servidorService.getById(servidor.getPessoa().getId());
-		
+		if(visita.getObservacoes().length() > 1000){
+			redirect.addFlashAttribute(ERRO, MSG_ERRO_ANALISE_DOCUMENTACAO);
+			return RedirectConstants.REDIRECT_VISITA_DOMICILIAR + inscricao.getId();
+		}
 		VisitaDomiciliar visitaDomiciliar = visitaService.buscar(visita.getId());
 		if(visitaDomiciliar ==  null){
 			visitaDomiciliar = visita;

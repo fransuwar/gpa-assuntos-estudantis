@@ -430,6 +430,7 @@ public class InscricaoController {
 	@ResponseBody
 	public Response editarParecerFinal(Integer inscricaoId,
 			String resultado, String observacao) throws AuxilioMoradiaException{
+    	if (resultado.length() > 1000) return new Response().withErrorMessage("Número de caracteres excedidos");
 		Inscricao insc = inscricaoService.buscarInscricaoPorId(inscricaoId);
 		insc.setObservacao(observacao);
 		insc.setResultado(Resultado.valueOf(resultado));
