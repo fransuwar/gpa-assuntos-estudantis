@@ -5,6 +5,7 @@ import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_SERVIDOR;
+import static br.ufc.npi.auxilio.utils.Constants.NUM_CARACTERES;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_REMOVIDO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_VISITA;
@@ -97,7 +98,7 @@ public class VisitaController {
 			Model model, Authentication auth, RedirectAttributes redirect, Selecao selecao, @RequestParam("servidor") Servidor servidor) {
 		
 		servidor = servidorService.getById(servidor.getPessoa().getId());
-		if(visita.getObservacoes().length() > 1000){
+		if(visita.getObservacoes().length() > NUM_CARACTERES){
 			redirect.addFlashAttribute(ERRO, MSG_ERRO_ANALISE_DOCUMENTACAO);
 			return RedirectConstants.REDIRECT_VISITA_DOMICILIAR + inscricao.getId();
 		}
