@@ -43,8 +43,8 @@ public class VisitaDomiciliar {
 
 	@OneToMany
 	private List<Documento> imagens;
-	
-	@Column(name="observacoes", columnDefinition="text")
+
+	@Column(name="observacoes", columnDefinition="varchar(1000)")
 	private String observacoes;
 	
 	public Documento getFormulario() {
