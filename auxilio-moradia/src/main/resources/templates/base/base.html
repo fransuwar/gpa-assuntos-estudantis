@@ -41,14 +41,14 @@
             <div class="toast green alert-info rounded" th:if="${not #strings.isEmpty(info)}">
                 <div class="valign-wrapper">
                     <i class="material-icons white-text">check</i>
-                    <span class="white-text" th:text="${info}"></span>
+                    <span id="mensagem" class="white-text" th:text="${info}"></span>
                 </div>
             </div>
 
             <div class="toast red alert-info rounded" th:if="${not #strings.isEmpty(erro)}">
                 <div class="valign-wrapper">
                     <i class="material-icons white-text">error</i>
-                    <span class="white-text" th:text="${erro}"></span>
+                    <span id="mensagem" class="white-text" th:text="${erro}"></span>
                 </div>
             </div>
         </div>
