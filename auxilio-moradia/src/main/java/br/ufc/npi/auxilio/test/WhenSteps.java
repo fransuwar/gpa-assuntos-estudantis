@@ -7,13 +7,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import br.ufc.npi.auxilio.utils.ConstantsTest;
 
 public class WhenSteps {
 
-	private WebDriver driver;
+	private WebDriver driver = new FirefoxDriver();
 	
 	private WebElement fieldAno;
 	private WebElement fieldInicio;
@@ -21,10 +20,6 @@ public class WhenSteps {
 	
 	@When("o usuário seleciona o tipo de seleção")
 	public void selecionarTipoSelecao(String tipoSelecao) {
-		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-		capabilities.setCapability("marionette", true);
-		driver = new FirefoxDriver(capabilities);
-		
 		driver.findElement(By.id(ConstantsTest.ID_FIELD_TIPO)).clear();
 		driver.findElement(By.id(ConstantsTest.ID_FIELD_TIPO)).sendKeys(tipoSelecao);
 	}

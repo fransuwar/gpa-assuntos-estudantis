@@ -1,36 +1,38 @@
 package br.ufc.npi.auxilio.test;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jbehave.core.annotations.Then;
-import org.junit.Before;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class CadastroSelecaoThenSteps {
+import br.ufc.npi.auxilio.utils.ConstantsTest;
 
-	protected WebDriver driver;
+public class ThenSteps {
 
-	@Before
-	public void setUp() {
-		driver = new ChromeDriver();
+	private WebDriver driver = new FirefoxDriver();
+	private WebElement title;
+	
+	@Then("o sistema redireciona para a página de detalhes da seleção cadastrada")
+	public void acesaarPaginaDetalhes(String url, String id) {
+		driver.get(url.concat(id));
+		title = driver.findElement(By.tagName(ConstantsTest.ELEMENT_TITLE));
+		assertEquals(title.getText(), ConstantsTest.TITLE_PAGE_DETALHES);
 	}
 	
-	@Then("o sistema exibir a mensagem $mensagem")
-	public void cadastroSelecaoComSucesso(String mensagem) {
-		
+	@Then("o sistema deve exibir uma mensagem")
+	public void exibirMensagem(String mensagem) {
+		String mensagemElement = driver.findElement(By.id(ConstantsTest.ID_SPAN_MENSAGEM)).getText();
+		assertEquals(mensagemElement, mensagem);
 	}
 	
-	@Then("o sistema redireciona para a página de listagem das seleções cadastradas pelo endereço $url")
-	public void cancelarCadastroSelecao(String url) {
-		
-	}
-	
-	@Then("o sistema deve exibir a mensagem $mensagem")
-	public void cadastrarSelecaoSemPreencherCamposObrigatorios(String mensagem) {
-		
-	}
-	
-	@Then("o sistema deve exibir a mensagem $mensagem")
-	public void cadastrarSelecaoExistente(String mensagem) {
+	@Then("o sistema redireciona para a página de listagem das seleções cadastradas")
+	public void acessarPaginaListar(String url) {
+		driver.get(url);
+		title = driver.findElement(By.tagName(ConstantsTest.ELEMENT_TITLE));
+		assertEquals(title.getText(), ConstantsTest.TITLE_PAGE_PRINCIPAL);
 		
 	}
 

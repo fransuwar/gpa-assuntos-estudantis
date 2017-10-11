@@ -3,67 +3,74 @@ Narrativa: Como Coordenador
 		   Então conseguirei gerenciar a seleção cadastrada.
 
 
-Scenario: #01 - Realizar cadastro da seleção com o tipo Auxílio Emergencial
+Cenário: #01 - Realizar cadastro da seleção com o tipo Auxílio Emergencial
 
-Given o usuário acessa a página inicial do sistema acessando pelo endereço http://localhost:8080/selecao
-And efetua o login no sistema com o usuário 11111111101 e senha 1234
-And o usuário clica no botão Nova Seleção para cadastrar uma nova Seleção
-And o sistema redireciona para a página de cadastro pelo endereço http://localhost:8080/selecao/cadastrar
-When o usuário seleciona o tipo de seleção Auxílio Emergencial | Auxílio Moradia | Iniciação Acadêmica
-And preenche o campo Ano
-And preenche o campo Início das Inscrições
-And preenche o campo Término das Inscrições
-And preenche o campo Vagas
-And clica no botão salvar
-Then o sistema deve exibir a mensagem Seleção cadastrada com sucesso
+Dado que o usuário acessa a página de login do sistema
+E efetua o login no sistema com o login e senha
+E o sistema redireciona para a página principal do sistema
+E o usuário clica no botão Nova Seleção para cadastrar uma nova Seleção
+E o sistema redireciona para a página de cadastro
+Quando o usuário seleciona o tipo de seleção
+E preenche o campo Ano
+E preenche o campo Início das Inscrições
+E preenche o campo Término das Inscrições
+E preenche o campo Vagas
+E clica no botão salvar
+Então o sistema redireciona para a página de detalhes da seleção cadastrada
+E o sistema deve exibir uma mensagem
 
-Scenario: #02 - Cancelar cadastro da seleção
+Cenário: #02 - Cancelar cadastro da seleção
 
-Given o usuário acessa a página inicial do sistema acessando pelo endereço "http://localhost:8080/selecao"
-And efetua o login no sistema com o usuário 11111111101 e senha 1234
-And o usuário clica no botão Nova Seleção para cadastrar uma nova Seleção
-And o sistema redireciona para a página de cadastro pelo endereço http://localhost:8080/selecao/cadastrar
-When o usuário cancela o cadastro clicando no botão cancelar
-Then o sistema redireciona para a página de listagem das seleções cadastradas pelo endereço http://localhost:8080/selecao/listar/ 
+Dado que o usuário acessa a página de login do sistema
+E efetua o login no sistema com o login e senha
+E o sistema redireciona para a página principal do sistema
+E o usuário clica no botão Nova Seleção para cadastrar uma nova Seleção
+E o sistema redireciona para a página de cadastro
+Quando o usuário cancela o cadastro clicando no botão cancelar
+Então o sistema redireciona para a página de listagem das seleções cadastradas
 
-Scenario: #03 - Realizar cadastro da Seleção sem preencher campos obrigatórios
+Cenário: #03 - Realizar cadastro da Seleção sem preencher campos obrigatórios
 
-Given o usuário acessa a página inicial do sistema acessando pelo endereço "http://localhost:8080/selecao"
-And efetua o login no sistema com o usuário 11111111101 e senha 1234
-And o usuário clica no botão Nova Seleção para cadastrar uma nova Seleção
-And o sistema redireciona para a página de cadastro pelo endereço http://localhost:8080/selecao/cadastrar
-When o usuário seleciona o tipo de seleção Auxílio Emergencial | Auxílio Moradia | Iniciação Acadêmica
-And não preenche o campo Ano
-And não preenche o campo Início das Inscrições
-And não preenche o campo Término das Inscrições
-And clica no botão salvar
-Then o sistema deve exibir a mensagem Preencha todos os campos obrigatórios
+Dado que o usuário acessa a página de login do sistema
+E efetua o login no sistema com o login e senha
+E o sistema redireciona para a página principal do sistema
+E o usuário clica no botão Nova Seleção para cadastrar uma nova Seleção
+E o sistema redireciona para a página de cadastro
+Quando o usuário seleciona o tipo de seleção
+E não preenche o campo Ano
+E não preenche o campo Início das Inscrições
+E não preenche o campo Término das Inscrições
+E preenche o campo Vagas
+E clica no botão salvar
+Então o sistema deve exibir uma mensagem
 
-Scenario: #04 - Realizar cadastro de uma seleção já existente
+Cenário: #04 - Realizar cadastro de uma seleção já existente
 
-Given o usuário acessa a página inicial do sistema acessando pelo endereço "http://localhost:8080/selecao"
-And efetua o login no sistema com o usuário 11111111101 e senha 1234
-And o usuário clica no botão Nova Seleção para cadastrar uma nova Seleção
-And o sistema redireciona para a página de cadastro pelo endereço http://localhost:8080/selecao/cadastrar
-When o usuário seleciona o tipo de seleção Auxílio Moradia
-And preenche o campo Ano com o valor 2017
-And preenche o campo Início das Inscrições com o valor 09/10/2017
-And preenche o campo Término das Inscrições com o valor 11/10/2017
-And preenche o campo Vagas com o valor 10
-And clica no botão salvar
-Then o sistema deve exibir a mensagem Seleção já existente
+Dado que o usuário acessa a página de login do sistema
+E efetua o login no sistema com o login e senha
+E o sistema redireciona para a página principal do sistema
+E o usuário clica no botão Nova Seleção para cadastrar uma nova Seleção
+E o sistema redireciona para a página de cadastro
+Quando o usuário seleciona o tipo de seleção
+E preenche o campo Ano
+E preenche o campo Início das Inscrições
+E preenche o campo Término das Inscrições
+E preenche o campo Vagas
+E clica no botão salvar
+Então o sistema deve exibir uma mensagem
 
-Scenario: #05 - Realizar cadastro da Seleção com data início posterior a data término ou com a data término anterior a data início
+Cenário: #05 - Realizar cadastro da Seleção com data início posterior a data término ou com a data término anterior a data início
 
-Given o usuário acessa a página inicial do sistema acessando pelo endereço "http://localhost:8080/selecao"
-And efetua o login no sistema com o usuário 11111111101 e senha 1234
-And o usuário clica no botão Nova Seleção para cadastrar uma nova Seleção
-And o sistema redireciona para a página de cadastro pelo endereço http://localhost:8080/selecao/cadastrar
-When o usuário seleciona o tipo de seleção Auxílio Emergencial | Auxílio Moradia | Iniciação Acadêmica
-And preenche o campo Ano
-And preenche o campo Início das Inscrições com o valor 20/10/2017
-And preenche o campo Término das Inscrições com o valor 19/10/2017
-And preenche o campo Vagas
-And clica no botão salvar
-Then o sistema deve exibir a mensagem Data informada é inválida
+Dado que o usuário acessa a página de login do sistema
+E efetua o login no sistema com o login e senha
+E o sistema redireciona para a página principal do sistema
+E o usuário clica no botão Nova Seleção para cadastrar uma nova Seleção
+E o sistema redireciona para a página de cadastro
+Quando o usuário seleciona o tipo de seleção
+E preenche o campo Ano
+E preenche o campo Início das Inscrições
+E preenche o campo Término das Inscrições
+E preenche o campo Vagas
+E clica no botão salvar
+Então o sistema deve exibir uma mensagem
 

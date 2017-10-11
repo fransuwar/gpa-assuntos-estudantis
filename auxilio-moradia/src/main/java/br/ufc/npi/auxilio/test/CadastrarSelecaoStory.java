@@ -14,7 +14,7 @@ public class CadastrarSelecaoStory extends StoryBase{
 	public void realizarCadastroSelecao() {
 		givenSteps.acessarPaginaLogin(ConstantsTest.URL_PAGE_LOGIN);
 		givenSteps.efetuarLogin(ConstantsTest.LOGIN_VALUE, ConstantsTest.PASSWORD_VALUE);
-		givenSteps.acessarPaginaInicial(ConstantsTest.URL_PAGE_PRINCIPAL);
+		givenSteps.acessarPaginaPrincipal(ConstantsTest.URL_PAGE_PRINCIPAL);
 		givenSteps.clicaBTNovaSelecao();
 		givenSteps.acessarPaginaCadastrar(ConstantsTest.URL_PAGE_CADASTRAR);
 		whenSteps.selecionarTipoSelecao(ConstantsTest.TIPO_SELECAO_VALUE);
@@ -23,7 +23,7 @@ public class CadastrarSelecaoStory extends StoryBase{
 		whenSteps.campoTerminoInscricoesPreenchido(ConstantsTest.TERMINO_INSCRICOES_VALUE);
 		whenSteps.campoVagasPreenchido(ConstantsTest.VAGAS_VALUE);
 		whenSteps.clicaBTSalvar();
-		thenSteps.acessandoPaginaDetalhes(ConstantsTest.URL_PAGE_DETALHES, "165");
+		thenSteps.acesaarPaginaDetalhes(ConstantsTest.URL_PAGE_DETALHES, "165");
 		thenSteps.exibirMensagem(ConstantsTest.MENSAGEM_SUCESSO_CADASTRO);
 	}
 }
