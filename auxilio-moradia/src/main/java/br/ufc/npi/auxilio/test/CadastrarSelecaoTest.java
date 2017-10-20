@@ -2,32 +2,37 @@ package br.ufc.npi.auxilio.test;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import org.jbehave.core.configuration.Configuration;
+import org.jbehave.core.configuration.Keywords;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
+import org.jbehave.core.i18n.LocalizedKeywords;
 import org.jbehave.core.io.CodeLocations;
 import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.io.StoryFinder;
 import org.jbehave.core.junit.JUnitStories;
+import org.jbehave.core.model.ExamplesTableFactory; 
+import org.jbehave.core.parsers.RegexStoryParser;
 import org.jbehave.core.reporters.CrossReference;
 import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.PrintStreamStepdocReporter;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
+import org.jbehave.core.steps.MarkUnmatchedStepsAsPending;
 import org.jbehave.core.steps.ParameterConverters;
+import org.jbehave.core.steps.ParameterConverters.DateConverter;
+import org.jbehave.core.steps.ParameterConverters.ExamplesTableConverter;
 import org.jbehave.core.steps.SilentStepMonitor;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import br.ufc.npi.auxilio.AuxilioMoradiaApplication;
 import br.ufc.npi.auxilio.test.pages.CadastroSteps;
 import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = { AuxilioMoradiaApplication.class})
 public class CadastrarSelecaoTest extends JUnitStories{
 
     public CadastrarSelecaoTest() {
@@ -36,8 +41,22 @@ public class CadastrarSelecaoTest extends JUnitStories{
 
     public Configuration configuration() {
     	Class<?> thisClass = this.getClass();
-        return new MostUsefulConfiguration()
-                .useStoryLoader(new LoadFromClasspath(thisClass.getClassLoader()))
+    	Keywords keywords = new LocalizedKeywords(new Locale("pt", "BR"));
+    	
+    	ParameterConverters parameterConverters = new ParameterConverters(null);
+    	
+    	ExamplesTableFactory examplesTableFactory = new ExamplesTableFactory(
+    			new LocalizedKeywords(new Locale("pt", "BR")),
+    			new LoadFromClasspath(thisClass), parameterConverters, null);
+    	
+    	parameterConverters.addConverters(new DateConverter(new SimpleDateFormat("dd-MM-yyyy")), 
+    			new ExamplesTableConverter(examplesTableFactory));
+    	
+    	return new MostUsefulConfiguration()
+                .useKeywords(keywords)
+                .useStepCollector(new MarkUnmatchedStepsAsPending(keywords))
+                .useStoryParser(new RegexStoryParser(examplesTableFactory))
+        		.useStoryLoader(new LoadFromClasspath(thisClass.getClassLoader()))
                 .useStepdocReporter(new PrintStreamStepdocReporter())
                 .useStoryReporterBuilder(new StoryReporterBuilder()
                         .withCodeLocation(CodeLocations.codeLocationFromClass(thisClass))
@@ -45,8 +64,7 @@ public class CadastrarSelecaoTest extends JUnitStories{
                         .withFormats(Format.CONSOLE, Format.TXT, Format.HTML, Format.XML)
                         .withCrossReference(new CrossReference())
                         .withFailureTrace(true))
-                .useParameterConverters(new ParameterConverters(null)
-                        .addConverters(new ParameterConverters.DateConverter(new SimpleDateFormat("yyyy-MM-dd"))))
+                .useParameterConverters(parameterConverters)
                 .useStepMonitor(new SilentStepMonitor());
     }
 

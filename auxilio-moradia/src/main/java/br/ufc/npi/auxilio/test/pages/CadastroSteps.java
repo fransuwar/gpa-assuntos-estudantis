@@ -3,7 +3,8 @@ package br.ufc.npi.auxilio.test.pages;
 import static org.junit.Assert.assertEquals;
 
 import org.jbehave.core.annotations.AfterScenario;
-import org.jbehave.core.annotations.BeforeScenario;
+import org.jbehave.core.annotations.AfterStory;
+import org.jbehave.core.annotations.BeforeStory;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -23,9 +24,9 @@ public class CadastroSteps {
 	private By fieldVagas = By.id(ConstantsTest.ID_FIELD_VAGAS);
 	private By buttonSalvar = By.id(ConstantsTest.ID_BUTTON_SALVAR);
 	
-	@BeforeScenario
+	@BeforeStory
 	public void acessar() {
-		System.setProperty("webdriver.firefox.bin", "/home/lucas.santos/Downloads/firefox/firefox");
+		System.setProperty("webdriver.firefox.bin", "/home/lucasvss/Downloads/firefox/firefox");
 		driver = new FirefoxDriver();
 		driver.get("http://localhost:8080/login");
 	}
@@ -37,7 +38,6 @@ public class CadastroSteps {
 		driver.findElement(By.id(ConstantsTest.ID_FIELD_PASSWORD)).clear();
 		driver.findElement(By.id(ConstantsTest.ID_FIELD_PASSWORD)).sendKeys(ConstantsTest.PASSWORD_VALUE);
 		driver.findElement(By.id(ConstantsTest.ID_BUTTON_ENTRAR)).click();
-		driver.findElement(By.id(ConstantsTest.ID_BUTTON_CADASTRAR)).click();
 	}
 	
 	@When("o usuário seleciona o tipo de seleção")
@@ -82,7 +82,7 @@ public class CadastroSteps {
 		assertEquals("Teste", ConstantsTest.MENSAGEM_SUCESSO_CADASTRO);
 	}
 	
-	@AfterScenario
+	@AfterStory
 	public void close() {
 		driver.close();
 	}

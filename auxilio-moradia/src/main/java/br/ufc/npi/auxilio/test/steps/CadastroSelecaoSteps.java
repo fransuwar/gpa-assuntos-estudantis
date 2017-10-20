@@ -2,7 +2,7 @@ package br.ufc.npi.auxilio.test.steps;
 
 import static org.junit.Assert.assertEquals;
 
-import org.jbehave.core.annotations.BeforeScenario;
+import org.jbehave.core.annotations.BeforeStory;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 
@@ -18,7 +18,7 @@ public class CadastroSelecaoSteps {
 		this.pages = pages;
 	}
 	
-	@BeforeScenario
+	@BeforeStory
 	@Given("o usuário acessa a página de login do sistema")
 	public void acessarPaginaLogin() {
 		pages.login().acessar();

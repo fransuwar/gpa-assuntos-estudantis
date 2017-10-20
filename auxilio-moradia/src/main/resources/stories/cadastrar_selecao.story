@@ -1,4 +1,5 @@
-Narrativa: Como Coordenador
+Narrativa: 
+Como Coordenador
 		   Gostaria de cadastrar um seleção,
 		   Então conseguirei gerenciar a seleção cadastrada.
 
