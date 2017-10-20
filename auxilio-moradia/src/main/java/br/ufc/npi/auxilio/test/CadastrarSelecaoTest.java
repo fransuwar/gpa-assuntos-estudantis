@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import org.jbehave.core.Embeddable;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.Keywords;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
@@ -14,13 +15,10 @@ import org.jbehave.core.io.StoryFinder;
 import org.jbehave.core.junit.JUnitStories;
 import org.jbehave.core.model.ExamplesTableFactory; 
 import org.jbehave.core.parsers.RegexStoryParser;
-import org.jbehave.core.reporters.CrossReference;
 import org.jbehave.core.reporters.Format;
-import org.jbehave.core.reporters.PrintStreamStepdocReporter;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
-import org.jbehave.core.steps.MarkUnmatchedStepsAsPending;
 import org.jbehave.core.steps.ParameterConverters;
 import org.jbehave.core.steps.ParameterConverters.DateConverter;
 import org.jbehave.core.steps.ParameterConverters.ExamplesTableConverter;
@@ -29,40 +27,42 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.ufc.npi.auxilio.test.pages.CadastroSteps;
-import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
 
-@SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CadastrarSelecaoTest extends JUnitStories{
 
     public CadastrarSelecaoTest() {
-        JUnitReportingRunner.recommandedControls(configuredEmbedder());
+    	configuredEmbedder().embedderControls() 
+        					.doGenerateViewAfterStories(true) 
+        					.doIgnoreFailureInStories(true)
+        					.doIgnoreFailureInView(false); 
+    	//JUnitReportingRunner.recommandedControls(configuredEmbedder());
      }
 
     public Configuration configuration() {
-    	Class<?> thisClass = this.getClass();
-    	Keywords keywords = new LocalizedKeywords(new Locale("pt", "BR"));
+    	Class<? extends Embeddable> embeddableClass = this.getClass(); 
     	
+    	Keywords keywords = new LocalizedKeywords(new Locale("pt", "BR"));
+    	LoadFromClasspath loadFromClasspath = new LoadFromClasspath(embeddableClass);
     	ParameterConverters parameterConverters = new ParameterConverters(null);
     	
     	ExamplesTableFactory examplesTableFactory = new ExamplesTableFactory(
-    			new LocalizedKeywords(new Locale("pt", "BR")),
-    			new LoadFromClasspath(thisClass), parameterConverters, null);
+    			keywords,
+    			loadFromClasspath, 
+    			parameterConverters, 
+    			null);
     	
     	parameterConverters.addConverters(new DateConverter(new SimpleDateFormat("dd-MM-yyyy")), 
     			new ExamplesTableConverter(examplesTableFactory));
     	
     	return new MostUsefulConfiguration()
                 .useKeywords(keywords)
-                .useStepCollector(new MarkUnmatchedStepsAsPending(keywords))
                 .useStoryParser(new RegexStoryParser(examplesTableFactory))
-        		.useStoryLoader(new LoadFromClasspath(thisClass.getClassLoader()))
-                .useStepdocReporter(new PrintStreamStepdocReporter())
+        		.useStoryLoader(loadFromClasspath)
                 .useStoryReporterBuilder(new StoryReporterBuilder()
-                        .withCodeLocation(CodeLocations.codeLocationFromClass(thisClass))
+                        .withCodeLocation(CodeLocations.codeLocationFromClass(embeddableClass))
                         .withDefaultFormats()
                         .withFormats(Format.CONSOLE, Format.TXT, Format.HTML, Format.XML)
-                        .withCrossReference(new CrossReference())
                         .withFailureTrace(true))
                 .useParameterConverters(parameterConverters)
                 .useStepMonitor(new SilentStepMonitor());
@@ -77,45 +77,5 @@ public class CadastrarSelecaoTest extends JUnitStories{
     protected List<String> storyPaths() {
         return new StoryFinder().findPaths(CodeLocations.codeLocationFromClass(this.getClass()), "**/*.story", null);
     }
-	
-//	private WebDriverProvider driverProvider = new PropertyWebDriverProvider();
-//    private WebDriverSteps lifecycleSteps = new PerStoriesWebDriverSteps(driverProvider);
-//    //private PageFactory pages = new PageFactory(driverProvider);
-//    private SeleniumContext context = new SeleniumContext();
-//    private ContextView contextView = new LocalFrameContextView().sized(500, 100);
-//	
-//    public CadastrarSelecaoTest() {
-//    	 if ( lifecycleSteps instanceof PerStoriesWebDriverSteps ){
-//             configuredEmbedder().useExecutorService(new SameThreadExecutors().create(configuredEmbedder().embedderControls()));
-//         }
-//    }
-//    
-//	public Configuration configuration() {
-//		Class<? extends Embeddable> embeddableClass = this.getClass();
-//        return new SeleniumConfiguration()
-//                .useSeleniumContext(context)
-//                .useWebDriverProvider(driverProvider)
-//                .useStepMonitor(new SeleniumStepMonitor(contextView, context, new SilentStepMonitor()))
-//                .useStoryLoader(new LoadFromClasspath(embeddableClass))
-//                .useStoryReporterBuilder(new StoryReporterBuilder()
-//                    .withCodeLocation(CodeLocations.codeLocationFromClass(embeddableClass))
-//                    .withDefaultFormats()
-//                    .withFormats(Format.CONSOLE, Format.HTML));
-//    }
-//
-//	 @Override
-//	    public InjectableStepsFactory stepsFactory() {
-//	        Configuration configuration = configuration();
-//	        return new InstanceStepsFactory(configuration, 
-//	                new CadastroSteps(),
-//	                lifecycleSteps,
-//	                new WebDriverScreenshotOnFailure(driverProvider, configuration.storyReporterBuilder()));
-//	    }
-//
-//
-//    @Override
-//    protected List<String> storyPaths() {
-//        return new StoryFinder().findPaths(CodeLocations.codeLocationFromClass(this.getClass()), "**/*.story", "**/excluded*.story");
-//    }
-	
+
 }
