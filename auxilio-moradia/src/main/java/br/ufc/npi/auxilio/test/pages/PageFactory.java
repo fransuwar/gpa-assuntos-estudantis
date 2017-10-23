@@ -1,6 +1,5 @@
 package br.ufc.npi.auxilio.test.pages;
 
-import org.jbehave.web.selenium.WebDriverProvider;
 import org.openqa.selenium.WebDriver;
 
 public class PageFactory {
@@ -13,9 +12,8 @@ public class PageFactory {
 	private LoginPage loginPage;
 	private PrincipalPage principalPage;
 	
-	public PageFactory(WebDriverProvider driver) {
-		System.setProperty("webdriver.firefox.bin", "/home/lucas.santos/Downloads/firefox/firefox");
-		this.driver = driver.get();
+	public PageFactory(WebDriver driver) {
+		this.driver = driver;
 	}
 	
 	public CadastroSelecaoPage cadastroSelecao() {

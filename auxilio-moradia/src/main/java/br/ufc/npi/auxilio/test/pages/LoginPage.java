@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 
 import br.ufc.npi.auxilio.utils.ConstantsTest;
 
-public class LoginPage{
+public class LoginPage {
 	
 	private WebDriver driver;
 	
@@ -19,7 +19,6 @@ public class LoginPage{
 		this.driver = driver;
 	}
 
-	
 	public void acessar() {
 		driver.get(ConstantsTest.URL_PAGE_LOGIN);
 		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);

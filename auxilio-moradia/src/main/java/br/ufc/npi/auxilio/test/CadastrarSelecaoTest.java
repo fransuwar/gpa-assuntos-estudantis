@@ -26,7 +26,7 @@ import org.jbehave.core.steps.SilentStepMonitor;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import br.ufc.npi.auxilio.test.pages.CadastroSteps;
+import br.ufc.npi.auxilio.test.steps.CadastroSelecaoSteps;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CadastrarSelecaoTest extends JUnitStories{
@@ -71,7 +71,7 @@ public class CadastrarSelecaoTest extends JUnitStories{
     @Override
 
     public InjectableStepsFactory stepsFactory() {
-        return new InstanceStepsFactory(configuration(), new CadastroSteps());
+        return new InstanceStepsFactory(configuration(), new CadastroSelecaoSteps());
     }
 
     protected List<String> storyPaths() {
