@@ -36,17 +36,25 @@ public class CadastroSelecaoPage {
 	}
 
 	public void preencheCampoSelecao() {
-		((JavascriptExecutor) driver).executeScript("document.getElementById('tipo').value = 2");
+		driver.findElement(By.cssSelector("input.select-dropdown")).click();
+		driver.findElement(By.xpath("//div[@class='col s4 input-field']/div/ul/li[2]/span")).click();
 	}
 
 	public void preencheCampoAno() {
-		driver.findElement(fieldAno).clear();
-		driver.findElement(fieldAno).sendKeys(ConstantsTest.ANO_VALUE);
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("document.getElement");
+//		driver.findElement(fieldAno).clear();
+//		driver.findElement(fieldAno).sendKeys(ConstantsTest.ANO_VALUE);
+//		driver.findElement(fieldAno).sendKeys(Keys.TAB);
 	}
-
 	public void preencheCampoInicioInscricoes() {
-		driver.findElement(By.xpath("//table[@id='inicio_table']/tbody/tr[4]/td[2]/div")).click();
-		driver.findElement(By.className("button.btn-flat.picker__close")).click();
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("$('#ano').click(function(e) {alert('clicked')});");
+//		
+//		driver.findElement(By.xpath("//form//div//div//div//input[@id='inicio']")).click();
+//		WebElement table =  driver.findElement(By.xpath("//table[@id='inicio_table']"));
+//		WebElement dia = table.findElement(By.xpath("//tr//td[contains(text(), '24')]"));
+//		dia.click();
 	}
 
 	public void preencheCampoTerminoInscricoes() {
