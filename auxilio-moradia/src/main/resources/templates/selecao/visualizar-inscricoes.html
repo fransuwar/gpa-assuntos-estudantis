@@ -94,60 +94,60 @@
 									<td><a th:text="${inscricao.aluno.pessoa.nome}" th:href="@{/inscricao/detalhes/__${inscricao.id}__}"></a></td>
 									<td sec:authorize="hasAuthority('COORDENADOR')">
 										<a th:if="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.resultado != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
-											<div th:unless="${inscricao.analiseDocumentacao.resultado.nome}" class="chip grey lighten-1">
+											<div th:unless="${inscricao.analiseDocumentacao.resultado.nome}" class="chip grey lighten-1" id="inscDocumentacao">
 												Não Avaliado
 											</div>
-											<div th:if="${inscricao.analiseDocumentacao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1">
+											<div th:if="${inscricao.analiseDocumentacao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1" id="inscDocumentacao">
 												Não Avaliado
 											</div>
-											<div th:if="${inscricao.analiseDocumentacao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome}" class="chip green lighten-1">
+											<div th:if="${inscricao.analiseDocumentacao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome}" class="chip green lighten-1" id="inscDocumentacao">
 												Deferido
 											</div>
-											<div th:if="${inscricao.analiseDocumentacao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).INDEFERIDO.nome}" class="chip red lighten-1">
+											<div th:if="${inscricao.analiseDocumentacao.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).INDEFERIDO.nome}" class="chip red lighten-1" id="inscDocumentacao">
 												Indeferido
 											</div>
 										</a>
 										<a th:unless="${inscricao.analiseDocumentacao != null and inscricao.analiseDocumentacao.resultado != null}" th:href="@{/documentacao/inscricao/__${inscricao.id}__}">
-											<div class="chip grey lighten-1">
+											<div class="chip grey lighten-1" id="inscDocumentacao">
 												Não Avaliado
 											</div>
 										</a>
 									</td>
 									<td  sec:authorize="hasAuthority('SERVIDOR')">
 										<a th:if="${inscricao.entrevista != null and inscricao.entrevista.resultado != null}" th:href="@{/entrevista/__${inscricao.id}__}">
-											<div th:if="${inscricao.entrevista.resultado.nome==null}" class="chip grey lighten-1">
+											<div th:if="${inscricao.entrevista.resultado.nome==null}" class="chip grey lighten-1" id="inscEntrevista">
 												Não Avaliado
 											</div>
-											<div th:if="${inscricao.entrevista.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1">
+											<div th:if="${inscricao.entrevista.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1" id="inscEntrevista">
 												Não Avaliado
 											</div> 
-											<div th:if="${inscricao.entrevista.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome}" class="chip green lighten-1">
+											<div th:if="${inscricao.entrevista.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome}" class="chip green lighten-1" id="inscEntrevista">
 												Deferido
 											</div>
-											<div th:if="${inscricao.entrevista.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).INDEFERIDO.nome}" class="chip red lighten-1">
+											<div th:if="${inscricao.entrevista.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).INDEFERIDO.nome}" class="chip red lighten-1" id="inscEntrevista">
 												Indeferido
 											</div>
 										</a>
 										<a th:unless="${inscricao.entrevista != null and inscricao.entrevista.resultado != null}" th:href="@{/entrevista/__${inscricao.id}__}">
-											<div class="chip grey lighten-1">
+											<div class="chip grey lighten-1" id="inscEntrevista">
 												Não Avaliado
 											</div>
 										</a>
 									</td>
 									<td th:if="${selecao.tipo.nome} == 'Auxílio Moradia'">
 										<a th:if="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.resultado != null}" th:href="@{/visita/__${inscricao.id}__}">
-											<div th:if="${inscricao.visitaDomiciliar.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1">
+											<div th:if="${inscricao.visitaDomiciliar.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).NAO_AVALIADO.nome}" class="chip grey lighten-1" id="inscVisita">
 												Não Avaliado
 											</div> 
-											<div th:if="${inscricao.visitaDomiciliar.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome }" class="chip green lighten-1">
+											<div th:if="${inscricao.visitaDomiciliar.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).DEFERIDO.nome }" class="chip green lighten-1" id="inscVisita">
 												Deferido
 											</div>
-											<div th:if="${inscricao.visitaDomiciliar.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).INDEFERIDO.nome}" class="chip red lighten-1">
+											<div th:if="${inscricao.visitaDomiciliar.resultado.nome eq T(br.ufc.npi.auxilio.enums.Resultado).INDEFERIDO.nome}" class="chip red lighten-1" id="inscVisita">
 												Indeferido
 											</div>
 										</a>
 										<a th:unless="${inscricao.visitaDomiciliar != null and inscricao.visitaDomiciliar.resultado != null}" th:href="@{/visita/__${inscricao.id}__}">
-											<div class="chip grey lighten-1">
+											<div class="chip grey lighten-1" id="inscVisita">
 												Não Avaliado
 											</div>
 										</a>

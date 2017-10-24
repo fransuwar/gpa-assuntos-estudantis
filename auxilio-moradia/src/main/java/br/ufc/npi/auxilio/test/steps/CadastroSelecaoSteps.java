@@ -21,7 +21,7 @@ public class CadastroSelecaoSteps {
 	private final WebDriver driver;
 	
 	public CadastroSelecaoSteps() {
-		System.setProperty("webdriver.firefox.bin", "/home/lucasvss/Downloads/firefox/firefox");
+		System.setProperty("webdriver.firefox.bin", "/home/amarildo.junior/Downloads/firefox/firefox");
 		
 		this.driver = new FirefoxDriver();
 		this.pages = new PageFactory(driver);
