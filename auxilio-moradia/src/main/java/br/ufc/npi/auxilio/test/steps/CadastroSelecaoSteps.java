@@ -2,7 +2,6 @@ package br.ufc.npi.auxilio.test.steps;
 
 import static org.junit.Assert.assertEquals;
 
-import org.jbehave.core.annotations.AfterScenario;
 import org.jbehave.core.annotations.AfterStory;
 import org.jbehave.core.annotations.BeforeStory;
 import org.jbehave.core.annotations.Given;
