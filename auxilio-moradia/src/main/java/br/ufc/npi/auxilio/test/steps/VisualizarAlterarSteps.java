@@ -16,6 +16,7 @@ import br.ufc.npi.auxilio.test.pages.LoginPage;
 public class VisualizarAlterarSteps {
 private WebDriver driver;
 	
+
 	@BeforeStories
 	public void acessar() {
 		System.setProperty("webdriver.firefox.bin", "/home/amarildo.junior/Downloads/firefox/firefox");
