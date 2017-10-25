@@ -39,7 +39,7 @@ public class ConstantsTest {
 	public static final String TERMINO_INSCRICOES_VALUE = "11/10/2017";
 	public static final String VAGAS_VALUE = "10";
 	
-	public static final String MENSAGEM_SUCESSO_CADASTRO = "Selecao cadastrada com sucesso";
+	public static final String MENSAGEM_SUCESSO_CADASTRO = "Seleção cadastrada com sucesso";
 	public static final String MENSAGEM_CAMPO_OBRIGATORIO = "Preencha todos os campos obrigatórios";
 	public static final String MENSGAME_SELECAO_EXISTENTE = "Seleção já existente";
 	public static final String MENSGAME_DATA_INVALIDA = "Data informada é inválida";

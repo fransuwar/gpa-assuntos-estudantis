@@ -12,11 +12,10 @@ Cenário: #01 - Realizar cadastro da seleção com o tipo Auxílio Emergencial
 
 Dado que o usuário acessa a página de cadastro de seleções
 Quando o usuário seleciona o tipo de seleção
-E preenche o campo Ano
-E preenche o campo Início das Inscrições
-E preenche o campo Término das Inscrições
-E preenche o campo Vagas
-E clica no botão salvar
-Então o sistema redireciona para a página de detalhes
-E o sistema deve exibir uma mensagem
+Quando o usuário preenche o campo Ano
+Quando o usuário preenche o campo Início das Inscrições
+Quando o usuário preenche o campo Término das Inscrições
+Quando o usuário preenche o campo Vagas
+Quando o usuário clica no botão salvar
+Então o sistema deve exibir uma mensagem
 
