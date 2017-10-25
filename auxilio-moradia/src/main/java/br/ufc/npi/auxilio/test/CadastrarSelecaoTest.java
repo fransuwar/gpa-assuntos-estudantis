@@ -19,6 +19,7 @@ import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
+import org.jbehave.core.steps.ParameterControls;
 import org.jbehave.core.steps.ParameterConverters;
 import org.jbehave.core.steps.ParameterConverters.DateConverter;
 import org.jbehave.core.steps.ParameterConverters.ExamplesTableConverter;
@@ -34,7 +35,7 @@ public class CadastrarSelecaoTest extends JUnitStories{
     public CadastrarSelecaoTest() {
     	configuredEmbedder().embedderControls() 
         					.doGenerateViewAfterStories(true) 
-        					.doIgnoreFailureInStories(true)
+        					.doIgnoreFailureInStories(false)
         					.doIgnoreFailureInView(false); 
     	//JUnitReportingRunner.recommandedControls(configuredEmbedder());
      }
@@ -42,29 +43,30 @@ public class CadastrarSelecaoTest extends JUnitStories{
     public Configuration configuration() {
     	Class<? extends Embeddable> embeddableClass = this.getClass(); 
     	
-    	Keywords keywords = new LocalizedKeywords(new Locale("pt", "BR"));
+//    	Keywords keywords = new LocalizedKeywords(new Locale("pt", "BR"));
     	LoadFromClasspath loadFromClasspath = new LoadFromClasspath(embeddableClass);
-    	ParameterConverters parameterConverters = new ParameterConverters(null);
-    	
-    	ExamplesTableFactory examplesTableFactory = new ExamplesTableFactory(
-    			keywords,
-    			loadFromClasspath, 
-    			parameterConverters, 
-    			null);
-    	
-    	parameterConverters.addConverters(new DateConverter(new SimpleDateFormat("dd-MM-yyyy")), 
-    			new ExamplesTableConverter(examplesTableFactory));
+//    	ParameterConverters parameterConverters = new ParameterConverters(null);
+//    	
+//    	ExamplesTableFactory examplesTableFactory = new ExamplesTableFactory(
+//    			keywords,
+//    			loadFromClasspath, 
+//    			parameterConverters, 
+//    			null);
+//    	
+//    	parameterConverters.addConverters(new DateConverter(new SimpleDateFormat("dd-MM-yyyy")), 
+//    			new ExamplesTableConverter(examplesTableFactory));
     	
     	return new MostUsefulConfiguration()
-                .useKeywords(keywords)
-                .useStoryParser(new RegexStoryParser(examplesTableFactory))
+//                .useKeywords(keywords)
+//                .useStoryParser(new RegexStoryParser(examplesTableFactory))
         		.useStoryLoader(loadFromClasspath)
                 .useStoryReporterBuilder(new StoryReporterBuilder()
                         .withCodeLocation(CodeLocations.codeLocationFromClass(embeddableClass))
                         .withDefaultFormats()
                         .withFormats(Format.CONSOLE, Format.TXT, Format.HTML, Format.XML)
                         .withFailureTrace(true))
-                .useParameterConverters(parameterConverters)
+                .useParameterControls(new ParameterControls().useDelimiterNamedParameters(true))
+//                .useParameterConverters(parameterConverters)
                 .useStepMonitor(new SilentStepMonitor());
     }
 
