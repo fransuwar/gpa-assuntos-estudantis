@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.ufc.npi.auxilio.test.pages.PageFactory;
-import br.ufc.npi.auxilio.utils.ConstantsTest;
+import static br.ufc.npi.auxilio.utils.ConstantsTest.TITLE_PAGE_LISTAR;
 
 
 public class CadastroSelecaoSteps {
@@ -20,7 +20,7 @@ public class CadastroSelecaoSteps {
 	private final WebDriver driver;
 	
 	public CadastroSelecaoSteps() {
-		System.setProperty("webdriver.firefox.bin", "/home/lucas.santos/Downloads/firefox/firefox");
+		System.setProperty("webdriver.firefox.bin", "/home/lucasvss/Downloads/firefox/firefox");
 		
 		this.driver = new FirefoxDriver();
 		this.pages = new PageFactory(driver);
@@ -34,7 +34,7 @@ public class CadastroSelecaoSteps {
 	
 	@Given("o usuário acessa a página de cadastro de seleções")
 	public void acessarPaginaCadastrar() throws InterruptedException {
-		pages.cadastroSelecao().acessar();
+		pages.cadastroSelecao().clicarButtonCadastrar();
 	}
 	
 	@When("o usuário seleciona o tipo de seleção $selecao")
@@ -52,10 +52,10 @@ public class CadastroSelecaoSteps {
 		pages.cadastroSelecao().preencheCampoInicioInscricoes(dataInicio);
 	}
 	
-//	@When("preenche o campo Término das Inscrições com a data $dataTermino")
-//	public void campoTerminoInscricoesPreenchido(String dataTermino) {
-//		pages.cadastroSelecao().preencheCampoTerminoInscricoes(dataTermino);
-//	}
+	@When("preenche o campo Término das Inscrições com a data $dataTermino")
+	public void campoTerminoInscricoesPreenchido(String dataTermino) {
+		pages.cadastroSelecao().preencheCampoTerminoInscricoes(dataTermino);
+	}
 	
 	@When("preenche o campo Vagas com o valor $vagas")
 	public void campoVagasPreenchido(String vagas) {
@@ -89,7 +89,7 @@ public class CadastroSelecaoSteps {
 	
 	@Then("o sistema redireciona para a página de listagem das seleções cadastradas")
 	public void acessarPaginaListar() {
-		assertEquals(pages.listarSelecoes().titlePage(), ConstantsTest.TITLE_PAGE_LISTAR);
+		assertEquals(pages.listarSelecoes().titlePage(), TITLE_PAGE_LISTAR);
 	}
 	
 	@Then("o sistema deve exibir a seguinte mensagem $mensagem")
@@ -98,8 +98,9 @@ public class CadastroSelecaoSteps {
 	}
 	
 	
-//	@AfterStory
-//	public void close() {
-//		driver.close();
-//	}
+	@AfterStory
+	public void close() {
+		driver.close();
+	}
+	
 }
