@@ -27,6 +27,7 @@ import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_ALUNO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_SERVIDOR;
+import static br.ufc.npi.auxilio.utils.Constants.NUM_CARACTERES;
 
 import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.*;
 import static br.ufc.npi.auxilio.utils.PageConstants.*;
@@ -430,6 +431,7 @@ public class InscricaoController {
 	@ResponseBody
 	public Response editarParecerFinal(Integer inscricaoId,
 			String resultado, String observacao) throws AuxilioMoradiaException{
+    	if (resultado.length() > NUM_CARACTERES) return new Response().withErrorMessage("Número de caracteres excedidos");
 		Inscricao insc = inscricaoService.buscarInscricaoPorId(inscricaoId);
 		insc.setObservacao(observacao);
 		insc.setResultado(Resultado.valueOf(resultado));

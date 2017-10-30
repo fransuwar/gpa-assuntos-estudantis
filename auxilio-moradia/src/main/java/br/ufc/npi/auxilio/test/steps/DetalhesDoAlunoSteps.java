@@ -35,7 +35,7 @@ public class DetalhesDoAlunoSteps {
     
     @When("clicar sobre a seleção $value" )
     public void selecionarSelecao(@Named("value") int value) throws InterruptedException {
-        pages.selecaoPage().escolherSelecao(value);
+    	pages.principal().clicarButtonVisualizar(value);
     }
     
     @When("seleção tenha pelo menos um aluno")

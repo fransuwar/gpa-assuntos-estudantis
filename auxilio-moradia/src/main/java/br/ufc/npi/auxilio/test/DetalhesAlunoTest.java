@@ -31,9 +31,9 @@ import br.ufc.npi.auxilio.test.steps.CadastroSelecaoSteps;
 import br.ufc.npi.auxilio.test.steps.DetalhesDoAlunoSteps;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class CadastrarSelecaoTest extends JUnitStories{
+public class DetalhesAlunoTest extends JUnitStories{
 
-    public CadastrarSelecaoTest() {
+    public DetalhesAlunoTest() {
     	configuredEmbedder().embedderControls() 
         					.doGenerateViewAfterStories(true) 
         					.doIgnoreFailureInStories(false)
@@ -74,11 +74,11 @@ public class CadastrarSelecaoTest extends JUnitStories{
     @Override
 
     public InjectableStepsFactory stepsFactory() {
-        return new InstanceStepsFactory(configuration(), new CadastroSelecaoSteps());
+        return new InstanceStepsFactory(configuration(), new DetalhesDoAlunoSteps());
     }
 
     protected List<String> storyPaths() {
-        return new StoryFinder().findPaths(CodeLocations.codeLocationFromClass(this.getClass()), "**/detalhes-aluno.story", null);
+        return new StoryFinder().findPaths(CodeLocations.codeLocationFromClass(this.getClass()), "**/*.story", null);
     }
 
 }

@@ -11,17 +11,13 @@ public class PageFactory {
 	private ListarSelecoesPage listarSelecoesPage;
 	private LoginPage loginPage;
 	private PrincipalPage principalPage;
-	private SelecaoPage selecaoPage;
+
+	private VisualizarSelecaoPage visualizarSelecaoPage;
+	
 	public PageFactory(WebDriver driver) {
 		this.driver = driver;
 	}
-	public SelecaoPage selecaoPage() {
-		if(selecaoPage == null) {
-			selecaoPage= new SelecaoPage(driver);
-		}
-		return selecaoPage;
-	}
-	
+		
 	public CadastroSelecaoPage cadastroSelecao() {
 		if(cadastroSelecaoPage == null) {
 			cadastroSelecaoPage = new CadastroSelecaoPage(driver);
@@ -60,5 +56,13 @@ public class PageFactory {
 		}
 		
 		return principalPage;
+	}
+	
+	public VisualizarSelecaoPage visualizar() {
+		if(visualizarSelecaoPage == null) {
+			visualizarSelecaoPage = new VisualizarSelecaoPage(driver);
+		}
+		
+		return visualizarSelecaoPage;
 	}
 }
