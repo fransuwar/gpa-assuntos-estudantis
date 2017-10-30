@@ -34,7 +34,9 @@ import static br.ufc.npi.auxilio.utils.Constants.COORDENADOR;
 import static br.ufc.npi.auxilio.utils.Constants.ERRO;
 import static br.ufc.npi.auxilio.utils.Constants.INFO;
 import static br.ufc.npi.auxilio.utils.Constants.PERMISSAO_COORDENADOR;
+import static br.ufc.npi.auxilio.utils.Constants.NUM_CARACTERES;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_DOCUMENTO_ADICIONADO;
+import static br.ufc.npi.auxilio.utils.ErrorMessageConstants.MSG_ERRO_ANALISE_DOCUMENTACAO;
 import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.MSG_SUCESSO_ANALISE_DOCUMENTACAO;
 
 @Controller
@@ -171,7 +173,10 @@ public class DocumentacaoInscricaoController {
 	@PreAuthorize(PERMISSAO_COORDENADOR)
 	@PostMapping("/inscricao/{inscricao}")
 	public String analisarDocumentacaoInscricao(@PathVariable Inscricao inscricao, AnaliseDocumentacao analiseDocumentacao, Authentication auth, RedirectAttributes redirectAttributes) throws AuxilioMoradiaException{
-		
+		if(analiseDocumentacao.getObservacoes().length() > NUM_CARACTERES){
+			redirectAttributes.addFlashAttribute(ERRO, MSG_ERRO_ANALISE_DOCUMENTACAO);
+			return RedirectConstants.REDIRECT_INSCRICAO_ANALISAR_DOCUMENTO+inscricao.getId();
+		}
 		Servidor servidor = servidorService.getByCpf(auth.getName());
 		Double rendaPai = inscricao.getRendaPai() == null ? 0:inscricao.getRendaPai();
 		Double rendaMae = inscricao.getRendaMae() == null ? 0:inscricao.getRendaMae();
@@ -207,7 +212,7 @@ public class DocumentacaoInscricaoController {
 		}
 		inscricao.setEntrevistaAgendada(0);
 		inscricaoService.salvar(inscricao);
-		analiseDocumentacaoRepository.save(analise);
+		analiseDocumentacaoRepository.save(analise);		
 		redirectAttributes.addFlashAttribute(INFO, MSG_SUCESSO_ANALISE_DOCUMENTACAO);
 		return RedirectConstants.REDIRECT_INSCRICAO_ANALISAR_DOCUMENTO+inscricao.getId();
 	}

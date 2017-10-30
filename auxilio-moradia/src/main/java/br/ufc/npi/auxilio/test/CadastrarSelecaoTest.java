@@ -13,18 +13,19 @@ import org.jbehave.core.io.CodeLocations;
 import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.io.StoryFinder;
 import org.jbehave.core.junit.JUnitStories;
-import org.jbehave.core.model.ExamplesTableFactory; 
+import org.jbehave.core.model.ExamplesTableFactory;
 import org.jbehave.core.parsers.RegexStoryParser;
 import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
+import org.jbehave.core.steps.ParameterControls;
 import org.jbehave.core.steps.ParameterConverters;
 import org.jbehave.core.steps.ParameterConverters.DateConverter;
 import org.jbehave.core.steps.ParameterConverters.ExamplesTableConverter;
-import org.jbehave.core.steps.SilentStepMonitor;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 
 import br.ufc.npi.auxilio.test.steps.CadastroSelecaoSteps;
 
@@ -34,7 +35,7 @@ public class CadastrarSelecaoTest extends JUnitStories{
     public CadastrarSelecaoTest() {
     	configuredEmbedder().embedderControls() 
         					.doGenerateViewAfterStories(true) 
-        					.doIgnoreFailureInStories(true)
+        					.doIgnoreFailureInStories(false)
         					.doIgnoreFailureInView(false); 
     	//JUnitReportingRunner.recommandedControls(configuredEmbedder());
      }
@@ -60,12 +61,13 @@ public class CadastrarSelecaoTest extends JUnitStories{
                 .useStoryParser(new RegexStoryParser(examplesTableFactory))
         		.useStoryLoader(loadFromClasspath)
                 .useStoryReporterBuilder(new StoryReporterBuilder()
-                        .withCodeLocation(CodeLocations.codeLocationFromClass(embeddableClass))
+                		.withCodeLocation(CodeLocations.codeLocationFromClass(embeddableClass))
                         .withDefaultFormats()
                         .withFormats(Format.CONSOLE, Format.TXT, Format.HTML, Format.XML)
                         .withFailureTrace(true))
-                .useParameterConverters(parameterConverters)
-                .useStepMonitor(new SilentStepMonitor());
+                .useParameterControls(new ParameterControls()
+                .useDelimiterNamedParameters(true))
+                .useParameterConverters(parameterConverters);
     }
 
     @Override

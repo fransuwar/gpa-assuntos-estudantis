@@ -121,21 +121,26 @@ $("#modal1 form").on("submit", function(event){
 	let id = $("#disabled").val();
 	let resultado = $(this).find("select").val();
 	let observacao = $(this).find("#observacao").val();
-	let url = _context+"/inscricao/parecerFinal";
-	let param = {inscricaoId : id, resultado : resultado, observacao : observacao};
-	$.ajax({
-		url,
-		type: "post",
-		dataType: "json",
-		data: param,
-		headers: {"X-CSRF-TOKEN":token},
-		success: function(response) {
-			if(response.status === "DONE"){
-				location.reload();
+	if(observacao.length > 1000){
+		Materialize.toast("O Texto digitado possui mais de mil caracteres", 3000, "red rounded");
+	}else{
+		let url = _context+"/inscricao/parecerFinal";
+		let param = {inscricaoId : id, resultado : resultado, observacao : observacao};
+		$.ajax({
+			url,
+			type: "post",
+			dataType: "json",
+			data: param,
+			headers: {"X-CSRF-TOKEN":token},
+			success: function(response) {
+				if(response.status === "DONE"){
+					location.reload();
+				}
+				
 			}
-			
-		}
-	});
+		});
+	}
+	
 	
 	$('.modal').modal('close');
 });
