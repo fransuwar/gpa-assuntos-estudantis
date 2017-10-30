@@ -24,11 +24,6 @@ public class LoginPage {
 		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 	}
 	
-	public void acessar(String site){
-		driver.get(site);
-		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-	}
-	
 	public void logar() {
 		driver.findElement(fieldUsername).clear();
 		driver.findElement(fieldUsername).sendKeys(ConstantsTest.LOGIN_VALUE);
