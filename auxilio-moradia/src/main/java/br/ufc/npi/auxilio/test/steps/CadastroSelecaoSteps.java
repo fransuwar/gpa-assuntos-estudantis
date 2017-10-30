@@ -20,7 +20,7 @@ public class CadastroSelecaoSteps {
 	private final WebDriver driver;
 	
 	public CadastroSelecaoSteps() {
-		System.setProperty("webdriver.firefox.bin", "/home/lucasvss/Downloads/firefox/firefox");
+		System.setProperty("webdriver.firefox.bin", "/home/lucas.santos/Downloads/firefox/firefox");
 		
 		this.driver = new FirefoxDriver();
 		this.pages = new PageFactory(driver);
@@ -42,42 +42,42 @@ public class CadastroSelecaoSteps {
 		pages.cadastroSelecao().preencheCampoSelecao(selecao);
 	}
 	
-	@When("preenche o campo Ano com o valor $ano")
+	@When("o usuário preenche o campo Ano com o valor $ano")
 	public void campoAnoPreenchido(String ano) {
 		pages.cadastroSelecao().preencheCampoAno(ano);
 	}
 	
-	@When("preenche o campo Início das Inscrições com a data $dataInicio")
+	@When("o usuário preenche o campo Início das Inscrições com a data $dataInicio")
 	public void campoInicioInscricoesPreenchido(String dataInicio) {
 		pages.cadastroSelecao().preencheCampoInicioInscricoes(dataInicio);
 	}
 	
-	@When("preenche o campo Término das Inscrições com a data $dataTermino")
+	@When("o usuário preenche o campo Término das Inscrições com a data $dataTermino")
 	public void campoTerminoInscricoesPreenchido(String dataTermino) {
 		pages.cadastroSelecao().preencheCampoTerminoInscricoes(dataTermino);
 	}
 	
-	@When("preenche o campo Vagas com o valor $vagas")
+	@When("o usuário preenche o campo Vagas com o valor $vagas")
 	public void campoVagasPreenchido(String vagas) {
 		pages.cadastroSelecao().preencheCampoVagas(vagas);
 	}
 	
-	@When("não preenche o campo Ano")
+	@When("o usuário não preenche o campo Ano")
 	public void naoPreencheCampoAno() {
 		pages.cadastroSelecao().naoPreencherCampoAno();
 	}
 	
-	@When("não preenche o campo Início das Inscrições")
+	@When("o usuário não preenche o campo Início das Inscrições")
 	public void naoPreencheCampoInicioInscricoes() {
 		pages.cadastroSelecao().naoPreencherCampoInicioInscricoes();
 	}
 	
-	@When("não preenche o campo Término das Inscrições")
+	@When("o usuário não preenche o campo Término das Inscrições")
 	public void naoPreencheTerminoInscricoes() {
 		pages.cadastroSelecao().naoPreencherCampoTerminoInscricoes();
 	}
 	
-	@When("clica no botão salvar")
+	@When("o usuário clica no botão salvar")
 	public void clicaBTSalvar() {
 		pages.cadastroSelecao().clicarButtonSalvar();
 	}

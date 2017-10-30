@@ -79,19 +79,20 @@ public class CadastroSelecaoPage {
 	}
 	
 	public void preencheCampoSelecao(String selecao) {
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		
 		switch(selecao) {
 			case SELECAO_AUXILIO_EMERGENCIAL:
 				driver.findElement(fieldSelecao).click();
-				driver.findElement(fieldSelecaoValueAE).click();
+				executor.executeScript(SCRIPT_CLICK, driver.findElement(fieldSelecaoValueAE));
 				break;
 			case SELECAO_AUXILIO_MORADIA:
 				driver.findElement(fieldSelecao).click();
-				driver.findElement(fieldSelecaoValueAM).click();
+				executor.executeScript(SCRIPT_CLICK, driver.findElement(fieldSelecaoValueAM));
 				break;
 			case SELECAO_INICIAO_ACADEMICA:
 				driver.findElement(fieldSelecao).click();
-				driver.findElement(fieldSelecaoValueIA).click();
+				executor.executeScript(SCRIPT_CLICK, driver.findElement(fieldSelecaoValueIA));
 				break;
 		}
 		
