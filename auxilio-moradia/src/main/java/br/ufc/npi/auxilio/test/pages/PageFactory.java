@@ -11,9 +11,15 @@ public class PageFactory {
 	private ListarSelecoesPage listarSelecoesPage;
 	private LoginPage loginPage;
 	private PrincipalPage principalPage;
-	
+	private SelecaoPage selecaoPage;
 	public PageFactory(WebDriver driver) {
 		this.driver = driver;
+	}
+	public SelecaoPage selecaoPage() {
+		if(selecaoPage == null) {
+			selecaoPage= new SelecaoPage(driver);
+		}
+		return selecaoPage;
 	}
 	
 	public CadastroSelecaoPage cadastroSelecao() {

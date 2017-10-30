@@ -28,6 +28,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.ufc.npi.auxilio.test.steps.CadastroSelecaoSteps;
+import br.ufc.npi.auxilio.test.steps.DetalhesDoAlunoSteps;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CadastrarSelecaoTest extends JUnitStories{
@@ -73,7 +74,7 @@ public class CadastrarSelecaoTest extends JUnitStories{
     @Override
 
     public InjectableStepsFactory stepsFactory() {
-        return new InstanceStepsFactory(configuration(), new CadastroSelecaoSteps());
+        return new InstanceStepsFactory(configuration(), new DetalhesDoAlunoSteps());
     }
 
     protected List<String> storyPaths() {

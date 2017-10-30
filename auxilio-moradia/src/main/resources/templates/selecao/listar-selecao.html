@@ -27,7 +27,7 @@
 					<span class="boldtable-datatables blue-grey-text" th:if="${#lists.isEmpty(selecoes)}">Nenhuma seleção cadastrada</span>
 
 					<!-- Lista de seleções -->
-					<table th:unless="${#lists.isEmpty(selecoes)}">
+					<table id="table" th:unless="${#lists.isEmpty(selecoes)}">
 						<thead>
 							<tr>
 								<th>Seleção</th>
