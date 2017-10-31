@@ -111,3 +111,35 @@ Cenário: Quando exibir o formulário do parecer final
 Dado que um servidor possa clicar no botão referente ao formulário de parecer final
 Quando o botão referente ao formulário de parecer final é clicado
 Então uma tela é exibida referente ao formulário de parecer final possibilitando alterações sobre o mesmo
+
+Cenário: Quando não exibir o formulário do parecer final
+Dado que um servidor clique em parecer final
+Quando o parecer final é clicado
+Então nada é para ser exibido além do que já estava sendo exibido
+
+Cenário: Quando o formulário de parcer final for exibido
+Dado que servidor deseje visualizar o formulário referente ao de parecer final
+Quando o formulário é exibido
+Então os campos de edição que o servidor pode editar são resultado e observações
+
+Cenário: Quando é feita uma alteração no campo de observações no formulário de parecer final
+Dado que um servidor deseje alterar os dados do campo de observações do formulário
+Quando o <texto> no campo de observações é feita e o botão de salvar é clicado
+Então o campo do formulário referente a observações é alterado de acordo com o <texto>
+Então a tela de inscrições para aquela seleção é mostrada novamente
+
+Exemplos:
+|texto|
+|teste do campo observações|
+
+Cenário: Quando é feita uma alteração no campo de resultado no formulário de parecer final
+Dado que um servidor deseje alterar os dados do campo de resultado do formulário
+Quando a alteração no campo de resultado <alteracao> é feita e o botão de salvar é clicado
+Então o campo do formulário referente a resultado é alterado de acordo com a <alteracao>
+Então a tela de inscrições para aquela seleção é mostrada novamente
+
+Exemplos:
+|alteracao|
+|DEFERIDO|
+|INDEFERIDO|
+|NAO_AVALIADO|
