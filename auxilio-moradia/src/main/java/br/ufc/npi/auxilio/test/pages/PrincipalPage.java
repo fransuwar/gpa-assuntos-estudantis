@@ -27,11 +27,15 @@ public class PrincipalPage {
 	}
 	
 	public void clicarButtonVisualizar(Integer value){
-		driver.findElement(By.cssSelector("a[href*='/auxilio/selecao/inscricoes/"+value+"']")).click();
+		driver.findElement(By.cssSelector("a[href*='/selecao/inscricoes/"+value+"']")).click();
 	}
 	
 	public void clicarButtonCadastrar() {
 		driver.findElement(buttonCadastrar).click();
 	}
-
+	public void clicarButtonAluno(Integer value) {
+		driver.findElement(By.cssSelector("a[href*='/inscricao/detalhes/"+value+"']")).click();
+		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+	}
+	
 }

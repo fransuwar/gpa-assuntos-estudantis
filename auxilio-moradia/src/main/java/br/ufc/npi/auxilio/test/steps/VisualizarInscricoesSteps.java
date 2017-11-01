@@ -27,7 +27,7 @@ public class VisualizarInscricoesSteps {
 	
 	@BeforeStory
 	public void efetuarLogin() {
-		pages.login().acessar("http://localhost:8080/auxilio/login");
+		pages.login().acessar("http://localhost:8080/login");
 		pages.login().logar();
 	}
 	

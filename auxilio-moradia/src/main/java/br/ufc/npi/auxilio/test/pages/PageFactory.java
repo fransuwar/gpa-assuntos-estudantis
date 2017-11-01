@@ -11,6 +11,7 @@ public class PageFactory {
 	private ListarSelecoesPage listarSelecoesPage;
 	private LoginPage loginPage;
 	private PrincipalPage principalPage;
+	private AnaliseDocumentoPage analiseDocumentoPage;
 
 	private VisualizarSelecaoPage visualizarSelecaoPage;
 	
@@ -18,6 +19,12 @@ public class PageFactory {
 		this.driver = driver;
 	}
 		
+	public AnaliseDocumentoPage analiseDocumentoPage() {
+		if(analiseDocumentoPage == null) {
+			analiseDocumentoPage = new AnaliseDocumentoPage(driver);
+		}
+		return analiseDocumentoPage;
+	}
 	public CadastroSelecaoPage cadastroSelecao() {
 		if(cadastroSelecaoPage == null) {
 			cadastroSelecaoPage = new CadastroSelecaoPage(driver);

@@ -21,12 +21,12 @@ public class LoginPage {
 
 	public void acessar() {
 		driver.get(ConstantsTest.URL_PAGE_LOGIN);
-		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 	}
 	
 	public void acessar(String site){
 		driver.get(site);
-		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 	}
 	
 	public void logar() {
@@ -36,6 +36,10 @@ public class LoginPage {
 		driver.findElement(fieldPassword).sendKeys(ConstantsTest.PASSWORD_VALUE);
 		driver.findElement(buttonEntrar).click();
 	}
-	
+	public void logout() {
+		driver.findElement(By.cssSelector("a[href*='/logout']")).click();	
+		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+
+	}
 	
 }

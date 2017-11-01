@@ -78,7 +78,7 @@ public class CadastrarSelecaoTest extends JUnitStories{
     }
 
     protected List<String> storyPaths() {
-        return new StoryFinder().findPaths(CodeLocations.codeLocationFromClass(this.getClass()), "**/detalhes-aluno.story", null);
+        return new StoryFinder().findPaths(CodeLocations.codeLocationFromClass(this.getClass()), "**/*", null);
     }
 
 }

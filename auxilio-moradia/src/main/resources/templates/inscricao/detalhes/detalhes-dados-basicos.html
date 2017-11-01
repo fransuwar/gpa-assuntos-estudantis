@@ -10,15 +10,15 @@
 			<div class="row">
 				<div class="col s4">
 					<span>Nome completo:</span>
-					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.nome} ? ${inscricao.aluno.pessoa.nome} : '-'"></span>
+					<span id = "nome-completo" class="text-18 bold" th:text="${inscricao.aluno.pessoa.nome} ? ${inscricao.aluno.pessoa.nome} : '-'"></span>
 				</div>
 				<div class="col s4">
 					<span>CPF:</span>
-					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.cpf} ? ${inscricao.aluno.pessoa.cpf} : '-'"></span>
+					<span id = "cpf" class="text-18 bold" th:text="${inscricao.aluno.pessoa.cpf} ? ${inscricao.aluno.pessoa.cpf} : '-'"></span>
 				</div>
 				<div class="col s4">
 					<span>Email:</span>
-					<span class="text-18 bold" th:text="${inscricao.aluno.pessoa.email} ? ${inscricao.aluno.pessoa.email} : '-'"></span>
+					<span id = "email" class="text-18 bold" th:text="${inscricao.aluno.pessoa.email} ? ${inscricao.aluno.pessoa.email} : '-'"></span>
 				</div>
 			</div>
 			<div class="row">

@@ -17,7 +17,10 @@ public class ConstantsTest {
 	public static final String ID_BUTTON_SALVAR = "btn-salvar";
 	public static final String ID_BUTTON_CANCELAR = "btn-cancelar";
 	public static final String ID_SPAN_MENSAGEM = "mensagem";
-	
+	public static final String ID_SPAN_NOME = "nome-completo";
+	public static final String ID_SPAN_CPF = "cpf";
+	public static final String ID_SPAN_EMAIL = "email";
+			
 	//Constantes elementos By.cssSelector
 	public static final String CSSSELECTOR_FIELD_SELECAO = "input.select-dropdown";
 	public static final String CSSSELECTOR_FIELD_DATA_MES = "select.picker__select--month.browser-default";
