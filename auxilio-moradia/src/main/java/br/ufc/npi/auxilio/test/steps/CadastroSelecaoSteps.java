@@ -1,35 +1,22 @@
 package br.ufc.npi.auxilio.test.steps;
 
+import static br.ufc.npi.auxilio.utils.ConstantsTest.TITLE_PAGE_LISTAR;
 import static org.junit.Assert.assertEquals;
 
-import org.jbehave.core.annotations.AfterStory;
-import org.jbehave.core.annotations.BeforeStory;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.ufc.npi.auxilio.test.pages.PageFactory;
-import static br.ufc.npi.auxilio.utils.ConstantsTest.TITLE_PAGE_LISTAR;
 
 
 public class CadastroSelecaoSteps {
 	
 	private final PageFactory pages;
-	private final WebDriver driver;
 	
-	public CadastroSelecaoSteps() {
-		System.setProperty("webdriver.firefox.bin", "/home/lucas.santos/Downloads/firefox/firefox");
-		
-		this.driver = new FirefoxDriver();
+	public CadastroSelecaoSteps(WebDriver driver) {
 		this.pages = new PageFactory(driver);
-	}
-	
-	@BeforeStory
-	public void efetuarLogin() {
-		pages.login().acessar();
-		pages.login().logar();
 	}
 	
 	@Given("o usuário acessa a página de cadastro de seleções")
@@ -96,11 +83,5 @@ public class CadastroSelecaoSteps {
 	public void exibirMensagem(String mensagem) {
 		assertEquals(pages.detalhesSelecao().exibirMensagem(), mensagem);
 	}
-	
-	
-	@AfterStory
-	public void close() {
-		driver.close();
-	}
-	
+
 }

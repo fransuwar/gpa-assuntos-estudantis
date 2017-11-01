@@ -24,15 +24,23 @@ import org.jbehave.core.steps.ParameterConverters;
 import org.jbehave.core.steps.ParameterConverters.DateConverter;
 import org.jbehave.core.steps.ParameterConverters.ExamplesTableConverter;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
+import br.ufc.npi.auxilio.test.steps.AuxilioSteps;
 import br.ufc.npi.auxilio.test.steps.CadastroSelecaoSteps;
+import br.ufc.npi.auxilio.test.steps.VisualizarInscricoesSteps;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class CadastrarSelecaoTest extends JUnitStories{
-
-    public CadastrarSelecaoTest() {
+public class AuxilioMoradiaTest extends JUnitStories{
+	
+	private final WebDriver driver;
+	
+    public AuxilioMoradiaTest() {
+    	System.setProperty("webdriver.firefox.bin", "/home/lucas.santos/Downloads/firefox/firefox");
+    	driver = new FirefoxDriver();
+    	
     	configuredEmbedder().embedderControls() 
         					.doGenerateViewAfterStories(true) 
         					.doIgnoreFailureInStories(false)
@@ -73,7 +81,7 @@ public class CadastrarSelecaoTest extends JUnitStories{
     @Override
 
     public InjectableStepsFactory stepsFactory() {
-        return new InstanceStepsFactory(configuration(), new CadastroSelecaoSteps());
+        return new InstanceStepsFactory(configuration(), new AuxilioSteps(driver), new VisualizarInscricoesSteps(driver), new CadastroSelecaoSteps(driver));
     }
 
     protected List<String> storyPaths() {
