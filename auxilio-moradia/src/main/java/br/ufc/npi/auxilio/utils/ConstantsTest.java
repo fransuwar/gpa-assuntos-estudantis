@@ -52,11 +52,12 @@ public class ConstantsTest {
 	public static final String TITLE_PAGE_VISUALIZAR = "Auxílio - Visualizar Inscrições";
 	
 	//URLs das páginas
-	public static final String URL_PAGE_LOGIN = "http://127.0.0.1:8080/login";
-	public static final String URL_PAGE_PRINCIPAL = "http://127.0.0.1:8080/selecao";
-	public static final String URL_PAGE_CADASTRAR = "http://127.0.0.1:8080/selecao/cadastrar";
-	public static final String URL_PAGE_LISTAR = "http://127.0.0.1:8080/selecao/listar/";
-	public static final String URL_PAGE_DETALHES = "http://127.0.0.1:8080/selecao/detalhes/";
+	public static final String URL_PAGE_LOGIN = "http://localhost:8080/login";
+	public static final String URL_PAGE_PRINCIPAL = "http://localhost:8080/selecao";
+	public static final String URL_PAGE_CADASTRAR = "http://localhost:8080/selecao/cadastrar";
+	public static final String URL_PAGE_LISTAR = "http://localhost:8080/selecao/listar/";
+	public static final String URL_PAGE_DETALHES = "http://localhost:8080/selecao/detalhes/";
+	public static final String URL_PAGE_VISUALIZAR_INSCRICAO_52 = "http://localhost:8080/selecao/inscricoes/52";
 	
 	//Valores utilizados para realizar o login
 	public static final String LOGIN_VALUE = "11111111101";

@@ -30,6 +30,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.ufc.npi.auxilio.test.steps.AuxilioSteps;
 import br.ufc.npi.auxilio.test.steps.CadastroSelecaoSteps;
+import br.ufc.npi.auxilio.test.steps.VisualizarAlterarInscricoesSteps;
 import br.ufc.npi.auxilio.test.steps.VisualizarInscricoesSteps;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -81,7 +82,7 @@ public class AuxilioMoradiaTest extends JUnitStories{
     @Override
 
     public InjectableStepsFactory stepsFactory() {
-        return new InstanceStepsFactory(configuration(), new AuxilioSteps(driver), new VisualizarInscricoesSteps(driver), new CadastroSelecaoSteps(driver));
+        return new InstanceStepsFactory(configuration(), new AuxilioSteps(driver), new VisualizarInscricoesSteps(driver), new CadastroSelecaoSteps(driver), new VisualizarAlterarInscricoesSteps(driver));
     }
 
     protected List<String> storyPaths() {

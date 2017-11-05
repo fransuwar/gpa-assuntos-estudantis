@@ -11,7 +11,7 @@ public class PageFactory {
 	private ListarSelecoesPage listarSelecoesPage;
 	private LoginPage loginPage;
 	private PrincipalPage principalPage;
-	private VisualizarSelecaoPage visualizarSelecaoPage;
+	private VisualizarInscricoesPage visualizarSelecaoPage;
 	
 	public PageFactory(WebDriver driver) {
 		this.driver = driver;
@@ -57,9 +57,9 @@ public class PageFactory {
 		return principalPage;
 	}
 	
-	public VisualizarSelecaoPage visualizar() {
+	public VisualizarInscricoesPage visualizar() {
 		if(visualizarSelecaoPage == null) {
-			visualizarSelecaoPage = new VisualizarSelecaoPage(driver);
+			visualizarSelecaoPage = new VisualizarInscricoesPage(driver);
 		}
 		
 		return visualizarSelecaoPage;
