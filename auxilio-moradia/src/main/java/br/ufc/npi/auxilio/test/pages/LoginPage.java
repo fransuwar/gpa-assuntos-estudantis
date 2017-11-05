@@ -21,7 +21,6 @@ public class LoginPage {
 
 	public void acessar() {
 		driver.get(ConstantsTest.URL_PAGE_LOGIN);
-		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 	}
 	
 	public void logar() {

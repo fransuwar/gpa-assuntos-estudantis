@@ -16,7 +16,6 @@ public class ListarSelecoesPage {
 
 	public void acessar() {
 		driver.get(URL_PAGE_LISTAR);
-		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 	}
 	
 	public String titlePage() {

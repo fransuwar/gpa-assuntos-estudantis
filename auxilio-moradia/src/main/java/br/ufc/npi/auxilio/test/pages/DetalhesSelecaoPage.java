@@ -20,7 +20,6 @@ public class DetalhesSelecaoPage {
 
 	public void acessar() {
 		driver.get(URL_PAGE_DETALHES);
-		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 	}
 	
 	public String exibirMensagem() {

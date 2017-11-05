@@ -49,6 +49,7 @@ public class ConstantsTest {
 	
 	//Títulos de páginas
 	public static final String TITLE_PAGE_LISTAR = "Auxílio - Listar Seleção";
+	public static final String TITLE_PAGE_VISUALIZAR = "Auxílio - Visualizar Inscrições";
 	
 	//URLs das páginas
 	public static final String URL_PAGE_LOGIN = "http://127.0.0.1:8080/login";

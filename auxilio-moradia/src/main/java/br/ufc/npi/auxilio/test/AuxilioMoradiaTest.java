@@ -38,7 +38,7 @@ public class AuxilioMoradiaTest extends JUnitStories{
 	private final WebDriver driver;
 	
     public AuxilioMoradiaTest() {
-    	System.setProperty("webdriver.firefox.bin", "/home/lucas.santos/Downloads/firefox/firefox");
+    	System.setProperty("webdriver.firefox.bin", "/home/lucasvss/Downloads/firefox/firefox");
     	driver = new FirefoxDriver();
     	
     	configuredEmbedder().embedderControls() 
