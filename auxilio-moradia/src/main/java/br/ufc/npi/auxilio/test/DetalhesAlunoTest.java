@@ -44,22 +44,22 @@ public class DetalhesAlunoTest extends JUnitStories{
     public Configuration configuration() {
     	Class<? extends Embeddable> embeddableClass = this.getClass(); 
     	
-//    	Keywords keywords = new LocalizedKeywords(new Locale("pt", "BR"));
+    	Keywords keywords = new LocalizedKeywords(new Locale("pt", "BR"));
     	LoadFromClasspath loadFromClasspath = new LoadFromClasspath(embeddableClass);
-//    	ParameterConverters parameterConverters = new ParameterConverters(null);
-//    	
-//    	ExamplesTableFactory examplesTableFactory = new ExamplesTableFactory(
-//    			keywords,
-//    			loadFromClasspath, 
-//    			parameterConverters, 
-//    			null);
-//    	
+    	ParameterConverters parameterConverters = new ParameterConverters(null);
+    	
+    	ExamplesTableFactory examplesTableFactory = new ExamplesTableFactory(
+    			keywords,
+    			loadFromClasspath, 
+    			parameterConverters, 
+    			null);
+    	
 //    	parameterConverters.addConverters(new DateConverter(new SimpleDateFormat("dd-MM-yyyy")), 
 //    			new ExamplesTableConverter(examplesTableFactory));
     	
     	return new MostUsefulConfiguration()
-//                .useKeywords(keywords)
-//                .useStoryParser(new RegexStoryParser(examplesTableFactory))
+                .useKeywords(keywords)
+                .useStoryParser(new RegexStoryParser(examplesTableFactory))
         		.useStoryLoader(loadFromClasspath)
                 .useStoryReporterBuilder(new StoryReporterBuilder()
                         .withCodeLocation(CodeLocations.codeLocationFromClass(embeddableClass))
