@@ -13,7 +13,7 @@ public class PageFactory {
 	private PrincipalPage principalPage;
 	private AnaliseDocumentoPage analiseDocumentoPage;
 
-	private VisualizarSelecaoPage visualizarSelecaoPage;
+	//private VisualizarSelecaoPage visualizarSelecaoPage;
 	
 	public PageFactory(WebDriver driver) {
 		this.driver = driver;
@@ -64,12 +64,12 @@ public class PageFactory {
 		
 		return principalPage;
 	}
-	
+/*	
 	public VisualizarSelecaoPage visualizar() {
 		if(visualizarSelecaoPage == null) {
 			visualizarSelecaoPage = new VisualizarSelecaoPage(driver);
 		}
 		
 		return visualizarSelecaoPage;
-	}
+	}*/
 }
