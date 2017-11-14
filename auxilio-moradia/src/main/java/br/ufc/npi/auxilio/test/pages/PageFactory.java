@@ -6,7 +6,8 @@ public class PageFactory {
 	
 	private WebDriver driver;
 	
-	private CadastroSelecaoPage cadastroSelecaoPage;
+	//private CadastroSelecaoPage cadastroSelecaoPage;
+	private VisualizarSelecaoPage visualizarSelecaoPage;
 	private DetalhesSelecaoPage detalhesSelecaoPage;
 	private ListarSelecoesPage listarSelecoesPage;
 	private LoginPage loginPage;
@@ -15,13 +16,20 @@ public class PageFactory {
 	public PageFactory(WebDriver driver) {
 		this.driver = driver;
 	}
-	
+	/*
 	public CadastroSelecaoPage cadastroSelecao() {
 		if(cadastroSelecaoPage == null) {
 			cadastroSelecaoPage = new CadastroSelecaoPage(driver);
 		}
 		
 		return cadastroSelecaoPage;
+	}
+	*/
+	public VisualizarSelecaoPage visualizarSelecao(){
+		if(visualizarSelecaoPage == null){
+			visualizarSelecaoPage = new VisualizarSelecaoPage(driver);
+		}
+		return visualizarSelecaoPage;
 	}
 	
 	public DetalhesSelecaoPage detalhesSelecao() {

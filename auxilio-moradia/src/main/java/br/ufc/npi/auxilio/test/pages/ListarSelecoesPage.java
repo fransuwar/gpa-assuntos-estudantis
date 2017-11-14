@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 
-import static br.ufc.npi.auxilio.utils.ConstantsTest.URL_PAGE_LISTAR;
+import br.ufc.npi.auxilio.utils.ConstantsTest;
 
 public class ListarSelecoesPage {
 	
@@ -15,12 +15,8 @@ public class ListarSelecoesPage {
 	}
 
 	public void acessar() {
-		driver.get(URL_PAGE_LISTAR);
+		driver.get(ConstantsTest.URL_PAGE_VISUALIZAR_SELECAO_34);
 		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-	}
-	
-	public String titlePage() {
-		return driver.getTitle();
 	}
 	
 }

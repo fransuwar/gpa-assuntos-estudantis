@@ -52,12 +52,12 @@
 						<div>
 						<div class="fixed-action-btn">
 							<a class="btn-floating btn-large deep-purple lighteen 1">
-								<i class="large material-icons">menu</i>
+								<i id="btn-menu" class="large material-icons">menu</i>
 							</a>
 							<ul id="fab-items">
 								<li>
-									<a href="#" class="btn-floating mobile-fab-tip hide">Exibir Resultado Final</a>
-									<a th:href="@{/inscricao/resultadoSelecao/__${selecao.id}__}" class="btn-floating deep-purple lighten-1">
+									<a  href="#" class="btn-floating mobile-fab-tip hide">Exibir Resultado Final</a>
+									<a id="btn-exibir-resultado-final" th:href="@{/inscricao/resultadoSelecao/__${selecao.id}__}" class="btn-floating deep-purple lighten-1">
 										<i class="material-icons">list</i>
 									</a>
 								</li>

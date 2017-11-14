@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -46,7 +45,6 @@ public class AnaliseDocumentacao {
 	
 	private Double energia;
 	
-	@Column(columnDefinition="varchar(1000)")
 	private String observacoes;
 	
 	@OneToOne

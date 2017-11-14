@@ -28,9 +28,9 @@
 			<div class="card-content">
 				<div class="col s12">
 					<ul class="tabs">
-						<li class="tab col s4"><a href="#alunos-deferidos">DEFERIDOS</a></li>
-					 	<li class="tab col s4"><a href="#alunos-indeferidos">INDEFERIDOS</a></li>
-					 	<li class="tab col s4"><a href="#alunos-reservas">RESERVA</a></li>					 	
+						<li class="tab col s4"><a id = "btn-aluno-deferido" href="#alunos-deferidos">DEFERIDOS</a></li>
+					 	<li class="tab col s4"><a id = "btn-aluno-indeferido" href="#alunos-indeferidos">INDEFERIDOS</a></li>
+					 	<li class="tab col s4"><a id = "btn-aluno-reserva" href="#alunos-reservas">RESERVA</a></li>					 	
 					 </ul>
 				 </div>
 
@@ -42,8 +42,8 @@
 					<div class="row" th:unless="${#lists.isEmpty(deferidos)}">
 						<div class="col s12">
 							<div class="fixed-action-btn">
-								<a class="btn-floating btn-large deep-purple lighteen 1">
-									<i class="large material-icons">menu</i>
+								<a  class="btn-floating btn-large deep-purple lighteen 1">
+									<i id="btn-menu-final" class="large material-icons">menu</i>
 								</a>
 								<ul id="float_relatorio_deferidos">
 								</ul>

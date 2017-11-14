@@ -42,7 +42,6 @@ public class SuccessMessageConstants {
 	/*Analise Documentação*/
 	public static final String MSG_SUCESSO_ANALISE_DOCUMENTACAO = "Análise de Documentos cadastrada com sucesso";
 	
-	
 	/*Parecer Final*/
 	public static final String MSG_SUCESSO_EDITAR_PARECER_FINAL = "Parecer editado com sucesso";
 

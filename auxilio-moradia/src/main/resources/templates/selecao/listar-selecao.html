@@ -45,7 +45,7 @@
 								<td th:text="${selecao.quantidadeVagas} ? ${selecao.quantidadeVagas} : 'a definir'">-</td>
 
 								
-								<td sec:authorize="hasAuthority('SERVIDOR')"><a class="btn-icon waves-effect tooltipped"
+								<td sec:authorize="hasAuthority('SERVIDOR')"><a id="btn-visualizar" class="btn-icon waves-effect tooltipped"
 						     		th:href="@{/selecao/inscricoes/__${selecao.id}__}"
 						     		th:attr="data-tooltip=${'Visualizar Inscrições'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
 						     		<i class="material-icons">zoom_in</i>

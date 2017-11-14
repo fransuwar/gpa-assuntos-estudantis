@@ -20,8 +20,5 @@ public class Constants {
 	public static final String PERMISSAO_COORDENADOR = "hasAuthority('COORDENADOR')";
 	public static final String PERMISSAO_SERVIDOR = "hasAuthority('SERVIDOR')";
 	public static final String PERMISSAO_ALUNO = "hasAuthority('ALUNO')";
-	
-	//Número de caracteres
-	public static final Integer NUM_CARACTERES = 1000;
 
 }
