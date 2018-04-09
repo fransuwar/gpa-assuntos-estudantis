@@ -33,7 +33,6 @@ import br.ufc.npi.auxilio.utils.api.Response;
 @RequestMapping("/parecerFinal")
 public class ParecerFinalController {
 
-
 	@Autowired
 	private InscricaoService inscricaoService;
 

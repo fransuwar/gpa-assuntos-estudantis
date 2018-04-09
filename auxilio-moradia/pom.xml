@@ -32,10 +32,22 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-classic</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+			<exclusions>
+      			<exclusion>
+         			<groupId>ch.qos.logback</groupId>
+         			<artifactId>logback-classic</artifactId>
+      			</exclusion>
+   			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -80,6 +92,32 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+		<dependency>
+   			<groupId>org.slf4j</groupId>
+  			<artifactId>slf4j-api</artifactId>
+   			<version>1.7.19</version>
+		</dependency>
+		<dependency>
+   			<groupId>org.apache.logging.log4j</groupId>
+   			<artifactId>log4j-slf4j-impl</artifactId>
+   			<version>2.5</version>
+		</dependency>
+		<dependency>
+   			<groupId>org.apache.logging.log4j</groupId>
+   			<artifactId>log4j-api</artifactId>
+   			<version>2.5</version>
+		</dependency>
+		<dependency>
+   			<groupId>org.apache.logging.log4j</groupId>
+   			<artifactId>log4j-core</artifactId>
+   			<version>2.5</version>
+		</dependency>
+		<dependency>
+   			<groupId>org.apache.logging.log4j</groupId>
+   			<artifactId>log4j-jcl</artifactId>
+   			<version>2.5</version>
+		</dependency>
+		
 
 		<!-- Dependências para automatização de testes -->
 		<dependency>
@@ -118,6 +156,7 @@
 			<version>1.2.0</version>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>

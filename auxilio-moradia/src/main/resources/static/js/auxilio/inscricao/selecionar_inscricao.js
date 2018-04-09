@@ -119,7 +119,7 @@ $("#modal1 form").on("submit", function(event){
 	let _context = $("meta[name='_context']").attr("content");
 	let token = $("meta[name='_csrf']").attr("content");
 	let id = $("#disabled").val();
-	let resultado = $(this).find("select").val();
+	let resultado = $("#parecer").val();
 	let observacao = $(this).find("#observacao").val();
 	if(observacao.length > 1000){
 		Materialize.toast("O Texto digitado possui mais de mil caracteres", 3000, "red rounded");

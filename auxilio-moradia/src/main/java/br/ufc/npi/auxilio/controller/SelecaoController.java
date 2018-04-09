@@ -46,7 +46,6 @@ import static br.ufc.npi.auxilio.utils.SuccessMessageConstants.*;
 @RequestMapping("/selecao")
 public class SelecaoController {
 	
-	
 	@Autowired
 	private SelecaoService selecaoService;
 	

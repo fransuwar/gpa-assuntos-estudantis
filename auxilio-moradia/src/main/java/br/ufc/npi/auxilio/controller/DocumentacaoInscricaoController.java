@@ -14,6 +14,9 @@ import br.ufc.npi.auxilio.utils.ErrorMessageConstants;
 import br.ufc.npi.auxilio.utils.PageConstants;
 import br.ufc.npi.auxilio.utils.RedirectConstants;
 import br.ufc.npi.auxilio.utils.SuccessMessageConstants;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -63,6 +66,9 @@ public class DocumentacaoInscricaoController {
 	
 	@Autowired
 	private PessoaService pessoaService;
+
+	//Log de Registro
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Secured(ALUNO)
 	@GetMapping("/{idInscricao}")
@@ -93,6 +99,9 @@ public class DocumentacaoInscricaoController {
 						if(documentacaoService.adicionarDocumentos(inscricao, documentacao, mfiles)){
 							redirect.addFlashAttribute(INFO, MSG_SUCESSO_DOCUMENTO_ADICIONADO);
 							documentacao.setTipoDocumento(tipoDocumento);
+							log.info("O aluno de CPF: "+inscricao.getAluno().getPessoa().getCpf()
+									+ " cadastrou seu "+documentacao.getTipoDocumento().getNome()+".");
+							
 							
 							AnaliseDocumentacao analiseDocumento = inscricao.getAnaliseDocumentacao();
 							if( analiseDocumento == null || analiseDocumento.getId() == null ) {

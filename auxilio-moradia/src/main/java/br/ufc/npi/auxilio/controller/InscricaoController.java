@@ -13,6 +13,8 @@ import br.ufc.npi.auxilio.utils.alert.Alert;
 import br.ufc.npi.auxilio.utils.alert.Type;
 import br.ufc.npi.auxilio.utils.api.Response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -54,6 +56,9 @@ public class InscricaoController {
 	@Autowired
 	private PessoaService pessoaService;
 
+	//Log de Registro
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	/**
 	 * Lista das inscrições de um aluno
 	 */
@@ -83,6 +88,8 @@ public class InscricaoController {
 		if (inscricao == null) {
 			// Realiza uma nova inscrição
 			model.addAttribute("identificacao", new Identificacao());
+			log.info(aluno.getPessoa().getPapeis()+" de CPF: "+
+			aluno.getPessoa().getCpf()+" está realizando Identificação (Passo1/5) na seleção de id: "+ selecao.getId());
 		} else {
 			// Atualiza inscrição existente
 			model.addAttribute("identificacao", inscricao.getIdentificacao());
@@ -109,6 +116,10 @@ public class InscricaoController {
 			if (inscricao == null) {
 				// Cria uma nova inscrição
 				inscricao = inscricaoService.salvar(selecao, aluno, identificacao);
+				log.info(aluno.getPessoa().getPapeis()+" de CPF: "+
+				aluno.getPessoa().getCpf()+" está realizando Núcleo familiar da moradia de origem (Passo 2/5)"
+				+ " na seleção de id: "+ selecao.getId());
+				
 			} else {
 				// Atualiza a inscrição existente
 				inscricao.setIdentificacao(identificacao);
@@ -159,7 +170,11 @@ public class InscricaoController {
 			if (inscricao == null) {
 				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 				return REDIRECT_LISTAR_SELECAO;
+
 			}
+			log.info(inscricao.getAluno().getPessoa().getPapeis()+" de CPF: "+
+					inscricao.getAluno().getPessoa().getCpf()+" está realizando Histórico Escolar (Passo 3/5)"
+					+ " na seleção de id: "+ selecao.getId());
 			inscricao.setMoradia(moradia);
 			inscricaoService.atualizar(inscricao);
 			if ("avancar".equals(action))
@@ -182,8 +197,8 @@ public class InscricaoController {
 		if(selecao == null || !selecao.isInscricaoAberta()) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
 			return REDIRECT_LISTAR_SELECAO;
+			
 		}
-
 		// Verifica se já existe uma inscrição
 		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
 		if (inscricao == null) {
@@ -210,6 +225,9 @@ public class InscricaoController {
 				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 				return REDIRECT_LISTAR_SELECAO;
 			}
+			log.info(inscricao.getAluno().getPessoa().getPapeis()+" de CPF: "+
+					inscricao.getAluno().getPessoa().getCpf()+" está realizando Situação socioeconômica (Passo 4/5)"
+					+ " na seleção de id: "+ selecao.getId());
 			inscricao.setHistoricoEscolar(historico);
 			inscricaoService.atualizar(inscricao);
 			if ("avancar".equals(action))
@@ -265,6 +283,9 @@ public class InscricaoController {
 				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 				return REDIRECT_LISTAR_SELECAO;
 			}
+			log.info(inscricao.getAluno().getPessoa().getPapeis()+" de CPF: "+
+					inscricao.getAluno().getPessoa().getCpf()+" está realizando Outras informações (Passo 5/5)"
+					+ " na seleção de id: "+ selecao.getId());
 			inscricao.setSituacaoSocioEconomica(situacao);
 			inscricaoService.atualizar(inscricao);
 			if ("avancar".equals(action))
@@ -312,6 +333,7 @@ public class InscricaoController {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_FORA_DO_PRAZO);
 			return REDIRECT_LISTAR_SELECAO;
 		}
+		log.info("teste 1");
 		Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
 		if (inscricao == null) {
 			redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
@@ -359,13 +381,16 @@ public class InscricaoController {
 	@PreAuthorize(PERMISSAO_ALUNO)
 	@PostMapping("outras-informacoes/{selecao}")
 	public String inscreverOutrasInformacoesForm(@PathVariable Selecao selecao, @RequestParam String justificativa,
-												  Authentication auth, RedirectAttributes redirect, @RequestParam String action){
+												  Authentication auth, RedirectAttributes redirect, @RequestParam String action){	
 		try {
 			Inscricao inscricao = inscricaoService.get(alunoService.buscarPorCpf(auth.getName()), selecao);
 			if (inscricao == null) {
 				redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_INSCRICAO_INEXISTENTE);
 				return REDIRECT_LISTAR_SELECAO;
 			}
+			log.info(inscricao.getAluno().getPessoa().getPapeis()+" de CPF: "+
+					inscricao.getAluno().getPessoa().getCpf()+"  Finalizou a Inscrição"
+					+ " na seleção de id: "+ selecao.getId());
 			inscricao.getQuestionario().setJustificativa(justificativa);
 			List<Inscricao> inscricoes = inscricaoService.getAllOrdenado(selecao);
 			Collections.sort(inscricoes);
@@ -375,7 +400,7 @@ public class InscricaoController {
 			inscricaoService.atualizar(inscricao);
 			redirect.addFlashAttribute(INFO, MSG_SUCESSO_CADASTRO_INSCRICAO);
 			if ("finalizar".equals(action))
-				return REDIRECT_DETALHES_INSCRICAO + inscricao.getId();
+				return REDIRECT_DETALHES_INSCRICAO + inscricao.getId();			
 			else if ("voltar".equals(action))
 				return REDIRECT_INSCRICAO_SITUACAO_SOCIO + selecao.getId();
 			else
@@ -394,6 +419,13 @@ public class InscricaoController {
 	public String visualizarInscricao(@PathVariable Inscricao inscricao, RedirectAttributes redirect,
 			Model model, Authentication auth) {
 		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
+
+		if(pessoa.isAluno()){
+			log.info(inscricao.getAluno().getPessoa().getPapeis()+" de CPF: "+
+				inscricao.getAluno().getPessoa().getCpf()+" Finalizou a Inscrição de numero "
+				+ inscricao.getId() +" e está vendo seus detalhes.");
+		}
+		
 		if(inscricao != null || pessoa != null) {
 			Servidor servidor = servidorService.getByCpf(auth.getName());
 			Aluno aluno = alunoService.buscarPorCpf(auth.getName());
@@ -404,6 +436,7 @@ public class InscricaoController {
 			}
 		}
 		redirect.addFlashAttribute(ERRO, MENSAGEM_ERRO_VISUALIZAR_INSCRICAO);
+		
 		return REDIRECT_LISTAR_SELECAO;
 	}
 	
@@ -434,12 +467,13 @@ public class InscricaoController {
     	if (resultado.length() > NUM_CARACTERES) return new Response().withErrorMessage("Número de caracteres excedidos");
 		Inscricao insc = inscricaoService.buscarInscricaoPorId(inscricaoId);
 		insc.setObservacao(observacao);
-		insc.setResultado(Resultado.valueOf(resultado));
+		insc.setResultado(Resultado.valueOf(resultado));				
+		
 		if(Resultado.valueOf(resultado) != Resultado.DEFERIDO &&
 				insc.getSelecionado()==1){
-			
+				log.info(insc.getAluno().getPessoa().getPapeis()+" de CPF: "+
+					insc.getAluno().getPessoa().getCpf()+" TESTE");
 				insc.setSelecionado(0);
-			
 		}
 		
 		inscricaoService.editar(insc);
