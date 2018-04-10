@@ -56,7 +56,7 @@ public class InscricaoController {
 	@Autowired
 	private PessoaService pessoaService;
 
-	//Log de Registro
+	//Variável Log de Registro
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	/**
