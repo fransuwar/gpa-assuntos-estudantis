@@ -13,6 +13,7 @@ import br.ufc.npi.auxilio.utils.RedirectConstants;
 import br.ufc.npi.auxilio.utils.alert.Alert;
 import br.ufc.npi.auxilio.utils.alert.Type;
 import br.ufc.npi.auxilio.utils.api.Response;
+import br.ufc.npi.auxilio.utils.api.ResponseStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -71,7 +72,6 @@ public class SelecaoController {
 	@GetMapping({"", "/", "/listar"})
 	public String listarSelecoes(Model model, Authentication auth) {
 		List<Selecao> selecoes = selecaoService.getAll();
-		
 		Pessoa pessoa = pessoaService.getByCpf(auth.getName());
 		if(pessoa.isAluno()){
 			HashMap<Integer, Inscricao> inscricaoSelecao = new HashMap<>();
@@ -85,6 +85,7 @@ public class SelecaoController {
 		else if(pessoa.isServidor()){
 			model.addAttribute("servidor", servidorService.getByCpf(pessoa.getCpf()));
 		}
+		model.addAttribute("login", pessoa.getNome());
 		model.addAttribute("opcoesTipoSelecao", TipoSelecao.values());	
 		model.addAttribute("selecoes", selecoes);
 		return PageConstants.LISTAR_SELECAO;
@@ -425,7 +426,16 @@ public class SelecaoController {
 		else{
 			r.withFailStatus().setAlert(new Alert(Type.ERROR,MSG_ERRO_AGENDAMENTO_ENTREVISTA, delay));
 		}
+		return r; 
+	}
+	@PostMapping(value = "/bucarLogin")
+	@ResponseBody
+	public Response bucarLogin(String cpf) {
+		Response r = new Response();
+		Pessoa p = pessoaService.getByCpf(cpf); 
+		System.out.println("sdsad" + cpf);
+		r.setObject(p.getNome());
+		r.setStatus(ResponseStatus.DONE);
 		return r;
 	}
-
 }
