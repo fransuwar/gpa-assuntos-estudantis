@@ -21,9 +21,16 @@
 					</div>
 			    </li>
             </ul>
+            
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a th:href="@{/logout}">Sair</a></li>
             </ul>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <span id="nomeUsuario" class="text-18 bold" th:text ="${#httpServletRequest.remoteUser}"> </span>
+                
+                <i class="material-icons right">account_circle</i> 
+            </ul>
+
         </div>
     </nav>
 </header>
